@@ -21,9 +21,9 @@ ms.locfileid: "91898850"
 ---
 # <a name="test-microsoft-activex-data-objects-ado"></a>Microsoft ActiveX データオブジェクトのテスト (ADO)
 
-ADO は、C++ プログラムで SQL Server に接続するために使用されます。 もちろん、クラウド内の Azure SQL Database に接続することもできます。
+ADO は、C++ Program で SQL Server に接続するために使用されます。 もちろん、クラウド内の Azure SQL Database に接続することもできます。
 
-この記事の各セクションでは、ADO のコンポーネントについて説明します。
+この記事の各Section では、ADO のコンポーネントについて説明します。
 
   
 ## <a name="ado"></a>ADO (ADO)  
