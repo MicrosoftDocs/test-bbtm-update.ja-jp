@@ -1,0 +1,179 @@
+### YamlMime:Yaml
+ms.openlocfilehash: beb8412b148162acb9c198b812214d99e3ea0284
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904947"
+Slug: bandwidth-quota-changes-to-the-free-offer-of-azure-app-service
+Title: Azure App Service の無料プランに対する帯域幅クォータの変更
+Summary: 無料プランの Azure App Service では、含まれているストレージと帯域幅に対して最大10個の無料 Web Apps がサポートされています。
+Content: >-
+  無料プランの <b><a href="https://azure.microsoft.com/en-us/documentation/services/app-service/">Azure App Service</a> </b>では、含まれているストレージと帯域幅に対して最大10個の無料 Web Apps がサポートされています。 含まれている帯域幅には、リージョンごとに1日あたり 165 MB のクォータが、すべての Web Apps (10 の最大) を超えています。 これにより、リージョンごとに1か月あたり 5 GB の帯域幅が算出されます。 このクォータは日単位で適用されましたが、Web Apps はその日のリマインダーのために中断されました。 1つの web アプリ (最大許容値は 10) を特定の日に最大165MB 個まで使用できます。これにより、10個の web アプリはすべて、その日のリマインダーとして中断されます。
+
+
+  Free レベルでホストされている web アプリが特定の日のうちに高いトラフィックを発生させる可能性があるシナリオや、その日に 165 MB を超える帯域幅を必要とする特定のテストを実行する場合があります。 帯域幅の現在の無料クォータは、これらのシナリオではうまく機能しない可能性があります。そのため、最近では、無料オファリングの帯域幅クォータを変更し、それを少し緩和しました。 ここでは、1日の未使用の帯域幅を、カレンダー月の終わりまで、翌日のクォータにロールオーバーします。 新しい月の最初の日は、1日あたり 165 MB から始まります。
+
+  <blockquote><strong>注</strong>: 実稼働およびミッションクリティカルな Web Apps には有料のサービスを使用することを強くお勧めします。</blockquote>
+
+  次の表は、帯域幅クォータのロールオーバーがどのように管理されるかを示しています。
+
+
+  最初の1日の制限 = 165 MB
+
+
+  1日の制限 = 最初の1日の制限 + クォータによるロールオーバー
+
+  <table border="0" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="64"><b>Month</b></td>
+
+  <td valign="top" width="64"><b>日</b></td>
+
+  <td valign="top" width="161"><b>クォータ超過 (MB)</b></td>
+
+  <td valign="top" width="155"><b>日の制限 (MB)</b></td>
+
+  <td valign="top" width="122"><b>日単位の使用量 (MB)</b></td>
+
+  <td valign="top" width="68"><b>を超え</b></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">1</td>
+
+  <td valign="top" width="161">0</td>
+
+  <td style="text-align: left;" valign="top" width="155">165</td>
+
+  <td valign="top" width="122">65</td>
+
+  <td valign="top" width="68">No</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">2</td>
+
+  <td valign="top" width="161">100</td>
+
+  <td valign="top" width="155">265</td>
+
+  <td valign="top" width="122">200</td>
+
+  <td valign="top" width="68">No</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">3</td>
+
+  <td valign="top" width="161">65</td>
+
+  <td valign="top" width="155">230</td>
+
+  <td valign="top" width="122">240</td>
+
+  <td valign="top" width="68">はい</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">4</td>
+
+  <td valign="top" width="161">0</td>
+
+  <td valign="top" width="155">165</td>
+
+  <td valign="top" width="122">.</td>
+
+  <td valign="top" width="68">.</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">.</td>
+
+  <td valign="top" width="161">.</td>
+
+  <td valign="top" width="155">.</td>
+
+  <td valign="top" width="122">.</td>
+
+  <td valign="top" width="68">.</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">.</td>
+
+  <td valign="top" width="161">.</td>
+
+  <td valign="top" width="155">.</td>
+
+  <td valign="top" width="122">.</td>
+
+  <td valign="top" width="68">.</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">January</td>
+
+  <td valign="top" width="64">30</td>
+
+  <td valign="top" width="161">300</td>
+
+  <td valign="top" width="155">465</td>
+
+  <td valign="top" width="122">245</td>
+
+  <td valign="top" width="68">No</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="64">Ferbruary</td>
+
+  <td valign="top" width="64">1</td>
+
+  <td valign="top" width="161">0</td>
+
+  <td valign="top" width="155">165</td>
+
+  <td valign="top" width="122">.</td>
+
+  <td valign="top" width="68"></td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  上記の例では、1月1日に1回、1日のクォータが 165 MB、その日に 65 MB のみが使用されます。 100 MB の未使用のデータが1月2日にロールオーバーされます。これには、1日の上限である 265 MB (100 MB + 165 MB) が割り当てられます。 1月3日に、毎日の使用量は 240 MB でした。これは 230 MB の上限を超えているため、1月4日の上限は 165 MB になります。 2月1日が新しい月の1日になると、ロールオーバーがリセットされ、165 MB から再び開始されます。

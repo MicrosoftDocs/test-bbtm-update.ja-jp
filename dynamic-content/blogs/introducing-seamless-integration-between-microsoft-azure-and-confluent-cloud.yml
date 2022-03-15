@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c81537818d46b35c40c6216a636b404be85ae20d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904723"
+Slug: introducing-seamless-integration-between-microsoft-azure-and-confluent-cloud
+Title: Microsoft Azure と confluent Cloud とのシームレスな統合の導入
+Summary: お客様は迅速な変換を行っており、クラウドの設計パターンとイベントストリーミングによって、ますますデジタルで競争力を維持しています。
+Content: >
+  <h2>リアルタイムストリーミングは、デジタル変革のビジネスに不可欠です。</h2>
+
+
+  <p>お客様は迅速な変換を行っており、クラウドの設計パターンとイベントストリーミングによって、ますますデジタルで競争力を維持しています。 リアルタイムのイベントストリーミングとデータ処理によって、リアルタイムの結果を簡素化、自動化、およびデータリポジトリに格納された履歴データと組み合わせることで、ビジネスイノベーションを促進します。 クラウドコンピューティング、人工知能、ユビキタスなモバイルデバイス、IoT といった大きな傾向により、データプラットフォームを最新化し、運用の複雑さから解放する完全管理型のサービスを利用することにより、データをリードする顧客が爆発的に増加しました。</p>
+
+
+  <p>Azure のクラウドプラットフォームには、この点で豊富な機能とサービスのセットが用意されていますが、お客様はより多くの選択肢、使いやすさ、すばらしいエクスペリエンスを提供する方法を常に模索しています。 イベントストリーミング用のマネージ Apache Kafka サービスの一般的なプロバイダーである Confluent との共同作業について発表します。 このサービスにより、Azure portal、コマンドラインインターフェイス (CLI)、ソフトウェア開発キット (SDK) などの Azure クライアントインターフェイスを使用して、Confluent クラウドリソースをプロビジョニングできます。 その他の統合ポイントには、Azure Active Directory を使用したシングルサインオンと Azure を使用した課金の統合が含まれます。 Confluent Cloud サービスの使用に向けて、既存の Azure のコミットメントを利用することもできます。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em> &ldquo; リアルタイムアプリケーションの緊急度は指数関数的に増加しており、より多くの企業がデジタルサービスを変革するだけで加速します。イベントストリーミングは、組織全体からのリアルタイムイベントを使用して最新のアプリケーションを実現します。Microsoft と協力して、Azure platform でシームレスに利用できる Confluent Cloud を使用して、企業が迅速に需要を受けられるようにしています。現在、Apache Kafka を利用するイベント駆動型アプリケーションを、これまでにないほど迅速かつ簡単に構築できます。 &rdquo;  -  </em>Jay Kreps 者、共同創設者、CEO、Confluent。</p>
+
+  </blockquote>
+
+
+  <h2>Azure エコシステム内での Confluent クラウドリソースの迅速なプロビジョニング</h2>
+
+
+  <p>Confluent &rsquo; s Kafka サービスなど、サードパーティ製の管理されたサービスを使用する azure のお客様は、azure とサードパーティ製の管理対象オファリングで個別にリソースやユーザーを作成および管理するなど、さまざまなワークフローがあるという課題に直面しています。 このプロセスは、複雑で時間がかかることがあります。 このようなお客様は、統合されたワークフローの一部として、Azure リソースと共に Confluent Cloud リソースをプロビジョニングして管理することを想定しています。</p>
+
+
+  <p>Confluent と Microsoft が連携して、Azure と Confluent Cloud の間に新しい統合機能を構築しました。これにより、お客様 &rsquo; の作業が簡単になり、安全で、シームレスになります。 このサービスは、Azure Marketplace を介して <a href="https://ms.portal.azure.com/#create/confluentinc.confluent-cloud-azure-prod/preview" target="_blank"><b>Confluent Cloud で Apache Kafka</b></a> として提供されるようになりました。</p>
+
+
+  <h2>Azure と Confluent Cloud の統合された合理化されたエクスペリエンス</h2>
+
+
+  <p>新しい統合により、ポータル、コマンドラインインターフェイス、Azure Sdk などの Azure クライアントインターフェイスから Confluent 組織を作成して管理することができます。 既存の Azure Active Directory id を利用して、Azure から直接 confluent Cloud にシングルサインオン (SSO) することができるようになりました。 Confluent Cloud の使用量は、azure の既存のコミットを示すオプションを使用して、毎月の Azure の請求書の一部として請求することができます。 追加の請求または調達の手順は必要ありません。 Confluent Cloud 組織は、Azure リソースの残りの部分で追跡および管理できます。</p>
+
+
+  <p>Confluent は依然として実行され、Azure でホストされる SaaS アプリケーションをサポートしています。これには、環境、クラスター、トピック、API キー、およびマネージコネクタが付属しています。 この統合により、Azure &rsquo; のグローバルなプレゼンス、柔軟性、セキュリティ、コンプライアンスを Confluent &rsquo; に管理された Kafka 機能と組み合わせることで、企業のお客様にシームレスなエクスペリエンスを実現できます。</p>
+
+
+  <p>組織全体のさまざまなシステムからデータを手動で接続することは、開発作業やメンテナンスのために、迅速に困難になる可能性があります。 confluent Cloud を使用すると、 <a href="https://docs.confluent.io/cloud/current/connectors/cc-azure-functions-sink.html" target="_blank">Azure Functions</a>、 &nbsp; <a href="https://docs.confluent.io/cloud/current/connectors/cc-azure-blob-sink.html" target="_blank">Azure Blob Storage</a>、 <a href="https://docs.confluent.io/cloud/current/connectors/cc-azure-event-hubs-source.html" target="_blank">Azure Event Hubs</a>、 <a href="https://docs.confluent.io/5.5.0/cloud/connectors/cc-azure-datalakeGen2-storage-sink.html" target="_blank">Azure Data Lake Storage Gen2</a>、 <a href="https://docs.confluent.io/cloud/current/connectors/cc-microsoft-sql-server-source.html" target="_blank">Microsoft SQL Server</a>など、一般的な Azure および Microsoft サービス向けに構築された、完全に管理されたコネクタを活用できます。</p>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="540" src="https://www.microsoft.com/en-us/videoplayer/embed/RWxLed" width="960"></iframe></p>
+
+
+  <h2>Azure からの Confluent Cloud リソースのプロビジョニングを開始する</h2>
+
+
+  <p>Azure portal から Confluent Cloud リソースを構成する手順を次に示します。&nbsp;</p>
+
+
+  <p>Confluent Cloud で Apache Kafka の<a href="https://portal.azure.com/#create/confluentinc.confluent-cloud-azure-prod" target="_blank"><b>セットアップとサブスクライブ</b></a>を行います。 Azure Marketplace でサービスを簡単に見つけることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4aea327-e0c3-425a-a713-c7c84829dcce.png"><img alt="Here is the step by step process to configure Confluent Cloud resources from Azure portal. " height="384" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d4b12e3-ad75-4064-bc88-89fe73bf72ec.png" style="margin-right: auto; margin-left: auto; display: block;" title="Confluent" width="666"></a></p>
+
+
+  <p><b>Azure でのプロビジョニング: </b>Azure portal を通じてシームレスに Confluent 組織をプロビジョニングします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6bc6cea7-e70f-4ccc-9ffc-205e749c59ee.png"><img alt="Seamlessly provision Confluent organizations through Azure portal." height="248" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a4a9b64-24ce-4690-8907-5b4d1b82c6e3.png" style="margin-right: auto; margin-left: auto; display: block;" title="Confluent 2" width="624"></a></p>
+
+
+  <p><b>Confluent Cloud にシングルサインオン: </b> 追加のサインアップまたはログインを必要とせずに、Confluent Cloud サービスに直接ログインします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac93b519-0977-4907-a2d4-3f62242eea39.png"><img alt="Login directly to the Confluent Cloud service without an additional sign up or login needed." height="483" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e932b11-6da3-4aa5-b826-e5d3428fd9d3.png" style="margin-right: auto; margin-left: auto; display: block;" title="Confluent 3" width="1024"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+      <li><a href="https://ms.portal.azure.com/#create/confluentinc.confluent-cloud-azure-prod/preview" target="_blank">Azure Marketplace</a>で利用可能な Confluent クラウド &quot; &nbsp; の Apache Kafka を &quot; サブスクライブします。</li>
+      <li>Confluent Cloud 用の Apache Kafka のインスタンスを作成する方法については、「<a href="https://docs.microsoft.com/en-us/azure/partner-solutions/apache-kafka-confluent-cloud/overview" target="_blank">クイックスタート: Azure での Confluent cloud の概要</a>」を参照してください。</li>
+      <li>Azure Marketplace を使用したソリューションの作成に関するドキュメントについては、<a href="https://docs.confluent.io/cloud/current/billing/ccloud-azure-payg.html" target="_blank">従量課金制の Confluent ドキュメント</a>と<a href="https://docs.confluent.io/cloud/current/billing/ccloud-azure-ubb.html" target="_blank">コミットメント</a>に &nbsp; 関するドキュメントを参照してください。</li>
+  </ul>

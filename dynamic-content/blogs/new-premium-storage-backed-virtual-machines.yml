@@ -1,0 +1,195 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1ff2974ec90a46309b5c8bdf4ecf919da1e1d3e0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910669"
+Slug: new-premium-storage-backed-virtual-machines
+Title: 新しいプレミアム Storage-Backed Virtual Machines
+Summary: 現時点では、Azure Premium Storage のパブリックプレビューサポートについて発表しています。 Azure Premium Storage は、i/o 集中型のワークロードをサポートするように設計された、新しい種類の SSD ベースのストレージです。
+Content: >-
+  現時点では、Azure Premium Storage のパブリックプレビューサポートについて発表しています。 Azure Premium Storage は、i/o 集中型のワークロードをサポートするように設計された、新しい種類の SSD ベースのストレージです。 Premium Storage では、永続ディスクをプロビジョニングし、要件を満たすサイズとパフォーマンス特性を構成できます。 その後、複数の Premium Storage に対応したデータディスクを vm に接続し、それらをストライピングして、vm あたり最大 32 TB のストレージをアプリケーションに配信できます。 vm あたりの IOPS は、非常に短い待機時間で 5万 IOPS を超えます。 Premium Storage の詳細については、「Premium Storage の概要 " href="https://azure.microsoft.com/en-us/documentation/articles/storage-premium-storage-preview-portal/"> Premium Storage 概要 </a> 」を参照してください <a title=" 。
+
+
+  ここでは、Premium Storage に対応した新しい仮想マシンの使用を開始する方法について説明します。
+
+  <h2>パブリックプレビューの Sign-Up</h2>
+
+  開始するには、 <a href="https://account.windowsazure.com/previewfeatures">パブリックプレビューにサインアップしてください。</a>
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="プレビュー機能" alt="PreviewFeatures" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/PreviewFeatures.jpg" width="614" height="281" border="0" />
+
+
+  Premium Storage preview にアクセスできると、通知が表示されます。
+
+  <h2>Premium Storage アカウントを作成する</h2>
+
+  <a href="https://portal.azure.com">Azure Portal</a>に移動し、[新規 &gt; &gt; ] を選択します。 [Storage]、[キャッシュ]、[+ バックアップ] の順に選択し、[Storage] を選択します。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="NewStorageAccount" alt="NewStorageAccount" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/NewStorageAccount.jpg" width="389" height="484" border="0" />
+
+
+  そこから、Storage アカウントの名前を選択し、<strong>プレミアム LRS</strong>価格レベルを選択して、[作成] をクリックします。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="PremiumStorageAccount" alt="PremiumStorageAccount" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/PremiumStorageAccount.jpg" width="614" height="635" border="0" />
+
+
+  注: 初期状態では、Premium Storage は米国西部、米国東部2、西ヨーロッパの各場所で利用できます。
+
+  <h2></h2>
+
+  <h2>プレミアム Storage-Backed 仮想マシンの作成</h2>
+
+  次に、[新規– &gt; Windows Server 2012 R2 Datacenter 仮想マシン] を選択します。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="WindowsServer2012" alt="WindowsServer2012" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WindowsServer2012.jpg" width="244" height="127" border="0" />
+
+
+  [構成] ブレードで、新しい Standard_DS の仮想マシンのサイズのいずれかを選択します。
+
+  <table style="width: 238pt;border-collapse: collapse" width="317" border="0" cellspacing="0" cellpadding="0"><col style="width: 94pt" width="125" /> <col style="width: 48pt" span="3" width="64" />
+
+  <tbody>
+
+  <tr style="height: 15pt">
+
+  <td class="xl67" style="border-top: windowtext 1pt solid;height: 15pt;border-right: windowtext 0.5pt solid;width: 94pt;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" width="125" height="20">サイズ</td>
+
+  <td class="xl68" style="border-top: windowtext 1pt solid;border-right: windowtext 0.5pt solid;width: 48pt;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" width="64">コア</td>
+
+  <td class="xl68" style="border-top: windowtext 1pt solid;border-right: windowtext 0.5pt solid;width: 48pt;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" width="64">メモリ</td>
+
+  <td class="xl69" style="border-top: windowtext 1pt solid;border-right: windowtext 1pt solid;width: 48pt;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" width="64">ディスク (GB)</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS1</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">1</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">3.5</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">7</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS2</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">2</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">7</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">14</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS3</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">4</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">14</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">28</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS4</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">8</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">28</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">56</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS11</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">2</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">14</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">28</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS12</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">4</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">28</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">56</td>
+
+  </tr>
+
+  <tr style="height: 15pt">
+
+  <td class="xl70" style="border-top: windowtext;height: 15pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="20">Standard_DS13</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">8</td>
+
+  <td class="xl66" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">56</td>
+
+  <td class="xl71" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 0.5pt solid;border-left: windowtext;background-color: transparent" align="right">112</td>
+
+  </tr>
+
+  <tr style="height: 15.75pt">
+
+  <td class="xl72" style="border-top: windowtext;height: 15.75pt;border-right: windowtext 0.5pt solid;border-bottom: windowtext 1pt solid;border-left: windowtext 1pt solid;background-color: transparent" height="21">Standard_DS14</td>
+
+  <td class="xl73" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 1pt solid;border-left: windowtext;background-color: transparent" align="right">16</td>
+
+  <td class="xl73" style="border-top: windowtext;border-right: windowtext 0.5pt solid;border-bottom: windowtext 1pt solid;border-left: windowtext;background-color: transparent" align="right">112</td>
+
+  <td class="xl74" style="border-top: windowtext;border-right: windowtext 1pt solid;border-bottom: windowtext 1pt solid;border-left: windowtext;background-color: transparent" align="right">224</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  これらのサイズは、メモリ、プロセッサ、価格における D シリーズの仮想マシンのサイズに相当します。 D シリーズとは別に DS-Series を設定する1つの違いは、ローカル SSD 領域の使用方法です。 D シリーズの Vm は、一時的なストレージとして使用される、50 gb ~ 800 GB のローカル SSD 領域を提供します。 DS-Series Vm は、ローカル SSD の25% を使用して、仮想マシンの一時ストレージを提供します。 VM で使用可能なローカル SSD の残りの75% は、premium storage を使用して永続ディスクの効率的なデータキャッシュを提供するために使用されます。 現在、vm の DS-Series は、Premium Storage によって支えられている永続的なディスクをサポートする唯一の vm サイズです。
+
+
+  仕様については、「 <a href="https://msdn.microsoft.com/en-us/library/azure/dn197896.aspx">Azure の仮想マシンおよびクラウドサービスのサイズ</a>」を参照してください<span style="color: #000000">。</span>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/12/09/PremiumVM.jpg"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="PremiumVM" alt="PremiumVM" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/PremiumVM_thumb.jpg" width="614" height="612" border="0" /></a>
+
+
+  注: 初期状態では、Premium Storage は米国西部、米国東部2、西ヨーロッパの各場所で利用できます。
+
+
+  [オプションの構成] ブレードで、前の手順で作成した Premium Storage アカウントを選択します。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="VMCreationPremiumStorageAccount" alt="VMCreationPremiumStorageAccount" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/VMCreationPremiumStorageAccount.jpg" width="614" height="374" border="0" />
+
+
+  [作成] をクリックします。
+
+  <h2>Premium Storage と Azure PowerShell</h2>
+
+  プレミアムストレージアカウントと DS-Series vm は、Azure Powershell だけでなくプレビューポータルでも作成できます。 powershell を使用して premium storage アカウントまたは DS-Series vm を作成するには、 <a href="https://go.microsoft.com/?linkid=9811175&amp;clcid=0x409">Microsoft Azure powershell ツール</a>の現在のリリース (2014 年12月11日以降) をインストールする必要があります。次に、ストレージアカウントを作成するときに、[種類] を [ <b>Premium_LRS</b>] に設定し、 <b>Standard_DS1 – Standard_DS14</b>の VM サイズを選択します。
+
+  <pre class="prettyprint">New-AzureStorageAccount -StorageAccountName "premiumstorageaccount" -Location "West US" -Type Premium_LRS</pre>

@@ -1,0 +1,270 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 62f82b62c8e82d99a81c98aad1d39cc79efedac9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905083"
+Slug: visual-studio-team-services-march-2018-digest
+Title: 2018 年 3 月のVisual Studio Team Servicesのダイジェスト
+Summary: >
+  この投稿シリーズは、Visual Studio Team Services の最新の更新プログラムとニュースを提供し、Azure ユーザーが 3 週間ごとにリリースされる新機能を最新の状態に保つ優れた方法です。 Visual Studio Team Servicesは、Azure DevOps効率的な継続的インテグレーションとリリース パイプラインを作成するための最適なツールを提供します。
+Content: >-
+  <p>この投稿シリーズは<a href="https://visualstudio.com/team-services/?utm_source=AzureCOM&amp;utm_medium=Blog&amp;utm_campaign=Oct2016Digest">、Visual Studio Team Services</a> の最新の更新プログラムとニュースを提供し、Azure ユーザーが 3 週間ごとにリリースされる新機能を最新の状態に保つ優れた方法です。 Visual Studio Team Servicesは、Azure DevOps効率的な継続的インテグレーションとリリース パイプラインを作成するための最適なツールを提供します。 Team Services の機能の一覧が急速に広がり、チームは Azure ワークフローのすべての領域で、任意の言語で記述され、任意の OS にデプロイされたアプリに対して、より効率的に利用を開始できます。</p>
+
+
+  <h2>Azure Red Shirt Dev Tour: VSTS アカウント</h2>
+
+
+  <p>Scott Guthrie は、&rsquo;<a href="https://azure.microsoft.com/en-us/community/events/azure-red-shirt/">Azure Red Shirt Dev Tour</a> と呼ばれるツアーで世界中を旅行しています。 その一環として、チームが VSTS の構築に使用するアカウントを示しています。 VSTS&rsquo; を &ndash; 使用して VSTS の計画、ビルド、テスト、リリースを行います。 このツアーのニューヨーク市の停留所からステージ上の VSTS &ndash; ライブで進行中の作業を示すアカウント (mseng.visualstudio.com) &ndash; を使用して、<a href="https://youtu.be/ZnOS8nII1Gc?t=1h2m59s">VSTS の Scotts&rsquo;</a> デモの大規模なチームに対する VSTS の外観を確認します。 Microsoft のチームのしくみについて深く知りたい場合は、Microsoft DevOps<a href="https://www.visualstudio.com/learn/devops-at-microsoft/">をご覧ください</a>。</p>
+
+
+  <p><a href="https://youtu.be/ZnOS8nII1Gc?t=1h2m59s"><img alt="VSTS account demo" border="0" height="483" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6cf12d3b-d8f1-4f6a-af56-d9701d7089b8.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="Azure Red Shirt Dev Tour のビデオ" width="855"></a></p>
+
+
+  <h2>ロードマップの更新</h2>
+
+
+  <p>VSTS で計画した <a href="https://docs.microsoft.com/en-us/vsts/release-notes/">新機能</a> のロードマップは定期的に更新されます。 最新の更新プログラム <a href="https://docs.microsoft.com/en-us/vsts/release-notes/">を公開</a>したばかりで、&rsquo;まだ最大の更新プログラムです。</p>
+
+
+  <h2>既存のビルド定義から YAML テンプレートを生成する</h2>
+
+
+  <p>昨年、グラフィカル <a href="https://blogs.msdn.microsoft.com/devops/2017/11/15/pipeline-as-code-yaml-preview/"></a> ビルド定義エディターではなく、コードでチェックインされた YAML ファイルとしてビルド プロセスを構成できる <a href="https://docs.microsoft.com/en-us/vsts/build-release/actions/build-yaml-get-started">YAML</a> ビルドのパブリック プレビューを発表しました。 これで&rsquo;、Web UI 内のビルド定義を YAML ファイルに変換する方が簡単です。 ビルドのビルド定義エディターで、左側の [プロセス] タブ<strong></strong>を選択し、右側のペインの [<strong>VIEW YAML</strong>]/(YAML の表示)リンクをクリックできます。 テキストをクリップボードにコピーし、内容を含むファイルを自分のレポポにチェックインします。 次に、チェックインされたファイルを参照する新しいビルド YAML ベースのビルド定義を構成します。</p>
+
+
+  <p>これは、YAML をすばやく学習するための良い方法として使用できます。 アプリに適したテンプレートを使用して新しいビルド定義を作成し、YAML を調べて、使用した内容と新しい YAML&rsquo; コンストラクトのマッピングを理解できます。 YAML ビルドの使用を開始するためのリソースを次に示します (今年の後半には、YAML も使用Release Management。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/actions/build-yaml-get-started">概要 YAML を使用してコードで CI ビルドを構成する方法</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/actions/build-yaml">YAML ビルドを使用する方法</a></li>
+  </ul>
+
+
+  <h2>複数フェーズ ビルドの機能強化</h2>
+
+
+  <p><em><strong>注: この機能を使用するには、アカウント</strong></em>で [複数のキューを含むビルド] プレビュー機能を<a href="https://docs.microsoft.com/en-us/vsts/collaborate/preview-features"><em><strong>有効</strong></em></a><em><strong>にする必要があります。</strong></em></p>
+
+
+  <p>最近、定義をビルドするためのフェーズを追加しました。 フェーズ&rsquo;を使用して、ビルド 手順を整理し、フェーズごとに異なる要求を使用して異なるエージェントをターゲットにすすむ方法が用意されています。 次に&rsquo;、次の操作を実行できるよう、フェーズを構築するための機能がいくつか追加されました。</p>
+
+
+  <ul>
+   <li>
+   <p>フェーズごとに異なるエージェント キューを指定します。 つまり、たとえば次のことが可能になります。</p>
+
+   <ul>
+    <li>macOS エージェントでビルドのフェーズを 1 つ実行し、Windows エージェントで別のフェーズを実行します。 これが非常に便利であることを示す良い例を、Connect(); 2017 の動画「<a href="https://channel9.msdn.com/events/Connect/2017/B102">CI/CD DevOps Pipeline for mobile apps and services (モバイル アプリとモバイル サービスのための CI/CD DevOps パイプライン)</a>」でご覧いただけます。</li>
+    <li>ビルド エージェント プールでビルド ステップを実行し、テスト エージェント プールでステップをテストします。</li>
+   </ul>
+   </li>
+   <li>
+   <p>並列実行によりテストを速く実行します。 並列処理がマルチエージェント&ldquo;&rdquo;&ldquo;として構成され、VSTest&rdquo; タスクを含むフェーズでは、構成されたエージェント数全体でテスト実行が自動的に並列化されます。</p>
+   </li>
+   <li>
+   <p>各フェーズで OAuth トークンにアクセスするスクリプトを許可するか、拒否します。 つまり、たとえば、ビルド フェーズでスクリプト実行を許可して REST API で VSTS と通信し、同じビルド定義で、テスト フェーズでスクリプト実行をブロックできます。</p>
+   </li>
+   <li>
+   <p>特定の条件下でのみフェーズを実行します。 たとえば、前のフェーズが成功したときにのみ実行したり、マスター ブランチでコードをビルドしているときにのみ実行したりするようにフェーズを構成できます。</p>
+   </li>
+  </ul>
+
+
+  <p>詳細については、「<a href="https://docs.microsoft.com/en-us/vsts/build-release/concepts/process/phases">Phases in Build and Release Management</a>」 (ビルドおよびリリース管理のフェーズ) を参照してください。</p>
+
+
+  <h2>ホステッド VS2017 エージェントで UI テストを実行し、ソフトウェアをインストールする</h2>
+
+
+  <p>多&rsquo;くのお客様&rsquo;&rsquo;から、ホストされているビルド エージェントにソフトウェアをインストールする機能が求めららたのは、ビルドに必要なものがあるが、イメージでは利用できないためです。 これで、これを行えるのです。 ホステッド&rsquo; <strong>VS2017</strong> キューを使用している場合、ビルドタスクとリリース タスクが管理者として対話型モードで実行されます。 つまり、このホストされたプールを使用して UI テストを実行し、必要なソフトウェアをインストールできます。 ビルドの後にビルド エージェントを再イメージする場合、各ビルドはクリーンな環境で開始されます。</p>
+
+
+  <h2>リリース トリガー ブランチの機能強化</h2>
+
+
+  <p>ビルド定義で指定された既定のブランチに基づいて、リリース トリガー フィルターを構成できます。 これは特に、既定のビルド ブランチがスプリントのたびに変わり、リリース トリガー フィルターをリリース定義全体で更新する必要がある場合に役立ちます。 ビルド定義で既定のブランチを変更する必要があるだけで、すべてのリリース定義でこのブランチが自動的に使用されます。 たとえば、チームが各スプリント リリース ペイロードのリリース ブランチを作成している場合は、新しいスプリント リリース ブランチを指すビルド定義で更新すると、リリースによって自動的に取得されます。</p>
+
+
+  <p><img alt="Release triggers" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/127_12.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="リリース トリガー"></p>
+
+
+  <h2>不安定なテストを特定する</h2>
+
+
+  <p>この機能の主要なDevOpsは、信頼性の高い高速な自動テストを行う方法です。 テストが 1 回の実行で失敗し、変更なしで別のテストを渡す場合があります (もちろん、フラグが高いテストではなく、製品コードである可能性があります)。 フラグの高いテストは、テストに対するチームの&rsquo;信頼を失い、不満を感じ、損ないます。 オフのままにすると、チームはフラグの高いテストをノイズとして無視し、バグが実稼働環境に滑り込む結果になります。 これで&rsquo;、フラグの高いテストの問題に取り組むのに役立つソリューションの最初の部分がデプロイされました。 エラーを出したテストを再実行するように <strong>Visual Studio テスト</strong> タスクを構成できるようになりました。 テスト結果は、最初にエラーを出したテストと再実行で合格になったテストを示します。 これは&rsquo;、調査して修正する必要があるフラグの高いテストを識別するための重要な手順です。 今後の更新では、データに基づくテストと順序指定テストの再実行に対応する予定です。</p>
+
+
+  <p><strong>Visual Studio テスト</strong> タスクは、エラーが広範囲に及ぶ場合にテストの再実行を回避する目的で、エラーを出したテストを再実行する最大試行数とエラーのしきい値パーセンテージを調整できます。たとえば、全テストの 20% 未満でエラーが出た場合にのみテストを再実行します。</p>
+
+
+  <p><img alt="Re-run failed test section" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/127_08.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="エラーが発生したテスト セクションの再実行"></p>
+
+
+  <p>[ビルドと<strong>リリース</strong><strong>]</strong>&ldquo;&rdquo; の [テスト] タブで、再実行時に合格した結果を使用してテスト結果をフィルター処理し、実行時にフラグが立ったテストを識別できます。 このフィルター適用で、再実行で合格したテストごとに最後の試行が表示されます。 [概要] ビュー &ldquo;には、[テストの合計] に [再実行時に合格 (n/m)&rdquo; ] と表示されます。n は再実行時に合格したテストの数、m は合格したテストの総数です。 全試行の階層表示は今後の数回のスプリントで導入する予定です。</p>
+
+
+  <p><img alt="Re-run failed test results" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/127_09.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="エラーが発生したテスト結果の再実行"></p>
+
+
+  <h2>既定で適切なエージェントを使用してビルドする</h2>
+
+
+  <p>テンプレートのいずれかを使用して新しいビルド定義を作成すると、既定でホストされているエージェント キューが選択されます。 たとえば、Ant テンプレートと Maven テンプレートは、既定で <strong>Hosted Linux キューに設定</strong> されます。 Xcode テンプレートと Xamarin.iOS テンプレートの既定値は <a href="https://blogs.msdn.microsoft.com/devops/2017/11/16/cloud-hosted-mac-agents-for-ci-cd-pipelines/">Hosted macOS Preview です</a>。 既定 ASP.NET Coreは Hosted <strong>VS2017 です</strong>。 もちろん、キューを好みに応じて変更できますが、この既定では、新しいビルド プロセスを定義するときに時間が節約されます。そうしないと、適切なエージェント キューを再設定する必要がなされません。</p>
+
+
+  <p><img alt="Default hosted agent option in Build" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/129_10.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="ビルドの既定のホステッド エージェント オプション"></p>
+
+
+  <h2>シンボル サーバーとして VSTS を使用する</h2>
+
+
+  <p>VSTS はシンボル サーバーです。これにより、シンボルをホストし、組織と共有できます。 シンボル サーバーの機能が一般提供されます。 シンボルは、実行可能ファイルのデバッグを容易にする追加情報を提供します。 詳細については <a href="https://docs.microsoft.com/en-us/vsts/build-release/symbols/">、デバッグ用の発行シンボルに関する</a> ページを参照してください。</p>
+
+
+  <p>この機能は、上位の提案に基づいて優先順位が付けされました。</p>
+
+
+  <h2>変更履歴に記録が追加されました</h2>
+
+
+  <p><strong>変更履歴</strong>ビューは、コード行を最後に変更したユーザーを特定するのに適しています。 しかしながら、場合によっては、コード行を<em>以前</em>変更したユーザーを確認する必要があります。 変更履歴の最新の拡張機能、<strong>コミットする前に変更履歴を表示する</strong>が便利です。 この名前が示すように、この機能を利用すると、特定の行を変更したバージョンの前のファイル バージョンに戻り、そのバージョンの変更履歴を表示できます。 引き続き過去のバージョンに戻り、選択したコード行を変更したファイルの各バージョンを見比べることができます。</p>
+
+
+  <p><img alt="Blame history" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/127_13.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="変更履歴の記録"></p>
+
+
+  <h2>pull request のマージ コミットを表示する</h2>
+
+
+  <p>Pull request の相違ビューでは、ソース ブランチで行われた変更が強調表示されます。 ただし、ターゲット ブランチを変更すると、相違ビューが予想とは異なる外観になることがあります。 新しいコマンドを使用して、&ldquo;&rdquo;プレビューのマージ コミットの差分を表示し、pull requestの<strong>コミットを表示できます</strong>。 このマージ コミットは、マージの競合を確認し、pull request ビルドと共に使用するために作成されます。pull request が最終的に完了したときのマージ コミットの外観を反映します。 ターゲット ブランチが変更されたが相違で反映されていないとき、ソース ブランチとターゲット ブランチの両方で最終的な変更を確認するとき、マージ コミットの相違が役に立つことがあります。</p>
+
+
+  <p><img alt="View pull request merge commit" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/129_17.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="pull request のマージ コミットを表示する"></p>
+
+
+  <p><strong>Merge commit</strong>コマンドの表示と共に便利な &rsquo; もう1つのコマンドは、[<strong>マージの再開</strong>] です (同じ [コマンド] メニューで使用できます)。 pull request が最初に作成されてからターゲット ブランチが変更された場合、このコマンドを実行すると、新しいプレビュー マージ コミットが作成され、マージ コミットの相違ビューが更新されます。</p>
+
+
+  <h2>プル要求の状態 API とブランチポリシーを使用して統合する</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/vsts/git/branch-policies">ブランチポリシー</a> を使用すると、チームは高品質のブランチを維持し、プル要求ワークフローの実行中にベストプラクティスに従うことができます。 これで、プル要求の状態 API と分岐ポリシーを使用して、カスタムツールをプル要求ワークフローに統合できます。 これがサードパーティの CI/CD ソリューションと統合されて &rsquo; いるか、独自の内部プロセス要件を適用しているかにかかわらず、STATUS API が役に立ちます。 &rsquo;各プル要求を完了する前にコードをビルドしてテストするために、独自の PR プロセスでこれを広範囲に使用しています。 詳細については、 <a href="https://go.microsoft.com/fwlink/?linkid=854108">コード</a>、 <a href="https://go.microsoft.com/fwlink/?linkid=866529">サンプル</a>、および <a href="https://go.microsoft.com/fwlink/?linkid=866532">ドキュメント</a> を参照してください。</p>
+
+
+  <h2>分析ウィジェットを利害関係者として表示する</h2>
+
+
+  <p><a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-analytics">Analytics 拡張機能</a>をインストールすると、ウィジェットカタログに6つの強力なウィジェットが追加されます。これには、累積 Flow ダイアグラム、リードタイム、サイクル時間、ベロシティ、バーンダウン、およびバーンアップがあります。 これで、無料の <a href="https://docs.microsoft.com/en-us/vsts/security/get-started-stakeholder#related-notes">利害関係者ライセンス</a> を持つユーザーは、すべての分析ウィジェットを表示できます。</p>
+
+
+  <p>analytics <a href="https://docs.microsoft.com/en-us/vsts/report/extend-analytics/index">OData エンドポイント</a>または Power BI を使用して<a href="https://docs.microsoft.com/en-us/vsts/report/powerbi/index">analytics に接続</a>するには、<a href="https://www.visualstudio.com/team-services/compare-features/">基本ライセンス</a>が依然として必要です。</p>
+
+
+  <h2>新しいビューを使用して Power BI を VSTS Analytics と統合する</h2>
+
+
+  <p><strong>vsts Power BI Desktop コネクタ</strong>の既定のビューを使用すると、vsts データをすぐに操作できるようになります。 一般的な履歴定義と共に追加のビューを追加し、傾向分析やバグ分析をより簡単に実行できるようにしまし &rsquo; た。 詳細については、 <a href="https://docs.microsoft.com/en-us/vsts/report/powerbi/data-connector-connect">Power BI Data Connector を使用した VSTS への接続</a>に関するガイダンスを参照してください。</p>
+
+
+  <p><img alt="PowerBI view" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/129_19.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="PowerBI ビュー"></p>
+
+
+  <p><a href="https://powerbi.microsoft.com/desktop/"><strong>Power BI Desktop</strong></a>の今後の2月のリリースでは、独自のビューを作成できるようになりました。これにより、Power BI に必要な特定のデータをより簡単に操作できるようになります。</p>
+
+
+  <h2>VSTS メッセージング拡張機能を使用して Microsoft Teams 内の作業項目をディスカッションする</h2>
+
+
+  <p>Microsoft Teams は、多くのエンジニアリングチーム内でチームワークのためのハブになりました。 新しい VSTS メッセージング拡張機能との Microsoft Teams 統合が拡張され、他のコンテンツやツールと一緒に特定の作業項目を検索して話し合うことができるようになりました。 詳細については、Marketplace の<a href="https://marketplace.visualstudio.com/items?itemName=ms-vsts.vss-services-teams">Microsoft Teams 統合</a>拡張機能を参照してください。</p>
+
+
+  <p><img alt="VSTS messaging extension in Microsoft Teams" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/130_01.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="Microsoft Teams の VSTS メッセージング拡張機能"></p>
+
+
+  <h2>提案された区分とイテレーションを使用して作業を移動する</h2>
+
+
+  <p>同じ領域またはイテレーションで作業することが一般的で、作業項目を移動するときに階層を繰り返し参照することができます。 <strong>区分</strong>および<strong>イテレーション</strong>パスの制御には、最近使用した値のリストが<strong>提案</strong>として含まれるようになりました。設定と移動にすばやくアクセスできます。</p>
+
+
+  <p><img alt="Area drop down list" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/129_11.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="区分のドロップダウンリスト"></p>
+
+
+  <p>また、 <strong>イテレーション</strong> の日付が名前の右側に含まれるので、作業項目がいつ配信されるかをすばやく判断できます。</p>
+
+
+  <p><img alt="Iteration drop down list" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/129_12.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="イテレーションのドロップダウンリスト"></p>
+
+
+  <h2>Wiki 検索の一般提供開始</h2>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/devops/2017/12/01/announcing-public-preview-of-wiki-search/">12 月に Wiki search のパブリックプレビュー</a>が終了した後、一般公開されるようになりました。 お気に入りの Wiki ページをタイトル、コンテンツ、コード、作業項目で検索できます。</p>
+
+
+  <h2>グループを使用して多数のユーザーのアクセスと拡張を管理する</h2>
+
+
+  <p>管理者は、AAD または VSTS グループにアクセスレベルと拡張機能を割り当てることができるため、大規模なユーザーグループを簡単に管理できるようになりまし &rsquo; た。 適切なルールを設定した後、グループに他のユーザーを追加すると、VSTS アカウントにアクセスするときに、適切なアクセスレベルと拡張機能が自動的に付与されます。 その結果、アクセスレベルと拡張機能を個別に管理する必要がなくなります。</p>
+
+
+  <p><img alt="Group licensing" border="0" height="431" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/130_07.png" style="border: 0px currentColor; border-image: none; background-image: none;" title="グループ ライセンス" width="1024"></p>
+
+
+  <p>詳細については、Microsoft DevOps ブログの「<a href="https://blogs.msdn.microsoft.com/devops/2017/04/04/team-services-large-account-user-management-roadmap-april-2017/">大規模アカウントユーザー管理のロードマップの投稿</a>」を参照してください。</p>
+
+
+  <h2>購入クラウドソリューションプロバイダー一般提供開始</h2>
+
+
+  <p>クラウドソリューションプロバイダー (csp) プログラムを使用した Visual Studio Marketplace からの購入は、現在 csp がサポートされているすべてのプラン/市場で利用できます。 これらの市場の CSP パートナーは、Package Management Marketplace から顧客向けに Visual Studio サブスクリプション、Visual Studio Team Services ユーザー、ファーストパーティ拡張機能 (例: Test Manager、ホストされている Pipelines、Visual Studio) を購入できるようになりました。 現在、Marketplace では、すべてのファーストパーティの購入について Azure CSP サブスクリプションを認識して受け入れるようになりました。 Visual Studio さらに、csp は、サブスクリプション管理ポータルを通じて顧客用に購入した Visual Studio サブスクリプションを管理したり、Azure portal から vsts アカウントをセットアップしたり、既存の vsts アカウントを Azure CSP サブスクリプションにリンクして顧客からの請求を引き継ぐこともできます。</p>
+
+
+  <h2>月の延長: ブラウザーでのプル要求の競合解決</h2>
+
+
+  <p>昨年、 <a href="https://www.gvfs.io/">git 仮想ファイルシステム</a>と呼ばれるものを使用して、Windows コードベース全体を1つの git リポジトリに移動しました。 Windows チーム全体が Git を使用した後は、ワークフローの一部で競合を解決するためのより便利な方法が必要でした。 Windows チームは vsts に新しい拡張機能を構築しました。これにより、ブラウザーで直接プル要求の競合を解決することができます。また &rsquo; &rsquo; 、 <a href="https://marketplace.visualstudio.com/vsts">vsts Marketplace</a>の<a href="https://marketplace.visualstudio.com/items?itemName=ms-devlabs.conflicts-tab">拡張機能</a>としてすべてのユーザーが使用できるようになりました。</p>
+
+
+  <p>Git の pull request を完了する前に、ターゲット ブランチとの競合を解決する必要があります。 この拡張機能を使用すると、ローカルの複製で競合を解決するのではなく、プル要求のマージの一部として、web 上でこれらの競合を解決できます。</p>
+
+
+  <p>&rsquo;<a href="https://marketplace.visualstudio.com/items?itemName=ms-devlabs.conflicts-tab">拡張機能をインストール</a>した後 &rsquo; に競合が発生した場合の動作は次のようになります。</p>
+
+
+  <p><img alt="Conflicts Tab" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ConflictsTab.PNG" style="border: 0px currentColor; border-image: none; background-image: none;" title="[競合] タブ"></p>
+
+
+  <p>表示されているファイルをクリックすると、 &rsquo; 以前のバージョンと新しいバージョンを確認するためのビューが表示されます。これにより、保持するコンテンツを選択できます。</p>
+
+
+  <p><img alt="Example resolution" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/MergeSummary.PNG" style="border: 0px currentColor; border-image: none; background-image: none;" title="解決方法の例"></p>
+
+
+  <p>また、結合されたファイルを手動で編集することもできます。</p>
+
+
+  <p><img alt="Conflict markers" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Example3.PNG" style="border: 0px currentColor; border-image: none; background-image: none;" title="競合マーカー"></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>すべての機能の一覧については、リリースノートを参照してください。 VSTS の最新の計画と開発については、必ず<a href="https://blogs.msdn.microsoft.com/devops/">DevOps のブログ</a>を購読してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2017/nov-28-vsts">11月28日</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2017/dec-11-vsts">12月11日</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2018/jan-24-vsts">1 月 24 日</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2018/feb-14-vsts">2 月 14 日</a></li>
+  </ul>
+
+
+  <p>コーディングをお楽しみください!</p>
+
+
+  <p><a href="https://twitter.com/tfsbuck">@tfsbuck</a></p>

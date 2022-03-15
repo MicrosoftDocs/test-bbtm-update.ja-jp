@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c14b59623c59b1fded76105ed15aac18ab87f0f0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904598"
+Slug: new-troubleshooting-diagnostics-for-azure-files-mounting-errors-on-windows
+Title: '新しいトラブルシューティングと診断: Azure Files Storageマウント エラーに関するWindows'
+Summary: Azure Filesサーバー メッセージ ブロック (SMB) プロトコルを使用して、クラウド内のフル マネージドファイル共有を提供します。 これは、オンプレミスのファイル共有プロトコルと、その他のWindowsプロトコルです。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/storage/storage-dotnet-how-to-use-files">Azure File Storage は</a>、サーバー メッセージ ブロック (SMB) プロトコルを使用してクラウド内のフル マネージドファイル共有を提供します。これは、オンプレミスの Windows の使用例で主に使用されるファイル共有プロトコルです。 Azure Files、 でサポートされている SMB バージョンを実装する任意のクライアント OS からマウントAzure Files。 現在、初めて Azure Files ファイル共有ユーザーが Windows クライアント環境に適切な前提条件を満たしていることを確認するために、<a href="https://github.com/Azure-Samples/azure-files-samples/tree/master/AzFileDiagnostics" target="_blank">AzFileDiagnostics</a><em> </em>を導入しています。 AzFileDiagnostics は、 <a href="https://docs.microsoft.com/en-us/azure/storage/storage-troubleshoot-windows-file-connection-problems">Azure Files</a> のトラブルシューティングに関する記事で説明されているほとんどの症状の検出を自動化し、環境を設定し、最適なパフォーマンスを得るのに役立ちます。</p>
+
+
+  <p>一般に、ファイル共有のマウントは、標準の net use コマンドをWindows&ldquo;で<em><a href="https://technet.microsoft.com/en-us/library/bb490717.aspx">行うだけで実現</a></em>&rdquo;できます。 共有を作成すると、Azure Portal &ldquo;によって net use&rdquo; コマンドが自動的に生成され、コピーと貼り付けで使用できます。 単に [&ldquo;Connect&rdquo;] ボタンをクリックし、このファイル共有をクライアントにマウントするコマンドをコピーして貼り付け、マウントされたファイル共有を持つドライブを作成できます。 <em>何が問題を起こしている可能性がありますか?</em> 結局のところ、さまざまなクライアント、SMB バージョン、ファイアウォール規則、ISP、または IT ポリシーを使用すると、Azure Files への接続に影響する可能性があります。 良いニュースは、AzFileDiagnostics が考えられる問題の各原因を分離して調べ、さらに問題を修正するためのアドバイスや回避策を提供することです。</p>
+
+
+  <p>たとえば、SMB Azure Filesバージョン 2.1 および 3.0 がサポートされています。 セキュリティで保護された接続を確保Azure Files、別のリージョンまたはオンプレミスからの通信を暗号化する必要があります。 そのため、これらのケースでは SMB 3.0 チャネル暗号化が必要です。 AzFileDiagnostics は、クライアント上の SMB バージョンを検出し、クライアントが必要な暗号化要件を自動的に満たすかどうかを判断します。</p>
+
+
+  <h2>AzFileDiagnostics を使用する方法</h2>
+
+
+  <p>今すぐ <a href="https://github.com/Azure-Samples/azure-files-samples/tree/master/AzFileDiagnostics" target="_blank">スクリプト センターから AzFileDiagnostics をダウンロードして</a> 、次を実行できます。</p>
+
+
+  <p><u>PowerShell コマンド:</u></p>
+
+
+  <pre class="prettyprint">
+
+  AzFileDiagnostics.ps1 [-StorageAccountName &lt;storage account name&gt;] [-FileShareName &lt;share name&gt;] [-EnvironmentName &lt;AzureCloud| AzureChinaCloud| AzureGermanCloud| AzureUSGovernment&gt;]</pre>
+
+
+  <p><u>使用例:</u></p>
+
+
+  <pre class="prettyprint">
+
+  AzFileDiagnostics.ps1 </pre>
+
+
+  <pre class="prettyprint">
+
+  AzFileDiagnostics.ps1 -UncPath <a href="file://\\storageaccountname.file.core.windows.net\sharename">\\storageaccountname.file.core.windows.net\sharename</a> </pre>
+
+
+  <pre class="prettyprint">
+
+  AzFileDiagnostics.ps1 -StorageAccountName storageaccountname &ndash;FileShareName sharename &ndash;Environment AzureCloud </pre>
+
+
+  <p>問題の診断に加えて、チェックが正常に完了した場合にファイル共有をマウントするオプションが表示されます。</p>
+
+
+  <h2>詳細については、次を参照Azure Files</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/storage-dotnet-how-to-use-files">Azure Files を使ってみる</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/storage-how-to-use-files-linux">Linux で Azure Files を使用する</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/storage-troubleshoot-windows-file-connection-problems">Azure Files のトラブルシューティング - Windows</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/storage-troubleshoot-linux-file-connection-problems">Linux 上の Azure File のトラブルシューティング</a></li>
+  </ul>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>AzFileDiagnostics を使用すると、開始エクスペリエンスがスムーズになります。 フィードバックをお寄せください。 表示する他のトラブルシューティング トピックAzure Filesする場合は、以下のコメントを残してください。 この他に、機能の要求がある場合は、ユーザーの声に関するフィードバックを常に <a href="https://feedback.azure.com/forums/217298-storage/category/180670-files">リッスンしています</a>。 よろしくお願いいたします。</p>

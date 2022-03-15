@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f2f95472b695cb2583d71927e85cbfdca37f25af
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905159"
+Slug: partitioned-service-bus-queues-and-topics
+Title: パーティション分割された Service Bus キューとトピック
+Summary: 先週 Microsoft は、Azure sdk 2.2 および Service Bus SDK 2.2 をリリースしました。 これらの sdk には、新しい Service Bus 機能 (パーティション分割されたエンティティ) が付属しています。 これらの Sdk を使用する (または api バージョン = 2013-10 を指定する)
+Content: >-
+  先週 Microsoft は、Azure sdk 2.2 および Service Bus SDK 2.2 をリリースしました。 これらの sdk には、新しい Service Bus 機能 (パーティション分割されたエンティティ) が付属しています。 これらの Sdk を使用して (または、HTTP 要求で api バージョン = 2013-10 を指定する)、Azure Service Bus にパーティション分割されたキューとトピックを作成して使用することができます。 パーティション分割されたキューとトピックにより、信頼性が向上します。 同時に、ほとんどのユースケースで最大メッセージスループットが向上します。
+
+  <h4>パーティション分割されたキューとトピックとは</h4>
+
+  従来のキューまたはトピックは1つのメッセージブローカーによって処理され、1つのメッセージングストアに格納されるのに対し、パーティション分割されたキューまたはトピックは複数のメッセージブローカーによって処理され、複数のメッセージングストアに格納されます。 そのため、パーティション分割されたキューまたはトピックの全体のスループットは、単一のメッセージ ブローカーまたはメッセージング ストアのパフォーマンスによって制限されなくなりました。 また、1 つのメッセージング ストアが一時的に停止しても、パーティション分割されたキューまたはトピックは使用することができます。
+
+
+  簡単に言うと、パーティション分割されたキューまたはトピックは次のように機能します。各パーティション分割されたキューまたはトピックは、複数の <em>フラグメント</em>で構成されます。 フラグメントはそれぞれ別々のメッセージング ストアに格納され、別々のメッセージ ブローカーで処理されます。 パーティション分割されたキューまたはトピックにメッセージが送信されると、Service Bus はそのメッセージをいずれかのフラグメントに割り当てます。 この選択は、Service Bus によって、または送信者が指定できるパーティションキーによってランダムに実行されます。 クライアントがパーティション分割されたキューまたはパーティション分割されたトピックのサブスクリプションからメッセージを受信する場合、Service Bus はメッセージのすべてのフラグメントをチェックします。 見つかった場合は、1つを選択し、そのメッセージを受信側に渡します。
+
+  <h4>パーティション分割の有効化</h4>
+
+  パーティション分割されたキューまたはトピックを作成する3つの方法のいずれかを選択できます。 最初の方法では、アプリケーションからキューまたはトピックを作成します。 パーティション分割を有効にするには、 <a href="https://msdn.microsoft.com/en-us/library/microsoft.servicebus.messaging.queuedescription.enablepartitioning.aspx" target="_blank">Queuedescription. enablepartitioning</a> または <a href="https://msdn.microsoft.com/en-us/library/microsoft.servicebus.messaging.topicdescription.enablepartitioning.aspx">トピックの説明. enablepartitioning</a> プロパティを <strong>true</strong>に設定します。 これらのフラグは、キューまたはトピックの作成時に設定する必要があります。 既存のキューまたはトピックでこのプロパティを変更することはできません。
+
+
+  または、Visual Studio でパーティション分割されたキューまたはトピックを作成することもできます。 新しい [<em>キュー</em>と<em>新しいトピック</em>] ダイアログウィンドウで、[<em>パーティション分割を有効にする</em>] という新しいチェックボックスを追加しました。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6765.2sb.JPG" border="0" /></a>
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8357.1sb.png" border="0" /></a>
+
+
+  3番目のオプションは、Windows Azure portal です。 この機能は、この月の最後にロールアウトするスケジュールが設定されている次のポータル更新プログラムで使用できるようになります。
+
+
+  現在、Azure Service Bus では、名前空間ごとに100のパーティション分割されたキューまたはトピックのみが許可されています。 さらに、パーティション分割されたキューとトピックは Azure Service Bus でのみサポートされていますが、Windows Server 1.1 の Service Bus では使用できません。
+
+  <h4>パーティション分割キーの使用</h4>
+
+  パーティション分割されたキューまたはトピックにメッセージがエンキューされると、Service Bus はパーティション キーが存在するかどうかを調べます。 見つかった場合は、そのキーに基づいてフラグメントを選択します。 そうでない場合は、内部アルゴリズムに基づいてフラグメントを選択します。
+
+
+  <strong>パーティションキーの使用 </strong>
+
+
+  セッションやトランザクションなど、一部のシナリオでは、メッセージが特定のフラグメントに格納されている必要があります。 このようなシナリオでは必ず、パーティション キーを使用する必要があります。 同じパーティション キーを使用するメッセージはすべて、同じフラグメントに割り当てられます。
+
+
+  以下に示すように、シナリオに応じて、さまざまなメッセージ プロパティがパーティション キーとして使用されます。
+
+  <p style="padding-left: 30px;"><strong>SessionId</strong>。 メッセージに<a href="https://msdn.microsoft.com/en-us/library/windowsazure/microsoft.servicebus.messaging.brokeredmessage.sessionid.aspx" target="_blank">sessionid</a>プロパティが設定されている場合、Service Bus は、sessionid プロパティをパーティションキーとして使用します。 これにより、同じセッションに属するすべてのメッセージが同じフラグメントに割り当てられ、同じメッセージブローカーによって処理されます。 これにより、Service Bus は、メッセージの順序と、セッション状態の整合性を保証することができます。</p>
+
+  <p style="padding-left: 30px;"><strong>Partitionkey</strong>。 メッセージに<a href="https://msdn.microsoft.com/en-us/library/microsoft.servicebus.messaging.brokeredmessage.partitionkey.aspx" target="_blank">partitionkey</a>プロパティが設定されていて、SessionId プロパティが設定されていない場合、Service Bus は partitionkey プロパティをパーティションキーとして使用します。 セッションフル以外のトランザクションメッセージを送信するには、PartitionKey プロパティを使用します。 パーティション キーを使用することにより、トランザクション内で送信されるすべてのメッセージを同じメッセージング ブローカーで処理することができます。</p>
+
+  <p style="padding-left: 30px;"><strong>MessageId</strong>。 キューまたはトピックの <a href="https://msdn.microsoft.com/en-us/library/windowsazure/microsoft.servicebus.messaging.queuedescription.requiresduplicatedetection.aspx" target="_blank">RequiresDuplicationDetection</a> プロパティが <strong>true</strong>に設定されている場合、SessionId プロパティまたは partitionkey プロパティが設定されていない場合、 <a href="https://msdn.microsoft.com/en-us/library/windowsazure/microsoft.servicebus.messaging.brokeredmessage.messageid.aspx" target="_blank">MessageId</a> プロパティはパーティションキーとして機能します。 これにより、同じメッセージのすべてのコピーが同じメッセージブローカーによって処理されるようになり、Service Bus が重複するメッセージを検出して削除することができます。</p>
+
+  <strong>パーティション キーを使用しない場合</strong>
+
+
+  パーティションキーが存在しない場合、Service Bus は、ラウンドロビン方式でメッセージをパーティション分割されたキューまたはトピックのすべてのフラグメントに分散します。 選択されたフラグメントが使用できない場合、Service Bus はメッセージを別のフラグメントに割り当てます。 このように、メッセージング ストアが一時的に使用できなくても送信操作は成功します。
+
+
+  ご覧のように、パーティションキーは、メッセージを特定のフラグメントにピン留めします。 このフラグメントを保持しているメッセージング ストアを使用できない場合、Service Bus はエラーを返します。 パーティションキーが存在しない場合、Service Bus は別のフラグメントを選択でき、操作は成功します。 そのため、必要な場合を除き、パーティションキーを指定しないことをお勧めします。
+
+  <h4>パーティション分割されたエンティティでのトランザクションの使用</h4>
+
+  トランザクションの一部として送信されるメッセージでは、パーティション キーを指定する必要があります。 SessionId、PartitionKey、または MessageId を指定できます。 同じトランザクションの一部として送信されるすべてのメッセージで、同じパーティション キーを指定する必要があります。
+
+
+  次のコードを使用して、トランザクションメッセージをパーティション分割されたキューに送信できます。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6574.3sb.JPG" border="0" /></a>
+
+
+  トランザクションメッセージをセッション対応のトピックまたはキューに送信する場合は、メッセージの SessionId プロパティが設定されている必要があります。 前述のように、SessionId はパーティションキーとして機能します。 PartitionKey プロパティも設定する場合は、SessionId プロパティと同じである必要があります。
+
+
+  通常のキューやトピックとは異なり、1つのトランザクションを使用して複数のメッセージを別々のセッションに送信することはできません。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2728.4sb.JPG" border="0" /></a>
+
+  <h4>追加情報</h4>
+
+  パーティション分割されたキューとトピック <a href="https://msdn.microsoft.com/en-us/library/dn520246.aspx" target="_blank">https://msdn.microsoft.com/en-us/library/dn520246.aspx</a> の詳細については、「 <a href="https://code.msdn.microsoft.com/windowsazure/Service-Bus-Partitioned-7dfd3f1f" target="_blank">Service Bus パーティション分割キューのサンプル</a>」を参照してください。

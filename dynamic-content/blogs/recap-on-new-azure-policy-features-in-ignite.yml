@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e31058886adb955fd39222811c5dfb6896919917
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910502"
+Slug: recap-on-new-azure-policy-features-in-ignite
+Title: 新しい Azure Policy 機能のパブリックプレビュー
+Summary: Microsoft Ignite カンファレンスの週には、azure コンピューティングセッション、Azure ガバナンスセッション、および Azure Resource Manager セッションでの Azure ポリシーの一連の新機能のプライベートプレビューが発表されました。 すべてがパブリックプレビューになりました。
+Content: >-
+  <p>Microsoft Ignite カンファレンスの週には、azure <a href="https://myignite.microsoft.com/sessions/54926?source=sessions">コンピューティングセッション</a>、 <a href="https://myignite.microsoft.com/videos/54781">azure ガバナンスセッション</a>、および <a href="https://myignite.microsoft.com/sessions/53286?source=sessions">Azure Resource Manager セッション</a>での azure ポリシーの一連の新機能のプライベートプレビューが発表されました。 すべてがパブリックプレビューになりました。</p>
+
+
+  <h2>継続的な監視機能を備えた新しい Azure Policy UI</h2>
+
+
+  <p>1か所ですべてのサブスクリプションでポリシーを簡単に管理できるようにする Azure Policy 用の新しいユーザーインターフェイスが構築されました。 また、すべてのリソースのコンプライアンス対応状態を継続的に監視することもできます。 これは、ポリシーを適用する前に多数のリソースが存在する場合に非常に便利です。 ポリシーをグループ化して、準拠していないリソースを探すことができます。 ポリシーエンジンは、常にリソースを評価し、対応ステータスを更新します。 また、ダッシュボードの履歴データも提供します。 履歴データの API サポートは今後追加される予定です。 また、新しい UI では、カスタムポリシーの作成など、はるかに豊富なポリシー管理機能がサポートされています。 新しい情報については、この <a href="https://docs.microsoft.com/en-us/azure/azure-policy/assign-policy-definition">ガイド</a> を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc6764e2-6034-4a11-8c5d-a49080871f18.png"><img alt="image_thumb4_thumb2" border="0" height="749" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0248ed09-bbd5-4c52-8042-cb75eb38deec.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="image_thumb4_thumb2" width="1402"></a></p>
+
+
+  <h2>ポリシーイニシアチブと除外範囲</h2>
+
+
+  <p>ポリシー <a href="https://docs.microsoft.com/en-us/azure/azure-policy/policy-definition#initiatives">イニシアチブ</a> では、さまざまなポリシー定義をグループ化できます。 たとえば、 <a href="https://myignite.microsoft.com/sessions/53286?source=sessions">Azure Resource Manager セッション</a> のデモでは、リソースの種類ごとにポリシーをグループ化します。 イニシアチブを使用すると、管理する必要があるポリシー割り当ての数が大幅に削減されます。 <a href="https://github.com/Azure/azure-policy-samples/tree/master/samples/PolicyInitiatives">これらの例</a> &nbsp;PowerShell を使用してポリシーイニシアチブを作成し、割り当てる方法について説明します。</p>
+
+
+  <p>ポリシーの除外を使用すると、ポリシーを大まかに割り当ててから、その中のスコープを除外することができます。 たとえば、アプリケーションとセントラルネットワークを使用している環境では、すべてのアプリケーションリソースグループに対してポリシーを設定する必要がありますが、ネットワークリソースグループは必要ありません。 以前は、すべてのアプリケーションリソースグループに異なるポリシーを割り当てる必要がありました。 除外スコープを使用すると、サブスクリプションのスコープでポリシーを割り当てることができます。これにより、新しいアプリケーションリソースグループが作成時に自動的に管理されるようになります。</p>
+
+
+  <p>新しいポリシー管理 UI を使用すると、ポリシーイニシアチブを直接作成し、除外スコープをポータルに適用できます。</p>
+
+
+  <h2>ポリシー言語の機能強化</h2>
+
+
+  <h3>その他のリソースの種類のサポート</h3>
+
+
+  <p>多数のユーザーが、以前は、タグをサポートしていたリソースの種類に対してのみ評価されたポリシーを認識できない場合があります。 &rsquo;サブネット、診断設定、SQL 監査設定など、入れ子になった多くのリソースの種類には対応していませんでした。ただし、これらのリソースの種類は、ユーザーが実施する必要がある構成を表します。 この新しい機能強化により、すべてのリソースの種類がすべて &rdquo; のモードに &ldquo; 設定されている場合、ポリシーを評価できます。 新しいポリシーを作成する場合は、すべて &rdquo; のモードを使用 &ldquo; して新しいサポートを利用することをお勧めします。 たとえば、リソースグループだけにタグを適用できるようになりました。 または、すべてのサブネットの特定のネットワークセキュリティグループの使用状況を監査することができます。</p>
+
+
+  <p>これらの新しいリソースの種類は通常は入れ子になっているため、ポリシーで入れ子になったリソースや関連するリソースを管理できるように、2つの新しいポリシー効果も追加しました。</p>
+
+
+  <h3>AuditIfNotExist</h3>
+
+
+  <p>AuditIfNotExist を使用すると、リソースを作成するときに、子リソースを含む他のリソースに対する遅延評価をトリガーできます。 一般的なユースケースでは、マルウェア対策拡張機能のないすべての仮想マシンを監査します。 <a href="https://github.com/Azure/azure-policy-samples/tree/master/samples/Compute/audit-vm-extension">例</a>については、GitHub を参照してください。</p>
+
+
+  <h3>DeployIfNotExist</h3>
+
+
+  <p>DeployIfNotExist では、特定の構成が表示されない場合に、テンプレートを自動的に展開するためのメカニズムがポリシーによって提供されます。 たとえば、上記のシナリオでは、DeployIfNotExist 効果を活用するポリシーは、VM が作成されていない場合に、マルウェア対策拡張機能をデプロイできます。 現時点では、DeployIfNotExist は組み込みのポリシーを通じてのみ使用できます。 デプロイジョブは、リソースを作成したユーザーの代わりに実行されます。 カスタムポリシーは、今後サポートされる予定です。 また、デプロイジョブは、後で独自の id を使用して実行できます。 現在使用可能なポリシーは次のとおりです。</p>
+
+
+  <ul>
+   <li>仮想ネットワーク作成時の Network Watcher のデプロイ</li>
+   <li>Windows Server 用の既定の Microsoft IaaSAntimalware 拡張機能のデプロイ</li>
+   <li>ネットワーク セキュリティ グループの診断設定の適用</li>
+  </ul>
+
+
+  <h2>リポジトリ GitHub Azure サンプルポリシー</h2>
+
+
+  <p>ポリシーを導入する際の1つの課題は、JSON テンプレートを構築することです。 ここでは、コミュニティからのクイックスタートサンプルを含む <a href="https://github.com/Azure/azure-policy-samples">Azure Policy リポジトリ</a> を作成しました。 各サンプルポリシーには、ポリシーの使用方法に関する指示が含まれています。 ポリシーには、[Azure &rdquo; への &ldquo; デプロイ] ボタンも含まれています。 サンプルを強化するための取り組みにご協力ください。 また、これはファイルの問題を報告し、追加の機能を要求するのに最適な場所です。</p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>新しい機能をお試しください。お客様のご意見やご感想をお聞かせください。</p>

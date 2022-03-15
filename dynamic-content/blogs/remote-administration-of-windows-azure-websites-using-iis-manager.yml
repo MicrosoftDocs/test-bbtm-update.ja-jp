@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9378420cc6c0dc947b6a933086c58276da5b502b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910461"
+Slug: remote-administration-of-windows-azure-websites-using-iis-manager
+Title: IIS マネージャーを使用した Azure Websites Windows のリモート管理
+Summary: 最近では、Windows に付属している IIS 管理コンソールを使用して、お客様が Azure Websites を管理できる機能を追加しました。 IIS マネージャーでは、HTTP over SSL サポートによって...
+Content: >-
+  最近では、Windows に付属している IIS 管理コンソールを使用して、お客様が Azure Websites を管理できる機能を追加しました。 IIS マネージャーは、Windows Azure web サイトへのセキュリティで保護された接続を提供する HTTP over SSL をサポートしています。設定した構成は、サイトの web.config ファイルで直接設定されます。 このために INETMGR.EXE を使用すると、次のような利点があります。
+
+  <ul>
+   <li>Web サイトの管理者向けの使い慣れたユーザーインターフェイス</li>
+   <li>手動による web.config の編集よりも使いやすく (特に、 <a href="https://www.iis.net/learn/extensions/url-rewrite-module/creating-rewrite-rules-for-the-url-rewrite-module">URL 書き換えルール</a>などの複雑なオプションの場合)</li>
+   <li>web.config の編集に共通する構文または書式設定エラーのリスクを軽減する</li>
+  </ul>
+
+  <div>
+
+  <h4>前提条件</h4>
+
+  <ul>
+   <li>Windows クライアント OS の <a href="https://www.iis.net/downloads/microsoft/iis-manager">場合-IIS マネージャー (リモート管理用</a>)</li>
+   <li>Windows サーバー– IIS 管理コンソールがインストールされていることを確認します。
+  <ul>
+   <li>「IIS 管理コンソール」の  <a href="https://www.iis.net/learn/install/installing-iis-7/installing-iis-on-windows-vista-and-windows-7">https://www.iis.net/learn/install/installing-iis-7/installing-iis-on-windows-vista-and-windows-7</a>  - 手順 6. を参照してください。</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  <h4>Windows Azure web サイトに接続するための手順</h4>
+
+  1.リモート管理を使用して IIS マネージャーを実行し、[ <strong>サイトへの Connect</strong> ] オプションを選択します。
+
+  <div><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/3122.1.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/3122.1.png" border="0"></a></strong></div>
+
+  <div>2.[サーバー名] に、サイトの <strong>SCM</strong>   URL を入力します。 SCM URL ( <strong>KUDU</strong>   サイトの url とも呼ばれます) は、サイトの url に似ていますが、を使用します。SCM は、サイトの URL のサイト名の後に追加されます。 たとえば、サイト名が <strong>Contoso</strong>で、AZURE websites URL が<strong>contoso.azurewebsites.net</strong>の場合、SCM サイトは <strong>contoso.scm.azurewebsites.net</strong>になります。 さらに、次のスクリーンショットに示すように、URL にポート <strong>443</strong>   を指定する必要があります。</div>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/6013.Ranjith-Mukkai--Img2.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/6013.Ranjith-Mukkai--Img2.png" border="0"></a></div>
+
+  <div></div>
+
+  <div>3. 発行資格情報を入力します。 Azure によって作成され Windows システムによって生成されたパスワードを変更していない場合は、リセットするか、ポータルからダウンロードすることができます。詳細については、以下を参照してください。</div>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/1373.Ranjith-Mukkai--Img3.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/1373.Ranjith-Mukkai--Img3.png" border="0"></a></div>
+
+  <div>4. これで、IIS マネージャーは接続を試行します。 成功した場合は、接続の名前を入力するように求められます。</div>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/2234.Ranjith-Mukkai-Img4.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/2234.Ranjith-Mukkai-Img4.png" border="0"></a></div>
+
+  <div>5. [ <strong>完了</strong>] をクリックすると、IIS マネージャーにサイトレベルの構成アイコンとオプションの使い慣れたグループが表示され、サイトの管理を開始できます。</div>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/7827.Ranjith-Mukkai-_2D00_-Img5.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/7827.Ranjith-Mukkai-_2D00_-Img5.png" border="0"></a></div>
+
+  </div>
+
+  <div>
+
+
+  <strong>デプロイ資格情報の取得またはリセット</strong>
+
+
+  </div>
+
+  <div>Windows azure websites に web サイトを作成すると、azure はデプロイ資格情報を自動的に生成します。 ユーザー名は、サイト名の先頭にドル記号が付いています (たとえば、$contoso)。パスワードは、複雑で長い英数字の文字列です。 サイトのダッシュボードで [ <strong>デプロイ資格情報</strong>   のリセット] をクリックして独自のパスワードを設定するか、[ <strong>発行プロファイル</strong>   のダウンロード] をクリックして、生成されたパスワードが含まれている XML ファイルをダウンロードすることができます。</div>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/5344.Ranjith-Mukkai--Img6.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/5344.Ranjith-Mukkai--Img6.png" border="0"></a></div>
+
+  <div></div>
+
+  <div></div>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/5314.Ranjith-Mukkai-_2D00_-Img7.png"><img class="aligncenter" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1705/5314.Ranjith-Mukkai-_2D00_-Img7.png" border="0"></a></div>

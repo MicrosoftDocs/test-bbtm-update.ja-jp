@@ -1,0 +1,65 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 45d577b916e0f01176e2d764f3120b6229b465a7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910454"
+Slug: required-practice-for-applications-integrating-with-azure-active-directory
+Title: Azure Active Directory と統合するアプリケーションに必要なプラクティス
+Summary: この投稿は、2016年8月15日の Azure Active Directory 証明書のロールオーバーに関する前の発表のフォローアップです。 Azure Active Directory のグローバル署名キーをロールオーバーする頻度を増やします。
+Content: >-
+  <p>この投稿は、Azure Active Directory 証明書のロールオーバーに関する<a href="https://azure.microsoft.com/en-us/blog/upcoming-azure-active-directory-certificate-rollover-august-15-2016/">前の発表</a>のフォローアップです。</p>
+
+
+  <p>お客様 &rsquo; のデータを保護し、2016年8月15日のロールオーバーの勢いを基にして構築する取り組みを続けて、 <strong>Azure Active Directory &rsquo; s グローバル署名キー</strong> (以前は Azure Active Directory 証明書 &rdquo; と呼ばれていたもの &ldquo; ) をロールオーバーする頻度を増やします。</p>
+
+
+  <h2>アプリケーションの頻度はどのように増加しますか。</h2>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/documentation/articles/active-directory-signing-key-rollover/#how-to-assess-if-your-application-will-be-affected-and-what-to-do-about-it">自動ロールオーバーをサポートする</a>アプリケーションの場合、この頻度の増加はアプリケーションに影響しません。</li>
+      <li>自動ロールオーバーをサポートしないアプリケーションの場合は、定期的にキーを監視して手動ロールオーバーを実行する <a href="https://azure.microsoft.com/en-us/documentation/articles/active-directory-signing-key-rollover/#how-to-perform-a-manual-rollover-if-you-application-does-not-support-automatic-rollover">プロセスを確立</a> する必要があります。</li>
+  </ul>
+
+
+  <p>2016年10月10日に開始するようにスケジュールされている次のロールオーバーは、最後に発表されるロールオーバーです。</p>
+
+
+  <p>今後、お知らせはありません。メタデータで新しいキーを使用できるようにするための通常の手順についてのみ説明し、その新しいキーを使用して徐々に切り替えます。 既に説明したように、自動ロールオーバーをサポートするアプリケーションではシームレスに処理されますが、監視プロセスを使用するアプリケーションでは、新しいキーが利用可能になったときに手動ロールオーバーが実行されます。</p>
+
+
+  <p>影響の評価に関するガイダンスは、8月のロールオーバーのガイダンスと同じままです。</p>
+
+
+  <h2>次のような影響はありません。</h2>
+
+
+  <ul>
+      <li><a href="https://aka.ms/aadcertificaterollover">ベストプラクティス</a>に従って自動ロールオーバーをサポートするアプリケーション</li>
+      <li>クライアント アプリケーション</li>
+      <li><a href="https://azure.microsoft.com/en-us/marketplace/active-directory/all/">Azure Active Directory アプリケーションギャラリー</a>から追加されたアプリケーション (カスタム &rdquo; を含む &ldquo; )</li>
+      <li>アプリケーションプロキシ経由で公開されたオンプレミスアプリケーション</li>
+      <li>Azure Active Directory B2C テナント内のアプリケーション</li>
+  </ul>
+
+
+  <p>単に、<strong> アプリケーションが8月のロールオーバーの影響を受けていない場合は、10月のロールオーバーまたはそれ以降のロールオーバーの影響を受けません。</strong></p>
+
+
+  <h2>アプリケーションの影響</h2>
+
+
+  <p>アプリケーションは署名キーに依存しており、メタデータからキーを自動的に更新するように構成されていません。 次の情報に従って、アプリケーションへのロールオーバーの影響を評価し、必要に応じてキーのロールオーバーを処理するように更新する方法について説明します。</p>
+
+
+  <ol>
+      <li>管理者アカウントを使用して <a href="https://manage.windowsazure.com/">Azure クラシックポータル</a> にサインインします。</li>
+      <li>[ <strong>Active Directory</strong> ] タブで、ディレクトリを選択します。</li>
+      <li>[<strong>表示</strong>] ドロップダウンメニューから [<strong>自分の会社が所有するアプリケーション</strong>] を選択し、右側のチェックマークをクリックしてフィルターを適用します。</li>
+      <li><a href="https://aka.ms/aadcertificaterollover">Azure Active Directory ドキュメントの署名キーのロールオーバー</a>に関するガイドラインに従って、一覧表示されている各アプリケーションを確認し、必要に応じて推奨される変更を行います。</li>
+  </ol>
+
+
+  <p>通常とは異なる動作が発生した場合は、 <a href="https://azure.microsoft.com/en-us/support/options/">Azure サポート</a>にお問い合わせください。</p>

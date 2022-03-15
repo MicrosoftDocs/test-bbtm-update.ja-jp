@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3314a5d267d0c126d9055431b3624d40efd86eba
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910910"
+Slug: break-through-the-serverless-barriers-with-azure-functions
+Title: サーバーレス バリアを使用して、サーバーレス バリアをAzure Functions
+Summary: サーバーレス テクノロジは、さまざまな業界や地域の新しい顧客が、自信を持って生産に向かっているという成熟度と認識の高いレベルに達しています。
+Content: >-
+  <p>サーバーレス テクノロジは、さまざまな業界や地域の複数の新規顧客が、自信を持って生産に向かっているという成熟度と認識の高いレベルに達しています。 お客様の導入が急速に増加する一方で ( <a href="https://customers.microsoft.com/en-us/story/stylelabs-media-telco-azure" target="_blank">最近、Stylelabs</a>、 <a href="https://customers.microsoft.com/en-us/story/direct-one-professional-services-azure" target="_blank">direct.one</a>、 <a href="https://customers.microsoft.com/en-us/story/deif-manufacturing-azure-india" target="_blank">DEIF</a> 、 <a href="https://customers.microsoft.com/en-us/story/navitime-japan-travel-hospitality-microsoft-cognitive-services" target="_blank">NAVITIME</a> のすべてのサーバーレスに関する記事を確認してください)、サーバーレスが最適なシナリオのセットが登場しています。 このような傾向により、Azure サーバーレス製品は、新しい機能を使用して絶えずイノベーションを起こし、既存の製品を一般提供することで、実稼働レベルに引き上がっています。</p>
+
+
+  <p>特に注目する領域の 1 つは、コードを記述する場合だけでなく、実稼働アプリを管理する場合も、開発者の生産性です。 この目的により、新しい監視機能と診断機能に取り組み、すべてのリソースを提供してコードの信頼性を高め、ソリューションの潜在的なエラーをより適切に特定して修正する機能を提供します。 サーバーレスは、開発者の生活を容易にし、私たちが行うのもすべてです。</p>
+
+
+  <p>この投稿では、最近&rsquo;行ったいくつかの重要な進歩についてお知りください。</p>
+
+
+  <h2>Durable Functions一般提供に到達する</h2>
+
+
+  <p>サービスを一緒に改善するための新しい方法を見つけるためにお客様の声に常に耳を傾け、私たちが学んだのは、ステートフル アプリケーションのサポートが不足し、実行時間の長い操作によって、構築できるシナリオが制限されるという点でした。 これにより、実行全体で状態を維持しながら、コードでワークフローを定義し、他の Functions を呼び出す Durable Task フレームワークの拡張機能である <a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-overview" target="_blank">Durable Functions</a> をプレビューしました。 このDurable Functions、関数チェーン、Map-Reduce、非同期 HTTP API、人間による入力オーケストレーションなど、いくつかの設計パターンが可能になります。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/On-NET/Chris-Gillum-Serverless-workflows-with-Durable-Functions/player" width="960"></iframe></p>
+
+
+  <p>本日、&rsquo;一 <strong>般提供Durable Functions発表しました</strong>。 これは最もAzure Functionsなプレビュー機能であり、多くのお客様からのフィードバックとコミュニティへの貢献がリポジトリに直接 <a href="https://github.com/Azure/azure-functions-durable-extension" target="_blank">当てはめ込まれています</a>。 ご投稿の皆様に感謝します。</p>
+
+
+  <p>開発者は、JavaScript で通常の関数を作成できるだけでなく、JavaScript でオーケストレーター関数を記述する機能も用意されています。 この機能は、Azure Functions v2 ランタイムが必要なので、パブリック プレビューの場合なので、Durable Functions で <a href="https://github.com/Azure/azure-functions-durable-js" target="_blank">Node.js</a> のレポポを確認し、フィードバックをお寄せください。</p>
+
+
+  <h2>関数の監視エクスペリエンスの強化</h2>
+
+
+  <p>ミッション クリティカルなサーバーレス アプリを実稼働環境で実行している開発者には、確固として監視エクスペリエンスが必要です。 このAzure Functions、この豊富な監視エクスペリエンスは Application インサイト で既に提供されています。ただし、現在は<strong>、Application インサイト</strong> との統合を進め、既定の監視エクスペリエンスにしています。</p>
+
+
+  <p>関数アプリを作成&rsquo;するときに、既定で対応する Application インサイト インスタンスが作成され、Azure portal の [関数の監視] ブレードには Application インサイト が使用されます。 この改良されたブレードは、より高速に動作し、信頼性が高く、拡張性が高くなります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8881e7d2-127d-4639-952d-581383dc779b.gif"><img alt="FunctionsAIMonitoring" border="0" height="1228" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f34b8329-6762-434a-b20e-beb612fd3e56.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="FunctionsAIMonitoring" width="1944"></a></p>
+
+
+  <p>Application インサイト テレメトリにより、表示される実行カウンターが大規模でも正確に表示され、ログは構成可能なサンプラーでサンプリングされ、課金とログの詳細度のバランスを予測可能に調整できます。 背後で何が起&rsquo;こっているかを知りたい場合は、 これらのグラフの背後にあるクエリをこっそり見て、そのデータの詳細を確認したり、他の情報を集計したりすることができます。</p>
+
+
+  <p>新しい関数または既存の<a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring" target="_blank"></a>関数で、この強化された監視エクスペリエンスを有効にする方法に関する詳細を確認し、今すぐ試してみてください。</p>
+
+
+  <h2>Functions 診断に関する問題を診断して解決する</h2>
+
+
+  <p>サーバーレスのお客様には、コードが期待したとおりに&rsquo;動作しないケースも発生します。 Functions では、問題の診断と解決を容易にするために、インテリジェントでガイド付きのトラブルシューティング エクスペリエンスである App Service <strong>Diagnostics</strong> を活用しています。 この機能を使用すると、Genie (関数のエラーとパフォーマンスの問題を診断するのに役立つ問題のカテゴリを提案する仮想アシスタント) と対話できるので、トラブルシューティングをより簡単で興味深いものにしました。</p>
+
+
+  <p>たとえば、 <strong>Functions</strong> の正常性チェックをクリックして、呼び出しの数と、過去 24 時間の CPU とメモリの使用量を分析できます。 &rsquo;&rsquo;関数が期待通りに実行されていない場合、スケーリングの問題が発生している場合、または安心したいだけの場合は、関心のある問題のカテゴリに対応するタイル ショートカットを選択し、この診断ツールによって提供される分析情報を確認します。</p>
+
+
+  <p>Functions ポータルで [問題の診断と解決] を<strong></strong>選択して Functions 診断 (プレビュー) を確認し、詳細についてはドキュメント<a href="https://docs.microsoft.com/azure/app-service/app-service-diagnostics" target="_blank">を参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a6a65b7-abc4-40d2-8d1e-bb6a69838ae0.png"><img alt="FunctionsDiagnostics" border="0" height="432" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6216285-2d94-4ee5-a44c-d590bb3aa650.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="FunctionsDiagnostics" width="777"></a></p>
+
+
+  <h2>サーバーレスは、単なるAzure Functions</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/event-grid/" target="_blank">Azure Event Grid</a> 、一般提供を発表して以来、大きな導入も示されています。 イベント駆動型アーキテクチャで達成したいことをフィードバックし続け、ユーザー エクスペリエンスの向上を常に目指しています。 それを念頭に置いて、現在は、Event Grid とネイティブに統合される Azure サービスの拡張された一覧と、クラウド間の相互運用を可能にする標準を深く受け入れる新しい機能を共有できます。 これらのお知らせの詳細については、 <a href="https://aka.ms/egbuild2018" target="_blank">Event Grid</a> のお知らせのブログ投稿と、Event Grid の <a href="https://aka.ms/cloudeventsblog" target="_blank">CNCF CloudEvents</a> サポートに関する先週の投稿を参照してください。</p>
+
+
+  <p>最後に、イベント駆動型ソリューションに最適な Event Grid を作成するための取り組<strong></strong>みの一環として、さまざまなサービスから統合リソースを作成するための新しいイベントファースト エクスペリエンスを見つけるのが簡単です。 これにより、事前構築済みのシナリオを<a href="https://azure.microsoft.com/en-us/services/logic-apps/" target="_blank"></a>選択するか、トリガーから開始して、使用するイベント ソースに対して事前構成されたこのロジック アプリを作成することで、ロジック アプリをすばやく作成できます (&rsquo;BLOB Storage トリガーとします)。 この新機能の便利な機能は、消費リソースを事前に作成することなく、さまざまなイベント駆動型シナリオを簡単に試し、イベントから始め、ニーズに合ったシナリオを選択できるというものです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fe8a8b2a-ed3d-434e-ac04-126792e6b7a4.png"><img alt="logicappseventgrid" border="0" height="3212" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b09f629a-7c70-4a86-b0b9-8a09604ebc34.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="logicappseventgrid" width="3814"></a></p>
+
+
+  <p>すべてのユーザーが&rsquo;サーバーレスを気に入っています。最新の機能を試すたびに、 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureFunctions" target="_blank">フォーラム</a>、 <a href="https://stackoverflow.com/questions/tagged/azure-functions" target="_blank">StackOverFlow</a>、 <a href="https://feedback.azure.com/forums/355860-azure-functions/filters/top" target="_blank">または Uservoice</a> を通じてチームにお問い合わせください。</p>
+
+
+  <p>少しのコンペティションを&hellip;試す必要がある場合は、何か特別な動機が必要ですか? 5 月 2 日に申請の受け入れを開始し、お気に入りのサーバーレス テクノロジを使用して最もクールな IoT アプリを構築しながら、いくつかのお金を得る機会を得たサーバーレス オンライン ハッカソンで <a href="https://azurehacks.devpost.com/" target="_blank">IoT</a> に参加してください。 これは、お金を獲得する機会であるだけでなく、Azure で構築している優良なサーバーレス ソリューションに関する言葉を広め、Azure ブログで優良なプロジェクトを取り上げるので、お客様を待っています。 チャンス&rsquo;をお見逃しなく。</p>

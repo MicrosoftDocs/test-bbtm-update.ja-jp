@@ -1,0 +1,105 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dedc14cdebcf557ceeb2d1fe1b04fceaa8f8d4dd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905199"
+Slug: office-licensing-service-and-azure-cosmos-db-part-1-migrating-the-production-workload
+Title: 'Office ライセンス サービスと Azure Cosmos DB パート 1: 実稼働ワークロードの移行'
+Summary: 'この投稿は、組織が Azure Cosmos DB を使用して現実世界のニーズを満たす方法と、それが彼らに与える違いについて、2 部構成のシリーズのパート 1 です。 '
+Content: >-
+  <p><i>この投稿は、</i>組織が現実世界のニーズを満たすために <i>Azure Cosmos DB&rsquo; を使用する方法と、組織に対する違いについて、2 部構成のシリーズのパート 1 です。パート 1 では、Microsoft Office Licensing Service チームが Azure Table Storage から Azure Cosmos DB に移行するための課題と、その実稼働ワークロードを新しいサービスに移行する方法について説明します。パート </i><a href="https://azure.microsoft.com/blog/office-licensing-service-and-azure-cosmos-db-part-2-improved-performance-and-availability" target="_blank"><i>2 では</i></a><i>、チームの取り組みによって得られた結果を&rsquo;確認します。</i></p>
+
+
+  <h2>課題: 制限されたスループットと他の機能</h2>
+
+
+  <p>Microsoft では、Office ライセンス サービス (OLS) は、Windows、Mac、タブレット、モバイルを含む世界中の何百万ものデバイスで Microsoft Office&mdash; クライアントのアクティブ化をサポートしています。 コンピューター ID、製品 ID、アクティブ化数、有効期限などの情報が格納されます。 OLS は、世界中のユーザーが 1 日あたり 2 億 4,000 万回を超える時間を超える Office クライアントによってアクセスされます。ライセンスのアクティブ化時に最初の呼び出しがクライアントから送信され、その後、2 日から 3 日ごとに、クライアントがライセンスがまだ有効であることの確認が行われます。</p>
+
+
+  <p>最近まで、OLS はバックエンド データ ストアに Azure Table Storage を使用しました。このストアには、コンシューマー、エンタープライズ、OEM の事前インストールなど、異なるライセンス カテゴリに使用される別のテーブルを使用して、18&mdash; のテーブルに分散された約 5 TB のデータが含まれています。</p>
+
+
+  <p>2018 年の初め、何年ものワークロードの増加が続いた後、OLS サービスは、Table Storage よりも多くのスループットが必要な時点に近づき始めました。 問題が解決されなかった&rsquo;場合、Table Storage の固有のスループット制限は、世界中の何百万人ものユーザーの利益に対する全体的なサービス品質の脅威を与え始める可能性があります。</p>
+
+
+  <p>OLS 開発チームを率い、Microsoft のソフトウェア エンジニアである Danny  いは、次の説明を行います。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;各 Table ストレージ アカウントの最大スループットは固定され、その後&rsquo;はスケーリングされません。2018 年には、OLS は使用可能なストレージ スループットが低くなっていたので、各テーブルを独自の Table Storage アカウントに既に保持していたので、より多くのスループットを得て、お客様からの要求を増やす方法が得られませんでした。OLS サービスのピーク使用時間中に調整されたので、すぐによりスケーラブルなストレージ バックエンドを見つける必要がありました。</em></p>
+
+
+  <p style="margin-left: 40px;"><em>OLS チームは、ストレージのニーズに対する長期的なソリューションを探す上で、追加のスループット以上のスループットを必要としました。サービスのコピーをユーザーの近くに配置することで待機時間を最小限に抑える手段として、世界中の異なるリージョンに OLS をデプロイする機能が必要でした。ただし、Table Storage では、geo レプリケーション機能は非常に制限されています。&rdquo;</em></p>
+
+
+  <p>OLS チームは、ディザスター リカバリーの向上も望みでした。 Table Storage では、すべてのデータを複数のリージョン内に格納米国。 すべての読み取りと書き込みはプライマリ リージョンに行き、2 つのバックアップ リージョンへのレプリケーションに SLA が設定され、最大 60 分かかる可能性があります。 プライマリ リージョンが使用できなくなった場合は、人間の介入が必要になり、データが失われる可能性があります。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;リージョンがダウン&mdash;した場合、30 分から 60&rdquo; 分のダウンタイムが発生し、同様のデータ損失期間が発生する実際のパニック状態が発生します。、 はと言います。 </em></p>
+
+
+  <h2>ソリューション: Azure Cosmos DB へのリフト アンド シフト移行</h2>
+
+
+  <p>OLS チームは<a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">、Azure Cosmos DB</a> への移行を選択しました。Table Storage&mdash; からリフトアンドシフト移行パスを提供しました。ターンキー グローバル分散、低待機時間、事実上無制限のスケーラビリティ、保証された高可用性など、Premium バックエンド サービスを簡単にスワップインできます。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;最初に&rsquo;&rdquo;、新しいストレージ バックエンドが必要だと気付いた時点で、新しいコードがどれだけ必要になるかわからなかったというのが、の&ldquo;話です。Azure のいくつかのストレージ オプションを確認しました。Azure Cosmos DB は、すべてのニーズを満たす唯一のオプションでした。また、この<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/table-introduction" target="_blank">Table API</a>、新&rsquo;しいコードを記述する必要すらあまり必要はありません。多くの点で、必要&mdash;なスケーラビリティを実現する理想的なリフトアンドシフトであり、ほとんど作業を行う必要がない他の多くの利点がありました。&rdquo;</em></p>
+
+
+  <h3>設計上の決定</h3>
+
+
+  <p>AZURE Cosmos DB をデプロイする準備では、OLS チームがいくつかの基本的な設計上の決定を行う必要があります。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels" target="_blank">整合性レベル。</a>読み取り整合性と待機時間、可用性、スループットの基本的なトレードオフに対処するためのオプションをチームに提供しました。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;一部のビジネス ロジックでは、書き込み直後にストレージから読み取る必要があるという理由で、強力な一貫性を選択&rdquo; しました。、</em></p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/partitioning-overview" target="_blank">パーティション キー</a>。Azure Cosmos DB&mdash; コンテナー内の項目を論理パーティションに分割する方法を指定し、データ ストアの最終的なスケーラビリティを決定します。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;Azure Cosmos DB Table API では、パーティション キーは Table Storage&mdash;&rdquo; に存在していたものに自然にマップされます。そうして、同じパーティション キーを再利用できたと言います。</em></p>
+
+
+  <h3>移行プロセス</h3>
+
+
+  <p>Azure Cosmos DB ではデータ移行ツールが提供されましたが、その時点での使用には、OLS&rsquo; サービスのダウンタイムが伴う可能性がありましたが、これはオプションでなかったでしょう。 <i>(</i><em>注: 現在、ダウンタイムなしで <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/cosmosdb-migrationchoices" target="_blank">ライブ マイグレーションを実行できます</a>。 </em>この問題に対処するために、OLS チームは、次の 3 つのコンポーネントで構成されるデータ移行ソリューションを構築しました。</p>
+
+
+  <ol>
+      <li>Table Storage から Azure Cosmos DB に現在のデータを移動する Data Migrator。</li>
+      <li>Table Storage と Azure Cosmos DB の両方に新しいデータベースの変更を書き込むデュアル ライター。</li>
+      <li>Table Storage と Azure Cosmos DB の間の不一致をキャッチする整合性チェッカー。</li>
+  </ol>
+
+
+  <p>Data Migrator コンポーネントは、Azure Cosmos DB チームによって Microsoft のお客様に提供<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/table-import" target="_blank">されたのと同じコンポーネントに基づいて作成されます</a>。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;ダウンタイムの問題を解決するために、OLS サービス自体と同じ実稼働サーバー上で実行されるデュアル ライターおよび整合性チェッカー コンポーネントを追加&rdquo; しました。</em></p>
+
+
+  <p>OLS チームは、2019 年後半に移行プロセスを完了しました。 現在、Azure Cosmos DB は Table Storage と同じ 3 つのリージョンにデプロイされています。これは、チームが移行中に Table Storage トポロジを可能な限り密接に模倣するために行いました。 同様に、米国中北部はプライマリ (読み取り/書き込み) リージョンですが、他の 2 つのリージョンは現在読み取り専用です。 Azure Cosmos DB 環境には、5 TB のデータを含む 18 個のテーブルが含まれており、1 秒あたり約 100 万要求ユニット <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units" target="_blank">(RU/秒)</a> が消費されます。これは、Azure Cosmos DB で保証されたデータベース スループットを予約するために使用される単位です。</p>
+
+
+  <p>移行が完了したら、チームはマルチマスター機能を有効<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-multi-master" target="_blank"></a>にし、プライマリ機能ではなく、すべてのリージョンを書き込み可能にする予定です。 &mdash;また、OLS データのコピーをユーザーの近くに置くことで、Office クライアントの観点から待ち時間を短縮する手段として、バックエンド ストアを世界中の追加リージョンにレプリケートすることで、グローバルにスケールアウトする予定です。</p>
+
+
+  <p>この<a href="https://azure.microsoft.com/blog/office-licensing-service-and-azure-cosmos-db-part-2-improved-performance-and-availability" target="_blank">シリーズのパート 2</a>&rsquo; では、Azure Cosmos DB 上に新しい Office ライセンス サービスを構築するためのチームの取り組みによって得られた結果を確認します。</p>
+
+
+  <h2>概要 Azure Cosmos DB を使用する</h2>
+
+
+  <ul>
+      <li>
+      <p><u><a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">Azure Cosmos DB にアクセスします</a></u>。</p>
+      </li>
+      <li>「<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/table-introduction" target="_blank">Azure Cosmos DB Table API の概要」を参照してください</a>。</li>
+  </ul>

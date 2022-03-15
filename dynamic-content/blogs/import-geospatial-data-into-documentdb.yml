@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1e1e398495526bc8f96392398d92fb34d5ab546c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904766"
+Slug: import-geospatial-data-into-documentdb
+Title: 地理空間データを DocumentDB にインポートする
+Summary: データ移行ツールの地理空間サポートについてお知らせします。
+Content: >-
+  <p><a href="https://www.documentdb.com/sql/demo#geospatial"><img alt="Data_Migration_Blog_4" border="0" height="492" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e692320-ca29-43f7-8278-805fc04359cc.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Data_Migration_Blog_4" width="703"></a></p>
+
+
+  <p>Azure DocumentDB データ移行ツールは、さまざまなソースからのインポート、および JSON としてのデータのエクスポートをサポートするオープンソースソリューションです。 データ移行ツールの地理空間サポートについてお知らせします。</p>
+
+
+  <h2>地理空間インデックス作成</h2>
+
+
+  <p>データ移行ツールを使用して DocumentDB に GeoJSON をインポートし、ドキュメント &rsquo; の地理空間プロパティにインデックスを作成できるようになりました。 地理空間データを SQL から DocumentDB にインポートする場合、データ移行ツールは地理空間データを GeoJSON に自動的に変換します。 DocumentDB は、組み込みの地理空間関数を使用したリアルタイムクエリ ( <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/#built-in-functions">ST_DISTANCE</a> と <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/#built-in-functions">ST_WITHIN</a>をサポートしています。 [インデックス作成ポリシー] テキストボックスを右クリックしてアクセスできる、既定のインデックス作成ポリシーと範囲インデックス作成ポリシーの両方が、自動的に地理空間インデックスを有効にします。</p>
+
+
+  <p><img alt="Data_Migration_Blog_5" border="0" height="450" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7042c498-489a-4a17-9124-91ff25be8c43.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Data_Migration_Blog_5" width="640"></p>
+
+
+  <p>DocumentDB で空間データのインデックスを作成することにより、データベースに対して近接クエリを実行できます。 たとえば、現在の場所の近くにあるすべてのコーヒーショップを検索したり、ワシントン州内のすべてのレストランを検索したりできます。</p>
+
+
+  <p>更新された移行ツールのソースコードは<a href="https://github.com/azure/azure-documentdb-datamigrationtool">GitHub</a>で入手できます。更新されたコンパイル済みのバージョンは、 <a href="https://www.microsoft.com/en-us/download/details.aspx?id=46436">Microsoft ダウンロードセンター</a>から入手できます。 ツールを使用する方法の詳細については、各データソースオプションのコマンドラインサンプルを含む、 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/">DocumentDB のデータのインポート</a>に関する記事を参照してください。</p>
+
+
+  <p>今すぐ、 <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">無料試用版</a> にサインアップして <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-create-account/">documentdb アカウント</a>を作成し、documentdb をお試しください。 ヘルプが必要な場合、またはご質問がある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">StackOverflow の開発者フォーラム</a> でご連絡いただくか、DocumentDB エンジニアリングチームとの1:1 チャットをスケジュールしてください。</p>
+
+
+  <p>最新の DocumentDB のニュースと機能については、Twitter <a href="https://twitter.com/DocumentDB">@DocumentDB</a> でフォローして最新情報を入手してください。</p>

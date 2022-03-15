@@ -1,0 +1,185 @@
+### YamlMime:Yaml
+ms.openlocfilehash: da8ec53672c5be0418c651e773bb367ecd9472a7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910911"
+Slug: best-practices-for-alerting-on-metrics-with-azure-database-for-postgresql-monitoring
+Title: Azure Database for PostgreSQL 監視によるメトリックに関するアラートのベストプラクティス
+Summary: 開発者、データベース管理者、サイト信頼性エンジニア、または社内の DevOps professional でも、データベースの監視は、PostgreSQL サーバーの信頼性、可用性、およびパフォーマンスを維持するうえで重要な部分です。
+Content: >-
+  <p>開発者、データベース管理者、サイト信頼性エンジニア、DevOps professional のいずれでも、データベースの監視は、PostgreSQL サーバーの信頼性、可用性、パフォーマンスを維持するうえで重要な部分です。 Microsoft Azure Database for PostgreSQL では、サーバーの動作に関する洞察を得るためにさまざまな<a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-monitoring" target="_blank">メトリックを利用でき</a>ます。 また、Azure portal または Azure CLI を使用して、 <a href="https://docs.microsoft.com/en-us/azure/postgresql/howto-alert-on-metric" target="_blank">これらのメトリックにアラートを設定</a> することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dbf887e5-6efd-4952-90de-ab9e762212e4.png"><img alt="MyServer - Alert rules" border="0" height="663" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6bcc596-1885-4c89-822d-8b29ef393806.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="MyServer-アラートルール" width="1379"></a></p>
+
+
+  <p>従来のオンプレミスアプローチから発展してハイブリッドまたはクラウドネイティブに発展する最新のアプリケーションでは、ハイブリッドクラウドとパブリッククラウドでの監視戦略を成功させるために、いくつかのベストプラクティスを採用する必要があります。 ここでは、PostgreSQL サーバーで監視データを使用するためのベストプラクティスの例と、これらのさまざまなメトリックに基づいて改善することを検討できる領域について説明します。</p>
+
+
+  <h2>アクティブな接続</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 合計接続数の80% が30分以上になると、5分ごとにチェックされます。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>アクティブな接続が、過去30分間の合計制限の80% であることがわかった場合は、ワークロードに基づいているかどうかを確認します。</li>
+   <li>負荷が予想される場合は、 <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-pricing-tiers" target="_blank">価格レベルまたは仮想コア</a>をアップグレードすることで、アクティブな接続の制限を増やすことができます。 各 SKU の <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-limits" target="_blank">アクティブな接続の制限を確認</a> できます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/761718a4-2c74-4d69-8e1c-0a9f28e8a204.png"><img alt="Active Connections" border="0" height="1190" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/76af9050-6ead-4a59-a4b5-d7f42d275932.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アクティブな接続" width="2186"></a></p>
+
+
+  <h2>失敗した接続</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 過去30分間に失敗した接続数が5分ごとに確認されます。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>過去30分間に発生した接続要求の失敗が表示された場合は、ログで失敗の理由を確認してください。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f5ad741-4070-49fc-a852-95834f5dfb77.png"><img alt="Failed Connections" border="0" height="1188" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f630f8fb-0a7f-431d-945f-66a29e7e127a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="失敗した接続" width="2170"></a></p>
+
+
+  <ul>
+   <li>これがユーザーエラーである場合は、適切な操作を実行します。 たとえば、認証エラーが発生した場合は、ユーザー名とパスワードを確認します。</li>
+   <li>エラーが SSL に関連している場合は、 <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-ssl-connection-security" target="_blank">ssl 設定</a> と入力パラメーターが正しく構成されていることを確認します。
+   <ul>
+    <li>例: psql &quot; sslmode = verify-ca sslrootcert = root .crt host = mydemoserver. postgres. database. azure dbname = postgres user =mylogin@mydemoserver&quot;</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h2>CPU の割合またはメモリの割合</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 5 分間または95% の場合、2時間以上の場合は100%。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>CPU またはメモリの使用率が100% に達した場合は、アプリケーションのテレメトリまたはログを確認して、エラーの影響を理解してください。</li>
+   <li>アクティブな接続の数を確認します。 接続の <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-limits" target="_blank">制限</a>を確認します。 アプリケーションが最大接続数を超えた場合、または制限に達している場合は、コンピューティングをスケールアップすることを検討してください。</li>
+   <li>アプリケーションを管理し、ワークロードを最適化するためのもう1つのツールとして、<a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-query-performance-insight" target="_blank">クエリパフォーマンスインサイト</a>があります。 <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-query-store" target="_blank">クエリストア</a>とその<a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-query-store-scenarios" target="_blank">使用シナリオ</a>を参照してください。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1242e9a0-7646-4894-8fbc-19a9cc766ce5.png"><img alt="Query Performance Insight" border="0" height="720" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f3d1278-0aa5-4fb4-9f65-1d526fa51c39.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Query Performance Insight" width="1340"></a></p>
+
+
+  <h2>IO の割合</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値):60 分以上の使用率が90% に達しています。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>1時間以上の IOPS が90% であることがわかっている場合は、アプリケーションのワークロードに基づいているかどうかを確認します。</li>
+   <li>負荷が高いと予想される場合は、記憶域を増やすことで IOPS の上限を増やします。 <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-pricing-tiers" target="_blank">IOPS マッピングへの Storage</a>を次に示します。</li>
+  </ul>
+
+
+  <h2>ストレージ</h2>
+
+
+  <p>プロビジョニングするストレージは、使用している Azure Database for PostgreSQL サーバーで使用可能なストレージ容量です。 ストレージは、データベース ファイル、一時ファイル、トランザクション ログ、および PostgreSQL サーバー ログに使用されます。 プロビジョニングするストレージの合計容量によって、ご利用のサーバーで使用できる I/O 容量も決まります。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top">&nbsp;</td>
+     <td valign="top"><strong>Basic</strong></td>
+     <td valign="top"><strong>汎用</strong></td>
+     <td valign="top"><strong>メモリの最適化</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージの種類</td>
+     <td valign="top">Azure Standard Storage</td>
+     <td valign="top">Azure Premium Storage</td>
+     <td valign="top">Azure Premium Storage</td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージ サイズ</td>
+     <td valign="top">5 GB ~ 1 TB</td>
+     <td valign="top">5 GB ~ 4 TB</td>
+     <td valign="top">5 GB ~ 4 TB</td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージの増分サイズ</td>
+     <td valign="top">1GB</td>
+     <td valign="top">1GB</td>
+     <td valign="top">1GB</td>
+    </tr>
+    <tr>
+     <td valign="top">IOPS</td>
+     <td valign="top">変数</td>
+     <td valign="top">
+     <p>3IOPS/GB</p>
+
+     <p>最小 100 IOPS</p>
+
+     <p>最大 6000 IOPS</p>
+     </td>
+     <td valign="top">
+     <p>3IOPS/GB</p>
+
+     <p>最小 100 IOPS</p>
+
+     <p>最大 6000 IOPS</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>サーバーの作成中および作成後に、ストレージ容量を追加できます。 Basic レベルでは、IOPS 保証は提供されません。 汎用およびメモリ最適化された価格レベルでは、IOPS は、プロビジョニングされたストレージサイズを 3 ~ 1 の比率でスケーリングします。</p>
+
+
+  <h2>ストレージの割合</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値):</p>
+
+
+  <ul>
+   <li>10 GB 未満、80% しきい値。</li>
+   <li>100 GB 未満、90% しきい値。</li>
+   <li>それ以外のすべての95% のしきい値。</li>
+  </ul>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>サーバーがプロビジョニングされた記憶域の制限に達している場合、すぐに領域が不足し、読み取り専用に設定されます。</li>
+   <li>使用状況を監視します。また、より多くの記憶域をプロビジョニングして、ファイルやログを削除することなくサーバーを使用し続けることもできます。</li>
+  </ul>
+
+
+  <p>すべてを試しても、上記の監視のヒントによって解決策が得られない場合は、 <a href="https://portal.azure.com/#create/Microsoft.Support" target="_blank">Microsoft Azure サポート</a>に問い合わせ&#39;てください。</p>
+
+
+  <h2>謝辞</h2>
+
+
+  <p>Anandsagar Kothapalli、Bassu Hiremath、Kalyan Sayyaparaju、Parikshit Savjani、Praveen Barli は、この投稿への投稿に感謝します。</p>

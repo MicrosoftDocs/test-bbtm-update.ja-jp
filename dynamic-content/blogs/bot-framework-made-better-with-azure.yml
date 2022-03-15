@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ea7092a9044005b0ab9432dd98095c06a57f9aaa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904257"
+Slug: bot-framework-made-better-with-azure
+Title: Azure により優れたボットフレームワーク
+Summary: 先週のビルドで、Microsoft はボットフレームワークと呼ばれるすばらしい新しいテクノロジを発表しました。 これにより、開発者は、自然な方法でユーザーと対話するためのインテリジェントボットを作成できます。
+Content: >-
+  <p>先週のビルドで、Microsoft は <a href="https://dev.botframework.com/">ボットフレームワーク</a>と呼ばれるすばらしい新しいテクノロジを発表しました。 これにより、開発者は、自然な方法でユーザーと対話するためのインテリジェントボットを作成できます。 これらの新しい種類のテクノロジの可能性は、Azure サービスと組み合わせて使用すると非常に大きくなります。</p>
+
+
+  <p>1つの週末に、ワークフロー (Logic Apps)、api (Web Apps)、セキュリティ (Azure AD)、オンプレミスシステム (ハイブリッド接続)、Machine Learning (<a href="https://www.luis.ai/">luis.ai</a>) を活用して、仕事の生産性向上を実現する bot を作ることができました。 このようなシステムを短時間で構築できる唯一の理由は、Azure のオファリングの機能です。</p>
+
+
+  <p>Azure がすぐに利用できる最先端テクノロジの多くは、非常に優れています。 Web サーバーの構築や、数週間を要した統合ワークフローなどのタスクは、数秒で実現できるようになりました。 Azure サービスをバンドルすると、開発者は数か月前であっても、長年にわたって提供されていないソリューションを作成できます。 Bot Framework と Azure の機能により、週末に bot を構築したシナリオは次のようになりました。</p>
+
+
+  <p>Visual Studio Team Services に多くの時間を費やしています。 &#39;私は、多くの場合、バグの状態の確認、プロダクトバックログの管理、または新しい項目の作成を行っています。 私は、Azure を基盤とするボットを構築しました。これにより、自然な音声のよう &quot; な音声を使用して、シリアル化の問題に関するバグを検索することができます。 &quot;アクションまたはクエリを実行する必要がある場合は常に、ロジックを処理し、カスタム API アプリを通じて Team Foundation Server に統合するロジックアプリワークフローをトリガーします。 ソリューションがセキュリティで保護されていることを確認したいので、bot とアプリに認証 Azure Active Directory 追加しました。 Azure Machine Learning 音声インテリジェンスを強化します。</p>
+
+
+  <p><img alt="Bot Diagram" border="0" height="325" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2a31dbd-86ec-4e67-994c-70fabcc08114.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Bot の図" width="610"></p>
+
+
+  <p>Azure がこのシナリオを可能にするだけでなく、この複雑な問題を各アクションの実行に最適な個々の部分に分離できるようになりました。 言語検出で特定のインテントの検出に失敗したことがわかった場合は、luis.ai にログインして、運用環境のコードに触れたり再デプロイしたりしなくても、モデルを再トレーニングすることができます。 ワークフローによって返される項目の数を後で増やすことにした場合、または Team Foundation Server 移動した場合は、単にロジックアプリを開いて、自分のワークフローのパラメーターを変更できます。 説明しませんが、他のシナリオで構築した部分を使用することもできます (たとえば、このシナリオ用に構築したピースを簡単に利用できる特定のフォルダーにメールを配置すると、バグが発生するロジックアプリがあります)。</p>
+
+
+  <p>独自のボットを構築し、node.js または C# web アプリを作成する &rsquo; 場合は、次の<a href="https://docs.botframework.com/sdkreference/csharp/dialogs.html">手順</a>を確認してください。 Machine learning の統合は、SDK に組み込まれています。 ビルドが完了すると、 &quot; 1 回のクリックでボットアプリを Azure に発行 &quot; して、さまざまなクライアントから接続できるようになります (詳細について <a href="https://docs.botframework.com/connector/getstarted/#navtitle">は、こちら</a>を参照してください)。 最後に、 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-logic-http-endpoint/">Logic Apps を呼び出し可能なエンドポイントとして</a>使用して、bot からワークフローを分離し、SQL、Blob、Twitter などのさまざまなサービスや統合から必要な結果を返します。 最後に、bot をセキュリティで保護するために、ユーザーが<a href="https://msdn.microsoft.com/en-us/library/azure/dn645545.aspx">Azure Active Directory</a>に対して最初に認証を行うように要求することができます。 完成したソリューションを<a href="https://github.com/jeffhollan/BotFrameworkSample">GitHub</a>に投稿&#39;ました。</p>
+
+
+  <p>ハッキングを週末に行った後は、セキュリティで保護された、スケーラブルでインテリジェントなボットを作成できました。</p>
+
+
+  <p><img alt="Telegram" border="0" height="305" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4db11619-33b0-4b26-a3ab-fc1de09bc310.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Telegram" width="199"></p>
+
+
+  <p>これは、Azure での新機能の導入、迅速な開発、および複雑な問題の解決に対する権限のほんの一例です。 ご質問がある場合は、以下のコメントセクションで自由にご連絡ください。</p>

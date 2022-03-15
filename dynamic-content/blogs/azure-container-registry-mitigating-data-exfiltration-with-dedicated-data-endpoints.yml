@@ -1,0 +1,147 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ffe422597acb718777a282a14b23e01e8c7ec603
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904291"
+Slug: azure-container-registry-mitigating-data-exfiltration-with-dedicated-data-endpoints
+Title: 'Azure Container Registry: 専用データ エンドポイントを使用したデータの侵入を軽減する'
+Summary: Azure Container Registry専用のデータ エンドポイントを発表し、厳しい範囲のクライアント ファイアウォール規則を特定のレジストリに対して有効にし、データの侵入の問題を最小限に抑えます。
+Content: >-
+  <p>Azure Container Registry専用のデータ エンドポイントを発表し、厳しい範囲のクライアント ファイアウォール規則を特定のレジストリに対して有効にし、データの侵入の問題を最小限に抑えます。</p>
+
+
+  <p>レジストリからコンテンツをプルするには、次の 2 つのエンドポイントが必要です。</p>
+
+
+  <ul>
+      <li><strong>レジストリ エンドポイント (</strong>ログイン URL と呼ばれることが <strong>多い</strong>) は、認証とコンテンツの検出に使用されます。<br>
+  のようなコマンドは <code>docker pull contoso.azurecr.io/hello-world</code> 、要求された成果物を表すレイヤーを認証してネゴシエートする REST 要求を行います。</li>
+      <li><strong>データ エンドポイントは、</strong> コンテンツ レイヤーを表す BLOB を提供します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f36b4173-bd7d-4a50-aaee-b6138608beee.png"><img alt="Registry with two endpoints" border="0" height="214" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/65527b4a-84d5-4864-92e5-78da3ecba512.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="640"></a></p>
+
+
+  <h2>レジストリで管理されるストレージ アカウント</h2>
+
+
+  <p>Azure Container Registryはマルチテナント サービスで、データ エンドポイントストレージ アカウントはレジストリ サービスによって管理されます。 マネージド ストレージには、負荷分散、コンテンツ分割の問題、より高い同時コンテンツ配信のための複数のコピー、geo レプリケーションを使用した複数リージョンのサポートなど、多くの利点 <a href="https://aka.ms/acr/geo-replicatin" target="_blank">があります</a>。</p>
+
+
+  <h2>Azure Private Link仮想ネットワークのサポート</h2>
+
+
+  <p>Azure Container Registry最近発表 <a href="https://aka.ms/acr/privatelink" target="_blank">Private Link</a>、Azure Virtual Networks からのプライベート エンドポイントをマネージド レジストリ サービスに配置できます。 この場合、プライベート IPs を使用して、仮想ネットワーク内からレジストリエンドポイントとデータ エンドポイントの両方にアクセスできます。</p>
+
+
+  <p>その後、パブリック エンドポイントを削除して、マネージド レジストリとストレージ アカウントをセキュリティで保護し、仮想ネットワーク内からアクセスできます。<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f111584-1161-4e8d-9db3-739e10fcc1e7.png"><img alt="ACR with Private Link" border="0" height="288" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33de79fd-7137-4f37-8a62-4261cd7f8dbc.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>残念ながら、仮想ネットワーク接続は常&rsquo;にオプションではありません。</p>
+
+
+  <h2>クライアント ファイアウォール規則とデータの侵入リスク</h2>
+
+
+  <p>オンプレム ホスト、IoT デバイス、カスタム ビルド エージェントからレジストリに接続する場合、または Private Link がオプションではない可能性がある場合は、クライアント ファイアウォール規則が適用され、特定のリソースへのアクセスが制限される場合があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98f84c9b-7429-431f-a79e-ea87e1273601.png"><img alt="Client firewall rules, data exfiltration risk" border="0" height="214" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/55179d2f-38b2-4675-9d6b-9518deb6b4ab.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="640"></a>&nbsp;<br>
+
+  お客様がクライアント ファイアウォール構成をロックダウンすると、すべてのストレージ アカウントにワイルドカードを含むルールを作成する必要があるという気付きを受け、データの侵入に関する懸念が生じ、 悪いアクターは、ストレージ アカウントに書き込み可能なコードをデプロイする可能性があります。</p>
+
+
+  <p>データの侵入に関する懸念を軽減Azure Container Registry専用のデータ エンドポイントを使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81cc04ac-7b53-4255-881d-460aa8aa4d12.png"><img alt="Client firewall rules, data exfiltration exploit" border="0" height="303" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7a6b518-3270-429e-bdad-46716d44e5ed.png" style="border-image: none; display: inline; background-image: none;" title="" width="640"></a></p>
+
+
+  <h2>専用データ エンドポイント</h2>
+
+
+  <p>専用データ エンドポイントを有効にすると、レジストリ ドメインを表す完全修飾ドメイン名を使用して、Azure Container Registry サービスからレイヤーが取得されます。 任意のレジストリが geo レプリケートされる可能性がある場合は、リージョン パターンが使用されます。</p>
+
+
+  <p><code>[registry].[region].data.azurecr.io.</code></p>
+
+
+  <p>Contoso の例では、近くのレプリカを持つローカル リージョンをサポートする複数のリージョン データ エンドポイントが追加されます。</p>
+
+
+  <p>専用データ エンドポイントでは、不良アクターが他のストレージ アカウントへの書き込みをブロックされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30be32e5-cc0d-4425-a766-9e79b147cc26.png"><img alt="Dedicated data endpoints, data exfiltration risk mitigated" border="0" height="267" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1cd75a80-2553-4ee0-8573-f12240758069.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="640"></a></p>
+
+
+  <h2>専用データ エンドポイントの有効化</h2>
+
+
+  <p><strong>注</strong>: 専用データ エンドポイントに切り替えた場合、既存の *.blob.core.windows.net エンドポイントへのファイアウォール アクセスを構成しているクライアントに影響を与え、プル エラーが発生します。 クライアントが一貫したアクセス権を持つには、新しいデータ エンドポイントをクライアント ファイアウォール規則に追加します。 完了すると、既存のレジストリで を使用して専用のデータ エンドポイントを有効にできます <code>az cli</code>。</p>
+
+
+  <p><a href="https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank">az cli バージョン</a> 2.4.0 以上を使用して、<a href="https://docs.microsoft.com/cli/azure/acr?view=azure-cli-latest#az-acr-update" target="_blank">az acr update コマンドを実行</a>します。</p>
+
+
+  <p><code>az acr update --name contoso --data-endpoint-enabled</code></p>
+
+
+  <p>geo レプリケートされたレジストリのリージョン エンドポイントを含むデータ エンドポイントを表示するには、az acr show-endpoints cli を使用します。</p>
+
+
+  <p><code>az acr show-endpoints --name contoso</code></p>
+
+
+  <p>出力：</p>
+
+
+  <pre>
+
+  <code>{
+
+  &nbsp; &quot;loginServer&quot;: &quot;contoso.azurecr.io&quot;,
+
+  &nbsp; &quot;dataEndpoints&quot;: [
+
+  &nbsp;&nbsp;&nbsp; {
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;region&quot;: &quot;eastus&quot;,
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;endpoint&quot;: &quot;contoso.eastus.data.azurecr.io&quot;,
+
+  &nbsp;&nbsp;&nbsp; },
+
+  &nbsp;&nbsp;&nbsp; {
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;region&quot;: &quot;westus&quot;,
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;endpoint&quot;: &quot;contoso.westus.data.azurecr.io&quot;,
+
+  &nbsp;&nbsp;&nbsp; }
+
+  &nbsp; ]
+
+  }
+
+  </code></pre>
+
+
+  <h2>セキュリティとAzure Private Link</h2>
+
+
+  <p><a href="https://aka.ms/acr/privatelink" target="_blank">Azure Private Link</a> は、プライベート IPS を使用して、ネットワーク トラフィックが Azure Virtual Network に制限されるので、クライアントとレジストリ間のネットワーク アクセスを制御する最も安全な方法です。 このPrivate Linkオプションではない&rsquo;場合、専用のデータ エンドポイントは、各クライアントからアクセスできるリソースに関するセキュリティで保護された知識を提供できます。</p>
+
+
+  <h2>料金情報</h2>
+
+
+  <p>専用データ エンドポイントは、Premium レジストリの機能です。</p>
+
+
+  <p>専用データ エンドポイントの詳細については、こちらの価格情報 <a href="https://aka.ms/acr/pricing" target="_blank">を参照してください</a>。</p>

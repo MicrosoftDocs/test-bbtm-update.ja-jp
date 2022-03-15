@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 247988e2483970b9770de50f09c857cdfc003b57
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904296"
+Slug: azure-container-service-preview
+Title: Azure Container Service プレビュー
+Summary: 現在、お客様が利用できる Azure Container Service (ACS) のプレビューを作成しています。
+Content: >-
+  <p>現在、お客様が利用できる Azure Container Service (ACS) のプレビューを作成しています。 ACS は、コンテナーホストとして機能する仮想マシンのクラスターを作成して管理するための Azure コンピューティングリソースプロバイダーです。このプロバイダーは、 &quot; &quot; アプリケーションコンテナーの調整に使用されます。<img align="right" alt="Machine generated alternative text:&#10;MESOS " height="435" hspace="12" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6170a97-42f8-47b7-908e-2a7062d98236.jpeg" style="height: 243px; width: 345px; margin: 5px 2px 0px" width="590"></p>
+
+
+  <p>ACS は、一般的なオープンソースのスケジューリングおよびオーケストレーションツールの最適化された構成を提供します。これにより、既存のスキルを使用して、Microsoft Azure でコンテナーベースのアプリケーションを展開および管理することができます。 <span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif"><font color="#000000"> <a href="https://azure.microsoft.com/en-us/blog/azure-container-service-now-and-the-future">9 月</a>に共有されているように、このプレビューは、docker、Apache、および Mesosphere&#39;s Datacenter オペレーティングシステム (dcos) からのオープンソースコンポーネントに基づいて運用準備が整ったコンテナーサービスを提供するために、パートナーの Docker inc. と Mesosphere </font></span>と連携しています。Microsoft は、お客様のアプリケーションの移植性を損なうことなく、これらのワークロードを Azure で最適に実行できるように、オープンソースコミュニティと連携しています。 &nbsp; この作業は続行され、今後このサービスをさらに強化することになります。</p>
+
+
+  <p>プレビューの初期段階では、 <a href="https://aka.ms/acspreview">自己指名</a> が必要であることを確認します。電子メールによってフォローアップ&#39;ます。 <a href="https://www.windowsazure.com/en-us/pricing/free-trial/?WT.mc_id=AA4C1C935"><u>無料試用版</u></a>にサインアップしていない場合 &rsquo; は、Azure サブスクリプションが必要になることに注意してください。</p>
+
+
+  <h1>Azure Container Service の使用</h1>
+
+
+  <p>この Azure Container Service の目的は、今日のお客様の間で広く普及しているオープンソースのツールとテクノロジを使用して、コンテナーホスティング環境を提供することです。 ここでは、選択した orchestrator の標準 API エンドポイントを公開します。 これらのエンドポイントを使用すると、それらのエンドポイントと通信できる任意のソフトウェアを使用できます。 たとえば、Docker Swarm エンドポイントでは、Docker Compose を使用でき、Apache Mesos では DCOS CLI を使用できます。</p>
+
+
+  <p align="center"><img alt="https://raw.githubusercontent.com/anhowe/scratch/master/mesos-marathon/images/mesos.png" border="0" height="225" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7bcfd857-0f10-4cb4-8312-6935eea3750e.jpeg" width="546"></p>
+
+
+  <p>この方法では、アプリケーションの柔軟性と移植性を最大限に高めることができます。 例として、次のビデオでは、開発者のコンピューターで Docker コンテナーと Docker Compose を使用する方法と、テストクラスターの orchestrator として Apache の Os を使用する Azure Container Service を組み合わせて使用する方法を示しています。 おまけとして、Jenkins を CI/CD サーバーとして使用する方法を説明します。これにより、開発者がコードをソースコードリポジトリにコミットするときに、テストされ、ACS クラスターでデプロイされるようになります。</p>
+
+
+  <p style="text-align: center"><iframe allowfullscreen="" frameborder="0" height="360" src="https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/915/player" width="640"></iframe></p>
+
+
+  <p>現時点では、サービスは Linux コンテナーのみをサポートしています。 Microsoft は、 <a href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/about/about_overview"><u>Docker を使用した Windows サーバーコンテナー</u></a>の提供に取り組んでおり、Apache os が Windows に移植されています。 この作業によって、将来的に Azure Container Service に Windows サーバーコンテナーのサポートを追加できるようになります。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>プレビューの初期段階では、 <a href="https://aka.ms/acspreview">自己指名</a>に関心があることを確認します。 最初に Azure サブスクリプションが必要ですが、 &rsquo; まだ <a href="https://www.windowsazure.com/en-us/pricing/free-trial/?WT.mc_id=AA4C1C935"><u>無料試用版</u></a>にサインアップしないのはなぜですか。 処理が完了すると、ドキュメントとサポートチャネルに関する情報が記載された電子メールが届きます。 それまでは、Docker の群れを使用して、ACS の ARM テンプレートを見てみましょう。 完全なパブリックアクセスは、2016年前半に予定されています。</p>

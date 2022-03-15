@@ -1,0 +1,24 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 93033814af7b40c2e5b2723a603287cca011fe6f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904785"
+Slug: governance-setting-for-cache-refreshes-from-azure-analysis-services
+Title: キャッシュからのキャッシュ更新のガバナンス設定Azure Analysis Services
+Summary: データの視覚化と使用ツール (Azure AS) Azure Analysis Servicesデータ キャッシュが格納され、ユーザーのレポートの対話機能が強化される場合があります。 たとえばPower BIサービスでは、ダッシュボード タイル データとレポート データがキャッシュされ、レポートの初期読み込Live Connectされます。 この投稿では、キャッシュの自動更新を無効にする ClientCacheRefreshPolicy という新しいガバナンス設定について説明します。
+Content: >-
+  <p>Microsoft SQL Server Analysis Services の実証済みの分析エンジン上に構築された Azure Analysis Services は、クラウドのスケール、柔軟性、管理の利点を備え、エンタープライズ レベルの BI セマンティック モデリング機能を提供します。 最新のデータ駆動型組織の成功には、IT プロフェッショナルやデータ サイエンティストに対する意思決定をガイドするために、すべてのビジネス ユーザーが情報をすぐに入手できる必要があります。 Azure Analysis Servicesは、複雑なデータをアクション可能な分析情報に変換するのに役立ちます。 組織内のユーザーは、Excel、Power BI、その他多くのツールを使用してデータ モデルに接続し、レポートを作成し、アドホック対話型分析を実行できます。</p>
+
+
+  <p>データの視覚化と使用ツール (Azure AS) Azure Analysis Servicesデータ キャッシュが格納され、ユーザーのレポートの対話機能が強化される場合があります。 たとえば、Power BIサービスでは、ダッシュボード タイル データとレポート データがキャッシュされ、レポートの初期読み込Live Connect<a href="https://docs.microsoft.com/en-us/power-bi/desktop-analysis-services-tabular-data">されます</a>。 ただし、組織全体でセマンティック モデルが再利用されるエンタープライズ BI デプロイでは、1 つの Azure AS モデルからデータをソーシングする多数のダッシュボードとレポートが生成される可能性があります。 これにより、過剰な数のキャッシュ クエリが AS に送信される可能性があります。極端なケースでは、サーバーがオーバーロードされる可能性があります。 多くの場合、モデルはクエリの応答時間を短縮するために Power BI 容量と同じリージョンに同じリージョンに存在する場合が多いので、これは (オンプレミスの SQL Server Analysis Services とは対照的に) Azure AS に特に関連します。そのため、キャッシュのメリットもあまり得ない可能性があります。</p>
+
+
+  <h2 style="margin: 2.66px 0px 0px;">ClientCacheRefreshPolicy ガバナンス設定</h2>
+
+
+  <p style="margin: 0px 0px 10.66px;">新しい ClientCacheRefreshPolicy プロパティを使用すると、IT または AS 管理者は、Azure AS サーバー レベルでこの動作をオーバーライドし、キャッシュの自動更新を無効にできます。 すべてのPower BI Live Connectレポートとダッシュボードでは、データセット レベルの設定、またはデータセットが存在するワークスペースPower BIに関係なく、設定が監視されます。&nbsp;[サーバーのプロパティ] ダイアログ ボックスでSQL Server Management Studio (SSMS) を使用して、このプロパティを設定できます。 このプロパティをAnalysis Services <a href="https://docs.microsoft.com/sql/analysis-services/server-properties/general-properties">する</a> 方法の詳細については、サーバーのプロパティに関するページを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/847033b1-bd05-4a0a-96d0-b346c5a1b577.png"><img alt="ClientCacheRefreshPolicy" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Server%20property.png" style="border-width: 0px; border-style: solid; width: 697px; height: 632px; background-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; display: block;" title="ClientCacheRefreshPolicy"></a></p>

@@ -1,0 +1,34 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c4fbca69ebf0463cbc3867ac805cd8beb34a51e7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910434"
+Slug: resumable-online-index-rebuild-is-generally-available-for-azure-sql-db
+Title: 再利用可能なオンライン インデックス再構築は、Azure SQL DB で一般提供されています
+Summary: 'Azure SQL DB 向け Resumable Online Index Rebuild (ROIR) の一般提供をお知らせします。 この機能を使用すると、最初に操作を再開するのではなく、再構築操作が一時停止された場所から、一時停止されたインデックス再構築操作を再開できます。 '
+Content: >-
+  <p>Azure SQL DB 向け Resumable Online Index Rebuild (ROIR) の一般提供をお知らせします。 この機能を使用すると、最初に操作を再開するのではなく、再構築操作が一時停止された場所から、一時停止されたインデックス再構築操作を再開できます。 さらに、この機能では、少量のログ領域のみを使用してインデックスを再構築します。 この新機能は、次のシナリオで使用できます。</p>
+
+
+  <ul>
+      <li>インデックス再構築が失敗した後 (データベースのフェールオーバー後やディスク領域が使い切った後など) インデックス再構築操作を再開します。 操作を最初から再起動する必要はありません。 これにより、大きなテーブルのインデックスを再構築する際の時間を大幅に節約できます。</li>
+      <li>進行中のインデックス再構築操作を一時停止し、後で再開します。 たとえば、優先度の高いタスクを実行するためにシステム リソースを一時的に解放する必要がある場合や、大規模なインデックスの操作を完了するには短すぎるメンテナンス時間が 1 つ必要な場合があります。 インデックス再構築プロセスを中止する代わりに、インデックス再構築操作を一時停止し、後で前の進行状況を失わずに再開できます。</li>
+      <li>大量のログ領域を使用せずに大規模なインデックスを再構築し、他のメンテナンス アクティビティをブロックする実行時間の長いトランザクションを使用します。 これにより、ログの切り捨てと、実行時間の長いインデックス再構築操作で発生する可能性があるログエラーを回避できます。</li>
+  </ul>
+
+
+  <p><br>
+
+  ROIR の詳細については、次のドキュメントを参照してください</p>
+
+
+  <ul>
+      <li><a href="https://msdn.microsoft.com/library/ms190981(SQL.130).aspx">オンライン インデックス操作のガイドライン</a></li>
+      <li><a href="https://msdn.microsoft.com/library/ms188388(SQL.130).aspx">ALTER INDEX (Transact-SQL)</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-index-resumable-operations">sys.index_resumable_operations</a></li>
+  </ul>
+
+
+  <p>このトピックに関するその他の通信については、エイリアスにお問い合<a href="mailto:ResumableIDXPreview@microsoft.com">ResumableIDXPreview@microsoft.com</a>わせください。</p>

@@ -1,0 +1,302 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 61b4a1ef90c36e306efdfadf053b16b04550c3b9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910702"
+Slug: net-manage-azure-managed-disks
+Title: '.NET: Azure リソースを管理Managed Disks'
+Summary: .NET 用の Azure 管理ライブラリを使用して、管理Managed Disks。
+Content: >-
+  <p>.NET 用 Azure 管理ライブラリのベータ 5 を発表します。 ベータ 5 では、Azure Managed Disks のサポートが追加されます。</p>
+
+
+  <p>本日、Microsoft <a href="https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-managed-disks-and-larger-scale-sets/">は</a> Azure サービスの一般提供を発表 &ndash; Managed Disks、Azure サービスの管理とスケーリングをVirtual Machines。 データ のサイズとディスクを指定Virtual Machines。 ストレージ アカウントの作成と管理についても気にする必要はありません。</p>
+
+
+  <p>. <a href="https://github.com/Azure/azure-sdk-for-net/tree/Fluent">NET 用の Azure 管理ライブラリを使用して、</a> 管理Managed Disks。</p>
+
+
+  <h2><a href="https://github.com/Azure/azure-sdk-for-net/tree/Fluent">https://github.com/Azure/azure-sdk-for-net/tree/Fluent</a></h2>
+
+
+  <p>ベータ版 5 は、次の場所からダウンロードできます。</p>
+
+
+  <p><a href="https://www.nuget.org/packages/Microsoft.Azure.Management.Fluent/"><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Microsoft.Azure.Management.Fluent.svg?style=flat-square&amp;label=nuget"></a></p>
+
+
+  <h2>仮想マシンと仮想マシンのManaged Disks</h2>
+
+
+  <p>define() create() &hellip; メソッド チェーンを使用して、オペレーティング システム用の暗黙的なマネージド ディスクとデータManaged Disksを使用して仮想マシンを作成できます。 マネージド ディスクを暗黙的に作成することで、作成が簡素化されます。ディスクの詳細をすべて指定する必要はありません。 ストレージ アカウントの作成と管理についても気にする必要はありません。</p>
+
+
+  <pre class="prettyprint">
+
+  var linuxVM1 = azure.VirtualMachines
+    .Define(linuxVM1Name)
+    .WithRegion(Region.USEast)
+    .WithNewResourceGroup(rgName)
+    .WithNewPrimaryNetwork(&quot;10.0.0.0/28&quot;)
+    .WithPrimaryPrivateIpAddressDynamic()
+    .WithNewPrimaryPublicIpAddress(linuxVM1Pip)
+    .WithPopularLinuxImage(KnownLinuxVirtualMachineImage.UbuntuServer16_04_Lts)
+    .WithRootUsername(&ldquo;tirekicker&rdquo;)
+    .WithSsh(sshkey)
+    .WithNewDataDisk(100)
+    .WithSize(VirtualMachineSizeTypes.StandardD3V2)
+    .Create();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/compute-dotnet-manage-vm">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>仮想マシン スケール セットを作成するには、次のManaged Disks</h2>
+
+
+  <p>define() create() &hellip; メソッド チェーンを使用して、オペレーティング システムの暗黙的なManaged Disksとデータの明示的なManaged Disksを使用して、仮想マシン スケール セットを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var vmScaleSet = azure.VirtualMachineScaleSets
+    .Define(vmScaleSetName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithSku(VirtualMachineScaleSetSkuTypes.StandardD5v2)
+    .WithExistingPrimaryNetworkSubnet(network, &quot;subnet1&quot;)
+    .WithExistingPrimaryInternetFacingLoadBalancer(publicLoadBalancer)
+    .WithoutPrimaryInternalLoadBalancer()
+    .WithPopularLinuxImage(KnownLinuxVirtualMachineImage.UbuntuServer16_04_Lts)
+    .WithRootUsername(&quot;tirekicker&quot;)
+    .WithSsh(sshkey)
+    .WithNewDataDisk(100)
+    .WithNewDataDisk(100, 1, CachingTypes.ReadWrite)
+    .WithNewDataDisk(100, 2, CachingTypes.ReadOnly)
+    .WithCapacity(3)
+    .Create();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/compute-dotnet-manage-virtual-machine-scale-sets">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>空のマネージド ディスクを作成して仮想マシンにアタッチする</h2>
+
+
+  <p>define() create() メソッド チェーンを使用して、空 &hellip; のマネージド ディスクを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var dataDisk = azure.Disks.Define(diskName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithData()
+    .WithSizeInGB(50)
+    .Create();</pre>
+
+  <p>別の define() ... を使用して、空のマネージド ディスクを仮想マシンにアタッチできます。create() メソッド チェーン。</p>
+
+
+  <pre class="prettyprint">
+
+  var linuxVM2 = azure.VirtualMachines.Define(linuxVM2Name)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithNewPrimaryNetwork(&quot;10.0.0.0/28&quot;)
+    .WithPrimaryPrivateIpAddressDynamic()
+    .WithNewPrimaryPublicIpAddress(linuxVM2Pip)
+    .WithPopularLinuxImage(KnownLinuxVirtualMachineImage.UbuntuServer16_04_Lts)
+    .WithRootUsername(&quot;tirekicker&quot;)
+    .WithSsh(sshkey)
+    .WithNewDataDisk(100)
+    .WithNewDataDisk(100, 1, CachingTypes.ReadWrite)
+    .WithExistingDataDisk(dataDisk)
+    .WithSize(VirtualMachineSizeTypes.StandardD3V2)
+    .Create();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/compute-dotnet-manage-vm">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>仮想マシンを更新する</h2>
+
+
+  <p>update() apply() Managed Disksを使用してManaged Disksをデタッチし、新しい &hellip; データをアタッチできます。</p>
+
+
+  <pre class="prettyprint">
+
+  linuxVM2.Update()
+    .WithoutDataDisk(2)
+    .WithNewDataDisk(200)
+    .Apply();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/compute-dotnet-manage-virtual-machine-with-disks">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>特殊化された VHD から仮想マシンを作成する</h2>
+
+
+  <p>define() create() &hellip; メソッド チェーンを使用して、特殊化された VHD から仮想マシンを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var linuxVM4 = azure.VirtualMachines.Define(linuxVmName3)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithNewPrimaryNetwork(&quot;10.0.0.0/28&quot;)
+    .WithPrimaryPrivateIpAddressDynamic()
+    .WithoutPrimaryPublicIpAddress()
+    .WithSpecializedOsUnmanagedDisk(specializedVhd, OperatingSystemTypes.Linux)
+    .WithSize(VirtualMachineSizeTypes.StandardD3V2)
+    .Create();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/managed-disk-dotnet-create-virtual-machine-using-specialized-disk-from-VHD">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>カスタム イメージを使用して仮想マシンを作成する</h2>
+
+
+  <p>define() create() &hellip; メソッド チェーンを使用して、割り当ておよび一般化された仮想マシンからカスタム イメージを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var virtualMachineCustomImage = azure.VirtualMachineCustomImages
+    .Define(customImageName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .FromVirtualMachine(linuxVM) // from a de-allocated and generalized Virtual Machine
+    .Create();</pre>
+
+  <p>別の define() create() &hellip; メソッド チェーンを使用して、カスタム イメージから仮想マシンを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var linuxVM4 = azure.VirtualMachines.Define(linuxVM4Name)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithNewPrimaryNetwork(&quot;10.0.0.0/28&quot;)
+    .WithPrimaryPrivateIpAddressDynamic()
+    .WithoutPrimaryPublicIpAddress()
+    .WithLinuxCustomImage(virtualMachineCustomImage.Id)
+    .WithRootUsername(userName)
+    .WithSsh(sshkey)
+    .WithSize(VirtualMachineSizeTypes.StandardD3V2)
+    .Create();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/managed-disk-dotnet-create-virtual-machine-using-custom-image">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>スナップショットから特殊化されたディスクを使用して仮想マシンを作成する</h2>
+
+
+  <p>オペレーティング システム ディスクのマネージド ディスク スナップショットを作成できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <pre class="prettyprint">
+
+  // Create a Snapshot for an operating system disk
+
+  var osDisk = azure.Disks.GetById(linuxVM.OsDiskId);
+
+  var osSnapshot = azure.Snapshots.Define(managedOSSnapshotName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithLinuxFromDisk(osDisk)
+    .Create();</pre>
+
+  <pre class="prettyprint">
+
+  // Create a Managed Disk from the Snapshot for the operating system disk
+
+  var newOSDisk = azure.Disks.Define(managedNewOSDiskName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithLinuxFromSnapshot(osSnapshot)
+    .WithSizeInGB(100)
+    .Create();</pre>
+
+  <p>データ ディスクのマネージド ディスク スナップショットを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  // Create a Snapshot for a data disk
+
+  var dataSnapshot = azure.Snapshots.Define(managedDataDiskSnapshotName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithDataFromDisk(dataDisk)
+    .WithSku(DiskSkuTypes.StandardLRS)
+    .Create();</pre>
+
+  <pre class="prettyprint">
+
+  // Create a Managed Disk from the Snapshot for the data disk
+
+  var newDataDisk = azure.Disks.Define(managedNewDataDiskName)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithData()
+    .FromSnapshot(dataSnapshot)
+    .Create();</pre>
+
+  <p>define() create() &hellip; メソッド チェーンを使用して、これらの特殊化されたディスクから仮想マシンを作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var linuxVM5 = azure.VirtualMachines.Define(linuxVm5Name)
+    .WithRegion(Region.USEast)
+    .WithExistingResourceGroup(rgName)
+    .WithNewPrimaryNetwork(&quot;10.0.0.0/28&quot;)
+    .WithPrimaryPrivateIpAddressDynamic()
+    .WithoutPrimaryPublicIpAddress()
+    .WithSpecializedOsDisk(newOSDisk, OperatingSystemTypes.Linux)
+    .WithExistingDataDisk(newDataDisk)
+    .WithSize(VirtualMachineSizeTypes.StandardD3V2)
+    .Create();</pre>
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/managed-disk-dotnet-create-virtual-machine-using-specialized-disk-from-snapshot">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>1 回の再起動で仮想マシンManaged Disks仮想マシンを使用する</h2>
+
+
+  <p>アンマネージド ディスク (Storage アカウント ベース) を持つ仮想マシンを、1 回の再起動Managed Disksに変換できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var linuxVM6 = azure.VirtualMachines.Define(linuxVM6Name)
+    .WithRegion(Region.USEast)
+    .WithNewResourceGroup(rgName)
+    .WithNewPrimaryNetwork(&quot;10.0.0.0/28&quot;)
+    .WithPrimaryPrivateIpAddressDynamic()
+    .WithNewPrimaryPublicIpAddress(linuxVM6Pip)
+    .WithPopularLinuxImage(KnownLinuxVirtualMachineImage.UbuntuServer16_04_Lts)
+    .WithRootUsername(&quot;tirekicker&quot;)
+    .WithSsh(sshkey)
+    .WithUnmanagedDisks() // uses Storage Account
+    .WithNewUnmanagedDataDisk(100) // uses Storage Account
+    .WithSize(VirtualMachineSizeTypes.StandardD3V2)
+    .Create();
+
+  linuxVM7.Deallocate();
+
+  linuxVM7.ConvertToManaged();</pre>
+
+
+  <p>すぐに <a href="https://github.com/Azure-Samples/managed-disk-dotnet-convert-existing-virtual-machines-to-use-managed-disks">実行できる</a> 完全なサンプル コードをダウンロードできます。</p>
+
+
+  <h2>使ってみる</h2>
+
+
+  <p>上記のサンプルを実行するか、自分のサンプル GitHub<a href="https://github.com/Azure/azure-sdk-for-net/tree/Fluent">できます</a>。 お試しのうえ、ご意見をお寄せください (以下の <a>電子メールまたはコメント</a> を介して)。 今後数週間で、より多くの Azure サービスのサポートを追加し、API に最後のタッチを適用する予定です。</p>

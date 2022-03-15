@@ -1,0 +1,121 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ee902058a49ad9ea7c70285ba417fa6273fb1abf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904717"
+Slug: introducing-web-hosting-plans-for-azure-web-sites
+Title: Azure Websites の Web ホスティングプランの概要
+Summary: Azure Websites と新しい Azure Portal Preview の最新リリースでは、Web ホスティングプランという新しい概念が導入されています。 Web ホスティングプラン (WHP) を使用すると、サブスクリプション内で個別にサイトをグループ化したり拡張したりすることができます。
+Content: >-
+  <b>Azure websites</b>と新しい<b>azure Portal Preview</b>の最新リリースでは、 <b>Web ホスティングプラン</b>という新しい概念が導入されています。 Web ホスティングプラン (WHP) を使用すると、サブスクリプション内で個別にサイトをグループ化したり拡張したりすることができます。
+
+
+  &nbsp;
+
+
+  これがどのように動作するかを理解する最善の方法は、シナリオについて説明することです。
+
+
+  Joe は、成功した Web エージェンシーを実行します。現在、2つの主要なクライアント、fabled <b>Contoso</b> International corporation、およびあまり知られていない <b>Fabrikam</b> Corporation を持っています。 Joe は web ホスティングとサイト管理をクライアントとの契約の一部としてバンドルし、Azure Websites を使用してホスティングと管理のエクスペリエンスを提供しています。 彼の web 機関は、両方のクライアントに対して複数の web サイトを開発しています。
+
+
+  Joe は、Contoso の web サイトを実行するために、アプリケーションの予想される負荷とメモリフットプリントを満たすために、 <b>Standard</b>レベルで最低5つの<b>中規模</b><b>インスタンス</b>のサーバー (2 つの仮想コア、3.5 GB の Ram) が必要であると判断しました。
+
+
+  一方、Fabrikam の契約で必要とされるのは、 <b>Standard</b>レベルでは1つの<b>小さい</b><b>インスタンスサイズ</b>のサーバー (1 仮想コア、1.75 GB Ram) のみです。自動スケールが構成されているため、最大3つのインスタンスをスケールアップして、負荷のピークを処理し、予算内にとどまります。
+
+
+  新しい Web ホスティングプランの機能の前に、Joe には次の2つのオプションがありました。
+
+
+  &nbsp;
+
+
+  1) <b>標準</b>インスタンスを使用して、現在の Azure サブスクリプション内のサイトの両方のコレクションをホストします。
+
+
+  Pro:
+
+  <ul>
+   <li>簡単に実行でき、管理オーバーヘッドはほとんどありません。</li>
+  </ul>
+
+  短所
+
+  <ul>
+   <li><b>効率の向上</b>: アプリには異なる負荷プロファイルがありますが、そのうちの1つは<b>小さい</b><b>インスタンスサイズ</b>のサーバーの呼び出しを行いますが、他の<b>インスタンスのサイズは中程度</b>である必要があります。 これには、一部のアプリに対して過剰な負荷がかかる場合でも、Joe はそのワークロードに <b>中程度のインスタンスサイズ</b> を使用する必要があります。</li>
+   <li>ノイズのある<b>近隣ノード</b>: Joe のすべてのアプリケーションが<b>標準インスタンス</b>の共有プールで実行されるため、Contoso のアプリのいずれかがトラフィックの量が急増している場合、または予想されるメモリ使用率を超えた場合、Fabrikam のアプリもこの影響を受けます。</li>
+   <li><b>課金</b>: すべての <b>標準インスタンス </b>はプールとして扱われるため、クライアント (Fabrikam bill と Contoso の請求書) によってコストを分離する方法はありません。<b></b></li>
+  </ul>
+
+  <!--EndFragment-->
+
+
+  2) クライアントごとに2つの独立したサブスクリプションを作成し、個別に管理します。
+
+
+  Pro:
+
+  <ul>
+   <li><b>完全な分離</b>: 2 つのサブスクリプション間で共有されるリソースはありません</li>
+   <li><b>課金</b>: 課金の問題はサブスクリプション別に分けることができます。</li>
+  </ul>
+
+  短所
+
+  <ul>
+   <li><b>管理の複雑さ</b>: クライアントへのサブスクリプションのマッピングは、サブスクリプションの所有者が行う必要があります。</li>
+   <li><b>Access Control</b>: 各サブスクリプションの共同管理者を作成および管理して、適切なアクセス権が与えられるようにします。</li>
+  </ul>
+
+  <b>Web ホスティングプラン</b>の導入により、Joe は3番目のオプションを使用できるようになりました。
+
+
+  3) 各コントラクトに対して <b>Web ホスティングプラン</b> を作成し、それぞれに必要なリソースを割り当てます。
+
+
+  Pro:
+
+  <ul>
+   <li><b>分離の向上</b>: <b>web ホスティングプラン</b> レベルで分離を使用すると、Contoso アプリケーションは、それぞれが専用のリソースを持つ独自の <b>web ホスティングプラン</b> で実行されるため、Fabrikam の動作やその逆の影響を受けません。</li>
+   <li><b>スケーリングの効率</b>: 各 <b>Web ホスティングプラン</b> は個別に拡張でき、必要に応じて異なるインスタンスサイズと自動スケールを使用して構成できます。</li>
+   <li><b>管理オーバーヘッド</b>: 独立したサブスクリプションを用意するよりも管理オーバーヘッドが少なくなります (オプション2で説明)</li>
+  </ul>
+
+  短所:
+
+  <ul>
+   <li><b>分離</b>: 独立したサブスクリプションと同じレベルの分離を持つことはできません。</li>
+  </ul>
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites の Web ホスティングプランの概要" alt="Introducing Web Hosting Plan for Azure Web Sites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Byron-Tardif-Introducing-Web-Hosting.png" width="610" height="343" border="0" />
+
+
+  上記の各オプションには独自の長所と短所があるので、Web ホスティングプランでは、最小限のオーバーヘッドと複雑さでサイトの複数のコレクションを管理するための優れたオプションが提供されています。
+
+  <h1>Web ホスティングプランの使用</h1>
+
+  既に Azure websites でホストされている web サイトを所有しているお客様は、新しい機能の導入により、既存のサイトが Web ホスティングプランに自動的にグループ化されていることが検出されます。 サブスクリプション内のサイトのコレクションごとにプランが自動的に作成され、web サイトモードと web サイトのリージョン別にグループ化されます。 たとえば、米国西部でホストされている web サイトと、北ヨーロッパでのみ標準モードでホストされているサイトがある場合は、合計4つの Web ホスティングプラン (無料モードでホストされているサイト用に1つ、共有モード用に1つ、標準<sup>モードのサイトでは 3)</sup> 、北ヨーロッパで1個です。
+
+
+  このような自動生成された Web ホスティングプランには、"DefaultServerFarm" というラベルが付いています。 その名前は混乱する可能性がありますが、"DefaultServerFarm" は、レガシおよび API の旧バージョンとの互換性のために選択されたラベルにすぎません。 新しい Web ホスティングプランは、既存のサイトには影響しません。 スケール、Web サイトモード、およびサイト構成は、変更されません。
+
+
+  任意の時点で、独自のプランを作成し、必要に応じて名前を付けて、1つまたは複数のサイトを追加することができます。 計画には少なくとも1つのサイトが必要であるため、計画の作成はサイトの作成と統合されます。 次のスクリーンショットでは、これがどのように見えるかを確認できます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites の Web ホスティングプランの概要" alt="Introducing Web Hosting Plan for Azure Web Sites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Byron-Tardif-Introducing-Web-Hosting2.png" width="610" height="343" border="0" />
+
+
+  プランを作成するときに、そのプランの <b>価格レベル</b> を選択できます。 これにより、パフォーマンス特性、ストレージクォータ、スケールアウト制限、自動スケール、およびその他の機能が決定されます。 プラン内に作成された web サイトは、価格レベルによって決定されるリソースと構成を共有します。 さまざまな価格レベルとその機能について詳しくは、こちらの <a href="https://go.microsoft.com/?linkid=9845586">記事</a>をご覧ください。
+
+
+  現在のバージョンの Azure Portal では、Web ホスティングプランの外観が若干異なります。 新しいサイトを作成すると、ウィザードには、そのサイトのプランを選択するためのドロップダウンが表示されます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites の Web ホスティングプランの概要" alt="Introducing Web Hosting Plan for Azure Web Sites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Byron-Tardif-Introducing-Web-Hosting7.png" width="610" height="343" border="0" />
+
+
+  を終了すると、Web ホスティングプランによって、サイトの論理的なグループ化が可能になり、サイトのコレクションを個別に拡張、管理、および構成することが簡単にできます。 これにより、管理の複雑さを最小限に抑えながら、web サイトの所有者に優れた柔軟性が提供されます。 Web ホスティングプランの詳細については、こちらの<a href="https://go.microsoft.com/?linkid=9845584">記事</a>をご覧ください。

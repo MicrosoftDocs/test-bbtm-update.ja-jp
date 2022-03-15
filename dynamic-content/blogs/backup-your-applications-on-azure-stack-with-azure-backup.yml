@@ -1,0 +1,64 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f755375082f1ccc6924ec28f8d6075090c66fe16
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904948"
+Slug: backup-your-applications-on-azure-stack-with-azure-backup
+Title: Azure Backup を使用して Azure Stack でアプリケーションをバックアップする
+Summary: 昨年、Azure Stack、注文の準備ができていることを発表しました。 現在、Microsoft Azure backup Server を使用して Azure Stack テナント内のアプリケーションとファイルをバックアップする機能を拡張しています。 これ。。。
+Content: >-
+  <p align="left">今月の前半では、 <a href="https://azure.microsoft.com/en-us/blog/microsoft-azure-stack-expands-availability-to-92-countries/">92 の国/地域に対する可用性の拡張 Azure Stack</a>発表しました。 Microsoft では、Microsoft <a href="https://docs.microsoft.com/en-us/azure/backup/backup-introduction-to-azure-backup">Azure Backup Server</a>を使用してファイルとアプリケーションのデータをバックアップする機能について説明します。 Azure Stack テナントは、Azure Stack Vm 内のデータのアプリ整合性バックアップを作成し、運用復旧のためにスタックに保存し、長期保存とオフサイトコピーのニーズに応じて Azure にデータを送信できるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1ae3a65a-6b47-4fe2-9201-dc0b298e151a.png"><img alt="Screenshot_1" border="0" height="781" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66e35c4e-dec2-413c-9123-85e450e54d9f.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Screenshot_1" width="1500"></a></p>
+
+
+  <h2>主な利点</h2>
+
+
+  <h3>SQL、SharePoint、および Exchange のアプリケーション整合性バックアップ</h3>
+
+
+  <p>アプリ整合性バックアップでは、バックアップの実行中に、メモリがフラッシュされ、保留中の IOs がないことを Azure Backup が保証します。 つまり、回復するだけでなく、バックアップ時にアプリケーションに完全に一貫性があることを意味します。 Azure Backup Server を使用すると、アプリケーションの整合性のあるバックアップを作成し、回復したデータが有効で一貫性があることを確認できます。</p>
+
+
+  <h3>ローカル回復ポイントの項目レベルの回復</h3>
+
+
+  <p>クイック操作回復は、項目レベルの回復を使用して、スタック上で実行されている Microsoft Azure バックアップサーバーから直接トリガーできます。 つまり、ステージング場所でボリューム全体を回復することなく、バックアップされた 50 GB のボリュームから1つのファイルを回復することができます。</p>
+
+
+  <h3>Azure でのオフサイトコピーの長期的な保有期間</h3>
+
+
+  <p>現在、ほとんどの組織では、データのオフサイトコピーを使用する必要があります。これは、データが停止している場合に回復される可能性があります。 さらに、長期的な保有期間は、多くの場合、法的要件でもあります。 Azure とシームレスに統合することは、煩雑なテープの管理について心配する必要がなく、必要に応じてクリックしてデータを回復する能力があることを意味します。</p>
+
+
+  <h3>Azure Portal での一元化されたビュー</h3>
+
+
+  <p>Azure Backup を使用すると、すべての Microsoft Azure バックアップサーバー、保護されている項目、使用しているストレージ、および Azure Portal でのクラウドの回復ポイントを一元的に表示できます。 これにより、azure vm、MARS エージェントで保護されたシステム、azure vm での SQL など、すべての Azure Backup エンティティに関する情報を1か所から取得できます。</p>
+
+
+  <h3>セキュリティ機能</h3>
+
+
+  <p>Azure backup では、悪意のある攻撃からデータを保護し、防止、アラート、回復という3つの戦略によって復旧することができます。 つまり、パスフレーズの変更として重要な操作を行うには、多要素認証が必要です。 さらに、クラウドデータの削除による保護の停止としての操作では、アラートがトリガーされます。データの削除がトリガーされた後も、データは14日間保持されます。これにより、クラウドバックアップからデータを回復することができます。</p>
+
+
+  <p>Backup Server Microsoft Azure 今すぐダウンロードしてください。 <a href="https://docs.microsoft.com/en-us/azure/backup/backup-mabs-install-azure-stack">Microsoft Azure バックアップサーバー</a>を計画して<a href="https://docs.microsoft.com/en-us/azure/backup/backup-mabs-install-azure-stack">インストール</a>する方法の詳細については、こちらを参照してください。 Microsoft Azure Backup Server の<a href="https://azure.microsoft.com/en-us/pricing/details/backup/">価格</a>の詳細については、こちらを参照してください。</p>
+
+
+  <h2>関連リンクとその他のコンテンツ</h2>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/services/backup/">Azure Backup</a>の詳細情報</li>
+   <li><a href="https://azure.microsoft.com/en-us/pricing/free-trial/">無料の Azure 試用版サブスクリプション</a>にサインアップする</li>
+   <li>詳細を表示しますか? Azure Backup の<a href="https://aka.ms/backup-create-vm-docs">ドキュメント</a>を確認する</li>
+   <li>ヘルプが必要ですか? サポートについて <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">Azure Backup フォーラム</a> にご連絡ください</li>
+   <li>新しいアイデアを投稿し、既存のアイデアに投票することで、 <a href="https://feedback.azure.com/forums/258995-azure-backup">Azure Backup を改善</a> する方法をお聞かせください</li>
+   <li>最新のニュースと更新については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください</li>
+  </ul>

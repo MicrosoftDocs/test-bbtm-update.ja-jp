@@ -1,0 +1,141 @@
+### YamlMime:Yaml
+ms.openlocfilehash: db47e42aad3ccd269c282260448bd2966bbd57b8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905194"
+Slug: one-click-failover-of-application-to-microsoft-azure-using-site-recovery
+Title: アプリケーションのクラウド移行とディザスター リカバリーを 1 回クリックで行う
+Summary: ディザスター リカバリーは、仮想マシンのレプリケートだけでなく、何度もテストされるエンド to エンドのアプリケーション復旧、エラーが発生しない、障害が発生した場合のストレスフリー (Azure Site Recovery の約束) に関する問題です。 アプリケーションが Microsoft Azure で実行されているのを見たことがない場合は、実際の障害が発生した場合、仮想マシンが起動するだけである可能性がありますが、ビジネスはダウンしている可能性があります。 アプリケーションの回復に関連する重要性と複雑さについては、このシリーズの前のブログ「アプリケーションのディザスター リカバリー」で説明しました。Azure Site Recovery を使用した仮想マシンに関する説明は含め "ない" です。 このブログでは、実際のアプリケーションをパブリック クラウドに復旧する例を使用して、復旧計画の Azure Site Recovery 構造を使用して、アプリケーションをフェールオーバーまたは Microsoft Azure移行する方法について説明します。
+Content: >-
+  <p>クラウド移行またはディザスター リカバリーは、仮想マシンのレプリケートだけでなく、何回もテストされるエンド エンド のアプリケーションの復旧、エラーが発生しない、移行を決定した場合、または障害が発生した場合 (Azure Site Recovery の約束) についてです。 アプリケーションが Microsoft Azure で実行されているのを見たことがない場合は、実際の障害が発生した場合、仮想マシンが起動するだけである可能性がありますが、ビジネスはダウンしている可能性があります。 アプリケーションの復旧に関連する重要性と複雑さについては、このシリーズの前のブログ「仮想マシンではなく、アプリケーションのクラウド移行とディザスター リカバリー」で <a href="https://aka.ms/asr-apprecovery">説明しました</a>。 このブログでは、実際のアプリケーションをパブリック クラウドに復旧する例を使用して、復旧計画の Azure Site Recovery 構造を使用して、アプリケーションをフェールオーバーまたは Microsoft Azure移行する方法について説明します。&nbsp;</p>
+
+
+  <h2>復旧計画Azure Site Recovery&ldquo;使用する理由&rdquo;</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/site-recovery/site-recovery-create-recovery-plans">復旧計画は</a> 、管理できる小さな独立したユニットを作成することで、体系的な復旧プロセスを計画するのに役立ちます。 通常、これらのユニットは <strong>環境内のアプリケーション</strong> を表します。 復旧計画を使用すると、仮想マシンを開始する順番を定義できるだけでなく、復旧時の一般的なタスクの自動化にも役立ちます。</p>
+
+
+  <p><br>
+
+  <strong>基本的に、クラウド移行またはディザスター リカバリーの準備ができているか確認する方法の 1 つは、すべてのアプリケーションが復旧計画の一部であり、各復旧計画が Microsoft Azure への復旧のためにテストされるのを確認する方法です。この準備を行って、データセンターを完全なデータ センターに自信を持って移行またはフェールオーバー Microsoft Azure。</strong><br>
+
+  &nbsp;<br>
+
+  復旧計画の 3 つの重要な価値提案を見てみる。</p>
+
+
+  <ul>
+   <li>依存関係をキャプチャするようにアプリケーションをモデル化する</li>
+   <li>大部分の復旧タスクを自動化して RTO を短縮する</li>
+   <li>テスト フェールオーバーで災害に備える</li>
+  </ul>
+
+
+  <h2>依存関係をキャプチャするようにアプリケーションをモデル化する</h2>
+
+
+  <p>復旧計画では、通常、アプリケーションを構成する仮想マシンのグループがまとめてフェールオーバーされます。 復旧計画コンストラクトを使用すると、このグループを強化して、アプリケーション固有のプロパティをキャプチャできます。<br>
+
+  &nbsp;<br>
+
+  次を含む一般的な 3 層アプリケーションの例を見てみましょう</p>
+
+
+  <ul>
+   <li>1 つの SQL バックエンド</li>
+   <li>1 つのミドルウェア</li>
+   <li>1 つの Web フロント エンド</li>
+  </ul>
+
+
+  <p>復旧計画は、フェールオーバー後に仮想マシンが正しい順序で起動するようカスタマイズできます。 最初に起動するのは SQL バックエンド、次はミドルウェア、最後は Web フロントエンドです。 この順序により、最後の仮想マシンが起動するまでに、アプリケーションが確実に動作します。 たとえば、ミドルウェアが起動するとき、SQL 層に接続しようとするので、復旧計画によって SQL 層が既に実行されていることが保証されます。 フロントエンド サーバーを最後に起動することで、すべてのコンポーネントが稼働し、アプリケーションで要求を受け入れる準備ができるまで、エンド ユーザーがアプリケーション URL に誤って接続することがなくなります。 こうした依存関係を構築するために、復旧計画をカスタマイズして、グループを追加できます。 その後、仮想マシンを選択し、そのグループを変更して、グループ間で移動できるようにします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5391656d-22d2-4d67-8b99-65f5d58d154b.png"><img alt="Recovery Plan example" border="0" height="782" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/924c0610-c2e0-422c-bc07-3a1e10f12912.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="復旧計画の例" width="665"></a>&nbsp;</p>
+
+
+  <p>カスタマイズが完了すると、正確な復旧手順を視覚化できます。 復旧計画のフェールオーバーで実行される手順を次に示します。</p>
+
+
+  <ul>
+   <li>最初は、オンプレミスの仮想マシンをオフにするシャットダウン手順です (プライマリ サイトを実行し続ける必要があるテスト フェールオーバーを除く)</li>
+   <li>次に、復旧計画に含まれる仮想マシンすべてのフェールオーバーが同時にトリガーされます。 フェールオーバー手順では、レプリケートされたデータから仮想マシン&rsquo; ディスクを準備します。</li>
+   <li>最後に、スタートアップ グループが順番に実行され、各グループの仮想マシンが起動します。最初に起動するのは、グループ 1、次にグループ 2、最後がグループ 3 です。 グループに複数の仮想マシンが含まれる場合 (負荷分散された Web フロントエンドなど)、すべての仮想マシンが同時に起動されます。</li>
+  </ul>
+
+
+  <p><strong>グループ間でのシーケンス処理により、さまざまなアプリケーション層の間の依存関係が受け入れられ、適切な場合は並列処理が行われてアプリケーション復旧の RTO が短縮されます。</strong></p>
+
+
+  <h2>大部分の復旧タスクを自動化して RTO を短縮する</h2>
+
+
+  <p>大規模なアプリケーションの復旧は複雑になる可能性があります。 また、フェールオーバー後や移行後の正確なカスタマイズ手順を覚えるのも大変です。 アプリケーションの複雑さをわかっていない他の人が、フェールオーバーをトリガーしなければならないこともあります。 混乱中に煩雑な手動の手順を覚えるのは大変です。エラーも発生しやすくなります。 復旧計画を使用すると、Automation Runbook を使用して、すべての手順で実行する必要がある必要Microsoft Azure<a href="https://docs.microsoft.com/en-in/azure/site-recovery/site-recovery-runbook-automation">を自動化できます</a>。 Runbook を使用すると、次の例のような一般的な復旧タスクを自動化できます。 復旧計画には、自動化できないタスク向けに手動アクションを挿入する機能も用意されています。</p>
+
+
+  <ul>
+   <li>フェールオーバー後の Azure 仮想マシン上 &ndash; のタスクは、通常、仮想マシンに接続するために必要です。次に例を示します。 <ul>
+    <li>フェールオーバー後の仮想マシンでのパブリック IP の作成</li>
+    <li>失敗した仮想マシン NIC に NSG を割り当&rsquo;てる</li>
+    <li>可用性セットへのロード バランサーの追加</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <ul>
+   <li>フェールオーバー後の仮想マシン &ndash; 内のタスクでは、新しい環境で引き続き正常に動作するようにアプリケーションが再構成されます。次に例を示します。 <ul>
+    <li>仮想マシン内のデータベース接続文字列の変更</li>
+    <li>サーバーの構成/ルールの変更</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>多くの一般的なタスクでは、1 つの Runbook を使用し、復旧計画ごとにパラメーターを渡して、1 つの Runbook ですべてのアプリケーションを処理できます。 これらのスクリプトを自分でデプロイして試してみるには、下のボタンをクリックし、一般的なスクリプトを Microsoft Azure Automation アカウントにインポートします。</p>
+
+
+  <p><a href="https://aka.ms/asr-automationrunbooks-deploy"><img alt="image" border="0" height="45" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4803408-340e-49e3-9a1f-0ed3f689813d.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="215"></a><br>
+
+  &nbsp;<br>
+
+  <strong>Automation Runbook を使用して復旧後のタスクを自動化する完全な復旧計画により、ワンクリック フェールオーバーを実現し、RTO を最適化できます。&nbsp; </strong></p>
+
+
+  <h2>テスト フェールオーバーで災害に備える</h2>
+
+
+  <p>復旧計画を使用して、フェールオーバーとテスト フェールオーバー <a href="https://docs.microsoft.com/en-us/azure/site-recovery/site-recovery-failover">の両方</a> を <a href="https://docs.microsoft.com/en-us/azure/site-recovery/site-recovery-test-failover-to-azure">トリガーできます</a>。 フェールオーバーを実行する前に、必ずアプリケーションでテスト フェールオーバーを完了する必要があります。 テスト フェールオーバーは、アプリケーションが復旧サイトで起動するかどうかを確認するのに役立ちます。&nbsp; 何かを見逃した場合は、クリーンアップを簡単にトリガーし、テスト フェールオーバーをやり直します。 テスト フェールオーバーは、アプリケーションがスムーズに復旧することが確信できるまで複数回実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/215a1b4e-30ce-4df4-a0a4-74c0f92f4f11.png"><img alt="Recovery plan job execution" border="0" height="622" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b49b1fe-45d8-4eca-909d-6f40f44b6c96.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="復旧計画ジョブの実行" width="660"></a>&nbsp;</p>
+
+
+  <p><strong>アプリケーションごとに異なるので、それぞれに合わせてカスタマイズされた復旧計画を作成する必要があります。また、この動的なデータセンターの世界では、アプリケーションとその依存関係は変化し続けるのです。4 分の 1 に 1 回、アプリケーションのフェールオーバーをテストして、復旧計画が最新の状態を確認します。 </strong></p>
+
+
+  <h2>実際の例 - WordPress ディザスター リカバリー ソリューション</h2>
+
+
+  <p>Microsoft Azure への 2 層 WordPress アプリケーションのフェールオーバーのクイック ビデオを見て、自動化スクリプトを使用した復旧計画と、Azure Site Recovery を使用したそのテスト フェールオーバーの動作を確認します。</p>
+
+
+  <ul>
+   <li>WordPress デプロイは、1 つの MySQL 仮想マシンと Apache Web サーバーを備える 1 つのフロントエンド仮想マシンで構成され、ポート 80 でリッスンします。</li>
+   <li>Apache Web サーバーにデプロイされた WordPress は、IP アドレス 10.150.1.40 を介して MySQL と通信するように構成されています。</li>
+   <li>テスト フェールオーバー時に、フェールオーバー IP アドレス 10.1.6.4 で MySQL と通信するために WordPress 構成を変更する必要があります。 MySQL がフェールオーバー時に毎回同じ IP アドレスを取得するために、仮想マシンのプロパティを構成して、優先 IP アドレスを 10.1.6.4 に設定します。</li>
+  </ul>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Series/Azure-Site-Recovery/One-click-failover-of-a-2-tier-WordPress-application-using-Azure-Site-Recovery/player" width="960"></iframe></p>
+
+
+  <p>アプリケーションの完全復旧を確実に成功に向け、Azure Site Recovery はクラウドの移行とディザスター リカバリーのすべてのニーズに対応する 1 つのワンストップ ショップです。 私たちのミッションは、Microsoft Azure の機能を使用してディザスター リカバリーを民主化し、階層 1 の最も高いアプリケーションがビジネス継続性プランを持つだけでなく、組織の&#39;の IT アプリケーションの 100% のディザスター リカバリー計画を実現する作業終了を設定できる説得力のあるソリューションを提供します。</p>
+
+
+  <p><br>
+
+  追加の製品情報を<a href="https://aka.ms/asr-info">確認し</a>、ワークロードの保護または移行を今すぐ使用してMicrosoft Azure移行Azure Site Recoveryできます。 Azure Site Recovery の強力なレプリケーション機能は、VMware または Hyper-V 上で実行されている場合でも、レプリケートする新しい物理サーバーまたは仮想マシンごとに 31 日間無料で使用できます。 アプリの詳細についてはAzure Site Recovery方法に関 <a href="https://aka.ms/asr-videos">するビデオを参照してください</a>。 <a href="https://aka.ms/asr-forums">MSDN の Azure Site Recovery</a> フォーラムにアクセスして追加情報を確認したり、他の顧客と対話したり、<a href="https://aka.ms/asr-uservoice">Azure Site Recovery User Voice</a> を使用して、次に有効にしたい機能をお知らせします。</p>

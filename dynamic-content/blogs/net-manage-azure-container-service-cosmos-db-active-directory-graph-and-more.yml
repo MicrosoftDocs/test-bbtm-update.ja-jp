@@ -1,0 +1,159 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f81e32fab5954eb2a7c9b94974cb24677762efe3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910704"
+Slug: net-manage-azure-container-service-cosmos-db-active-directory-graph-and-more
+Title: '.net: Azure Container Service、Cosmos DB、Active Directory Graph などを管理します。'
+Summary: '.NET 用 Azure 管理ライブラリの1.1 をリリースしました。 このリリースでは、次のサポートが追加されています: Cosmos DB、Azure Container Service、およびレジストリ Active Directory Graph...'
+Content: >-
+  <p>.NET 用 Azure 管理ライブラリの1.1 をリリースしました。 このリリースでは、次のサポートが追加されています。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="1000">
+   <tbody>
+    <tr>
+     <td valign="top" width="331">Cosmos DB</td>
+     <td valign="top" width="334">Azure Container Service とレジストリ</td>
+     <td valign="top" width="333">Active Directory Graph</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><a href="https://github.com/azure/azure-sdk-for-net/tree/Fluent" title="&#10;https://github.com/azure/azure-sdk-for-net/tree/Fluent">https://github.com/azure/azure-sdk-for-net/tree/Fluent</a></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>1.1 は、次のものからダウンロードできます。</p>
+
+
+  <p><a href="https://www.nuget.org/packages/Microsoft.Azure.Management.Fluent/"><img alt="Microsoft_Azure_Management_Fluent" border="0" height="20" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7956c36f-2916-4505-8138-528b598347b7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="Microsoft_Azure_Management_Fluent" width="86"></a></p>
+
+
+  <h2>DocumentDB API を使用して Cosmos DB を作成する</h2>
+
+
+  <p>Cosmos DB アカウントは、メソッドチェーンを使用 <code>define() &hellip; create() </code> して作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var documentDBAccount = azure.DocumentDBAccounts.Define(docDBName)
+      .WithRegion(Region.USEast)
+      .WithNewResourceGroup(rgName)
+      .WithKind(DatabaseAccountKind.GlobalDocumentDB)
+      .WithSessionConsistency()
+      .WithWriteReplication(Region.USWest)
+      .WithReadReplication(Region.USCentral)
+      .Create();</pre>
+
+  <p>さらに次のことができます。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure-Samples/cosmosdb-dotnet-create-documentdb-and-configure-for-high-availability" target="_blank">DocumentDB API を使用して Cosmos DB を作成し、高可用性を実現するように構成する</a></li>
+   <li><a href="https://github.com/Azure-Samples/cosmosdb-dotnet-create-documentdb-and-configure-for-eventual-consistency" target="_blank">DocumentDB API を使用して Cosmos DB を作成し、最終的な整合性で構成する</a></li>
+   <li><a href="https://github.com/Azure-Samples/cosmosdb-dotnet-create-documentdb-and-configure-firewall" target="_blank">DocumentDB API を使用した Cosmos DB の作成、高可用性のための構成、承認された IP アドレスのセットからのアクセスを制限するためのファイアウォールの作成</a></li>
+   <li><a href="https://github.com/Azure-Samples/cosmosdb-dotnet-create-documentdb-and-get-mongodb-connection-string" target="_blank">MongoDB API を使用して Cosmos DB を作成し、接続文字列を取得する</a></li>
+  </ul>
+
+
+  <h2>Azure Container Registry を作成する</h2>
+
+
+  <p>メソッドチェーンを使用 <code> define() &hellip; create() </code> して、Azure Container Registry を作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var azureRegistry = azure.ContainerRegistries.Define(&quot;acrdemo&quot;)
+         .WithRegion(Region.USEast)
+         .WithNewResourceGroup(rgName)
+         .WithNewStorageAccount(saName)
+         .WithRegistryNameAsAdminUser()
+         .Create();
+  </pre>
+
+
+  <p>Azure Container Registry の資格情報は、ListCredentials () を使用して取得できます。</p>
+
+
+  <pre class="prettyprint">
+
+  RegistryListCredentials acrCredentials = azureRegistry.ListCredentials();</pre>
+
+
+  <h2>Kubernetes オーケストレーションを使用して Azure Container Service を作成する</h2>
+
+
+  <p>メソッドチェーンを使用 <code>define() &hellip; create() </code> して、Azure Container Service を作成できます。</p>
+
+
+  <pre class="prettyprint">
+
+  var azureContainerService = azure.ContainerServices.Define(acsName)
+        .WithRegion(Region.USEast)
+        .WithNewResourceGroup(rgName)
+        .WithKubernetesOrchestration()
+        .WithServicePrincipal(servicePrincipalClientId, servicePrincipalSecret)
+        .WithLinux()
+        .WithRootUsername(rootUserName)
+        .WithSshKey(sshPublicKey)
+        .WithMasterNodeCount(ContainerServiceMasterProfileCount.MIN)
+        .WithMasterLeafDomainLabel(&quot;dns-myK8S&quot;)
+        .DefineAgentPool(&quot;agentpool&quot;)
+              .WithVMCount(1)
+              .WithVMSize(ContainerServiceVMSizeTypes.StandardD1V2)
+              .WithLeafDomainLabel(&quot;dns-ap-myK8S&quot;)
+              .Attach()
+        .Create();</pre>
+
+  <h2>サブスクリプションアクセスでサービスプリンシパルを作成する</h2>
+
+
+  <p>サービスプリンシパルを作成し、メソッドチェーンを使用 <code>define() &hellip; create() </code> して、共同作成者ロールを持つサブスクリプションに割り当てることができます。</p>
+
+
+  <pre class="prettyprint">
+
+  var servicePrincipal = authenticated.ServicePrincipals.Define(&quot;spName&quot;)
+        .WithExistingApplication(activeDirectoryApplication)
+        // define credentials
+        .DefinePasswordCredential(&quot;ServicePrincipalAzureSample&quot;)
+              .WithPasswordValue(&quot;StrongPass!12&quot;)
+              .Attach()
+        // define certificate credentials
+        .DefineCertificateCredential(&quot;spcert&quot;)
+              .WithAsymmetricX509Certificate()
+              .WithPublicKey(File.ReadAllBytes(certificate.CerPath))
+              .WithDuration(TimeSpan.FromDays(7))
+              // export credentials to a file
+              .WithAuthFileToExport(new StreamWriter
+                                       (new FileStream(authFilePath, FileMode.OpenOrCreate)))
+              .WithPrivateKeyFile(certificate.PfxPath)
+              .WithPrivateKeyPassword(certPassword)
+              .Attach()
+        .WithNewRoleInSubscription(role, subscriptionId)
+        .Create();
+  </pre>
+
+
+  <p>同様に、次のことができます。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure-Samples/aad-dotnet-manage-service-principals" target="_blank">サービス プリンシパルを管理する</a></li>
+   <li><a href="https://github.com/Azure-Samples/aad-dotnet-browse-graph-and-manage-roles" target="_blank">グラフ (ユーザー、グループ、メンバー) を参照し、ロールを管理する</a></li>
+   <li><a href="https://github.com/Azure-Samples/aad-dotnet-manage-passwords" target="_blank">パスワードの管理</a></li>
+  </ul>
+
+
+  <h2>[試用版]</h2>
+
+
+  <p>GitHub からより多く<a href="https://github.com/Azure/azure-sdk-for-net/tree/Fluent#sample-code" target="_blank">のサンプル</a>を取得できます。 試してみてください。また、以下のコメントを <a target="_blank">お送りください</a> 。</p>

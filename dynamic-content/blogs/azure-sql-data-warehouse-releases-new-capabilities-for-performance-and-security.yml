@@ -1,0 +1,145 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c558eb214d9cd40ac29af7fdbc17844ee587a919
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904985"
+Slug: azure-sql-data-warehouse-releases-new-capabilities-for-performance-and-security
+Title: Azure SQL Data Warehouse、パフォーマンスとセキュリティのための新機能をリリース
+Summary: 格納してクエリを実行する対象のデータの量が増え続ける中で、コスト パフォーマンスの最も高いデータ ウェアハウスを使用することがますます重要になっています。 Gigaom の TPC-H ベンチマーク レポートと TPC-DS ベンチマーク レポートの両方で業界のリーダーになるのは楽しみですが、お客様に代わってイノベーションを停止する予定はないと考えています。
+Content: >-
+  <p>格納してクエリを実行する対象のデータの量が増え続ける中で、コスト パフォーマンスの最も高いデータ ウェアハウスを使用することがますます重要になっています。 Gigaoms&rsquo; <a href="https://azurecomcdn.azureedge.net/cvt-cf58e036f3a90892f94ad7c7e3793eca0f3c6a6f55e2745bb083941a1d34ed8a/mediahandler/files/resourcefiles/data-warehouse-in-the-cloud-benchmark/FINAL%20data-warehouse-cloud-benchmark.pdf">TPC-H</a> ベンチマーク レポートと <a href="https://azurecomcdn.azureedge.net/cvt-cf58e036f3a90892f94ad7c7e3793eca0f3c6a6f55e2745bb083941a1d34ed8a/mediahandler/files/resourcefiles/cloud-data-warehouse-performance-testing/FINAL%20GigaOm%20Report_cloud-data-warehouse-performance-testing.pdf">TPC-DS</a>&rsquo; ベンチマーク レポートの両方で業界リーダーになれるのは楽しみですが、お客様に代わってイノベーションを停止する予定はないと考えています。&rsquo;</p>
+
+
+  <p>月曜日のブログで Rohan Kumar <a href="https://azure.microsoft.com/en-us/blog/analytics-in-azure-remains-unmatched-with-new-innovations/"></a>&rsquo;が述べたように、Azure SQL Data Warehouse を価格パフォーマンス、柔軟性、セキュリティの他に類を見ない業界のリーダーにし続けるいくつかの<b></b>新機能を紹介します。<b></b></p>
+
+
+  <p>お客様が追加コストを加えることなくアプリケーションのパフォーマンスを引き続き改善するために、結果セットのキャッシュ、マライズド <strong></strong>ビュー、および順序付け<strong></strong>されたクラスター化列ストア <strong></strong>インデックスのプレビューの可用性をお知りいたします。&rsquo;</p>
+
+
+  <p>価格パフォーマンスの強化に加えて、お&rsquo;客様の機敏性と柔軟性を向上させる新しい機能が追加されました。 1 つ <strong>目はワークロード</strong>の重要度です。これは、競合するニーズを持つワークロードを優先順位付けする方法をユーザーが決定できる新機能です。 次に、統計の自動メンテナンス (<strong>自動更新</strong>統計) に対する新しいサポートは、Azure SQL Data Warehouseの管理性とメンテナンスがより簡単で効果的になったという意味です。 最後に、JSON データ&rsquo;の管理とクエリのサポートも追加しました。<strong> </strong>ユーザーは JSON データを <strong>データ</strong> ウェアハウスに直接読み込み、他のリレーショナル データと組み合わせ、より迅速で簡単な分析情報を得ることができます。</p>
+
+
+  <p>最後のお知らせでは、セキュリティとプライバシーに焦点を当て、 ご存知のように、クラウドにデータ ウェアハウス ソリューションをデプロイするには、高度で堅牢なセキュリティが必要です。 Azure SQL Data Warehouse&rsquo;では、高度なセキュリティ モデルを既にデプロイすることができますが、現在、動的データ マスク (DDM) のサポート<strong>が</strong>発表されました。 DDM を使用すると&rsquo;、ユーザー定義ポリシーを使用してプライベート データを保護し、それを表示するアクセス許可を持つユーザーにのみ表示することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e247a71c-bd6d-4381-9e2a-8904fadb447d.png"><img alt="Azure SQL Data Warehouse is a critical piece of the big data pipeline." border="0" height="204" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8d723883-2ad6-4b61-b5f6-3f08b8790ea8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="499"></a></p>
+
+
+  <p>以下のセクションでは、これらの&rsquo;新機能と、それぞれが提供する利点について説明します。</p>
+
+
+  <h2>価格パフォーマンス</h2>
+
+
+  <p>価格パフォーマンスは、最も速い分析サービスの 1 つを驚くべき価値で提供する理由から、リリースで再び発生するテーマです。 本日発表された新しい機能では、引き続き、最先端の価格パフォーマンス プラットフォームの提供に向けたコミットメントを示しています。</p>
+
+
+  <h3>結果セットキャッシュを使用した対話型ダッシュボード (プレビュー)</h3>
+
+
+  <p>対話型ダッシュボードには、予測可能で反復的なクエリ パターンが備されています。 結果セットのキャッシュはプレビューで使用できる現在、このシナリオに役立ちます。これにより、ビジネス アナリストやレポート ユーザーの分析情報の取得時間を短縮しながら、クエリの応答時間を瞬時に短縮できます。</p>
+
+
+  <p>結果セットのキャッシュを有効にすると、Azure SQL Data Warehouse は繰り返しクエリの結果を自動的にキャッシュし、後続のクエリ実行では、完全なクエリ実行を省略する永続化されたキャッシュからの結果を返します。 コンピューティング サイクルの節約に加えて、結果セットのキャッシュによって満たされるクエリには同時実行スロットが使用されないため、既存の同時実行の上限には影響しません。 セキュリティ上の理由から、適切なセキュリティ資格情報を持つユーザーのみがキャッシュ内の結果セットにアクセスできます。</p>
+
+
+  <h3>パフォーマンスを向上させるマライズド ビュー (プレビュー)</h3>
+
+
+  <p>広範なクエリ セットのクエリ パフォーマンスを大幅に向上させるもう 1 つの新機能は、マライズド ビューのサポートです。プレビューで利用できます。 マテライズド ビューを使用すると、単純なメンテナンス操作を提供しながら、複雑なクエリ (通常は結合と集計を含むクエリ) のパフォーマンスが向上します。</p>
+
+
+  <p>マライズド ビューが作成されると、Azure SQL Data Warehouse クエリ オプティマイザーは、デプロイされたマライズド ビューを活用するようにユーザー クエリを透過的かつ自動的に書き換え、クエリのパフォーマンスを向上させます。 何より、データがベース テーブルに読み込まれると、Azure SQL Data Warehouse は、マテライズド ビューを自動的に維持および更新し、メンテナンスと管理の簡略化されたビューを提供します。 ユーザー クエリがマライズド ビューを利用する場合、クエリの実行速度が大幅に向上し、使用するシステム リソースが少なくなります。 ビュー内のクエリが複雑でコストが高い場合は、実行時間を節約できる可能性が高くなります。</p>
+
+
+  <h3>順序付けされたクラスター化列ストア インデックスを使用した高速スキャン (プレビュー)</h3>
+
+
+  <p>列ストアは、大量のデータの格納および効率的なクエリを実現する鍵となります。 テーブルごとに、受信データが行グループに分割され、行グループの各列がディスク上のセグメントを形成します。 列ストア インデックスに対してクエリを実行すると、ユーザー クエリに関連する列セグメントだけがディスクから読み取りされます。 順序指定クラスター化列ストア インデックスは、効率的なセグメントの除外を有効にすることにより、クエリの実行をさらに最適化します。</p>
+
+
+  <p>事前に順序付けられたデータにより、ディスクから読み取るセグメントの数を大幅に減らし、クエリ処理を高速化できます。 順序付けされたクラスター化列ストア インデックスはプレビューで使用できます。フィルターと述語を含むクエリは、この機能のメリットを大きく得る可能性があります。</p>
+
+
+  <h2>柔軟性</h2>
+
+
+  <p>ビジネス要件が進化するにつれて、ソリューションの動作を変更して適応する機能は、最新のデータ ウェアハウス製品の主な利点の 1 つになります。 使いやすさと管理性を提供しながら、企業が持つ異種データを処理および管理する機能が重要です。 これらのニーズをサポートするために、Azure SQL Data Warehouse では、進化し続ける要件に対処するために役立つ次の新機能が導入されています。</p>
+
+
+  <h3>ワークロードの重要度を使用してワークロードに優先順位を付ける (一般提供)</h3>
+
+
+  <p>多くの場合、分析ソリューションで混合ワークロードを実行するには、ビジネス プロセスを効果的かつ迅速に実行する必要があります。 リソースが制約されている状況では、最初に実行する必要があるワークロードを決定する機能が重要です。これは、全体的なソリューション コスト管理に役立つからです。 たとえば、エグゼクティブ ダッシュボード レポートは、アドホック クエリよりも重要な場合があります。 ワークロードの重要度によって、このシナリオが有効になります。 重要度が高い要求は、リソースへの迅速なアクセスが保証されます。これにより、定義済みの SLA を満たすのに役立ち、重要な要求の優先順位が確保されます。</p>
+
+
+  <h3>ワークロード分類の概念</h3>
+
+
+  <p>ワークロードの優先度を定義するには、さまざまな要求を分類する必要があります。 Azure SQL Data Warehouseでは、SQL クエリ、データベース ユーザー、データベース ロール、Azure Active Directory ログイン、または Azure Active Directory グループに対して設定できる柔軟な分類ポリシーがサポートされています。 ワークロード分類は、新しい <a href="https://docs.microsoft.com/sql/t-sql/statements/create-workload-classifier-transact-sql?view=azure-sqldw-latest">CREATE WORKLOAD CLASSIFIER 構文を使用して実現</a> されます。</p>
+
+
+  <p>次の図は、ワークロードの分類と重要度の関数を示しています。</p>
+
+
+  <p><i><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b95ed62e-c6fc-467e-843f-19894ecc9fda.gif"><img alt="The classifier assigns incoming requests to a workload group and assigns importance based on the parameters specified in the classifier statement definition." height="264" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c23b1701-df11-4116-84b9-929e98ec5d02.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="" width="320"></a></i></p>
+
+
+  <h3>ワークロードの重要度の概念</h3>
+
+
+  <p><a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-workload-importance">ワークロードの重要度は</a> 、分類によって確立されます。 <em>重要度</em> は、要求者に影響&#39;、&nbsp; メモリ、CPU、IO、ロックなどのシステム リソースへのアクセスを許可します。 要求には、次の 5 つの重要度レベル (低、below_normal、標準、above_normal、高) のいずれかを割り当てることができます。 重要度が最も高い要求above_normal、既定の通常の重要度を持つ要求の前にリソースに <i>アクセス</i> できます。</p>
+
+
+  <p><i><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c80605c9-3e27-4a14-9403-e7c6b5ead006.gif"><img alt="With workload importance, you can easily ensure that important queries immediately get access to resources." height="252" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5413815-8030-4259-996f-4956fe4f2c58.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="" width="360"></a></i></p>
+
+
+  <h3>JSON データの管理とクエリ (プレビュー)</h3>
+
+
+  <p>組織は、CSV ファイルとは別に、複数のデータ ソースと異種ファイル形式 (JSON が上位のデータ ソースの 1 つ) を扱うのにますます直面しています。 分析情報を得る時間を高速化し、不要なデータ変換プロセスを最小限に抑えるために、Azure SQL Data Warehouseでは JSON データのクエリのサポートが有効になります。 現在、この機能はプレビューでご利用いただけます。</p>
+
+
+  <p>ビジネス アナリストは、使い慣れた T-SQL言語を使用して、JSON データとして書式設定されたドキュメントに対してクエリを実行および操作できます。 azure JSON_VALUE で JSON_VALUE、JSON_QUERY、JSON_MODIFY、OPENJSON などの JSON 関数がサポートSQL Data Warehouse。 Azure SQL Data Warehouseでは、2 つの間の結合を含むリレーショナル データと非リレーショナル データの両方を効果的にサポートできる一方で、ユーザーは Power BI などの従来の BI ツールを使用できます。</p>
+
+
+  <h3>統計の自動メンテナンスと更新 (プレビュー)</h3>
+
+
+  <p>Azure SQL Data Warehouse最適な実行プランが生成および使用されるのを確認するために、コストベースのオプティマイザーが実装されています。 コストベースのオプティマイザーを有効にするには、列レベルの統計が必要です。 これらの統計が古い場合、最適でないプランを選択すると、クエリのパフォーマンスが低下する可能性があります。</p>
+
+
+  <p>現在、統計を&rsquo;自動的に更新および維持する機能を追加することで、統計の自動作成のサポートを拡張しました。 データ ウェアハウス テーブルが読み込まれ、更新されると、システムは古い統計を自動的に検出して更新できます。 統計の自動更新機能がプレビューで利用可能にされたので、Azure SQL Data Warehouse は統計のメンテナンス プロセスを簡略化しながら、完全な統計管理機能を提供します。 統計を手動で管理する必要がなくなったので、データ ウェアハウスのデプロイが簡素化され、コスト効率が向上します。</p>
+
+
+  <h2>セキュリティ</h2>
+
+
+  <p>Azure SQL Data Warehouseは、市場で最も高度なセキュリティとプライバシーの機能の 1 つを提供します。 これは、実証済みのテクノロジを使用してSQL Serverされます。 SQL Server、Azure SQL Data Warehouse のコア テクノロジとコンポーネントとして、NIST の国内脆弱性データベースによると、過去 8 年間で最も脆弱なデータベース<a href="https://nvd.nist.gov/">が存在し続けてきました</a>。 既存の Azure SQL Data Warehouse&#39;&rsquo;のセキュリティとプライバシー機能を拡張するために、プレビューで 動的データ マスク (DDM) のサポートが利用可能になります。</p>
+
+
+  <h3>動的データ マスクを使用して機密データを保護する (プレビュー)</h3>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/dynamic-data-masking?toc=%2Fazure%2Fsql-data-warehouse%2Ftoc.json&amp;view=sql-server-2017">動的データ マスク</a> (DDM)&rsquo; を使用すると、管理者とデータ開発者は会社のデータへのアクセスを制御でき、機密データを安全かつ制限することができます。 データをオンザフライであいまいにすることで、プライベート データへの不正アクセスを防ぐ。 Azure SQL Data Warehouse では、ユーザー定義のデータ マスク ポリシーに基づいて、クエリの実行時や結果がユーザーに表示される前に、データを動的に難読化できます。</p>
+
+
+  <p><i><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/283fe5f4-a7d6-4860-9e20-c4f219bfec48.gif"><img alt="Dynamic Data Masking with Azure SQL Data Warehouse prevents unauthorized access to private data by obscuring the data on-the-fly." height="238" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6c01a8b-f527-4674-b497-3bd1568854b0.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="" width="402"></a></i></p>
+
+
+  <p>Azure SQL Data Warehouse、DDM 機能をエンジン内に直接実装します。 DDM を使用してテーブルを作成する場合、ポリシーはシステム&#39;メタデータに格納され、クエリの実行時にエンジンによって適用されます。 この一元化されたポリシー適用プロセスにより、アクセス制御が実装され、アプリケーション層で繰り返されないので、データ マスク 規則の管理が簡素化されます。 さまざまなユーザーがクエリ テーブルにアクセスすると、機密データを保護しながらポリシーが自動的に適用されます。 DDM には柔軟なポリシーが付属し、選択した列のデータの一部を公開する部分マスクを定義するか、データを完全に難読化する完全なマスクを定義することもできます。 Azure SQL Data Warehouseには、ユーザーが選択できる組み込みのマスク関数も用意されています。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>概要 <a href="https://azure.microsoft.com/en-us/free/sql-data-warehouse/">Azure アカウントを使用SQL Data Warehouseします</a>。</li>
+   <li>ワークロード管理の <a href="https://www.youtube.com/watch?v=QcCRBAhoXpM&amp;index=8&amp;list=PLLasX02E8BPClOvjNV9bXk3LUuf3nQiS2">概念とワークロード管理シナリオ</a> の <a href="https://www.youtube.com/watch?v=_2rLMljOjw8&amp;index=7&amp;list=PLLasX02E8BPClOvjNV9bXk3LUuf3nQiS2">詳細を確認してください</a>。</li>
+   <li> <a href="https://aka.ms/simply-unmatched">Azure のanalytics が単に一致しない理由の詳細を確認してください</a>。</li>
+  </ul>
+
+
+  <p>このブログで説明されているプレビュー機能は、すべてのリージョンに展開されています。 <a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/release-notes#checking-the-code-version-that-has-been-applied-to-your-data-warehouse">インスタンスにデプロイされているバージョンを確認し、</a><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/release-notes">最新の Azure SQL Data Warehouseリリース ノートを確認して詳細</a>を確認してください。 プレビューに関する質問については、 にお問い合わせください <a>AskADWPreview@microsoft.com</a>。</p>

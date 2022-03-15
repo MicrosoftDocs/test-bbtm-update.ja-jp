@@ -1,0 +1,347 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c6e7514030cd86cc5af47ed4c002bcb39382faa2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904986"
+Slug: azure-source-volume-62
+Title: Azure. ソース-ボリューム62
+Summary: 'KubeCon 北米 2018: サーバーレスの Kubernetes とコミュニティ主導のイノベーション Azure Monitor、コンテナーの一般提供が開始されたため、Microsoft はニューラルネットワークのテキスト読み上げなどを簡単にプレビューできます。'
+Content: >-
+  <h2 style="text-align: center;">KubeCon 北米2018</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/kubecon-north-america-2018-serverless-kubernetes-and-community-led-innovation/">KubeCon 北米 2018: サーバーレス Kubernetes とコミュニティ主導イノベーション</a></h3>
+
+
+  <p>Kubernetes プロジェクトの Microsoft Azure と共同創設者における Brendan 火傷、識別エンジニアは KubeCon 北米2018を歓迎しています。これは、シアトルで先週導入されました。 彼の投稿では、Brendan は Azure Kubernetes Services (AKS) の振り返りを提供しています。たとえば、Maersk、Siemens、Bosch などの企業のエンジニアが、ソリューションでの AKS の導入によってどのようにメリットをもたらしているかなどです。 また、KubeCon で行ったさまざまな発表の概要についても説明します。 Docker、Bitnami、Hashicorp などを使用して、クラウドネイティブアプリケーションバンドル (CNAB) 仕様を発表しました。これは、新しい分散アプリケーションパッケージであり、ヘルムまたは他の構成ツールと Docker イメージを組み合わせて、完全な自己インストール型のクラウドアプリケーションを提供します。 また、マイクロソフトは likeness の Phippy を寄付しています。また、の <em>子供たち &rsquo; </em> のすべてのお気に入りにが含まれています。また、このガイドに記載されているお客様のすべてのお気に入りについては、Phippy、は、crds <em>などについ</em>て説明しています。</p>
+
+
+  <p align="center" style="font-size: x-small"><a href="https://azure.microsoft.com/en-us/resources/phippy-goes-to-the-zoo/en-us/" target="_blank"><img alt="Cover from the guide, Phippy Goes to the Zoo: A Kubernetes Story" height="386" src="https://azurecomcdn.azureedge.net/cvt-ff39958940a3d3dff676c95c2dec463de8a10e13c52ecfe92b0c840675e0fc43/mediahandler/files/resourcefiles/phippy-goes-to-the-zoo/Cover-Phippy%20Goes%20To%20The%20Zoo.png" title="Phippy が Kubernetes の話に移ります。" width="500"></a><br>
+
+  <em>Phippy と友人は、模造紙およびリー Beougher によって考案されたものであり、CC ライセンスでは CNCF によってライセンス供与されています。詳細については、 <a href="https://phippy.io">phippy.io</a>を参照してください。</em></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/a-hybrid-approach-to-kubernetes/">Kubernetes のハイブリッドアプローチ</a></h3>
+
+
+  <p>Azure Stack を使用すると、グローバルな Azure の場合とほぼ同じように、コンテナーをオンプレミスで実行できます。 Microsoft Azure Stack は、データセンターからのサービスの提供を可能にするハイブリッド クラウド プラットフォームです。 サービス プロバイダーの場合は、テナントにサービスを提供できます。 テンプレートは Azure Container Service エンジンによって生成されるため、Azure Stack 用の Kubernetes Cluster Marketplace 項目 v0.3.0 は Azure と整合しています。結果として得られるクラスターは、AKS と同じコンテナーを実行します。 また、クラウドネイティブファンデーションに準拠しています。 クラスターは、Ubuntu サーバー、カスタムスクリプト、および Azure Stack Marketplace に含まれる Kubernetes 項目に依存します。</p>
+
+
+  <h2>現在プレビュー中</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/microsoft-previews-neural-network-text-to-speech/">Microsoft によるニューラルネットワークのテキスト読み上げ</a></h3>
+
+
+  <p>Azure Cognitive Services の一部である speech サービスは、ニューラルネットワークを利用した音声合成機能を提供するようになりました。 ニューラルテキスト読み上げ機能を使用すると、アプリの音声は人間の声とほとんど区別できません。 この機能を使用して、チャットボットや仮想アシスタントとの会話をより自然で魅力的なものにし、電子書籍などのデジタルテキストを audiobooks に変換したり、自然な音声エクスペリエンスで車のナビゲーションシステムをアップグレードしたりすることができます。 このリリースでは、最初に Ignite で、音声品質の向上、実行時のパフォーマンスの高速化、サービスの可用性の向上など、初めてニューラルテキスト読み上げを行ったため、大幅な機能強化が行われています。 これらの更新プログラムを使用すると、Speech Services ニューラルのテキスト読み上げ機能により、従来のシステムアプローチとハイブリッドシステムアプローチと比較して、ユーザーにとって最も自然な音声エクスペリエンスが提供されます。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/native-python-support-on-azure-app-service-on-linux-new-public-preview/">Linux での Azure App Service でのネイティブ Python のサポート: 新しいパブリックプレビュー</a></h3>
+
+
+  <p>Linux の Azure App Service 用の組み込みの Python イメージをパブリックプレビューで利用できるようになりました。 Python 3.7、3.6、および2.7 を選択すると、開発者は Django や Flask を含む Python アプリケーションをすぐに使い始めることができ、Linux で Azure App Service の完全な機能を活用できます。 Linux 上の App Service で Python 用の公式イメージを使用すると、プラットフォームによって、requirements.txt ファイルに指定された依存関係が自動的にインストールされます。 Linux 上の Azure App Service の基盤となるインフラストラクチャは、1年にわたって一般公開 (GA) されていますが、現時点 &rsquo; では Python のランタイムをパブリックプレビューでリリースしています。 GA は数か月で予定されています。</p>
+
+
+  <p align="center"><a href="https://aka.ms/python-videos"><img alt="Thumbnail from the Python on Azure series from Azure Friday on YouTube" border="0" height="324" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9ef93f4-2dc4-4923-887c-60834e66ae97.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="YouTube で Azure 金曜の Nina Zakharenko と Carlton Gibson を使用して、Azure シリーズの4部構成の Python をご覧ください。" width="576"></a></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/automatic-performance-monitoring-in-azure-sql-data-warehouse-with-query-store/">Azure SQL Data Warehouse での自動パフォーマンス監視 (プレビュー)</a></h3>
+
+
+  <p>Azure SQL Data Warehouse のクエリストアのプレビューが、Gen1 と Gen2 の両方のプランでプレビューで利用できるようになりました。 クエリストアには、実行プラン情報を保持するためのプランストア、実行統計情報を保持するためのランタイム統計ストア、待機統計情報を保持するための待機統計ストアの3つの実際のストアが含まれています。 クエリストアは、内部ストアと動的管理ビュー (Dmv) のセットです。 これらのストアは SQL Data Warehouse によって自動的に管理され、過去7日間の無制限の数のクエリを追加料金なしで提供します。 クエリストアは、すべての Azure リージョンで追加料金なしで利用できます。</p>
+
+
+  <h3>プレビューでも</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/connect-cognitive-services-subscription-to-enable-unlimited-skillset-execution/">Cognitive Services サブスクリプションを Connect して、無制限のスキルセットの実行を有効にする</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/python-images-for-app-service-linux-are-now-in-preview/">App Service Linux 用の Python イメージのプレビューが開始されました</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/mongodb-to-azure-cosmos-db-migration-is-in-preview/">MongoDB から Azure Cosmos DB への移行はプレビュー段階です</a></li>
+  </ul>
+
+
+  <h2>一般提供開始</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-monitor-for-containers-now-generally-available/">コンテナーの Azure Monitor が一般公開されるようになりました</a></h3>
+
+
+  <p>コンテナーの Azure Monitor は、Azure Kubernetes Service (AKS) でホストされている Kubernetes クラスターの正常性とパフォーマンスを監視します。 パブリックプレビュー以降、複数の機能が追加されました。これには、マルチクラスタービュー、パフォーマンスグリッドビュー、ライブデバッグ、コンテナーの自動オンボード Azure Monitor が含まれます。 コンテナーに対する Azure Monitor では、Kubernetes で使用可能なコントローラー、ノード、およびコンテナーから Metrics API 経由でメモリやプロセッサ メトリックを収集することにより、パフォーマンスを把握できます。 Kubernetes クラスターから監視を有効にした後、メトリックとログは、コンテナー化されたバージョンの Linux 用 Log Analytics エージェントを使用して自動的に収集され、Log Analytics ワークスペースに格納されます。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/streamlined-iot-device-certification-with-azure-iot-certification-service/">Azure IoT 認定サービスを使用した IoT デバイス認定の合理化</a></h3>
+
+
+  <p>新しい web ベースのテスト自動化ワークフローである Azure IoT 証明書サービス (aic) が一般公開されました。 aic を使用すると、ハードウェア製造元が Azure Certified for IoT プログラム用にデバイスを認定し、Azure IoT デバイスカタログに表示するための運用プロセスとエンジニアリングコストを大幅に削減できます。 認定プログラムの目的は、業界固有の垂直的なソリューションに適した一連の IoT デバイスを紹介し、IoT デバイスの開発を簡略化することです。 AIC は、自動化を通じて一貫した認定プロセスを提供することによって、これらの目標を達成するのに役立ちます。また、デバイスツインとダイレクトメソッドの検証をサポートするための追加のテストを IoT Hub プリミティブ、カスタマイズされたテストケースの柔軟性、シンプルで直感的なユーザーエクスペリエンスを実現します。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/">Azure Storage の静的 web サイトの一般提供開始</a></h3>
+
+
+  <p>静的 web サイトは、事前に定義された一連のファイルから静的に読み込んで提供できる web サイトです。 Azure Storage でホストされている HTML、CSS、および JavaScript ファイルを使用して、静的な web サイトを作成できるようになりました。 静的 web サイトは、クライアント側の JavaScript を使用すると強力です。 Azure Storage は、web サイトのホスティングを簡単かつコスト効率よく行うことができます。 Azure portal、Azure CLI、または Azure PowerShell を使用して、静的な web サイトのホスティングを有効にすることができます。この場合、$web &rsquo; という名前 &lsquo; のコンテナーが作成されます。 その後、静的コンテンツをこのコンテナーにアップロードしてホストすることができます。 コンテンツは、web エンドポイントを通じて入手できます。 Azure Storage で静的 web サイトを有効にする場合、追加料金は発生しません。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzurePortalStaticWebsite.png" title="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzurePortalStaticWebsite.png"><img alt="Screenshot from the Azure portal showing the setup of a static website on Azure Storage" height="317" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzurePortalStaticWebsite.png" title="Azure Storage での静的な web サイトの設定" width="640"></a></p>
+
+
+  <h3>一般公開</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/azure-monitor-for-containers-is-now-available/">コンテナーの Azure Monitor を使用できるようになりました</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/general-availability-azure-kubernetes-service-in-east-asia/">一般提供: 東アジアでの Azure Kubernetes Service</a></li>
+  </ul>
+
+
+  <h2>新機能と更新</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-integration-with-data-lake-storage-gen-2-preview-acl-and-security-update/">Azure HDInsight と Data Lake Storage Gen2 プレビューとの統合 - ACL とセキュリティ更新プログラム</a></h3>
+
+
+  <p>この統合により、HDInsight のお客様は、Apache Spark、Hive、MapReduce、kafka、嵐、HBase などの広く普及しているオープンソースフレームワークを使用して、Azure Data Lake Storage Gen 2 に格納されているデータを安全な方法で分析することができます。 Azure Data Lake Storage Gen2 は、最初の世代の Azure Data Lake のコア機能と、Hadoop と互換性のあるファイルシステムエンドポイントを Azure Blob Storage に直接統合したものです。 HDInsight と Azure Data Lake Storage Gen2 の統合は、ユーザーによって割り当てられたマネージド id に基づいています。 Azure Data Lake Storage Gen2 アカウントを使用して、HDInsight への適切なアクセス権を割り当てます。 構成が完了すると、HDInsight クラスターはストレージとして Azure Data Lake Storage Gen2 を使用できるようになります。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-backup-server-now-supports-sql-2017-with-new-enhancements/">Azure Backup Server で SQL 2017 がサポートされるようになりました。新しい機能強化があります</a></h3>
+
+
+  <p>Windows Server 2019 のデータベースとして SQL 2017 を使用して Azure Backup Server をインストールできるようになりました。 Azure Backup Server を使用すると、単一のコンソールから Hyper-V VM、Microsoft SQL Server、SharePoint Server、Microsoft Exchange、Windows クライアントなどのアプリケーションのワークロードを保護することができます。 Azure Backup Server バージョン 3 (mabs V3) は最新のアップグレードであり、重要なバグ修正、Windows Server 2019 サポート、SQL 2017 サポート、およびその他の機能と拡張機能が含まれています。 MABS V3 は完全なリリースであり、Windows Server 2016、Windows Server 2019 に直接インストールするか、MABS V2 からアップグレードすることができます。 Backup Server V3 にアップグレードまたはインストールする前に、インストールの前提条件をお読みください。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-functions-now-supported-as-a-step-in-azure-data-factory-pipelines/">Azure Data Factory パイプラインの手順として Azure Functions サポートされるようになりました</a></h3>
+
+
+  <p>Azure Functions は、インフラストラクチャを明示的にプロビジョニングまたは管理することなく、オンデマンドでコードを実行できるサーバーレス コンピューティング サービスです。 Azure Functions を使用すると、さまざまなイベントに応答してスクリプトまたはコードの一部を実行できます。 Azure Data Factory (ADF) は、Azure の管理されたデータ統合サービスであり、抽出変換ロード (ETL) ワークフローを反復的に作成、調整、および監視することができます。 Azure Functions は ADF と統合されるようになり、data factory パイプラインの手順として Azure 関数を実行できるようになりました。 Azure Functions を実行するには、リンクされたサービスの接続と、実行する Azure Functions を指定するアクティビティを作成する必要があります。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/392baffc-7c3f-43de-a986-0cefd3277353.png" target="_blank"><img alt="Screenshot of the Azure portal showing an Azure Function activity inside a data factory pipeline" height="322" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/392baffc-7c3f-43de-a986-0cefd3277353.png" title="Data factory パイプライン内の Azure Function アクティビティ" width="600"></a></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/automate-always-on-availability-group-deployments-with-sql-virtual-machine-resource-provider/">SQL 仮想マシンリソースプロバイダーを使用した Always On 可用性グループのデプロイの自動化</a></h3>
+
+
+  <p>高可用性アーキテクチャは、データベース、ハードウェア、またはネットワークに障害が発生した場合でも機能し続けるように設計されています。 すべてのオペレーティングシステムディスクとデータディスクで Premium Storage を使用する Azure 仮想マシンインスタンスは、99.9% の可用性を提供します。 この SLA は、計画外のハードウェアメンテナンス、予期しないダウンタイム、計画メンテナンスの3つのシナリオ &ndash; によって影響を受けます。 手動での構成に代わるシンプルで信頼性の高い方法として、SQL VM リソースプロバイダー (RP) を使用して Azure vm で SQL Server に Always On 可用性グループ (AG) を構成するための新しい自動化された方法が追加されました。 SQL VM リソースプロバイダーは、さまざまな Azure リソースのプロビジョニングを調整し、連携するように接続することによって、Always On AG のセットアップを自動化します。</p>
+
+
+  <h3>その他のニュースと更新</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/azure-database-for-mariadb-name-changes/">Azure Database for MariaDB 名の変更</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/azure-databases-for-mysql-and-postgresql-resource-guid-changes/">MySQL および PostgreSQL リソース GUID の変更のための Azure データベース</a></li>
+  </ul>
+
+
+  <h2>技術的なコンテンツ</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/power-bi-and-azure-data-services-dismantle-data-silos-and-unlock-insights/">Power BI と Azure Data Services 取り消すのデータサイロとデータのロック解除</a></h3>
+
+
+  <p>Power BI データフロー、Common data Model、Azure Data Services を組み合わせて使用すると、組織内のオープンなデータサイロを分割し、ビジネスアナリスト、データエンジニア、データ科学者がデータを燃料高度な分析に共有して、競争力のあるエッジを提供するために新しい洞察を解除することができます。 新しいチュートリアルを使用して、Power BI と Azure Data Services を接続してデータを共有し、新しい洞察を解除する方法について説明します。 このチュートリアルでは、CDM フォルダーを使用して Power BI と Azure Data Services の間でデータを共有する方法を最初に説明します。 このチュートリアルでは、独自のデータから作成した CDM フォルダーで使用できるサンプルライブラリ、コード、Azure リソーステンプレートを使用します。 このチュートリアルを実行&rsquo;すると、CDM フォルダーに格納されているメタデータによって、各サービスがデータを理解して共有しやすくなる方法を確認できます。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/deploying-apache-airflow-in-azure-to-build-and-run-data-pipelines/">Azure に Apache Apache のエアフローをデプロイしてデータ パイプラインをビルドして実行する</a></h3>
+
+
+  <p>Apache Apache Apache は、ワークフローの作成、スケジュール設定、監視に使用されるオープン ソース プラットフォームです。 エアフローは、演算子、ジョブを作成するためのプログラミング可能なインターフェイス、スケーラブルな分散アーキテクチャ、豊富な追跡および監視機能を含む拡張可能なフレームワークを提供することで、cron ユーティリティの制限の一部を克服します。 Azure App Service と Azure Database for PostgreSQL のインスタンスをメタデータ ストアとして使用することで、Azure にエアフロー インスタンスをデプロイして作成できる Azure クイックスタート テンプレートを開発しました。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/520bae1c-a084-4e9e-8fc5-1ce6041538f8.png" title="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/520bae1c-a084-4e9e-8fc5-1ce6041538f8.png"><img alt="Diagram showing managed servics in Azure for implementing an Apache Airflow architecture" height="303" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/520bae1c-a084-4e9e-8fc5-1ce6041538f8.png" title="Apache のエアフロー アーキテクチャを実装するための Azure のマネージド サービス" width="400"></a></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/how-news-platforms-can-improve-uptake-with-microsoft-azure-video-ai-service/">ニュース プラットフォームがビデオ AI サービスを使用Microsoft Azure&rsquo;向上させる方法</a></h3>
+
+
+  <p>Microsoft ニュースニュース速報と信頼できる詳細なレポートを世界から配信し、最高の&#39;を提供するアプリです。 Microsoft ニュース記事を分析し、パーソナル化を増やす方法を決定する高度なアルゴリズムを作成しました。最終的には消費が増加しますが、ビデオに関するより多くの分析情報が必要でした。 Microsoft Engineering 内のアプリケーションデータ科学者 Anna Thomas は、Microsoft テクノロジとカスタム ソリューションの組み合わせを使用してこれらの分析情報を提供する方法を決定するために設定します。しかし、この API の機能がVideo Indexerより多くの機能を保持しているのを発見しました。 彼女の投稿を確認して、彼女が発見した情報を確認してください。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/know-exactly-how-much-it-will-cost-for-enabling-dr-to-your-azure-vm/">Azure VM の DR を有効にするためにかかる費用を正確に把握する</a></h3>
+
+
+  <p>Azure では、Azure に組み込みのディザスター リカバリー (DR) ソリューションが提供され、Virtual Machines (ASR) Azure Site Recovery使用できます。 Site Recovery は、レプリケーション、フェールオーバー、フェールバックなど、オンプレミスのマシンと Azure Virtual Machines (VM) のディザスター リカバリーを管理し、調整します。 一般的な質問は、Azure 仮想マシンの DR の構成に関連するコストに関する質問です。そのため、Sujay Talasila は DR コストを見積もる方法を確認しました。 彼の例に従って、特定のソリューションをサポートするためのコストを確認します。 Azure リージョン間のディザスター リカバリーは、ASR が使用可能なすべての Azure リージョンで利用できます。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/taking-a-closer-look-at-python-support-for-azure-functions/">Python のサポートを詳しく見てみAzure Functions</a></h3>
+
+
+  <p>今月初めに Microsoft Connect(); 2018 で発表したように、オープンソースの Functions 2.0 ランタイムに基づいて Python 3.6 を使用して Functions を開発し、Azure の Consumption プラン (実行ごとの支払いモデル) に発行できます。 Python は、データ操作、機械学習、スクリプト作成、自動化のシナリオに最適です。 サーバーレス Azure Functions を使用してこれらのソリューションを構築すると、基になるインフラストラクチャを管理する負担を取り上げ、アプリケーションの差別化ビジネス ロジックに実際に集中することができます。 Python Functions の新しく発表された機能と開発エクスペリエンスの詳細については、この投稿を参照してください。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0355b22-8973-46b0-bbe6-bce520d624fa.png" title="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0355b22-8973-46b0-bbe6-bce520d624fa.png"><img alt="Screenshot of Visual Studio Code showing source and console output from a Python HTTP trigger function" height="373" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0355b22-8973-46b0-bbe6-bce520d624fa.png" title="Python HTTP トリガー関数からのソースとコンソールの出力は、Visual Studio Code" width="640"></a></p>
+
+
+  <h3>その他の技術コンテンツ</h3>
+
+
+  <ul>
+   <li><a href="https://medium.com/@scott.coulton/kubernetes-pod-security-101-15fe8cda829e">Kubernetes Pod Security 101</a></li>
+   <li><a href="https://blog.maximerouiller.com/post/flipping-the-static-site-switch-for-azure-blob-storage-programmatically/">プログラムで Azure Blob Blob の静的サイト スイッチをStorageする</a></li>
+   <li><a href="https://medium.com/microsoftazure/how-to-launch-a-dockerized-node-js-app-using-the-azure-web-app-for-containers-service-c3722ce370ab">Azure Web App for Containers Service を使用して Dockerized Node.js アプリを起動する方法</a></li>
+  </ul>
+
+
+  <h2>Azure の表示</h2>
+
+
+  <h3><a href="https://azpodcast.azurewebsites.net/post/Episode-258-Live-from-KubeCon-2018">第 258 話 - KubeCon 2018 | からのライブAzure ポッドキャスト</a></h3>
+
+
+  <p>Microsoft はシアトルの KubeCon+CloudNative に住んでいて、Microsoft は、技術の世界の&#39;人と共に Kubernetes について話しています。Azure チームのプリンシパル PM である Lachie Evenson、クラウド ソリューション アーキテクトの Tommy Seattlegout、Kubernetes コンサルタントの Daniel Selman を部屋に集め、Kubernetes と AKS の現在の状態について話し合うのは非常に幸いです。</p>
+
+
+  <p align="center">
+
+  <audio controls="" src="https://azpodcast.blob.core.windows.net/episodes/Episode258.mp3">HTML5 オーディオはサポートされていません</audio>
+
+  </p>
+
+
+  <h3><a href="https://www.youtube.com/watch?v=Kx7mOgdr3Ro">Docker と Azure | の使用を開始する方法Azure ヒントとテクニック</a></h3>
+
+
+  <p>Docker と Azure の使用を開始する方法について説明します。 Docker の使用を開始するには、ローカルの開発マシンに Docker デスクトップ アプリケーションがインストールされていることを確認します。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=Kx7mOgdr3Ro"><img alt="Thumbnail from the Azure Tips and Tricks video, How to get started with Docker and Azure from YouTube" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60d6b24c-4c54-4dae-847e-aad393159b9e.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure ヒントとテクニックを見る: YouTube で Docker と Azure の使用を開始する方法" width="480"></a></p>
+
+
+  <h3><a href="https://www.youtube.com/watch?v=m0uGRBMeKGk">Azure サービスを使用して画像分類モデルをデプロイする方法</a></h3>
+
+
+  <p>サービスを使用して画像分類モデルをデプロイするAzure Machine Learningします。 このチュートリアルでは、&#39;Azure Machine Learning サービスを使用してテスト環境を設定し、作業空間からモデルを取得し、モデルをローカルでテストする方法について説明します。 次&rsquo;に、モデルを Azure Container Instance (ACI) にデプロイし、デプロイされたモデルをテストしてデプロイされたAzure Kubernetes Service (AKS) を確認します。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=m0uGRBMeKGk"><img alt="Thumbnail from How to deploy an image classification model using Azure services on YouTube" border="0" height="271" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b36ed515-472b-4851-8f33-5af52747c87f.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="YouTube で Azure サービスを使用して画像分類モデルをデプロイする方法を見る" width="480"></a></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/Blocktalk/Decentralized-Identity-and-Blockchain">分散型 ID とブロックチェーンの|ブロック トーク</a></h3>
+
+
+  <p>このビデオでは、分散型 ID の概念と、ブロックチェーンを使用してこれらの ID を分散型形式でホストする方法について説明します。 このデモでは、Ethereum ブロックチェーンに固定され、uPort アプリケーションを使用して使用される分散型 ID のチュートリアルを提供します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/Blocktalk/Decentralized-Identity-and-Blockchain/player?format=ny" width="576"></iframe></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Running-AI-on-IoT-microcontroller-devices-with-ELL">ELL を使用した IoT マイクロコントローラー デバイスでの AI の|The IoT Show</a></h3>
+
+
+  <p>リソースに制約のあるプラットフォームや、Raspberry Pi、Arduino、micro:bit など、小規模な単一ボード コンピューターにインテリジェントな機械学習モデルを設計してデプロイする方法はいかがですか? それはどのくらい興味深いでしょうか。 これは、オープン ソースの Embedded ラーニング Library (ELL) プロジェクトの正確な機能です。 デプロイされたモデルは、ネットワーク接続を必要とせず、クラウド内のサーバーに依存することなく、ローカルで実行されます。 ELL は、Microsoft Research で開発された埋め込み AI および機械学習テクノロジの初期プレビューです。 Microsoft Research の Chris Lovett は、この IoT ショーのこのエピソードでプロジェクトの素晴らしいデモを提供します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Running-AI-on-IoT-microcontroller-devices-with-ELL/player?format=ny" width="576"></iframe></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-TypeEdge--a-strongly-typed-development-experience-for-Azure-IoT-Edge">AzureIoT TypeEdge: Edge アプリケーション用の強力に型指定されたAzure IoTエクスペリエンス|The IoT Show</a></h3>
+
+
+  <p>Edge の使用にAzure IoTですか? その後、TypeEdge を気に入る必要があります。これは、開発のIoT Edge単純な F5 エクスペリエンスまで簡素化されるからです。 お気に入りの開発環境で、Azure IoT Edge アプリケーションを最初から数分で作成する方法を確認します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-TypeEdge--a-strongly-typed-development-experience-for-Azure-IoT-Edge/player?format=ny" width="576"></iframe></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/AI-Show/LearnAI-Adding-Bing-Search-to-Bots">LearnAI: ボットBing検索を追加|AI Show</a></h3>
+
+
+  <p>LearnAI チームが Bootcamp のAzure Cognitive Servicesしました。 変更の概要と、Bing SDK V4 を使用してボットに Bing Search、LUIS、Azure Bot Framework Search を追加する方法の詳細を確認します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/AI-Show/LearnAI-Adding-Bing-Search-to-Bots/player?format=ny" width="576"></iframe></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/AI-Show/LearnAI-LUIS--Notes-from-the-Field">LearnAI: フィールド ガイドの LUIS &ndash; |AI Show</a></h3>
+
+
+  <p>Anna Thomas は、複雑な LUIS モデルを開発したフィールド メンバー (内部および外部) から過去 2 年間メモを収集してきました。 このビデオでは、エンタープライズ&#39;LUIS モデルを大規模にデプロイしようとするときに直面する制限事項や課題、および対応方法について説明します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/AI-Show/LearnAI-LUIS--Notes-from-the-Field/player?format=ny" width="576"></iframe></p>
+
+
+  <h3>ジェレミエプリング on Azure Pipelines - Episode 014 |Azure DevOps ポッドキャスト</h3>
+
+
+  <p>Jeffrey Eplingo は、Microsoft のプリンシパル グループ プログラム マネージャーである Azure Pipelines の製品責任者である Jeemy Epling が参加しています。 Microsoft のリーダーとして、15 年以上にわたりさまざまな役割を果たしてきました。 Azure&rsquo; では、現在、特にDevOps、Azure &mdash; の領域で多くの問題がAzure Pipelines。 現在進行中の&rsquo;進行状況について非常に情熱を持ち、今日のエピソードで新しい機能について説明Pipelines楽しみです。</p>
+
+
+  <p align="center">
+
+  <audio controls="" src="https://traffic.libsyn.com/preview/azuredevops/ADP_014-2.mp3">HTML5 オーディオはサポートされていません</audio>
+
+  </p>
+
+
+  <h2>顧客、パートナー、業界</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/cloud-commercial-communities-webinar-and-podcast-update/">クラウド コマーシャル コミュニティのウェビナーとポッドキャストの更新</a></h3>
+
+
+  <p>Cloud Commercial Communities の毎月のウェビナーとポッドキャストの更新をご覧ください。この更新プログラムでは、今後の (現在予定されている 3 つ) コンテンツとオンデマンド コンテンツの包括的な一覧が提供されます。 業界エクスペリエンス チームは毎月、Azure と Dynamics を使用して成功を高めるには、Microsoft のパートナーと顧客が知る必要があるコア プログラム、更新プログラム、傾向、テクノロジに焦点を当てます。</p>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/an-azure-function-orchestrates-a-real-time-serverless-big-data-pipeline/">Azure 関数は、リアルタイムのサーバーレスビッグ データ パイプラインを調整します</a></h3>
+
+
+  <p>&rsquo;Azure Functions の一般的な使用例ではありません。ただし、1 つの Azure 関数で、不正行為検出シナリオに対してエンドツーエンドのリアルタイムのミッション クリティカルなデータ パイプラインを完全に実装するために必要な機能は 1 つです。 このソリューションは、ビッグ データ分析パイプラインで一般的なアーキテクチャ パターンを基に構築され、大量のリアルタイム データがクラウド サービスに取り込まれており、一連のデータ変換アクティビティによって機械学習モデルに対して予測を提供する入力が提供されました。 Microsoft Azure のソフトウェア アーキテクトである Kate Baroni は、このソリューションの概要を提供します。このソリューションの概要については、「Mobile Bank Fraud Solution Guide(モバイル 銀行詐欺ソリューション ガイド)」でアーキテクチャと実装の詳細について説明されています。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/extracting-insights-from-iot-data-using-the-warm-path-data-flow/">ウォーム パス データ フローを使用して IoT データから分析情報を抽出する</a></h3>
+
+
+  <p>工場の機械の担当者は、モノのインターネット (IoT) がプロセスと結果の向上における次のステップであることを既に認識しています。 機械または工場のフロアにセンサーを設置することが最初のステップです。 次の手順では、データを使用します。 この投稿では、Industry Experiences の Ercenk Keresteci Principal ソリューション アーキテクト が、IoT ソリューションからの インサイト の抽出に関するガイドの別のシナリオを強調しています。このガイドでは、IoT データ分析からアクション可能な分析情報を抽出するために必要なコンポーネントの技術的な概要を示します。 この投稿では、リアルタイムでデータを分析する速度レイヤー (ウォーム パス) について説明します。 このレイヤーは、精度と引き換えに待機時間が短くなるように設計されています。 これは、受信メッセージをアーカイブして表示し、これらのレコードを分析して、短期的な重要な情報とアラームなどのアクションを生成する、より高速な処理パイプラインです。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4be09c59-5546-4113-ae90-d883c6206bf6.png" title="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4be09c59-5546-4113-ae90-d883c6206bf6.png"><img alt="Diagram showing an IoT application architecture with the speed layer (warm path) highlighted" height="305" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4be09c59-5546-4113-ae90-d883c6206bf6.png" title="ソリューション ガイドのウォーム パス処理コンポーネント" width="640"></a></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/extracting-insights-from-iot-data-using-the-cold-path-data-flow/">コールド パス データ フローを使用して IoT データから分析情報を抽出する</a></h3>
+
+
+  <p>上記のガイドの詳細については、この投稿では、バッチレイヤーとサービス レイヤー (コールド パス) について説明します。このパスでは、すべての受信データを未加工の形式で格納し、データに対してバッチ処理を実行します。 この処理の結果は、バッチ ビューとして保存されます。 処理速度が遅いパイプラインであり、複雑な分析を実行し、長い期間 (数時間や数日など) の複数のソースからのデータを組み合わせて、レポートや機械学習モデルなどの新しい情報を生成します。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9f225d45-dcbb-4fdc-a864-550fdc3d4200.png" title="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9f225d45-dcbb-4fdc-a864-550fdc3d4200.png"><img alt="Diagram showing an IoT application architecture with the batch and serving layers (cold path) highlighted" height="316" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9f225d45-dcbb-4fdc-a864-550fdc3d4200.png" title="ソリューション ガイドのコールド パス処理コンポーネント" width="640"></a></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/how-smart-buildings-can-help-combat-climate-change/">スマート ビルディングが、どのように気候変化に対処するのに役立つのか</a></h3>
+
+
+  <p>ペースの速い都市化は、気候への影響を直ちに軽減する素晴らしい機会を提供します。 &mdash;&mdash;ビルオフィスの複雑さ、多層住宅、ホテル、店舗、学校、病院、ショッピングセンターなどが都市のインフラストラクチャの大きな部分を計算し、スマートにし、都市のエネルギーと二酸化炭素排出量を大幅に削減できます。 コネクテッド ビルディング テクノロジで照明、暖房、冷却を管理し、使いやすさと快適性を最大化しながら不要な使用を減らす方法については、この記事を参照してください。 さらに、スマートビルディング ソフトウェアで予防メンテナンスをスケジュールする方法、コストと影響による解決の問題を自動的に特定して優先順位を付ける方法、快適さとエネルギー効率のために建物を継続的に最適化する方法について学習します。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/creating-a-smart-grid-with-technology-and-people/">テクノロジと人によるスマート グリッドの作成</a></h3>
+
+
+  <p>電力会社とそのパートナーは、21 世紀のエネルギーの課題に対応できる新しいソリューションを探しています。つまり、電力需要の増加、二方向エネルギー フロー、クリーンエネルギー ソースの使用の増加、最も困難な課題に最初に取り組むためのスマート グリッドの作成に向けて進むアプローチです。 この投稿では、電力とユーティリティ業界のデジタル変革について説明します。 近い将来、電力会社は、IoT 対応の分析情報を使用してスマート グリッドを作成し、ビジネス継続性を確保する方法を戦略的に推進することで、ビジネスの実行方法に関するより多くのオプションを持つ予定です。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-marketplace-new-offers-volume-26/">Azure Marketplace新しいオファー - ボリューム 26</a></h3>
+
+
+  <p>このAzure Marketplaceは、Azure 上で実行 &ndash; するために認定および最適化された、すべてのソフトウェアニーズに最適な場所です。 何百もの主要なソフトウェア プロバイダーからアプリケーション &amp; サービスを検索、試用、購入、プロビジョニングします。 また、Gold およびシルバー Microsoft Cloud コンピテンシーパートナーと接続して、Azure の導入を支援することもできます。 149年9月と10月に、新しいコンサルティングプランでは、オンボード条件が正常に満たされ、有効になりました。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-marketplace-new-offers-volume-27/">Azure Marketplace の新 &ndash; 機能ボリューム27</a></h3>
+
+
+  <p>Azure Marketplace は、Azure で実行するために認定および最適化されたすべてのソフトウェア &ndash; のお客様を対象としています。 多数の主要なソフトウェアプロバイダーからアプリケーション &amp; サービスを検索、試用、購入、プロビジョニングします。 また、Gold およびシルバー Microsoft Cloud コンピテンシーパートナーと接続して、Azure の導入を支援することもできます。 2018年11月1日から11月16日まで、61の新しいプランでは、オンボード条件が正常に満たされ、有効になりました。</p>
+
+
+  <hr>
+
+  <h3><a href="https://www.youtube.com/watch?v=-t295UreA-s">クラウドの達人&#39;、今週の Azure に2018年12月14日</a></h3>
+
+
+  <p>今週の Azure では、現在、Azure Machine Learning サービスについては Business Critical 一般公開されており、Azure SQL Database Managed Instance のサービスレベルは一般公開されており、サーバーレスアーキテクチャについては、azure Azure Cosmos DB の新機能が提供されています。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=-t295UreA-s"><img alt="Thumbnail from A Cloud Guru's Azure This Week for 14 December 2018 from YouTube" border="0" height="268" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a3dc295-81ac-4e0e-a5c6-ccd7e6c43f12.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="YouTube で2018年12月14日のクラウドの達人の Azure 今週をご覧ください" width="480"></a></p>

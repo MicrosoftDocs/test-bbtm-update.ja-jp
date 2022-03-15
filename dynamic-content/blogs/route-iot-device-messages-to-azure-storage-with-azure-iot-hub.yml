@@ -1,0 +1,27 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 57700ce8f80502c3fa434afe991dccc760e7c480
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910400"
+Slug: route-iot-device-messages-to-azure-storage-with-azure-iot-hub
+Title: IoT デバイスメッセージを Azure IoT ハブと Azure Storage にルーティングする
+Summary: IoT Hub には、Azure Storage コンテナーを使用できる新しいカスタムエンドポイントの種類があります。 Azure Storage コンテナーは、IoT Hub のサポートされているカスタムエンドポイントの種類として、キュー、トピック、および Event Hubs Service Bus 結合します...
+Content: >-
+  <p>Azure Storage コンテナーは、IoT Hub で使用できる新しい<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-endpoints#custom-endpoints">カスタムエンドポイント</a>の種類です。 &nbsp;Azure Storage コンテナーは、 <a href="https://azure.microsoft.com/en-us/blog/azure-iot-hub-message-routing-enhances-device-telemetry-and-optimizes-iot-infrastructure-resources/">IoT Hub メッセージルーティング</a>用にサポートされているカスタムエンドポイントの種類として、キュー、トピック、および Event Hubs Service Bus 結合します。 Storage は、コールドパス分析パイプラインを構築するのが非常に簡単であるため、メッセージルーティングに最も要求されるエンドポイントの種類でした。 最適なのは、どこでも利用できること &rsquo; です。</p>
+
+
+  <p>リマインダーとして、IoT Hub は複数のエンドポイントにメッセージを書き込むことができるので、この機能強化を使用すると、ホットパス分析パイプラインを使用してメッセージを送信できるだけでなく、コールドパス分析または長期アーカイブのためにメッセージをストレージにプッシュすることもできます。 コールドパス分析は、単純なウィンドウまたはしきい値よりも複雑な処理を必要とするデータを処理するために使用されます。コールドパス分析では、多くの場合、デバイスからのデータを長期間にわたって使用します。 この機能の更新により、IoT Hub ルートでホットパスとコールドパスの分析を簡単に設定できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b069c3a-be9e-47a6-9bc6-af9f0e31fb61.png"><img alt="image" border="0" height="273" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eae1167a-b422-40c2-a7a2-9b61f424581c.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="絵" width="576"></a></p>
+
+
+  <p>カスタムエンドポイントとして Azure Storage コンテナーを使用すると、IoT Hub は、顧客によって指定されたバッチの頻度とブロックサイズに基づいてメッセージを blob に書き込みます。 バッチサイズまたはバッチ頻度がヒットすると、いずれかの処理が行われた後、IoT Hub はエンキューされたメッセージを blob としてストレージコンテナーに書き込みます。 次に示すように、blob に使用する名前付け規則を指定することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0efd8f77-256f-4ac0-b9e3-4470e8d1730a.png"><img alt="image" border="0" height="336" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8f29aff5-6783-44b3-86b4-1fb9b55efc0f.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="絵" width="593"></a></p>
+
+
+  <p>この機能は、メッセージ本文に基づいてメッセージをルーティングする機能を要求しているというフィードバックが寄せられています。この機能を要求したすべての人に感謝します。 常に、 <a href="https://feedback.azure.com/forums/321918-azure-iot/">Azure IoT ユーザーの声フォーラム</a>で提案を送信するか、 <a href="https://www.yammer.com/azureadvisors/">Azure IoT アドバイザー Yammer グループ</a>に参加してください。</p>

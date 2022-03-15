@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9ff2f55c3c427d5203bcce0813cbe446bf38fde3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904745"
+Slug: introducing-mpi-support-for-linux-on-azure-batch
+Title: Linux での MPI サポートのAzure Batch
+Summary: Linux での MPI サポートのリリースをお知らせAzure Batch。 以前に、MPI サポートをリリースしました Windows、最近、Azure Batch で Linux サポートが導入されました。
+Content: >-
+  <p>Linux での MPI サポートのリリースをお知らせAzure Batch。</p>
+
+
+  <p>Azure Batch大規模なジョブを並列で簡単に実行できます。 必要な VM の種類、構成方法、実行するジョブとタスクを Batch に伝え、サービスが残りの処理を行います。 エンジニアリング&rsquo; シミュレーション、コード変換、財務リスク モデルなど、作業をスケールアウトする必要がある Azure 開発者に最適です。</p>
+
+
+  <p>以前は、<a href="https://azure.microsoft.com/documentation/articles/batch-mpi/">MPI サポートをリリースし、</a>Windowsで Linux サポートを最近<a href="https://azure.microsoft.com/documentation/articles/batch-linux-nodes/">導入</a>Azure Batch。 これで、Batch での Linux の MPI サポートをお知りください。 <a href="https://blogs.technet.microsoft.com/windowshpc/2016/03/29/introducing-linux-support-on-azure-batch/">Linux サポートのAzure Batch</a>&nbsp;現在&nbsp;はプレビューであり、間もなく一般公開される予定です。 さらに、特定のユーザーに対して、通信が有効な Linux プールでパスワードレス SSH を提供しました。</p>
+
+
+  <p>A8 または A9 コンピューティング ノードのプールを作成することで、Batch MPI タスクは、それらの Azure VM の高速で低待機時間の RDMA ネットワークを完全に活用できます。 また、&nbsp;Azure Batch で OpenFOAM MPI ソリューションを実行するエンドツーエンドの例を示し、GitHub この記事では詳細な説明を含む <a href="https://github.com/Azure/azure-batch-samples/tree/master/Python/Batch/article_samples/mpi">asample</a>&nbsp;&nbsp; を追加しました。<a href="https://blogs.technet.microsoft.com/windowshpc/2016/07/20/introducing-mpi-support-for-linux-on-azure-batch/"></a></p>
+
+
+  <p><a href="https://www.openfoam.com/">OpenFOAM</a> (&quot;<b>オープンソース</b><b>の Field</b> <b>Operation</b> <b>And</b> <b>Manipulation</b>&quot;, <a href="https://en.wikipedia.org/wiki/OpenFOAM">wiki</a>) は、カスタマイズされた数値ソルバーを開発するための C++ ツールボックスであり、計算流体力学 (CFD) などのコンティニューム力学の問題を解決するための前処理/後処理ユーティリティです。 MPI に適した高度なコンピューティング集中型アプリケーションです。</p>
+
+
+  <p>Azure Virtual Machines Marketplace の <a href="https://azure.microsoft.com/en-us/marketplace/partners/openlogic/centosbased71hpc/">CentOS-HPC</a> イメージ <a href="https://azure.microsoft.com/en-us/marketplace/virtual-machines/all/">には、</a> Intel MPI が組み込みされています。 このイメージを使用して、複数の VM の Batch Standard_A9作成します。 公開されている Azure Batchタスクの開始機能を使用 <a href="https://azure.microsoft.com/en-us/documentation/articles/batch-api-basics/#start-task">して、前提条件</a> を満たす VM のプールを準備します。 次に、OpenFOAM を実行する MPI タスクを追加します。 マルチインスタンス タスクは、参加しているすべてのノードで調整コマンドを実行するように構成されます。 調整コマンドは、OpenFOAM の実行に必要な入力データを含む NFS 共有を設定して準備します。 調整コマンドを実行すると、Batch サービスはヘッド (またはプライマリ) ノードでアプリケーション コマンド &ldquo;を&rdquo;実行します。 アプリケーション コマンドは、OpenFOAM で mpirun を実行します。 プライマリ ノードまたはヘッド ノードによって結果が圧縮され、Azure Storage にアップロードされる可能性があります。 Paraview ソフトウェアを使用してビデオ <a href="https://www.paraview.org/">をレンダリング/生成</a> します。 この<a href="https://github.com/Azure/azure-batch-samples/tree/master/Python/Batch/article_samples/mpi">サンプルではGitHub</a>エンドツーエンドのワークフローを自動化できます。</p>
+
+
+  <p>同じを実行して&nbsp;、<em>コード化</em>&nbsp;を行<a href="https://portal.azure.com/">Azure portal。</a> 新しいアカウント <a href="https://azure.microsoft.com/en-gb/documentation/articles/batch-account-create-portal/">Azure Batch作成します</a>。 作成された Batch アカウントを選択します。 [プール] タイルをクリックし、[追加] をクリックします。 次に、新しい [ジョブ] を [Batch アカウント&nbsp;<a href="https://portal.azure.com/">Azure portal</a>&ndash;&gt;ジョブの追加&ndash;&gt;] &ndash;&gt; として追加します。&nbsp;次に、OpenFoam (または他のアプリケーション) の MPI タスクを Batch アカウント<a href="https://portal.azure.com/">ジョブ</a> &ndash;&gt; Azure portal追加&ndash;&gt;&gt;&ndash;タスクとして&ndash;&gt;送信します。 上記のタスクが送信されると、Batch は入力データに対して OpenFOAM を実行します。 タスクが完了したら、結果ファイルをダウンロードできます。Azure portal のタスクに移動し、<a href="https://portal.azure.com/">Azure portal</a> &ndash;&gt; Batch &ndash;&ndash;&gt;&gt; アカウントジョブ yourJobId タスク -&gt; yourTaskId &ndash;&gt; &ndash;&gt; タスク ファイル -&gt; ノード上のファイル。&nbsp;&nbsp;&nbsp;</p>
+
+
+  <p>Batch LinuxMPI&nbsp;&nbsp; サポートの詳細と OpenFoam エンドツーエンド ソリューションの詳細については、この投稿を参照<a href="https://blogs.technet.microsoft.com/windowshpc/2016/07/20/introducing-mpi-support-for-linux-on-azure-batch/" ms.cmpgrp="body" ms.cmpnm="post" ms.cmptyp="link" ms.interactiontype="1" ms.pgarea="content" ms.title="">してください</a>。</p>
+
+
+  <p>Azure Batch の Linux 上の MPI について質問がある場合、またはこのブログ投稿の例については、 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=azurebatch">Azure Batch</a> フォーラムにアクセスして質問を投稿してください。</p>

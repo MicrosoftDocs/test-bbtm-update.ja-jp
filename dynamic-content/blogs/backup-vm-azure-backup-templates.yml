@@ -1,0 +1,55 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1f9b74fff67844c5cd7442909f59bc6c66f58910
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904958"
+Slug: backup-vm-azure-backup-templates
+Title: テンプレートを使用して Azure VM をAzure Backupする
+Summary: テンプレートを使用して Azure VM をAzure Backupする
+Content: >-
+  <p><i></i><em>This の投稿は、Nilay Shah、Engineer、Azure Backup共同作成者です。</em></p>
+
+
+  <p>Azure Backupは、Azure とオンプレミスで実行されている VM をバックアップするクラウドファーストソリューションを提供します。 エンタープライズ レベルのポリシー管理を使用して仮想&nbsp;マシンをシャットダウンすることなく、ファイル システムの整合性を持つ Azure Windows VM とファイル システム整合性を持つ Azure Linux VM <a href="https://azure.microsoft.com/blog/azure-vm-backup-policy-management/" target="_blank">をバックアップできます</a>。 暗号化された仮想マシン、<a href="https://azure.microsoft.com/blog/azure-backup-encrypted-vm/" target="_blank">プレミアム</a> ストレージ上で実行されている VM、および<a href="https://azure.microsoft.com/blog/backup-cloud-assets-on-azure-premium-storage-virtual-machines/" target="_blank"></a>仮想マシン上でバックアップ <a href="https://azure.microsoft.com/blog/azure-managed-disk-backup/" target="_blank">のサポートManaged Disks</a>。 完全な VM またはディスクを復元し、それらを使用してカスタマイズされた VM を作成したり、インスタント ファイルの回復を使用して VM バックアップから個々のファイル <a href="https://azure.microsoft.com/blog/instant-file-recovery-from-cloud-backups-using-azure-backup/" target="_blank">を取得したりすることができます</a>。</p>
+
+
+  <p>Azure テンプレートは、宣言型テンプレートを使用してリソースをプロビジョニングする方法を提供します。 これらのテンプレートは、Azure Portal または PowerShell を使用してデプロイできます。 これらのテンプレートを使用して、Azure で実行されている VM のバックアップと保護を開始できます。 このブログ記事では、Recovery Services コンテナーとバックアップ ポリシーを作成し、それらを使用して、テンプレートを使用して作成されたコンテナーとポリシーを使用して VM のセットをバックアップする方法について説明します。</p>
+
+
+  <h2>Recovery Services コンテナーの作成</h2>
+
+
+  <p>Recovery Services コンテナーは、オンプレミスまたは Azure で実行されているワークロードにバックアップとディザスター リカバリー機能を提供するために Azure Backup と Azure Site Recovery によって使用される Azure リソースです。 Recovery Services コンテナーを作成するには、Recovery Services コンテナーの作成という名前の Azure&nbsp; クイック <a href="https://azure.microsoft.com/resources/templates/101-recovery-services-vault-create/" target="_blank">スタート テンプレートを使用できます。</a></p>
+
+
+  <p><img alt="Create Recovery Services vault from template" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Create%20Vault.png" style="width: 480px; height: 279px;"></p>
+
+
+  <p>既定では、作成されたすべての Recovery Services コンテナーに既定のポリシーが付属しています。 このポリシー&nbsp;は、毎日のバックアップ スケジュールを持ち、30 日間バックアップ コピーを保持します。 このポリシーを使用して、VM をバックアップしたり、カスタム バックアップ ポリシーを作成したりできます。 カスタム ポリシーを作成する場合は、毎週のバックアップ スケジュールまたは毎日のバックアップ スケジュールの組織要件に基づいて、1 つのクイック スタート テンプレートを<a href="https://azure.microsoft.com/resources/templates/101-recovery-services-weekly-backup-policy-create/" style="font-size: 13.008px;" target="_blank"></a>使用して、コンテナーの作成とポリシーの作成を<a href="https://azure.microsoft.com/resources/templates/101-recovery-services-daily-backup-policy-create/" style="font-size: 13.008px;" target="_blank">組み合わせて使用できます</a>。</p>
+
+
+  <h2>VM でのバックアップの構成</h2>
+
+
+  <p>Recovery Services コンテナーは、異なるリソース グループに属する複数の VM のバックアップを格納するために使用されます。 クラシック VM と Resource Manager VM を構成して、クイック スタート テンプレート、Backup Classic、Resource Manager VM を使用して Recovery Services コンテナー<a href="https://aka.ms/classicandarmvmbackuptemplate" target="_blank">に</a>バックアップできます。&nbsp;ほとんどの企業では、アプリケーション固有の VM を 1 つのリソース グループにデプロイし、VM と同じリソース グループに属するコンテナー、または単純なクイック スタート テンプレートである Recovery <a href="https://aka.ms/backupvmtemplate" target="_blank">Services</a> コンテナーへの VM のバックアップを使用して別のグループにバックアップできます。 VM をバックアップ ポリシーに <a href="https://docs.microsoft.com/azure/backup/backup-azure-vms-introduction#best-practices">最適Azure Backup </a>ベスト プラクティスを確認してください。&nbsp;</p>
+
+
+  <p><img alt="Configure Backup using template" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ConfigBackup-1.png" style="border-width: 1px; border-style: solid; width: 480px; height: 273px;"></p>
+
+
+  <p>バックアップ用に構成したら、ポータルまたは PowerShell を使用して、バックアップされた VM のオンデマンド バックアップを復元または作成できます。&nbsp;</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li>詳細については、以下をご覧ください。 ドキュメントと <a href="https://docs.microsoft.com/azure/backup/backup-azure-vms-first-look-arm">Azure Azure Backupチュートリアル</a><a href="https://docs.microsoft.com/azure/azure-resource-manager/resource-manager-template-walkthrough" target="_blank">を確認する</a></li>
+   <li>Azure クイック <a href="https://azure.microsoft.com/resources/templates/" target="_blank">スタート テンプレートを参照する</a></li>
+   <li>詳細については <a href="https://azure.microsoft.com/en-us/services/backup/">、Azure Backup</a></li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">フォーラムに</a> 連絡してください</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+   <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください</li>
+  </ul>

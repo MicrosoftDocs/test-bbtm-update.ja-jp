@@ -1,0 +1,112 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ed40002027c258734f5ed5d2f0f53719d8264b4a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910856"
+Slug: cognitive-service-2015-12-21
+Title: '利用可能: Microsoft Face API v1.0'
+Summary: Good News - Face API(Bad News) が改善されました。コードを更新する必要があります。今日は、まだパブリック プレビュー中の Face API の新しいバージョンを導入しました。v0 から v1.0 へのメジャー バージョンの変更が必要でした。 心配しないでください。API の既存の v0 は、2016 年 6 月 30 日まで続き、すべてのユーザーが移行する時間を与える必要があります。検出、検証、またはグループ化を使用している場合...
+Content: >-
+  <p><em>このブログ記事の公開以降、追加情報がリリースされました。詳細については、「 <a href="https://azure.microsoft.com/en-us/blog/microsoft-cognitive-services-general-availability-for-face-api-computer-vision-api-and-content-moderator/">Microsoft Cognitive Services の Face API の &ndash; 一般提供、api、Computer Vision」を参照Content Moderator</a>。</em></p>
+
+
+  <p>Good News - Face API&#39;改善されました。Bad News -&#39;コードを更新する必要があります。<br>
+
+  <br>
+
+  今日は、まだパブリック プレビュー中の Face API の新しいバージョンを導入しました。v0 から v1.0 へのメジャー バージョンの変更が必要でした。 心配&rsquo;しないでください。API の既存の v0 は、2016 年 6 月 30 日まで続き、すべてのユーザーが移行する時間を提供しています。検出、検証&rsquo;、またはグループ化の機能を使用している場合は、コードで v0 から v1.0 に更新する (または最新のパッケージに更新する) 必要があります。Person Group オブジェクトや Person&rsquo; オブジェクトでの識別機能など、永続化されたデータを使用している場合は、それらのオブジェクトを再作成してトレーニングする必要があります。 これは 1 回の変更であり、今後の API の更新は永続化されたデータには影響しません。<br>
+
+  <br>
+
+  ここでは、注意する必要がある主な変更点に関するアップグレード に関する注意事項を示しますが、v1.0 のドキュメントで最新の詳細を確認してください。<br>
+
+  <br>
+
+  <strong>署名の変更</strong><br>
+
+  ルート サービス エンドポイントが <a href="https://na01.safelinks.protection.outlook.com/?url=https%3a%2f%2fapi.projectoxford.ai%2fface%2f&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=twGDfAjoMjiLjIbm9DXpyPQDv%2fIogezJmXPj7VkFgmA%3d" target="_blank">https://api.projectoxford.ai/face/</a><strong>v0/ から</strong> <strong>v1.0/</strong> <a href="https://na01.safelinks.protection.outlook.com/?url=https%3a%2f%2fapi.projectoxford.ai%2fface%2f&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=twGDfAjoMjiLjIbm9DXpyPQDv%2fIogezJmXPj7VkFgmA%3d" target="_blank">https://api.projectoxford.ai/face/</a> に変更されました<br>
+
+  <br>
+
+  また、<a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWs-2BQhACWV44-2FGd4Imsjs5mr9d0XSC3djy6DhoO9tPmG2IL0mU0zXhLIw5mXvCO3p-2FeLn93HvXOb92q-2Fyok1dWN4mDc8hNEnKlPD0C8o6YqC-2BvQqH-2F-2BzddnojHxHpLRkykA-3D-3D_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eNBHIQB0G1Pe7V5jF0l8vDdblJHZHWCf-2FGCAzPkmOsMefDKLg26-2FAe8vi204y3pAsPdEx1hVVYROhOzeyKRVzC-2F71VInlCv8DIXamANGb1IohLzIuvAr-2FmjpfJf3WSbDD59F-2BDj-2BRfAD9d3m9P4KVy39BP0c7JuGLQUdzOpd7ffTxCNx2BTsVLwb3SxMkeAuvg3anCixHjihA-2BbGbplmLkavdf8m7Bsb8BGoyFgBxnHsfnVX5p-2B13kBCSBGPytfwG2QxwqjhWI-2BCH7BRtrt-2FAd7lsgYMk8cPoCq428sx2Y3Ibz5RWTHkjOKG87JX8UWtfNtUDYq7aMJAAkl1j4mt0glQ-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=UIaj6XC%2fq1r4REVRvawXy%2b0mHdUMJnWVfwIYw4cKY4M%3d" target="_blank">Face-Detect、Face-Identify</a>、<a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWs-2BQhACWV44-2FGd4Imsjs5mr9d0XSC3djy6DhoO9tPmG2IL0mU0zXhLIw5mXvCO3p-2FeLn93HvXOb92q-2Fyok1dWN4mDc8hNEnKlPD0C8o6YqC-2BmQgLOOfO7QXDI9i6xaXHPg-3D-3D_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eNgOpdKxSMkuuL21vS-2Bs0g-2FLPPgwVaOhqMP9WSMrdU-2FIqzgLPLsqaCiSkjGN328Xpw3nzYMXvDUe2NN8gNTdooaVvB8X7sY2qbPmT4A2gUxXAMlhvAvjIaEYa8LGMH7-2B8ww8meIcxEAJlTV958Z8kdkMOBZCCMYAAby-2BfQWUjIg4jr0HusspHpKKF5O6haLBSmXK6gQU-2BRMBvOL2-2FInPyDec1RIAdxW8h-2Fc9CC-2Fj1ClC29rwG9FYI0lB2q9H386LuXCsiM6-2BuLmiZ148uu1VmGXMUiovIMiYP0Cuo-2FlOr9-2Bf1E-2Ba5i70FjkMz3JDsze8Dsixm95Xho5hzXPboivUchhA-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=qNwoQScxvV2aD4bonl3XwnxuBzC%2bB%2fljdpCJNUsq7qA%3d" target="_blank">Face-Find Similar</a>、<a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWs-2BQhACWV44-2FGd4Imsjs5mr9d0XSC3djy6DhoO9tPmG2IL0mU0zXhLIw5mXvCO3p-2FeLn93HvXOb92q-2Fyok1dWN4mDc8hNEnKlPD0C8o6YqC-2BZ9229cMvYRiPRNoygcOGIw-3D-3D_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eNxjNQIIpg-2BCG60XeY4w7KQGeWxB0Vhztlz3qvBfoRuOdphjgq-2Fc3KYjUMAixHSSCR8RRFCiQ0ysEAVMt8hO8lFxQpZynKDPt4JmiQ8NHnKa033RFfUfyYjWrBJkvlDR-2FSPZhMge52aDUUqvYbXpCh22d8Bp2qnyKgYhwKKgsqF1wxziQc3aer1lu4AZ-2BiuQ2B11nwSJTHnt2iYiW7zsdJrX0IiN-2FsUQGQloMEH-2BsxG7cm9EdN9ydXnpWQY11RitBXHvb6NEU0ncRHbksYWlWr3imcXbcktVG-2FSawbdoddo-2FY-2Fz432CxEPQbXSsT-2FNr-2FFquvqOsI-2FQh-2BFD1fO85tV4hg-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=wxvQpsRk1U%2fBUz2MfzpqRlNojxIsGu%2bnXnqaufa4AE4%3d" target="_blank">Face-Group</a> など、メソッドに対する署名の変更もいくつかあるので、<a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWptNsqj6-2BMXQrSi3Sph0ZqerMULc0iR-2BSo7LTyaBuCDRpPbVU2Gy5X-2BwyE4rXXGLBw-3D-3D_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eN89zzQNio-2Bw6oAAgaHqwtmvznDh7K-2B3DkD3jRxVklGN6ZaM3PSFDQF4PyNID3wSoSS2-2BjxKaLOrxKoUk0ThP3xC3CfgUFASRJK1ejFKage5YKuPKvF180CRNd9FHjOTxLqWAFXXAgojKhTYLrBkR755utA1X-2Bd6blJQcFg2BEJ8HfcEoTcdbdjeH9gfJOTB-2FkjDrkklwp2s0etkOaVB6H-2F1YNGNEHUHBO7ocJPtPIO3FDaMv84X1-2FZJk5lyGay5ht3gTuvOLa9kOIQeOiIMRQDNpUHQiDyRR57Wxw8RVjHH-2BgPjQkB9A-2BRrOiKBqnGbahjJQ9ScD7qCjGiy4HHQJk9w-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=6zrRChOKurfmxHM4FdpU0wmMd2gkXF9X9CrF%2bqWDjXg%3d" target="_blank">詳細については v1.0</a> のドキュメントを参照してください。 <a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWs-2BQhACWV44-2FGd4Imsjs5mr9d0XSC3djy6DhoO9tPmG2IL0mU0zXhLIw5mXvCO3p-2FeLn93HvXOb92q-2Fyok1dWN4mDc8hNEnKlPD0C8o6YqC-2BUzHRBv6jbEo-2FKryggOBDfg-3D-3D_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eNZPUsdRcsRghsWqqrE0e3cGy81MhEVI02ImLE3Kk1AYefaoaYIL8YqUeHhQ6wBSNfbxiwCDc92kkhnDsfD6AhtbjuKX3ViSyQzPddhZ0Gn6Fw83uYywhrx4VDr6jIBSCCG6klsV6-2B-2FWWBzANSVsl5RcJ8wzDLx2teOr1HGy1FdfNa2yHsACIpDJT-2BbXyB-2BS3ZZMb-2FfobjAB96PajQpxD0KREyFX8RR9PgFAXrGUeFWnc8Id3Ro8vyq0IQYAulDEYXEhhOEiuMy0s6ggTXQeE0rkB5WGf7F31p4a19-2F4ZfsC-2FAPVgEmIEyEByYbhu60EqXpjGWUvtqz9DOqju8L4A5Wg-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=hFfBGRbmfKrd2g7Vs563DR%2bMYtC8m4Tqhh57YZ12iVA%3d" target="_blank"></a><br>
+
+  <br>
+
+  これらの&#39;、新しい Microsoft Graph API など、Microsoft の他の REST API に対する署名の一貫性<a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWlbIH7VXKHBdUBVKa8SB-2BX1giZtevHbnTNkf8NkTY04k_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eNi3pxpWSawgd5ibA3AwmUZzpb9Bz-2FaHeqfvWQ1XohcgsNVr52xe0ils0XSKQLh7VOXUYPDr-2BiepMzBHfOTpa5YI8wthUNsrEyOfUHgOihPqUPRj-2BzpFo-2BpVAJV4FbXlkcQcgYyWToXIqMXqrtOXD3wUdqub5aUJGp0c8MFp8-2BoWSOemMDbSdbOgyLPue9WZ43-2Fwh4e5r4J5-2FQu22SsDmoVzmkmG4enOG59xf2qRtE-2BauzVUALAcqQr8hpwNkCW2C-2FQ0-2BW05PbCb-2Bsgt2168JLu1fteECNTnm8fuL6VzVUow6vK4evJPFapvaSxuRsMN3M-2B6iZbKA6by6Mi9SVl8ckAA-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=vAAkqirHfrI0HA8GLSmsZBD4FX7QtzvcYVFY7WNHWmg%3d" target="_blank">を高Graphしました</a>。<br>
+
+  <br>
+
+  <strong>より高い呼び出しの制限</strong><br>
+
+  コミュニティからのフィードバックに基づいて、多&#39;API 呼び出しの制限を引き上げることが必要です</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="4">
+      <tbody>
+          <tr>
+              <td style="padding: 0px 5px;">
+              <p><strong>[クォータ]</strong></p>
+              </td>
+              <td style="padding: 0px 5px;">
+              <p><strong>新しい制限</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 0px 5px;">
+              <p><strong>グループ: グループ化する顔</strong></p>
+              </td>
+              <td style="padding: 0px 5px;">
+              <p>最大 1,000 人の候補が返されます (以前の制限は 100 でした)</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 0px 5px;">
+              <p><strong>類似の検索: 候補の顔が許可される</strong></p>
+              </td>
+              <td style="padding: 0px 5px;">
+              <p>最大 1,000 人の候補が返されます (以前の制限は 100 でした)</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 0px 5px;">
+              <p><strong>Person: Person オブジェクトごとに保持される顔</strong></p>
+              </td>
+              <td style="padding: 0px 5px;">
+              <p>Person オブジェクトあたり最大 248 をストアする (以前の制限は 32)</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p><br>
+
+  <strong>新機能: 顔一覧</strong><br>
+
+  繰り返し寄せているフィードバックは、Find Similar は 24 時間 FaceID の有効期限で使うのがつらかったという話でした。 この&rsquo;問題に対処する新しい API 機能を導入しました(Face Lists と呼ばれる)。 Face Lists を使用すると、永続化されたリストに複数の FaceID を追加し、この Face List を Find-Similar API 呼び出しのターゲットとして使用できます。 顔リストには、最大 1,000 の顔が保持されます。<br>
+
+  <br>
+
+  詳細については、以下を参照してください <a href="https://na01.safelinks.protection.outlook.com/?url=http%3a%2f%2fsendgrid.microsoft.com%2fwf%2fclick%3fupn%3dQV-2B5OZM0F7xbfclgELUMWs-2BQhACWV44-2FGd4Imsjs5mr9d0XSC3djy6DhoO9tPmG2IL0mU0zXhLIw5mXvCO3p-2FeLn93HvXOb92q-2Fyok1dWN4mDc8hNEnKlPD0C8o6YqC-2BcIXRP257mQzkB9oU3kgYdQ-3D-3D_MdmNLgeds2kRElr3w18tgjkdsStOgurmTG7DgKTkOPCQGuyJVe5GngajkSHSe7eNKKoD5zRnqRlrXTq1QCCggCCCMyH5Ep6nVf4o-2FAOZOi7Xxlxo0G6H-2FgHsejOAZMuzJBpp94veDJ9z-2BUFePe3d3dqaXBemhjzaG0bHJgY-2FtXiNFhutzeHVtmC2ZTp69-2FH1wZ2cu-2BA1DvKV6dy-2FTHjYN3-2By4lw2a1JKNNJ6XZQjS7OQfcHO16jD3AzMdC1aLWdp5zhivO-2Bxtw6ShNLUSG16nEnTrSAcmNc1Wwf9yHSir-2FT38L-2BxcwgHQaiQZGLi2AoTAz0jfJ5wK8bE43NjO8mstYAQJ7Qi170otSD93oftZgD2OyYz3SLSRjvx65Hv45QB6Rh-2Bhpu1JcKXuR1UtxfA2w-3D-3D&amp;data=01%7c01%7cWilliam.Kwok%40microsoft.com%7ced2658eb26f5472feb5008d309232a81%7c72f988bf86f141af91ab2d7cd011db47%7c1&amp;sdata=g4n0%2fl2BrBi8bAwUN9bhI7KGDOshCbTB90O9pBRPOxA%3d" target="_blank">。Face-List: Face の追加</a><br>
+
+  <br>
+
+  <strong>更新された NuGet パッケージ</strong><br>
+
+  NuGet コンポーネント Microsoft.ProjectOxford.Face のバージョンが 0.5.x から 1.0.0.0 に変更されました。<br>
+
+  <br>
+
+  次の手順でアップグレードVisual Studio。</p>
+
+
+  <ul>
+      <li>Microsoft.ProjectOxford.Face パッケージを使用してプロジェクトを開く</li>
+      <li>このVisual Studioメニューに移動します。 <ul>
+          <li>ソリューション&gt;NuGet パッケージ マネージャー&gt;管理NuGetツール...</li>
+          <li>パッケージを選択し、バージョンのドロップダウン メニューから [1.0.0.0] を選択します。</li>
+      </ul>
+      </li>
+  </ul>

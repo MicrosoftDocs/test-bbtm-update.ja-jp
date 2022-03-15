@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1bf5ed1cfc358acfcd2a1131c53ec86d5420a206
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904365"
+Slug: wcf-monitoring-with-application-insights
+Title: アプリケーション を使用した WCF インサイト
+Summary: WCF アプリケーションの監視専用の新インサイト Application インサイト Labs SDK をリリースしました。 Application インサイト SDK for .NET Web Applications では HTTP ベースの WCF アプリケーションが既にサポートされています。ただし、WCF 固有のアプリケーション用に最適化されたのは一度も行ったことが一度も存在します。
+Content: >-
+  <p>WCF アプリケーションの監視<a href="https://www.myget.org/gallery/applicationinsights-sdk-labs">専用の新インサイト Application インサイト Labs</a> SDK をリリースしました。 <a href="https://azure.microsoft.com/documentation/articles/app-insights-asp-net/">Application インサイト SDK for .NET Web Applications</a> では HTTP ベースの WCF アプリケーションが既にサポートされています。ただし、WCF 固有のアプリケーション用に最適化されたのは一度も行ったことが一度も存在します。 APPLICATION インサイト WCF SDK は、これらのアプリケーションを監視する場合に最適なエクスペリエンスを提供します。 すべての一般的な WCF バインディングを監視し、例外の監視、操作の明確な識別、および選択的な監視を提供します。</p>
+
+
+  <h2>目的</h2>
+
+
+  <p>監視ツールを作成する場合、テレメトリを収集できる多くのレイヤーを常に選択できます。 多くの IIS ベースのアプリケーションの共通分母は、HTTP モジュール レイヤーです。 HTTP モジュールは、すべての HTTP &ndash; 要求に関する通知を受け取ります。この要求を処理するために使用されるテクノロジに関係なく、ASP.NET MVC、Web API、または WCF。 また、アプリケーションの <a href="https://www.iis.net/learn/application-frameworks/building-and-running-aspnet-applications/how-to-take-advantage-of-the-iis-integrated-pipeline">non-.NET 監視できます</a>。</p>
+
+
+  <p>一般的なアプローチが WCF アプリケーションではまだ機能していないというフィードバックが多く寄せらた。 このフィードバックは非常に強く、Application インサイト ファンとビッグ サポートの 1 人である <a href="https://github.com/tomasr">Tomas Restrepo </a>が、WCF 監視のサポートを自分で構築することを決定しました。 彼は、Web SDK でサポートされていないいくつかのエクスペリエンスを見逃し、いくつかの制限も削除したいと思いました。</p>
+
+
+  <p>次に、Tomass&rsquo; の作業の結果を共有します。<a href="https://github.com/Microsoft/ApplicationInsights-SDK-Labs/blob/master/WCF/readme.md">Application インサイト SDK for WCF アプリケーションです</a>。</p>
+
+
+  <h2>機能</h2>
+
+
+  <p>APPLICATION インサイト SDK for WCF アプリケーションには、おすすめの機能の一覧が記載されています。</p>
+
+
+  <h4>一般的な WCF バインディングを使用したインストルメンテーション</h4>
+
+
+  <p>WCF テレメトリ用の Application インサイト SDK では、HTTP バインドのみという制限が削除されました。 これで、HTTP ベースの一般的な WCF バインディングを使用できます。</p>
+
+
+  <h4>マッピング操作</h4>
+
+
+  <p>これで、カスタム コードを使用せずに、特定のサービス操作に対する要求を区別できます。 汎用 URL パスの代わりに、要求テレメトリの操作名は Contract という形式 <b>&lt;になります&gt;。&lt;操作&gt;</b>。操作をコードに簡単にマップできます。</p>
+
+
+  <h4>IErrorHandler 機能拡張ポイント</h4>
+
+
+  <p>IErrorHandler を実装すると、ほとんどのシナリオでサービスによってスローされた例外またはエラーを自動的に追跡できます。</p>
+
+
+  <h4>選択的監視</h4>
+
+
+  <p>既定では、WCF サービスの呼び出しは、Application インサイト に要求イベントを送信します。</p>
+
+
+  <p>監視するサービスを選択するには、[ <a href="https://github.com/Microsoft/ApplicationInsights-SDK-Labs/blob/master/WCF/readme.md#controlling-operation-telemetry">OperationTelemetry]</a> メソッド属性を、監視するサービスのコントラクトまたは実装にアタッチします。 この属性をアプリ内の任意の&rsquo;場所で使用すると、 属性を持つサービスは監視されません。</p>
+
+
+  <h2>インストール</h2>
+
+
+  <p>APPLICATION インサイト SDK Labs パッケージ ソースからプレリリース Microsoft.ApplicationInsights.Wcf パッケージを WCF プロジェクトに追加します。</p>
+
+
+  <p><b>コマンド ライン&rsquo; を使用してパッケージ マネージャー NuGet</b><b>場合は、次のコマンドを実行します。</b></p>
+
+
+  <pre class="prettyprint">
+
+  &gt; Install-Package &quot;Microsoft.ApplicationInsights.Wcf&quot; &ndash;Source &quot;https://www.myget.org/F/applicationinsights-sdk-labs/&quot; -Pre </pre>
+
+
+  <p><b>を使用&rsquo;している場合Visual Studio。</b></p>
+
+
+  <p>このソリューション エクスプローラープロジェクトを右クリックし、[ パッケージの管理<b>] NuGet選択します</b>。 次に、 <a href="https://www.myget.org/F/applicationinsights-sdk-labs/">https://www.myget.org/F/applicationinsights-sdk-labs/</a> パッケージ ソースの一覧に を追加します。</p>
+
+
+  <p><img alt="wcf_thumb1" border="0" height="367" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5d030f4d-6b05-46d0-867d-7eab394779e1.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="wcf_thumb1" width="610"></p>
+
+
+  <p>パッケージ ソースを設定し、[ <b>プレリリースを含める] チェック ボックスをオンに</b> し、Microsoft.ApplicationInsights.Wcf をインストールします。</p>
+
+
+  <p><img alt="wcf2_thumb1" border="0" height="201" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c7e8f19-0b14-4e0d-8078-d428b67b6641.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="wcf2_thumb1" width="610"></p>
+
+
+  <p><b>インストルメンテーション キーを設定する</b></p>
+
+
+  <p>Application <a href="https://azure.microsoft.com/documentation/articles/app-insights-create-new-resource/">インサイト リソースのインストルメンテーション キーを ApplicationInsights.config</a>します。 コードまたは Web 構成を使用して <a href="https://azure.microsoft.com/documentation/articles/app-insights-api-custom-events-metrics/#ikey">インストルメンテーション キーを指定できます</a>。それを&rsquo;行います。</p>
+
+
+  <h2>特別な感謝</h2>
+
+
+  <p>WCF アプリケーション用の Application インサイト SDK を私たちやコミュニティと共有して、Tomas Restrepo に感謝します。</p>
+
+
+  <h2>お知らせください&hellip;</h2>
+
+
+  <p>問題や機能の要求については、APPLICATION インサイト SDK for WCF Telemetry リポジトリを参照<a href="https://github.com/Microsoft/ApplicationInsights-SDK-Labs/tree/master/WCF">してください</a>。</p>
+
+
+  <p>WCF 固有の SDK と一般的な Web SDK を比較して、ご意見やご意見をお聞かしいと思います。 Application インサイトチームは、開発者に高品質のツールを提供する取り組みです。 フィードバックや新機能に <a href="https://aka.ms/aiuservoice">関する推奨事項を大いに感謝します</a>。</p>

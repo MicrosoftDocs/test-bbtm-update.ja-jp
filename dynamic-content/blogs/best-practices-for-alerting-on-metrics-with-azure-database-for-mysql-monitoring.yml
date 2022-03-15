@@ -1,0 +1,176 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c8ce3afc666b582c2e7c47bfa2254abdf45078a2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910912"
+Slug: best-practices-for-alerting-on-metrics-with-azure-database-for-mysql-monitoring
+Title: 監視を使用したメトリックに対するアラートのAzure Database for MySQLプラクティス
+Summary: 開発者、データベース管理者、サイト信頼性エンジニア、または会社の DevOps プロフェッショナルの場合でも、データベースの監視は MySQL サーバーの信頼性、可用性、パフォーマンスを維持する上で重要な部分です。
+Content: >-
+  <p>開発者、データベース管理者、サイト信頼性エンジニア、または DevOps プロフェッショナルの場合でも、監視データベースは MySQL サーバーの信頼性、可用性、パフォーマンスを維持する上で重要な部分です。 Microsoft Azure Database for <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-monitoring"></a> MySQL には、サーバーの動作に関する分析情報を取得するために使用できるさまざまなメトリックがあります。 また、これらの <a href="https://docs.microsoft.com/en-us/azure/mysql/howto-alert-on-metric">メトリックに対してアラートを設定するには、</a> Azure portalまたはAzure CLI。</p>
+
+
+  <p><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/50a6aecf-26a5-4079-9925-0052c524ba5f.png"><img alt="MyServer - Alert rules" border="0" height="663" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d92f3ef-0488-4f72-bd9f-7c7dada62f38.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="MyServer - アラート ルール" width="1379"></a></p>
+
+
+  <p>最新のアプリケーションが従来のオンプレミス アプローチから進化し、ハイブリッドまたはクラウドネイティブになるには、ハイブリッドクラウドとパブリック クラウドで監視戦略を成功するためにいくつかのベスト プラクティスを採用する必要もあります。 MySQL サーバーで監視データを使用する方法に関するベスト プラクティスの例と、これらのさまざまなメトリックに基づいて改善を検討できる領域を次に示します。</p>
+
+
+  <h2>アクティブな接続</h2>
+
+
+  <p>サンプルのしきい値 (割合または値): 30 分以上の接続制限の合計の 80% が、5 分ごとにチェックされます。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>アクティブな接続が過去 30 時間の合計制限の 80% である場合は、ワークロードに基づいてこれが予想される場合は確認します。</li>
+   <li>負荷が予想される場合は、価格レベルまたは仮想コアをアップグレードすることで、アクティブな接続 <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-pricing-tiers">の制限を増やします</a>。 各 SKU <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-limits">のアクティブな接続制限</a> を確認できます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6367155-aee6-45ab-b858-94f2574cb08f.png"><img alt="Active Connections" border="0" height="1190" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/380aa79f-0d20-435c-b84f-4f3f52d9c773.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アクティブな接続" width="2186"></a></p>
+
+
+  <h2>失敗した接続</h2>
+
+
+  <p>サンプルのしきい値 (割合または値): 過去 30 分間に失敗した接続が 10 件、5 分ごとにチェックされます。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>過去 30 時間に接続要求エラーが発生した場合は、エラーの理由でログを確認して、これが予期される場合を確認します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1a91dbf5-64df-47e4-a691-ea8c48c2af27.png"><img alt="Failed Connections" border="0" height="1188" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ae5c580-b3b5-43b2-9ecb-3e52f5053235.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="失敗した接続" width="2170"></a></p>
+
+
+  <ul>
+   <li>これがユーザー エラーの場合は、適切なアクションを実行します。 たとえば、認証に失敗したエラーが発生した場合は、ユーザー名/パスワードを確認します。</li>
+   <li>エラーが SSL に関連している場合は、 <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-ssl-connection-security">SSL</a> 設定と入力パラメーターが正しく構成されていることを確認します。
+   <ul>
+    <li><strong>例</strong>: mysql &quot;sslmode=verify-ca sslrootcert=root.crt host=mydemoserver.postgre.database.azure.com dbname=postgres user=mylogin@mydemoserver&quot;</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h2>CPU の割合またはメモリの割合</h2>
+
+
+  <p>サンプルのしきい値 (割合または値): 5 分間は 100%、2 時間を超える場合は 95% です。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>CPU またはメモリ使用量が 100% に上った場合は、アプリケーションのテレメトリまたはログを確認して、エラーの影響を把握します。</li>
+   <li>アクティブな接続の数を確認します。 接続の <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-limits">制限を確認します</a>。 アプリケーションが最大接続数を超えている場合、または制限に達している場合は、コンピューティングのスケールアップを検討してください。</li>
+  </ul>
+
+
+  <h2>IO の割合</h2>
+
+
+  <p>サンプルのしきい値 (割合または値): 60 分以上の 90% の使用量。</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>IOPS が 1 時間以上 90% である場合は、アプリケーションのワークロードに基づいてこれが想定されるのか確認します。</li>
+   <li>高負荷が予想される場合は、ストレージを増やして IOPS 制限を増やします。 <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-pricing-tiers">Storage IOPS へのマッピングを以下</a>に示します。</li>
+  </ul>
+
+
+  <h2>ストレージ</h2>
+
+
+  <p>プロビジョニングするストレージは、使用している Azure Database for MySQL サーバーで使用可能なストレージ容量です。 ストレージは、データベース ファイル、一時ファイル、トランザクション ログ、および MySQL サーバー ログに使用されます。 プロビジョニングするストレージの合計容量によって、ご利用のサーバーで使用できる I/O 容量も決まります。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top">&nbsp;</td>
+     <td valign="top"><strong>Basic</strong></td>
+     <td valign="top"><strong>汎用</strong></td>
+     <td valign="top"><strong>メモリの最適化</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージの種類</td>
+     <td valign="top">Azure Standard Storage</td>
+     <td valign="top">Azure Premium Storage</td>
+     <td valign="top">Azure Premium Storage</td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージ サイズ</td>
+     <td valign="top">5 GB から 1 TB</td>
+     <td valign="top">5 GB から 4 TB</td>
+     <td valign="top">5 GB から 4 TB</td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージの増分サイズ</td>
+     <td valign="top">1GB</td>
+     <td valign="top">1GB</td>
+     <td valign="top">1GB</td>
+    </tr>
+    <tr>
+     <td valign="top">IOPS</td>
+     <td valign="top">変数</td>
+     <td valign="top">
+     <p>3IOPS/GB</p>
+
+     <p>最小 100 IOPS</p>
+
+     <p>最大 6000 IOPS</p>
+     </td>
+     <td valign="top">
+     <p>3IOPS/GB</p>
+
+     <p>最小 100 IOPS</p>
+
+     <p>最大 6000 IOPS</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>サーバーの作成中および作成後に、ストレージ容量を追加できます。 Basic レベルでは、IOPS 保証は提供されません。 General Purpose 価格レベルとメモリ最適化価格レベルでは、IOPS はプロビジョニングされたストレージ サイズを 3 対 1 の比率でスケーリングします。</p>
+
+
+  <h2>ストレージの割合</h2>
+
+
+  <p>サンプルのしきい値 (パーセンテージまたは値): 80%</p>
+
+
+  <h3>確認事項:</h3>
+
+
+  <ul>
+   <li>サーバーがプロビジョニングされたストレージの制限に達している場合は、間もなく空き領域が外れ、読み取り専用に設定されます。</li>
+   <li>使用状況を監視してください。また、ファイル<a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-pricing-tiers#scale-resources"></a>やログを削除せずにサーバーを引き続き使用するために、より多くのストレージをプロビジョニングすることもできます。</li>
+  </ul>
+
+
+  <p>すべてを試し、上記の監視のヒントのいずれも解決できない場合は、&#39;サポートにお問い合<a href="https://portal.azure.com/#create/Microsoft.Support">Microsoft Azureください</a>。</p>
+
+
+  <h2>謝辞</h2>
+
+
+  <p>Anandsagar Kothapalli、Baru Hiremath、Yan Sayyaparaju、Parikshit Savyani、Praveen Barli が、この投稿に貢献していただきありがとうございます。</p>

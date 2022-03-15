@@ -1,0 +1,147 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c6e56985410e6dc989d0f3df2638bc292187d330
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910484"
+Slug: reduce-troubleshooting-time-with-azure-resource-health
+Title: Azure Resource health によるトラブルシューティング時間の短縮
+Summary: 本日、Azure Resource health のパブリックプレビューを発表します。これは、個々の Azure リソースの正常性を公開する新しいサービスであり、問題をトラブルシューティングするための実用的なガイダンスを提供します。
+Content: >-
+  <p>現在、Azure Resource health は、個々の Azure リソースの正常性を公開する新しいサービスであり、問題をトラブルシューティングするための実用的なガイダンスを提供しています。 Resource health の目標は、ユーザーがトラブルシューティングに費やす時間を短縮することです。特に、問題の根本原因がアプリケーション内にあるか、または Azure platform 内のイベントによって発生しているかを判断するために費やされた時間を短縮します。</p>
+
+
+  <p>どのような場合でも、IT 管理者に連絡して、それらを夜間に維持することをお勧めします。また、高可用性を維持し、問題を解決して問題を解決してから、リストの上位5つを作成することもできます。 これらの要件は、クラウド環境ではさらに重要になります。つまり、サーバーまたはインフラストラクチャ内の異なる要素に直接アクセスすることはできません。</p>
+
+
+  <h1>Resource Health はサービス正常性ダッシュボードと何が違うのでしょうか</h1>
+
+
+  <p>たとえば、仮想マシン、web アプリ、SQL データベースなど、顧客によって作成されたサービスのインスタンスであるリソースを考えます。</p>
+
+
+  <p>この定義に従って、Resource health によって提供される情報が、Service Health ダッシュボード (SHD) によって提供されるものよりも詳細であることがわかります。 SHD はリージョン内のサービスの可用性に影響するイベントを伝達しますが、Resource health では、ノードが予期せず再起動されるなど、少数の顧客に影響を与える</p>
+
+
+  <p>このリリースでは、最もよく使用されている Azure サービス (IaaS 仮想マシン (クラシックのみ)、Web Apps および SQL データベース) のリソース正常性にオンボードがあります。</p>
+
+
+  <h1>サブスクリプション内のすべてのリソースの正常性を取得する</h1>
+
+
+  <p>最も簡単な方法は、この <a href="https://portal.azure.com/#blade/Microsoft_Azure_Support/ResourceBlade">リンク</a>をクリックすることですが、[ヘルプとサポート] ブレードを参照することもできます。このブレードには、サブスクリプション内のリソースの合計数と、問題のあるリソースの数が一覧表示される Resource health という新しいタイルが表示されます。 タイルをクリックすると、[リソース正常性] ブレードに移動します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ae69278-101d-4e47-8044-697c82fc6350.png"><img alt="Azure Resource health " border="0" height="373" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27792ac1-079e-499b-8487-8d7571bcf513.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="Azure Resource health " width="610"></a></p>
+
+
+  <p>このブレードには、ユーザーがリソースの一覧表示を許可されているサブスクリプション内のすべてのリソースの正常性が表示されます。 各リソースの正常性状態には、次のいずれかの値が設定されます。</p>
+
+
+  <ol>
+   <li><strong>正常</strong>: サービスは、リソースを使用できなくなる可能性のある、プラットフォームの問題を検出していません。</li>
+   <li><strong>異常</strong>: このリソースの可用性に影響を与える継続的な問題がプラットフォームにあります。たとえば、VM が実行されていたノードが予期せず再起動された場合などです。</li>
+   <li><strong>Stopped</strong>: リソースはユーザーによって停止されました。</li>
+   <li><strong>不明</strong>: サービスは、このリソースのハートビートを5分以上受信していません。 この記事の後半では、不明な概念について説明します。</li>
+  </ol>
+
+
+  <p>各リソースをクリックすると、新しいブレードが開き、リソースの正常性に関する追加情報と、現在の正常性に基づく推奨されるアクションへのリンクが表示されます。</p>
+
+
+  <ul>
+   <li>リソースが正常な場合は、ブレードを使用して一般的なトラブルシューティングツールにアクセスできます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/672d062f-56a1-46b3-9588-ba64c0aaf0ee.png"><img alt="Azure Resource health " border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/46b7d71f-0c57-4555-9084-1f75c6aacf55.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="Azure Resource health " width="256"></a></p>
+
+
+  <ul>
+   <li>リソースが異常な場合は、リソースが使用できなくなった期間に応じて推奨事項が異なります。 たとえば、VM が20分間使用できなくなった後、サービスは VM の再作成を推奨する場合があり、運用 VM の場合は、サポートチケットを開くことをお勧めします。</li>
+  </ul>
+
+
+  <p>前に説明したように、この目標は、ユーザーがトラブルシューティングに費やす時間を短縮することです。まず、問題の原因を特定し、次に適切なトラブルシューティングツールにすばやくアクセスできるようにします。</p>
+
+
+  <h1>シグナルの待機時間とその他の重要な注意事項</h1>
+
+
+  <p>最初から、お客様がプラットフォームのイベントの影響を受けた場合、できるだけ早く顧客に通知するのは非常に困難でした。 [リソース正常性] ブレードにアクセスすると、上部に、信号が最大15分遅延されることを示すボックスが表示されます。 考えられる問題を調査するのに余分な時間がかからないようにするため、この点に留意することが非常に重要です。</p>
+
+
+  <p>私たちは、この待機時間を可能な限り短縮することに非常に努めており、サービスの最適化を続けるにつれて改善されることを期待しています。</p>
+
+
+  <p>もう1つの重要な点は、リソースの可用性がどのように決定されるかということです。このプレビューリリースの正常性状態は、インフラストラクチャのコンピューティング部分のみを考慮し、ネットワークを含みません。 サービスにできるだけ早くネットワークを準備しています。</p>
+
+
+  <p>ここでは、SQL データベースの正常性を判断する方法についてさらに詳しく説明します。 設計時には、SQL Server または SQL データベースの可用性を確保するオプションが用意されており、お客様によって使用されている内容が反映されるようにデータベースを使用することにしました。</p>
+
+
+  <p>このルートを使用すると、顧客のエクスペリエンスが向上しますが、データベースの正常性を判断するために考慮する必要がある複数のコンポーネントやサービスとして、チームにとって非常に興味深い課題が作成されています。これは、ホストを見ることによって、リソースが使用可能かどうかを判断できます。 この最初のリリースでは、データベースへのログインに依存するシグナルが使用されています。つまり、通常のログイン (特に、クエリ実行要求の受信) を受信するデータベースでは、正常性状態が定期的に表示されます。 10分以上経過してもデータベースにアクセスしていない場合、データベースは不明な状態に移行されます。</p>
+
+
+  <p>以下に示すように、これはデータベースが使用できなくなったことを意味するわけではありません。ログインが実行されていないためシグナルが生成されていないだけです。 データベースに接続してクエリを実行すると、データベースの正常性を判断するために必要な信号が生成されます。</p>
+
+
+  <h1>リソースの正常性が異常に設定されている場合</h1>
+
+
+  <p>サービスが一定期間内にリソースからシグナルを受信しない場合、リソースの正常性は [不明] に設定されます。 これは、リソースに何らかの問題があることを明確に示すものではなく、お客様は次の推奨事項に従う必要があることに注意してください。</p>
+
+
+  <ul>
+   <li>リソースが予期したとおりに実行されているが、Resource health でヘルスが不明に設定されている場合、問題はなく、リソースの状態が短時間で正常に更新されることを期待できます。</li>
+   <li>リソースへのアクセスで問題が発生していて、その正常性が Resource health で [不明] に設定されている場合は、問題が発生していることを示している可能性があります。また、正常性または異常な状態に更新されている間に、より詳細な調査を行う必要があります。</li>
+  </ul>
+
+
+  <p>既に説明したように、過去10分間にデータベースのログイン要求を受信していない場合、SQL データベースの正常性は [不明] に設定されます。</p>
+
+
+  <h1>仮想マシンの追加のオンデマンドチェック</h1>
+
+
+  <p>仮想マシンで使用できる推奨される操作の1つは、VM に対してリアルタイムチェックを実行することです。 この操作では、仮想マシンが使用可能であり、期待どおりに実行されているかどうかを判断するために、Azure コンピューティングファブリックとその他の内部 Azure サービスを問い合わせします。 チェックが完了すると、結果が通知され、推奨される操作の一覧が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/72ba3de0-8733-48cc-85f1-fe3072151f72.png"><img alt="Azure Resource health " border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d3a0da64-ca9c-420e-b51e-2fbafd3784fa.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="Azure Resource health " width="281"></a></p>
+
+
+  <p>オンデマンドチェックは15分ごとに実行できます。 15分が経過する前に確認要求が送信された場合、最後のチェックの結果が返されます。</p>
+
+
+  <p>これは、VM とリソースの正常性に関する問題が発生したときに使用するための優れたツールです。 VM の正常性状態は正常または不明に設定されています。</p>
+
+
+  <h1>API を使用したサービスへのアクセス</h1>
+
+
+  <p>現在のリリースの一部として、リソース正常性への接続に使用できる API もリリースしています。 この API には、サブスクリプション内のすべてのリソース、リソースグループ内のすべてのリソース、または特定のリソースにクエリを実行するための呼び出しが含まれています。 API を使用して Resource health に接続する前に、次の URL に POST 要求を送信して、サブスクリプションをサービスに登録する必要があります。</p>
+
+
+  <ul>
+   <li>投稿<a href="https://management.azure.com/subscriptions/%3cSubID%3e/providers/Microsoft.ResourceHealth/register?api-version=2015-01-01"> https://management.azure.com/subscriptions/&ltSubID &gt; /providers/Microsoft.ResourceHealth/register? api-version = 2015-01-01</a></li>
+  </ul>
+
+
+  <p>その後、次のいずれかの呼び出しを使用してサービスに接続できます。</p>
+
+
+  <ul>
+   <li>サブスクリプション内のすべてのリソースの正常性を取得します。 https://management.azure.com/subscriptions/&ltSubID &gt; /providers/Microsoft.ResourceHealth/availabilityStatuses? api-version = 2015-01-01</li>
+   <li>リソースグループ内のすべてのリソースの正常性を取得します。 https://management.azure.com/subscriptions/&ltSubID &gt; /resourcegrouping/ &lt; ResourceGroupName &gt; /providers/Microsoft.ResourceHealth/availabilityStatuses? api-version = 2015-01-01</li>
+   <li>1つのリソースの正常性を取得します。 &nbsp; https://management.azure.com//subscriptions/&ltSubid &gt; /resourcegrouping/ResourceGroupName &gt; /providers/ &lt; ResourceProvider &gt; &lt; / ResourceType &gt; &lt; &gt; / / &lt; /providers/Microsoft.ResourceHealth/availabilityStatuses/current? api-version = 2015-01-01</li>
+  </ul>
+
+
+  <p><a href="https://github.com/projectkudu/ARMClient">Armclient</a>などのツールを使用して、API を簡単にテストできます。</p>
+
+
+  <h1>前に進む</h1>
+
+
+  <p>私たちはこのマイルストーンに近づいてきましたが、これは長い道のりの第一歩です。 お客様からのフィードバックをお待ちしておりますので、ぜひご意見をお寄せください。</p>

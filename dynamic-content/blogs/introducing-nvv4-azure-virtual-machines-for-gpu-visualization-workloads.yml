@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0ac7f0cc9e67ef9f768e4fb2b19eeb30c5135e6e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904741"
+Slug: introducing-nvv4-azure-virtual-machines-for-gpu-visualization-workloads
+Title: GPU 視覚化ワークロード用の NVv4 Azure Virtual Machines の概要
+Summary: 'Azure には、さまざまな顧客ニーズに合わせて調整されたさまざまな仮想マシン (VM) のサイズが用意されています。 NV サイズファミリは、CAD、ゲーム、シミュレーションなど、GPU を利用した視覚化ワークロードに合わせて最適化されています。 '
+Content: >-
+  <p>Azure には、さまざまな顧客ニーズに合わせて調整されたさまざまな仮想マシン (VM) のサイズが用意されています。 NV サイズファミリは、CAD、ゲーム、シミュレーションなどの GPU を利用した視覚化ワークロードに合わせて最適化されています。 現在、お客様はこれらの Vm を使用して、クラウド内のリモートビジュアル化サービスと仮想デスクトップを活用しています。 既存の NV サイズの Vm は、グラフィックスの大きな視覚化ワークロードを実行するのに非常に優れていますが、お客様から提供される一般的なフィードバックとして、クラウド内のエントリレベルのデスクトップでは、GPU リソースのごく一部のみが必要です。 現時点では、最小サイズの GPU VM には、クラウドで必要なナレッジワーカーデスクトップよりも多くの vCPU/RAM が搭載されています。 お客様によっては、これはエントリレベルのシナリオではコスト効果の高い構成ではありません。</p>
+
+
+  <p><strong>AMD EPYC 7002 プロセッサおよび仮想化された Radeon MI25 GPU に基づく NVv4 Azure Virtual Machines の発表。</strong></p>
+
+
+  <p>新しい NVv4 仮想マシンシリーズは、のプレビュー版として提供されます。 NVv4 は、かつてない GPU リソースの柔軟性を提供しており、これまでよりも高い選択肢をお客様に提供しています。 Gpu 全体を含む Vm から GPU の 1/8 までを選択できます。 これにより、エントリレベルと低強度の GPU ワークロードのコスト効率が以前よりも高くなります。一方、強力な GPU 処理能力までスケールアップすることもできます。</p>
+
+
+  <p>NVv4 Virtual Machines は、最大 32 vCPUs、112GB RAM、および 16 GB の GPU メモリをサポートしています。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <table border="1" cellpadding="2">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>[サイズ]</strong></td>
+              <td valign="top"><strong>vCPU</strong></td>
+              <td valign="top"><strong>[メモリ]</strong></td>
+              <td valign="top"><strong>GPU メモリ</strong></td>
+              <td valign="top"><strong>Azure ネットワーク</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">Standard_NV4as_v4</td>
+              <td valign="top">4</td>
+              <td valign="top">14 GB</td>
+              <td valign="top">2 GB</td>
+              <td valign="top">50 Gbps</td>
+          </tr>
+          <tr>
+              <td valign="top">Standard_NV8as_v4</td>
+              <td valign="top">8</td>
+              <td valign="top">28 GB</td>
+              <td valign="top">4 GB</td>
+              <td valign="top">50 Gbps</td>
+          </tr>
+          <tr>
+              <td valign="top">Standard_NV16as_v4</td>
+              <td valign="top">16</td>
+              <td valign="top">56 GB</td>
+              <td valign="top">8 GB</td>
+              <td valign="top">50 Gbps</td>
+          </tr>
+          <tr>
+              <td valign="top">Standard_NV32as_v4</td>
+              <td valign="top">32</td>
+              <td valign="top">112 GB</td>
+              <td valign="top">16 GB</td>
+              <td valign="top">50 Gbps</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>AMD MxGPU と業界標準の sr-iov テクノロジの上に構築されたハードウェアベースの GPU 仮想化ソリューションにより、お客様は専用 GPU フレームバッファーを使用して仮想 Gpu 上でワークロードを安全に実行できます。 新しい NVv4 Virtual Machines では、 <a href="https://azure.microsoft.com/en-us/pricing/details/managed-disks/" target="_blank">Azure Premium SSD ディスク</a>もサポートされます。 NVv4 は、追加の vCPUs を利用できるアプリケーションに対して、同時マルチスレッド (SMT) を有効にします。</p>
+
+
+  <p>GPU 搭載の vm をサービスとしてのデスクトップ (DaaS) オファリングの一部として使用するお客様にとって、 <a href="https://azure.microsoft.com/en-us/services/virtual-desktop/" target="_blank">Windows 仮想デスクトップ</a>は、Azure で実行されている包括的なデスクトップおよびアプリケーション仮想化サービスを提供します。 新しい NVv4 シリーズ Virtual Machines は Windows 仮想デスクトップだけでなく、クラウドネイティブのバッチ処理の<a href="https://azure.microsoft.com/en-us/services/batch/" target="_blank">Azure Batch</a>   もサポートされます。</p>
+
+
+  <p>リモート表示アプリケーションとプロトコルは、クラウドで VDI/DaaS を使用した優れたエンドユーザーエクスペリエンスを実現するための鍵となります。 新しい仮想マシンシリーズは、Windows リモートデスクトップ (RDP) 10、Teradici pcoip、HDX 3d Pro で動作します。 AMD Radeon Gpu は DirectX 9 ~ 12、OpenGL 4.6、Vulkan 1.1 をサポートしています。</p>
+
+
+  <p>お客様は、 <a href="https://aka.ms/NVv4Signup" target="_blank">このフォームにご記入</a>いただくことで、今すぐ NVv4 access にサインアップできます。 NVv4 Virtual Machines は、最初は今年の米国中南部と西ヨーロッパの Azure リージョンで利用可能になり、その後すぐに他のリージョンで利用できるようになります。</p>

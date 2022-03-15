@@ -1,0 +1,94 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e92cd74e354d0e04a8c33d70c5b314f4ec439d79
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910753"
+Slug: introducing-video-indexer-a-cloud-service-to-unlock-insights-from-your-videos
+Title: ビデオVideo Indexer分析情報を引き出すクラウド サービスであるクラウド サービスの紹介
+Summary: インターネット上のビデオの量は指数関数的に増加し、近い将来に向けて拡大し続けます。 また、成長は、エンタテインメント、ブロードキャスト、企業、公共の安全など、複数の業界にまたがっています。
+Content: >-
+  <p>インターネット上のビデオの量は指数関数的に増加し、近い将来に向けて拡大し続けます。 また、成長は、エンタテインメント、ブロードキャスト、企業、公共の安全など、複数の業界にまたがっています。</p>
+
+
+  <p>ほとんどのビデオには、タイトルと説明だけがビデオに関連付けられたメタデータとして含まれます。 しかし、ビデオは、タイトルと説明が通常キャプチャする内容よりもはるかに多く (特にビデオが 1 分を超える場合) です。 人間が理解できるタイムスタンプ付きメタデータがない場合、ビデオの検出可能性と、ビデオ内の関連する瞬間が困難になります。 動画にこのようなメタデータを生成することは、多くのビデオがある場合、コストが高く、人間的に不可能です。 人工知能テクノロジが役立つ場所です。</p>
+
+
+  <p>Build 2017 では、Microsoft Cognitive Services の一部として、Video Indexer というクラウド サービスのパブリック プレビュー<a href="https://www.microsoft.com/cognitive-services">を発表します</a>。<a href="https://vi.microsoft.com/"></a> Video Indexerデジタル ビデオおよびオーディオ コンテンツをお持ちのお客様は、メタデータを自動的に抽出し、それを使用してインテリジェントな革新的なアプリケーションを構築できます。 Video Indexerは、Azure Media Services<a href="https://www.microsoft.com/cognitive-services">、Microsoft Cognitive Services</a>、<a href="https://azure.microsoft.com/en-us/services/search/">Azure Search</a>、Azure Storage、<a href="https://azure.microsoft.com/en-us/services/media-services/"></a><a href="https://azure.microsoft.com/en-us/services/documentdb/">および Azure Document DB</a> <a href="https://azure.microsoft.com/en-us/services/storage">を使用</a>して構築されます。 これは、お客様向けスケーラブルなクラウド サービスの形式で、ビデオ用の Microsoft AI テクノロジを最高の形で提供します。</p>
+
+
+  <p>Video Indexerは、2016 年 9 月に開始された <a href="https://www.microsoft.com/en-us/garage/">Video</a> Breakdown と呼ばれる Microsoft Garage プロジェクトに関する顧客からのフィードバックに基づいて構築されています。 複数の業界のお客様がビデオの内訳を試しました。 Jonathan Huberman (CEO、 Ooyala) からの次の引用は、Video Indexer の価値を示す証です Video Indexer &ndash; ビデオ収益化ソフトウェアとサービスのグローバル プロバイダーとして、お客様により多くの価値を提供するのに役立つテクノロジを常に探しています。 <em>&ldquo;ビデオを処理する Azure と Microsofts&rsquo; の AI テクノロジでは、ビデオ用の使いやすい強力な AI サービスの組み合わせに本当に感心しました。Video Indexer と製品の間に構築した統合は、お客様がコンテンツの検出とキャプションを強化し、抽出されたメタデータに基づいてターゲット広告を配信するのに役立ちます。顧客とその閲覧者に対する Win-Win&rdquo; です。 </em></p>
+
+
+  <p>機械学習や&rsquo;コンピューター ビジョンに関するバックグラウンドを持つ必要は一切Video Indexer。 1 行のコードを記述せずに開始できます。 Video Indexerシンプルで強力な API を提供し、すべての開発者の手の届く範囲にビデオ用の AI テクノロジの機能を提供します。 詳細については、次のドキュメント <a href="https://aka.ms/vi-docs">をVideo Indexerしてください</a>。</p>
+
+
+  <p>以下では、&rsquo;Video Indexer で有効になっているお客様の使用事例の一部を確認し、その後に機能の概要を説明します。</p>
+
+
+  <h2>お客様の使用事例</h2>
+
+
+  <ul>
+      <li><strong>検索</strong> &ndash;インサイトから抽出されたデータを使用して、ビデオ ライブラリ全体の検索エクスペリエンスを強化できます。 たとえば、話されている語句と顔にインデックスを作成すると、特定の人物が特定の単語をいつ話したかや、2 人の人物がいつ会っていたかを検索できるようになります。 ビデオからのこのような分析情報に基づいた検索は、通信社、教育機関、放送局、エンターテイメント コンテンツの所有者、エンタープライズ LOB アプリにとって利用価値があり、一般には、ユーザーが検索の対象にするビデオ ライブラリを保有するすべての業界が対象になります。</li>
+      <li><strong>収益</strong> &ndash; Video Indexerビデオの価値を向上させるのに役立ちます。 たとえば、広告収益に依存する業界 (ニュース メディア、ソーシャル メディアなど) は、抽出された分析情報を広告サーバーに追加のシグナルとして使用することで、より関連性の高い広告を配信できます (スポーツ靴広告の提示は、フットボールの試合とスポーツのコンペティションの途中で関連性が高い)。</li>
+      <li><strong>ユーザー エンゲージメント </strong>&ndash; Video Insights を使用すると、関連するビデオの瞬間をユーザーに配置することで、ユーザーエンゲージメントを向上できます。 たとえば、最初の 30 分間は球について説明し、次の 30 分間はピラミッドについて説明する教育ビデオについて考えてみましょう。 ピラミッドに関する学生の読み取りは、ビデオが 30 分のマーカーから配置されている場合にさらにメリットがあります。</li>
+  </ul>
+
+
+  <p><iframe align="center" allowfullscreen="" frameborder="no" height="280" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=https%3A%2F%2Fsamplestream.streaming.mediaservices.windows.net%2F1c954c94-5d13-4156-b932-10a517b58d05%2FVideo%20Indexer%20-%20Getting%20Started.ism%2Fmanifest" width="500"></iframe></p>
+
+
+  <h2>機能</h2>
+
+
+  <p>REST API には、大きなレベルで次の機能が含まれています。 詳細については、次のドキュメントを <a href="https://aka.ms/vi-docs">Video Indexerしてください</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+      <li><strong>コンテンツのアップロード</strong> &ndash; URL を指定してビデオをアップロードできます。 Video Indexerアップロードされるとすぐにビデオの処理が開始されます。 複数の AI テクノロジを使用して、複数のディメンション (音声の単語、顔、ビジュアル テキスト、オブジェクトなど) にわたって分析情報を抽出します。</li>
+      <li><strong>インサイトダウンロード </strong>&ndash;ビデオの処理が完了したら、抽出された分析情報を JSON ファイルの形式でダウンロードできます。</li>
+      <li><strong>検索 </strong>&ndash; 検索クエリを送信して、ビデオ内の関連する瞬間を検索したり、Video Indexer アカウント内のすべてのビデオ間で検索したりすることができます。</li>
+      <li><strong>プレーヤー ウィジェット </strong>&ndash; 任意の Web アプリケーションに埋め込むビデオのプレーヤー ウィジェットを取得できます。 プレーヤー ウィジェットを使用すると、アダプティブ ビットレートを使用してビデオをストリーミングできます。</li>
+      <li><strong>インサイト ウィジェット </strong>&ndash;抽出された分析情報を表示するための分析情報ウィジェットを取得することもできます。 プレーヤー ウィジェットと同様に、分析情報ウィジェットは任意の Web アプリケーションに埋め込みできます。 表示する分析情報ウィジェットの部分と非表示にする部分を選択することもできます。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ポータルVideo Indexerを使用すると、次の操作を実行できます。</p>
+
+
+  <ul>
+      <li><strong>アップロード</strong>コンピューターからビデオを作成します。</li>
+      <li><strong>上記 </strong>のさまざまなウィジェットを使用して構築された UI で、ビデオから抽出された分析情報を表示します。</li>
+      <li><strong>分析情報 </strong>をキュレーションし、サービスに送信します。 これには、検出されたが認識されていない顔の名前の指定、読み上がった単語に基づいて抽出されたテキスト、または光学式文字認識に基づく修正が含まれます。</li>
+      <li>プレーヤーまたは <strong>分析情報ウィジェット </strong>の埋め込みコードを取得します。</li>
+  </ul>
+
+
+  <p>Video Indexer次のビデオ AI テクノロジが含まれています。 以下に示す各テクノロジは、アップロードされたビデオに適用Video Indexer。</p>
+
+
+  <ul>
+      <li><strong>オーディオ文字起こし </strong>&ndash; Video Indexerには音声テキスト変換機能があります。これにより、顧客は話された単語のトランスクリプトを取得できます。 サポートされている言語には、英語、スペイン語、フランス語、ドイツ語、イタリア語、簡体中国語、ポルトガル語 (ブラジル)、日本語、ロシア語 (今後さらに多くの言語が含まれます) が含まれます。 音声テキスト変換機能は、音声変換とテキスト変換で使用されるのと同じ音声エンジンCortana基Skype。</li>
+      <li><strong>顔の追跡と識別</strong>&ndash; 顔テクノロジを使用すると、ビデオ内の顔を検出できます。 検出された顔は著名人データベースと照合され、どの著名人がビデオに存在するかが判断されます。 顧客は、著名人と一致しない顔をラベル付けすることもできます。 Video Indexer ではこれらのラベルに基づいて顔モデルが構築され、その後で送信されるビデオ内でこれらの顔を認識することができます。</li>
+      <li><strong>話者インデックス作成 </strong>&ndash; Video Indexerには、どの話者がいつどの単語を話したのか、マップして理解する機能があります。</li>
+      <li><strong>ビジュアル テキスト認識 </strong>&ndash; このテクノロジを使用するとVideo Indexerビデオに表示されるテキストが抽出されます。</li>
+      <li><strong>音声アクティビティの検出 </strong>&ndash; これにより、Video Indexer、音声、手のアプリを検出できます。&nbsp;</li>
+      <li><strong>シーン検出 </strong>&ndash; Video Indexerビデオでビジュアル分析を実行して、ビデオ内のシーンがいつ変化したのか判断することができます。</li>
+      <li><strong>キーフレームの抽出 </strong>&ndash; Video Indexerビデオ内のキーフレームが自動的に検出されます。</li>
+      <li><strong>感情分析 </strong>&ndash; Video Indexerは、音声テキスト変換と光学式文字認識を使用して抽出されたテキストに対して感情分析を実行し、その情報をタイムコードと共に、中立的な感情の肯定的で否定的な形式で提供します。</li>
+      <li><strong>翻訳 </strong>&ndash; Video Indexer、音声トランスクリプトをある言語から別の言語に翻訳できます。 複数の言語 (英語、スペイン語、フランス語、ドイツ語、イタリア語、簡体中国語、ポルトガル語、ブラジル&nbsp; 語、日本語、ロシア語) がサポートされています。 翻訳されたら、他の言語で、ビデオ プレーヤーで字幕を表示することもできます。</li>
+      <li><strong>ビジュアル コンテンツのモデレーション </strong>&ndash; このテクノロジを使用すると、ビデオに含まれる成人向けやきどい素材を検出し、コンテンツのフィルター処理に使用できます。</li>
+      <li><strong>キーワードの抽出 </strong>&ndash; Video Indexer認識エンジンによって認識される音声単語とテキストのトランスクリプトに基づいてキーワードを抽出します。</li>
+      <li><strong>アノテーション </strong>&ndash; Video Indexer 2,000 オブジェクトの定義済みモデルに基づいてビデオに注釈を付ける場合。</li>
+  </ul>
+
+
+  <p>アプリとビジネスを変革できる新しいVideo Indexerについて、ご期待ください。 この新しいサービスを使用する方法を楽しみにしています。 今すぐお試しください <a href="https://vi.microsoft.com">https://vi.microsoft.com</a>。</p>

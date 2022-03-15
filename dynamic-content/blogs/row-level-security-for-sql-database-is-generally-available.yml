@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5d9134d0603d2054bd7ba3436d1031099baf07d3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910396"
+Slug: row-level-security-for-sql-database-is-generally-available
+Title: SQL Database の Row-Level セキュリティが一般公開されています
+Summary: SQL Database の Row-Level セキュリティ (RLS) の一般提供が開始されました。
+Content: >-
+  SQL Database の<a href="https://msdn.microsoft.com/library/dn765131.aspx">行レベルのセキュリティ</a>(RLS) の一般提供が開始されました。 RLS を使用すると、ユーザーの id、ロール、または実行コンテキストに基づいて行レベルのアクセスを制限しながら、1つのデータベースとテーブルに多数のユーザーのデータを格納することができます。 RLS はデータベース自体内のアクセスロジックを一元化します。これにより、アプリケーションコードのエラーのリスクを簡単に軽減できます。
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/20/RLS-Diagram-4.png"><img class="alignnone size-medium wp-image-334211" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/RLS-Diagram-4-636x300.png" alt="RLS-Diagram-4" width="636" height="300" /></a>
+
+
+  &nbsp;
+
+
+  RLS は、お客様がさまざまなシナリオで安全なアプリケーションを開発するのに役立ちます。 次に例を示します。
+
+  <ul>
+   <li>従業員の地域とロールに基づいて財務データへのアクセスを制限する</li>
+   <li><a href="https://azure.microsoft.com/documentation/articles/sql-database-elastic-tools-multi-tenant-row-level-security/">マルチテナントアプリケーションのテナントが自分のデータ行にのみアクセスできるよう</a>にする</li>
+   <li>さまざまなアナリストが、位置に基づいてデータの異なるサブセットを報告できるようにする</li>
+  </ul>
+
+  &nbsp;
+
+
+  具体的な例として、K2 Appit が現在 RLS を活用して、個々のユーザーのデータを分離する方法について説明します。
+
+  <blockquote>RLS が登場する前は、クエリ述語を入念に使用することでこの要件を満たす必要がありましたが、このようなセキュリティ強制は煩雑であり、バグが発生しやすくなります。 RLS を使用することにより、ポリシーベースの管理がすべてのデータベースアクセスベクターに適用されるようにしながら、開発を加速させることができました。 さらに、データアクセス層とビジネスロジックは、RLS ポリシーロジックとは別に進化できます。この問題を分離することで、コードの品質が向上します。 開発者は、– T SQL に慣れていたポリシー言語を使用できます。そのため、1日目から RLS で生産性が向上しました。
+
+
+  最終的には、行レベルのセキュリティが Azure SQL Database によって処理されることを示すことができるため、顧客とチームの両方が顧客のデータを保護する方法に自信を持っています。
+
+
+  <em>-Grant Dickinson、アーキテクト、K2</em></blockquote>
+
+  &nbsp;
+
+
+  プレビュー版のお客様からの貴重なご意見をお待ちしております。この最初のバージョンの RLS には、お客様からのフィードバックが大量に組み込まれています。 この反復的なプロセスも継続しています。そのため、新しい RLS 機能で今後発表されることがあります。 チームに対するフィードバックまたは質問がある場合は、以下のコメントをお寄せください。
+
+
+  現在、多くのお客様が RLS を使用しているため、お試しになることをお勧めします。 開始するには、MSDN の <a href="https://msdn.microsoft.com/library/dn765131.aspx">ドキュメント</a>を参照してください。 また、この<a href="https://azure.microsoft.com/blog/2015/03/02/building-more-secure-middle-tier-applications-with-azure-sql-database-using-row-level-security/">入門記事</a>、 <a href="https://channel9.msdn.com/Shows/Data-Exposed/Row-Level-Security-in-Azure-SQL-Database">Channel9 ビデオ</a>、および<a href="https://blogs.msdn.com/b/sqlsecurity/archive/tags/rls/">SQL セキュリティブログ</a>でも、その他のデモ、ヒント、秘訣を見つけることができます。

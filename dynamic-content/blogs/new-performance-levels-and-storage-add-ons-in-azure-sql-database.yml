@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d2287cda7844ca344c4cb7f6d257f75f9fb796b7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904607"
+Slug: new-performance-levels-and-storage-add-ons-in-azure-sql-database
+Title: 新しいパフォーマンス レベルとストレージ アドオンがAzure SQL Database
+Summary: 新しいパフォーマンス レベルとストレージ アドオンのパブリック プレビューをお知らせAzure SQL Database。 これらの新しい選択肢により、CPU 集中型ワークロードとストレージ バインド ワークロードに対する価格最適化の機会がさらに増えます。
+Content: >-
+  <p style="text-align: justify;">2018 年 6 月の更新: 新しいパフォーマンス レベルとストレージ アドオンの一般提供について、<a href="https://azure.microsoft.com/en-us/services/sql-database/">Azure SQL Database。</a>&nbsp;これらの新しい選択肢により、CPU 集中型ワークロードとストレージ バインド ワークロードに対する価格最適化の機会がさらに増えます。</p>
+
+
+  <h2>Standard データベースのパフォーマンス レベルの向上</h2>
+
+
+  <p style="text-align: justify;">以前は、Standard レベルの単一データベースの最高パフォーマンス レベルは 100 DTC に制限され、30 倍から 3,000 DTC に増加し、その間にさまざまな新しい選択肢が追加されています。 この更新は、Standard エラスティック プールのデータベース eDTU 制限を増やすという発表 <a href="https://azure.microsoft.com/en-us/blog/higher-database-edtu-limits-for-standard-elastic-pools-in-azure-sql-database/">に似ています</a>。 新しい S4 &ndash; S12 パフォーマンス レベルは、プレミアム レベルで提供される高い IO パフォーマンスの種類を必要としない CPU 集中型ワークロードに対して、価格を節約する機会を提供します。 IO 集中型ワークロードの場合、プレミアム レベルでは引き続き、IO あたりの待機時間が短く、DTU あたりの IOPS が Standard レベルよりも大きくなります。</p>
+
+
+  <h2>Storageデータベースとエラスティック プール用の新しいアドオン</h2>
+
+
+  <p>以前は、ストレージ サイズの制限は、サービス レベルとパフォーマンス レベルに基づいて固定量でした。 お客様は、Standard レベルと プレミアム レベルの単一データベースとエラスティック プールに対して、この含まれる量を超える追加のストレージを購入できます。 コンピューティングからのストレージの切り離しにより、DTC や eDDTUs を増やさずにストレージを増やし、コストを削減できます。</p>
+
+
+  <p>Storageを超えた場合、追加料金が請求され、1 時間単位で課金されます。 1 つのデータベース (またはエラスティック プール) の合計価格は、DTC (または eDDUS) に基づく価格と、プロビジョニングされた追加ストレージの価格です。 Storageデータベースまたはエラスティック プールの場合、最大 1 TB まで 250 GB ずつプロビジョニングしてから、1 TB を超えて 256 GB ずつプロビジョニングできます。</p>
+
+
+  <h3>追加のストレージユニットの価格</h3>
+
+
+  <p><img height="62" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0a001955-5fcd-4785-876d-697fd047f7b5.png" style="width: 694px; height: 73px;" width="632"></p>
+
+
+  <p>* 追加ストレージの一般提供価格はリージョンによって異なり、2018 年 8&nbsp; 月 1 日に有効になります。2018 年 8 月 1 日より前の使用量は、一般提供料金より 50% 少ないプレビュー料金で請求されます。</p>
+
+
+  <h3>例</h3>
+
+
+  <p style="text-align: justify;">S3 データベースで 1 TB がプロビジョニングされたとします。 S3 に含まれるストレージの量は 250 GB なので、追加のストレージ容量は 1 TB &ndash; 250 GB = 774 GB です。 Standard レベルの追加ストレージの単価は約 $0.17/GB/月なので、追加のストレージ価格は 774 GB * $0.17/GB/月 = $131.58/月です。 したがって、このデータベースの合計価格は、DTB の場合は 147.18 ドル/月、追加ストレージの場合は 1 か月あたり 131.58 ドル = 278.76 ドル/月です。</p>
+
+
+  <h2>新しいパフォーマンス レベルとストレージの制限</h2>
+
+
+  <h3>単一データベース</h3>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e49ad85-9dcf-44b9-9fba-eed2aacb5258.png"></p>
+
+
+  <h3>エラスティック プール</h3>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a65df1e-5d30-41b8-b0eb-6a13b9cf7be3.png"></p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p style="text-align: justify;">使用可能な新しいパフォーマンス レベルとストレージ アドオンの選択肢の詳細については、リソース制限に関するページAzure SQL Database<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-dtu-resource-limits">参照</a>してください。 価格の詳細については、価格に関する Web ページ<a href="https://azure.microsoft.com/en-us/pricing/details/sql-database/single">Azure SQL Database覧</a>ください。</p>

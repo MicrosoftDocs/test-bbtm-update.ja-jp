@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 08d9332522ae0bca5cb672ba4fca540e9ccd77c3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905130"
+Slug: predictive-maintenance-using-pyspark
+Title: PySpark を使用した予測メンテナンス
+Summary: このブログでは、PySpark を使用した予測メンテナンスのためのエンドツーエンドのデータサイエンスワークフローについて説明します。
+Content: >-
+  <p>予測的なメンテナンスは、最も一般的な機械学習のユースケースの1つであり、情報技術の最新の進歩点として、格納されたデータの量はこれまでよりも早く増加しています。これにより、ビッグデータ分析機能を活用して大量のデータを効率的にビジネスインテリジェンスに変換する必要があります。 Microsoft は、予測メンテナンスのドメインにおけるブログ、ソリューションテンプレート、モデリングガイド、サンプルチュートリアルなどの一連の学習資料を公開しています。 最近では、Spark Python API <a href="https://spark.apache.org/docs/2.0.2/api/python/index.html">PySpark</a>を使用した詳細なステップバイステップの<a href="https://gallery.cortanaintelligence.com/Tutorial/Predictive-Maintenance-using-PySpark">チュートリアル</a>を提供して、これらの資料を拡張しています。ビッグデータシナリオで予測メンテナンスを行う方法を紹介します。 このチュートリアルでは、データインジェスト、クレンジング、特徴エンジニアリング、モデル開発など、一般的なデータサイエンスの手順について説明します。</p>
+
+
+  <h2>ビジネスシナリオとデータ</h2>
+
+
+  <p>入力データは、ほとんどの予測メンテナンスシナリオで一般的な機能を反映するようにシミュレートされています。 このチュートリアルをすぐに完了できるように、データは約 1.3 GB にシミュレートされていますが、同じ PySpark フレームワークをはるかに大きなデータセットに簡単に適用できます。 データは、パブリックにアクセスできる Azure Blob Storage コンテナーでホストされ、<a href="https://pysparksampledata.blob.core.windows.net/sampledata/sampledata.csv">このリンク</a>をクリックするとダウンロードできます。 このチュートリアルでは、blob ストレージからデータを直接インポートします。</p>
+
+
+  <p>データセットには、4年間にわたって収集された1900マシン用に172列がシミュレートされた200万レコードが含まれています。 各コンピューターには、時間の経過と共に、コンピューターによって生成された警告、問題、エラーなどのデータを格納するデバイスが含まれます。 各レコードには、1日に受信した特定の種類の警告の合計数など、毎日のデバイス ID とタイムスタンプ、およびその日の集計された機能があります。 カテゴリ変数の汎用的な処理を示すために、4つのカテゴリ列も含まれていました。 目標は、コンピューターが次の7日間に失敗するかどうかを予測することです。 データセットの最後の列は、その日にエラーが発生したかどうかを示します。</p>
+
+
+  <h2>Jupyter Notebooks</h2>
+
+
+  <p><a href="https://github.com/Azure/PySpark-Predictive-Maintenance">GitHub リポジトリ</a>には、3つの jupyter notebook があります。 リポジトリにアクセスするには、<a href="https://gallery.cortanaintelligence.com/Tutorial/Predictive-Maintenance-using-PySpark">ギャラリーページ</a>の右側にある緑色 &quot; のビューのチュートリアル &quot; ボタンをクリックします。</p>
+
+
+  <ul>
+      <li>Notebook_1_DataCleansing_FeatureEngineering</li>
+      <li>Notebook_2_FeatureEngineering_RollingCompute</li>
+      <li>Notebook_3_Labeling_FeatureSelection_Modeling</li>
+  </ul>
+
+
+  <p>このチュートリアルは Jupyter notebook として書式設定されています。これは、この方法でステップバイステップのプロセスを簡単に示すことができるからです。 お気に入りの IDE を使用して、実行可能 PySpark スクリプトを簡単にコンパイルすることもできます。</p>
+
+
+  <h2>仕様 &amp; の構成</h2>
+
+
+  <p>このチュートリアルで使用するハードウェアは、32コアと 448 GB メモリを搭載した <a href="https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-data-science-linux-dsvm-intro">Linux Data Science Virtual Machine</a> です。 データサイエンスの対象コンピューターの詳細については、リンクを参照してください。 このチュートリアルで使用するデータのサイズ (1.3 GB) については、コア数が少なく、メモリ容量が少ないマシンでも十分です。 ただし、実際のシナリオでは、特定のビッグデータのユースケースに適したハードウェア構成を選択する必要があります。 このチュートリアルに含まれている jupyter Notebook は、PySpark が有効になっている任意のコンピューターでダウンロードして実行することもできます。</p>
+
+
+  <p>このチュートリアルでは、Linux Data Science Virtual Machine にインストールされている Spark のバージョンは、Python バージョン<b>2.7.5</b>に<b>2.0.2</b>しています。 Linux コンピューターでこのチュートリアルを実行する前に実行する必要がある構成については、チュートリアルのページを参照してください。</p>
+
+
+  <h2>前提条件</h2>
+
+
+  <ol>
+      <li>ユーザーは、PySpark の基本を既に理解している必要があります。 これは、PySpark 101 のチュートリアルとしては想定されていません。</li>
+      <li>PySpark (Spark 2.0.、Python 2.7) が既に構成されています。 コンピューターで Python 3 を使用している場合、このチュートリアルのいくつかの関数では、python 3 の一部の Python 2 関数が非推奨とされているため、ごくわずかな修正が必要です。</li>
+  </ol>
+
+
+  <h2>リファレンス</h2>
+
+
+  <ol>
+      <li><a href="https://blogs.technet.microsoft.com/machinelearning/2016/04/21/predictive-maintenance-modelling-guide-in-the-cortana-intelligence-gallery/">ブログの投稿: Cortana Intelligence Gallery の予測的なメンテナンスモデリングガイド</a></li>
+      <li><a href="https://gallery.cortanaintelligence.com/Collection/Predictive-Maintenance-Modelling-Guide-1">予測的なメンテナンスのモデリングガイド</a></li>
+      <li><a href="https://gallery.cortanaintelligence.com/Notebook/Predictive-Maintenance-Modelling-Guide-R-Notebook-1">予測的なメンテナンスのモデリングガイド R Notebook</a></li>
+      <li><a href="https://gallery.cortanaintelligence.com/Notebook/Predictive-Maintenance-Modelling-Guide-Python-Notebook-1">予測的なメンテナンスのモデリングガイド Python Notebook</a></li>
+      <li><a href="https://gallery.cortanaintelligence.com/Solution/Predictive-Maintenance-10">予測的なメンテナンスソリューション</a></li>
+      <li><a href="https://gallery.cortanaintelligence.com/Experiment/Predictive-Maintenance-Template-2">予測的なメンテナンステンプレート</a></li>
+  </ol>
+
+
+  <h2>Acknowledgement</h2>
+
+
+  <p>PySpark の学習には、Bleik、Yiyu Chen、および Ke に感謝します。 チュートリアル資料の読み取りと変更については、Boylu Uz と Danielle に感謝します。</p>

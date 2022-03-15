@@ -1,0 +1,99 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 82afb27cb05c654ef299058f917594bb907630e1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904709"
+Slug: larger-more-powerful-standard-file-shares-for-azure-files-now-in-preview
+Title: Azure Files のプレビュー段階で、より大規模で強力な標準ファイル共有を利用できるようになりました
+Summary: Azure Files は常に、完全に管理されたセキュリティで保護されたクラウドファイル共有を、あらゆるデータ冗長性オプションで提供しています。 お客様は Azure Files と Azure File Sync のハイブリッド機能を簡単に利用できますが、5 TiB を超えるクラウドファイル共有をスケーリングするには、データにアクセスするためのパラダイムを変更する必要がありました。
+Content: >-
+  <p style="background: rgb(238, 238, 238); padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none;">より大きな、より強力な標準ファイル共有が一般公開されました。 詳細については、 <a href="https://aka.ms/lfs/ga">Azure Files 向けのより大きなより強力な標準ファイル共有の一般提供を発表</a>するブログ &quot; を参照してください。&quot;&nbsp;</p>
+
+
+  <p>Azure Files は常に、完全に管理されたセキュリティで保護されたクラウドファイル共有を、あらゆるデータ冗長性オプションで提供しています。 お客様は Azure Files と Azure File Sync のハイブリッド機能を簡単に利用できますが、5 TiB を超えるクラウドファイル共有をスケーリングするには、データにアクセスするためのパラダイムを変更する必要がありました。</p>
+
+
+  <p>現在、Azure のすべてのお客様が利用できるようになった Azure Files の大規模で拡張性の高い standard レベルのプレビューを発表します。 このプレビューでは、標準のファイル共有 &rsquo; の容量とパフォーマンスの制限を大きくすることで、エクスペリエンスが大幅に向上します。 [リージョンの選択] では、汎用アカウントの標準ファイル共有で次の大きな制限をサポートできます。</p>
+
+
+  <h2>Azure Files standard storage のスケール制限</h2>
+
+
+  <table border="1" cellpadding="2">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>Azure Files</strong></td>
+              <td valign="top"><strong>以前 (standard レベル)</strong></td>
+              <td valign="top"><strong>新規 (standard レベル)</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">共有あたりの容量</td>
+              <td valign="top">5 TiB</td>
+              <td valign="top">100 TiB (20 倍増加)</td>
+          </tr>
+          <tr>
+              <td valign="top">共有あたりの最大 IOPS</td>
+              <td valign="top">1,000 IOPS</td>
+              <td valign="top">1万 IOPS (10 倍)</td>
+          </tr>
+          <tr>
+              <td valign="top">共有あたりの最大スループット</td>
+              <td valign="top">最大 60 MiB/秒</td>
+              <td valign="top">最大 300 MiB/秒 (1 倍増加)</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>1つのファイルのパフォーマンス制限は、1 TiB、1000 IOPS、および 60 MiB/秒で同じです。 標準のファイル共有は、ハードディスクドライブによって支えられています。 ワークロードの待機時間が重要である場合は、ソリッドステートドライブに支えられている premium レベル Azure Files を考慮する必要があります。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-scale-targets#file-share-and-file-scale-targets" target="_blank">Azure Files スケール制限</a> に関するドキュメントを参照してください。</p>
+
+
+  <h2>価格と使用可能状況</h2>
+
+
+  <p>ストレージアカウントでの標準ファイル共有の拡大/縮小を可能にするための追加料金は発生しません。 詳細については、<a href="https://azure.microsoft.com/en-us/pricing/details/storage/files/" target="_blank">料金ページ</a>を参照してください。</p>
+
+
+  <p>プレビュー段階では、ローカル冗長ストレージとゾーン冗長ストレージのサポートにより、standard の大きなファイル共有が導入されています。 リージョンの範囲をすぐに拡張しています。 最新の情報を入手するには、 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning#regional-availability" target="_blank">リージョンの可用性</a> に関するドキュメントを参照することをお勧めします。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <ol>
+      <li>大きなファイル共有のプレビューに<strong>サインアップ</strong>する (standard レベル): Azure Files のドキュメントの<a href="https://aka.ms/largefilesharesdocs" target="_blank">オンボード手順</a>に従います。</li>
+      <li><strong>新しいストレージアカウントを作成します。</strong> 登録したサブスクリプションで、サポートされている冗長性オプションを使用して、 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning#regional-availability" target="_blank">サポートさ</a> れているリージョンのいずれかで、新しい汎用ストレージアカウントを作成します。 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?toc=%2Fazure%2Fstorage%2Ffiles%2Ftoc.json&amp;tabs=azure-portal" target="_blank">新しいストレージアカウントを作成する方法</a>の詳細な手順を参照してください。</li>
+      <li><strong>新しい標準ファイル共有を作成します。 </strong>新しく作成したストレージアカウントに新しい標準ファイル共有を作成します。 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share" target="_blank">標準のファイル共有を作成する方法</a>の詳細な手順を参照してください。</li>
+  </ol>
+
+
+  <h2>よく寄せられる質問</h2>
+
+
+  <p><strong>より大きなファイル共有は、premium ファイル共有で動作しますか。</strong></p>
+
+
+  <p>マイクロソフト <a href="https://aka.ms/pfs/ga" target="_blank">では、100 TiB サポートを利用して、premium ファイルの一般公開 (GA)</a>を最近発表しました。 すべての premium リージョンでは、GA オファリングとして大規模なファイル共有がサポートされています。</p>
+
+
+  <p><strong>より大きなファイル共有をサポート Azure File Sync ますか。</strong></p>
+
+
+  <p>もちろんです。 Azure File Sync のパフォーマンスは、クラウド内のファイル共有の容量ではなく、同期スコープ内のオブジェクト、ファイル、およびフォルダーの数の関数です。 Microsoft のチームは、同期とクラウドの階層化のパフォーマンスとスケールを向上させるために常に投資を行っています。 そのため、Azure File Sync エージェントは最新バージョンで更新し、 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-scale-targets#azure-file-sync-scale-targets" target="_blank">Azure File Sync のスケーラビリティターゲット</a> にアクセスして、最新のスケールを常に把握しておいてください。</p>
+
+
+  <p><strong>既存の標準共有では、より大きなファイル共有のサポートはどのようなものですか。</strong></p>
+
+
+  <p>現在、既存のストレージアカウントのアップグレードに取り組んでいます。 既存のアカウントをアップグレードすると、既存のワークロードを中断することなく (Azure File Sync を含む)、より大きなファイル共有機能にアカウントをオプトインできるようになります。Azure Files ドキュメントの「 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning#regional-availability" target="_blank">利用可能なリージョン</a> 」セクションで最新の状態を最新の状態に維持します。</p>
+
+
+  <h2>エクスペリエンスを共有する</h2>
+
+
+  <p>いつでも、 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=windowsazuredata" target="_blank">Azure Storage フォーラム</a>でフィードバックやエクスペリエンスを共有したり、に <a href="mailto:LFSFeedback@microsoft.com">LFSFeedback@microsoft.com</a> 電子メールを送信したりすることができます。 <a href="https://feedback.azure.com/forums/217298-storage" target="_blank">フィードバックフォーラム</a>で、Azure Storage に関するアイデアやご意見を投稿してください。</p>
+
+
+  <p>お楽しみください。</p>

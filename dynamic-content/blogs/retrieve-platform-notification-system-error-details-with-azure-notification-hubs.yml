@@ -1,0 +1,121 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8cbf01f133b00a5e9a4bddf97f281ec0a49e4c5f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910423"
+Slug: retrieve-platform-notification-system-error-details-with-azure-notification-hubs
+Title: Azure サービスを使用してプラットフォーム通知システムのエラーの詳細を取得Notification Hubs
+Summary: これで、プッシュ要求ごとに詳細なエラー フィードバックをプラットフォーム通知システムから取得できます。このフィードバックは、Notification Hubs。
+Content: >-
+  <p>監視と <a href="https://msdn.microsoft.com/en-us/library/azure/mt705560.aspx">デバッグプラットフォーム通知システム</a> フィードバックを少し前もって有効にしました。ここで、ハブに関連付けられているプラットフォーム通知システムからのチャネル エラー フィードバックはすべてストレージ BLOB に格納されます。 まだ行っていない場合&rsquo;は、準備した機能と簡単なサンプルを <a href="https://github.com/Azure/azure-notificationhubs-samples/blob/master/dotnet/SendRestExample/SendRestExample/Program.cs">確認することをお</a> 勧めします。 多くのお客様は、この機能が非常に役に立つと感じていましたが、メッセージ要求ごとにこれらのフィードバックを確認して、Notification Hubs。</p>
+
+
+  <p>私たちはそれを考え、すばらしいアイデアでした。</p>
+
+
+  <p>最新の&rsquo;更新プログラムでは、メッセージごとのテレメトリを使用していない場合は、新しいフィールド <em>PnsErrorDetailsUri</em> を Per Message Telemetry &ndash;&rsquo;に追加しました。詳細については、こちらを参照してください。<a href="https://azure.microsoft.com/en-us/blog/updates-from-notification-hubs-independent-nuget-installation-model-pmt-and-more/"></a> つまり、メッセージごとのテレメトリの一部として、通知をプッシュアウトし、エラーを抽出し、URI が表示される BLOB に格納するプラットフォーム通知システムからのメッセージごとのフィードバックを処理します。 これにより、これらのフィードバックをよりターゲットにし、役立つものにし、プッシュ内のエラーを検出できます。</p>
+
+
+  <p>次に示すのは、メッセージごとのテレメトリに追加プラットフォーム通知システムフィードバックと PNS エラーの詳細の違いの概要です。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="733">
+      <tbody>
+          <tr>
+              <td valign="top" width="133">&nbsp;</td>
+              <td valign="top" width="283">プラットフォーム通知システムのフィードバック</td>
+              <td valign="top" width="315">メッセージごとのテレメトリ&rsquo; PNS エラーの詳細</td>
+          </tr>
+          <tr>
+              <td valign="top" width="133">Scope</td>
+              <td valign="top" width="283">通知ハブ</td>
+              <td valign="top" width="315">通知 ID</td>
+          </tr>
+          <tr>
+              <td valign="top" width="133">コンテンツ</td>
+              <td valign="top" width="283">PNS からの期限切れのチャネル エラーと無効なチャネル エラー</td>
+              <td valign="top" width="315">PNS からのエラー</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>STANDARD レベルの名前空間では、PNS フィードバックと PNS エラーの詳細の両方を使用できます。</p>
+
+
+  <p>REST を使用している場合、<em>Api-Version 2016-07 </em>以上を使用すると、メッセージごとのテレメトリの戻り値に <em>PnsErrorDetailsUri</em> が追加されます。<a href="https://msdn.microsoft.com/en-us/library/azure/mt608135.aspx"></a> エラーは次の場合があります。</p>
+
+
+  <ul>
+      <li>無効な PNS 資格情報</li>
+      <li>PNS に到達できない</li>
+      <li>チャネルが間に合う</li>
+      <li>有効期限が切れたチャネル</li>
+      <li>間違ったチャネル</li>
+      <li>PNS 調整</li>
+      <li>トークンが無効</li>
+      <li>トークンが正しい</li>
+      <li>Dropped</li>
+  </ul>
+
+
+  <p>エラーの詳細は、関連付けられた通知送信操作が完了した後にのみ完全に使用できます。また、エラーがない場合は <em>PnsErrorDetailsUri</em> に対して NULL が返されます。</p>
+
+
+  <p>NuGet <a href="https://www.nuget.org/packages/Microsoft.Azure.NotificationHubs/">を使用</a>している場合は、通知結果の詳細とその BLOB コンテンツから <em>PnsErrorDetailUri</em> を抽出するコードを数<a href="https://msdn.microsoft.com/en-us/library/azure/microsoft.azure.notificationhubs.notificationhubclient.getnotificationoutcomedetailsasync.aspx"></a>行追加します。</p>
+
+
+  <pre class="prettyprint">
+
+  // Get Notification ID from any send request
+
+  var outcome = await client.SendWindowsNativeNotificationAsync(winPayload.ToString(), tag);
+
+
+  // Get pns error detail uri once notification processing is complete
+
+  var feedbackUri = string.Empty;
+
+  var retryCount = 0;
+
+  while (retryCount++ &lt; 6)
+
+  {&nbsp;&nbsp; var result = client.GetNotificationOutcomeDetailsAsync(outcome.NotificationId).Result;&nbsp;&nbsp; if (result.State != NotificationOutcomeState.Completed)&nbsp;&nbsp; {&nbsp;&nbsp; await Task.Delay(TimeSpan.FromSeconds(10));&nbsp;&nbsp; }&nbsp;&nbsp; else&nbsp;&nbsp; {&nbsp;&nbsp; feedbackUri = result.PnsErrorDetailsUri;&nbsp;&nbsp; break;&nbsp;&nbsp; }
+
+  }
+
+  if (!string.IsNullOrEmpty(feedbackUri))
+
+  {&nbsp;&nbsp; Console.WriteLine(&quot;feedbackBlobUri: {0}&quot;, feedbackUri);&nbsp;&nbsp; var feedbackFromBlob = ReadFeedbackFromBlob(new Uri(feedbackUri));&nbsp;&nbsp; Console.WriteLine(&quot;Feedback from blob: {0}&quot;, feedbackFromBlob);
+
+  }</pre>
+
+
+  <p>次の呼び出しで BLOB を簡単に読み取<a href="https://www.nuget.org/packages/WindowsAzure.Storage/">Azure Storage NuGet</a>。</p>
+
+
+  <pre class="prettyprint">
+
+  private static string ReadFeedbackFromBlob(Uri uri)
+
+  {
+      var currentBlock = new CloudAppendBlob(uri);
+      var stringbuilder = new StringBuilder();
+      using (var streamReader = new StreamReader(currentBlock.OpenRead()))
+      {
+          while (!streamReader.EndOfStream)
+          {
+              string currentFeedbackString = streamReader.ReadLine();
+              if (currentFeedbackString != null)
+              {
+                  stringbuilder.AppendLine(currentFeedbackString);
+              }
+          }
+      }
+      return stringbuilder.ToString();
+  } </pre>
+
+
+  <p>この機能を有効にNode.js SDK を間もなく更新する予定です。 その間に、NuGet API または REST API を試して、ご自分の考えをお知らせします。</p>

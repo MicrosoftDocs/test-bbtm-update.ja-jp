@@ -1,0 +1,113 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0d215db0302e1c8926587d709d06424b6aa8c7cc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905124"
+Slug: premium-files-pushes-azure-files-limits-by-100x
+Title: プレミアムファイルは、Azure Files 制限を100倍にします。
+Summary: 現時点では、クラウド内のエンタープライズアプリケーション用の高パフォーマンスのファイルサービスである、Azure プレミアムファイルの限られたパブリックプレビューをご紹介します。 Azure プレミアム Files は、完全に管理されたファイルサービスを提供します。これは、既存の Azure Files に対する100倍のパフォーマンスを実現するために最適化されています。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">プレミアムファイルが一般公開されました。 詳細については、 <a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-azure-premium-files/" target="_blank">Azure premium files の一般提供の発表</a>に関するブログ &quot; を参照してください。&quot;</div>
+
+
+  <p>現時点では、クラウド内のエンタープライズアプリケーション用の高パフォーマンスのファイルサービスである、 <strong>Azure プレミアムファイル</strong>の限られたパブリックプレビューをご紹介します。 Azure プレミアム Files は、完全に管理されたファイルサービスを提供します。これは、既存の Azure Files に対する100倍のパフォーマンスを実現するために最適化されています。 高スループットと1桁のミリ秒の待機時間を必要とする IO 集中型のエンタープライズワークロード向けに設計されています。 プレミアムファイルの導入により、Azure では、ワークロードのニーズ &ndash; に合わせて2種類の共有ファイルストレージを提供できるようになりました。プレミアムと Standard にも対応しています。 <em>新しい</em>オファリングでプレミアムファイルは、最新の Solid-State ドライブ (ssd) にデータを格納します。 ssd は、ファイルサービス、データベース、web インフラストラクチャ、コンテンツとコラボレーションのリポジトリ、分析、ホームディレクトリ、高変数およびバッチワークロードなど、さまざまなワークロードに適しています。 <em>既存</em>のサービスである標準ファイルは、汎用ファイルストレージ、開発/テスト、およびアプリケーションのワークロードの信頼性の高いパフォーマンスを提供するように設計されており、パフォーマンスの変動に影響を与えることはありません。</p>
+
+
+  <h2>Azure プレミアムファイルを簡単に</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8cf4518a-9276-47c6-985d-cbb98f6dfe11.jpg"><img alt="PremiumFiles" border="0" height="367" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5b55946-ee83-4e99-8f7e-d64bc76e9472.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="PremiumFiles" width="1152"></a></p>
+
+
+  <h3>パフォーマンス-使用条件について</h3>
+
+
+  <p>ワークロードに必要なパフォーマンス特性を定義して取得します。 プレミアムファイルを使用すると、待機時間を損なうことなく、ワークロードのパフォーマンス特性に合わせて、プロビジョニングされた容量に基づいて IOPS とスループットをスケーリングするようにファイル共有をカスタマイズできます。 現在のファイル共有と比較して、premium 共有は100倍の IOPS で <strong>IOPS を実現し、</strong> 最大 5 GiB/秒までのスループットを目標としています。これは、 <strong>85x</strong> の機能強化です。</p>
+
+
+  <p>プレミアムファイルは、すぐに利用可能なエクスペリエンスを提供します。 すべての共有は、プロビジョニングされた容量に関係なく、100 MiB/秒のベースラインスループットを取得します。 プロビジョニングされた各 GiB について、1つのベースライン IOPS と 0.1 MiB/秒のスループットが最大許容制限に到達します。 また、プレミアムファイルはバーストモードで動作する機能も提供します。これは、非常に多くの IOPS を必要とする、高度な可変および batch ワークロードに適しています。</p>
+
+
+  <p>では、バーストモードがどのように機能するかを見てみましょう &rsquo; 。 未使用のベースライン Io は、バーストクレジットバケットで見越計上されます。 十分な IO クレジットが蓄積されている場合、共有はベースライン IOPS を3倍までバーストできます。 ベストエフォートベースでは、プロビジョニングされた GiB あたり最大で60分の IOPS をすべての共有にバーストできます。 50 TiB より大きい共有は、60分間にわたって実行できます。</p>
+
+
+  <h6><strong>例:</strong> 5 TiB のプロビジョニング済み共有 * の場合、</h6>
+
+
+  <h6>スループット: 100 MiB/s + (0.1) * 5120 = 612 MB/秒</h6>
+
+
+  <h6>ベースライン IOPS: 5120</h6>
+
+
+  <h6>バースト IOPS 制限: 15360</h6>
+
+
+  <p><em>* プレミアム Files の制限付きプレビュー: IOPS とスループットの数値は、アクセスパターンによって異なる場合があります。ベースラインレート、バーストクレジット、およびバースト期間は、一般公開時に変更される可能性があります。最大スケール制限は、to100 TiB の大きな容量を持つ共有スケールに基づいています。</em></p>
+
+
+  <h3>容量 &ndash; の柔軟性</h3>
+
+
+  <p>共有のサイズは変更可能です。 共有と共有の容量は、ニーズに合わせて変更できます。 プレミアムファイルの現在の<em>限ら</em>れたパブリックプレビューでは、最大5つの TiB 共有のスケール制限がサポートされています。 大規模で大規模な Azure ファイル共有のプレビューでは、プレミアム Files 共有によって、5つの TiB 容量の制限も 100 TiB に増加します。 <a href="https://aka.ms/AzureFilesatScaleSurvey" target="_blank">より大きなファイル共有プレビュー要求フォーム</a>を完成させて、プレビュー waitlist に参加させます。 この機能には非常に興味があります。プレビューを利用できるようになったら、ご連絡いたします。</p>
+
+
+  <h3>シンプルで予測可能なコスト &ndash;</h3>
+
+
+  <p>GiB コストを支払うだけです。 トランザクションのコストはかかりません。 スループットと IOPS のバースティングに追加コストはかかりません。 IO 集中型のワークロードの場合は、無制限のトランザクションモデルに移動することでコストを削減できます。 組み込みのバースティング機能を使用すると、プレミアムファイルにより、短時間の高 IOPS を必要とするワークロードに合わせて調整する必要がなくなります。 詳細については、価格に関する <a href="https://azure.microsoft.com/en-us/pricing/details/storage/files/" target="_blank">ページ</a> を参照してください。</p>
+
+
+  <h2>利用を始めるには?</h2>
+
+
+  <p>現時点では、Azure プレミアムファイルは限られたパブリックプレビューで利用できます。 プレビューにサインアップするには、<a href="https://aka.ms/PremiumFilesPreview" target="_blank">プレミアム preview のサインアップ</a>に関するアンケートを完了してください。</p>
+
+
+  <p>承認を受けるには、最大5営業日かかることがあります。 要件とシナリオによっては、すべての要求に対応できない場合があります。 登録が正常に承認されたことを確認するには、次のコマンドを実行します。</p>
+
+
+  <pre>
+
+  Get-AzureRmProviderFeature -FeatureName AllowPremiumFiles -ProviderNamespace Microsoft.Storage</pre>
+
+
+  <p>承認されたサブスクリプションを使用して、新しいプレミアムファイルストレージアカウントを作成します。<em>パフォーマンス</em>として [<strong>プレミアム</strong>] を選択し、アカウントの種類として [ <strong>filestorage (プレビュー)</strong> ] を選択し、レプリケーションとして<strong>ローカル冗長ストレージ (LRS)</strong>を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdec5b41-d5e3-4661-abaf-9a6d9322c8fc.jpg"><img alt="PremiumUI" border="0" height="664" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8fadfdf4-6ed5-46b9-ba94-306c18ed247d.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="PremiumUI" width="683"></a></p>
+
+
+  <p>現時点では、プレミアム Files storage プレビューは次のリージョンでご利用いただけます。リージョンの範囲を段階的に拡張します。</p>
+
+
+  <ul>
+   <li>米国中部</li>
+   <li>米国東部 2</li>
+   <li>米国西部</li>
+   <li>北ヨーロッパ</li>
+   <li>米国東部&nbsp;</li>
+  </ul>
+
+
+  <p>Premium ファイルストレージアカウントで作成されたすべての共有は、premium ファイル共有になります。 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction" target="_blank">Azure Files の概要</a>」を参照してください。</p>
+
+
+  <h2>価格</h2>
+
+
+  <p>最新の詳細については、価格に関する <a href="https://azure.microsoft.com/en-us/pricing/details/storage/files/" target="_blank">ページ</a> を参照してください。</p>
+
+
+  <h2>次のよう &rsquo; にします。</h2>
+
+
+  <p>プレミアムファイルに試してみてください。お客様にとって、この製品の品質向上にご協力ください。 フィードバックは、このブログのコメントまたは<a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=windowsazuredata" target="_blank">Azure Storage フォーラム</a>に投稿するか、に <a href="mailto:PFSFeedback@microsoft.com">PFSFeedback@microsoft.com</a> 電子メールを送信することによってご連絡いただけます。 また、 <a href="https://feedback.azure.com/forums/217298-storage" target="_blank">Azure Storage フィードバックフォーラム</a>で Azure Storage に関するアイデアや提案を投稿することもできます。</p>
+
+
+  <p>そして、次の大きな問題についても説明 &rsquo; します。 それまでは。</p>
+
+
+  <p>お楽しみください。</p>

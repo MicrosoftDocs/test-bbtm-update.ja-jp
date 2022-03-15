@@ -1,0 +1,121 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b8271085d8d5a6f0de938fdbba910be25859690e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904780"
+Slug: how-microsoft-builds-its-fast-and-reliable-global-network
+Title: マイクロソフトが高速で信頼性の高いグローバル ネットワークを構築する方法
+Summary: 世界中のお客様は、Microsoft Azure、Bing、Dynamics 365、Office 365、OneDrive、Xbox などのさまざまなサービスに数十億個の要求を通じて接続します。 これらの要求はさまざまです...
+Content: >-
+  <p>世界中のお客様は、Microsoft Azure、Bing、Dynamics 365、Office 365、OneDrive、Xbox などのさまざまなサービスに数十億個の要求を通じて接続します。 これらの要求の対象には、企業のクラウド アプリケーションや電子メール、VOIP、ストリーミング ビデオ、IoT、検索、クラウド ストレージなど、さまざまな種類のデータがあります。</p>
+
+
+  <p>お客様はマイクロソフトのサービスに対して迅速な応答と高い信頼性を期待しています。 マイクロソフトのグローバル ワイド エリア ネットワーク (WAN) は、優れたクラウド サービス エクスペリエンスを提供するうえで非常に重要な役割を果たしています。 世界中の38リージョンで数百台のデータセンターに接続することで、当社のグローバルネットワークは、ほぼ完全な可用性と高い容量を提供し、予測不可能な需要急増に対応する柔軟性を実現します。</p>
+
+
+  <p>この世界クラスのネットワークを構築、展開、実行すると、次の3つの原則に基づいています。</p>
+
+
+  <ul>
+   <li>最適な待機時間を実現するために、お客様にできるだけ近いものにしてください。</li>
+   <li>容量と回復性を継続的に管理して、ネットワークが複数の障害に耐えることができることを保証します。</li>
+   <li>ソフトウェアで定義されたネットワーク (SDN) を使用して、大規模なネットワークトラフィックを事前に管理します。</li>
+  </ul>
+
+
+  <h2>お客様にできるだけ近い場所にある</h2>
+
+
+  <p>マイクロソフトのサービスを利用するお客様は、迅速な応答と高い信頼性を期待しています。 データはネットワーク上をほぼ光の速さで移動するため、ネットワークの速度 (待ち時間) はお客様の場所からデータセンターまでの距離に依存します。 サービスが遠く離れている場合、 &rsquo; ロンドンにいて、サービスが東京にあると、ネットワークパスは待機時間を決定します。 革新的なソフトウェアを使用して、ネットワークルーティングを最適化し、顧客とそのデータとサービスの間で可能な限り直接的にネットワークパスを構築および展開します。 これにより、ライトの速度によって課される制限に対する待機時間が短縮されます。</p>
+
+
+  <p>お客様のトラフィックは、戦略的に配置された Microsoft edge ノードである "プレゼンス" を通じて、グローバルネットワークに入ります。 これらのエッジノードは、130の場所を超える多数の接続を通じて、2500を超える一意のインターネットパートナーに直接相互接続されています。 この多様な相互接続戦略によってグローバル ネットワークでのデータ通信経路が最適化されています。 待ち時間、ジッター、パケット損失が減少しスループットが増大して、お客様は良好なネットワーク エクスペリエンスを得ることができます。 ダイレクトに相互接続することでホップ数やパーティー数が減少して良好なネットワーク経路を使用できるため、中継リンクよりも高品質なサービスが提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b756de09-000f-4234-b4c2-beeb99588d1d.png"><img alt="Microsoft Global WAN" border="0" height="378" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/195a0c05-9dd2-4b8c-9566-d532b006a0dd.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Microsoft グローバル WAN" width="748"></a></p>
+
+
+  <p align="center"><em>図 1.Microsoft グローバル WAN</em></p>
+
+
+  <p>データ センター間の Azure のトラフィックはマイクロソフトのネットワーク上に留まり、インターネットに流れることはありません。 これには、世界中のマイクロソフトのサービス間のすべてのトラフィックが含まれます。 たとえば Azure 内部では、仮想マシン、ストレージ、SQL 通信間のトラフィックは、送信元や送信先のリージョンにかかわらずマイクロソフトのネットワーク内のみを移動します。 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview">リージョン内の vnet 間</a>のトラフィックと、<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-vnet-vnet-resource-manager-portal">リージョン間の vnet 間トラフィック</a>は、Microsoft ネットワーク上にとどまります。</p>
+
+
+  <p>お客様は<a href="https://azure.microsoft.com/en-us/services/expressroute/">azure ExpressRoute</a>を使用して、azure、Dynamics 365、Office 365、Skype for Business へのプライベートネットワーク接続を作成できます。 ExpressRoute 接続はインターネットをバイパスし、一般的なインターネット接続よりも信頼性が高く、より高速で、待機時間が短くなります。 ExpressRoute を使用する場合、お客様は、インターネット交換プロバイダーの施設など、特定の Microsoft edge サイトの ExpressRoute の場所で Azure に接続するか、ネットワークサービスプロバイダーによって提供されるマルチプロトコルラベルの切り替え (MPLS) VPN などの既存の企業 WAN から Azure に直接接続することができます。</p>
+
+
+  <p>たとえば、お客様は、ダラスのローカル ExpressRoute サイトに接続し、アムステルダム、Busan、ダブリン、香港、大阪、ソウル、シンガポール、シドニー、東京、(またはそのいずれかのデータセンター) の仮想マシンにアクセスでき、トラフィックはグローバルなバックボーンネットワークにとどまります。 2つの <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-locations">ExpressRoute サイト</a>があり、それぞれの Azure リージョンに1つ、さらに他の戦略的な場所が37あります。 <a href="https://news.microsoft.com/apac/2017/02/21/microsoft-cloud-expands-in-asia-with-microsoft-azure-available-from-korea/">最近韓国で行った</a>ように新しい Azure リージョンを発表するたびに、expressroute パートナーのグローバルエコシステムと共に expressroute も存在することが予想されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ddfbad1-f5c3-472c-b7b3-4a33743df2d0.png"><img alt="ExpressRoute Partners" border="0" height="428" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f596fa00-d167-4779-bb18-897c17eebf12.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ExpressRoute パートナー" width="650"></a></p>
+
+
+  <p align="center"><em>図 2.世界 &rsquo; 最大規模のネットワークとコロケーションプロバイダーを含む、Microsoft ExpressRoute パートナーエコシステムのサンプリング</em></p>
+
+
+  <h2>容量の管理を維持し、回復性を提供する</h2>
+
+
+  <p>適切に機能するサービスを顧客に提供するために、ネットワークは障害を処理し、需要急増に迅速に対応できる必要があります。 クラウドサービスの大幅な成長をサポートし、一貫したサービスレベルアグリーメントを維持するために、metro、地上波、海底のパスに対してプライベートファイバー ( <a href="https://en.wikipedia.org/wiki/Dark_fibre">dark fiber</a>とも呼ばれます) に投資しています。 Microsoft は、世界中の最大のバックボーンネットワークの1つを所有して実行し、データセンターと顧客を接続します。 過去3年間、長距離 WAN 容量が700% を超えまし &rsquo; た。 特定のリージョン内で、データセンター間の帯域幅の最大1.6 の Pbps をサポートできます。 Microsoft クラウドサービスの強力な需要に対応するために、引き続き容量を増やします。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="999">
+   <tbody>
+    <tr>
+     <td valign="top" width="999"><em>Microsoft は、世界中の最大の WAN バックボーンの1つを所有し、実行しています。</em></td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>当社の海底投資は、太平洋および大西洋海洋全体の回復性、パフォーマンス、信頼性を向上させます。 最新の投資は、 <a href="https://blogs.technet.microsoft.com/hybridcloud/2016/05/26/microsoft-and-facebook-to-build-subsea-cable-across-atlantic/">MAREA ケーブル</a>であり、バージニアビーチ、バージニア州、USA、および海底 Bao (スペイン) との間の 6600 km ケーブルです。これは、Facebook を使用して共同で開発しました。 MAREA は、8つのファイバーペアと 160 Tbps の最初の推定設計容量を使用して、大西洋をまたぐ最大容量の subsea ケーブルになります。 この <a href="https://www.microsoft.com/en-us/research/publication/open-undersea-cable-systems-cloud-scale-operation/">オープンケーブルシステム</a> は、海底ケーブルの設計と配信におけるイノベーションで、帯域幅の容量のしきい値を高め、コストを削減することができます。 さらに重要なのは、SDN の原則をケーブル管理に導入することで、サービスの品質が向上することです。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="999">
+   <tbody>
+    <tr>
+     <td valign="top" width="999"><em>過去3年間、長距離 WAN 容量が700% を超えまし &rsquo; た。</em></td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>グローバルネットワークインフラストラクチャは、驚くほど脆弱になる可能性があります。 たとえば、ファイバー光ケーブルは、船に沿って船を発送することによって切り取ることができます。 例については、「出荷時の <a href="https://www.businessinsider.com/ships-anchor-cuts-internet-cables-to-jersey-jt-2016-11">インターネットケーブルをアンカーと共に発送 &rsquo; する</a>」を参照してください。 クラウドで必要とされる信頼性を実現するために、最適な信頼性を確保するために、障害に対する自動ルーティングを備えた多数の物理ネットワークパスを用意しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e0cd2b67-d9e7-499c-a086-a0f7e66c50fd.jpg"><img alt="Inter-Datacenter backbone" border="0" height="510" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fadab1ee-c788-4e9d-b861-f8147826f538.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Inter-Datacenter のバックボーン" width="662"></a></p>
+
+
+  <p align="center"><em>図 3.データセンター間のバックボーンは、ファイバー光ケーブルを使用してデータセンターをグローバルに接続します。</em></p>
+
+
+  <h2>ソフトウェアによる運用制御とトラフィック管理</h2>
+
+
+  <p>クラウドテクノロジを使用すると、数百万にも及ぶ物理サーバー &rsquo; にもトラフィックを配信できません。 <a href="https://www.microsoft.com/en-us/research/research-area/computer-systems-and-networking/">Microsoft Research</a>とのパートナーシップでは、ネットワーク全体の目標を達成するために、ルーティングを最適に管理し、制御を一元化するためのさまざまな SDN テクノロジを開発しました。 標準のスイッチとルーターを使用して、Microsoft ネットワーク上の膨大な量のトラフィックを処理するように構築された独自のソフトウェアで管理します。</p>
+
+
+  <p>Microsoft では、 <a href="https://www.microsoft.com/en-us/research/publication/achieving-high-utilization-with-software-driven-wan/">Swan</a> という SDN ベースのアーキテクチャを使用して WAN を管理しています。これにより、ネットワークインフラストラクチャの集中管理と制御が可能になり、信頼性と効率性が向上します。 SWAN は、各サービスが送信するトラフィックの量と量を制御し、トラフィックの需要に合わせてネットワーク &rsquo; のデータプレーンを自動的に再設定します。 SWAN を使用すると、世界中のデータセンターにあるサーバー上のネットワークインターフェイスカード (NIC) に至るまで、ネットワークのほぼすべてのネットワークフローをグローバル WAN 全体で制御できます。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Blogs/Azure/How-Microsoft-builds-its-fast-and-reliable-global-network/player" width="960"></iframe></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>マイクロソフトのクラウド サービスを利用する際は、インターネット経由とプライベート ネットワーク経由のどちらでもお選びいただくことができます。マイクロソフトはパブリック クラウドとして最も迅速で最も信頼性の高いグローバル ネットワークの構築に取り組んでおります。 マイクロソフトは、世界規模で分散されたネットワークプラットフォームへの革新と投資を継続し、高パフォーマンス、低待機時間、世界 &rsquo; 最高の信頼性の高いクラウドを実現します。 また、世界で最高のネットワーク エクスペリエンスを提供するための努力を続けていきます。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>このシリーズの投稿をさらに読むには、次のページを参照してください:</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/networking-innovations-that-drive-the-cloud-disruption/">クラウドの分断を促進するネットワークの革新</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/sonic-the-networking-switch-software-that-powers-the-microsoft-global-cloud/">SONiC: マイクロソフトの世界規模のクラウドを支えるネットワーク スイッチ ソフトウェア</a></li>
+  </ul>

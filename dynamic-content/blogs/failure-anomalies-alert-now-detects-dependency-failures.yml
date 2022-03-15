@@ -1,0 +1,33 @@
+### YamlMime:Yaml
+ms.openlocfilehash: aa2b11b183e12813dc4ce43ff104266b30998f82
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910793"
+Slug: failure-anomalies-alert-now-detects-dependency-failures
+Title: 失敗の異常アラートが依存関係のエラーを検出するようになりました
+Summary: Web アプリの送信依存関係と AJAX 呼び出しだけでなく、受信サーバー要求も監視するように、スマート検出–エラーの異常をアップグレードしました。 でアプリを監視している場合
+Content: >-
+  <p><a href="https://go.microsoft.com/fwlink/?LinkId=733393">スマート検出 &ndash; エラーの異常</a>をアップグレードしまし &rsquo; た。これにより、web アプリ &rsquo; の送信依存関係と AJAX 呼び出しだけでなく、受信サーバー要求も監視されます。 <a href="https://docs.microsoft.com/azure/application-insights/app-insights-overview">Application Insights</a>を使用してアプリを監視する &rsquo; と、突然中断が発生した場合や、アプリ &rsquo; のパフォーマンスが &rsquo; 低下した場合に、 &rsquo; 数分以内に通知されます。</p>
+
+
+  <p>アプリに特定の量のトラフィックがある場合、スマート検出 &ndash; エラーの異常はそれ自体を構成します。 アプリ &rsquo; は、通常のバックグラウンドレベルの障害について学習します。 エラーの発生率が学習されたパターンを超えた場合にアラートをトリガーします。 アラートの診断情報は、ほとんどのユーザーがそれを認識する前に問題を解決するのに役立ちます。</p>
+
+
+  <p>最近までは、スマート検出は失敗した受信要求のみを監視していました。 (ただし、さまざまなメトリックに対して手動でアラートを設定することもできます)。また、依存関係呼び出し &ndash; の失敗率も監視します。これは、アプリが REST api や SQL データベースなどの外部サービスに対して行う呼び出しの呼び出しです。 これには、サーバー側の呼び出しと、アプリのクライアント側からの AJAX 呼び出しの両方が含まれます。</p>
+
+
+  <p>&rsquo;アラートの例を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca56c1c2-3dfa-4a63-95c5-dd921ff3afde.png"><img alt="DFR" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5bfa0572-1ffa-4053-8c46-1345f40a1124.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="DFR" width="429"></a></p>
+
+
+  <p>このアップグレードにより、特に依存しているサービスの1つが原因で発生した場合 &rsquo; に、障害がすばやく検出される可能性が高まります。 &rsquo;アプリがエラー以外の応答をユーザーに返す場合でも、アラートが表示されます。</p>
+
+
+  <p>既定では、この例よりも短いアラートメールを受け取りますが &nbsp; 、[失敗時の異常を検出する] 規則の設定を選択 &ldquo; &hellip; &rdquo; して、この詳細な形式に切り替えることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a58ec0cf-49d9-447c-b016-20caf549696f.png"><img alt="OptIn" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/287d5202-0558-4fc0-bfc0-3eec908f9400.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="OptIn" width="431"></a></p>

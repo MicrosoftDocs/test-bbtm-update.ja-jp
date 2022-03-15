@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: db66cbdd7076323878ca7990fcc2525ed67f4a11
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910347"
+Slug: running-critical-application-workloads-on-microsoft-azure-d-series-virtual-machines
+Title: D シリーズ モデルでの重要なMicrosoft AzureワークロードのVirtual Machines
+Summary: Azure Customer Advisory Team (AzureCAT) では、D シリーズと呼ばれるパブリック クラウドに導入される最新世代のハードウェア コンポーネントのパフォーマンスをテストしています。
+Content: >-
+  <p align="justify">Azure Customer Advisory Team (AzureCAT) では、D シリーズと呼ばれるパブリック クラウドに導入される最新世代のハードウェア コンポーネントの 1 つのパフォーマンスをテストしてきました。 また、特にクールな機能は、以前の VM シリーズと比較して、重要なワークロード アプリケーションのパフォーマンスを大幅に向上させる方法です。 これは、前のホワイト ペーパーで説明したようにMicrosoft SQL Server基づくソリューションにとって<a href="https://msdn.microsoft.com/en-us/library/azure/dn248436.aspx">非常に重要です</a>。 新しい結果によって、これらのテストが拡張されます。</p>
+
+  <p align="justify">お客様から、従来のデータ センターから Microsoft Azure 仮想マシン (VM) にアプリケーションを移行する簡単な方法が必要だと言われましたが、パフォーマンスは重要なワークロードにとって重要であり、常に取得できるとは限らないと言われました。</p>
+
+  <p align="justify">D シリーズには、パフォーマンスに関連する 2 つの主要な機能が用意されています。どちらの場合も、特定のアプリケーション変更を行う必要は一切必要とされます。</p>
+
+
+  <ul>
+      <li>
+  <div align="justify">ソリッドステート ドライブ (SSD) に基づくローカル ストレージ (一時)</div></li>
+      <li>
+  <div align="justify">接続されているデータ ディスクの数が多い (D14 VM の場合は最大 32)</div></li>
+
+  </ul>
+
+  <p align="justify">パフォーマンス テストでは、これらの新機能を使用してアプリケーションを調整し、パフォーマンスが向上しました。 次に例を示します。</p>
+
+
+  <ul>
+      <li>
+  <div align="justify">D13 VM<strong> </strong>上のローカル SSD ストレージに TempDB ファイルを配置すると、データ ディスクが接続された A7 VM のスループットの約 <strong>4.5</strong> 倍が、同じ SQL Server で生成された IO パターンに対する以前の待機時間のごく一部でした。</div></li>
+      <li>
+  <div align="justify">32 台のディスクが接続された D14 VM では、16 台のディスクが接続された A7 VM と比較して、最大 <strong>85%</strong> の書き込み IOPS と帯域幅を提供できます。</div></li>
+
+  </ul>
+
+  <p align="justify">D シリーズが顧客に大きな違いを生み出した 4 つのシナリオをホワイト ペーパー「Running <a href="https://www.microsoft.com/en-us/download/details.aspx?id=45328">Critical Application Workloads on Microsoft Azure Virtual Machine</a>」を文書化しました。</p>
+
+  <p align="justify">以下について説明します。</p>
+
+
+  <ul>
+      <li>
+  <div align="justify">永続的なディスクの待機時間がアプリケーションの応答時間に直接与える影響</div></li>
+      <li>
+  <div align="justify">SQL Server tempdb が頻繁に使用される場合に、永続的なディスクからのスループットの制限がアプリケーションのパフォーマンスに与える影響</div></li>
+      <li>
+  <div align="justify">アプリケーション層で SSD ベースの高速ストレージを使用して、一時ファイル処理を高速化する方法。</div></li>
+      <li>
+  <div align="justify">D シリーズ VM の一時ドライブ上の %temp% フォルダーを移動して、大規模な ASP.NET Web アプリケーションのコンパイルと起動時間を短縮する方法。</div></li>
+
+  </ul>
+
+  <p align="justify">本質的に、Azure の新しい D シリーズ VM は、パフォーマンスクリティカルなワークロードをデータ層とアプリケーション層の両方で実行するのに役立ちます。CPU、ストレージ、ネットワークの全体的なパフォーマンスが向上し、他の VM シリーズと比べて価格パフォーマンス比率が高くなります。</p>
+
+  <p align="justify">OLTP データベース サーバーなどの特定のアプリケーション シナリオでは、主にバッファー プールを拡張し、一時的な操作をホストするローカル SSD ベースの一時ストレージの利点があります。 アプリケーション サーバーは、高速で低待機時間のローカル ストレージと、この新しい世代の VM によって提供される CPU パフォーマンスの向上の恩恵を受ける。</p>
+
+  <p align="justify">アプリケーションの <a href="https://www.microsoft.com/en-us/download/details.aspx?id=45328">パフォーマンスを向上させる</a> 方法の詳細と提案については、ホワイト ペーパーをダウンロードしてください。 また、D シリーズ <a href="https://azure.microsoft.com/blog/2014/10/06/d-series-performance-expectations/">のパフォーマンスの期待</a> に関する記事を参照してください。</p>

@@ -1,0 +1,71 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7b181cd37dc9f514be26d39ca8c9fe149877b1fb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910676"
+Slug: new-metric-in-azure-stream-analytics-tracks-latency-of-your-streaming-pipeline
+Title: Azure Stream Analytics の新しいメトリックは、ストリーミングパイプラインの待機時間を追跡します
+Summary: Azure Stream Analytics は、リアルタイムのデータ処理を行うための完全に管理されたサービスです。 Stream Analytics ジョブは、Azure Event Hubs や IoT Hub などの入力ソースからデータを読み取ります。 シンプルな ETL から、複雑なイベントパターンの検出と機械学習のスコアリングまで、さまざまなタスクを実行できます。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/stream-analytics/">Azure Stream Analytics</a> は、リアルタイムのデータ処理を行うための完全に管理されたサービスです。 Stream Analytics ジョブは、Azure Event Hubs や IoT Hub などの入力ソースからデータを読み取ります。 シンプルな ETL から、複雑なイベントパターンの検出と機械学習のスコアリングまで、さまざまなタスクを実行できます。 ジョブは24/7 を実行し、Azure Stream Analytics は99.9% の可用性 SLA を提供しますが、さまざまな外部の問題がストリーミングパイプラインに影響を与え、ビジネスに大きな影響を与える可能性があります。 このため、ジョブを事前に監視し、根本原因をすばやく特定し、考えられる問題を軽減することが重要です。 このブログでは、新しく導入された出力ウォーターマークの遅延を利用して、ミッションクリティカルなストリーミングジョブを監視する方法について説明します。</p>
+
+
+  <h2>ストリーミングパイプラインに影響する課題</h2>
+
+
+  <p>ストリーミングパイプラインでは、いくつかの問題が発生する可能性があります。 次に例をいくつか示します。</p>
+
+
+  <ul>
+   <li>データがクラウドに到達するのを妨げているネットワークの問題のため、データが到着したり、遅延が発生したりします。</li>
+   <li>受信データの量が大幅に増加し、Stream Analytics ジョブは増加を管理するために適切にスケールされません。</li>
+   <li>エラーの原因となっている論理エラーが発生し、ジョブの進行が妨げられています。</li>
+   <li>SQL や Event Hubs などの出力先が適切にスケーリングされていないため、書き込み操作を調整しています。</li>
+  </ul>
+
+
+  <p>Stream Analytics には、1秒あたりの入力イベント、1秒あたりの出力イベント、1秒あたりのイベントの発生回数、実行時エラーの数などの状況を検出するために使用できる多数のメトリックが用意されています。 既存のメトリックの一覧とその使用方法については、監視に関するドキュメントを参照してください。</p>
+
+
+  <p>ストリーミングジョブによっては、受信データと生成される出力のパターンが複雑で予測できない場合があるため、1秒あたりの入出力イベントなどの従来のメトリックを使用して、このようなジョブを監視するのが困難な場合があります。 たとえば、ジョブは1日の特定の時刻にのみデータを受信し、まれな状況が発生した場合にのみ出力を生成します。</p>
+
+
+  <p>このため、<strong> 出力ウォーターマークの遅延</strong>と呼ばれる新しいメトリックが導入されました。 このメトリックは、ジョブの入出力パターンに依存しない、ジョブの正常性の信頼性の高いシグナルを提供することを目的としています。</p>
+
+
+  <h2>出力ウォーターマークの遅延はどのように動作するのでしょうか。</h2>
+
+
+  <p>最新のストリーム処理システムは、アプリケーション時間とも呼ばれるイベント時間と、到着時刻を区別します。</p>
+
+
+  <p>イベント時間は、イベントのプロデューサーによって生成される時間で、通常はイベントデータに列の1つとして含まれます。 到着時刻は、イベントが Event Hubs に到達したときなど、イベントインジェストレイヤーによってイベントが受信された時刻です。</p>
+
+
+  <p>ほとんどのアプリケーションでは、イベントの転送と処理に関連する遅延が発生しないため、イベント時間が使用されます。 In-Stream Analytics では、timestamp by 句を使用して、イベント時間として使用する値を指定できます。</p>
+
+
+  <p>ウォーターマークは、イベントのタイムラインで特定のタイムスタンプを表します。 このタイムスタンプは、一時的な計算での進行状況を示すポインターまたはインジケーターとして使用されます。 たとえば、Stream Analytics が出力で特定の基準値を報告する場合、このタイムスタンプより前のすべてのイベントが既に計算されていることが保証されます。 透かしは、ジョブによって生成されたデータの活動状態を示すインジケーターとして使用できます。 現在の時刻とウォーターマークの間の遅延が小さい場合は、ジョブが受信データを保持していることを意味し、クエリによって定義された結果を時間どおりに生成します。</p>
+
+
+  <p>次に、パススルークエリの簡単な例を使用して、この概念の図解を示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc1d83f7-8096-4d66-9959-eb380ca22877.png"><img alt="A New Metric" border="0" height="767" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26b37b3f-dc88-4bfe-b1b6-a8428e9502d4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="新しいメトリック" width="1625"></a></p>
+
+
+  <p>このメトリックは、Azure Portal のジョブのメトリックビューで [ウォーターマークの遅延] として表示されますが、Stream Analytics によって表示されます。 この値は、ジョブ内のすべての出力のすべてのパーティションにおけるウォーターマークの最大遅延を表します。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf66f8d3-532f-45f1-88dd-0392865b4d36.png" style="margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>ウォーターマークの遅延が予想される値を超えた場合に検出する自動アラートを設定することを強くお勧めします。 しきい値は、ジョブの [イベントの順序の設定] で指定された到着遅延許容値より大きい値を選択することをお勧めします。</p>
+
+
+  <p>次のスクリーンショットは、Azure Portal でのアラートの構成を示しています。 PowerShell または REST Api を使用して、プログラムでアラートを構成することもできます。</p>
+
+
+  <p><img border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ccaee0b5-c6e4-4720-b3c8-466728dfdad4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" width="406"></p>

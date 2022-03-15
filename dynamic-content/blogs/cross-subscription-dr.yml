@@ -1,0 +1,35 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d5e1cf2c53e5236d464a08abf2d0ef295db217af
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904866"
+Slug: cross-subscription-dr
+Title: Azure 仮想マシンのサブスクリプション間のディザスターリカバリー
+Summary: 現時点では、Azure Site Recovery (ASR) を使用した Azure 仮想マシンのサブスクリプション間でのディザスターリカバリー (DR) のサポートについてお知らせします。 同じ Azure Active Directory テナント内の別のサブスクリプションに対して、仮想マシンの DR を構成できるようになりました。
+Content: >-
+  <p>現時点では、Azure Site Recovery (ASR) を使用した Azure 仮想マシンのサブスクリプション間でのディザスターリカバリー (DR) のサポートについてお知らせします。 同じ Azure Active Directory テナント内の別のサブスクリプションに対して、Azure IaaS アプリケーションの DR を構成できるようになりました。</p>
+
+
+  <p>Azure サブスクリプションは、すべての Azure リソースが含まれる基本単位です。 また、コア数、リソースなど、Azure 内のいくつかの制限も定義されています。多くの組織では、課金または管理の目的で、Azure アカウントで複数の Azure サブスクリプションを使用しています。 たとえば、運用環境、ステージング環境、ディザスターリカバリー環境で、管理を容易にし、サブスクリプションのクォータ制限に準拠するために、さまざまなサブスクリプションを使用する組織もあります。 新しい機能を使用すると、サブスクリプション間で <a href="https://aka.ms/a2asupportedregion">地理的クラスター</a> 内の任意の別の Azure リージョンに仮想マシンをレプリケートできます。 これにより、Azure 環境のサブスクリプショントポロジを変更することなく、IaaS アプリケーションのビジネス継続性とディザスターリカバリーの要件を満たすことができます。</p>
+
+
+  <p>サブスクリプション間での DR の構成は非常に簡単です。 既定では、ターゲットサブスクリプションは、ソース仮想マシン&#39;s サブスクリプションと同じになります。 任意のターゲットサブスクリプションをカスタマイズして選択することができ、リソースグループや仮想ネットワークなどの他のすべての設定は、選択したターゲットサブスクリプションから自動的に設定されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb386892-c2ff-41fb-816b-83e226b776b2.png" style="font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: 400; text-decoration-line: underline;"><img alt="cross-sub-blog" border="0" height="465" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fbba04e1-96d3-4294-8f53-62c184034358.png" style="border: 0px currentcolor; border-image: none; font-size: 13px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クロスサブブログ" width="975"></a></p>
+
+
+  <p>Azure リージョン間でのディザスターリカバリーは、ASR が使用可能な <a href="https://aka.ms/a2a-supported-regions" target="_blank">すべての azure リージョン</a> で利用できます。 今すぐ Azure Site Recovery を<a href="https://aka.ms/a2a-getting-started" target="_blank">開始しましょう</a>。</p>
+
+
+  <h2>関連リンクとその他のコンテンツ</h2>
+
+
+  <ul>
+   <li>Azure Vm のディザスターリカバリーを構成して<a href="https://aka.ms/a2a-getting-started" target="_blank">開始</a>する</li>
+   <li>Azure Vm のレプリケートに関し <a href="https://aka.ms/a2a-support-matrix" target="_blank">てサポートされている構成</a> の詳細情報</li>
+   <li>ヘルプが必要ですか? サポートについて <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=hypervrecovmgr" target="_blank">Azure Site Recovery フォーラム</a> にご連絡ください</li>
+   <li>新しいアイデアを投稿し、既存のアイデアに投票することで、 <a href="https://feedback.azure.com/forums/256299-site-recovery" target="_blank">Azure Site Recovery を改善</a> する方法をお聞かせください</li>
+  </ul>

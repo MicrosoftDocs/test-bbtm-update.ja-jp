@@ -1,0 +1,134 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7b05b061c55e63df76b9078ca397ee5728bb8fdf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910358"
+Slug: running-cognitive-service-containers
+Title: Cognitive Service コンテナーの実行
+Summary: 先週、Computer Vision と Face から Text Analytics までのコンテナーの初期セットを使用した Microsoft Azure Cognitive Services の Docker サポートのプレビューを発表しました。 ここでは、試しに取り上げ、コグニティブ サービス コンテナーを起動し、何が可能かを見てみようとします。
+Content: >-
+  <p>先週、Microsoft Azure Cognitive Services と <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/face/overview" target="_blank">Face</a> から Computer Vision までのコンテナーの初期セットを使用した Text Analytics に対する <a href="https://azure.microsoft.com/blog/bringing-ai-to-the-edge/" target="_blank">Docker</a> サポートの<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home" target="_blank"></a>プレビュー<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/overview" target="_blank">を発表しました</a>。 ここでは、試しに取り上げ、コグニティブ サービス コンテナーを起動し、何が可能かを見てみようとします。 使用できるコンテナーと提供される&ldquo;内容の詳細については、ブログ記事「<a href="https://azure.microsoft.com/blog/getting-started-with-azure-cognitive-services-in-containers/">これらの Azure Cognitive Service コンテナー</a>の使用を開始する」を参照してください。&rdquo;</p>
+
+
+  <h2>Docker のインストール</h2>
+
+
+  <p>Docker は多くのコンテキストで実行できます。また、実稼働環境では、Azure Kubernetes Service <a href="https://docs.microsoft.com/azure/aks/" target="_blank">(AKS)</a> または Azure Service Fabric を確認<a href="https://docs.microsoft.com/azure/service-fabric/" target="_blank">する必要があります</a>。 以降のブログではこれを詳しく説明しますが、ここでは、開発/テストシナリオに最適なローカルの開発ボックスでコンテナーを起動する必要があります。</p>
+
+
+  <p>ほとんどの開発ボックスで Docker デスクトップを実行できます。ダウンロードして指示 <a href="https://www.docker.com/products/docker-desktop" target="_blank">に従ってください</a>。 インストールが完了したら、少なくとも 4G の RAM を搭載するように Docker が構成されていることを確認します (1 つの CPU で十分です)。 Docker for Windows次のように表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2bfbde36-c65e-4cc6-9fcd-d9eb82452c54.png"><img alt="Docker settings screenshot" border="0" height="443" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7cb8d7ce-8347-4e25-bce1-effaba573afd.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Docker 設定のスクリーンショット" width="640"></a></p>
+
+
+  <h2>イメージの取得</h2>
+
+
+  <p>次Text Analyticsイメージは、次のDocker Hubから直接使用できます。</p>
+
+
+  <ul>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-keyphrase/" target="_blank">キー フレーズ抽出では</a> 、英語、ドイツ語、スペイン語、または日本語から、主要な話し合いのポイントと強調表示がテキストで抽出されます。</li>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-language/" target="_blank">言語検出では</a> 、合計 120 の言語がサポートされているテキストの自然言語が検出されます。</li>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-sentiment/" target="_blank">感情分析では</a> 、さまざまな言語の信頼度スコアを使用して、入力テキストの肯定的または否定的なセンチメントの <a href="https://docs.microsoft.com/azure/cognitive-services/text-analytics/text-analytics-supported-languages" target="_blank">レベルを検出します</a>。</li>
+  </ul>
+
+
+  <p>画像のテキストとテキスト認識するには、プレビューにサインアップしてアクセス権を <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR0XnG25zkIBLkA6GR39U7fRUQVE2MUVDVVJBVlU2Qk5TQTI1MVRSRExUMS4u" target="_blank">取得する必要があります</a>。</p>
+
+
+  <ul>
+   <li><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR0XnG25zkIBLkA6GR39U7fRUQVE2MUVDVVJBVlU2Qk5TQTI1MVRSRExUMS4u" target="_blank">顔の検出と</a> 認識は、画像内の人間の顔を検出し、顔のランドマーク (目、目など)、性別、年齢、その他の機械で予測された顔の特徴を含む属性を識別します。 この機能では、検出に加えて、信頼度スコアを使用して、画像または画像内の 2 人の人が同じか確認できます。 データベースと比較して、似た顔や同一の顔が既に存在するかどうかを確認できます。また、共有された視覚的特徴を使用して、類似した顔をグループに整理することもできます。</li>
+   <li><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR0XnG25zkIBLkA6GR39U7fRUQVE2MUVDVVJBVlU2Qk5TQTI1MVRSRExUMS4u">テキスト認識</a> 認識 (OCR) を使用して画像内のテキストを検出し、認識された単語をコンピューターで読み取り可能な文字ストリームに抽出します。</li>
+  </ul>
+
+
+  <p>ここでは言語検出イメージを使用していますが、他の画像も同じように動作します。 イメージをダウンロードするには、次のコマンドを <strong>docker pull</strong>。</p>
+
+
+  <pre>
+
+  docker pull mcr.microsoft.com/azure-cognitive-services/language</pre>
+
+
+  <p>更新されたイメージを <strong>docker pull</strong> を実行することもできます。</p>
+
+
+  <h2>Cognitive Service のプロビジョニング</h2>
+
+
+  <p>これでイメージがローカルに作成されますが、コンテナーを実行するには、有効な API キーと課金エンドポイントを取得し、それらをコマンド ライン引数として渡す必要があります。 最初に、次のAzure portal <a href="https://portal.azure.com/#blade/HubsExtension/Resources/resourceType/Microsoft.CognitiveServices%2Faccounts" target="_blank">に移動し、[Cognitive Services開きます</a>。 コンテナーに一&rsquo;致する Cognitive Service (この場合は Text Analytics サービス) がある場合は、[追加] を選択して作成します。<strong></strong> 次のように表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f64d6c03-3222-4504-a3dc-cb9352a51ccd.png"><img alt="List of Azure Portal Cognitive Services screenshot " border="0" height="418" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/510934f1-b3a3-4d93-a802-c2ca4e126e7c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Portal の一覧Cognitive Servicesスクリーンショット " width="640"></a></p>
+
+
+  <p>Cognitive Service を取得し、エンドポイントと API キーを取得&rsquo;したら、コンテナーを立ち上げ、これを行う必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb6a1ec1-4da1-4f1e-b9ed-a4d3683e9f4b.png"><img alt="Overview Azure Portal Cognitive Service screenshot " border="0" height="418" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/caaaaad6-a983-464c-bdf4-3081553d4b82.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Azure Portal Cognitive Service の概要のスクリーンショット " width="640"></a></p>
+
+
+  <p>エンドポイントは課金にのみ厳密に使用されます。顧客データはフローされません。</p>
+
+
+  <h2>コンテナーの実行</h2>
+
+
+  <p>コンテナーを起動するには、 <strong>docker run</strong> コマンドを使用して、必要な <strong>docker </strong>オプションとイメージ引数を渡します。</p>
+
+
+  <pre>
+
+  docker run --rm -it -p 5000:5000 mcr.microsoft.com/azure-cognitive-services/language eula=accept apikey=&lt;apikey&gt; billing=&lt;endpoint&gt;</pre>
+
+
+  <p>API キーと課金引数の値は、上記のようにAzure portalから直接取得されます。 使用 <a href="https://docs.docker.com/engine/reference/commandline/run/#options" target="_blank">できる Docker オプション</a> は多数あるので、ドキュメントを確認してください。 同様に、ログ記録や他の多くの機能を制御するコンテナー引数も多数あるので、詳細については、ドキュメント <a href="https://go.microsoft.com/fwlink/?linkid=2018834&amp;clcid=0x409" target="_blank">を参照してください</a>。</p>
+
+
+  <p>送信要求を行う HTTP プロキシを構成する必要がある場合は、次の 2 つの引数を使用して行います。</p>
+
+
+  <ul>
+   <li>&ndash; HTTP_PROXY使用するプロキシを作成します(例:<strong>https://proxy:8888</strong></li>
+   <li>&ndash; HTTP_PROXY_CREDSに対する認証に必要な資格情報 (username<strong>:password など) を指定します</strong>。</li>
+  </ul>
+
+
+  <p>を実行すると、次のようなメッセージが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64c49931-f874-4b67-855f-30d6f81df68b.png"><img alt="Container running code screenshot" border="0" height="349" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45e1c6a4-d7db-4162-9349-dd43d3a549ed.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="コンテナー実行中のコードのスクリーンショット" width="640"></a></p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>コンソール ウィンドウで、コンテナーが<strong>https://localhost:5000</strong>&rsquo;リッスンしているのを確認して、お気に入りのブラウザーを開き、それを指し示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/109e6638-5642-4a8f-bcbb-9f432c036d1f.png"><img alt="Container Homepage screenshot" border="0" height="516" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a004444-4f3d-4c79-af6a-d9926cc262fe.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="コンテナー ホームページのスクリーンショット" width="640"></a></p>
+
+
+  <p>ここで、[サービス <strong>API の説明] を選択</strong> するか、 に直接移動します <strong>https://localhost:5000/swagger</strong>。 これにより、API の詳細な説明が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3faa1946-ab48-429e-a1ad-5bacfe44627c.png"><img alt="Container Language Swagger screenshot" border="0" height="516" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5b9854b-3833-46a3-9518-06426b6c01a9.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="コンテナー言語 Swagger のスクリーンショット" width="640"></a></p>
+
+
+  <p>[<strong> 試してみる] を</strong> 選択 <strong>し、[実行 </strong>] を選択します。入力値は好きな方法で変更できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dce64cba-9699-4a4b-b683-5500b8c35363.png"><img alt="Container Language Try it out screenshot" border="0" height="516" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8bb73e9-92f9-471d-a4a2-22f4054735cd.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Container Language Try it out のスクリーンショット" width="640"></a></p>
+
+
+  <p>結果はページの下に表示され、次の図のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a0d6044-28c5-4ba6-a5e5-4ecc2018ce72.png"><img alt="Container Language Try it out result screenshot" border="0" height="516" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/001a1666-374c-43e2-b52a-cdbb5fd689aa.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Container Language Try it out result screenshot" width="640"></a></p>
+
+
+  <p>これで稼働状態が開始しました。 swagger UX を試し、さまざまなシナリオを試しに行えます。 以下のブログでは、アプリケーションから API を使用する他の側面と、コンテナーの構成、デプロイ、監視について説明します。 お楽しみください!</p>

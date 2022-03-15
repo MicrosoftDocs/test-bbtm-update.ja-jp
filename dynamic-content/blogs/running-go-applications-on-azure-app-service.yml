@@ -1,0 +1,148 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d8a570ba353809f98d89a3498fdd2d753d2105c8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910341"
+Slug: running-go-applications-on-azure-app-service
+Title: Azure App Service での Go アプリケーションのAzure App Service
+Summary: Azure App Serviceで Go を実行する試験的なサポートが含まれるWeb Apps。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">テスト用の試験的な統合 Go サポートAzure App Service非推奨とされました。 詳細については<em><a href="https://github.com/Azure/app-service-announcements/issues/45">、Go ツールのサポート終了に関する</a></em>ページをAzure App Service (Windows) を参照してください。</div>
+
+
+  <p>Azure App Service、Web アプリで Go を実行する試験 <a href="https://golang.org/">的</a> なサポートが追加されています。 Azure App Service で Web アプリに対して Go を実行し、フィードバックを共有する場合は、開始する方法に関するこの記事を参照してください。 フィードバックは、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazurewebsitespreview">MSDN フォーラムから送信できます</a>。</p>
+
+
+  <h3>Azure サブスクリプションを使用したソース管理のデプロイ</h3>
+
+
+  <p>Go バイナリは、新しいプラットフォームAzure App Serviceされます。 現在サポートされているバージョンは、64 ビット Go 1.4.2 と Go 1.5.1 です。 ソース管理のデプロイの前提条件を次に示します。</p>
+
+
+  <blockquote>
+
+  <p>&middot; 有効な Azure サブスクリプション。 サブスクリプションをまだお持ちでない場合は、 <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">無料試用版にサインアップしてください</a>。</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p>&middot; ローカル Git に対して有効になっているソース管理デプロイ。 詳細な手順については、こちらをご&nbsp;<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/">覧ください</a>。</p>
+
+  </blockquote>
+
+
+  <p>Go Web アプリのサンプルの実行は、わずか 3 つの簡単な手順で実行できます。</p>
+
+
+  <p>1)パブリック リポジトリからローカル <a href="https://github.com/KuduApps/GoSample">git GitHubリポジトリ</a>にコンテンツを複製します。</p>
+
+
+  <p>2) Web アプリからソース管理 URL を取得し、Web アプリ のレポポを指すローカル レポポを更新します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8dba001d-ed7d-4f30-9e8f-b5f57587c8b0.png"><img alt="image" border="0" height="382" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/76625168-a22f-421a-95d6-854bea0fb98f.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="576"></a></p>
+
+
+  <p>この例では、ローカル のレポを Web アプリ のレポにポイントするコマンドを次に示します。</p>
+
+
+  <blockquote>
+
+  <p>git remote set-url origin https://$kudutry@ kudutry.scm.azurewebsites.net/kudutry.git</p>
+
+  </blockquote>
+
+
+  <p>3) ローカル レポからリモート Azure レポにコンテンツをプッシュします。</p>
+
+
+  <h3>Go Web アプリの構成</h3>
+
+
+  <p>アプリで実行されている Go Web アプリの Web アプリ構成には、注意Azure App Serviceいくつかの側面があります。</p>
+
+
+  <h5>1) バージョンの選択</h5>
+
+
+  <p>このブログ記事の執筆時点で、Azure App Service プラットフォームでは既定のバージョンとして Go 1.5.1 がサポートされ、Go 1.4.2 は選択可能なバージョンとしてサポートされています。 既定以外のバージョンを &ldquo;選択するには、GOROOT&rdquo; &ldquo;キーと値 D:\Program Files\go\1.4.2 を使用して Web アプリのアプリ設定を定義します。&rdquo;</p>
+
+
+  <h5>2) 成果物をビルドする</h5>
+
+
+  <p>デプロイ App Service一時 Go &ldquo;ワークスペースを作成し、ソース コードを $(GOPATH)\src\azureapp の下に配置します。&rdquo; 最終的なビルド成果物は、常にazureapp.exe&ldquo; &rdquo; 以外の *.go ファイルと一緒に作成されます。 これらのファイルを調べる簡単な方法は、Kudu コンソールを使用して{sitename}.https:// を使用 scm.azurewebsites.net/DebugConsole。 Kudu コンソールから、Web アプリの wwwroot に移動します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78f3adf3-907d-4196-9234-411e6f3d8a0f.png"><img alt="image" border="0" height="149" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c0251dc-b5ef-4832-a4e4-cc053199b46e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="593"></a></p>
+
+
+  <p>デプロイの前にソース コードの一部として web.config ファイルを作成するか、httpPlatformHandler IIS モジュールで Go Web アプリを実行するために、デプロイ時に Azure App Service web.config ファイルが生成されます。 HttpPlatformHandlerhere の詳細については、以下を参照&nbsp;<a href="https://www.iis.net/learn/extensions/httpplatformhandler/httpplatformhandler-configuration-reference">してください</a>。</p>
+
+
+  <p>コンテンツに web.configを含める場合は、このセクションで説明する構成要素を使用できます。</p>
+
+
+  <pre class="prettyprint">
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+
+  &lt;configuration&gt;
+
+      &lt;system.webServer&gt;
+
+          &lt;handlers&gt;
+
+              &lt;add name=&quot;httpplatformhandler&quot; path=&quot;*&quot; verb=&quot;*&quot; modules=&quot;httpPlatformHandler&quot; resourceType=&quot;Unspecified&quot; /&gt;
+
+          &lt;/handlers&gt;
+
+          &lt;!-- For Go webapp, we always generate azureapp.exe in wwwroot --&gt;
+
+          &lt;httpPlatform processPath=&quot;D:\home\site\wwwroot\azureapp.exe&quot; startupTimeLimit=&quot;60&quot;&gt;
+
+          &lt;/httpPlatform&gt;
+
+      &lt;/system.webServer&gt;
+
+  &lt;/configuration&gt;
+
+  </pre>
+
+
+  <h5>3) ポート番号</h5>
+
+
+  <p>Go アプリケーションでは、環境変数からポート番号を読み取る必要があります:&ldquo;&rdquo;HTTP_PLATFORM_PORT。 実行時に、HttpPlatformHandler は Go Web アプリを実行するプロセスのランダムなポート番号を生成します。</p>
+
+
+  <h5>4) コンテンツ レイアウト</h5>
+
+
+  <p>プロジェクトのコンテンツ レイアウトAzure App Service、メインの Go パッケージをプロジェクトのルートに配置します。 このレイアウトにより、App Serviceシステムで依存関係を解決し、適切な実行可能ソリューションをビルドできます。</p>
+
+
+  <h3>Azure サブスクリプションを使用しない試用版のデプロイ</h3>
+
+
+  <p>Azure サブスクリプションがなくても Go サンプルを試す場合は、Azure App Service <a href="https://tryappservice.azure.com/">試してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/82141b81-3f16-42d6-8be4-1ec9d56d6d11.png"><img alt="image" border="0" height="308" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78b23cbd-3dc6-4a24-b43c-e4bcd1472e63.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="601"></a></p>
+
+
+  <p>Go &ldquo;サンプル&rdquo; の [作成] をクリックし、サポートされているソーシャル アカウントでサインインします。 Go Web アプリが自動的に作成され、URL をクリックしてサンプル アプリを体験し、表示される一連のオプションからアプリを管理するオプションを選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e74001fe-8713-486d-b3bc-0aadd79aebab.png"><img alt="image" border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59332862-14ea-48e1-9112-c249157b17c4.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="611"></a></p>
+
+
+  <p>&quot;Go Web アプリのサンプルでは、net/http&quot; Go &ldquo;モジュールを活用したホーム ページが機能し、<a href="https://github.com/gin-gonic/gin">Gin</a> と Martini の Web フレームワークを紹介する Try Gin&rdquo; &ldquo;リンクと Try <a href="https://github.com/go-martini/martini">Martini</a>&rdquo; リンクへのアクセスログが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/55d2c232-b87c-4092-87fa-54182feb0a22.png"><img alt="image" border="0" height="254" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc59f072-2638-4020-947f-a4242e46ad83.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="623"></a></p>

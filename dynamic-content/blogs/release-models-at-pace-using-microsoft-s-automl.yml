@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 97c7e2ed0bfb813b2062f6322239c43d1afae033
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910462"
+Slug: release-models-at-pace-using-microsoft-s-automl
+Title: Microsoft の自動機械学習を使用して、ペースでモデルをリリースします。
+Summary: 機械学習モデルを作成する場合、すべての業界セグメントのデータ サイエンティストは、ハイパーパラメーターの定義とチューニング、使用するアルゴリズムの決定という課題に直面します。
+Content: >-
+  <h2>実際の問題は何ですか?</h2>
+
+
+  <p>機械学習モデルを作成する場合、すべての業界セグメントのデータ サイエンティストは、ハイパーパラメーターの定義とチューニング、使用するアルゴリズムの決定という課題に直面します。</p>
+
+
+  <p>顧客が自動車の価格を予測する ML モデルを作成する予定の場合、データ サイエンティストは適切なアルゴリズムとハイパーパラメーターを選択する必要があります。 最適なアルゴリズムとハイパーパラメーターに絞り込むのは、時間のかかるプロセスです。 これは、すべての垂直的な Microsoft&rsquo; のお客様にとって課題であり、Microsoft は最近、自動化された機械学習モジュールを備えた Azure Machine Learning <strong>Python SDK を立ち上げました</strong>。 自動化されたMLモジュールは、ハイパーパラメーターの定義とチューニングだけでなく、適切なアルゴリズムの選択にも役立ちます。</p>
+
+
+  <h2>自動 ML とは</h2>
+
+
+  <p>自動化されたMLインテリジェントな自動化と最適化を使用して高品質のモデルを作成するのに役立ちます。 自動化されたML、使用する適切なアルゴリズムとハイパー パラメーターが把握されます。 これは、データ サイエンティストの効率を向上させるツールです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e1d0bda-5853-4fd5-bde5-2a2eab9d2ffb.png"><img alt="AutoML" border="0" height="694" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d87b9ddb-120b-4d56-87b6-134f46f78491.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="AutoML" width="2125"></a></p>
+
+
+  <h2>自動化されたML&rsquo;現在の機能</h2>
+
+
+  <p>自動化されたMLは、現在、問題空間の回帰と分類をサポートしています。 クラスタリングなどの追加の問題スペースは、今後のリリースでサポートされる予定です。 データ前処理の観点から見ると、自動MLでは、1 つのホット エンコード (カテゴリ変数をバイナリ ベクターに変換) し、欠損フィールドに値を割り当てることができます。 現在、Python 言語と scikit-learn フレームワークがサポートされています。 モデルのトレーニングには、ラップトップ/デスクトップ、または Azure <a href="https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/overview" target="_blank">DSVM Azure Batch AI使用できます</a>。 <a href="https://docs.microsoft.com/en-gb/azure/batch-ai/" target="_blank"></a> scikit-learn でサポートされているデータ形式はすべて現在サポートされています。</p>
+
+
+  <h2>自動化されたメソッドを実行するためのML手順</h2>
+
+
+  <p>データ サイエンティストは、さまざまな環境からMLを実行できます。 一部のオプション <a href="https://notebooks.azure.com/" target="_blank">は、Azure Notebooks</a> conda 環境を使用する方法です。 詳細については、ドキュメント <a href="https://docs.microsoft.com/en-gb/azure/machine-learning/service/tutorial-auto-train-models" target="_blank">を参照してください</a>。</p>
+
+
+  <p>自動送信に関連する 2 つの主要なMLは、Config と submit ML自動化されます。</p>
+
+
+  <h3>automated ML Config (params) &ndash;&gt; 反復回数、最適化するメトリックなどを指定します。</h3>
+
+
+  <p>例</p>
+
+
+  <pre>
+
+  Automl_config = AutoMLConfig(task = &#39;classification&#39;,
+                         primary_metric = &#39;AUC_weighted&#39;,
+                         max_time_sec = 12000,
+                         iterations = 20,
+                         n_cross_validations = 3,
+                         preprocess = False,
+                         exit_score = 0.995,
+                         blacklist_algos = [&#39;kNN&#39;,&#39;LinearSVM&#39;],
+                         X = X_digits,
+                         y = y_digits,
+                         path=project_folder)</pre>
+
+  <h3>構成オブジェクトをパラメーターとしてMLされた experiment.submit メソッド</h3>
+
+
+  <p>例</p>
+
+
+  <pre>
+
+  from azureml.core.experiment import Experiment
+
+  experiment=Experiment(ws, experiment_name)
+
+  local_run = experiment.submit(Automl_config, show_output=True)
+
+
+  </pre>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35c7ec3a-d9e3-403c-86ec-6da897986b48.png"><img alt="Run Details" border="0" height="295" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c0669ac-d0fb-4e0b-bc21-2d91cd68b9b7.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="実行の詳細" width="585"></a></p>
+
+
+  <p>最後の手順では、最もパフォーマンスの高いモデルを運用化します。</p>
+
+
+  <h2>可用性</h2>
+
+
+  <p>SDK は、2018 年 9 月 28 日に終了する Ignite カンファレンスの後に一般公開される予定です。 いくつかの Azure リージョンに名前を付け、westcentralus、eastus2、西ヨーロッパで使用できます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>自動化されたMLは、データ サイエンスの将来への飛び出しです。 自動化された ML によって実験の複数のイテレーションが自動的に実行されるだけでなく、新しいデータ サイエンティストや経験豊富なデータ サイエンティストがさまざまなアルゴリズムを探索し、ハイパーパラメーターを選択して調整することができるため、データ サイエンティストが組織で効率的に作業できるだけでなく、自動化された ML がこれを行うのに役立ちます。 データ サイエンティストは、自動化された Azure ML Python SDK を利用してローカル コンピューターから開始できるML。 データ サイエンティストは、クラウドの機能を使用して、クラウドや <a href="https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/overview" target="_blank">Azure DSVM</a> などのテクノロジを使用してトレーニング/<a href="https://docs.microsoft.com/en-gb/azure/batch-ai/" target="_blank">イテレーションAzure Batch AI</a>実行できます。</p>
+
+
+  <h2>関連項目</h2>
+
+
+  <p>Azure ML Python SDK を使用したモジュールの一部は既にパブリック プレビュー中であり、詳細については、ドキュメントを参照<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/reference-python-package-overview" target="_blank">してください</a>。 ドキュメントを使用して、自動ML<a href="https://docs.microsoft.com/en-gb/azure/machine-learning/service/tutorial-auto-train-models" target="_blank">を開始できます</a>。 github にもいくつかの例が <a href="https://github.com/Azure/MachineLearningNotebooks/" target="_blank">公開されています</a>。</p>

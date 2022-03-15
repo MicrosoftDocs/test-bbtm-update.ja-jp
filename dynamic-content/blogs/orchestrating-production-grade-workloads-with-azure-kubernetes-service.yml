@@ -1,0 +1,132 @@
+### YamlMime:Yaml
+ms.openlocfilehash: aaa787e88e33a1296bce68e7d443c9a6ab9b7029
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905161"
+Slug: orchestrating-production-grade-workloads-with-azure-kubernetes-service
+Title: Azure Kubernetes Service を使用した運用レベルのワークロードの調整
+Summary: ハッピーバースデー Kubernetes! Kubernetes の短い3年間で、コンテナー化されたワークロードをオーケストレーションする業界標準になりました。 Azure では、最後の...
+Content: >-
+  <p>ハッピーバースデー Kubernetes! Kubernetes の短い3年間で、コンテナー化されたワークロードをオーケストレーションする業界標準になりました。 Azure では、お客様がクラウドで Kubernetes を実行するのを支援するために、過去3年を費やしています。 Kubernetes を使用すると、オーケストレーションのタスクを簡単に実行できるだけでなく、Kubernetes を最大限に活用するために必要なセットアップと管理がたくさんあり &rsquo; ます。 ここで Azure Kubernetes Service (AKS) が提供されています。 この管理されたサービスは、企業の要件に関する Microsoft &rsquo; の固有の知識と、開発者にとっての強力な開発者を対象としており、多くの複雑さに対処し、クラウドで最高の Kubernetes エクスペリエンスを提供します。</p>
+
+
+  <p>このブログ記事では、azure のお客様が Azure Kubernetes Service で構築する主なシナリオについて詳しく学習します。 その後、ろうそくを見て、ケーキを作成します。</p>
+
+
+  <p>AKS を初めて使用する場合は、 <a href="https://azure.microsoft.com/en-us/services/kubernetes-service/" target="_blank">Azure Kubernetes サービスのページ</a> とこちらの <a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Kubernetes-Service-AKS-GA?term=AKS&amp;lang-en=true" target="_blank">ビデオ</a> を参照して、詳細を確認してください。</p>
+
+
+  <h2>コンテナーにリフトアンドシフトする</h2>
+
+
+  <p>通常、組織はクラウドへの移行を迅速に行う必要があり、多くの場合、最初からクラウドネイティブ機能を最大限に活用するためにアプリケーションを再作成することはできません。 コンテナー化アプリケーションを使用すると、CI/CD オートメーション、自動スケール、セキュリティ、監視などの利点を追加しながら、アプリを最新化して、より簡単にクラウドに移行することができます。 また、azure CosmosDB や Azure &rsquo; の管理された PostgreSQL サービスなどの azure &rsquo; の PaaS ベースのデータベースを活用して、データ層での管理を簡略化することもできます。</p>
+
+
+  <p>たとえば、多くのレガシ Java アプリケーションが高コストのデータセンター全体で作業されている製造業界のお客様と協力しました。 多くの場合、顧客の要求に合わせてこれらのアプリケーションを拡張することはできず、更新は煩雑で信頼性がありませんでした。 Azure Kubernetes Service とコンテナーを使用すると、これらのアプリケーションの多くを1つの管理されたサービスでホストすることができました。 これにより、信頼性が大幅に向上し、新しい機能をより頻繁に出荷できるようになります。</p>
+
+
+  <p>次の図は、AKS を含む一般的なリフトアンドシフトアプローチを示しています。 AKS の使用を開始するには、次の <a href="https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app" target="_blank">チュートリアル</a>をご確認ください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a865cdc-b772-47e7-a43c-f1fbc7d95982.png"><img alt="Lift and shift to containers" border="0" height="443" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37f7555f-52c2-4dad-84d0-9cb74488e26b.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="コンテナーにリフトアンドシフトする" width="1050"></a></p>
+
+
+  <h2>マイクロサービスベースのクラウドネイティブアプリケーション</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices" target="_blank">マイクロサービス</a> は、多くのアプリケーションに対して非常に優れており、次のような利点があります。</p>
+
+
+  <ul>
+   <li>独立したデプロイ</li>
+   <li>サービスあたりのスケールとリソース使用率の向上</li>
+   <li>小規模で集中している開発者チーム</li>
+   <li>ビジネス機能に関するコードのフォーカス</li>
+  </ul>
+
+
+  <p>コンテナーは、マイクロサービスベースのアプリケーションを配信するための理想的なテクノロジです。 Kubernetes は、これらの分散マイクロサービスアプリを大規模に管理するために必要なオーケストレーションレイヤーを提供します。</p>
+
+
+  <p>Azure によってテーブルに一意に取り込まれるのは、開発者ツールとのネイティブ統合と、Kubernetes エコシステムから提供される最適なツールとサービスに接続するための柔軟性です。 Azure でシームレスな Kubernetes ライフサイクル管理を行うための包括的で、かつシンプルなエンドツーエンドのエクスペリエンスを提供します。 マイクロサービスは言語、プロセス、ツールの性質上、自然な多言語であるため、Azure &rsquo; は <a href="https://azure.microsoft.com/en-us/resources/videos/siemens-healthineers-connects-through-azure-kubernetes/" target="_blank">Siemens</a>、 <a href="https://customers.microsoft.com/en-us/story/varian-health-provider-azure" target="_blank">Varian</a>、 <a href="https://customers.microsoft.com/en-us/story/tryg-insurance-azure" target="_blank">TRYG</a> などの企業が、AKS を使用して大規模なマイクロサービスを実行するために、開発者と運用上の生産性を重視しています。 AKS を実行しているお客様には、マイクロサービスベースのアプリケーションの開発、デプロイ、および管理に役立つ以下の機能もあります。</p>
+
+
+  <ul>
+   <li>AKS クラスターでターゲットとするマイクロサービスを反復的に開発、テスト、およびデバッグするためのサポートを<a href="https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces" target="_blank">Azure Dev Spaces</a> 。</li>
+   <li>HTTP アプリケーションルーティングを使用したサービスへの外部アクセスの自動化。</li>
+   <li>仮想 Kubelet 実装である ACI コネクタを使用して、Azure Container Instances でサービスを高速にスケーリングできるようにします。</li>
+   <li><a href="https://azure.microsoft.com/en-us/features/devops-projects/" target="_blank">Azure DevOps のプロジェクト</a>や、ヘルム、Draft、やバケツリレーなどのオープンソースツールを使用した CI/CD の簡素化。すべて、 <a href="https://azure.microsoft.com/en-us/services/container-registry/" target="_blank">Azure Container Registry</a>のセキュリティで保護されたプライベート Docker リポジトリによって支えられています。</li>
+   <li><a href="https://istio.io/" target="_blank">Istio</a>や<a href="https://linkerd.io/" target="_blank">Linkerd</a>などのサービスメッシュソリューションをサポートすることにより、複雑なネットワークルーティング、ログ記録、TLS セキュリティ、分散型のトレースを分散アプリに簡単に追加できます。</li>
+  </ul>
+
+
+  <p>次の図は、上記のいくつかの要素を全体的なシナリオに適合させる方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/de32f437-b99d-4aea-9698-3c2f58e95a67.png"><img alt="Microservices based cloud native applications" border="0" height="667" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca669ba1-8335-4a4c-b8b5-ea839884a935.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="マイクロサービスベースのクラウドネイティブアプリケーション" width="924"></a></p>
+
+
+  <p>この <a href="https://azure.microsoft.com/en-us/blog/smarthotel360-microservices-on-azure-kubernetes-service/" target="_blank">ブログ</a> では、AKS を使用してマイクロサービスを開発することをお勧めします。 AKS を使用してマイクロサービスを構築する方法について学習する場合は、次の <a href="https://blogs.msdn.microsoft.com/azuredev/2018/03/27/building-microservices-with-aks-and-vsts-part-1/" target="_blank">4 部構成のブログチュートリアル</a> を参照してください。</p>
+
+
+  <h2>IoT Edge の展開</h2>
+
+
+  <p>SmartCity、接続 Tedcar、ConnectedHealth などの IoT ソリューションでは、数十億のデバイスをクラウドに接続するさまざまなアプリケーションが有効になっています。 コンピューティング能力の進歩により、これらの IoT デバイスはさらに強力になりつつあります。 もちろん、IoT アプリケーション開発でもいくつかの課題が生じます。 たとえば、堅牢な IoT ソリューションの構築、保守、更新には時間がかかります。 また、このようなソリューションは、分散環境での統合されたセキュリティを維持するために、より高い難易度を備えています。 デバイスと既存のインフラストラクチャの非互換性、さらに複雑な IoT ソリューション開発のスケーリングに関する課題。</p>
+
+
+  <p>Azure には、これらの IoT の課題に対処するため <a href="https://azure.microsoft.com/en-us/overview/iot/" target="_blank">の堅牢な一連の機能</a> が用意されています。 具体的には、顧客がエッジデバイスでカスタムビジネスロジックとクラウド分析を実行できるようにするために、 <a href="https://azure.microsoft.com/en-us/services/iot-edge/" target="_blank">Azure IoT エッジ</a>が作成されました。これにより、デバイスのフォーカスがデータ管理ではなくビジネス上の洞察を得ることができます。</p>
+
+
+  <p>Azure では、AKS の機能を活用して、この IoT Edge レイヤーの管理に役立つコンテナーとオーケストレーションを提供しています。 お客様は、AKS を Virtual Kubelet の実装である <a href="https://github.com/Azure/iot-edge-virtual-kubelet-provider" target="_blank">IoT Edge コネクタ</a>と組み合わせることで、次のことを実現できます。</p>
+
+
+  <ul>
+   <li>クラウドとエッジソフトウェアの構成の一貫性。</li>
+   <li>複数の IoT hub 間で同一のデプロイを適用します。</li>
+  </ul>
+
+
+  <p>AKS と IoT Edge コネクタを使用すると、Kubernetes マニフェストで構成を定義し、1つのコマンドを使用して、エッジにあるすべての IoT デバイスに簡単かつ確実にデプロイできます。 すべての IoT hub を管理するための単一のマニフェストを簡単に使用することで、お客様は IoT アプリケーションを大規模に配信および管理できます。 たとえば、さまざまなリージョンでのデバイスの展開と管理に関する課題について考えてみます。 IoT Hub と IoT Edge コネクタを使用して、これらのデプロイを簡単にすることができます。 次の図は、AKS と IoT Edge コネクタを含むこの IoT シナリオを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b68bc1f-597c-4bf5-aa1e-ed0ba365b06d.png"><img alt="IoT Edge deployment" border="0" height="485" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/abeded71-fe3a-4f0d-9160-6ee4e02c05e7.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="IoT Edge の展開" width="899"></a></p>
+
+
+  <p>Kubernetes を使用した IoT Edge 展開の管理の詳細については、この <a href="https://azure.microsoft.com/en-us/blog/manage-azure-iot-edge-deployments-with-kubernetes/" target="_blank">ブログ</a> をご覧ください。</p>
+
+
+  <h2>大規模な機械学習</h2>
+
+
+  <p>機械学習は非常強力ですが、実際には、これを使用することは簡単ではありません。 機械学習には、多くの場合、トレーニングモデルとホスティングモデルが含まれています。これにより、データ科学者は、さまざまな環境で作業したり、さまざまなスケールでデプロイしたりするコードを再現する必要があります。 また、モデルが大規模なクラスターで運用環境で実行されると、ライフサイクル管理がますます難しくなります。 多くの場合、構成とデプロイはデータ科学者に残されます。これにより、データサイエンス自体ではなく、インフラストラクチャのセットアップによって時間が消費されます。</p>
+
+
+  <p>AKS は、ML モデルのトレーニングとホスティング、ライフサイクル管理ワークフローに直面する課題に対処するのに役立ちます。</p>
+
+
+  <ul>
+   <li>トレーニングのために、AKS を使用すると、コンピューティング集中型の大規模なワークロード向けに設計された <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-gpu" target="_blank">GPU</a> リソースをオンデマンドで利用でき、不要になったときにスケールダウンすることができます。 これは、データ科学者のグループがすべてのプロジェクトで作業しており、非常に多様なスケジュールでリソースを必要とする場合に重要になります。 これにより、分散トレーニングやハイパーパラメーターの最適化などの戦略を有効にすることで、トレーニングサイクルを高速化することもできます。</li>
+   <li>ホスティングのために、AKS は機械学習モデルに DevOps 機能を提供します。 これらのモデルはローリングアップグレード機能を使用してより簡単にアップグレードできます。また、blue/green またはカナリア展開などの戦略を簡単に適用できます。</li>
+   <li>また、コンテナーを使用すると、テスト環境、開発環境、および運用環境での一貫性が大幅に向上します。 また、自己復旧機能は、実行の信頼性を大幅に向上させます。</li>
+  </ul>
+
+
+  <p>次の図は、機械学習モデルの AKS に関連する可能性のあるシナリオを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6d0f11d-7fe5-4b67-81da-f97ce0a16211.png"><img alt="ML scenario - updated" border="0" height="370" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6382783f-d762-4f01-9fe1-33edc5dd3bb8.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ML シナリオ-更新されました" width="782"></a></p>
+
+
+  <p>機械学習などのコンピューティング集中型の大規模なワークロードのために、 <a href="https://docs.microsoft.com/en-us/azure/aks/gpu-cluster" target="_blank">GPU 対応 vm で AKS を</a> 実行する方法について説明します。&nbsp;</p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <p>AKS を使用して、これらのシナリオのいずれかを実装しているかどうかを検討していますか。 または、AKS が重要な課題を解決するのに役立つ別のシナリオについて考えてください。 お客様のユースケースを共有し、議論するために<a href="https://aka.ms/aks/feedback" target="_blank">Connect</a>します。</p>
+
+
+  <p>作業を開始するために、Azure Kubernetes サービスについて理解を深めるための <a href="https://github.com/Azure/PhippyAndFriends" target="_blank">簡単なデモ</a> もまとめました。また、Azure でのエンドツーエンドの Kubernetes 開発エクスペリエンスについて説明するウェビナーもあります。 <a href="https://info.microsoft.com/ww-live-ContainerizeApplicationsKubernetesOnAzure.html" target="_blank">サインアップ</a> して今すぐ開始しましょう。</p>

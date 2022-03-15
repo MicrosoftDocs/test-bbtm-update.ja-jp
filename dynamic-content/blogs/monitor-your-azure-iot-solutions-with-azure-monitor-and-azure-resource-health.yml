@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7a86aae019a278c01970f8e85b62a16451ba7cd4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910715"
+Slug: monitor-your-azure-iot-solutions-with-azure-monitor-and-azure-resource-health
+Title: ソリューションとAzure IoTを使用してAzure Monitorソリューションを監視Azure Resource Health
+Summary: Azure IoT Hub は Azure Monitor および Azure Resource Health と完全に統合され、Azure IoT ハブの操作に関する豊富で頻繁なデータを提供し、問題をすばやく診断できます。
+Content: >-
+  <p>Azure IoT Hub は <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-azure-monitor">Azure Monitor</a> および <a href="https://docs.microsoft.com/en-us/azure/service-health/resource-health-overview">Azure Resource Health</a> と完全に統合され、Azure IoT Hub の操作に関する豊富で頻繁なデータを提供し、問題をすばやく診断できます。 また、Azure IoT Hub に関する問題の診断とトラブルシューティングに費やす時間を短縮するための、アクション可能で関連するガイダンスを提供します。 IoT ソリューションのパフォーマンスの問題は、ビジネスに影響を与える可能性があります。 IoT ソリューションが正常な状態で稼働状態を維持するには、リソースの正常性を監視することが重要です。 この目標を達成するには、Azure MonitorとAzure Resource Health。</p>
+
+
+  <p>IoT Hub に影響する計画メンテナンスやプラットフォームの問題など、リソースに影響を与える可能性がある Azure イベントの場合、Azure Resource Health は、現在および過去の正常性状態のパーソナライズされたダッシュボードを通じて問題を診断し、サポートを受けるのに役立ちます。 また、イベントの詳細、回復プロセスについて説明します。また、アクティブな Microsoft サポート契約をお持ち&#39;場合でもサポートにお問い合わせください。 <a href="https://docs.microsoft.com/en-us/azure/service-health/resource-health-checks-resource-types">Azure Resource Healthは、Azure パブリック クラウドAzure IoT Hub で使用できます</a>。</p>
+
+
+  <p><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8202df72-9142-4453-9f70-78e1d7957a53.png"><img alt="ARHImage" border="0" height="368" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d800c2c8-e347-4e95-9e29-6f0829bc8c56.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ARHImage" width="446"></a></p>
+
+
+  <p>Azure Monitorは、監視の単一のソースと、すべての Azure サービスに対して共通のログ プラットフォームを提供し、カスタム処理のために <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview">OMS Log Analytics</a>、Event Hubs、または <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/azure-diagnostics-streaming-event-hubs">Azure Storage</a> にログを送信できます。 Azure Monitor を使用すると、メトリックと診断 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-of-diagnostic-logs">設定</a> を介して接続されている Azure IoT ハブとデバイスの包括的なビューを取得し、<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-metrics"></a>Azure 内の任意のリソースで発生した問題をリアルタイムで可視化できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5cf26e79-0292-401a-9b89-a3f5aee7ef97.png"><img alt="AM_Image" border="0" height="429" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/72062d14-09fa-4003-97dd-2f02d0f28414.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AM_Image" width="621"></a></p>
+
+
+  <p>2018 年 10 月 10 日に、Azure Diagnostics 設定 によって Azure IoT Hub&#39;の操作監視機能が廃止されたので、Azure IoT Hub の操作監視機能は非推奨になります。</p>
+
+
+  <p><strong>注: この</strong>非推奨は、Azure IoT Azure クラウドで作成されたハブ、および中国、Azure Germany、または Azure Government クラウド<a href="https://azure.microsoft.com/en-us/overview/clouds/germany/"><strong></strong></a><strong></strong>の <strong> </strong><a href="https://www.azure.cn/"><strong>Azure</strong></a><strong> </strong><a href="https://aka.ms/backup_governmentcloud"><strong>でのみ適用</strong></a>されます<strong>。</strong><a href="https://azure.microsoft.com/en-us/regions/"><strong></strong></a></p>
+
+
+  <p>Azure IoT Hub で Operations Monitoring を使用しているお客様は、<a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-of-diagnostic-logs">Azure Diagnostic 設定</a> を使用して、Azure IoT Hub での操作の状態を監視できます。 メトリックと診断設定を使用してデータを収集すると、Azure Monitorさまざまな方法でデータを使用できます。 収集したデータをリアルタイムで他の場所にストリーミングしたり、格納したり、クエリを実行したり、Azure Portal、Power BI、またはサードパーティ製のアプリケーションを使用して視覚化することができます。 監視データを使用して、アラートをトリガーして他のプロセスを実行することもできます。</p>
+
+
+  <p>操作監視機能が削除されると、Azure IoT Hub のログ収集が中断されなかからなか、Azure IoT Hub で Diagnostics 設定 を使用する方法に切り替えすることをお勧めします。 中断を回避 <a href="https://go.microsoft.com/fwlink/?linkid=859293" target="_blank">するには、</a> 2018 年 10 月 10 日より前の移行手順に従います。 また、これらの変更に関する通知をメールでお送りします。</p>
+
+
+  <p><strong>重要な日付:</strong>&nbsp;</p>
+
+
+  <ul>
+   <li>2017 年 10 月 10 日:Azure IoT Hub for Azure パブリック クラウドでの Operations Monitoring の廃止に関する一<a href="https://azure.microsoft.com/en-us/regions/">般発表</a>。</li>
+   <li>2017 年 11 月 15 日:中国、Azure Germany、または Azure Government クラウドの Azure 向け IoT Hub での Operations Monitoring の廃止に関する一<strong><a href="https://aka.ms/backup_governmentcloud">般発表</a><a href="https://www.azure.cn/"></a><a href="https://azure.microsoft.com/en-us/overview/clouds/germany/"></a></strong>。</li>
+   <li>2019 年 3 月 10 日:Operations Monitoring は、すべての Azure IoTされます。</li>
+  </ul>
+
+
+  <p>これらの&rsquo;新しいツールを使用して Azure リソースを監視するのを遅らせない。 顧客が行う前に問題を見つける。 <a href="https://go.microsoft.com/fwlink/?linkid=859292" target="_blank">IoT ハブの監視に関する詳細を確認してください</a>。</p>

@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9382462b553d9e634691cc08a89d60955c326c71
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904308"
+Slug: application-insights-performance-improvements-and-service-updates
+Title: Application インサイト のパフォーマンスの向上とサービスの更新
+Summary: Visual Studio Application インサイト のパフォーマンスと信頼性を向上させるために、開発者がサービスを使用する方法に基づいていくつかの変更を行っています。
+Content: >-
+  <p>Application インサイト のパフォーマンスと信頼性を向上させるために、<a href="https://azure.microsoft.com/en-us/services/application-insights/">いくつかのVisual Studioを行インサイト</a>。 メトリック&#39;グラフのセグメント化に使用できるディメンションのセットを再統合し、ほとんど使用されないメトリックとプロパティを削除し、集計メトリックのリテンション期間を短縮します。</p>
+
+
+  <p>この数か月は、開発者が Application インサイト を使用している方法を確認し、Application <a href="https://azure.microsoft.com/en-us/blog/application-insights-temporary-limitations-and-performance-improvements/"></a> インサイト 自体を使用して収集したパフォーマンス、診断、使用状況データに基づいてサービスを継続的に改善しています。 既&rsquo;に UI のパフォーマンス、データの鮮度、サービスの可用性が大幅に改善され、エクスペリエンスをより迅速かつスムーズに行う取り組みです。</p>
+
+
+  <p>2016 年 3 月 16 日 (水) に、サービスのパフォーマンスと信頼性をさらに向上させるために変更を加え、引き続き Application インサイト から期待できる強力な診断エクスペリエンスを提供します。 また&rsquo;、最近のブログ記事で Brian Tuned が言及した、いくつかのクールな新しい記事にも<a href="https://blogs.msdn.microsoft.com/bharry/2016/02/06/a-bit-more-on-the-feb-3-and-4-incidents/"></a>取り組むので、これらのお知らせにもご期待ください。</p>
+
+
+  <h2>メトリックをグループ化する統合ディメンション</h2>
+
+
+  <p>Application インサイト を初めて設計した際、メトリックのビジョンは、非常に幅広いディメンションでスライスしてダイスできる必要があるという考えでした。 しかし、経験が積み上がったので、これらの組み合わせの多くが頻繁に使用されていないことが判明しました。 この問題は、集計されたメトリックのこの多くの組み合わせを可能にすることで、大量のデータが格納され、そのほぼすべてが使用され、残念ながら全体的なパフォーマンスに影響を与えます。</p>
+
+
+  <p>アプリケーション インサイト、アプリケーションからのテレメトリを探索する 2 つの方法が提供されます。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/documentation/articles/app-insights-diagnostic-search/">診断検索</a>: 特定のイベント、例外、および関連するテレメトリを探索するための強力な診断ツール。</li>
+   <li><a href="https://azure.microsoft.com/documentation/articles/app-insights-metrics-explorer/">メトリックス エクスプローラー</a>: 集計データの時間グラフが生成され、フィルター処理とセグメント化が可能です。</li>
+  </ul>
+
+
+  <p>処理のパフォーマンスを向上し、グループ化するディメンションを選択するためのユーザー エクスペリエンスを簡略化するために、既定で使用可能なディメンションの一覧を統合しています。 アプリからサービスに送信されるデータに変更はありません。 さらに&rsquo;処理するために、すべてのテレメトリを Azure Storage または Power BI に継続的にエクスポートするだけでなく、現在<a href="https://azure.microsoft.com/documentation/articles/app-insights-export-telemetry/"></a>行<a href="https://powerbi.microsoft.com/documentation/powerbi-content-pack-application-insights/">っている</a>すべての診断検索を実行できます。</p>
+
+
+  <p>つまり、実際には、<a href="https://azure.microsoft.com/documentation/articles/app-insights-metrics-explorer/#editing-charts-and-grids"></a>&rsquo;メトリックス エクスプローラー でグラフを作成またはカスタマイズする場合、選択できるメトリックの一覧がはるかに簡単です。 グラフをセグメント化する場合は&rsquo;、[グループ化] メニューにさらにクリーンな一 <a href="https://azure.microsoft.com/documentation/articles/app-insights-metrics-explorer/#segment-your-data">覧が表示</a> されます。</p>
+
+
+  <p>お気に入りのメトリックまたはディメンションを切り取った場合は、どうしますか? 回避策があります。 カスタム インストルメンテーションを利用し、パラメーターとしてメトリックを使用して独自の <a href="https://azure.microsoft.com/documentation/articles/app-insights-api-custom-events-metrics/#track-metric">TrackMetric()</a> 呼び出しまたは <a href="https://azure.microsoft.com/documentation/articles/app-insights-api-custom-events-metrics/#properties">TrackEvent()</a> を送信できます。 SDK Web モジュールによって既定で送信されたメトリックに対してこれを必要とする場合は、テレメトリ プロセッサを記述して、<a href="https://azure.microsoft.com/documentation/articles/app-insights-api-filtering-sampling/#filtering"></a>生成されたメトリックをインターセプトし、メトリック値をカスタム呼び出しにコピーできます。</p>
+
+
+  <p>前に説明したように、これは生&rsquo;のテレメトリやエクスポートされたテレメトリには影響を与え "されません"。 たとえば、データや他&rsquo;のツールPower BI使用してデータを表示する場合、その変更は&rsquo;影響を受け取らないとします。 今後は、生の&rsquo;テレメトリに対して集計を実行できる、より強力な検索ソリューションを計画しています。 ご期待ください。</p>
+
+
+  <h2>統合された使用状況メトリック</h2>
+
+
+  <p>多くのお客様は Application インサイト を使用して、実際のユーザーへの影響に基づいて、ユーザーとセッションのメトリックとトリアージの問題でアプリケーションの使用状況を監視しています。 このエクスペリエンスをより良くするために、一連の強力な機能に取り組みます。 現在のところ、コア診断エクスペリエンスを最適化し、パフォーマンスを向上するために、あまり使用されないメトリックとプロパティの一部を削除しています。セッションあたりのイベント数、セッションあたりの例外数、セッションあたりのページ数、セッション間の時間、セッション間の時間 (認証されたユーザー) とセッション期間です。</p>
+
+
+  <p>これらのメトリック&rsquo;またはプロパティを使用する場合は、お気に入りのツールを使用して、エクスポートされた <a href="https://azure.microsoft.com/documentation/articles/app-insights-export-telemetry/">データからそれらを</a> 計算できます。</p>
+
+
+  <h2>集計メトリックのデータリテンション期間の短縮</h2>
+
+
+  <p>現在、Application インサイトは、価格プランに応じて、13 か月以上の時間単位のレベルで集計されたメトリックを<a href="https://azure.microsoft.com/pricing/details/application-insights/">保持します</a>。 使用状況テレメトリを確認しながら、カスタム クエリの大部分は 30 日未満で、半分以上が 24 時間未満である点が検出されました。 サービスの&rsquo;信頼性を大幅に向上し、最適化されたデータ パフォーマンスを提供するために、集計されたメトリックの保有期間を現在のレベルから 90 日 (すべての価格プラン) に変更する必要があります。</p>
+
+
+  <p>アプリケーション インサイト主に、Web アプリとサービスの問題を検出、トリアージ、診断するために使用されます (デバイス <a href="https://azure.microsoft.com/en-us/blog/transitioning-mobile-apps-from-application-insights-to-hockeyapp/"></a> アプリを HockeyApp に移行する方法に関する最近の発表を参照してください)。 数&rsquo;か月前の CPU 使用率や例外率が、現在のデプロイと問題に大きな意味を持つ可能性はまれです。 新しい時間範囲は、すべてのクエリの 99.9%&nbsp; を超える値を表すので、これらの時間間隔でクエリを最適化する方が、長期的な保持の動作の向上に取り組むよりも価値があると思います。 繰り返しますが、一部のメトリック データを長い期間保持する方が重要なシナリオである場合は、<a href="https://azure.microsoft.com/documentation/articles/app-insights-metrics-explorer/">引</a>き続き Excel の メトリックス エクスプローラー からデータを取得するか、継続的<a href="https://azure.microsoft.com/documentation/articles/app-insights-export-telemetry/"></a>なデータ エクスポートを使用できます。</p>
+
+
+  <h2>検索クエリ期間の短縮</h2>
+
+
+  <p>最後に、<a href="https://azure.microsoft.com/en-us/blog/application-insights-temporary-limitations-and-performance-improvements-update/"></a>&rsquo;この 12 月のブログ記事で説明した通り、クエリのパフォーマンスとシステム全体の信頼性を向上させるために、サービスでのデータの管理方法を変更しました。 この変更を有効にするには、検索 <a href="https://azure.microsoft.com/en-us/blog/application-insights-temporary-limitations-and-performance-improvements/">クエリを</a> 実行できる期間を <a href="https://azure.microsoft.com/documentation/articles/app-insights-diagnostic-search/">7 日間</a> に制限しました。 前述のように、より強力な&rsquo;検索ソリューションを計画しています。これは、生データを長い期間検索するのに役立ちます。</p>
+
+
+  <p>その間、Standard と プレミアムのお客様は、連続エクスポートを引き続<a href="https://azure.microsoft.com/documentation/articles/app-insights-export-telemetry/"></a>き使用して、7 日より前のデータにアクセスできます。 <a href="https://azure.microsoft.com/documentation/articles/app-insights-metrics-explorer/">メトリックス エクスプローラー</a> 、7 日間を超えて標準プロパティとカスタム プロパティでフィルター処理およびグループ化する機能など、詳細なメトリック データが引き続き提供されます。</p>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>お客様のような開発者が Application インサイト を使用している方法について、多くのことを学インサイト。 お客様からのフィードバックを評価し、問題の解決に役立つ改善をこれまで以上に迅速に行いたいと考えている。 UserVoice フォーラムと <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=ApplicationInsights">MSDN</a> フォーラムでフィードバックをお寄せください。ビルド <a href="https://build.microsoft.com/">2016</a> で発表されるこれらの大きな新機能を監視してください。</p>

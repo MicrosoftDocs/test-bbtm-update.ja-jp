@@ -1,0 +1,139 @@
+### YamlMime:Yaml
+ms.openlocfilehash: be06dea35edfccec8d435a6a06733ea4057e7994
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904920"
+Slug: build-more-accurate-forecasts-with-new-capabilities-in-automated-machine-learning
+Title: 自動機械学習の新機能を使用して、より正確な予測を作成します
+Summary: 自動機械学習の機能のリリースにより、より正確な予測を作成します。 トレーニングデータにギャップがあるシナリオや、予測を改善するためにコンテキストデータを適用する必要があるシナリオ、または機能に遅れを適用する必要があるシナリオがあるかどうか。 新しい機能の詳細については、こちらを参照してください。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">Azure Machine Learning サービス</a>の時系列予測とは別に、新機能を発表します。 <a href="https://azure.microsoft.com/en-us/blog/new-automated-machine-learning-capabilities-in-azure-machine-learning-service/" target="_blank">2018 年12月に予測のプレビュー</a>を開始しましたが、お客様の関心が高いと考えています。 お客様に対してお客様にご意見をお寄せいただき、ありがとうございます。 回答がこのマイルストーンに近づいてきました。 ありがとうございます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e79cc1c-043c-47f2-af02-98fde52844e2.png"><img alt="Featured image, general availability for Automated Machine Learning Time Series Forecasting" border="0" height="300" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ef4e358-f953-41d2-9d02-0c6121df3d8f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="おすすめの画像、自動 Machine Learning 時系列予測の一般提供" width="960"></a></p>
+
+
+  <p>予測の構築は、収益、在庫、販売、顧客の需要にかかわらず &rsquo; 、あらゆるビジネスの不可欠な要素です。 機械学習モデルの構築は、アルゴリズムの反復処理、ハイパーパラメーターのチューニング、特徴エンジニアリングなど、考慮すべき多くの要因によって時間がかかり、複雑になります。 これらの選択は時系列データと乗算し、傾向、季節性、休日を考慮し、トレーニングデータを効果的に分割します。</p>
+
+
+  <p>自動機械学習 (ML) の予測には、推奨されるモデルの精度とパフォーマンスを向上させる新機能が追加されました。</p>
+
+
+  <ul>
+   <li>新しい予測関数</li>
+   <li>ローリングオリジンクロス検証</li>
+   <li>構成可能なラグ</li>
+   <li>ローリングウィンドウの集計機能</li>
+   <li>休日の検出と特性付け</li>
+  </ul>
+
+
+  <h2>展開された予測関数</h2>
+
+
+  <p>予測タスクの種類の予測値を取得するための新しい方法が導入されています。 時系列データを処理する際には、予測時間により慎重に検討する必要があるいくつかのシナリオが発生します。 たとえば、予測ごとにモデルを再トレーニングすることはできますか。 将来の予測ドライバーがありますか。 履歴データがどこにあるかを予測するにはどうすればよいですか。 新しい予測関数では、これらすべてのシナリオを処理できます。</p>
+
+
+  <p>新しい予測関数を使用する場合は、トレーニングデータと予測データのシナリオの一般的な構成について詳しく見ていきましょう &rsquo; 。 自動 ML 予測の原点は、予測値の予測を開始する時点として定義されます。 予測の期間とは、予測が将来にどの程度あるかを示します。</p>
+
+
+  <p>多くの場合、トレーニングと予測に時間差はありません。 これは、最新の使用可能なデータに基づいてモデルがトレーニングされるため、理想的です。 予測間隔で再トレーニング時間を許容する場合は、この方法で予測を設定することをお勧めします。たとえば、財務予測率や、過去の収益や既知の注文量を使用したサプライチェーンアプリケーションなど、より固定されたデータの場合などです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/13028d3f-575d-44b4-9bc0-abfb83665b98.png"><img alt="Ideal use case when training and prediction data have no gaps in time." border="0" height="538" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/616f2d9f-eb6a-4f3b-af56-cc82197db001.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="トレーニングデータと予測データに時間差がない場合の理想的なユースケース。" width="964"></a></p>
+
+
+  <p>予測する場合は、将来の値を事前に把握しておくことができます。 これらの値は、予測の精度を大幅に向上させることができるコンテキスト情報として機能します。 たとえば、食料品の価格は前もってわかっています。これは、販売 &rdquo; ターゲット変数に &ldquo; 大きく影響します。 もう1つの例として、what-if 分析を実行しているときに、外部為替レートなどのドライバーの将来の値を試してみることが挙げられます。 これらのシナリオでは、予測インターフェイスを使用して予測ドライバーを指定し、予測に使用する期間 (x 未来) を指定できます。&nbsp;</p>
+
+
+  <p>トレーニングデータと予測データの時間がずれている場合、トレーニング済みのモデルは古くなります。 たとえば、IoT などの高頻度のアプリケーションでは、他のデバイスまたは外部要因 (天気など) に依存するセンサーからの変化が多いため、モデルを絶えず再トレーニングすることは現実的ではありません。 予測コンテキストを、ターゲットの最新の値 (ypast) とドライバー (Xpast) を使用して予測を向上させることができます。 予測関数は、ギャップを適切に処理し、必要に応じてトレーニングと予測のコンテキストから値を埋めます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f22189d0-2856-4972-b8ea-d2320f0727ce.png"><img alt="Using contextual data to assist forecast when training and prediction data have gaps in time." border="0" height="517" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e82c9bf-d100-42da-a66a-03e77f391703.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="コンテキストデータを使用して、トレーニングデータと予測データの時間差がある場合の予測を支援します。" width="1395"></a></p>
+
+
+  <p>売上、収益、顧客の保有期間などの他のシナリオでは、将来の期間に利用できる文脈情報がない可能性があります。 このような場合、予測関数では、想定外の予測を変換先 &rdquo; の &ldquo; 時間に対して行うことがサポートされます。 予測の宛先は、予測の期間の終了点です。 モデルの最大期間は、モデルが予測にトレーニングされた期間の数で、予測の期間の長さを制限できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dba37f49-119f-47b0-a7cc-5e4ec5dc02db.png"><img alt="Use case when no gap in time exists between training and prediction data and no contextual data is available." border="0" height="538" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4488fef-651e-4613-9e64-f3d7734bb48e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="トレーニングデータと予測データの間に時間のずれがなく、コンテキストデータが使用できない場合のユースケース。" width="964"></a></p>
+
+
+  <p>予測モデルでは、入力データ (休日の特徴の追加など) と不足値の強化が検出されます。 データが予測と共に返されます。</p>
+
+
+  <p><a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/automated-machine-learning/forecasting-orange-juice-sales/auto-ml-forecasting-orange-juice-sales.ipynb" target="_blank">販売予測</a>、<a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/automated-machine-learning/forecasting-bike-share" target="_blank">自転車の需要</a>、および<a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/automated-machine-learning/forecasting-energy-demand/auto-ml-forecasting-energy-demand.ipynb" target="_blank">エネルギー予測</a>の Notebook の例については、 <a href="https://github.com/Azure/MachineLearningNotebooks/tree/master/how-to-use-azureml/automated-machine-learning" target="_blank">GitHub</a>を参照してください。</p>
+
+
+  <h2>ローリングオリジンクロス検証</h2>
+
+
+  <p>クロス検証 (CV) は、モデルのサンプルエラーを推定して減らすための重要な手順です。 時系列データの場合、テストデータの過去の値を使用してトレーニングのみが発生するようにする必要があります。 時間に関係なくデータをパーティション分割することは、実稼働環境でデータが使用できるようになる方法とは異なり、forecaster &rsquo; の汎化エラーの推定値が不正確になる可能性があります。</p>
+
+
+  <p>正確な評価を行うために、時系列データの機械学習モデルを評価するための標準的な方法として、ロールオリジンクロス検証 (ROCV) を追加しました。 これにより、元のタイムポイントを使用してシリーズがトレーニングデータと検証データに分割されます。 時間内の原点をスライドすると、クロス検証のフォールドが生成されます。</p>
+
+
+  <p>たとえば、ROCV を使用しない場合は、40の観測を含む仮定の時系列を考えてみます。 このタスクでは、系列を最大4つのタイムポイントに予測するモデルをトレーニングするとします。 次の図は、標準の10フォールドクロス検証 (CV) 戦略を示しています。 画像の y 軸は、色が検証ポイント (青) と検証ポイント (オレンジ色) を区別している間に実行される CV フォールドを記述します。 次の10フォールドの例では、1 ~ 9 のフォールドの結果が、検証セットに含まれるようになり、トレーニングと検証の結果が不正確になることに注意してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c398bce-20e3-48e3-b5a5-862fca0e6091.png"><img alt="Cross validation showing training points spread across folds and distributed across time points causing data leakage in validation" border="0" height="212" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/950ab0dd-763b-439f-959c-a313b104c545.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クロス検証では、複数のフォールドに分散され、複数の期間にわたって分散されているため、検証にデータ漏えいが発生します。" width="380"></a></p>
+
+
+  <p>このシナリオは、タイムシリーズではなく、次に示すような ROCV 戦略を使用する場合は、時系列データの整合性を維持し、データ漏えいのリスクを排除するために使用します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bcda3a46-c4f6-4c75-99b1-470796416f47.png"><img alt="Rolling-Origin Cross Validation (ROCV) showing training points distributed on each fold at the end of the time period to eliminate data leakage during validation" border="0" height="212" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/83321f30-17b1-468f-9822-18ef801af949.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="検証中にデータの漏えいを防ぐために、期間の終了時に各フォールドに分散されたトレーニングポイントを示す Rolling-Origin クロス検証 (ROCV)" width="380"></a></p>
+
+
+  <p>ROCV は、予測に自動的に使用されます。 トレーニングデータと検証データをまとめて渡すだけで、クロス検証のフォールドの数を設定できます。 自動機械学習 (ML) では、実験で定義した time 列と粒度列を使用して、時間 horizons を尊重する方法でデータを分割します。 また、自動化された ML は、トレーニングと検証の組み合わせで選択されたモデルを再トレーニングして、最新のデータと最も情報の多いデータを使用するようにします。このデータは、ロールオリジン分割方式では、検証セットで終了します。</p>
+
+
+  <h2>遅延とローリングウィンドウの集計</h2>
+
+
+  <p>多くの場合、予測器が持つことができる最高の情報はターゲットの最近の値です。 ターゲットのラグと累積統計を作成すると、予測の精度が向上します。</p>
+
+
+  <p>自動 ML では、モデル機能としてターゲットのラグを指定できるようになりました。 Lag length を追加すると、時間間隔に基づいて遅延する行数が識別されます。 たとえば、2つの時間単位でラグする場合は、lag length パラメーターを2に設定します。</p>
+
+
+  <p>次の表は、2の lag の長さがどのように処理されるかを示しています。 緑色の列は、1日と2日の売上の遅れを持つ機能を設計しています。 青い矢印は、トレーニングデータによって各ラグがどのように生成されるかを示します。 非数 (Nan) は、そのラグ期間のサンプルデータが存在しない場合に作成されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d5a15865-3df6-441a-84df-0136c9b0f68c.png"><img alt="Table illustrating how a lag length og two would be treated" border="0" height="269" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6690a165-f602-4c2e-ba5d-24437505ef69.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Lag の長さ og 2 がどのように処理されるかを示す表" width="664"></a></p>
+
+
+  <p>遅延に加えて、データ値のローリング集計を特徴として追加することが必要になる場合があります。 たとえば、エネルギー需要を予測するときに、3日間のローリングウィンドウ機能を追加して、加熱されたスペースの熱変化を考慮することができます。 次の表は、ウィンドウの集計が適用されたときに発生する特徴エンジニアリングを示しています。 最小値、最大値、合計値の列は、定義された設定に基づいて、3 のスライディング ウィンドウで生成されます。 各行には新しい計算される特徴があります。1月4日の場合、2017の最大値、最小値、および合計値は、2017年1月1日、年1月2日、2017日、および2017年1月3日の一時値を使用して計算されます。 このウィンドウでは、残りの行のデータを設定するために、3つ &rdquo; の &ldquo; 移動を行います。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61a5506e-89c0-4478-bef3-d4835854cc8a.png"><img alt="Table showing feature engineering that occurs when window aggregation is applied." border="0" height="329" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d03d6941-a7b8-4023-a4ab-d8f56751bfe4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ウィンドウの集計が適用されるときに発生する特徴エンジニアリングを示す表。" width="1048"></a></p>
+
+
+  <p>これらの追加機能を生成して、付加的なコンテキストデータとして使用することで、トレーニング済みのモデルの精度を高めることができます。 これは、実験の設定にいくつかのパラメーターを追加することによって可能です。</p>
+
+
+  <h2>休日の機能</h2>
+
+
+  <p>多くの時系列シナリオで、休日は、モデル化されたシステムの動作に大きな影響を与えています。 休日の前後の時間は、特に販売や製品の需要などのシナリオでシリーズ &rsquo; パターンを変更できます。 自動 ML では、毎日のデータセットのモデルトレーニングの入力として追加機能が作成されます。 各休日は、学習器が効果を割り当てることができる、既存のデータセットに対してウィンドウを生成します。 この更新プログラムでは、110を超える国で2000を超える休日がサポートされる予定です。 この機能を使用するには、タイムシリーズ設定の一部として国コードを渡すだけです。 次の例では、左側のテーブルの入力データを示し、右側のテーブルには、祝日特性付けが適用された更新済みのデータセットが表示されます。 精度を向上させるためにモデルをトレーニングするときにコンテキストを追加する追加の機能または列が生成されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fe595ae7-8906-4129-a352-e7c4e197391d.png"><img alt="Training data on left shows without holiday features applied, table on the right shows." border="0" height="193" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/80748202-8fef-4d74-b8b1-bdd27e6838aa.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="左側のトレーニングデータは、休日の機能が適用されていない場合に、右側の表に表示されます。" width="1217"></a></p>
+
+
+  <h2>概要の時系列予測を使用ML</h2>
+
+
+  <p>これらの新機能により、ML が自動化され、より複雑な予測シナリオがサポートされ、ラグとウィンドウ集計を使用してトレーニング データを構成するための制御が強化され、新しい休日のフィーチャー化と ROCV による精度が向上します。 Azure Machine Learning、すべてのスキル レベルのデータ サイエンティストが、プロセスを簡略化し、モデルのトレーニングに費やされる時間を短縮する強力な機械学習テクノロジを使用可能にすることです。 概要ドキュメントにアクセスし、ご<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml" target="_blank"></a>自分の考えをお知らせします。自動化されたサービスをMLに取り組まれています。</p>
+
+
+  <p>サービスの詳細については<a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">、Azure Machine Learning無料</a><a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/" target="_blank">試用版の使用を開始してください</a>。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml" target="_blank">自動機械学習の詳細を学習する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-auto-train-forecast" target="_blank">方法ガイド: 時系列予測モデルの自動トレーニング</a></li>
+   <li>自動ML <a href="https://github.com/Azure/MachineLearningNotebooks/tree/master/how-to-use-azureml/automated-machine-learning" target="_blank">GitHubサンプル</a></li>
+  </ul>

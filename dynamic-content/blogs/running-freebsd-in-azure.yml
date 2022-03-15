@@ -1,0 +1,316 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2fd5e4ae4e0accde1fc435a78071de0b8f280ef8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910342"
+Slug: running-freebsd-in-azure
+Title: Azure での FreeBSD の実行
+Summary: このブログの多くの読者が知っている場合と同様に、Microsoft は何年も Linux コミュニティと連携し、Linux 統合と呼ばれる Linux カーネルに多数のデバイス ドライバーを提供してきました。
+Content: >-
+  <p><strong>メモ：</strong>現在、FreeBSD&nbsp; <strong><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/freebsd-intro-on-azure">イメージを構成</a></strong>する方法に関する公式の記事がMicrosoft Azure。 代わりに、それを&nbsp;読む必要があります。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>このブログの多くの読者が知っている場合と同様に、Microsoft は何年も Linux コミュニティと一緒に働き、Linux Integration Services と呼ばれる Linux カーネルに多数のデバイス ドライバー <a href="https://blogs.technet.com/b/in_the_cloud/archive/2014/04/25/why-and-how-to-use-linux-integration-services.aspx">を</a>提供してきました。 これらのドライバーを使用すると、Linux システムを Hyper-V と Hyper-V の下でMicrosoft Azure。 最近では、Microsoft は FreeBSD コミュニティと一緒に FreeBSD 10 に同等のドライバーを提供しています。 これらは、FreeBSD 用 BSD Integration Services (BIS) と呼ばれるものがあります。 この記事では、FreeBSD 10 イメージを準備してアップロードして、このバージョンで実行する方法について説明Microsoft Azure。 <b>免責 事項：</b>この記事では、Azure で FreeBSD を実行する詳細な手順について説明しますが、FreeBSD は現在<a href="https://azure.microsoft.com/en-us/documentation/articles/linux-endorsed-distributions/"></a>、Microsoft Azure で動作がサポートされていないプラットフォームであるため、サポートされていない点に注意してください。</p>
+
+
+  <h2>基本 FreeBSD イメージの取得</h2>
+
+
+  <p>この記事では、FreeBSD 10 イメージの準備に焦点を当x86_64、Microsoft Azure。 最初に、Hyper-V に FreeBSD をローカルにインストールする必要があります (Windows Server 2012 R2 が推奨されます)。 私たちの生活をより簡単にするために、FreeBSD コミュニティは事前に作成された FreeBSD イメージを VHD 形式で提供しています。</p>
+
+
+  <ol>
+      <li>最初に [ftp.freebsd.org/pub/FreeBSD/snapshots/VM-IMAGES/10.0-RELEASE/amd64/Latest/] を参照し、最新の *.vhd.xz ファイルをダウンロードします (例: ftp.freebsd.org/pub/FreeBSD/snapshots/VM-IMAGES/10.0-RELEASE/amd64/Latest/FreeBSD-10.0-RELEASE-amd64-20140116-r260789.vhd.xz</li>
+      <li>.xz ファイルを圧縮解除して、FreeBSD-10.0-RELEASE-amd64-*.vhd ファイルを抽出します。 ここで役立つユーティリティは多数ある。 通常は <a href="https://7-zip.org/">7-zip を使用します</a>。</li>
+      <li>Hyper-V に新しい仮想マシンを作成し、抽出した VHD を IDE ディスクとしてアタッチします。</li>
+  </ol>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/FreeBSD01-a.png"><img alt="Attach a VHD to a virtual machine" border="0" height="307" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/FreeBSD01-a_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto;" title="仮想マシンに VHD をアタッチする" width="612"></a></p>
+
+
+  <h2>FreeBSD VHD のサイズを変更する (必要な場合)</h2>
+
+
+  <p>インストール ISO を使用して Hyper-V VM に FreeBSD を自分でインストールすることを選択した場合は、このセクションをスキップできます。&nbsp; ただし、アプリケーションから事前に生成された VHD を <a href="ftp://ftp.freebsd.org">ftp.freebsd.org 場合は</a> 、Azure と互換性のある VHD のサイズを変更する必要がある場合があります。 Microsoft Azure 用の VHD を作成する場合、VHD のサイズはメガバイト単位の数値である必要があります。そうしないと、Azure で新しい FreeBSD イメージを作成しようとすると、次のようなエラーが表示されます。</p>
+
+
+  <blockquote><i>&ldquo;VHD https://&lt; mystorageaccount.blob.core.windows.net/vhds/FreeBSD-10.0-RELEASE-amd64-20140116-r260789.vhd&gt; には、サポートされていない仮想サイズの 1 バイト21475270656があります。サイズは、(MB の) 数値である必要があります。&rdquo;</i></blockquote>
+
+
+  <p>したがって、上記の例では、21475270656バイトは実際には 20480.4140625 MB です。 そのため、これを修正するには、VHD のサイズを変更するだけで、ディスクが 2,1000 MB でも確保されます。 これは、PowerShell または Hyper-V 管理コンソールを使用して簡単に行うことができます。</p>
+
+
+  <ul>
+      <li>Hyper-V サーバーで、PowerShell コマンド プロンプトを開き、Resize-VHD コマンドレットを実行して VHD のサイズを少し増やします。 <pre class="prettyprint">
+  PS &gt; Resize-VHD -Path \&lt;PATH&gt;\FreeBSD-10.0-RELEASE-amd64-20140116-r260789.vhd -SizeBytes 21GB</pre>
+
+  &nbsp;</li>
+      <li>または、Hyper-V 管理コンソールからディスクのサイズを変更することもできます。 FreeBSD VM の設定メニューで、FreeBSD 仮想 IDE &ldquo;&rdquo; ドライブをクリックし、[編集] をクリックして VHD 編集ウィザードを開きます。</li>
+  </ul>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/FreeBSD02-a.png"><img alt="Resize a VHD in the Hyper-V managemnet console" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/FreeBSD02-a_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto;" title="Hyper-V managemnet" width="612"></a> コンソールで VHD のサイズを変更します。次に、FreeBSD システムを起動し、ルートとしてログイン <i>します。</i> 事前に生成されたコミュニティの VHD にはルート パスワードが既定ではないので、パスワードの入力を求めるメッセージは表示されません。 ログインした後、 <i>gpart を実行 </i>し、ディスク パーティションを確認します。 VHD のサイズが変更されたため、ディスク da0 が <i>CORRUPT</i> とマークされている場合があります。</p>
+
+
+  <pre class="prettyprint">
+
+  root@:~# gpart show
+        34  41942973  da0  GPT  (21G) [CORRUPT]
+          34      1024    1  freebsd-boot  (512K)
+        1058   2097152    2  freebsd-swap  (1.0G)
+     2098210  39844797    3  freebsd-ufs  (19G)</pre>
+
+  <p>&nbsp; 問題ありません。次のコマンドを実行して da0 を修正します。</p>
+
+
+  <pre class="prettyprint">
+
+  root@:~# gpart recover da0
+
+  da0 recovered
+
+
+  root@:~# gpart show
+
+  =&gt;      34  44040125  da0  GPT  (21G)
+          34      1024    1  freebsd-boot  (512K)
+        1058   2097152    2  freebsd-swap  (1.0G)
+     2098210  39844797    3  freebsd-ufs  (19G)
+    41943007   2097152       - free -  (1.0G)</pre>
+
+  <p>&nbsp; 必要に応じて、FreeBSD ルート パーティションのサイズを変更して、必要に応じてその空き領域を再利用できます。 ただし、ルート ファイル システムのサイズを変更するために FreeBSD Live CD から起動する必要が生じ、これはもう少し問題です。 ただし、その空き領域を本当に戻したい場合は、ルート ファイル システムを展開する方法を次に示します。</p>
+
+
+  <pre class="prettyprint">
+
+  root@:~# gpart resize -i 3 da0
+
+  da0p3 resized
+
+
+  root@:~# gpart show
+
+  =&gt;      34  44040125  da0  GPT  (21G)
+          34      1024    1  freebsd-boot  (512K)
+        1058   2097152    2  freebsd-swap  (1.0G)
+     2098210  41941949    3  freebsd-ufs  (20G)
+
+  root@:~# growfs /dev/da0p3</pre>
+
+
+  <p>&nbsp; 万歳！ VHD は良いように見えます。&rsquo;これで、Azure 用の FreeBSD システムを準備する準備ができました。</p>
+
+
+  <h2>Azure 用の FreeBSD システムを準備する</h2>
+
+
+  <p>これで簡単な部分になります (はい、本当に)。 追加のコンポーネントをインストールし、このシステムを Azure で実行するためにいくつかの構成を行う必要があります。</p>
+
+
+  <ul>
+      <li><strong>ネットワークを有効にする</strong> /etc/rc.d/netif を使用してネットワークを停止して開始できるよう、hn0 インターフェイスを構成します。
+
+      <pre class="prettyprint">
+  root@:~# echo &#39;ifconfig_hn0=&quot;SYNCDHCP&quot;&#39; &gt;&gt; /etc/rc.conf
+
+  root@:~# service netif restart</pre>
+      </li>
+  </ul>
+
+
+  <p>&nbsp; &nbsp;</p>
+
+
+  <ul>
+      <li><strong>SSH を有効にする</strong> /etc/rc.conf で SSH デーモンを有効にし、新しいホスト キーを作成します。
+
+      <pre class="prettyprint">
+  root@:~# echo &#39;sshd_enable=&quot;YES&quot;&#39; &gt;&gt; /etc/rc.conf
+
+
+  root@:~# ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+
+  root@:~# ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+
+  root@:~# service sshd restart</pre>
+
+  FreeBSD ゲストに SSH 接続して構成を続行する場合は、新しい特権のないユーザーを作成するか、&#39;ルート&#39; &quot;ユーザーのパスワードを設定し、/etc/ssh/sshd_config で PermitRootLogin yes&quot; を設定する必要があります (推奨されません)。</li>
+
+  </ul>
+
+
+  <p>&nbsp; &nbsp;</p>
+
+
+  <ul>
+      <li><strong>Python 2.7 と必要なモジュールをインストールします。 </strong>
+
+      <pre class="prettyprint">
+  root@:~# pkg install python27 py27-asn1
+
+  The package management tool is not yet installed on your system.
+
+  Do you want to fetch and install it now? [y/N]: y
+
+
+  Bootstrapping pkg from pkg+https://pkg.FreeBSD.org/freebsd:10:x86:64/latest, please wait&hellip;
+
+  Verifying signature with trusted certificate pkg.freebsd.org.2013102301&hellip; done
+
+  Installing pkg-1.2.7_2&hellip; done
+
+  If you are upgrading from the old package format, first run:
+
+    # pkg2ng
+  Updating repository catalogue
+
+  digests.txz                                              100% 1071KB   1.1MB/s   1.1MB/s   00:00
+
+  packagesite.txz                                          100% 4929KB   4.8MB/s   4.8MB/s   00:01
+
+  Incremental update completed, 22926 packages processed:
+
+  0 packages updated, 0 removed and 22926 added.
+
+  The following 4 packages will be installed:
+
+          Installing gettext: 0.18.3.1
+          Installing python27: 2.7.6_4
+          Installing py27-setuptools27: 2.0.1
+          Installing py27-asn1: 0.1.4_1,1
+
+  The installation will require 81 MB more space
+
+
+  12 MB to be downloaded
+
+
+  Proceed with installing packages [y/N]: y</pre>
+
+  また、新しい Python 2.7 バイナリを <em>/usr/bin/python</em> とシンボリック リンクして、簡単に見つけ出す必要がある場合があります。
+
+      <pre class="prettyprint">
+  root@:~# ln -s /usr/local/bin/python2.7 /usr/bin/python</pre>
+      </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+      <li><strong>sudo をインストールする</strong>通常、Azure でルート <i></i> アカウントを無効にし、特権のないユーザーから <i>sudo </i>を利用して、昇格された特権でコマンドを実行します。
+
+      <pre class="prettyprint">
+  root@:~# pkg install sudo</pre>
+      </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+      <li><strong>Azure Linux エージェントをインストールする</strong> Azure Linux エージェントの最新リリースは、GitHub () でいつでも確認できます <a href="https://github.com/Azure/WALinuxAgent/releases">https://github.com/Azure/WALinuxAgent/releases</a>。 FreeBSD では、バージョン 2.0.5 以降をお勧めします。 ただし、リモート 2.0 ブランチは通常非常に安定しています。そのため、今のところは、そのブランチから直接最新のエージェントをプルします。&nbsp; これにより、FreeBSD をサポートする最新のエージェントが提供されます。
+
+      <pre class="prettyprint">
+  root@:~# pkg install wget
+
+  ......
+
+
+  root@:~# wget https://raw.githubusercontent.com/Azure/WALinuxAgent/2.0/waagent
+
+  root@:~# mv ./waagent /usr/sbin/
+
+  root@:~# chmod 755 /usr/sbin/waagent
+
+
+  root@:~# /usr/sbin/waagent -install</pre>
+
+  これで、Azure エージェントがインストールされ、実行されます。</li>
+
+  </ul>
+
+
+  <ul>
+      <li><strong>(省略可能) VHD を Azure にアップロードする前にシステムのプロビジョニングを解除する </strong>プロビジョニング解除によって、イメージ <i>の一般化が</i> 試みされます。 この操作により、SSH ホスト キーが削除され、ルート ユーザーが無効にされ、パスワードが削除され、DHCP キャッシュ エントリが削除されます。これは通常は良い方法ですが、この VHD を広く共有する予定ではない場合は、この手順をスキップすることもできます。
+
+      <pre class="prettyprint">
+  root@:~# /usr/sbin/waagent &ndash;deprovision
+
+  WARNING! The waagent service will be stopped.
+
+  WARNING! All SSH host key pairs will be deleted.
+
+  WARNING! Cached DHCP leases will be deleted.
+
+  WARNING! Nameserver configuration in /etc/resolv.conf will be deleted.
+
+  WARNING! root password will be disabled. You will not be able to login as root.
+
+  Do you want to proceed (y/n)? y</pre>
+      <b> メモ：</b> このコマンドを実行すると、警告メッセージが表示される場合があります。このovf-env.xmlファイルが存在しません。 このメッセージは無視してかまいません。</li>
+      <li><strong>FreeBSD 仮想マシンをシャットダウンする </strong></li>
+  </ul>
+
+
+  <p><strong>All done!</strong> うわー、簡単でしたね。</p>
+
+
+  <h2>アップロード Azure への FreeBSD VHD のインストール</h2>
+
+
+  <p>VHD を Azure にアップロードするには、いくつかの方法があります。 この記事では、Azure PowerShell ツールを使用して、VHD をストレージ アカウントにアップロードします。</p>
+
+
+  <ul>
+      <li>まず、Hyper-V サーバー上の FreeBSD 仮想マシンをシャットダウンしてください</li>
+      <li>次に、Add-AzureVhd コマンドレットを使用して VHD をアップロードします。 <pre class="prettyprint">
+  PS C:\&gt; $destination = &ldquo;https://MYACCOUNT.blob.core.windows.net/vhds/FreeBSD-10.0-RELEASE-amd64-20140116-r260789.vhd&rdquo;
+
+  PS C:\&gt; $localfile = &ldquo;C:\PATH\FreeBSD-10.0-RELEASE-amd64-20140116-r260789.vhd&rdquo;
+
+  PS C:\&gt; Add-AzureVhd -Destination $destination -LocalFilePath $localfile</pre>
+      </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+      <li>アップロードが完了したら、その VHD を使用してイメージを作成できます。<i></i>そこから、Azure で任意の数の FreeBSD 仮想マシンをプロビジョニングできます。
+
+      <pre class="prettyprint">
+  PS C:\&gt; $destination = &ldquo;https://MYACCOUNT.blob.core.windows.net/vhds/FreeBSD-10.0-RELEASE-amd64-20140116-r260789.vhd&rdquo;
+
+
+  PS C:\&gt; Add-AzureVMImage -ImageName FreeBSD10.0 -MediaLocation $destination -OS Linux</pre>
+
+  ここでは、LINUX の OS の種類を使用する必要&ldquo;&rdquo;があります。 残念ながら、PowerShell ツールは現在、 &ldquo;-OS FreeBSD パラメーターをサポート&rdquo; :)</li>
+
+  </ul>
+
+
+  <h2>Azure で FreeBSD 仮想マシンを作成する</h2>
+
+
+  <p>最後に、Azure で新しい FreeBSD 仮想マシンを作成する準備が整いました。 これには PowerShell または CLI ツールも使用できます。または、一般的な方法でポータルから FreeBSD 10 イメージをスピンアップすることもできます。</p>
+
+
+  <ul>
+      <li>Azure 管理ポータル () にログイン<a href="https://manage.windowsazure.com/">https://manage.windowsazure.com/</a>し、&ldquo;NEW-COMPUTE-VIRTUAL&gt;&gt; MACHINE-FROM GALLERY を&gt;クリックします&rdquo;</li>
+      <li>[マイ イメージ] &ldquo;をクリックします&rdquo;</li>
+      <li>[イメージの選択 &ldquo;] メニューで [&rdquo; マイ イメージ] &ldquo;を選択します。&rdquo;</li>
+      <li>FreeBSD10 イメージを選択し、プロンプトに従ってホスト名、パスワード、SSH キーなどを設定します。</li>
+  </ul>
+
+
+  <p>プロビジョニングが完了すると、Azure で新しい FreeBSD 10 VM が稼働します。 機能を有効にご活用ください。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/FreeBSD08.png"><img alt="FreeBSD VM running in Microsoft Azure" border="0" height="150" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/FreeBSD08_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto;" title="Microsoft Azure で実行されている FreeBSD VM" width="612"></a></p>

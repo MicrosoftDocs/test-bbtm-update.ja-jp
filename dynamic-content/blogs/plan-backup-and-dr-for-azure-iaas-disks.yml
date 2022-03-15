@@ -1,0 +1,41 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bd966be0b7f89b3dfffdc386ae425614d4c56f9d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904561"
+Slug: plan-backup-and-dr-for-azure-iaas-disks
+Title: Azure IaaS ディスクのバックアップとディザスターリカバリーを計画する
+Summary: この記事では、Azure での IaaS Vm とディスクのバックアップとディザスターリカバリーに関する考慮事項の基本について説明します。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/storage/storage-backup-and-disaster-recovery-for-azure-iaas-disks">Azure ディスクのバックアップと DR につい</a>て説明する記事が最近投稿されました。 Azure IaaS ユーザーは、ディスクのバックアップとディザスターリカバリー (DR) の適切な手法を計画するために、このドキュメントを参照することをお勧めします。 次に、いくつかの考慮事項を示します。</p>
+
+
+  <h2>Azure ディスクの持続性</h2>
+
+
+  <p>Azure が IaaS ディスクのエンタープライズレベルの持続性を継続的に提供していることを、業界トップレベルの <a href="https://en.wikipedia.org/wiki/Annualized_failure_rate">年間故障率</a>0% として報告することをお待ちしております。 これは、Azure が IaaS ディスクに永続的に障害を発生させていないことを意味します。 Azure のお客様にとっては、Azure で実行されている重要なアプリケーションに対して、コストの削減、信頼性の向上、より円滑な操作を直接翻訳します。 たとえば、Azure は、ローカルに保存された3つの冗長コピーを使用してデータを保護するので、多くの場合、 &rsquo; 冗長性を備えた高価な RAID ソリューションを構築する必要はありません。 ディスクを保持する2つの異なるハードウェアコンポーネントが同時に失敗した場合でも、データの持続性は保護され、失われたコピーを置き換えるために Azure によって自動的にバックグラウンドで新しいレプリカが生成されます。 Azure disks プラットフォームは、データを保護することがあらゆるストレージプラットフォームにとって重要であるという主要な考慮事項を使用して構築されています。 Azure ディスクを使用すると、 &rsquo; クラウド内のディスクの損失について常に心配する必要があります。</p>
+
+
+  <p>ハードウェア障害によって VM が一時的に使用できなくなることがあります。これは、VM の可用性のために <a href="https://azure.microsoft.com/en-us/support/legal/sla/virtual-machines/v1_6/">AZURE SLA</a> によって対象となります。 また、Azure は、 <a href="https://docs.microsoft.com/en-us/azure/storage/storage-premium-storage-performance">Premium Storage ディスク</a>を使用する単一の VM インスタンスに対して業界最高レベルの SLA を提供します。</p>
+
+
+  <h2>バックアップと障害復旧</h2>
+
+
+  <p>プラットフォームには、ローカライズされたハードウェア障害に対する保護機能が組み込まれていますが、大規模な障害を引き起こす可能性がある主要なインシデントに対する保護のために、バックアップとディザスターリカバリーを計画する必要があります。 これには、ハリケーン、地震、火災などの致命的なイベントが含まれます。DR の場合は、データの定期的なバックアップを別の地理的な場所に計画する必要があります。 詳細については <a href="https://docs.microsoft.com/en-us/azure/storage/storage-backup-and-disaster-recovery-for-azure-iaas-disks">、Azure ディスクのバックアップと DR</a> に関する記事をご覧ください。</p>
+
+
+  <p>ディスクバックアップに関して考慮すべき重要な点は、整合性のあるバックアップ &rdquo; を作成する &ldquo; ことです。 バックアップは、VM 上のすべてのディスクの整合性のある一貫性のある状態で実行する必要があります。 アプリケーション整合性 &rdquo; バックアップを作成 &ldquo; するには、可能であれば、アプリケーションと連携させる必要があります。 これは、復旧時に VM とアプリケーションを有効な状態に復元できるようにするために必要です。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/backup/">Azure Backup サービス</a>は、ディスクのバックアップソリューションとして使用できます。また、管理されていない<a href="https://docs.microsoft.com/en-us/azure/storage/storage-about-disks-and-vhds-windows#unmanaged-disks">ディスク</a>だけでなく<a href="https://docs.microsoft.com/en-us/azure/storage/storage-managed-disks-overview">Managed Disks</a>でも動作します。 Backup サービスは、整合性のあるバックアップ用にディスクの調整を処理し、DR 用にバックアップを別の地理的リージョンに複製するコンテナーの GRS オプションを提供します。</p>
+
+
+  <p><img alt="" src=""><br>
+
+  もう1つの解決策は、ディスクに対して一貫したスナップショット &rdquo; を作成 &ldquo; することです。 この場合は、整合性のあるバックアップを作成するためのディスクの調整と、別の地理的な場所へのバックアップのレプリケーションを処理する必要があります。</p>
+
+
+  <p><img alt="" src="https://docs.microsoft.com/en-us/azure/storage/media/storage-backup-and-disaster-recovery-for-azure-iaas-disks/backup-and-disaster-recovery-for-azure-iaas-disks-2.pngarticle for more details.</p>

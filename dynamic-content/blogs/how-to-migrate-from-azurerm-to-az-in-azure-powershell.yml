@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c74f931a0c131a425818f166df2196130f3a2cdf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910770"
+Slug: how-to-migrate-from-azurerm-to-az-in-azure-powershell
+Title: AzureRM から Az に移行するAzure PowerShell
+Summary: 2018 年 12 月 18 日、Azure PowerShell チームは、AzureRM に代わる新しいクロスプラットフォーム PowerShell モジュールである"Az" の最初の安定したバージョンをリリースしました。 このモジュールをインストールするには、管理者特権の PowerShell プロンプトで "Install-Module Az" を実行します。
+Content: >-
+  <p>2018 年 12 月 18 日、Azure PowerShell &ldquo; チームは、<a href="https://www.powershellgallery.com/packages/Az/" target="_blank">AzureRM</a> に代わる新しいクロスプラットフォーム PowerShell モジュールである Az&rdquo; の最初の安定したバージョンをリリースしました。 このモジュールをインストールするには、管理者特権の &ldquo;PowerShell プロンプトで Install-Module Az&rdquo; を実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ccaef96d-0339-4483-ace8-1cf8f0cd724c.png"><img alt="Screenshot of PowerShell session where Az was installed from the Gallery " border="0" height="152" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c129b75b-6534-40c2-8d39-5251e5784b99.png" style="margin: 0px auto; border: 0px solid currentcolor; border-image: none; width: 628px; height: 111px; display: block; background-image: none;" title="ギャラリーから Az がインストールされた PowerShell セッションのスクリーンショット " width="851"></a></p>
+
+
+  <p>2018 年 1 月以降、PowerShell は<a href="https://blogs.msdn.microsoft.com/powershell/2018/01/10/powershell-core-6-0-generally-available-ga-and-supported/" target="_blank"></a>クロスプラットフォームの製品で、この機能を導入PowerShell Core。 そのため、クロスプラットフォームサポートをAzure PowerShellの優先事項にもなっているのです。 クロスプラットフォームでの Azure PowerShell の実行をサポートするために必要な変更のため、既存の AzureRM モジュールを<a href="https://github.com/Azure/azure-powershell/blob/master/documentation/announcing-az-module.md" target="_blank"></a>変更するのではなく、新しいモジュールを作成することを決定しました。 今後、すべての新機能が Az モジュールに追加され、AzureRM はバグ修正でのみ更新されます。</p>
+
+
+  <h2>環境内で Az を構成する</h2>
+
+
+  <p>Az と AzureRM はどちらも異なるバージョンで同じ依存関係を使用します。ため、同じ PowerShell セッションで Az と AzureRM をサイド バイ サイドで実行することはできません。 そのため、Az コマンドレットと AzureRM コマンドレットをスクリプトと対話型セッションで一緒に使用することはできません。 スクリプトが Az モジュールと AzureRM モジュールの両方を同じセッションにインポートしようとしなからなから、AzureRM を使用する既存のスクリプトが多数ない場合は、Az をインストールした後にマシンからすべての AzureRM モジュールを削除することをお勧めします。 便宜上、新しい &ldquo; Az モジュールにある <a href="https://docs.microsoft.com/en-us/powershell/module/az.accounts/uninstall-azurerm" target="_blank">Uninstall-AzureRm</a>&rdquo; コマンドレットを作成しました。 このコマンドレットを使用するには、AzureRM &ldquo;モジュールがインポートされるすべての PowerShell セッションが閉じ、管理者特権の PowerShell セッションで Uninstall-AzureRm&rdquo; を実行してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6bb7ff20-3049-40d1-8946-10aa9d6b602f.png"><img alt="Screenshot of PowerShell session where Uninstall-AzureRm cmdlet was run. " border="0" height="309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37103964-c79d-4bac-84a4-23af9e6d6721.png" style="margin: 0px auto; border: 0px solid currentcolor; border-image: none; width: 647px; height: 126px; display: block; background-image: none;" title="コマンドレットが実行された PowerShell Uninstall-AzureRmのスクリーンショット。 " width="1584"></a></p>
+
+
+  <h2>既存のスクリプトのAzure PowerShellは?</h2>
+
+
+  <p>既存のスクリプトに対して引き続き AzureRM を使用し、Az を使用して新しいスクリプトを記述する場合は、2 つのオプションがあります。</p>
+
+
+  <h3>オプション 1 &ndash; インストール PowerShell Core 6</h3>
+
+
+  <p>1 つの方法は、PowerShell Core <a href="https://github.com/PowerShell/PowerShell" target="_blank">5.1</a> で引き続き AzureRM を使用しながら、Windows PowerShell 6 に Az をインストールする方法です。 これにより、azureRM と Az が同じセッションでインポートされる問題が発生する可能性なく、Windows PowerShell 5.1 で既存の AzureRM スクリプトを実行できます。</p>
+
+
+  <h3>オプション 2 モジュールの &ndash; 明示的な読み込み</h3>
+
+
+  <p>または、マシンに PowerShell 6 をインストールできない場合は、各スクリプトの先頭で使用する Az または AzureRM モジュールを明示的に必要としてください。これにより、必要なモジュールが AzureRM と Az の両方から取得されていないことを確認してください。 AzureRM と Az &ldquo;のサイド バイ サイド インストールに関する警告をオフにする場合は、<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-6" target="_blank">powerShell</a> プロファイルに $env:SkipAzInstallationChecks=true&rdquo; を追加してください。</p>
+
+
+  <h2>Az での AzureRM エイリアスの使用</h2>
+
+
+  <p>コマンドレット名を簡略化して正規化するために、新しい Az モジュールのすべてのコマンドレットのプレフィックスを AzureRM と Azure から Az に変更しました。 AzureRM で正常に実行するために AzureRM 用に記述された既存のスクリプトを有効&ldquo;にするには、<a href="https://docs.microsoft.com/en-us/powershell/module/az.accounts/enable-azurermalias" target="_blank">コマンドレット Enable-AzureRmAlias</a>&rdquo; を記述して、古いコマンドレット名のエイリアスを作成しました。 このコマンドレットには Scope パラメーターが含まれています。これにより、エイリアスを現在のセッションにのみ作成するか、今後のすべてのセッションに対して作成するか選択できます。 さらに、Module パラメーターを使用して、特定のモジュールのエイリアスを &ldquo;インポート&rdquo; できます。 スクリプトが Az プレフィックスを&ldquo;&rdquo;&ldquo;使用するように変換された後は、<a href="https://docs.microsoft.com/en-us/powershell/module/az.accounts/disable-azurermalias" target="_blank">Disable-AzureRmAlias</a> コマンドレットを使用してエイリアスをオフ&rdquo;にできます。 Az モジュールに追加された新しいコマンドレットはすべて、これらの AzureRM エイリアスを持たないので、すべての新しいスクリプトで Az プレフィックス &ldquo;構文を使用する&rdquo; 必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7baf9e7f-27c0-4aa4-bc64-11110b1aa1c6.png"><img alt="Screenshot of PowerShell session where Enable-AzureRm cmdlet was run. " border="0" height="445" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4fc94614-a1a3-4f0f-961b-75e8b0ddc662.png" style="margin: 0px auto; border: 0px solid currentcolor; border-image: none; width: 682px; height: 193px; display: block; background-image: none;" title="コマンドレットが実行された PowerShell Enable-AzureRmのスクリーンショット。 " width="1570"></a></p>
+
+
+  <h2>CloudShell 上の Az</h2>
+
+
+  <p>新しい Az モジュールを対話形式でテストする簡単な方法を探している場合は、 <a href="https://docs.microsoft.com/en-us/azure/cloud-shell/overview" target="_blank">CloudShell</a> が新しい Az モジュールと一緒に出荷されます。 CloudShell は、&rsquo;すべての場所で実行され、インストールを必要としないので、新しい Az のすべての機能を試しながら環境をそのままにしておけるので、最適なオプションです。 CloudShell セッション内の [PowerShell] タブに移動するだけで、すべての Az モジュールがセッションに自動的にインストールされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b6f37a5-4f2d-4ee6-8639-a71eb7c7cdf3.png"><img alt="Az on CloudShell" border="0" height="448" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/49a320d2-8593-4442-9ab3-baff550062a8.png" style="margin: 0px auto; border: 0px solid currentcolor; border-image: none; width: 693px; height: 305px; display: block; background-image: none;" title="CloudShell 上の Az" width="1016"></a></p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>新しい Az モジュールを使用すると、任意のプラットフォームまたはオペレーティング システムから Azure を管理する生産性と効率を高めることができます。 &ldquo;そのため、新しいクロスプラットフォーム モジュールを試してみたいと思います。また、AzureRM と新しい Az モジュールの両方で使用できる組み込みの Send-Feedback&rdquo; コマンドレットを使用して、フィードバック、提案、または問題をお寄せください。 または、お客様のリポジトリでいつでも問題<a href="https://github.com/Azure/azure-powershell/issues" target="_blank">をGitHubできます</a>。</p>

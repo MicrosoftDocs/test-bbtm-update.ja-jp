@@ -1,0 +1,132 @@
+### YamlMime:Yaml
+ms.openlocfilehash: de53d4b27b94d34970110738056944eeb74008a1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910845"
+Slug: cost-optimization-strategies-for-cloudnative-application-development
+Title: クラウドネイティブ アプリケーション開発のためのコスト最適化戦略
+Summary: 現在は、Azure 上で利用できるいくつかの戦略を確認し、Azure Kubernetes Service (AKS) とマネージド データベース (Azure Cosmos DB や Azure Database for PostgreSQL など) を使用してクラウドネイティブ アプリケーション開発プロセスを最適化します。
+Content: >-
+  <p>&rsquo;現在は、Azure で利用できるいくつかの戦略を確認し、Azure Kubernetes Service (AKS) とマネージド データベース (Azure Cosmos DB や Azure Database for PostgreSQL など) を使用してクラウドネイティブ アプリケーション開発プロセスを最適化します。</p>
+
+
+  <h2>リソースを使用してコンピューティング リソースを最適化Azure Kubernetes Service</h2>
+
+
+  <p>AKS を使用すると、マネージド Kubernetes クラスターを Azure に簡単にデプロイできます。 AKS では、責任の多くを Azure にオフロードすることで、Kubernetes の管理の複雑さと運用上のオーバーヘッドを軽減します。 マネージド Kubernetes サービスとして、正常性の監視やメンテナンスなどの重要なタスクが Azure によって処理されます。</p>
+
+
+  <p>&rsquo;AKS を使用してコンテナー ワークロードをデプロイする場合、コストを節約し、開発およびテスト環境の実行方法を最適化するための戦略がいくつかある。</p>
+
+
+  <h3>複数のユーザー ノード プールを作成し、スケールをゼロに有効にする</h3>
+
+
+  <p>AKS では、同じ構成のノードがノード プールにグループ化されます。 コンピューティングまたは記憶域の要件が異なるアプリケーションをサポートするには、追加の "ユーザー ノード プール" を作成します。 ユーザー ノード プールは、アプリケーション ポッドをホストするという主要な目的を果たします。 たとえば、これらの追加のユーザー ノード プールを使用して、コンピューティング集中型アプリケーションや高パフォーマンス SSD ストレージへのアクセスに GPU を提供できます。</p>
+
+
+  <p>仮想マシン スケール セットで実行される複数のノード プールがある場合は、ノードの最小数を設定するクラスター オートスケーラーを構成できます。また、必要ない場合 (たとえば、作業時間外など) にノード プールのサイズを手動で 0 にスケールダウンすることもできます。</p>
+
+
+  <p>詳細については、 <a href="https://aka.ms/aks/nodepool/mode" target="_blank">AKS でノード プールを管理する方法に関するページを参照してください</a>。</p>
+
+
+  <h3>クラスター オートスケーラーを使用してノード プールをスポットする</h3>
+
+
+  <p>AKS のスポット ノード プールは、スポット仮想マシンを実行する仮想マシン スケール セットによってサポート <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/spot-vms" target="_blank">されるノード プールです</a>。 スポット VM を使用すると、Azure の未使用容量を大幅なコスト削減で利用できます。 スポット インスタンスは、バッチ処理ジョブや開発者およびテスト環境のような中断を処理できるワークロードに最適です。</p>
+
+
+  <p>スポット ノード プールを作成する場合。 1 時間あたりの最大料金を定義できるだけでなく、スポット ノード プールで使用するクラスター オートスケーラーを有効にすることもできます。 クラスターで実行されているワークロードに基づいて、クラスター オートスケーラーは、ノード プール内のノードの数をスケールアップおよびスケールダウンします。 スポット ノード プールでは、追加のノードが引き続き必要な場合、クラスター オートスケーラーは排除の後にノードの数をスケールアップします。</p>
+
+
+  <p>AKS クラスターにスポット ノード プールを追加する方法の詳細とガイダンスについては、 <a href="https://docs.microsoft.com/en-us/azure/aks/spot-node-pool" target="_blank">ドキュメントに従ってください</a>。</p>
+
+
+  <h3>次のコマンドを使用して Kubernetes リソース クォータを適用Azure Policy</h3>
+
+
+  <p><a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/" target="_blank">Kubernetes リソース クォータを名前空間レベルで適用し</a> 、リソースの使用状況を監視して、必要に応じてクォータを調整します。 これにより、開発チームまたはプロジェクト全体でリソースを予約および制限する方法が提供されます。 これらのクォータは名前空間で定義され、CPU、メモリ、GPU、ストレージ リソースなどのコンピューティング リソースのクォータを設定するために使用できます。 ストレージ リソースのクォータには、ボリュームの総数や、特定のストレージ クラスのディスク領域の量、オブジェクト数 (作成できるシークレット、サービス、ジョブの最大数など) が含まれます。</p>
+
+
+  <p>Azure Policy組み込みのポリシーを通じて AKS と統合し、一元的で一貫した方法でクラスターに大規模な適用と保護を適用します。 Azure Policy アドオンを有効にした場合は、Azure Policy で AKS クラスターへの割り当てを確認し、ポリシーの詳細をダウンロードしてキャッシュし、フル スキャンを実行し、ポリシーを適用します。</p>
+
+
+  <p>このドキュメントに従って、クラスターで <a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/rego-for-aks" target="_blank">Azure Policy</a> アドオンを有効にし、CPU とメモリ<a href="https://docs.microsoft.com/en-us/azure/governance/policy/samples/built-in-policies#kubernetes-service" target="_blank"></a>のリソース制限を確実に適用します。これにより、CPU とメモリのリソース制限が Azure Kubernetes Service クラスター内のコンテナーで定義されます。</p>
+
+
+  <h2>Azure Cosmos DB を使用してデータ層を最適化する</h2>
+
+
+  <p><a href="https://www.azurecosmosdb.com/" target="_blank">Azure Cosmos DB は</a>、Microsoft&#39;の高速 NoSQL データベースで、任意のスケールに対して開いている API を備えるデータベースです。 フル マネージドのサービスである Azure Cosmos DB では、シングルデジタルミリ秒の待機時間と 99.999% の可用性に対するサービス レベル アグリーメント (SLA) を使用して、速度とパフォーマンスが保証され、世界中の瞬時でエラスティックなスケーラビリティが提供されます。 ボタンをクリックすると、Azure Cosmos DB を使用すると、世界中のすべての Azure リージョンにデータをレプリケートし、MongoDB、Cassandra、Gremlin などのさまざまなオープンソース API を使用できます。</p>
+
+
+  <p>&rsquo;Azure Cosmos DB を開発およびテスト環境の一部として使用する場合、いくつかのコストを節約できる方法がいくつかあります。 Azure Cosmos DB では、プロビジョニングされた<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units" target="_blank">スループット (要求</a>ユニット、RUs) と消費するストレージ (DB) に対して料金を支払います。</p>
+
+
+  <h3>Azure Cosmos DB free レベルを使用する</h3>
+
+
+  <p>Azure Cosmos DB Free レベルを使用すると、アプリケーションを簡単に開始、開発、テストしたり、小規模な実稼働ワークロードを無料で実行したりすることができます。 アカウントで Free レベルを有効にすると、&#39;1 秒あたり 400 RU (RU/秒) のスループットと 5 GB のストレージを取得できます。 また、データベース レベルで 400 RU/秒を共有する 25 個のコンテナーを備えた 1 つの共有スループット データベースを作成し、すべて Free レベルで対応することもできます (Free レベルのアカウントでは、5 つの共有スループット データベースが上限になります)。 Free レベルは、アカウントの有効期間中は無期限に存続し、無制限のストレージとスループット (RU/秒)、SLA、高可用性、すべての Azure リージョンでのターンキー グローバル分散など、通常の Azure Cosmos DB アカウントの<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/introduction#key-benefits" target="_blank">利点と機能</a>をすべて備えます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/try/cosmosdb/" target="_blank">Azure Cosmos DB を無料でお試しください</a>。</p>
+
+
+  <h3>Azure Cosmos DB を使用してプロビジョニングされたスループットを自動スケーリングする</h3>
+
+
+  <p>プロビジョニングされたスループットは、アプリケーション パターンに応じて自動的にスケールアップまたはスケールダウンできます。&nbsp;スループットの最大値が設定された後、Azure Cosmos DB コンテナーとデータベースは、アプリケーションのニーズに基づいてプロビジョニングされたスループットを自動的に即座にスケーリングします。</p>
+
+
+  <p>自動スケーリングでは、SLA を維持しながら、容量計画と管理の要件を取り除く必要があります。 このため、アクティビティのピークが高い、非常に変動が大きく、予測できないワークロードのシナリオに最適です。 また、新しいアプリケーションをデプロイ&rsquo;&rsquo;する場合や、必要なプロビジョニングスループットの量が不明な場合にも適しています。 開発およびテスト データベースの場合、Azure Cosmos DB コンテナーは、使用されていない場合に、事前に設定された最小値 (400 RU/s または最大の 10% から) にスケールダウンされます。 自動スケーリングは、Free レベルとペアリングできます。</p>
+
+
+  <p>シナリオと Azure Cosmos DB 自動スケーリングの使用方法の<a href="https://docs.microsoft.com/en-ca/azure/cosmos-db/provision-throughput-autopilot" target="_blank">詳細については、ドキュメントに従ってください</a>。</p>
+
+
+  <h3>データベース レベルでスループットを共有する</h3>
+
+
+  <p>共有スループット データベースでは、データベース内のすべてのコンテナーによって、そのデータベースのプロビジョニング済みスループット (RU/秒) が共有されます。 たとえば、400 RU/秒のデータベースがプロビジョニングされ、コンテナーが 4 つある場合、4 つのコンテナーすべてによって 400 RU/秒 が共有されます。 開発またはテスト環境では、各コンテナーへのアクセス頻度が低く、最小 400 RU/s 未満が必要になる場合があります。コンテナーを共有スループット データベースに格納すると、コストの最適化に役立ちます。</p>
+
+
+  <p>たとえば、開発またはテスト アカウントに 4 つのコンテナーがあるとします。 専用スループット (最小 400 RU/s) で 4 つのコンテナーを作成した場合、RU/s の合計は 1,600 RU/s になります。 一方、1 つの共有スループット データベース (最小 400 RU/秒) を作成して、そこにコンテナーを配置した場合、RU/秒の合計は 400 RU/秒になります。 一般に、共有スループット データベースは、個々のコンテナーで保証&#39;必要ないシナリオに最適です</p>
+
+
+  <p>ドキュメントに従って <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput#set-throughput-on-a-database" target="_blank">、開発およびテスト環境</a> に使用できる共有スループット データベースを作成します。</p>
+
+
+  <h2>データ層を最適化するには、次のAzure Database for PostgreSQL</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/postgresql/" target="_blank">Azure Database for PostgreSQL</a> は、Community Edition PostgreSQL のエンタープライズ レベルの機能を提供するフル マネージド サービスです。 特に危機的な状況の中でオープン ソース テクノロジの成長が続く中、PostgreSQL では、PostgreSQL でオープンソースを維持しながら、アプリケーションの整合性、パフォーマンス、セキュリティ、および耐久性を確保するために、ユーザーによる導入が増加しています。 Azure Database for PostgreSQL では、開発者向けのエクスペリエンスと新しい機能をコスト用に最適化することで、データベース管理が Azure Database for PostgreSQL によって処理されている間、開発者はアプリケーションに集中できます。</p>
+
+
+  <h3>予約容量の価格オンライン&mdash;Azure Database for PostgreSQL</h3>
+
+
+  <p>Azure でフル マネージド PostgreSQL データベースを実行するコストを、現在は Azure で使用可能な予約容量を使用して管理Azure Database for PostgreSQL。 現在利用できる通常の支払い方法と比較して、最大 60% 節約できます。</p>
+
+
+  <p>詳細については <a href="https://azure.microsoft.com/en-us/pricing/details/postgresql/server/" target="_blank">、Azure Database for PostgreSQL</a> の価格に関するページを参照してください。</p>
+
+
+  <h3>PostgreSQL でのハイ パフォーマンス スケールアウト</h3>
+
+
+  <p>Hyperscale を使用して、単一ノード PostgreSQL データベースから高パフォーマンスの水平スケールアウトの機能を活用します。 1 つのデータベースでトランザクションと分析を実行することで時間を節約しながら、手動シャーディングのコストと労力を高く抑える。</p>
+
+
+  <p>概要で <a href="https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-hyperscale-portal" target="_blank">Hyperscale を使用Azure Database for PostgreSQL</a> できます。</p>
+
+
+  <h3>オープン ソース PostgreSQL との互換性を高くする</h3>
+
+
+  <p>この機能Azure Database for PostgreSQL、アプリケーションの大規模な再アーキテクチャを行わずに、コミュニティ エディション PostgreSQL の多くのイノベーション、バージョン、ツールを引き続き利用できます。 Azure Database for PostgreSQLは拡張機能に優れ、PostgreSQL で最適なシナリオを引き続き実現しながら、インテリジェント パフォーマンス、クエリ パフォーマンス インサイト、Advanced Threat Protection など、高品質のエンタープライズ レベルの機能を常にすぐに利用できます。</p>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-hyperscale-portal" target="_blank">Azure Database for PostgreSQL</a> ドキュメントを参照してください。</p>

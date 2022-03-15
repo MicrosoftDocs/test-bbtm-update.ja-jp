@@ -1,0 +1,109 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a4a9eeca139ed7c787f27dea82d42e1d2b636cb1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910459"
+Slug: remote-profiling-support-in-azure-app-service
+Title: リモート プロファイルのサポート (Azure App Service
+Summary: Azure Web Appsと API Apps WebJobs をリモートでプロファイルできます。 プロセスをプロファイルする 3 つの方法をAzure App Service CPU 使用率レポートを取得します。
+Content: >-
+  Azure Web Appsと API Apps WebJobs をリモートでプロファイルできます。 プロセスの実行速度が予想よりも遅い場合、または HTTP 要求の待機時間が通常よりも長く、プロセスの CPU 使用率もかなり高い場合は、プロセスをリモートでプロファイルし、CPU サンプリング呼び出し履歴を取得してプロセス アクティビティとコード ホット パスを分析できます。
+
+
+  次の 3 つの方法でプロセスをプロファイルしAzure App Service CPU 使用率レポートを取得します。
+
+  <ul>
+   <li>2015 Visual Studioの使用</li>
+   <li>Azure App Serviceのサイト コントロール管理ダッシュボード (別名 kudu) を参照する</li>
+   <li>REST API の使用</li>
+  </ul>
+
+  &nbsp;
+
+
+  プロファイリングは、無料または共有サイトではサポートされていません。 プロファイルするには、サイトを Basic または Standard にアップグレードする必要があります。 また、CPU プロファイルは .Net アプリで最適に動作します。
+
+  <h2>Visual Studio 2015 を使用したプロファイリング</h2>
+
+  2015 年 2015 年を使用したプロファイリングについては、次のVisual Studioします。
+
+  <ul>
+   <li>[表示サーバー エクスプローラー開きます ([表示] メニュー &gt; サーバー エクスプローラーまたは Ctrl + W、L)。</li>
+   <li>[Azure] を展開App Serviceリソース グループを選択し、アプリのノードを右クリックし、[プロファイルの開始] ジェスチャを選択します。</li>
+   <li>リモート プロファイル セッションが開始され、シナリオを実行できます。CPU サンプルは、プロセスのために Azure で収集されます。</li>
+   <li>[プロファイルの停止] ジェスチャを使用してリモート プロファイル セッションを停止すると、Azure Web アプリで収集されたプロファイリング データがダウンロードされ、Visual Studio 2015 で開きます。</li>
+  </ul>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/03/vs_profiling.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="リモート プロファイルのサポート (Azure App Service" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/vs_profiling_thumb.png" alt="Remote Profiling support in Azure App Service" width="610" height="473" border="0" /></a>
+
+
+  &nbsp;
+
+
+  同じ手順を繰り返して、Web アプリの [Web ジョブ] セクションで API アプリまたは Web ジョブをプロファイルできます。 Web アプリが複数のインスタンスで実行されている場合、VS は 1 つを選択し、そのインスタンスでのみプロファイリング セッションを開始します。
+
+
+  Azure SDK 2.7 の詳細については、 <a href="https://azure.microsoft.com/blog/2015/07/20/announcing-the-azure-sdk-2-7-for-net/">Azure SDK 2.7 for .NET のお知らせを参照してください。</a>
+
+
+  Visual Studio 2015 の新しいデバッグ機能とプロファイル機能の詳細については、「診断ツール in <a href="https://blogs.msdn.com/b/visualstudioalm/archive/2015/07/20/performance-and-diagnostic-tools-in-visual-studio-2015.aspx">Visual Studio 2015</a>」を参照してください。
+
+  <h2>kudu サイトを使用したプロファイリング</h2>
+
+  kudu サイトを使用してプロファイルするには、次の手順に従います。
+
+  <ul>
+   <li>サイトの scm エンドポイント (&lt;yoursite.scm.azurewebsites.net&gt;) に移動します。</li>
+   <li>[プロセス エクスプローラー] をクリックします。 ここでは、サイトのコンテキスト (サンドボックス) で実行されているすべてのプロセスが表示されます。</li>
+   <li>プロファイリングするプロセス (最も可能性の高いプロセス) の [プロファイルの開始w3wp.exeクリックします。</li>
+   <li>シナリオを実行し、[プロファイルの停止] ボタンをクリックします。</li>
+   <li>数秒後、ブラウザーでファイルのダウンロード オプションが表示されます。 プロファイルは、後で保存して表示するか、2015 年 1 月Visual Studioできます。</li>
+  </ul>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/03/kudu.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border: 0px;" title="リモート プロファイルのサポート (Azure App Service" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/kudu_thumb.png" alt="Remote Profiling support in Azure App Service" width="610" height="72" border="0" /></a>
+
+
+  &nbsp;
+
+
+  プロファイリングでは大きなファイルが生成される可能性があります。プロファイル セッションを 1 から 2 分以上実行する方法は推奨されません。 kudu サイトからセッションが開始され、15 分以上実行されている場合、プロファイル セッションは終了します。
+
+
+  Web アプリが複数のインスタンスで実行されている場合は、プロファイリングするインスタンスの scm サイトに接続し、そのインスタンスでのみプロファイリング セッションを開始できます。
+
+  <h2>REST 呼び出しを使用したプロファイリング</h2>
+
+  kudu エンドポイントを使用して、REST 呼び出しを使用してプロファイリング セッションを開始および停止できます。
+
+
+  プロファイリング セッションを開始するには:<strong> POST /api/processes/{process id}/profile/start</strong>
+
+
+  プロファイル セッションを停止してプロファイルをダウンロードするには: <strong>GET /api/processes/{process id}/profile/stop</strong>
+
+  <h2>プロファイルの表示</h2>
+
+  生成されたプロファイルは.diagsession ファイルです。このファイルは、2015 年Visual Studioできます。 VS 2015 を使用できない場合は、拡張子の名前を .zip ファイルに変更し、ETW イベントを理解する任意のツールで zip 内の .etl ファイルを開くことができる場合があります。
+
+
+  VS 2015 でプロファイルを開いた後は、使い慣れたすべてのプロファイリング ページが表示されます。このページでは、プロファイリング セッションの詳細を簡単にドリルダウンし、ボトルネックを特定できます。 長時間の CPU 使用率が長いアプリケーションからのサンプル プロファイル セッションを次に示します。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/03/output.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border: 0px;" title="リモート プロファイルのサポート (Azure App Service" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/output_thumb.png" alt="Remote Profiling support in Azure App Service" width="610" height="258" border="0" /></a>
+
+
+  &nbsp;
+
+
+  [詳細レポートの作成] をクリックすると、プロファイル セッションの詳細を表示できます。

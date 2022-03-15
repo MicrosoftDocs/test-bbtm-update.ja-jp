@@ -1,0 +1,94 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8de2917996a82b5ada2894fa31fbb463105f82d3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910346"
+Slug: running-debian-in-azure
+Title: Azure での Debian の実行
+Summary: Microsoft は、Linux Foundation のメンバーである Credativ と提携し、Azure でサポートされている Linux ディストリビューションの 1 つとして debian を Microsoft Azure Marketplace に取り込みしました。
+Content: >-
+  <p>Debian は現在利用可能な最も一般的な Linux ディストリビューションの 1 つであり、完全に<a href="https://en.wikipedia.org/wiki/Free_and_open-source_software"></a>無料でオープンソースのソフトウェアで構成されています。そのほとんどは <a href="https://en.wikipedia.org/wiki/GNU_General_Public_License">GNU 一</a>般公開ライセンスに基あり、Debian Project と呼ばれる個人のグループによってパッケージ化されています。</p>
+
+
+  <p>Microsoft は、Linux Foundation のメンバーである <a href="https://www.credativ.com/">Credativ</a> と提携し、Azure でサポートされている Linux ディストリビューションの 1 つとして debian を Microsoft Azure Marketplace に取り<a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-endorsed-distributions/">込みしました</a>。 Azure Marketplace で Debian を利用できるので、Microsoft のサポートを受け、Azure で Debian を実行できます。 この記事では、Azure で Debian を実行する手順について説明します。 この記事では、対象ユーザーが Azure サブスクリプションを持ち、Azure で Linux VM を使用した経験を持っているユーザーを想定しています。</p>
+
+
+  <p>Azure サブスクリプションを使用 <a href="https://azure.microsoft.com/en-us/pricing/purchase-options/">したセットアップと</a> 、 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-tutorial/">Azure で VM を作成する方法について説明します</a>。</p>
+
+
+  <h2>次のページから Debian VM を作成Azure Marketplace</h2>
+
+
+  <p>独自の Debian イメージを Azure に取り込む場合は、事前に作成したイメージを、Azure で既に使用Azure Marketplace。 これらのイメージは Credativ によって作成され、Credativ と Microsoft によってテストされ、サポート ポリシーで説明されている Microsoft Azure&rsquo; s Linux <a href="https://azure.microsoft.com/en-us/blog/expanding-linux-and-oss-support-on-azure/"></a>&nbsp; およびオープン ソース開発者サポート チームによってサポートされています。Microsoft と Credativ は、今後 Azure で最も更新された Debian バージョンを提供するために一緒に動作します。 現在、Azure の Debian イメージは安定したリリースです。Debian 7 (codename &ldquo;Wheezy&rdquo;) と Debian 8 (codename &ldquo;Jessie&rdquo;)。</p>
+
+
+  <p>Azure サブスクリプションを使用して Azure 管理ポータルにログインします。</p>
+
+
+  <ul>
+   <li>次のページ &ldquo;で&rdquo; Marketplace から Debian を検索Azure portal、一覧から好みの Debian バージョンを選択します。</li>
+  </ul>
+
+
+  <p><img alt="newportal4" border="0" height="148" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8fcf197b-b4db-4676-87d4-56fc70d89597.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="newportal4" width="610"></p>
+
+
+  <ul>
+   <li>右上隅のドロップダウン リストでデプロイ <strong></strong> モード (クラシックまたは<strong>Resource Manager) を</strong>選択します。 <strong>Resource Manager</strong> 最新の Azure プラットフォーム機能がサポートされているので、推奨されるデプロイ モードです。 詳細については、こちらをResource Manager <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-azurerm-versus-azuresm/">してください</a>。</li>
+  </ul>
+
+
+  <p><img alt="image" border="0" height="154" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0330cdc5-9832-4739-b6d5-c54cc7fc61b6.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="image" width="360"></p>
+
+
+  <ul>
+   <li>[作成] ボタンをクリックして Debian VM を作成し、必要な情報 (VM 名、ユーザー、パスワード、リージョンなど) を指定します。</li>
+  </ul>
+
+
+  <h3>Debian 7 &ldquo;Wheezy&rdquo; に関するAzure Marketplace</h3>
+
+
+  <p>Debian 7 &ldquo;Wheezy&rdquo; は 3.2 カーネルに基づいており、Azure で適切に実行するために必要な最新の <a href="https://technet.microsoft.com/en-us/library/dn531030.aspx">Linux</a> Integration Services が含まれていません。 この問題に対処するために、Debian 7 Wheezy イメージを、Debian 8 Jessie&rdquo; と同じカーネル バージョンである Debian バックポートから 3.16&nbsp; カーネルを使用して Azure にパッケージ化しました。Debian 7 &ldquo;&ldquo;Wheezy&rdquo;&rdquo; の調整と再コンパイルは、テスト済みであり、Azure でサポートされています。&ldquo; Azure の各安定リリースのカーネル バージョンを次に示します。</p>
+
+
+  <table border="1" cellpadding="4" cellspacing="0" width="400">
+   <tbody>
+    <tr>
+     <td valign="top" width="200">Azure の Debian</td>
+     <td valign="top" width="200">カーネル バージョン</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">Debian 7 ( &ldquo;wheezy&rdquo;)</td>
+     <td valign="top" width="200">3.16.0-0.bpo.4-amd64</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">Debian 8 (&ldquo;Jessie&rdquo;)</td>
+     <td valign="top" width="200">3.16.0-4-amd64</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>Debian の新しいソフトウェアの詳細については、Debian のバックポート <a href="https://backports.debian.org/">に関するページを参照してください</a>。</p>
+
+
+  <h2>Azure で独自の Debian を使用する</h2>
+
+
+  <p>Azure で独自の Debian イメージを作成する場合は、イメージを Azure に取り込む前に、いくつかの重要な操作を行う必要があります。</p>
+
+
+  <ul>
+   <li>&nbsp;&nbsp;&nbsp; ネットワークが構成されていることを確認します</li>
+   <li>&nbsp;&nbsp;&nbsp; Grub 構成のカーネル ブート行を更新して、Azure の追加のカーネル パラメーターを含める</li>
+   <li>&nbsp;&nbsp;&nbsp; Azure Linux エージェントをインストールする</li>
+   <li>&nbsp;&nbsp;&nbsp; SSH サーバーをインストールして有効にする</li>
+   <li>&nbsp;&nbsp;&nbsp; OS ディスクにスワップ領域が作成されていない</li>
+   <li>&nbsp;&nbsp;&nbsp; シャットダウンする前に VM のプロビジョニングが切断されている</li>
+  </ul>
+
+
+  <p>Debian VHD の作成と Azure へのアップロードに関する詳細な技術ガイダンスについては、ドキュメント ページを <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-create-upload-vhd-debian/">参照してください</a>。</p>

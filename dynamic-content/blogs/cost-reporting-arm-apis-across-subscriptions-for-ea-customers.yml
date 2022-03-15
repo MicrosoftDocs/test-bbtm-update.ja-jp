@@ -1,0 +1,125 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5d37816a077bab47eae0e3f4cce234fe53a918e8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910844"
+Slug: cost-reporting-arm-apis-across-subscriptions-for-ea-customers
+Title: EA のお客様のサブスクリプション間での ARM Api のコスト報告
+Summary: '現在、Azure enterprise のお客様は EA ポータルでサブスクリプションを管理し、EA 階層を使用してサブスクリプション別の使用状況とコストについてグループ化およびレポートを作成しています。 '
+Content: >-
+  <p>現在、Azure enterprise のお客様は EA ポータルでサブスクリプションを管理し、EA 階層を使用してサブスクリプション別の使用状況とコストについてグループ化およびレポートを作成しています。 今日までは、エンタープライズ階層で使用できる唯一の Api は、 <a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api">キーベースの api</a>でした。今月は、登録階層に対して ARM がサポートしている api をリリースしています。 これにより、必要な特権を持つユーザーが、管理階層内の個々のノードに対して API 呼び出しを行い、最新のコストと使用状況の情報を取得できるようになります。</p>
+
+
+  <p>この API の利点は、セキュリティ対策を強化し、コスト Api にシームレスにオンボードし、予算などの APM Api での計画的な作業に継続的に投資することです。 現在、部門は基本的な使用制限をサポートしていますが、今後数週間にわたって、EA 階層ノードのサブスクリプションとリソースグループについて <a href="https://docs.microsoft.com/en-us/rest/api/consumption/budgets">最近発表</a> された予算もサポートします。 また、ARM Api はパターンを標準化し、AD ベースの認証を有効にします。</p>
+
+
+  <h3>階層の更新</h3>
+
+
+  <p>このリリースの一部として、ARM API ではいくつかの新しい用語が導入されました。</p>
+
+
+  <ul>
+      <li>ARM <em>api での</em>登録は<em>課金アカウント</em>です</li>
+      <li>部門は部門として継続的に</li>
+      <li>ARM Api の<em>アカウント</em>は、<em>登録アカウント</em>と呼ばれます。</li>
+  </ul>
+
+
+  <p>サブスクリプションスコープの上にあるこのリリースの ARM Api は、現在サポートされているすべての機能の使用状況の詳細、通貨残高、marketplace の料金、価格シートをサポートしています。 また、価格シート API は、サブスクリプションの詳細な呼び出しをサポートして、プランの種類に基づいてそのサブスクリプションの特定の価格を取得します。 これらの各呼び出しは、既定で現在の (オープン期間) に適用され、過去の特定の請求期間に対して API を呼び出すことができます。 ここで &rsquo; は、操作とスコープの詳細な一覧と、ドキュメントへのリンクを示します。</p>
+
+
+  <table border="1" cellpadding="5" cellspacing="0" width="856">
+      <tbody>
+          <tr>
+              <td valign="top" width="226">&nbsp;</td>
+              <td valign="top" width="262">
+              <p dir="ltr" style="margin-right: 0px;"><strong>請求先アカウント (登録)</strong></p>
+              </td>
+              <td valign="top" width="117">
+              <p dir="ltr" style="margin-right: 0px;"><strong>部門</strong></p>
+              </td>
+              <td valign="top" width="249">
+              <p dir="ltr" style="margin-right: 0px;"><strong>登録アカウント (アカウント)</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="226">
+              <p dir="ltr" style="margin-right: 0px;">Usage Details</p>
+              </td>
+              <td valign="top" width="262">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/usagedetailsbybillingaccount">サポートされています</a></p>
+              </td>
+              <td valign="top" width="117">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/usagedetailsbydepartment">サポートされています</a></p>
+              </td>
+              <td valign="top" width="249">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/usagedetailsbyenrollmentaccount">サポートされています</a></p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="226">
+              <p dir="ltr" style="margin-right: 0px;">通貨残高</p>
+              </td>
+              <td valign="top" width="262">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/getbalancesbybillingaccount/getbalancesbybillingaccount">サポートされています</a></p>
+              </td>
+              <td valign="top" width="117">
+              <p dir="ltr" style="margin-right: 0px;">該当なし</p>
+              </td>
+              <td valign="top" width="249">
+              <p dir="ltr" style="margin-right: 0px;">該当なし</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="226">
+              <p dir="ltr" style="margin-right: 0px;">マーケットプレースの料金</p>
+              </td>
+              <td valign="top" width="262">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/marketplacesbybillingaccount">サポートされています</a></p>
+              </td>
+              <td valign="top" width="117">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/marketplacesbydepartment">サポートされています</a></p>
+              </td>
+              <td valign="top" width="249">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/marketplacesbyenrollmentaccounts">サポートされています</a></p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="226">
+              <p dir="ltr" style="margin-right: 0px;">価格シート</p>
+              </td>
+              <td valign="top" width="262">
+              <p dir="ltr" style="margin-right: 0px;"><a href="https://docs.microsoft.com/en-us/rest/api/consumption/pricesheet">サポート状況</a></p>
+              </td>
+              <td valign="top" width="117">
+              <p>&nbsp;</p>
+              </td>
+              <td valign="top" width="249">
+              <p>&nbsp;</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="226">
+              <p dir="ltr" style="margin-right: 0px;">Budgets</p>
+              </td>
+              <td valign="top" width="262">
+              <p dir="ltr" style="margin-right: 0px;">対応予定</p>
+              </td>
+              <td valign="top" width="117">
+              <p dir="ltr" style="margin-right: 0px;">対応予定</p>
+              </td>
+              <td valign="top" width="249">
+              <p dir="ltr" style="margin-right: 0px;">対応予定</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>リンク</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/rest/api/consumption">ドキュメント ページ</a></p>

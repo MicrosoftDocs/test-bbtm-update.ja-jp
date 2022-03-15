@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d9082923987324e47eea5a481ea43a10247c758e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910419"
+Slug: rewrite-http-headers-with-azure-application-gateway
+Title: Azure アプリケーションゲートウェイを使用して HTTP ヘッダーを書き換える
+Summary: Azure アプリケーションゲートウェイで HTTP ヘッダーを書き換える機能を共有します。 これにより、HTTP 要求と応答のヘッダーを追加、削除、または更新できます。クライアントとバックエンドのアプリケーション間で要求と応答のパケットが移動します。
+Content: >-
+  <p>Azure アプリケーションゲートウェイで HTTP ヘッダーを書き換える機能を共有します。 これにより、HTTP 要求と応答のヘッダーを追加、削除、または更新できます。クライアントとバックエンドのアプリケーション間で要求と応答のパケットが移動します。 条件を追加して、条件が満たされたときにのみ、指定したヘッダーが書き直されるようにすることもできます。 また、この機能では、要求と応答に関する追加情報を格納するために役立ついくつかの<a href="https://docs.microsoft.com/azure/application-gateway/rewrite-http-headers#server-variables">サーバー変数</a>もサポートされているので、強力な書き換え規則を作成することができます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/560ba068-75c3-4f45-aaa1-ae25b36fbd91.png"><img alt="A diagram showing how X-Forwarded_For affects  how the client interacts with the application gateway and backend application." border="0" height="214" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/168757e7-54d0-4155-8ec0-faea6819b90c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図-1A クライアントがアプリケーションゲートウェイとバックエンドアプリケーションとやり取りする方法について、X Forwarded_For がどのように影響するかを示す図です。" width="1090"></a></p>
+
+
+  <p align="center"><em>図 1: 要求の X 転送ヘッダーからポート情報を削除し、応答で Location ヘッダーを変更する Application Gateway ます。</em></p>
+
+
+  <p>ヘッダーを書き直すことで、いくつかの重要なシナリオを実現できます。 一般的なユースケースの一部を以下に示します。</p>
+
+
+  <h2>X-Forwarded-For ヘッダーからポート情報を削除する</h2>
+
+
+  <p>Application gateway は、バックエンドに要求を転送する前に、すべての要求に <em>X が転送</em> されたヘッダーを挿入します。 このヘッダーの形式は、IP: Port のコンマ区切りのリストです。 ただし、バックエンドアプリケーションでは、IP アドレスのみを含むヘッダーが必要になる場合があります。 そのようなシナリオの1つとして、バックエンドアプリケーションがコンテンツ管理システム (CMS) である場合があります。これは、ほとんどの CMS がヘッダーの追加のポート情報を解析できないためです。 このようなシナリオを実現するには、ヘッダーを add_x_forwarded_for_proxy サーバー変数に設定します。この変数には、ポート情報なし<em> でクライアント要求 </em>ヘッダーが含まれています。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2df63651-7690-4e0b-aa7e-c9b780a06a09.png"><img alt="Image showing how to remove port information from the X-Forwarded-For heading." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ccf9953c-c18a-493a-97eb-a71170e7dc0d.png" style="border: 0px currentcolor; border-image: none; width: 546px; height: 377px; display: inline; background-image: none;" title="X の転送済みヘッダーからポート情報を削除する方法を示す図2Image。"></a></p>
+
+
+  <p align="center"><em>図 2: X 転送ヘッダーからポート情報を削除するための構成を Application Gateway します。</em></p>
+
+
+  <h2>App service とその他のマルチテナントバックエンドとの統合の強化</h2>
+
+
+  <p>バックエンド アプリケーションでリダイレクト応答が送信されるとき、バックエンド アプリケーションで指定されているものとは別の URL にクライアントをリダイレクトしたい場合があります。 このようなシナリオの1つは、app service がアプリケーションゲートウェイの背後でホストされている場合です。</p>
+
+
+  <p>アプリ サービスはマルチテナント サービスであるため、要求のホスト ヘッダーを使用して適切なエンドポイントにルーティングします。 App services の既定のドメイン名は *. azurewebsites.net (たとえば、 <tt>contoso.azurewebsites.net</tt>) で、application gateway&#39;s ドメイン名 (たとえば、 <tt>contoso.com</tt>) とは異なります。 クライアントからの元の要求には、アプリケーションゲートウェイ&#39;s ドメイン名 <tt>contoso.com</tt> がホスト名として含まれているため、アプリケーションゲートウェイはホスト名を <tt>contoso.azurewebsites.net</tt>に変更します。これにより、バックエンドの app service が適切なエンドポイントにルーティングできるようになります。 ただし、app service はリダイレクト応答を送信するときに、アプリケーションゲートウェイから受信する要求と同じホスト名を応答の location ヘッダーに使用します。 そのため、app service で相対パスへのリダイレクトが実行されると ( <tt>/path1</tt>から<tt>/path2</tt>へのリダイレクト)、クライアントはアプリケーションゲートウェイ (<tt>contoso.com/path2</tt>) を経由せずに直接<tt>contoso.azurewebsites.net/path2</tt>に要求を行います。 これにより、望ましくないアプリケーションゲートウェイがバイパスされます。</p>
+
+
+  <p>この問題を解決するには、location ヘッダーの hostname を application gateway&#39;s ドメイン名に設定します。 これを行うには、応答の location ヘッダーに azurewebsites.net が含まれているかどうかを評価する条件を使用して、書き込み規則を作成し、application gateway&#39;s ホスト名を持つように location ヘッダーを書き換えるアクションを実行します。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/718adb6e-c3ba-4433-93ab-b169360b7cdc.png"><img alt="An image showing how to configure a gateway for modifying the location header." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89cbeaf1-559f-48de-a789-cc856f171602.png" style="border-image: none; width: 541px; height: 852px; display: inline; background-image: none;" title="図3An ヘッダーを変更するためのゲートウェイを構成する方法を示すイメージ。"></a></p>
+
+
+  <p align="center"><em>図 3: location ヘッダーを変更するための構成を Application Gateway します。</em></p>
+
+
+  <h2>脆弱性を防ぐためにセキュリティ関連の HTTP ヘッダーを実装する</h2>
+
+
+  <p>アプリケーションの応答で必要なヘッダーを実装することにより、いくつかのセキュリティの脆弱性を修正できます。 これらのセキュリティヘッダーの中には、"X-XSS-保護"、"厳密なトランスポート-セキュリティ"、"コンテンツセキュリティ-ポリシー"、"X" などがあります。Application gateway を使用して、すべての応答にこれらのヘッダーを設定できます。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/application-gateway/rewrite-http-headers">Http ヘッダーの書き換え</a>の詳細については Application Gateway を参照してください。 <a href="https://docs.microsoft.com/en-us/azure/application-gateway/rewrite-http-headers-portal">Application Gateway で http ヘッダーの書き換えを構成</a>する方法については、詳細な説明を参照してください。</p>
+
+
+  <h2>フィードバックを送信してください</h2>
+
+
+  <p>フィードバックを提供するために、いくつかの異なるルートがあります。</p>
+
+
+  <ul>
+   <li><strong>UserVoice:</strong>   <a href="https://feedback.azure.com/forums/217313-networking?category_id=134448">UserVoice ページ</a>で Application Gateway の新しいアイデアを投稿します。</li>
+   <li><strong>Cohort に参加する: </strong>&rsquo;新しいお客様にコーホートを参加させて、新機能にいち早くアクセスし、今後の Application Gateway 改善にご協力ください。 コーホートに参加したい場合は、 <a href="https://aka.ms/ApplicationGatewayCohort">このクイックフォームに記入</a>してください。</li>
+  </ul>

@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9f446bf99322e85535690f041705d53a8e43580e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910382"
+Slug: run-hortonworks-clusters-and-easily-access-azure-data-lake
+Title: Hortonworks クラスターを実行し、Azure Data Lake に簡単にアクセスする
+Summary: 'Azure Data Lake Store をサポートする Hortonworks Data Platform (HDP®) 2.6.1 の最近の発表により、お客様は HDP クラスターをデプロイし、ADLS データと HDP に簡単にアクセスして相互運用できます。 HDP 2.6.1 と ADLS へのアクセスにより、お客様がデータのビジネス価値を実現するための別の方法が提供されます。 '
+Content: >-
+  <p>Enterprise、その他の Apache Hadoop ワークロードApache Hive実行Apache Spark Hortonworks が好きです。 また、Azure Data Lake Store (<a href="https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-overview" target="_blank">ADLS</a>) が提供する価値も気に入っています。これは、任意のサイズのクラウド データへの高スループット アクセス、真の階層ファイル システム、Posix ACL、ロールベースの Access Control (RBAC)、保存時の暗号化を使用して簡単かつ安全に共有できます。</p>
+
+
+  <p>Azure HDInsightの &ndash; 統合と ADLS &ndash; へのアクセスを提供するマネージド ワークロードを使用すると、多くの企業のエンタープライズ クラスターの管理が大幅に簡素化されます。 お客様には選択肢があります。また、Hortonworks のお客様の中には、Azure クラウド インフラストラクチャに直接デプロイされた独自のクラスターをカスタマイズして管理する場合があります。これらのデプロイには直接アクセス ADLS が必要です。</p>
+
+
+  <p>Azure Data Lake Store サポートを使用した <a href="https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.1/index.html" target="_blank">Hortonworks Data Platform (HDP&reg;) 2.6.1</a> の最近の発表により、お客様はこれを行えるのです。 お客様は HDP クラスターをデプロイし、ADLS データと HDP に簡単にアクセスして相互運用できます。 HDP 2.6.1 と ADLS へのアクセスにより、お客様がデータのビジネス価値を実現するための別の方法が提供されます。 一&rsquo;部のお客様が主なシナリオを強化する方法を次に示します。</p>
+
+
+  <ol>
+   <li>1 つ以上の Hortonworks クラスターは、同じ Azure Data Lake 内のデータにアクセスできます。</li>
+   <li>オンプレミス クラスターは、DistCp のような標準の Hadoop ユーティリティを使用して、クラウド内のデータへのアクセスを容易にする ADLS のデータに直接アクセスできます。</li>
+  </ol>
+
+
+  <p>Hortonworks では、HDP を直接使用する以外に、Cloudbreak for Hortonworks Data Platform を Azure Marketplace。 Hortonworks Data Platform 用の Cloudbreak を使用すると、クラウド環境での HDP クラスターのプロビジョニング、管理、監視が簡素化されます。 これは、HDP と HDP + ADLS の試用を開始するための最適な方法です。</p>
+
+
+  <h2>HDP と ADLS の使用を開始する準備はできましたか?</h2>
+
+
+  <p>現在は、 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/hortonworks.cloudbreak-for-hortonworks-data-platform?tab=Overview" target="_blank">Cloudbreak for Hortonworks Data Platform</a> を使用して、AZURE MARKETPLACE ADLS を使用して HDP クラスターのデプロイを開始できます。 ADLS アカウントを設定した後、手順に従って Azure で Cloudbreak を起動し、クラスターを作成し、ADLS をファイル システムとして追加します。 クラスターがデプロイされた後は、Azure <a href="https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-secure-data#filepermissions" target="_blank">Data Lake</a> のすべて (または一部) へのアクセス権をクラスター データ レイクに提供できます。 次 <a href="https://hortonworks.github.io/cloudbreak-azure-docs/azure-data/index.html" target="_blank">に、いくつかの簡単な</a> コマンドを使用して試してみてください。&nbsp;</p>
+
+
+  <p>または、ADLS <a href="https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.1/bk_cloud-data-access/content/adls-get-started.html" target="_blank">を使用して</a> Hortonworks クラスターをカスタムデプロイする方法の詳細については、ドキュメントを参照してください。 Cloudbreak の詳細については、<a href="https://azure.microsoft.com/en-us/blog/hortonworks-extends-iaas-offering-on-azure-with-cloudbreak/" target="_blank">Hortonworks が Cloudbreak</a>&quot;&nbsp; を使用して Azure 上の IaaS オファリングを拡張するというタイトルの、この最近の Azure &quot; ブログも<a href="https://hortonworks.com/open-source/cloudbreak/" target="_blank">参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df66a47b-e0ac-4647-92a5-56356b2fd84a.png"><img alt="hortonworks-azure-data-lake-store" border="0" height="390" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/71d482ad-9fb0-40d6-86ca-3290ac9ca3f2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="hortonworks-azure-data-lake-store" width="987"></a></p>

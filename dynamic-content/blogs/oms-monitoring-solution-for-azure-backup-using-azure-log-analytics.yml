@@ -1,0 +1,91 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 09e41ad04cf7f9080282bba718906d9efb7f2c32
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904579"
+Slug: oms-monitoring-solution-for-azure-backup-using-azure-log-analytics
+Title: Azure Log Analytics を使用Azure Backup OMS 監視ソリューション
+Summary: 以前は、レポートのプレビュー Azure Backup発表し、お客様が独自のレポートを生成し、カスタム レポートを使用してカスタマイズPower BI。 本日は、お願いします...
+Content: >-
+  <p>以前は、レポート作成のプレビュー Azure Backup<a href="https://azure.microsoft.com/blog/azure-backup-reports/" target="_blank">発表</a>し、お客様は独自のレポートを生成し、レポートを使用してカスタマイズPower BI。 現在、同じワークフローを利用して、アップグレードされた OMS ワークスペースで Azure Backup 用の独自の Microsoft Operations Management Suite (OMS) 監視ソリューションを構築できます。 OMS 監視ソリューションを <strong>使用すると</strong> 、Recovery Services コンテナーとサブスクリプション全体で、バックアップと復元のジョブ、バックアップ アラート、クラウド ストレージの使用状況などの主要なバックアップ パラメーター <strong>を監視できます。</strong> その後、OMS ログ分析機能を利用して、ビジネスに通知することが重要と思われるイベントに対してさらにアラートを生成できます。 OMS ログ分析機能を使用して、Webhook または ITSM 統合を通じてチケットを開く場合も可能です。</p>
+
+
+  <p>その&rsquo;方法を次に示します。&hellip;</p>
+
+
+  <h2>診断設定を構成する</h2>
+
+
+  <p>Azure Recovery <a href="https://docs.microsoft.com/azure/backup/backup-azure-configure-reports#configure-storage-account-for-reports" target="_blank">Services コンテナーから診断設定</a> ウィンドウを開く方法と、Azure Recovery Services コンテナーにログインして診断設定ウィンドウAzure portal。 最初に、[サービスの &ldquo;監視] を&rdquo; クリックし、[設定 &ldquo;] セクションで [診断設定&rdquo; ] をクリックします。 その後、関連するサブスクリプション、リソース グループ、および Recovery Services コンテナーを指定できます。 次に示すように、[&ldquo;&rdquo;診断設定] ウィンドウで [ログ分析にデータを送信する] を選択し、関連する OMS ワークスペースを選択できます。 すべてのコンテナーが同じワークスペースにデータを送り込むなど、既存のログ分析ワークスペースを選択できます</p>
+
+
+  <p>Log Analytics ワークスペースに送信 &ldquo;する関連ログ (この場合は AzureBackupReport&rdquo; ) を選択してください。 &ldquo;[保存]&rdquo; をクリックして設定を保存します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37928787-523c-469e-8f1c-4c016b02ff37.jpg"><img alt="DiagnosticSettings" border="0" height="826" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63039de4-9ede-423c-865c-5a86defcc5d4.jpg" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="DiagnosticSettings" width="1217"></a></p>
+
+
+  <p>構成が完了したら、最初のデータ プッシュが完了するまで <strong>24</strong> 時間待つ必要があります。</p>
+
+
+  <h2>Azure OMS へのソリューションのデプロイ</h2>
+
+
+  <p>Azure Backup の OMS 監視ソリューション テンプレートは、Azure に基本テンプレートをデプロイし、ニーズに合わせてカスタマイズできるコミュニティ駆動型プロジェクトです。 詳細については、 <a href="https://azure.microsoft.com/en-gb/resources/templates/101-backup-oms-monitoring/" target="_blank">Azure</a> クイック スタート テンプレートにアクセスし、上記で構成したワークスペースに Azure バックアップ用の OMS 監視ソリューションをデプロイします。 ワークスペースを適切に識別するために、同じリソース グループ、ワークスペース名、ワークスペースの場所を指定し、その上にこのテンプレートをインストールします。</p>
+
+
+  <h2>データAzure Backup監視</h2>
+
+
+  <p>ダッシュボードの概要タイルには、キー パラメーター (バックアップ ジョブとその状態) が反映されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7716b26-719b-4938-96d8-dd05fa2a5a32.jpg"><img alt="OverviewTile" border="0" height="309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a8ea82b-9f70-4f3c-8660-cf220b2569fa.jpg" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="OverviewTile" width="459"></a></p>
+
+
+  <p>[概要] タイルをクリックすると、ソリューションの情報がジョブとアラートの状態に分類され、アクティブなマシンとそのストレージ使用量がダッシュボードに表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f9da52e-f86b-4fb0-a1c4-79f016b94f39.jpg"><img alt="KeyBackupJobsParameters" border="0" height="648" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3c476199-41be-4aed-927b-5f13c19d498a.jpg" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="KeyBackupJobsParameters" width="1652"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/831b8a14-d352-4f2e-bc5c-d8ac0ec79d0d.jpg"><img alt="ActiveStorageParams" border="0" height="609" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1459775-81f0-416c-a8aa-4302167b1358.jpg" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="ActiveStorageParams" width="1093"></a></p>
+
+
+  <p><strong>画面の上部にある適切な日付 </strong>範囲を選択して、必要な時間間隔のデータをフィルター処理します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d47e8371-2886-4335-ace7-1bd549a71853.jpg"><img alt="TimeFilter" border="0" height="58" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66dc4c85-e6d5-4f35-80b8-55fffb4dfb99.jpg" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="TimeFilter" width="1381"></a></p>
+
+
+  <h2>ログ検索機能</h2>
+
+
+  <p>各タイルをクリックすると、タイルの作成に使用されるクエリの詳細を取得し、要件を満たしたタイルを構成できます。 タイルに表示される値をさらにクリックすると、Log Analytics 画面が表示されます。この画面では、構成可能なイベントしきい値のアラートを生成し、それらのしきい値が満たまたは超えたときに実行されるアクションを自動化できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca1be4f1-95ce-4c37-8bb5-f8c2e8401a11.jpg"><img alt="LogAnalyticsScreen" border="0" height="437" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59034420-b495-4005-a90b-74d7cce11bfa.jpg" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="LogAnalyticsScreen" width="1024"></a></p>
+
+
+  <p>詳細については、アラートの構成方法に関 <a href="https://docs.microsoft.com/azure/log-analytics/log-analytics-tutorial-response" target="_blank">するドキュメントを参照してください</a>。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>OMS ワークスペースを構成して、複数の Recovery Services コンテナーとサブスクリプション間でキー バックアップ データを受信し、カスタマイズ可能なソリューションをワークスペースにデプロイして、ビジネス クリティカルなイベントのアクションを表示および構成できます。 このソリューションは、企業がバックアップを監視し、バックアップと復元が成功するためにすべてのアクションが確実に実行される鍵です。</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/documentation/articles/backup-azure-arm-vms-prepare/">Recovery Services コンテナーの使用を開始します</a>。</li>
+   <li>詳細については<a href="https://azure.microsoft.com/services/backup/">、Azure Backup。</a></li>
+   <li>詳細については、以下をご覧ください。 詳細については、Azure Backup <a href="https://azure.microsoft.com/documentation/services/backup/">してください</a>。</li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">フォーラムに</a> 連絡してください。</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+   <li>最新のニュースと更新については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください。</li>
+  </ul>

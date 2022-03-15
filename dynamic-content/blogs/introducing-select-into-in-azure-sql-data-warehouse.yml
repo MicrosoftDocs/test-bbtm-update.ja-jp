@@ -1,0 +1,125 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ec620e37d40a306c16fab1d9566bc420b9fc466b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904722"
+Slug: introducing-select-into-in-azure-sql-data-warehouse
+Title: SELECT. を比較しています。Azure SQL Data Warehouse のにおけるおよび ctas のユースケース
+Summary: Azure SQL Data Warehouse ユーザーは、1つのステートメントでテーブルを作成および設定するための2つのオプションを使用できるようになりました。 最初のオプションでは、CREATE TABLE を SELECT または CTAS として使用します。 2つ目は、SELECT. を使用することです。ドラッグ. この投稿では、2つのアプローチの違いを summarises しています。
+Content: >-
+  <p>チームが最近導入した選択..Azure SQL Data Warehouse の SQL 言語に変換します。 [...] を選択します。INTO を使用すると、SELECT ステートメントの結果セットに基づいて新しいテーブルを作成および設定できます。 これで、ユーザーは1つのステートメントを使用してテーブルを作成および設定するための2つのオプションを使用できるようになりました。 この投稿では、CTAS と SELECT の両方の使用シナリオを summarises しています。には、次の2つの方法の違いがまとめられています。</p>
+
+
+  <p>SELECT の例を見てください。次のようになります。</p>
+
+
+  <p><code>SELECT *</code></p>
+
+
+  <p><code>INTO [dbo].[FactInternetSales_new] </code></p>
+
+
+  <p><code>FROM [dbo].[FactInternetSales]</code></p>
+
+
+  <p><code>;</code></p>
+
+
+  <p>このクエリの結果は、dbo と呼ばれる新しいラウンドロビン分散クラスター化列ストアテーブルでもあります。FactInternetSales_new。 すべてが完了し、3行のコードで dusted しました。 すばらしい。</p>
+
+
+  <p>これを、次の対応する CTAS ステートメントと比較してみましょう &rsquo; 。</p>
+
+
+  <p><code>CREATE TABLE [dbo].[FactInternetSales_new] </code></p>
+
+
+  <p><code>WITH </code></p>
+
+
+  <p><code>( DISTRIBUTION = HASH(Product_key) </code></p>
+
+
+  <p><code>, HEAP</code></p>
+
+
+  <p><code>) </code></p>
+
+
+  <p><code>AS </code></p>
+
+
+  <p><code>SELECT * </code></p>
+
+
+  <p><code>FROM [dbo].[FactInternetSales]</code></p>
+
+
+  <p><code>;</code></p>
+
+
+  <p>このクエリの結果は、dbo という新しいハッシュ分散ヒープテーブルになります。FactInternetSales_new。 CTAS を使用すると、ディストリビューションキーとテーブルの編成を完全に制御できることに注意してください。 ただし、コードの方が詳細になります。 With SELECT.では、コードが大幅に縮小され、さらに使い慣れている場合もあります。</p>
+
+
+  <p>では、SELECT. を使用するときに注意すべき重要な違いがいくつかあります。ドラッグ. テーブルの編成や分布方法を制御するオプションはありません。 [...] を選択します。また、には、ラウンドロビン分散クラスター化列ストアテーブルも常に作成されます。 また、SQL Server と SQL Database と比較すると、動作に小さな違いがあることにも注意してください。 SQL Server で SQL Database 選択..INTO コマンドでは、ヒープテーブル (既定のテーブル作成構造) が作成されます。 ただし、SQL Data Warehouse では、既定のテーブル型はクラスター化列ストアであるため、既定のテーブル型を作成するパターンに従います。</p>
+
+
+  <p>CTAS と SELECT. の違いをまとめた表を次に示します。ドラッグ</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="827">
+      <tbody>
+          <tr>
+              <td valign="top" width="174">&nbsp;</td>
+              <td valign="top" width="305">CTAS</td>
+              <td valign="top" width="346">SELECT INTO</td>
+          </tr>
+          <tr>
+              <td valign="top" width="174">分散キー</td>
+              <td valign="top" width="305">任意 (フルコントロール)</td>
+              <td valign="top" width="346">ROUND_ROBIN</td>
+          </tr>
+          <tr>
+              <td valign="top" width="174">テーブルの種類です。</td>
+              <td valign="top" width="305">任意 (フルコントロール)</td>
+              <td valign="top" width="346">クラスター化列ストアインデックス</td>
+          </tr>
+          <tr>
+              <td valign="top" width="174">詳細度</td>
+              <td valign="top" width="305">高 (セクションが必要)</td>
+              <td valign="top" width="346">Lower (既定では修正済みであり、追加のコーディングは不要)</td>
+          </tr>
+          <tr>
+              <td valign="top" width="174">熟知度</td>
+              <td valign="top" width="305">下位 (Microsoft のお客様への新しい構文)</td>
+              <td valign="top" width="346">上位 (Microsoft のお客様にとって使い慣れた構文)</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>これらの微妙な違いやバリエーションにもかかわらず、SELECT. を含める理由がいくつかあります。をコード内に挿入します。</p>
+
+
+  <p>私には、主に次の3つの理由があります。</p>
+
+
+  <ol>
+      <li>大規模なコード移行プロジェクト</li>
+      <li>ターゲットオブジェクトはラウンドロビンクラスター化列ストアインデックスです</li>
+      <li>テーブルの単純な複製。</li>
+  </ol>
+
+
+  <p>お客様が SQL Data Warehouse に移行すると、多くの場合、既存のソリューションをプラットフォームに移行することになります。 このような場合、ビジネスの最初の順序は、既存のソリューションを SQL Data Warehouse で稼働させることです。 この場合は、[.] を選択します。を使用すると、十分なパフォーマンスが得られます。 2番目のシナリオは、コンパクトなコードシナリオです。 ここでは、クラスター化列ストアテーブル round_robin が必要なオプションである可能性があります。 その場合は、. を選択します。では、構文的にはよりコンパクトになります。 [...] を選択します。INTO を使用して、ソーステーブルの定義を反映する単純なサンドボックステーブルを作成することもできます。 空のテーブルであっても、をと組み合わせた場合に作成できます。 1 = 2 を使用して、行を移動しないようにします。 これは、パーティション切り替えパターンを実装するときに空のテーブルを作成する場合に便利な手法です。</p>
+
+
+  <p>最後に、顧客が選択を必要としていることを認識していない場合もあります。をサポートします。 多くのお客様は、選択のサポートを必要とする既製の ISV ソリューションを使用していません。ドラッグ. 良い例としては、SELECT. を使用して独自の概要テーブルを生成するロールアップビジネスインテリジェンスツールがあります。を実行します。 この場合、顧客は SELECT. を発行している可能性があります。を認識することなく、クエリを実行できます。</p>
+
+
+  <p>詳細については、主な違いがキャプチャされる <a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-develop-ctas">CTAS の製品ドキュメント</a> を参照してください。</p>

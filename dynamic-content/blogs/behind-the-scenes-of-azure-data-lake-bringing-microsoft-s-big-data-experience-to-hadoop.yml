@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7eb8f18098b51bb9681952d18c1f3f3200eab2eb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904926"
+Slug: behind-the-scenes-of-azure-data-lake-bringing-microsoft-s-big-data-experience-to-hadoop
+Title: 'Azure Data Lake の背後: Microsoft のビッグデータエクスペリエンスを Hadoop に取り込む'
+Summary: Microsoft は、Azure HDInsight を含むビッグデータストレージと分析サービスのセットである Azure Data Lake 発表しました。これにより、開発者、データ科学者、アナリストは、あらゆる種類のデータに対してあらゆる種類の処理と分析を実行できます。また、複数のプラットフォームやプログラミング言語のデータに対してあらゆる種類の処理と分析が可能です。
+Content: >-
+  <p>Microsoft は、Azure HDInsight を含むビッグデータストレージと分析サービスのセットである Microsoft Azure Data Lake<a href="https://blogs.technet.com/b/dataplatforminsider/archive/2015/09/28/microsoft-expands-azure-data-lake-to-unleash-big-data-productivity.aspx">発表</a>しました。これにより、開発者、データ科学者、アナリストは、あらゆる種類のデータに対してあらゆる種類の処理と分析を実行できます。また、複数のプラットフォームやプログラミング言語で、あらゆる種類のデータを分析できます。 ( <a href="https://azure.microsoft.com/en-us/solutions/data-lake/">Azure Data Lake ランディングページ</a>、 <a href="https://technet.microsoft.com/en-us/dn282640">Azure Data Lake サインアップページ</a>、 <a href="https://blogs.technet.com/b/dataplatforminsider/archive/2015/09/28/microsoft-expands-azure-data-lake-to-unleash-big-data-productivity.aspx">Azure Data Lake ブログ</a>を参照してください。)</p>
+
+
+  <p>Microsoft は、長年にわたってビッグデータを使用してきたデータ主導型の企業であり、世界中の大規模なビッグデータサービスの一部を運用しています。 この Cosmos サービスでは、5万台以上のコンピューターにまたがるクラスターで、クリックストリームやテレメトリからドキュメント、マルチメディア、表形式のデータまで、さまざまなデータをエクサバイト管理しています。 Microsoft 内の何千もの開発者が、 <a href="https://research.microsoft.com/en-us/projects/Dryad/">Dryad</a>に基づいて結合を最適化するためのスケールアウトデータ処理のための SQL に似た言語であるスコープを使用しています。 スコープは、C# コードがパーティションを減らすことができるようにする、強化された GROUP BY 演算子を使用した Map-Reduce スタイルのプログラミングを自然にサポートします。 また、プログラマの生産性を大幅に向上させる Visual Studio の美しい開発者ツールも用意されています。<a href="https://azure.microsoft.com/en-us/documentation/videos/azure-data-lake-making-big-data-easy/">このビデオ</a>をご覧ください。</p>
+
+
+  <p>何百ものジョブや、さらに対話型のクエリも、同じ共有環境で毎日実行され、毎日の i/o の数百の PBs を運転しています。 社内のお客様は、Bing、Office 365、Skype、Windows、Xbox Live などの非常に大規模なユーザーから、社内のさまざまな規模のグループに至るまで、Microsoft のビジネスです。</p>
+
+
+  <p>私は、Microsoft の3年前に、Hadoop と多くのオープンソースツールと密接に連携しており、このエコシステムの能力を Microsoft &rsquo; のビッグデータの取り組みに活かすことを希望していました。 &nbsp;ここでは、Cosmos とスコープを使用した方法について説明したので、生産性の高いエンジニアとアナリストはどのようになりましたか。 多くのユーザーによって操作される大規模なデータセットを有効にするスケーラブルな環境によって可能になった、ツールの使いやすさと範囲は、この生産性と実験の中心となりました。 &nbsp; 以来、Microsoft &rsquo; の内部エコシステムの生産性を、Hadoop エコシステムのオープン性と柔軟性で結び付けるすることが目標でした。 これはすばらしい取り組みで、ビッグデータプラットフォームとサービスを使用するときに実際の顧客が望むことを理解する絶好の機会です。 &nbsp; これらのすべてのプラットフォームとサービスを新しい Azure Data Lake に構築し、実行 (および使用) する経験があります。</p>
+
+
+  <p>近年の重要な開発では、Microsoft はオープンソースソフトウェア (特に Apache Hadoop) に取り組んでいます。 内部的には、多くのグループで、Hive、HBase、Kafka、嵐、Spark などの Hadoop が使用されており、その下に <a href="https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html">APACHE YARN</a> があります。</p>
+
+
+  <p>外部では、HDInsight の管理された Hadoop サービスを提供しています。これは、最も人気があり、急速に成長している Azure サービスの1つです。 Hadoop エコシステムの能力は、共有環境上で実行されるさまざまな分析ツールを介して、HDFS 経由ですべてのデータにアクセスする機能から流れます。 標準的なストレージとリソース管理のための HDFS と YARN の幅広い導入は、Hadoop &rsquo; の拡張性の鍵となります。 これらのコンポーネントに接続するためのインターフェイスをソケット &rdquo; と &ldquo; して使用することにより、YARN フレームワークでアプリケーションマスター &rdquo; や AMs として &ldquo; 構築されたさまざまな分析エンジンが登場します。 では、Azure Data Lake の一部になりました。</p>
+
+
+  <p>Azure Data Lake は、キータッチポイントとして HDFS と YARN を使用して、Hadoop エコシステムの一部として構築されています。 Azure Data Lake Store は Azure 向けに最適化されていますが、HDFS にアクセスする分析ツールをサポートしています。 Azure Data Lake は、リソース管理に Apache YARN を使用して、YARN ベースの分析エンジンをサイドバイサイドで実行できるようにします。 <a href="https://azure.microsoft.com/en-us/services/hdinsight/">Azure HDInsight</a>マネージ Hadoop サービスでは、Hive、HBase、嵐、Spark など、最も広く使用されているオープンソースエンジンが既にサポートされています。 また、Azure Data Lake Analytics サービスの一部として、 <a href="https://blogs.msdn.com/b/visualstudio/archive/2015/09/28/introducing-u-sql.aspx">U-SQL</a>という新しいクエリ言語も導入しています。 これは、言語の観点からは T SQL に合わせて調整されており、SQL &rsquo; s GROUP BY コンストラクトを使用してユーザーコードの Map-Reduce スタイル実行を追加でサポートするように設計されています。 U-SQL は、Hadoop エコシステムの他の分析エンジンと同じように、YARN で AM としてネイティブに実行されます。 そのため、ユーザーは、Azure Data Lake に格納されているデータに対して、Hive、Spark、嵐などと共に U-SQL を実行できます。 お客様は、Azure Data Lake Store にデータを安全に格納し、そのツールが Hadoop エコシステムの一部として実行され、HDFS と YARN に接続されている限り、アプリケーションの適切な分析ツールを OSS だけでなく、ベンダー (Microsoft が提供する) とも混在させることができます。</p>
+
+
+  <p>Microsoft のビッグデータチームのメンバーは、Apache YARN プロジェクトの開始以降の YARN の開発に貢献しています。また、いくつかのコード投稿は、Apache YARN リリースの一部として出荷されるようになりました。 &nbsp; YARN が企業内でますますデプロイされるようになったことで、成長するニーズを満たすために YARN を継続的に強化しています。たとえば、環境でサポートする必要がある大規模なスケールと共有などです。 学習は Hadoop コミュニティに戻り、YARN に関連する複数の Apache プロジェクトを開始または参加させることによって、OSS の精神で仕事をしています。また、以下に示すように、これらのプロジェクトを導入した Microsoft のシナリオと共に使用しています。</p>
+
+
+  <p>YARN への最初の投稿の1つは、YARN-45 を参照してください。これは、大規模な環境でよく見られるような、長時間実行されるジョブに特に重要です。 以前は、YARN capacity scheduler は、クラスター共有の不変性を保証しつつ、高使用率を提供できませんでした。 スケジューラはリソースを使用したままにして、使用率に悪影響を与えます。 この問題に対処するために、スケジューラにプリエンプションサポートを追加しています。 この機能は、Hadoop 2.1 リリース以降、YARN に含まれており、以降は広く展開されている YARN 機能になっています。</p>
+
+
+  <p>Rayon (YARN-1051 を参照) は、Hadoop 2.6 リリースに付属しているリソース予約コンポーネントであり、実験を使用した運用クラスターの共有によって取り組みます。 ワークロードの統合が一般的になるにつれて、YARN resource manager は、ベストエフォートのジョブとクラスターを共有する実稼働ジョブの割り当て保証をサポートするための機能強化が必要でした。 Rayon を使用すると、ユーザー/オペレーターは運用ジョブのリソースを予約し、予測可能なパフォーマンスを得ることができます。</p>
+
+
+  <p>水銀 (YARN-2877 を参照) と Tetris (YARN 2745 を参照) は、YARN scheduler を強化します。 水銀では、クラスタースループットを向上させるために、待機時間の短い割り当てと、他のアイドル状態のリソースの使用率が解決されます。 Tetris は、ビンパッキングアルゴリズムを使用して、マシン上でのタスクのコンパクトを調整し、使用率を向上させます。 私たちは、(ディスカッション、コードレビューなどを通じて) コミュニティと緊密に連携して、Apache YARN にコードを受け入れます。</p>
+
+
+  <p>YARN での広範な開発により、YARN や他のリソースマネージャーで Java と C# のアプリケーションを簡単に構築できるように、Microsoft のキングマンを考案して開発しました。 Apache で incubated が行われ、いくつかの教育機関や商用組織から多数のコミッター引き付けられてきました。</p>
+
+
+  <p>Microsoft では、非常に大規模なクラスターサイズを使用します (Cosmos クラスターは5万ノードよりも大きくなる可能性があることを思い出してください。Hadoop クラスターは、他の場所にも小さい順序で表示されます)。また、スケールアウトリソース管理 (YARN-2915 を参照) に取り組みます。 Apache YARN は、最大6000ノードのサイズのクラスターを管理するために、運用設定でデプロイされています。 YARN をデータセンタースケールのクラスターにスケーリングする (つまり、数百のノードを管理する) には、フェデレーションスタイルのアプローチを採用しています。 つまり、個々のサブクラスターのサイズ &mdash; は約6000ノードであるため、そのサイズ &mdash; の堅牢な YARN クラスターの構築に関するコミュニティ &rsquo; の作業を活用でき、さらに多くの YARN クラスターを形成するためにまとめられています。 フェデレーションでは、クラスター全体のコンピューターが、標準 YARN との API と互換性のある単一のシステムとして提示されます。 これは特に、個々のジョブがフェデレーション全体にまたがることができることを意味します。 現在、Apache の別のブランチでのフェデレーション実装に取り組んでいます。 このブランチでは、すべてのディスカッションとコードレビューが行われます。これにより、OSS コミュニティとの連携が可能になります。</p>
+
+
+  <p>私たちは、大学や業界のカンファレンスで、論文やプレゼンテーションを通じて仕事を広く扱ってきました。 Microsoft ビッグデータチームのメンバーは、YARN、 <a href="https://hortonworks.com/hadoop/yarn">APACHE HADOOP YARN: その他のリソース Negotiator</a>について説明している最初のアカデミックペーパーの執筆者の中にあります。これは、ACM の c 2013 カンファレンスで最適な用紙受賞を獲得</p>
+
+
+  <p>Hadoop に対する Microsoft &rsquo; の貢献は、YARN を超えて拡張されます。 その他の注目すべき投稿には、次のようなものがあります。</p>
+
+
+  <ul>
+   <li>
+   <p><strong>Hadoop on azure および Windows</strong>: azure HDInsight は、急速に成長する azure サービスの1つであり、Microsoft と Hortonworks のコラボレーションの結果です。 Microsoft は、Hadoop サービスを Azure と Windows で実行できるようにするために、多数の JIRAs (<a href="https://issues.apache.org/jira/browse/HADOOP-8562">こちら</a>に記載) を提供しています。 これには、Hadoop アプリケーションが Windows Azure ストアに格納されているデータにアクセスできるようにするための (<a href="https://issues.apache.org/jira/browse/HADOOP-9629">ここで</a>利用可能な) のドライバーが含まれています。</p>
+   </li>
+   <li>
+   <p><strong>Hive と ORC</strong>: 私たちが提案し、設計および共同 (Hortonworks) は、 <a href="https://issues.apache.org/jira/browse/HIVE-4160">hive でベクター化サポート</a>を開発しました。 さらに、Microsoft は、最適化された行の列形式 (ORC) 形式を設計するためにコミュニティに関与しています。</p>
+   </li>
+   <li>
+   <p><strong>Webhdfs での OAuth2 のサポート</strong>: クラウドベースのビッグデータストアを webhdfs 経由でアクセスできるようにすることを目標として、 <a href="https://issues.apache.org/jira/browse/HDFS-8155">ここで</a>詳しく説明する変更の一部として OAuth2 サポートを追加しました。 Apache Hadoop リリース2.8 で使用できることが想定されています。</p>
+   </li>
+   <li>
+   <p><strong>Jupyter 用 Spark カーネル:</strong>Jupyter <a href="https://jupyter.org/"></a>コミュニティでは、Spark クラスターから Jupyter IPython notebook を分離する<a href="https://github.com/jupyter-incubator/proposals/pull/2#issuecomment-142015933">提案</a>を行っていました。 REST エンドポイントを介してリモート Spark を実行すると、Jupyter notebook のすべての言語 (拡張性 a、Python、R) のサポートが有効になります。 &nbsp; Spark はこの提案によって提供される最初のバックエンドであり、他のビッグデータバックエンドに簡単に拡張できます。</p>
+   </li>
+  </ul>
+
+
+  <p>要約すると、Azure Data Lake は、Cosmos、スコープ、Hive、Spark、IPython notebook など、Microsoft のビッグデータプラットフォームとサービスを構築し、運用する経験を基に構築されています。 お客様がオープンインターフェイスで分析ツールを選択できるようにするために、HDFS と YARN に基づいて構築された Hadoop エコシステムの一部として Azure Data Lake を設計および構築しました。 Microsoft とオープンソースコミュニティで、これらの驚異的なソフトウェアシステムに貢献しているすべてのユーザーに感謝したいと思います。さらに豊富な機能を活用して、データコレクションをさらに充実させることができます。</p>
+
+
+  <p>Data Lake の dip にご協力ください。ご意見をお聞かせください。</p>
+
+
+  <p><a href="https://twitter.com/raghurwi">Raghu</a></p>

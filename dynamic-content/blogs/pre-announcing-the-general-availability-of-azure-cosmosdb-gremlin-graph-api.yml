@@ -1,0 +1,53 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d7f17aabc0d72b17e8718697ffb893e8dc4b5be8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905132"
+Slug: pre-announcing-the-general-availability-of-azure-cosmosdb-gremlin-graph-api
+Title: 'Azure #CosmosDB Gremlin (Graph) API の一般提供の事前発表'
+Summary: 現在、グラフ データベースのネイティブ サポートとクエリを行う Azure Cosmos DB Gremlin API の一般提供を事前に発表し、非常に楽しみに思っています。 グラフは、実際の世界をモデル化する場合に最適です。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e623671b-97b2-4164-adaf-e896fd849827.png"><img alt="Azure Cosmos DB Germlin" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38fce79c-5a89-4d6b-8a40-1e1ec55ba1cb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Cosmos DB のバーリン" width="1024"></a></p>
+
+
+  <p>現在、Azure <strong>Cosmos DB </strong><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/graph-introduction" target="_blank"><strong>Gremlin API</strong></a> の一般提供を事前に発表し、グラフ データベースのネイティブ サポートとクエリを行います。 グラフは、自然に相互に接続された実際のデータをモデル化する場合に最適です。 構造的には、このようなグラフは頂点とエッジで構成されます。 頂点は、人、場所、イベントなどの個別のエンティティを表し、エッジはそのようなエンティティ間のリレーションシップを示します。 さらに、これらの頂点とエッジは、任意の数のプロパティを持つ場合があります。 グラフとしてのデータのモデル化は、現在、直感的に意味のある方法でユーザー データを表現する大きなレベルの柔軟性を実現できるだけでなく、より豊富でアクションにつながる分析情報を得るために、ユーザーがデータ内の複雑な相互接続をナビゲートするのに役立つ非常に強力なツールにつながる可能性があるという点で、大きな関心を持っています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/cosmos-db/?v=17.45b" target="_blank">Azure Cosmos DB は</a>、クラウドネイティブおよびエンタープライズ対応の機能をグラフ データベースに提供する最初のマネージド PaaS サービスです。 これには、ターンキー グローバル分散、ストレージとスループットの独立したスケーリング、予測可能な 1 桁ミリ秒の待機時間、自動インデックス作成、業界 SLA における最も包括的な機能が含まれます。 Azure Cosmos DB では <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/gremlin-support" target="_blank">TinkerPop/Gremlin</a> がサポートされています。コードを変更することなく、別のグラフ データベースを使用して記述されたアプリケーションを簡単に移行できます。 さらに、Gremlin のサポートにより、Azure Cosmos DB は、グラフ データの分析のために <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/spark-connector-graph" target="_blank">Apache Spark GraphX などの TinkerPop</a> 対応分析フレームワークとシームレスに統合されます。<a href="https://azure.microsoft.com/en-us/blog/spark-connector-for-cosmosdb-seamless-interaction-with-globally-distributed-multi-model-data/" target="_blank"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0bb737a0-f103-48db-8cc1-798b5c920639.png"><img alt="Data Exployer (preview)" border="0" height="462" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8efb46a-df6f-4cf2-9fe4-44e87165a4bd.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Data Exployer (プレビュー)" width="858"></a></p>
+
+
+  <p align="center"><em><strong>図 1: Azure Cosmos DB でのグラフ データ モデルの視覚化とクエリAzure portalデータ エクスプローラー。</strong></em></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-cosmos-db-microsofts-globally-distributed-multi-model-database-service/" target="_blank">Azure Cosmos DB の</a>発表以降、Gremlin (Graph) API は、プラットフォームで最も急速に成長し、最も人気のあるデータ モデルの 1 つになっていました。 Azure Cosmos DB は<a href="https://db-engines.com/en/ranking/graph+dbms" target="_blank">#</a>、db エンジンの Web サイトによる人気に基づいて、業界で 2 つのグラフ <a href="https://db-engines.com/en/" target="_blank">データベースにランク付け</a>されました。</p>
+
+
+  <p>一般提供中は、既存のオファリングを次のレベルに引き上市します。 チームが提供する主な改善点の 1 つは、Gremlin サービスのクロスパーティション グラフ計算です。 これにより、コンピューティングレベルとデータベース パーティションを動的に関連付け、低待機時間のグラフ クエリ処理を実現しながら、コンピューティングとデータを個別に柔軟にスケーリングする機能を維持することで、グラフ クエリ処理のパフォーマンスと待機時間が大幅に向上します。</p>
+
+
+  <p>さらに、開発者エクスペリエンスの向上に重点が置かされています。開発者がどこにいても会うのは、Azure Cosmos DB の主要なミッションの 1 つCosmosです。 Azure Cosmos DB チームは、コミュニティ駆動型プロジェクトへの貢献と、サービス機能<a href="https://tinkerpop.apache.org/" target="_blank"></a>を仕様に合わせて調整することで、<a href="https://tinkerpop.apache.org/" target="_blank">Apache Tinkerpop</a> によって推奨されるオープンソース フレームワークとの互換性に取り組んでいます。 一般提供の場合は、サポートされているクライアント ライブラリの数を増やし、今後も引き続きこれを行います。</p>
+
+
+  <p>Gremlin API の一般提供により、グラフ アプリケーションの移植は簡単なプロセスになります。 しかし、データについてはどうでしょうか。 データ移行エクスペリエンスを簡略化するために、グラフ データのインポートとエクスポートを含む一括データ操作を簡略化する新しいネイティブ ライブラリをリリースします。</p>
+
+
+  <p>Azure Cosmos DB Graph API サービスは、プレビューから移行し、2017 年の終わりまでに一般提供される予定です。 その間に、Azure Portal の <strong>データ エクスプローラー で Graph</strong> ビジュアライザーも大幅に改善され、今後数週間以内に使用できる大規模なグラフの閲覧エクスペリエンスが簡素化されました。</p>
+
+
+  <p>Gremlin API と、Azure Cosmos DB が提供する必要があるその他のすべてを活用してください。 引き続き、 <a href="https://feedback.azure.com/forums/263030-azure-cosmos-db" target="_blank">サービスで次に表示する情報に関するフィードバック</a> をお寄せください。 無料のエクスペリエンスを提供する Try Cosmos DB を使用して、今すぐ Gremlin API を無料<a href="https://azure.microsoft.com/en-us/try/cosmosdb/" target="_blank">でお試</a>しください。 ヘルプが必要な場合、または質問やフィードバックがある場合は、Stack Overflow の開発者フォーラムでお問い合わせください<a href="https://stackoverflow.com/questions/tagged/azure-cosmosdb" target="_blank">。</a>最新のニュースと発表については、Twitter <a href="https://twitter.com/AzureCosmosDB" target="_blank">@AzureCosmosDB</a><a href="https://twitter.com/search?q=%23cosmosDB&amp;src=typd" target="_blank">#、CosmosDB</a> でフォローしてください</p>
+
+
+  <p><br>
+
+  -Azure Cosmos DB の友人</p>

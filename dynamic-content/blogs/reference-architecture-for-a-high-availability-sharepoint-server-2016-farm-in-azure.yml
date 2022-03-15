@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 284699479247041bbccc269382539dd7e11ddf60
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910478"
+Slug: reference-architecture-for-a-high-availability-sharepoint-server-2016-farm-in-azure
+Title: Azure の高可用性 SharePoint Server 2016 ファームのリファレンスアーキテクチャ
+Summary: AzureCAT Patterns & プラクティスチームは、Azure で高可用性 SharePoint Server 2016 ファームをデプロイして実行するための新しい参照アーキテクチャを公開しました。
+Content: >-
+  <p>azure CAT パターン &amp; プラクティスチームは、 <a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/sharepoint">azure で高可用性 SharePoint Server 2016 ファーム</a>をデプロイして実行するための新しい参照アーキテクチャを公開しました。</p>
+
+
+  <p>次のトピックを含む規範的なガイダンスを提供します。</p>
+
+
+  <ul style="margin-left: 40px;">
+   <li>デプロイに必要なアーキテクチャリソース (リソースを含む)。</li>
+   <li>スケーラビリティに関する考慮事項。</li>
+   <li>可用性に関する考慮事項。</li>
+   <li>管理の容易性に関する考慮事項。</li>
+   <li>セキュリティに関する注意点</li>
+  </ul>
+
+
+  <p><a href="https://docs.microsoft.com/azure/architecture/reference-architectures/">Azure 参照アーキテクチャ</a>で見つかるすべての参照アーキテクチャと同様に、規範的なガイダンスと一連の PowerShell スクリプトと Azure Resource Manager テンプレートが含まれており、SQL Server Always On およびシミュレートされたオンプレミスネットワークを使用して動作する SharePoint Server 2016 ファームをデプロイできます。 この参照アーキテクチャのデプロイ時間には時間がかかることがあります。これにより、以前はいくつかのタスクを構築してテストすることができます。</p>
+
+
+  <p>参照アーキテクチャについて確認し、デプロイを試して、GitHub に関するその他の参照アーキテクチャに投稿することもできます。</p>
+
+
+  <p><b>注</b>: SharePoint HA ファームのコンピューティング要件は、オンプレミスまたはクラウドで実行されている多くのワークロードよりも大幅に高くなります。 これをデプロイする場合は、完全なデプロイで38コアを使用することに注意してください。 &rsquo;そのため、タイヤを開始だけでも、完了後に仮想マシン &rsquo; をシャットダウンして、請求書に関する不測の事態を防ぐことができます。</p>
+
+
+  <p>結果の構成は次のようになります。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/edc286a0-8a9f-4935-9cd6-9e8ec81a1e41.png"><img alt="image" border="0" height="699" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7910d3fa-471f-4981-aefd-21b6e04a0054.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="1024"></a></p>

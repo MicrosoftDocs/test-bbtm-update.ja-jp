@@ -1,0 +1,122 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 515e1a0eeb8ebfe87a8aa31a9345d508fcffb8de
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910362"
+Slug: run-your-lob-applications-with-postgresql-powered-by-the-plv8-extension
+Title: plv8 拡張機能を搭載した PostgreSQL を使用して LOB アプリケーションを実行する
+Summary: PostgreSQL の plv8 拡張機能が、現在、サービスの一般提供されているリージョンすべてで有効Azure Database for PostgreSQLです。 plv8 拡張機能は、成長を続ける顧客ベースと PostgreSQL コミュニティから高く要求された UserVoice の質問の 1 つでした。
+Content: >-
+  <p>PostgreSQL 用 plv8 拡張機能が、現在、Microsoft Azure Database for PostgreSQL のすべての一般提供リージョンで有効になっている点を共有して非常に楽しみに思います。 plv8 拡張機能は、成長を続ける顧客ベースと PostgreSQL コミュニティから高く要求された <a href="https://feedback.azure.com/forums/597976-azure-database-for-postgresql" target="_blank">UserVoice</a> の質問の 1 つでした。 これは、新しいシナリオと可能性のロックを解除する一般的なコミュニティ拡張機能です。また、開発者は、SQL から呼び出す JavaScript で関数を記述することもできます。</p>
+
+
+  <p>PostgreSQL は強力なネイティブ JSON 機能を備え、確立されたオープン ソース データベースであり、plv8 拡張機能は JavaScript v8 エンジンと SQL を統合することで、それをさらに強化します。 <a href="https://jasperfx.github.io/marten/" target="_blank">Marten ライブラリは</a> 、plv8 拡張機能を使用して開発者が PostgreSQL を NoSQL ドキュメント ストアまたはイベント ストアとして利用できるライブラリの 1 つです。 PostgreSQL をドキュメント データベースとして使用すると、小売カート アプリケーション、マーケットプレース ソリューション、IoT イベント処理、LOB アプリケーションを設計および開発するための新しい可能性が開きます。</p>
+
+
+  <p>企業、中小企業、および ISV は、マネージド Azure Database for PostgreSQL サービスでの LOB アプリケーションの開発とデプロイを加速できます。 これは、市場に出る時間を短縮するのに役立ちます。</p>
+
+
+  <p>plv8 拡張機能を Azure Database for PostgreSQL で使用する方法の例を見Azure Database for PostgreSQL。 この例では、plv8 拡張機能を備え、PostgreSQL データベースを利用するオープン ソースの ERP + CRM Web アプリケーション <a href="https://xtuple.com/about" target="_blank">である xTuple</a> を使用します。 無料の PostBooks エディションを備える xTuple プラットフォームは、実質的に任意の業界でビジネス ソフトウェアの優れた開始点を提供します。 ビジネス向けには、スケールアップして、商用バージョンの機能をさらに追加できます。 <a href="https://github.com/xtuple/xtuple" target="_blank">GitHub</a> の xTuples&rsquo; ソリューションは、請求書、通貨、タスク、連絡先など、既に実装されている多くのビジネス オブジェクトを処理するスタック全体です。</p>
+
+
+  <p>xTuple には、<a href="https://xtupleuniversity.xtuple.com/sites/default/files/prodguide/admin-guide/server-setup.html" target="_blank"></a>xTuple PostBooks デスクトップ クライアントを実行するための PostgreSQL をインストールして構成するための詳細なステップ バイ ステップ <a href="https://github.com/xtuple/qt-client" target="_blank">ガイドがあります</a>。 マネージド クラウド サービスAzure Database for PostgreSQL、数分で xTuple ERP + CRM プラットフォームを使用して稼働することができます。</p>
+
+
+  <h2>xTuple 用 PostgreSQL の初期化</h2>
+
+
+  <p>まだ使い慣していない場合は、クイック スタート チュートリアルを使用して、Azure portal または Azure CLI を使用してマネージド <a href="https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-server-database-portal" target="_blank"></a> PostgreSQL サーバーを<a href="https://docs.microsoft.com/azure/postgresql/quickstart-create-server-database-azure-cli" target="_blank">プロビジョニングします</a>。&nbsp;サーバーがプロビジョニングされた後&ldquo;、次に示すように、サーバー管理者ユーザー ロールを持つ pgadmin&rdquo; &ldquo;または psql&rdquo; を使用してサーバーに接続し、xTuple ソフトウェア用の PostgreSQL を初期化します。</p>
+
+
+  <pre>
+
+  CREATE ROLE xtrole WITH NOLOGIN;
+
+  GRANT azure_pg_admin TO xtrole;
+
+  CREATE ROLE admin WITH PASSWORD &#39;admin&#39;
+                          NOSUPERUSER
+                          CREATEDB
+                          CREATEROLE
+                          LOGIN
+                          IN ROLE xtrole;</pre>
+
+  <p>次に示すように、サーバーを切断してから、上記で作成した管理者ユーザーを使用して再接続し、UTF8 エンコードを使用して xTuple アプリケーション用のデータベースを作成します。</p>
+
+
+  <pre>
+
+  CREATE DATABASE xtupledb
+       WITH
+       OWNER = admin
+       ENCODING = &#39;UTF8&#39;
+       LC_COLLATE = &#39;English_United States.1252&#39;
+       LC_CTYPE = &#39;English_United States.1252&#39;
+       CONNECTION LIMIT = -1;</pre>
+
+  <h2>アプリケーションで plv8 拡張機能を有効Azure Database for PostgreSQL</h2>
+
+
+  <p>次に、データベースの plv8 拡張機能を有効にし、次に<strong> plv8.start_proc変数を</strong> 設定します。</p>
+
+
+  <pre>
+
+  CREATE EXTENSION plv8;
+
+  ALTER DATABASE xtupledb  SET &quot;plv8.start_proc&quot; TO &quot;xt.js_init&quot;;</pre>
+
+
+  <p>切断してから再接続し、管理者ユーザーを使用して新しいセッションを確立し、 パラメーターの値 <strong>plv8.start_proc</strong> します。 これは、ALTER &ldquo;<a href="https://www.postgresql.org/docs/10/static/sql-alterdatabase.html" target="_blank">DATABASE SET</a>&rdquo; コマンドを使用してパラメーター値を設定するときに必要です。指定した値が設定され、後続のすべての新しいセッションに対して反映されます。</p>
+
+
+  <pre>
+
+  SELECT plv8_version();
+
+  Show plv8.start_proc;</pre>
+
+
+  <p>これで、データベース xtupledb が xTuple ERP ソリューションに電力を供給する準備が整いました。 このガイドに従って、 <a href="https://xtuple.com/products/postbooks/installing-postbooks-database" target="_blank">PostBooks データベースをインストールできます</a>。 データベースが復元された後、xTuple デスクトップ アプリをインストールして参照する準備が整います。</p>
+
+
+  <p>データベースの復元中に、 <a href="https://xtupleuniversity.xtuple.com/sites/default/files/prodguide/admin-guide/ch02s04.html" target="_blank">xTuple</a> のドキュメントに記載されているエラー メッセージや警告が表示される場合があります。これは無視しても問題ありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/680a1c8f-3f7c-4bf5-b998-3d629cb8c753.png"><img alt="xTuple log in" border="0" height="387" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5b737941-b165-48b6-a099-e8141e6157d1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="xTuple ログイン" width="500"></a></p>
+
+
+  <p>これで、フル マネージド のアプリケーションで実行されているオープン ソースの xTuple ERP ソリューションを使用Azure Database for PostgreSQL。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9a0ff0bb-7a14-4e47-966f-61596546d440.png"><img alt="Practice Database" border="0" height="1020" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ecf586b-eebd-4c1c-b965-15f757d3a238.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="データベースの練習" width="1920"></a></p>
+
+
+  <p>PostgreSQL の新しいシナリオと NoSQL 機能のロックを解除するには、Azure Database for PostgreSQLで plv8 拡張機能を利用してみてください。 概要 <a href="https://aka.ms/CreateazurePostgreSQLDB" target="_blank">PostgreSQL</a> サーバーを作成して作成しましょう。</p>
+
+
+  <p>詳細については、概要Azure Database for PostgreSQLサポート <a href="https://docs.microsoft.com/azure/postgresql/overview" target="_blank">されている</a> 拡張機能 <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-extensions" target="_blank">に関するページを参照してください</a>。</p>
+
+
+  <p>引き続き <a href="https://feedback.azure.com/forums/597976-azure-database-for-postgresql" target="_blank">、次に表示</a> する機能に関するフィードバックをお寄せください。 ヘルプが必要な場合、または質問がある場合は、次のドキュメント <a href="https://docs.microsoft.com/en-us/azure/postgresql/" target="_blank">Azure Database for PostgreSQLしてください</a>。 最新のニュースや発表については、Twitter <a href="https://twitter.com/AzureDBPostgres" target="_blank">@AzureDBPostgreSQL</a> でフォローしてください。</p>
+
+
+  <h2>関連リソース</h2>
+
+
+  <ul>
+   <li><a href="https://xtupleuniversity.xtuple.com/library/articles/compatibility-matrix" target="_blank">PG/xTuple バージョン互換性マトリックス</a></li>
+  </ul>
+
+
+  <ul>
+   <li><a href="https://xtupleuniversity.xtuple.com/library/videos/introduction-xtuple-dashboards" target="_blank">PostgreSQL の plv8 拡張機能を利用したダッシュボードの概要</a></li>
+  </ul>
+
+
+  <h2>謝辞</h2>
+
+
+  <p>xTuple の Ned Lilly と Perry Thanks に感謝します。また、この投稿に対する投稿に対する貢献に対する Sunil のスニート、Rachel Agyemang、Jim Toland に感謝します。</p>

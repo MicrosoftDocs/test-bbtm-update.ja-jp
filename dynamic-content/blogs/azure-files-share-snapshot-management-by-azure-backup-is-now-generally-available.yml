@@ -1,0 +1,95 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0c6c391a1a2a53993fb5382e58a187e263fec27d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905024"
+Slug: azure-files-share-snapshot-management-by-azure-backup-is-now-generally-available
+Title: Azure Filesによる共有スナップショット管理Azure Backup一般提供
+Summary: Microsoft Azure Files は、業界標準のサーバー メッセージ ブロック (SMB) プロトコルを介してアクセスできる、クラウド内のフル マネージドファイル共有を提供します。
+Content: >-
+  <p>Microsoft <a href="https://azure.microsoft.com/services/storage/files/" target="_blank">Azure Files</a> は、業界標準のサーバー メッセージ ブロック (SMB) プロトコルを介してアクセスできる、クラウド内のフル マネージドファイル共有を提供します。 共有スナップショットのAzure Files、以前の時点<a href="https://docs.microsoft.com/azure/storage/files/storage-snapshots-files" target="_blank"></a>からのファイル共有の読み取り専用バージョンが提供されています。 共有スナップショットは、実際には増分的で、ストレージの使用効率も向上します。 お客様は単純にこれらの共有スナップショットを使用して過去に戻りますが、スクリプトまたは自動化を使用したスナップショットの管理は、手間のかかるプロセスです。 Microsoft <a href="https://docs.microsoft.com/azure/backup/backup-afs" target="_blank">Azure Backup</a> では、共有スナップショットを使用してデータをバックアップおよび保護するためのシンプルAzure Files方法が提供されています。</p>
+
+
+  <p>現在、スナップショット管理の一般提供については、Azure FilesによってAzure Backup。 クラウドでネイティブに使用できるのとは別に、Azure Backup Recovery Services コンテナーを使用してファイル共有を保護すると同時に、大きな利点があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5481d0f9-8211-4961-9b7d-437283330901.png"><img alt="Azure Backup architecture for Azure Files share snapshot management " border="0" height="608" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/202fa2d1-fc33-41eb-94be-957327f62b0d.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="" width="1024"></a></p>
+
+
+  <h2>主な利点</h2>
+
+
+  <ul>
+      <li>単純な<b>構成: Recovery</b> Services コンテナーの <a href="https://docs.microsoft.com/azure/backup/backup-afs#discover-file-shares-and-configure-backup" target="_blank"><b>[+Backup</b></a>] オプションを使用すると、ストレージ アカウント内のすべての保護されていないファイル共有を検出し、必要に応じて複数のファイル共有を選択し、ポリシーを選択し、すべてのファイル共有のバックアップを一度に構成できます。 構成が完了したら、ポータルから直接バックアップAzure Filesできます。</li>
+      <li><b>ゼロ インフラストラクチャ ソリューション</b>: Azure ネイティブ ソリューション&rsquo;Azure Backupを使用すると、追加のコンピューティングを実行する必要が発生します。 これにより、スナップショットをスケジュールしたり、定期的に保守または変更したりするためのインフラストラクチャを設定する必要がなされます。</li>
+  </ul>
+
+
+  <p><a href="https://docs.microsoft.com/azure/storage/files/storage-sync-files-planning">Azure File Sync</a> ユーザーは、データ全体がクラウドで使用できるので、オンプレミス サーバーからデータをバックアップする必要はありません。 オンプレミスのサーバーまたはマシンでクラウドを使った階層化を有効にし、引き続き Azure Backupを使用してクラウド データを保護できます。</p>
+
+
+  <ul>
+      <li><b>柔軟なバックアップ</b> ポリシー: Azure Backupを使用すると、スナップショットのスケジュールを定義するために選択したポリシーを作成および変更できます。</li>
+  </ul>
+
+
+  <p>ポリシー&rsquo;の一部として毎日のスナップショットを作成するために既にAzure Backupされています。 一般公開リリースの一環として、毎週、毎月、毎年のスナップショットを作成する機能も導入されています。 これらのスナップショットのリテンション期間は、最大 10 年間選択できます。<b> </b>バックアップ ポリシーでは、期限切れのスナップショットの削除が自動的に行われます。ファイル共有あたりのスナップショット数が 200 の制限内に残されます。</p>
+
+
+  <ul>
+      <li><b>包括的な復元機能</b>: Azure Backupファイル共有データを復元するためのさまざまなオプションが提供されます。 ファイル共有全体または個々のファイルとフォルダーを復元することができます。 復元は、元の場所または同じストレージ アカウントまたは異なるストレージ アカウント内の代替ファイル共有に対して実行することもできます。 Azure Backup、ファイルとフォルダーのすべてのアクセス制御リスト (ACL) を保持および復元することもできます。</li>
+  </ul>
+
+
+  <p>上記のオプションとは別にAzure Backup復元が同期対応である必要があります。 クラウド内の関連Azure File Syncファイル共有への復元が完了したら、オンプレミス サーバーへの再同期をトリガーするために、Azure File Sync サービスと調整します。</p>
+
+
+  <ul>
+      <li><b>誤削除からの保護</b>: 誤削除は複数のレベルで発生する可能性があります。
+
+      <ul>
+          <li>個々のファイルとフォルダー: 最下位レベルはファイルまたはフォルダーです。 これは最も一般的なシナリオです。 スケジュールされたスナップショットを使用して個々のファイルとフォルダーを復元できると、この問題が解決されます。</li>
+          <li>スナップショット: Azure Backup <i>ポリシーを </i>使用して取得するスナップショットのイニシエーターになります。 ただし、管理者は引き続きファイル共有内の特定のスナップショットを削除できます。 復元ポイントが無効になるため、これらの削除は推奨されません。 スナップショット&rsquo;が誤って削除されるのをAzure Backupするメカニズムに積極的に取り組む必要があります。</li>
+          <li>ファイル共有: ファイル共有を削除すると、ファイル共有に対して作成されたスナップショットはすべて消去されます。 Azure Backupファイル共有が誤って削除されるのを防ごう目的で現在取り組み中であり、ソリューションは間もなく最初のいくつかのリージョンで利用できる必要があります。</li>
+          <li>Storageアカウント: ストレージ アカウントを削除すると、ストレージ アカウント内のすべてのファイル共有とそのスナップショットを消去できます。 顧客との会話は、これはあまり一般的なシナリオではあるが、保護する必要があるという点を示しています。 そのため、 <a href="https://aka.ms/AFSSALock" target="_blank">Azure Backup</a> アカウントの最初のファイル共有がバックアップ用に構成されたとすぐに、ストレージ アカウントの削除ロックを受け取る必要があります。</li>
+      </ul>
+      </li>
+      <li><b>オンデマンド スナップショット</b>: スナップショットをスケジュールするバックアップ ポリシー オプションとは別に、毎日最大 4 つのオンデマンド バックアップを作成することもできます。 <a href="https://docs.microsoft.com/azure/backup/backup-azure-afs-automation#trigger-an-on-demand-backup" target="_blank">1 日に複数のオンデマンド</a> バックアップを実行すると、顧客の目標復旧時点 (RPO) が減少します。 バックアップAzure Backup保有期間セットに基づいてこれらのスナップショットが消去される場合は、この機能を使用する際に、ファイル共有あたりのスナップショット数の上限が 200 を超えないようにする必要があります。</li>
+      <li><b>アラートとレポート</b>: アラートと Azure Backup統合すると、重大なエラーに対して電子メール通知を構成できます。 すべてのリージョンで一般公開リリースを利用できると、レポートにバックアップ関連のデータ <a href="https://azure.microsoft.com/en-us/blog/announcing-preview-of-backup-reports/" target="_blank">Azure Backupされます</a>。</li>
+  </ul>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>お客様との会話&lsquo;に基づいて、ファイル共有データを Recovery Services コンテナーにコピーする機能など、Azure Backup を使用したスナップショット管理以外の機能の提供に取り組む必要があります。 お客様が価値を持つ機能に関する作業の調整に役立つ、このフィードバックと、お客様からのフィードバックを歓迎します。 このアンケートに記入すると <a href="https://aka.ms/AFBGASurvey" target="_blank">、お手伝いできます</a>。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>リージョン内の Recovery Services コンテナーを使用して、ファイル共有の保護を開始します。 サポートされているリージョンの一覧については、サポート マトリックスを <a href="https://aka.ms/AFBSupportMatrix" target="_blank">参照してください</a>。 コンテナーの概要のバックアップの目標オプションを使用すると、リージョン内のストレージ アカウントからバックアップする Azure ファイル共有を選択できます。 詳細については <a href="https://docs.microsoft.com/azure/backup/backup-afs" target="_blank">、ドキュメントを</a> 参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0ca7d2cd-ec49-493f-875d-9e0490dbf977.png"><img alt="Start with Backup Goal in Recovery Services Vault to protect file shares" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/351b79fd-3af0-4b69-824e-a9158915a543.png" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="" width="414"></a></p>
+
+
+  <h2>価格</h2>
+
+
+  <p>価格の詳細については、現在リージョンの価格をAzure Backupの価格に関するページに従って更新してください。 Azure Backupを使用したスナップショット管理<strong>は、2020 年 9 月 1</strong> 日まで顧客に対して課金されます。 すべてのユーザーは、2020 年 8 月までコストを追加することなく、この機能にアクセスして試用できます。 フィードバックやクエリについては <a href="mailto:AskAzureBackupTeam@microsoft.com">AskAzureBackupTeam@microsoft.com</a> 、 に書き込みを行います。</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+      <li><a href="https://aka.ms/AFBSupportMatrix">データベースを使用</a> したAzure Files管理のサポート マトリックスAzure Backup。</li>
+      <li>新しいアプリケーションを作成するAzure Backup <a href="https://docs.microsoft.com/azure/backup/backup-azure-files">、バックアップの構成を開始します。Azure portal</a>。</li>
+      <li>詳細については、以下をご覧ください。 詳細については <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-files">、Azure Backupしてください</a>。</li>
+      <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">フォーラムに</a> 連絡してください。</li>
+      <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+      <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください。</li>
+  </ul>

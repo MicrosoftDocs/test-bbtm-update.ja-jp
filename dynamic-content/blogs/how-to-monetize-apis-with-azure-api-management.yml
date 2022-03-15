@@ -1,0 +1,156 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a5d453002e312dbc6f87b282f3b97faca5f02b18
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910771"
+Slug: how-to-monetize-apis-with-azure-api-management
+Title: Azure API Management を使用して API を収益化する方法
+Summary: この記事では、Azure API Management でホストされている API の収益化を設定する手順について説明します。 コード サンプルは、選択した支払いプロバイダーとの統合を設定するのに役立ちます。
+Content: >-
+  <p><i>この記事では、Azure API Management でホストされている API の収益化を設定する手順について説明します。コード サンプルは、選択した支払いプロバイダーとの統合を設定するのに役立ちます。</i></p>
+
+
+  <p>お客様から常に質問される質問の 1 つは、&ldquo;API の課金を設定する方法です。&rdquo;API Management管理 <a href="https://msdn.microsoft.com/en-us/library/azure/dn776326.aspx"></a> &ndash; API からアクセス可能な課金を設定するために必要なすべての情報が用意されています。お客様が使用する支払いプロバイダー<a href="https://en.wikipedia.org/wiki/List_of_online_payment_service_providers"></a>は選択する必要があります。 ただし、もう少しガイダンスが必要な場合は、このブログ記事が役立ちます。</p>
+
+
+  <h2>API を直接収益化する 2 つの方法</h2>
+
+
+  <p>API を直接収益化する最も一般的な 2 つの方法<b></b>は、サブスクリプションの課金です。この場合、API にアクセスするために定額の月額料金が顧客に請求されます。および<b>測定課金。</b>顧客が行った API 呼び出しの数に基づいて顧客に課金されます。</p>
+
+
+  <p><b><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1acb2a88-8751-4403-95ca-91ddf28c450b.png"><img alt="clip_image002" border="0" height="456" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e89d531-f4bf-41d4-9a7d-a519a06e7767.png" style="display: inline; background-image: none;" title="clip_image002" width="494"></a></b></p>
+
+
+  <h2>サブスクリプション課金モデル:</h2>
+
+
+  <p>サブスクリプション モデルでは、顧客は定額の月額料金を支払い、1 か月あたり一定の数の API 呼び出しを実行できます。 たとえば、顧客は 1 か月あたり最大 10,000 の API 呼び出しにアクセスするために 100 ドルを支払います。 0 回の API 呼び出しまたは 10,000 回の API 呼び出しを行う場合でも、顧客には毎月 100 ドルが請求されます。 顧客が請求期間の途中で API をサブスクライブした場合、顧客には、サブスクリプションがアクティブだった日数に対して日次評価額が請求されます。</p>
+
+
+  <h2>測定課金モデル:</h2>
+
+
+  <p>この名前が示すように、測定課金モデルでは、顧客が行う API 呼び出しごとに料金を顧客に請求します。 顧客は、必要な数の通話を行い、行われた呼び出しの総数に基づいて課金されます。 顧客が 1 回の呼び出しあたり 0.01 ドルで 7,000 API 呼び出しを行った場合、月末の請求額は $70 となります。</p>
+
+
+  <p>測定課金モデルを使用すると、月に 1 回顧客に課金されます。知る必要があるのは、その期間中に顧客が行った電話&#39;の数だけになります。</p>
+
+
+  <h2>支払いプラットフォームを使用した請求と支払いの収集</h2>
+
+
+  <p>Azure API Management API の使用状況をリアルタイムで追跡して、各顧客によって行われた API 呼び出しの数を確認できます。 この使用状況データを使用して、各顧客に請求し、請求書を送信して毎月の支払いを収集できます。 ユーザーに課金するには、Stripe (この記事の例として使用します) などのサードパーティの定期的な課金ソリューションが必要です。 Stripe では、複数の課金モデル、通貨、支払い方法がサポートされ、独自の API を使用すると、アプリとシームレスAPI Managementできます。 Azure API Management特定の&ndash;支払いサービスは推奨しません。ニーズに<a href="https://en.wikipedia.org/wiki/List_of_online_payment_service_providers"></a><a href="https://en.wikipedia.org/wiki/List_of_online_payment_service_providers"></a>最適な支払いプロバイダーを選択する必要があります。</p>
+
+
+  <h2>支払API Managementと支払いプラットフォームの組み合わせて使用する方法</h2>
+
+
+  <p>これを設定するには、Azure API Management と Stripe を統合する必要があります。これらはどちらも、スムーズなカスタマー エクスペリエンスを作成するために使用できる API を持っています。 API Management API では、各顧客の API の使用状況とサブスクリプションの詳細が公開されます。 Stripe API を使用すると、サブスクリプション内の各製品の請求の詳細を含む毎月の請求書を各顧客に送信できます。</p>
+
+
+  <h2>Azure で製品を作成する API Management</h2>
+
+
+  <p>Azure API Management API を管理するには、製品を作成し、1 つ以上の API を追加する必要があります。 これは、顧客が API をサブスクライブする方法なので、製品バンドルに API を追加します。 製品が公開された後、開発者は製品バンドルをサブスクライブし、その製品と API の使用&#39;開始できます。</p>
+
+
+  <h2>製品API Managementスストライプ プランへのマップ</h2>
+
+
+  <p>API の顧客は、Azure API Management 顧客アカウント (多くの場合、開発者アカウントと呼ばれます) を介して Stripe ユーザー アカウントにマップされます。 複数の製品サブスクリプションが含まれる場合があります。 そのため、主な統合タスクは、API Management s API から月次の顧客の使用状況の詳細を&rsquo;取得し、これらの詳細を Stripe に送信します。</p>
+
+
+  <p>独自API Management&rsquo; API を使用すると、アクティブユーザーの数を決定し、各ユーザーのサブスクリプションを一覧表示し、アクティブな製品サブスクリプションごとに毎月の使用量を取得できます。 この情報は、カスタム コードによって取得された後、顧客の請求書を作成して電子メールで送信するために Stripe API に送信されます。</p>
+
+
+  <h2>製品ごとに Stripe プランをAPI Managementする</h2>
+
+
+  <p>Stripe は、Azure API Management が製品を参照するのと同じ方法でプランを参照します。そのため、API Management で作成する製品ごとに Stripe プランを作成する必要があります。 各 Stripe プランには一意の ID があります。この ID は、対応する製品API Managementマップされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e63274b4-a746-4294-8a13-052c7c986e32.png"><img alt="clip_image003" border="0" height="145" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eeaf60a7-3e81-41d0-842c-e7653d52105e.png" style="display: inline; background-image: none;" title="clip_image003" width="304"></a></p>
+
+
+  <p>API Management の月次サブスクリプション Product を Stripe の月次サブスクリプション プランに接続するには、Stripe プランの価格と請求頻度を設定します。 たとえば、API Management&rsquo; で 100 ドル/月のサブスクリプション製品を記述する場合は、Stripe プランを作成し、価格として 100 ドル、請求頻度を 1 か月に指定しました。</p>
+
+
+  <p>API Management の測定課金製品を Stripe&rsquo; の測定課金プランに接続するには、月額料金 0 ドルのプランを作成し、使用量に基づいて月額料金に料金を追加しました。 追加の料金の金額は、カスタム コードによって計算され、API 要求として送信されます。 これらの従量課金料金は請求書項目と呼ばれ、月ごとに異なる可能性があるため、非定期的な料金と見なされます。</p>
+
+
+  <h2>顧客にサインアップして製品の選択肢を登録する</h2>
+
+
+  <p>顧客が新規登録したり、新しい製品を追加したりすると、ユーザーにキャプチャまたは提示する追加情報 (クレジット カード情報、支払い条件など) が表示され、それを使用して支払いプロバイダーに登録できます。</p>
+
+
+  <p>これを行API Management方法は、サインイン委任 <a href="https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-setup-delegation/">を使用する方法です</a>。 顧客が API Management 製品のいずれかをサブスクライブするたび、コードは、一意の Stripe プラン ID を使用して追加の情報をキャプチャし、Stripe API を介してサブスクリプションを作成するためにリダイレクトされます。 新しい顧客を作成するために API 呼び出しにプラン ID を含めてサブスクリプションにサインアップすると同時に、新しい Stripe 顧客を作成できます。この手順は少し難<a href="https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-setup-delegation/"></a>しい場合があります。委任に関する記事を参照してください。 付属のサンプル コード <a href="https://github.com/Azure/api-management-monetization">も参照</a> してください。</p>
+
+
+  <h2>Stripe からのサブスクリプションの取り消し</h2>
+
+
+  <p>顧客が月次サブスクリプションを取り消す場合は、Stripe でもサブスクリプションを取り消す必要があります。 これは、Stripes API を使用して&rsquo;実行することもできます。 その後、顧客の&#39;クレジット カードは再度課金されません。</p>
+
+
+  <p>測定課金&rsquo;の場合は何もする必要はありません。ただし、顧客は引き続き $0 の請求書を受け取ります。これは、Stripe API を通じて $0/月のサブスクリプションを取り消して回避できます。</p>
+
+
+  <h2>月次サブスクリプション製品の設定</h2>
+
+
+  <p>サブスクリプションの課金を実装するための基本的な手順を次に示します。</p>
+
+
+  <ul>
+      <li>API を階層化された製品 (ブロンズ、シルバー、ゴールドなど) にパッケージ化します。 さまざまな API 呼び出しの許容量、または異なる呼び出しレートを提供します。</li>
+      <li>必要 <a href="https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-product-with-rules/">に応じて、クォータとレート</a> 制限ポリシーを製品に適用する</li>
+      <li>対応するストライプ プランを作成する</li>
+      <li>月次課金ジョブを実行するコードを記述します。このジョブは、特定の請求期間中に、各製品のすべてのサブスクライバーをAPI Management一覧から取得します。 使用量の詳細を Stripe API に送信して、請求書と請求書を生成します。</li>
+  </ul>
+
+
+  <h2>月次サブスクリプション ユーザーの請求額の計算</h2>
+
+
+  <p>月次サブスクリプション ユーザーの請求書の&rsquo;計算は非常に簡単です。API 呼び出しの数を知る必要がないのでです。 代わりに、各ユーザーに月額料金を請求します。 実際、&rsquo;顧客サブスクリプションが Stripe に作成されると、サブスクリプションの価格が格納され、サブスクリプションが取り消されるまで月次サブスクライバーの課金が処理されます。</p>
+
+
+  <p>具体的な詳細については、付属 <a href="https://github.com/Azure/api-management-monetization">のサンプル コード</a> を参照してください。</p>
+
+
+  <h2>測定課金の設定</h2>
+
+
+  <p>測定課金を実装する方法:</p>
+
+
+  <ul>
+      <li>階層化された製品 (ブロンズ、シルバー、ゴールドなど) に API をパッケージ化する</li>
+      <li>製品 <a href="https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-product-with-rules/">にレート制限</a> ポリシーを適用する</li>
+      <li>対応するストライプ プランを作成する</li>
+      <li>特定の請求期間中に各サブスクライバーの API Management から使用状況情報を取得し、その情報を Stripe&rsquo; にフィードして顧客の請求を生成する月次課金ジョブを実行します</li>
+  </ul>
+
+
+  <h2>測定ユーザーの請求額の計算</h2>
+
+
+  <p>これを計算するために、カスタム コードによってクエリが実行API Management測定された製品ごとに顧客&rsquo; API の使用状況が取得されます。 カスタム コードでは、この数に API 呼び出しあたりのコストを乗算して、この製品の合計料金を計算します。 詳細については、付随するサンプル コードを参照してください。</p>
+
+
+  <p>具体的な詳細については、付属のサンプル コードを参照してください。</p>
+
+
+  <h2>メモ</h2>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/documentation/articles/api-management-get-started/" target="_blank">Azure API Management の使用を開始する</a></li>
+      <li><a href="https://docs.microsoft.com/azure/api-management/monetization-overview" target="_blank">Azure API Management での収益化の詳細を確認する</a></li>
+      <li><a href="https://docs.microsoft.com/azure/api-management/monetization-support" target="_blank">Azure API Management が収益化をサポートする方法を理解する</a></li>
+      <li>サンプルの <a href="https://aka.ms/apim/monetization/sample" target="_blank">収益化コードを確認する</a></li>
+  </ul>

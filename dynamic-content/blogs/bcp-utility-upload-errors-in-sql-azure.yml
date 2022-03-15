@@ -1,0 +1,11 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0e59cf639d77026d5a8c4251a9f4ddf66418cd10
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904940"
+Slug: bcp-utility-upload-errors-in-sql-azure
+Title: BCP ユーティリティアップロード SQL Azure でエラーが発生しています
+Summary: '[この記事は SQL Azure チームによって提供されました。]bcp ユーティリティのアップロードエラーの原因の1つとして、1つのバッチ内で過剰なデータをアップロードしようとしている SQL Azure が考えられます。 テーブルの行の各バッチは...'
+Content: '<p>[この記事は SQL Azure チームによって提供されました。]</p><p><a href="https://msdn.microsoft.com/en-us/library/ms162802(SQL.105).aspx">bcp ユーティリティ</a>のアップロードエラーの原因の1つとして、1つのバッチ内で過剰なデータをアップロードしようとしている SQL Azure が考えられます。 テーブルの行の各バッチは1つのトランザクションであり、bcp がこれらの制約に違反した場合、bcp ユーティリティのアップロードが失敗する可能性のあるトランザクションに対する制約が SQL Azure ます。 この記事では、制約に違反しないようにする方法について説明します。</p>  <p>Bcp ユーティリティは、Microsoft SQL Server に付属しているコマンドラインユーティリティです。 SQL Azure (または SQL Server) と、ユーザー指定の形式のデータファイルとの間でデータを一括コピーします。 SQL Server 2008 R2 に付属している bcp ユーティリティは、SQL Azure によって完全にサポートされています。 BCP の使用方法の詳細については、このブログ記事の SQL Azure を参照してください。</p>  <p>アップロード時に発生する可能性があるエラーの種類は次のとおりです。</p>  <p><i><font color="#ff0000">SQLState = 08S01、のエラー = 10054</font></i></p>  <p><i><font color="#ff0000">エラー = [Microsoft] [SQL Native Client] TCP プロバイダー: 既存の接続はリモートホストによって強制的に切断されました。</font></i></p>  <p><i><font color="#ff0000">SQLState = 08S01、のエラー = 10054</font></i></p>  <p><i><font color="#ff0000">エラー = [Microsoft] [SQL Native Client] 通信リンクエラー</font></i></p>  <p>トランザクションの制約により接続を閉じる SQL Azure の例を次に示します。トランザクションが 1 gb のデータを超えることはできないというルールも含まれます。</p>  <p>BCP の既定のバッチサイズは1000です。つまり、トランザクションごとに1000行がアップロードされます。 これらの行がトランザクション制約を超えると、上記のエラーが発生する可能性があります。 バッチ内の行の数を減らすには、– b フラグを使用して bcp ユーティリティを実装し、行数を指定します。</p>  <p><i>bcp AdventureWorksLTAZ2008R2 in C:\Users\user\Documents\MoveDataToSQLAzure.txt <b>-b100</b> -c-U username@servername -S tcp: servername. database. windows. net-P password</i></p>  <p>行数を減らすと、転送チャット層が作成され、行/秒の転送速度が低下します。 ただし、bcp ユーティリティを使用して SQL Azure に行のサイズが大きいテーブルを取得する唯一の方法である場合もあります。</p>  <h2>パフォーマンスを向上させるには</h2>  <p>バッチサイズを増やすことでパフォーマンスを向上させることができるため、トランザクションごとにより多くの行が挿入されます。 これは、各行のデータ長が小さい場合にのみ機能します。上記のエラーが発生した行とは逆になります。 1万行のバッチを良好な結果でアップロードしています。特に、列が4つしかない多数のテーブルについては、</p>  <p>質問、懸念事項、コメントがありますか。 これらを下に投稿してください。</p>'

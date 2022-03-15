@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 66492934eb136e2632ebbe981c93310d98593ecb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904617"
+Slug: new-multi-tenant-patterns-for-building-saas-applications-on-sql-database
+Title: SQL Database で SaaS アプリケーションを構築するための新しいマルチテナントパターン
+Summary: 喜び SQL Database では、さまざまなデータベーステナントモデルを使用して、拡張された一連の SaaS アプリケーションを利用できることを発表しています。
+Content: >-
+  <p>&rsquo;喜び SQL Database で別のデータベーステナントモデルを使用して、拡張された一連のサンプル SaaS アプリケーションが利用可能かどうかを発表します。 各サンプルには、独自の SaaS アプリプロジェクトを開始する際に役立つ一連の管理スクリプトとチュートリアルが含まれています。 これらのサンプルでは、SaaS に重点を置いた設計と管理のパターンを示し、SQL Database での SaaS アプリケーション開発を加速させることができます。</p>
+
+
+  <p>これは、今年の前半で開始された <a href="https://azure.microsoft.com/en-us/blog/saas-patterns-accelerate-saas-application-development-on-sql-database/">サンプル Wingtip SaaS アプリケーション</a>を拡張したものです。</p>
+
+
+  <h2>SaaS アプリのパターンの SQL Database</h2>
+
+
+  <p>各サンプルには、同じ Wingtip チケットアプリケーションが実装されています。 このアプリは、SaaS アプリの単純なイベントリストとチケット発行です。各会場は、イベント、チケット価格、顧客、チケット販売を含むテナントです。 このアプリは、管理スクリプトとチュートリアルと共に、1 つの完全な SaaS シナリオを示します。 これには、テナントのプロビジョニング、パフォーマンスの監視と管理、スキーマ管理、テナント間のレポートと分析がすべて大規模に含まれます。</p>
+
+
+  <p>この3つのサンプルは、使用される基になるデータベーステナントモデルで異なります。 1 つ目は、独立したシングル テナント データベースを使用するシングル テナント アプリケーションを使用します。 2 つ目は、テナントごとにデータベースを持つマルチテナント アプリを使用します。 3 つ目のサンプルは、シャードされたマルチテナント データベースを持つマルチ テナント アプリを使用します。</p>
+
+
+  <p><img alt="Different versions of Wingtip tickets SaaS application" border="0" height="757" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a42dbac-00ba-4357-ae3f-65edceccf25d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Wingtip チケット SaaS アプリケーションのさまざまなバージョン" width="1888"></p>
+
+
+  <h3>スタンドアロン アプリケーション</h3>
+
+
+  <p>このサンプルでは、単一のテナントデータベースで単一のテナントアプリケーションを使用します。 このサンプルは、複数のテナントにデプロイできます。 各テナント &rsquo; のアプリは、個別の Azure リソースグループにデプロイされます。 これは、サービスプロバイダー &rsquo; のサブスクリプションまたはテナント &rsquo; のサブスクリプションにあり、テナント &rsquo; の代理でプロバイダーによって管理されている可能性があります。 このパターンはテナントを最大限に分離させますが、複数のテナント間でリソースを共有する機会がないため、通常は最もコストが高くなります。</p>
+
+
+  <p>この SaaS パターンに関心がある場合は、 <a href="https://github.com/Microsoft/WingtipTicketsSaaS-StandaloneApp">GitHub の</a><a href="https://aka.ms/wingtipticketssaas-sa" target="_blank">チュートリアル</a>とコードを確認してください。</p>
+
+
+  <h3>テナント単位データベース</h3>
+
+
+  <p>テナントごとのデータベースモデルは、テナントの分離に関係し、共有リソースのコスト効率の高い使用を可能にする一元化されたサービスを実行するサービスプロバイダーに対して有効です。 場所またはテナントごとにデータベースが作成され、すべてのデータベースが一元的に管理されます。 エラスティックプールでホストすることで、コスト効率に優れた、簡単なパフォーマンス管理を実現できます。これにより、テナントの予測できない使用パターンが活用されます。 カタログ データベースには、テナントとそのデータベースの間のマッピングが格納されます。 このマッピングは、Elastic Database クライアントライブラリのシャードマップの管理機能を使用して管理されます。これにより、アプリケーションへの効率的な接続管理も実現されます。</p>
+
+
+  <p>この SaaS パターンに関心がある場合は、 <a href="https://github.com/Microsoft/WingtipTicketsSaaS-DbPerTenant">GitHub の</a><a href="https://aka.ms/wingtipticketssaas-dpt">チュートリアル</a>とコードを確認してください。</p>
+
+
+  <h3>シャード化マルチテナントデータベース</h3>
+
+
+  <p>マルチテナントデータベースは、コストの削減と管理の簡素化を目的としたサービスプロバイダーに適しており、テナントの分離の削減にも対応しています。 このモデルでは、多数のテナントを1つのデータベースにパッキングすることで、テナントごとのコストを削減できます。 このモデルは、テナントごとに少量のデータストレージが必要な場合に適しています。 このモデルではさらに柔軟性があり、同じデータベース内の複数のテナントでコストを最適化したり、データベース内の1つのテナントとの分離を最適化したりすることができます。 テナントがプロビジョニングされているとき、または後でアプリケーションの設計に影響を与えずに、テナントごとに選択できます。</p>
+
+
+  <p>この SaaS パターンに関心がある場合は、 <a href="https://github.com/Microsoft/WingtipTicketsSaaS-MultiTenantDB">GitHub の</a><a href="https://aka.ms/wingtipticketssaas-mt">チュートリアル</a>とコードを確認してください。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-database/saas-tenancy-app-design-patterns">SaaS アプリのパターン</a>の詳細については、こちらを参照してください。 これらの SaaS アプリパターンの1つを使ってみましょう。 <a href="https://aka.ms/wingtipticketssaas">チュートリアル</a>では、アプリのデプロイと管理に関する手順を確認できます。 ここで <a target="_blank">saasfeedback@microsoft.com</a> は、サンプルとパターンと、今後追加されるもの &rsquo; についてご意見をお聞かせください。</p>

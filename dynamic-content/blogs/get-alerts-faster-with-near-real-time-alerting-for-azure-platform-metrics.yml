@@ -1,0 +1,96 @@
+### YamlMime:Yaml
+ms.openlocfilehash: def713a10cc65d284ab1b4cd89f44b81456da9f3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904789"
+Slug: get-alerts-faster-with-near-real-time-alerting-for-azure-platform-metrics
+Title: Azure プラットフォーム メトリックに対するほぼリアルタイムのアラートを使用してアラートを迅速に取得する
+Summary: Ignite 2017 では、Azure でのほぼリアルタイムのメトリック アラートのパブリック プレビューを発表しました。 この新しい種類のアラートは、現在のメトリック アラートに対して次の機能強化を提供します。待機時間の改善 –...
+Content: >-
+  <p><a href="https://www.microsoft.com/en-us/ignite/default.aspx" target="_blank">Ignite 2017 では</a>、Azure でのほぼリアルタイムのメトリック アラートのパブリック プレビューを発表しました。 この新しい種類のアラートは、現在のメトリック アラートに対して次の機能強化を提供します。</p>
+
+
+  <ul>
+   <li><strong>待機時間の改善 &ndash;</strong> メトリック値を 1 分ほど頻繁に監視するほぼリアルタイムのメトリック アラートを作成できます。</li>
+   <li><strong>メトリック条件に対するより詳細な制御 &ndash;</strong> 評価期間中にメトリックの最小、最大、平均、および合計を監視できる、ほぼリアルタイムのメトリック アラート ルールを作成できます。</li>
+   <li><strong>複数のメトリックの統合された監視 &ndash;</strong> 複数のメトリック (現在は 2 つ) を同時に監視できる、ほぼリアルタイムのメトリック アラート ルールを 1 つ作成できます。</li>
+   <li><strong>モジュール式通知システム &ndash;</strong>&nbsp; ほぼリアルタイムのメトリック アラートでアクション グループを使用できます。 アクション グループには、複数のアラートで使用できる再利用可能なアクションのセットが提供されます。 ほぼリアルタイムのメトリック アラートを含むアクション グループを使用すると、アラートがトリガーされると、SMS、電子メール、または Web フックを呼び出します。</li>
+  </ul>
+
+
+  <h2>ほぼリアルタイムのメトリック アラートの使用</h2>
+
+
+  <p>ほぼ&rsquo;リアルタイムのメトリック アラートを作成する方法を見てみる。</p>
+
+
+  <p>1. [監視Azure portal監視するリソースを見つけて選択します。 また、MonitorAlerts から、サポートされているすべてのリソースの種類に対して同じ操作を一方&gt;的に実行することもできます。</p>
+
+
+  <p>2. [監視 <strong>] セクション</strong> の <strong>[アラート] または</strong> [アラート ルール] を選択します。 テキストとアイコンは、リソースごとに多少異なる場合があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e4800f9-4ab0-4786-bb54-9b84ea813c63.png"><img alt="Monitoring" border="0" height="154" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81c75812-4ced-4c19-a13d-56602773dd9e.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="監視" width="240"></a></p>
+
+
+  <p>3. [ほぼリアルタイム <strong>のメトリック アラート (プレビュー) を追加する]</strong> コマンドをクリックします。 コマンドが淡色表示されている場合は、フィルターでリソースが選択されていることを確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0a14cae7-2089-4b44-afa9-59133b0f31fc.png"><img alt="Near real-time metrics" border="0" height="129" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0246e7f0-e055-45ad-9002-8db948d3c20c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ほぼリアルタイムのメトリック" width="1592"></a></p>
+
+
+  <p>4. アラート ルールに名前を付け、通知 <strong>メールにも表示</strong>される [説明] を選択します。</p>
+
+
+  <p>5.監視する<strong>メトリック</strong>を選択し、メトリックの<strong>条件</strong>、<strong>時間</strong>の集計、しきい値<strong></strong>を選択します。 必要に応じて、監視する別のメトリックを選択し、2 番目のメトリックの条件、時間の集計、およびしきい値を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cbea6dec-da49-4850-bb7e-eb6ca0215a8f.png"><img alt="Create real-time metrics alert" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa580285-9d83-4e8c-86fb-9f51a417a27c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="リアルタイム メトリック アラートを作成する" width="335"></a></p>
+
+
+  <p>6. [評価期間 <strong>] と [評価</strong> 頻度 <strong>] を選択します</strong>。</p>
+
+
+  <p>7. [新規] または [既存のアクション <strong>グループ]</strong> <strong>を使用する場合に指定します</strong>。</p>
+
+
+  <p>8. 新しいアクション グループを作成する場合は、アクション グループに名前と短い名前を付け、アクション (SMS、電子メール、または Web フック) を指定し、それぞれの詳細を入力します。</p>
+
+
+  <p>9.完了したら&nbsp; <strong>[OK]</strong> を選択してアラートを作成します。</p>
+
+
+  <h2>ほぼリアルタイムのアラートの動作</h2>
+
+
+  <p>例&rsquo;を使用して、これを見てみしましょう。 ルールを次のように構成したとします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cd5a5f54-da78-419b-b6ff-fa3f52a6ab01.png"><img alt="Near real-time alert" border="0" height="346" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c063631f-a314-41fb-b5c9-fa5eddac9601.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ほぼリアルタイムのアラート" width="640"></a></p>
+
+
+  <p>アラートが作成された時点から、アラートは %CPU 使用率と NetworkIn メトリックの過去 5 分間のデータを調べ、平均 %CPU 使用率と合計 NetworkIn の値を計算し、それぞれのしきい値を超えています。 このアラートは、両方のしきい値に違反した場合にのみ発生します。 条件は 1 分後に再評価されます。メトリックの 1 つがしきい値を下回った場合、アラートは解決されます。</p>
+
+
+  <h2>サポートされているリソース</h2>
+
+
+  <p>これらは、ほぼリアルタイムのメトリック アラートによって現在サポートされているリソースの種類の一部です。</p>
+
+
+  <ul>
+   <li>Microsoft.Compute/virtualMachines:</li>
+   <li>Microsoft.Compute/virtualMachineScaleSets:</li>
+   <li>Microsoft.DBforMySQL/servers</li>
+   <li>Microsoft.DBforPostgreSQL/servers</li>
+   <li>Microsoft.Cache/Redis</li>
+   <li>Microsoft.ServiceBus/namespaces</li>
+  </ul>
+
+
+  <p>サポートされているリソースの種類の完全な一覧については、ドキュメントを参照 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts#what-resources-can-i-create-near-real-time-metric-alerts-for" target="_blank">してください</a>。 その他のリソースのサポートは近日提供予定です。</p>
+
+
+  <p>ほぼリアルタイムのメトリック アラートの詳細については、ドキュメントを参照 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts" target="_blank">してください</a>。 ご意見をお寄せください。 ご質問やフィードバックをお寄せください <a href="mailto:azurealertsfeedback@microsoft.com" target="_blank">azurealertsfeedback@microsoft.com</a>。</p>

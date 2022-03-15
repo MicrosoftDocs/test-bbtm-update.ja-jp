@@ -1,0 +1,61 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bee21c5be17090ea14d92c31f2cc333acee29669
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904443"
+Slug: redaction-preview-available-globally
+Title: プレビュープレビューがグローバルに利用可能
+Summary: 現時点では、Azure Media Redactor パブリックプレビューは、米国政府および中国のデータセンターだけでなく、すべてのパブリック Azure リージョンでも利用できます。
+Content: >-
+  <p>現時点では、Azure Media Redactor パブリックプレビューは、米国政府および中国のデータセンターだけでなく、すべてのパブリック Azure リージョンでも利用できます。 このプレビューは、期間中は無料です。 現在、次のリリースで削除される、処理されたビデオの長さには10分の制限があります。</p>
+
+
+  <p>一般的な情報については、 <a href="https://azure.microsoft.com/en-us/blog/azure-media-redactor/">前のブログ投稿</a> を参照してください。 この記事では、amse (Azure Media Services Explorer) を使用して完全な校正ワークフローを実行する方法と、開始するのに役立つオープンソースのサンプルコードの概要を説明します。</p>
+
+
+  <h2>Azure Media Services Explorer のワークフロー</h2>
+
+
+  <p>Redactor を使い始める最も簡単な方法は、GitHub でオープンソースの<a href="https://github.com/Azure/Azure-Media-Services-Explorer">Amse ツール</a>を使用することです。 注釈の JSON やフェイス jpg イメージへのアクセスが不要な場合は &rsquo; 、複合モードで簡略化されたワークフローを実行できます。</p>
+
+
+  <p>アセットをアップロードしたら、[] を右クリックし、[Azure Media Redactor を見つけて、[結合]、[分析]、または [墨消し] モードで実行します。 各モードの特定の入力資産と出力資産については、<a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-face-redaction">ドキュメントページ</a>を参照してください。</p>
+
+
+  <blockquote>
+
+  <p><img alt="image" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3dfb6a25-9b6a-424c-b3fe-3935614ac448.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480"></p>
+
+  </blockquote>
+
+
+  <h2>Azure Media Redactor Visualizer オープン ソース ツール</h2>
+
+
+  <p>また、 <a href="https://github.com/Microsoft/azure-media-redactor-visualizer">オープンソースビジュアライザーツール</a> もリリースされています。このツールは、開発者が解析と出力を使用して、注釈形式を開始するのを支援することを目的としています。</p>
+
+
+  <p>リポジトリを複製した後は、プロジェクトを実行するために、 <a href="https://ffmpeg.org/download.html">公式サイト</a> から ffmpeg をダウンロードする必要があります。</p>
+
+
+  <p>JSON 注釈データを解析しようとしている開発者は、Models.MetaData のサンプル コードを参照してください。 実行するプロジェクトの出力フォルダーには、いくつかの ffmpeg 実行可能ファイルをダウンロードして含める必要があることに注意してください。 詳細については、 <a href="https://github.com/Microsoft/azure-media-redactor-visualizer">GitHub</a>のページを参照してください。</p>
+
+
+  <p><img alt="image" border="0" height="307" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c51dc990-4d3a-4946-b67d-6bb7881e7cb8.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="360"></p>
+
+
+  <p><img alt="image" border="0" height="334" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/69c1c970-95ec-40d2-93a5-b5224da2e66e.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480">&nbsp;</p>
+
+
+  <h2>お問い合わせ</h2>
+
+
+  <p>顔検出メディアプロセッサと Media Analytics イニシアチブの詳細については、Azure ブログの<a href="https://azure.microsoft.com/en-us/blog/topics/media-services-2/">Azure Media Services</a>を参照してください。</p>
+
+
+  <p>フィードバックと機能に関する要望は、 <a href="https://feedback.azure.com/forums/169396-azure-media-services/category/146181-media-analytics">UserVoice ページ</a>に送信してください。</p>
+
+
+  <p>Media Analytics 製品のいずれかについて不明な点がある場合は、に <a href="mailto:amsanalytics@microsoft.com">amsanalytics@microsoft.com</a> 電子メールをお送りください。</p>

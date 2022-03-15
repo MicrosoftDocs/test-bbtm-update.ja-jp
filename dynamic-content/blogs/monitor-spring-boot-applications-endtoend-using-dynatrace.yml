@@ -1,0 +1,169 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 00e38c970ffef694975a0508eb2bc75908371536
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910718"
+Slug: monitor-spring-boot-applications-endtoend-using-dynatrace
+Title: Dynatrace を使用して Spring Boot アプリケーションをエンドツーエンドで監視する
+Summary: 現時点では、Azure Spring Cloud に Dynatrace ソフトウェアインテリジェンスプラットフォームを統合することが発表されています。 過去18か月間、多くの企業ユーザーと協力して、彼らが直面しているシナリオについて学習しました。 多くのお客様には、オンプレミスのデータセンターで実行されている、何千もの Spring Boot アプリケーションがあります。
+Content: >-
+  <p>現時点では、Azure Spring Cloud に<strong> Dynatrace ソフトウェアインテリジェンスプラットフォームを統合</strong> することが発表されています。</p>
+
+
+  <p>過去18か月間、多くの企業ユーザーと協力して、彼らが直面しているシナリオについて学習しました。 多くのお客様には、オンプレミスのデータセンターで実行されている、何千もの Spring Boot アプリケーションがあります。 これらのアプリケーションをクラウドに移行する際、開発者が長年にわたって使用しているソリューションを使用して、アプリケーションパフォーマンス監視 (APM) 用にそれらをインストルメント化する必要があります。 さらに、Dynatrace OneAgent などのエージェントを使用して、エンドツーエンドの監視用に既に事前にインストルメント化されているデスクトップおよびモバイルアプリケーションの継続性を確保する必要があります。これにより、すべてのアプリケーション、マイクロサービス、インフラストラクチャだけでなく、動的なハイブリッド、マルチクラウド環境における依存関係も自動的に検出されてマップ Azure Spring Cloud に Dynatrace OneAgent を統合することで、Dynatrace を使用して引き続き、Spring Boot アプリケーションを簡単にインストルメント化できます。</p>
+
+
+  <p><strong>Dynatrace の旅を続けます。</strong> 現在、Spring Boot アプリケーションをデプロイするほとんどの組織は同様の目標を共有しています。自動化と APM を使用して、ほぼすべてのスケールで Spring Boot アプリケーションを実行するメリットを最大限に活用できます。 Azure Spring Cloud は、コンテナー化されたワークロードの管理に関連する働いの多くを抽象化することには対応していますが、これらのアプリケーションのパフォーマンスと正常性の監視と維持、または発生した問題のトラブルシューティングの課題は、これらのアプリケーションを大規模に展開する場合に特に困難 &mdash; です。 Dynatrace の旅を成功させて続けるために、microsoft は Azure Spring Cloud インスタンス全体で Dynatrace OneAgent を使用して、可観測性のインストルメント化、監視、および配信を行う機能を統合し、アップグレードしました。 まず、インストルメンテーションをすばやく簡単に設定します。 その後、アプリケーション、Jvm、トランザクションなどのパフォーマンスと正常性を分析できます。</p>
+
+
+  <p style="margin-left: 40px;"><em> &ldquo; 私たちは、オンプレミスとクラウドベースの両方の spring Boot マイクロサービスの間で真のハイブリッド監視を行うことが重要ですが、単純で簡単な実装 &mdash; も必要としています。そうすることで、インフラストラクチャを構築して運用するのではなく、革新的なアプリケーションの開発により多くの時間を費やすことができます。これにより、顧客や従業員に真の価値をもたらすことができます。Spring と Dynatrace の両方のテクノロジを使用した社内の専門知識を基に、以前の投資と組み合わせることで、Dynatrace と Azure Spring Cloud の統合が明らかになりました。 &rdquo; </em> &mdash;Nicolas Van Kerschaver、CIO、Li氏</p>
+
+
+  <p style="margin-left: 40px;"><em> &ldquo; 現在 &rsquo; のデジタルビジネスでは、クラウドネイティブのワークロードとマイクロサービスに移行したため、規模を拡大できることが重要です。クラウドネイティブテクノロジとマイクロサービスには大きな利点がありますが、動的な環境では、組織 &rsquo; のクラウドエコシステム全体の関係や依存関係を理解するのが困難になります。Microsoft との Dynatrace &rsquo; の戦略的パートナーシップにより、自動およびインテリジェント可観測性の影響をさらに高め、デジタル変革を促進できます。 &nbsp;Azure Spring Cloud と Dynatrace の統合により、Spring Boot アプリケーションのアプリケーションデータを完全に可視化できるようになります。これは、時間の革新とエンドユーザーにとっての優れた製品の向上を意味します。 &rdquo; </em> &mdash;Eric Horsman、戦略的アライアンスのグローバルディレクター、Dynatrace</p>
+
+
+  <p style="margin-left: 40px;">&ldquo;<em>Microsoft では、お客様のアプリケーションを最新化し、これまでにない速さで革新を支援することを目指しています。Dynatrace のようなソフトウェアインテリジェンスソリューションを Azure Spring Cloud と統合することにより、お客様は、Spring Boot アプリケーションのための自動および継続的な根本原因分析を含む、エンドツーエンドの可観測性を簡単に実装できるようになります。 &rdquo; &mdash; </em>ジュリア Liuson、社内副社長、開発者部門、Microsoft</p>
+
+
+  <p><a href="https://www.youtube.com/watch?v=PF0_SxuiZ2w&amp;ab_channel=JavaonAzure" target="_blank"><img alt="Accelerate transformation of Spring Boot applications with Azure and Dynatrace" border="0" height="471" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dbd6f2fa-1a43-42c1-bc88-f182f5a194d6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Dynatrace のビデオ" width="1024"></a></p>
+
+
+  <p><em>Microsoft Azure と Dynatrace を使用して Spring Boot アプリケーションの変革を加速させる方法については、上記のビデオをご覧ください。</em></p>
+
+
+  <p><strong>Spring Boot アプリケーションをインストルメント化します。</strong> &quot; &quot; Terraform または ARM テンプレートを使用して作成およびデプロイ &mdash; した新しいアプリケーションをインストルメント化して監視するための完全なハンドオフパイプラインを実行します。 または、柔軟性と制御を向上させるために、Azure CLI を使用してオンデマンドで実行することもできます。</p>
+
+
+  <p style="margin-left: 40px;"><code>az spring-cloud app update --name customers-service \<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --env DT_TENANT=&lt;your-tenant&gt; DT_TENANTTOKEN=&lt;your-tenant-token&gt; \<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DT_CONNECTION_POINT=&lt;your-connection-point&gt;</code></p>
+
+
+  <p><strong>アプリケーションとその依存関係の自動検出とマッピング。</strong> 動的な環境でリアルタイムの認識を維持するために、Dynatrace はアプリケーションコンポーネント (アプリケーションサーバー、フレームワーク、マイクロサービスを含む)、データベース、メッセージングシステムとイベントシステム、およびそれらの関係を自動的に検出してマップします。 次に示すビューでは、Dynatrace ポータルに、実稼働ワークロードで実行されているすべての Spring Boot アプリケーションが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32b3659a-b505-4855-bae1-2c5fcf93e3bb.png"><img alt="Shows all the Spring Boot applications running in a production workload." border="0" height="507" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e953deb3-fea5-467a-a10d-af9c09354afb.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図1" width="1024"></a></p>
+
+
+  <p><em><strong>図 1: </strong>実稼働ワークロードで実行されているすべての Spring Boot アプリケーションを表示します</em></p>
+
+
+  <p><strong>Spring Boot アプリケーション &rsquo; のエンドツーエンドの可観測性は、HTTP/S トランザクションの動作を完了して、ビジネスの結果とユーザーエクスペリエンスへの影響を理解します。</strong> 次の例のビューでは、Dynatrace はコードに実装されたすべてのトランザクショントレースを開発者に提供します。アプリケーションにコードを変更する必要はありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4873e02-b7ae-4279-9f49-b489b50f9c4b.png"><img alt="Shows transaction traces implemented in code without any code change to applications." border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ed844aaf-66be-4e2e-a0c1-da3b508e264e.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図2" width="1024"></a></p>
+
+
+  <p><em><strong>図 2: </strong>アプリケーションにコードを変更することなく、コードで実装されたトランザクショントレースを表示します</em></p>
+
+
+  <p><strong>エンドポイントの監視、API の監視、DB の監視、エンドユーザーエクスペリエンスの監視。 </strong>Dynatrace は、Azure database services を含む、Spring Boot アプリケーションによって開始されるすべてのデータベースクエリをキャプチャします。 次の例のビューでは、Dynatrace Portal は、実稼働ワークロード内のすべてのアクティブ REST API 操作を表示します。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/555c1b22-bdbe-4682-a331-c82579374fc3.png"><img alt="Shows all the active REST API operations within a production workload." border="0" height="583" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/793b1e30-036d-46a2-a056-cbe81a9ab38f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図3" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 3: </strong>実稼働ワークロード内のすべてのアクティブな REST API 操作を表示します。</em></p>
+
+
+  <p>次のビューの例では、Dynatrace ポータルに、実稼働ワークロードによって開始されたすべてのデータベースクエリが表示されます。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98ccc1bb-9254-4179-807b-987daa86c994.png"><img alt="Shows all the database queries initiated by a production workload." border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/286811a2-201c-44a5-ac33-08c57843f8b8.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図4" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 4: </strong>実稼働ワークロードによって開始されたすべてのデータベースクエリを表示します</em></p>
+
+
+  <p>アプリケーションのパフォーマンス問題とビジネス結果の<strong>根本原因および影響分析</strong>により、より高速で信頼性の高いインシデント解決が実現されます。 Dynatrace は、エンドツーエンドのトレースで深いコードレベルの可視性を提供します。この統合により、AI による問題検出と自動根本原因分析が可能になり、デプロイを最新の状態に維持し、正常なアプリケーションと異常なアプリケーションを区別できます。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f3655bb-1ac2-4a5b-b6a0-f4a38f41711c.png"><img alt="Shows results from stack trace analysis." border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d5ed1236-50f2-475f-a0b2-031196fbcaa8.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図5" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 5: </strong>スタックトレース分析の結果を表示します</em></p>
+
+
+  <p>Spring Boot アプリケーションインスタンスの<strong>異常を検出</strong>します。 Dynatrace は、自動化された根本原因分析、コードレベルのホットスポット分析、上位のデータベースクエリ、例外分析のために、AI エンジンを通じて収集されたデータを渡します。 次のスクリーンショットの例では、Dynatrace が CPU 集中型のコードモジュールを自動的に識別するため、データを掘り下げる必要がありません。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9c26a90-7fce-416f-961c-de558698e2b5.png"><img alt="Code modules that are CPU intensive so that you do not have to dig through the data." border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/29a60fc5-e73e-42c9-9bc7-1d7d46b3e502.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図6" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 6: </strong>CPU を集中的に使用してデータを掘り下げる必要がないコードモジュール</em></p>
+
+
+  <p>最初に開始されたすべてのデータベースクエリ、それらのクエリのコスト、アプリケーションによってこれらのクエリが呼び出された回数を確認できます。 次のスクリーンショットの例では、Dynatrace は実稼働ワークロードによって開始された上位のデータベースクエリを示しています。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/58d31583-2030-41a1-b1b0-26317d1dfc3e.png"><img alt="Shows top database queries initiated by a production workload." border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44225262-d13c-42a9-ac3e-4c2d616abb7f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図7" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 7: </strong>実稼働ワークロードによって開始された上位のデータベースクエリを表示します</em></p>
+
+
+  <p>すべてのアプリケーションコードレベルの例外は、例外が発生した場所のスタックトレースに多くの詳細と共に記録されます。 次のスクリーンショットの例では、Dynatrace ポータルは、実稼働ワークロードによってスローされる上位の例外を示しています。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdcd4aee-b4cd-42c3-beae-a5af9c06abc3.png"><img alt="Shows the top exceptions thrown by a production workload." border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/14bbc5ec-4ca3-43de-a6e6-8e35d93ec82d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図8" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 8</strong> &mdash;実稼働ワークロードによってスローされる上位の例外を示します。</em></p>
+
+
+  <p>Dynatrace ソフトウェアインテリジェンスプラットフォームでは、Spring Boot アプリケーションのすべてのパフォーマンスメトリックが自動的に設定されます。 アプリケーションの応答時間が自動検出されたベースラインを超えると、プラットフォームによってアラートが作成されます。この情報には、基準に違反している応答時間の数などの情報が含まれます。 次のスクリーンショットの例では、Dynatrace は、実稼働ワークロードに含まれるいくつかのサービスの応答時間の低下を示しています。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4450397b-5c1a-43c7-a461-2adea55fbaa3.png"><img alt="Shows response time degradation for a few services in a production workload." border="0" height="503" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7970bb50-9355-45b6-8117-35dad79c39c0.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図9" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 9: </strong>実稼働ワークロードに含まれるいくつかのサービスの応答時間の低下を示します。</em></p>
+
+
+  <p>Dynatrace を使用すると、特にデータベースサービスに接続するためにかかる時間など、応答時間の増加の原因に関する洞察を得ることができます。 次の例では、Dynatrace ポータルは、データベースへの接続を確立するためにかかった時間を呼び出します。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/50b7a9ff-1c03-4633-b17e-97be5c4060b6.png"><img alt="Shows time taken to make connections to a database." border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3406a831-475b-4dcb-bda9-48304c34248a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図10" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 10: </strong>データベースへの接続にかかった時間を表示します</em></p>
+
+
+  <p>Dynatrace は、すべてのエラーを自動的に検出します。 次の例では、外部ネットワークに接続するために Dynatrace がエラー率の増加を通知します。</p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/387479fd-290d-4e58-aed7-cde982940b41.png"><img alt="Signals an increase in failure rates to reach an external network." border="0" height="509" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b3bbcca9-82c8-4051-bbcd-a162d6a453b2.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図11" width="1024"></a></em></p>
+
+
+  <p><em><strong>図 11: </strong>外部ネットワークに接続するためのエラー率の増加を通知します</em></p>
+
+
+  <p><strong>エンドユーザーに価値を提供することに専念します。</strong> インストルメント化されると、複数の Spring Boot アプリケーションインスタンスにスケールアウトすると、新しいアプリケーションインスタンスが自動的に監視されます。 Dynatrace を使用すると、アプリケーション開発者は Spring Boot アプリケーションをエンドツーエンドで観察できます。 エージェントのインストールとメンテナンスを管理し、インシデントを迅速に特定して解決するための労力を減らすことができます。 Azure Spring Cloud service は、Dynatrace OneAgent を定期的に更新するためのポイントです。</p>
+
+
+  <h2>ソリューションを構築して今すぐ監視する</h2>
+
+
+  <p>Azure Spring Cloud は、Microsoft と VMware によって共同で構築、運用、サポートされています。 これは Spring Boot アプリケーション用の完全に管理されたサービスであり、インフラストラクチャと Spring Cloud ミドルウェア管理の複雑さを解消します。そのため、ビジネスロジックの構築に専念し、Azure で動的なスケーリング、パッチ、セキュリティ、コンプライアンス、高可用性を実現することができます。 いくつかの手順で、Azure Spring Cloud のプロビジョニング、アプリケーションの作成、Spring Boot アプリケーションのデプロイ、およびスケーリングを数分で開始できます。 今後も、開発者にとって使いやすく、エンタープライズ対応の機能を Azure Spring Cloud にお届けします。</p>
+
+
+  <p>Azure Spring Cloud を使用してインパクトソリューションを構築する方法をご紹介します。 Dynatrace を使用して Spring Boot アプリケーションの<a href="https://aka.ms/dynatrace-in-azure-spring-cloud" target="_blank">監視を開始</a>します。</p>
+
+
+  <h2>リソース</h2>
+
+
+  <ul>
+      <li><a href="https://aka.ms/get-started-with-azure-spring-cloud" target="_blank">クイックスタート</a>を使用して、spring アプリケーションを Azure spring Cloud にデプロイします。</li>
+      <li>GitHub に関する<a href="https://docs.microsoft.com/en-us/learn/modules/azure-spring-cloud-workshop/" target="_blank">MS の学習モジュール</a>または自習<a href="https://github.com/microsoft/azure-spring-cloud-training" target="_blank">用ワークショップ</a>の使用について説明します。</li>
+      <li>Dynatrace の関連 <a href="https://www.dynatrace.com/support/help/shortlink/azure-spring" target="_blank">ドキュメント</a> を参照してください。</li>
+      <li>Spring Cloud を使用して構築された、Spring Petclinic の分散バージョンを<a href="https://github.com/Azure-Samples/spring-petclinic-microservices" target="_blank">デプロイ</a>します。</li>
+      <li>エンタープライズのベストプラクティス &mdash; <a href="https://docs.microsoft.com/en-us/azure/spring-cloud/reference-architecture" target="_blank">Azure Spring Cloud リファレンスアーキテクチャ</a>を活用して、Spring Boot アプリケーションをデプロイします。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-spring-boot-to-azure-spring-cloud" target="_blank">Spring Boot</a>、 <a href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-cloud" target="_blank">spring Cloud</a>、および<a href="https://aka.ms/migrate-tomcat-to-azure-spring-cloud-service" target="_blank">Tomcat</a>アプリケーションを Azure spring cloud に移行します。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/" target="_blank">Azure サービスと対話</a>するためのワイヤ Spring アプリケーション。</li>
+      <li>フィードバックと質問については、 <a href="mailto:AzureSpringCloud-Talk@service.microsoft.com" target="_blank">電子メール</a>でお問い合わせください。</li>
+  </ul>

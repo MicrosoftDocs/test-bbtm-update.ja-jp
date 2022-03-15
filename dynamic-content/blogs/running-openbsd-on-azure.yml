@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7a20f9885f3e58a838cbe47b053aae0525fcc890
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910340"
+Slug: running-openbsd-on-azure
+Title: Azure での OpenBSD の実行
+Summary: 'お知らせ: Azure では、6.1 リリース以降の OpenBSD がサポートされています。  '
+Content: >-
+  <p>ご存知のように、Microsoft は 2014 年から Azure 上で実行されている FreeBSD 仮想マシン (VM) を正式にサポートしています。<a href="https://open.microsoft.com/2016/06/09/now-available-freebsd-azure-marketplace/"></a>昨年、<a href="https://azuremarketplace.microsoft.com/marketplace/">Microsoft は、Azure Marketplace</a>&nbsp; で既製の VM イメージとして FreeBSD 10.3 の可用性を発表しました。このページに移動Azure Marketplace、FreeBSD 11 VM と <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/netgate.pfsense-fw-vpn-router-community_support">pfsense</a> オファリングも表示されます。</p>
+
+
+  <p>本日は、Azure が OpenBSD <a href="https://www.openbsd.org/61.html">6.1</a> をサポートし、Esdenera と Microsoft のコラボレーションの取り組みをサポートしています。 一方、Esdenera は、<a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/esdenera.esdenera-firewall-3"></a>現在、OpenBSD に基づくファイアウォール製品をAzure Marketplaceしています。</p>
+
+
+  <h2>OpenBSD とは</h2>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/puf200X172.gif"></p>
+
+
+  <p>OpenBSD プロジェクトでは、4.4BSD ベースの自由に使用できるマルチプラットフォームのUNIXなオペレーティング システムが生成されます。 目標は、正確さ、セキュリティ、標準化、移植性に重点を置きます。</p>
+
+
+  <ul>
+   <li>OpenBSD は、終わりのない包括的<a href="https://www.openbsd.org/security.html"></a>なソース コード監査の結果として、多くのセキュリティプロフェッショナルUNIXに似た最も安全なオペレーティング システムと見なされています。</li>
+   <li>OpenBSD は、ソースUNIXバイナリ形式で無料で利用できる、完全な機能を備え、同様のオペレーティング システムです。</li>
+   <li>OpenBSD は、分散環境でのファイアウォールとプライベート ネットワーク <a href="https://www.openbsd.org/faq/pf/example1.html"></a> サービスの構築に適した最先端のセキュリティ テクノロジを統合します。</li>
+   <li>OpenBSD は、多くの分野で継続的に開発を進め、新しいテクノロジや開発者やエンド ユーザーの国際コミュニティと一緒に作業する機会を提供します。</li>
+  </ul>
+
+
+  <h2>独自の OpenBSD を Azure に持ち込む方法</h2>
+
+
+  <p>カスタム OpenBSD <a href="https://docs.microsoft.com/azure/virtual-machines/linux/create-upload-openbsd"></a> イメージの準備、仮想ハード ディスクの固定 VHD 形式への変換、Azure Storage へのアップロード、アップロードされた VHD からの仮想マシンの作成に関するガイダンスに従います。</p>
+
+
+  <p>最新 <a href="https://github.com/Azure/WALinuxAgent">の Azure エージェント</a> では、Esdenera によって提供された OpenBSD のサポートが追加されました。 次のリリースは v2.2.13 です。</p>
+
+
+  <h2>Azure で OpenBSD ベースの仮想アプライアンスを使用しますか?</h2>
+
+
+  <p><a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/esdenera.esdenera-firewall-3">Esdenera Firewall 3</a> は、Enterprise ネットワーク、サービスとしてのインフラストラクチャ (IaaS)、リモート アクセス ソリューション用に構築されたプロフェッショナルなネットワーク アプライアンスです。 これは、Esdeneras OEM のお客様向けに開発された OpenBSD ベースのプラットフォームである Esdeneras&rsquo;&rsquo; TNOS ネットワーク オペレーティング システムに基づいて構築されています。</p>

@@ -1,0 +1,190 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dfef2ed28a75b57d007e2294ef045331511333d8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904924"
+Slug: benefits-of-using-the-azure-iot-sdks-in-your-azure-iot-solution
+Title: Azure IoT の sdk を使用する利点と、
+Summary: Azure IoT には、Azure IoT hub を使用して構築された IoT ソリューションの開発を簡素化および高速化するための一連のオープンソースソフトウェア開発キット (sdk) が用意されています。
+Content: >-
+  <p>Azure IoT には、Azure IoT hub を使用して構築された IoT ソリューションの開発を簡素化および高速化するための一連のオープンソース<a href="https://github.com/Azure/azure-iot-sdks">ソフトウェア開発キット (sdk)</a>が用意されています。 プロトタイプと運用環境で SDK を使用すると、次のことが可能になります。</p>
+
+
+  <ul>
+      <li><strong>コードを最小限に抑えて将来 &rdquo; のソリューションを &ldquo; 開発する:</strong>プロトコルライブラリを使用して Azure IoT Hub と通信することができますが、後でこの決定に戻って、もう一度使用することができます。 今後の IoT Hub の高度な機能について多くのことを見逃し、無料で入手できるコードや機能の再開発に時間を費やすことができます。 &nbsp;Sdk では IoT Hub の新機能がサポートされているため、最小限のコードで組み込み、ソリューションを最新の状態に保つことができます。</li>
+      <li><strong>完全なソフトウェアソリューション向けに設計された機能を活用し、特定のニーズに専念します。</strong> Sdk には、セキュリティ、デバイス管理、信頼性などの IoT ソリューションの主要な問題とニーズに対応する多くのライブラリが含まれています。 &nbsp;これらのライブラリを直接活用して、特定の IoT シナリオ向けの開発に専念することで、市場投入までの時間を短縮できます。</li>
+      <li><strong>さまざまなプラットフォームに適した言語で開発します。 </strong>プロトコル固有の網羅を気にせずに、C、C#、Java、Node.js、または Python で開発することができます。 SDK では、さまざまなプラットフォームに対応した既定のサポートが提供されており、C SDK は新しいプラットフォームに移植できます。</li>
+      <li><strong>Microsoft とコミュニティのサポートにより、オープンソースの柔軟性の恩恵を</strong>受けることができます。sdk は GitHub でオープンソースとして使用でき、開いている状態で作業します。 デバイスとアプリケーションを実行するコードを変更し、適合させ、投稿することができます。</li>
+  </ul>
+
+
+  <p>Sdk<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-sdks">を使ってみる</a> このブログの残りの部分では、iot クラウドおよびデバイスの開発者向けに、Azure IoT sdk を使用する理由と方法、および iot ソリューションを開発するための推奨されるベストプラクティスについて詳しく説明します。 概念を示すために、SDK からのコードスニペットが示されています。 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-sdks">ここでは、Sdk の包括的な一覧を確認できます。</a></p>
+
+
+  <h2>新しい IoT Hub 機能の今後の証明</h2>
+
+
+  <p>プロトコルライブラリを使用してカスタムソリューションを開発する開発者は、IoT Hub によって公開される REST、AMQP、および MQTT Api を使用できます。 ただし、これらの低レベルのプロトコルを使用している開発者は、複雑なデバイスからクラウドへの通信パターンを実装することの複雑さに対処する必要があります。 &nbsp;さらに、IoT 業界は、従来の単純なシナリオに急速に進化しています。 デバイス管理、セキュリティ、およびデジタルツインなどの重要な機能では、より高いレベルの抽象化でインターフェイスを操作する必要があります。 プロトコルライブラリに依存することは、後でこれらの抽象化を再実装する必要があることを意味します。</p>
+
+
+  <p>Sdk を使用すると、ソリューションは将来の証拠となり、今後の負担が減ります。 Sdk は、単純なプロトコルに依存しない Api を公開して IoT Hub の高度な機能を提供するため、最小限のコードで新しい機能を利用できます。 たとえば、IoT Hub は、デバイスがクラウドにファイルをアップロードできる <a href="https://azure.microsoft.com/en-us/blog/upload-files-from-devices-with-azure-iot-hub/">ファイルアップロード</a> 機能をリリースしました。 ソリューションでこの機能を使用するには、Sdk をこの機能をサポートするバージョンに更新し、ソリューションで IoTHubClient_UploadToBlobAsync () を呼び出す必要があります (C SDK については API を参照)。 一部の機能は無料で利用できます。 ソリューションの再試行ロジックを実装するのではなく、既定としてジッター &ndash; を使用した再試行ロジック &ndash; の指数バックオフについて業界のベストプラクティスを利用します。 &nbsp;これは、これらの高度な機能のために独自のカスタム実装を作成して維持するよりもはるかに高速です。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-iot-hub-device-provisioning-service-preview-automates-device-connection-configuration/">Azure IoT Hub device プロビジョンサービス</a>は、デバイスの登録と構成を自動化します。 Sdk は、トランスポート方法などの詳細を抽象化するための高度なインターフェイスを提供します。 また、セキュリティクライアントを使用して、認証メカニズムとハードウェアモジュールを1つの共通インターフェイスにグループ化することもできます。 デバイスアプリケーション開発者は、複雑なハードウェアレベルのセキュリティに時間を費やすのではなく、最初の実行エクスペリエンスのカスタマイズに専念できます。 Device Provisioning Service のサポートは、パブリックプレビューの C SDK で利用でき、他の言語でもサポートされます。&nbsp;</p>
+
+
+  <h2>ニーズに合わせたソフトウェアソリューションの完成</h2>
+
+
+  <p>IoT シナリオの複雑さに関係なく、現場にデプロイする物理的な物やゲートウェイにソフトウェアを開発し、デバイスの監視と管理のためのバックエンドサービスソフトウェアを開発する必要があります。 &nbsp;これらの Sdk は両方ともカバーします。 &nbsp;また、デバイスの管理、セキュリティ、信頼性、診断、帯域幅の節約、品質のための完全なソフトウェアソリューションとして設計されています。 これらの機能を再実装するのではなく、特定のニーズに合わせてエネルギーを開発することができます。 &nbsp;ソリューションで Sdk を使用する場合の価値提案の一部を次に示します。</p>
+
+
+  <h3>デバイス管理</h3>
+
+
+  <p>これらの Sdk は、デバイスツインやダイレクトメソッドなど、IoT Hub によってリリースされた機能を使用して、すぐに使えるデバイス管理インフラストラクチャを提供します。 &nbsp;デバイスツインの管理とメソッドの呼び出しに関する操作は、認証、ツインの同期、デバイス側とサービス側の両方での変更の識別を行う Sdk によって直接行われます。</p>
+
+
+  <p>デバイスメタデータの保存と照会、状態情報のレポートと同期、メソッドの呼び出しと処理を実行して、更新プログラムのファームウェアや構成やコマンドの実行などの操作を処理するためのビルドブロックを利用することで、すばやく開発できます。</p>
+
+
+  <p>「 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-csharp-csharp-twin-getstarted">デバイスツインの</a> 使用」や「 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-csharp-csharp-direct-methods">ダイレクトメソッドの使用</a> 」などのハウツーガイドでは、api の使用方法を説明するオープンソースのサンプルを補完します。</p>
+
+
+  <h3>セキュリティ</h3>
+
+
+  <p>Azure IoT は、セキュリティで保護されたエンドツーエンドのモノのインターネットプラットフォームを提供します。 &nbsp;<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-security-deployment">IoT デプロイをセキュリティで保護する</a>IoT Hub &rsquo; のセキュリティインフラストラクチャの詳細について説明します。 &nbsp;開発者は、Sdk を使用して、デバイスとの安全な接続を迅速に確立できます。 &nbsp;IoT hub には、 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-security#security-tokens">SAS トークン</a>と<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-security#supported-x509-certificates">x.509 証明書</a>を含む、セキュリティで保護された複数の認証メカニズムが用意されています。 &nbsp;セキュリティトークンを使用することを選択した場合、Sdk は、ほとんどのシナリオに特別な構成を必要とせずにトークンを生成できます。 &nbsp;X.509 の使用を選択した場合は、x.509 証明書とサービスクライアントを使用して、x.509 証明書 id を使用するデバイスを登録できるデバイスクライアントが Sdk によって提供されます。</p>
+
+
+  <p>Azure IoT は引き続きセキュリティを強化するため、デバイス識別子コンポジションエンジン (ダイス) とさまざまな種類のハードウェアセキュリティモジュール (hsm) の新しいサポートが最近追加されました (この<a href="https://azure.microsoft.com/en-us/blog/azure-iot-supports-new-security-hardware-to-strengthen-iot-security/">ブログ</a>で詳細を提供しています)。 &nbsp;sdk は Azure IoT ハブを使用して進化し、セキュリティがシンプルになりました。また、シンプルなインターフェイスを使用して、トラステッドプラットフォームモジュール (TPM) と<a href="https://docs.microsoft.com/en-us/azure/iot-dps/use-hsm-with-sdk">互換性のある</a>セキュリティで保護された記憶域を使用できるようにするライブラリが用意されています。 このライブラリを使用すると、前に説明した Device Provisioning Service を使用して大規模なデバイスの安全なプロビジョニングを含むシナリオで、デバイスを簡単に統合できます。</p>
+
+
+  <h3>[信頼性]</h3>
+
+
+  <p>Sdk には、いくつかの信頼性機能も含まれています。</p>
+
+
+  <p>デバイスからクラウドへの通信に失敗した場合の再試行ポリシーは、IoT デバイスに固有の断続的で信頼性の低い接続の問題に対処する例です。 Sdk は、再試行ポリシーの業界ベストプラクティス、ランダムなジッターによる指数バックオフ、デバイスのバッテリ制約を考慮してカスタマイズするオプションを提供します。</p>
+
+
+  <p>また、Sdk は、クラウドからデバイスへの接続を効率的に維持するためのカスタマイズ可能なキープアライブ時間、プロキシの背後にあるネットワークからの IoT Hub への接続のサポート、トランスポートに対するトレースのオンとオフの切り替えなど、さまざまな接続機能を実装します。この <a href="https://github.com/Azure/azure-iot-sdk-c/blob/master/doc/Iothub_sdk_options.md">ドキュメント</a> では、C SDK のさまざまな接続機能について説明します。</p>
+
+
+  <h3>診断</h3>
+
+
+  <p>Sdk には、IoT Hub 機能のための単純な Api だけでなく、デバッグを支援するための診断も用意されています。 &nbsp;Sdk は、クォータの超過、認証エラー、調整、デバイスが見つからないなど、IoT Hub によって出力された <a href="https://docs.microsoft.com/en-us/rest/api/iothub/common-error-codes">エラーコード</a> のエラー報告を処理します。</p>
+
+
+  <h3>帯域幅の節約</h3>
+
+
+  <p>IoT のシナリオによっては、データを頻繁に送信すると、あればのコストが発生する可能性があります。 &nbsp;これらの Sdk には、帯域幅を節約するための、すぐに使用できるソリューションがいくつか用意されています。 &nbsp;バッファリングを使用すると、接続が切断されたときに、再試行を試行するのではなく、デバイスでデータを格納できます。 バッチ処理を使用すると、複数のメッセージの情報を1つのバッチメッセージにマージすることによって送信されるメッセージの数を減らすことができるため、ネットワーク帯域幅の使用量が減少します。 多重化により、複数のデバイスで同じ接続を共有することで、接続の数を減らすことができます。</p>
+
+
+  <h3>品質</h3>
+
+
+  <p>Sdk は Microsoft のエンジニアによって開発され、品質を保証するための厳格なエンジニアリングプロセスを通じて進められています。 機能には、単体テストとエンドツーエンドテストの両方が含まれます。 各隔週リリースより前のバージョンでは、サポートされているプラットフォーム用のゲートビルドシステムで Sdk がテストされ、回帰を保証できません。</p>
+
+
+  <h2>幅広い言語とプラットフォームのサポート</h2>
+
+
+  <p>IoT のシナリオと開発者の経験によっては、優先される言語またはプラットフォームがある場合があります。 SDK では、その点も考慮されています。 プロトコルの柔軟性を備えた幅広い言語およびプラットフォームのサポートにより、プロトコル固有の網羅を気にせずに、好みの環境で開発を行うことができます。 現在サポートされている言語は、C、C#、Java、Node.js、および Python の 5 つです。 言語固有の構成要素と同様に、5つの言語で Api の一貫性を維持することを目指しています。</p>
+
+
+  <p>各言語は、サンプルコードやドキュメントなど、GitHub のパブリックリポジトリとして管理されています。 さらに、Sdk は、Nuget の場合は Nuget からバイナリパッケージとして、Linux ディストリビューションの場合は Maven、Python の場合は npm for Node.js と pip として入手できます。</p>
+
+
+  <p>SDK は、次のプラットフォームで定期的にテストされます (言語が適用される場合)。</p>
+
+
+  <ul>
+      <li>Linux (Ubuntu、Debian、Raspbian)</li>
+      <li>Windows</li>
+      <li>MBED</li>
+      <li>Arduino (Huzzah、ThingDev、FeatherM0)、FreeRTOS (ESP32、ESP8266)</li>
+      <li>.NETFramework 4.5、UWP、PCL (Profile 7 &ndash; uwp、xamarin. iOS、Xamarin Android)、。Netマイクロフレームワーク、。NetStandard 1.3</li>
+      <li>Intel Edison</li>
+  </ul>
+
+
+  <p>さまざまな Sdk がテストされている OS プラットフォームの完全な一覧については、 <a href="https://catalog.azureiotsuite.com/">Azure Certified for IoT デバイスカタログ</a>を参照してください。 プラットフォームがサポートされていない場合、C SDK は ANSI C99 で開発され、この <a href="https://github.com/Azure/azure-c-shared-utility/blob/master/devdoc/porting_guide.md">ガイド</a>に従って簡単に移植できます。</p>
+
+
+  <h2>Microsoft とコミュニティのサポートを利用したオープンソース</h2>
+
+
+  <h3>優れたオープンソースプラクティスと通常のリリース</h3>
+
+
+  <p>Azure IoT sdk チームはオープンソースのベストプラクティスに従って、開いているで作業します。 再度投稿する場合は、この <a href="https://github.com/Azure/azure-iot-sdk-c/blob/master/.github/CONTRIBUTING.md">ガイドライン</a>に従ってプル要求を作成します。 また、エンジニアは Stack Overflow に関する質問を監視し、問題を適切なタイミングで解決するために密接に GitHub しています。 パブリックリポジトリのコミットによって進行状況を追跡できます。</p>
+
+
+  <p>sdk は、それぞれの GitHub リポジトリの master ブランチに開発されており、新しいバージョンは隔週で downloaders、パッケージが同時にリリースされます。これは、新しい機能リリース、バグ修正、およびマージ要求の迅速なターンアラウンドです。 sdk でサポートされている機能と開発のためのロードマップは、各リポジトリ &rsquo; の GitHub ページで公開されており、各リリースについては隔週でも更新されています。</p>
+
+
+  <h3>長期的なサポート</h3>
+
+
+  <p>一部の開発者は、フィールド内のデバイスに影響を与える可能性がある動作や機能に互換性に影響する変更に注意してください。 Azure IoT Hub サービスは、バージョン管理されているベア api を公開する PaaS で、サービス API の特定のバージョンでを使用する場合の動作と機能の継続性を guarantying します。 このエンゲージメントをクライアントレベルでさらに完了するために、Sdk には長期サポート (LTS) バージョンが用意されています。 &nbsp;LTS 分岐は、望ましくない変更からはシールドされています。 これらのユーザーは、引き続きセキュリティバグの修正と重大なバグ修正をすべて受け取ります。 &nbsp;新しい LTS バージョンは、1年の有効期間で6か月ごとに作成されます。</p>
+
+
+  <h3>サポート プラン</h3>
+
+
+  <p>Microsoft では、Azure サブスクリプションの一部としてサポートされています。 問題 &rsquo; の優先度と重要度に応じて、さまざまな <a href="https://azure.microsoft.com/en-us/support/plans/">プラン</a>を通じて直接 Azure サポートにご連絡いただけます。</p>
+
+
+  <h3>ドキュメント</h3>
+
+
+  <p>さまざまな開発ニーズに関するドキュメントが用意されています。 <a href="https://azure.microsoft.com/en-us/overview/iot/">Azure IoT Development Center</a>には、トレーニングコンテンツ、完全な API ドキュメント、ハウツーガイドなどの開発者向けリソースのための1つのランディングページが用意されています。 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/">開発者ガイド</a>では、さまざまな IoT Hub 機能の使用を開始するのに役立つチュートリアルが用意されています。 <a href="https://github.com/Azure/azure-iot-sdks">GitHub リポジトリ</a>には、sdk でサポートされているソースコードと機能の使用を開始する方法に関する手順が含まれています。 さまざまな IoT Hub 機能の使用方法を示すサンプルアプリケーションの一覧も用意されています。 Iot の <a href="https://azure.microsoft.com/en-us/overview/internet-of-things-iot/iot-technology-protocols/">テクノロジとプロトコル</a>に関するこのガイドを使用して、iot のナレッジベースを構築します。 ドキュメントに関するフィードバックは、オンラインドキュメントに記載されている GitHub の問題とコメントを使用して直接行うことができます。</p>
+
+
+  <h2>Sdk を使用せずに IoT Hub を使用する場合のベストプラクティス</h2>
+
+
+  <p>Azure IoT sdk は<a href="https://github.com/Azure/azure-iot-sdks/blob/master/LICENSE">MIT ライセンス</a>の下でライセンス供与されており、開発に必要な柔軟性をすべて提供します。変更や再頒布の制限はありません。</p>
+
+
+  <p>それでもサードパーティのプロトコルクライアントまたは独自のソリューションを使用する場合は、セキュリティ違反を回避して信頼性を確保するためのガイドラインを次に示します。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-security">IoT Hub を使用したアクセス制御と認証</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-endpoints">IoT Hub エンドポイント</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-protocols">通信プロトコルの選択</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-identity-registry">デバイス ID を管理する</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-d2c-guidance">デバイスからクラウドへの機能ガイド</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-c2d-guidance">クラウドからデバイスへの機能ガイド</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messaging">メッセージの送信と受信</a>
+      <ul>
+          <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-d2c">クラウドメッセージにデバイスを送信する</a></li>
+          <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin">クラウドメッセージへのデバイスの読み取り</a></li>
+          <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-custom">カスタムエンドポイントとルーティング規則を使用する</a></li>
+          <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-c2d">デバイスメッセージへのクラウドの送信</a></li>
+          <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-construct">IoT Hub messages コンストラクト</a></li>
+      </ul>
+      </li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-device-twins">デバイス ツインを理解する</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-direct-methods">デバイスのメソッドについて</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-jobs">複数デバイスでのジョブをスケジュール設定する</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-query-language">IoT Hub クエリ言語</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-file-upload">デバイスからファイルをアップロードする</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling">クォータと調整について</a></li>
+  </ul>
+
+
+  <p>これらに加えて、デバイスの制約と通信の制限事項を考慮する必要があります。 再試行とバッファリングのロジックは、バッテリを節約し、帯域幅の使用を制限する必要がありますか。 デバイスの資格情報はどのように安全に保存されますか。 デバイスを大規模にプロビジョニングするにはどうすればよいですか。</p>
+
+
+  <h2>Azure IoT sdk の概要</h2>
+
+
+  <p>開発に Sdk を使用することに興奮がありますか。 &nbsp;作業の開始は簡単です。 この<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-sdks">ガイド</a>では、sdk を使用した開発の概要について説明します。 &nbsp;任意の言語の GitHub リポジトリに移動し、サポートされている機能について説明し、サンプルの使用を開始します。 一般的なパッケージレジストリからバイナリパッケージとして Sdk をダウンロードし、いくつかの手順でデバイスでサンプルアプリケーションを実行することもできます。 たとえば、この <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-device-sdk-c-intro">チュートリアル</a> に従って、C SDK を使い始めることができます。</p>

@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 69904dab9894387f0ef3e9a7154c7fcc6c8b21fb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904803"
+Slug: expanding-azure-iot-certification-service-to-support-azure-iot-edge-device-certification
+Title: Edge デバイスAzure IoTサポートする新しい認定Azure IoTを拡張する
+Summary: Microsoft は 2018 年 12 月に、セルフサービス ツールを使用して認定プロセスを効率化するための Web ベースのテスト自動化ワークフローである Azure IoT 認定サービスを開始しました。 Azure IoT認定サービス (AICS) は、ハードウェア製造元がデバイスを Azure Certified for IoT プログラムの認定を受け、Azure IoT デバイス カタログで紹介するために、運用プロセスとエンジニアリング コストを削減するように設計されました。
+Content: >-
+  <p>Microsoft は 2018 年 12 月<a href="https://azure.microsoft.com/en-us/blog/streamlined-iot-device-certification-with-azure-iot-certification-service/"></a>に、セルフサービス ツールを使用して認定プロセスを効率化するための Web ベースのテスト自動化ワークフローである Azure IoT 認定サービスを開始しました。 Azure IoT認定サービス (AICS) は、ハードウェア製造元が<a href="https://catalog.azureiotsolutions.com/register">デバイスを Azure Certified for IoT</a> プログラムの認定を受け、<a href="https://catalog.azureiotsolutions.com/">Azure IoT</a> デバイス カタログで紹介するために、運用プロセスとエンジニアリング コストを削減するように設計されています。</p>
+
+
+  <p>初期バージョンの AICS では、IoT デバイスの認定に重点が置かされました。 現在、サービスを拡張して、Edge デバイスの認定をサポートAzure IoT<em>を行</em>っています。 Azure IoT Edge デバイスは、IoT Edge モジュール、IoT Edge ランタイム、クラウドベースのインターフェイスの 3 つの主要なコンポーネントで構成されるデバイスです。 この 3 つのコンポーネントの詳細については、このブログでこの <a href="https://docs.microsoft.com/en-us/azure/iot-edge/about-iot-edge">記事で説明IoT Edge</a>。</p>
+
+
+  <p>Azure IoT Edge デバイスとして認定する意味は、認定プログラムが上記の 3 つの主要コンポーネントの機能を検証する点です。 認定プログラムでは、セキュリティ コンポーネントの検証によってデバイスの ID が確実に保護されます。 Edge デバイス認定<a href="https://github.com/Azure/azure-iot-device-ecosystem/blob/master/iotcertification/iotedge/iotedge_getstarted.md">の特定の</a>技術要件Azure IoT確認できます。</p>
+
+
+  <p>この AICS 機能の拡張は、<a href="https://azure.microsoft.com/en-us/blog/expanding-azure-certified-for-iot-program-for-the-intelligent-edge/">2018</a> 年 6 月に発表された Azure IoT Edge デバイスをサポートするために、Azure Certified for IoT プログラムの関連する拡張に基付けられます。 それ以降、認定された Azure IoT Edge デバイス エコシステムは、Windows IoT や <a href="https://blogs.windows.com/windowsexperience/2019/02/26/microsoft-announces-latest-windows-iot-innovations-for-intelligent-edge-devices-at-embedded-world/#DFZr5LVW3OH5v6Op.97"></a> <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/category/internet-of-things?page=1&amp;subcategories=iot-edge-modules">Edge</a> モジュール エコシステムなどの追加のオペレーティング システム サポートによって急速に成長しています。これにより、パートナーはコンテナー化されたアプリを構築して、さまざまな Azure IoT Edge デバイスにモジュールをデプロイできます。 認定済みのすべての <a href="https://catalog.azureiotsolutions.com/alldevices?filters={%2218%22:[%221%22]}">Azure Edge IoT デバイスについては、こちらを参照してください</a>。</p>
+
+
+  <p>Web ベースのテスト ワークフローが Edge デバイスの認定にも更新されたので、AICS は IoT デプロイの全体的な品質を向上させるだけでなく、デバイスの製造元の認定プロセスを簡素化するのにも役立ちます。 これからは、すべてのデバイス製造元が AICS を実行して認定プロセスを完了する必要があります。 AICS の詳細と実際のデモについては、 <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-Certification-Service">Channel 9 の IoT Show のこのエピソードを参照してください</a>。</p>
+
+
+  <p>エコシステム パートナーは、この戦略とアプローチもサポートしています。&nbsp; ツールを最近使用した 1 人のパートナーが、次のコメントを提供しました。</p>
+
+
+  <p style="font-style: italic;"><q>Azure IoT認定&rdquo;サービス (AICS) を使用すると、Azure IoT Edge デバイス認定の検証プロセスが簡素化され、Azure IoT Edge デバイスの整合性で品質が向上します。</q></p>
+
+
+  <p style="font-style: italic;">&ndash;Plat&#39;Home Co., Ltd 社のプレジデント、</p>
+
+
+  <h2>Azure IoTエッジ フローを AICS 内で使用する</h2>
+
+
+  <p>Azure IoT Edge デバイスのワークフローとユーザー エクスペリエンスは、IoT デバイス認定ワークフローに似ています。 デバイスの OS を選択し、指定した&rsquo;インスタンスに登録するデバイスを準備IoT Hub、実行を開始する必要があります。 詳細な手順については、この認定ドキュメント <a href="https://github.com/Azure/azure-iot-device-ecosystem/blob/master/AICS/how-to-use-aics-edge.md">を参照してください</a>。</p>
+
+
+  <p>IoT デバイス認定フローからの Azure IoT Edge には、次の 3 つの主な違いがあります。</p>
+
+
+  <ol>
+   <li>&ldquo;Edge の AICS&rdquo; ワークフローを呼び出す場合は、Edge 認定チェックボックスをオンにするAzure IoTがあります <ul>
+   </ul>
+
+   <p>Azure IoT Edge &ldquo;&rdquo; デバイスの AICS を開始するには、まず、認定のためにデバイスを送信するときに、デバイス登録プロセスの最初のページにある [Azure IoT Edge] セクションの下にある [Edge 認定] チェック ボックスをオンにする必要があります。</p>
+
+   <ul>
+   </ul>
+   </li>
+   <li>自動テストは異なります。 IoT デバイスの AICS ワークフローでは、IoT Hub からクラウド、クラウドからデバイス、ダイレクト メソッド、デバイス ツインのプロパティなど、IoT Hub プリミティブが検証されます。 IoT Edge デバイス用の AICS ワークフローでは、デバイスに EdgeAgent モジュールが存在する可能性が検証されます。また、サンプル Edge モジュールがデバイスに正常にデプロイされたことを確認するテストも行います。
+   <ul>
+   </ul>
+
+   <p>このプロセスの詳細については、合理化された IoT デバイス認定に関する <a href="https://azure.microsoft.com/en-us/blog/streamlined-iot-device-certification-with-azure-iot-certification-service/">ブログを参照してください</a>。</p>
+
+   <ul>
+   </ul>
+   </li>
+   <li>提出時に、AICS は Microsoft チームにフォローアップを通知し、物理デバイスをパッケージ化して Microsoft チームに発送するガイダンスを提供します。 この手順は、IoT デバイスの認定プロセスでは必要ありません。 確認ダイアログを次に示します。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0bff9062-fc78-4a09-8a6c-9edce377f06d.png"><img alt="Confirmation Dialog Box from AICS" border="0" height="232" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5411fa7-a6a1-4c10-a960-244367b0fc07.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AICS からの確認ダイアログ ボックス" width="612"></a><br>
+
+  AICS を使用すると、認定プロセスが簡単かつ直感的になります。 すべてのデバイス製造元が、認定のためにデバイスを送信してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>[ <a href="https://catalog.azureiotsolutions.com/devices">パートナー ダッシュボードに</a> 移動して送信を開始します。</p>
+
+
+  <p>ご不明な点がある場合は、お問い <a href="mailto:iotcert@microsoft.com">合わせAzure Certified for IoT</a>。</p>

@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5d95126f68a4fb7f73da3e156cb772360ecd467a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910421"
+Slug: revamped-solutions-in-azure-for-application-and-infrastructure-monitoring
+Title: アプリとインフラストラクチャ向け Azure のエンドツーエンド監視ソリューション
+Summary: 本日、米州で開催された Ignite 2017 カンファレンスで、Azure の新しい監視および分析機能の範囲を発表し、Azure Monitor の統合されたキュレートされた概要でアプリケーションとインフラストラクチャの監視をまとめました。 新しいログ分析、メトリックの探索、アプリケーション パフォーマンスの監視、および障害の調査により、エクスペリエンスを大幅に最適化しています。 また、Azure アラートと IT サービス管理ツール、およびコンテナー監視用の新しいソリューションの統合も発表しました。
+Content: >-
+  <p>本日、 <a href="https://www.microsoft.com/ignite/default.aspx">米国で開催された Ignite 2017</a> カンファレンスで、Azure の新しい監視および分析機能の範囲を発表し、アプリケーションとインフラストラクチャの監視を Azure Monitor の統合された概要にまとめました。 新しいログ分析、メトリックの探索、アプリケーション パフォーマンスの監視、および障害の調査により、エクスペリエンスを大幅に最適化しています。 また、Azure アラートと IT サービス管理ツール、およびコンテナー監視用の新しいソリューションの統合も発表しました。</p>
+
+
+  <h2>監視サービスを一緒にAzure Monitor</h2>
+
+
+  <p>この <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/">Azure Monitor</a> 、仮想マシンからアプリケーション、アプリケーション内の個々のコード行まで、すべてのクラウド リソースの正常性とパフォーマンスに関するレポートを一目で確認できます。 Azure Monitorプレビューでは、Azure のさまざまな監視サービスへのナビゲーションと<a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-overview-azure-monitor"></a>オンボーディングの開始点として、統合された概要が提供されます。 お客様は、アプリケーション インフラストラクチャ全体 &amp; の重要な問題を 1 か所で確認し、コンテキストで移動することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/accd990d-acdd-40ee-bf0a-55f4db73ed00.png"><img alt="Capture1" border="0" height="391" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59a40abf-0dca-45a9-a99a-3701c373d638.png" style="border-width: 0px; display: inline;" title="Capture1" width="1024"></a></p>
+
+
+  <p>Azure Monitor、Virtual Machines、ネットワーク、ServiceBus、EventHubs などの Azure サービスからのプラットフォーム メトリックに対して、パブリック プレビューでほぼリアルタイムのアラートを提供する予定です。 <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts"> </a>ほぼリアルタイムのアラートでサポートされているすべてのリソースの完全な一覧については、ドキュメントを <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts#what-resources-can-i-create-near-real-time-metric-alerts-for">参照してください</a>。 Azure Monitorでは、ネットワーク、Storage、Traffic Manager、ネットワーク インターフェイス、Express Route、Load Balancer、Data Lake Store、Data Lake Analytics など、多くのサービスから新しいメトリックとログを表示することもできます。すべてのリソースとそのメトリックの完全な一覧については、Azure Monitorドキュメントを<a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-supported-metrics">参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/105d60f7-346f-4343-9992-33bc01987603.png"><img alt="NRTAlert" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2a891d3-56e1-4459-9815-2527974979fb.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block;" title="Azure Monitor 用にリリースされた NRTAlertAlso" width="334"></a> は、完全に改訂されたメトリック探索エクスペリエンス<a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-metric-charts"></a>のパブリック プレビューであり、多次元メトリックと基本メトリックの両方のグラフのレンダリングがサポートされています。 さまざまなリソースのメトリックをオーバーレイするグラフをプロットし、同時に複数のグラフを表示して、メトリック値の傾向、急上昇、急上昇を視覚的に関連付けることができます。 多次元メトリック (Application インサイト や Storage など) をサポートするリソースについては、目的のディメンション/値の組み合わせにフィルターを適用したり、グループ化を追加して各ディメンション値の線を表示したりできます。</p>
+
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6f7aef85-66c3-4988-b8db-5cccee19f5f9.png"><img alt="StorageAndAppInsights Metrics With Filter" border="0" height="557" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62b6fb18-9033-461f-a6a3-2d043c345b1c.png" style="border-width: 0px; display: inline;" title="StorageAndAppInsights メトリックとフィルター" width="1024"></a></p>
+
+
+  <p>Azure Monitorグループの新しい ITSM アクションを通じて、選択した IT サービス管理 (ITSM) ツール (System Center Service Manager、Service Now、Provance、Cherwell) との統合を有効にしています。 ITSM アクションを使用すると、ユーザーは、Azure アラートが発生した場合に、ITSM ツールで作業項目 (インシデント、イベント、またはアラート) を自動的に作成できます。 この ITSM アクションは、Azure Log Analytics ITSM Connector <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-itsmc-overview">ソリューションの</a> 上に構築されています。 このソリューションを通じて、お客様はヘルプ デスク データ (インシデントや変更要求など) とログ データ (アクティビティログ、診断ログ、パフォーマンス、構成の変更など) の機能を組み合わせて、インシデントを迅速に軽減できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e418384-5dbd-4b33-acc8-be4355f7fe74.png"><img alt="ITSMAction" border="0" height="473" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a612ca20-1892-4b3e-b632-875e84ac6ca6.png" style="border: 0px currentColor; border-image: none; display: inline;" title="ITSMAction" width="1024"></a></p>
+
+
+  <h2>新しい Log Analytics &amp; コンテナー監視ソリューション</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/application-insights">Azure アプリケーション インサイト</a> <a href="https://docs.microsoft.com/azure/log-analytics/">Azure Log Analytics</a> では、複数の <a href="https://aka.ms/appinsightscrossapp">Application インサイト</a> アプリケーションまたは複数の <a href="https://aka.ms/loganalyticscrossworkspace">Log Analytics</a> ワークスペース間でクエリを実行できる、リソース間クエリのパブリック プレビューが提供されています。 これにより、多層または地理的に分散されたアプリケーション間、および複数の論理インフラストラクチャ グループ間でクエリを実行できます。 1 か月前にアップグレードロールアウトが開始された新しい改善された Log Analytics では、新しいクエリ言語用 <a href="https://dev.loganalytics.io/">の REST</a> API が提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c491b639-52db-49c4-8f08-d7abae53f479.png"><img alt="Capture 3" border="0" height="525" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ce4d41d0-135e-4584-bd3d-82fb036291b6.png" style="border: 0px currentColor; border-image: none; display: inline;" title="Capture 3" width="1024"></a></p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/log-analytics/log-analytics-containers">コンテナー監視ソリューションは</a>、Windows Kubernetes 環境でサポートされ、パフォーマンス、ログ、イベント、インベントリ、および Kubernetes イベントのコンテナー監視を提供します。 Kubernetes 用に構築されたソフトウェアをサポート、共有、使用するパッケージ マネージャーである Helm は、ソリューションを統合することで、お客様が Linux Kubernetes 環境でコンテナー監視を簡単に見つけてデプロイできます。 コンテナー オーケストレーター <a href="https://docs.microsoft.com/azure/service-fabric/service-fabric-diagnostics-event-analysis-oms"> として Linux Service Fabric</a>の GA を使用すると、Log Analytics は Azure Monitoring Agent を使用してコンテナー監視情報をキャプチャします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37d1e83c-b2ae-40a3-b346-1617f69e0dd6.png"><img alt="ContainerSolution" border="0" height="472" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e342a9f-6de2-4059-8873-7878e6796fb2.png" style="border: 0px currentColor; border-image: none; display: inline;" title="ContainerSolution" width="1024"></a></p>
+
+
+  <h2>のユーザー エクスペリエンスがAzure アプリケーション インサイト</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/application-insights/">Application インサイト</a>パフォーマンス<a href="https://docs.microsoft.com/azure/application-insights/app-insights-tutorial-performance"></a>&nbsp;監視とエラー<a href="https://docs.microsoft.com/azure/application-insights/app-insights-tutorial-runtime-exceptions">診断 (パブリック</a> プレビュー) のユーザー エクスペリエンスを完全に更新して、対話型エクスペリエンスを提供し、コンテキスト分析情報を表示しました。 お客様は、特定のエンド ユーザー エクスペリエンスが実稼働環境で遅い場合にすばやくトリアージし、期間分布を視覚化して、良いユーザー エクスペリエンスと悪いユーザー エクスペリエンスの両方を包括的に統計的に表示できます。 コード レベルの可視性 (プロファイラー) への効果的な切り替えと、低速な依存関係に関する診断情報はクリックでしか行えなくなります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c950266-ab07-4585-8ff0-8fc63813817f.png"><img alt="Capture" border="0" height="511" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d2f18939-8c49-4270-bf02-78d05681ea6b.png" style="border-width: 0px; display: inline;" title="キャプチャ" width="1024"></a></p>
+
+
+  <p>新しいエラー&nbsp;調査エクスペリエンスを使用すると、上位の失敗した操作、例外の種類、障害の背後にある失敗した依存関係をすばやく特定して修正し、エンド ユーザーがどのように影響を受けているか確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/efd490f8-2959-4c4e-a84c-c65ccd35ea34.png"><img alt="Capture2" border="0" height="509" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef967414-865e-4406-bcc4-42031d09e783.png" style="border: 0px currentColor; border-image: none; display: inline;" title="Capture2" width="1024"></a></p>
+
+
+  <p><a href="https://docs.microsoft.com/mobile-center/">Visual Studio Mobile Center</a> は、ユーザーが <a href="https://docs.microsoft.com/mobile-center/analytics/export">Application インサイト</a> に接続し、すべての使用状況テレメトリ イベントのコピーを継続的にエクスポートできると発表しました。 そこから、アドホック クエリ、フィルター処理、セグメント化、およびより豊富な使用状況分析に関して Application インサイト が提供する豊富な機能セットを使用して、Mobile Center データに対してクエリを実行して分析できます。</p>
+
+
+  <h2>概要今日</h2>
+
+
+  <p>Azure の監視および分析サービスを使用すると、高度なデータ分析と視覚化を使用して環境をより詳細に可視化し、分析情報を簡単にアクションに変えるのに役立ちます。 監視ソリューションの機能と、ハイブリッド クラウド<a href="https://azure.microsoft.com/solutions/monitoring/"></a>環境の複雑さを軽減する方法について説明します。</p>

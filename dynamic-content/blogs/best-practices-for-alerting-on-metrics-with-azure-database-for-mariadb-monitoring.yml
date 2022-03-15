@@ -1,0 +1,174 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0c48dbf68b35ae5e88d318472bed863059eea531
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904923"
+Slug: best-practices-for-alerting-on-metrics-with-azure-database-for-mariadb-monitoring
+Title: Azure Database for MariaDB 監視によるメトリックに関するアラートのベストプラクティス
+Summary: 2018年12月4日に、Microsoft の Azure Database for Open Sources は MariaDB の一般提供を発表しました。 このブログでは、最も一般的に監視されているサービスのメトリックについて、いくつかのガイダンスとベストプラクティスを共有することを意図しています。
+Content: >-
+  <p>2018年12月4日に、Microsoft &rsquo; の Azure Database for open sources は <a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-azure-database-for-mariadb/" target="_blank">MariaDB の一般提供</a>を発表しました。 このブログでは、MariaDB の最も一般的な監視対象メトリックについて、いくつかのガイダンスとベストプラクティスを共有することを意図しています。</p>
+
+
+  <p>開発者、データベースアナリスト、サイト信頼性エンジニア、または社内の DevOps professional でも、データベースの監視は、MariaDB サーバーの信頼性、可用性、およびパフォーマンスを維持するうえで重要な部分です。 Azure Database for MariaDB では、サーバーの動作に関する洞察を得るためにさまざまな <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-monitoring" target="_blank">メトリックを利用でき</a> ます。 また、Azure portal または Azure CLI を使用して、 <a href="https://docs.microsoft.com/en-us/azure/mariadb/howto-alert-metric" target="_blank">これらのメトリックにアラートを設定</a> することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7b149701-0520-4ac4-8585-b4d6f88fbf6a.png"><img alt="Create New Rule screenshot" border="0" height="528" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd4f737d-6ca4-4cfc-a1a1-8bfdee0ff04c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="新しいルールの作成のスクリーンショット" width="1024"></a></p>
+
+
+  <p>従来のオンプレミスアプローチから発展するハイブリッドまたはクラウドネイティブに進化する最新のアプリケーションでは、ハイブリッド/パブリッククラウドでの監視戦略を成功させるためのベストプラクティスも導入する必要があります。 ここでは、MariaDB サーバーで監視データを使用する方法に関するベストプラクティスの例と、これらのさまざまなメトリックに基づいて改善することを検討できる領域について説明します。</p>
+
+
+  <h2>アクティブな接続</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 合計接続数の80% が30分以上になると、5分ごとにチェックされます。</p>
+
+
+  <h3>確認する項目</h3>
+
+
+  <ul>
+   <li>アクティブな接続が、過去30分間の合計制限の80% であることがわかった場合は、ワークロードに基づいているかどうかを確認します。</li>
+   <li>負荷が予想される場合は、 <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-pricing-tiers" target="_blank">価格レベルまたは仮想コア</a>をアップグレードすることで、アクティブな接続の制限を増やすことができます。 各 SKU のアクティブな接続の制限は、ドキュメント「 &ldquo; <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-limits" target="_blank">Azure Database For maridb の制限事項</a>」で確認できます。&rdquo;</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/517c4957-cccd-40a7-929d-7db97e354a75.png"><img alt="Active Connections (Platform) screenshot" border="0" height="681" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd5ad061-cb77-4427-b37a-42c2513977b5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アクティブな接続 (プラットフォーム) のスクリーンショット" width="1430"></a></p>
+
+
+  <h2>失敗した接続</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 過去30分間に失敗した接続数が5分ごとに確認されます。</p>
+
+
+  <h3>確認する項目</h3>
+
+
+  <ul>
+   <li>過去30分間に発生した接続要求の失敗が表示された場合は、ログで失敗の理由を確認してください。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e76a125-ec20-4d49-897d-93c8cff75064.png"><img alt="Failed Connections (Platform) screenshot" border="0" height="727" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8255eccc-fb12-4fc9-81e4-e4753811e9cb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="失敗した接続 (プラットフォーム) のスクリーンショット" width="1430"></a></p>
+
+
+  <ul>
+   <li>これがユーザーエラーである場合は、適切な操作を実行します。 たとえば、認証でエラーが発生した場合は、ユーザー名とパスワードを確認します。</li>
+   <li>エラーが SSL に関連している場合は、 <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-ssl-connection-security" target="_blank">ssl 設定</a> と入力パラメーターが正しく構成されていることを確認します。
+   <ul style="margin-left: 40px;">
+    <li>例: psql &quot; sslmode = verify-ca sslrootcert = root .crt host = mydemoserver. mariadb. azure. .com = mariadb user =mylogin@mydemoserver&quot;</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h2>CPU の割合またはメモリの割合</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 5 分間または95% の100%。2時間以上。</p>
+
+
+  <h3>確認する項目</h3>
+
+
+  <ul>
+   <li>CPU またはメモリの使用率が100% に達した場合は、アプリケーションのテレメトリまたはログを確認して、エラーの影響を理解してください。</li>
+   <li>アクティブな接続の数を確認します。 ドキュメント「 <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-limits" target="_blank">Azure Database for MariaDB の制限事項</a>」で、 &ldquo; 接続の制限を確認してください。 &rdquo;アプリケーションが最大接続数を超えた場合、または制限に達している場合は、コンピューティングをスケールアップすることを検討してください。</li>
+  </ul>
+
+
+  <h2>IO の割合</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 90% 以上の使用率が60分以上です。</p>
+
+
+  <h3>確認する項目</h3>
+
+
+  <ul>
+   <li>1時間以上の IOPS が90% であることがわかっている場合は、アプリケーションのワークロードに基づいているかどうかを確認します。</li>
+   <li>負荷が高いと予想される場合は、記憶域を増やすことで IOPS の上限を増やします。 <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-pricing-tiers" target="_blank">IOPS マッピングへの Storage</a>を次に示します。</li>
+  </ul>
+
+
+  <h2>ストレージ</h2>
+
+
+  <p>プロビジョニングするストレージは、使用している Azure Database for PostgreSQL サーバーで使用可能なストレージ容量です。 ストレージは、データベース ファイル、一時ファイル、トランザクション ログ、および PostgreSQL サーバー ログに使用されます。 プロビジョニングするストレージの合計容量によって、ご利用のサーバーで使用できる I/O 容量も決まります。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top">&nbsp;</td>
+     <td valign="top"><strong>Basic</strong></td>
+     <td valign="top"><strong>汎用</strong></td>
+     <td valign="top"><strong>メモリの最適化</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージの種類</td>
+     <td valign="top">Azure Standard Storage</td>
+     <td valign="top">Azure Premium Storage</td>
+     <td valign="top">Azure Premium Storage</td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージ サイズ</td>
+     <td valign="top">5 GB ~ 1 TB</td>
+     <td valign="top">5 GB ~ 4 TB</td>
+     <td valign="top">5 GB ~ 4 TB</td>
+    </tr>
+    <tr>
+     <td valign="top">ストレージの増分サイズ</td>
+     <td valign="top">1GB</td>
+     <td valign="top">1GB</td>
+     <td valign="top">1GB</td>
+    </tr>
+    <tr>
+     <td valign="top">IOPS</td>
+     <td valign="top">変数</td>
+     <td valign="top">
+     <p>3IOPS/GB</p>
+
+     <p>最小 100 IOPS</p>
+
+     <p>最大 6000 IOPS</p>
+     </td>
+     <td valign="top">
+     <p>3IOPS/GB</p>
+
+     <p>最小 100 IOPS</p>
+
+     <p>最大 6000 IOPS</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>ストレージの割合</h2>
+
+
+  <p>サンプルしきい値 (パーセントまたは値): 80%</p>
+
+
+  <h3>確認する項目</h3>
+
+
+  <ul>
+   <li>サーバーがプロビジョニングされた記憶域の制限に達している場合、すぐに領域が不足し、読み取り専用に設定されます。</li>
+   <li>使用状況を監視してください。 また、ファイルやログなどを削除せずにサーバーを使用し続けるために、 <a href="https://docs.microsoft.com/en-us/azure/mariadb/concepts-pricing-tiers#scale-resources" target="_blank">より多くの記憶域をプロビジョニング</a> することもできます。</li>
+  </ul>
+
+
+  <p>すべてを試しても、上記の監視のヒントによって解決策が得られない場合は、 <a href="https://portal.azure.com/#create/Microsoft.Support" target="_blank">Microsoft Azure サポート</a>に連絡し&#39;てください。</p>
+
+
+  <h2>謝辞</h2>
+
+
+  <p>このブログへの投稿については、Andrea、プログラムマネージャー、Azure Database for MariaDB に感謝します。</p>

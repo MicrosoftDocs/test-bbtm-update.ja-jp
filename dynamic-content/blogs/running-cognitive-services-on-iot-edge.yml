@@ -1,0 +1,146 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6fd47c55febe75ff665e315052d94cb29a521ad3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910353"
+Slug: running-cognitive-services-on-iot-edge
+Title: Azure IoT Edge での Cognitive Services の実行
+Summary: Computer Vision、顔、Text Analytics、および Language Understanding から始まるコンテナーの初期セットを使用して、Docker コンテナーで実行されている Cognitive Services を最近発表しました。
+Content: >-
+  <p><em>このブログ投稿は、Emmanuel 著者 bertrand、シニアプログラムマネージャー、Azure IoT によって共同作成されています。</em></p>
+
+
+  <p>Microsoft では、 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home" target="_blank">Computer Vision</a>、 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/face/overview">顔</a>、 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-install-containers" target="_blank">Text Analytics</a>、 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-container-howto" target="_blank">Language Understanding</a>のために、最近 Azure Cognitive Services をコンテナーに発表しました。 Azure Cognitive Services コンテナーの詳細については、 &ldquo; このブログの<a href="https://azure.microsoft.com/en-us/blog/bringing-ai-to-the-edge/" target="_blank">Brining AI</a>を参照してください。&rdquo;</p>
+
+
+  <p>現時点では、 <a href="https://azure.microsoft.com/en-us/services/iot-edge/" target="_blank">Azure IoT エッジ</a>を持つエッジデバイスで Text Analytics および Language Understanding コンテナー用の Azure Cognitive Services コンテナーを実行するためのサポートを発表いたします。 これは、データが生成されているすべてのワークロードをローカルで実行できる一方で、クラウドのシンプルさを維持しながら、安全かつ大規模にリモートで管理できることを意味します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7dfc2ac-5626-4ba5-bf7c-23d974d2c61e.png"><img alt="Image displaying containers that align with Vision and Langauge" border="0" height="543" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26d90a90-75f0-4526-831c-bedcc4cbd2ea.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="視覚および言語に合わせたコンテナーを表示する画像" width="793"></a></p>
+
+
+  <p>信頼性の高いインターネット接続を使用 &rsquo; していない場合、または帯域幅のコストを節約したい場合や、非常に短い待機時間の要件がある場合、またはオンサイトで分析する必要がある機微なデータを処理している場合でも、Cognitive Services コンテナーを使用して Azure IoT エッジでクラウドとの一貫性が得られます。 これにより、分析をサイトで実行し、1つのウィンドウですべてのサイトを操作できます。</p>
+
+
+  <p>これらのコンテナーイメージは、 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/category/internet-of-things?filters=microsoft&amp;page=1" target="_blank">Azure Marketplace</a>で IoT Edge モジュールとして直接試すことができます。</p>
+
+
+  <ul>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-keyphrase/" target="_blank">キーフレーズ抽出</a> は、英語、ドイツ語、スペイン語、日本語のいずれかで、主要な通信ポイントと強調表示をテキストで抽出します。</li>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-language/" target="_blank">言語検出</a> は、合計120の言語がサポートされているテキストの自然言語を検出します。</li>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-sentiment/" target="_blank">感情分析</a> は、 <a href="https://docs.microsoft.com/azure/cognitive-services/text-analytics/text-analytics-supported-languages" target="_blank">さまざまな言語</a>で信頼度スコアを使用して、入力テキストの正または負のセンチメントのレベルを検出します。</li>
+   <li><a href="https://hub.docker.com/r/microsoft/azure-cognitive-services-luis/" target="_blank">Language Understanding</a> は、ユーザー &rsquo; の会話と自然言語テキストにカスタム機械学習インテリジェンスを適用して、全体的な意味を予測し、関連する情報や詳細情報を取得します。</li>
+  </ul>
+
+
+  <p>顔とテキスト認識コンテナーは依然としてプレビューの内側に配置されているため、marketplace ではまだ利用できません。 ただし、プレビューにアクセスするには <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR0XnG25zkIBLkA6GR39U7fRUQVE2MUVDVVJBVlU2Qk5TQTI1MVRSRExUMS4u">、最初ににサインアップする</a> ことによって手動でデプロイできます。</p>
+
+
+  <p>このブログでは、edge デバイスで言語検出コンテナーをローカルにプロビジョニングする方法と、Azure IoT を使用して管理する方法について説明します。 &nbsp;現在、これらのコンテナーは、X64 ベースのデバイスで<u>のみ</u>実行されます。</p>
+
+
+  <h2>IoT Edge デバイスとその IoT Hub を設定する</h2>
+
+
+  <p>IoT Edge デバイスと IoT Hub を設定するには、この <a href="https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-linux" target="_blank">クイックスタート</a> の最初の手順に従います。</p>
+
+
+  <p>まず、IoT Hub を作成し、次に IoT Edge デバイスを IoT hub に登録する手順について説明します。 次に示すのは、cscontainers &quot; と呼ばれる &ldquo; IoT Hub の下で、言語検出 &quot; と呼ばれる &ldquo; 新しく作成された edge デバイスのスクリーンショットです。 <strong>デバイス</strong>を選択し、その<strong>プライマリ接続文字列</strong>をコピーして、後で使用するために<strong>保存</strong>します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2854b814-f4ac-48f3-9884-7f886398b4db.png"><img alt="Screenshot of a newly created Edge device " border="0" height="636" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/331301fd-4bfd-4fc1-8fad-26989b9c060a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="新しく作成された Edge デバイスのスクリーンショット " width="750"></a></p>
+
+
+  <p>次に、IoT Edge デバイスを設定する手順について説明します。 &rsquo;物理的なエッジデバイスを持っていない場合は、Azure Marketplace で提供されている<a href="https://azuremarketplace.microsoft.com/en-ca/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu?tab=Overview" target="_blank">Ubuntu Server 16.04 LTS と Azure IoT edge</a> runtime virtual machine (VM) をデプロイすることをお勧めします。 これは IoT Edge プレインストールされている Azure 仮想マシンです。</p>
+
+
+  <p>最後の手順では、上記で作成した接続文字列を指定して、IoT Edge デバイスを IoT Hub に接続します。 これを行うには、 <strong>/etc/iotedge/config.yaml </strong>file でデバイス構成ファイルを編集し、接続文字列を更新します。 接続文字列が更新されたら、 <strong>sudo systemctl enable dnsmasq.service restart iotedge</strong>を使用して、エッジデバイスを再起動します。</p>
+
+
+  <h2>認識サービスのプロビジョニング (言語検出 IoT Edge モジュール)</h2>
+
+
+  <p>イメージは、iot Hub <a href="https://azuremarketplace.microsoft.com/en/marketplace/apps/category/internet-of-things?page=1&amp;filters=microsoft" target="_blank">marketplace</a>から iot edge モジュールとして直接入手できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/542e1740-2d6d-450c-9d52-4c9426c8d2fa.png"><img alt="Screenshot of Language Detection Container offering in the Azure Marketplace" border="0" height="396" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/14e27aeb-e840-4aa9-9898-e26d3052c773.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Marketplace の言語検出コンテナーサービスのスクリーンショット" width="750"></a></p>
+
+
+  <p>&rsquo;ここでは、言語検出イメージを例として使用しますが、他のイメージも同じように動作します。 イメージをダウンロードするには、イメージを検索して [<strong>今すぐ入手</strong>する] を選択します。これにより、IoT Edge モジュール &rdquo; の Azure portal &ldquo; ターゲットデバイスが表示されます。 <strong>IoT Hub</strong>で<strong>サブスクリプション</strong>を選択し、[<strong>デバイスの検索</strong>]、[ <strong>IoT Edge デバイス</strong>] の順に選択し、[<strong>選択]</strong>ボタンと [<strong>作成</strong>] ボタンをクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8676977a-2258-4a5c-84e9-bfdac9ab65b5.png"><img alt="Screenshot of target devices for IoT Edge modules" border="0" height="272" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9653044c-fb78-4c22-9a9d-d26cf3870dd2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="IoT Edge モジュールのターゲットデバイスのスクリーンショット" width="640"></a></p>
+
+
+  <h2><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79292b52-4a44-41b4-af90-c85de4b9602f.png"><img alt="Screenshot for selecting device to deploy on and creating" border="0" height="347" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52f90ab6-d02a-4589-8e53-46842402bdda.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="展開するデバイスを選択して作成するためのスクリーンショット" width="617"></a></h2>
+
+
+  <h2>認識サービスを構成しています</h2>
+
+
+  <p>これで、認識サービスを IoT Edge デバイスにデプロイする準備ができました &rsquo; 。 ただし、コンテナーを実行するには、有効な API キーと請求エンドポイントを取得し、それらを環境変数としてモジュールの詳細に渡す必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f666e207-cfe3-4aed-ae64-c7fbba1a9235.png"><img alt="Screenshot of setting deployment modules" border="0" height="423" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22a9831d-1c0b-418f-8a14-5b59cccaa502.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="配置モジュールの設定のスクリーンショット" width="750"></a></p>
+
+
+  <p>Azure portal にアクセスし、[ <a href="https://portal.azure.com/" target="_blank">Cognitive Services] ブレードを開き</a>ます。 &rsquo;コンテナー (この例では Text Analytics サービス) に一致する認識サービスがない場合は、[<strong>追加</strong>] を選択して作成します。 認識サービスがエンドポイントと API キーを取得したら、 &rsquo; コンテナーを起動するためにこれが必要になります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b8d33a0b-70ac-40b3-9c66-c6c0b6e4393d.png"><img alt="Screenshot showing the retrival of the endpoint and API key" border="0" height="486" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c5acfb8-ac4b-40eb-9f38-f0380a5da036.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="エンドポイントと API キーの取得を示すスクリーンショット" width="750"></a></p>
+
+
+  <p>エンドポイントは請求のみに使用され、顧客データはそのようには送信されません。 請求エンドポイントの値を billing &rdquo; 環境変数に &ldquo; コピーし、api キーの &ldquo; 値を apikey &rdquo; 環境変数にコピーします。</p>
+
+
+  <h2>コンテナーをデプロイする</h2>
+
+
+  <p>必要なすべての情報が入力されました。 IoT Edge の展開を完了するだけで済みます。 [ <strong>次へ</strong> ] を選択し、[ <strong>送信</strong>] をクリックします。 [IoT Edge デバイスの詳細] セクションを更新して、展開が正常に行われていることを確認します。</p>
+
+
+  <p>[IoT Edge デバイスの詳細] セクションを更新して、展開が正常に行われていることを確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/842a23db-a283-4c59-8d46-06496f351a30.png"><img alt="Screenshot of IoT Edge device details section" border="0" height="164" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36712ab0-50f5-48d8-a520-e2fef3f1f7fc.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="IoT Edge デバイスの詳細セクションのスクリーンショット" width="750"></a></p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>試してみるには、 &rsquo; 認知サービスコンテナーが実行されている IoT Edge デバイスに対する HTTP 呼び出しを行います。</p>
+
+
+  <p>その &rsquo; ためには、まず、edge デバイスのポート5000が開いていることを確認する必要があります。 IoT Edge Azure vm と共に構築済みの Ubuntu をエッジデバイスとして再利用する &rsquo; 場合は、まず<strong>VM の詳細</strong>にアクセスし、次に [<strong>設定</strong>]、[<strong>ネットワーク</strong>]、[<strong>送信ポートの規則</strong>] をクリックして、ポート5000を開く送信セキュリティ規則を追加します。 また、デバイスのパブリック IP アドレスもコピーします。</p>
+
+
+  <p>これで、ブラウザーを使用して任意のコンピューターから、IoT Edge デバイスで実行されている認知サービスに対してクエリを実行できるようになります。 お気に入りのブラウザーを開いて、に <strong>https://your-iot-edge-device-ip-address:5000</strong> アクセスします。</p>
+
+
+  <p>次に、[ <strong>サービス API の説明</strong> ] を選択するか、に <strong>https://your-iot-edge-device-ip-address:5000/swagger</strong> 直接移動します。 これにより、API の詳細な説明が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/570bca32-6ff5-480d-a915-4426cea472dc.png"><img alt="Screenshot showing a detailed description of the Language Detection Cognitive Service API" border="0" height="558" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/632864fd-1457-4084-af4f-c6b5f87ee356.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="言語検出認識サービス API の詳細な説明を示すスクリーンショット" width="750"></a></p>
+
+
+  <p>[ <strong>試してみる</strong> ] を選択し、[<strong> 実行</strong>] を選択すると、入力値を自由に変更できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1482f02-ddc5-4771-9e54-421c38360e38.png"><img alt="Screenshot of executing the API" border="0" height="573" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c19dec30-2901-4fe6-beea-e06c157a79c3.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="API の実行のスクリーンショット" width="750"></a></p>
+
+
+  <p>結果はページの下に表示され、次の図のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb56545f-1871-494c-9abe-70a551fb87e5.png"><img alt="Screenshot of results after executing the API" border="0" height="571" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4bf355a2-a3f3-4e0d-ad79-7afb709ba688.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="API 実行後の結果のスクリーンショット" width="750"></a></p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <p>これで準備が完了しました。 独自の IoT Edge デバイスで Cognitive Services を実行しており、中央の IoT Hub を介してリモートで管理されています。 このセットアップを使用して、セキュリティで保護された方法で何百万ものデバイスを管理することができます。</p>
+
+
+  <p><a href="https://aka.ms/iot-edge-marketplace" target="_blank">Azure Marketplace</a>で既に提供されているさまざまな Cognitive Services を利用して、さまざまなシナリオを試すことができます。 お楽しみください!</p>

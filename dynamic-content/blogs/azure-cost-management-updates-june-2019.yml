@@ -1,0 +1,278 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0cfd095b2547484f4414ab487a6139c538b35528
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905027"
+Slug: azure-cost-management-updates-june-2019
+Title: Azure Cost Management の更新–2019年6月
+Summary: Azure Cost Management は、クラウドのコストをどのように実現しているかを理解し、不適切な使用パターンを特定して防止し、コストを最適化することで、より多くの作業をより簡単に行うことができます。 ここでは、クラウドのコストを1か所で管理できるようにする、最新の機能強化について説明します。
+Content: >-
+  <p>新しい学生、活発スタートアップ、または最大規模の企業を再利用する場合でも、財務上の制約があり、&#39;の使用量、場所、将来の計画方法を把握しておく必要があります。&#39; 請求書に関しては驚くことはありませんが、これが Azure Cost Management になります。</p>
+
+
+  <p>私たちは、お客様の課題についてさらに詳しく知るための方法を常に模索しています。また、Cost Management を使用して、クラウドでのコストの削減、不適切な支出パターンの特定と防止、コストの最適化によって、より多くの機能を向上させること&#39;ができるようにする方法を&#39;ます。</p>
+
+
+  <p>次に、お客様のフィードバックに基づいて、現在の&#39;について説明します。</p>
+
+
+  <ul type="disc">
+   <li><a href="#reservations">Enterprise agreement と AWS のための予約と marketplace の購入</a></li>
+   <li><a href="#forecast">Azure と AWS のコストを予測する</a></li>
+   <li><a href="#terms">Enterprise 契約とマイクロカスタマー契約のコストと使用に関する用語の標準化</a></li>
+   <li><a href="#budgets">管理グループの予算によるサブスクリプション全体のコストを監視する</a></li>
+   <li><a href="#dashboard">ダッシュボードタイルの更新</a></li>
+   <li><a href="#tags">コストレポートでのリソースタグの可用性の拡張</a></li>
+   <li><a href="#videos">新しい Cost Management YouTube チャネル</a></li>
+  </ul>
+
+
+  <p>詳細について詳しく&#39;します。</p>
+
+
+  <p><a name="reservations"></a>&nbsp;</p>
+
+
+  <h2>Enterprise agreement と AWS のための予約と marketplace の購入</h2>
+
+
+  <p>効果的なコスト管理は、 <em>1</em>つの分類ですべてのコストを<em>1 つ</em>の場所にまとめることから始まります。 現時点では、予約と marketplace での購入が追加されたため、Azure と<a href="https://docs.microsoft.com/en-us/azure/cost-management/aws-integration-manage">AWS</a>のコストについて、お客様の Enterprise 契約 (EA) の全体像を把握することができます。また、予約特典を使用して、大きな予約コストをチームに返すことができます。 予約の購入を中断すると、コストの割り当て作業が簡素化されるため、社内のチャージバックをこれまで以上に簡単に管理できます。</p>
+
+
+  <p style="margin-left: 40px;"><img alt="Showing amortized costs of $243M for the same period above which showed just under $50K of actual costs. Virtual machines are now showing costs based on a pre-purchased reservation." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9ee5f27a-ea3c-4294-a65d-d664c4628293.png" style="border: 0px currentcolor; display: inline; background-image: none; width: 640px; height: 382px;" title="上記と同じ期間の $ 243M の償却コストを表示しています。これは、実際のコストが $ 50K に記載されています。 仮想マシンでは、事前購入済みの予約に基づいてコストが表示されるようになりました。"></p>
+
+
+  <p>まず、コスト分析を開き、スコープを EA 請求アカウント、AWS 統合アカウント、または両方にまたがる管理グループに変更します。 コストを絞り込むために、次の4つの新しいグループ化とフィルター選択のオプションに注目&#39;ます。</p>
+
+
+  <ul>
+   <li>[<strong>料金の種類</strong>] は、使用量、購入、返金のコストを示します。</li>
+   <li><strong>Publisher type</strong>は、Azure、AWS、および marketplace からのコストを示します。 Marketplace のコストには、すべてのクラウドが含まれます。 プロバイダーを使用して、Azure と AWS の合計コストと、最初とサードパーティのコストを区別します。</li>
+   <li><strong>予約 </strong>コストが関連付けられているかどうかを指定します (該当する場合)。</li>
+   <li><strong>頻度 </strong>は、使用量ベース、1回限りの料金、または定期的な料金のどれがコストであるかを示します。</li>
+  </ul>
+
+
+  <p>既定では、コスト分析は請求書の実際のコストを示しています。 これは請求書を調整する場合に最適ですが、大きな購入による急増が見られます。 これは、予約に対する使用量が前払いになったため、コストが表示されないことを意味します。サブスクリプションとリソースグループのリーダーは、&#39;t が、有効なコストを可視化しています。 これは、償還が行われる場所です。</p>
+
+
+  <p>[償却コスト] ビューに切り替えて、予約購入を1日単位のチャンクに分割し、予約期間中に分散します。 たとえば、1月に $365 を購入した場合は、1月1日から12月31日までの間に $1 の購入が行われます。 基本の償還に加えて、これらのコストも再割り当てされ、予約を使用した特定のリソースに関連付けられています。 たとえば、$1 の1日あたりの料金が2つの仮想マシン間で分割されている場合、その日に $2 0.50 の料金が&#39;ます。 予約の一部がその日に使用されていない場合は、該当&#39;する仮想マシンに $1 0.50 の料金が表示され、もう1つの $0.50 の料金が "未使用の<strong>予約</strong>" という &nbsp; 新しい料金の種類で表示されます。</p>
+
+
+  <p>追加のボーナスサブスクリプション、リソースグループ、AWS のリンクされたアカウント閲覧者は、償却コストを表示することによって、有効なコストを確認することもできます。 請求先のアカウントにのみ表示される購入を確認することはでき&#39;。ただし、予約に基づいて割引コストを表示することができます。</p>
+
+
+  <p>単純なチャージバックレポートを作成するには、[償却コスト] に切り替え、[粒度なし] を選択して期間の合計コストを表示し、リソースグループ別にグループ化して、テーブルビューに変更します。 次に、オフライン分析のためにデータを Excel または CSV にダウンロードするか、独自のデータとマージします。</p>
+
+
+  <p style="margin-left: 40px;"><img alt="An image of the amortized cost page, table view." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/068be91a-4332-4da8-b3ba-56538af86eb2.png" style="width: 1024px; height: 243px;" title="[償却コスト] ページのテーブルビューの画像。"></p>
+
+
+  <p>コストデータの取得を自動化する必要がある場合は、2つのオプションがあります。 クエリ API を使用して、動的なフィルター処理、グループ化、集計を行うことができます。また、使用状況の詳細 API を使用して、すべての集計されていないコストと使用状況データを使用することもできます。 注: 使用方法の詳細は、Azure スコープでのみ使用できます。 これらの Api の一般公開 (GA) バージョンは2019-01-01 ですが、 <strong>2019-04-01-preview</strong> を使用して、予約と Marketplace での購入を含める&#39;ます。</p>
+
+
+  <p>例として、&#39;s を使用して、償却コストの集計されたビューを、請求の種類、発行者の種類、 &mdash; 購入のために空のままにしておき、適用しない場合は予約 &mdash; を空のままにすることができます。</p>
+
+
+  <pre>
+
+  <code>POST https://management.azure.com/{scope}/providers/Microsoft.CostManagement/query?api-version=2019-04-01-preview
+
+  Content-Type: application/json</code>
+
+
+  <code>{
+    &quot;type&quot;: &quot;AmortizedCost&quot;,
+    &quot;timeframe&quot;: &quot;Custom&quot;,
+    &quot;timePeriod&quot;: { &quot;from&quot;: &quot;2019-06-01&quot;, &quot;to&quot;: &quot;2019-06-30&quot; },
+    &quot;dataset&quot;: {
+      &quot;granularity&quot;: &quot;None&quot;,
+      &quot;aggregation&quot;: {
+        &quot;totalCost&quot;: { &quot;name&quot;: &quot;PreTaxCost&quot;, &quot;function&quot;: &quot;Sum&quot; }
+      },
+      &quot;grouping&quot;: [
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;ChargeType&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;PublisherType&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;Frequency&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;ResourceGroup&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;SubscriptionName&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;SubscriptionId&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;ReservationName&quot; },
+        { &quot;type&quot;: &quot;dimension&quot;, &quot;name&quot;: &quot;ReservationId&quot; }
+      ]
+    }
+  }</code></pre>
+
+
+  <p>また、集計が必要で&#39;、Azure スコープの完全な生データセットを優先する場合は、次のようになります。</p>
+
+
+  <pre>
+
+  <code>GET https://management.azure.com/{scope}/providers/Microsoft.Consumption/usageDetails?metric=AmortizedCost&amp;$filter=properties/usageStart+ge+&#39;2019-06-01&#39;+AND+properties/usageEnd+le+&#39;2019-06-30&#39;&amp;api-version=2019-04-01-preview</code></pre>
+
+
+  <p>請求書に示されているとおりに購入を表示するために実際のコストが必要な場合は、型またはメトリックを ActualCost に変更するだけです。 これらの Api の詳細については、 <a href="https://aka.ms/costanalysis/api" target="_blank">クエリ</a> と使用方法の <a href="https://docs.microsoft.com/rest/api/consumption/usagedetails" target="_blank">詳細</a> api のドキュメントを参照してください。 公開されたドキュメントには GA バージョンが示されていますが、どちらも新しい type/metric 属性以外の 2019-04-01-preview API バージョンで同じように動作します。</p>
+
+
+  <p>Cost Management Api はリソース上のすべてのスコープで動作することに注意してください。 つまり、リソースグループ、サブスクリプション、 <a href="https://aka.ms/azurerbac" target="_blank">azure のロールベースのアクセス制御 (RBAC)</a> &nbsp; アクセス、ea 課金アカウント (登録)、学科、ea ポータルアクセス、AWS 統合、およびリンクされたアカウントを使用した azure RBAC による登録アカウント。 スコープ ID を決定する方法やアクセスを管理する方法など、スコープの詳細については、ドキュメント &quot; 「スコープ<a href="https://aka.ms/costmgmt/scopes">の概要と操作</a>」を参照してください。&quot;</p>
+
+
+  <p>現在、予約および marketplace での購入のサポートは、 <a href="https://aka.ms/costmgmt/preview" target="_blank">Azure portal</a>ではプレビュー段階で利用できますが、今後数週間にわたってグローバルにロールアウトされます。 それまでは、ご意見をお寄せいただければ、ご意見をお寄せください。</p>
+
+
+  <p><a name="forecast"></a>&nbsp;</p>
+
+
+  <h2>Azure と AWS のコストを予測する</h2>
+
+
+  <p>履歴には、何度も&#39;知られているので、どこで&#39;しているかを理解することが非常に重要になります。 コストの管理に関しては、これはあまり当てはまりません。 アプリケーションと組織の傾向を理解するために履歴のコストから始めることができますが、実際には正常かつ最適化された状態になるには、将来の計画が必要になります。 これで、Cost Management 予測を使用できるようになりました。</p>
+
+
+  <p>コスト分析の予測コストを確認して、コスト傾向を予測および視覚化し、任意のスコープでの予算またはクレジットの超過を避けるための積極的な措置を講じます。 リソースグループ内の1つのアプリケーションからサブスクリプションまたは請求先アカウント全体まで、Azure リソースと AWS リソースの両方にまたがる上位レベルの管理グループ。 先月&#39;AWS アカウントを接続する方法について <a href="https://azure.microsoft.com/blog/azure-cost-management-updates-may-2019/#aws" target="_blank">は、こちら</a>を参照してください。</p>
+
+
+  <p style="margin-left: 40px;"><img alt="Cost analysis showing accumulated costs of $14.7M with a forecast of $17.9M and a warning note on the budget, which is set at $17.5M." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4e5cec7-8f5f-44a9-a2a9-b18eeae3f5ca.png" style="border: 0px currentcolor; display: inline; background-image: none; width: 900px; height: 563px;" title="$ 17.9 M の予測と $ 14.7 m の累積コストを示すコスト分析と、$ 17.5 M に設定されている予算に関する警告メモ。"></p>
+
+
+  <p>Cost Management 予測は、<a href="https://aka.ms/costmgmt/preview" target="_blank"> Azure portal</a>でプレビュー段階にあり、今後数週間にわたってグローバルにロールアウトされます。 確認して&#39;次のような情報をお知らせください。</p>
+
+
+  <p><a name="terms"></a>&nbsp;</p>
+
+
+  <h2>Enterprise Agreement および Microsoft カスタマーアグリーメントのコストと使用に関する用語の標準化</h2>
+
+
+  <p>従量課金制 (PAYG)、Enterprise Agreement (EA)、クラウドソリューションプロバイダー (CSP)、または<a href="https://www.microsoft.com/Licensing/how-to-buy/microsoft-customer-agreement" target="_blank">Microsoft Customer Agreement (MCA)</a>アカウントのどちらを使用するかに応じて、別の用語を使用することができます。 これらの相違点は軽微で、請求書を把握して分類する能力に&#39;t に影響を与えますが、組織の拡大に伴って、複数の種類のアカウントにまたがるより総合的なコスト管理ソリューションを必要とするため、課題が生じます。 AWS を追加し、PAYG、EA、CSP アカウントを MCA に移行することにより、これはさらに重要になります。 次回の EA 更新時に MCA への移行を効率化するために、Cost Management では新しい列名またはプロパティ名を使用して、MCA の用語に対応するようになりました。 &nbsp;EA アカウントに関して予想される主な相違点を次に示します。</p>
+
+
+  <ul>
+   <li><strong>EnrollmentNumber &rarr; /BillingProfileId</strong>
+
+   <ul>
+    <li><strong></strong>EA の登録は、今日の Azure portal 内で課金アカウントとして &quot; 表され、コストと使用状況データ内の取引先企業 &quot; へのマッピングは継続されます。 変更はありません。 また、MCA では、請求先アカウント内に複数の請求書を作成する機能も導入されています。 これらの請求書の構成は、課金プロファイル &quot; と呼ば &quot; れます。 EA には請求書を1つしか含めることができないため、登録は効果的に課金プロファイルにマップされます。 この概念モデルを使用すると、登録番号は、1つの Accountid と BillingProfileId の両方として使用できるようになります。</li>
+   </ul>
+   </li>
+   <li><strong>DepartmentName &rarr; InvoiceSectionName </strong>
+   <ul>
+    <li><strong></strong>MCA には EA 部門と同様の概念があります。これにより、請求書内のサブスクリプションをグループ化できます。 これらは請求書セクション &quot; と呼ば &quot; れ、請求プロファイルの下に入れ子になっています。 EA 請求&#39;書はこの作業の一環として変更されていませんが、EA 部門は InvoiceSectionName としてコストデータ内に一貫性を持たせるようになります。</li>
+   </ul>
+   </li>
+   <li><strong>ProductOrderName (新規)</strong>
+   <ul>
+    <li><strong></strong>Azure サブスクリプションプランなど、料金が適用されるより大きな製品を識別する新しいプロパティ。</li>
+   </ul>
+   </li>
+   <li><strong>PublisherName (new)</strong>
+   <ul>
+    <li><strong></strong>オファリングの発行元を示す新しいプロパティ。</li>
+   </ul>
+   </li>
+   <li><strong>ServiceFamily (新規)</strong>
+   <ul>
+    <li><strong></strong>関連するメーターカテゴリをグループ化する新しいプロパティ。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>EA 登録を新しい MCA に更新しようとしている組織は、今後の移行作業を最小限に抑えるために、これらの新しいプロパティに基づいて、キーベースの EA Api (consumption.azure.com など) <a href="https://docs.microsoft.com/rest/api/consumption/usagedetails">から最新の</a> バージョン 2019-04-01-preview に移行することを強くお勧めします。 キーベースの Api は、MCA 課金アカウントではサポートされていません。</p>
+
+
+  <p>新しい用語の詳細については、microsoft のドキュメント &quot; を参照してください。 <a href="https://docs.microsoft.com/azure/billing/billing-understand-your-usage" target="_blank">Azure の使用状況と料金ファイルの用語</a>について説明しています。&quot;</p>
+
+
+  <p><a name="budgets"></a>&nbsp;</p>
+
+
+  <h2>管理グループの予算によるサブスクリプション全体のコストを監視する</h2>
+
+
+  <p>すべての組織には、最終行があります。 Cost Management の予算を利用すると、自分のものを&#39;しないようにすることができます。 これで、管理グループを使用して Azure と AWS の両方のリソースにまたがる予算を作成できます。</p>
+
+
+  <p style="margin-left: 40px;"><img alt="Management group budgets" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8811ba44-1d38-4c7b-a354-3daf7a280337.png" style="border: 0px currentcolor; display: inline; background-image: none; width: 640px; height: 237px;" title="管理グループの予算"></p>
+
+
+  <p>サブスクリプションを管理グループに整理し、フィルターを使用して、チームに適した&#39;の予算を完全に調整します。</p>
+
+
+  <p>詳細については、「<a href="https://docs.microsoft.com/azure/cost-management/tutorial-acm-create-budgets" target="_blank">予算の作成と管理</a>」のチュートリアル &quot; を参照してください。&quot;</p>
+
+
+  <p><a name="dashboard"></a>&nbsp;</p>
+
+
+  <h2>ダッシュボードタイルの更新</h2>
+
+
+  <p>コスト分析のカスタマイズされたビューをダッシュボードにピン留めできることは既にわかっています。</p>
+
+
+  <p style="margin-left: 40px;"><img alt="Pin cost analysis to the dashboard using the pin icon at the top-right of the blade" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0754c18f-6775-48b3-9211-7edfaca96c89.png" style="border: 0px currentcolor; display: inline; background-image: none; width: 900px; height: 490px;" title="ブレードの右上にあるピンアイコンを使用して、コスト分析をダッシュボードにピン留めする"></p>
+
+
+  <p>これらのタイルは、ピン留めするときに選択した特定の日付範囲にロックされていたことに気が付きます。 たとえば、今月の&#39;を表示するように選択した場合、タイルには、2月、3月、などのように、常に1月が表示されます。 この点は変更されました。</p>
+
+
+  <p>コスト分析タイルでは、日付の選択で選択した組み込みの範囲が維持されるようになりました。 この月にピン留め &quot; すると、 &quot; 常に現在のカレンダー月が表示さ&#39;ます。 過去7日間ピン留め &quot; すると、 &quot; 過去7日間のローリングビューが表示さ&#39;ます。 ただし、カスタムの日付範囲を選択すると、その特定の日付範囲がタイルに常に表示されます。</p>
+
+
+  <p>更新された動作を取得するには、ピン留めされたタイルを更新してください。 タイルのグラフをクリックして [コスト分析] を開き、目的の日付範囲を選択して、ダッシュボードにピン留めするだけです。 新しいタイルでは、常に選択したビューが維持されます。</p>
+
+
+  <p>コストのダッシュボードを構築するのに役立つその他の機能 他の日付範囲が必要な場合は、 ぜひご意見をお寄せください。</p>
+
+
+  <p><a name="tags"></a>&nbsp;</p>
+
+
+  <h2>コストレポートでのリソースタグの可用性の拡張</h2>
+
+
+  <p>タグ付けは、組み込みの管理グループ、サブスクリプション、およびリソースグループ階層の外部でリソースを整理して分類するのに最適な方法であり、コスト分析を使用して独自のメタデータを追加したり、カスタムレポートを作成したりすることができます。 <a href="https://docs.microsoft.com/azure/azure-resource-manager/tag-support" target="_blank">ほとんどの Azure リソースはタグをサポート</a>しますが、一部のリソースの種類ではサポートされません。 タグをサポートする最新のリソースの種類を次に示します。</p>
+
+
+  <ul>
+   <li>App Service 環境</li>
+   <li>Data Factory サービス</li>
+   <li>イベントハブの名前空間</li>
+   <li>ロード バランサー</li>
+   <li>Service Bus 名前空間</li>
+  </ul>
+
+
+  <p>タグはすべての使用状況レコードの一部であるため、タグが適用された後に Cost Management レポートでのみ使用できます。 履歴のコストはタグ付けされていないため、今すぐリソースを更新して、最適なコストレポートを作成します。</p>
+
+
+  <p><a name="videos"></a>&nbsp;</p>
+
+
+  <h2>新しい Cost Management YouTube チャネル</h2>
+
+
+  <p>先月は、Cost Management をすばやく起動して実行するための8つ &nbsp; の<a href="https://azure.microsoft.com/blog/azure-cost-management-updates-may-2019/#videos" target="_blank">新しいクイックスタートビデオ</a>について説明します。 新しい <a href="https://aka.ms/costmgmt/videos" target="_blank">Azure Cost Management YouTube チャネル</a> にサブスクライブして、新しいビデオをループに置いて&#39;再リリースします。 ここでは、コスト最適化コレクションの最新のビデオを&#39;します。</p>
+
+
+  <ul>
+   <li><a href="https://www.youtube.com/watch?v=mI8oDgrWGeA" target="_blank">Azure のコストを削減し、コストを管理するための5つのヒント</a></li>
+  </ul>
+
+
+  <p>ここで&#39;、その他のトピックについて説明します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>次の&#39;は何ですか?</h2>
+
+
+  <p>これは先月の大きな更新プログラムのほんの一部です。 お客様のフィードバックに基づいて常にリッスンし、継続的な改善を行う&#39;、フィードバックをお寄せください。&nbsp;</p>
+
+
+  <p>Twitter でフォロー <a href="https://twitter.com/azurecostmgmt" target="_blank">@AzureCostMgmt</a> し、更新、ヒント、コツについて <a href="https://aka.ms/costmgmt/videos" target="_blank">YouTube チャンネル</a> をサブスクライブします。 いつでも、お客様のアイデアを共有し、 <a href="https://aka.ms/costmgmt/feedback" target="_blank">Cost Management フィードバックフォーラム</a>で他のユーザーに投票することができます。</p>

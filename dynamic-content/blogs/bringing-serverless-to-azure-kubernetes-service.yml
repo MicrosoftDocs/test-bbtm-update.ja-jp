@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d460c909fdb937a6946299dc6eefc9da5f1550a3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904251"
+Slug: bringing-serverless-to-azure-kubernetes-service
+Title: サーバーレスをサーバーレスにAzure Kubernetes Service
+Summary: Kubernetes プラットフォームとエコシステムの勢いを否定する必要はありません。事実上すべての企業が、導入の何らかの段階でコンテナーを大規模に実行する必要があります。 その結果、Azure Kubernetes Service (AKS) は、Azure の歴史の中で最も急速に成長しているサービスの 1 つになります。
+Content: >-
+  <p>Kubernetes プラットフォームとエコシステムの勢いを否定する必要はありません。事実上すべての企業が、導入の何らかの段階でコンテナーを大規模に実行する必要があります。 その結果、Azure Kubernetes Service (AKS) は、Azure の歴史の中で最も急速に成長しているサービスの 1 つになります。 ただし、新人や専門家も同様に、使いやすくするために実行できる多くの作業がまだ存在します。</p>
+
+
+  <p>本日は、Kubernetes をより簡単に行うというこのコミットメントをさらに示す一連の新しい機能と投資をお知らせします。</p>
+
+
+  <h2>Azure Kubernetes Serviceノードがパブリック プレビューに入る</h2>
+
+
+  <p>お客様は、コンテナーの速度と移植性が好きだと常に伝えています。 実際、コンテナー&rsquo;は非常に好きなので、コンテナーのホストとして機能する場合でも、仮想マシンについて考えるのにできる限り少ない時間を費やすのが好きでした。 昨年、 <a href="https://azure.microsoft.com/en-us/blog/announcing-azure-container-instances/" target="_blank">Azure Container Instances</a> (ACI) が開始された後、Azure は、コンテナーをトップ レベルのリソースとして提供する最初のパブリック クラウドになりました。 現在、AKS 仮想ノードのパブリック プレビューを発表します。これにより、AKS によって提供される一貫性のある強力な Kubernetes API を、ACI のスケーラブルなコンテナー ベースのコンピューティング容量で拡張できます。 この組み合わせにより、Kubernetes によって提供される豊富で一貫性のある API にサーバーレス プラットフォームの多くの利点が提供されます。<a href="https://azure.microsoft.com/en-us/solutions/serverless/" target="_blank"></a></p>
+
+
+  <p>AKS 仮想ノードを使用すると、追加の VM ベースのノードの起動を待機するのではなく、必要な追加のコンテナーの数を正確に割り当てると、需要の急増に数秒で対応できます。 ACI は、指定したリソースに基づいて 2 番目の料金が請求されます。つまり、ワークロードに対するコストを正確に一致することができます。 また、仮想ノードはクラスター内の他のノードと同じように見えるので、現在と同じツール、プロセス、および知識を引き続き使用できます。</p>
+
+
+  <p>仮想ノードの有効化は、ポータルでトグルを反転するのと同じ簡単です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d880087-c26d-492f-a995-5d942b8b4b04.png"><img alt="Enabling virtual nodes in the portal" border="0" height="247" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e8dfcdb-651c-4276-83f4-1e6b3c463c1b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ポータルでの仮想ノードの有効化" width="757"></a></p>
+
+
+  <p>開始するには、ポータルまたは CLI を使用して仮想ノードを有効にするための <a href="https://docs.microsoft.com/azure/aks/virtual-nodes-portal" target="_blank">ドキュメント</a> を <a href="https://docs.microsoft.com/azure/aks/virtual-nodes-cli" target="_blank">確認してください</a>。</p>
+
+
+  <h2>Virtual Kubelet プロジェクトを Cloud Native Compute Foundation に提供する</h2>
+
+
+  <p>AKS 仮想ノードは、オープンソースの <a href="https://github.com/virtual-kubelet/virtual-kubelet" target="_blank">Virtual Kubelet (VK) プロジェクト上に構築されています</a>。 KubeCon 2017 で VK を立ち上げ、ACI などの従来ではないコンピューティング環境でコンテナーをデプロイおよび管理するために Kubernetes API を拡張する方法についてコミュニティとの会話を開始しました。 それ以降、多数の VK プロバイダーが追加され、AWS Fargate、Alibaba ECI、Azure IoT Edge のようなサービスとの統合が可能です。 本日は、サンドボックス プロジェクトとして Virtual Kubelet を Cloud Native Compute Foundation (CNCF) に提供して、この体験の次のステップをお知らせします。 CNCF 内で作業することで、この会話への参加をさらに促進し、関心の不足がないアイデアをさらに正式化する必要があります。</p>
+
+
+  <h2>Azure Container Instances GPU サポートがパブリック プレビューに入る</h2>
+
+
+  <p>コンテナーを Azure で真にファーストクラスに設定すると、仮想マシンと同様に、さまざまな種類のコンピューティング ワークロードを確実にサポートできます。 最近、プライベート仮想ネットワークに参加する ACI コンテナーのサポートが追加され、環境内の他のリソースとの対話が可能になります。 現在、ACI に GPU サポートを追加し、AKS 仮想ノードを介してコンピューティング集中型アプリケーションの全く新しいクラスを有効にします。 最初に、ACI は Nvidia の K80、P100、V100 GPU をサポートし、コンテナーに必要な GPU の種類と数を指定できます。 CPU とメモリと同様に、GPU は要求されたコアの数に基づいて 1 秒あたりに課金されます。 開始するには <a href="https://docs.microsoft.com/azure/container-instances/container-instances-gpu" target="_blank">、ドキュメント</a> を参照してください。</p>
+
+
+  <h2>Kubernetes の容易化に対する継続的な取り組み</h2>
+
+
+  <p>現在の発表は、開発者とオペレーターの両方に対して、Kubernetes の導入と使用を容易に行うというコミットメントのもう 1 つのデモンストレーションを表しています。 Kubernetes&rsquo; プラットフォームの操作方法を簡略化し、活用できるコンピューティングの種類を拡張することで、アプリケーションの構築にさらに時間を費やし、AKS でさらに多くのことを実現できると期待しています。</p>
+
+
+  <p>&rsquo;Kubernetes を新規に使用する場合は、新しい概念に関するドキュメントを<a href="https://docs.microsoft.com/azure/aks/concepts-clusters-workloads" target="_blank">確認してください</a>。&nbsp;</p>

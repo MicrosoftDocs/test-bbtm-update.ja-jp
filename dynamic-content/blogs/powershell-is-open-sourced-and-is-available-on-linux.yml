@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d62ae286ce12aed027a9f64b4457582f6e4e0c8d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905137"
+Slug: powershell-is-open-sourced-and-is-available-on-linux
+Title: PowerShell はオープン ソースであり、Linux で使用できます
+Summary: 今日の顧客は、マルチプラットフォーム、マルチクラウド、マルチ OS の世界に住んでいるのは、現実にすらです。 この世界では、新しい課題が生み出され、お客様には、すべてを組み合わせて機能させるツールが必要です。
+Content: >-
+  <p>現在&rsquo;、お客様は、現実だけのマルチプラットフォーム、マルチクラウド、マルチ OS &ndash;&rsquo;の世界に住んでいる。 この世界では、新しい課題が生み出され、お客様には、すべてを組み合わせて機能させるツールが必要です。 Microsoft は、Linux または Windows を使用して、お客様が任意のプラットフォームをどこからでも、任意のデバイス上で管理できる管理ツールを提供するために、会社全体で取り組Windows。 イノベーションを実現するための、よりオープンで顧客に取り組むアプローチへの移行は、毎日仕事に取り組むのに最も楽しそうに思う 1 つの方法です。</p>
+
+
+  <p>あなたは&rsquo;、Satya Nadella &ldquo;が、Microsoft は Linux&rdquo;&rsquo; を好み、今まで以上に正しいとは言わないと言っているのを聞いたことがあります。 Azure 上の 3 つの VM のほぼ 1 つは Linux です。 サードパーティの IaaS オファーの 60% 近くが、Azure Marketplace (OSS) です。 お客様に選択肢を拡張するために、強力な業界パートナーを築いしてきました。 オープン&rsquo; ソースSQL Server on Linux .NET と同様に、このサービスを発表しました。 OSS を<a href="https://blogs.msdn.microsoft.com/powershell/2016/04/01/bash-for-windows-why-its-awesome-and-what-it-means-for-powershell/">開発</a>するためのWindows 10に Bash を追加しました。 また、&rsquo;業界全体で多数のオープン ソース プロジェクト (OpenSSH、FreeBSD、Mesos、Docker、Linux など) に積極的な共同作成者と参加者が参加しています。</p>
+
+
+  <p>現在、私たちは次のステップに進みます。 PowerShell がオープン ソースであり <a href="https://github.com/PowerShell/PowerShell/tree/master/docs/learning-powershell">、Linux</a> で使用できると共有して非常に楽しく思います。 (更新機能を必要とするユーザーのために、PowerShell は .NET Framework に基づいて構築されたタスク ベースのコマンド ライン シェルおよびスクリプト言語であり、IT プロフェッショナルが Windows の管理を制御および自動化するのに役立ちます。現在は、Linux、オペレーティング システム、およびそれらの上で実行されるアプリケーションです)。ここで&rsquo;の取り組みについてもう少し詳しい情報を共有し、PowerShell エクスペリエンスをMicrosoft Operations Management Suite方法について説明します。</p>
+
+
+  <h2>PowerShell を開くまでの道のり</h2>
+
+
+  <p>Linux&rsquo; 上の PowerShell と、ストーリーを含むオープン ソース バージョンへの道のりを開始します&hellip;</p>
+
+
+  <p>お客様が動き出しました。</p>
+
+
+  <p>Monad の初期 (PowerShell 以前) に、大規模な顧客の役員にデモを行いました。 彼はそれを好きでしたが、今は私と一緒にいました。</p>
+
+
+  <p>彼は、実装された言語について質問し、私の答え C# に不満を持っています。 混乱しました。それが問題である理由を尋ねていました。 &ldquo;彼から&rdquo; 言 &ldquo;われたので、Monad&rsquo; はまさに正しいアプローチであり、会社全体を標準化したいと思っていますが、Linux では .NET を使用できないので、私はできません。&rdquo;</p>
+
+
+  <p>これまで、Microsoft のビジネス&rsquo; フォーカスでは、.NET (つまり PowerShell) は、2 つのアプリケーションでのみ使用Windows。 しかし、これは新しい Microsoft です。 Satyas&rsquo; のリーダーシップと Azure は、この写真で完全にキャプチャされた、よりオープンで顧客中心の考え方に移行しました。</p>
+
+
+  <p><img alt="Microsoft loves Linux_2" border="0" height="325" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef4d0bc7-2c45-4d17-afb1-9cad8f293657.jpg" style="border-width: 0px; margin: 10px auto; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: none; display: block; background-image: none;" title="Microsoft のお気に入Linux_2" width="489"></p>
+
+
+  <p>Microsoft は、すべてのワークロード&rsquo;&ndash;を Linux とクラウドで実行するプラットフォームとして、お客様の好みを獲得Windows。 この新しい考え方により、.NET チームは .NET Core を Linux に移植し、さらに PowerShell も Linux に移植できます。 Linux 上の PowerShell は、顧客が同じツールと同じユーザーを使用して、どこからでもすべてを管理するように設計されています。 これは、最初は Ubuntu、Centos、および Red Hat で利用できます。また、Mac OS X で実行されます。今後、さらに多くのプラットフォームが追加される予定です。 アルファ ビルドをダウンロードし、ソース コードを次のページ<a href="https://github.com/PowerShell/PowerShell/tree/master/docs/learning-powershell">からGitHub</a>。</p>
+
+
+  <p>現在、Windows および Linux 全体のユーザー、現在および新しい PowerShell ユーザー、アプリケーション開発者でも、豊富な対話型スクリプト言語と、既存のツールで適切に動作する異種の自動化と構成管理を体験できます。 PowerShell のスキルはさらに市場性が高く、個別に作業する必要があった可能性がある Windows チームと Linux チームは、より簡単に一緒に作業できます。</p>
+
+
+  <p>では、この体験はどこに行くのですか? 私たちは最初の段階であり、学習モードです。 PowerShell の一部をオープン ソーシングし、オープン ソースを経験した多くのパートナーと話し合って、成功に必要なことを理解しました。 学習した点は、個々のユーザーが Git&rsquo; を使用してコードをチェックアウトし、変更を加え、マシン上ですべてをコンパイルし、すべてのテストを実行して、変更によって何も破損しなかったことを確認する必要があるという点です。 これには、エンジニアリング/ビルド/テスト システムへの大きな投資が必要でした。 また、コミュニティの貢献を製品にスムーズに組み込むには、明確な役割、責任、プロセスを持つガバナンス モデルの定義にも取り組みしました。</p>
+
+
+  <p>PowerShell チームは常に非常にコミュニティに重点を置いたチームであることに気を取っていますが、この発表では、ソース コードを利用可能にし、RFC でコミュニティとのより深い接続を利用し、問題を解決し、貢献を直接受け入れできるオープン ソース開発モデルを採用することで、次のレベルに進む予定です。 また、オープン ソースは非常に多くのことを受け入れ、素晴らしいエクスペリエンスを得る鍵となるので、コミュニティを拡張する必要がありました。 サード パーティの &ndash; 企業 Chef、アマゾン ウェブ サービス、VMware、Google と提携し、知り合って使用しているプラットフォーム全体で豊富でシームレスなエクスペリエンスを作成します。</p>
+
+
+  <p>PowerShell を Linux に移植する場合は、そのプラットフォームの第一級の市民である必要があります。 アーキテクチャ、慣用句、既存のツールに適しています。 これは、元の PowerShell チームのほとんどが Unix の深い背景を持ち、設計で示すので、非常に簡単でした。 いくつかの変更を加え、次の 2 つの大きな変更を行いました。</p>
+
+
+  <ol>
+   <li><a href="https://github.com/powershell/powershelleditorservices">PowerShell エディター サービスを作成しました</a>。 これにより、ユーザーはさまざまなエディター (VS Code や Sublime を他のユーザーと一緒にフォロー) から選択し、Intellisense やデバッグなどを使用して PowerShell の作成エクスペリエンスを向上できます。</li>
+   <li>OpenSSH をネイティブ トランスポートとして使用するために、<a href="https://github.com/PowerShell/Win32-OpenSSH"><b>PowerShell</b></a> リモート処理プロトコル (<a href="https://msdn.microsoft.com/en-us/library/mt242417.aspx">MS-PSRP</a>) を拡張します。 ユーザーには、トランスポートとして SSH または WINRM を使用するオプションがあります。</li>
+  </ol>
+
+
+  <p>最初のリリースはアルファ &ldquo;であり&rdquo; 、コミュニティでサポートされています。 今後、Microsoft がオープン ソースに基づいてリリースした PowerShell の公式バージョンを、サポートされているバージョンの Windows または *nix を実行しているすべてのユーザーに提供します。 公式の Microsoft バージョンのタイミングは、コミュニティの入力とビジネス ニーズに基づいて行います。 皆さん、お手伝いをして、正しい情報を得ていっさいと思います。</p>
+
+
+  <h2>PowerShell エクスペリエンスを拡張する Microsoft Operations Management Suite</h2>
+
+
+  <p>また、現在&rsquo;の PowerShell ニュースによって、クラウド管理ソリューション Operations Management Suite (OMS) で実行できる機能がどのように拡張されるのかについてさらに詳しい説明をしたいと思います。 OMS を使用すると、Azure や他のクラウド全体のアプリケーションとワークロードを可視化および制御できます。 これにとって不可欠であり、お客様は Linux と Windows Server の両方で PowerShell を使用するときにクラウド エクスペリエンスを変革できます。 <a href="https://www.microsoft.com/en-us/cloud-platform/automation-and-control">OMS Automation では</a>、Azure の高可用性<a href="https://azure.microsoft.com/en-us/documentation/articles/automation-dsc-overview/">Desired State Configuration</a>スケーラブルな管理サービスを使用して、PowerShell と仮想マシン (DSC) を昇格します。 Runbook、DSC 構成、DSC ノード構成を含むすべての PowerShell リソースを 1 か所からグラフィカルに作成および管理できます。</p>
+
+
+  <p>OMS ハイブリッド runbook workerを使用すると、OMS Automation 機能を拡張し、オンプレミスを含む任意の場所で構成を適用、監視、更新できます。 現在、Linux 用 OMS 監視エージェントも一般提供されました。 お客様は一緒に、Linux ワークロードに関する豊富な分析情報とリアルタイムの可視性を得て、発生する可能性のある問題を迅速に修復する機能を利用できます。</p>
+
+
+  <p>皆さんも、Linux で PowerShell を試用し、ご自分の考えをお知らせします。 OMS Automation の詳細については、こちらを参照 <a href="https://www.microsoft.com/en-us/cloud-platform/automation-and-control">してください</a>。 また、来週は LinuxCon で確認してください。 Wim Coekaerts&rsquo;&rsquo; は講演を行い、PowerShell&rsquo; を紹介するブースを開きます。デモが詰め込んだセッションを行います。</p>
+
+
+  <p>PowerShell を使い始めるのが簡単な場合は、ラーニング <a href="https://github.com/PowerShell/PowerShell/tree/master/docs/learning-powershell">PowerShell</a> リポジトリを使用して学習をGitHub。 また、Microsoft Virtual Academy オンライン コースも無料で提供しています <a href="https://mva.microsoft.com/en-us/training-courses/getting-started-with-powershell-3-0-jump-start-8276?l=r54IrOWy_2304984382">。PowerShell 3.0 jump Start</a> はじめにを使用できます。 PowerShell&rsquo; チームのブログに従って、Community PowerShell <a href="https://powershell.org/">powershell.org/ 参加する</a><a href="https://blogs.msdn.microsoft.com/powershell/">必要があります</a>。 近&rsquo;い将来、Linux コミュニティ (例など) のニーズに合わせてこれらを更新します。</p>
+
+
+  <p>これは長い時間が来ていて、とても楽しそうなので、一緒に使うごとに靴下を切り落とすツールを作成できるよう、ぜひご参加ください。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://channel9.msdn.com/Blogs/hybrid-it-management/PowerShell-on-Linux-and-Open-Source/player" width="560"></iframe></p>

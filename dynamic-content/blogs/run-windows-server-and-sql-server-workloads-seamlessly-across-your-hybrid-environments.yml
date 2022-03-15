@@ -1,0 +1,93 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d94aba657528a9a61da11c342c616d0e3f34edc9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910370"
+Slug: run-windows-server-and-sql-server-workloads-seamlessly-across-your-hybrid-environments
+Title: ハイブリッド環境全体でシームレスに Windows サーバーとワークロード SQL Server を実行する
+Summary: 最近では、Windows Server と SQL Server のお客様が Azure を選択する多くの理由について説明しました。 クラウドへの移行時にセキュリティは大きな懸念事項であり、Azure はこれらの問題に対処するために必要なツールとリソースを提供します。
+Content: >-
+  <p>最近では、Windows Server と SQL Server の &rsquo; お客様が Azure を選択する多くの理由について説明しました。 クラウドへの移行時に<a href="https://azure.microsoft.com/en-us/blog/customers-get-unmatched-security-with-windows-server-and-sql-server-workloads-in-azure/" target="_blank">セキュリティ</a>は大きな懸念事項であり、Azure はこれらの問題に対処するために必要なツールとリソースを提供します。 <a href="https://azure.microsoft.com/en-us/blog/thanks-for-10-years-and-welcome-to-a-new-chapter-in-sql-innovation/" target="_blank">データのイノベーション</a>は、クラウドに移行するときに新しいドアを開くことができます。また、Azure は、特にサポート終了に関する懸念がある SQL Server 2008 または 2008 R2 で実行されているお客様にとって、最も簡単なクラウド移行を提供します。 &rsquo;現在、お客様がクラウドに移行する際には、もう1つ重要な意思決定ポイントを見ていきます。 新しいクラウドリソースとオンプレミスの既存のリソースを簡単に組み合わせることはできますか。 多くの Windows サーバーと SQL Server のお客様は、業界をリードするハイブリッド機能に対して Azure を選択します。</p>
+
+
+  <p>Microsoft は、クラウド導入に対するハイブリッドアプローチを実現することに努めています。 私たちのコミットメントと情熱は、過去数年間にわたるお客様とその企業を深く理解しています。 お客様は、特定のワークロードとデータをオンプレミスに保持する必要があることを理解しています。また、この目標は、すべての手順に対して適切なテクノロジを提供することによって、将来のニーズに合わせて準備することです。 その &rsquo; 理由は、Azure を初めてハイブリッドにするために Azure を設計し、構築しています。また、お客様がハイブリッド環境をオンプレミス、クラウド、エッジにシームレスに運用できるように、継続的なイノベーションを提供しています。 Enterprise のお客様は、Windows サーバーと<a href="https://azure.microsoft.com/en-us/services/sql-database/campaign/">SQL Server ワークロード</a>に対して Azure を選択しています。 実際、500企業のお客様の 2019 Microsoft アンケートでは、Windows Server の移行プランについてお客様から質問されたときに、Azure を選択する可能性が30% 増えました。</p>
+
+
+  <h2>お客様は Azure を信頼してハイブリッド環境を強化</h2>
+
+
+  <p>例として、コードを <a href="https://customers.microsoft.com/en-us/story/komatsu-australia-manufacturing-azure" target="_blank">取得します</a> 。 管理者は、オンプレミスのアプリケーションを Azure SQL Database Managed Instance に移行し、ハイブリッドインフラストラクチャ全体で包括的なデータ管理と分析ソリューションを構築することにより、49% のコスト削減と約30% のパフォーマンス向上を実現しています。</p>
+
+
+  <p>$150億 enterprise を運用すると、Azure 上に構築されたハイブリッドクラウドモデルを使用して、 <a href="https://customers.microsoft.com/en-us/story/smithfield-azure-us-en" target="_blank">Smithfield 食品</a> のデータセンターのコストが60% 向上し、アプリケーションの配信速度が2か月から1日に短縮されます。 Smithfield は、多くの場合、インターネット帯域幅が理想的ではない部領域に工場と倉庫を持ちます。 これは、Azure ExpressRoute を利用して、大規模なオフィスの場所をグローバルに Azure に接続し、必要な柔軟性と速度を実現します。</p>
+
+
+  <p><a href="https://customers.microsoft.com/en-us/story/734233-government-in-malta-government-azure" target="_blank">政府機関</a>は、Azure を利用した完全なハイブリッドクラウドエコシステムを構築し、インフラストラクチャを最新化するために Azure Stack しました。 このハイブリッドアーキテクチャは、信頼性の高い課金プラットフォームと統合されたセルフサービスバックアップと組み合わせることで、マルタ政府の業務に新たなレベルの柔軟性と機敏性をもたらし、さらに、必要なときにいつでもアクセスできるより効率的なサービスを提供します。</p>
+
+
+  <p>ここでは、Azure &rsquo; 固有の組み込みハイブリッド機能のいくつかを見てみましょう &rsquo; 。</p>
+
+
+  <h2>Azure Stack を使用してクラウドをローカルデータセンターに移行する</h2>
+
+
+  <p>比類のないハイブリッドオファリングである<a href="https://azure.microsoft.com/en-us/overview/azure-stack/" target="_blank">Azure Stack</a>は、お客様がローカルデータセンターまたは切断された場所にある Azure サービスを使用して、クラウドネイティブアプリケーションを構築して実行できます。 現在、 &rsquo; 92 の国で提供されていて、<a href="https://www.youtube.com/watch?v=nhbuox9eWdA&amp;t=2s" target="_blank">放映バスの防御 &amp; 領域</a>、iMOKO、および<a href="https://www.revera.co.nz/news/revera-launches-first-customer-on-azure-stack" target="_blank"></a>を<a href="https://customers.microsoft.com/en-us/story/kpmg-norway-partner-professional-services-azure" target="_blank">使用して</a>いるお客様は、オンプレミスでクラウド特典を利用するために Azure Stack を使用しています。</p>
+
+
+  <p>最近では、お客様が使い慣れた方法で仮想化されたアプリケーションをオンプレミスで実行し、バックアップやディザスターリカバリーなどの既製の Azure 管理サービスに簡単にアクセスできるように、 <a href="https://azure.microsoft.com/en-us/overview/azure-stack/hci/" target="_blank">AZURE STACK HCI ソリューション</a> を導入しました。</p>
+
+
+  <p>Azure、Azure Stack、Azure Stack HCI では、Microsoft は、ハイブリッドソリューションの包括的なセットを提供する、市場の唯一のクラウドプロバイダーです。</p>
+
+
+  <h2>Windows 管理センターを使用した最新化サーバー管理</h2>
+
+
+  <p>最新のブラウザーベースのアプリケーションである Windows 管理センターでは、顧客がオンプレミス、Azure、または他のクラウドで Windows サーバーを管理できます。 Windows 管理センターを使用すると、お客様は Azure 管理サービスに簡単にアクセスして、ディザスターリカバリー、バックアップ、修正プログラムの適用、監視などのタスクを実行できます。 Windows 管理センターは、1年以上前に起動しているため、250万を超えるサーバーノードを毎月管理しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b63e4fdc-6689-4052-b57e-61cb3491e460.png"><img alt="Screenshot of the Windows Admin Center - Azure Hybrid Center" border="0" height="1200" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1624e590-c381-416b-a561-e8ba3c5efad4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Windows 管理センターのスクリーンショット-Azure ハイブリッドセンター" width="1920"></a></p>
+
+
+  <h2>オンプレミスの SQL Server を簡単に Azure に移行</h2>
+
+
+  <p>Azure SQL Database は、完全に管理されたインテリジェントなデータベースサービスです。 &nbsp;SQL Database は evergreen であるため、常に最新の状態になります。修正プログラムの適用、アップグレード、サポートの終了について心配する必要 &rsquo; はありません。 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-managed-instance-index" target="_blank">Azure SQL Database Managed Instance</a>には、Azure の SQL Server データベースエンジンの全領域があります。 お客様は Managed Instance を使用して、アプリケーションコードを変更せずに SQL Server を Azure に移行できます。 サービスはオンプレミスの SQL Server と一貫性があるため、お客様は引き続き Azure で使い慣れた機能、ツール、リソースを使用できます。</p>
+
+
+  <p>SQL Database Managed Instance では、 <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcustomers.microsoft.com%2Fen-us%2Fstory%2Fbaltika-breweries-consumer-goods-azure-office365-russia&amp;data=02%7C01%7COlivia.Chen%40microsoft.com%7C3ce2ed6b3b6d48e069c408d6f4f5f635%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636965734575795070&amp;sdata=9xh%2F%2F30vBtwNLFwhr43q6a6SHgRbMjCKFvZnVbshuSY%3D&amp;reserved=0" target="_blank">Carlsberg グループ</a>や<a href="https://customers.microsoft.com/en-us/story/allscripts-partner-professional-services-azure" target="_blank">allscripts</a> <a href="https://customers.microsoft.com/en-us/story/komatsu-australia-manufacturing-azure" target="_blank">などの</a>お客様は、最小限のダウンタイムでデータベースを Azure に迅速に SQL 移行でき、自動修正、バックアップ、高可用性などの組み込みの PaaS 機能を活用できました。</p>
+
+
+  <h2>高速で安全なネットワークサービスを使用したハイブリッド環境の接続</h2>
+
+
+  <p>お客様は Azure とローカルインフラストラクチャの間に非常に高速なプライベート接続を構築し、最大 100 Gbps の帯域幅で <a href="https://azure.microsoft.com/en-us/services/expressroute/" target="_blank">Azure ExpressRoute</a> を使用してアクセスを許可します。 <a href="https://azure.microsoft.com/en-us/services/virtual-wan/" target="_blank">Azure VIRTUAL WAN</a> を使用すると、azure への構成と接続を自動化し、Microsoft グローバルネットワークを使用して顧客サイト間のグローバル転送を行うことで、何千ものブランチサイトを簡単に追加して接続することができます。</p>
+
+
+  <p>また、 <a href="https://azure.microsoft.com/en-us/services/azure-firewall/" target="_blank">Azure Firewall</a>、 <a href="https://azure.microsoft.com/en-us/services/ddos-protection/" target="_blank">Azure DDoS Protection</a>、 <a href="https://azure.microsoft.com/en-us/services/frontdoor/" target="_blank">Azure フロントドアサービス</a> などのサービスを最大限に活用して、仮想ネットワークをセキュリティで保護し、最高のアプリケーションパフォーマンスエクスペリエンスをユーザーに提供しています。</p>
+
+
+  <h2>単一の id プラットフォームでの anywhere access の管理</h2>
+
+
+  <p>企業のお客様の90% を超えるオンプレミス Active Directory を使用します。 azure では、オンプレミスの Active Directory を<a href="https://azure.microsoft.com/en-us/services/active-directory/" target="_blank">Azure Active Directory</a>と簡単に接続して、すべての Office 365 および Azure サービスにシームレスなディレクトリサービスを提供できます。 Azure Active Directory を使用すると、クラウド、モバイル、オンプレミスのアプリケーション間でシングルサインオンエクスペリエンスを提供し、生産性を損なうことなく無許可のアクセスからデータを保護することができます。</p>
+
+
+  <h2>エッジで継続的に革新を行う</h2>
+
+
+  <p>お客様は、ハイブリッド環境をエッジに拡張して、新しいビジネスチャンスを獲得することができます。 マイクロソフトは、この分野のイノベーションをリードしてきました。 次に例をいくつか示します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-data-box-family-meets-customers-at-the-edge/" target="_blank">Azure Data Box Edge</a> は、エッジでコンテナー用のクラウド管理型コンピューティングプラットフォームを提供し、顧客がエッジでデータを処理し、機械学習のワークロードを高速化できるようにします。 また Data Box Edge を使用すると、顧客はインターネット経由で Azure にデータをリアルタイムで転送し、より深い分析を行うことができます。また、クラウドスケールまたは長期的なストレージで再トレーニングを行うことができます。</p>
+
+
+  <p>Microsoft ビルド2019では、SQL エンジンをエッジに取り込むためにプレビューで使用可能な<a href="https://azure.microsoft.com/en-us/services/sql-database-edge/" target="_blank">Azure SQL Database エッジ</a>を発表しました。 開発者は、一貫性のあるプログラミングサーフェス領域を採用して、SQL データベース上で開発し、オンプレミス、クラウド、またはエッジで同じコードを実行できるようになります。</p>
+
+
+  <h2>Azure とハイブリッド環境の統合を開始 &ndash; する</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/solutions/hybrid-cloud-app/" target="_blank">概要</a>、<a href="https://www.youtube.com/playlist?list=PLLasX02E8BPDY8lteNSno4etuLx-6bALf" target="_blank">ビデオ</a>、<a href="https://www.youtube.com/playlist?list=PLXtHYVsvn_b9zU7cvKhP0wzxoL8gC3Txm" target="_blank">デモ</a>など、azure ハイブリッドのリソースを確認してください。 azure を使用して、ハイブリッド環境全体で Windows サーバーの実行とワークロードの SQL Server を成功させる方法について詳しく知ることができます。</p>

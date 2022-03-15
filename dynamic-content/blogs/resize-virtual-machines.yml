@@ -1,0 +1,144 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 34ddad9ece1b48dff9784812d3ec56e742b5db16
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904393"
+Slug: resize-virtual-machines
+Title: 仮想マシンのサイズを変更する
+Summary: Azure Vm の大きな利点の1つは、CPU、ネットワーク、またはディスクパフォーマンスのニーズに基づいて VM のサイズを変更できることです。 Azure クラシックコンピューティング Vm または新しい Azure Resource Manager Vm のいずれかを使用して仮想マシンのサイズを変更する方法について説明します。
+Content: >-
+  <p>Azure Vm の大きな利点の1つは、CPU、ネットワーク、またはディスクパフォーマンスのニーズに基づいて VM のサイズを変更できることです。 このブログ記事では、Azure クラシックコンピューティング Vm と新しい Azure Resource Manager Vm のいずれかを使用して仮想マシンのサイズを変更するプロセスについて説明します。</p>
+
+
+  <p>仮想マシンのサイズを変更できるかどうかを検討する際には、VM のサイズを簡単に変更する方法に影響する3つの重要な概念があります。</p>
+
+
+  <ol>
+   <li>VM がデプロイされているリージョン。 VM のサイズによって、異なる物理ハードウェアが必要になる場合があります。 場合によっては、Azure リージョンに、目的の VM サイズをサポートするために必要なハードウェアが含まれていないことがあります。 すべての Azure リージョンは、A7 および Basic_A0 &ndash; A4 Standard_A0 &ndash; の VM サイズをサポートしています。 その後、 <a href="https://azure.microsoft.com/en-us/regions">Azure リージョンの web ページ</a>の [サービス] タブで、各リージョンでサポートされている他の VM のサイズを確認できます。</li>
+   <li>現在 VM をホストしている物理ハードウェア。 現在仮想マシンを実行している物理ハードウェアでも必要な新しいサイズがサポートされている場合、単純なサイズ変更操作によって VM のサイズを簡単に変更できるため、VM が再起動されます。</li>
+   <li>VM に使用されるデプロイモデル。 クラシックと Resource Manager の2つのデプロイモデルがあります。 Resource Manager モデルは、新しいモデルであり、クラシックデプロイモデルでは使用できない使いやすい機能をサポートしています。</li>
+  </ol>
+
+
+  <h2>領域をサイズ変更する</h2>
+
+
+  <p>使用する VM サイズが現在のリージョンで利用できない場合は、そのサイズがリージョンで利用可能になるまで待つか、VM と、場合によっては他のサービスを新しいリージョンに移動します。 このプロセスは、この投稿の範囲外です。</p>
+
+
+  <p>あるリージョンから別のリージョンに VM を移動するための基本的な手順については、次のブログ記事の「 <a href="https://azure.microsoft.com/en-us/blog/migrate-azure-virtual-machines-between-storage-accounts/">Storage アカウント間での Azure Virtual Machines の移行</a>」を参照してください。</p>
+
+
+  <h2>現在のハードウェアクラスターで使用可能なサイズにサイズ変更</h2>
+
+
+  <p>VM が実行されている場合は、物理サーバーにデプロイされます。 Azure リージョンの物理サーバーは、共通の物理ハードウェアのクラスターにまとめられています。 実行中の VM は、VM をサポートしているハードウェアの現在のクラスターでサポートされている任意の VM サイズに簡単にサイズ変更できます。 VM をホストしている現在の物理ハードウェアでサポートされている VM サイズは、次のいずれかの方法で確認できます。</p>
+
+
+  <h2>Azure portal のサイズ変更</h2>
+
+
+  <p><img alt="Resize VM in Azure Portal" border="0" height="361" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/095573f6-d85c-4043-b771-ee0a755bd43d.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="Azure Portal で VM のサイズを変更する" width="480"></p>
+
+
+  <p>サイズ変更アクションを選択すると、VM のサイズを変更できる VM サイズが表示されます。 この例では、VM は Standard_A10 サイズを使用しており、Standard_A8、Standard_A9、Standard_A10 または Standard_A11 のいずれかにサイズを変更できます。 他の VM サイズは使用できません。この VM で現在使用されているハードウェアクラスターは、これらの他のサイズをサポートしていません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/96f0b397-cf21-4ce7-82a9-4baa3cd57eb8.png"><img alt="Azure size selection" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5727f421-5f0e-4b35-8c05-458138c30eff.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="Azure サイズの選択" width="332"></a></p>
+
+
+  <h2>仮想マシンのサイズファミリ</h2>
+
+
+  <p>物理ハードウェアで使用できる VM サイズは異なる場合があります。 たとえば、ハードウェアクラスターによっては、Standard_D1_v2 をサポートせずに Standard_A1 と Standard_D1 の両方がサポートされ、他のハードウェアクラスターは3つすべてをサポートする場合があります。 グループ内の任意のサイズがサポートされている場合は、次のグループの VM サイズがハードウェアクラスターで常にサポートされていることを確信できます。 これらは、VM サイズファミリと呼ばれることもあります。</p>
+
+
+  <p>現在、次の VM サイズファミリが Azure 内に存在します。&nbsp;</p>
+
+
+  <table border="1" cellpadding="1" cellspacing="1" style="width: 610px">
+   <thead>
+    <tr>
+     <th scope="col">VM サイズファミリ</th>
+     <th scope="col">サイズ</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>エントリレベル</td>
+     <td>
+     <p>Basic_A0 &ndash; Basic_A4</p>
+
+     <p>Standard_A0 &ndash; Standard_A4</p>
+     </td>
+    </tr>
+    <tr>
+     <td>ハイメモリエントリレベル</td>
+     <td>Standard_A5 &ndash; Standard_A7</td>
+    </tr>
+    <tr>
+     <td>ハイ パフォーマンス コンピューティング</td>
+     <td>Standard_A8 &ndash; Standard_A11</td>
+    </tr>
+    <tr>
+     <td>運用環境の General Purpose</td>
+     <td>
+     <p>Standard_D1 &ndash; Standard_D14</p>
+
+     <p>Standard_DS1 &ndash; Standard_DS14</p>
+     </td>
+    </tr>
+    <tr>
+     <td>General Purpose Production v2</td>
+     <td>Standard_D1_v2 &ndash; Standard_D14v2</td>
+    </tr>
+    <tr>
+     <td>高メモリおよび高密度ローカル Storage</td>
+     <td>
+     <p>Standard_G1 &ndash; Standard_G5</p>
+
+     <p>Standard_GS1 &ndash; Standard_GS5</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>現在のハードウェアクラスターで使用できないサイズに合わせてサイズ変更します</h2>
+
+
+  <p>VM をホストしている現在のハードウェアクラスターで必要な新しい VM サイズがサポートされている場合、サイズ変更操作は単純な再起動操作になります。 ただし、VM をホストしている現在のハードウェアが、要求された新しい VM サイズをサポートしていない場合、VM のサイズを変更する操作は少し難しくなります。 Vm が異なるハードウェアクラスターに移動されることを必要とする VM のサイズ変更は、VM のデプロイに使用されたデプロイモデルによって異なります。</p>
+
+
+  <p>また、同じハードウェアクラスターを使用して、クラウドサービス ( <em>クラシックデプロイモデル</em>の場合) または可用性セット内のすべての vm ( <em>Azure Resource Manager デプロイモデル</em>の場合) 内のすべての vm をホストする必要があります。 これは、場合によっては、複数の Vm のサイズを変更する必要があることを意味します。 <em>Resource Manager (ARM) デプロイモデル</em>が使用されている場合、vm と同じ可用性セット内の他のすべての vm が停止 (割り当て解除) 状態になっている場合は、vm のサイズを変更できます。 VM が <em>クラシック (ASM) デプロイモデル</em>を使用してデプロイされている場合は、クラウドサービスのデプロイを削除して再デプロイして、vm を別のサイズファミリのサイズに変更する必要があります。</p>
+
+
+  <h2>Resource Manager (ARM) 仮想マシンのサイズを現在のハードウェアクラスターで使用できないサイズに変更する</h2>
+
+
+  <p>VM が Resource Manager (ARM) デプロイメントモデルを使用してデプロイされており、別のハードウェアを必要とするサイズに変更する必要がある場合は、vm を最初に停止し、新しい VM サイズを選択してから VM を再起動することで、vm のサイズを変更できます。 サイズを変更する VM が可用性セットの一部である場合は、可用性セット内の VM のサイズを変更する前に、可用性セット内のすべての Vm を停止する必要があります。 異なるハードウェアを必要とするサイズにサイズ変更操作を実行する前に、可用性セット内のすべての Vm を停止する必要がある理由は、可用性セット内のすべての実行中の Vm が同じ物理ハードウェアクラスターを使用している必要があるということです。 そのため、VM サイズを変更するために物理ハードウェアクラスターの変更が必要な場合は、すべての Vm を最初に停止してから、別の物理ハードウェアクラスターに対して1つずつ再起動する必要があります。</p>
+
+
+  <p>新しい物理ハードウェアクラスターへの移行では、新しい物理ハードウェアクラスターで以前の VM サイズがサポートされていない可能性があるため、可用性セット内の他の Vm のサイズを変更することが必要になる場合があります。 すべての Vm が同じ VM サイズファミリ内にある場合は、可用性セットの Vm をホストするために使用される物理ハードウェアクラスターですべての Vm がサポートされていることを保証できます。</p>
+
+
+  <h2>クラシック (ASM) 仮想マシンのサイズを現在のハードウェアクラスターで使用できないサイズに変更する</h2>
+
+
+  <p>クラシック (ASM) デプロイモデルを使用してデプロイされた VM のサイズを変更する場合は、VM が現在デプロイされているハードウェアクラスターで新しいサイズがサポートされていないと、より困難です。 Azure Resource Manager デプロイモデルを使用してデプロイされた Vm とは異なり、vm が停止状態のときに VM のサイズを変更することはできません。 そのため、クラシックデプロイモデルを使用する Vm では、Vm を削除し、同じ OS とデータディスクを使用して再作成する必要があります。 このプロセスを簡略化するために、削除と再展開のプロセスを支援する <a href="https://github.com/Azure/azure-vm-scripts" target="_blank">PowerShell スクリプト</a> を用意しました。</p>
+
+
+  <p>このスクリプトは、次の操作を実行します。</p>
+
+
+  <ol>
+   <li>現在の展開を評価して、要求されたサイズ変更操作を、VM が展開されている既存のハードウェアクラスターを使用した単純なサイズ変更によって実行できないようにします。</li>
+   <li>Premium Storage を使用する vm を別の vm サイズにサイズ変更することを確認します。このサイズもサポートされ Premium Storage</li>
+   <li>削除および再展開操作の一部として IP アドレスが変更された場合に警告します</li>
+   <li>スクリプトでサポートされていない機能が使用されていないことを確認します。最初のリリースでは、スクリプトは複数の Nic を持つ Vm、逆引き FQDN が構成されたデプロイ、またはカスタム DNS 構成が構成されたデプロイをサポートしていません。</li>
+   <li>再展開プロセス中にエラーが発生した場合に VM を再構築するために使用できる出力ファイルに、現在の構成をすべて格納します。</li>
+   <li>すべての VM 構成を保存した後、既存のデプロイを削除します。</li>
+   <li>新しく選択した VM サイズを使用して Vm を再デプロイします。</li>
+  </ol>

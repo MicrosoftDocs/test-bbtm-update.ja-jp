@@ -1,0 +1,344 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a04726d80146982f05531f50e388284f77209f9f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904684"
+Slug: microsoft-azure-load-balancing-services
+Title: Microsoft Azure負荷分散サービス
+Summary: Microsoft Azureクラウドでホストされている仮想マシン (IaaS) とクラウド サービス (PaaS) の負荷分散サービスをMicrosoft Azureします。 負荷分散を使用すると、アプリケーションをスケーリングして提供できます。
+Content: >-
+  Microsoft Azureクラウドでホストされている仮想マシン (IaaS) とクラウド サービス (PaaS) の負荷分散サービスをMicrosoft Azureします。 負荷分散により、アプリケーションがスケーリングできるようになり、アプリケーション エラーに対する回復力が得られます。
+
+
+  負荷分散サービスには、Microsoft Azure ポータルまたはアプリケーションのサービス モデルを使用して、サービスの入力エンドポイントを指定することでアクセスできます。<a href="https://msdn.microsoft.com/en-us/library/windowsazure/ee758711.aspx"></a> 1 つ以上の入力エンドポイントを持つホストされたサービスが Microsoft Azure にデプロイされた後、Microsoft Azure プラットフォームによって提供される負荷分散サービスが自動的に構成されます。 サービスの回復性と冗長性の利点を得るには、少なくとも 2 つの仮想マシンが同じエンドポイントを提供している必要があります。
+
+
+  次の図は、負荷分散サービスを使用して受信トラフィック (アドレス/ポート 1.2.3.4:80) を 3 つの仮想マシン (すべてポート 80 でリッスン) に送信する Microsoft Azure でホストされているアプリケーションの例です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/04/azureloadbalance.png"><img class="alignnone size-medium wp-image-139711" alt="azureloadbalance" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azureloadbalance-636x311.png" width="636" height="311" /></a>
+
+
+  &nbsp;
+
+
+  負荷分散サービスの主な機能は次Microsoft Azure。
+
+  <h4><strong>PaaS/IaaS のサポート</strong></h4>
+
+  Microsoft Azure の負荷分散サービスは、すべてのテナントの種類 (IaaS または PaaS) とすべての OS フレーバー (Windows またはサポートされている任意の Linux ベースの OS) で動作します。
+
+
+  PaaS テナントは、サービス モデルを使用して <a href="https://msdn.microsoft.com/en-us/library/windowsazure/ee758711.aspx">構成されます</a>。 IaaS テナントは、 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-set-up-endpoints/">デバイスまたは</a> PowerShell 管理ポータル構成されます。
+
+  <h4><strong>レイヤー 4 Load Balancer、ハッシュ ベースの分布</strong></h4>
+
+  Microsoft Azure Load Balancerレイヤー 4 タイプのロード バランサーです。 Microsoft Azureロード バランサーは、特定の入力エンドポイントで受信したトラフィックに対してハッシュ関数を計算することで、使用可能なサーバー (仮想マシン) のセットに負荷を分散します。 ハッシュ関数は、同じ接続 (TCP または UDP) のすべてのパケットが同じサーバー上で終了するために計算されます。 このMicrosoft Azure Load Balancer 5 タプル (送信元 IP、送信元ポート、宛先 IP、宛先ポート、プロトコルの種類) を使用して、使用可能なサーバーにトラフィックをマップするために使用されるハッシュを計算します。 サーバーへの接続の分散が非常にランダムになるようにハッシュ関数が選択されます。 ただし、トラフィック パターンによっては、異なる接続が同じサーバーにマップされる可能性があります。 (サーバーへの接続の分散はラウンド ロビンではなく<strong></strong>、一部の<strong></strong>記事や一部のブログで誤って言及されたので、要求のキューも何も行っていない点に注意してください)。 ハッシュ関数の基本的な前提は、多くの異なるクライアントからの多くの要求が与えられるので、サーバー間で要求が分散されます。
+
+  <h4><strong>複数プロトコルのサポート</strong></h4>
+
+  の負荷分散サービスは、TCP Microsoft Azure UDP プロトコルをサポートしています。 お客様は、サービス モデルの入力エンドポイントの仕様で、PowerShell または 管理ポータル を使用してプロトコルを指定できます。
+
+  <h4><strong>複数のエンドポイントのサポート</strong></h4>
+
+  ホストされたサービスでは、複数の入力エンドポイントを指定できます。これらのエンドポイントは、負荷分散サービスで自動的に構成されます。
+
+
+  現在、同じポートとプロトコルを持つ複数のエンドポイントはサポートされていません。 また、ホストされているサービスが持つエンドポイントの最大数にも制限があります。このエンドポイントは現在 150 に設定されています。
+
+  <h4><strong>内部エンドポイントのサポート</strong></h4>
+
+  すべてのサービスは、ロード バランサーに公開されていない最大 25 の内部エンドポイントを指定できます。このエンドポイントは、サービス ロール間の通信に使用されます。
+
+  <h4><strong>ダイレクト ポート エンドポイントのサポート (インスタンス入力エンドポイント)</strong></h4>
+
+  ホストされたサービスでは、特定のエンドポイントを負荷分散し、サービスをホストする仮想<a href="https://msdn.microsoft.com/en-us/library/windowsazure/hh180158.aspx"></a>マシンに直接アクセスしなけれと指定できます。 これにより、アプリケーションは、アプリケーションの特定のインスタンス (VM) へのクライアントの可能なリダイレクトを制御できます。各要求の負荷分散は行わずに (結果として、別のインスタンスに送信される可能性があります)。
+
+  <h4><strong>スケールアウト/スケールダウン、サービスの回復と更新に関する自動再構成</strong></h4>
+
+  負荷分散サービスは、Microsoft Azure コンピューティング サービスと連携して、入力エンドポイントに指定されたサーバー インスタンスの数がスケールアップまたはスケールダウンされた場合 (Web/worker ロールのインスタンス数を増やしたり、同じ負荷分散グループの下に永続的な VM を追加したりした場合)、負荷分散サービスによって自動的に再構成され、インスタンスの増加または減少に対する負荷分散が行われます。
+
+
+  また、負荷分散サービスでは、お客様による Microsoft Azure ファブリック コントローラーまたはサービスの更新<a href="https://blogs.technet.com/b/markrussinovich/archive/2012/08/22/3515679.aspx"></a>によるサービス回復アクションに応じて、それ自体が透過的に再構成されます。
+
+  <h4><strong>サービスの監視</strong></h4>
+
+  負荷分散サービスでは、さまざまなサーバー インスタンスの正常性をプローブし、不健康なサーバー インスタンスをローテーションから取り出す機能が提供されます。 サポートされているプローブには、ゲスト エージェント プローブ (PaaS VM 上)、HTTP カスタム プローブ、TCP カスタム プローブの 3 種類があります。 ゲスト <a href="/b/kwill/archive/2011/05/05/windows-azure-role-architecture.aspx">エージェントの場合</a>、負荷分散サービスは VM 内のゲスト エージェントに対してクエリを実行して、サービスの状態を確認します。 HTTP の場合、負荷分散サービスは、指定された URL をフェッチしてインスタンスの正常性を判断します。 TCP の場合、定義されたプローブ ポートへの TCP セッション確立の成功に依存します。
+
+  <h4><strong>ソース NAT (SNAT)</strong></h4>
+
+  サービスから送信される送信トラフィックはすべて、受信トラフィックと同じ VIP アドレスを使用する送信元 NATED (SNAT) です。 今後の投稿では、SNAT のしくみについて説明します。
+
+  <h4><strong>データ センター内のトラフィックの最適化</strong></h4>
+
+  Microsoft Azure Load Balancerは、同じリージョン内の Microsoft Azure データセンター間のトラフィックを最適化します。これは、TCP/IP 接続が開始された後に、VIP を通して通信し、同じリージョン内にある Azure テナント間のトラフィックが、Microsoft Azure Load Balancer を完全にバイパスするようにします。
+
+  <h4><strong>VIP スワップ</strong></h4>
+
+  Microsoft Azure Load Balancerを使用すると、2 つのテナントの VIP をスワップできます。これにより、"ステージ" にあるテナントを "実稼働" に移行できます。その逆も可能です。 VIP スワップ操作を使用すると、新しいバージョンのサービスがデプロイされている間、クライアントは同じ VIP を使用してサービスと話し合います。 ステージング環境では、運用トラフィックを妨げることなく、新しいバージョンのサービスをデプロイしてテストできます。 新しいバージョンが必要なテストに合格したら、既存の実稼働サービスとスワップすることで、それを実稼働環境に昇格できます。 "古い" 実稼働環境への既存の接続は変更されません。 新しい接続は、"新しい" 実稼働環境に向けられる。
+
+  <h4><strong>例: 負荷分散サービス</strong></h4>
+
+  次に、負荷分散サービスによって提供される上記の機能のほとんどをサンプル クラウド サービスで使用する方法について説明します。 モデル化する PaaS テナントを次の図に示します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/04/samplecloudservice.png"><img class="alignnone size-medium wp-image-139721" alt="Sample Cloud Service" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/samplecloudservice-636x305.png" width="636" height="305" /></a>
+
+
+  &nbsp;
+
+
+  テナントには、2 つのフロントエンド (FE) ロールと 1 つのバックエンド (BE) ロールがあります。 FE ロールは、http、tcp、udp プロトコルを使用して、4 つの負荷分散されたエンドポイントを公開します。 エンドポイントの 1 つは、ロード バランサーに対するロールの正常性を示すためにも使用されます。 BE ロールは、http、tcp、udp プロトコルを使用して 3 つのエンドポイントを公開します。 FE ロールと BE ロールはどちらも、1 つのダイレクト ポート エンドポイントをサービスの対応するインスタンスに公開します。
+
+
+  上記のサービスは <a href="https://msdn.microsoft.com/en-us/library/windowsazure/ee758711.aspx">、Azure サービス</a> モデルを使用して次のように表されます (一部のスキーマの詳細は、より明確にするために削除されています)。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;">
+
+
+  <span style="background: #ffffff; color: #0000ff;">&lt;</span><span style="background: #ffffff; color: #a31515;">ServiceDefinitionname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">ProbeTenant</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;</span><span style="background: #ffffff; color: #a31515;">LoadBalancerProbesLoadBalancerProbename</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">    &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">MyProbe</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">path</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">Probe.aspx</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">intervalInSeconds</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">5</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">timeoutInSeconds</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">100</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;/</span><span style="background: #ffffff; color: #a31515;">LoadBalancerProbesWorkerRolename</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BERole</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">vmsize</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span>Small<span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">    &lt;</span><span style="background: #ffffff; color: #0000ff;"></span><span style="background: #ffffff; color: #a31515;">EndpointsInternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #a31515;"></span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BE_InternalEP_Tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BE_InternalEP_Udp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">udp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BE_InternalEP_Http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InstanceInputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">InstanceEP_BE</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">localPort</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">          &lt;</span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromFixedPortRangemin</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">              &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10210</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">max</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10220</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">          &lt;/</span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromInstanceInputEndpoint</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"></span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;/</span>
+
+  <span style="background: #ffffff; color: #0000ff;">   /&lt;</span><span style="background: #ffffff; color: #a31515;"></span> <span style="background: #ffffff; color: #a31515;">EndpointsWorkerRoleWorkeWorkerRolename</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  </span>
+
+  <span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;/</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FERole</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">vmsize</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">Small</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">   &lt;</span><span style="background: #ffffff; color: #a31515;">EndpointsInputEndpointname</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_External_Http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10000</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_External_Tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10001</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_External_Udp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">udp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10002</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      </span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpoint</span><span style="background: #ffffff; color: #ff0000;">name</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">HTTP_Probe</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">loadBalancerProbe</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">MyProbe</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      </span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InstanceInputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">InstanceEP</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">localPort</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">           &lt;</span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromFixedPortRangemin</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">              &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10110</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">max</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10120</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">           &lt;/</span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFrom</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;/</span><span style="background: #ffffff; color: #a31515;">InstanceInputEndpointInternalEndpointname</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_InternalEP_Tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">    &lt;/</span><span style="background: #ffffff; color: #a31515;">Endpoints</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;/</span><span style="background: #ffffff; color: #a31515;">WorkerRoleServiceDefinition</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"></span>
+
+  <span style="background: #ffffff; color: #0000ff;">&lt;/</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+
+  </div>
+
+  </div>
+
+  サービス モデルの分析では、まず、ロード バランサーがサービスの正常性を照会するために使用する必要のある正常性プローブを定義します。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">  &lt;</span><span style="background: #ffffff; color: #a31515;">LoadBalancerProbes</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">    &lt;</span><span style="background: #ffffff; color: #a31515;">LoadBalancerProbename </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">MyProbe</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">path</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">Probe.aspx</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">intervalInSeconds</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">5</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">timeoutInSeconds</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">100</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">  &lt;/</span><span style="background: #ffffff; color: #a31515;">LoadBalancerProbes</span><span style="background: #ffffff; color: #0000ff;">&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  これは、URL 相対パス "Probe.aspx" を使用して、http カスタム プローブを持っているというメッセージです。 このプローブは、完全に指定するために、後でエンドポイントにアタッチされます。
+
+
+  次に、FE ロールを WorkerRole として定義します。 これには、次のように http、tcp、udp を使用する負荷分散されたエンドポイントがいくつか含まれます。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_External_Http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10000</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_External_Tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10001</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_External_Udp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">udp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10002</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  これらのエンドポイントにカスタム プローブを割り当てなかったので、上記のエンドポイントの正常性は VM 上のゲスト エージェントによって制御され、 <a href="https://msdn.microsoft.com/en-us/library/microsoft.windowsazure.serviceruntime.roleenvironment.statuscheck.aspx">StatusCheck</a> イベントを使用してサービスによって変更できます。
+
+
+  次に、ポート 80 で追加の http エンドポイントを定義します。これは、前に定義したカスタム プローブ (MyProbe) を使用します。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">HTTP_Probe</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">loadBalancerProbe</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">MyProbe</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  ロード バランサーは、エンドポイントの情報とプローブの情報を結合して、サービスの正常性のクエリに使用する HTTPS://{DIP of VM}:80/Probe.aspx の形式で URL を作成します。 サービスは、同じ IP が定期的にアクセスしている (ログに ? ) 気付くでしょう。 これは、VM が実行されているノードのホストからの正常性プローブ要求です。
+
+
+  サービスは、サービスが正常であると仮定するロード バランサーの状態コード HTTP 200 で応答する必要があります。 その他の HTTP 状態コード (例: 503) は、VM をローテーションから直接取り出します。
+
+
+  プローブの定義はプローブの頻度も制御します。 上記の例では、ロード バランサーは 15 秒ごとにエンドポイントをプローブしています。 30 秒 (2 つのプローブ間隔) で肯定的な回答が受信されていない場合、プローブはダウンしたと見なされ、VM はローテーションから取り出されます。 同様に、サービスがローテーションから除外され、肯定応答を受信した場合、サービスはすぐにローテーションに戻されます。 サービスが正常/非正常の間で変動している場合、ロード バランサーは、多数のプローブで正常になるまで、サービスの再導入をローテーションに戻すのを遅らせたと判断できます。
+
+
+  FE サービスは、次に示すポートで FE インスタンスに直接接続する一連の直接ポート (各インスタンス (インスタンス入力エンドポイント) に対して 1 つ) を公開します。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InstanceInputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">InstanceEP</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">localPort</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">          &lt;</span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromFixedPortRangemin</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">              &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10110</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">max</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10120</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">          &lt;/</span><span style="background: #ffffff; color: #a31515;"></span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromInstanceInputEndpoint</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;/</span><span style="background: #ffffff; color: #0000ff;">&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  上記の定義では、tcp ポート 10110、10111、... を使用して接続します。 を各 FE ロール VM インスタンスのポート 80 に設定します。 この機能は、次の多くの方法で使用できます。
+
+
+  a) 特定のインスタンスに直接アクセスし、そのインスタンスにのみアクションを実行する
+
+
+  b) 負荷分散されたエンドポイントを通過した後、特定のインスタンスにユーザー アプリをリダイレクトします。 これは、特定のインスタンスに対する "スティッキー" セッションに使用できます。 ただし、これによりそのインスタンスに対するオーバーロードが発生し、冗長性が削除される可能性があります。
+
+
+  最後に、FE ロールは内部エンドポイントを公開します。このエンドポイントは、FE/BE ロール間の通信に使用できます。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">        &lt;</span><span style="background: #ffffff; color: #a31515;">InternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">FE_InternalEP_Tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  各ロールは、公開するエンドポイントと、RoleEnvironment クラスを使用して、互いに公開されているエンドポイントを検出できます。
+
+
+  BE ロールは WorkerRole としてモデル化されます。
+
+
+  BE ロールは負荷分散されたエンドポイントを公開するのではなく、http、tcp、udp を使用する内部エンドポイントのみを公開します。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BE_InternalEP_Tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>protocol<span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BE_InternalEP_Udp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">udp</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InternalEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">BE_InternalEP_Http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">http</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">port</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;"> /&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  BE ロールでは、BE インスタンスに直接接続するインスタンス入力エンドポイントも公開されます。
+
+  <div style="border: #000080 1px solid; color: #000; font-family: 'Courier New', Courier, Monospace; font-size: 10pt;">
+
+  <div style="background-color: #ffffff; overflow: auto; padding: 2px 5px;"><span style="background: #ffffff; color: #0000ff;">      &lt;</span><span style="background: #ffffff; color: #a31515;">InstanceInputEndpointname </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">InstanceEP_BE</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">protocol</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">tcp</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">localPort</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">80</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">          &lt;</span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromFixedPortRangemin</span><span style="background: #ffffff; color: #0000ff;">&gt;</span><span style="background: #ffffff; color: #a31515;"> </span><span style="background: #ffffff; color: #ff0000;"></span><span style="background: #ffffff; color: #0000ff;">=</span>
+
+  <span style="background: #ffffff; color: #0000ff;">              &lt;</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10210</span><span style="background: #ffffff; color: #000000;">" </span><span style="background: #ffffff; color: #ff0000;">max</span><span style="background: #ffffff; color: #0000ff;">=</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">10220</span><span style="background: #ffffff; color: #000000;">"</span><span style="background: #ffffff; color: #0000ff;">  /&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">          &lt;/</span><span style="background: #ffffff; color: #a31515;"></span><span style="background: #ffffff; color: #a31515;">AllocatePublicPortFromInstanceInputEndpoint</span><span style="background: #ffffff; color: #0000ff;">&gt;</span>
+
+  <span style="background: #ffffff; color: #0000ff;">      &lt;/</span><span style="background: #ffffff; color: #0000ff;">&gt;</span></div>
+
+  </div>
+
+  &nbsp;
+
+
+  上記の定義では、tcp ポート 10210 、... を使用して接続します。 を各 BE ロール VM インスタンスのポート 80 に設定します。
+
+
+  上記の例では、すべての負荷分散機能を組み合わせて使用してサービスをモデル化する方法を示しています。
+
+
+  今後の投稿では、このテナントが動作しているのを確認し、コード サンプルを提供します。 さらに、以下について詳しく説明します。
+
+
+  a) SNAT のしくみ
+
+
+  b) カスタム プローブ
+
+
+  c) 仮想ネットワーク
+
+
+  また、詳細については、ご希望の情報に関するご要望をお送りください。
+
+
+  Microsoft Azure ネットワーク チームの場合、
+
+
+  スコーズ・ズンツ
+
+
+  &nbsp;

@@ -1,0 +1,98 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c07dd099774493ac63276fdb48e5e5ca0b7a07a9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910661"
+Slug: new-updates-for-microsoft-azure-storage-explorer
+Title: Microsoft Azure Storage Explorer の新しい更新プログラム
+Summary: >
+  最新の Storage Explorer の一般提供が終了した後、Azure Storage プラットフォームに合わせて最新の1.1 リリースの新機能も追加されました...
+Content: >-
+  <p>Storage Explorer の最近の一般提供が終了した後、Azure Storage プラットフォームに合わせて最新の1.1 リリースの新機能も追加されました。</p>
+
+
+  <ul>
+   <li>Azurite クロスプラットフォームエミュレーター</li>
+   <li>Blob へのアクセス頻度に基づいてリソースを効率的に消費するアクセスレベル</li>
+   <li>データセンターの同期の問題を回避するための SAS URL の開始時刻の削除</li>
+  </ul>
+
+
+  <p>Storage Explorer は、Azure ストレージアカウントのコンテンツを管理するための優れたツールです。 blob、ファイル、キュー、および Cosmos DB エンティティをアップロード、ダウンロード、および管理できます。 さらに、仮想マシンのディスクを管理したり、Azure Resource Manager または従来のストレージアカウントを使用したり、クロスオリジンリソース共有 (CORS) ルールを管理および構成したりするために、簡単にアクセスできる場合があります。 Storage Explorer は、パブリック azure、ソブリン Azure クラウド、および Azure Stack でも機能します。</p>
+
+
+  <p>&rsquo;ここでは、毎日の業務に役立つ Storage Explorer のシナリオ例を紹介します。</p>
+
+
+  <h2>Storage Explorer から Azure クラウドにサインインします</h2>
+
+
+  <p>Storage Explorer の使用を開始するには、Azure アカウントにサインインし、サブスクリプションに接続したままにします。 azure、azure ソブリン Cloud、または Azure Stack のアカウントがある場合は Storage Explorer [<strong>アカウントの追加</strong>] ダイアログからアカウントに簡単にサインインできます。</p>
+
+
+  <p>さらに、Storage Explorer は Visual Studio と同じサインインコンポーネントを共有します。 つまり、Visual Studio または Storage Explorer からサインインする必要があるので、開発者ツールは Azure サブスクリプションに接続したままになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4dcd655d-ff06-4bcd-834c-b3c8771b332c.gif"><img alt="se-vs-signin" border="0" height="554" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70f27d85-c66c-46dd-a6f3-1c68c59aa63f.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="se-vs-サインイン" width="991"></a><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5dac9c8-fe95-4992-a060-d5d2c0ccd6d9.png"><img alt="sign-in-se" border="0" height="528" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b9f8756-2744-4d56-9456-32d33459e877.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="サインイン-se" width="996"></a></p>
+
+
+  <h2>blob のアップロードとダウンロード</h2>
+
+
+  <p>Blob ストレージは、さまざまな種類のファイルを格納するための便利な方法です。 Blob storage に保存したいイベントに関連する多数の写真がある場合は、web サイトからアクセスできるようにします。 または、blob storage を使用して、非常に大きな VHD ファイルをバックアップする場合もあります。 Storage Explorer により、データの整合性を維持しながら、blob を効率的にアップロードしてダウンロードできます。 さらに優れたエクスペリエンスを提供するために、アップロードとダウンロードのパフォーマンスを継続的に向上させます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78ac064b-0bcc-4b4d-8dee-659cd552fa78.gif"><img alt="se-upload" border="0" height="554" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/829981ce-ee64-47eb-b4f7-407c2ebcb922.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="se-アップロード" width="993"></a></p>
+
+
+  <h2>アクセス層でストレージリソースを効率的に使用する</h2>
+
+
+  <p>場合によっては、web サイトのフロントページのメディアリソースなど、web アプリケーションによって頻繁にアクセスされる &rsquo; データが存在することがあります。 また、短期間のバックアップとディザスターリカバリーのデータセット &rsquo; があり、あまり頻繁にアクセスする必要がない場合もあります。 &rsquo;必要に応じてストレージのアクセスコストに対して料金がかかる場合は、</p>
+
+
+  <p>最新の Storage Explorer では、Storage プラットフォーム機能を利用して、Storage アカウント &ndash; のホット、コールド、アーカイブのアクセス層を構成することができます。 Azure Blob storage での Storage アクセスレベルの詳細について<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers">は、ホット、クール、アーカイブの各ストレージ層</a>に関するページを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa754be0-7b3b-430b-9410-ceb37a792d95.png"><img alt="update access tier" border="0" height="522" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3a1df2a-674d-4a60-999f-15ac6c5dbdae.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アクセス層の更新" width="986"></a></p>
+
+
+  <h2>共有とアクセス制御のための SAS URL を簡単に取得</h2>
+
+
+  <p>大きなファイルを他のユーザーと共有する必要があるのに、ファイルが大きすぎて電子メールで添付できない場合は、どうすればよいでしょうか。 Storage Explorer では、ファイルを blob ストレージにすばやくアップロードし、ファイルへの一時的なアクセスリンクを取得して、同僚や友人にリンクを送信することができます。 リンクの有効期限が切れるまでの時間と、リンクに対するアクセス制御ポリシーを構成できます。 Storage Explorer と簡単かつ安全にコンテンツを共有できます。</p>
+
+
+  <p><img alt="shared access signature" border="0" height="519" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a53c0cc-5c91-4a24-9c3d-16a1748e1358.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="共有アクセス署名" width="980"></p>
+
+
+  <h2>Blob とファイル共有のキャプチャスナップショット</h2>
+
+
+  <p>ファイルを変更する前に、今後の参照用に既存のバックアップコピーを作成することもできます。 Storage Explorer を使用すると、blob とファイル共有をある時点で表示されるようにバックアップできます。 スナップショットは、個々の blob ごとに作成できます。 ファイル共有の場合、スナップショットは共有レベル全体で取得されます。 これらの機能を今すぐご確認ください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f9766b3-1617-4267-8e3d-4af142b3e3ae.png"><img alt="share" border="0" height="513" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fd350978-052e-4817-8fb8-1e3bed27c861.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="共有" width="985"></a></p>
+
+
+  <h2>ユーザー補助機能のサポート</h2>
+
+
+  <p>テクノロジは、すべてのユーザーが効率と生産性を向上させる必要があると考えています。 このリリースの一環として、パネル間をすばやく移動する、スクリーンリーダーのサポートを強化するなど、キーボードの操作の改善などの機能を提供しています。これには、アクティビティへの aria とライブタグの追加や、ハイコントラストテーマに対するほとんどの修正が含まれます。 &rsquo; <a href="https://github.com/microsoft/azurestorageexplorer/issues">GitHub</a>についてのフィードバックを積極的に検索します。</p>
+
+
+  <h2>フィードバックプラットフォームを開く</h2>
+
+
+  <p>アンケートに記入して提案を提供する代わりに、 <a href="https://github.com/microsoft/azurestorageexplorer/issues">Storage Explorer の問題を GitHub で</a>開くことができるようになりました。 既存の問題を検索したり、重要な問題にコメントを追加したり、他のユーザーとの回避策を共有したり、問題が解決されたときに更新を受け取ることができます。</p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/features/storage-explorer/">Storage Explorer ランディングページ</a>から最新の Storage Explorer をダウンロードします。</li>
+   <li>フィードバックについては、GitHub にご報告ください<a href="https://github.com/microsoft/azurestorageexplorer/issues">: Microsoft/azurestorageexplorer</a>。</li>
+  </ul>

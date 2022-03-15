@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ac74fdd8ad24d2727ec1f9a590c7ae4943b2dd39
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904331"
+Slug: application-gateway-ingress-controller-for-azure-kubernetes-service
+Title: Application Gatewayイングレス コントローラーのAzure Kubernetes Service
+Summary: 今日は、AKS (AKS) とデータをバインドする新Azure Kubernetes Serviceソリューションを提供Application Gateway。 新しいソリューションでは、Kubernetes 用のオープン ソース Application Gateway イングレス コントローラーが提供されます。これにより、AKS のお客様は Application Gateway を利用してクラウド ソフトウェアをインターネットに公開できます。
+Content: >-
+  <p>今日は、AKS (AKS) とデータをバインドする新Azure Kubernetes Serviceソリューションを提供Application Gateway。 新しいソリューションでは、Kubernetes 用の <a href="https://github.com/Azure/application-gateway-kubernetes-ingress" target="_blank">オープン ソース Application Gateway イング</a> レス コントローラー (AGIC) が提供されます。これにより、AKS のお客様は Application Gateway を利用してクラウド ソフトウェアをインターネットに公開できます。</p>
+
+
+  <p>マネージド Kubernetes サービスである Azure Kubernetes Service の利点を組み合わせ、高度な Kubernetes 環境と、ネイティブでスケーラブルで高可用性の Azure Application Gateway を簡単に運用できる L7 ロード バランサーは、お客様から高い要求を受け持っています。</p>
+
+
+  <h2>それはどのように機能しますか?</h2>
+
+
+  <p>Application Gatewayイングレス コントローラーは、顧客 AKS 上の独自のポッドで&rsquo;実行されます。 イングレス コントローラーは、Kubernetes リソースのサブセットの変更&rsquo; を監視します。 AKS クラスターの状態は、特定の構成Application Gateway変換され、そのクラスターにAzure Resource Manager。 サービスの継続的な再構成Application Gateway、AKS サービスへのトラフィックの中断のないフローが保証&rsquo; されます。 次の図は、Kubernetes API から Application Gateway イングレス コントローラーを介した状態と構成の変更から、Resource Manager および Application Gateway へのフローを示しています。</p>
+
+
+  <p>最も一般的な Kubernetes イングレス コントローラーと同様に、Application Gateway イングレス コントローラーにはいくつかの機能が用意されています。この機能では、Azure&rsquo; ネイティブの Application Gateway L7 ロード バランサーを利用します。 以下にいくつか例を挙げます。</p>
+
+
+  <ul>
+      <li>URL ルーティング</li>
+      <li>Cookie ベースのアフィニティ</li>
+      <li>Secure Sockets Layer (SSL) ターミネーション</li>
+      <li>エンドツーエンド SSL</li>
+      <li>パブリック、プライベート、ハイブリッド Web サイトのサポート</li>
+      <li>Web アプリケーション ファイアウォールを統合</li>
+  </ul>
+
+
+  <p><img alt="agic2" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1d791d2-98c0-44fa-a2df-44cfabf7f250.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="agic2" width="748"></p>
+
+
+  <p>イングレス コントローラー Application Gatewayアーキテクチャは、従来のクラスター内 L7 ロード バランサーとは異なります。 アーキテクチャの違いを次の図に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb8812bd-d0f4-4823-ad5f-4e8b1aa16b66.png"><img alt="clip_image003" border="0" height="239" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ecb8b526-618f-4ae4-9b8d-990d3803d06b.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="clip_image003" width="627"></a></p>
+
+
+  <ul>
+      <li>クラスター内ロード バランサーは、Kubernetes クラスターのコンピューティング リソースを利用して、すべてのデータ パス操作を&rsquo;実行します。 これは、リソースが前面に表示されているビジネス アプリと競合します。 クラスター内イングレス コントローラーは、Kubernetes サービス リソースを作成し、 <a href="https://docs.microsoft.com/en-us/azure/aks/configure-kubenet#overview-of-kubenet-networking-with-your-own-subnet" target="_blank">ネットワーク トラフィックに kubenet</a> を活用します。 イングレス コントローラーと比較して、トラフィックは追加ホップを通過します。</li>
+      <li>イングレス コントローラーは、AKS&rsquo; <a href="https://docs.microsoft.com/en-us/azure/aks/concepts-network#azure-cni-advanced-networking" target="_blank">の</a>高度なネットワークを利用します。このネットワークでは、各ポッドに対して、Application Gateway と共有されているサブネットから IP アドレスが割り当てApplication Gateway。 Application Gateway Kubernetes ポッドに直接アクセスできます。 これにより、kubenet を通過するデータが不要です。 このトピックの詳細については、「ネットワーク モデルの<a href="https://docs.microsoft.com/en-us/azure/aks/concepts-network" target="_blank">&ldquo;&rdquo;</a>&ldquo;比較」セクションの「Azure Kubernetes Serviceアプリケーションのネットワークの概念」セクションを参照&rdquo;してください。</li>
+  </ul>
+
+
+  <h2>ソリューションのパフォーマンス</h2>
+
+
+  <p>Application Gateway が Kubernetes ポッドに直接接続された結果、Application Gateway イングレス コントローラーは、ネットワーク待機時間とクラスター内イングレス コントローラーの間で最大 50% 短いネットワーク待機時間を実現できます。 Application Gatewayは、Azure 仮想マシン スケール セットによってサポート <a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview" target="_blank">されるマネージド サービスです</a>。 その結果、データ Application Gateway処理に AKS コンピューティング リソースは使用されない可能性があります。 Kubernetes デプロイに割り当てられたリソースを共有したり干渉したりしません。 自動スケールApplication Gateway、クラスター内のイングレスとは異なり、ピーク時にはアプリ ポッドをすばやくスケールアップする機能を妨げ&rsquo; ない。 もちろん、クラスター内の L7 イングレスから Application Gatewayに切り替えると、AKS によって使用されるコンピューティング負荷が直ちに減少します。</p>
+
+
+  <p>3 つのノード AKS クラスター上のクラスター内イングレス コントローラーと Application Gateway イングレス コントローラーのパフォーマンスを、ノードあたり 22 ポッドを実行する単純な Web アプリと比較しました。 合計 66 の Web アプリ ポッドが、ノードごとに 1 つのクラスター内イングレスを 3 つ持つ共有 &ndash; リソースです。 インスタンス数Application Gateway 2 で構成しました。 Apache Bench を使用して、コンカレンシーが 3K 要求に設定された合計 100,000 件の要求を作成しました。 Apache Bench を 2 回起動しました。1 回はクラスター内イングレス コントローラーの前面にある SLB を指し、もう 1 回は Application Gateway のパブリック IP に接続します。 この非常にビジー状態の AKS クラスターでは、すべての要求の平均待機時間を記録しました。</p>
+
+
+  <ul>
+      <li>Application Gateway: 要求あたり 480ms</li>
+      <li>クラスター内イングレス: 要求あたり 710ms</li>
+  </ul>
+
+
+  <p>上記で収集したデータによって証明された、負荷の高いクラスター内イングレス コントローラーの場合、要求あたりの待機時間は、Application Gateway イングレスに比べて約 48% 長くなります。 同じクラスターで同じベンチマークを実行していますが、ノードごとに 2 つの Web アプリ ポッド (合計 6 個のポッド) を使用して、クラスター内イングレス コントローラーのパフォーマンスが Application Gateway より約 17% 長い待機時間で実行されているのを確認しました。</p>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>Application Gatewayイングレス コントローラーは安定しており、実稼働環境で使用できます。 プロジェクトは急速に成熟し、新しい機能を追加するために積極的に取り組み中です。 Application Gateway、相互 TLS 認証、gRPC、HTTP/2 に格納されている証明書の使用など、顧客が求め続けた機能で製品の強化に取り組み中です。 AKS 用イングレス コントローラーの新しいApplication Gatewayを試し、進行状況に従って、最も重要なことは、GitHub に関するフィードバック<a href="https://github.com/Azure/application-gateway-kubernetes-ingress" target="_blank">をお</a>寄せください。</p>

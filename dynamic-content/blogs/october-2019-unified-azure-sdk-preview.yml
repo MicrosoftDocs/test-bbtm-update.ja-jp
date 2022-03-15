@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b02d7150bdd01532ba6fe18aa89a1673a825a22c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905206"
+Slug: october-2019-unified-azure-sdk-preview
+Title: 2019年10月の統合された Azure SDK プレビュー
+Summary: 統合された Azure データクライアントライブラリの別のリリースへようこそ。 ほとんどの場合、Sdk の API サーフェス領域は、フィードバックに基づいて安定化されています。
+Content: >-
+  <p>統合された Azure データクライアントライブラリの別のリリースへようこそ。 ほとんどの場合、Sdk の API サーフェス領域は、フィードバックに基づいて安定化されています。 GitHub に関する問題を送信しているすべてのユーザーに感謝し、フィードバックをお寄せください。</p>
+
+
+  <p>10月のプレビューライブラリ &mdash; を入手して、要求に応じたパフォーマンスシナリオをスローするか、他のサービスと統合したり、問題をデバッグしたり、一般的にシナリオを構築したり、お客様が見つけた内容をお知らせください。</p>
+
+
+  <p>私たちの目標は、これらのライブラリを年の終わりの前にリリースすることですが、microsoft は品質とフィードバックに基づいており、お客様の参加は重要です。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>最後の3つのリリースで行ったように、作業を開始してフィードバックを提供するために必要なすべての主要情報を統合する4つのページが作成されました。 次の場所で見つけることができます。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/azure-sdk-preview4-net" target="_blank">.NET</a></li>
+   <li><a href="https://aka.ms/azure-sdk-preview4-java" target="_blank">Java</a></li>
+   <li><a href="https://aka.ms/azure-sdk-preview4-js" target="_blank">JavaScript および TypeScript</a></li>
+   <li><a href="https://aka.ms/azure-sdk-preview4-python" target="_blank">Python</a></li>
+  </ul>
+
+
+  <p>コンテンツの詳細については、前にリンクされているリリースノート、変更内容について詳しく説明する changelogs を参照してください。 ここでは、いくつかの上位レベルの項目を呼び出しています。</p>
+
+
+  <h2>Api のロックダウン</h2>
+
+
+  <p>Azure Key Vault ライブラリと Storage ライブラリのセキュリティの面は、これまでにお寄せいただいたフィードバック &rsquo; に基づいてほぼ完全に API が完成しています。 フィードバックを送信したすべての人に感謝いたします。だれかがお待ちになっていて、フィードバックをお寄せいただいた場合は、今すぐお待ちしています。</p>
+
+
+  <h2>Storage での Batch API のサポート</h2>
+
+
+  <p>Storage 用の sdk でバッチ処理 api を使用して、多数の項目の操作を並列に処理できるようになりました。 Java と .NET では、JavaScript と Python では、新しいバッチ処理ライブラリパッケージがリリースノートに含まれていますが、この機能はコアライブラリにあります。</p>
+
+
+  <h2>統合された資格情報</h2>
+
+
+  <p>Azure Id に依存している Azure Sdk を使用すると、サービスの資格情報をより簡単に取得できます。</p>
+
+
+  <p>各ライブラリは、 <code>DefaultAzureCredential </code> の概念をサポートします。また、コードを実行する場所に応じて、ログインに適した資格情報を選択します。 たとえば、コードを作成し、Visual Studio にサインインした場合、または CLI から<strong>az login</strong>を実行した場合 &rsquo; 、クライアントライブラリはこれらのツールからサインイントークンを自動的に取得できます。 コードをサービス環境に移動すると、使用可能な場合はマネージド id の使用が試行されます。 詳細については、Azure Id の言語固有の Readme を参照してください。</p>
+
+
+  <h2>お客様と協力してフィードバックを提供する</h2>
+
+
+  <p>これまでは、このコミュニティでは、ドキュメントの問題から API surface 領域への変更要求までのフィードバックにより、これらの新しい Sdk に対して何百もの問題を提出しています。 今後もご利用ください。 オープン GitHub で作業しており、ここで問題を送信できます。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/azure-sdk/" target="_blank">API デザインのガイドライン</a></li>
+   <li><a href="https://github.com/Azure/azure-sdk-for-net" target="_blank">.NET</a></li>
+   <li><a href="https://github.com/Azure/azure-sdk-for-java" target="_blank">Java</a></li>
+   <li><a href="https://github.com/Azure/azure-sdk-for-js" target="_blank">JavaScript および TypeScript</a></li>
+   <li><a href="https://github.com/Azure/azure-sdk-for-python" target="_blank">Python</a></li>
+  </ul>
+
+
+  <p>さらに、 <strong>Microsoft Ignite </strong>2019 に参加しようとしている&#39;を&#39;しています。そのため、私たちに連絡してください。 最後に、ツイートにお問い合わせ <a href="https://twitter.com/azuresdk" target="_blank">@AzureSdk</a> ください。</p>
+
+
+  <p>Azure の使用を無料で開始しましょう。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/free/open-source/"><img alt="" border="0" height="46" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/406a2882-a1c2-4356-82c9-9147add20e6c.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="126"></a></p>

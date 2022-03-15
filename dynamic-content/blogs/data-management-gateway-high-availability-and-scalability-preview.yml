@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1b70168694d3b4dcf9fa3f222b3960ee2a3d5e6f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904826"
+Slug: data-management-gateway-high-availability-and-scalability-preview
+Title: Data Management Gateway-高可用性とスケーラビリティのプレビュー
+Summary: このブログには、Data Management Gateway 高可用性と拡張性のあるプレビューが掲載されています。
+Content: >-
+  <p><a href="https://docs.microsoft.com/azure/data-factory/data-factory-data-management-gateway" target="_blank">Data Management Gateway</a> - 高可用性<strong></strong>とスケーラビリティのプレビューについてお知らせします。</p>
+
+
+  <p>複数のオンプレミスマシンを1つの論理ゲートウェイに関連付けることができるようになりました。 利点は次のとおりです。</p>
+
+
+  <ul>
+   <li>Data Management Gateway (DMG) &ndash; DMG の<strong>可用性の向上</strong>は、ビッグデータソリューションの単一障害点、または<strong>Azure Data Factory</strong>とのクラウドデータ統合ではなくなり、最大4ノードの継続性が確保されます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95454fb5-0e64-4582-8b21-af989d90c1b6.png"><img alt="data-factory-gateway-high-availability-and-scalability" border="0" height="330" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/427c0e7c-7ade-4bdb-81f0-e6c4b26567d4.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="data factory-ゲートウェイ-高可用性とスケーラビリティ" width="627"></a></p>
+
+
+  <ul>
+   <li>オンプレミスとクラウドのデータストア間のデータ移動中の<strong>パフォーマンス</strong><strong>とスループット</strong>が向上しました。 詳しくは<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-copy-activity-performance" target="_blank">パフォーマンス比較</a>を参照してください。</li>
+   <li><strong>スケールアウト</strong>と<strong>スケールアップ</strong> &ndash; の両方で、4つのノード (スケールアウト) に DMG をインストールできるだけでなく、必要に応じて、各ノードの同時実行データ移動ジョブを増減することができます。<br>
+   <em><u>注</u>:</em> <em>すべての既存のシングルノード (GA) ゲートウェイでは、スケールアップ/スケールダウン機能を使用できるようになりました。この更新プログラムは、このプレビューに限定されていません。</em>&nbsp;</li>
+   <li><strong>豊富</strong> &nbsp; な<strong>監視エクスペリエンス</strong> &ndash; を<strong>Data Management Gateway</strong> Azure Portal では、各ノードの状態とリソースの使用率を1か所で監視できます。 これにより、DMG の管理が簡素化されます。&nbsp;</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a26481f5-1e8c-401d-849e-1b54dc2ba652.png"><img alt="dmg-monitor" border="0" height="434" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0af4155b-2a66-4a71-a905-2b5b58f166a7.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="dmg-モニター" width="612"></a></p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><em><u>注</u>: すべての既存のシングルノード (GA) ゲートウェイで監視を使用できるようになりました。この <em>更新プログラムは、このプレビューに限定されていません。</em>&nbsp;</em></p>
+
+  </blockquote>
+
+
+  <p>高可用性とスケーラビリティ &rsquo; の Data Management Gateway &lsquo; 機能の詳細については、こちらの<a href="https://docs.microsoft.com/azure/data-factory/data-factory-data-management-gateway-high-availability-scalability" target="_blank">ドキュメント</a>を参照してください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p><strong>シナリオ 1</strong> &ndash;高可用性およびスケーラブル &rsquo; な新しい &lsquo; Data Management Gateway のセットアップ。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="720" src="https://www.youtube.com/embed/-DvCfmgMi2c" style="width: 1158px; height: 563px;" width="1280"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>シナリオ 2</strong> &ndash;既存の Data Management Gateway をアップグレードして、高可用性とスケーラビリティ &rsquo; の &lsquo; 機能を有効にします。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="720" src="https://www.youtube.com/embed/ngR0H8gcfR0" style="width: 1158px; height: 563px;" width="1280"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><u><strong>前提条件</strong></u> &ndash; このプレビュー機能は Data Management Gateway<strong> バージョン 2.12. xxxx. x 以降</strong>でサポートされています。 バージョン 2.12.xxxx.x またはそれ以降を使用していることを確認してください。 Data Management Gateway の最新バージョンは、<a href="https://www.microsoft.com/download/details.aspx?id=39717" target="_blank">こちら</a>からダウンロードできます。</p>
+
+
+  <p>クエリがある場合は、に連絡 <a href="mailto:dmghelp@microsoft.com" target="_blank">dmghelp@microsoft.com</a> してください。</p>

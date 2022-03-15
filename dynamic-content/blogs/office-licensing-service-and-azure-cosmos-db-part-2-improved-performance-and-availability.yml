@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 80e83c0b7e7f10a08a6dacd52c388dee722a53a6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905198"
+Slug: office-licensing-service-and-azure-cosmos-db-part-2-improved-performance-and-availability
+Title: 'Office ライセンス サービスと Azure Cosmos DB パート 2: パフォーマンスと可用性の向上'
+Summary: この投稿は、組織が Azure Cosmos DB を使用して現実世界のニーズを満たす方法と、その違いについて、2 部構成のシリーズのパート 2 です。
+Content: >-
+  <p><i>この投稿は、組織が Azure Cosmos DB&rsquo; を使用して現実世界のニーズを満たす方法と、組織に対する違いについて、2 部構成のシリーズのパート 2 です。パート <a href="https://azure.microsoft.com/blog/office-licensing-service-and-azure-cosmos-db-part-1-migrating-the-production-workload" target="_blank">1</a> では、Microsoft Office Licensing Service チームが Azure Table Storage から Azure Cosmos DB に移行するための課題と、その実稼働ワークロードを新しいサービスに移行する方法について説明しました。パート 2 では、チームの取り組みによって得られた結果を&rsquo;確認します。</i></p>
+
+
+  <h2>最小限の労力で強力なメリットを得る</h2>
+
+
+  <p>Microsoft Office ライセンス サービス (OLS)&rsquo; チームは、Azure Table Storage から <a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">Azure Cosmos DB</a> への移行をシンプルかつ簡単に行い、最小限の労力ですべてのニーズを満たすことができます。</p>
+
+
+  <h3>簡単な移行</h3>
+
+
+  <p>Azure Cosmos DB に移行する場合、Table API のおかげで、OLS チームはそのデータ アクセス コードの大部分を再利用し、ダウンタイムを回避するために作成した移行エンジンは高速で簡単に構築できます。</p>
+
+
+  <p>OLS 開発チームを率い、Microsoft のソフトウェア エンジニアである Danny  いは、次の説明を行います。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;移行エンジンは、記述する必要があった唯 &lsquo;一の新&rsquo; しいコードでした。また、3 つの部分&rsquo;のコード サンプルはすべて一般公開されています。そのため、最初から始める必要があったのと同じではありません。開発した移行ツールのすべてで、それぞれ約 4 週間の開発者が 3 人かかっています。&rdquo;</em></p>
+
+
+  <h3>事実上無制限のスループット</h3>
+
+
+  <p>現在、データベースのスループットは OLS チームの問題ではなくなりました。 Table Storage では、チームはストレージ アカウントあたり 1 秒あたり 20,000 操作のスループット制限に直面しました。この場合、最大スループットを実現するために、18 の各テーブルを別のストレージ アカウントに保持する必要があります。 チームは現在、1 つの Azure Cosmos DB アカウントを保持しています。このアカウントはスループットの上限を持ち、SLA によってサポートされるテーブルオール専用の 1 秒あたり 1,000&mdash; 万以上の操作をサポートできます。<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units" target="_blank"></a></p>
+
+
+  <h3>高可用性の保証</h3>
+
+
+  <p>Azure Cosmos DB を使用すると、OLS チームは、すべてのマルチリージョン アカウントに<a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_3/" target="_blank">対して 99.999%</a> の読み取り可用性 SLA を実現できます。 これにより、内部で開発されたツールを使用してキャプチャされた次のメトリックに示されている、ストレージのサービス品質 (QoS) が大幅に増加しています。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;ピーク時のトラフィック時間中に、Azure Cosmos DB は、Table Storage&rdquo; で見たよりもはるかに優れたストレージ QoS を提供します。は言います。 &ldquo;今日は&rsquo; 5 つのナインが見え、過去は約 3 ナインでした。&rdquo;</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ec665eb0-2809-4d86-8a09-70ec17df67a5.jpg"><img alt="Graph of Azure Cosmos DB health vs Azure Table storage health.  " border="0" height="333" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/18e09e81-d4de-4303-aefb-701694d996ed.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Graph DB の正常性Cosmos Azure Table Storage の正常性に対する Azure の正常性。  " width="1024"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9bc7e13-21a0-4046-b9d6-a61889c500c1.jpg"><img alt="Average Azure Cosmos DB health vs Azure Table storage health. " border="0" height="168" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c066ba3-cace-4746-bba7-71f309990f71.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="平均 Azure Cosmos DB の正常性と Azure Table Storage の正常性。" width="856"></a></p>
+
+
+  <h3>自動フェールオーバー</h3>
+
+
+  <p>OLS チームは、すべての SLA <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/high-availability" target="_blank"></a> が維持され、リージョンの停止が発生する可能性の低いイベントから保護するために、自動フェールオーバーまたは手動フェールオーバーを構成できます。 チームは、複数リージョンアカウントのフェールオーバー順序に優先順位を付け、フェールオーバーを手動でトリガーして OLS のエンドツーエンドの可用性をテストすることもできます。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;自動&rsquo;フェールオーバーが構成されましたが&rsquo;&rdquo;、サービスは信頼性が高く、まだ必要としていません。は言います。</em></p>
+
+
+  <h3>より短い待機時間</h3>
+
+
+  <p>Table Storage は、OLS チームに待機時間の上限を設けずに提供しました。 これに対し、Azure Cosmos DB &lt;では、読み取りと書き込みの 1 桁の待機時間が提供され、世界中の任意の場所で、99 番目のセンタイルでの読み取りと書き込みの 10 ミリ秒の待機時間が保証されます。 次のメトリックは、TABLE Storage と Azure Cosmos DB の間で OLS サービスに表示される待機時間の違いを示しています。 (DbTable は Azure Table Storage、CosmosDbTable は Azure Cosmos DB Table API)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7de62ddd-9918-42fc-9b94-3977b38ad87d.jpg"><img alt="Difference in latency: Azure Cosmos DB versus Azure Table storage." border="0" height="247" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e4a9658-d476-4845-aae6-ac59a0d7b2d8.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="待機時間の違い: Azure Cosmos DB と Azure Table Storage。" width="640"></a></p>
+
+
+  <h3>ターンキー データ分散</h3>
+
+
+  <p>Table Storage では、グローバル分散のオプションが制限されています。 さらに&rsquo;、OLS チームは独自に&rsquo;フェールオーバーを実装する必要があります。 Azure Cosmos DB&nbsp;&mdash; を使用すると、チームはマルチマスター機能を含む任意の数のリージョンへの配布を楽<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-multi-master" target="_blank"></a>しめ、有効にすると、どのリージョンでも書き込み操作を受け入れできます。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;マップをクリックすると、世界中の任意の Azure&rdquo; &ldquo; リージョンにデータを自動的にレプリケートできます。この機能は非常に便利であり、すぐに使用する予定です。&rdquo;</em></p>
+
+
+  <h2>その他の技術的な利点</h2>
+
+
+  <p>上記に加えて、Azure Cosmos DB は、OLS チームに Table Storage に対していくつかの追加の利点を提供します。</p>
+
+
+  <p><b>自動インデックス作成。</b> Table Storage では、プライマリ インデックスは PartitionKey と RowKey に制限され、セカンダリ インデックスはありません。 Azure Cosmos DB では、インデックス管理を行う必要がない、すべてのプロパティに対する自動および完全なインデックス作成が既定で提供されます。</p>
+
+
+  <p><b>クエリ時間の短縮。</b> Table Storage では、クエリの実行では主キーのインデックスが使用され、それ以外の場合はスキャンされます。 Azure Cosmos DB を使用すると、クエリですべてのプロパティに対する自動インデックス作成を利用して、クエリ時間を短縮できます。</p>
+
+
+  <p>''<b>整合性。</b> '' Table Storage では、OLS チームはプライマリ リージョン内の強力な整合性と、セカンダリ リージョン内の最終的な整合性に制限されています。 Azure Cosmos DB を使用すると、適切に定義された<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels" target="_blank"></a>整合性レベルから選択できます。ソリューションの設計中に、読み取り整合性と待機時間、可用性、スループットのトレードオフを最適化できます。</p>
+
+
+  <h2>概要 Azure Cosmos DB を使用する</h2>
+
+
+  <ul>
+      <li><u><a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">Azure Cosmos DB にアクセスします</a></u>。</li>
+      <li>「<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/table-introduction" target="_blank">Azure Cosmos DB Table API の概要」を参照してください</a>。</li>
+  </ul>

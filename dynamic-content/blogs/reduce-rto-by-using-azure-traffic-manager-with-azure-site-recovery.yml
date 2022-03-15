@@ -1,0 +1,183 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c4589d727888851fb5a574c144b1981ab28e9a99
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904436"
+Slug: reduce-rto-by-using-azure-traffic-manager-with-azure-site-recovery
+Title: RTO を減らすには、Azure Traffic Managerを使用Azure Site Recovery
+Summary: 管理者がディザスター リカバリー用にアプリケーションを設定する場合、その主な目標の 1 つは、目標復旧時間 (RTO) を可能な限り低くすることです。
+Content: >-
+  管理者がディザスター リカバリー用にアプリケーションを設定する場合、その主な目標の 1 つは、目標復旧時間 (RTO) を可能な限り低くすることです。 少しの時間でも重要なアプリケーションを使用できないと、ビジネスが大幅に失われる可能性があります。 <a href="https://aka.ms/atm_drreport">グローバルディザスター</a> リカバリー準備の状態に関する年次レポート 2014 では、重要なアプリケーションを 1 時間失うコストが 300,000 ドルを超えると見積もります。
+
+
+  アプリケーションが復旧サイトで使用可能になるのに必要な時間に影響する重要な要因は次のとおりです。
+
+  <ol>
+   <li>回復は面倒で、エラーが発生しやすく、手動です。 Azure Site Recovery、回復プロセスを自動化する 1 回のクリック オーケストレーションが提供されます。 ASR では、テスト フェールオーバーを使用してフェールオーバーをテストできます</li>
+   <li>アプリケーションが現在実行されている新しいアドレスの DNS 更新には、多くの時間が必要です。 ASR と Azure Traffic Manger の組み合わせにより、この時間を短縮するクラス最高のソリューションが提供されます。 方法を見せてください。</li>
+  </ol>
+
+  これら 2 つの要素の 1 つ目は、復旧するアプリケーションの複雑さとサイズによって異なります。 しかし、アクションは組織やチームの境界をまたがり、手動で実行できる可能性があるため、2 番目の要因のために必要な時間ははるかに予測できません。 Azure Traffic Manager、2 番目の要因が大きいので時間が短縮されます。 このブログの後半で、これを定量的に確認します。
+
+
+  Traffic Manager の使用を説明するために、現在オンプレミスのプライマリ サイトでホストされ、Azure Site Recovery を使用して保護されている www.contoso.com というパブリック Web サイトの例を使用します。 復旧サイトがオンプレミスTraffic Manager場合と、Azure が復旧サイトとして使用されている場合に備え、この方法を設定する方法について説明します。
+
+  <h2>設定Azure Traffic Manager</h2>
+
+  1. パブリック DNS サーバーで次のエントリを作成します
+
+  <pre class="prettyprint">www.contoso.com     IN     CNAME      contoso.trafficmanager.net</pre>
+
+  2. Azure から新しい Traffic Manger プロファイルを作成管理ポータル。 プロファイルの作成と構成の<a href="https://aka.ms/atm_atmdoc">詳細については、</a>Azure Traffic Managerしてください。 Traffic Manager プロファイルに "contoso" という名前を付け、[<i>負荷分散方法] </i>を [フェールオーバー] として<i>選択します。 </i>"<i>フェールオーバー" </i>負荷分散方法は、最初に構成された Traffic Manager エンドポイントにすべてのトラフィックを送信します。その場合、トラフィックが次のエンドポイントに送信されるなど、問題が検出された場合を指定します。
+
+
+  3. 2 つの外部エンドポイントを使用して Traffic Manager を構成します。 詳細については、外部エンドポイントを使用 <a href="https://aka.ms/atm_atmpgblog">した Azure Traffic Managers の構成に関するページを参照してください</a>。 手順 2 で作成したプロファイルの構成に使用する PowerShell コマンドレットを次に示します。
+
+  <pre class="prettyprint">$profile = Get-AzureTrafficManagerProfile -Name "contoso"
+
+
+  Add-AzureTrafficManagerEndpoint -TrafficManagerProfile $profile -DomainName "primary.contoso.com" -Status "Enabled" -Type "Any" | Set-AzureTrafficManagerProfile
+
+
+  Add-AzureTrafficManagerEndpoint -TrafficManagerProfile $profile -DomainName "recovery.contoso.com" -Status "Enabled" -Type "Any" | Set-AzureTrafficManagerProfile
+
+  </pre>
+
+  上記の PowerShell コマンドレットは、プライマリ サイトと復旧サイトの両方がオンプレミスの場合に使用できます。 復旧サイトとして Azure を使用している場合は、次のコマンドレットを使用してセカンダリ エンドポイントを設定します
+
+  <pre class="prettyprint">Add-AzureTrafficManagerEndpoint -TrafficManagerProfile $profile -DomainName “azureapp.cloudapp.net" -Status "Enabled" -Type "Any" | Set-AzureTrafficManagerProfile</pre>
+
+  ここでは、次の 2 つの点に注意してください。
+
+  <ul>
+   <li>ASR では、フェールオーバー時にのみクラウド サービスが作成されます。 そのため、フェールオーバー前にTraffic Managerプロファイルを構成する場合、クラウド サービスは存在しません。 そのため、Azure エンドポイントも "外部" エンドポイント<i>として</i>設定しています。</li>
+   <li>ASR は、復旧計画の名前を使用してクラウド サービスを作成します。 たとえば、復旧計画の名前が AzureApp の場合です。 ASR では、 という名前のクラウド サービスが作成 azureapp.cloudapp.net。 名前が使用できない場合は、ASR によって GUID が追加されます。 そのため、他のユーザーが使用する可能性が低い名前で復旧計画を作成し、フェールオーバー後に作成されたクラウド サービスの名前を高い信頼度で予測できます。</li>
+  </ul>
+
+  4. パブリック DNS で次のエントリを作成する
+
+  <pre class="prettyprint">primary.contoso.com     A    160.220.220.10*
+
+  recovery.contoso.com    A     170.220.220.10*
+
+
+  * The IPs used here are only for representative purpose
+
+  </pre>
+
+  これらは、プライマリ サイトと復旧サイトの IP アドレスです。
+
+
+  Azure が復旧サイトとして使用されている場合は、'recovery' に対応するエントリを作成する必要があります。 Azure は、クラウド サービスの作成時にパブリック IP をクラウド サービスに提供します。
+
+
+  5. 既定では、1 つのTraffic Manager TTL は 300 秒に構成されます。 30 秒以下に構成できます。 この TTL は、アプリケーションの RTO に寄与します。 この詳細については、次のセクションで説明します。
+
+
+  ASR を使用したセットアップのTraffic Managerを次に示します。 これにより、フェールオーバー前の状態が表示されます。 赤い矢印は DNS クエリを表し、点線の赤い矢印は返された DNS 応答のターゲットを表し、緑色の矢印はアプリケーション アクセスを表します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/02/BeforeFO.jpg"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="BeforeFO" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/BeforeFO_thumb.jpg" alt="BeforeFO" width="1028" height="588" border="0" /></a>
+
+
+  &nbsp;
+
+
+  次の図は、フェールオーバー後の状態を示しています。 赤い矢印は DNS クエリを表し、点線の赤い矢印は返された DNS 応答のターゲットを表し、緑色の矢印はアプリケーション アクセスを表します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/02/AfterFO.jpg"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="AfterFO" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AfterFO_thumb.jpg" alt="AfterFO" width="1028" height="588" border="0" /></a>
+
+  <h2>Time to Live (TTL)</h2>
+
+  Time to Live (TTL) は、DNS エントリがクライアントによってキャッシュされる値です。 特定のレコードの場合、TTL の範囲内で DNS のクエリが 2 回実行されません。
+
+
+  各 DNS レコードには TTL が関連付けられています。 この場合、3 つの DNS レコードが設定されています。
+
+  <ol>
+   <li>www.contoso.com - このレコードに関連付けられている TTL が TTL1 と見なします</li>
+   <li>contoso.trafficmanager.net – このレコードに関連付けられている TTL が TTL2 と仮定します</li>
+   <li>primary.contoso.com、recovery.contoso.com、azurerp.cloudapp.net – これらのレコードに関連付けられている TTL が TTL3 と仮定します。</li>
+  </ol>
+
+  最初のレコードは変更されません。 www.contoso.com は常にを指 contoso.trafficmanager.net。 そのため、高い値の TTL1 を使用しても問題はありません。 TTL2 は、トラフィック マネージャーがクライアントからクエリを実行する頻度を決定します。 3 つ目のポイントで<sup>説明</sup> されているレコードも、セットアップ後に変更される予定ではありません。 そのため、TTL3 にも大きな値を使用できます。
+
+
+  つまり、上記<sup>の 1 点</sup> 目<sup>と 3 点</sup> 目で説明したレコードは、TTL2 だけが変更されません。 アプリケーションの RTO は TTL2 にのみ依存します。
+
+
+  Traffic Manager更新には約 2 分かかります。 詳細については、監視に関するページAzure Traffic Managerできます。 これは、アプリケーションが復旧サイトにフェールオーバーされた後、アプリケーションがそれを見つけるのにTraffic Manager約 2 分かかることを意味します。TTL2 に を追加します。これは、クライアントがクエリを再度実行しないTraffic Managerします。 この場合、DNS の変更によるアプリケーションの RTO は 2 分 + TTL2 になります。 TTL2 を 30 秒として設定した場合、 <b>RTO は 2.5 分になります</b>。
+
+  <h2>アプリケーションを使用する利点Azure Traffic Manager</h2>
+
+  このブログTraffic Manager方法を設定すると、次の利点があります。
+
+
+  1. ほとんどの組織では、DNS レコードの追加または変更は、通常、別のチームまたは組織外のユーザーによって処理されます。 これにより、DNS レコード変更タスクは非常に困難になります。 DNS インフラストラクチャを管理するチームによって約束された SLA は、組織によって異なる可能性があります。また、アプリケーションの RTO に影響を与える可能性があります。 ほとんどの場合、これは、数分ではなく数時間で行うという約束の SLA です。
+
+
+  2. DNS に関して実行する必要があるすべての作業がフロントロードされます。 実際のフェールオーバーのときに、手動またはスクリプトによる操作は必要ありません。 これは 2 つの方法で役立ちます
+
+  <ul>
+   <li>このTraffic Manager、DNS の変更を行う必要があるという判断に多くの時間が費やされます。 これにより、アプリケーションの RTO が増加します。 このTraffic Manager、この手順は自動化されます</li>
+   <li>このTraffic Manager、DNS 更新のスクリプトまたは手動アクションが原因でエラーが発生する可能性が高いです。 このTraffic Manager、このリスクは削除されます。 Traffic Managerプロファイルで定義されているエンドポイントを引き続き監視し、フェールオーバーが完了したらトラフィックを新しいサイトに切り替えます。</li>
+   <li>このTraffic Manager、フェールバック ステップも自動化され、フェールバックを使用せずに個別に管理する必要があります。</li>
+  </ul>
+
+  上記の要因により、DNS の変更が 2.5 分まで少ないので、RTO への影響を軽減できます。
+
+  <h2>DNS リゾルバーの影響</h2>
+
+  DNS クエリが作成された場合、必ずしも権限を持つ DNS サーバーに上がるとは限らない。 レコードをキャッシュする間に、1 つ以上の DNS リゾルバーが含まれます。
+
+
+  クライアントと権限を持つ DNS サーバーの間の DNS リゾルバーの数により、クライアントによって発生する TTL は増加しますか?
+
+
+  答えはノーです。 DNS リゾルバーは TTL を "カウント ダウン" し、レコードがキャッシュされてからの経過時間を反映する TTL 値だけを渡します。
+
+
+  これを説明するために、クライアントと権限を持つ DNS の間に DNS リゾルバーがある例を使用します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/25/DNSResolver1.jpg"><img class="alignnone size-medium wp-image-257424" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DNSResolver1-636x117.jpg" alt="DNSResolver1" width="636" height="117" /></a>
+
+  <ul>
+   <li>特定のレコードの DNS が 300 秒の場合、T は DNSResolver1 クエリの権限を持つ DNS である場合、TTL は 300 秒として取得されます</li>
+   <li>時刻 = T + 100 クライアントが DNSResolver1 にクエリを実行すると、TTL は 300 – 100 = 200 秒として取得されます</li>
+  </ul>
+
+  チェーンにもう 1 つの DNS リゾルバーが追加された場合でも、同じロジックを拡張できます。
+
+
+  したがって、チェーン内の DNS リゾルバーの数は TTL に影響を与え "ない"。 レコードは、チェーン内の DNS リゾルバーの数に関係なく、TTL の後にクライアントで更新されます。
+
+  <h2>Azure Traffic Manager を使用したアプリケーションの監視</h2>
+
+  次に示すのは、Sharepoint と OWA の 2 つの特定のアプリケーションで Azure Traffic Manger を構成Exchange例です。 これは、ASR を使用したディザスター リカバリー用に設定している特定のアプリケーションによって異なる場合があります。
+
+  <h4>認証済みの Microsoft Sharepoint</h4>
+
+  現在、Traffic Managerエンドポイントを監視する機能は提供されません。 組織が SharePoint サーバーを設定している場合は、そのサーバーへのユーザー アクセスが認証される可能性があります。 Traffic Managerは、URL のクエリの結果として HTTP コード 200 を受け取る必要があります。 SharePoint URL で認証が必要な場合、HTTM コード 200 は返されます。 これを回避するには、SharePoint サーバーの Web フロントエンドをホストしているのと同じ IIS サーバー上に、別のポート (8080 など) にダミー Web サイトを設定します。 この Web サイトでは、認証は必要ではありません。 ポート 80 で実行されている SharePoint を監視する代わりに、ダミー Web サイトがホストされているポートに基づいて Traffic Manager プロファイルを適切に構成する必要があります
+
+  <h4></h4>
+
+  <h4>Microsoft Exchange OWA</h4>
+
+  Exchange サーバーに対して Outlook Web アクセス (OWA) を設定している場合は、通常、www.contoso.com/owa のような URL によってアクセスされます。 アクセスされた場合、この URL は 200 以外の HTTP コードを返します。 そのため、"/owa" url Traffic Manager監視するプロファイルを構成した場合は機能しません。 そのため、 を使用して '/' を監視Traffic Manager。
+
+
+  要約すると、このブログでは、Azure Site Recovery と組み合わせて Azure Traffic Manager を使用して、アプリケーションの目標復旧時間を大幅に短縮し、重要なアプリケーションのダウンタイムのために失われる可能性のある数百万ドルを節約する方法について説明しました。
+
+
+  さらに質問がある場合は、 <a href="https://aka.ms/atm_forum">MSDN</a> の Azure Site Recovery フォーラムにアクセスして、追加情報を確認し、他のお客様と連絡を取り合います。
+
+
+  また、追加<a href="https://aka.ms/atm_productinfo">の製品情報を確認</a>し、<a href="https://aka.ms/atm_trial">無料の Azure</a> 試用版にサインアップして、Microsoft Azureを使用Azure Site Recovery。
+
+  <h2>確認<b></b></h2>
+
+  このブログを完了する多大な支援を得て、Azure Traffic Manager Team の <a href="https://aka.ms/atm_jonatul">Jonathan Tjoni</a> に感謝します。

@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 40fbc3ff6676a26bd27188f1c48374bc09e0870f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904631"
+Slug: new-enhancements-for-azure-iot-edge-automatic-deployments
+Title: Azure IoT Edge 自動デプロイの新しい機能強化
+Summary: 新しいMicrosoft Azure IoT Edgeリリース以降、多くのお客様は、IoT Edgeを使用して大規模なエッジにワークロードをデプロイしています。
+Content: >-
+  <p>新<a href="https://azure.microsoft.com/en-us/blog/azure-iot-edge-generally-available-for-enterprise-grade-scaled-deployments/" target="_blank">しいMicrosoft Azure IoT Edge</a>リリース以降、多くのお客様は、IoT Edgeを<a href="https://docs.microsoft.com/en-us/azure/iot-edge/module-deployment-monitoring" target="_blank"></a>使用してワークロードを大規模にエッジにデプロイしています。 IoT Edge自動デプロイでは、関連する Azure IoT Edge デバイスにモジュールをデプロイする多くの作業が処理され、オペレーターは状態を監視して問題に迅速に対処できます。 お客様は利点を気に入り、より高い柔軟性とシームレスなエクスペリエンスを通じて自動デプロイを改善する方法に関するフィードバックを提供しています。 現在、このフィードバックの直接的な結果である自動デプロイIoT Edge一連の機能強化を共有しています。 これらの機能強化には、レイヤード デプロイ、Azure portal からのマーケットプレース モジュールのデプロイ、その他の UI 更新プログラム、自動デバイス構成のモジュール サポートが含まれます。</p>
+
+
+  <h2>レイヤー化されたデプロイ</h2>
+
+
+  <p>レイヤー型デプロイは、開発者とオペレーター IoT Edgeモジュールのサブセットを個別にデプロイできる新しい種類の自動デプロイです。 これにより、デバイス フリート全体に存在する可能性があるモジュールのすべての組み合わせに対して自動デプロイを作成する必要が回避されます。 Microsoft Azure IoT Hub適用できるすべてのレイヤー化されたデプロイを評価して、特定のデバイスのモジュールの最終的なセットをIoT Edgeします。 多層デプロイには、自動デプロイと同じ基本コンポーネントが含まれています。 デバイス ツインのタグに基づいてデバイスをターゲットにし、ラベル、メトリック、状態レポートに関する同じ機能を提供します。 多層デプロイにも優先順位が割り当てられますが、優先順位を使用してどのデプロイをデバイスに適用するかを決定するのではなく、優先順位によって、1 つのデバイスに対する複数のデプロイのランク付けが決定されます。 たとえば、2 つの多層デプロイに同じ名前のモジュールまたはルートがある場合、優先順位の高い多層デプロイが適用され、優先順位の低いものは上書きされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ed95e6e3-ad8d-4fee-8549-c8fdbadb02a1.png"><img alt="Modules in a deployment" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/94b8b3db-1779-446a-ac0b-7a65d828d6df.png" title="デプロイ内のモジュール"></a></p>
+
+
+  <p>この最初の図は、すべてのモジュールを各通常のデプロイに含める必要がある方法を示しています。各ターゲット グループに対して個別のデプロイが必要です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a58d3d42-b6a2-4159-aeac-513bb7c868db.png"><img alt="Layered deployments" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc3fb1d8-dfd3-4411-8723-7e5c55e50992.png" title="レイヤー化されたデプロイ"></a></p>
+
+
+  <p>この 2 番目の図は、デプロイの階層化により、モジュールを各ターゲット グループに個別にデプロイし、デプロイの総数を削減する方法を示しています。</p>
+
+
+  <h2>自動デプロイの UI IoT Edge変更</h2>
+
+
+  <p>アプリの自動デプロイ UI IoT Edgeを通じて更新Azure portal。 たとえば、デプロイの作成エクスペリエンス内から直接<a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/category/internet-of-things?page=1&amp;subcategories=iot-edge-modules" target="_blank">、Microsoft Azure Marketplace</a> からモジュールを選択できます。 このAzure Marketplace、Microsoft Azure IoTによって構築された Edge モジュールの多くを備えています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee730d22-b50f-4838-a1c1-dbe6c76f1a5a.jpg"><img alt="A screenshot of the IoT Edge Module Marketplace" border="0" height="1271" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e99945da-00c9-433d-ae72-72a890af6434.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="IoT Edge Module Marketplace のスクリーンショット" width="1898"></a></p>
+
+
+  <h2>モジュール ツインの自動構成</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-automatic-device-management" target="_blank"></a> Azure IoT Hub の自動デバイス管理では、自動デバイス構成を使用してデバイス ツインのプロパティの状態を更新および報告することで、大規模なデバイス フリートを管理する反復的で複雑なタスクの多くが自動化されます。 多くのお客様から、モジュール ツインを構成するための同等の機能が必要であり、この機能が利用可能になれたことをお聞かされました。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+      <li><a href="https://aka.ms/admlayereddeployments" target="_blank">Azure IoT Edge のレイヤー化されたデプロイについて説明します</a></li>
+      <li>モジュール ツイン <a href="https://aka.ms/admmoduletwins" target="_blank">の自動デバイス管理サポートについて説明します</a></li>
+  </ul>

@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 432e271582b410eff02434127a15601d9426bf13
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904663"
+Slug: microsoft-mpi-v6-release
+Title: Microsoft MPI v6 リリース
+Summary: 最近、Microsoft MPI の最新バージョンのリリースを発表しました。 Microsoft ダウンロード センターに移動して、MS-MPI v6 のコピーを今すぐダウンロードしてください。
+Content: >-
+  Microsoft MPI (MS-MPI) の最新バージョンのリリースをお知らせします。 MS-MPI v6 は、Microsoft MPI v5 再頒布可能パッケージ (2014 年 11 月にリリース) の後継です。 MS-MPI v6 のコピーは、Microsoft ダウンロード センターからこちらからダウンロード <a href="https://www.microsoft.com/en-us/download/details.aspx?id=47259">できます</a>。
+
+
+  MS-MPI v6 には、次の機能、機能強化、修正が含まれています。
+
+  <h2>ブロックされていない集合操作</h2>
+
+  このリリースでは、非同期の集合に対する初期サポートが追加され、<b>MPI_Ibcast、MPI_Ireduce</b><b>、MPI_Igather</b><b>、MPI_Ibarrier</b><b>。</b> これらの API の詳細については、MPI 3.0 標準のドキュメントを参照 <a href="https://www.mpi-forum.org/docs/mpi-3.0/mpi30-report.pdf">してください</a>。
+
+  <h2>マルチジョブ アフィニティのサポート</h2>
+
+  マルチジョブ アフィニティのサポートは、複数のアフィニティ化された MPI ジョブが、実行されているコアを重複させずに 1 台のコンピューターに同時に存在するように設計されています。 mpi ランタイムは、コアに固定されている既存のジョブが検出され、現在使用されていないコアで後続のジョブを起動します。
+
+
+  この機能は、mpiexec、 <b>-affinity_auto</b> 、– <b>aa</b> の新しいオプションとして公開され、Microsoft HPC Pack などのジョブ スケジューラとスタンドアロン SDK モードの両方で動作するように設計されています。
+
+
+  たとえば、1 つの 16 コア マシンで 2 つの 8 コア ジョブを実行するには、次のコマンド ラインを使用できます。
+
+  <blockquote><em>mpiexec –cores 8 –affinity_auto –affinity_layout シーケンシャル myapp.exe</em></blockquote>
+
+  または、より簡潔に
+
+  <blockquote><em>mpiexec –c 8 –aa –al seq myapp.exe</em></blockquote>
+
+  <h2>マルチスレッド アプリケーションのサポート</h2>
+
+  このバージョンの MS-MPI では、マルチスレッド アプリケーションを呼び出す際に MPI_THREAD_MULTIPLE を使用MPI_Init_thread <b> </b>。 これは、OMP または他のスレッド モデルを使用するハイブリッド アプリケーションが、MPI ランタイムをより簡単に活用するように設計されています。
+
+
+  この機能でサポートされている最小サーバーはWindows Server 2012。この機能でサポートされている最小クライアントはWindows 8。
+
+  <h2>MPI 3.0 標準の新機能</h2>
+
+  このリリースでは、MPI 3.0 標準の多くの機能も追加されています。 詳細については、MPI 標準のドキュメントを参照 <a href="https://www.mpi-forum.org/docs/mpi-3.0/mpi30-report.pdf">してください。</a>
+
+  <ul>
+      <li>MPI_Mprobe、MPI_Mrecv、MPI_Improbe、およびMPI_Imrecv</li>
+      <li>大きなMPI_COUNT型を複数の構造体で適切に表現MPI_STATUSサポート。</li>
+      <li>サービスのMPI_Type_create_hindexed_block</li>
+      <li>、MPI_Dist_graph_create、MPI_Dist_graph_create_adjacent、MPI_Dist_graph_neighboursのサポートMPI_Dist_graph_neighbours_count</li>
+  </ul>
+
+  &nbsp;
+
+  <blockquote><b>メモ：</b> MS-MPI (ヘッダーとライブラリ) 用の SDK コンポーネントは、再頒布可能パッケージのバイナリ ファイルとは別に出荷されます。</blockquote>
+
+  MS-MPI の詳細については、MSDN の <a href="https://go.microsoft.com/fwlink/?LinkId=510089">Microsoft MPI </a>に関するページ、または詳細な質問、または今後の機能要求については、メールをお送りください <a href="mailto:askmpi@microsoft.com">askmpi@microsoft.com</a>
+
+
+  また、HPC MPI フォーラムの「Windows」で、役に立つ情報を見つけたり、<a href="https://social.microsoft.com/Forums/en-US/home?forum=windowshpcmpi">独自の質問をすることができます</a>。

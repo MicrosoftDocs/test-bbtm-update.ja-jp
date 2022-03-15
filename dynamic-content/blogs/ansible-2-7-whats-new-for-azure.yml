@@ -1,0 +1,106 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 653ef9ae025b9ca625fe72a1a67892c5d3687908
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905061"
+Slug: ansible-2-7-whats-new-for-azure
+Title: '2.7: Azure の新機能'
+Summary: 2.7 年 10 2018 月4日にリリースされます。 ここでは、Azure の予定されているものを2.7 に公開します。 合計で、21個の新しい Azure モジュールが追加されました。 2.7 では、以下の Azure リソースのデプロイと構成をネイティブに自動化することができるようになりました。
+Content: >-
+  <p>2.7 年 10 2018 月4日にリリースされます。 ここでは、Azure の予定されているものを2.7 に公開します。 合計で、21個の新しい Azure モジュールが追加されました。 2.7 では、以下の Azure リソースのデプロイと構成をネイティブに自動化することができるようになりました。</p>
+
+
+  <p><strong>Azure Web Apps:</strong> Web アプリケーション、REST Api、モバイルバックエンドをホストする Azure Web Apps を作成して構成します。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_appserviceplan_module.html" target="_blank">azure_rm_appserviceplan</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_appserviceplan_facts_module.html" target="_blank">azure_rm_appserviceplan_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_webapp_module.html" target="_blank">azure_rm_webapp</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_webapp_facts_module.html" target="_blank">azure_rm_webapp_facts</a></li>
+  </ul>
+
+
+  <p><strong>Azure Traffic Manager:</strong> Azure Traffic Manager を作成および構成して、グローバルな Azure リージョンのサービスにトラフィックを最適な方法で分散させることができます。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_trafficmanagerendpoint_module.html" target="_blank">azure_rm_trafficmanagerendpoint</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_trafficmanagerendpoint_facts_module.html" target="_blank">azure_rm_trafficmanagerendpoint_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_trafficmanagerprofile_module.html" target="_blank">azure_rm_trafficmanagerprofile</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_trafficmanagerprofile_facts_module.html" target="_blank">azure_rm_trafficmanagerprofile_facts</a></li>
+  </ul>
+
+
+  <p><strong>Azure データベース:</strong>/MySQL/PostgreSQL を使用して、Azure Database for SQL サーバーを作成し、構成します。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_mysqldatabase_facts_module.html" target="_blank">azure_rm_mysqldatabase_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_mysqlserver_facts_module.html" target="_blank">azure_rm_mysqlserver_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_postgresqldatabase_facts_module.html" target="_blank">azure_rm_postgresqldatabase_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_postgresqlserver_facts_module.html" target="_blank">azure_rm_postgresqlserver_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_sqlfirewallrule_module.html" target="_blank">azure_rm_sqlfirewallrule</a></li>
+  </ul>
+
+
+  <p><strong>Azure ルート:</strong> 独自のルートを作成および構成して、Azure&#39;s の既定のルーティングを上書きします。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_routetable_module.html" target="_blank">azure_rm_routetable</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_routetable_facts_module.html" target="_blank">azure_rm_routetable_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_route_module.html" target="_blank">azure_rm_route</a></li>
+  </ul>
+
+
+  <p><strong>Azure アプリケーションゲートウェイ:</strong> Azure アプリケーションゲートウェイを作成して構成し、を使用して web トラフィックを管理します。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_appgateway_module.html" target="_blank">azure_rm_appgateway</a></li>
+  </ul>
+
+
+  <p><strong>Azure の自動スケール:</strong> Azure 自動スケールを作成して構成することで、アプリケーションが必要に応じて、を使用して変更を行う際に最適なパフォーマンスを実現します。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_autoscale_module.html" target="_blank">azure_rm_autoscale</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_autoscale_facts_module.html" target="_blank">azure_rm_autoscale_facts</a></li>
+  </ul>
+
+
+  <p><strong>VM と ACR 用の追加のファクトモジュール:</strong> 仮想マシンまたは Azure container registry に関する情報を取得して、さらに構成するには、「」を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_virtualmachine_facts_module.html" target="_blank">azure_rm_virtualmachine_facts</a></li>
+   <li><a href="https://docs.ansible.com/ansible/devel/modules/azure_rm_containerregistry_facts_module.html" target="_blank">azure_rm_containerregistry_facts</a></li>
+  </ul>
+
+
+  <h2>Jenkins とを使用した Azure Web Apps の自動化</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/app-service/app-service-web-overview" target="_blank">Azure App Service Web Apps</a> (または Web Apps のみ) は、Web アプリケーション、REST api、およびモバイルバックエンドをホストするためのサービスです。 2.7 と Jenkins が提供されているため、Azure Web Apps のシームレスな CI/CD エクスペリエンスをご利用いただけます。 次のワークフローでは、Jenkins を使用して構築とデプロイを行い、プロビジョニングを処理するためにを呼び出します。 詳細とチュートリアルについては、「Jenkins を使用した <a href="https://open.microsoft.com/2018/09/24/tutorial-devops-on-azure-using-jenkins-and-ansible/" target="_blank">Azure でのインフラストラクチャとデプロイの自動化</a>」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7279a0c1-5954-48c1-a546-16c91483059d.jpg"><img alt="pic2" border="0" height="456" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4dad8f0-a7df-4a8f-a83a-4dfffa8a0f74.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="pic2" width="1348"></a></p>
+
+
+  <h2>Azure application gateway を使用して web トラフィックを管理する</h2>
+
+
+  <p>2.7 では、web アプリケーションへのトラフィックを管理できる web トラフィックロードバランサーである <a href="https://docs.microsoft.com/azure/application-gateway/" target="_blank">Azure アプリケーションゲートウェイ</a>を作成できます。 次のワークフローでは、2つの azure container instances を使用するバックエンドプールの web トラフィックを管理するように Azure アプリケーションゲートウェイが設定されています。 詳細とチュートリアルについては、「 <a href="https://docs.microsoft.com/en-us/azure/ansible/ansible-create-configure-application-gateway" target="_blank">Azure アプリケーションゲートウェイを使用した web トラフィックの管理</a>」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc443aa2-7361-44a0-9876-6d02797fa332.jpg"><img alt="pic1" border="0" height="600" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0419c25a-e90b-4108-8086-de471ff89708.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="pic1" width="1278"></a></p>
+
+
+  <p>私 &rsquo; は、Azure での再利用のために行っている進行状況 &rsquo; について興奮しています。 <a href="https://docs.microsoft.com/azure/ansible/" target="_blank">詳細については、Azure developer hub</a>の「」を参照してください。</p>
+
+
+  <p>今後の <a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a> 2018 では、2つのセッションを提供し、Azure との統合を実現し &nbsp; ます。 Azure へようこそ。 Azure に参加している場合は、こちらからご意見をお寄せください。または、デモをご覧になるか、クラウドでの automation 要件についてご意見をお寄せください。</p>

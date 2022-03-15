@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ad8744aa44493ec53d58c7e4c0d98d8758d6665d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904838"
+Slug: data-management-gateway-2-0-release-cassandra-salesforces
+Title: Apache Cassandra、Salesforce、および Data Management Gateway 2.0 リリースからのデータの取り込み
+Summary: 私たちは、Azure Data Factory の幅広い接続性の向上に継続的に取り組んでおり、現在、Apache Cassandra と Salesforce の2つの新しいコネクタの可用性を発表しています。
+Content: >-
+  <h2>利用可能な新しいコネクタ: Apache Cassandra と Salesforce</h2>
+
+
+  <p>私たちは、 <strong>Azure Data Factory</strong>の幅広い接続性の向上に継続的に取り組んでおり、現在、 <strong>Apache</strong> <strong>Cassandra と Salesforce</strong>の2つの新しいコネクタの可用性を発表しています。 このリリースでは、Azure Data Factory を利用して、これら2つのデータストアからさまざまなデータストアにデータを取り込むことができます。 「Azure Data Factory のすべてのデータソースと変換先の一覧: <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-data-movement-activities/#supported-data-stores">サポートされているデータストア</a>」を参照してください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/simple-and-reliable-data-movement-with-azure-data-factory-copy-wizard/">直感的なコピーウィザード</a>を利用して、Apache Cassandra と Salesforce からのデータ移動を数分でセットアップできるようになりました。</p>
+
+
+  <p><img alt="image" border="0" height="307" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4365930-15ad-4736-8761-b12a3a345343.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="610"></p>
+
+
+  <p>2つのコネクタの詳細については、「 <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-onprem-cassandra-connector/">Cassandra</a> and <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-salesforce-connector/">Salesforce</a>」を参照してください。</p>
+
+
+  <h2>Data Management Gateway 2.0 リリース</h2>
+
+
+  <p>Data Management Gateway は、オンプレミスでインストールされたエージェントで、クラウドとオンプレミス環境間のハイブリッドデータ転送を可能にします。 Data Management Gateway 2.0 リリースが発表されるようになりました。 このリリースでは、新しいコネクタに加えて、次の方法でゲートウェイのトラブルシューティングエクスペリエンスが向上しました。</p>
+
+
+  <h3>状態を目立つ場所に表示する</h3>
+
+
+  <p>構成マネージャーのホームページでは、Data Management Gateway の状態がわかりやすい場所に表示されるようになりました。ゲートウェイをオンラインに戻すために実行できる操作について、直感的な提案が提供されます。</p>
+
+
+  <p>次のスクリーンショットに示すように、ゲートウェイホストサービスが停止し、状態のすぐ下にある [サービス &rdquo; の開始] リンクをクリックし &ldquo; て、ホストサービスを開始することができます。</p>
+
+
+  <p><img alt="image" border="0" height="330" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d6fe6de-0954-448d-bb60-3ddcec2e961c.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480"></p>
+
+
+  <h3>ゲートウェイ ログを Microsoft に送信する</h3>
+
+
+  <p>ゲートウェイの問題が発生し、Microsoft サポートに連絡する必要がある場合は、ゲートウェイのログを共有するように求められることがあります。 ゲートウェイのリリースにより、ゲートウェイ構成マネージャーで2つのボタンをクリックするだけで、必要なゲートウェイログを簡単に共有できます。 この機能の機能は次のとおりです。</p>
+
+
+  <ul>
+   <li>必要に応じて過去7日間のゲートウェイログを Microsoft に送信する</li>
+  </ul>
+
+
+  <p><img alt="image" border="0" height="296" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/04f3f9e0-78ed-425c-ad98-e828682d9d27.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480"></p>
+
+
+  <ul>
+   <li>問い合わせ時にログをすばやく検索するには、レポート ID を指定し Microsoft サポート</li>
+  </ul>
+
+
+  <p><img alt="image" border="0" height="295" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b3830be1-533b-4e85-8a5a-56c0ae512917.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480"></p>
+
+
+  <h3>ゲートウェイ ホスト コンピューターでゲートウェイ ログをアーカイブする</h3>
+
+
+  <p>ゲートウェイに問題が発生し、ゲートウェイ ログを直接共有できない場合として、次のようないくつかのシナリオがあります。</p>
+
+
+  <ul>
+   <li>ユーザーが手動でゲートウェイをインストールし、ゲートウェイを登録するとき</li>
+   <li>Configuration manager でユーザーが再生成されたキーを使用してゲートウェイを登録しようとすると</li>
+   <li>ユーザーがログを送信しようとしても、ゲートウェイホストサービスに接続できない</li>
+  </ul>
+
+
+  <p>このような場合は、ゲートウェイ ログを zip ファイルとして保存し、後で Microsoft サポートに連絡するときにそれを共有できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-data-management-gateway/#troubleshoot-gateway-issues">詳細情報</a> &nbsp;の機能と関連するガイダンスの使用方法について説明します。 これらの新しいトラブルシューティング機能を入手するには、 <a href="https://www.microsoft.com/en-us/download/details.aspx?id=39717">最新のゲートウェイ</a> をダウンロードしてインストールします (まだインストールしていない場合)。</p>
+
+
+  <p>オンプレミスのデータソースと Azure Data Factory の統合を強化するために、コネクタをさらに追加して Data Management Gateway を強化します。 上記の機能についてフィードバックがある場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory">Azure Data Factory ユーザーの声</a> または <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=AzureDataFactory">MSDN フォーラム</a> にアクセスして、お客様のご意見をお寄せください。 お客様からのご意見をお待ちしております。</p>

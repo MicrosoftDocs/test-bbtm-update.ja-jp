@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6f2f40523fabd23027505233a97e3b9b51c63370
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910757"
+Slug: identify-your-move-groups-and-target-sizes-for-migration-with-azure-migrate
+Title: 移行の移動グループとターゲット サイズを特定するには、次の手順Azure Migrate
+Summary: 計画は、すべての移行作業で重要であり、Azure Migrate Azure へのデータセンターの移行を計画するのに役立ちます。 これは、オンプレミス環境の検出、移動グループの作成、Azure への移行のための移動グループの評価に役立ちます。
+Content: >-
+  <p>計画は、すべての移行作業で重要であり、Azure Migrate Azure へのデータセンターの移行を計画するのに役立ちます。 これは、オンプレミス環境の検出、移動グループの作成、Azure への移行のための移動グループの評価に役立ちます。</p>
+
+
+  <p><strong>移行における移動グループの評価は、どのように役立ちますか?</strong></p>
+
+
+  <p>移動グループを評価すると、次を識別するのに役立ちます。</p>
+
+
+  <ol>
+      <li>Azure 対応性: オンプレミスの VM を Azure で実行する準備ができているかどうか。</li>
+      <li>Azure のサイズ設定: Azure の VM に適切な VM サイズまたはディスクの種類は何ですか?</li>
+      <li>Azure のコスト見積もり: Azure で VM を実行する場合のコストは何ですか?</li>
+  </ol>
+
+
+  <p><strong>VM が Azure Azure Migrateを評価する方法</strong></p>
+
+
+  <p>Azure Migrate各 VM の構成の詳細を分析して、構成が Azure でサポートされている場合に識別します。 たとえば、VM のオペレーティング システムを分析して、OS が Azure でサポートされるのを特定します。 同様に、VM に接続されている各コアの数、メモリ サイズ、ディスク サイズなど、プロパティを分析して、必要な構成が Azure でサポートされる場合を特定します。 分析に基づいて、VM は準備完了、条件付き準備完了、および準備完了のカテゴリに分類されます。 条件付き準備完了または準備完了のカテゴリに含む VM の場合、Azure Migrate では、対応性の問題を修正する方法に関する修復ガイダンスが提供されます。</p>
+
+
+  <p><strong>サイズ設定Azure Migrate実行する方法</strong></p>
+
+
+  <p>Azure Migrateオンプレミスの VM とディスクのパフォーマンス データを確認することで、Azure のインテリジェントな権利化を行うのに役立ちます。 各 VM の CPU とメモリの使用率データを確認し、必要に応じて Azure の VM サイズを推奨します。 同様に、各ディスクのディスク使用率データを確認し、Azure でディスクの種類を推奨します。 パフォーマンスベースのサイズ設定は、Azure で VM を過剰に割り当てずにコストを節約するのに役立ちます。</p>
+
+
+  <p><strong>パフォーマンス データ収集のために vCenter 統計レベルを変更する必要がありますか?</strong></p>
+
+
+  <p>これはもう&rsquo;必要ありません。 Azure Migrate の継続的検出オプションを使用すると、オンプレミス環境をプロファイルして、VM とディスクのリアルタイム使用率データを収集できます。 以前Azure Migrate、vCenter Server の統計設定をレベル 3 に設定し、検出を開始する前に少なくとも 1 日待つ必要があります。 継続的検出モデルは、統計の設定に依存vCenter Server、統計の設定を変更する必要vCenter Server。 さらに、リアルタイムの使用率データを収集するために、vCenter Server からの平均カウンターの収集による Azure の VM のサイズが低くなるリスクはなくなりました。 詳細については、「継続的検出 <a href="https://docs.microsoft.com/en-us/azure/migrate/concepts-collector">」を参照Azure Migrate</a>。</p>
+
+
+  <p><strong>操作方法評価用の移動グループを作成しますか?</strong></p>
+
+
+  <p>Azure Migrateオンプレミス VM の依存関係を視覚化し、依存関係に基づいて移動グループを作成するのに役立ちます。 オンプレミス環境にレガシ アプリケーションを使用し、Azure に一緒に移動する必要がある VM のセットを特定するのに苦労している場合は、依存関係の視覚化機能が最適です。 依存関係を視覚化するために、Azure Migrateは Azure Service Map ソリューションを利用し、オンプレミスの VM との間で行きくネットワーク接続を表示します。 依存関係マップは、互いに関連する VM を識別するのに役立ちます。 関連する VM を特定したら、自分で十分な VM のグループを作成し、Azure に移行するときに何も残す必要が生じません。</p>
+
+
+  <p><strong>既に Service Map を使用し、オンプレミスのエージェントを Log Analytics ワークスペースに構成しています。既存のワークスペースを Azure Migrate? </strong></p>
+
+
+  <p>新しい Log Analytics ワークスペースの作成に加えて、Azure Migrate では既存のワークスペースを移行プロジェクトにアタッチできます。 そのため、既存の Log Analytics ワークスペースがある場合は、依存関係の視覚化を利用するために、同Azure Migrateにアタッチできます。 オンプレミスの VM に MMA と依存関係エージェントを既にインストールし、ワークスペースと通信するように構成している場合は、ワークスペースを Azure Migrate プロジェクトにアタッチすると、依存関係が Azure Migrate に表示され始めるので、他の操作を行う必要はありません。</p>
+
+
+  <p><strong>既存のワークスペースを使用する場合、依存関係の視覚化に対して何か支払う必要がありますか?</strong></p>
+
+
+  <p>既存のワークスペースを使用している場合でも、Azure Migrate では、ワークスペースをプロジェクトに関連付け始めてから最初の 180 日間、依存関係の視覚化機能が無料になります。 ただし、ワークスペース内の他のソリューションを使用している場合は、Service Map Log Analytics の標準料金が適用されます。 <a href="https://azure.microsoft.com/pricing/details/azure-migrate/" target="_blank">Azure Migrate の価格</a>について、詳しくはこちらを参照してください。</p>
+
+
+  <p><strong>これはすごいです！しかし、オンプレミス環境から検出されたデータはどこに格納されますか?</strong></p>
+
+
+  <p>Azure Migrateオンプレミス VM に関するメタデータのみを収集し、検出されたメタデータが格納される Azure 地域を選択できます。 選択した地域に基づいてAzure Migrate検出されたメタデータが、その地域の Azure リージョンの 1 つに格納されます。 Azure Migrateでは、メタデータ ストレージ米国 Azure geography としてのみサポートされます。 Azure Government のサポートは 2018 年 10 月に予定され、2018 年 12 月にはヨーロッパとアジアが続き、他の Azure 地域のサポートは今後有効になる予定です。 メタデータは現在 米国 に格納される予定ですが、評価プロパティで適切な Azure リージョンを指定することで、任意の Azure リージョンへの移行を計画できます。</p>
+
+
+  <p>新しい機能強化により、Azure Migrateオンプレミスの VM を Azure に簡単に取り込むのが可能になります。 そのため、まだ行っていない場合&rsquo;は、次 <a href="https://azure.microsoft.com/en-us/services/azure-migrate/" target="_blank">のAzure Migrate</a> 。</p>
+
+
+  <p>クラウド移行 <a href="https://azure.microsoft.com/en-us/migration/" target="_blank">のAzure Migration Center</a> を適用する方法については、Azure Migrateに関するページを参照してください。</p>

@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3a7486c00bba0d5a699e9a22e2d5da6fec5f77a6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910387"
+Slug: rules-engine-for-azure-front-door-and-azure-cdn-is-now-generally-available
+Title: Azure のフロントドアと Azure CDN のルールエンジンが一般公開されました
+Summary: '現在、azure フロントドアと azure Content Delivery Network (CDN) の両方でルールエンジン機能の一般提供が発表されています。 '
+Content: >-
+  <p>現在、azure フロントドアと azure Content Delivery Network (CDN) の両方でルールエンジン機能の一般提供が発表されています。 ルールエンジンは、お客様の特定のルーティングニーズを Azure &rsquo; のグローバルアプリケーション配信サービスに配置します。これにより、どこからどのようなコンテンツを提供するかを定義し、適用する方法をより細かく制御できます。 どちらのサービスも、Azure &rsquo; の最高クラスのネットワークを使用して迅速かつ安全にコンテンツを配信する機能をお客様に提供します。 プレビュー期間中のお客様からのご意見をお待ちしており、最新の更新プログラムを一般にご利用いただけます。</p>
+
+
+  <h2>ルールエンジンのしくみ</h2>
+
+
+  <p>Microsoft は、Azure Front ドアルールエンジンのアーキテクチャと設計をどのように構築し、進化させているか <a href="https://azure.microsoft.com/en-us/blog/announcing-azure-front-door-rules-engine-in-preview/">について最近</a> 説明したものです。 Content Delivery Network のルールエンジンの実装は、同様の設計に従います。 ただし、ルールエンジンの構成でルールのグループを作成するのではなく、すべてのルールが作成され、各 Content Delivery Network エンドポイントに適用されます。 また、Content Delivery Network ルールエンジンは、常にアクションをトリガーするエンドポイントごとに既定のルールとして機能するグローバルルールの概念を活用しています。</p>
+
+
+  <h2>一般提供の機能</h2>
+
+
+  <p><b>Azure Front Door</b></p>
+
+
+  <p>Azure フロントドアルールエンジンのプレビュー中に聞いた最も重要なフィードバックは、高いルール制限の必要性でした。 現在のところ、構成あたり最大25個のルールを作成できます。合計10個の構成で、Azure のフロントドア全体に合計250のルールを作成することができます。 Azure Front ドアルールエンジンには追加料金は発生しません。</p>
+
+
+  <p><strong>Azure Content Delivery Network&nbsp;</strong></p>
+
+
+  <p>同様に、Azure Content Delivery Network の制限も更新されています。 プレビューを通じて、ユーザーは、各 CDN エンドポイントのグローバルルールを含む5つの合計ルールにアクセスできました。 一般公開の一環として、最初の5つのルールは引き続き無料で提供され、ユーザーは追加のルールを購入して CDN の動作をさらにカスタマイズできるようになりました。 &rsquo;また、各ルール内の一致条件とアクションの数を10個の一致条件と5つのアクションに増やしています。</p>
+
+
+  <h2>ルールエンジンのシナリオ</h2>
+
+
+  <p>ルールエンジンは、セキュリティとコンテンツ配信ロジックをエッジで合理化します。これらのサービスの現在と新規の両方の顧客の恩恵を受けられます。 一致条件とアクションの組み合わせによって、どのユーザーがどのコンテンツを取得できるかをきめ細かく制御でき、ルールエンジンで無限に実行できるシナリオを実現できます。</p>
+
+
+  <p>たとえば、 &rsquo; レガシアプリケーションの移行 &rsquo; に対処するための理想的なソリューションです。古いアプリケーションにアクセスするユーザーについて心配する必要はありません。また、新しいアプリでコンテンツを検索する方法がわからない場合もあります。 同様に、geo マッチとデバイス識別機能によって、ユーザーは自分の場所とデバイスが使用している最適なコンテンツを常に確認できます。 ルールエンジンを使用してセキュリティヘッダーと cookie を実装することで、ユーザーがサイトを操作する方法に関係なく、セキュリティで保護された接続を経由してアクセスするため、ブラウザーベースの脆弱性によってサイトに影響が及ぶのを防ぐことができます。</p>
+
+
+  <p>ルールエンジンによって強化されるその他のシナリオを次に示します。</p>
+
+
+  <ul>
+      <li>HTTPS を適用することで、すべてのエンドユーザーが安全な接続でコンテンツを利用するようにします。</li>
+      <li>HTTP Strict-Transport-Security (HSTS)、X-XSS-Protection、Content-Security-Policy、X-Frame-Options のようなブラウザーベースの脆弱性を防ぐためのセキュリティ ヘッダーに加え、クロスオリジン リソース共有 (CORS) シナリオのための Access-Control-Allow-Origin ヘッダーを実装します。 セキュリティベースの属性は、Cookie でも定義できます。</li>
+      <li>要求ヘッダー、Cookie、またはクエリ文字列からなるコンテンツのパターンに基づき、モバイル版またはデスクトップ版のアプリケーションに要求を送信します。</li>
+      <li>リダイレクト機能を使用して 301、302、307、308 リダイレクトをクライアントに返し、新しいホスト名、パス、またはプロトコルにリダイレクトします。</li>
+      <li>受信要求に基づき、ルートのキャッシュ構成を動的に変更します。</li>
+      <li>要求 URL パスを書き換え、構成されているバックエンド プールの適切なバックエンドに要求を転送します。</li>
+      <li>メディア配信を最適化して、ファイルの種類またはコンテンツパス<em></em>に基づいてキャッシュの構成を調整します (Azure Content Delivery Network のみ)。</li>
+  </ul>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure のフロントドアと Content Delivery Network ルールエンジンを使用して、より多くのお客様と連携することができます。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/frontdoor/front-door-rules-engine" target="_blank">azure Front ドアルールエンジン</a>と<a href="https://docs.microsoft.com/en-us/azure/cdn/" target="_blank">azure Content Delivery Network ルールエンジン</a>に関するドキュメントを参照してください。</p>

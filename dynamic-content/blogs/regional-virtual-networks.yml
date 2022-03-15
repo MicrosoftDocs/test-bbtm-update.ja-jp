@@ -1,0 +1,230 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c34ab1a1d2255e8fe497235295b61a12e2607727
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904424"
+Slug: regional-virtual-networks
+Title: リージョンの仮想ネットワーク
+Summary: >-
+  概要
+
+
+  リージョン全体にまたがる仮想ネットワーク (VNet) を作成できるようになりました。 新しい仮想ネットワークを作成しているときに、...
+Content: >-
+  <b><span style="text-decoration: underline;">概要</span></b>
+
+
+  リージョン全体にまたがる仮想ネットワーク (VNet) を作成できるようになりました。 新しい仮想ネットワークを作成するときに、アフィニティグループではなく、そのリージョンを参照できます。 リージョン Virtual Network にデプロイされた新しいサービスは、リージョンで利用可能なすべてのサービス/サービス (A8/A9 サイズ、内部負荷分散、予約済み Ip、インスタンスレベルパブリック Ip など) を使用できます。
+
+
+  この発表の前に、Vnet がスケールユニットにバインドされました。これは、より正確なアフィニティグループです。 アフィニティグループは、データセンターのセクションまたは特定の数のサーバーを参照するグループ化の概念です。 VNet はアフィニティグループにバインドされているため、サーバーのセットに間接的にバインドされているため、このスケールユニットの外部のサーバーにデプロイを配置することはできませんでした。
+
+
+  <a name="_GoBack"></a>
+
+
+  <b>前:</b>
+
+
+  <b><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/NarrowVnetpic.jpg"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="NarrowVnetpic" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/NarrowVnetpic_thumb.jpg" alt="NarrowVnetpic" width="644" height="412" border="0" /></a></b>
+
+
+  ただし、リージョンの仮想ネットワークでは、これらの制限は削除されます。これは、Virtual Network のスコープがアフィニティグループだけでなく、リージョン全体であるためです。
+
+
+  <b>今：</b>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/WideVNetpic.jpg"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="WideVNetpic" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WideVNetpic_thumb.jpg" alt="WideVNetpic" width="644" height="410" border="0" /></a>
+
+
+  <b><span style="text-decoration: underline;">主要なシナリオ</span></b>
+
+
+  リージョンの仮想ネットワークによって実現される主なシナリオを次に示します。
+
+  <ul>
+   <li>A8 や A9 のような新しい VM のサイズは、他のサイズも含むことができる仮想ネットワークにデプロイできます。</li>
+   <li>予約済み Ip、内部負荷分散、インスタンスレベルパブリック Ip などの新機能</li>
+   <li>Virtual Network は、リージョン全体の容量を使用するためにシームレスにスケーリングできますが、VNet 内の仮想マシンの最大数は2048に制限されます。</li>
+   <li>仮想ネットワークを作成する前に、アフィニティグループを作成する必要はありません。</li>
+   <li>VNet 内のデプロイは、同じアフィニティグループに存在する必要はありません。</li>
+  </ul>
+
+  <b><span style="text-decoration: underline;">使用方法</span></b>
+
+
+  リージョン Virtual Network を作成する手順は、今日とよく似ていますが、1つの違いとして、VNet がネットワーク構成ファイルで定義されている場合、"アフィニティグループ" の代わりに ' location ' 属性が使用されます。
+
+
+  <b>Virtual Network 定義 (古い):</b>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt; text-indent: 0.5in;"><span style="font-family: Consolas;"><span style="color: #0000ff;"><span style="font-size: 12pt;">&lt;</span></span><span style="font-size: 12pt;"><span style="color: #a31515;">VirtualNetworkSite</span><span style="color: #ff0000;">name</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">vnetdemo</span>"<b><span style="color: #ff0000;">affinitygroup</span></b> <b><span style="color: #0000ff;">=</span></b> <b>"</b><b><span style="color: #0000ff;">vnetdemoag</span></b><b>"</b></span><b><span style="color: #0000ff; font-size: 12pt;">&gt;</span></b></span><b></b></p>
+
+  <b>Virtual Network 定義 (新規):</b>
+
+  <blockquote><span style="font-family: Consolas;"><span style="color: #0000ff;"><span style="font-size: 12pt;">&lt;</span></span><span style="font-size: 12pt;"><span style="color: #a31515;">VirtualNetworkSite</span><span style="color: #ff0000;">name</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">vnetuswest</span>"</span>の<b><span style="font-size: 12pt;"><span style="color: #ff0000;">場所</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">West US</span>"</span> <span style="color: #0000ff; font-size: 12pt;">&gt;</span> </b></span></blockquote>
+
+  &nbsp;
+
+
+  <strong>注: 既存の Virtual Network をアフィニティグループから場所に変換することはできません。地域 Virtual Network を取得するには、Location 属性を使用して新しい Virtual Network を作成する必要があります。詳細については、以下の FAQ セクションを参照してください。</strong>
+
+
+  <b>ポータルエクスペリエンス:</b>
+
+
+  現時点では、ポータルワークフローを使用してリージョンの Virtual Network を作成することはできません。 この機能は、近い将来に追加される予定です。 ただし、次に示すように、お客様は、インポートとエクスポートの機能を使用して地域 Virtual Network を作成できます。
+
+
+  1. 現在のネットワーク構成ファイルをエクスポートする
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/widevnet1.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="widevnet1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/widevnet1_thumb.png" alt="widevnet1" width="644" height="328" border="0" /></a>
+
+
+  &nbsp;
+
+
+  2. ローカルディスクにファイルを保存する
+
+
+  3. 次に示すように、ファイルを編集して新しい Virtual Network を追加します。
+
+  <blockquote>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">&lt;?</span><span style="color: #a31515;">xml</span><span style="color: #ff0000;">バージョン</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">1.0</span>"<span style="color: #ff0000;">エンコード</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">utf-8</span>"<span style="color: #0000ff;">? &gt; </span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">&lt;</span><span style="color: #a31515;">NetworkConfiguration</span><span style="color: #ff0000;">xmlns: xsd</span> <span style="color: #0000ff;">=</span> " <span style="color: #0000ff;">https://www.w3.org/2001/XMLSchema</span> "<span style="color: #ff0000;">xmlns: xsi</span> <span style="color: #0000ff;">=</span> <span style="color: #0000ff;">https://www.w3.org/2001/XMLSchema-instance</span> ""<span style="color: #ff0000;">xmlns</span> <span style="color: #0000ff;">=</span> " <span style="color: #0000ff;"></span> "<span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">   &lt; </span> <span style="color: #a31515;">VirtualNetworkConfiguration</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">    &lt; </span> <span style="color: #a31515;">VirtualNetworkSites</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #008000;">リージョン Virtual Network 定義</span>の<span style="color: #0000ff;">!--      &lt; </span><span style="color: #0000ff;">--&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">     &lt; </span> <span style="color: #a31515;">VirtualNetworkSite</span><span style="color: #ff0000;">name</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">vnetuswest</span>" の<span style="color: #ff0000;">場所</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">West US</span>"<span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">       &lt; </span> <span style="color: #a31515;">AddressSpace</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; </span> <span style="color: #a31515;">AddressPrefix</span> <span style="color: #0000ff;">&gt;</span> 192.168.50.0/24 <span style="color: #0000ff;">&lt;/</span> <span style="color: #a31515;">AddressPrefix</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; </span> <span style="color: #a31515;">AddressPrefix</span> <span style="color: #0000ff;">&gt;</span> 192.168.51.0/24 <span style="color: #0000ff;">&lt;/</span> <span style="color: #a31515;">AddressPrefix</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">       &lt; / </span> <span style="color: #a31515;">AddressSpace</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">       &lt; </span><span style="color: #a31515;">サブネット</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; </span><span style="color: #a31515;">サブネット</span><span style="color: #ff0000;">名</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">frontendsubnet</span>"<span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">           &lt; </span> <span style="color: #a31515;">AddressPrefix</span> <span style="color: #0000ff;">&gt;</span> 192.168.50.0/24 <span style="color: #0000ff;">&lt;/</span> <span style="color: #a31515;">AddressPrefix</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; / </span><span style="color: #a31515;">サブネット</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; </span><span style="color: #a31515;">サブネット</span><span style="color: #ff0000;">名</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">backendsubnet</span>"<span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">           &lt; </span> <span style="color: #a31515;">AddressPrefix</span> <span style="color: #0000ff;">&gt;</span> 192.168.51.0/28 <span style="color: #0000ff;">&lt;/</span> <span style="color: #a31515;">AddressPrefix</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; / </span><span style="color: #a31515;">サブネット</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; </span><span style="color: #a31515;">サブネット</span><span style="color: #ff0000;">名</span> <span style="color: #0000ff;">=</span> "<span style="color: #0000ff;">gatewaysubnet</span>"<span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">           &lt; </span> <span style="color: #a31515;">AddressPrefix</span> <span style="color: #0000ff;">&gt;</span> 192.168.51.16/28 <span style="color: #0000ff;">&lt;/</span> <span style="color: #a31515;">AddressPrefix</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">         &lt; / </span><span style="color: #a31515;">サブネット</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">       &lt; / </span><span style="color: #a31515;">サブネット</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">     &lt; / </span> <span style="color: #a31515;">VirtualNetworkSite</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">    &lt; / </span> <span style="color: #a31515;">VirtualNetworkSites</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">   &lt; / </span> <span style="color: #a31515;">VirtualNetworkConfiguration</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  <p class="MsoNormal" style="margin: 0in 0in 10pt;"><span style="font-family: Consolas;"><span style="color: #0000ff;">&lt;/</span><span style="color: #a31515;">NetworkConfiguration</span><span style="color: #0000ff;">&gt;</span></span></p>
+
+  </blockquote>
+
+  4. 次に示すように、新しい Virtual Network 作成ワークフローを実行します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/widevnet2.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="widevnet2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/widevnet2_thumb.png" alt="widevnet2" width="644" height="328" border="0" /></a>
+
+
+  &nbsp;
+
+
+  5. 編集したネットワーク構成ファイルをローカルディスクから選択します。
+
+
+  6. [Ok] をクリックし、インポートプロセスを完了します。
+
+
+  これにより、新しいリージョン Virtual Network が作成されます。
+
+
+  <b>Powershell のエクスペリエンス:</b>
+
+
+  <a href="https://go.microsoft.com/?linkid=9811175&amp;clcid=0x409">最新の Azure Powershell</a>をダウンロードしてインストールする
+
+
+  リージョン Virtual Network を作成する手順 (Powershell コマンドレット):
+
+
+  1. Azure から現在のネットワーク構成ファイルをダウンロードする
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 0pt;">                <span style="font-family: Lucida Console;"><span style="color: #0000ff;"><span style="font-size: 12pt;">Set-azurevnetconfig</span></span> <span style="font-size: 12pt;"> <span style="color: #000080;">-exporttofile</span> </span> <span style="color: #8b0000; font-size: 12pt;">"C:\Users\narayan\Documents\TechEdDemo\Netcfg.xml"</span></span></p>
+
+  2. エクスポートまたは作成したファイルを編集し、前のセクションの手順 3. で示したように Virtual Network の詳細を入力します。
+
+
+  3. 次のコマンドを実行して、リージョン Virtual Network を作成します。
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 0pt; text-indent: 27pt;">   <span style="font-family: Lucida Console;"><span style="color: #0000ff;">Set-azurevnetconfig</span> <span style="color: #000080;">-configurationpath</span> <span style="color: #8b0000;">"C:\Users\narayan\Documents\TechEdDemo\Netcfg.xml" </span></span></p>
+
+  4. これにより、地域の Virtual Network が作成されます。
+
+
+  <b><span style="text-decoration: underline;">よく寄せ</span></b>られる質問リージョン
+
+
+  <b>Virtual Network をサポートするリージョンを教えてください。</b>
+
+
+  Azure はすべてのリージョンでリージョンの Virtual Network をサポートしています
+
+
+  <b>既存の仮想ネットワークを地域 Virtual Network に変換するにはどうすればよいですか。</b>
+
+
+  リージョン Virtual Network を取得するには、この投稿で説明されているように新しいものを作成する必要があります。 Virtual Network ベースの既存のアフィニティグループを地域別に移行するには、「」の手順に従います。 https://azure.microsoft.com/blog/2014/11/26/migrating-existing-services-to-regional-scope/
+
+
+  <b>既存の Vnet は新しいリージョン VNet に接続できますか。</b>
+
+
+  はい、新しい VNet-VNet 機能を使用して、既存の VNet が新しく作成されたリージョン VNet に接続できます。 詳細については、こちらのリンクを参照してください。
+
+
+  <b>リージョン Virtual Network 内部で実行されているサービスでは、パフォーマンスが低下しますか。</b>
+
+
+  仮想ネットワークは論理的な境界でのみ、VNet 内のデプロイの実際の移動先を決定するものではありません。 何らかの理由でサービスが同じアフィニティグループに存在する必要がある場合でも、リージョンの仮想ネットワーク内でサービスを実行できます。 デプロイ時に、ホステッドサービスをバインドするアフィニティグループを指定する必要があります。 唯一の制限は、アフィニティグループがリージョンの仮想ネットワークと同じリージョンに属している必要があることです。
+
+
+  ホステッドサービスをアフィニティグループにバインドせずに、サービスをリージョン Virtual Network に直接デプロイすると、Virtual Network がバインドされているリージョン内のスケールユニットにデプロイが配置されます。
+
+
+  <b>新しく発表された機能 (予約済み IP、内部負荷分散、インスタンスレベルのパブリック IP) は、リージョン Virtual Network に対して行う必要がありますか。</b>
+
+
+  この質問に記載されている新たに発表された機能はすべて地域レベルで管理されているため、リージョン Virtual Network でのデプロイでのみ利用できます。
+
+
+  <b>リージョン Virtual Network に関連付けられている料金はありますか?</b>
+
+
+  いいえ、リージョン Virtual Network はプラットフォームの拡張機能であり、課金されることはありません。

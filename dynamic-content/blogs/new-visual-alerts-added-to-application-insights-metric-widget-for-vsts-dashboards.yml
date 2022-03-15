@@ -1,0 +1,113 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a5b1f04766a526eb96f7ff6a7bacb1de6ed1cbfc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910646"
+Slug: new-visual-alerts-added-to-application-insights-metric-widget-for-vsts-dashboards
+Title: VSTS ダッシュボード用の Application インサイト メトリック ウィジェットに追加された新しいビジュアル アラート
+Summary: 定義されたしきい値を超えたときに視覚的なアラート (警告と重大) をユーザーに提供する、Application インサイト メトリック ウィジェットの更新プログラムを公開しました。
+Content: >-
+  <p>数週間前に、Application インサイト ALM チームは、<a href="https://azure.microsoft.com/en-us/blog/new-application-insights-metric-widget-for-visual-studio-team-services/" target="_blank">Visual Studio Team Services (</a>VSTS) ダッシュボードの新しいメトリック ウィジェットの可用性を発表しました。 この&rsquo;機能に多くの関心が生じ、迅速な導入が行われ、非常にうれしく思います。 ウィジェット&rsquo;に関する&rsquo;多くのフィードバックを受け取り、そのほとんどは肯定的ですが、もちろん、多くの機能強化要求も受け取っています。</p>
+
+
+  <p>受信した最も一般的な質問は、しきい値を超えたときにウィジェットがユーザーに視覚的にアラートを出すという質問でした。 お&rsquo;話を聞&rsquo;いて、この機能が更新されたバージョンのメトリック ウィジェットで利用できると発表し、うれしく思います。</p>
+
+
+  <h3>しくみ</h3>
+
+
+  <p>&rsquo;VSTS ダッシュボードで Application インサイト メトリック ウィジェットを使用している場合、拡張機能は既に自動更新されている必要があります。 &rsquo;TFS&rsquo; でオンプレミスの拡張機能を使用する場合は、古い拡張機能をアンインストールし、新しい拡張機能をダウンロードしてインストールする必要があります。</p>
+
+
+  <p>どちらの場合も、既存の&rsquo;ウィジェットを構成したり、新しいウィジェットを追加したりすると、更新された構成ダイアログが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e689161-f3f0-4bfe-b146-4042f7893a02.jpg"><img alt="app_insights_metric_widget_config_no_scroll" border="0" height="722" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca3d034e-52c2-453c-9475-08d51dab5fa0.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="app_insights_metric_widget_config_no_scroll" width="311"></a></p>
+
+
+  <p>上部の部分はすべて、過去とまったく同じように動作します。 これで&rsquo;、構成ダイアログの最後に新しいフィールドが追加され、2 つのオプションのしきい値を定義して視覚的に警告することができます。1 つは警告用、もう 1 つは重大用です。 これらは完全に省略可能なので、一方または一方またはなしの両方を定義できます。 しきい値を定義するには、必要に応じて [警告] または [重大] の横にあるチェック ボックスをオンにし、しきい値を決定する方法 (しきい値以上、以下、または以下) を選択し、しきい値を入力します。 完了したら&rsquo;、[保存] ボタンをクリックすると、ウィジェットが適切に反応します。 それを&rsquo;行います。 該当する場合は常に、各チェック ボックスでテキストの説明の最後に適切な単位の種類がかっこで囲まれた形で表示されます (&rsquo;&rsquo;一部のメトリックには単位が含まれています。このような場合、一覧に表示される単位の種類はありません)。 &rsquo;&ldquo;&rdquo;上のスクリーン ショットでは、1 秒あたりのバイト数で表示されます。そのため、しきい値を入力する場合はバイト単位で表現する必要があります。ウィジェットのプレビューで KB または MB が表示されている場合でも、これは該当する書式設定と表示のためにメトリック値が自動的に変換されます。</p>
+
+
+  <h3>見た目</h3>
+
+
+  <p>ウィジェットについて&rsquo;既に理解している場合&rsquo;は、次のような表示に慣れ親しんだと思います。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/692452b7-891d-4c17-9e8f-976b567bd2bb.png"><img alt="image" border="0" height="195" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf7b5119-db37-462a-a0a1-90e2180baa8a.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="197"></a></p>
+
+
+  <p>また、ウィジェットによって返されるメトリックが予想される境界内にある場合、これはウィジェットの外観であり続ける。</p>
+
+
+  <p>ただし、定義されたしきい値を超えると、次のいずれかの&rsquo;結果が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5d29e36d-27da-41a8-99fa-e3b473b5cc54.png"><img align="left" alt="image" border="0" height="196" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90127bdd-d266-413a-9491-df60ced293d7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: left; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="197"></a>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp; 警告条件がある場合は、次の条件を満たします。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c7e0a0f5-75e7-4df4-b27e-cab03d84f4c5.png"><img align="left" alt="image" border="0" height="198" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ce86616-57f9-4a74-8fdd-8486fb42920f.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: left; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="197"></a>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp; 重大な条件がある場合は 。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><br clear="all">
+
+  また、色が (警告の場合はオレンジ色に、重大の場合は赤に) 変わるだけでなく、右下のアイコンも同様に行います (警告三角形または重大な円)。 これは、視覚的なアラートの状態をより自明にし、また、カラービジョンが損なわれた可能性のあるユーザーのアクセシビリティを支援するためにも役立ちます。</p>
+
+
+  <h3>次のステップ</h3>
+
+
+  <p>これはコミュニティからの良い提案だったと思います。私たちは、すべてのユーザーに迅速に対応できたと非常に幸せです。 ウィジェットのインストールと使用について非常に気に入ったすべての人に感謝します。 また、アプリケーションとテレメトリを VSTS に取り込む機会インサイト多くあることを知っています。 前回&rsquo;のブログ記事に記載したアイデアの一部についてフィードバックを受け取り、この機能セットのバックログの次の項目を次にいくつか示します。</p>
+
+
+  <ul>
+   <li><strong>App Analytics (Kusto) ウィジェット: </strong>メトリック ウィジェットと同じ基本的な機能を備え、Kusto (App Analytics) クエリに基づいてウィジェットを作成します。そのため、ユーザーは独自の (おそらく非常に具体的な) メトリックを作成して返します。 ここでは、インフラストラクチャ、パフォーマンスなどの点で考慮すべきエンジニアリングに関する考慮事項が多く含まれています。しかし、この項目はバックログに含まれるので、今週は作業を開始します。 Wed&rsquo; は、VSTS ダッシュボードに表示されるクエリ結果のグリッドを返すオプション (または 2 番目のウィジェットの種類) を追加することもできます。 1 つ目のシンプルなバージョンが動作したら、2 つ目のバージョンの確認を開始できます。</li>
+   <li><strong>グラフ： </strong>一連のデータを返してグラフに表示できるウィジェットを作成します。 これを提供するために整理する&rsquo;内部の課題はまだいくつかあるが、それに取り組む必要がある。 これは解決に時間がかかると予想され、App Analytics ウィジェットが完了した後に発生する可能性がありますが、この値を信じ、引き続きそれを追及します。</li>
+  </ul>
+
+
+  <p>更新されたウィジェットが、Application インサイト を使用して分析するリソースの正常性をより適切に監視するのに役立ちます。 今後、お知らせが追加される予定です。新しいお知らせについては、Azure ブログの投稿をご覧ください。</p>
+
+
+  <p>いつものように、Application <a href="https://visualstudio.uservoice.com/forums/357324-application-insights">インサイト UserVoice</a> ページで新機能や改善された機能に関するアイデアを共有してください。ご質問がある場合は、<a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/home?forum=ApplicationInsights"><u>Application インサイト フォーラムをご覧ください</u></a>。</p>
+
+
+  <p>歓声</p>
+
+
+  <p>Mike</p>

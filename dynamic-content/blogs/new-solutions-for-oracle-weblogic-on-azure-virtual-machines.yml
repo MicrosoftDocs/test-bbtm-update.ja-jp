@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d4f593b709ec212dcb07093a3a54aa4274350a8a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910666"
+Slug: new-solutions-for-oracle-weblogic-on-azure-virtual-machines
+Title: Azure Virtual Machines での Oracle WebLogic の新しいソリューション
+Summary: Azure Virtual Machines では、Oracle WebLogic Server (WLS) のメジャーリリースが発表されます。 このリリースは、Microsoft と Oracle の広範なパートナーシップの一部として WebLogic チームと協力して開発されています。
+Content: >-
+  <p>Azure Virtual Machines では、Oracle WebLogic Server (WLS) のメジャーリリースが発表されます。 このリリースは、Microsoft と Oracle の広範なパートナーシップの一部として WebLogic チームと協力して開発されています。 パートナーシップで利用可能なソフトウェアには、Oracle WebLogic、Oracle Linux、Oracle Database のほか、Oracle Cloud Infrastructure (OCI) と Azure 間の相互運用性も含まれています。 このリリースでは、基本イメージ、単一の作業インスタンス、クラスタリング、アプリゲートウェイを使用した負荷分散、データベース接続、Azure Active Directory との統合、Oracle の一貫性によるキャッシュ、ELK stack を使用した統合ログなど、Azure での WLS における一般的なユースケースについて説明しています。 WLS は、Azure でエンタープライズ Java ワークロードを有効にするうえで重要なコンポーネントです。 お客様は、 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=oracle%20weblogic%20server&amp;page=1" target="_blank">これらのソリューションを評価</a> して運用環境全体の使用状況を把握し、 <a href="https://aka.ms/migration-survey" target="_blank">移行時に共同作業</a>することをお勧めします。</p>
+
+
+  <h2>ユースケースとロードマップ</h2>
+
+
+  <p>Oracle と Microsoft のパートナーシップは、2019年6月に発表されました。 パートナーシップでは、Oracle OpenWorld 2019 での Azure Virtual Machines の WLS の初期リリースを発表しました。 ソリューションを使用すると、仮想ネットワークとストレージの定型プロビジョニングの自動化、OS/Java リソースのインストール、WLS の設定、および主要な Azure サービスとの統合の構成を自動化することで、移行が簡単になります。</p><p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9338d19f-4e64-4bed-a657-b9e73b767642.gif"><img width="900" height="478" title="wls-azure" style="display: inline;" alt="wls-on-azure" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c886328-d8e8-4ae0-934a-a58f119dce53.gif"></a></p>
+
+
+
+
+  <p>以前のリリースでは、1つの作業インスタンスやクラスタリングなど、一連の基本的なユースケースに重点を置いていました。 このリリースでは、ほとんどの移行シナリオに対応するために機能が拡張されています。 追加される機能には、一貫性による分散キャッシュ、ELK を使用した統合ログ、Secure Socket Layer (SSL) 証明書の管理、ドメインネームシステム (DNS) の構成、負荷分散オプションとしての Oracle HTTP Server (OHS) のサポートなどがあります。 データベース統合機能は、azure PostgreSQL、azure SQL、および OCI または azure で実行されている Oracle Database をサポートしています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f48f4d5-a460-40c2-b6fd-cff366ffcc68.png"><img width="1024" height="742" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Illustration of WebLogic on Azure Virtual Machines support and integrations, including database connections, Oracle Coherence, Azure Active Directory, ELK stack, and instance configurations." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0def03f7-6af0-41ef-8732-816e8cd3e043.png" border="0"></a></p>
+
+
+  <p>ソリューションを使用すると、WebLogic 12.2.1.3.0 を含むさまざまな基本イメージ (JDK8u131/251、Oracle Linux 7.4/7.6、WebLogic 14.1.1 with JDK11u01 Oracle Linux on 7.6) から選択できます。 すべての基本イメージは、Azure で <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=weblogic%20base%20image&amp;page=1" target="_blank">独自に</a>使用することもできます。 スタンドアロンの基本イメージは、高度にカスタマイズされた展開を必要とするお客様に適しています。</p>
+
+
+  <p>Oracle と Microsoft では Virtual Machines ソリューションの WLS に加えて、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/oracle/weblogic-aks" target="_blank">Azure Kubernetes サービスで wls</a>を実行するためのソリューションの初期セットを提供しています。</p>
+
+
+  <p>今後は、Oracle Linux に加えて、10.3.6 などの古い WLS のバージョンの基本イメージを追加することに加えて、Red Hat Enterprise Linux のサポートなどの Virtual Machines ソリューションについて、WLS に対する機能強化を追加する予定です。 また、AKS ソリューションにおける WLS の堅牢な自動化も追加します。</p>
+
+
+  <p>ソリューションを使用すると、さまざまな堅牢な運用環境に対応したデプロイアーキテクチャが可能になり、最も重要なコンポーネントのプロビジョニングを迅速に自動化し、顧客がビジネス価値の向上に専念できるようになります。 ソリューションによって初期プロビジョニングが完了したら、より多くの Azure サービスとの統合など、デプロイをさらにカスタマイズすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c711ca5-aefe-4038-aebe-e7eb0cbff2b7.png"><img width="1024" height="763" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Simple architectural diagram showing Oracle WebLogic Server deployed on Azure Virtual Machines with connections to databases and ELK as a managed service." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c7aea89-f1ef-4033-af89-092accc2cc22.png" border="0"></a></p>
+
+
+  <p>これらのプランはすべて、ライセンスを持っています。 Oracle で適切なライセンスを調達済みで、Azure でプランを実行するために適切にライセンス供与されていることを前提としています。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>Azure Virtual Machines の WLS に興味をお持ちのお客様は、 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=oracle%20weblogic%20server&amp;page=1" target="_blank">ソリューションを調査</a>し、フィードバックを提供し、ロードマップに関する情報を常に把握する必要があります。 また、お客様は、これらのプランの背後 <a href="https://aka.ms/migration-survey" target="_blank">にあるエンジニアリングチームのハンズオンヘルプ</a> を利用することもできます。 移行シナリオで共同作業を行う機会は、プランがアクティブになっている間は完全に無料です。</p>

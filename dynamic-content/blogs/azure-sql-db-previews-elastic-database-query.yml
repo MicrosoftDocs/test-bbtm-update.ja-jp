@@ -1,0 +1,27 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e2a19035dbd1bfa8941aeccd610b69ef179c1137
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904979"
+Slug: azure-sql-db-previews-elastic-database-query
+Title: Azure SQL DB のプレビュー Elastic Database クエリ
+Summary: Azure SQL Database のプレビューで、柔軟な新しい分散クエリ機能を使用できるようになりました。 エラスティックデータベースクエリを使用すると、ツールとアプリケーションは、単一の接続を使用してデータベースのコレクション全体からデータを取得できます。
+Content: >-
+  Azure SQL Database のプレビューで、柔軟な新しい分散クエリ機能を使用できるようになりました。 エラスティックデータベースクエリを使用すると、ツールとアプリケーションは、単一の接続を使用してデータベースのコレクション全体からデータを取得できます。 概要と詳細な<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-elastic-query-overview/">ドキュメント</a>については、<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-elastic-query-getting-started/">こちら</a>のステップバイステップチュートリアルを参照してください。
+
+
+  クラウド内のソフトウェアプロバイダーは、大規模ストアのコレクションに対してオンライン注文サービスを提供している Imagine ます。 これをサポートし、無制限のスケールを許可するには、各店舗のビジネスを処理するために Azure で個別のデータベースをプロビジョニングし、この一連のデータベースが共通のスキーマを共有します。 アプリケーションでは、顧客トランザクションを適切なストアのデータベースに転送しますが、定期的に、すべての店舗でのアクティビティをクエリするレポートを生成したり、前の1時間のすべての売上データを BI システムまたは Excel スプレッドシートに抽出したりすることができます。 これらの種類のレポートおよびデータ統合シナリオでは、データベースのセット全体に対して一度にクエリを実行し、統合された結果セットを生成する必要があります。 エラスティックデータベースクエリを使用すると、標準の SQL 要求を1つの SQL データベースに発行するだけで、これを実現できます。
+
+
+  セットとしてクエリを実行する共通スキーマを持つデータベースのコレクションが Azure に既に存在する場合、エラスティックデータベースクエリの概要は簡単です。 初期セットアップ中に、エラスティック DB クライアントライブラリを使用してリモートデータベースを定義します。また、基になるデータベースのデータに対するビューのように機能する "外部テーブル" も定義します。 これらが定義されると、通常の SQL Server テーブルと同じように、ツールやアプリケーションからクエリを実行できます。この <a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-elastic-query-getting-started/">チュートリアル</a> では、サンプルスキーマとデータベースのセットについて、必要な手順について説明します。
+
+
+  最初は、エラスティックデータベースクエリは、クエリエンドポイントとして SQL DB のプレミアムサービス層でサポートされていますが、クエリに関係するデータベースのコレクションは任意の層にすることができます。 (このプレミアム制限は、プレビューの初期段階では一時的なものです)。この機能のサポートとコミュニティについては、 <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=ssdsgetstarted">MSDN フォーラム</a>と<a href="https://stackoverflow.com/questions/tagged/sql-azure">stackoverflow</a>を通じてご利用いただけます。
+
+
+  皆様からのご意見をお待ちしております。
+
+
+  &nbsp;

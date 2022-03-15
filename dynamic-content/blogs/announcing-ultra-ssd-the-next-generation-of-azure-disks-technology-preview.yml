@@ -1,0 +1,132 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4497d259fa5db4f2e03d37e52d5b5d80d93128b0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905062"
+Slug: announcing-ultra-ssd-the-next-generation-of-azure-disks-technology-preview
+Title: Ultra SSD の発表–次世代の Azure Disks テクノロジ (プレビュー)
+Summary: お客様は、最も要求の厳しいミッションクリティカルなワークロードをクラウドに移行しています。 Microsoft Azure プラットフォーム用の新しいディスクオファリングを発表します。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><strong>2019 年8月15日に更新されました。</strong>Azure Ultra Disk Storage が一般公開されました。 詳細については、 <a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-azure-ultra-disk-storage/" target="_blank">Azure Ultra Disk Storage の一般提供を発表</a>するブログ記事 &ldquo; を参照してください。&rdquo;</div>
+
+
+  <p>お客様は、最も要求の厳しいミッションクリティカルなワークロードをクラウドに移行しています。 Microsoft Azure プラットフォーム用の新しいディスクオファリングを発表します。<strong>Azure Ultra SSD</strong>を使用すると、IO 集中型のワークロードを最大限に活用できます。 Ultra SSD は、継続的に低待機時間と高い IOPS を必要とする最も要求の厳しいワークロードに対して、1ミリ秒の待機時間で、従来と非常にスケーラブルなパフォーマンスを提供する新しい Azure Managed Disk service です。 Ultra SSD を使用すると、最も要求の厳しいアプリケーションのために、クラウドで最高クラスの IOPS、スループット、および待機時間にアクセスできます。</p>
+
+
+  <p>Ultra SSD の追加により、Azure Virtual Machines で使用するための4種類の永続ディスク (Ultra SSD、Premium SSD、Standard SSD、Standard HDD) が提供されるようになりました。 このポートフォリオは、業界 &rsquo; 全体の包括的なディスクオファリングをお客様に提供します。 Azure Ultra SSD は、現在、東米国のパブリックプレビュー段階にあります。 この <a href="https://aka.ms/UltraSSDPreviewSignUp" target="_blank">フォーム</a>に入力して、開始してアクセスを要求することをお勧めします。</p>
+
+
+  <h2>Ultra SSD 管理ディスクの利点</h2>
+
+
+  <p>Ultra SSD は、他のディスクオファリングと同じ可用性レベルで、行のパフォーマンスを向上させることができます。 Ultra SSD の利点として、仮想マシンを再起動しなくても、ディスクのパフォーマンスを動的に調整する機能があります。 Ultra SSD は、SAP HANA、トップレベルのデータベース (SQL、Oracle など)、その他のトランザクション負荷の高いワークロードなど、i/o 集中型のワークロード向けに設計されています。</p>
+
+
+  <h2>仮想マシン</h2>
+
+
+  <p>Ultra SSD ディスクは、Premium SSD が有効になっているすべての Azure Virtual Machines で動作するように設計されています。 ただし、プレビュー期間中は、サポートされる VM の種類は <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-memory" target="_blank">ES/DS V3 VM インスタンス</a>に制限されます。</p>
+
+
+  <h2>スケーラビリティとパフォーマンスのターゲット</h2>
+
+
+  <p>Ultra SSD ディスクには、4 GiB から 64 TiB までの容量が固定されており、IOPS とスループットを個別に構成できる柔軟なパフォーマンス構成モデルが用意されています。</p>
+
+
+  <p>では、主な機能をいくつか確認してみましょう &rsquo; 。</p>
+
+
+  <ul>
+      <li><strong>[ストレージ容量]</strong></li>
+  </ul>
+
+
+  <p>Ultra SSD は、最大 64 TiB の 4 GiB のさまざまなディスクサイズを提供します。</p>
+
+
+  <ul>
+      <li><strong>IOPS</strong></li>
+  </ul>
+
+
+  <p>ウルトラ Ssd では、iops の上限である 300 IOPS/GiB (ディスクあたり最大 1 k IOPS) がサポートされています。 プロビジョニングした IOPS を実現するには、選択したディスク IOPS が VM IOPS よりも小さいことを確認します。 さらに、ディスクあたり80K を超える IOPS を実現する予定の場合は、近い将来に使用できるようになる新しい VM の種類を Ultra SSD Preview プログラムの一部としてプロビジョニングする必要があります。</p>
+
+
+  <ul>
+      <li><strong>スループット</strong></li>
+  </ul>
+
+
+  <p>Ultra SSD ディスクの場合、1つのディスクのスループットの上限は、プロビジョニングされた各 IOPS に対して 256 KiB/秒になります。これは、ディスクあたり最大 2000 MBps です (MBps = 10 ^ 6 バイト/秒)。</p>
+
+
+  <p>各ディスク サイズでサポートされるさまざまな構成を以下の表にまとめます。</p>
+
+
+  <h3>Ultra SSD マネージド ディスクのオファリング</h3>
+
+
+  <table border="1" cellpadding="1" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>ディスクサイズ (GiB)</strong></td>
+              <td valign="top">4</td>
+              <td valign="top">8</td>
+              <td valign="top">16</td>
+              <td valign="top">32</td>
+              <td valign="top">64</td>
+              <td valign="top">128</td>
+              <td valign="top">256</td>
+              <td valign="top">512</td>
+              <td valign="top">1024-65536 (1 TiB 単位)</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>IOPS の範囲</strong></td>
+              <td valign="top">100-1200</td>
+              <td valign="top">100 ~ 2400</td>
+              <td valign="top">100-4800</td>
+              <td valign="top">100-9600</td>
+              <td valign="top">100-19200</td>
+              <td valign="top">100-38400</td>
+              <td valign="top">100-76800</td>
+              <td valign="top">100-153600</td>
+              <td valign="top">100-160000</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>スループットの上限 (MBps)</strong></td>
+              <td valign="top">300</td>
+              <td valign="top">600</td>
+              <td valign="top">1,200</td>
+              <td valign="top">2,000</td>
+              <td valign="top">2,000</td>
+              <td valign="top">2,000</td>
+              <td valign="top">2,000</td>
+              <td valign="top">2,000</td>
+              <td valign="top">2,000</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>価格</h2>
+
+
+  <p>Ultra SSD 料金は、プロビジョニングされたディスクサイズ、プロビジョニングされた IOPS、およびプロビジョニング済みスループットに基づいています。 「制限付きプレビュー」で提供されている新しいウルトラ Ssd の価格については、 <a href="https://azure.microsoft.com/en-us/pricing/details/managed-disks/" target="_blank">Azure Disks の価格</a> に関するページを参照してください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>Ultra SSD ディスクは <a href="https://azure.microsoft.com/en-us/services/storage/disks/" target="_blank">Managed Disks</a>として作成および管理できます。 Azure Resource Manager (ARM) テンプレートを活用して、Ultra SSD ディスクを持つ Vm をデプロイすることができます。 プレビューで Ultra SSD ディスクを使用する方法の詳細については、 <a href="https://aka.ms/UltraSSDDocs" target="_blank">ドキュメントのページ</a>を参照してください。</p>
+
+
+  <p>今後数週間にわたって、ポータルのサポートを有効にする予定です。 追加機能は開発中であり、ディスクのスナップショット、Azure Backup、Azure Site Recovery、Virtual Machine Scale Sets、Azure Disk Encryption、ディスクの種類間の移行など、近日中に使用できるようになります。 すべてのディスク操作の詳細な手順については、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Managed Disks のドキュメント</a> を参照してください。</p>
+
+
+  <p>現在、ウルトラ Ssd は米国東部2リージョンでご利用いただけます。 プレビューへの参加に関心がある場合は、この <a href="https://aka.ms/UltraSSDPreviewSignUp" target="_blank">フォーム</a>に入力してアクセス権を要求します。 プレビュー期間中に追加のリージョンが追加され、 <a href="https://aka.ms/UltraSSDDocs" target="_blank">ドキュメントページ</a>で追跡できるようになります。</p>
+
+
+  <p>詳細については、 <a href="https://www.youtube.com/watch?v=BrSXFPNzQz4" target="_blank">Ignite セッション</a> をご覧ください。</p>

@@ -1,0 +1,38 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e64dd955651a92ebd60575c457452f0db653513f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904963"
+Slug: backup-cloud-assets-on-azure-premium-storage-virtual-machines
+Title: Azure 上のクラウド資産を仮想プレミアム Storageバックアップする
+Summary: Azure IaaS で実行されている Oracle DB、Cassandra、SAP などのエンタープライズ アプリケーションを保護するために、Azure Backup を使用した Premium Storage 仮想マシンのバックアップの一般提供をお知らせします。
+Content: >-
+  <p>Azure IaaS で実行されている Oracle DB、Cassandra、SAP などのエンタープライズ アプリケーションを保護するために<a href="https://azure.microsoft.com/en-us/services/backup/" target="_blank">、Azure Backup</a> を使用した Premium Storage 仮想マシンのバックアップの一般提供をお知らせします。<a href="https://azure.microsoft.com/en-in/blog/azure-premium-storage-now-generally-available-2/" target="_blank"></a> Premium Storage が <a href="https://azure.microsoft.com/en-in/blog/azure-premium-storage-available-in-more-regions/" target="_blank">提供されているすべてのリージョンで使用できます</a>。</p>
+
+
+  <p>バックアップは、クラシック仮想マシンと、Premium ディスクを使用する ARM (Azure Resource Manager) 仮想マシンの両方に対して有効にできます。 復元プロセスでは、Premium または Standard ストレージ アカウントにデータを柔軟に復元できます。 復元された仮想マシンに Premium Storage と同じパフォーマンス特性が必要な場合は、Premium Storage アカウントに復元できます。他のすべての使用例では、Standard Storage の VM に復元できます。これは、より安価です。<br>
+
+  &nbsp;</p>
+
+
+  <p><img alt="" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6afba16-abb4-4ed3-bdd0-e3128fa1f014.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="" width="621"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>お客様が仮想マシンに Premium Storage をデプロイする理由の 1 つは、エンタープライズ クリティカルなワークロードの IOP 要件を満たすことです。 バックアップ データは、バックアップ コンテナーにコピーされる前に、最初にステージング領域として顧客のストレージ アカウントにコピーされます。 これは、増分変更をバックアップ コンテナーに効率的に転送しながら、IOPS が実稼働ワークロードに与える影響を最小限に抑えるためです。 バックアップ データがコンテナーにコピーされた後、ステージング領域がクリーンアップされます。</p>
+
+
+  <p>既存の Azure バックアップのお客様の場合は、次の手順でバックアップの <a href="https://ms.portal.azure.com/#blade/HubsExtension/BrowseResourceBlade/resourceType/Microsoft.RecoveryServices%2Fvaults" target="_blank">構成Azure portal</a>。</p>
+
+
+  <p>関連リンクと追加コンテンツ:</p>
+
+
+  <ul>
+   <li>詳細については、以下をご覧ください。 詳細については <a href="https://azure.microsoft.com/en-us/documentation/services/backup/" target="_blank">、Azure Backupしてください</a>。</li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup" target="_blank">フォーラムに</a> 連絡してください。</li>
+  </ul>

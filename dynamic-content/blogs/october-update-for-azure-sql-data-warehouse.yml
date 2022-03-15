@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fad8b0af916e46bf6d86f728963977c166fd4a34
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905205"
+Slug: october-update-for-azure-sql-data-warehouse
+Title: Azure SQL Data Warehouse の 10 月の更新
+Summary: パブリック プレビューの開始後に、Azure SQL Data Warehouseの最初のリリースをお知らせします。 このリリースには、初期のお客様からの主要なフィードバックが組み込み、多くの改善が求められています。
+Content: >-
+  <p>Azure&rsquo; <a href="https://aka.ms/sqldw" target="_blank">SQL Data Warehouse</a> の機能の最初のリリースを発表し、初期のお客様からの重要なフィードバックを組み込み、多くの改善が求められています。</p>
+
+
+  <h1>並列化されたデータエクスポート</h1>
+
+
+  <p>このリリースでは、エクスポートとインポートをSQL Data Warehouse&rsquo;完全に並列化されたローダーである PolyBase がさらに拡張されています。&nbsp;CREATE EXTERNAL TABLE AS SELECT (CETAS) ステートメントのサポートを使用すると、PolyBase を使用してデータを SQL Data Warehouse から Azure Blob Storage にエクスポートできます。 これで、顧客は複数のファイルをインポートして処理し、結果をエクスポートできます。</p>
+
+
+  <p>新しい CETAS ステートメントは、 <a href="https://azure.microsoft.com/documentation/articles/sql-data-warehouse-load-with-polybase/" target="_blank">PolyBase</a> &ndash; を使用したデータの読み込み、資格情報の作成/再利用、データ ソースの作成/&nbsp; 再利用、ファイル形式の作成/再利用、および使いやすい外部テーブルの作成という現在のパターンに従います。たとえば、次のステートメントを使用してクエリの結果をエクスポートできます。</p>
+
+
+  <pre class="prettyprint">
+
+  CREATE EXTERNAL TABLE Weblogs2014 WITH
+
+  (
+      LOCATION=&#39;wasbs://mycontainer@test.blob.core.windows.net/&#39;,
+      DATA_SOURCE=AzureStorage,
+      FILE_FORMAT=TextFile
+  )
+
+  AS
+
+  SELECT
+      Uri,
+      DateRequested
+  FROM
+      dbo.Weblogs
+  WHERE
+      1=1
+      AND DateRequested &gt; &#39;12/31/2013&#39;
+      AND DateRequested &lt; &#39;01/01/2015&#39;;</pre>
+
+  <h1>読み込みパフォーマンスの強化</h1>
+
+
+  <p>CETAS の追加に加えて、PolyBase と BCP の両方に対する安定性とパフォーマンスの向上も行いました。2 つの SQL Data Warehouse のプライマリ読み込みメカニズムです。</p>
+
+
+  <p><strong>PolyBase では、</strong>お客様は外部テーブル <a href="https://azure.microsoft.com/documentation/articles/sql-data-warehouse-develop-statistics/" target="_blank">に対して CREATE STATISTICS</a> を使用して、すべての外部テーブル操作のパフォーマンスを向上させることができます。 統計を使用すると、SQL Data Warehouse、より優れたクエリ プランを生成して実行し、プッシュダウンとストリーミングのシナリオでより優れた意思決定を行えます。 さらに、外部テーブルの&quot;&quot;作成中に追加の検証を作成し、CTAS 操作が失敗した場合にオブジェクトのクリーンアップを迅速かつ改善しました。</p>
+
+
+  <p><strong>BCP の場合: </strong>これで、(ALTER SERVER ROLE を使用して) 一括ステートメントを挿入してリソース クラスを利用できるようにし、パフォーマンスを向上させる追加のリソースを使用して BCP を実行する機能をユーザーに提供しています。 さらに、データ読み込み中の信頼性とパフォーマンスを向上させるために、BCP メモリ管理も改善しました。</p>
+
+
+  <h1>拡張関数のサポート</h1>
+
+
+  <p>ユーザーは、既定の dbo スキーマ以外のスキーマで関数を作成できます。 これにより、お客様は機能を作業領域または機能領域に整理できます。 MSDN の <a href="https://msdn.microsoft.com/library/mt203952.aspx" target="_blank">CREATE FUNCTION</a> 構文を参照してください。</p>
+
+
+  <h1>その他の機能強化</h1>
+
+
+  <p>上記に加えて、より使いやすくするために設計されたシステムに対して、よりSQL Data Warehouse改善しました。</p>
+
+
+  <ul>
+      <li>データの読み込み中や他のエラー状態の際にわかりやすくするために、特定のエラー メッセージが改善されました</li>
+      <li>DROP 操作時にオブジェクトが正しくクリーンアップされていることを確認する</li>
+      <li>移行を簡略化 &quot;するために&quot; 、一時テーブルの作成構文中に location オプションを省略可能にしました</li>
+      <li>より正確な監視のための DMV の機能強化、sys.dm_exec_dms_services、sys.dm_exec_dms_workers、sys.dm_exec_external_work、<a href="https://msdn.microsoft.com/en-us/library/mt146374.aspx" target="_blank"></a>および SYS.DM_EXEC_EXTERNAL_OPERATIONS DMV <a href="https://msdn.microsoft.com/en-us/library/mt146392.aspx" target="_blank"></a>の完全<a href="https://msdn.microsoft.com/en-us/library/mt146391.aspx" target="_blank">なサポートが</a>追加されました <a href="https://msdn.microsoft.com/en-us/library/mt146375.aspx" target="_blank"></a></li>
+  </ul>

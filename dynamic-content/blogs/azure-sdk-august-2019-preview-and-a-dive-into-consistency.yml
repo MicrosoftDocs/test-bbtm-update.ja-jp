@@ -1,0 +1,192 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 79adf4caf83668bb970fddb87d806389f9517b3b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139905006"
+Slug: azure-sdk-august-2019-preview-and-a-dive-into-consistency
+Title: Azure SDK 2019 年 8 月プレビューと整合性の詳細
+Summary: 最新の Azure API ガイドラインとパターンに従う Azure SDK の 2 つ目のプレビューが利用可能になります (.Net、Java、JavaScript、Python)。 これらのプレビューには、バグの修正、新機能、ガイドラインへの準拠に向けた追加の作業が含まれている。
+Content: >-
+  <p>最新の Azure API ガイドラインとパターンに従う Azure SDK の 2 つ目のプレビューが利用可能になります (<a href="https://aka.ms/azure-sdk-preview2-net" target="_blank">.Net</a>、<a href="https://aka.ms/azure-sdk-preview2-java" target="_blank">Java</a>、<a href="https://aka.ms/azure-sdk-preview2-js" target="_blank">JavaScript、</a><a href="https://aka.ms/azure-sdk-preview2-python" target="_blank">Python</a>)。 これらのプレビューには、バグの修正、新機能、ガイドラインへの準拠に向けた追加の作業が含まれている。</p>
+
+
+  <h3>新機能&rsquo;</h3>
+
+
+  <p>SDK には、多くの新機能、バグ修正、および機能強化があります。 新機能の一部を以下に示しますが、詳細については、上記のリンク先のリリース ノートと変更ログを参照してください。</p>
+
+
+  <ul>
+      <li>Storage用ライブラリにファイルとキューのサポートが含まれる。</li>
+      <li>Storage用のライブラリに、ファイル、キュー、BLOB 用の API の非同期バージョンが追加されました。</li>
+      <li>Event Hubsのライブラリでは、1 回の呼び出しで複数のメッセージを送信するサポートが拡張されました。この場合、呼び出しがサイズ制限を超えるエラー シナリオを回避するバッチを作成する機能が追加され、帯域幅の問題がある開発者にバッチ サイズ制御が提供されます。</li>
+      <li>Event Hubsライブラリでは、EventProcessor クラスを介してイベントを使用する新しいモデルが導入されました。このモデルを使用すると、現在のチェックポイント処理プロセスが簡略化され、今後のプレビューでパーティション間の負荷分散が処理されます。</li>
+  </ul>
+
+
+  <h3>ガイドラインの詳細: 整合性</h3>
+
+
+  <p>これらの Azure SDK は、すべてのプラットフォームを使用してすべての開発者に優れたエクスペリエンスを提供するための組織間の取り組みを<a href="https://aka.ms/azure-sdk-preview" target="_blank"></a>表し、前のブログ記事で説明したように、開発者からのフィードバックは次の原則のセットを定義するのに役立ちます。</p>
+
+
+  <ul>
+      <li>慣用</li>
+      <li>常に</li>
+      <li>親しみ やすい</li>
+      <li>診断可能</li>
+      <li>互換性あり</li>
+  </ul>
+
+
+  <p>今日は、整合性について詳細に確認します。</p>
+
+
+  <h3>常に</h3>
+
+
+  <p>開発者やユーザー調査からのフィードバックから、一貫性のある API の方が、一般的に学習や記憶が容易であるという結果が得らされています。 Azure からの SDK を一貫するようにガイドするために、ガイドラインには一貫性の原則 <a href="https://azure.github.io/azure-sdk/general_introduction.html#consistent" target="_blank">が含まれています</a>。</p>
+
+
+  <ul>
+      <li>クライアント ライブラリは、言語内で一貫性があり、サービスと一貫性があり、すべてのターゲット言語間で一貫性を持つ必要があります。 競合が発生した場合、言語内の整合性が最も高い優先度であり、すべてのターゲット言語間の整合性が最も低い優先順位です。</li>
+      <li>ログ記録、HTTP 通信、エラー処理などのサービスに依存しない概念は、一貫している必要があります。 開発者は、クライアント ライブラリ間を移動する場合に、サービスに依存しない概念を学びなおす必要はない必要があります。</li>
+      <li>クライアント ライブラリとサービス間の用語の一貫性は、診断性を支援する良いことです。</li>
+      <li>サービスライブラリとクライアント ライブラリの違いはすべて、慣用的な使用に根ざした、既存の明確な理由を持っている必要があります。</li>
+      <li>ターゲット言語ごとに Azure SDK は、1 つのチームによって開発された 1 つの製品のように感じらされます。</li>
+      <li>ターゲット言語間で機能パリティが必要です。 これは、サービスとの機能パリティよりも重要です。</li>
+  </ul>
+
+
+  <p>&rsquo;2 番目の&ldquo;箇条書きを詳しく見ると、ログ記録、HTTP 通信、エラー処理などのサービスに依存しない概念は一貫している必要があります。&rdquo;開発者は、独自にうまく機能&rsquo;するが、常に互いに完全に一貫性があるとは限りない API を指摘しました。 次に例を示します。</p>
+
+
+  <p><strong>BLOB ストレージは、同期反復子を結果セットとして返しながら、ページングのスキップ/取得スタイルを使用しました。</strong></p>
+
+
+  <p><code>let marker = undefined;<br>
+
+  do {<br>
+
+  &nbsp;&nbsp; const listBlobsResponse = await containerURL.listBlobFlatSegment(<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp; Aborter.none,<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp; marker<br>
+
+  &nbsp;&nbsp; );</code></p>
+
+
+  <p><code>&nbsp; marker = listBlobsResponse.nextMarker;<br>
+
+  &nbsp;&nbsp; for (const blob of listBlobsResponse.segment.blobItems) {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp; console.log(`Blob: ${blob.name}`);<br>
+
+  &nbsp;&nbsp; }<br>
+
+  } while (marker);</code></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>Cosmosを使用して結果を返しました。</strong></p>
+
+
+  <p><code>for await (const results of this.container.items.query(querySpec).getAsyncIterator()){<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; console.log(results.result)<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</code></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>Event Hubsサイズの結果 &lsquo;の&rsquo; 配列を返す take スタイル呼び出しを使用しました。</strong></p>
+
+
+  <p><code>const myEvents = await client.receiveBatch(&quot;my-partitionId&quot;, 10);</code></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>これらの 3 つのサービスを一緒に使用している間、開発者はコード サンプルを確認して、より多くのことを記憶したり、メモリを最新の情報に更新したりするために作業する必要がある、と示しました。</p>
+
+
+  <h3>Consistency SDK ガイドライン</h3>
+
+
+  <p><a href="https://azure.github.io/azure-sdk/typescript_design.html#ts-modern-javascript" target="_blank">JavaScript ガイドラインでは、「</a>Modern and Idiomatic JavaScript:」セクションでこの状況を処理する方法を指定します。</p>
+
+
+  <p>☑️ 非同期ライブラリ API を実装するには、非同期関数を使用する必要があります。</p>
+
+
+  <p>ES5 をサポートする必要がある場合、ライブラリのサイズに関係がある場合は、非同期コードと制御フローコンストラクトを組み合わせるときに async を使用します。 より単純なコード フローには promise を使用します。&nbsp; async は、トランスピル時に (特に ES5 をターゲットとする場合) コードのブロートを追加します。</p>
+
+
+  <p>☑️ すべての並べ替えのシーケンスとストリームには、反復子と非同期反復子を使用します。</p>
+
+
+  <p>反復子と非同期反復子はどちらも JavaScript に組み込み、簡単に使用できます。 他のストリーミング インターフェイス (ノード ストリームなど) は、慣用的である限り、適切な&#39;使用できます。</p>
+
+
+  <p>簡単に言えば、シーケンス (AKA リスト) である非同期呼び出しがある場合は、非同期反復子が推奨されます。</p>
+
+
+  <p>実際には、この原則は、最新の Azure SDK Libraries for Storage、Cosmos、Event Hubs に適用されます。</p>
+
+
+  <p><strong>Storage、非同期反復子を使用して BLOB を一覧表示します。</strong><br>
+
+  <code>for await (const blob of containerClient.listBlobsFlat()) {<br>
+
+  &nbsp;&nbsp; console.log(`Blob: ${blob.name}`);<br>
+
+  }</code></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>Cosmos、非同期反復子を使用して項目を一覧表示します。</strong><br>
+
+  <code>for await (const resources of resources.<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container.<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; items.<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readAll({ maxItemCount: 20 }).<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; getAsyncIterator()) {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp; console.log(resources.doc.id)<br>
+
+  }</code></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>&ndash; Event Hubs反復子を使用してイベントを処理する方法を説明します。</strong><br>
+
+  <code>for await (const events of consumer.getEventIterator()){<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp; console.log(`${events}`)<br>
+
+  &nbsp;&nbsp; }</code></p>
+
+
+  <p>ご覧のように、この&mdash;&mdash;場合のページングに関するサービスに依存しない概念は、3 つのサービスすべてで標準化されています。</p>
+
+
+  <h3>フィードバック</h3>
+
+
+  <p>&rsquo;整合性に関するフィードバック<a href="https://github.com/Azure/azure-sdk" target="_blank"></a>がある場合、または <a href="https://aka.ms/azure-sdk-releases" target="_blank">2019</a> 年 8 月のプレビュー (<a href="https://aka.ms/azure-sdk-preview2-net" target="_blank">.Net</a>、<a href="https://aka.ms/azure-sdk-preview2-java" target="_blank">Java</a>、<a href="https://aka.ms/azure-sdk-preview2-js" target="_blank">JavaScript</a>、<a href="https://aka.ms/azure-sdk-preview2-python" target="_blank">Python</a>) を試した後にバグが見つかったと思う場合は、GitHub で Issue または pull request (ガイドライン、<a href="https://github.com/Azure/azure-sdk-for-net" target="_blank">.Net</a>、<a href="https://github.com/Azure/azure-sdk-for-java" target="_blank">Java</a>、<a href="https://github.com/Azure/azure-sdk-for-js" target="_blank">JavaScript</a>、<a href="https://github.com/Azure/azure-sdk-for-python" target="_blank">Python</a><a href="https://twitter.com/azuresdk" target="_blank">@AzureSDK</a>) を送信するか、Twitter でお問い合わせください。 これらのガイドラインとライブラリへの投稿を歓迎します。</p>

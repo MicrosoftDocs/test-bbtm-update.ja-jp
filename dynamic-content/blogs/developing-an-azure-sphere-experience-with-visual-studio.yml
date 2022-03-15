@@ -1,0 +1,100 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 628faa0d58401a4f4841e3eae6913382caa84a87
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910811"
+Slug: developing-an-azure-sphere-experience-with-visual-studio
+Title: ユーザーエクスペリエンスAzure Sphere開発Visual Studio
+Summary: RSA では、高度にセキュリティで保護された接続された MCU 搭載デバイスを作成するための新しいソリューションである Azure Sphere のプレビューを発表しました。 Azure Sphere、デバイスの製造元にとって楽しい機会が生み出されます。
+Content: >-
+  <p>RSA では、高度にセキュリティで保護された接続された MCU 搭載デバイスを作成するための新しいソリューションである Azure Sphere のプレビューを発表しました。 Azure Sphereは、デバイスの製造元がセキュリティを損なうことなく、新しい接続されたエクスペリエンスでデバイスを照らす良い機会を作り出します。</p>
+
+
+  <p>これらの MCU 搭載デバイスと、そのユビキタス接続のセキュリティへの影響について詳しく見始め、この新しいカテゴリの接続デバイスを確実にセキュリティで保護するために必要な Highly-Secure デバイスの <a href="https://www.microsoft.com/en-us/research/publication/seven-properties-highly-secure-devices/" target="_blank">7</a> つのプロパティを特定しました。 Azure Sphereは、これら 7 つのプロパティの一部です。 Azure Sphere ソリューションには、クラウド、ソフトウェア、デバイスのハードウェアに関する Microsoft&rsquo; の&mdash;最高の専門知識を組み合わせた 3 つのコンポーネントが含まれています。これは、シリコンから始まり、クラウドにまで及び、セキュリティで保護されたプラットフォームで機能します。 認定Azure Sphere、Azure Sphere セキュリティで保護されたオペレーティング システム (OS)、ターンキー クラウド セキュリティ サービスを組み合わせて、ビジネスを再考し、将来を生み出す自信と力を提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b7345c24-1533-4686-83ae-d334fe72b0e1.png"><img alt="Azure Sphere" border="0" height="244" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31d799f0-d2c4-459e-b341-1f0ccc4b2c40.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Sphere" width="640"></a></p>
+
+
+  <h2>新しいアプリケーションを使用して MCU 開発エクスペリエンスを最新化Visual Studio Tools</h2>
+
+
+  <p>これらの接続されたエクスペリエンスによって引き起こされる可能性を想像すると、どのようなツールを使用して作成されるのか疑問に思う場合があります。 MCU 開発オプションのランドスケープを見て、より良いエクスペリエンスを提供する必要がわかっていたので、Visual Studio Tools for Azure Sphere。 これらの開発ツールは、いくつかの理由で重要です。</p>
+
+
+  <ul>
+   <li>これらは、MCUs 用のアプリケーション開発のエクスペリエンスを簡素化および高速化し、デバッグなど、これまでよりも簡単に行えるので、エクスペリエンスをより迅速に市場に投入できます。</li>
+   <li>Visual Studioを使用すると、チームはバージョン管理を使用してアジャイル化し、アプリケーション間で効率的に共同作業Azure Sphereできます。 Teams、任意のプロバイダーでホストされている Git リポジトリでソース管理を管理できます (GitHub や Visual Studio Team Services)。</li>
+   <li>クラウド サービスに Azure を使用<a href="https://www.microsoft.com/en-us/azure-sphere/wp-content/uploads/sites/7/2018/04/AzureSphere_OpenCloud.pdf" target="_blank">している企業の</a>場合 (この方法では要件ではありません)、Azure Sphere デバイスをすばやく簡単に Azure に接続できます。</li>
+  </ul>
+
+
+  <h2>Azure Sphereアプリケーション開発エクスペリエンス</h2>
+
+
+  <p>Azure Sphere 2017 (Visual Studio Community、Professional、または Enterprise) を使用して Visual Studio 用に開発するには、Visual Studio Extension for Azure Sphere も必要です。 これにより、新しいアプリケーション テンプレートが Visual Studio に追加され、アプリケーションの開始点として使用できるだけでなく、アプリケーションをビルドして Azure Sphere デバイスにデプロイする SDK ツールも追加されます。</p>
+
+
+  <p>Visual Studioを&rsquo;使用するアプリケーション開発者は、以下で説明する概念の一部はユーザーには少し隠れているので、ここでは説明の下に目を通す機会があります。</p>
+
+
+  <p><strong>まず&rsquo;、アプリケーションの種類をAzure Sphereします。</strong></p>
+
+
+  <p>Azure Sphere SDK によって提供される API を使用して、C でアプリケーション ロジックを記述します。これは、GCC を使用してアプリケーション バイナリにコンパイルされます。 ビルド プロセスの一環として、Azure Sphere SDK の一部であるツールを使用して、開発ボードにデプロイされる署名済み .imagepackage ファイルを生成するか、over the Air (OTA) デプロイ用の Azure Sphere セキュリティ サービスを通じて生成されます。</p>
+
+
+  <p>.imagepackage ファイルには、アプリケーション バイナリとアプリケーション マニフェストが含まれています。 マニフェストには、アプリケーション開発者がアプリケーションで使用すると宣言したリソースの一覧が含まれています。 このマニフェスト ファイルは、アプリケーションの代わりにリソース アクセスを強制するためにオペレーティング システムによって使用されます。 これは、オペレーティング システムがアプリケーションの詳細な防御を可能にする方法の 1 つのAzure Sphereにす。 たとえば、 &lsquo;AllowedConnections&rsquo; パラメーターでエンドポイントを宣言することで、オペレーティング システムは、アプリケーションがそれらのエンドポイントにのみ接続できる状態を保証します。 この詳細な防御は、ハードウェア アクセスにも及びます。 宣言されていないリソースにアクセスしようとすると、たとえば、宣言されていない GPIO ピンへのアクセスは拒否されます。</p>
+
+
+  <p>&rsquo;GPIO 8 が宣言されているアプリケーション マニフェストの例を次に示します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7af83fe6-ad61-4a93-b1c2-762af5b29529.png"><img alt="GPIO 8" border="0" height="245" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b52353ad-dede-406b-86c6-8f621654c68c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="GPIO 8" width="395"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>Azure Sphere SDK には、開発者が PIOS、ART、ネットワークの状態などのプラットフォーム機能を簡単に使用し、LED やボタンなどの特定の機能をボード化できる API が含まれています。</p>
+
+
+  <p>編集、ビルド、デプロイ、デバッグのサイクルは、Visual Studio で他の種類のアプリケーションを開発する場合と同じです。唯一の違いは、アプリケーションが USB に接続された Azure Sphere 開発ボードにデプロイされる点です。</p>
+
+
+  <p>次に示すのは、Visual StudioアプリケーションをアクティブにデバッグAzure Sphereスクリーンショットです。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d1320af7-d438-45f2-9d71-ee51dd3b30bf.png"><img alt="Visual Studio actively debugging an Azure Sphere application" border="0" height="1051" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/73e60dd9-44e6-4dcf-9d73-63a180aac467.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Visual StudioアプリケーションをアクティブにデバッグAzure Sphereする" width="1470"></a></p>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h2>Azure IoT への接続</h2>
+
+
+  <p>開発エクスペリエンスの一環として、Hub/Central から Azure IoT簡単に接続できます。 Visual Studio 内で、Azure サブスクリプションの一部である Azure IoT Hubs を列挙し、接続する特定の IoT Hub 内のデバイスを選択できます (&rsquo;サブスクリプション内に IoT Hubs/デバイスが含されていない場合、ツールを使用すると、両方を簡単に作成できます)。 アプリケーション/IoT Hubが選択され、適切なヘルパー ライブラリとコードがプロジェクトに追加された後は、適切な関数を呼び出す必要があります。</p>
+
+
+  <p>Azure Sphere デバイスを Azure IoT Hub/Central に接続するプロセスは簡単ですが、Curl などのライブラリを使用して、オンラインまたはオンプレムで実行されている他の Web サービスに接続することもできます。</p>
+
+
+  <h2>Microsoft Build にアクセスしてご覧ください</h2>
+
+
+  <p>これが、Azure Sphere アプリケーションの詳細、セキュリティを強化するために OS と対話する方法、および Visual Studio での今後の開発エクスペリエンスについて理解するのに役立ちます。</p>
+
+
+  <p>今週ビルド&rsquo;に参加する場合は、必ずブースに立ち寄り、チームにお会いください。 共有できる多くの素晴らしいデモと、ブレークアウト セッションやワークショップがあります。このセッションでは、Azure Sphere 用のアプリケーションの作成に関する経験を得ます。</p>
+
+
+  <p>Seeed Studio Azure Sphere開発キットには、アプリケーションのプロトタイプ作成と開発を開始するために必要Azure Sphere含まれます。 Azure Sphere <a href="https://www.microsoft.com/en-us/azure-sphere/" target="_blank">Web</a>&rsquo; サイトにアクセスして、今すぐ事前注文を行い、数か月後に利用できる最初の行に入る予定です。</p>

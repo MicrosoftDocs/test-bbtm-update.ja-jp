@@ -1,0 +1,33 @@
+### YamlMime:Yaml
+ms.openlocfilehash: eb01a8c6a40d58db6db2a0d5867a9790ab84a072
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904807"
+Slug: documentdb-now-supports-time-to-live-ttl
+Title: DocumentDB で Time-To-Live (TTL) がサポートされる
+Summary: Azure DocumentDB では、Time-To-Live (TTL) のサポートを使用して古いデータを簡単に削除できます。
+Content: >-
+  <p><a href="https://azure.microsoft.com/services/documentdb/">Azure DocumentDB では</a> 、Time To Live (TTL) のサポートを使用して古いデータを簡単に削除できます。&nbsp;</p>
+
+
+  <p>以前は、特定の時点よりも古い DocumentDB&nbsp; のドキュメントを削除する場合は、最初にレコードを取得する独自のロジックを記述してから、結果セット内のドキュメントごとに delete&nbsp; ステートメントを実行する必要があります。このロジックは、Azure worker ロールのようなカスタム プロセスでスケジュールして実行するか、カスタムビルド アクティビティを Azure Data Factory 内 <a href="https://azure.microsoft.com/services/data-factory/">で使用する必要があります</a>。 このカスタム ロジック <a href="https://azure.microsoft.com/documentation/articles/documentdb-request-units/">は、ドキュメント</a> をフェッチするために要求ユニットを使用し、削除操作ごとにもう一度使用します。このため、これは非常にコストの高い演習である可能性があります。&nbsp;</p>
+
+
+  <p>&ldquo;Azure DocumentDB では、Time to Live&rdquo; または TTL が追加され、データを格納する機能と、そのデータをシステムから自動的に消去する機能が提供されます。 ドキュメントの &ldquo;ttl プロパティ&rdquo;&nbsp; を設定することで、顧客はサービスによってドキュメントが自動的に消去される正確な時間を制御できます。&nbsp;この有効期限の時間間隔は、コレクション レベルまたは個々のドキュメント レベルで設定できます。 コレクションレベルまたはドキュメント レベルでこの TTL 値を設定すると、DocumentDB は TTL 値より古い時点で変更されたドキュメントを自動的に削除します。 たとえば、TTL 値が 1000 の場合、1000 秒以上前に変更されたドキュメントが自動的に削除されます。</p>
+
+
+  <p>TTL を使用すると、古いデータを削除するプロセスを簡略化できるだけでなく、容量計画も簡単になります。 TTL の有効期限によって引き起こされた消去は、&rsquo;プロビジョニングされたユーザーの予算から課金されません。 つまり、夜間にジョブ&rsquo;を削除するなど、プロビジョニング済みスループットを計画する必要がなされません。</p>
+
+
+  <p>TTL 値は、コレクションレベルとドキュメント レベルで設定できます。 コレクション レベルの TTL は、そのコレクション内のデータに対して TTL の適用が有効になっているかどうか、および有効な場合は既定の TTL を制御します。 ドキュメント レベルの TTL を使用すると、ドキュメントごとに TTL を選択的に有効にするか、コレクション レベルの既定値をオーバーライドできます。 コレクション レベルで強制を無効にすると、TTL の有効期限が切れた場合にドキュメントが消去されません。 これは、ドキュメントを保持する必要がある場合 (不適切な TTL が誤ってドキュメントに書き込まれるなど) 場合に、コレクション内のすべてのドキュメントを更新する代わりに、1 回の操作で実現できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/documentation/articles/documentdb-time-to-live">DocumentDB TTL のドキュメント</a> では、 &ndash; この機能について詳しく説明しています。現在、既存および新規の DocumentDB アカウントでこの機能の使用を開始できます。</p>
+
+
+  <p>DocumentDB の詳細については、 <a href="https://azure.microsoft.com/services/documentdb/">DocumentDB 製品ページを参照してください</a>。 サポートが必要な場合、または質問やフィードバックがある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">Stack Overflow</a> の開発者フォーラムにお問い合わせください。または、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。</p>
+
+
+  <p>Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9a6430742ebce081d42b862143739a6dda114a07
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910394"
+Slug: row-level-security-is-now-supported-for-azure-sql-data-warehouse
+Title: Microsoft Azure で Row-Level セキュリティがサポートされるようになりました SQL Data Warehouse
+Summary: 現在、機密データのセキュリティを管理するための追加機能である Azure SQL Data Warehouse の Row-Level セキュリティ (RLS) の一般提供が発表されています。
+Content: >-
+  <p>本日、Microsoft Azure SQL Data Warehouse の Row-Level セキュリティ (RLS) の一般公開を発表しています。これ &rsquo; は、機密データのセキュリティを管理するための追加機能です。 Azure SQL Data Warehouse は、複雑なクエリを高速かつペタバイト単位のデータで実行するためにチューニングされた、高速で柔軟性の高い、安全なクラウドデータウェアハウスです。</p>
+
+
+  <p>データをクラウドに移動するときは、データ資産をセキュリティで保護することが、顧客とパートナーとの信頼関係を構築するうえで重要になります。 RLS を導入することにより、テーブル内でアクセスできる行とアクセスできる人など、行に対するアクセスを制御するためのセキュリティ ポリシーを実装できます。 RLS を使用すると、ご使用のデータ ウェアハウスを再設計しないでも、このようなきめ細やかなアクセス制御が可能になります。 これにより、アクセス制限のロジックは、別のアプリケーションのデータから離れた場所ではなく、データベース層自体に配置されるため、全体的なセキュリティモデルが簡単になります。 また、RLS により、アクセス制御を管理するために行をフィルター処理するビューを導入する必要がなくなります。 さらに、RLS では SQL 認証と Azure Active Directory (AAD) 認証の両方がサポートされています。</p>
+
+
+  <p style="margin: 0in 0in 8pt;">ここでは、現在 RLS を活用できるシナリオをいくつか紹介します。</p>
+
+
+  <ul>
+   <li>医療機関は、看護師が自分の患者のデータ行のみを表示できるようにするセキュリティポリシーを適用します。</li>
+   <li>金融サービス企業は、会社内の従業員 &rsquo; の事業部門または従業員 &rsquo; の役割に基づいて、財務データの行へのアクセスを制限します。</li>
+   <li>マルチテナントアプリケーションでは、各テナント&#39;s 行の各テナント&#39;s データ行が論理的に分離します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fea13506-cf27-47db-bf56-283178db630c.png"><img alt="RLS Diagram" border="0" height="309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/003f5372-d3bb-42d5-ad19-a3d427c5abb7.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="RLS 図" width="671"></a></p>
+
+
+  <p>RLS は、テーブルに対するすべてのクエリにセキュリティ述語を自動的に適用することによって機能する、述語ベースのアクセス制御の形式です。 述語は、どのユーザーがどの行にアクセスできるかを決定します。 たとえば、単純な述語として、SalesRep = SYSTEM_USER で &rdquo; はなく、複雑な述語には、 &ldquo; 他のテーブルの情報を参照するための結合が含まれる場合があります。</p>
+
+
+  <p>セキュリティ述語には、次の2種類があります。</p>
+
+
+  <ul>
+   <li>フィルター述語は、述語を満たさない行を除外するために、SELECT、UPDATE、および DELETE の各操作をサイレントにフィルター処理します。</li>
+   <li>ブロック述語は、述語を満たさない挿入、更新、および削除の各操作を明示的にブロックします。</li>
+  </ul>
+
+
+  <p>今回のリリースでは、Azure SQL Data Warehouse はフィルター述語をサポートしているのに対し、ブロック述語のサポートは近日中にリリースされます。 また、このリリースでは、RLS &rsquo; は PolyBase 経由で作成された外部テーブルをサポートしていません。</p>
+
+
+  <p>テーブルにセキュリティ述語を追加するには、まず、アクセス条件を定義するインラインテーブル値関数が必要です。 次に、この関数を使用して、必要なテーブルにフィルター述語を追加するセキュリティポリシーを作成します。 ここでは、営業担当者が割り当てられていない customers テーブルの行にアクセスできないようにするための簡単な例を紹介 &rsquo; します。</p>
+
+
+  <pre>
+
+  CREATE SCHEMA security;
+
+
+  CREATE FUNCTION security.customerPredicate(@SalesRepName AS sysname)
+
+  RETURNS TABLE
+      WITH SCHEMABINDING
+  AS
+      RETURN SELECT 1 AS accessResult
+  WHERE @SalesRepName = SYSTEM_USER OR SYSTEM_USER = &#39;Manager&#39;;
+
+  go
+
+
+  CREATE SECURITY POLICY security.customerAccessPolicy
+
+  ADD FILTER PREDICATE security.customerPredicate(SalesRepName) ON dbo.Customers
+
+  WITH (STATE = ON);
+
+  go</pre>
+
+
+  <p>この機能は、すべての Azure リージョンで追加料金なしで利用できるようになりました。 いくつかのリージョンでロールアウトが完了し、次の2週間以内に世界規模のデプロイを完了することを目標としています。 Azure SQL Data Warehouse は、引き続きセキュリティ、コンプライアンス、プライバシー、および監査の領域をリードします。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>Azure SQL Data Warehouse の RLS の詳細については、<a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/row-level-security?toc=/azure/sql-data-warehouse/toc.json" target="_blank">オンラインドキュメント</a>を参照してください。</li>
+   <li>Azure SQL Data Warehouse のセキュリティ機能の詳細については、 <a href="https://www.microsoft.com/en-us/trustcenter" target="_blank">microsoft Trust Center</a>または<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security" target="_blank">オンラインドキュメント</a>の<a href="https://aka.ms/gdprsqlwhitepaper" target="_blank">microsoft SQL プラットフォーム</a> &rdquo; でプライバシーを強化し、GDPR 要件に対処するためのガイドを &ldquo; 参照してください。</li>
+   <li>今すぐ開始するには、 <a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal" target="_blank">Azure SQL Data Warehouse を作成</a>します。</li>
+   <li>最新の Azure SQL Data Warehouse ニュースや機能を最新の状態に維持するには、Twitter <a href="https://twitter.com/AzureSQLDW" target="_blank">@AzureSQLDW</a> でフォローしてください。</li>
+   <li>機能に関する要望については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse" target="_blank">UserVoice</a>にご投票ください。</li>
+  </ul>

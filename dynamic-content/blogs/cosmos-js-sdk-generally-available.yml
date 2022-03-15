@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a16d8fd76b44f4b497851fb17e9d695b7cac457e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910848"
+Slug: cosmos-js-sdk-generally-available
+Title: Azure Cosmos DB JavaScript SDK 2.0 の一般提供
+Summary: Azure Cosmos DB JavaScript SDK のバージョン 2.0 が一般公開されています。 プレビューを試してフィードバックを送信して下さったすべての方に感謝します。
+Content: >-
+  <p><a href="https://github.com/Azure/azure-cosmos-js">Azure Cosmos DB JavaScript SDK の</a>バージョン 2.0 が一般公開されています。 プレビューを試してフィードバックを送信して下さ <a href="https://azure.microsoft.com/blog/new-azure-cosmosdb-javascript-sdk-2-0-now-in-public-preview/">ったすべての方</a> に感謝します。</p>
+
+
+  <p>&rsquo;&ldquo;このリリースでは、複数リージョンの書き込み、新しい fluent &ndash;&rdquo; スタイルのオブジェクト モデルのサポートが追加されました。これにより、明示的な URL&ndash; や Promise などの最新の JavaScript 機能をサポートすることなく、Azure Cosmos DB リソースを簡単に参照できます。 また、TypeScript でも記述され、最新の TypeScript 3.0 がサポートされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/531f57d5-92d6-43f8-8933-b30689efb51b.png"><img alt="npmInstall" border="0" height="60" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c58d3e71-e05c-4a21-8701-18f6d9f52be4.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="npmInstall" width="240"></a></p>
+
+
+  <h2>Azure Cosmos DB とは</h2>
+
+
+  <p><a href="https://azure.microsoft.com/services/cosmos-db/">Azure Cosmos DB</a> は、グローバル分散型のマルチモデル データベース サービスです。 ターンキー グローバル分散を提供し、99 番目のセンタイルでの 1 桁ミリ秒の待機時間、スループットとストレージのエラスティック スケーリング、包括的な SLA を保証&rsquo;します。</p>
+
+
+  <h2>新しいオブジェクト モデル</h2>
+
+
+  <p>フィードバックに基づいて、オブジェクト モデル&rsquo;を再設計し、DB との対話と操作の実行を容易Cosmosしました。</p>
+
+
+  <p><b>DocumentDBClient</b>&rsquo; を置き換える新しいトップ レベル<b>の CosmosClient</b> クラスを作成し、そのメソッドを Modular <strong>Database</strong>、<strong>Container</strong>、Items クラスに<strong>分割</strong>しました。 この新しい API サーフェスにより、ビルダーまたは &ldquo;fluent&rdquo; パターン &ldquo;が可能&rdquo; です。 たとえば、項目を作成するには、まずそのデータベースとコンテナーを参照し、items.create() を呼び出します。 これにより、リソースを参照するための明示的な URL を作成する必要が省けます。</p>
+
+
+  <p>その結果、新しいデータベース、コンテナーを作成し、10 行のコードだけで項目を追加できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/631fa22c-61bb-4b6d-8dd6-67fdc5552677.png"><img alt="helloCosmos" border="0" height="339" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4fcc87c-6b77-4fc6-a857-dde1d1f47552.png" style="display: inline; background-image: none;" title="helloCosmos" width="1368"></a></p>
+
+
+  <p>さらに、Azure Cosmos DB では複数の API&rsquo; モデルがサポートされているので、以前のコレクションとドキュメントの概<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/faq#what-is-a-container"></a>念を置き換えるコンテナーと項目の概念を SDK に導入しました。 以前は "コレクション" と呼ばばれ &ldquo;、&rdquo; "コンテナー" と呼ばれる &ldquo;ほどです。&rdquo;</p>
+
+
+  <h2>Promise と最新の JavaScript 機能のサポート</h2>
+
+
+  <p>PROMISE&rsquo; の完全なサポートが追加されたので、SDK を自分でラップするカスタム コードを記述する必要がなくなりました。 これで、非同期関数内から直接 Azure Cosmos DB への呼び出しを待って、async/await を使用できます。</p>
+
+
+  <p>また&rsquo;、データベースとコンテナーに便利なメソッド createIfNotExists()&rsquo; が追加されました。このメソッドは、データベースを読み取り、状態コードを確認し、存在しない場合は作成するロジックをラップします。</p>
+
+
+  <p>最後に、最新&rsquo;の JavaScript 機能である非同期反復子のサポートを追加しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdb33542-269d-4d14-8744-cb27af0d5270.png"><img alt="createAndAsyncIterator" border="0" height="2384" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a724064-44a6-44a8-8b00-dc1f69f414f8.png" style="display: inline; background-image: none;" title="createAndAsyncIterator" width="3808"></a></p>
+
+
+  <h2>複数リージョンの書き込みのサポート</h2>
+
+
+  <p>Azure Cosmos DB マルチリージョン書き込みを使用すると、開発者は、世界中の任意の Azure リージョンに対してデータを読み書きできるグローバル分散アプリを構築できます。 複数リージョンの書き込みで新しい SDK を使用するには、サンプルの使用を開始 <a href="https://aka.ms/CosmosJavaScriptSDKMultiRegion">します</a>。</p>
+
+
+  <h2>オープン ソース モデル</h2>
+
+
+  <p>Azure Cosmos DB JavaScript SDK はオープン ソースであり、チームはオープンですべての開発を行う予定です。 その結果、問題のログ記録、フィードバックの追跡、およびサービス内での PR&rsquo; の受け<a href="https://github.com/Azure/azure-cosmos-js">入GitHub。</a></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>新しい SDK の使用を開始するには、GitHub<a href="https://github.com/Azure/azure-cosmos-js">に移動</a>し、クイック スタートに<a href="https://aka.ms/cosmosjsdocs">従います</a>。 お客様&rsquo;からのフィードバックをお聞かせください。 電子askcosmosdb@microsoft.comメールまたはログに関する<a href="https://github.com/Azure/azure-cosmos-js/issues">問題は、GitHubです</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f73550ea-027d-4f52-b9b0-0e602f8c1ed1.png"><img alt="npmInstall" border="0" height="60" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/43e028a1-5618-4312-b331-8145b6532c9a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="npmInstall" width="240"></a></p>
+
+
+  <p>Twitter でフォローして、最新の Azure <a href="https://twitter.com/search?q=%23cosmosdb">#CosmosDB</a> のニュースと機能を最新の情報にしてください <a href="https://twitter.com/azurecosmosdb">@AzureCosmosDB</a>。 Azure Cosmos DB を使用して何を構築するのかを確認Cosmosしています。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a name="_msocom_1"></a></p>

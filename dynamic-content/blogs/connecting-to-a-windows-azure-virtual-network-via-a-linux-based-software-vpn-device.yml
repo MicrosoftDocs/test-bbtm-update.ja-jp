@@ -1,0 +1,130 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 48f66debaca10b8265a3b6ef05523fd5e496b66e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910851"
+Slug: connecting-to-a-windows-azure-virtual-network-via-a-linux-based-software-vpn-device
+Title: Linux ベースのソフトウェア VPN デバイス経由で Windows Azure Virtual Network に接続する
+Summary: この記事では、Linux ベースのソフトウェア VPN デバイスを使用して、ローカルオフィスまたはサイトを Windows Azure Virtual Network に接続する方法について説明します。
+Content: >-
+  h2>Summa/h2> この pst は、lcal の Windows Azue Netwk thugh a sftwae vpn デバイス A sftwae VPN デバイスを使用していることをです。 Clud Azue Windows Netwks チームであっても wkflw whee を使用して、に "dev/test" を構築する場合は、paticulal が役に立ちます。 これらの手法は、Pアヒル Tin (TiP) の w) cde で、Azue の platfm が cnst であり、バーチャル netwk hsted in Windows Azue>h2 (Linux/h2> F Linux) で使用されているので、次のように使用されていますが、これについて説明します https://wwwpenswang/>OpenSwan/a> 。 Windows Azue の内部でバーチャルコンピューターを使用します。これは、Linux バーチャル Machine t shw ハードウェアによって行われます。これは dne です。
+
+
+  a hef = https://acmazuecmcdnnet/8C57D/blgmedia/blgmedia/214/5/14png>img stle = flat: nne; padding: px; padding: px; padding: px; title = Ceate バーチャル MACHINE ui alt = Ceate バーチャル MACHINE ui sc = https://azuecmcdnazueedgenet/mediahandle/acmblg/media/Default/blg/14_thumbpng width = 36 height = 14 bde =/>>/a の場合は、のようにします。
+
+
+  最初の手順は t g で、OpenSwan VPN を hst する新しいバーチャルマシンを作成します。ここでは、exta small ce で Ubuntu 144 platfm イメージを使用しましたが、Linux イメージを使用できます。 bing u w) VHD t table width = 682 bde = cellspacing = cellpadding = 2> 未定> t> td 縦位置 = tp 幅 = 2>a hef = https://acmazuecmcdnnet/8C57D/blgmedia/blgmedia/214/5/15png>img stle = 埋め込み tp を使用できます。 ピクセル余白-左: px;余白の視覚: px;bde-幅: px;title = Azue バーチャル Machine IP アドレス alt = Azue バーチャル Machine IP アドレス sc = https://azuecmcdnazueedgenet/mediahandle/acmblg/media/Default/blg/15_thumbpng width = 196 height = 18 bde =/>/a>/td> td 縦 = tp width = 48> p align = ジャスト VM が終了した後>議論 als は、1 pts 5 と 45 (bth UDP) a hef = https://azuemicsftcm/en-us/dcumentatin/aticles/vitual-machines-set-up-endpints/>ae pened t/a>、IPSec として、ptal UI、 inteesting 氏は、パブリックバーチャル IP (VIP) と intenal IP を使っています。これらの pcal サイトを使用することができます。バーチャル netwk は、これらの ppeties を追加した後、新しいバーチャル Netwk を作成します。これにより、新しい lcal サイトを作成して、Netwks sectin f を ptal/p>/td>/t>/tbd>/table> クリック nPtal の netwks タブで、Lcal Netwks sectin t が add lcal netwk pcess を開始します。
+
+
+  &nbsp;
+
+
+  a hef = https://acmazuecmcdnnet/8C57D/blgmedia/blgmedia/214/5/F17png>img stle = 埋め込み: px; padding-左: px; padding: px; bde: px; title = バーチャル Netwks Lcal netwks タブ alt = バーチャル Netwks Lcal netwks タブ sc = https://azuecmcdnazueedgenet/mediahandle/acmblg/media/Default/blg/F17_thumbpng width = 353 height = 81 bde =/>/a>
+
+
+  a hef = https://acmazuecmcdnnet/8C57D/blgmedia/blgmedia/214/5/f3png>img stle = flat: nne; padding: px; padding: px; padding: px; title = Add Lcal NETWK Ui Wizad alt = Add Lcal NETWK Ui Wizad sc = https://azuecmcdnazueedgenet/mediahandle/acmblg/media/Default/blg/f3_thumbpng width = 36 height = 161 bde =/>>/a のようにします。
+
+
+  VPN デバイスの IP アドレスとしてパブリック IP を追加し、intenal IP を使用します。 lcal サイトでは、scenai をリトル me ealistic にしたい場合は、lcal サイトを 1/32 f として使用できます。料金 t は bigge サブネットを使用します。バーチャル Machine Yu と同じテナントの ae が追加されない限り、thugh サブネット内のこれらの Ip は nt になります。sme exta netwk のバーチャルマシン t shw [wide サブネットを使用する] で、左側の cne の新しい buttn をクリックし、新しい lcal netwk を追加します。
+
+
+  &nbsp; p align = l>hef = https://acmazuecmcdnnet/8C57D/blgmedia/blgmedia/214/5/f9png>img stle = padding-tp: px; padding left: px; padding: px; bde-width: px; title = Add Azue Lcal Netwk Netwk の alt = Add Azue Lcal msg sc = https://azuecmcdnazueedgenet/mediahandle/acmblg/media/Default/blg/f9_thumbpng width = 36 height = 214 bde =/>/a> hef =>img stle = padding-tp: px; padding left: px; padding: px; bde-width: px; Title = azue バーチャル Netwk lcal site msg Alt = azue バーチャル Netwk lcal site msg sc = width = 36 height = 82 bde =/>/a>/p>このケースでは、/24 サブネットを指定しています。これは、ptal が、このサブネットで255の ip を持つことができることを示しています。 hweve nl intenal IP アドレス f は、"lcal サイト" を "lcal サイト" に追加します。このサブネット内の各 vm は、このサブネット内の thei w) ip を使用して vm に複数の netwk secuit を追加することができます。dne g は先行しています。バーチャル Netwk は、バーチャル Netwk t cmmがを確認し、更新プログラムを保存していた Lcal サイトであることを確認します。
+
+
+  &nbsp;
+
+
+  hef =>img stle = flat: nne;パディング-tp: px;余白-左: px;余白の視覚: px;bde-幅: px;title = azue バーチャル netwk をバーチャル netwk msg alt = azue バーチャル netwk をバーチャル netwk g sc = width = 36 height = 99 bde =/>/a>
+
+
+  hef =>img stle = flat: nne;パディング-tp: px;余白-左: px;余白の視覚: px;bde-幅: px;title = Enable Azue バーチャル netwk cnnectin t lcal netwk alt = Enable Azue バーチャル netwk cnnectin t the lcal netwk sc = width = 36 height = 23 bde =/>/a> table width = 714 bde = cellspacing = cellpadding = 2> は> t> td の配置 = tp 幅 = 585> p align = ジャストを>した後にした後に ptal を使用して静的 (IKEv1) の Gateway を作成します。(数分) で、OpenSwan VPN seve が Windows Azue バーチャル Netwk/p>/td> td の設定を使用して開始することができるようになりました。これには、を使用します。>: hef =>img stle = cnfiguing;余白-左: px;余白の視覚: px;bde-幅: px;title = Ceate a static uting (IKEv1) Gateway alt = Ceate a static uting (IKEv1) Gateway sc = width = 98 height = 118 bde =/>/a>/td>/t>/tbd>/table> &nbsp; h2>Cnfiguing LINUX VPN/h2> 最初の手順は、PuTT や cnnect t u Linux バーチャル Machine のような secue クライアントを使用します。これにより、sftwae と cnfigue をすべてインストールする必要があります。apt-get cmmand (dist 固有– s chse whateve is apppiate) による dne:
+
+
+  b>sud apt-インストールのインストール/b> を取得します。
+
+
+  X59 cets を認証として使用する場合は、「N」を選択します。ここでは、インストールが正常に完了した場合は IPSec トンネルを使用します。そのため、lcal パスは ipsec と呼ばれる pgam がインストールされています。
+
+
+  b>ipsec/b>
+
+
+  b>/us/sbin/ipsec/b>
+
+
+  Yu は OpenSwan fm をインストールできますが、necessa ビルド tls (nt n Azue platfm image b の既定値) をすべてインストールする必要があります。
+
+
+  VPN 自体を編集するには、fllwing ファイルを編集する必要があります。
+
+
+  b>sud vi/etc/ipseccnf/b>
+
+
+  Yu: pe class = pettpint>cnfig setup ptstack = netke vitual_pivate =% v4: 188124/24 e = ff と表示されます。
+          # D nt set debug ptins t debug cnfiguatin issues!
+          # plutdebug / klipsdebug = all, nne  a cmbatin fm belw:
+          # aw cpt pasing emitting cntl klips pfke natt x59 dpd pivate
+          # eg:
+          # plutdebug=cntl pasing
+          # Again: nl enable plutdebug  klipsdebug when asked b a develpe
+          #
+          # enable t get lgs pe-pee
+          # plutpts=--pepeelg
+          #
+          # Enable ce dumps (might equie sstem changes, like ulimit -C)
+          # This is equied f abtd t wk ppel
+          # Nte: incect SElinux plicies might pevent plut witing the ce
+          dumpdi=/va/un/plut/
+          #
+          # NAT-TRAVERSAL suppt, see READMENAT-Tavesal
+          nat_tavesal=es
+          # exclude netwks used n seve side b adding %v4:!abc/24
+          # It seems that T-Mbile in the US and Rges/Fid in Canada ae
+          plutstdelg=~/swanlg
+          include /etc/ipsecd/*cnf/pe>
+  Cnfig 変更します。 lcal サイトが変更する必要があります。 lcal サイトの手順は、lcal サイトの手順を変更する必要があります (この場合は 188124/24)。
+
+
+  lcal IPSec lcal を表示したい場合は、plutdebug ptin
+
+
+  このように変更する必要があります f cnnectin 固有の設定: テーブル幅 = 158 bde = cellspacing = cellpadding = 2> 未定> t> td の位置 = tp 幅 = 496> pe クラス = pettpint>cnn vpn authb = secet 自動 = stat tpe = トンネルの左 = 18812418 左サブネット = 188124/24 左 nexthp =% defaultute = 137117136XXX ightsubnet = 192168/2 ike = 3des-mdp124, aes128-sha1-mdp124 esp = 3des-sha1、aes128-sha1 pfs = n/pe>/td> td の位置 = tp 幅 = 56> p align =>、ptal 内のバーチャル Netwks UI (sceen shts abve) を使用できるようになった場合は、を参照してください。私たちは、"ightsubnet" のように、Gateway が使用している VIP f であり、バーチャル Netwk n ceated で使用される IP 空間は cpt 設定 hee t と tun ff である必要があります。Pefect Fwading Secec (PFS) ptin は、vaies が使用されている vesin に依存して、cmmand:/p> p align =>>ジャストを完全にオフにします。 ipseccnf>/p>/td>/t>/tbd>/table> &nbsp;
+
+
+  hef =>img stle = 埋め込み tp: px;余白-左: px;余白の視覚: px;bde-幅: px;title = gateway VIP t cnfigue the cnnectin t alt = gateway VIP t cnfigue cnnectin t sc = width = 237 height = 76 bde =/>/a>hef =>img stle = flat: nne;パディング-tp: px;余白-左: px;余白の視覚: px;bde-幅: px;title = n-pemises netwk pemises alt = netwk sc = width = 36 height = 92 bde =/>/a> table width = 152 bde = cellspacing = cellpadding = 2> 未定> t> td = tp width = 494>a hef =>img stle = padding: px;余白-左: px;余白の視覚: px;bde-幅: px;title = バーチャル Netwk pe-shaed ke alt = バーチャル Netwk pe-shaed ke sc = width = 36 height = 14 bde =/>/a>/td> td/tp width = 556> p align =>最後の手順は、shaed Ke (PSK) によって、Azue (PSK) を実行しています。この n は、Linux VM が PSK を Cp し、次に fllwing ファイルを編集します。/p> p align =>b>sud vi/etc/ipsecsecets/b>/p> p align = i>場合、完全な sntax は fllws: LcalIP GatewaVIP: PSK ' ' Shaed Ke ' '/p>
+
+
+  pe class = pettpint>#include/etc/ipsecd/* 18812418 13711713623 secets: PSK XXXXXXXXXXXXXXXXXXXX/pe>/td>/t>>/table> &nbsp;
+
+
+  Dne によってスパン stle = backgund: #ff; >スパン stle = backgund: #ffffff; >fllwing/span>/span> cmmands t lad は、unning IPSec によって IPSec が実行されています。次にスパン stle = backgund-cl: #4bacc6; >#ffffff estat/span >backgund>、> スパン stle =/span-cl: #cccccc; >スパン stle = backgund-cl: #ffffff; >のチェック/スパン>/span> トンネルが稼働していること、li> スパン stle = cl: #; >b>スパン stle = backgund: #ff; >スパン stle = backgund-cl: #ffffff; >sud ipsec secets/span>/span>/b>/span>/li> li>span stle =-cl: #ffffff; >スパン stle = cl: #; >b>スパン stle = cl: #ffffff;backgund-cl: #4bacc6; >スパン stle = backgund: #ffffff;cl: #; >sud/span backgund in/span>/span>/b>>/span>/li> li>b>スパン stle = backgund-cl: #cccccc; >スパン stle =-cl: #ffffff;cl: #; >sud plut ipsec status/span>/span>/b>63791/li>/l> b>>IPsec unning-pid:/span>/b>
+
+
+  b>スパン stle = cl: #; >plut pid 63791/span>/b>
+
+
+  b>スパン stle = cl: #; >1 トンネルアップ/スパン>/b>
+
+
+  b>スパン stle = cl: #; >sme eutes exist/span>/b>
+
+
+  トンネルアップ t u Gateway を取得すると、Azue Ptal UI update t eflect this ファクト (UI の geen link) が表示され、hef = https://azuemicsftcm/en-us/dcumentatin/aticles/vitual-netwks-add-vitual-machine/>u 展開 a バーチャル machine int バーチャル netwk/a> を実行して t d sme テストを開始します。
+
+
+  この例では、Linux VM int バーチャル Netwk と shws Netwk cnnectivit fm m lcal Netwk サブネット (188124/24) を、Azue Ue-v のバーチャルバーチャル内の Netwk Machine (1921684) に depls しています。
+
+
+  Yu は、tansfes のデータを見ることができ、バーチャル Netwk を u は Azue Ptal UI で使用しています。
+
+
+  hef =>img stle = 埋め込み tp: px;余白-左: px;余白の視覚: px;bde-幅: px;title = Azue Ptal UI f a cnnected alt = Azue Ptal UI f a cnnected VPN cnnectin sc = width = 36 height = 123 bde =/>/a>
+
+
+  hef =>img stle = 埋め込み tp: px;余白-左: px;余白の視覚: px;bde: px;title = Ping fm lcal netwk t Azue バーチャル netwk alt = Ping fm lcal netwk t Azue バーチャル netwk sc = width = 36 height = 22 bde =/>/a>
+
+
+  hef =>img stle = 埋め込み tp: px;余白-左: px;余白の視覚: px;bde-幅: px;title = Ping fm Azue バーチャル netwk t lcal netwk alt = Ping fm Azue バーチャル netwk t lcal netwk sc = width = 36 height = 227 bde =/>/a>

@@ -1,0 +1,195 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0a0873ce515a0fdeb542118b88860ed34698f0b9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904624"
+Slug: new-features-for-azure-alerts-and-autoscale
+Title: Azure アラートと自動スケールの新機能
+Summary: Azure アラートと自動スケールの通知の新機能について説明します。
+Content: >-
+  <p>これまで、メトリックに対する <a href="https://azure.microsoft.com/en-us/blog/webhooks-for-azure-alerts/">Azure アラートの webhook</a> が導入され、カスタム通知とアラートに対する自動アクションが有効になりました。 迅速な導入と肯定的なフィードバックをお楽しみください。 また、この機能を幅広いユースケースに拡張するための、優れた、アクションにつながるフィードバックも提供しました。 本日は、より多くの通知と自動化されたアクションを構成して管理できるようにする、コア Azure プラットフォームの一連の機能を発表いたします。</p>
+
+
+  <p>また、Microsoft とパートナーのソリューションを通じて、Azure リソースからのデータに関する高度なアラート機能に関する情報を共有することも&#39;ます。 これには、カスタムメトリックアラートだけでなく、複数の Azure サブスクリプションにわたるデータに対するログ検索に基づくアラートを作成する機能が含まれます。</p>
+
+
+  <h3>Azure 自動スケールアクションの電子メールと webhook の通知</h3>
+
+
+  <p>多くのユーザーは、自動スケールイベントについて通知する機能を要求しています。 Web Apps、Cloud Services、Virtual Machine Scale Sets のスケールアクションで、電子メールと webhook の通知を構成する機能を発表します。 電子メールと webhook の構成は、メトリックに対する Azure アラートの場合と同じように動作します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/847f7b0c-2fcc-41c9-882e-9f2d4341f9a6.jpg"><img alt="Autoscale_Notifications_Build_Image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d0565ce5-b18f-4048-979e-7fda3d6b91c4.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Autoscale_Notifications_Build_Image" width="382"></a></p>
+
+
+  <p>自動スケールエンジンでは、スケールの障害について通知されるだけでなく、スケールアクションのメトリックデータの可用性も復旧もできません。 この新機能を使用すると、すべての正常なスケールアウトとアクションに関する電子メール通知を受信するようにオプトインできます。 また、スケールアクションが正常に行われたときにトリガーされるように webhook Uri を構成し、拡張されたリソースに関するキーメタデータをルーティングすることもできます。これには、新しいと古いインスタンス数が含まれます。</p>
+
+
+  <p>この構成は、azure Portal で Web Apps と Cloud Services、REST API (<a href="https://resources.azure.com/">azure リソースエクスプローラー</a>)、 <a href="https://go.microsoft.com/fwlink/?LinkId=784793">azure インサイト PowerShell</a> 、 <a href="https://go.microsoft.com/fwlink/?LinkId=784794">azure インサイト CLI</a> (Web Apps、Cloud Services、VM Scale Sets) を使用して行うことができます。</p>
+
+
+  <p>通知と webhook notification payload (JSON) スキーマの構成の詳細については、 <a href="https://go.microsoft.com/fwlink/?LinkId=746685">こちら</a>を参照してください。</p>
+
+
+  <h3>Azure 監査ログのアラートのプレビュー (イベントに関するアラート)</h3>
+
+
+  <p>発表される新機能は、監査ログに関するアラートです。これは、基本的には Azure の運用イベントに関するアラートです。 これは早期<b>プレビュー</b>リリースであり、現時点では Azure PowerShell と Azure CLI でのみサポートされています。</p>
+
+
+  <p>のサポートを希望するコアシナリオの1つは、Azure のリソースに対する特定の操作に対してアラートを作成し、自動アクションを実行できるようにすることでした。 この新しいアラートが発生すると、VM の開始、停止、削除などのコントロールプレーンアクションで、電子メールと webhook を使用して通知を受け取ることができます。</p>
+
+
+  <p>VM のイベントに対してアラートを作成する PowerShell スクリプトの例を次に示します: ca</p>
+
+
+  <table border="0" cellpadding="0" cellspacing="0" style="background-color: rgb(216, 216, 216);">
+   <tbody>
+    <tr>
+     <td valign="top" width="1565">
+     <p><span style="font-family: courier new,courier,monospace;"># シナリオ: サブスクリプションのリソースグループ &quot; myrg1 " &quot; で VM が正常に開始されたときに、電子メールを送信して webhook をトリガーする</span></p>
+
+     <p><span style="font-family: courier new,courier,monospace;"># 電子メールアクションを作成する</span></p>
+
+     <p><span style="color: rgb(51, 153, 255);"><span style="font-family: courier new,courier,monospace;">$actionEmail = New-AzureRmAlertRuleEmail-CustomEmail myname@company.com</span></span></p>
+
+     <p><span style="font-family: courier new,courier,monospace;"># Webhook アクションを作成する</span></p>
+
+     <p><span style="font-family: courier new,courier,monospace;"><span style="color: rgb(51, 153, 255);">$actionWebhook = New-AzureRmAlertRuleWebhook-ServiceUri </span><a href="https://example.com?token=mytoken"><span style="color: rgb(51, 153, 255);">https://example.com?token=mytoken</span></a></span></p>
+
+     <p><span style="font-family: courier new,courier,monospace;"># ルールを作成し、それに対する電子メールと webhook アクションを構成する</span></p>
+
+     <p><span style="color: rgb(51, 153, 255);"><span style="font-family: courier new,courier,monospace;">Add-azurermlogalertrule-Name superalert1-Location &quot; EAST US &quot; -ResourceGroup Myrg1 "-OperationName Microsoft. ClassicCompute/virtualmachines/start/Action-Status Succeeded-TargetResourceGroup Myrg1"-Actions $actionEmail, $actionWebhook</span></span></p>
+
+     <p><span style="font-family: courier new,courier,monospace;"># ルールを取得する</span></p>
+
+     <p><span style="color: rgb(51, 153, 255);"><span style="font-family: courier new,courier,monospace;">AzureRmAlertRule-Name superalert1-ResourceGroup myrg1 "-DetailedOutput</span></span></p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>イベントに関するアラートの詳細とサンプルについては、「 <a href="https://go.microsoft.com/fwlink/?LinkId=784793">PowerShell</a>および<a href="https://go.microsoft.com/fwlink/?LinkId=784794">Azure CLI</a>用の Azure インサイトドキュメント」を参照してください。</p>
+
+
+  <p>このアラートがアクティブになると、そのペイロード内の重要なイベントメタデータに対する webhook の受け渡しがトリガーされます。 イベントに対するアラートの webhook 通知ペイロードスキーマ (JSON 形式) については、 <a href="https://go.microsoft.com/fwlink/?LinkId=784795">こちら</a>を参照してください。</p>
+
+
+  <p>この機能はまだ <b>プレビュー</b> 段階であり、イベントのアラートには15分の遅延が発生する可能性があることに注意してください。 今後数か月の間に、イベントのアラートエンジンのパフォーマンスを大幅に向上させ、これらのアラートを構成および管理するために、Azure Portal でユーザーインターフェイスのサポートをリリースします。</p>
+
+
+  <h3>カスタムメトリックと web テストに関する電子メールと webhook 通知を含むアラート</h3>
+
+
+  <p>カスタムメトリックを生成して通知を受け取ることができるかどうかは、多くのユーザーからのトップです。 カスタムメトリックとイベントを生成する機能は、 <a href="https://azure.microsoft.com/en-us/services/application-insights/">Application Insights</a>内<a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-api-custom-events-metrics/">に既に存在</a>します。 本日は、これらのアラートの webhook 通知を発表することをお待ちしております。 Application Insights ベースのカスタムメトリックの webhook は、 <a href="https://azure.microsoft.com/en-us/documentation/articles/insights-webhooks-alerts/">webhook ペイロードに</a>対して同じ JSON スキーマを共有する標準メトリックとまったく同じように機能します。</p>
+
+
+  <p>最小限のコード行で Application Insights を使用すると、任意の場所 (デスクトップアプリ、オンプレミスのマシン、または別のクラウドプラットフォームで実行されているスクリプト) から任意の数値をカスタムメトリックとして出力し、Azure Portal 内から視覚化、アラート、通知を管理 Application Insights ことができます。 Application Insights には、さまざまな sdk を選択できます (C#、Java、PowerShell、Python、Ruby to name)。</p>
+
+
+  <p>Azure Storage キューの長さを取得し、その値をカスタムメトリックとして Application Insights に送信する<a href="https://code.msdn.microsoft.com/Custom-Metric-Alerts-for-c9ed3f85">サンプル C# アプリケーション</a>を次に示します。 このデータは Application Insights にルーティングされ、他のメトリックと同様に表示できます。 アラートを作成して、数値しきい値を設定し、電子メール &amp; webhook 通知を構成することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/030aecca-629f-41c3-a37e-032cac1ec115.png"><img alt="App_Insights_Custom_Metric_and_Console_App_Code" border="0" height="948" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f2f910a6-1424-4cba-989f-db9da6ef3ea2.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="App_Insights_Custom_Metric_and_Console_App_Code" width="1235"></a></p>
+
+
+  <p>Application Insights には、C#、Java、PowerShell、Python、Ruby などの<a href="https://github.com/Microsoft?utf8=%E2%9C%93&amp;query=applicationInsights">sdk が</a>付属しています。これにより、オンプレミスまたはクラウドでホストされているサーバー上のほぼすべてのアプリケーションやスクリプトからカスタムメトリックを生成できます。 を使用したカスタムメトリックとイベントの詳細について<a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-api-custom-events-metrics/">は Application Insights ここをクリック</a>してください。</p>
+
+
+  <p>また、Application Insights チームは webhook 通知のサポートを<a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-monitor-web-app-availability/">Web テスト</a>アラートに拡張しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90b1676c-791f-454e-9ebe-aabd5455e151.jpg"><img alt="App_Insights_Web_Test" border="0" height="814" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5d449368-6d85-4788-831a-6a432d229a14.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="App_Insights_Web_Test" width="1086"></a></p>
+
+
+  <h3>PagerDuty とのアラートの統合</h3>
+
+
+  <p style="margin: 0in 0in 0pt;">主要なインシデント管理ソリューションの1つである<a href="https://www.pagerduty.com">Pagerduty</a>では、メトリックに対する Azure アラートがファーストクラスでサポートされていました。 また、pagerduty は、自動スケールアクション、Application Insights のカスタムメトリック、および監査ログイベントの通知に関する Azure アラートのインシデントサポートも拡張しています。</p>
+
+
+  <p>次の画像は、ユーザーが PagerDuty で通知をトリガーしたときに、そのイベントを強化、集計し、実行可能なイベントに &nbsp; 関連付けるという、カスタムメトリックベースのアラートの例を示しています。 このように、PagerDuty はノイズと解決時間を削減することで、インシデント管理を効率化します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38c10b0c-845f-4be8-ae3f-99594c124ccf.jpg"><img alt="PagerDuty_Alert_Build" border="0" height="704" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4969cfe3-c91e-4e10-bfa6-7d93bcdbb467.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="PagerDuty_Alert_Build" width="1420"></a></p>
+
+
+  <p>ほんの数回クリックするだけで、Azure アラートをの PagerDuty と統合して、SMS、音声、電子メールを受信し、メトリック、自動スケールアクション、および監査ログ &nbsp; イベントに関する Azure アラートのエスカレーションを管理できます。 PagerDuty 統合の詳細については、こちらの <a href="https://www.youtube.com/watch?v=AIck_eKTX_8">ビデオ</a>をご覧ください。</p>
+
+
+  <p>Azure 統合の発表の詳細については、 <a href="https://go.microsoft.com/fwlink/?LinkId=784799">ここ</a>を参照してください。</p>
+
+
+  <h3>V2 Vm でのアラートの Azure Automation runbook 統合のプレビュー</h3>
+
+
+  <p>最後に、 <a href="https://azure.microsoft.com/en-us/documentation/articles/automation-webhooks/">Azure Automation の runbook をトリガー</a>するために、メトリックベースのアラートで webhook を構成する機能を発表しました。 Azure アラートと Automation runbook の間の Azure ポータル内での統合を改善することで、このエクスペリエンスが大幅に向上することがあるというフィードバックが提供されました。 Azure Automation チームはこれを使用して、Vm のアラートを有効にすることで <b>プレビュー</b> 機能をリリースします。 これは現在、v2 Vm (Azure Resource Manager ベースの Vm) でのみサポートされていることに注意してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d92d4d6a-17d7-47d6-9d5a-27feff8dfa77.jpg"><img alt="Alert_Automation_Build" border="0" height="970" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/94c09e23-3bcd-48e6-89d1-20138b219559.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Alert_Automation_Build" width="671"></a></p>
+
+
+  <p>Azure Automation の Runbook を直接構成して、メトリックトリガーに基づく VM の再起動、開始、停止、更新などの一般的なタスクに対してアクションを実行できるようになりました。 チームはお客様の <a href="https://feedback.azure.com/">フィードバック</a> を受け取り、他の Azure サービスのアラートにもこの機能を拡張することを計画しています。</p>
+
+
+  <p>この新機能の詳細なチュートリアルについては、Azure Automation チームからこの <a href="https://go.microsoft.com/fwlink/?LinkId=784860">記事</a> をご覧ください。</p>
+
+
+  <h3>Azure alerts と Azure Automation を使用して Vm のサイズを変更 (垂直スケーリング) する</h3>
+
+
+  <p>VM と自動スケールチームによって受信されるもう1つの一般的なフィードバックは、トリガーに基づいて vm に対して垂直方向のスケール操作 (VM または VMSS のスケールアップまたはスケールダウン) を実行する機能です。 これはまだプラットフォームで構築されている機能ではありませんが、Azure アラート webhook と Azure Automation を使用して、現在可能なもの &rsquo; についていくつかのサンプルを共有したいと考えました。</p>
+
+
+  <p>Azure Automation ギャラリーでは、メトリックアラートを使用してトリガーできる Scale-Up と Scale-Down runbook のサンプルを紹介します。 これらの runbook を使用すると、アラートに設定されているしきい値に基づいて、VM のスケールアップまたはスケールダウン (サイズ変更) を行うことができます。 たとえば、アラートがトリガーされたときに、アラートがトリガーされたときに自動的にスケールダウン (サイズを A2 から A1 に変更) できるようになりました (たとえば、CPU% が長時間にわたって2% 未満の場合)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ed26e6c-028b-4564-ac94-4b672136ba5f.jpg"><img alt="Vertical_Scale_runbooks" border="0" height="581" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3182145f-52df-40f2-93c1-54e802590a15.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Vertical_Scale_runbooks" width="906"></a></p>
+
+
+  <p>VM チームからの詳細な <a href="https://go.microsoft.com/fwlink/?LinkId=784796">チュートリアル</a> をご覧ください。1つの vm のスケールアップ/ダウン runbook のサンプルについて説明しています。</p>
+
+
+  <p>[更新、4/15/2016]Azure Automation Runbook とのアラート統合を使用して、VM スケールセットを垂直方向に自動スケールすることもできます。</p>
+
+
+  <p>垂直方向の自動スケールの VMSS については、この <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-vertical-scale-reprovision/">チュートリアル</a> に従ってください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3557a58-e022-4479-8a85-6af44b5feb48.png"><img alt="vmss-runbooks-gallery" border="0" height="763" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/57b07316-12a8-4833-8b80-18eb6253e245.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="vmss-runbook-ギャラリー" width="898"></a></p>
+
+
+  <h3>Log Analytics (OMS) を使用した Azure VM 診断データの高度なアラート</h3>
+
+
+  <p>大規模な Operations Management Suite (OMS) の一部である Log Analytics は、Azure Portal からアクセスでき、1つまたは複数のサブスクリプションから Azure サーバーのデータを表示して分析することができます。 OMS は、Windows および Linux vm (IIS ログ、syslog データ、ETW ログ、Azure 診断エージェントカウンター、アプリケーションログなど) によって収集された診断データを、Azure サブスクリプション全体から取り込むことができます。 これにより、オンプレミスと Azure のサーバー全体でログのカスタム検索を作成できます。また、これらの検索結果に対してアラートを生成することができます。 アラートは、電子メールを送信したり、WebHook を起動したり、Automation runbook を実行したりするように構成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/953a3246-5d52-4af2-aca1-ea0190ba15f9.jpg"><img alt="OMS_Log_Alerts_Build" border="0" height="567" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/166af242-4857-4375-a7ac-bb154b8a13b8.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="OMS_Log_Alerts_Build" width="1248"></a></p>
+
+
+  <p>クエリの種類 = Alert SourceSystem = OMS を実行すると、すべてのアラートを表示できます。 OMS には、すべてのアラートを効率化し、それらを分類して、集計されたカウントと履歴を監視するための豊富な Alert Management パックも付属しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac0eeb4c-9c44-4089-8157-913855b9e47e.jpg"><img alt="OMS_Alerts_Summary" border="0" height="496" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/371b0a39-35f0-4c25-b3c3-d462f7617ea9.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="OMS_Alerts_Summary" width="1062"></a></p>
+
+
+  <p>Log Analytics は、すべてのアラート機能を含む free レベルで提供されます。</p>
+
+
+  <p>Azure 診断の OMS 構成の詳細について <a href="https://technet.microsoft.com/en-US/library/mt484114.aspx">は、ここ</a>をクリックしてください。</p>
+
+
+  <p>OMS アラートの詳細については、 <a href="https://technet.microsoft.com/en-us/library/mt614775.aspx">こちら</a>を参照してください。 Webhook を使用して OMS アラートを構成する方法の詳細については、 <a href="https://technet.microsoft.com/en-us/library/mt668400.aspx">ここ</a>をクリックしてください。</p>
+
+
+  <h3>まとめ</h3>
+
+
+  <p>これらの新機能により、メトリック、自動スケールアクション、および監査ログイベントのアラートをより細かく制御できるようになりました。 また、Application Insights と OMS を使用して、Azure リソースの高度なアラート機能についてさらに詳しく知ることができます。 Azure アラートの SMS、プッシュ通知、および追加のカスタム通知を受け取るように PagerDuty を構成できます。</p>
+
+
+  <p>今後数か月の間に、前述のプレビュー機能が改善されます。 また、webhook 通知を使用してアラートを生成し、 <a href="https://feedback.azure.com/">フィードバック</a>を共有するために、これらのアラートを取得します。</p>

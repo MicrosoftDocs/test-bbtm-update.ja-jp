@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b7ecfb39b51c57bab1954aca7d079ff917011567
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910406"
+Slug: root-cause-analysis-and-time-exploration-updates-to-azure-time-series-insights
+Title: 根本原因の分析と時間調査の Azure Time Series Insights への更新
+Summary: 現在、Azure Time Series Insights はパブリックプレビューの段階にあり、お客様が時系列データの価値をより適切に管理および検索できるようにするために、過去2か月の間に努力しています。
+Content: >-
+  <p>現在、Azure Time Series Insights はパブリックプレビュー &rsquo; の段階にあります。過去2か月間は、お客様が時系列データの価値をより適切に管理および検索できるようにするために、お客様を支援しています。 &nbsp;Time Series Insights は、完全に管理された分析、ストレージ、および視覚化サービスです。これにより、数十億の IoT イベントを同時に調査して分析することが簡単になります。 また、1行のコードを記述しなくても、Azure への時系列データのストリーミングを数分で視覚化して探索することができます。 製品、価格、および作業の開始の詳細については、Azure.com の web サイトを<a href="https://azure.microsoft.com/en-us/services/time-series-insights/">Time Series Insights</a>参照してください。</p>
+
+
+  <h2>より迅速な根本原因分析と調査</h2>
+
+
+  <p>私たちは製造に関する多くのフィードバックを聞いてきまし &rsquo; たが、Time Series Insights 使用している石油およびガスのお客様は、根本原因の分析と調査を行うのに役立ちますが &rsquo; 、データ内の統計的に有意なパターンを迅速に特定することは困難でした。 このプロセスをより効率的にするために、選択したデータ領域で最も統計的に有意なパターンを事前に示す機能を追加しまし &rsquo; た。 これにより、ユーザーは何千ものイベントを見て、時間とエネルギーに最も適したパターンを理解する必要がなくなります。 さらに、これらの統計的に有意なパターンに直接移動して分析を続けることが簡単になりました。</p>
+
+
+  <p>この新機能は、履歴データの事後分析にも役立ちます。 ほとんどのお客様には、既存のアラートメカニズム (Azure Stream Analytics ジョブなど) があり、Time Series Insights を補完的な調査ツールとして使用して、アラートのコンテキストを理解します。 これらのお客様は、今後、同様の問題が発生するのを防ぎ、回避するために、Time Series Insights を使用して事後分析時に確認してください。</p>
+
+
+  <p><em>次に示すのは、[統計] タブにパターンを表示し、新しい用語としてパターンを追加する GIF です。</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/949449dd-7c8a-43fa-af0c-cbb5001f83a4.gif"><img alt="describe so small fingers crossed" border="0" height="350" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00c28713-d4d1-4247-a693-e45b6cbf6b95.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="小さな指を超えて説明します" width="640"></a></p>
+
+
+  <h2>データ探索の時間をより細かく制御</h2>
+
+
+  <p>さらに、さまざまな業界のユーザーが Time Series Insights 使用して、キー資産からのセンサーデータに関連する問題のトリアージと診断を支援していますが、視覚エフェクト内で時間を移動する能力をより細かく制御するよう求められています。 これらのお客様により高い制御を提供するために、トリアージと診断を容易にするために、時間のナビゲーションに対して新たに使いやすさが向上しました。</p>
+
+
+  <p>まず、時間間隔スライダーを追加しました。これにより、時間の長いスライスまでの滑らかな傾向が示されます。これ &rsquo; により、顧客はデータの粒度の細かい詳細なカットを見ることができます。 さらに、 &rsquo; スライダー &rsquo; の既定の開始点を、選択されたデータの最適な表示に設定します。バランスをとって、解像度、クエリ速度、粒度を調整します。</p>
+
+
+  <p><em>次に示すのは、スライダーが動作している GIF です。</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c5fd055-5607-4de6-946c-96f561fd6aef.gif"><img alt="slider small" border="0" height="318" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e5bc6d1-45ec-492d-9875-0357aaa5787c.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スライダー (小)" width="640"></a></p>
+
+
+  <p>次に、センサーデータに対して診断を実行するときに、時間範囲の間を簡単に移動する方法をお客様から聞きました。 以前は、このタスクを完了するために、ユーザーは検索を終了し、環境から調査する期間を再選択する必要がありました。 ワークフローをよりシームレスにするために、時間の範囲を簡単に移動できるように直感的な UX を前面および中央に配置するために、時間のブラシを追加しました。</p>
+
+
+  <p><em>次に示すのは、ブラシを使用して簡単に移動する方法を示す GIF です。</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3bb6aa7-68e1-4fbb-8ba0-323a45a57f39.gif"><img alt="brush small" border="0" height="419" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6fd96b91-ae83-4760-bb5e-d2ed0860f948.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ブラシ-小" width="640"></a></p>
+
+
+  <p>これらの新しい更新プログラムについてはお待ちしていますが、今後の製品について &rsquo; 詳しくお待ちしております。 また、無料の<a href="https://insights.timeseries.azure.com/demo">デモ環境</a>を使用して、Time Series Insights を探索し、テストドライブの新しい更新プログラムを取得することもできます。開始するには、Azure.com アカウントが必要に &rsquo; なります。 また、 <a href="https://twitter.com/MSFTAzureTSI">Twitter</a>でのフォローによって Time Series Insights すべてを最新の状態に維持することもできます。</p>

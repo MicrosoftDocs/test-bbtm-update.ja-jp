@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d9be01788c2cfab87d4aafbbb89ba712ac02fda3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904978"
+Slug: azure-stream-analytics-now-supports-azure-sql-database-as-reference-data-input
+Title: Azure Stream Analyticsデータ入力としてのAzure SQL Databaseがサポートされる
+Summary: Azure Stream Analytics チームの目標は、開発者を支援し、Azure の機能を活用してビッグ データをリアルタイムで分析する非常に簡単にすることです。 これを実現するには、お客様からのフィードバックを継続的にリッスンし、複雑な分析シナリオに取り組むためのツールとして役立つ優れた機能を提供します。
+Content: >-
+  <p>Azure Stream Analytics チームの目標は、開発者を支援し、Azure の機能を活用してビッグ データをリアルタイムで分析する非常に簡単にすることです。 これを実現するには、お客様からのフィードバックを継続的にリッスンし、複雑な分析シナリオに取り組むためのツールとして役立つ優れた機能を提供します。 UserVoice で最も要求されている機能である Azure SQL Database の参照データ入力として、Stream Analytics のパブリック プレビューを共有できます。</p>
+
+
+  <h2>参照データの一般的なシナリオ</h2>
+
+
+  <p>参照データは、静的なデータセットまたは変化の遅いデータセットです。これは、リアルタイムのデータ ストリームと関連付け、データを拡張できます。 Stream Analyticsは、参照データのバージョン管理を利用して、イベントの生成時に有効だった参照データによってストリーミング データを拡張します。</p>
+
+
+  <p>たとえば、市場の傾向を反映するように定期的に更新される Azure SQL Database に通貨換算レートを格納し、さまざまな通貨で課金イベントのストリームを標準通貨に変換するシナリオがあります。</p>
+
+
+  <p>IoT のシナリオでは、何百万もの IoT デバイスで、温度や圧力などの重要な値が監視されているイベントのストリームを出力できます。 このStream Analyticsを使用して、このリアルタイム データ ストリームを Azure SQL Database に格納されている各 IoT デバイスに関するメタデータと結合して、デバイスごとのしきい値とメタデータを定義できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7312582-8449-48cb-bfc6-72342d559aaf.png"><img alt="Stream analytics" border="0" height="462" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32eeb2cd-0edf-45a3-a523-4b5e16c1e475.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Stream Analytics" width="810"></a></p>
+
+
+  <h2>入力と簡単にAzure SQL Databaseする</h2>
+
+
+  <p>現在まで、Azure Blob Storageは参照データを格納する唯一の方法でした。 お客様から、Azure SQL Databaseデータ ストリームとの関連付けで使用する必要があるデータセットを格納する自然な場所である、というご意見をお聞きしました。</p>
+
+
+  <p>ロジックを記述し、Azure SQL Database から Azure Blob Storage に定期的にデータを転送するカスタム パイプラインを構築する代わりに、Stream Analytics では、参照データ入力として Azure SQL Database を簡単にサポートできます。 この機能を提供するだけでは、お客様は&rsquo;満足できないとわかっていました。 そのため、もう一歩進め、参照データセットを定期的に自動的に更新する機能を提供しています。 ジョブに入力を追加するときに、この更新間隔を簡単に構成できます。 更新間隔は、1 分ほど短くすることができます。</p>
+
+
+  <p>クエリから参照データをプルする複雑なクエリAzure SQL Database。 Stream Analytics ジョブのパフォーマンスを維持するために、差分クエリを記述することで、Azure SQL Databaseから増分変更をフェッチするオプションも用意されています。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>現在は<a href="https://docs.microsoft.com/azure/stream-analytics/sql-reference-data">、Azure SQL Database</a>ジョブ<a href="https://docs.microsoft.com/azure/stream-analytics/sql-reference-data"></a>への参照データ入力のソースとして、Stream Analytics試しに使用できます。 この機能は、すべての Azure リージョンでパブリック プレビューで使用できます。 この機能は、最新リリースの Stream Analytics ツールでも使用Visual Studio。 この機能を完全に活用し、この機能を使用して何を構築Stream Analytics。</p>
+
+
+  <h2>フィードバックとアイデアの提供</h2>
+
+
+  <p>チームAzure Stream Analyticsフィードバックに耳を傾け、非常にコミットしています。 会話に参加し、UserVoice を通じて音声を <a href="https://feedback.azure.com/forums/270577-stream-analytics/filters/top" target="_blank">聞いへようこそ</a>。 Twitter でフォローすることで、最新のお知らせを最新の情報に更新することができます <a href="https://twitter.com/azurestreaming" target="_blank">@AzureStreaming</a>。 また、 にお問い合わせください <a href="mailto:askasa@microsoft.com" target="_blank">askasa@microsoft.com</a>。</p>

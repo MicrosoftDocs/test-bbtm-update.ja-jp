@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7270c2354a34f428f1b4e08cf64820fe3def14ae
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904823"
+Slug: data-movement-in-big-data-space-5
+Title: Azure Data Factory によるビッグデータ領域でのデータ移動
+Summary: Azure Data Factory は、ビッグデータと高度な分析のシナリオにおけるデータインジェスト、移動、および発行のニーズに対処するためのソリューションを提供します。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/data-factory/" target="_blank">Azure Data Factory</a> は、さまざまなデータストア間でのデータ移動をサポートするために、グローバルにデプロイされたサービスを提供します。 また Azure Data Factory には、 <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-move-data-between-onprem-and-cloud/" target="_blank">オンプレミスの場所とクラウドの間で安全にデータを移動</a>するためのサポートが組み込まれています。 この目的は、ビッグデータと高度な分析のシナリオで、データの取り込み、移動、発行のニーズを解決することです。</p>
+
+
+  <p>Azure Data Factory は、次のデータストアに接続します。</p>
+
+
+  <ul>
+      <li>Azure BLOB</li>
+      <li>Azure テーブル</li>
+      <li>Azure SQL データベース</li>
+      <li>Azure DocumentDB</li>
+      <li>IaaS 上の SQL Server</li>
+      <li>オンプレミスの SQL Server</li>
+      <li>オンプレミスのファイル システム</li>
+      <li>オンプレミスの Oracle データベース</li>
+      <li>オンプレミスの MySQL データベース</li>
+      <li>オンプレミスの DB2 データベース</li>
+      <li>オンプレミスの Teradata データベース</li>
+      <li>オンプレミスの Sybase データベース</li>
+      <li>オンプレミスの PostgreSQL データベース</li>
+      <li>オンプレミスの HDFS</li>
+      <li>汎用 OData データストア</li>
+      <li>汎用 ODBC データストア</li>
+      <li>汎用 Web データストア</li>
+  </ul>
+
+
+  <p><br />
+
+  継続的に、より多くのデータストアへの接続を迅速に追加することを検討しています。 暫定的には、.Net アクティビティを使用して Azure Data Factory で独自のコードを実行し、任意のデータストアに接続することができます。</p>
+
+
+  <p>Azure Data Factory でのデータ移動は、コピーアクティビティを通じて表示されます。 このアクティビティは、データストア間でデータをコピーします。 コピーは、定義されている頻度とスケジュールに従ってバッチメカニズムで実行されます。 これにより、データを効率的にコピーするために、の下にグローバルにデプロイされたフットプリントが活用されます。 この管理されたサービスにより、さまざまなデータソースにわたる一時的な問題に対する保護が確保され、データが安全なメカニズムで移動されるようになります。</p>
+
+
+  <p>オンプレミスのデータストアとの間でデータを移動する場合、データ管理ゲートウェイが活用されます。 <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-move-data-between-onprem-and-cloud/" target="_blank">Data management gateway</a> は、オンプレミス (ファイアウォールの内側) にインストールしてハイブリッドデータパイプラインを有効にすることができるエージェントです。 オンプレミスのデータへのアクセスを安全に管理し、オンプレミスのデータストア間のシームレスなデータ移動を可能にします。</p>
+
+
+  <p>他にも、次のような機能があります。</p>
+
+
+  <ul>
+      <li>データの移動を行うために、データの構造化、半構造化、非構造化を行うことができます。</li>
+      <li>ファイルベースのデータストアの場合: <ul>
+          <li>バイナリ、テキスト (CSV/TSV)、Avro などのさまざまなファイル形式がサポートされています。</li>
+          <li>UTF-8、UTF-16、gb2312 などのエンコードは、テキスト形式専用に選択できます。</li>
+          <li>3つの圧縮コーデック-GZip、Deflate、BZip2 を使用して、必要に応じてデータを圧縮できます。ソースとシンクは異なる圧縮アルゴリズムを使用できます。</li>
+      </ul>
+      </li>
+      <li>データの移動中に、ソースからのデータの列をスキップしたり、シンク内の特定の列にマップしたりすることができます。</li>
+      <li>型変換: 異なるデータストアには、異なるネイティブ型システムがあります。 コピーアクティビティは、ソース型からシンク型への自動型変換を実行します。 まず、ネイティブソースの型を対応する .Net 型に変換します。 次に、.Net 型を対応するネイティブシンク型に変換します。 特定のネイティブ型システムのマッピングが、それぞれのデータストアコネクタの記事のデータストアに対して .NET に対して見つかります。 これらのマッピングを使用すると、テーブルの作成時に適切な型を決定して、データの移動中に適切な変換が実行されるようにすることができます。</li>
+      <li>リレーショナルストアを設定するときに、データの移動中にカスタムロジックを実行して複数のテーブルにデータを同時に挿入したり、上書き/upsert したりするために、ストアドプロシージャを呼び出すことができます。</li>
+      <li>コピーアクティビティの再実行によって冗長データや不適切なデータが生成されないようにするための再現性のメカニズムが用意されています。</li>
+  </ul>
+
+
+  <p>最終的には、信頼性が高く、効率的で、機能豊富で <a href="https://azure.microsoft.com/en-us/pricing/details/data-factory/" target="_blank">費用対効果の高い</a> 、Azure Data Factory によるデータ移動が実現されます。</p>
+
+
+  <p>次の用途で使用できます。</p>
+
+
+  <ol>
+      <li>オンプレミスとクラウド間のハイブリッドデータ移動を可能にします。また、その逆も可能です。</li>
+      <li>Data lake の読み込み</li>
+      <li>データウェアハウスの読み込み</li>
+      <li>オンプレミスのデータ分析ソリューションをクラウドにリフトアンドシフトする</li>
+  </ol>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>データ移動の詳細について <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-data-movement-activities/" target="_blank">は、こちら</a>を参照してください。 データの移動を Azure Data Factory 今すぐ <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-learning-map/" target="_blank">試してください</a> 。 <a href="https://feedback.azure.com/forums/270578-azure-data-factory" target="_blank">フィードバックフォーラム</a>でご意見をお聞かせください。</p>
