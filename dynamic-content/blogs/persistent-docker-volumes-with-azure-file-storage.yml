@@ -1,0 +1,37 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 027522ec52d83e6b885fb59b5d07c91db47ed055
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903988"
+Slug: persistent-docker-volumes-with-azure-file-storage
+Title: Azure File Storage を使用した永続的な Docker ボリューム
+Summary: 本日、GitHub で Azure File Storage オープン ソース用の Docker ボリューム プラグインを発表します。Azure File Storage の Linux SMB 機能を使用して、永続的なデータをコンテナーに格納し、ホスト間で簡単に移行できます。
+Content: >-
+  <p>本日、Azure File Storage 用 <a href="https://github.com/Azure/azurefile-dockervolumedriver">Docker ボリューム プラグインをお知Storage</a>。 Linux 上の Azure File Storage SMB 3.0 <a href="https://azure.microsoft.com/services/storage/files/">プロトコル サポート機能</a>を活用します。 このオープン ソースの Docker ボリューム プラグインを使用すると、 <a href="https://docker.com">Docker</a> コンテナーは仮想マシンの外部にデータ ボリュームを格納できます。そのため、ホスト間でステートフル コンテナーを簡単に移行できます。</p>
+
+
+  <p>標準の Docker コンテナー ボリュームは、通常、Docker ホスト コンピューターに格納されているディレクトリです。 これにより、コンテナーは特定のホスト上のファイルに依存するため、移行とスケールアウトが簡単に行いにくいためです。 Azure File Storage プラグインを使用すると、Azure File Storage&rsquo; 共有をホスト ファイル システム上のディレクトリとしてマウントし、コンテナーで使用できます。これで、プラグインを使用して作成された Docker ボリュームを利用できます。</p>
+
+
+  <p>Azure File Storage ボリューム プラグインは、コンテナーの移行の容易さに限定されるのではありません。 また、複数のコンテナー間でファイル共有を共有し (異なるホスト上にある場合でも)、ワークロードで共同作業を行い、複数のホストで実行されているアプリケーションの構成またはシークレットを共有できます。 もう 1 つの使用例は、さらに処理するために、アプリケーションからファイル共有にログなどのメトリックと診断データをアップロードすることです。</p>
+
+
+  <p>次に示すのは、Azure File Storageプラグインのデモです。</p>
+
+
+  <p><script type="text/javascript" src="https://asciinema.org/a/39205.js" id="asciicast-39205" async></script></p>
+
+
+  <p>この Docker ボリューム プラグインは、現在、Ubuntu Server バージョン 14.04 以上でサポートされています。 ソース コードとインストール手順については、次のページ<a href="https://github.com/Azure/azurefile-dockervolumedriver">GitHub</a>。 試してみてください。お気に入 <a href="https://github.com/Azure/azurefile-dockervolumedriver/issues">りをお</a> 知らせください。</p>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/services/storage/files/">Azure File Storage ドキュメント</a></li>
+      <li><a href="https://azure.microsoft.com/blog/azure-file-storage-now-generally-available/">Azure File Storageの一般提供のお知らせ</a></li>
+      <li><a href="https://azure.microsoft.com/blog/inside-azure-file-storage/">Inside Azure File Storage (Azure File Storage の内部)</a></li>
+  </ul>

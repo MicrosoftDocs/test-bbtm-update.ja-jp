@@ -1,0 +1,96 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c6141f1bc5d64a6072396e2fa4ab68805409743d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910168"
+Slug: ams-powerapps
+Title: PowerApps での Azure Media Services の使用
+Summary: Azure Media Services でホストされているメディアを使用して PowerApps をビルドできるようになりました。
+Content: >-
+  <p>Azure Media Services でホストされているメディアを使用して PowerApps をビルドできるようになりました。 このチュートリアルでは、Contoso Corp. で、製品やサービスのビデオを使用して、従業員のオンライン学習アプリを構築したいと考えています。</p>
+
+
+  <ul>
+   <li>新しい Azure Media Services アカウントを作成します (まだ持っていない場合 &rsquo; )。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33af8712-3bb0-4bae-9fb5-89496293f4ec.png"><img alt="createAMS1" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c02ba50c-87f5-48e6-80b8-0b0a65beb810.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="createAMS1" width="573"></a></p>
+
+
+  <ul>
+   <li>Azure Media Services アカウントから、<b>設定</b> &gt; <b>アセット</b>からビデオ資産を見つけて発行します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/058c1975-d4cb-4f25-81e9-42c89a630c59.png"><img alt="createAMS2" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a3ba2832-c9ff-45d9-92b3-face44fbcc31.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="createAMS2" width="304"></a></p>
+
+
+  <ul>
+   <li>ビデオをエンコードします。 ビデオが発行されたら、マニフェストの Url をコピーします。 まだ行っていない場合は、サービスのストリーミング エンドポイントを開始します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ac65b8d-851d-43ea-ac16-3abfee2c44fe.png"><img alt="createAMS3" border="0" height="468" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5bfa345-8dd2-4d6c-a7c2-f7c4782e9498.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="createAMS3" width="610"></a></p>
+
+
+  <ul>
+   <li>&rsquo;PowerApps を使用していない場合は、いつでも職場または学校のアカウントを使用して<a href="https://powerapps.microsoft.com" target="_blank">試用版にサインアップ</a>できます。 Windows ストアから<a href="https://aka.ms/powerappswin" target="_blank">PowerApps Studio をダウンロード</a>します。 または、 <a href="https://web.powerapps.com/" target="_blank">PowerApps ポータル</a> にログインし、[新しいアプリ] を選択し <strong>ます。</strong></li>
+   <li>[空のアプリ &gt; ] <strong>タブレットレイアウト</strong>を選択します。</li>
+  </ul>
+
+
+  <p><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/047f1f9f-e0b8-413d-828e-c7e7457eb1bd.png"><img alt="ams1" border="0" height="366" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70285b19-40eb-4168-88bb-221f960cb3cd.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ams1" width="610"></a></strong></p>
+
+
+  <ul>
+   <li>使用可能なすべての AMS ビデオのギャラリーを構築し、ユーザーが再生するビデオを選択できるようにしたいと考えています。 Excel スプレッドシートは、アプリにデータを読み込むための簡単な方法です。 AMS ビデオ url へのリンクと共に使用する Excel テーブルを次に示します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c21bc696-cf21-42f5-89a6-5bc470d2b9c5.png"><img alt="createAMS5" border="0" height="111" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a2efc13e-4464-4d09-8ef1-4e32f258d18e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="createAMS5" width="610"></a></p>
+
+
+  <ul>
+   <li>PowerApps から、[ <strong>コンテンツ &gt; データソース </strong>] を選択します。右側のパネルで、[ <strong>データソースの追加 </strong>] を選択し、 <strong>アプリに静的データを追加</strong>します。 Excel ファイルを参照して読み込みます。</li>
+   <li>PowerApps から、[<strong>ギャラリー &gt; の挿入 &gt; ] カスタムギャラリー</strong>から<strong>水平のギャラリー</strong>コントロールを追加します。 [<strong>挿入] タブから [項目の追加]</strong>を選択し、<strong>メディア</strong>から<strong>ビデオ</strong>コントロールを追加します。</li>
+   <li>ギャラリーの<strong>Items</strong>プロパティをテーブルの名前に設定して、ギャラリーを Excel テーブルにバインドします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8b6f504-7574-4f1b-bb2d-b6b5d10e69bf.png"><img alt="ams_e1" border="0" height="102" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/861063ed-bcd4-4987-9f38-692cee31c85a.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ams_e1" width="610"></a></p>
+
+
+  <ul>
+   <li>ギャラリーの最初のビデオコントロールの <strong>Media </strong>プロパティを <strong>VideoURL</strong>に設定します。 ギャラリーに AMS ビデオの読み込みの一覧が表示されます。 ビデオコントロールの <strong>Disabled</strong> プロパティを <strong>true</strong>に設定します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5d76338f-5703-4f2f-9641-d9e243602fe1.png"><img alt="ams_e2" border="0" height="102" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef63c510-811b-4039-a6a3-34cbfcf83b0d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ams_e2" width="610"></a></p>
+
+
+  <ul>
+   <li>メインビデオの<b>挿入</b> &gt; <strong>メディア</strong>から<b>ビデオ</b>コントロールを追加します。 <strong>Media</strong>プロパティを<strong>gallery1.selected. VideoURL</strong>にバインドします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cff1818d-3e16-4589-b6d2-556dd617e1be.png"><img alt="ams2" border="0" height="317" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00e050b8-1463-41db-9975-20c36b91d0b2.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ams2" width="610"></a></p>
+
+
+  <ul>
+   <li>また、Excel ファイルからタイトルと説明のテキストフィールドを追加して、アプリに表示することもできます。 完全なアプリを次の図に示します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5a94069-9b76-4b56-a27e-e428738e4e04.png"><img alt="createAMS4" border="0" height="337" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52178838-f064-4a76-b96e-ecae30816008.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="createAMS4" width="610"></a></p>
+
+
+  <p>アプリの構築の詳細については、PowerApps の <a href="https://powerapps.microsoft.com/en-us/tutorials/getting-started/" target="_blank">ドキュメント</a>を参照してください。 PowerApps の AMS ビデオに関するフィードバックや質問については、 <a href="https://powerusers.microsoft.com/t5/PowerApps-Forum/bd-p/PowerAppsForum1" target="_blank">フォーラム</a>に投稿してください。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>アプリのビルドを楽しんでください。</p>

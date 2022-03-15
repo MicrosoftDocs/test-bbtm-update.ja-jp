@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 26ac61d8c338aacb37370074304bcbd5de9d9ef9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909952"
+Slug: blue-green-deployments-using-azure-traffic-manager
+Title: Blue-Greenを使用してデプロイをAzure Traffic Manager
+Summary: Azure Traffic Manager、Azure の DNS ベースの負荷分散ソリューションは、グローバル ユーザー ベースを Azure 上のエンドポイントにルーティングして提供するなど、さまざまな用途で顧客によって使用されます。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/traffic-manager/" target="_blank">Azure Traffic Manager</a>、AzureS&rsquo; DNS ベースの負荷分散ソリューションは、グローバル ユーザー ベースを Azure 上のエンドポイントにルーティングして、最も高速で低待機時間のエクスペリエンスを提供し、ミッション クリティカルなワークロードにシームレスな自動フェールオーバーを提供し、オンプレミスからクラウドに移行するなど、さまざまな用途で顧客によって使用されます。 お客様が Traffic Manager を活用する主な使用事例の 1 つは、Traffic Manager&rsquo; の重み付けラウンドロビン ルーティング方法を使用して Blue-Green デプロイ プロセスを実装することで、ユーザーへの影響を最小限に<a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-routing-methods#a-name--weightedaweighted-traffic-routing-method" target="_blank"></a>抑え、ソフトウェアの展開をスムーズに行う方法です。 このブログでは、Traffic Manager を使用して Blue-Green デプロイを実装する方法について説明しますが、詳細を確認する前に、Blue-Green デプロイの意味について説明します。</p>
+
+
+  <p>Blue-Green展開は、新しいバージョンでの問題が原因で発生する中断の影響を軽減できるソフトウェア ロールアウト方法です。 これは、限られた一連のユーザーに新しいバージョンのソフトウェアを公開し、すべてのユーザーが新しいバージョンを使用するまでそのユーザー ベースを段階的に拡張することで実現されます。 新しいバージョンで問題が発生している場合 (たとえば、Web アプリケーションの新しいバージョンでの認証ワークフローの破損など)、すべてのユーザーを即座に* 古いバージョンにリダイレクトできます。&nbsp;</p>
+
+
+  <p>これは、Blue と Green と呼ばれる 2 つの一致する仮想環境を実行することで実現されます。 通常、1 つの環境 (青) だけですべてのユーザー トラフィックが提供され、もう一方の環境 (緑) は存在しないかアイドル状態です。 グリーン環境への実稼働デプロイ中に、Traffic Manager を使用して、ライブ トラフィックでグリーン環境を継続的にテストしながら、ブルーからグリーンに徐々に多くのユーザーを送信できます。</p>
+
+
+  <p>Azure で実行されているワークロードの場合、古いコードを含む Blue 環境と、新しいコードを含む Green 環境を別々の Azure Resource Manager グループに設定する方法をお <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">勧めします</a>。 エンドポイントが外部の場合は、任意の継続的インテグレーションおよびデプロイ ツールを使用して、2 つの環境を管理およびデプロイできます。 環境の準備ができたら、ルーティング方法として重み付けラウンド ロビンを使用して Azure portal、PowerShell、または CLI を使用して <a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-create-profile" target="_blank">Traffic Manager</a> プロファイルを作成し、これらの環境に対応するエンドポイントを追加できます。</p>
+
+
+  <p>この例では、1 つ目のエンドポイント Blue.contoso.com の重みを 1,000 に設定し、2 番目のエンドポイントを 1 に設定 Green.contoso.com を設定します。&nbsp;これにより、ほとんどのトラフィックが Blue 環境に送信され、最小限のトラフィックだけがグリーン環境にルーティングされます。 Green 環境へのトラフィックを完全に停止する場合は、エンドポイントを無効 green.contoso.com できます。 これは、デプロイの開始状態Blue-Greenです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6975f5a8-10e5-489f-8f60-c7c2bfa11cb4.png"><img alt="Resource group" border="0" height="318" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60653083-ebb6-4078-809c-2ebd10398f43.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リソース グループ" width="1177"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79f72f5a-0135-48df-9f33-360b5337d745.png"><img alt="Blue environment" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/231f84e4-2c90-4d8f-b5b6-9f7a1ac48f48.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="青の環境" width="221"></a></p>
+
+
+  <p align="center"><em>すべてのトラフィックが Blue 環境に送信されます</em></p>
+
+
+  <p>この時点で、エンドポイントに直接接続しないが、作成したプロファイルの DNS 名を使用して Traffic Manager を通過するために、クライアント アプリケーションを設定する必要があります (この DNS 名は trafficmanager.net で終わる)。</p>
+
+
+  <p><strong>Proヒント:</strong> Azure DNSを使用してカスタム ドメイン<a href="https://azure.microsoft.com/en-us/services/dns/" target="_blank"></a>名をホストし、それを DNS 名のTraffic Manager指定できます。 これにより、クライアント アプリケーションとユーザーは簡単に覚えやすい名前を使用して、サービスにアクセスTraffic Manager。 これを行う方法の詳細については、ドキュメントページ <a href="https://docs.microsoft.com/en-us/azure/dns/dns-getstarted-portal" target="_blank">Azure DNS覧ください</a>。</p>
+
+
+  <p>ロールアウトする最新バージョンで Green 環境を更新したら、グリーン環境の重みを確実に増やして、限られた数のユーザーがそこに向かっているのを確認できます。 その後、 <a href="https://azure.microsoft.com/en-us/services/monitor/" target="_blank">Azure Monitor</a> または <a href="https://azure.microsoft.com/en-us/services/network-watcher/" target="_blank">Azure Network Watcher</a> を使用して監視し、それらのユーザーのエクスペリエンスを監視して、より多くのユーザーを Green 環境に公開できるかどうか、またはユーザーの送信を停止する必要があるかどうかを確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3293630-d10e-46cd-ae80-a799afc172f1.png"><img alt="Blue-Green environment" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/024f5708-c0a5-4c37-aa92-d5eb860f92f0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Blue-Green環境" width="224"></a></p>
+
+
+  <p align="center"><em>トラフィックの一部がグリーン環境に送信される</em></p>
+
+
+  <p>影響を測定して設定を変更するこのプロセスは、継続的デプロイ パイプライン ( <a href="https://azure.microsoft.com/en-us/solutions/architecture/immutable-infrastructure-cicd-using-jenkins-and-terraform-on-azure-virtual-architecture-overview/" target="_blank">Jenkins、Terraform</a>、Azure Resource Manager テンプレートなど) を使用して自動化できるステップ関数です。 デプロイが Azure Web Apps で実行されている Web アプリケーションの場合は、Visual Studio を使用して、ほとんどの<a href="https://azure.microsoft.com/en-us/solutions/architecture/vsts-continuous-integration-and-continuous-deployment-for-azure-web-apps/" target="_blank"></a>デプロイをBlue-Greenできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ce4baab4-08f5-4fae-b466-ab4166479347.png"><img alt="Process" border="0" height="572" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09f32862-5572-49c0-b73f-6d283a322377.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="プロセス" width="1882"></a><br>
+
+  &nbsp;<br>
+
+  ソフトウェアのデプロイが完了し、すべてのトラフィックが新しいバージョンのソフトウェアを実行している Green 環境に送信されるまで、Green 環境に与えられる重み付けで上向きまたは下向きに維持できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74514263-1ec1-41bb-9f72-0aedd5b13e08.png"><img alt="Green environment" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eeb9c7f4-03c2-444b-81c4-e0da189bf388.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="緑の環境" width="223"></a></p>
+
+
+  <p align="center"><em>すべてのトラフィックが緑の環境に送信されます</em></p>
+
+
+  <p>Azure Traffic Manager方法を使用して安全にデプロイするこのプロセスは、シームレスBlue-Greenきめ細かく、高速な動作*を実現します。 何よりも、グリーン環境の速度や速度を決定する場合は、ここで制御できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>プロファイルで設定した DNS 応答 TTL 値は、エンドポイントへのトラフィックを増減できる時間*<em>に影響します。詳細については、FAQ に関するページ</em><a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-faqs" target="_blank"><em>Azure Traffic Managerしてください</em></a><em>。</em></p>

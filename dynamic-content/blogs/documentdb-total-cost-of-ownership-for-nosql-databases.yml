@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7e807a9ef8af9ed1b9468b0dfc2e010b89f74b6d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904185"
+Slug: documentdb-total-cost-of-ownership-for-nosql-databases
+Title: 2016 年の NoSQL データベース サービスの総保有コスト (非)
+Summary: 今日の前に、論文「2016 年の NoSQL データベースの総コスト (非) 所有権 (TCO)」を公開しました。 オンプレミスと Azure Virtual Machines で OSS NoSQL データベースをホストし、Azure DocumentDB などのサービスとしてマネージド NoSQL データベースを使用する TCO の比較。
+Content: >-
+  <p>今日の前に、 <a href="https://aka.ms/documentdb-tco-paper">NoSQL データベース クラウド サービスの総保有コスト (TCO)&nbsp; に関する論文を公開しました</a>。 TCO は NoSQL データベースを選択する際の重要な考慮事項であり、多くの場合、お客様は TCO に影響を与える多くの要因を見落とします。 このホワイト ペーパーでは、次のシナリオで NoSQL データベースを実行する TCO を比較します。</p>
+
+
+  <ul>
+   <li>オンプレミスでホストされている Cassandra や MongoDB のような OSS NoSQL データベース</li>
+   <li>Azure Virtual Machines でホストされている OSS NoSQL Virtual Machines</li>
+   <li>マネージド NoSQL データベースをサービスとして使用&nbsp;する (&nbsp;<a href="https://azure.microsoft.com/en-us/services/documentdb/">「Azure DocumentDB」など</a>)。</li>
+  </ul>
+
+
+  <p>バイアスを最小限に抑えるために、可能な限り他のパブリケーションからのシナリオを活用しました。</p>
+
+
+  <p>TCO 論文のパート 1 では、Amazon が公開した同様の論文「NoSQL TCO analysis(NoSQL TCO 分析)」からエンドツーエンドのゲーム シナリオについて説明します。 シナリオのパラメーターと想定は変更されず、オンプレミスおよび仮想マシン上の OSS NoSQL データベースの TCO を計算する場合と同じ手法を使用しました。 もちろん、この論文では Azure Virtual Machines を使用しました。 このシナリオでは、映画に基づくオンラインゲームについて説明し、ゲームの人気度の 3 つの異なるレベルを含む:映画がリリースされる前の時間 (&nbsp;&nbsp;低使用率)、映画のリリース後の最初の月 (使用率が高い)、後続の使用量 (&nbsp;中程度の使用量) の 3 つの異なるレベルのトランザクションとデータが各ステージに格納され、次のグラフに示します。&nbsp;&nbsp;&nbsp;</p>
+
+
+  <p>分析の結果は、AWS の論文とかなり一貫性があります。 関連するすべての TCO に関する考慮事項を考慮すると、DocumentDB や DynamoDB のようなマネージド クラウド サービスは、オンプレミスまたは<strong></strong>仮想マシンで実行されている OSS カウンター パーツよりもコスト効率が 5 倍から 10 倍高い可能性があります。</p>
+
+
+  <p><img alt="part1_chart" border="0" height="485" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8588fcfc-e48e-4218-b564-8e4d6122b8af.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="part1_chart" width="554"></p>
+
+
+  <p>&nbsp;次の要因により、DocumentDB&nbsp; のようなマネージド NoSQL クラウド サービスは、オンプレミスまたは仮想マシンで実行されている OSS カウンター パーツよりもコスト効率が高くなっています。</p>
+
+
+  <ul>
+   <li><strong>NoSQL 管理 dev/ops は必要ありません。</strong> &nbsp;DocumentDB&nbsp; はマネージド クラウド サービスなので、オンプレミスまたはクラウド インフラストラクチャでホストされている anOSS&nbsp; NoSQL クラスターで必要なデプロイ、メンテナンス、スケーリング、修正プログラムの適用、その他の毎日のタスクを処理するために、開発/運用チームを使用する必要はありません。</li>
+   <li><strong>優れた弾力性。</strong> DocumentDB の&nbsp;&nbsp;&nbsp;スループットは数秒でスケールアップおよびスケールダウンできます。ピーク時以外の場合は、所有権のコストを削減できます。 クラウド インフラストラクチャにデプロイされた OSS NoSQL クラスターでは、弾力性が制限され、オンプレミスのデプロイはエラスティックではありません。</li>
+   <li><strong>スケールの経済性。</strong> DocumentDB のようなマネージド サービスは&nbsp;、運用上、多数のノードを運用し、節約を顧客に渡す可能性があります。</li>
+   <li><strong>クラウド最適化。</strong> DocumentDB のようなマネージド サービスは、クラウドを完全に活用します。 現時点では、OSS NoSQL データベースは、特定のクラウド プロバイダー向けに最適化されません。 たとえば、OSS NoSQL ソフトウェアは、ノードのダウンと日常的なイメージのアップグレードの違い、または Premium ディスクが既に 3 つの方法でレプリケートされているという事実を知らされません。</li>
+  </ul>
+
+
+  <p>この中程度のシナリオでの Azure DocumentDB と AWS DynamoDB <strong></strong><strong> </strong>の TCO<strong> </strong>は同等であり、書き込み要求のコストが低く、<strong>Azure DocumentDB</strong> は若干 <strong>(約 10%)</strong> 低コストでした。</p>
+
+
+  <p><strong>定量的な比較</strong></p>
+
+
+  <p>Amazons&rsquo; ホワイトペーパーで採用されているアプローチの課題の 1 つは、OSS NoSQL データベースの実行コストに関して行われた前提の数 (多くの場合、明示的に明確ではない) です。 最初に、比較に使用されている OSS NoSQL データベースについては言及していない。 同じシナリオで Cassandra や MongoDB などの 2 つの非常に異なる NoSQL データベース エンジンを実行する TCO がまったく同じになるとは考えにくいです。 ただし、Amazons の手法では&rsquo;、その重要な定性的なメリットが維持され、この問題は耐え得ないと考えられる。</p>
+
+
+  <p>ホワイトペーパーの 2 番目のセクションでは、この問題に対処し、より具体的なシナリオに対してより正確な定量的比較を提供します。 次の 3 つのシナリオについて説明します。</p>
+
+
+  <ul>
+   <li>100 万レコード/秒の取り込み</li>
+   <li>バランスの取れた 50/50 の読み取り/書き込みワークロード</li>
+   <li>通常のバーストで 100 万レコード/秒を取り込む</li>
+  </ul>
+
+
+  <p>Azure D14v2 Linux Virtual Machines で Azure DocumentDB、Amazon DynamoDB、OSS Cassandra という NoSQL データベースを使用する場合、これらのマイクロシナリオの TCO を比較します。これは、高データ ボリューム シナリオで人気のある NoSQL の選択肢です。 Cassandra でテストを実行するために、オープン ソース <a href="https://github.com/GoogleCloudPlatform/PerfKitBenchmarker">の PerfKit Benchmarker</a> に含まれるオープン ソースの Cassandra-stress コマンドを利用します。</p>
+
+
+  <p><img alt="tco_part2" border="0" height="297" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/23cff938-656c-4bd8-a7cf-f68ed30f774d.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="tco_part2" width="610"></p>
+
+
+  <p>上のグラフに示されている時間次 TCO の結果は、パート 1 の観測値と一致し、いくつかの追加の定量的結果が得られます。</p>
+
+
+  <ul>
+   <li><strong>Documentdb </strong>TCO は<strong></strong>、ストレージのニーズが低い高い持続的な事前に主に書き込みワークロードを伴<strong></strong>う<strong>シナリオ (つまり</strong>、Cassandra&nbsp; ノード上のローカル SSD で十分です) に対して、Azure D14v2 VM で実行されている<strong> OSS Cassandra</strong> の場合と同等です。Time to Live (TTL) が 3 時間未満の Forexample,1M&nbsp;&nbsp; 書き込み。またはほとんどの書き込みは更新です。 Cassandra は、このようなシナリオに対する優れたパフォーマンスで有名であり、製品開発の初期段階では、多くの場合、この理由で非常に魅力的に見られます。 ただし、簡単ではない開発/オペのコスト コンポーネントにより、Cassandra デプロイの総保有コストが高くなります。</li>
+   <li>より多くのストレージが必要な場合、またはワークロードにバランスの取れた読み取り/書き込みの組み合わせが含まれる場合、またはワークロードがバーストしている場合、DocumentDB TCO は、Azure VM で実行されている <strong>OSS Cassandra </strong>よりも最大 4 時間低くなります。 Cassandra&#39;の TCO は、Cassandra クラスターと Cassandra&#39;の管理に対する非簡単な開発/オペコストが原因で、これらのシナリオではより高くなります。基になるクラウド プラットフォームに対する認識が不足しています。 DocumentDB TCO は、オーバーヘッドの少ない自動インデックス作成により、優れた弾力性と読み取りとクエリのコストの削減により低くなります。</li>
+   <li><strong>DocumentDB は、調査 </strong>したワークロードの量が多い場合、DynamoDB の最大 2 倍から 3 倍の低料金です。 両方のオファリングによって保証される予測可能なパフォーマンスにより、これらの数値は、公開小売価格ページを比較するだけで確認できます。 DocumentDB では、書き込み最適化された低オーバーヘッドインデックス作成が既定で提供され、セカンダリ インデックスを気にすることなくクエリの効率が向上します。 DocumentDB の書き込みは、高スループットのワークロードでは大幅に低コストです。</li>
+  </ul>
+
+
+  <p>結論として、&rsquo;NoSQL データベースを選択する際の TCO は 1 つのみ (重要な考慮事項ですが) という点を追加します。 これらの製品の比較では、それぞれ独自の方法で光が当たります。 意思決定を行う際には、製品の機能、開発の容易さ、サポート、コミュニティ、その他の要因を考慮する必要があります。 このホワイト ペーパーには、DocumentDB 機能の概要が含まれています。</p>
+
+
+  <p>コミュニティの前面では、MongoDB プロジェクトと Cassandra プロジェクトに対して、そのオファリングに関する重要なコミュニティを作成しました。 これらのコミュニティに対<a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-protocol-mongodb">して Azure をより</a>良い場所にするために、最近、DocumentDB オファリングの一環として Azure Cosmos DB for MongoDB API のプロトコル レベルのサポートを提供し、MongoDB 開発者からこれまで受け取ったフィードバックをお勧めしています。 DocumentDB のお客様は、Azure Cosmos DB for MongoDB API コミュニティの専門知識を活用できるだけでなく、PaaS サービスに関する一般的な懸念事項である独自の API へのロックについて心配する必要はありません。</p>
+
+
+  <p>いつものように、 <a href="https://feedback.azure.com/forums/263030-documentdb">UserVoice</a>、StackOverflow <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">#azure-documentdb</a>、または Twitter <a href="https://twitter.com/documentdb">@DocumentDB</a>を使用して、DocumentDB に対して今後&#39;する方法と改善点をお知らせします。</p>

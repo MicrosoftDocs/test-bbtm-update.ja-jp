@@ -1,0 +1,145 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 829114d982174d43ff3ae7450b71ac0e5ac9620b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910256"
+Slug: ways-to-use-azure-security-center-log-analytics-for-threat-hunting
+Title: 脅威を探すために Security Center と Log Analytics を使用する方法
+Summary: 現在、組織は常に攻撃を受けています。 Azure Security Center (ASC) は、高度な分析とグローバル脅威インテリジェンスを使用して悪意のある脅威を検出します。また、製品チームが日々追加している新機能により、顧客がこれらの脅威に迅速に対応できるようになります。
+Content: >-
+  <p>現在、組織は常に攻撃を受けています。 Azure Security Center (ASC) は、高度な分析とグローバル脅威インテリジェンスを使用して悪意のある脅威を検出します。また、製品チームが日々追加している新機能により、顧客がこれらの脅威に迅速に対応できるようになります。</p>
+
+
+  <p>しかし、脅威や攻撃についての警告を示す優れたツールを持っているだけでは不十分です。 実際には、セキュリティツールが攻撃の100% を検出できないということです。 さらに、アラートを生成するツールの多くは、誤検知が低いレートに合わせて最適化されています。 そのため、ユーザーの環境で不審な外れ値アクティビティが発生して、フラグが設定され、調査されている可能性があります。 これは Security Center と Azure Log Analytics チームが理解しているものです。 製品には、トリガーされるアラートに応答するだけでなく、調査を開始したり、キャンペーンを探したりするために使用できる機能が組み込まれています。</p>
+
+
+  <p>現実には、脅威を探す必要がある場合、考慮する必要がある考慮事項がいくつかあります。 優れたアナリストチームが必要なのは、調査関連データを収集するエージェントの配置、クエリが実行される形式での解析、クエリの実行速度を向上させ、最終的に結果を得るためにデータのインデックスを作成するためのツールの構築など、サービスエンジニアや管理者にとって大きなチームです。 ASC と Log Analytics は、これらすべてを処理し、脅威をより簡単に探すことができます。 組織が必要とするものは、考え方の変化です。 アラートドリブンではなく、セキュリティプログラム全体にアクティブな脅威を探す必要もあります。</p>
+
+
+  <h2>脅威を探すにはどうすればよいですか。</h2>
+
+
+  <p>疎に定義されているのは、既存のセキュリティソリューションを回避する脅威を検出することを目的として、さまざまなログデータを積極的かつ反復的に検索するプロセスです。 考えてみると、脅威の探しは考え方です。 私たちは、アラートに反応するだけでなく、組織 &rsquo; の環境のセキュリティ保護についての予防策であり、企業内の悪意のあるアクティビティの兆候を探しています。 脅威を探すには、攻撃者 &rsquo; の行動に関する hypothesizing が必要です。 これらの仮説と手法を調査して、ログに残される成果物を判断します。 組織がこれらのログを収集して保存するかどうかを確認しています。 次に、仮説を使用して、自分の&#39;環境で派生したこれらのを確認します。</p>
+
+
+  <p>検索では、データを検索する方法、通常のアクティビティと外れ値を区別する方法を説明します。ネットワークの画像を見やすくし、検出のギャップを表示します。 定期的に探しているセキュリティアナリストは、実際のインシデント時に対応し、トリアージすることをお勧めします。</p>
+
+
+  <p>ここでは、アナリストが開始できるこれらの単純な探しの例をいくつか見ていきます。 以前の投稿では、このことについて少し触れました。 悪意のあるアクティビティを <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fazure.microsoft.com%2Fen-us%2Fblog%2Fdetect-malicious-activity-using-azure-security-center-and-azure-log-analytics%2F&amp;data=02%7C01%7C%7Cf5b66e53225d49d3f01108d5fcbd9260%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636692813486437485&amp;sdata=pxm3UOrJ649Oalissme2RsawTc8HlLGZ8KYCudQeRmA%3D&amp;reserved=0" target="_blank">検出し、攻撃者によって一般的に展開</a> されている非表示の手法や、 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fazure.microsoft.com%2Fen-us%2Fblog%2Fhow-azure-security-center-helps-analyze-attacks-using-investigation-and-log-search%2F&amp;data=02%7C01%7C%7Cf5b66e53225d49d3f01108d5fcbd9260%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636692813486437485&amp;sdata=vNuF%2BOUuSA%2FQr5qRMSjBJoTqmKM5WVEQPvrYE3pb48I%3D&amp;reserved=0" target="_blank">調査とログ検索を使用して攻撃を分析する方法</a>については、Azure Security Center を参照してください。</p>
+
+
+  <h3>シナリオ 1</h3>
+
+
+  <p>多くのセキュリティツールでは、外部転送先への異常なサイズのデータ転送が検出されます。 これらのセキュリティツールを回避し、ネットワーク経由で送信されるデータの量を減らすために、攻撃者は exfil 前に収集されたデータを圧縮することがよくあります。 圧縮に適した一般的なツールは、通常、7zip/Winzip/WinRar などです。攻撃者は、独自のカスタムプログラムを使用してデータを圧縮することも知られています。</p>
+
+
+  <p>たとえば、WinRar を使用してデータを圧縮するときに、最も一般的に使用されているいくつかのスイッチが &quot; -m5 &ndash; hp です。 &quot;&quot;A &quot; スイッチはアーカイブにファイルを追加することを指定しますが、-m5 &rdquo; スイッチは &ldquo; 圧縮レベルを指定します。ここ &ldquo; で、5 &rdquo; は最大圧縮レベルです。 -Hp &rdquo; スイッチは、 &ldquo; コンテンツとヘッダー情報を暗号化するために使用されます。 これらのコマンドラインスイッチに関する知識があれば、このアクティビティの一部を検出することがあります。</p>
+
+
+  <p>このロジックを実行する単純なクエリを以下に示します。ここでは、これらのコマンドラインスイッチを探しています。 この例では、結果を見ると、Svchost.exe が WinRAR に関連付けられたコマンドラインスイッチを使用している場合を除いて、すべてのコマンドラインデータが問題のないように見えます。 さらに、バイナリ Svchost.exe は、% windir%/system32 フォルダーから実行するのが理想的な場合は、temp ディレクトリから実行されます。 脅威のアクターは、ツールの名前をよく知られたプロセス名に変更して、非表示にすることがわかっています。 これは疑わしいと考えられ、調査の開始点として適しています。 アナリストは、ここからの多くの方法のいずれかを使用して、攻撃シーケンス全体を明らかにすることができます。 ログオンデータにピボットして、このログオンセッションで発生したことを確認したり、使用されたユーザーアカウントに焦点を当てることができます。 また、このマシンに接続されている可能性がある IP アドレスまたは特定の時間枠内にこのマシンに接続された IP アドレスを調べることもできます。</p>
+
+
+  <pre>
+
+  SecurityEvent
+
+  | where TimeGenerated &gt;= ago(2d)
+
+  | search CommandLine : &quot; -m5 &quot; and CommandLine : &quot; a &quot;
+
+  | project NewProcessName , CommandLine</pre>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/83777ca7-96a9-4a15-831d-4d90c3439737.png"><img alt="Sai_Img1" border="0" height="313" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b19d4313-3e37-4401-b3cb-c0d6ef963163.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Sai_Img1" width="547"></a></p>
+
+
+  <p>もう1つの良い例として、メールパスワードビューアーや IE パスワードビューアーなどの一般的な Nirsoft ツールを使用して、電子メールクライアントからのパスワードや、ブラウザーに保存されているパスワードを収集することが考えられます。 これらのツールのコマンドラインを知っておくと、/stext や/scomma などのコマンドラインパラメーターを検索すると、興味深いログエントリが見つかる可能性があります。これにより、プロセス名を知らなくても悪意のある可能性のあるアクティビティを検出できます。 以前に見た例を示すために、notepad.exe/Stext output.txt&rdquo; のような &ldquo; コマンドラインを参照することをお勧めします。これは、メモ帳が名前が変更された Nirsoft ツールであり、悪意のある可能性があると考えられます。</p>
+
+
+  <h3>シナリオ 2</h3>
+
+
+  <p>前の例を基にして、Rar.exe 名前が svchost.exe に変更されていることを確認しました。 マルウェアの作成者は、多くの場合、悪意のあるプロセス名に windows システムのプロセス名を使用して、Windows システムが実行する他の正当なコマンドと組み合わせて使用します。 既知の Windows プロセスに習熟しているアナリストは、問題のあるものを簡単に見つけることができます。 たとえば、Svchost.exe は、多くの Windows サービスをホストするシステムプロセスであり、通常、攻撃者にとって最も悪用されます。 svchost.exe プロセスでは、次のような一般的な知識があります。</p>
+
+
+  <ul style="margin-left: 40px;">
+   <li>% Windir%/system32 または% windir%/syswow64から実行されます。</li>
+   <li>NT AUTHORITY\SYSTEM、LOCAL SERVICE、または NETWORK SERVICE アカウントで実行されます。</li>
+  </ul>
+
+
+  <p>アナリストはこの知識に基づいて、Svchost.exe という名前のプロセスを検索する簡単なクエリを作成できます。 正当な svchost.exe プロセスを起動するために使用される、既知のセキュリティ識別子 (Sid) を除外することをお勧めします。 クエリでは、svchost.exe が起動される正当な場所も除外されます。</p>
+
+
+  <pre>
+
+  SecurityEvent
+
+  | where TimeGenerated &gt;= ago(2d)
+
+  | where ProcessName contains &quot;svchost.exe&quot;
+
+  | where SubjectUserSid != &quot;S-1-5-18&quot;
+
+  | where SubjectUserSid != &quot;S-1-5-19&quot;
+
+  | where SubjectUserSid != &quot;S-1-5-20&quot;
+
+  | where NewProcessName !contains &quot;C:\\Windows\\System32&quot;
+
+  | where NewProcessName !contains &quot;C:\\Windows\\Syswow64&quot;</pre>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/423fce8a-4a1c-48e7-87c8-24f2f61847b5.jpg"><img alt="Sai2" border="0" height="209" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac113576-58a0-4c14-9398-abdc421dda51.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Sai2" width="852"></a></p>
+
+
+  <p>さらに、返された結果から、svchost.exe が services.exe の子かどうか、または k スイッチを持つ &ndash; コマンドラインを使用して起動されているかどうかも確認します (たとえば、svchost.exe-k defragsvc)。 これらの条件を使用してフィルター処理を行うと、多くの場合、アナリストはこれが通常の活動であるか、または侵害や攻撃の一部であるかを調べるために、興味深い結果を得ることができます。</p>
+
+
+  <p>ここには何も追加されていません。 セキュリティアナリストはそのことを把握しています。 実際には、ASC を含む多数のセキュリティツールがこれを検出します。 ただし、ここでの目標は、アラートに応答するだけでなく、環境内の異常や外れ値を積極的に検索するという考え方の変化です。</p>
+
+
+  <h3>シナリオ 3</h3>
+
+
+  <p>ブルートフォース攻撃、スピアーフィッシングなどの方法によって最初のセキュリティ侵害が発生した場合、攻撃者は通常、次の手順に進み、ネットワークの伝達段階を緩くすることができます。 ネットワーク伝達フェーズの目的は、資格情報と機密データを検出することを目的として、ターゲット環境内の必要なシステムを特定して移行することです。 このような一部として、環境内のコンピューターの数が非常に多い場合や、1台のコンピューターから送信されるアカウント認証要求の数が多い場合に、1つのアカウントがログインに使用されることがあります。 たとえば、必要なしきい値よりも多くのアカウントを認証するために使用されたコンピューターを検索する場合、次のようなクエリを記述することが考えられます。</p>
+
+
+  <pre>
+
+  SecurityEvent
+      | where EventID == 4624
+      | where AccountType == &quot;User&quot;
+      | where TimeGenerated &gt;= ago(1d)
+      | summarize IndividualAccounts = dcount(Account) by Computer
+      | where IndividualAccounts &gt; 4</pre>
+
+  <p>これらのマシンで発生したアラートも確認する場合は、上記のクエリを拡張し、SecurityAlerts テーブルと結合します。</p>
+
+
+  <pre>
+
+  SecurityEvent
+      | where EventID == 4624
+      | where AccountType == &quot;User&quot;
+      | where TimeGenerated &gt;= ago(1d)
+      | extend Computer = toupper(Computer)
+      | summarize IndividualAccounts = dcount(Account) by Computer
+      | where IndividualAccounts &gt; 4
+  | join (SecurityAlert
+                   | extend ExtProps=parsejson(ExtendedProperties)
+                   | extend Computer=toupper(tostring(ExtProps[&quot;Compromised Host&quot;]))
+                   )
+  on Computer</pre>
+
+
+  <p>さらにハンズオンガイドが必要な場合、または攻撃に対して ASC security の検出を検証する場合は、 <a href="https://gallery.technet.microsoft.com/Azure-Security-Center-549aa7a4">Azure Security Center</a>を探す脅威の<a href="https://gallery.technet.microsoft.com/Azure-Security-Center-549aa7a4">プレイブック</a>を参照することもできます。 このプレイブックでは、Log Analytics と Security Center を使用して作業できる、侵害後のシナリオに適した例をいくつか紹介します。</p>
+
+
+  <p>いくつかの例を示します。 可能性は無限です。 実際には、優れたアナリストは、探していく過程で次の項目に移動するタイミングを理解することができます。 サイバーの世界において、総合的がそれよりも多くのことを防ぐことができない限り、パフォーマンスが向上します。 お客様がこの旅を実現し、Azure への移行時に自分自身を保護するツールを提供することは、毎日お送りします。</p>
+
+
+  <p>お楽しみください。</p>

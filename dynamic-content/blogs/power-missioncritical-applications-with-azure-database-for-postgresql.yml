@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 127d32e10f9bf1aecbcbe5d859dd77f0f52b59c4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909561"
+Slug: power-missioncritical-applications-with-azure-database-for-postgresql
+Title: Azure Database for PostgreSQL を使用したミッションクリティカルなアプリケーションの強化
+Summary: '現在の環境では、組織は、お客様と競争力を持つデジタルソリューションについて検討しています。 '
+Content: >-
+  <p>現在の環境では、組織は、お客様と競争力を持つデジタルソリューションについて検討しています。 &rsquo;顧客 &rsquo; が必要としていることを検出した場合、クラウドネイティブアプリケーションによって提供される、差別化されたデジタルエクスペリエンスを使用することをお勧めします。</p>
+
+
+  <p>新しいアプリケーションを構築する場合、最も重要な決定の1つは、アプリケーションデータを格納する場所です。 ミッションクリティカルなアプリケーションのために、クラウドにリレーショナルデータを格納すると、Azure Database for PostgreSQL に大きな関心があることがわかります。 &rsquo;理由は次のとおりです。</p>
+
+
+  <h2>Azure Database for PostgreSQL 理由</h2>
+
+
+  <ol>
+      <li>100% オープンソース。
+      <ul>
+          <li>Azure Database for PostgreSQL は community edition Postgres 上に構築されており、拡張機能がサポートされているため、JSONB、地理空間サポート、豊富なインデックス作成などの重要な PostgreSQL 機能を利用できます。</li>
+          <li>Microsoft の postgres チームは、postgres コミュニティに貢献して共同作業するという文化のリード育成に取り組んでおり &rsquo; 、チームに対して <a href="https://techcommunity.microsoft.com/t5/azure-database-for-postgresql/microsoft-azure-welcomes-postgresql-committers/ba-p/1207612" target="_blank">postgres コミッター</a> を歓迎しています。 これらのコミッター、postgres の送信されたコードをレビューし、 &ldquo; ソースコードリポジトリにコミット &rdquo; します。他の共同作成者と協力して、テスト、改良、最終的に次の Postgres ビルドに組み込むことができます。 今後のブログでは、 &rsquo; 新しいバージョンの Postgres に関して、また<a href="https://github.com/citusdata/citus" target="_blank">Citus オープンソース拡張機能</a>を更新したときに、作業内容 &rsquo; を共有しています。</li>
+      </ul>
+      </li>
+      <li>完全に管理された。
+      <ul>
+          <li>Azure 上の管理された Postgres データベースサービスを使用すると、ジョブが簡単になり、高可用性、ディザスターリカバリー、バックアップ、リージョン間でのデータレプリケーションの構成と管理など、時間とコストがかかるタスクを自動化できるため、アプリケーションに集中できます。</li>
+          <li>Azure Database for PostgreSQL には、 <a href="https://docs.microsoft.com/en-us/azure-advanced-threat-protection/what-is-atp" target="_blank">Azure Advanced Threat Protection</a>などのエンタープライズレベルのセキュリティとコンプライアンスの機能があり、カスタマイズされた <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-performance-recommendations" target="_blank">パフォーマンスに関する推奨事項</a>を提供し、最もミッションクリティカルなアプリケーションに適しています。</li>
+      </ul>
+      </li>
+      <li>高パフォーマンスの水平スケーリング。
+      <ul>
+          <li><a href="https://techcommunity.microsoft.com/t5/azure-database-for-postgresql/azure-database-for-postgresql-hyperscale-citus-now-generally/ba-p/1014865" target="_blank">Azure Database for PostgreSQL ハイパースケール (Citus)</a> は、アプリケーションの書き換えを行わずに、水平方向にスケールアウトして、非常にスケーラブルなアプリケーションを簡単に構築できるように、数百のノードにスケールアウトします。 これを行うには、 <a href="https://github.com/citusdata/citus" target="_blank">Citus オープンソースの Postgres 拡張機能</a> を使用します。これにより、データとクエリを複数のノードにインテリジェントかつ透過的に分散し、大量の並列処理を実現し、コンピューティング、メモリ、ディスクフットプリントを大幅に拡大できます。</li>
+          <li>今後のブログでは、ハイパースケール (Citus) の主なユースケースについて詳しく説明 &rsquo; し、これらの機能を使用して組織が強力なアプリケーションを構築する方法を紹介します。 ハイパースケール (Citus) を使用すると、組織はマルチテナント SaaS アプリケーションの拡張、高スループットトランザクションアプリケーションの構築などを行うことができます。</li>
+      </ul>
+      </li>
+  </ol>
+
+
+  <h2>Postgres で最新のエンタープライズアプリケーションを実行するための主要な考慮事項</h2>
+
+
+  <p>&rsquo;Postgres の世界を初めて使用し、エンタープライズアプリケーションの構築に適して &rsquo; いるかどうかを理解したい場合は、 <a href="https://azure.microsoft.com/en-us/resources/running-enterprise-applications-on-postgresql/" target="_blank">PostgreSQL で Enterprise アプリケーションを実行</a>する新しいホワイトペーパーを参照して、次の点を確認してください。</p>
+
+
+  <ul>
+      <li>最新のミッションクリティカルなアプリケーションに Postgres を使用する利点と、パフォーマンス、スケーラビリティ、セキュリティなどに関する考慮事項。</li>
+      <li>アプリケーションを将来証明できるようにする Postgres &rsquo; 拡張可能な設計。</li>
+      <li>開発者がより生産的に作業できるようにする Postgres の機能。</li>
+  </ul>
+
+
+  <h2>Postgres ブログシリーズの発表</h2>
+
+
+  <p>ここでは、Azure Database for PostgreSQL についてのすべての段階でお手伝いします。また、この記事と <a href="https://techcommunity.microsoft.com/t5/azure-database-for-postgresql/bg-p/ADforPostgreSQL" target="_blank">Azure Database for PostgreSQL のブログ</a>には、定期的な投稿が記載されています。 &rsquo;次のように共有します。</p>
+
+
+  <ul>
+      <li>postgres コミッタートーマス Munro、Jeff Davis、andres Freund、David Rowley &mdash; から直接インサイトと更新を行うことができます。このシリーズの最初の投稿を読むことができます。また、 <a href="https://techcommunity.microsoft.com/t5/azure-database-for-postgresql/how-to-securely-authenticate-with-scram-in-postgres-13/ba-p/1548319" target="_blank">postgres 13 で &nbsp; scram を使用して安全に認証する方法につい</a>ても説明します。</li>
+      <li>お客様の主要なユースケース、ストーリー、およびアーキテクチャ。</li>
+      <li>ビジネス上の課題を解決する革新的なアプリケーションを開発する際に役立つリソースとベストプラクティスを紹介します。</li>
+  </ul>
+
+
+  <p>Postgres を初めて使う場合でも、Azure を初めて使用する場合でも、既に Azure Database for PostgreSQL を使用してエンタープライズアプリケーションの機能を強化している場合でも、アプリケーション開発の取り組みをサポートすること &rsquo; になります。</p>
+
+
+  <p>今後のブログについては、こちらを参照して、 <a href="https://techcommunity.microsoft.com/t5/azure-database-for-postgresql/bg-p/ADforPostgreSQL" target="_blank">Azure Database for PostgreSQL ブログ</a>にご登録ください。</p>
+
+
+  <p>詳細については、 <a href="https://azure.microsoft.com/en-us/services/postgresql/" target="_blank">Azure Database for PostgreSQL</a>を参照してください。</p>

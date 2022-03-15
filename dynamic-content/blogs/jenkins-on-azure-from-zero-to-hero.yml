@@ -1,0 +1,53 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fbb09b4603f67b2eb916b8f5dd40de8a9ac22af0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909750"
+Slug: jenkins-on-azure-from-zero-to-hero
+Title: 'Azure 上の Jenkins: ゼロからヒーローへ'
+Summary: Jenkins インフラストラクチャを Azure に移行する方法を考えている場合は、これ以上見てみない方が良いでしょう。 Azure Marketplace Microsoft Jenkins ソリューション テンプレートを使用すると、0 からヒーローに簡単かつ迅速に移動できます。
+Content: >-
+  <p><a href="https://aka.ms/jenkins-on-azure">MicrosoftJenkins</a> オファーの更新をお&nbsp;知らせします。このAzure Marketplace。</p>
+
+
+  <p>以前のバージョンと同様に、このオファーを使用すると、お客様は Azure の Linux (Ubuntu 16.04 LTS) VM で Jenkins マスターを実行できます。 価格は、ソリューション テンプレートによってデプロイされたソフトウェア コンポーネントと Azure インフラストラクチャを実行するコストです。 クラウドで Jenkins を実行する場合は、設定した Jenkins マスターを完全に制御できます。</p>
+
+
+  <p>では、なぜこの更新にとてもワクワクするのでしょうか。 0 からヒーローに移動できます。 必要な構成を使用してサーバーを設定し、最も少ない時間で構築を開始します。</p>
+
+
+  <p>いくつかの主な点:</p>
+
+
+  <ul>
+   <li><strong>仮想ネットワーク</strong>: 独自の仮想ネットワーク/サブネットに Jenkins をプロビジョニングできるよう、VNET のサポートが追加されました。
+
+   <p style="text-align: center;"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Step2-2.png" style="width: 500px"></p>
+   </li>
+   <li><strong>Azure 統合</strong>: マネージド サービス ID <a href="https://docs.microsoft.com/en-us/azure/active-directory/msi-overview" target="_blank">(MSI)</a>&nbsp; を有効にするか、Azure サービス プリンシパル&nbsp;<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal" target="_blank">を指定することができます</a>。 Jenkins 資格情報ストアに資格情報が自動的に追加され、&#39;行う必要がなされません。 後 <strong>で </strong>設定する場合はオフにします。</li>
+   <li><strong>ビルド</strong>:<a href="https://aka.ms/azjenkinsagents" target="_blank">VM エージェントまたは</a>&nbsp; Azure Container Instances <a href="https://aka.ms/azcontaineragent" target="_blank">(ACI)</a>&nbsp; を有効にすると、Azure でプロジェクトのビルドを開始できます。 既定の設定を作成して、Jenkins ダッシュボードにクラウドを追加&#39;手動で行う必要がなさそうになさそう。 カスタム要件がある場合は、構成を編集して設定を更新します。
+   <ul style="margin-left: 40px;">
+    <li>VM エージェントを有効にした場合は、組み込みの Windows Server 2016 イメージと、組み込みの Ubuntu イメージに基づく <strong>Linux-Agent</strong> に基づいて、<strong>Win-Agent</strong> <strong>inManage JenkinsConfigurationsystem&rarr;&nbsp; </strong>という新しいクラウドを追加します。&nbsp;&nbsp;</li>
+    <li>ACI を有効にした場合は、<strong>JenkinsConfiguration</strong>&rarr; システムの管理に <strong>Aci</strong> <strong>エージェントを追加します</strong>。 クラウドにスケールアウトし、クラウドで作成されたコンテナー エージェントを使用してビルド <a href="https://azure.microsoft.com/en-us/services/container-instances/" target="_blank">を実行Azure Container Instances</a>。 試してみるには、このチュートリアルの<strong>「Azure Container Agents</strong> プラグインの構成」の手順から<a href="https://docs.microsoft.com/en-us/azure/jenkins/azure-container-agents-plugin-run-container-as-an-agent?toc=%2Fen-us%2Fazure%2Fjenkins%2Ftoc.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json#configure-the-azure-container-agents-plugin" target="_blank"></a>始め、適切なラベルと Docker イメージを持っている必要があります。また、Azure で Spring PetClinic アプリケーションをビルドします。&nbsp;</li>
+   </ul>
+
+   <p style="text-align: center;"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Step3.png" style="width: 500px"></p>
+   </li>
+  </ul>
+
+
+  <p>ソリューション テンプレートはオープン ソースです。 そのため、コミュニティに参加して、貢献<a href="https://github.com/azure/jenkins" target="_blank"> を開始することができます</a>。</p>
+
+
+  <p>もう 1 つの新しい<a href="https://aka.ms/azjenkinsaad" target="_blank">追加は</a>、Azure Active Directoryを介した認証と承認をサポートする Azure Active Directory。 2018 年の最新リリースでは、マトリックス ベースの承認が唯一の選択肢ではないので、プロジェクトベースの承認が追加されました。</p>
+
+
+  <p>Azure で Jenkins 構成をバックアップできるのをご存知でしたか? ディザスター リカバリー スクリプト <a href="https://github.com/Azure/jenkins/blob/master/disaster_recovery/disaster-recovery.md" target="_blank">を確認します</a>。 この便利なスクリプトを作成し、$JENKINS_HOME を Azure マネージド ディスクにマウントし、別のインスタンスで Jenkins 構成を再利用することもできます。</p>
+
+
+  <p>以下のコメントを通じて&#39;、または <a href="mailto:azurejenkins@microsoft.com">atJenkins</a> Azure サポート にお問い&nbsp;合わせください。</p>
+
+
+  <p>&nbsp;</p>

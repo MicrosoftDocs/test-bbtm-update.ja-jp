@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 05c0ea4bfb69a4d60eea292bc6c15e3062d760ec
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910237"
+Slug: when-to-use-azure-service-health-versus-the-status-page
+Title: 状態ページとAzure Service Healthを使用する場合
+Summary: アプリケーションで問題が発生している場合は、ソリューションの調査を始めるのに最適な場所は、Azure Service Healthです。 このブログ記事では、違いについて説明します。
+Content: >-
+  <p>アプリケーションで&rsquo;問題が発生した場合、ソリューションの調査を始めるのに最適な場所は、Azure Service Health <a href="https://aka.ms/ash-statuspage-blog-acom" target="_blank">です</a>。 このブログ記事では、&rsquo;Azure の状態ページと Azure の状態の違いについて <a href="https://status.azure.com/" target="_blank">説明Azure Service Health</a> 。 また&rsquo;、サービスの問題に関するより良い情報を得て、ワークロードの可用性を向上させるためにアクションを実行できるよう、Service Health アラートの使用を開始する方法も示&rsquo; します。</p>
+
+
+  <h3>Azure の状態ページを使用する方法と状況</h3>
+
+
+  <p><a href="https://status.azure.com/" target="_blank">Azure の状態ページは</a>、&rsquo;大規模な停止を追跡する場合に最適です。特に、デバイスにログインできない場合や、Azure portalアクセスできない場合Azure Service Health。 多くの Azure ユーザーは、状態ページに定期的にアクセスします。 これは、Azure Service Healthより前であり、すべての Azure サービスとリージョンの状態を一目で示す表示形式です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32ab1432-13ea-4151-be82-6fe1d50528cc.png"><img alt="681.1" border="0" height="546" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7d3f971-c5b2-46a2-84b8-b6587b775f2c.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="681.1" width="913"></a></p>
+
+
+  <p>ただし、[Azure の状態] ページには&rsquo;、Azure サービスとリージョンの正常性に関する情報が表示されるわけではありません。 状態ページはパーソナライズ&rsquo;されていないので&rsquo;、使用しているサービスとリージョンを正確に知り、グリッドで検索する必要があります。 状態ページには、可用性に&rsquo;影響を与える可能性のある非停止イベントに関する情報も含まれます。 たとえば、計画メンテナンス イベントや正常性アドバイザリ (サービスの提供が開始され、構成が正しく構成されていないと思います) などです。 最後に、状態ページには&rsquo;、障害が発生した場合や、影響を受ける可能性がある計画メンテナンスの時間が発生した場合に自動的に通知する手段が表示されません。</p>
+
+
+  <p>これらのすべての使用例について、次の手順Azure Service Health。</p>
+
+
+  <h3>アプリケーションを使用する方法とAzure Service Health</h3>
+
+
+  <p>Azure の状態ページの上部に&rsquo;、パーソナライズされたダッシュボードに移動するボタンがあります。 一般的な誤解の 1 つは、このボタンを使用すると、サービスとリージョンのステータス ページ グリッドをカスタマイズできる点です。 代わりに、リソースの可用性に影響を与える可能性がある Azure <a href="https://aka.ms/ash-statuspage-blog" target="_blank"></a>Azure portalをAzure Service Health表示する場合に最適なオプションです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c536a12f-a390-484d-b955-6cb65d401beb.png"><img alt="681.2" border="0" height="549" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e6f95eb-6813-4783-8ead-a294ae89fdc7.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="681.2" width="918"></a></p>
+
+
+  <p>このService Health、ユーザー&rsquo;に影響を与える軽微な停止から、計画メンテナンス イベントや他の正常性アドバイザリまで、すべての情報を確認できます。 ダッシュボードはパーソナライズされています&rsquo;。そのため、使用しているサービスとリージョンを知ることができます。また、特定のイベントに対して影響を受ける可能性のあるリソースの一覧を提供することで、トラブルシューティングに役立つ場合もあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8c1e645-dad5-47c2-b326-7734c68e1808.png"><img alt="681.3" border="0" height="546" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9f02e615-686d-4717-85a9-018b2f09b4dc.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="681.3" width="920"></a></p>
+
+
+  <p>&rsquo;Service Health最も便利な機能は、アラートService Healthです。 Service Health アラート&rsquo;&mdash;を使用すると、お好みの channelemail、SMS、プッシュ通知、または ServiceNow や PagerDutyif&mdash;&rsquo; のような内部チケットシステムに Webhook 経由で通知を事前に受信します。サービスとリージョンに問題があります。 更新プログラム&rsquo;や状態ページService Health確認し続ける必要はなさそうで、代わりに他の重要な作業に集中できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4241a79-c2e3-4fcb-b21f-1377f69c17bc.png"><img alt="681.4" border="0" height="555" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79ddea8a-49f2-469b-8713-0c61569152e5.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="681.4" width="928"></a></p>
+
+
+  <h3>今すぐアラートService Health設定する</h3>
+
+
+  <p>大規模な停止に関するクイック更新については、状態ページを自由に使用してください。 ただし、Service Health にアクセスして可用性に対する潜在的な影響について情報を得て、自動アラートのような豊富な機能を利用することを強くお勧めしています。</p>
+
+
+  <p>このページで <a href="https://aka.ms/ash-statuspage-blog" target="_blank">Azure Service Health</a> アラートを設定Azure portal。 詳細なガイダンスについては、次のドキュメントをAzure Service Health <a href="https://aka.ms/ash-statuspage-blog-docs" target="_blank">してください</a>。 提案がある場合は、こちらからアイデアを送信して、お知 <a href="https://aka.ms/servicehealthfeedback" target="_blank">らせください</a>。</p>

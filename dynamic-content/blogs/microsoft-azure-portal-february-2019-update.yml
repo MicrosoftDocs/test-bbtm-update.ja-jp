@@ -1,0 +1,196 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c0bd45eb72336534608c6b24df69a2f9dec16a74
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904099"
+Slug: microsoft-azure-portal-february-2019-update
+Title: Microsoft Azure portal 2019 年2月更新
+Summary: 今月は、いくつかの IaaS コンピューティングリソースの更新を行います。これは、概要ページの重要なプロパティのレイアウトの改善、recovery services ページのエクスペリエンスの強化、Intune の設定オプションの拡張です。
+Content: >-
+  <p>今月は、いくつかのコンピューティング (IaaS) リソースの更新、リソースとリソースグループのリストの内容を CSV ファイルとしてエクスポートする機能、概要ページの重要なプロパティのレイアウトの改善、recovery services ページでのエクスペリエンスの強化、Microsoft Intune での設定オプションの拡張について説明します。</p>
+
+
+  <p><a href="https://portal.azure.com/" target="_blank">Azure portal</a>にサインインして、新しいものがあればそれを確認してください。 <a href="https://aka.ms/azuremobileapp" target="_blank">Azure mobile app</a>をダウンロードすることもできます。</p>
+
+
+  <h3>Azure portal の2月の更新の一覧を次に示します。</h3>
+
+
+  <h3>Compute (laaS)</h3>
+
+
+  <ul>
+   <li><a href="#Add a new VM directly to an application gateway or load balancer">新しい仮想マシン (VM) をアプリケーションゲートウェイまたはロードバランサーに直接追加する</a></li>
+   <li><a href="#Migrate classic VMs to Azure Resource Manager">クラシック仮想マシン (Vm) を Azure Resource Manager に移行する</a></li>
+   <li><a href="#VMSS password reset">仮想マシンスケールセット (VMSS) のパスワードリセット</a></li>
+  </ul>
+
+
+  <h3>Shell</h3>
+
+
+  <ul>
+   <li><a href="#Export as CSV in all resources and resource groups">すべてのリソースとリソースグループに CSV としてエクスポート</a></li>
+   <li><a href="#Layout change for essential properties on overview pages">[概要] ページの [基本プロパティ] のレイアウトの変更</a></li>
+  </ul>
+
+
+  <h3>Site Recovery</h3>
+
+
+  <ul>
+   <li><a href="#Azure Site Recovery UI updates">UI 更新の Azure Site Recovery</a></li>
+  </ul>
+
+
+  <h3>その他</h3>
+
+
+  <ul>
+   <li><a href="#Updates to Microsoft Intune">Microsoft Intune の更新</a></li>
+  </ul>
+
+
+  <p>これらの更新について詳しく説明します。</p>
+
+
+  <h2>Compute (laaS)</h2>
+
+
+  <h3><a name="Add a new VM directly to an application gateway or load balancer" id="Add a new VM directly to an application gateway or load balancer">新しい VM をアプリケーションゲートウェイまたはロードバランサーに直接追加する</a></h3>
+
+
+  <p>一般的なシナリオでは、負荷分散セットに新しい VM を追加する必要があることを学びました。たとえば、 <a href="https://docs.microsoft.com/azure/architecture/reference-architectures/sharepoint/" target="_blank">SharePoint フォームの設定</a>や、 <a href="https://docs.microsoft.com/azure/architecture/reference-architectures/n-tier/n-tier-sql-server" target="_blank">3 層の web アプリケーション</a>の作成などです。 VM の作成プロセス中に、既存の負荷分散ソリューションに新しい VM を追加できるようになりました。 仮想マシンのネットワークパラメーターを指定すると、HTTP および HTTPS トラフィック用のアプリケーションゲートウェイのバックエンドプールに追加するか、すべての TCP および UDP トラフィックのロードバランサー Standard SKU に追加するかを選択できるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/105f977b-7b71-4d9f-a011-bd02c19c8728.png"><img width="1920" height="965" title="仮想マシンの作成" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" alt="Create a virtual machine" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/657bad70-a9eb-48c6-947b-d6479a12a027.png" border="0"></a></p>
+
+
+  <h3><a name="Migrate classic VMs to Azure Resource Manager" id="Migrate classic VMs to Azure Resource Manager">クラシック Vm を Azure Resource Manager に移行する</a></h3>
+
+
+  <p>Azure Resource Manager (ARM) デプロイモデルは約3年前にリリースされ、その後は ARM に限定されているため、多くの機能が追加されました。 Azure platform では、 <a href="https://docs.microsoft.com/azure/virtual-machines/windows/migration-classic-resource-manager-overview" target="_blank">従来の azure Service Manager (ASM) リソースの arm への移行がサポート</a>されています。また、Azure portal を使用して、既存のインフラストラクチャ仮想マシン、仮想ネットワーク、およびストレージアカウントを最新の arm デプロイモデルに移行できるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/810e5284-f8e0-4d3d-9b96-e24c4969ebf8.png"><img width="1919" height="931" title="Azure Resource Manager に移行する Azure Service Manager リソースのスクリーンショット" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Screenshot of Azure Service Manager resources migrating to Azure Resource Manager" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/93f53294-5f4c-4ebf-ba3a-8fd5591827d2.png" border="0"></a></p>
+
+
+  <p>クラシック仮想マシンに移動し、[<strong>設定</strong>の [リソース] メニューから [ <strong>ARM への移行</strong>] を選択します。</p>
+
+
+  <h3><a name="VMSS password reset" id="VMSS password reset">VMSS パスワードリセット</a></h3>
+
+
+  <p>ポータルを使用して、仮想マシンスケールセットのインスタンスのパスワードをリセットできるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6523f9c9-0079-400e-9306-4fda9b0f7e50.png"><img width="1917" height="927" title="仮想マシンスケールセットインスタンスのパスワードにリセット Azure portal のスクリーンショット" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Screenshot of Azure portal reset to virtual machine scale set instances password" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/06df7fdf-ac81-41af-a218-be7eec24a7ad.png" border="0"></a></p>
+
+
+  <p>Azure portal で仮想マシンスケールセットに移動し、[パスワードの <strong>リセット</strong>] を選択します。</p>
+
+
+  <h2>Shell</h2>
+
+
+  <h3><a name="Export as CSV in all resources and resource groups" id="Export as CSV in all resources and resource groups">すべてのリソースとリソースグループに CSV としてエクスポート</a></h3>
+
+
+  <p>最近、リソースとリソースグループのリストの内容を CSV (コンマ区切り値) ファイルにエクスポートする機能が追加されました。</p>
+
+
+  <p>この機能は、[ <strong>すべてのリソース</strong> ] 画面で使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e32618b4-68ba-4beb-aebf-61aa6893ae7b.png"><img width="1482" height="775" title="すべてのリソースのスクリーンショット" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="All resources screenshot" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2425ae1e-9bf5-4d8d-91ec-92a98ad86d3f.png" border="0"></a></p>
+
+
+  <p>また、[ <strong>リソースグループ</strong> ] 画面でも使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/846ce4b8-ab92-494a-b687-8ed9f1441eeb.png"><img width="1481" height="769" title="リソースグループのスクリーンショット" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Resource group screenshots" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fe4aebc7-9262-4063-9fd8-5dad968fb2c2.png" border="0"></a></p>
+
+
+  <p>この機能は <strong>リソースグループ</strong> 画面のインスタンスに追加されているので、1つのリソースグループ内のすべてのリソースを CSV ファイルにダウンロードできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/811873f2-8176-4865-9820-85d93bd6fc5b.png"><img width="1482" height="448" title="すべてのリソースを含む単一のリソースグループを含む CSV ファイルをダウンロードしています" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Downloading CSV file with single resource group containing all resources" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64f68294-3bcd-4a08-a52d-28bdab54f973.png" border="0"></a></p>
+
+
+  <h3><a name="Layout change for essential properties on overview pages" id="Layout change for essential properties on overview pages">[概要] ページの [基本プロパティ] のレイアウトの変更</a></h3>
+
+
+  <p>ここでは、重要なプロパティを概要ページにレイアウトする方法を変更したため、垂直方向のスクロールが不要になりました。 標準のワイド画面解像度では、垂直方向のスペースを節約するために、重要なプロパティ (キー/値) が垂直方向ではなく水平方向にレイアウトされます。 ただし、重要なプロパティに重要な情報の切り捨てや省略記号が表示されないように十分な水平方向の領域がない場合は、縦方向のレイアウトを取得できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b3bc6160-7c33-47ee-89fe-ae3c46ee77e5.png"><img width="1883" height="892" title="概要ページと新しいプロパティのレイアウトのスクリーンショット" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Screenshot of overview page and new properties layout" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/187a8dfd-78fb-4c39-8fd8-a7c8c342a19d.png" border="0"></a></p>
+
+
+  <ol>
+   <li>左側のメニューで [ <strong>Virtual Machines</strong> ] を選択します。</li>
+   <li>任意の<strong>仮想マシン</strong>を選択します。</li>
+  </ol>
+
+
+  <h2>Site Recovery</h2>
+
+
+  <h3><a name="Azure Site Recovery UI updates" id="Azure Site Recovery UI updates">UI 更新の Azure Site Recovery</a></h3>
+
+
+  <p>新しい強化された IaaS VM ディザスターリカバリーの複数タブエクスペリエンスでは、1回のクリックでレプリケーションを構成できます。 ターゲットリージョンを選択するのと同じように簡単です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6eefc40-dcb0-4bc9-b8ea-33bdd38ed2cc.png"><img width="1246" height="771" title="ディザスターリカバリーエクスペリエンスのスクリーンショット" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Screenshot of disaster recovery experience" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6cff5889-e88f-4248-b45d-49b8b52b8886.png" border="0"></a></p>
+
+
+  <ol>
+   <li>任意の<strong>仮想マシン</strong>を選択します。</li>
+   <li>左側にあるメニューで [ <strong>ディザスターリカバリー</strong> ] を選択します。</li>
+   <li>ターゲットリージョンを選択し <strong>ます。</strong></li>
+   <li>[<strong>レビュー + レプリケーションの開始</strong>] を選択します。</li>
+  </ol>
+
+
+  <p>また、[概要] タブを追加して、Site Recovery インフラストラクチャの新しいイマーシブエクスペリエンスが提供されるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/23dbe1f7-4e73-4297-84ac-79eafcdbdaa7.png"><img width="1637" height="799" title="Site Recovery インフラストラクチャのスクリーンショット" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Screenshot of Site Recovery infrastructure" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb54fcae-af10-4486-9a11-026860ab3e78.png" border="0"></a></p>
+
+
+  <ol>
+   <li>任意の <strong>Recovery service コンテナー</strong>を選択します。</li>
+   <li>[小見出し] [<strong>管理</strong>] で [ <strong>Site Recovery インフラストラクチャ</strong>] を選択します。</li>
+  </ol>
+
+
+  <h2>その他</h2>
+
+
+  <h3><a name="Updates to Microsoft Intune" id="Updates to Microsoft Intune">Microsoft Intune の更新</a></h3>
+
+
+  <p>Microsoft Intune チームは、更新時に作業が困難になっています。 詳細な一覧については、「 <a href="https://aka.ms/intunewhatsnewtoday" target="_blank">Microsoft Intune の新機能</a>」ページを参照してください。 Intune を使用した場合のエクスペリエンスに影響する変更が含まれます。</p>
+
+
+  <h2>ご存知でしたか</h2>
+
+
+  <p><a href="https://preview.portal.azure.com/" target="_blank">Azure portal</a>のプレビューバージョンにアクセスして、いつでも機能をテストすることができます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>すばらしいご意見をお寄せいただき、ありがとうございます。 Azure portal は、常にお客様からのご意見をお待ちしている、大規模なエンジニアのチームによって構築されています。</p>
+
+
+  <p>最近、Azure portal "how to" シリーズを発表しました。このシリーズでは、ポータルの特定の機能を使用して生産性を向上させる方法について学習できます。 詳細については、「<a href="https://www.youtube.com/watch?v=0Jx_oftPCLY&amp;list=PLLasX02E8BPBKgXP4oflOL29TtqTzwhxR" target="_blank">azure で複数のアカウント、ディレクトリ、サブスクリプションを管理する方法</a>」と「<a href="https://www.youtube.com/watch?v=rOiSRkxtTeU&amp;list=PLLasX02E8BPBKgXP4oflOL29TtqTzwhxR&amp;t=0s&amp;index=3" target="_blank">azure で仮想マシンを作成する方法</a>」をご覧ください。 毎週新しいビデオを入手するには、 <a href="https://www.youtube.com/user/windowsazure" target="_blank">Azure YouTube チャネル</a> でのチェックインを続けます。</p>
+
+
+  <p>Microsoft Azure でのリソースの作成を効率化して使いやすさ、一貫性、およびアクセシビリティを向上させる方法に関心がある場合は、「<a href="https://medium.com/microsoft-design/creation-at-cloud-scale-d3bc2a1e8487" target="_blank">クラウドスケールでの作成</a>」の新しいメディアに関する記事をお読みください。 Azure portal の構築方法の詳細については、「Microsoft Ignite 2018 session」 (「<a href="https://www.youtube.com/watch?v=4YOjlIioapw" target="_blank">拡張性の高いソリューションを何百万ものユーザーに構築する</a>」) をご覧ください。</p>
+
+
+  <p>忘れずに <a href="https://portal.azure.com/" target="_blank">Azure portal にサインイン</a> し、 <a href="https://aka.ms/azuremobileapp" target="_blank">Azure mobile app</a> をダウンロードして、新しいものをすべて確認してください。 コメントセクションまたは <a href="https://twitter.com/azureportal" target="_blank">Twitter</a>でフィードバックをお知らせください。 来月をご覧ください。</p>

@@ -1,0 +1,123 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 126c3605e3e2a30fe9dba812a644cc0b07a145df
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908988"
+Slug: happy-anniversary-new-iot-hub-device-provisioning-service-features-out-today
+Title: '幸せな記念日: 今日IoT Hub Device Provisioning Service新しい機能'
+Summary: '1 年前の今日、Azure IoT Hub Device Provisioning Service のパブリック プレビューが開始されました。本日、デバイス プロビジョニングを自動化するための最新の主要な機能のパブリック プレビューをお知らせします。 '
+Content: >-
+  <p>1 年前の今日、Azure IoT Hub Device Provisioning Service のパブリック プレビューが開始されました。本日、デバイス プロビジョニングを自動化するための最新の主要な機能のパブリック プレビューをお知らせします。 お&#39;、変更、構築された機能を利用し、パブリック プレビューを通じて、現在、次の機能を利用していただけます。</p>
+
+
+  <ul>
+      <li>保存されている CA 証明書 (GA) の数に対する制限の引き上げ。</li>
+      <li>登録数 (GA) の制限の引き上げ。</li>
+      <li>対称キー構成証明のサポート (プレビュー)。</li>
+      <li>再プロビジョニングのサポート (プレビュー)。</li>
+      <li>登録レベルの割り当て規則 (プレビュー)。</li>
+      <li>カスタム割り当てロジック (プレビュー)。</li>
+  </ul>
+
+
+  <p>これらの機能はすべて、C デバイス SDK と Node サービス SDK でサポートされ、一般提供に従う完全なサポートが提供されます。 各&#39;詳細を確認します。</p>
+
+
+  <h2>制限の引き上げ</h2>
+
+
+  <p>現在、すべての Device Provisioning Service インスタンスには、保存されている CA 証明書の数とデバイス登録の数に対する新しい上限があります。</p>
+
+
+  <ul>
+      <li><strong>10 から最大 25 の CA</strong> 証明書。</li>
+      <li><strong>500,000</strong> 登録。サポートにお問い合わせの場合は、より <a href="https://azure.microsoft.com/support/options/" target="_blank">多くの登録を利用できます</a>。 この数は 10,000 から増やしています。</li>
+  </ul>
+
+
+  <p>これらの制限の引き上げは一般提供されています。</p>
+
+
+  <h2>対称キーの構成証明</h2>
+
+
+  <p>対称キーは、プロビジョニング &quot;サービスの使用を開始する最も簡単な方法の 1 つであり、デバイス のプロビジョニングを始めるのが簡単な Hello World&quot; エクスペリエンスを提供します。 さらに、対称キー登録グループを使用すると、既存のセキュリティ機能が制限されたレガシ デバイスが、クラウド経由でクラウドにブートストラップAzure IoT。 レガシ デバイスを接続する方法の詳細については <a href="https://aka.ms/dpslegacysymmkey" target="_blank">、ドキュメントを参照してください</a>。</p>
+
+
+  <p>対称キーのサポートは、次の 2 つの方法で使用できます。</p>
+
+
+  <ul>
+      <li><strong>個々の登録</strong>。デバイスがデバイスプロビジョニング サービスに接続する場合は、デバイスがデバイスプロビジョニング サービスに接続IoT Hub。</li>
+      <li><strong>登録グループ</strong>。デバイスがグループ キーから派生した対称キーを使用して Device Provisioning Service に接続します。</li>
+  </ul>
+
+
+  <p>この新しい方法を使用してデバイスの ID を検証する方法の詳細については&#39;<a href="https://aka.ms/dpsquickstartsymmkey" target="_blank">確認してください</a>。</p>
+
+
+  <h2>自動再プロビジョニングのサポート</h2>
+
+
+  <p>お客様からのフィードバックに基づいて、デバイスの再プロビジョニングに関するファーストクラスのサポートが追加され、デバイスを別の IoT ソリューションに再割り当てできます。 顧客は、何かが変更された場合にデバイスを別の IoT ソリューションに再割り当てしたいと考えました。 Device Provisioning Service では、ソリューション間での IoT デバイスの再プロビジョニングがサポートされます。 再プロビジョニングのサポートは、次の 2 種類で利用できます。</p>
+
+
+  <ul>
+      <li><strong>出荷時の</strong>リセット。新しい IoT ハブのデバイス ツイン データが、古い IoT ハブではなく登録リストから設定されます。 これは、出荷時のリセット シナリオとリースされたデバイスのシナリオで一般的です。</li>
+      <li><strong>デバイス</strong> ツイン データを古い IoT ハブから新しい IoT ハブに移動する移行。 これは、デバイスが地域間を移動しているシナリオで一般的です。</li>
+  </ul>
+
+
+  <p>また&rsquo;、それを必要とするユーザーの下位互換性を維持するための手順も実行しました。 詳細については <a href="https://aka.ms/dpsreprovisionconcepts" target="_blank">、ドキュメント</a> を参照してください。 既定値の再プロビジョニングについて強く感じている場合は、コメントでお知らせください。</p>
+
+
+  <p>再プロビジョニングを使用する方法の <a href="https://aka.ms/dpshowtoreprovision" target="_blank">詳細については、ドキュメントを参照してください</a>。</p>
+
+
+  <h2>登録レベルの割り当て規則</h2>
+
+
+  <p>お客様は、デバイスを適切な IoT ハブに割り当てる方法をきめ細かく制御する必要があります。 たとえば、Contoso は、2 つの大規模な多国籍企業を顧客として持つソリューション プロバイダーです。 Contosos の各&rsquo;顧客は、geo シャード化されたセットアップで世界中の Contoso デバイスを使用しています。 Contoso は、顧客の As&rsquo; デバイスが地理的に分散しているハブの 1 つのセットに移動する必要がある、および顧客 Bs&rsquo; デバイスが地理的に分散された別のハブ セットに移動する必要があることをプロビジョニング サービスに伝える機能を必要とします。 登録レベルの割り当て規則を使用すると、Contoso はこれを実行できます。</p>
+
+
+  <p>登録ごとの割り当てポリシーを使用すると、お客様は次の機能を使用して、必要なレベルの制御を行います。</p>
+
+
+  <ul>
+      <li><strong>登録ごとに割り当てポリシーを指定すると</strong> 、より細かく制御できます。</li>
+      <li><strong>リンクされたハブのスコープを使用</strong> すると、割り当てポリシーをハブのサブセットに対して実行できます。</li>
+  </ul>
+
+
+  <p>これは、個人とグループの両方の登録で使用できます。 また&#39;、デバイス プロビジョニング サービスの残りの割り当て機能と一致する&#39;必要な IoT ハブを指定する新しい方法を使用して、登録の iotHubHostName フィールドを非推奨とします。</p>
+
+
+  <h2>カスタム割り当てロジック</h2>
+
+
+  <p>場合によっては、構成情報や販売データなどの情報の重複コピーを保持しないように、外部システムからデータを取得する必要があります。 カスタム割り当てロジックを使用すると、Device Provisioning Service によって Azure 関数がトリガーされ、デバイスの移動先と適用する構成が決定されます。 カスタム割り当てロジックは、登録レベルでのみ設定できます。 現在のところ、サービス SDK またはサービス REST API を使用してカスタム割り当てロジックを設定できます。Azure Portal のサポートは数週間以内に行う予定です。</p>
+
+
+  <p>ビデオを見て、その動作を確認します。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/IoT-Hub-DPS-updates/player?format=ny" width="960"></iframe></p>
+
+
+  <p>これらの機能を今すぐ試し、ドキュメントで読 <a href="https://docs.microsoft.com/azure/iot-dps/" target="_blank">んでみよう</a>。 一般提供は、それが正しいと確認した後に続きます。 このブログ投稿、ドキュメント、または <a href="https://feedback.azure.com/forums/321918-azure-iot/" target="_blank">UserVoice</a> フォーラムのAzure IoTしてください。</p>
+
+
+  <p>取り上げを合計するには、次の方法を使用します。</p>
+
+
+  <p>すべてのフィードバックをお寄せいただきありがとうございます。<br>
+
+  機能の計画を簡単に行いました。<br>
+
+  すべて試してください<br>
+
+  そして、私たちに大声を出してください<br>
+
+  追跡中の場合は、ご連絡ください。</p>

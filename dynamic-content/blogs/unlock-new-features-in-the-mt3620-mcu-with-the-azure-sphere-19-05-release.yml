@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: de52994eb07e8afd4c3811519a836e164a396b80
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903882"
+Slug: unlock-new-features-in-the-mt3620-mcu-with-the-azure-sphere-19-05-release
+Title: Azure Sphere 19.05 リリースで MT3620 MCU の新機能のロックを解除する
+Summary: 四半期ごとに、Azure Sphere チームは、チップとクラウドの新機能を使用して新しいシナリオを顧客にオープンします。  Azure Sphere 19.05 リリースでは、MT3620 に存在するリアルタイム対応コアのロックを解除することによって、このテーマを続行します。
+Content: >-
+  <p>四半期ごとに、 <a href="https://azure.microsoft.com/services/azure-sphere/" target="_blank">Azure Sphere</a> チームは、チップとクラウドの新機能を使用して新しいシナリオを顧客にオープンします。 <a href="https://docs.microsoft.com/en-us/azure-sphere/resources/release-notes-1905" target="_blank">Azure Sphere 19.05 リリース</a>では、MT3620 に存在するリアルタイム対応コアのロックを解除することによって、このテーマを続行します。 同じ SOC 内でこれらのコアを併置することで、高いレベルのコアでの接続シナリオを引き続きサポートしながら、M4 コアでの新しいリアルタイムシナリオが可能になります。 また、このリリースでは、クラウドへの DHCP ベースのイーサネット接続のサポートも導入されています。</p>
+
+
+  <p>また、Azure Sphere ハードウェアエコシステムは、大規模な運用と新しい低コストの開発ボードに使用できる新しいモジュールによって拡張されることを発表しています。 最後に、ソリューション &rsquo; の市場投入までの時間を短縮する新しい Azure Sphere 参照ソリューションを利用できます。</p>
+
+
+  <p>この新機能を利用するアプリケーションをビルドするには、 <a href="https://aka.ms/AzureSphereSDKDownload" target="_blank">Visual Studio 用の最新の AZURE SPHERE SDK Preview</a>をダウンロードしてインストールしてください。 Wi-Fi 接続されているすべてのデバイスは、これらの新機能をサポートする更新された Azure Sphere オペレーティングシステムを自動的に受信します。</p>
+
+
+  <h2>MT3620 ベースの新しい機能を有効にする</h2>
+
+
+  <ul>
+      <li><strong>リアルタイムコアプレビュー</strong> &mdash;OS と SDK は、MT3620 &rsquo; s の2つの M4 コアで、SPI、I2C、GPIO、UART、および ADC のリアルタイム対応アプリを開発、デプロイ、デバッグすることをサポートしています。 <a href="https://github.com/Azure/azure-sphere-samples" target="_blank">GitHub サンプルアプリ</a>は、高レベルのコア通信に対する GPIO、UART、およびリアルタイムコアを示しています。</li>
+      <li><strong>ADC のサンプル</strong> &mdash;このリアルタイムコアサンプルアプリでは、MT3620 &rsquo; s アナログ-デジタルコンバーターを使用して、電圧をサンプリングする方法を示します。 詳細については、 <a href="https://github.com/Azure/azure-sphere-samples/tree/master/Samples/ADC" target="_blank">ADC GitHub のサンプル</a>を参照してください。</li>
+  </ul>
+
+
+  <h2>ツールとライブラリ</h2>
+
+
+  <ul>
+      <li><strong>CMAKE のサポート</strong> &mdash; の向上Visual Studio は、cmake を使用するアプリケーションに対して、ワンタッチ配置とデバッグをサポートするようになりました。</li>
+      <li><strong>アプリケーションランタイムのバージョン</strong> &mdash;アプリケーションのプロパティは、必要なアプリケーションランタイムバージョン (ARV) を指定し、azsphere コマンドは競合を検出します。 詳細については、 <a href="https://docs.microsoft.com/azure-sphere/app-development/use-beta" target="_blank">オンラインドキュメント</a> を参照してください。</li>
+      <li><strong>ランダムな数値の生成 (RNG)</strong> &mdash;POSIX base API は、Pluton&#39;s RNG からのランダムな数値生成をサポートしています。</li>
+      <li><strong>簡単なハードウェアターゲット</strong> &mdash; 設定<a href="https://github.com/Azure/azure-sphere-samples" target="_blank">GitHub サンプルアプリ</a>のリポジトリには、ハードウェア固有の JSON ファイルとヘッダーファイルが用意されています。 アプリケーションのプロパティを変更することで、特定のハードウェア製品を簡単にターゲットにすることができるようになりました。</li>
+  </ul>
+
+
+  <h2>新しい接続オプション</h2>
+
+
+  <ul>
+      <li><strong>イーサネットインターネットインターフェイス</strong> &mdash;このリリースでは、Azure Sphere セキュリティサービスや独自のサービスと通信するための Wi-Fi 接続の代替手段として、イーサネット接続がサポートされています。 <a href="https://github.com/Azure/azure-sphere-samples" target="_blank">GitHub サンプル</a>では、サポートされているマイクロチップパートをワイヤ接続し、イーサネットインターフェイスを起動し、それを使用して Azure IoT または独自の web サービスに接続する方法について説明します。</li>
+      <li><strong>ローカルデバイスの検出</strong> &mdash;Azure Sphere OS は、アプリケーションがローカルネットワーク上のデバイスの検出に Mdn と DNS-SD を実行できるようにする新しいネットワークファイアウォールとマルチキャスト機能を提供します。 この機能については、今後数週間のドキュメントを参照してください。</li>
+  </ul>
+
+
+  <h2>追加のハードウェア プラットフォームのサポート</h2>
+
+
+  <p>いくつかのハードウェア エコシステム パートナーから、最近、新しい Azure Sphere 対応製品が発表されました。</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/SEEEDmini" target="_blank">ED MT3620 ミニ開発ボード</a> &mdash; をご参加くださいこの低コストの開発ボード &nbsp; シングルバンド Wi-Fi は、サイズ制約のあるプロトタイプ向けに設計されています。 プロトタイプから商品化までのクイックパスには、AI-Link モジュールを使用します。</li>
+      <li><a href="https://aka.ms/AIMod" target="_blank">AI リンク WF-M620-RSA1 Wi-Fi モジュール</a> &mdash;このシングルバンド Wi-Fi モジュールは、コストを重視するアプリケーション向けに設計されています。</li>
+      <li><a href="https://aka.ms/USImod" target="_blank">Usi Azure Sphere コンボモジュール</a> &mdash;このモジュールは、デュアルバンド Wi-Fi と Bluetooth の両方をサポートしています。 オンボードの Bluetooth チップセットでは、BLE と Bluetooth 5 Mesh がサポートされます。 そのチップセットは、非接触型 Bluetooth ペアリングとデバイス プロビジョニングのシナリオをサポートするための NFC タグとしても機能できます。</li>
+      <li><a href="https://aka.ms/AvnetGM" target="_blank">Avnet ガーディアンモジュール</a> &mdash;このモジュールにより、既存の機器をインターネットに安全に接続することができます。 これは、イーサネットを介して機器に接続し、デュアルバンド Wi-fi 経由でクラウドに接続します。</li>
+      <li><a href="https://aka.ms/AvnetDev" target="_blank">Avnet MT3620 スタートキット</a> &mdash;この開発ボードには、MikroE Click および Grove モジュールの範囲をサポートするモジュール型コネクタが搭載され Wi-Fi ています。</li>
+      <li><a href="https://aka.ms/AvnetMod" target="_blank">Avnet Wi-Fi モジュール</a> &mdash;このデュアルバンド Wi-Fi モジュールとスタンプ穴 (castellated) の pin の設計により、簡単なアセンブリと品質保証が可能になります。</li>
+  </ul>
+
+
+  <p>お客様のニーズに最も合った開発キットやモジュールを使用して、またはお客様の顧客に最適なカスタマイズ可能なサービスを利用して、Azure Sphere での開発を開始する時間はあまりありませんでした。</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/AzureSphereSDKDownload" target="_blank">Visual Studio 用の AZURE SPHERE SDK Preview</a>の使用を開始します。</li>
+      <li>ヘルプが必要ですか? <a href="https://aka.ms/AzureSphereSupport" target="_blank">Azure Sphere フォーラム</a>または<a href="https://aka.ms/ASStackoverflow" target="_blank">Stack Overflow</a>で専門家と Connect ます。</li>
+      <li><a href="https://feedback.azure.com/forums/915433-azure-sphere" target="_blank">製品のフィードバックと要求を</a>共有します。</li>
+      <li>最新の <a href="https://azure.microsoft.com/en-us/updates/?product=azure-sphere" target="_blank">Azure 更新プログラム</a>を最新の状態に維持します。</li>
+  </ul>
+
+
+  <p>Microsoft の担当者との Azure Sphere エンゲージメントを開始するには、までメールで <a href="mailto:nextinfo@microsoft.com">nextinfo@microsoft.com</a> お問い合わせください。</p>

@@ -1,0 +1,151 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cc342e553e67fc119e38a16eccc4c32c830e23e3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909885"
+Slug: easily-transform-data-when-importing-to-azure-documentdb-2
+Title: Azure DocumentDB にインポートするときに JSON データを簡単に変換する
+Summary: Azure DocumentDB データ移行ツールを使用すると、インポート中にデータを簡単に変換できます。
+Content: >-
+  <p><a href="https://azure.microsoft.com/documentation/articles/documentdb-import-data/">Azure DocumentDB データ移行ツール</a>は、<a href="https://azure.microsoft.com/services/documentdb/">Azure の NoSQL</a> ドキュメント データベース サービスである DocumentDB&#39;データをインポートするオープン ソース ソリューションです。&nbsp;<a href="https://github.com/azure/azure-documentdb-datamigrationtool">(GitHub </a>または <a href="https://www.microsoft.com/downloads/details.aspx?FamilyID=cda7703a-2774-4c07-adcc-ad02ddc1a44d">Microsoft</a> ダウンロード センターで使用可能な) ツールが、JSON ファイル、CSV ファイル、SQL Server、MongoDB、Azure Table Storage、Amazon DynamoDB、HBase、DocumentDB コレクションなど、さまざまなソースから DocumentDB へのデータのインポートをサポートしているのを既に知っていますが、インポート時のデータのカスタム変換もサポートしているというご存知でしたか?&nbsp;インポート&rsquo; プロセス中にカスタム変換をデータに適用する方法を確認します。</p>
+
+
+  <p>移行ツールを使用して DocumentDB にデータをインポートする場合、既定のオプションは一括インポートです。 これにより、DocumentDB <a href="https://azure.microsoft.com/documentation/articles/documentdb-programming/">JavaScript ストアド</a> プロシージャを利用して、可能な限り効率的かつ迅速にデータをインポートできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67bd2f45-05a9-4ef4-afec-d48c9e603206.png"><img alt="DataMigrationTool_1" border="0" height="600" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/357cdc49-6d80-433a-a07b-edbb8f06c21e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="DataMigrationTool_1" width="800"></a></p>
+
+
+  <p><br>
+
+  移行ツール ディレクトリには、BulkInsert.js と BulkTransformationInsert.js の 2 つのストアド プロシージャを使用できます。この 2 つのストアド プロシージャは、どちらも一括インポート操作を実行します。</p>
+
+
+  <p><br>
+
+  BulkInsert.jsは、ツールで使用される既定のインポート ストアド プロシージャですが、 [詳細オプション] セクションで使用するカスタム ストアド プロシージャを指定できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2b71d1e-ee70-46fd-8cea-3db98f4ed431.png"><img alt="DataMigrationTool_2" border="0" height="600" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/21b4d016-1ffb-4b4e-8b0b-bf606bd3e8d7.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="DataMigrationTool_2" width="800"></a></p>
+
+
+  <p><br>
+
+  BulkInsert.js と BulkTransformationInsert.js の違いは、後者には、インポートされる各ドキュメントにカスタム変換ロジックを適用するために使用できる transformDocument &ldquo;&rdquo; 関数スタブが含まれています。</p>
+
+
+  <pre class="prettyprint">
+      function transformDocument(doc) {
+          /*
+              Add custom tranformation code here. You can either modify an existing document and
+              return it or create a new one.
+
+              Example #1, rename &quot;ExternalId&quot; field to &quot;id&quot;:
+
+                  doc[&quot;id&quot;] = doc[&quot;ExternalId&quot;];
+                  delete doc.ExternalId;
+
+              Example #2, convert string field to an array:
+
+                  if (doc[&quot;Cities&quot;]) {
+                      doc[&quot;Cities&quot;] = doc[&quot;Cities&quot;].split(&quot;|&quot;);
+                  }
+          */
+          return doc;
+      }</pre>
+
+  <p><br>
+
+  カスタム ストアド プロシージャBulkTransformationInsert.jsテンプレートとして使用し、必要に応じて変更してから、インポート時に移行ツールでカスタム ストアド プロシージャを使用することができます。&nbsp; 例&rsquo;を見てみる。</p>
+
+
+  <p>シカゴ市には、CSV 形式で使用できる食品検査 <a href="https://data.cityofchicago.org/api/views/4ijn-s7e5/rows.csv" target="_blank">データ</a> セット* があります。&nbsp; 移行ツールを使用してこのデータ セットの既定のインポートを実行すると、一般的なドキュメントは次のように表示されます。</p>
+
+
+  <pre class="prettyprint">
+
+  {
+    &quot;id&quot;: &quot;1575294321&quot;,
+    &quot;DBA Name&quot;: &quot;CONTOSO CO.&quot;,
+    &quot;AKA Name&quot;: &quot;CONTOSO CO.&quot;,
+    &quot;License #&quot;: 2423456321,
+    &quot;Facility Type&quot;: &quot;Restaurant&quot;,
+    &quot;Risk&quot;: &quot;Risk 1 (High)&quot;,
+    &quot;Address&quot;: &quot;3141 N FABRIKAM ST&quot;,
+    &quot;City&quot;: &quot;CHICAGO&quot;,
+    &quot;State&quot;: &quot;IL&quot;,
+    &quot;Zip&quot;: 60657,
+    &quot;Inspection Date&quot;: &quot;2015-09-09T00:00:00.0000000Z&quot;,
+    &quot;Inspection Type&quot;: &quot;License&quot;,
+    &quot;Results&quot;: &quot;Pass&quot;,
+    &quot;Violations&quot;: &quot;30. FOOD IN ORIGINAL CONTAINER, PROPERLY LABELED: CUSTOMER ADVISORY POSTED AS NEEDED - Comments: OBSERVED WRAPPED TO GO DESSERTS AT THE FRONT COUNTER UNLABELED. INSTRUCTED FACILITY TO LABEL AND MAINTAIN WITH PRODUCTION FACILITY NAME AND CONTACT INFORMATION. | 34. FLOORS: CONSTRUCTED PER CODE, CLEANED, GOOD REPAIR, COVING INSTALLED, DUST-LESS CLEANING METHODS USED - Comments: INSTRUCTED FACILITY TO INSTALL AND MAINTAIN COVING ALONG THE WALLS IN THE PREP AREA. | 36. LIGHTING: REQUIRED MINIMUM FOOT-CANDLES OF LIGHT PROVIDED, FIXTURES SHIELDED - Comments: INSTRUCTED FACILITY TO INSTALL LIGHT SHIELDS OR TO OBTAIN SHATTER PROOF LIGHT BULBS AND TO MAINTAIN.&quot;
+  }</pre>
+
+
+  <p><br>
+
+  Violations プロパティに注意してください。&nbsp; 各違反は文字で区切られた、多数の違反 &lsquo;|&rsquo; があります。&nbsp; カスタム変換を使用して、違反の一覧を各ドキュメント内の適切な JSON 配列として格納できます。&nbsp; これを&rsquo;行うには、BulkTransformationInsert.jsの transformDocument 関数を変更し、変更したスクリプトを TransformChicagoDataset.js。</p>
+
+
+  <pre class="prettyprint">
+      function transformDocument(doc) {
+    if (doc[&quot;Violations&quot;]) {
+     doc[&quot;Violations&quot;] = doc[&quot;Violations&quot;].split(&quot; | &quot;);
+    }
+          return doc;
+      }</pre>
+
+  <p><br>
+
+  また、インポート&rsquo;時に変更されたストアド プロシージャを指定します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27044dce-164d-4c84-b674-2c0cc3ae00eb.png"><img alt="DataMigrationTool_3" border="0" height="600" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/112534f0-1577-45dc-a15e-c6e17df84b61.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="DataMigrationTool_3" width="800"></a></p>
+
+
+  <p><br>
+
+  変更されたストアド プロシージャを使用してインポートを実行した後、一般的なドキュメントは次のように表示されます。</p>
+
+
+  <pre class="prettyprint">
+
+  {
+    &quot;id&quot;: &quot;1575294321&quot;,
+    &quot;DBA Name&quot;: &quot;CONTOSO CO.&quot;,
+    &quot;AKA Name&quot;: &quot;CONTOSO CO.&quot;,
+    &quot;License #&quot;: 2423456321,
+    &quot;Facility Type&quot;: &quot;Restaurant&quot;,
+    &quot;Risk&quot;: &quot;Risk 1 (High)&quot;,
+    &quot;Address&quot;: &quot;3141 N FABRIKAM ST&quot;,
+    &quot;City&quot;: &quot;CHICAGO&quot;,
+    &quot;State&quot;: &quot;IL&quot;,
+    &quot;Zip&quot;: 60657,
+    &quot;Inspection Date&quot;: &quot;2015-09-09T00:00:00.0000000Z&quot;,
+    &quot;Inspection Type&quot;: &quot;License&quot;,
+    &quot;Results&quot;: &quot;Pass&quot;,
+    &quot;Violations&quot;: [
+      &quot;30. FOOD IN ORIGINAL CONTAINER, PROPERLY LABELED: CUSTOMER ADVISORY POSTED AS NEEDED - Comments: OBSERVED WRAPPED TO GO DESSERTS AT THE FRONT COUNTER UNLABELED. INSTRUCTED FACILITY TO LABEL AND MAINTAIN WITH PRODUCTION FACILITY NAME AND CONTACT INFORMATION.&quot;,
+      &quot;34. FLOORS: CONSTRUCTED PER CODE, CLEANED, GOOD REPAIR, COVING INSTALLED, DUST-LESS CLEANING METHODS USED - Comments: INSTRUCTED FACILITY TO INSTALL AND MAINTAIN COVING ALONG THE WALLS IN THE PREP AREA.&quot;,
+      &quot;36. LIGHTING: REQUIRED MINIMUM FOOT-CANDLES OF LIGHT PROVIDED, FIXTURES SHIELDED - Comments: INSTRUCTED FACILITY TO INSTALL LIGHT SHIELDS OR TO OBTAIN SHATTER PROOF LIGHT BULBS AND TO MAINTAIN.&quot;
+    ]
+  }</pre>
+
+
+  <p><br>
+
+  Violations プロパティには、個々の違反を表す各配列メンバーを含む、違反の適切な JSON 配列が含まれている点に注意してください。</p>
+
+
+  <p>この機能には多くのクリエイティブな用途が見つかっています。&nbsp; 上記のコンテンツからの最大の注意を引くコメントを以下に残してください。 関連する情報と機能を提供し続けるのに役立つため、お客様の視点とフィードバックをお聞かせください。</p>
+
+
+  <p>ヘルプが必要な場合、または質問やフィードバックがある場合は、スタック オーバーフローに関<a href="https://stackoverflow.com/questions/tagged/azure-documentdb"></a>する開発者フォーラムに連絡するか、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。&nbsp;Twitter <a href="https://twitter.com/DocumentDB">@DocumentDB</a>でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>*シカゴ市は、このサイトで提供されるデータのコンテンツ、正確性、タイムライン、または完全性に関するクレームを一切行いません。&nbsp; このサイトで提供されるデータは、いつでも変更される可能性があります。&nbsp; このサイトで提供されるデータは、独自のリスクで使用されている&rsquo;可能性があります。</p>

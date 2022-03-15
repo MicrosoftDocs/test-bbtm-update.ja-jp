@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 17674cb6ddd966374d77b8c05ecdf8e540171a25
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909568"
+Slug: power-bi-and-azure-data-services-dismantle-data-silos-and-unlock-insights
+Title: Power BIと Azure Data Servicesデータ サイロを活用し、分析情報のロックを解除する
+Summary: '新しいチュートリアルを使用して、Power BI Azure Data Services接続してデータを共有し、新しい分析情報のロックを解除する方法について説明します。 '
+Content: >-
+  <p>新しいチュートリアルを使用して、Power BI Azure Data Services接続してデータを共有し、新しい分析情報のロックを解除する方法について説明<a href="https://aka.ms/cdmadstutorial" target="_blank">します</a>。 Power BI データフローを使用するビジネス アナリストは、高度な分析と AI のために Azure Databricks、Azure Machine Learning、Azure SQL Data Warehouse、Azure Data Factory など、Azure Data Services の機能を活用できるデータ エンジニアやデータ サイエンティストとデータを共有できます。</p>
+
+
+  <p>最近発表されたデータ<a href="https://powerbi.microsoft.com/en-us/blog/introducing-power-bi-data-prep-wtih-dataflows/" target="_blank">フローのプレビュー Power BI</a>、Power BIアナリスト向けセルフサービス データ準備が有効になっています。 Power BIデータフローでは、大量のトランザクション および観測データ ソースからデータを取り込み、結果のクリーンアップ、変換、エンリッチ、スキーマ化、格納を行います。 データフローは再利用可能であり、自動的に更新し、デイジーチェーンして強力なデータ準備パイプラインを作成できます。 Power BI、データとデータフローの定義の両方を含め、<a href="https://go.microsoft.com/fwlink/?linkid=2047859" target="_blank">Azure Data Lake Storage (ADLS) Gen2</a> にデータフローを格納するためのサポートが提供されています。 <a href="https://aka.ms/adlsgen2blog2" target="_blank">Azure Data Lake Storage Gen2</a> にデータフローを格納することで、Power BI を使用するビジネス アナリストは、Azure Data Services を使用してデータ エンジニアやデータ サイエンティストと共同作業を行う可能性があります。</p>
+
+
+  <h2>データ サイロによるデータ共有の阻害</h2>
+
+
+  <p>組織がビジネス データからインテリジェンスを抽出する機能は、競争上の重要な利点を提供しますが、現在これを試みるには時間がかかり、コストがかかる可能性があります。 インテリジェンスを抽出してデータから価値を生み出すには、アプリケーションがデータにアクセスし、その構造と意味を理解できる必要があります。 多くの場合、データはアプリケーションまたはプラットフォーム固有のサイロに存在し、データ統合とデータ準備の主要な課題が生み出されます。&nbsp;</p>
+
+
+  <h2>一貫性のあるデータとメタデータの形式によってコラボレーションが可能</h2>
+
+
+  <p>Common Data Model (CDM)、<a href="https://aka.ms/cdmoverview" target="_blank">Power BI</a>、Azure Data Services、その他のアプリケーションに基づいてデータを格納および記述する一貫した方法を採用することで、データの共有と相互運用をより効果的に行える。 Power BIデータフローは CDM フォルダー ADLS Gen2に格納されます。 CDM フォルダーには、フォルダー内のエンティティとその属性とデータ型を記述し、各エンティティのデータ ファイルを一覧表示するメタデータ ファイルが含まれています。 CDM では、追加の豊富なセマンティクスを定義する一連の標準ビジネス エンティティも定義します。 CDM フォルダー内のデータを標準の CDM エンティティにマッピングすると、相互運用性とデータ共有がさらに容易に行います。 Microsoft は SAP および Adobe と参加してオープン データ イニシアティ<a href="https://www.microsoft.com/en-us/open-data-initiative" target="_blank"></a>ブを形成し、さまざまなドメインにわたる標準エンティティの定義と導入を促進し、エンタープライズ Data Lake を介してアプリケーションとツールでデータを共有しやすくしました。&nbsp;</p>
+
+
+  <p>これらのデータ ストレージ規則を採用することで、既に強力で使いやすいデータ準備機能を備えた Power BI によって取り込まれたデータをさらに強化し、Azure で活用できます。 同様に、Azure のデータは CDM フォルダーにエクスポートし、Power BI。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/14a64eeb-b1a7-4a12-889f-8b573c98ef20.png"><img alt="CDM folders workflow diagram" border="0" height="347" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1989795f-033c-4254-bd2c-76d6f20b0cdc.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="CDM フォルダーのワークフロー図" width="774"></a></p>
+
+
+  <h2>Azure Data Services共有データの高度な分析を有効にする</h2>
+
+
+  <p>Azure Data Services高度な分析を有効にすることで、データ レイク内の CDM フォルダーに格納されているデータのビジネス価値を最大化できます。 データ エンジニアとデータ サイエンティストは、Azure Databricks と Azure Data Factory のデータフローを使用してデータをクリーンアップおよび再設定し、正確で完全なデータを確保できます。 さまざまなソースと異なる形式のデータを正規化、再フォーマット、およびマージして、分析処理用にデータを最適化できます。 データ サイエンティストは Azure Machine Learning を使用してデータに対する機械学習モデルを定義およびトレーニングし、BI ダッシュボードとレポートに組み込み、実稼働アプリケーションで使用できる予測と推奨事項を実現できます。 データ エンジニアは Azure Data Factory を使用して、CDM フォルダーのデータを企業全体のデータと組み合わせて、Azure SQL Data Warehouse で、これまで正確でキュリーされたエンタープライズ全体のデータビューを作成できます。 任意の時点で、Azure Data Service によって処理されたデータを新しい CDM フォルダーに書き戻して、Azure で作成された分析情報を Power BI や他の CDM 対応アプリまたはツールからアクセス可能にできます。</p>
+
+
+  <h2>新しいチュートリアルでは、Power BI と Azure の間のデータ共有について説明します</h2>
+
+
+  <p>CDM <a href="https://aka.ms/cdmadstutorial" target="_blank">フォルダー</a>を使用して Power BI と Azure の間でデータを共有すると、データ サイロを分け、新しい分析情報のロックを解除する方法を理解するのに役立つチュートリアルを利用できます。 サンプル コードを使用したチュートリアルでは、Azure の最新のデータ ウェアハウス シナリオにPower BIデータ を統合する方法を示します。 このチュートリアルでは、上の図で緑色で強調表示されているフローを確認できます。&nbsp;&nbsp;</p>
+
+
+  <p>このチュートリアルでは、Power BI データフローを使用して Wide World Importers オペレーション データベースからキー分析データを取り込み、そのスキーマを使用して抽出されたデータを ADLS Gen2 の CDM フォルダーに格納します。 次に、CDM フォルダーに接続し、Azure Databricks を使用してデータを処理し、後の手順のために書式設定して準備した後、新しい CDM フォルダーにレイクに書き戻します。 この準備された CDM フォルダーは、Azure Machine Learning によって使用され、Power BI または他のアプリケーションからアクセスしてリアルタイムの予測を行える ML モデルをトレーニングおよび発行します。 準備されたデータは、Azure SQL Data Warehouse のステージング テーブルにも読み込まれ、そこでディメンション モデルに変換されます。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/629770e3-8ba1-4211-9034-9a41eeeb3820.png"><img alt="CDMADSBlogImage2" border="0" height="623" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a79368c-607e-492c-a063-01ffbdb05e41.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="CDMADSBlogImage2" width="1300"></a></p>
+
+
+  <p>Azure Data Factoryは、サービス間のデータ フローを調整し、実行時の処理を管理および監視するために使用されます。 このチュートリアルを実行&rsquo;すると、CDM フォルダーに格納されているメタデータによって、各サービスがデータを理解して共有しやすくなる方法を確認できます。&nbsp;&nbsp;&nbsp;</p>
+
+
+  <h2>サンプル コードを使用すると、データ統合プロジェクトを迅速化できます</h2>
+
+
+  <p>このチュートリアルには、シナリオ全体のサンプル コードと手順が含まれています。 サンプルには、C#、Python、Scala の再利用可能なライブラリとコード、および CDM フォルダーを独自の Azure Data Services プロジェクトに統合するために使用できる再利用可能な Azure Data Factory パイプライン テンプレートが含まれています。&nbsp;</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>Power BI データ フロー、Common Data Model、および Azure Data Services を一緒に使用して、組織内のデータの開いているサイロを壊し、ビジネス アナリスト、データ エンジニア、データ サイエンティストがデータを共有して高度な分析を強化し、新しい分析情報を活用して競争力を高め、&nbsp;</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p><a href="https://aka.ms/cdmadstutorial" target="_blank">チュートリアルを今すぐダウンロード</a>し、データを共有する方法と Azure Power BIを確認Data Services。</p>
+
+
+  <p>データフロー、CDM Power BI Azure Data Servicesの詳細については、次のリンクを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://powerbi.microsoft.com/en-us/blog/introducing-power-bi-data-prep-wtih-dataflows/" target="_blank">Power BIデータフロー</a></li>
+   <li><a href="https://aka.ms/cdmoverview" target="_blank">Common Data Model</a></li>
+   <li><a href="https://aka.ms/AA3cxoj" target="_blank">CDM フォルダー</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/data-factory/" target="_blank">Azure Data Factory</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/databricks/" target="_blank">Azure Databricks</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/" target="_blank">Azure SQL Data Warehouse</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/">Azure Machine Learning</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank">Azure Data Lake Storage Gen 2</a></li>
+  </ul>

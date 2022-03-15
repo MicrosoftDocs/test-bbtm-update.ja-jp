@@ -1,0 +1,103 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7afaf8039998740010482dded5886b3bf3e66d66
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909185"
+Slug: azure-announces-general-availability-of-scaleup-scaleout-nvidia-a100-gpu-instances-claims-title-of-fastest-public-cloud-super
+Title: Azure は、スケールアウト NVIDIA A100 GPU クラスターの一般提供を発表します。最速のパブリック クラウド スーパーコンピューター
+Summary: 現在、Azure は、NVIDIA A100 Tensor Core GPU を搭載した Azure ND A100 v4 クラウド GPU インスタンスの一般提供を発表し、パブリック クラウドでのリーダーシップ クラスのスーパーコンピューティングスケーラビリティを実現します。 AI とハイ パフォーマンス コンピューティング (HPC) の次のフロンティアを追い求めるお客様は、スケーラビリティが、総保有コストとソリューションの時間を向上させる鍵です。
+Content: >-
+  <p>現在、Azure は、パブリック クラウドでのリーダーシップ クラスのスーパーコンピューティング スケーラビリティを実現する <a href="https://www.nvidia.com/en-in/data-center/a100/" target="_blank">NVIDIA A100 Tensor Core GPU</a>&mdash; によって機能する Azure ND A100 v4 クラウド GPU&mdash; インスタンスの一般提供を発表します。 AI とハイ パフォーマンス コンピューティング <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-hpc" target="_blank">(HPC)</a>&nbsp; の次のフロンティアを追い求めるお客様のために、スケーラビリティは、ソリューションの総コストとソリューションの時間を向上させる鍵です。&nbsp;</p>
+
+
+  <p>簡単に言えば、NVIDIA A100 GPU&mdash;&nbsp; によって電力を供給される ND A100v4&nbsp;&mdash; は、最も要求の厳しい顧客が速度を下げることなくスケールアップおよびスケールアウトできる設計です。</p>
+
+
+  <p>プレリリースのパブリック スーパーコンピューター クラスター上の 164 台の ND A100 v4 仮想マシンを使用したベンチマークでは、16.59 ペタフロップという High-Performance Linpack (SUPER) の結果が得られます。 パブリック クラウド インフラストラクチャ上で提供されるこの SUPER の結果は、ジョブが実行されたリージョンに基づいて、世界最速のスーパーコンピューターの 2020 年 11 月の上位 500 リスト、またはヨーロッパの上位 10 に含まれる予定です。</p>
+
+
+  <p>人工知能 (AI)&nbsp; と機械学習 (ML) に焦点を当てた High-Performance Linpack バリアントである、同じ 164-VM プールを使用して測定された、142.8 ペタフロ&rsquo;ップの結果が世界のトップ 5 の最も速い既知の AI スーパーコンピューターの中に配置され、公式の「AI-AI ベンチマーク リスト」で測定されています。 これらの SUPER の&nbsp;結果は、1 つのパブリック Azure&nbsp; クラスターのごく一部のみを利用し、世界で最も強力な専用のオンプレミス のスーパーコンピューター リソースにランク付けされます。</p>
+
+
+  <p>現在、ND A100 v4 が一般提供されるに伴い、お近くの世界最速のパブリック クラウド スーパーコンピューターが、東 米国、西 米国 2、西ヨーロッパ、および南中部 米国 の 4&rsquo;&rsquo; つの Azure リージョンを通じてオンデマンドですぐに利用できると発表しました。</p>
+
+
+  <p>ND A100 v4 VM シリーズは、1 つの仮想マシン (VM) と 8 つの NVIDIA Ampere アーキテクチャ ベースの A100 Tensor Core GPU から始まり、NVIDIA HDR 200 Gb/秒の InfiniBand リンクを介して配信される VM ごとに 1.6 Tb/秒というこれまでにない相互接続帯域幅を備え、1 つのクラスター内で数千の GPU にスケールアップできます。 さらに、8 GPU VM&nbsp; ごとに第 3 世代の NVIDIA NVLink が完全に補完され、1 秒あたり 600 ギガバイトを超える VM 内の GPU から GPU への接続が可能になります。&nbsp;</p>
+
+
+  <p>事実上の業界標準である HPC および AI ツールとライブラリを活用するために構築されたお客様は、基になるネットワーク トポロジや配置を気にすることなく、最もスケーラブルな GPU アクセラレータ AI および HPC ワークロードでサポートされるのと同じ NVIDIA NCCL2 ライブラリを使用して、特別なソフトウェアやフレームワークを使用せずに、ND A100 v4s&rsquo; GPU と独自の相互接続機能を利用できます。 同じ VM スケール セット内の VM をプロビジョニングすると、相互接続ファブリックが自動的に構成されます。</p>
+
+
+  <p>ND A100 v4 を介して、要求の厳しいオンプレミスの AI と HPC ワークロードをクラウドに導入できますが、Azure ネイティブアプローチを好むお客様には、<a href="https://azure.microsoft.com/en-us/services/machine-learning/" target="_blank">Azure Machine Learning</a>&nbsp;チューニングされた仮想マシン (必要なドライバーとライブラリが事前にインストール済み) と、ND A100 v4 ファミリ用に最適化されたコンテナー ベースの環境が提供されます。 サンプル レシピと Jupyter Notebook は、PyTorch、TensorFlow、BERT などの最先端モデルのトレーニングなど、複数のフレームワークを使用してユーザーを迅速に開始するのに役立ちます。 このAzure Machine Learning、お客様は Azure の AI エンジニアリング チームと同じツールと機能にアクセスできます。</p>
+
+
+  <p>各 NVIDIA A100 GPU では、従来の V100 GPU の 1.7 から 3.2 倍のパフォーマンスが提供されます。また、特定のワークロードに対して混合精度モード、スパリティ、マルチインスタンス <a href="https://www.nvidia.com/en-in/technologies/multi-instance-gpu/" target="_blank">GPU (GPU)</a>&nbsp; など、新しいアーキテクチャ機能をレイヤー化する場合は、最大 20 倍のパフォーマンスが提供されます。また、各 VM の中心となるのは、全く新しい第 2 世代 AMD EPYC プラットフォームです。CPU から GPU への転送に対する PCI Express Gen 4.0 は、前の世代の 2 倍の速さです。</p>
+
+
+  <p>新しい&rsquo;&rsquo; Azure ND A100 v4 プラットフォームで何をビルド、分析、検出するのかを見るのを待つ必要があります。</p>
+
+
+  <table align="center" class="Table" style="border-collapse:collapse; border:none" width="623">
+      <tbody>
+          <tr>
+              <td style="border-bottom:1px solid black; width:89px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:1px solid black" valign="top">
+              <p style="margin-bottom:11px"><b>[サイズ]</b></p>
+              </td>
+              <td style="border-bottom:1px solid black; width:78px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px"><b>物理 CPU コア</b></p>
+              </td>
+              <td style="border-bottom:1px solid black; width:108px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px"><b>ホスト メモリ&nbsp; (GB)</b></p>
+              </td>
+              <td style="border-bottom:1px solid black; width:78px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px"><b>GPU</b></p>
+              </td>
+              <td style="border-bottom:1px solid black; width:96px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px"><b>ローカル NVMe 一時ディスク</b></p>
+              </td>
+              <td style="border-bottom:1px solid black; width:90px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px"><w:sdt id="2084948510" sdttag="goog_rdk_36"><strong>NVIDIA </strong></w:sdt><b>InfiniBand Network</b></p>
+              </td>
+              <td style="border-bottom:1px solid black; width:83px; padding:12px 12px 12px 12px; height:73px; background-color:white; border-top:1px solid black; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px"><b>Azure ネットワーク</b></p>
+              </td>
+          </tr>
+          <tr>
+              <td style="border-bottom:1px solid black; width:89px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:1px solid black" valign="top">
+              <p style="margin-bottom:11px">Standard_ND96asr_v4</p>
+              </td>
+              <td style="border-bottom:1px solid black; width:78px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px">96</p>
+              </td>
+              <td style="border-bottom:1px solid black; width:108px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px">900 GB</p>
+              </td>
+              <td style="border-bottom:1px solid black; width:78px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px">8 x 40 GB NVIDIA A100</p>
+              </td>
+              <td style="border-bottom:1px solid black; width:96px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px">6,500 GB</p>
+              </td>
+              <td style="border-bottom:1px solid black; width:90px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px">8 x 200 Gbps</p>
+              </td>
+              <td style="border-bottom:1px solid black; width:83px; padding:12px 12px 12px 12px; height:72px; background-color:white; border-top:none; border-right:1px solid black; border-left:none" valign="top">
+              <p style="margin-bottom:11px">40 Gbps</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>詳細情報</h2>
+
+
+  <ul>
+      <li>詳細については、ブログ「&quot;顧客への AI スーパーコンピューターの取<a href="https://azure.microsoft.com/en-us/blog/bringing-ai-supercomputing-to-customers/" target="_blank">り込み」を参照してください</a>。&quot;</li>
+      <li><a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s32779/" target="_blank">Azure: Azure: High-Ambition AI と HPC</a> を使用して世界を強化する方法に関するページを参照してください。Microsoft の CVP である Bablani 氏と、NVIDIA の Data Center Business の Ian Buck、VP、GM。</li>
+      <li>Azure HPC 仮想マシンのハイ パフォーマンス コンピューティング仮想マシンサイズの詳細 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-hpc" target="_blank">を確認してください</a>。</li>
+      <li><a href="https://aka.ms/aiatscale/" target="_blank">大規模な Microsoft AI</a>。</li>
+      <li><a href="https://top500.org/" target="_blank">上位 500 件のリスト</a>。</li>
+  </ul>

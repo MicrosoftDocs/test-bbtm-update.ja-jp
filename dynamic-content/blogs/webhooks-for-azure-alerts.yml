@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 50c9b31a168e1306a6c6b3d13df585a8ce449acd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909463"
+Slug: webhooks-for-azure-alerts
+Title: Azure アラート用の Webhook
+Summary: 'Azure アラートの Webhook をお知らせします。 Azure アラートをルーティングするように HTTP または HTTPS エンドポイントを構成します。 '
+Content: >-
+  <p>本日は、Azure リソースをより効果的に監視し、さらにアクションを自動的に実行できる新しい機能をお知らせします。 これで、Azure リソースからの監視データ (メトリック) に対する Azure アラートの Webhook サポートが提供されます。</p>
+
+
+  <p><a href="https://en.wikipedia.org/wiki/Webhook">Webhook は、</a> 通常、イベントによってトリガーされるユーザー定義の HTTP エンドポイントです。 Webhook を使用すると、Azure アラートからさらに多くを取得できます。 Azure Portal でアラートを作成または更新する際に、HTTP または HTTPS エンドポイントを Webhook として <a href="https://portal.azure.com">指定できます</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53f093dc-0a44-4420-ab70-c079c8337790.png"><img alt="Alertwebhook" border="0" height="1052" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36b6d0e0-a626-4a5c-a803-c82c572e7520.png" style="border: 0px currentColor; border-image: none; width: 321px; height: 589px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Alertwebhook" width="606"></a></p>
+
+
+  <p>Azure アラートに対する Webhook の動作を次に示します。</p>
+
+
+  <ol>
+   <li>Azure Alert Service は、指定したエンドポイントに対して HTTP POST 操作を行います</li>
+   <li>(JSON ペイロードとして) アラート メタデータをエンドポイントに送信します</li>
+   <li>エンドポイントは、受信したデータを処理して、アラートに対してさらにアクションを実行できます</li>
+  </ol>
+
+
+  <p>これにより、アラートを使用してさらに多くのことを行えるので、例として次の操作を実行できます。</p>
+
+
+  <ul>
+   <li><a href="https://www.pagerduty.com/">PagerDuty</a>&amp; DevOps <a href="https://www.opsgenie.com/">OpsGenie</a>、VictorOps などの一般的な通知インシデント管理システム<a href="https://victorops.com/">と統合</a>します。</li>
+   <li>Azure Automation (Runbook) <a href="https://azure.microsoft.com/en-us/services/automation/">を使用</a> してスクリプトを実行する</li>
+   <li>トリガー <a href="https://azure.microsoft.com/en-us/services/app-service/logic/">Logic Apps</a></li>
+   <li><a href="https://www.twilio.com/">Twilio</a> または他の VOIP サービスを介してテキスト メッセージを受信する API を構築する</li>
+   <li>Slack、HipChat、<a href="https://slack.com/">または</a> <a href="https://www.hipchat.com/">Campfire の通知を受け取</a><a href="https://campfirenow.com/">る API を構築</a>する</li>
+  </ul>
+
+
+  <p>Azure Alert&nbsp; の webhooks&nbsp; の JSON ペイロード スキーマと構成オプションについては、Azure <a href="https://azure.microsoft.com/en-us/documentation/articles/insights-webhooks-alerts/"><strong>ドキュメント サイトを</strong></a>参照してください。</p>
+
+
+  <h3>Azure Alerts と PagerDuty &amp; OpsGenie の統合</h3>
+
+
+  <p>Webhook の詳細を説明し、アラート Webhook と PagerDuty を統合する方法を示すビデオ <strong><span style="font-size: 16px;">をご覧ください</span></strong></p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/AIck_eKTX_8" width="560"></iframe></p>
+
+
+  <p><a href="https://www.opsgenie.com/docs/integrations/azure-integration">このドキュメントでは</a> 、Azure Alerts と <span style="font-size: 16px;"><strong>OpsGenie を統合する方法について説明します</strong></span>。</p>
+
+
+  <h3>スクリプトAzure Automation実行</h3>
+
+
+  <p>アラートに基づいて Azure リソースに対してさらにアクションを実行する必要がありますか? Azure Alerts の Webhook を使用して Runbook を実行する方法については、Azure Automation チームのビデオをご覧ください</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/ZvN0lWcNPsg" width="560"></iframe></p>
+
+
+  <h3>Azure アラートLogic Appsをトリガーする</h3>
+
+
+  <p>Azure チームの事前構築済みアプリを使用してアラートに対して実行できるその他Logic Apps Webhook 統合を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/azure-quickstart-templates/tree/master/201-alert-to-text-message-with-logic-app">Twilio API 経由で SMS を送信するロジック アプリ</a>。 最初に <a href="https://www.twilio.com/">Twilio アカウントを</a> 作成します。</li>
+   <li><a href="https://github.com/Azure/azure-quickstart-templates/tree/master/201-alert-to-slack-with-logic-app">Slack メッセージを送信するロジック アプリ</a>。 最初に <a href="https://slack.com/">Slack アカウントを作成</a> する</li>
+   <li><a href="https://github.com/Azure/azure-quickstart-templates/tree/master/201-alert-to-queue-with-logic-app">Azure キューにメッセージを送信するロジック アプリ</a>。</li>
+  </ul>
+
+
+  <h3>Azure インサイト SDK を使用してインサイトする</h3>
+
+
+  <p>Azure Portal を使用してこれを行う方法を学習したので、Azure インサイト SDK を使用してプログラムでこれを行<a href="https://www.nuget.org/packages/Microsoft.Azure.Insights">う方法を確認してください</a>。 SDK を使用する利点は、JSON ペイロードで渡される Webhook (キーと値のペア) にカスタム プロパティを追加できるという利点があります。 SDK を使用すると、Azure アラートに対して複数の Webhook (最大 5 つ) を追加することもできます。 次の更新では、Azure Portal を使用した複数の Webhook の追加がサポートされます。</p>
+
+
+  <p><a href="https://code.msdn.microsoft.com/Create-Azure-Alerts-with-b938077a">使用</a> を開始する C# サンプルを次に示します。</p>
+
+
+  <p>そのため、これを試して、Azure アラートをお気に入りの Webhook に送信し、ご自分の考えをお知らせください。</p>

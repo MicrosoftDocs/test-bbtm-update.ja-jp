@@ -1,0 +1,30 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 50311b13b97e6d59e251011ff2366142ecbd723e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903462"
+Slug: next-generation-cryptography-now-available-with-azure-web-sites
+Title: Azure Websites で利用できるようになった次世代の暗号化
+Summary: SSL を使用してサイトをセキュリティで保護することは、かつてないほど重要ではありませんでしたが、暗号化は新しいものではありませんが、技術はセキュリティを強化する方法を探しています。 Azure Websites では、常に最新で最高の機能をサポートする方法を探しています。 現在、最大のは楕円曲線暗号 (ECC) 証明書です。
+Content: >-
+  SSL を使用してサイトをセキュリティで保護することは、かつてないほど重要ではありませんでしたが、暗号化は新しいものではありませんが、技術はセキュリティを強化する方法を探しています。 Azure Websites では、常に最新で最高の機能をサポートする方法を探しています。 現在、最大のは楕円曲線暗号 (ECC) 証明書です。
+
+
+  楕円曲線暗号は、有限フィールドに対する楕円曲線の代数構造に基づく暗号化テクノロジです。 それが複雑な場合は、心配しないでください。多くの人間がそれを取得するわけではありません。 楕円曲線は、 <b>y<sup>2</sup> = x<sup>3</sup> + ax + b</b> の代数関数のファミリに基づいて描画されるグラフです。 このような関数の X 値と Y 値をプロットすると、曲線は楕円と対称を検索します。 たとえば、関数 <b>y<sup>2</sup>= 4x<sup>3</sup>-4x + 4</b> のグラフは次のようになります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Erez-Benari-Next-Generation-Cryptography-now-available-with-Azure-Web-Sites-image-1.png"><img class="size-full wp-image-151891 aligncenter" style="width: 246px; height: 244px;" alt="Erez Benari - Next Generation Cryptography now available with Azure Web Sites image 1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Erez-Benari-Next-Generation-Cryptography-now-available-with-Azure-Web-Sites-image-1.png" width="340" height="340" /></a>
+
+
+  このような関数の組み合わせと計算の複雑さについて詳しく説明しないと、公開キーセットと秘密キーセットを効率的に作成できますが、これは中断するのは非常に困難です。 秘密キーを生成してから、選択した楕円関数を使用して公開キーを派生させます。 これを逆にすると、公開キーから秘密キーを計算する攻撃者は、今日のテクノロジでは現実的ではない大きなな計算タスクであり、さらに多くの年にわたって保持する必要があります。 従来の秘密/公開キーの生成と比較すると、これは約10倍になります (<a href="https://arstechnica.com/security/2013/10/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/">すべての厄介なの詳細が必要な場合はこちらをお読み</a>ください)。 つまり、ECC を使用して生成された256ビット長のキーセットは、RSA では2600ビット以上のキーに相当します。 今日の市場における標準は2048ビットであり、現在のコンピューティング能力を使用した場合には非常に長い時間がかかります。したがって、スーパーコンピューターにアクセスできるユーザーにとって、ECC キーセットのクラックは事実上不可能です。
+
+
+  実際には、サイトをセキュリティで保護するために通常の SSL 証明書を購入するのではなく、ECC 証明書を購入するように選択して、セキュリティを強化することができます。 ECC 証明書は市場にとって比較的新しいものであるため、多くの証明書プロバイダーでは提供されません。 このようなプロバイダーの1つは <a href="https://www.symantec.com/verisign/ssl-certificates">Symantec</a>で、もう1つは Entrust であり、他のプロバイダーもすぐにご利用になります。
+
+
+  これが興味深い場合は、Azure Websites がテスト済みで、ECC 証明書を完全にサポートしていることがわかります。 使用するには、証明書プロバイダーを選択して購入し、それを Azure に .PFX ファイルとしてアップロードします。たとえば、クラシック RSA 証明書をアップロードし、サイトに割り当てます。 これで完了です。 すべてのクライアントが ECC 証明書をサポートしているわけではありませんが、Windows Vista 以降を実行している場合は、クライアントに構成や変更を行わなくても、SSL 経由でサイトを参照できるようにする必要があることに注意してください。 安全を維持しましょう。
+
+
+  &nbsp;

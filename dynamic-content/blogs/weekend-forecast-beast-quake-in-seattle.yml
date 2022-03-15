@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b2562e7cb20a0e66c68213501e142724aa4e4186
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896967"
+Slug: weekend-forecast-beast-quake-in-seattle
+Title: "週末の予測: シアトルの ' ビースト quake '"
+Summary: シアトルの Seahawks 勝ちと GreenBay Packers この日曜日を持っているのでしょうか。 20-61。 シアトルのファンからの earthshaking 反応 (12 番目の man) の可能性はありますか。 110%。太平洋北西地震ネットワーク (PNSN) と Microsoft のパートナーシップは、リアルタイムのファンエクスペリエンスを向上させるために、PNSN サイトの信頼性を向上させることを目的としています。
+Content: >-
+  シアトルの Seahawks 勝ちと GreenBay Packers この日曜日を持っているのでしょうか。 20-61。 シアトルのファンからの earthshaking 反応 (12<sup>番目</sup> の男性) が考えられます。 110%。
+
+
+  これらは、シアトルの CenturyLink フィールドで大規模に再生された後に盛りだくさん ruckus から得られた<a href="https://pnsn.org/seahawks">地震アクティビティを測定</a>するために seismometers をインストールした<a href="https://www.pnsn.org/seahawks">太平洋北西地震ネットワーク</a>(pnsn) 研究者にとっては非常に優れています。
+
+
+  2011プレーオフゲームの実行中に Marshawn "Quakes Mode" Lynch によって "ビースト" が呼び出された後、"ビースト" と呼ばれます。これにより、ファンは、ファンが楽しいことを定量化するのに役立ちます。 この日曜日のプレーオフゲーム中に、pnsn は、 <a href="https://pnsn.org/seahawks/quickshake">ストリーミングの "quickshake" データページ</a> と <a href="https://twitter.com/PNSN1">ソーシャルメディア</a>を通じて、リアルタイムの地震データを提供します。
+
+
+  <a href="https://pnsn.org/seahawks/quickshake">地震データのストリーミング</a>は、オープンソースソフトウェアに基づいており、インターネットに接続されたコンポーネントは<a href="https://azure.microsoft.com/en-us/">Microsoft Azure</a>でホストされます。 <a href="https://blogs.microsoft.com/firehose/2014/01/28/beast-quake-felt-round-world-thanks-to-windows-azure/">Microsoft last プレーオフシーズンと提携</a>してサイトの信頼性を向上させたため (Seahawks のデータをさらに12か月<sup>目</sup>にすることは簡単ではありません)、チームはこれまでの週末を組み合わせて、リアルタイムのファンエクスペリエンスを向上させることができました。
+
+
+  "これと同じ実験を最後に行っていましたが、この話は national media (Jon Connolly, PNSN Software 技師) によって取得されました。 「ワイヤード (<a href="https://www.nytimes.com/2015/01/10/us/scientists-to-track-effects-of-fans-at-seahawks-panthers-game.html">ニューヨーク</a> <a href="https://www.wired.com/2015/01/seattle-seahawk-fans-seismicity-quake/">)</a>と Nbc の夜のニュースといった、他のさまざまなアウトレットで、この製品をすぐにクラウドで利用する必要があることをすぐに実感しました。 Garkusha と彼のチームは迅速に非常時、数時間で Microsoft Azure に quickshake をしました。」
+
+
+  テクニカルチーム (Miguel、<a href="https://twitter.com/Nik_G" target="_blank">Garkusha</a>、 <a href="https://twitter.com/bureado" target="_blank">阿部 Parrella</a>   、 <a href="https://twitter.com/CFowlerMSFT" target="_blank">cory Fowler</a>) は、サイトをアップグレードして、web ソケットが CenturyLink Field seismometers から収集された 1<i>秒あたり数百のサンプル</i>をブロードキャストできるようにします。 PNSN web サイトに接続した数千ものファンが、このような web ソケットを開き、スタジアムから "早期警告" データを受信しました。
+
+
+  「これは非常に厳密な技術ですが、データストリーミングのアーキテクチャは驚くほど簡単で、デプロイは非常に簡単です。これは、Microsoft Azure チームのシニアプロダクトマネージャーである " <a href="https://twitter.com/nik_g">Garkusha</a>" と呼ばれています。
+
+
+  Ubuntu Linux 実行されている <a href="https://azure.microsoft.com/en-us/services/websites/">Azure websites</a> と <a href="https://azure.microsoft.com/en-us/services/virtual-machines/">Virtual Machines</a> を組み合わせて使用することで、このチームは、一連の Node.js アプリケーションを作成およびデプロイしてゲームからデータを収集し、websocket テクノロジを使用してデータをほぼリアルタイムでストリーミングすることができます。
+
+
+  大規模なインターネットスケールを実現するために、Azure websites の自動スケール機能に依存しており、Virtual Machines と<a href="https://azure.microsoft.com/en-us/services/traffic-manager/">Azure Traffic Manager</a>を負荷分散して、必要に応じてより独立したインスタンスを起動することもできます。
+
+
+  「Microsoft Azure では、リアルタイムのファンによって生成されたぶれを視覚化する新しい方法を導入することができました。このような短い待機時間では、Connolly のように10秒間のテレビの遅延が発生します。 "これは、QuickShake とゲームの両方を監視しているビューアーが、テレビに上する前に、1つの再生が成功したか、6 ~ 8 秒が経過したかを知る可能性が高いことを意味します。"
+
+
+  また、Seahawks が提供する地震の結果は最後の週末です。 Kam Chancellor のスーパーマンのような <a href="https://www.si.com/nfl/2015/01/11/kam-chancellor">フィールド目標ブロック</a>に対する Kam の90の傍受の戻り値があります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/17/Bamquake.jpg"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="Bamquake" alt="Bamquake" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Bamquake_thumb.jpg" width="1028" height="515" border="0" /></a>
+
+
+  <a href="https://blogs.microsoft.com/firehose/2014/01/28/beast-quake-felt-round-world-thanks-to-windows-azure/">昨年のプレーオフからの</a>次の例では、この日曜日の日曜日に "2 画面のエクスペリエンス" が推奨されています。1つはゲームで、もう1つは<a href="https://pnsn.org/seahawks">pnsn ファンサイト</a>です。 Hawks にアクセスします。

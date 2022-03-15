@@ -1,0 +1,90 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6e04ba0ba7d4352fbfa41658a06ba33563cc940e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904239"
+Slug: cloud-foundry-on-azure-support-for-diego-and-open-source-service-brokers
+Title: Cloud Foundryおよびオープン ソース の Service Broker に対する Azure サポートの提供
+Summary: Azure で新しいCloud Foundry機能を導入しました。 詳細については、投稿を参照してください。
+Content: >-
+  <p>昨年 11 月に Azure で Cloud Foundry を一般提供した後、Azure の新しい Cloud Foundry 機能を導入して、.Net ワークロードの実行、複数のオープン ソース サービス ブローカー、最適化された Bosh-Setup ARM テンプレートをサポートしました。<a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/guidance.md" target="_blank"></a></p>
+
+
+  <h2>Azure でのエディクサンのサポート</h2>
+
+
+  <h3>Azure Cloud Foundry にエディクサンをデプロイする</h3>
+
+
+  <p>このリリースでは、高度なオプションとして Azure で完全にサポートされています。 この機能は、Cloud Foundry の新しいエラスティック ランタイムであり、アプリの実行、コンテナー ベースのプラグ可能なスケジューラ、および正常性チェック マネージャーとして機能し、DEA と Health Manager を置き換える機能を備えた、新しい Elastic Runtime です。 背景情報の詳細については、GitHub<a href="https://github.com/cloudfoundry-incubator/diego-release" target="_blank">してください</a>。</p>
+
+
+  <p>Linux ワークロード用に <a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/tree/master/docs/advanced/deploy-diego" target="_blank">Azure にをデプロイ</a> するには、このガイダンスに従います。</p>
+
+
+  <h3>を使用した .NET ワークロードの実行</h3>
+
+
+  <p>もう 1 つの非常に期待される機能は、.NET ワークロードのサポートです。 このガイダンスに従って <a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/advanced/push-your-first-net-application-to-cloud-foundry-on-azure" target="_blank">、最初の .NET アプリケーションを Azure Cloud Foundryプッシュします</a>。</p>
+
+
+  <h2>オープン ソース サービス用の Service Broker</h2>
+
+
+  <p>クラウド アプリケーションは通常、実行、データの格納、通信を行うサービス (データベース、メッセージング、その他の SaaS サービスなど) に依存します。 サービスは、開発者がサービス インスタンスをプロビジョニング&rsquo; し、資格情報を開発者アプリケーションにバインドできるサービス ブローカーを介して Cloud Foundry と統合できます。 詳細な背景情報については、Service Broker のデプロイと構成 <a href="https://docs.cloudfoundry.org/services/overview.html"><u>に関するドキュメントを参照してください</u></a>。</p>
+
+
+  <p>Cloud Foundryコミュニティでは、多くの一般的なオープン ソース サービス用の豊富なサービス ブローカーセットが提供されています。これは、有効な任意のクラウド プラットフォームCloud Foundry機能します。&nbsp;たとえば、MySQL Service Broker の<a href="https://github.com/cloudfoundry/cf-mysql-release" target="_blank"></a>リリースや、MongoDB を含<a href="https://github.com/cloudfoundry-community/cf-services-contrib-release" target="_blank"></a>む複数のサービス ブローカーに対してコミュニティから提供されたサービスを見つけることができます。</p>
+
+
+  <h3>Azure への MySQL サービスと MongoDB サービスのデプロイ</h3>
+
+
+  <p>上記のコミュニティ サービス ブローカー リリースを利用して、MySQL と MongoDB を Bosh を使用して Azure にデプロイし、クラウド アプリケーション用に構成できます。 詳細な手順については、以下のリンクを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/advanced/deploy-mysql" target="_blank">Azure で MySQL サービスをCloud Foundryする</a></li>
+      <li><a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/advanced/deploy-mongodb" target="_blank">MongoDB サービスを Azure Cloud Foundryデプロイする</a></li>
+  </ul>
+
+
+  <h3>追加のオープン ソース Service Broker</h3>
+
+
+  <p>同様の方法で、他のオープン ソース サービスを Azure にデプロイできます。 デプロイする前に、プラットフォーム固有のパラメーターを Azure 設定に置き換える必要があります。</p>
+
+
+  <p>ここでは、コミュニティ <a href="https://github.com/cloudfoundry-community/cf-services-contrib-release" target="_blank">が提供するサービスを例として</a> 使用します。 このリリースでは、Elastic Search、Memcached、MongoDB、PostgreSQL、RabbitMQ、Redis、Bblob、Swift のサービス ブローカーが提供されます。</p>
+
+
+  <p>Azure 設定 <a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/tree/master/docs/advanced/deploy-mongodb#how-to-generate-a-sample-manifest-for-azure" target="_blank">のマニフェストを</a> 生成するには、このガイダンスを参照し、コミュニティ ガイダンスに従って上記の Service Broker をデプロイします。</p>
+
+
+  <p>Azure サービスの Service Broker は近日公開予定です。</p>
+
+
+  <h2>Azure Resource Manager テンプレートの機能強化</h2>
+
+
+  <p>AZURE Bosh-Setup ARM テンプレートが更新され、GA 後の顧客からのフィードバックに対処します。</p>
+
+
+  <ul>
+      <li>DNS xip.io を使用して、DNS サービスのローカル VM への依存関係を回避する</li>
+      <li>セキュリティ強化のための SSH キーを使用した開発ボックスの作成のサポート</li>
+      <li>ユーザーが入力したパラメーターに基づいて、Bosh と Cloud Foundryのマニフェストを自動的にダウンロードして構成する</li>
+      <li>Bosh デプロイの自動完了をサポートします。そのため、ユーザーは CF デプロイを開始する必要があります</li>
+      <li>パラメーターの数を減らし、値の検証とエラー処理を強化することで、ユーザー エクスペリエンスを最適化する</li>
+  </ul>
+
+
+  <h2>高度なネットワーク構成</h2>
+
+
+  <p><strong>Azure DNS</strong> <strong></strong>サービス、可用性セット、Azure &ldquo;上の複数の <strong>HAProxy</strong> と Cloud Foundry の統合など、高可用性サポートのエンタープライズ シナリオを可能にする高度な機能を利用できます。GA ガイダンスの「Advanced Configurations and Deployments<a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/guidance.md" target="_blank"></a>&rdquo;」セクションを参照してください。</p>
+
+
+  <p>ご意見やご提案をお待ち <a href="https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/issues" target="_blank">しております</a>。</p>

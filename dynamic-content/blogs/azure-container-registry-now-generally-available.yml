@@ -1,0 +1,139 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3934fd0722deabf78ffabdbe270b5300a6ba4d18
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910084"
+Slug: azure-container-registry-now-generally-available
+Title: Azure Container Registry一般提供
+Summary: 現在、Linux および Windows コンテナー イメージ用のネットワークに近いプライベート レジストリをサポートする Azure Container Registry の一般提供を発表します。
+Content: >-
+  <p>すべてのサイズの企業は、クラウドネイティブ アプリにリフト、シフト、最新化するための高速で移植可能な方法としてコンテナーを導入しています。 このプロセスの一環として、お客様は、すべての種類のコンテナー デプロイのイメージを格納および管理する方法を必要とします。 11 月に、開発者がプライベート Docker コンテナー イメージを格納および管理するための Azure コンテナー レジストリを作成および管理できる Azure Container Registry のプレビューを発表しました。</p>
+
+
+  <p>3 月 27 日<a href="https://azure.microsoft.com/en-us/services/container-registry/">Azure Container Registry</a>&nbsp;一般提供され、Linux およびコンテナー イメージ用のネットワークに近いプライベート レジストリWindowsサポートされました。 Azure Container Registryは、docker Swarm、Kubernetes、DC/OS、Service Fabric や Azure アプリ Services などの他の Azure サービスなど、Azure Container Service でホストされているオーケストレーターとうまく統合されます。 お客様は、オープンソースの Docker Registry v2 を操作できる使い慣れたツールを使用してメリットを得る可能性があります。 詳細については、GA ビデオをAzure Container Registry <a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Container-Registry-General-Availability/player">してください</a>。<br>
+
+  <a href="https://azure.microsoft.com/en-us/blog/azure-container-registry-preview/">11 月のプレビューを基</a>に、次&rsquo;の機能が追加されました。</p>
+
+
+  <ul>
+   <li>23 のリージョンで利用可能で、グローバルなフットプリントを備えています (さらに近日公開予定)</li>
+   <li>Azure Portal でのリポジトリ、タグ、マニフェストの一覧</li>
+   <li>キーローテーションを提供するデュアルキー パスワード</li>
+   <li>入れ子になったレベルのリポジトリ</li>
+   <li>Azure CLI 2.0 のサポート</li>
+  </ul>
+
+
+  <h2>グローバル可用性</h2>
+
+
+  <p>コンテナー レジストリがグローバルに使用できる。 一般提供リリースの一環として、すべての機能がすべてのリージョンで利用できます。</p>
+
+
+  <p>サポートされているリージョンの完全な一覧は次のとおりです。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="575">
+   <tbody>
+    <tr>
+     <td valign="top" width="199">
+     <ul>
+      <li>オーストラリア東部</li>
+      <li>オーストラリア南東部</li>
+      <li>ブラジル南部</li>
+      <li>カナダ中部</li>
+      <li>カナダ東部</li>
+      <li>インド中部</li>
+      <li>米国中部</li>
+     </ul>
+     </td>
+     <td valign="top" width="189">
+     <ul>
+      <li>米国東部 2</li>
+      <li>米国東部</li>
+      <li>東日本</li>
+      <li>西日本</li>
+      <li>米国中北部</li>
+      <li>北ヨーロッパ</li>
+      <li>米国中南部</li>
+     </ul>
+     </td>
+     <td valign="top" width="185">
+     <ul>
+      <li>インド南部</li>
+      <li>東南アジア</li>
+      <li>英国南部</li>
+      <li>英国西部</li>
+      <li>米国中西部</li>
+      <li>西ヨーロッパ</li>
+      <li>米国西部 2</li>
+      <li>米国西部</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>マルチアーキのサポート</h2>
+
+
+  <p>Windows コンテナー&rsquo;のリリースに合って、Windows Linux イメージの両方を必要としているお客様が増えています。 Azure Container Registry は Windows と Linux の両方をサポートしますが、docker では、1 つの名前付きイメージをプルし、イメージがプルされるホストに基づいて OS バージョンを解決する機能を追加しました。 マルチ<a href="https://blog.docker.com/2016/04/docker-windows-server-tp5/"></a>アーキ サポートを使用すると、お客様は Windows と Linux ベースのタグの両方をプッシュできます。また、開発チームは FROM contoso.com\aspnetcorecorpstandard を使用して dockerfile を作成できます。 マルチAzure Container Registry機能を使用すると、呼び出されたホストに基づいて適切な&rsquo;イメージがプルされます。</p>
+
+
+  <h2>入れ子になったリポジトリ</h2>
+
+
+  <p>開発チームは多くの場合、階層で作業し、コレクションに基づいてソリューションをデプロイします。 bikesharing チームは、グループ化するイメージのコレクション (bikesharing\web、bikesharing\api) を持っている場合があります。一方、ヘッドトラックス チームはコレクション (headtrax\web、headtrax\api、headtrax\admin) を持ち、すべてのメンバーが利用できる一連の企業イメージ (aspnet:corpstandard) を持っています。<br>
+
+  このAzure Container Registryは、チームが自分の開発に合わせてリポジトリとイメージをグループ化するために、入れ子になったリポジトリをサポートしています。</p>
+
+
+  <h2>リポジトリ、タグ、マニフェスト</h2>
+
+
+  <p>お客様は、レジストリの内容の可視性を要求しています。 GA リリースでは、Azure portal で統合されたエクスペリエンスを利用して、イメージに関連付けられているリポジトリ、イメージ、タグ、マニフェストの内容を表示できます。</p>
+
+
+  <p>リポジトリに既に作成されているリポジトリ&rsquo;とタグを表示するには:</p>
+
+
+  <ol>
+   <li><a href="https://portal.azure.com/">Azure Portal</a> にログインします。</li>
+   <li>左側の &quot;パネルで [&quot; その他のサービス] を選択します。</li>
+   <li>コンテナー レジストリを &quot;<strong>検索します</strong>&quot;。</li>
+   <li>検査するレジストリを選択します。</li>
+   <li>左側のパネルで、[リポジトリ] を &quot;<strong>選択します</strong>&quot;。</li>
+  </ol>
+
+
+  <p>[リポジトリ] ブレードには、作成したすべてのリポジトリ (入れ子になったレジストリを含む) と、これらのリポジトリに格納されているイメージの一覧が表示されます。</p>
+
+
+  <p>特定のイメージを選択すると、そのイメージに&quot;&quot;関連付けられているタグを含む [タグ] ブレードが開きます。 さらに、タグを選択すると、そのイメージ タグのマニフェストを表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4cd4f25-b089-4d8d-8efc-c082e27dfab5.png"><img alt="Repositories" border="0" height="349" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ec966a1-3259-4685-8266-056673f29a5e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リポジトリ" width="961"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>パスワードの改善</h2>
+
+
+  <p>レジストリ管理者アカウントの機能強化も行いました。 ベスト プラクティスとしてサービス プリンシパル <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal?toc=%2fazure%2fcontainer-registry%2ftoc.json" target="_blank">を使用 </a>することをお勧めしますが、キーローテーションを実行する機能を提供するこの代替手段の安全性を向上させる必要があります。 そのため、新しいコンテナー レジストリは 2 つの管理者パスワードにアクセスできます。どちらも再生成できます。 2 つのパスワードを使用すると、再生成する必要がある場合に別のパスワードにスワップできるようにして、接続を維持できます。</p>
+
+
+  <p>パスワードを再生成するには、管理者&quot;&quot;ユーザーを有効にしたレジストリの [アクセス キー] セクションに移動します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/80ef5dd7-a629-4cb1-8704-56ac4d371058.png"><img alt="Demos - Access Keys" border="0" height="635" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bedb18e9-b9ba-46e9-88cd-b0f9cc991934.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="デモ - アクセス キー" width="961"></a></p>
+
+
+  <h3>まとめ</h3>
+
+
+  <p>コンテナー レジストリの新機能をお楽しみください。 コメント、要求、または問題がある場合は、 の <a href="https://stackoverflow.com/questions/tagged/azure-container-registry">StackOverflow</a> またはログの問題についてお問い合わせください。 <a href="https://github.com/azure/acr/issues">https://github.com/azure/acr/issues</a></p>

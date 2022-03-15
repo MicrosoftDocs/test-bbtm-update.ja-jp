@@ -1,0 +1,90 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d22ba6a817a00968bf7c8bb1b7fae98adf79a4bc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910048"
+Slug: azure-data-studio-an-open-source-gui-editor-for-postgres
+Title: 'Azure Data Studio: Postgres 用のオープン ソース GUI エディター'
+Summary: データベースやその他の種類のソフトウェアを使用している場合、操作に使用するツールによってエクスペリエンスが強化または妨げられる。 PostgreSQL にはコマンド ライン ツール psql がありますが、非常に強力ですが、グラフィカル エディターを好む人もいます。
+Content: >-
+  <p>データベースやその他の種類のソフトウェアを使用している場合、操作に使用するツールによってエクスペリエンスが強化または妨げられる。 PostgreSQL にはコマンド ライン ツール psql&rsquo; がありますが、非常に強力ですが、グラフィカル エディターを好む人もいます。 通常はコマンド ラインを使用する場合でも、ビジュアルを使用する場合があります。 Microsoft では、&#39;の生産性を向上させ、開発者の生産性を向上&#39;に何年も費や <a href="https://code.visualstudio.com/">してきました</a>。 選択肢を持つことは重要です。 これにより、自分に合ったツールを使用できます。</p>
+
+
+  <p>本日は、&#39;<strong>PostgreSQL</strong> のプレビュー サポートをお知らせAzure Data Studio。 <a href="https://aka.ms/azuredatastudio" target="_blank">Azure Data Studio</a>は、データ開発に重点を置くクロスプラットフォームの最新エディターです。 これは&#39;Linux、MacOS、および Windows で使用できます。 さらに、Azure Data Studio統合ターミナルが付属しています。psql&#39;遠く離れたことがない場合があります。</p>
+
+
+  <p>また&#39;(VS Code) で対応する<strong></strong><strong>プレビュー PostgreSQL 拡張機能も導入Visual Studio Code紹介します</strong>。 PostgreSQL Azure Data StudioとVS Codeはどちらもオープン ソースであり拡張可能です。PostgreSQL 自体が基にしている 2 つの点です。</p>
+
+
+  <p>Azure Data Studioは、多くの機能をVS Codeしています。 また、Python、R、Kubernetes VS Code&#39;など、ほとんどの拡張機能もサポートされています。 主な使用例がデータの場合は、次のAzure Data Studio。 複数のデータベース接続の管理、データベース オブジェクト階層の探索、ダッシュボードの設定など、</p>
+
+
+  <p>一方、データベース管理よりも&#39;アプリケーション開発に近い場合は、VS Code の PostgreSQL 拡張機能にアクセスしてください。 実際には、両方&#39;使用して、その時点で最適な動作に応じて切り替える必要があります。</p>
+
+
+  <h2>Connect Postgres へのアクセス</h2>
+
+
+  <p>含まれるものについて&rsquo;興味がありますか? では&rsquo;、PostgreSQL の開発エクスペリエンスについて詳Azure Data Studio。 Postgres サーバーに接続するか、データベースへの直接接続を確立できます。 Postgres サーバーは、オンプレミス、仮想マシン (VM)、または任意のクラウド プロバイダーのマネージド サービスからホストできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e60bfe31-2ae4-4113-97c7-f7c7370e82f3.png"><img alt="Connect to Postgres in Azure " border="0" height="706" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d90cdd2-552d-4399-9749-a300325674c8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Connect Postgres にアクセスする" width="1116"></a></p>
+
+
+  <h2>サーバーを整理する</h2>
+
+
+  <p>多くの場合、複数の Postgres サーバーを&rsquo;使用しています。 おそらく、1&rsquo; つの実稼働サーバー、対応するステージ サーバー、および複数の開発/テスト サーバーがあります。 どちらが重要かを知る(特に実稼働サーバーを明確に識別できる)。 このAzure Data Studioグループを使用してサーバーを分類できます。 実稼働サーバー グループを赤色で強調表示して、他のサーバー グループと視覚的に区別することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08681d62-cf7d-4c4c-8280-40843c062c10.png"><img alt="Organize your servers in Azure " border="0" height="860" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08d8d76f-f921-48b8-a6e1-4f9dcf7bcc1c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure でサーバーを整理する" width="1166"></a></p>
+
+
+  <h2>データベース オブジェクトを追跡する</h2>
+
+
+  <p>新しい機能を追加すると、Postgres サーバーが進化します。 データベース&rsquo;とテーブルごとに作成された列、インデックス、トリガー、および関数を明確に確認できると便利です。 これは、その Postgres インスタンス&rsquo;で作業している唯一のユーザーではない場合に特に当てはまる場合です。 Azure Data Studioは、サイドバーに便利な階層ナビゲーションを提供します。 データベース、テーブル、ビュー、その他のオブジェクト&#39;を簡単に探索して追跡できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e8e1256-93ae-426c-9a8e-99dc8955427b.png"><img alt="Track down database objects in Azure " border="0" height="706" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64f5eb2f-824c-44f8-ac28-6e9ec020b9b5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure でデータベース オブジェクトを追跡する " width="1110"></a></p>
+
+
+  <h2>クエリを効率的に記述する</h2>
+
+
+  <p>チームメイトが作成した新&rsquo;しいデータベース オブジェクトを確認する場合は、オブジェクトの名前を超えて、それを構成する DDL に移動すると便利です。 &rsquo;Postgres インスタンスで作業している唯一のユーザーを作成した場合でも、しばらく前に作成したオブジェクトを検索する必要がある場合があります。 DDL を確認すると、オブジェクトが期待した操作を実行しているのを確認するために役立ちます。</p>
+
+
+  <p>Azure Data Studioを提供します&ldquo;[定義]&rdquo; と &ldquo;[定義に&rdquo;移動] 機能を表示して、それを実行し、クエリで オブジェクトを使用する場合でも実行できます。 たとえば、Postgres&rsquo; に付属する組み込pg_stat_activity統計ビューの 1 つであるクエリを実行するとします。 [定義へ移動 &ldquo;] を使用すると&rdquo; 、そのすべての列を表示し、このビューの基を把握できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/188929ee-efe0-4d89-ac5c-44312c986494.png"><img alt="Write queries efficiently in Azure Data Studio" border="0" height="1125" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b25ea555-ebd2-4609-b96a-7f95fc8fc296.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="クエリを効率的に記述する" width="1700"></a></p>
+
+
+  <p>クエリSQL記述する方法は、Postgres&rsquo; を使用する場合は、エキスパートである場合でも、この RDBMS の使用を開始し始めたばかりでも、パンとチーズです。 IntelliSense for SQL は、クエリの記述を迅速に行Azure Data Studioに統合されています。 IntelliSenses の&rsquo;コンテキスト対応コード補完候補を使用すると、より少ないキーストロークを使用してジョブを完了できます。</p>
+
+
+  <p>Postgres を多く使用する場合は、クエリSQL繰り返し再利用する必要があります。 詳細な CREATE ステートメントでも複雑な SELECT でも、各ステートメントを 1 つのコード スニペットにテンプレート化SQLできます。 そうすることで、その&rsquo;度に新しい型に再入力する必要が生じなさそう。 Azure Data Studioは、コード <a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets" target="_blank">スニペットの機能をから継承Visual Studio Code</a>。 コード スニペットを使用すると、コードの再入力によるエラーを回避し、全体的な開発を高速化できます。</p>
+
+
+  <h2>エディターをカスタマイズする</h2>
+
+
+  <p>最新の開発 GU の利点の 1 つは、独自の好みに合わせてカスタマイズできる機能です。 たとえば、このブログでは、スクリーンショット&rsquo;で <em>Solarized Dark</em> テーマを使用しました。 実際、それは全員が&rsquo;&rsquo;一杯の飲み方ではありません。 ハイ コントラスト オプションは言うまでもなく、Azure Data Studioから選択できる配色テーマは 10 個もあります。</p>
+
+
+  <p>パーソナル化オプションは、キー バインドにも拡張されます。 既定&#39;Ctrl + N キーを使用して新しいタブを開くのが好きではないでしょうか。 変更できます。 または、キーボード ショートカットを使用して&#39;ボックスから出てこない場合Azure Data Studio。 キーボード ショートカット エディターを使用して、キー バインドを作成およびカスタマイズできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0adea11d-190d-4d2c-b9a7-5c703d838a44.png"><img alt="Customize your editor in Azure Data Studio" border="0" height="221" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f01bd652-7cb2-44ba-85ce-45179cac32db.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="エディターをカスタマイズする" width="908"></a></p>
+
+
+  <h2>ファースト ステップ</h2>
+
+
+  <p>Git ソース管理の統合やカスタマイズされたダッシュボードやウィジェットなど、さらに多くの機能を検出できます。 現在、PostgreSQL のプレビューの使用Azure Data Studio開始できます。インストール手順<a href="https://docs.microsoft.com/sql/azure-data-studio/postgres-extension" target="_blank">を確認してください</a>。 プレビューの PostgreSQL 拡張機能の使用を開始するには、Visual Studio Codeページで詳細を<a href="https://github.com/Microsoft/vscode-postgresql" target="_blank">GitHubしてください</a>。</p>
+
+
+  <p>これら 2 つの機能はプレビュー中であり、フィードバックは、それらを改善し、自分に合わせて機能するために不可欠です。 PostgreSQL と PostgreSQL の各ページ<a href="https://github.com/Microsoft/azuredatastudio-postgresql" target="_blank">GitHub、Azure Data Studio</a><a href="https://github.com/Microsoft/vscode-postgresql" target="_blank">またはVisual Studio Code</a>してください。</p>

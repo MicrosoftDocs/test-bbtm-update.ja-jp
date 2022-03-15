@@ -1,0 +1,275 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 44399af750a5ced6a98200374ff62834502eec4c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904225"
+Slug: creating-a-web-test-alert-programmatically-with-application-insights
+Title: プログラムによる Application Insights Web テストとアラートの作成
+Summary: web テストでは、アプリケーションに複数の場所から ping を実行して可用性を確認し、停止したときにアラートを通知 Application Insights ます。 この投稿では、web テストを自動的にデプロイする方法について説明します。
+Content: >-
+  <p>可用性のチェックとアラートは、Application Insights の機能です。 &rsquo;Application insights の web テストでは、アプリケーションに複数の場所から ping を実行して可用性を確認し、ダウンしたときにアラートを通知します。 今日 &rsquo; の非常に高度に接続された世界では、停電のコストが非常に高く、可視性が高くなっています。ユーザーは、100% の可用性と高いパフォーマンスを期待しています。 <a href="https://azure.microsoft.com/documentation/articles/app-insights-monitor-web-app-availability/">Web テスト</a>は、Azure Portal で手動で設定できます。 しかし、アプリケーションを自動的に配置する場合は、手動で構成することはできません。 この投稿では、web テストを自動的にデプロイする方法について説明します。</p>
+
+
+  <p>&rsquo;手動で作成した web テストからテンプレートを作成し、それを使用して今後の web テストの作成を自動化します。 &nbsp;&rsquo;まず、web テストを手動で作成します。</p>
+
+
+  <h1>Web テストの作成</h1>
+
+
+  <p>Azure Portal でアプリケーションリソースに移動し、[可用性] タイルをクリックして、[web テストの追加] をクリックします。 次に、テストのすべての詳細を指定します。 <a href="https://azure.microsoft.com/documentation/articles/app-insights-monitor-web-app-availability/">詳細については、「web テスト</a>」を参照してください。</p>
+
+
+  <p><img alt="1" border="0" height="392" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61676d03-e10b-4b60-84ff-db295c7c48a3.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="1" width="640"></p>
+
+
+  <h1>アラートと Web テストリソースのエクスポート</h1>
+
+
+  <p><a href="https://resources.azure.com/">Azure Resource Explorer</a>に移動します。 web テストの作成時に生成されたリソースを含め、サブスクリプション内のすべてのリソースが表示されます。 リソースエクスプローラーで、サブスクリプションとリソースグループ、[<strong>プロバイダー]、[Microsoft インサイト</strong>] の順に開きます。 &rsquo;ここには、microsoft にとって重要な2つのフォルダーが表示されます。 <strong>web テスト</strong>と<strong>alertrules</strong>です。</p>
+
+
+  <p><img alt="2" border="0" height="347" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/42ade874-4961-4e75-b0a8-3d19f6727e63.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="2" width="640"></p>
+
+
+  <p>Web テストを手動で作成した場合、web テストリソースとアラートリソースの2つのリソースが作成されます。 これらのリソースは、Azure リソースの探索で JSON ファイルとして表示されます。</p>
+
+
+  <p>これらのファイルをローカルに保存すると、web テストを自動的に生成するテンプレートの準備に役立ちます。</p>
+
+
+  <h3>アラートルールリソース</h3>
+
+
+  <p><img alt="3" border="0" height="470" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/862f597b-edd7-47ac-a94a-91d96ac55f53.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="3" width="640"></p>
+
+
+  <h3>Web テストリソース</h3>
+
+
+  <p><img alt="4" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3b996ee0-cc34-488d-8752-03f657a9f981.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="4" width="579"></p>
+
+
+  <h1>Azure Resource Manager</h1>
+
+
+  <p><a href="https://azure.microsoft.com/documentation/articles/powershell-azure-resource-manager/">Azure Resource Manager</a> (ARM) を使用すると、Azure リソースのグループをまとめてデプロイできます。 可用性テストに必要なすべてのリソースを含むリソースグループのテンプレートを作成できます。 リソースグループを作成すると、グループ全体を1つの論理単位として管理し、展開することができます。 web テストを含むすべての Application Insights 資産を ARM で管理できます。</p>
+
+
+  <h1>JSON ファイルからテンプレートを作成する</h1>
+
+
+  <p>2つのリソースを別々の JSON ファイルとして保存した後、いくつかの調整を行う必要があります。 Azure リソースマネージャーのドキュメントページを見ると、 <a href="https://azure.microsoft.com/en-us/documentation/articles/powershell-azure-resource-manager/#create-your-template">テンプレートの例</a>を確認できます。 このサンプルテンプレートと2つの JSON ファイルを使用して、マスターテンプレートを作成します。</p>
+
+
+  <p>新しい JSON ファイルで、次のアウトラインを追加します。</p>
+
+
+  <pre class="prettyprint">
+
+  {
+      &quot;$schema&quot;: &quot;https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#&quot;,
+      &quot;contentVersion&quot;: &quot;1.0.0.0&quot;,
+      &quot;parameters&quot;: {
+          &quot;webTestName&quot;: { &quot;type&quot;: &quot;string&quot; },
+          &quot;appName&quot;: { &quot;type&quot;: &quot;string&quot; },
+          &quot;URL&quot;: { &quot;type&quot;: &quot;string&quot; }
+      },
+      &quot;variables&quot;: {
+          &quot;alertRuleName&quot;: &quot;[concat(parameters(&#39;webTestName&#39;), &#39;-&#39;, toLower(parameters(&#39;appName&#39;)), &#39;-&#39;, subscription().subscriptionId)]&quot;
+      },
+      &quot;resources&quot;: [
+          {
+              //web test JSON file contents
+          },
+          {
+              //alert rule JSON file contents
+          }
+          //Don&#39;t forget to close your brackets
+      ]
+  }</pre>
+
+
+  <p>また、アプリケーションに基づいてテンプレートで変更する必要がある項目が複数存在する可能性があります。 テンプレートには <strong>parameters</strong> セクションがあるため、URL、アプリケーション名、Web テスト名をパラメーターとして JSON テンプレートに渡すことができます。 パラメーターと変数を使用すると、複数の名前の設定を自動化できます。</p>
+
+
+  <p>ここでは、これらのパラメーターを使用して変更する必要があるいくつかの項目について説明します。 ケースによっては、その他の項目を変更する必要が生じることがあります。これには、追加のパラメーターや変数を追加することが含まれる場合があります。</p>
+
+
+  <ul>
+   <li>Id: 両方のリソースに id &rdquo; を設定 &ldquo; する必要があります。 ここでは、ファイルの先頭で定義した Context.webtestname パラメーターを使用して、置換する長いパスを作成する resourceId ヘルパー関数を使用します。</li>
+  </ul>
+
+
+  <pre class="prettyprint">
+
+  &quot;id&quot;: &quot;[resourceId(&#39;Microsoft.Insights/webtests&#39;, parameters(&#39;webTestName&#39;))]&quot;,</pre>
+
+
+  <pre class="prettyprint">
+
+  &quot;id&quot;: &quot;[resourceId(&#39;Microsoft.Insights/alertrules&#39;, variables(&#39;alertRuleName&#39;))]&quot;,</pre>
+
+
+  <ol>
+
+  </ol>
+
+
+  <ul>
+   <li>Web テスト名: web テストリソースには、名前 &rdquo; が設定されている複数の場所 &ldquo; があります。&nbsp;</li>
+  </ul>
+
+
+  <blockquote>
+
+  <pre class="prettyprint">
+
+  &quot;name&quot;: &quot;[parameters(&#39;webTestName&#39;)]&quot;,</pre>
+
+
+  <pre class="prettyprint">
+
+  &quot;SyntheticMonitorId&quot;: &quot;[parameters(&#39;webTestName&#39;)]&quot;</pre>
+
+  </blockquote>
+
+
+  <ul>
+   <li>アラートルール名: add-alertrule リソースに、名前 &rdquo; が設定されている複数の場所 &ldquo; があります。&nbsp;</li>
+  </ul>
+
+
+  <blockquote>
+
+  <pre class="prettyprint">
+
+  &quot;name&quot;: &quot;[variables(&#39;alertRuleName&#39;)]&quot;,</pre>
+
+  </blockquote>
+
+
+  <ul>
+   <li>非表示のリンク: 非表示のリンクをヘルパー関数に置き換える必要があります。 これにより、パラメーター化を行うことができます。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <pre class="prettyprint">
+
+  &quot;tags&quot;: {
+                  &quot;[concat(&#39;hidden-link:&#39;, resourceId(&#39;Microsoft.Insights/components&#39;, parameters(&#39;appName&#39;)))]&quot;: &quot;Resource&quot;
+              },</pre>
+
+  <pre class="prettyprint">
+
+  &quot;tags&quot;: {
+                  &quot;[concat(&#39;hidden-link:&#39;, resourceId(&#39;Microsoft.Insights/components&#39;, parameters(&#39;appName&#39;)))]&quot;: &quot;Resource&quot;,
+                  &quot;[concat(&#39;hidden-link:&#39;, resourceId(&#39;Microsoft.Insights/webtests&#39;, concat(parameters(&#39;webTestName&#39;), &#39;-&#39;, toLower(parameters(&#39;appName&#39;)))))]&quot;: &quot;Resource&quot;
+              },</pre>
+  </blockquote>
+
+
+  <ul>
+   <li>Web テストの構成{} <ul>
+    <li>Web テスト文字列を concat 関数に変換します。 これにより、ハードコーディングされた値ではなく、変数とパラメーターを含めることができます。 &nbsp; たとえば、URL と名前を置き換えるには、次のようになります。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <blockquote>
+
+  <pre class="prettyprint">
+     &quot;WebTest&quot;: &quot;[concat(&#39;&lt;WebTest ... Name=\&quot;&#39;, parameters(&#39;webTestName&#39;) , &#39;\&quot; ... Url=\&quot;&#39;, parameters(&#39;URL&#39;), &#39;\&quot; ...&gt;&#39;)]&quot; </pre>
+  </blockquote>
+
+
+  <ul>
+   <li>
+   <ul>
+    <li>[依存する要求の解析] と [想定される Http 状態コード] は、この文字列にも設定されます。 同様の方法でパラメーター化することができます。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>パラメーターと変数の詳細について <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authoring-templates/">は、こちら</a>を参照してください。</p>
+
+
+  <p><strong>これは完全な一覧ではありません。完全な一覧は、アプリケーションによって異なります。 </strong></p>
+
+
+  <p>最後に、すべてのリソースの name タグの後に apiVersion を挿入します。</p>
+
+
+  <p>テンプレートでは、次のようになります。</p>
+
+
+  <pre class="prettyprint">
+
+  &quot;id&quot;: &quot;[resourceId(&#39;Microsoft.Insights/webtests&#39;, parameters(&#39;webTestName&#39;))]&quot;,
+
+  &quot;name&quot;: &quot;[parameters(&#39;webTestName&#39;)]&quot;,
+
+  <strong>&quot;apiVersion&quot;: &quot;2014-04-01&quot;,</strong></pre>
+
+
+  <h1>Microsoft Azure PowerShell を使用した Web テストの作成</h1>
+
+
+  <p>リソースを JSON ファイルとして保存した後、Microsoft Azure PowerShell を開きます。</p>
+
+
+  <ul>
+   <li>Azure アカウントにログインします。</li>
+   <li>Azure アカウントにログインするには、 <strong>connect-azurermaccount</strong> コマンドレットを使用します。 1.0 Preview より前のバージョンの Azure PowerShell では、[ <strong>azureaccount の追加</strong>] コマンドを使用します。</li>
+  </ul>
+
+
+  <pre class="prettyprint">
+
+  PS C:\&gt; Login-AzureRmAccount</pre>
+
+
+  <ul>
+   <li>Azure Resource Manager モードになっていることを確認します。</li>
+   <li>テンプレートに基づいて新しいデプロイを作成します。</li>
+  </ul>
+
+
+  <pre class="prettyprint">
+
+  PS C:\temp&gt; New-AzureRMResourceGroupDeployment -ResourceGroupName&nbsp; Default-ApplicationInsights-CentralUS -webTestName myWebTest -appName WebApplication4 -URL https://WebApplication4.azurewebsites.net -templatefile .\webTestTemplate.json</pre>
+
+
+  <p>パラメーターは、次のとおりです。</p>
+
+
+  <ul>
+   <li>ResourceGroupName: web テストを作成するリソースグループの名前。 アプリケーションを &rsquo; 既に監視している場合は、Application Insights リソースと同じグループを使用します。</li>
+   <li>Context.webtestname: 新しい web テストの名前を指定します。</li>
+   <li>appName: web テストを適用する web アプリケーションの名前。</li>
+   <li>URL: web アプリケーションの URL。</li>
+   <li>templatefile: 先ほど作成した JSON ファイルの名前。</li>
+  </ul>
+
+
+  <p><strong>注:</strong> Context.webtestname、APPNAME、URL は、JSON ファイルで作成したパラメーターで、PowerShell で自動的に解析されて使用されます。</p>
+
+
+  <p>これで、 <a href="https://portal.azure.com/">Azure Portal</a>で新しい web テストを確認できます。</p>
+
+
+  <h1>テンプレートを使用する</h1>
+
+
+  <p>PowerShell と<a href="https://blogs.msdn.com/b/webdev/archive/2015/09/16/deploy-to-azure-from-github-with-application-insights.aspx">GitHub 統合</a>を使用して、テンプレートを使用できます。</p>
+
+
+  <h1>お知らせください&hellip;</h1>
+
+
+  <p>Application Insights チームは、開発者向けの高品質なツールを提供することに努めています。 フィードバックまたは新機能に関する推奨事項を大幅に評価していただきます。</p>

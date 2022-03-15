@@ -1,0 +1,58 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4039ffeed371f709f3f9a9ccb65e147e37f18afa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909911"
+Slug: customize-your-agent-update-settings-azure-virtual-machine-disaster-recovery
+Title: Azure 仮想マシンのディザスターリカバリーの自動更新設定をカスタマイズする
+Summary: Azure Vm のディザスターリカバリーに使用されるエージェントの自動更新機能をリリースしたときに、最も頻繁にお寄せされるフィードバックはアクセス制御に関連しました。 顧客からの要求は、以前に作成された automation アカウントを提供することを許可することでした。これは、サブスクリプションで適切なアクセス権を持つユーザーが承認および作成したものです。
+Content: >-
+  <p>今日 &rsquo; のクラウドベースの世界では、従業員は自分の仕事を効果的に実行するために必要なデータにのみアクセスできます。 この制限付きアクセスは、多数の従業員やベンダーがいる場合のように、アクセスの動作を監視するのが困難で&#39;場合に特に重要です。 通常、アクセスはジョブの責任、権限、および機能に基づいています。 その結果、一部のジョブプロファイルは、特定のデータにアクセスしたり、特定のアクションを実行する権限を持っていなくても、その役割を果たすことができます。 これにより、アクセスを制御できるようになりますが、インフラストラクチャ管理者のプロファイルに合わせてジョブを実行できますが、より関連性が高く、頻繁に要求されます。</p>
+
+
+  <h2>ご意見をお聞かせください。</h2>
+
+
+  <p>Azure Virtual Machines (Vm) のディザスターリカバリー (DR) で使用されているエージェントの自動更新をリリースしたときに、最も頻繁に受信するフィードバックはアクセス制御に関連しました。 Dr 管理者は、dr の有効化、フェールオーバー、またはテストのための操作を実行するための十分な権限が与えられています。 自動更新を有効にし、月ごとの更新を監視し、エージェントを手動でアップグレードする煩わしさを避けるために、DR 管理者の共同作成者のアクセス権をサブスクリプションに付与して、automation アカウントを作成することを許可する&#39;していませんでした。 お客様からのご要望をお待ちしております。お客様は、サブスクリプションで適切なアクセス権を付与されたユーザーによって、既存の automation アカウントの承認と作成を行うことができます。 この automation アカウントを使用して runbook を実行し、新しい更新プログラムを確認し、新しいリリースが発生するたびに既存のエージェントをアップグレードすることができます。</p>
+
+
+  <h2>既存の automation アカウントを選択する方法</h2>
+
+
+  <ol>
+   <li>レプリケーションを有効にする仮想マシンを選択します。</li>
+   <li>[<strong>詳細設定</strong>ブレードの [<strong>拡張機能の設定</strong>] で、以前に作成した Automation アカウントを選択します。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa6bf496-647b-4933-982b-4bfcb335a37e.jpg"><img alt="blog-Auto-accnt" border="0" height="584" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fce72507-b066-4cf5-999b-8be2920c26a9.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ブログ-オートセーフ nt" width="610"></a></p>
+
+
+  <p>この automation アカウントは、 <strong>Recovery Services</strong> コンテナー内のすべての Azure 仮想マシンのエージェントを自動的に更新するために使用できます。 1つの仮想マシンに対して変更を行うと、すべての仮想マシンに同じものが適用されます。</p>
+
+
+  <p><em>この機能は、hyper-v/VMware ではなく、Azure virtual machines のディザスターリカバリーにのみ適用されることに注意してください。 </em>Vm</p>
+
+
+  <p>関連ドキュメント:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/azure/site-recovery/azure-to-azure-autoupdate#how-automatic-updates-work" target="_blank">自動更新のしくみ</a></li>
+   <li><a href="https://docs.microsoft.com/azure/site-recovery/azure-to-azure-autoupdate#enable-automatic-updates" target="_blank">自動更新を有効にする方法</a></li>
+  </ul>
+
+
+  <p>さらに、お客様が受け取った上位の顧客&#39;要求の1つを発表しました。これにより、ワークロードをより適切に制御できます。</p>
+
+
+  <ul>
+   <li>
+   <p><a href="https://docs.microsoft.com/azure/site-recovery/azure-to-azure-enable-replication-added-disk" target="_blank">新しく追加されたディスクのレプリケーションを有効にする</a> &ndash; ディザスターリカバリー用に既に構成されて&#39;Azure VM に新しく追加された&#39;のデータディスクのレプリケーションを有効にすることができます。</p>
+   </li>
+  </ul>
+
+
+  <p>Azure では、ミッションクリティカルなワークロードの高可用性と信頼性がネイティブに提供されます。また、Azure Site Recovery によって提供されるディザスターリカバリーを使用して、保護を強化し、コンプライアンス要件を満たすことができます。 <a href="https://docs.microsoft.com/azure/site-recovery/" target="_blank">Azure Site Recovery</a>の使用を簡単に始めることができます。<a href="https://aka.ms/asr_ga_azureblog_pricing" target="_blank">価格情報</a>を確認し、<a href="https://aka.ms/asr_ga_azureblog_trial" target="_blank">無料の Microsoft Azure 試用版にサインアップ</a>してください。 また、 <a href="https://aka.ms/asr_ga_azureblog_forum" target="_blank">MSDN の Azure Site Recovery フォーラム</a> にアクセスして、その他の情報を入手したり、他のお客様と協力したりすることもできます。</p>

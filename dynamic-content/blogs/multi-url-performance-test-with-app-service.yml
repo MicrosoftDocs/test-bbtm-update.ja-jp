@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d02c0e2e89be1998016e27ab378a34ca261ceb7f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904041"
+Slug: multi-url-performance-test-with-app-service
+Title: 複数の URL を使用したマルチ URL パフォーマンス App Service
+Summary: マルチ URL テストは、実稼働環境で使用できます。
+Content: >-
+  <p>Web アプリとモバイル アプリで<a href="https://azure.microsoft.com/en-us/blog/announcing-public-preview-for-performance-test-on-webapps/" target="_blank"><em></em></a>パフォーマンス テストのパブリック プレビューを発表し、<a href="https://azure.microsoft.com/en-us/blog/performance-testing-with-app-service-continuous-deployment/" target="_blank"><em>App Service</em></a> 継続的デプロイでパフォーマンス テストをチェーンする機能が最も要求された機能は、マルチ URL テストを実行する機能でした。</p>
+
+
+  <p>引き続きロード テスト チームとVisual Studio&rsquo;し、この機能が実稼働環境で使用できると発表して幸せです。 詳細については、ブログの「Visual Studio<a href="https://blogs.msdn.microsoft.com/visualstudioalm/2016/05/22/multiple-url-performance-testing-support-for-azure-web-applications/" target="_blank">」を参照してください</a>。</p>
+
+
+  <p>マルチ URL テストを使用すると、アプリケーション間を移動するユーザーの動作により近いパフォーマンス テストを実行できます。 マルチ URL テストでは、単に 1 つの URL に対して ping を実行するのではなく、URL の一覧を順番に ping します。 これは、サイトのメイン ページから検索結果の一覧に移動し、サイト カタログ内のいくつかの個々の項目に移動するユーザーを表&rsquo;す可能性があります。</p>
+
+
+  <h2>マルチ URL テストの設定</h2>
+
+
+  <p>最初に行う必要があるのは、テストの実行中に対象となる URL の一覧を定義する必要があります。 これを行う方法の詳細な手順については、ドキュメント記事「Web テストを作成する」を参照<a href="https://www.visualstudio.com/en-us/docs/test/performance-testing/run-performance-tests-app-before-release"><em>Visual Studio。</em></a></p>
+
+
+  <p><strong>.webTest ファイルを生成したら</strong>、パフォーマンス テストを作成する必要があります。 ( <strong>2) パフォーマンス</strong> テストは、( <strong>1) アプリケーション </strong>の [ツール] メニューの下の [Azure portal。</p>
+
+
+  <blockquote>
+
+  <p><img alt="image" border="0" height="343" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/085ffeb2-e908-430c-ad9d-2f2314455cc4.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="610"></p>
+
+  </blockquote>
+
+
+  <p>[パフォーマンス テスト <strong>] ブレード </strong>で、[( <strong>1) 新規 </strong>] をクリックして新しいテストを作成し、( <strong>2) を </strong>使用してテストを構成し、単一 URL と複数 <strong>の URL を選択できます</strong>。</p>
+
+
+  <blockquote>
+
+  <p><img alt="image" border="0" height="343" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9ca94b3-78f9-47c6-a31b-d9469f5533ef.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="610"></p>
+
+  </blockquote>
+
+
+  <p>ここから 、(1) <strong>.webTest </strong>ファイルアップロード、(2) テスト中に ping する URL の一覧を確認できます。</p>
+
+
+  <blockquote>
+
+  <p><img alt="image" border="0" height="343" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5edbf2b-60f4-4410-9aec-41bc771da14b.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="610"></p>
+
+  </blockquote>
+
+
+  <p>以下のコメント セクション、または <a href="https://feedback.azure.com/forums/169385-web-apps-formerly-websites">UserVoice</a> フィードバック フォーラムを通じて、ご意見、ご質問、アイデアをお知らせください。</p>

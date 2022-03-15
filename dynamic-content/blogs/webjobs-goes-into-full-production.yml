@@ -1,0 +1,741 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 108383f63758424bcdbd24e225df60bffc4f82d8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909462"
+Slug: webjobs-goes-into-full-production
+Title: Web ジョブの概要
+Summary: 運用 (GA) に Web ジョブするすべての Azure の概要について説明します。
+Content: >-
+  <a href="https://microsoft.qualtrics.com/SE/?SID=SV_8iRbWLZVMIhjqTj" target="_blank"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="clip_image001" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image001_thumb.jpg" alt="clip_image001" width="159" height="173" border="0" /></a>
+
+  <h1><a href="https://microsoft.qualtrics.com/SE/?SID=SV_8iRbWLZVMIhjqTj">フィードバック</a></h1>
+
+  <a href="https://microsoft.qualtrics.com/SE/?SID=SV_8iRbWLZVMIhjqTj">入力が必要です。 このアンケートにご記入ください。</a>
+
+
+  https://microsoft.qualtrics.com/SE/?SID=SV_8iRbWLZVMIhjqTj
+
+  <h1>概要</h1>
+
+  Web ジョブは、マネージプラットフォームの完全なコンピューティングソリューションです。 ランタイムには、コードの実行 <i>方法</i> (cron、サービス、手動) に関するさまざまな選択肢が用意されています。 Azure Websites をプラットフォームとして使用することは、Web ジョブが優れた機能を継承することを意味します。 Azure Scheduler では、さまざまなスケジュール設定を選択できます。 ASP.NET チームは、さまざまな Azure コンポーネント (Blob、キュー、テーブル、Service Bus) を使用してインターフェイスを作成するためのコードを作成する web ジョブ SDK を構築しました。 また、豊富な Visual Studio ツールは、すべてをシームレスにラップします。 全体がその部分の合計よりも大きい場合があることを示します。
+
+  <h2>"Web ジョブ" とは何ですか?</h2>
+
+  ローカルコンピューターでプログラムまたはスクリプトを実行できる場合は、クラウドで実行するために必要なものだけをアップロードします。非常に簡単です。 Azure にサインアップしてコードをアップロードして実行するまでにかかる時間は5分未満です。 Web ジョブは、汎用のコンピューティング環境で、完全に機能し、管理されたクラウドベースのホスティングプラットフォームを使用する場合に得られるものです。言い換えると、Web ジョブはマネージプラットフォームで計算されます。 コードを実行するために必要なものがすべて揃っているので、実行し続けることができます。 プログラムをフォルダーに配置するだけで済みます。
+
+  <h2>クラウド上のコード</h2>
+
+  Web ジョブでプログラムを実行することで、クラウドで実行されるため、プログラムを複数のコンピューターにスケーリングできます。 スケーリングは、パフォーマンスを最適化するために、効率的にロードバランサーをレプリケート、並列化、追加します。 Azure Traffic Manager を使用して作業をグローバルに分散させることも、Azure Websites の VNET を使用して独自のサーバーに接続することもできます。 Web ジョブは <a href="https://azure.microsoft.com/en-us/services/websites/" target="_blank">Azure Websites</a>で実行されます。これにより、インフラストラクチャを提供し、多数の機能にアクセスできます。
+
+  <h2>ツール</h2>
+
+  優れたツールは不可欠なので、Web ジョブのサポートは Visual Studio に直接統合されています。 Visual Studio では、' web ジョブ ' という種類の新しいプロジェクトを作成し、そのコードを Azure に直接発行することができます。 リモートデバッグセッションをアタッチして、クラウド上で実行されているコードをステップ実行することもできます。
+
+
+  コーディングを容易にするために、一般的なタスクを大幅に簡略化する Web ジョブ SDK も用意されています。 Web ジョブ SDK は基本的に、Azure SDK の上に抽象化されています。 これにより、複雑なタスクとオブジェクトを C# プリミティブにバインドできます。 このようにして、すべての動作を理解する必要はなく、単に使用します。
+
+  <h2>監視とデバッグ</h2>
+
+  また、Web ジョブには、専用のダッシュボードを使用して実行中のコードを監視、デバッグ、最適化する方法も含まれています。 Web ジョブダッシュボードを使用すると、コードを実行するたびに詳細を調べることができます。 実行時には、実行時にすべての関数を表示できます。また、実行時にはどのようなパラメーターを使用し、どのくらいの時間と呼び出し履歴でも確認できます。 ローカルコンピューターで実行されているかのように、クラウドで実行されているコードにステップインできるリモートデバッグ機能については説明しません。
+
+  <h2>ランタイム</h2>
+
+  すべてをオフにすると、Web ジョブはさまざまな方法で実行できます。 API を使用して手動で、または web サイトと同時に ("Always On" 機能を利用して)、またはスケジュールに基づいて実行できます。 Web ジョブは、一度に1回、または定期的にスケジュールに基づいて実行されるようにスケジュールできます。 スケジュール設定は、 <a href="https://azure.microsoft.com/en-us/documentation/services/scheduler/" target="_blank">Azure Scheduler</a>によって行われます。これにより、スケジュールオプションのすべての順列が考慮されます。
+
+  <h2>詳細情報</h2>
+
+  Web ジョブのほとんどすべてのコンポーネントはオプションであり、独立して機能できるため、自由に操作することができます。 Web ジョブには大量の詳細とユースケースがあります。これについては、 <a href="https://go.microsoft.com/fwlink/?linkid=390226" target="_blank">Azure WebJobs 推奨リソースを参照</a>してください。ベストエクスペリエンスを実現するには、最新の<a href="https://www.visualstudio.com/news/vs2013-update4-rc-vs" target="_blank">Visual Studio 更新プログラム</a>だけでなく、最新の<a href="https://azure.microsoft.com/en-us/downloads/" target="_blank">Azure sdk</a>と<a href="https://azure.microsoft.com/en-us/documentation/articles/websites-dotnet-webjobs-sdk-get-started/" target="_blank">web ジョブ sdk</a>がインストールされていることを確認することが重要です。
+
+
+  &nbsp;
+
+  <h1>大きい一覧</h1>
+
+  <table class="MsoNormalTable" style="border-collapse: collapse;margin-left: -0.4pt" border="1" width="1038" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="342" height="26">
+
+  <h2 align="center">ランタイム</h2>
+
+  </td>
+
+  <td style="border-top: white 1pt solid;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b> </b></p>
+
+  </td>
+
+  <td style="border-top: white 1pt solid;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <h2 align="center">SDK</h2>
+
+  </td>
+
+  <td style="border-top: white 1pt solid;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b> </b></p>
+
+  </td>
+
+  <td style="border-top: white 1pt solid;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <h2 align="center">Visual Studio</h2>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="342" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>トリガーされた (スケジュールされた/オンデマンド)</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>バインド</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>Web ジョブの発行</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" rowspan="9" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">システムログとユーザー出力へのアクセス</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="3" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Blob、テーブル、キュー、Service Bus</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="2" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Web サイトで Web ジョブを発行する</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">グレースフル シャットダウン</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">C# プリミティブにバインドする</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Web ジョブとしてコンソールアプリを発行する</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">通知の Webhook</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">    言い換えれ.Stream、string、TextReader/writer など</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>継続的 Web ジョブ</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">パラメーターを引数として渡す</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>並列処理</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="3" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">開始 &amp; 位置の停止</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">手動での実行 (要求時)</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="4" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">1つまたは複数のキュー項目</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">ダッシュボードの表示</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">指定した時間に実行するようにスケジュールされている</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">キュー項目の並列処理</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">[デバッガーのアタッチ]</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">スケジュールされた実行の繰り返し</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">キュー/Blob に対する有害メッセージの処理</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>トリガーされた Web ジョブ</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">高度なスケジュール設定/Azure Scheduler</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Async 関数</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="2" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">実行</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">構成可能な再試行およびエラーアクション</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>トリガー (Azure storage と Service bus)</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">ダッシュボードの表示</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="342" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><strong>連続 </strong>(または連続)</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="2" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">キュー、Blob、Service Bus の新規作成時</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>Web ジョブの新しいプロジェクトテンプレート</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" rowspan="4" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">システムログとユーザー出力へのアクセス</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Blob の変更時</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">スケジュール &amp; された継続</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">シングルトンモードまたは並列モード</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>Web ジョブの監視</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>サーバーエクスプローラーの統合 </b></p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">グレースフル シャットダウン</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="2" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">関数レベルでの呼び出し、パラメーター</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">VS からのリモートデバッグを右クリックします。</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">"Always On" での継続性のための機能</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">     言い換えれ.実行時間、i/o、基本プロファイルなど...</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" nowrap="nowrap" width="337" height="26"></td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" width="342" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>設定ファイル<i>(省略可能)</i></b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>Web ジョブのダッシュボード</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" rowspan="2" valign="bottom" nowrap="nowrap" width="337" height="26">
+
+  <h2 align="center">その他の機能</h2>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">構成可能な再起動時間とタイムアウト</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="3" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">呼び出しと再生</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">トリガーされた履歴のサイズ (# 実行)<b></b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">関数間の因果関係 (チェーン)</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="337" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>Azure Websites から継承された機能</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="342" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>サポートされているスタック</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Blob の検索</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="6" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Visual Studio オンラインでスクリプトを編集できます</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">cmd、bat、exe、ps1、sh、php、.py、js、jar...</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="324" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>エラー処理</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">自動スケール (CPU、リソース、またはスケジュールの監視)</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="342" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>API</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" rowspan="2" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">[再試行の回数]</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">環境変数を Web サイトと共有する</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">REST API、Powershell</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="306" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">Web ジョブシャットダウンのサポート</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">配置オプション、機能 &amp; ツール</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 19.5pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" width="342" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt"><b>ダッシュボード</b></p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" nowrap="nowrap" width="324" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="26"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="26">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">プロセスエクスプローラーに CPU およびその他のリソースが表示される</p>
+
+  </td>
+
+  </tr>
+
+  <tr style="height: 24pt">
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: white 1pt solid;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="18" height="32"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="323" height="32">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">診断の監視 &amp;</p>
+
+  </td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="18" height="32"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" colspan="2" valign="bottom" nowrap="nowrap" width="324" height="32"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" nowrap="nowrap" width="15" height="32"></td>
+
+  <td style="border-top: medium none;border-right: white 1pt solid;background: #eaeff7;border-bottom: white 1pt solid;border-left: medium none;padding: 0in 5.4pt 0in 5.4pt" valign="bottom" width="319" height="32">
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt">geo ディストリビューションの Azure Traffic Manager</p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>

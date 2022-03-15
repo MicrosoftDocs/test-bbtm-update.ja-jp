@@ -1,0 +1,239 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1cf0bf4561af808feb3958f744e96f0f0a5ab9c7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910073"
+Slug: azure-cosmos-db-database-for-intelligent-cloud-intelligent-edge-era
+Title: Azure Cosmos DB - インテリジェント クラウド用データベース - Intelligent Edge 時代
+Summary: Azure Cosmos DB は、ミッション クリティカルなワークロード向け、Microsoft のグローバル分散型マルチモデル データベース サービスです。
+Content: >-
+  <p><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/484e70bf-d9bd-4d74-9607-12dbdda7eaaa.png"><img alt="One" border="0" height="928" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f130dc3a-db73-4882-b5cb-5c56bae81bf2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1 つ" width="1638"></a></p>
+
+
+  <h2>Azure Cosmos DB</h2>
+
+
+  <p>Azure Cosmos DB は、ミッション クリティカル&#39;ワークロードに対応する、グローバルに分散されたマルチモデル データベース サービスである Microsoft のサービスです。 Azure Cosmos DB は、無制限<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/distribute-data-globally"></a>のエンドポイント スケーラビリティ、スループットの柔軟なスケーリング (データベース、キースペース、テーブル、コレクションなど)、および世界中のストレージ、99 番目のセンタイルでの 1 桁ミリ秒の待ち時間、5 つの十分に定義された整合性モデル、および保証された高可用性を備えたターンキー グローバル分散を提供します。すべて業界をリードする包括的な <a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_2/">SLA</a> によってサポートされます。 Azure Cosmos DB では、スキーマまたはインデックス管理に対処する必要なく、すべてのデータのインデックスが自動的に作成されます。 これは、ドキュメント、キー値、グラフ、および列ファミリのデータ モデルをネイティブにサポートするマルチモデル サービスです。 クラウド サービスでネイティブに生まれた Cosmos DB は、一からマルチテナントとグローバル分散を使用して慎重<a href="https://aka.ms/Ignite18Techblog">に設計されています</a>。 Azure の基礎サービスとして、Cosmos DB はユビキタスであり、すべてのパブリック リージョン、DoD&ndash;、ソブリン クラウドで実行され、業界をリードするコンプライアンス認定リスト、エンタープライズ レベルのセキュリティはすべて追加コストなしで実行されます。</p>
+
+
+  <p>&rsquo;Cosmosのオープン ソース データベースにワイヤ プロトコル互換 API を提供する dbs 独自のアプローチにより、クラウド用にネイティブに設計された堅牢なデータベース プラットフォームを引き続き活用しながら、クラウドに依存しない方法で Azure Cosmos DB を引き続き使用できます。 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/cassandra-introduction">Cassandra</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/graph-introduction">Gremlin</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction">MongoDB</a> アプリをベンダーロックインを使用して完全に管理できる柔軟性が得られる。 Azure Cosmos DB は、一般的なオープン ソース データベースの API を公開しますが、対応する API のセマンティクスを実現するために、これらのデータベースの実装に依存するのではありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66f827f7-112c-4386-bcd5-9864ca752e86.png"><img alt="Three" border="0" height="858" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4bdf6e0-ae98-4a53-9d69-a9fa4bce6d43.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="3" width="1650"></a></p>
+
+
+  <p>Ignite 2018 では、Microsoft が <a href="https://www.microsoft.com/en-us/internet-of-things/intelligentedge">Intelligent-Cloud-Intelligent Edge</a> ビジョンを実現するのに役立つデータベースを Cosmos DB にするための何十年もの分散システム調査を導入しています。 Azure Cosmos DB では、数十年にわたる分散システムの研究を収集し、厳格なエンジニアリングと運用化を行い、この技術ブログで詳細を確認できる大規模な<a href="https://aka.ms/Ignite18Techblog"></a>運用化を行いました。</p>
+
+
+  <h2>Ignite 2018 の Azure Cosmos DB</h2>
+
+
+  <p>Ignite 2018 で発表する新しい Cosmos DB 機能は、<a href="https://www.microsoft.com/en-us/internet-of-things/intelligentedge">Intelligent-Cloud-Intelligent Edge</a> 時代に向けて誰でも簡単にグローバルに分散されたアプリを構築するための重要なステップです。</p>
+
+
+  <h2>グローバル規模でのマルチマスターの一般提供</h2>
+
+
+  <p>グローバル規模でのマルチマスター <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/multi-region-writers">の一般提供をお知らせします</a>。 これにより、マルチマスター レプリケーションを使用して、前例のない書き込みのスケーラビリティと可用性を実現できます。 この<strong>Cosmos DBS&rsquo; マルチマスター レプリケーション</strong> プロトコルでは、すべてのリージョンが (読み取り可能に加えて) 書き込み可能になり、次の機能が有効になります。</p>
+
+
+  <ul>
+   <li><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62165d06-3b36-466f-8b2f-634b210d1f4b.png"><img align="right" alt="Four" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a97f037a-1965-4eb1-82f6-7a56307ae70c.png" style="border: 0px currentcolor; border-image: none; float: right; display: inline; background-image: none;" title="世界中" width="358"></a>の FourUnlimited とエラスティック書き込みのスケーラビリティ</strong>。 Azure Cosmos DB を使用すると、世界中の任意の数の Azure リージョンで(読み取りに加えて) 書き込みをいつでも柔軟にスケーリングできます。</li>
+   <li><strong>書き込み可用性は世界中で 99.999% です</strong>。 Azure Cosmos DB では、業界をリードする SLA に支え、世界中で 99.999% の書き込み可用性 (99.999% の読み取り可用性に加えて) が提供されています。</li>
+   <li><strong>世界中の 99</strong> 番目のセンタイルでの低書き込み待機時間が保証されました。 Azure Cosmos DB は、保証された 1 桁ミリ秒の読み取り待機時間に加えて、世界中のどこでも 99 番目のセンタイルで 1 桁の書き込み待機時間を提供します。この待機時間は、財務上の支援を受けた SLA によって保証されています。</li>
+   <li><strong>世界中の無制限のエンドポイント スケーラビリティ</strong>。 Azure Cosmos DBS&rsquo; レプリケーション プロトコルは、数百のクラウド リージョンから数十億のエッジ デバイスまで、無制限の数のエンドポイントをサポートするように設計されています。 マスターレス レプリケーション プロトコルは、クラウド リージョンとエッジ エンドポイントを同種に扱う目的で設計されています。クラウド リージョンとエッジ デバイスは真のピアです。 Azure Cosmos DB を設計しました。ISV と開発者は、接続されているエッジ アプリを作成し、オンプレミスや他のクラウド上で実行されているデータベースをアクティブ/アクティブな方法で Cosmos DB にシームレスに接続できます。</li>
+   <li><strong>適切に定義された複数の整合性モデルから選択できます</strong>。 Azure Cosmos DBS&rsquo; マルチマスター レプリケーション プロトコルは、既に公開されているさまざまな整合性モデルと非常によく構成されます。 特定の整合性モデルの可用性、待機時間、スループットに関する明確なトレードオフを使用して、データ整合性のための直感的なプログラミング モデルを引き続き取得できます。</li>
+   <li><strong>競合管理のための直感的で柔軟なプログラミング モデル</strong>。 マスターレス データベース アーキテクチャでは、書き込み/書き込みの競合が発生する可能性があります。&nbsp; 一般的なマスターレス システムでは、競合の検出と解決は通常、アプリケーション開発者の負担として残されます。 Azure Cosmos DBS&rsquo; レプリケーション プロトコルの設計により、システムによって競合が自動的に検出されます。 また、強力な収束を保証する、定義済みの競合解決モードも複数用意されています。</li>
+   <li><strong>すべての API とデータ モデルのマルチマスター機能</strong>。 Azure Cosmos DBS&rsquo; マルチマスター レプリケーション プロトコルは、サービスが既に公開しているすべての API に自動的に適用されます。 お気に入りのオープン ソース ソフトウェア (OSS) API とツールチェーンを引き続き使用できます。これで、マルチマスターと、OSS ベースのアプリに備わるすべての機能を利用できます。 <strong>初めて、マルチマスター MongoDB、マルチマスター Gremlin (グラフ) アプリを数秒で構築できます。</strong></li>
+  </ul>
+
+
+  <p><a href="https://aka.ms/multimasterdocs">マルチマスター レプリケーションの詳細については、こちらを参照してください</a>。</p>
+
+
+  <h2>Cassandra API の一般提供</h2>
+
+
+  <p>サービスの一 <strong>般提供をお</strong>知らせCassandra API。 Cosmos DB では、<a href="https://aka.ms/cassandraintro">Apache Cassandra</a> とのワイヤ プロトコル レベルの互換性を提供することで、コードを変更する必要がない既存のアプリケーションと OSS ツールを引き続き使用できます。また、クラウド用にネイティブに設計された堅牢なデータベース プラットフォームを利用しながら、ベンダーロックインを使用して完全に管理された Cassandra アプリを柔軟に実行できます。 Azure Cosmosにより、Apache Cassandra に対する DBs&rsquo; ネイティブ サポートCassandra API次の利点があります。</p>
+
+
+  <ul>
+   <li><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3d0aea89-e29e-4d24-a6f5-ec5c46bcc505.png"><img align="right" alt="Five" border="0" height="232" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64443157-7ccb-4800-88d5-6e09f7e5e1d4.png" style="border: 0px currentcolor; border-image: none; float: right; display: inline; background-image: none;" title="" width="640"></a>5 つのフル マネージド、サーバーレスのサービスとしての</strong> Cassandra。 真の <a href="https://azure.microsoft.com/en-us/blog/azure-cosmos-db-microsofts-globally-distributed-multi-model-database-service/">PaaS</a> サービスとして、Azure Cosmos DB を使用すると、OS、JVM、YAML ファイル全体の無数の設定の管理と監視について心配する必要がなく、複雑な相互依存関係に対処できます。 Azure Cosmos DB では、スループット、待機時間、一貫性、ストレージと可用性の第一級の監視と、それらをまたがった変更に対してアクションを実行する構成可能なアラートが提供されます。</li>
+   <li><strong>ターンキー グローバル分散</strong>。 Azure Cosmos DB は、ユーザーがどこにいてもデータを<a href="https://azure.microsoft.com/en-us/blog/a-technical-overview-of-azure-cosmos-db/"></a>確実に使用できるよう、一からグローバルに分散されたサービスとして設計されています。 このサービスは、Cassandra テーブルに関連付けられている任意の数の Azure リージョンにデータを透過的かつ自動的にレプリケートします。 Cassandra テーブルのリージョンを追加または削除するには、いつでも、Azure portalプログラムで数回クリックします。</li>
+   <li><strong>ストレージの柔軟で透過的なスケーリング</strong>。 Azure Cosmos DB は、手動で<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/partition-data"></a>介入することなく自動ストレージ管理を提供し、アプリケーション ストレージのニーズが増えるにつれて容量を増やします。 容量計画&rsquo;の複雑さや、クラスター ノードの追加と構成のチューニングに対処する必要がなくなったことを心配する必要はありません。</li>
+   <li><strong>世界中のスループットのエラスティック スケーリング</strong>。 Azure Cosmos DB では、&rsquo;CPU、メモリ、ディスク IO、圧縮の構成設定のチューニングについて心配する必要はありません。 Azure Cosmos DB を使用すると、Cassandra テーブルのスループットを世界中でスケーリングし、格納されるデータの量に関係なく、構成されたスループットを保証できます。<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units"></a></li>
+   <li><strong>待機時間の短い読み取りと書き込みを保証します</strong>。 スキーマに依存しないデータベースとして、Azure Cosmos DB によってすべてのデータのインデックスが自動的に作成され、高速なクエリを実行できます。 このサービスは、ほぼリアルタイムの &lt;クエリ結果に対して、99 パーセンタイルで 10 ミリ秒の待機時間を保証します。</li>
+   <li><strong>明確なトレードオフを持つ複数の明確に定義された整合性モデル</strong>。 最終的に一貫性のあるデータベースに対して正しい分散アプリケーション ロジックを記述することは、多くの場合困難です。 Azure Cosmos DB では、明確に定義された直感的で実用的な整合性レベルを 5 つ提供することで、それぞれが望ましい整合性とパフォーマンスの間で明確なトレードオフを行い、正しさが保証され、SLA によって裏付けされます。 複数の整合性モデル <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels">から選択し</a> 、いつでも構成し、要求ごとに変更できます。</li>
+   <li><strong>既定では、セキュリティで保護され、準拠しており、エンタープライズ対応です。Azure Cosmos DB は、ミッション クリティカルなアプリ</strong>に対してセキュリティで保護され、準拠し、エンタープライズ対応のサービスです。 Azure Cosmos <a href="https://www.microsoft.com/en-us/trustcenter/compliance/complianceofferings"></a>DB は<a href="https://www.microsoft.com/en-us/trustcenter/compliance/iso-iec-27001">、ISO 27001、ISO 27018</a>、<a href="https://www.microsoft.com/en-us/trustcenter/compliance/eu-model-clauses">EUMC</a>、<a href="https://www.microsoft.com/en-us/trustcenter/compliance/iso-iec-27018"></a><a href="https://www.microsoft.com/en-us/trustcenter/compliance/pci">PCI DSS</a>、<a href="https://www.microsoft.com/en-us/trustcenter/compliance/soc">SOC 1,2,3</a>、<a href="https://www.microsoft.com/en-us/trustcenter/compliance/hipaa">HIPAA/HITECH</a>、その他のコンプライアンス認定を含む厳格なコンプライアンス標準を満たしています。 Azure Cosmos DB では、保存時および<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/database-encryption-at-rest"></a>移動中の暗号化、データベース アクティビティの <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/firewall-support">IP</a> ファイアウォール<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/logging"></a>と監査ログ、企業の厳しいセキュリティ標準を確保するための <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/vnet-service-endpoint">VNET (サービス エンドポイント)</a> のサポートも提供されます。</li>
+   <li><strong>業界をリードする包括的な SLA によってサポートされます</strong>。 Azure Cosmos DB は、99.99% の高可用性を実現する業界をリードする包括的な <a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_1/">SLA</a> を提供します。また、99 番目のセンタイルでのグローバルスケール、整合性、スループット、低待機時間の読み取りと書き込みで、99.999%&nbsp; の読み取りと書き込みの可用性を実現します。 ユーザーは運用上のオーバーヘッドについて心配する必要はありません。また、パフォーマンスを高め、多数の構成オプションを調整する必要はありません。 Azure Cosmos DB は<a href="https://azure.microsoft.com/en-us/blog/azure-documentdb-service-level-agreements/">、</a>これらすべての問題を管理する心配をなくし、代わりにアプリケーション ロジックに集中できます。</li>
+   <li><strong>NoSQL ワークロードをクラウドに簡単に移行できます</strong>。 Azure Cosmos DB を使用すると、NoSQL データ ワークロードを <a href="https://channel9.msdn.com/Events/Build/2018/BRK3310">Cosmos DB</a> に簡単に移行し、クラウドネイティブ データベースとそれがすぐに提供する利点を活用できます。</li>
+  </ul>
+
+
+  <p><a href="https://aka.ms/cassandraapidocs">Azure Cosmos DB Cassandra API詳細については、こちらを参照してください</a>。</p>
+
+
+  <h2>より多くの宇宙開発者の良さ!</h2>
+
+
+  <p><strong>データベース レベルのプロビジョニングスループット オファーの最小エントリ ポイントの 5 倍小さくなります。</strong> データベース レベルのプロビジョニングスループットの最小エントリ ポイントが 5 倍低い点をお知らせします。 Cosmos DB コンテナー (&ndash;使用しているデータ モデルと API に応じてコレクション、テーブル、グラフなど) のスループットをプログラムまたは Azure portal 経由でプロビジョニングできるだけでなく、 これで、DB データベースに対するスループットCosmos構成できます。 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput">Cosmos DB データベースでスループットを</a>プロビジョニングすると、そのデータベースに属しているすべてのコンテナー間でスループットを共有できます。 これにより、プロビジョニングされた&ldquo;スループット&rdquo;を、DB データベース内の一連のコンテナー Cosmosプールできます。&nbsp;実際、特定の Cosmos DB &ldquo;&rdquo; データベース内で、スループットを共有するコンテナーと、専用のスループットが割り当てられている特定のコンテナーを組み合わせて一致させることができます。 さまざまな粒度 (&rsquo; コンテナーやデータベースなど) でスループットをプロビジョニングすることで、ワークロードの特性に基づいてコストをより最適化できます。</p>
+
+
+  <p>コンテナーまたはデータベースが複数のリージョンに分散されている場合、コンテナーまたはデータベースで構成するスループットは、すべてのリージョンで使用できると保証されます。 これで、データベース レベル <strong>のオファーから開始する</strong> コストが 5 倍も低くなります。 <a href="https://azure.microsoft.com/en-us/blog/sharing-provisioned-throughput-across-multiple-containers-in-azure-cosmosdb/">データベース レベルでのスループットのプロビジョニングの詳細については、こちらを参照してください</a>。</p>
+
+
+  <p><strong>Azure Cosmos DB の予約容量:</strong> Azure Cosmos DB の予約容量は、現在、世界中のお客様が一般提供されています。 予約容量を使用すると、Cosmos DB のプロビジョニング済みスループットを 1 年または 3 年の期間で予約し、最大 <strong>65%</strong> のコスト削減と、移動時の支払い料金を提供できます。 Azure Cosmos DB の予約容量により、価格の予測可能性が提供され、予算と予測の改善に役立ちます。 予約容量と、このブログとドキュメントで実現できるコスト削減 <a href="https://aka.ms/Ignite18reservedcapacity">の詳細を</a> 確認 <a href="https://aka.ms/cosmosdb-reserved-capacity">してください</a>。</p>
+
+
+  <p><strong>さらに強力な SLA:</strong>DB に対してさらに強力な SLA を発表Cosmosしています。 Cosmos DB は、一貫性、待機時間、スループット、可用性を含む包括的な 5 つの 9 つの SLA を提供する、市場で唯一のデータベース サービスです。 今日から、複数リージョンのデータベースに対して 5 つの 9 つの書き込み可用性 (99 の読み取り可用性に加えて) と、世界中の任意の場所で 99 番目の割合で 1 桁ミリ秒の書き込み待機時間を備えた SLA &ndash; ページを更新しています。 <a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_2/">最新の SLA ページについては、こちらを参照してください</a>。</p>
+
+
+  <p><strong>新しい Azure Cosmos DB JavaScript SDK 2.0</strong> の一般提供: <a href="https://github.com/Azure/azure-cosmos-js#readme">JavaScript SDK のバージョン 2.0</a> の一般提供をお知らせします。オブジェクト モデルが完全に再設計され、Promise のサポートが追加され、オブジェクト モデルが完全に再設計され、Cosmos DB との対話と操作の実行が容易になりました。 新しい SDK を使用すると、新しいデータベース、コンテナーを作成し、10 行以下のコードで項目を追加できます。 Azure Cosmos DB JavaScript SDK はオープン ソースであり、チームはオープンですべての開発を行う予定です。 その結果、問題のログ記録、フィードバックの追跡、およびサービス内での PR&rsquo; の受け入GitHub。 詳細については、<a href="https://aka.ms/Ignite18JavaScriptSDK">ここで新しい SDK を使用してサンプルをお試しください</a>。</p>
+
+
+  <p><strong>開発者向けの新機能と機能強化:</strong> 私たちは、開発者向けの新機能と改善点についてお知らせします。 これで<strong>、1か月の Azure Cosmos DB 無料で試す</strong>ことができるようになりました。 人気<a href="https://azure.microsoft.com/try/cosmosdb/">のある Try Cosmos DB</a>を30日間延長しました (いつでも更新できます)。 このエクスペリエンスでは、Azure Cosmos DB &rsquo; の機能を30日間無料で評価できます。 Azure サブスクリプションやクレジットは必要ありません。 今すぐ無料で試すことができます。 Azure Cosmos DB。 開発者に導入されるその他の機能強化には、複数リージョンの書き込みをサポートする SDK 更新プログラム、 <a href="https://cosmos.azure.com/">Cosmos エクスプローラー</a>、推奨事項を使用したポータル UX の更新、およびすべての api と Azure DevOps ビルドタスクに対する<a href="https://docs.microsoft.com/azure/cosmos-db/local-emulator">Cosmos DB ローカルバージョン</a>(Emulator) のサポートが含まれます。 <a href="https://aka.ms/Ignite18DevUpdates">これらの機能の詳細については、こちらを参照して</a>ください。</p>
+
+
+  <h2>お客様の声</h2>
+
+
+  <p>サービスの拡大を確認するのは、性差です。 私たちは、Azure Cosmos DB を利用してミッションクリティカルなアプリを構築することによって、サービスの制限を受け、常に最適なものを要求した<strong>お客様に感謝てい</strong>ます。</p>
+
+
+  <p>Siemens、 <a href="https://customers.microsoft.com/en-us/story/asos-retail-and-consumer-goods-azure">asos</a>、 <a href="https://customers.microsoft.com/en-us/story/citrix">Citrix</a>、Jet.com、 <a href="https://customers.microsoft.com/en-us/story/dominos-retail-azure-cosmos-db-storage-appservice-funtions-japanese-japan">Dominos</a>、 <a href="https://customers.microsoft.com/en-us/story/siemens-healthineers-health-provider-azure"></a>などの大規模なインターネット規模のビジネスで&#39;は、ミッションクリティカルなワークロードの Cosmos DB<a href="https://customers.microsoft.com/en-us/story/crestron-partner-professional-services-azure">に依存し</a><a href="https://customers.microsoft.com/en-us/story/kohler-konnect-azure-iot">ている場合</a>があります。 microsoft では、Cosmos DB がユビキタスになってきました。 <a href="https://azure.microsoft.com/en-us/blog/how-azure-documentdb-planet-scale-nosql-helps-run-microsoft-s-own-businesses/">microsoft &rsquo; </a>は、LinkedIn、Skype、XBOX、Active Directory、Azure Portal、Office 365、Bing、ユニバーサルストアなどのミッションクリティカルなアプリケーションとサービスをすべて、大規模なデータ管理のために Cosmos DB に依存しています。</p>
+
+
+  <p>ここでは、革新的な Azure Cosmos DB がビジネスにどのように行われているかについて、いくつかのお客様から直接紹介します。</p>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fd1b413f-27c5-4b8b-8c67-5dc60e73e392.png"><img alt="image" border="0" height="61" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9d1a8fce-2637-42ad-9612-02e2e9c2abb5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="193"> </a> &ldquo; Cosmos DB は、世界的な評価システムのための高パフォーマンスの世界規模プラットフォームを提供しています。 ボタンをクリックすると、世界中のリージョンを迅速にデプロイして、お客様とパートナーに優れた応答時間を提供できます。 Cosmos DB Cassandra API では、最小限の変更で統合できるようになったため、サービスの移行中の主要なエンジニアリング作業が不要になりました。 最大のサービスは、Cassandra API サポートの開始によって移行される予定です。&rdquo;<br>
+
+  Symantec Shavell、Symantec のテクニカルディレクター/アーキテクト</p>
+
+
+  <p>&nbsp;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9fb95a9-83d0-4785-a026-b90cb3f50371.png"><img alt="image" border="0" height="50" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07f2171f-e586-4f10-a57a-a2012bb3cca5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="211"> </a> &ldquo; Azure Cosmos DB はすばらしいテクノロジです。 私たちにとって最も大きなメリットは、お客様のニーズにぴったり合った一貫性モデルで、世界中のすべてのリージョンにレプリケートされる匿名データ用に1つのデータベースを使用できることです。 Azure Cosmos DB が Azure のコアインフラストラクチャに組み込まれています。この &rsquo; キーは、高可用性とレプリケーションに基づいて構築できるため、すべてのお客様に対して同時にソフトウェアを提供できます。&rdquo;<br>
+
+  トーマス Gossler: リードアーキテクト、デジタルエコシステムプラットフォーム、Siemens</p>
+
+
+  <p>&nbsp;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/41eb4dbe-8c41-4ea3-8aa0-d71f2c8f041f.png"><img alt="image" border="0" height="29" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d76c6c5c-9def-4333-ad5b-fd4849cad772.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="254"> </a> &ldquo; Cosmos DB は、XiO Cloud の crestron を正常に実行するために、多くのリージョンで必要なスケールとパフォーマンスを引き続き提供します。 &nbsp;マルチマスタ書き込みのサポートは非常に大きくなります。&rdquo;<br>
+
+  Krushna Samanta、シニアマネージャーソフトウェア製品 &amp; Enterprise ソリューション、crestron</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90d5375f-cb9b-431e-9807-888ffd0fef75.png"><img alt="image" border="0" height="76" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c388a8c9-cf32-4227-8537-c7f3374a333d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="168"> </a> &ldquo; については、お客様と協力して web エクスペリエンスをカスタマイズする新しい方法を常に模索しています。 これを行うには、異なる方法でデータモデリングを行う必要があります。 階層的で推移的な関係パターンが混在しています。データの正規化はこれまでにしか行われていませんでした。 データをグラフとしてモデル化することで、お客様のニーズに対応することができます。また、このソリューションを迅速に提供し、エンタープライズ対応の拡張性と高いパフォーマンスを実現するクラウド管理環境で、このソリューションを迅速に提供 Azure Cosmos DB こと &rsquo; ができます。 Cosmos DB Change Feed API を使用すると、既存のレコードのシステムとの同期が簡単になり、インフラストラクチャや運用上の懸念事項ではなく、顧客中心の機能の構築に専念できます。&rdquo;<br>
+
+  Arvin Suresh、アーキテクト、Liberty 相互保険</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8f3dcae3-61cf-45e6-973a-2532c489368d.png"><img alt="image" border="0" height="94" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c148bdf-f65f-432e-9d6a-259ea40d5902.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="216"> </a> &ldquo; Azure Cosmos DB を使用すると、強力なデータシェイプの管理と柔軟なデータ形状の管理を通じて、デジタルコンテナーのスマート環境のユースケースを開発できます。 私たちは、統一された作成メタデータ表現を使用してグラフデータベースを実装し、Cosmos DB が提供する追加のセキュリティ、高可用性、およびグローバルスケールを活用しました。&rdquo;<br>
+
+  Youngchoon 公園、VP、プラットフォーム、データサイエンス。</p>
+
+
+  <p>&nbsp;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e33b1ff2-eb37-447c-b933-2c3595d73125.png"><img alt="image" border="0" height="37" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/118a8fca-119d-47c1-8c2b-44538a36b942.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="画像 " width="156"> </a> &ldquo; は MongoDB 集計パイプラインを使用しており、Cosmos DB 提供されている場合は、優れたオプションとして Cosmos DB が有効になりました。 私たちの製品で Cosmos DB には大きな可能性があることがわかります。&rdquo;<br>
+
+  Phil Christensen 氏 (実際のモデリング &amp; Cloud Services、Bentley Systems のシニアバイスプレジデント)</p>
+
+
+  <p>&nbsp;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3afa085-1dcb-4f8e-b199-074d3034b7c3.png"><img alt="image" border="0" height="86" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/47ee888e-0416-4e24-8050-9bd5fb2acd11.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="177"> </a> &ldquo; RemoteSpark ユーザーがローカルの Azure Cosmos DB データベースに接続し、リモートのフロントライン worker と専門家の間で共通のセッションを円滑に行えるようにすることで、マルチマスター機能の低待機時間の geo レプリケーションの性質は非常に重要です。 各ユーザーが異なる Azure データセンターに接続されている場合でも、ビデオや音声通話で通信したり、ドキュメントを共有したり、対話型の IoT 対応のホログラムを表示したりできます。 これにより、リモートワーカーは、最適なパフォーマンスを得るために接続する最適なデータセンターを気にすることなく、世界中のどこにいてもエキスパートに接続できます。&rdquo;<br>
+
+  ライアングルーミング, CTO, Kognitive Spark</p>
+
+
+  <p>&nbsp;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5ef3b787-b68f-4888-81cd-11481dcc7abe.png"><img alt="image" border="0" height="24" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb97c0bc-476d-4e58-9c12-804b710b4747.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image " width="161"> </a> &quot; ServiceLink/FNF は、国内の大規模な貸し手の一部にデジタル抵当サービスを提供します。 exos は、市場で提供されるさまざまな抵当製品の中核的土台として機能する Azure ベースのデジタルプラットフォームの名前です。 EXOS プラットフォームの一部として、顧客向けのモバイルコンポーネントと、リアルタイムアルゴリズムを実行するために利用するすべてのデータについて、エンドユーザーへの補助的な応答を提供するために、非常に短い待機時間と高いスケーラビリティを備えたデータベースを選択する必要がありました。 Uber 社のベンダー向けモバイルアプリやコンシューマー向けモバイルアプリは、マイクロサービスベースのアーキテクチャを利用して複雑なアルゴリズムを実行し、1秒未満でモバイルユーザーにデータを提示しています。また、Cosmos DB はこのアーキテクチャの中核です。 エンドユーザーの応答時間は、Cosmos DB を1秒未満に利用する前に約6-8 秒で終了し、Cosmos DB の利用を開始してから、TCO が大幅にダウンしました。&quot;<br>
+
+  Kiran VServiceLink Em、EVP、最高デジタルおよびテクノロジ責任者、</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c794bc95-efc3-4582-91ab-99770c727c7b.png"><img alt="image" border="0" height="102" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5320bab-b166-480a-ab81-7b73e8b8790a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="101"> </a> &ldquo; Cosmos DB を使用すると、リソースに関する気 &rsquo; の &lsquo; 必要性を大幅に削減し、API &amp; データモデルの高度な柔軟性を実現することで、デジタル統合シナリオをスケールアウトできます。&rdquo;<br>
+
+  Kai Walter、リード IT ソリューションアーキテクト、ZEISS Group</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/812c79ce-691e-494e-93aa-8669c604e2c0.png"><img alt="image" border="0" height="63" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4713f9be-968c-4c9e-a146-94e745e3d5e4.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="174"> </a> &ldquo; お客様のシークレットの武器が Azure Cosmos DB されています。 信頼性は、ミッションクリティカルなシステムにおいて重要な役割を果たします。これには、99.99% 以上のアップタイムの予測可能で高速なパフォーマンスと Sla が必要です。 &rsquo;Azure Cosmos DB を使用しています。 このソリューションにより、生産性が向上します。 &rsquo;高速なスケールアップとスケールダウンが可能です。実際のビジネス価値の作成に集中できます。&rdquo;</p>
+
+
+  <p>Jonas Granlund、クラウドアーキテクト、Elkj &oslash; p</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c4e98a7-b4d9-4a4d-904b-7074a2ef720d.png"><img alt="image" border="0" height="68" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/585b1d7d-27c1-4ed5-9625-2af279140b92.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="画像 " width="136"> </a> &ldquo; は、当社にとって大きな金銭的勝利を Graph API Azure Cosmos DB を検討しています。 以前のソリューションの価格の約2% について、Azure Cosmos DB Graph API が提供されます。 Azure Cosmos DB エラスティックスケーリングを使用して、最大容量24/7 の料金を支払うことなく、 &rdquo; その負荷に対応できます。 &ldquo;インポートの期間をスケールアップするだけで、10秒 ~ 2 分かかる場合でも、すぐにスケールダウンできます。&rdquo;<br>
+
+  Darren、開発マネージャー、Diply</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf4945b2-d27e-4efd-ba84-bf441f2b8060.png"><img alt="image" border="0" height="62" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b0f52168-8763-450d-aba7-bb7084517388.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="画像 " width="168"> </a> &rdquo; 顧客が作業を行っているときには、その時点で適切なコンテンツが必要です。 お客様は、Azure Search と Azure Cosmos DB により、最近の法律の変更点をはるかに簡単に調べることができます。 Azure Cosmos DB のグラフを使用して Nextens プラットフォームを更新し、税務法、ニュース、jurisprudence など、すべてのコンテンツの種類の間のリレーションシップの品質を向上させました。 お客様は、Azure Search と Azure Cosmos DB グラフを使用して、最近の法の変更点をはるかに簡単に検索できます。&rdquo;<br>
+
+  Michael Goedhart: テクノロジのシニアディレクター、Nextens</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9bef155b-4d23-49c1-a391-77f24065ee60.png"><img alt="image" border="0" height="70" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5790ac2b-a2aa-46dd-9273-23a1fa102a0b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ " width="157"> </a> &ldquo; Cosmos DB は、厳密な SLA 下で、スキーマフリードキュメントデータベースと SQL 構文および Change Feed ストリーミング機能を組み合わせたものです。 これはすごいです！ これにより、アーキテクチャが大幅に簡素化され、すべての主要な要件を満たすことができるようになりました。&rdquo;<br>
+
+  Frantisek Kaduk、主要ソフトウェアエンジニア、Skype</p>
+
+  </blockquote>
+
+
+  <h2>構築したアプリを使用して世界を変革 Azure Cosmos DB</h2>
+
+
+  <p>マイクロソフトでは、すべてのビジネスおよび最新のアプリケーションに対して、世界規模で分散されたデータベースを Azure Cosmos DB にすることを約束しています。 Ignite 2018 で発表される新機能により、驚くほど強力でインテリジェントな最新のアプリを作成できると考えています。 &nbsp;Azure Cosmos DB に構築するアプリを使用して世界を完全に変革することをお勧めします。</p>
+
+
+  <p>Azure Cosmos DB を使用している場合は、いつでも無料で <a href="mailto:AskCosmosDB@microsoft.com ">AskCosmosDB@microsoft.com</a> お問い合わせいただけます。 Azure Cosmos DB をまだ使用していない場合は、<a href="https://azure.microsoft.com/try/cosmosdb/">今すぐ無料で Azure Cosmos DB を試す</a>ことができます。サインアップやクレジットカードは必要ありません。 ヘルプが必要な場合、または質問やフィードバックがある場合は、いつでもご連絡ください。 最新の Azure Cosmos DB ニュースと機能については、Twitter <a href="https://twitter.com/search?q=%23cosmosDB&amp;src=typd"> # CosmosDB</a>() <a href="https://twitter.com/AzureCosmosDB">@AzureCosmosDB</a> に従って最新の情報を入手してください。 Azure Cosmos DB によって何が構築されるかをご確認ください。</p>
+
+
+  <p>-友人の Azure Cosmos DB</p>

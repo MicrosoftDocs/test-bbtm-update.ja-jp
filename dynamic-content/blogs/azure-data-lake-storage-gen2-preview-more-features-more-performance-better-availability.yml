@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7acd95a8560478c5f554cfa6a610c633bacf3fcb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910064"
+Slug: azure-data-lake-storage-gen2-preview-more-features-more-performance-better-availability
+Title: Azure Data Lake Storage Gen2 プレビュー–機能の追加、パフォーマンスの向上、可用性の向上
+Summary: '6月に Azure Data Lake Storage (adls) Gen2 の限られたパブリックプレビューを発表したため、応答は resounding になりました。 ADLS Gen2 プレビューに参加しているお客様は、ADLS Gen2 オファリングに固有のスケール、パフォーマンス、セキュリティ、管理容易性、コスト効果を直接享受ています。 '
+Content: >-
+  <p>6月に Azure Data Lake Storage (adls) Gen2 の限られたパブリックプレビューを発表したため、応答は resounding になりました。 ADLS Gen2 プレビューに参加しているお客様は、ADLS Gen2 オファリングに固有のスケール、パフォーマンス、セキュリティ、管理容易性、コスト効果を直接享受ています。 現在のところ、プレビューに対する重要な更新プログラムを発表しています。これにより、より優れたエクスペリエンスをお客様に提供できるようになります。</p>
+
+
+  <p>現在 &rsquo; の発表には、お客様が以下を求めるための追加機能が含まれています。</p>
+
+
+  <ul>
+      <li><strong>Azure Databricks</strong>と<a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-integration-with-data-lake-storage-gen-2-preview-acl-and-security-update/"><strong>Azure HDInsight</strong></a>に統合された Enterprise クラスのセキュリティ機能</li>
+      <li>データの探索とアクセス制御の管理など、ADLS Gen2 アカウントのデータを表示および管理するための<strong>Azure Storage Explorer</strong>サポート</li>
+      <li>アカウントで Storage ファイアウォールがアクティブになっている場合など、 <a href="https://azure.microsoft.com/blog/general-availability-of-vnet-service-endpoints-for-azure-sql-data-warehouse" target="_blank"><strong>SQL Data Warehouse</strong></a>で<strong></strong>の外部テーブルの接続のサポート</li>
+      <li><a href="https://go.microsoft.com/fwlink/?linkid=2047859"><strong></strong> </a>ADLS Gen2 に格納されているエンティティの<strong>Common Data Model</strong>をサポートする Power BI と<a href="https://aka.ms/cdmadsblog"><strong>SQL Data Warehouse</strong></a></li>
+      <li>すべての分析サービスに対する<strong>ファイアウォール</strong>と Virtual Network ルールの統合の Storage</li>
+      <li>Microsoft またはお客様から提供されたキーを使用して保存データを暗号化し、TLS 1.2 を介して送信する暗号化</li>
+      <li><strong>Databricks File System (DBFS)</strong>に ADLS Gen2 ファイルシステムをマウントする機能</li>
+  </ul>
+
+
+  <p>さらに、現時点では、ADLS Gen2 パブリックプレビューは、すべてのパブリックおよびソブリン Azure リージョンで Azure のすべてのお客様に対して完全にオープンされています。 お客様は、HDInsight、Databricks、または SQL Data Warehouse で abfs ドライバーを利用できます。これにより、すべての新しいアカウントで、階層的な名前空間が有効になります。サインアップする必要はなく、ホワイトリストに登録する必要もありません。</p>
+
+
+  <h2>Data Lake にエンタープライズクラスのセキュリティを提供する&nbsp;</h2>
+
+
+  <p>お客様は、分析のために大規模なエンタープライズ規模のデータリポジトリを作成するので、増大する需要に合わせてスケーリングおよび実行できるストレージソリューションが必要になるだけでなく、このデータをセキュリティで保護できる必要があります。 エンタープライズデータレイクの豊富な資産をセキュリティで保護するには、次のような複数の側面があります。</p>
+
+
+  <ul>
+      <li>権限を適用して、承認されたユーザーまたはグループのみがデータの読み取りまたは書き込みアクセス権を持つことができるようにします。</li>
+      <li>保存データ (独自のキーまたはシステムキーを使用) と転送中のデータを暗号化して、データ損失の可能性を排除する</li>
+      <li>ユーザーの資格情報が侵害された場合でも、物理ネットワーク層によって保護が提供されるため、トランスポート層の保護を提供します。</li>
+  </ul>
+
+
+  <p>ADLS Gen1 と同様に、ADLS Gen2 では、 <strong>ロールベースの Access Control (RBAC)</strong> と POSIX に準拠した <strong>Access Control リスト (acl)</strong> の両方が提供されるようになりました。これによって、承認されたユーザー、グループ、またはサービスプリンシパルにのみ、柔軟できめ細かい、管理可能な方法でアクセスが制限されます。 認証は Azure Active Directory OAuth 2.0 ベアラートークンを介して行われます。これにより、<strong> AAD Connect</strong>とのフェデレーション、パスワードだけでなく強力な保護のための多要素認証を含む柔軟な認証スキームを使用できます。 さらに、これらの認証方式は、Azure Databricks、HDInsight、SQL Data Warehouse などの管理ツールだけでなく、Azure Storage Explorer などの主要な分析サービスに統合されています。 認証が完了すると、最も細かい粒度で権限が適用され、企業 &rsquo; のビッグデータ資産を保護するための適切なレベルの承認が確保されます。</p>
+
+
+  <p>データのエンドツーエンドの暗号化とトランスポート層の保護は、エンタープライズデータレイクのセキュリティシールドを完成させます。 ADLS Gen2 が <strong>Azure blob</strong> サービスの上に構築されている場合、blob の顧客によって既に信頼されているこれらの既存の機能は、ADLS Gen2 データに自動的に適用されます。 同じセットの分析エンジンとツールは、これらの追加の保護層を利用できるので、分析パイプラインを完全にエンドツーエンドで保護することができます。</p>
+
+
+  <h2>Data Lake のパフォーマンスが向上しています</h2>
+
+
+  <p>&rsquo;既に説明したように、ストレージ層のパフォーマンスは、完全な分析パイプラインの総保有コスト (tco) に対して大きな影響を与えています。 これは、ストレージのパフォーマンスを向上させるすべての割合が、非常に高価なコンピューティングレイヤーの要件に比べて同じ割合であるという事実に起因します。 細分類ゲートストレージモデルを使用すると、コンピューティングと記憶域を個別にスケーリングできるため、コンピューティング要件の削減率はほぼ同じになります (コンピューティングは通常、tco の90% に相当します)。</p>
+
+
+  <p>そのため、ADLS Gen2 は、既存のストレージソリューションに対するワークロードの性質によっては、10-50% のパフォーマンスを向上させることができます。これは、月ごとの分析の支出が非常に大幅に削減されることに相当します。 また、すぐに洞察を提供するという利点もあります。</p>
+
+
+  <p>ADLS Gen2 は、汎用オブジェクト (Blob) ストレージに相当します。 ただし、上記のパフォーマンスとセキュリティ機能はすべて、その価格に含まれるようになりました。 これにより、すべての専用機能を市販のオブジェクトストレージ料金で利用できるので、エンタープライズデータ lake を作成または移行するための理想的な環境 ADLS Gen2 なります。</p>
+
+
+  <h2>あらゆる場所でのデータ湖</h2>
+
+
+  <p>ADLS Gen2 は Azure Blob service の機能であるため、 <strong>すべての azure リージョン</strong>に存在する必要があります。 これは、従業員が世界中の半方向の待機時間を使用しなくてもメリットを得ることができるように、データ湖を近い場所に実行する企業にとって重要です。 多くの国、つまり企業は、データが存在する場所の主権要件を規定します。 Azure には、世界中のリージョンを持つパブリッククラウドプロバイダーの最大フットプリントが既にあります。また、これらのすべてのリージョンで ADLS Gen2 を利用できるようになったため、お客様は必要に応じてデータ湖を構築できます。</p>
+
+
+  <h2>Azure Data Lake Storage Gen2 の使用を開始する</h2>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/services/storage/data-lake-storage/" target="_blank">Azure Data Lake Storage Gen2</a>の詳細については、こちらを参照してください。</li>
+      <li><a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Data-Lake-Storage-Gen2-Overview" target="_blank">Azure Data Lake Storage の使用を開始</a>する方法については、こちらのビデオをご覧ください。</li>
+      <li><a href="https://azure.microsoft.com/en-us/free/" target="_blank">無料の Azure Data Lake Storage の使用を開始</a>します。</li>
+  </ul>

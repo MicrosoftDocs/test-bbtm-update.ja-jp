@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3abeac2f7c40ff3b5a6ed82ee9ecfd8898140cf6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909222"
+Slug: general-availability-larger-block-blobs-in-azure-storage
+Title: '一般提供: 大規模なブロック BLOB Azure Storage'
+Summary: より大きなブロック BLOB を導入すると、最大ファイル サイズが 195 GB から 4.77 TB に増加します
+Content: >-
+  <p>Azure Blob Storage は、メディア、ドキュメント、ログ ファイル、科学データなど、さまざまな種類のデータのセットにわたって、顧客ごとに数十から数百ペタバイトのデータを格納して提供できる、非常にスケーラブルなオブジェクト ストレージ ソリューションです。 多くのお客様は BLOB を使用して非常に大きなデータ セットを格納し、より大きなファイルのサポートを要求しています。 より大きなブロック BLOB を導入すると、最大ファイル サイズが 195 GB から 4.77 TB に増加します。 BLOB サイズの増加により、4K および 8K のビデオを格納および処理するメディア企業から、DNA のシーケンス処理を行うがん研究者まで、さまざまなシナリオがサポートされます。&nbsp;&nbsp;</p>
+
+
+  <p>Azure ブロック BLOB は常に変更可能で、顧客は BLOB 全体をアップロードすることなく、データブロックを挿入、アップロード、または削除できます。 新しいブロック BLOB サイズが大きいほど、特に大きなオブジェクトの一部が頻繁に変更されるワークロードの場合、変更可能性によってパフォーマンスとコストが大幅に削減されます。 オブジェクトの変更可能性を含むブロック BLOB サービスの詳細については、最後のビルド会議 <a href="https://channel9.msdn.com/events/Build/2016/B816">のビデオをご</a> 覧ください。 Put block REST API Put <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/put-block">Block</a> List のドキュメントでは <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/put-block-list">、</a> オブジェクトの変更可能性も説明しています。&nbsp;</p>
+
+
+  <p>1 つの BLOB にコミットされた最大 50,000 ブロックのサポートを維持しながら、許容される最大ブロック サイズを 4 MB から 100 MB に増やしました。 範囲の GET は、BLOB 全体または BLOB の一部だけの高速並列ダウンロードを可能にする、より大きなブロック BLOB で引き続きサポートされます。 すべての Azure リージョンの既存の Blob Storage または General Purpose Storage アカウントで、この機能強化をすぐに利用できます。&nbsp;</p>
+
+
+  <div>
+
+  <div>
+
+  <div>
+
+  <p>より大きなブロック BLOB は、<a href="https://www.nuget.org/packages/WindowsAzure.Storage">.NET </a>クライアント ライブラリ (バージョン 8.0.0&nbsp;)、<a href="https://github.com/azure/azure-storage-java">Java</a>&nbsp; クライアント ライブラリ (バージョン 5.0.0&nbsp;)、<a href="https://azure.github.io/azure-storage-node/">Node.js</a> クライアント ライブラリ (バージョン 2.0.0)、<a href="https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy#download-and-install-azcopy">AzCopy Command-Line ユーティリティ</a> (バージョン 5.2.0) の最新リリースでサポートされています。 また、常に <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/azure-storage-services-rest-api-reference">同じREST API </a>を使用することもできます。 より大きなブロック BLOB は、REST APIバージョン 2016-05-31 以降でサポートされています。 API に関する新しい情報は何もありません。そのため、より大きなブロック BLOB のアップロードを今すぐ開始できます。&nbsp;&nbsp;</p>
+
+  </div>
+
+  </div>
+
+  </div>
+
+
+  <p>このサイズの増加はブロック BLOB にのみ適用され、追加 BLOB (195 GB) とページ BLOB (1 TB) の最大サイズは変更されません。 課金の変更はありません。 BLOB の使用をAzure Storage、使用の開始に関するドキュメントを参照<a href="https://docs.microsoft.com/en-us/azure/storage/storage-dotnet-how-to-use-blobs">するか、コード</a> サンプルのいずれかを<a href="https://azure.microsoft.com/en-us/resources/samples/?service=storage&amp;term=blob">参照してください</a>。</p>

@@ -1,0 +1,228 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 472ec28cfb58c3676d2697825a210f2a685a7a34
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910270"
+Slug: updates-to-extensibility-model-of-webbobs-sdk-2
+Title: Azure WebJobs SDK の更新プログラム (1.1.0-alpha2)
+Summary: 新しい機能とバグ修正を含む Web ジョブ SDK のプレビュー版を最近リリースしました。これに加えて、独自のトリガーとバインダーを作成するための新しい機能拡張モデルが新たに追加されました。
+Content: >-
+  <p>最近、Web ジョブ SDK のプレビューをリリースしました。 他の新機能とバグ修正に加えて、リリースでは、独自のトリガーとバインダーを記述できる新しい拡張モデルも開きます。 この最新リリースでは、シングルトン機能の導入に加えて、拡張機能のトリガーとバインダーを追加しました。これにより、特定のジョブ関数の1つのインスタンスだけが、複数のスケールアウトされたインスタンスであっても、特定の時点で実行する必要があることを宣言するように指定できます。</p>
+
+
+  <p>NuGet ギャラリーから web ジョブ SDK をダウンロードし、NuGet パッケージマネージャーコンソールを使用して、NuGet ギャラリーからこれらのパッケージをインストールできます。</p>
+
+
+  <ul>
+   <li>Web ジョブの場合: <a href="https://www.nuget.org/packages/Microsoft.Azure.WebJobs">web ジョブ</a>をインストールします。</li>
+   <li>Service Bus: <a href="https://www.nuget.org/packages/Microsoft.Azure.WebJobs.ServiceBus/">web ジョブ</a>をインストールします。</li>
+   <li>新しい機能拡張モデル上に構築された新しいトリガーとバインダーの場合: <a href="https://www.nuget.org/packages/Microsoft.Azure.WebJobs.Extensions/">web ジョブ</a>をインストールします。</li>
+  </ul>
+
+
+  <h1>シングルトン</h1>
+
+
+  <p>シングルトンを使用すると、ワークロードを複数のインスタンスにスケールアウトするときに、関数の1つのインスタンスのみが実行されるようにすることができます。 次のコードは例を示します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <pre class="prettyprint">
+      public class Program
+      {
+          static void Main(string[] args)
+          {
+              var host = new JobHost();
+              host.RunAndBlock();
+          }
+
+          [Singleton]
+          public static async Task SingletonJob()
+          {
+              // Process only once when scaled out
+              await Task.Delay(10 * 1000);
+          }
+
+          // Only a single instance of this function will be invoked at a time for the specified scope.
+          [Singleton(@&quot;{Region}\{Zone}&quot;)]
+          public static async Task SingletonScopeJob(
+              [QueueTrigger(&quot;singleton-test&quot;)] WorkItem workItem, TraceWriter trace)
+          {
+              trace.Info(&quot;Singleton method started&quot;);
+              await Task.Delay(10 * 1000);
+              trace.Info(&quot;Singleton method completed&quot;);
+          }
+
+          public class WorkItem
+          {
+              public int ID { get; set; }
+              public string Region { get; set; }
+              public int Zone { get; set; }
+              public int Category { get; set; }
+              public string Description { get; set; }
+          }
+      }
+  </pre>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>また、シングルトン属性で <strong>スコープ</strong> 式/値を指定して、そのスコープでの関数のすべての実行がシリアル化されるようにすることもできます。 たとえば、上記のコードでは、キューに地域東部、 &ldquo; 東部、および &ldquo; 西部 &rdquo; の &rdquo; &ldquo; 3 つのメッセージが含まれている場合、地域が &ldquo; 東部 &rdquo; のメッセージは順次として実行され、region &ldquo; 西部 &rdquo; のメッセージは並行して実行され &rdquo; ます。 これは、関数が他の分散リソースにアクセスする必要がある場合や、同時に実行できない、または実行できないその他の操作を実行する必要がある場合に役立ちます。 完全なサンプルにアクセスするには、 <a href="https://github.com/Azure/azure-webjobs-sdk-samples/blob/master/BasicSamples/MiscOperations/Functions.cs#L83">こちら</a>を参照してください。</p>
+
+
+  <p><strong>タイマートリガー</strong> は、このシングルトン機能を使用して、ワークロードを複数のインスタンスにスケールアウトするときに、タイマートリガーのインスタンスのみが起動されるようになりました。 つまり、スケジュールされたジョブ &rsquo; では、1回だけ通知を受け取るように、スケジュール &ndash; された各インスタンスに対して複数のスケールアウトされたインスタンスを呼び出す必要がありません。</p>
+
+
+  <h1>スポットライトの Community: Redis トリガー</h1>
+
+
+  <p>新しい機能拡張モデルを使用して、いずれかのコミュニティメンバーによって作成されたトリガーの例を強調したいと考えました。 Jason Haley ( <a href="https://twitter.com/haleyjason">@haleyjason</a> ) に Redis トリガーが記述されており、redis イベントに基づいて関数をトリガーするために使用できます。 たとえば、Redis に項目が挿入されるたびに、関数がトリガーされることがあります。 このオープンソースプロジェクトが <a href="https://github.com/JasonHaley/Redis.WebJobs.Extensions">ここ</a> に表示され、進行状況を確認できます。</p>
+
+
+  <p>次のコードは、Redis に対してトリガーできる関数を示しています。</p>
+
+
+  <pre class="prettyprint">
+
+  public static void ReceivePubSubMessage([RedisTrigger(&quot;messages&quot;, Mode.PubSub)] string message,
+                     TextWriter log)
+  {
+         log.WriteLine(&ldquo;Message=&rdquo;+message);
+  }
+
+  </pre>
+
+
+  <p>&nbsp;</p>
+
+
+  <h1>このリリースのその他の更新プログラム</h1>
+
+
+  <p>このリリースのすべての機能強化の詳細な一覧については、「リリース <a href="https://github.com/Azure/azure-webjobs-sdk/wiki/Release-Notes">ノート</a> 」と「 <a href="https://github.com/Azure/azure-webjobs-sdk/issues?q=is%3Aissue+is%3Aclosed+milestone%3A1.1.0-alpha2">修正</a>されたバグ」を参照してください。 ここでキーを強調表示しています。</p>
+
+
+  <h4>ログ/トレースの機能拡張</h4>
+
+
+  <ul>
+   <li>ログ記録システムが拡張され、TraceWriters をプラグインし、独自のログソリューションを SDK に統合できるようになりました。</li>
+   <li>JobHostConfiguration を使用してカスタム TraceWriters をホストに接続できるようにします。トレース</li>
+   <li>ConsoleLevel を使用してコンソール出力 TraceLevel をカスタマイズできるようにします。</li>
+   <li>関数が TraceWriter にバインドされるようにする新しい TraceWriter バインド (TextWriter に似ています) を追加しました</li>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-samples/blob/master/BasicSamples/MiscOperations/Program.cs#L54">サンプルを</a>検索します。</li>
+  </ul>
+
+
+  <h4>Service Bus メッセージングの機能強化</h4>
+
+
+  <ul>
+   <li>既定でメッセージ処理の同時実行がサポートされます (以前は同時実行はありませんでした)</li>
+   <li>ServiceBusConfiguration. MessagingProvider を使用したメッセージ処理の詳細なカスタマイズを許可します</li>
+   <li>MessagingProvider は、供給元の Messagingprovider と NamespaceManager のカスタマイズをサポートします。</li>
+   <li>新しい MessageProcessor 戦略パターンでは、キュー/トピックごとにプロセッサを指定できます。</li>
+   <li>ServiceBusConfiguration. MessageOptions を使用した * OnMessageOptions * の簡単なカスタマイズ</li>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-samples/blob/master/BasicSamples/MiscOperations/Program.cs#L70">サンプルを</a>検索します。</li>
+  </ul>
+
+
+  <h1>夜間ビルドに追加された新しいバインダー (SendGrid)</h1>
+
+
+  <p>オープンソースの一部として、 <a href="https://github.com/Azure/azure-webjobs-sdk/wiki/%22Nightly%22-Builds">夜間のビルド</a> を MyGet に公開しています。 最近、sendgrid を使用して電子メールを送信できる SendGrid バインダーを追加しました。</p>
+
+
+  <p>注文処理 web ジョブがあり、キューメッセージに注文情報が含まれているシナリオを Imagine します。 注文処理が成功したときに電子メールを送信できます。また、エラーが発生した場合にも通知を受け取ることができます。</p>
+
+
+  <p>次のコードは、このを Web ジョブに簡単に統合する方法を示しています。 web ジョブ NuGet パッケージをインストールする必要がありますが、</p>
+
+
+  <pre class="prettyprint">
+
+  public class Program
+      {
+          static void Main(string[] args)
+          {
+              var hostConfig = new JobHostConfiguration();
+              hostConfig.UseSendGrid();
+              var host = new JobHost(hostConfig);
+              host.RunAndBlock();
+          }
+          public static void ProcessOrder(
+             [QueueTrigger(@&quot;samples-orders&quot;)] Order order,
+             [SendGrid] SendGridMessage message)
+          {
+              message.AddTo(order.CustomerEmail);
+              message.Subject = $&quot;Thanks for your order (#{order.OrderId})!&quot;;
+              message.Text = $&quot;{order.CustomerName}, we&#39;ve received your order ({order.OrderId}) and have begun processing it!&quot;;
+          }
+          public static void ProcessOrderFailure(
+           [QueueTrigger(@&quot;samples-orders-poison&quot;)] string queueMessage,
+           [SendGrid] SendGridMessage message)
+          {
+              message.AddTo(&quot;AdminEmail&quot;);
+              message.Subject = &quot;Order processing failed&quot;;
+              message.Text = queueMessage;
+          }
+          public class Order
+          {
+              public int OrderId { get; set; }
+              public string CustomerName { get; set; }
+              public string CustomerEmail { get; set; }
+          }
+      }Open Source</pre>
+
+  <pre class="prettyprint">
+
+
+  &nbsp;</pre>
+
+
+  <p>SDK、機能拡張システム、関連リポジトリのソースコードは、こちらで入手できます。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk/" title="https://github.com/Azure/azure-webjobs-sdk/">https://github.com/Azure/azure-webjobs-sdk/</a></li>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-extensions" title="https://github.com/Azure/azure-webjobs-sdk-extensions">https://github.com/Azure/azure-webjobs-sdk-extensions</a></li>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-samples/" title="https://github.com/Azure/azure-webjobs-sdk-samples/">https://github.com/Azure/azure-webjobs-sdk-samples/</a></li>
+  </ul>
+
+
+  <p>修正が必要なすべての問題について、フィードバックを提供し、PR &rsquo; を送信してください。 追加する予定のさまざまな種類のトリガーとバインダーに注目しています。</p>
+
+
+  <h1>サンプル</h1>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-samples">Web ジョブ SDK のサンプル</a></li>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-extensions">Web ジョブ SDK 機能拡張のサンプル</a></li>
+  </ul>
+
+
+  <h1>ドキュメント</h1>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/azure-webjobs-sdk-extensions/wiki/Binding-Extensions-Overview">新しいトリガーとバインダーを作成するためのガイドライン</a></li>
+   <li><a href="https://channel9.msdn.com/Shows/Cloud+Cover/Episode-183-Azure-WebJobs-Update-with-Pranav-Rastogi">Web ジョブ SDK を使用した拡張可能なトリガーとバインダーに関する Channel 9 のビデオ</a></li>
+   <li><a href="https://www.hanselman.com/blog/IntroducingWindowsAzureWebJobs.aspx">Scott マン Selman による Web ジョブと SDK の概要</a></li>
+   <li>web ジョブを使用して構築された web サイトモニターと<a href="https://twitter.com/bradygaster">Brady</a>の ASP.NET</li>
+   <li><a href="https://www.asp.net/aspnet/overview/developing-apps-with-windows-azure/azure-webjobs-recommended-resources">推奨されるリソースの Azure WebJobs &ndash;</a></li>
+   <li><a href="https://channel9.msdn.com/Tags/azurefridaywebjobs">Azure 金曜の Web ジョブビデオシリーズ</a></li>
+   <li>Magnus Martensson によるビデオシリーズ</li>
+   <li><a href="https://www.asp.net/aspnet/overview/developing-apps-with-windows-azure/getting-started-with-windows-azure-webjobs">チュートリアル: Microsoft Azure web ジョブ SDK の概要</a></li>
+  </ul>
+
+
+  <h1>フィードバックを提供してヘルプを得る</h1>
+
+
+  <p>質問がある場合は、 <a href="https://azure.microsoft.com/en-us/support/forums/">Azure フォーラム</a>、 <a href="https://forums.asp.net/1247.aspx">ASP.NET フォーラム</a>、または<a href="https://stackoverflow.com/">StackOverflow.com</a>で質問できます。 Twitter で AzureWebJobs を、stackoverflow で<font style="background-color: #ffff00"><span style="background-color: #ffffff">Azure-webjobssdk にタグ</span></font>を使用<font style="background-color: #ffff00"><span style="background-color: #ffffff"> </span></font> <a href="https://twitter.com/search?q=AzureWebJobs"><font style="background-color: #ffff00"><span style="background-color: #ffffff"> # </span></font></a>します。</p>

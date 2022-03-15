@@ -1,0 +1,68 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9f01b1f53334a724fa34c94bea1722d299ec5f3e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910242"
+Slug: what-you-need-to-know-when-writing-hybrid-applications
+Title: ハイブリッドアプリケーションを作成するときに理解しておくべきこと
+Summary: 現時点では、Azure は54のリージョン、複数のソブリンクラウド、および Azure Stack を通じてお客様のデータセンターに存在します。 一貫性は、アプリケーションのデプロイ先のリージョンに関係なく、Azure の基本的な柱です。スクリプトとテンプレートの記述方法は同じです。
+Content: >-
+  <p>現時点では、Azure は54の <a href="https://azure.microsoft.com/en-us/global-infrastructure/regions/" target="_blank">リージョン</a>、複数のソブリンクラウド、および Azure Stack を通じて、お客様 &rsquo; のデータセンターに存在します。 一貫性は、アプリケーションのデプロイ先のリージョンに関係なく、Azure の基本的な柱です。スクリプトとテンプレートの記述方法は同じです。</p>
+
+
+  <p>一貫性は、ナレッジとアーティファクトを再利用できるため、非常に便利です。 この記事では、さまざまな Azure クラウドを対象とするアプリケーションを作成する際に知っておくべき重要な事項について説明します。</p>
+
+
+  <ul>
+      <li>リソースの種類の可用性とバージョンは、リージョンやクラウドによって異なります。</li>
+      <li>使用可能なイメージ、仮想マシン (VM) のサイズ、および拡張機能は、クラウドによって異なります。</li>
+      <li>Azure resource manager (ARM) とストレージエンドポイントも異なる場合があります。</li>
+  </ul>
+
+
+  <p>つまり、 &rsquo; 上記の項目のパラメーターを受け入れるようにコードとテンプレートを設計することが重要です。 これにより、さまざまなクラウド間でリソースを簡単にデプロイできるようになります。 Parametrization だけでなく、 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-linked-templates" target="_blank">入れ子になったテンプレート</a> を活用することも検討する必要があります。これにより、ソリューションを異なるクラウドにデプロイできる小さなチャンクに分割することができます。 詳細については、「<a href="https://aka.ms/consistency" target="_blank">クラウドの一貫性のために Azure Resource Manager テンプレートを作成</a>する」を &quot; 参照してください。&quot;</p>
+
+
+  <p>また、AzureCAT チームからの優れたガイダンスもあります。これは、お客様が Azure Stack のデプロイを支援することに重点を置いています。 詳細とガイダンスについては、ブログ記事「 &quot; <a href="https://blogs.msdn.microsoft.com/azurecat/2018/09/23/design-considerations-for-hybrid-applications-summary-learn-more/" target="_blank">ハイブリッドアプリケーションの設計に関する考慮事項</a>」 &quot; をご覧ください。 Microsoft Ignite 2018 のセッションの優れた機能が用意されています。そのすべてに、再利用できる貴重なリソースがあります。 推奨されるセッションをいくつか次に示します。</p>
+
+
+  <ul>
+      <li><a href="https://twitter.com/Kirtana_MSFT" target="_blank">Kirtana Venkatraman</a> と <a href="https://twitter.com/MichelaSaina" target="_blank">Micて</a>、Compute および Asdk のプログラムマネージャーでは、 <a href="https://youtu.be/71kd2Uue1qI?t=279" target="_blank">エンドポイント</a>、 <a href="https://youtu.be/71kd2Uue1qI?t=1324" target="_blank">ツール</a>、 <a href="https://youtu.be/71kd2Uue1qI?t=1451" target="_blank">powershell、CLI</a>、 <a href="https://youtu.be/71kd2Uue1qI?t=2179" target="_blank">Azure Stack Developer Kit</a>など、開発者にとって関心のあるいくつかの分野について説明しています。</li>
+      <li>開発者ツールおよび Sdk のプログラムマネージャーである<a href="https://www.linkedin.com/in/siddique-juman/" target="_blank">Siddique Juman</a>は、 <a href="https://youtu.be/zfHcldL3Pnc?t=610" target="_blank">visual studio を使用した一貫したアプリ開発</a>の概要を提供します。</li>
+      <li>Azure Stack の Azure サービスのプログラムマネージャーである<a href="https://twitter.com/shriramnat" target="_blank">Shriram Natarajan</a>では、 <a href="https://youtu.be/zfHcldL3Pnc?t=2503" target="_blank">API プロファイル</a>の後に azure sdk のデモが続きます。 このセッションは、Ignite で最も評価されたセッションでした。</li>
+  </ul>
+
+
+  <p>最後に、上記のリンクで説明されている多くの機能から、 <a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles#summary-of-api-profiles" target="_blank">API プロファイル</a>を紹介 &rsquo; します。これ &rsquo; は、Azure のハイブリッド機能と一貫性を効果的に活用するコードを記述できるようにするための機能の中核となるものです。 API プロファイルは、複数の Azure Cloud Services を対象とする Azure リソースプロバイダーとその API バージョンのセットを表します。 API プロファイルには、次のような種類があります。</p>
+
+
+  <ul>
+      <li><strong>latest</strong></li>
+  </ul>
+
+
+  <p>これには、グローバル Azure でリリースされた最新の API バージョンが含まれています。</p>
+
+
+  <ul>
+      <li><strong>yyyy-mm-dd-hybrid</strong></li>
+  </ul>
+
+
+  <p>年 2 回リリースされ、複数のクラウド間での一貫性と安定性に重点が置かれています。 このプロファイルは Azure Stack との最適な互換性を目指しています｡</p>
+
+
+  <ul>
+      <li><strong>yyyy-mm-dd-profile</strong></li>
+  </ul>
+
+
+  <p>この機能は、最適な安定性と最新の機能の間にあります。</p>
+
+
+  <p>この投稿の情報が役に立つことを願っています。 ハイブリッドアプリケーションの開発に関する新しいトピックを引き続きご利用いただけます。また、Twitter でチームとチームに <a href="https://www.twitter.com/rlfmendes" target="_blank">連絡</a> してください。</p>
+
+
+  <p><em>ハイブリッドアプリケーション開発の詳細については、前の投稿「<em> <a href="https://azure.microsoft.com/en-us/blog/developing-hybrid-applications-with-azure-stack/" target="_blank">Azure Stack を使用したハイブリッドアプリケーションの開発</a>」 &quot; を参照してください。 &quot; </em></em></p>

@@ -1,0 +1,103 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 50e12baa74ec09dbe00f206dd905e0186f79cfa6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904006"
+Slug: optimize-feature-engineering-time-series-data
+Title: 時系列データに対するローリング特徴エンジニアリングの最適化
+Summary: このブログでは、R/Python/SQL の時系列データを使用して機能エンジニアリングのローリングを最適化する方法の概要を示します
+Content: >-
+  <p>このブログ投稿では、データ科学者が大規模に特定の種類の特徴エンジニアリングを効率的に実行する方法について説明します。 サンプルコードについて説明する前に、テレメトリデータを生成する方法と、そのようなデータを使用する企業の理由について簡単に説明します。</p>
+
+
+  <p>作業を開始するために、これらの数日のマシンは、操作中にさまざまな測定を記録するために、複数の組み込みセンサーを使用してインストルメント化されていることがわかっています。 このため、これらのコンピューターは、これらのコンピューターからデータを転送し、一元化されたリポジトリに格納した後で使用できるテレメトリデータを大量に生成します。 これらの企業は、amassed データを使用して、 &ldquo; コンピューターが故障 &rdquo; する可能性がある場合や、 &ldquo; コンピューターの予備部分を再順序 &rdquo; する必要がある場合などの質問に回答できるようにすることを望んでいますか。最終的には、アドホックメンテナンスの作業にかかる時間とコストを削減するのに役立ちます。</p>
+
+
+  <p>多くのモデルを構築した後、未加工の形式でさまざまなセンサーから生成される一般的なテレメトリデータは、非常に小さな値を追加することに気付きました。 仕様によるセンサーでは、定期的にデータを生成できます。したがって、データは複数の時系列で構成されます。このデータは、各マシンが意味のある追加機能を構築するために時間単位で並べ替えることができます。 そのため、データ科学者のように、この生のセンサーデータに対して追加の特徴エンジニアリングを実行することで、データセットが拡張されます。</p>
+
+
+  <p>最初に最も一般的な機能は、サンプルデータセットで優先統計プログラミング言語を使用して、集計のローリングを構築することです。 ここでは、特定のウィンドウサイズのローリング集計を生成する方法について説明します。この例では、R/Python を使用して、電圧、回転、圧力、振動の測定値を日付別に記録しています。 これらのコードスニペットは、jupyter notebook 内、または Azure ML Studio 環境内で、他の任意のローカル R/Python IDE で実行できます。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="2397">
+      <tbody>
+          <tr>
+              <td valign="top" width="1325">
+              <p align="center">R</p>
+              </td>
+              <td valign="top" width="1070">
+              <p align="center">Python</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="1325">
+              <p><code>telemetrymean &lt;- telemetry %&gt;%<br>
+              &nbsp;&nbsp;&nbsp; arrange(machineID, datetime) %&gt;%<br>
+              &nbsp;&nbsp;&nbsp; group_by(machineID) %&gt;%</code></p>
+
+              <p><code>&nbsp;&nbsp;&nbsp; mutate(voltmean = rollapply(volt, width = 3, FUN = mean, align = &ldquo;right&rdquo;, fill = NA, by = 3),<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rotatemean = rollapply(rotate, width = 3, FUN = mean, align = &ldquo;right&rdquo;, fill = NA, by = 3),<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pressuremean = rollapply(pressure, width = 3, FUN = mean, align = &ldquo;right&rdquo;, fill = NA, by = 3),<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vibrationmean = rollapply(vibration, width = 3, FUN = mean, align = &ldquo;right&rdquo;, fill = NA, by = 3)) %&gt;%<br>
+              &nbsp;&nbsp;&nbsp; select(datetime, machineID, voltmean, rotatemean, pressuremean, vibrationmean) %&gt;%<br>
+              &nbsp;&nbsp;&nbsp; filter(!is.na(voltmean)) %&gt;%<br>
+              &nbsp;&nbsp;&nbsp; ungroup()</code></p>
+              </td>
+              <td valign="top" width="1070">
+              <p><code>temp = []<br>
+              fields = [&#39;volt&#39;, &#39;rotate&#39;, &#39;pressure&#39;, &#39;vibration&#39;]<br>
+              for col in fields:<br>
+              &nbsp;&nbsp;&nbsp; temp.append(pd.pivot_table(telemetry,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index=&#39;datetime&#39;,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; columns=&#39;machineID&#39;,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; values=col).resample(&#39;3H&#39;, closed=&#39;left&#39;, label=&#39;right&#39;, how=&#39;mean&#39;).unstack())<br>
+              telemetry_mean_3h = pd.concat(temp, axis=1)<br>
+              telemetry_mean_3h.columns = [i + &#39;mean_3h&#39; for i in fields]<br>
+              telemetry_mean_3h.reset_index(inplace=True)</code></p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>エンドツーエンドのユースケースに関する詳細については、 <a href="https://gallery.cortanaintelligence.com/Notebook/Predictive-Maintenance-Modelling-Guide-R-Notebook-1">R コード</a> と <a href="https://gallery.cortanaintelligence.com/Notebook/Predictive-Maintenance-Modelling-Guide-Python-Notebook-1">Python コード</a>を参照してください。</p>
+
+
+  <p>小規模なデータセットを使用してローカル環境で R/Python コードをテストした後、それを運用環境に移行する必要があるとします。 &nbsp;さらに、効率性を確保しながら、はるかに大きなデータセットに対して同じ計算をスケーリングする方法についても、さまざまなオプションを検討する必要があります。 多くの場合、何らかの形式の SQL クエリを使用して大規模な計算用にインデックスが作成されたデータを操作する方が効率的です。 ここでは、R/Python で作成されたコードを SQL クエリ言語に変換しました。&nbsp;</p>
+
+
+  <p>サンプル SQL コード</p>
+
+
+  <p><code>select rt.datetime, rt.machineID, rt.voltmean, rt.rotatemean, rt.pressuremean, rt.vibrationmean<br>
+
+  from<br>
+
+  (select avg(volt) over(partition by machineID order by machineID, datetime rows 2 preceding) as voltmean,<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; avg(rotate) over(partition by machineID order by machineID, datetime rows 2 preceding) as rotatemean,<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; avg(pressure) over(partition by machineID order by machineID, datetime rows 2 preceding) as pressuremean,<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; avg(vibration) over(partition by machineID order by machineID, datetime rows 2 preceding) as vibrationmean,<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; row_number() over (partition by machineID order by machineID, datetime) as rn,<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; machineID, datetime<br>
+
+  from telemetry) rt<br>
+
+  where rt.rn % 3 = 0 and rt.voltmean is not null<br>
+
+  order by rt.machineID, rt.datetime</code></p>
+
+
+  <p>詳細については、 <a href="https://github.com/Microsoft/SQL-Server-R-Services-Samples/blob/master/PredictiveMaintanenceModelingGuide/Code/pdm_feature_engineering.sql">SQL コード</a>を確認してください。</p>
+
+
+  <p>予測的なメンテナンスのユースケースに関する経験に基づいて、SQL ローリング特徴エンジニアリングは、コンピューター別に分割された時系列データに最適であることに気付きました。 オンプレミスのシナリオでは、 <a href="https://msdn.microsoft.com/en-us/library/mt604885.aspx">SQL Server R Services</a>により、r 愛好者は r コードを実行して他のデータラングリング、モデルの構築、SQL Server 内でのコードの評価を行うこともできます。 全体的には、データの移動が行われず、計算がスケーラブルになるため、これはより効率的です。</p>
+
+
+  <p>ただし、この種類の特徴エンジニアリングを大規模に運用する方法は他にも多数あります。 たとえば、 <a href="https://azure.microsoft.com/en-us/services/hdinsight/r-server/">HDInsight の r Server</a>は、r の機能と Hadoop と Spark の機能を組み合わせたもので、 <a href="https://azure.microsoft.com/en-us/services/data-lake-analytics/">Azure Data Lake Analytics</a>はペタバイト単位のデータで r の実行をサポートしています。 クラウドコンピューティングの能力は、生のセンサーデータを意味のあるデータに変換することによって、機械学習アプリケーションがビジネスに価値を提供できるようにすることができます。</p>

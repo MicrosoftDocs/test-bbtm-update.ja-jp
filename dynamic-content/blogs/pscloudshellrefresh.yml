@@ -1,0 +1,103 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2f6fc37a3c8fd5dfe1348b71991258853a94b6db
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903975"
+Slug: pscloudshellrefresh
+Title: Azure Cloud Shell での PowerShell (プレビュー) に加えられる変更
+Summary: Azure Cloud Shell は、ブラウザーベースで認証されたシェルから Azure へのアクセスを事実上どこからでも行うことができます。 Cloud Shell は、Microsoft によって更新および管理される一般的なツールを備えた豊富な環境をユーザーに提供します。
+Content: >-
+  <p><a href="https://azure.microsoft.com/features/cloud-shell" target="_blank">Azure Cloud Shell</a> は、ブラウザーベースで認証されたシェルから Azure へのアクセスを事実上どこからでも行うことができます。 Cloud Shell は、Microsoft によって更新および管理される一般的なツールを備えた豊富な環境をユーザーに提供します。</p>
+
+
+  <p>現時点では、Azure Cloud Shell には、 <a href="https://portal.azure.com/" target="_blank">azure Portal</a>、<a href="https://shell.azure.com/" target="_blank">専用 URL</a>、 <a href="https://docs.microsoft.com/powershell/azure/azureps-vm-tutorial" target="_blank">azure ドキュメント</a>、 <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account" target="_blank">azure アカウント拡張機能</a>を使用した Visual Studio Code、および<a href="https://azure.microsoft.com/features/azure-portal/mobile-app/" target="_blank">Azure アプリ</a>の2つの環境が用意されています。</p>
+
+
+  <ul>
+      <li>
+      <p>Bash は Ubuntu Linux で Bash シェルを実行し、2017年11月に一般公開された<strong>Cloud Shell bash </strong></p>
+      </li>
+      <li>
+      <p>Windows Server Core で 5.1 Windows PowerShell 実行され、2017年9月以降、プレビュー段階にある<strong>Cloud Shell の PowerShell</strong></p>
+      </li>
+  </ul>
+
+
+  <p>この記事では、Azure Cloud Shell での PowerShell エクスペリエンスに関する次の変更について説明します。</p>
+
+
+  <ul>
+      <li>起動時間の短縮</li>
+      <li>既定のエクスペリエンスとしての PowerShell Core 6</li>
+      <li>Linux コンテナーでの実行</li>
+      <li>永続的なツール設定</li>
+  </ul>
+
+
+  <h2>起動時間の短縮</h2>
+
+
+  <p>Azure Cloud Shell での PowerShell の起動時間は、ユーザー &rsquo; の期待よりも低いことに注意してください。 過去2か月は、この分野で大幅な改善を行うためにチームが取り組んでいます。 PowerShell エクスペリエンスの起動時間に対して、複数のフォールドの機能強化が提供される予定です (さらに、Bash のエクスペリエンスを向上させることもできます)。</p>
+
+
+  <h2>PowerShell Core 6 の既定値</h2>
+
+
+  <p>2018年1月に、PowerShell Core 6 は <a href="https://blogs.msdn.microsoft.com/powershell/2018/01/10/powershell-core-6-0-generally-available-ga-and-supported/">一般公開 (GA)</a>に達しました。 PowerShell Core 6 のエコシステムが成長するにつれ&#39;て、PowerShell Core 6 を Cloud Shell の既定の PowerShell エクスペリエンスにするための完璧な機会となります。 Azure リソースを簡単に管理できるように、すべての Azure PowerShell モジュールは、現在プレビュー段階にある<a href="https://www.powershellgallery.com/packages/AzureRM.Netcore" target="_blank">PowerShell Core 6</a>でサポートされるパスにあります。</p>
+
+
+  <h2>一貫したツールの可用性</h2>
+
+
+  <p>Azure Cloud Shell の使用中に最適なコマンドラインツールエクスペリエンスを確保するために、powershell のエクスペリエンスは、PowerShell Core 6 を実行している <strong>Linux コンテナーに切り替わり</strong> ます。 この変更により、Cloud Shell の PowerShell と Bash のエクスペリエンス全体で一貫したツールセットエクスペリエンスが実現します。</p>
+
+
+  <h2>永続的なツール設定</h2>
+
+
+  <p>クラウドドライブにモジュールとスクリプトを保存するだけでなく、Git や SSH などの使用可能なツールの永続的な設定がクラウドドライブに自動的に保存されます。 これにより、必要に応じて、これらのツールに対して追加のセットアップを行う必要がなくなります。</p>
+
+
+  <h2>FAQ</h2>
+
+
+  <h3>PowerShell のエクスペリエンスにはどのような変更が加えられていますか?</h3>
+
+
+  <p>Linux コンテナーで PowerShell Core 6 に移行すると、ユーザーエクスペリエンスにいくつかの重要な変更が加えられます。</p>
+
+
+  <ul>
+      <li>
+      <p>既定では、PowerShell のエクスペリエンスでは大文字と小文字が区別されません。 Linux ファイルシステムの操作では大文字と小文字が区別されます (ファイル、ファイル、およびファイルという名前のファイルを同じフォルダーに作成することもできます)。 変更が完了したら、ファイルシステム操作を事前に作成するときに、ユーザーは大文字と小文字の区別を考慮する必要があります。</p>
+      </li>
+      <li>
+      <p>組み込みの UNIX コマンドにマップされている Windows の一般的なエイリアス (ls、スリープなど) は、以前と同様に機能しなくなります。</p>
+      </li>
+  </ul>
+
+
+  <h3>使用するモジュールは、PowerShell Core 6 ではサポートされていません。どうすればよいですか。</h3>
+
+
+  <p>PowerShell チームは、現在、モジュールの所有者と連携して、それらを .NET Core に移植しています。 いくつかのモジュールが既に完了している場合や、 <a href="https://www.powershellgallery.com/packages/AzureRM.Netcore" target="_blank">Azurerm</a>のように動作している場合は、さらに実行する必要があります。 モジュールの使用状況に基づいてモジュールの優先順位を付けています。 移植されていない Cloud Shell に表示するモジュールがある場合は、モジュールの所有者に直接フィードバックを提供します。</p>
+
+
+  <h3>Windows に基づいて Cloud Shell に何が起こっているか。</h3>
+
+
+  <p>Azure Cloud Shell では、Windows ベースのエクスペリエンスではなくなりました。 Cloud Shell の操作のほとんどは一部のサービスエンドポイントに対して発生するため、基になる OS で管理する必要はほとんどありません。そのため、基になる OS をスワップするだけでは影響が最小限に抑えられます。 クラウドドライブは引き続き両方のエクスペリエンスで使用でき、作業を保存するための最適な場所として機能します。</p>
+
+
+  <h2>Bash と PowerShell のエクスペリエンスの違いは何ですか。</h2>
+
+
+  <p>2つのエクスペリエンスの間に違いはありません。 両方のエクスペリエンスが同じ OS で実行されるようになったため、ツールセットは同じになります。 Bash からは、powershell のエクスペリエンスに加えて、 <strong>pwsh</strong> を実行して powershell エクスペリエンスを開始することができ <strong>ます。 bash を実行して</strong>bash エクスペリエンスを開始することができます。</p>
+
+
+  <h4>フィードバックを提供するにはどうすればよいですか。</h4>
+
+
+  <p><a href="https://aka.ms/cloudshell/feedback">Cloud Shell UserVoice</a>または電子メール <a href="mailto:pscloudshell@microsoft.com">pscloudshell@microsoft.com</a> でフィードバックを提供できます。</p>

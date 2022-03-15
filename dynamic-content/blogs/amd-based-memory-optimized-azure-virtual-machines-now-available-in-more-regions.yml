@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ee57a818fbd79ae1dd77d93cb0653111632a099d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903783"
+Slug: amd-based-memory-optimized-azure-virtual-machines-now-available-in-more-regions
+Title: AMD ベースのメモリ最適化 Azure 仮想マシンが、より多くのリージョンで利用できる
+Summary: 現在、新しい Azure リージョンでのこれらの仮想マシン (VM) サイズの拡張された可用性と、追加の仮想マシンのサポートAvailability Zones。
+Content: >-
+  <p>昨年は、汎用 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes-general" target="_blank">Linux</a> および <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general" target="_blank">Windows</a> アプリケーション向け <a href="https://azure.microsoft.com/en-us/blog/azure-iaas-for-every-workload/" target="_blank">Azure Virtual Machine Da v4 および Das v4</a> シリーズと、メモリ集中型 <a href="https://docs.microsoft.com/azure/virtual-machines/linux/sizes-memory" target="_blank">Linux</a> および <a href="https://docs.microsoft.com/azure/virtual-machines/windows/sizes-memory" target="_blank">Windows</a> ワークロード用の Azure Virtual Machine Ea v4 および Eas v4 シリーズの提供を発表しました。 4 つの仮想マシン シリーズはすべて、AMD EPYC™ 7452 プロセッサをベースにしています。</p>
+
+
+  <p>現在、新しい Azure リージョンでのこれらの仮想マシン (VM) サイズの拡張された可用性と、追加の仮想マシンのサポートAvailability Zones。 この広範なデプロイによって、組織は世界中のアプリケーションをまたがって実行できます。 ゾーン リージョンの可用性により、可用性の高いソリューションを構築し、アプリケーションの <a href="https://docs.microsoft.com/en-us/azure/architecture/high-availability/building-solutions-for-high-availability" target="_blank">アップタイムを向上できます</a>。 </p>
+
+
+  <h2>価格パフォーマンスの向上</h2>
+
+
+  <p>これらの仮想マシンは、最大 256 MB の L3 キャッシュを備えたマルチスレッド構成の AMD 2.35Ghz EPYC™ 7452 第 2 世代プロセッサを備えています。このキャッシュでは、8 コアの専用 L3 キャッシュが 8 MB で、汎用ワークロードとメモリ集中型ワークロードを実行するための最適化オプションが顧客により多く提供されます。</p>
+
+
+  <p>Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dav4-dasv4-series" target="_blank">Da v4</a> VM では、ほとんどのエンタープライズ レベルのアプリケーションに対して、最大 <strong>96 vCPU、384 GB の RAM</strong>、2,400 GiB の SSD ベースのストレージが提供されます。 Dav4 シリーズのサイズでは、vCPU、メモリ、一時ストレージのバランスの取れた構成が提供され、ほとんどの汎用ワークロードに対してより優れた価値提案が提供されます。 ワークロードの例としては、テストと開発、小規模から中規模のデータベース、アプリケーション、アプリケーション サーバーがあります。</p>
+
+
+  <p>最大 <strong>96 vCPU、672 GB の RAM</strong>、2,400 GiB の SSD ベースのストレージを備える Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/eav4-easv4-series?toc=/azure/virtual-machines/linux/toc.json&amp;bc=/azure/virtual-machines/linux/breadcrumb/toc.json" target="_blank">Ea v4</a> VM は、より大規模なメモリ内ビジネス クリティカルなワークロード、メモリ集中型エンタープライズ アプリケーション、リレーショナル データベース サーバー、メモリ内分析ソリューション、および中規模から大規模なキャッシュへのアクセスを利用できるその他のワークロードに適しています。</p>
+
+
+  <p>2 月に、GigaOm による独立した調査では、業界標準の <a href="https://www.tpc.org/tpce/" target="_blank">TPC-E</a> ベンチマークから派生したフィールド テストを使用して、Azure 仮想マシン上の SQL Server を他のクラウド プロバイダーと比較しました。 次のレポートでは、 <a href="https://www.aka.ms/gigaom_benchmark" target="_blank">2020 年 2 月の GigaOm</a> パフォーマンス ベンチマークに関するブログ投稿を参照してください。 Azure IaaS でアプリケーションを最適に実行する方法のSQLする場合は、今後のウェビナー<a href="https://aka.ms/GigaOmStudy" target="_blank">に登録してください</a>。</p>
+
+
+  <p><a href="https://www.eembc.org/coremark/" target="_blank">Coremark ベンチマークは</a>、埋め込みシステムの中央処理装置 (CPU) のパフォーマンスを測定するために使用されます。 この <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/compute-benchmark-scores" target="_blank">Coremark ベンチマーク ページには、</a> Ubuntu を実行している Azure の VM のコンピューティング パフォーマンスを示すスコアが表示されます。 Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dav4-dasv4-series" target="_blank">Da v4 と</a> <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/eav4-easv4-series?toc=/azure/virtual-machines/linux/toc.json&amp;bc=/azure/virtual-machines/linux/breadcrumb/toc.json" target="_blank">Ea v4</a> の両方のサイズは、すべての VM サイズの中で高パフォーマンスを示します。</p>
+
+
+  <h2>その他のリージョン、より多くのクラウド</h2>
+
+
+  <p>Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dav4-dasv4-series" target="_blank">Da v4</a> および Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/eav4-easv4-series" target="_blank">Ea v4</a> シリーズは、世界中の合計 18 のリージョンに達する追加リージョンで一般 <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=virtual-machines" target="_blank">提供されています</a>。 </p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1848917-c28c-4172-afbd-e14b94f363fe.png"><img width="714" height="557" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Grid of region and zone availiblity information " src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2be91bb8-4ed7-4b70-be77-4452b77e6f7e.png" border="0"></a></p>
+
+
+  <p>これらの VM サイズに対する既存の可用性ゾーン リージョンのサポートのロードマップは、次のとおりです。</p><p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28d57e35-dc9e-48ef-9487-0b58e71a969c.png"><img width="711" height="312" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Grid of region and zone availiblity information " src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ae06b783-0e83-46df-9433-b88f144b6506.png" border="0"></a></p><p>引き続きリージョンの数を増やAvailability Zones、これらのリージョンの一覧とタイムラインは Azure の地域 <a href="https://azure.microsoft.com/en-us/global-infrastructure/geographies/" target="_blank">で確認できます</a>。 </p><p>Dav4 および Eav4 Azure VM は、1 つ以上の Azure 仮想マシンをホストする物理サーバーを提供する <a href="https://azure.microsoft.com/en-us/services/virtual-machines/dedicated-host/" target="_blank">Azure 専用</a>ホストでも実行できます。 サーバーは組織とワークロード専用です。容量は他の顧客と共有されません。 ホストをプロビジョニングすると、サーバー インフラストラクチャを可視化 (および制御) し、ホストのメンテナンス ポリシーを決定します。</p>
+
+
+  <p>クラウドの支出を最適化するために、Dav4 および Eav4 Azure Reserved VM Instancesの仮想マシンを購入できます。 これらの新しいサイズを VM スケール セットの一部として実行して、スケールアウト アプリケーションを構築できます。</p>
+
+
+  <p>最後に、スポット VM の価格を利用して、これらの <a href="https://azure.microsoft.com/en-us/pricing/spot/" target="_blank">VM</a> シリーズで割り込み可能なワークロードを実行できます。 スポット VM を使用すると、スケーラブルなコンピューティング容量を深い割引で取得できます (移動料金と比較して最大 90% の割引)。 </p>
+
+
+  <h2>パフォーマンスを向上してさらに多くを実現する</h2>
+
+
+  <p>お客様のニーズを満たしながら、AMD と共同で作業を行っています。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>"AMD EPYC ベースの Azure Da v4 および Ea v4 VM のグローバルな拡張を見て、AMD EPYC™™ </em>プロセッサの高パフォーマンス機能がクラウド内のエンド カスタマー アプリケーションとワークロードをサポートする方法を引き続き紹介します" - 、、 CVP、 Data Center Cloud、 AMD</p>
+
+  </blockquote>
+
+
+  <p>これらの新しい VM サイズと可用性の拡張により、お客様はスケールアップして CPU パフォーマンスを向上させることができます。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;">"AMD EPYC ベースの Azure VM を使用することで、リアルタイム コラボレーションの高いコンピューティング パフォーマンスに依存する Office オンライン ワークロードでは、以前の <em>VM&nbsp; </em> 世代と比較して最大 15% のパフォーマンスが向上しました。"– Jim Kleewein、テクニカル エグリン、M365</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>"最新の AMD EPYC プロセッサに基づく新しい Dasv4 VM&nbsp; </em>シリーズを利用することで、VM あたりのサーバー密度を 2 倍に期待しています" - Kevin Gammill、GM、Gaming Developer Experiences</p>
+
+  </blockquote>
+
+
+  <h2>概要今日</h2>
+
+
+  <p>•&nbsp;&nbsp;&nbsp; <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dav4-dasv4-series?toc=/azure/virtual-machines/linux/toc.json&amp;bc=/azure/virtual-machines/linux/breadcrumb/toc.json" target="_blank">Da v4 シリーズの詳細を参照してください</a>。<br>
+
+  • Ea&nbsp;&nbsp;&nbsp; <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/eav4-easv4-series?toc=/azure/virtual-machines/linux/toc.json&amp;bc=/azure/virtual-machines/linux/breadcrumb/toc.json" target="_blank">v4 シリーズの詳細を確認してください</a>。</p>

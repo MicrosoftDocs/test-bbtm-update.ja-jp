@@ -1,0 +1,119 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 515262cb23416e72554352f189a4fe9af5b66d71
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904074"
+Slug: migrate-your-databases-to-a-fully-managed-service-with-azure-sql-database-managed-instance
+Title: Azure SQL Database Managed Instance を使用して、データベースを完全に管理されたサービスに移行する
+Summary: Azure SQL Database Managed Instance のプレビューが発表されています。これは SQL Database の新しいデプロイオプションで、完全に管理されたワークロード SQL Server の移行を効率化します。
+Content: >-
+  <p><em>このブログ投稿は、Eric Hudson、シニア製品マーケティングマネージャー、CADD &amp; AI によって共同で作成されました。</em></p>
+
+
+  <p><em>2018 年7月の更新プログラム&rsquo;General Purpose パフォーマンスレベルの2018年3月のプレビュー発表に従って、Azure SQL Database Managed Instance の Business Critical パフォーマンスレベルのプレビューを発表します。Business Critical は、IO 要件が最も高いアプリケーション用に構築されています。複数の分離された Always On レプリカを使用すると、障害に対する最適な回復力が提供されます。Premium IO のパフォーマンスと高可用性に加えて、Business Critical </em><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-in-memory" target="_blank"><em>にはインメモリ</em></a><em> OLTP や1つの追加の読み取り専用レプリカ (</em><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-read-scale-out" target="_blank"><em>読み取りスケールアウト</em></a>) などの追加機能も用意さ<em>れています。詳細について</em>は、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-managed-instance#business-critical-service-tier" target="_blank"><em>Business Critical サービス層</em></a>の<em>ドキュメントページ</em>を参照してください。</p>
+
+
+  <p><em>また、この7月の更新プログラムでは、General Purpose と Business Critical の両方のパフォーマンスレベルで、8、16、24、32、40の仮想コアに加えて、64と80の仮想コアを持つインスタンスがサポートされるようになりました。また</em>、同じリージョン内の<a href="https://blogs.msdn.microsoft.com/sqlserverstorageengine/2018/06/07/cross-instance-point-in-time-restore-in-azure-sql-database-managed-instance/" target="_blank"><em>他のインスタンス</em></a><em>や、サポートされているバックアップ保有期間内の特定の時点に</em>データベースを簡単に復元できるようにすることで、ビジネス継続性も向上しています。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/040d1180-7c37-435b-bd65-64c952036c4d.png"><img alt="Business Critical service tier" border="0" height="385" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1bec14f3-95d9-45d0-be01-bb199e664b2b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Business Critical サービスレベル" width="419"></a></p>
+
+
+  <p>Managed Instance は、完全に管理されたデータベースサービスへの SQL Server ワークロードの移行を効率化する SQL Database の新しい配置オプションです。 フル SQL Server エンジンの互換性とネイティブ仮想ネットワーク (VNET) のサポートを提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea3f9c1e-1221-4542-81c7-617f5be6ed10.png"><img alt="Managed Instance" border="0" height="348" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4424dfb-5c5e-4f12-9172-93b789aa1204.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Managed Instance" width="1750"></a></p>
+
+
+  <blockquote>
+
+  <p>&ldquo;SQL Managed Instance は、お探しの楽しいメディアです。 SQL Server のパワーと互換性が必要でしたが、24時間365日体制で vm を実行すると、管理オーバーヘッドとコストがかかりません。 この機能を利用して管理を容易にするだけでなく、Azure ハイブリッド特典も使用できるようになりまし &rsquo; た。これにより、ソフトウェアアシュアランスを通じて既存の SQL Server ライセンスを使用できるようになります。 アプリケーションの開発、デプロイ、管理は、Azure と SQL Managed Instance によって、はるかに簡単でコストがかかります。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="right">Robert shurbet、シニアソフトウェア開発 Professional、ピボットテクノロジソリューション</p>
+
+
+  <h2>完全に管理されたサービスにデータベースを移行する</h2>
+
+
+  <p>Azure SQL Database は、完全に管理されたデータベースサービスです。これは、Microsoft が SQL Server を運用し、可用性とパフォーマンスを保証することを意味します。 SQL Database には、以前に経験した &rsquo; ことのないレベルへのセキュリティとビジネスの継続性を向上させる革新的な機能も含まれています。 たとえば、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-high-availability" target="_blank">組み込みの高可用性</a> (HA)、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-recovery-using-backups" target="_blank">自動バックアップ、および特定の</a> 時点への復元を利用して、ビジネス継続性を確保することができます。 包括的なセキュリティポートフォリオを使用すると、データベースでのアラームシステムのように動作する<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-threat-detection" target="_blank">脅威検出</a>などのインテリジェントな機能を実装し、悪意のある可能性のあるアクティビティ &mdash; に関するプロアクティブなアラートを提供して、数百から数千の SQL Server データベースの管理を事実上不要にすることができます。</p>
+
+
+  <p>Managed Instance は、完全に管理されたサービスの利点に加えて、オンプレミスの SQL Server (2005 から現在のバージョンまで) との高い互換性を提供するインスタンススコープのプログラミングモデルを有効にします。これにより、アプリケーションを再設計し、それらのデータベースをクラウドに置いた後に管理する必要がなくなります。 Managed Instance では、クラウドで長年にわたっ &mdash; て使用していた &rsquo; のと同じ SQL Server ツールを引き続き利用できます。 これには、<strong>ネイティブデータベース復元、SQL エージェント、データベースメール、Service Broker、共通言語ランタイム (CLR)</strong>、<strong>変更データキャプチャ</strong>などの機能が含まれます。 生産性を向上させ、総保有コストを削減するために、SQL Server Integration Services (SSIS) パッケージを Azure Data Factory (ADF) 環境のマネージド SSIS にリフトアンドシフトすることもできます。この場合、Managed Instance でホストされ、 <a href="https://docs.microsoft.com/en-us/azure/data-factory/tutorial-deploy-ssis-packages-azure-powershell">Azure-SSIS Integration Runtime</a>で実行される SSISDB に格納されます。</p>
+
+
+  <p>クラウドへの移行を効率化するために、Microsoft は、Azure Database Migration Services (Azure DMS) の Managed Instance サポートの一般提供を <a href="https://blogs.msdn.microsoft.com/datamigration/2018/05/07/announcing-general-availability-of-the-azure-database-migration-service/">発表 </a>しました。 これにより、SQL Server のお客様は、SQL Database Managed Instance にワークロードをより簡単に移行できます。 Azure DMS を使用すると、単一の包括的なサービスを通じてクラウド移行の複雑さが軽減されます。 このサービスでは、同種/異種のソースとターゲットのペアの移行がサポートされており、ガイド付き移行プロセスは簡単に理解して実装できます。 &nbsp;DocuSign overwhelmingly のようなお客様にとっては、生産性とスケールのイニシアチブに Managed Instance SQL Database 価値をご覧ください。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;このプラットフォームでは1日あたり110万のトランザクションが処理され、トランザクションの量は毎年約2倍になります。 私たちはデータセンターで何をしているかを最大限に活かすことを望んでいます。 私たちにとって、これを行う最善の方法は Azure SQL Database でした。 基本的に、既存のインフラストラクチャを選択し、数秒以内に Azure にデプロイできるようになりました。 これにより、最小限の労力で、ビジネスを非常に迅速に拡張することができます。 このように、究極は、既存のプラットフォームをリフトし、大量の作業を行わずに Azure に移行することができます。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="right">Eric Fleischman 氏、バイスプレジデント &amp; チーフアーキテクト、DocuSign</p>
+
+
+  <p>詳細については、 <a href="https://azure.microsoft.com/en-us/services/database-migration/" target="_blank">Database Migration Service のページ</a>を参照してください。</p>
+
+
+  <h2>究極の分離とセキュリティを確保する</h2>
+
+
+  <p>マネージド インスタンスは仮想ネットワークに完全に含まれるため、データに究極のレベルの分離性とセキュリティが提供されます。 パブリッククラウドの利点を活用しながら、パブリックインターネットから環境を分離することができます。</p>
+
+
+  <p>次の図は、フル マネージドのサービスを選択するか、フロントエンド アプリケーションのホステッド モデルを選択するかにかかわらず、Azure またはハイブリッド環境でさまざまなアプリケーション トポロジを完全にデプロイするための複数のオプションを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9853a64e-cecb-4523-ba94-2ddd5939e8de.png"><img alt="Image 2" border="0" height="1026" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9971c29b-83bb-4b5d-92dc-872a410a7b50.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="画像2" width="1812"></a></p>
+
+
+  <p>これらのオプションを使用すると、プライベート IP アドレスを介してのみ、SQL エンドポイント (TDS &ndash; 表形式のデータストリーム) に接続できるようになります。これにより、データの最適な分離レベルが保証されます。 詳細については、「 <a href="https://go.microsoft.com/fwlink/?linkid=869248" target="_blank">アプリケーションを Managed Instance に接続する方法</a>」を参照してください。</p>
+
+
+  <h2>クラウド内のオンプレミスのワークロードを適切にサイズ変更する</h2>
+
+
+  <p>Managed Instance は、仮想コア (仮想コア) に基づく価格モデルを使用します。これにより、適切なレベルのリソース (ストレージとコンピューティング) を柔軟に選択できるので、オンプレミスの物理コアと比較することによってワークロードのサイズを簡単に変更することができます。 詳細については、 <a href="https://azure.microsoft.com/en-us/pricing/details/sql-database/managed/" target="_blank">SQL Database の価格</a>に関するページを参照してください。</p>
+
+
+  <h2>オンプレミスの SQL Server ライセンスを利用して、最大 55% * を節約します</h2>
+
+
+  <p>SQL Server の<a href="https://azure.microsoft.com/en-us/pricing/hybrid-benefit/#sql-ahb-calculator" target="_blank">Azure ハイブリッド特典</a>のサポートを提供することで、非常に経済的な選択肢を Managed Instance しまし &rsquo; た。 この特典は、現在の SQL Server ライセンス投資の価値を最大化し、クラウドへの移行を促進するのに役立ちます。 SQL Server の Azure ハイブリッド特典は Azure に限定されています。これにより、ソフトウェアアシュアランス付きの SQL Server ライセンスを使用して Managed Instance の料金を削減できます。 さらに、Azure ハイブリッド特典を使用して、SQL Server Integration Services (SSIS) ライセンスを Azure Data Factory に移行することができます。 SQL Server Enterprise Edition または Standard Edition のお客様がソフトウェアアシュアランス (SA) をご利用の場合は、SQL Server の Azure ハイブリッド特典が Managed Instance で最大 55% * を節約するのに役立ちます。</p>
+
+
+  <h2>現在19の Azure リージョンで利用可能</h2>
+
+
+  <p>この発表の時点で、Managed Instance は、オーストラリア東部、オーストラリア南東部、カナダ中部、米国中部、東アジア、米国東部、米国東部2、日本東部、韓国中部、韓国南部、米国中北部、北ヨーロッパ、米国中南部、インド南部、東南アジア、西ヨーロッパ、インド西部、米国西部、および米国西部2に初期で利用できます。 Managed Instance は、プレビュー段階で、より多くの Azure リージョンで使用できるようになります。</p>
+
+
+  <h2>今すぐ開始しましょう!</h2>
+
+
+  <p>現在 Managed Instance を試して、ご意見をお聞かせください。 完全に管理されたデータベースサービスに移行する準備ができたら &rsquo; 、 <a href="https://portal.azure.com/#create/Microsoft.SQLManagedInstance" target="_blank">Azure portal</a> からプレビューに登録し、プレビューの使用条件に同意します。</p>
+
+
+  <p>要求が多い場合は、プレビューへの同意を管理して、お客様に最適なエクスペリエンスを提供します。 ポータルに登録したら、microsoft は3営業日以内に状態を確認することを目標としています。 受け入れら &rsquo; れたら、Azure portal に戻ってプロビジョニングプロセスを完了できるようになります。 それ以外の場合は、 &rsquo; 後日再登録するように依頼されます。</p>
+
+
+  <p>プレビューが終了したら、記事「 <a href="https://go.microsoft.com/fwlink/?linkid=869132" target="_blank">create SQL Database Managed Instance クイックスタート</a>」を参照して最初のインスタンスを作成し、 <a href="https://aka.ms/migratetoMIusingDMS" target="_blank">Azure DMS</a>を使用して SQL Database Managed Instance に簡単に移行する方法を学習してください。 Managed Instance とそのしくみの詳細については、Lara Rubbelke のこちらの5分間のビデオをご覧ください。</p>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" scrolling="no" src="https://www.youtube.com/embed/W8feSZXm2Ec" width="560"></iframe></p>
+
+
+  <p>ユーザーシナリオと機能の一覧の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-managed-instance" target="_blank">Managed Instance のドキュメントページ</a>を参照してください。</p>
+
+
+  <p>&rsquo;SQL Database Managed Instance を試して、すべての SQL Server データベースで実質的に無料で管理できるようになりました。</p>
+
+
+  <p><em>* 米国東部リージョンで8個の仮想コア Managed Instance Business Critical に基づいて節約され、1か月あたり730時間がかかります。節約額は、(ライセンス込み) から基本料金 (SQL Server の Azure ハイブリッド特典の適用) に対して計算されます。これにより SQL Server Enterprise エディションのソフトウェアアシュアランスコストが除外されます。これは、EA 契約によって異なる場合があります。実際の節約額は、リージョン、インスタンスのサイズ、パフォーマンスレベルによって異なります。2017年12月の価格で、変更される可能性があります。</em></p>

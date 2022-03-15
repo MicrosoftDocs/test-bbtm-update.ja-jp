@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0e0892c1e29c64d56b9d87ea6ea6b8aee18ff72b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896932"
+Slug: announcing-general-availability-of-the-storsimple-virtual-array
+Title: StorSimple Virtual Array の一般提供の発表
+Summary: 本日は、オンプレミスの StorSimple Virtual Array の一般提供についてお知らせいたします。お客様は、Enterprise Agreementを使用Microsoft Azure。
+Content: >-
+  <p>本日は、オンプレミスの StorSimple Virtual Array の一般提供をお知らせいたします。お客様は、Enterprise Agreement をMicrosoft Azure。 仮想アレイは、今後数週間ですべてのリージョンに展開される予定です。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-the-storsimple-virtual-array-preview/" target="_blank">StorSimple Virtual Array</a> は、既存のハイパーバイザーにインストールされている仮想マシン フォームで使用できるソリューションのバージョンです。 仮想アレイは、クラウドとクラウドベースのデータ保護とディザスター リカバリーでのオンデマンド容量スケーリングのためのハイブリッド クラウド ストレージ アプローチを使用して、以前の StorSimple テクノロジの成功に基づいて構築されています。</p>
+
+
+  <p>仮想アレイは、Hyper-V または VMware ESXi ハイパーバイザー上の仮想マシンとして実行できます。また、ファイル サーバー (NAS) または iSCSI サーバー (SAN) として構成できます。 ハイブリッドアプローチでは、最も使用されているデータ (ホットテスト) が仮想アレイにローカルに格納され、(必要に応じて) 古い古いデータが Azure に格納されます。 仮想アレイでは、Azure (オフサイト) にデータをバックアップする機能も提供され、迅速なディザスター リカバリー (DR) 機能が可能になります。</p>
+
+
+  <p>各仮想アレイは、クラウド内で最大 64 TB のデータを管理できます。 地理的に異なるブランチオフィスとリモート オフィスにある仮想アレイは、Azure の中央 StorSimple 管理ポータルから管理できます。</p>
+
+
+  <p><img alt="Helsinki" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/035a8666-543f-4d05-b5e9-9dda7a81717b.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="ヘルシンキ" width="610"></p>
+
+
+  <h2>推奨されるワークロード/シナリオ</h2>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="400">
+   <tbody>
+    <tr>
+     <td valign="top" width="200">
+     <h3>ファイル サーバー</h3>
+     </td>
+     <td valign="top" width="200">
+     <h3>iSCSI サーバー</h3>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">
+     <ul>
+      <li>ユーザー ファイル共有</li>
+      <li>部門ファイル共有</li>
+     </ul>
+     </td>
+     <td valign="top" width="200">
+     <ul>
+      <li>小規模SQLデータベース</li>
+      <li>ユーザー ホーム <sup>フォルダー1</sup></li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><sup>1</sup>クォータ管理、ファイルスクリーンなどの機能を使用してホーム フォルダーを管理する場合は、iSCSI 経由で Windows ファイル サーバーを接続できます。</p>
+
+
+  <h2>ファースト ステップ</h2>
+
+
+  <ol>
+   <li><a href="https://manage.windowsazure.com" target="_blank">Azure Portal</a> に移動します。</li>
+   <li>[新規作成] をクリックします。</li>
+   <li>[クイックData Services &ndash;&gt; StorSimple Manager &ndash;&gt; を選択します。</li>
+   <li>[名前] を指定し、StorSimple マネージャーの [マネージド デバイスの種類と場所] で [仮想デバイス シリーズ] を選択します。</li>
+  </ol>
+
+
+  <p><img alt="SSManager" border="0" height="271" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/18c97dd4-39d1-41e8-ad03-76e5e0e3b848.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="SSManager" width="610"></p>
+
+
+  <h2>最小構成</h2>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="400">
+   <tbody>
+    <tr>
+     <td valign="top" width="200">CPU</td>
+     <td valign="top" width="200">4 コア</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">RAM&nbsp;&nbsp;</td>
+     <td valign="top" width="200">8 GB</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">ネットワーク</td>
+     <td valign="top" width="200">1 仮想 NIC</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">仮想アプライアンス OS ディスク</td>
+     <td valign="top" width="200">80 GB</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">仮想アプライアンス データ ディスク</td>
+     <td valign="top" width="200">500 GB</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>仮想アプライアンスの使用と管理の開始に関する詳細な手順については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-overview/" target="_blank">StorSimple のドキュメント ページを参照してください</a>。</p>

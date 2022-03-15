@@ -1,0 +1,67 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 55cffb5c80730dc6013b09b4e25812dcd2a56bee
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909398"
+Slug: announcing-public-preview-azure-advisor
+Title: パブリック プレビューのAzure Advisor
+Summary: このブログ記事では、この記事の概要をAzure Advisor。
+Content: >-
+  <p><em>この投稿は、CloudES のシニア プログラム マネージャーである Manbeen Seniorli 氏によって共同執筆されました。</em></p>
+
+
+  <p>Azure での&rsquo;アプリケーションの構築は簡単ですが、基になる Azure リソースが正しく設定され、最適に使用されていることを確認するのは困難な作業です。 本日は、Azure リソースを最適に構成するためのプロアクティブなベスト プラクティス ガイダンスを提供するパーソナライズされたレコメンド エンジンである Azure Advisor のパブリック プレビューをお知らせします。</p>
+
+
+  <p>Azure Advisorリソースの構成と使用状況テレメトリを分析して、リスクと潜在的な問題を検出します。 その後、Azure のベスト プラクティスを利用して、コストを削減し、アプリケーションのセキュリティ、パフォーマンス、信頼性を向上させるソリューションを推奨します。 このブログ記事では、Azure リソースの最適化に役立つAzure Advisorのクイック ツアーを行います。</p>
+
+
+  <h2>推奨事項の表示</h2>
+
+
+  <p>アプリケーションの使用を開始Azure Advisor、Azure portal にログイン <a href="https://aka.ms/azureadvisordashboard">します</a>。 サブスクリプションを選択し、[推奨事項の取得 <strong>] ボタンをクリック</strong> します。 選択したサブスクリプションでプロビジョニングされたリソースに応じて、合計数と推奨事項の一覧が表示されます。<br>
+
+  <img alt="Screenshot 1" border="0" height="293" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c63b7d3c-5c40-4621-859b-f4ec33784ec5.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="スクリーンショット 1" width="610"></p>
+
+
+  <p>リソース グループごとに推奨事項をフィルター処理し、各推奨事項のビジネスへの影響を確認できます。 カテゴリに基づいて推奨事項を表示することもできます。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="1905">
+   <tbody>
+    <tr>
+     <td valign="top" width="200"><strong>カテゴリ</strong></td>
+     <td valign="top" width="1703"><strong>説明</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">高可用性</td>
+     <td valign="top" width="1703">Azure Advisor構成を検査し、アプリケーションの可用性を向上させる推奨事項を提供できます。 たとえば、ベスト プラクティスとして、Azure Advisorインスタンス VM を可用性セットに移動することをお勧めします。 この構成により、計画済みまたは計画外のメンテナンス イベントの間に、少なくとも 1 つの仮想マシンが使用可能で、Azure VM の SLA を満たします。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">コスト</td>
+     <td valign="top" width="1703">Azure Advisorリソース使用率を確認し、お金を節約する方法を提案できます。 たとえば、過小使用の VM&rsquo; がある場合があります。 Azure Advisor VM の実行の推定コストが表示され、VM を停止するか、VM をダウンサイズすることをお勧めします。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">セキュリティ</td>
+     <td valign="top" width="1703">ユーザーは、既にデータ の使用にAzure Security Center。 Azure Advisorと統合Azure Security Centerセキュリティ関連の推奨事項が表示されます。そのため、Azure の推奨事項エクスペリエンスが統一されています。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">パフォーマンス</td>
+     <td valign="top" width="1703">通常、各 Azure サービスには、パフォーマンスの最適化に関する推奨事項の独自のセットがあります。 たとえば、Redis Cache Advisor では、Redis クラスターのパフォーマンスに関する推奨事項が提供されます。 アプリケーションで使用される各 Azure サービスに移動する代わりに、redis、SQL DB、Webapps のパフォーマンスに関する推奨事項を簡単に統合して表示するために、Azure Advisor を利用できます。</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>推奨事項の管理</h2>
+
+
+  <p>Azure Advisor推奨されるアクションが提供されるだけでなく、ステップ バイ ステップのガイダンスも提供され、修正プログラムを実装する手順が示されます。 Azure Advisorポータルを離 &ndash; れることなく、インライン アクションをクリックして推奨事項を実装する便利なAzure Advisorすることもできます。 すぐにアクション&rsquo;を実行する予定がない場合は、一期間の推奨事項をもう一度表示できます。 推奨事項を閉じても ([もう一度表示] を選択し、[しない] を選択 &ldquo;します&rdquo;)。</p>
+
+
+  <p><img alt="Screenshot 2" border="0" height="261" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf8b0289-c135-44dd-a724-f30661ff440f.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="スクリーンショット 2" width="610"></p>
+
+
+  <p>パーソナライズされた Azure ベスト プラクティスのレコメンAzure Advisor &ndash; エンジンを使用して、新しいサービスを開始できます。 今すぐ Azure <a href="https://aka.ms/azureadvisordashboard">portal に</a> アクセスして開始し、推奨事項がある場合は確認してください。 サポートされている推奨事項の一覧Azure Advisor、詳細については、こちらを参照 <a href="https://aka.ms/aa_pp_detailedblog">してください</a>。 ご意見をお待ちしております。</p>

@@ -1,0 +1,37 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ffb4876e1a3a6ff92cf0a85ef98e9d47e6c2bb05
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909080"
+Slug: azure-virtual-machines-now-with-salt
+Title: Azure Virtual Machines 、現在は "Salt"
+Summary: この投稿では、Azure での SaltStack マネージド環境の設定の概要について説明します。
+Content: >-
+  今月初め、Azure と Salt スタックは、<a href="https://saltconf.com/">SaltConf 2015</a> で <a href="https://msopentech.com/blog/2015/03/04/salt-host/">Azure</a>  で動作している Salt を示しました。次の手順として、Salt チームは、Azure に SaltStack をデプロイするシングル クリック ソリューションをEnterpriseソリューションをリリースAzure Marketplace。 <a href="https://saltstack.com/">SaltStack</a> は、リモート実行タスクとデータ クエリ タスクを実行することで、任意のクラウド環境でリモート ノードを管理および管理できる構成管理システムです。 SaltStack 機能の詳細な概要については、こちらからチュートリアル ガイドを参照 <a href="https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html">してください</a>。
+
+
+  この統合により、Azure Marketplace既存の SaltStack ライセンスを使用して Azure に SaltStack サーバーを数分でデプロイする認定済みイメージが提供されます。 Salt でエンタープライズ アプリケーションの管理を開始するには、Saltstack に連絡してライセンスを <a href="https://saltstack.com/">取得します</a>。
+
+  <blockquote><em>注: 開発/テストシナリオでは、VM Depot で無料の Salt マスター イメージを </em><a href="https://vmdepot.msopentech.com/List/Index?sort=Featured&amp;search=salt+master"><em>使用できます</em></a><em>。</em>  ライセンスが与えらた Marketplace シナリオの場合は、次のページで CentOS 6.5 w/ SaltStack Enterprise イメージを選択Azure Marketplace。</blockquote>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/26/SaltEnterprise.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="SaltEnterprise" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SaltEnterprise_thumb.png" alt="SaltEnterprise" width="614" height="430" border="0" /></a>
+
+
+  &nbsp;
+
+
+  Salt Server VM が作成され、アクセス可能な場合は、ssh を使用して VM にログインします。 SaltStack マスター サービスが実行され、SaltStack Minions への接続を受け入れる必要があります。
+
+
+  新しい VM を追加し、SaltStack マスターによって管理されるミニオンとして受け入れるには、多くの場合、プロセスを自動化できる Salt Cloud を使用するのが最も簡単です。 便宜上、Salt Cloud は SaltStack イメージに既にEnterpriseされています。 Salt Minions で VM をプロビジョニングするために Azure で使用するように Salt Cloud を構成する方法については、こちらを参照 <a href="https://docs.saltstack.com/en/latest/topics/cloud/azure.html">してください</a>。
+
+
+  Azure には、パブリック クラウドとプライベート クラウド間の相互運用性をサポートしながら、SaltStack Enterprise Master と多数の SaltStack Minions 用の安定したプラットフォームが用意されています。
+
+
+  この統合が役に立つ場合は、ご意見をお待ちしています。

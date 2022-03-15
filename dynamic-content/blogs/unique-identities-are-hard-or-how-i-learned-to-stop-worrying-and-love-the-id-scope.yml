@@ -1,0 +1,138 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1894e6fe488eac8df14a7c792cbe9bacadac2a23
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910287"
+Slug: unique-identities-are-hard-or-how-i-learned-to-stop-worrying-and-love-the-id-scope
+Title: '一意の ID は難しい: ID スコープの心配をやめて好きになれる方法を学習しました'
+Summary: デバイス プロビジョニング サービスで最も微妙な概念の 1 つ、ID スコープです。 これは、デバイス のプロビジョニングにおける名前間隔の特性に関して、再評価と評価の両方を受け取っています。 このツールを使用すると、 でスナインがスローされます。
+Content: >-
+  <p>ID スコープを確認してください。ID スコープは、このドキュメントで最も微妙な概念の 1 つIoT Hub Device Provisioning Service。 これは、デバイス のプロビジョニングにおける名前間隔の特性に関して、再評価と評価の両方を受け取っています。 複雑なプロビジョニング シナリオでは&rsquo;問題が発生しますが、セキュリティで保護されたゼロタッチ デバイス プロビジョニングにも必要です。 このブログ記事は、エンジニアリング チームでの数時間分の会話と設計に関するディスカッションの集大成であり、十分に理解するためにいくつかの読み取りが必要な場合があります。 ID スコープの理解は、宛先ではなく体験です。 詳細を気&rsquo;にしない場合は、デバイス サプライ チェーンで ID の一意性を確保するために ID スコープが必要な場合に注意してください。 理由を知りたい場合は、読み続けしてください。</p>
+
+
+  <h2>デバイスの一意性</h2>
+
+
+  <p>デバイスの一意性は、一意の登録 ID (プライベートとは見なされない) とキー (プライベートと見なされる) の 2 つの部分で構成されます。 省略可能な場合、各デバイスは 1 つの DPS 内で (X, Y) として表され、X = 登録 ID と Y = キーです。 これは、コンピューティングにおける eons のように感じるものに使用されています。GUID の概念は新しい概念ではありません。 IoT シナリオには、デバイス ID を一意に設定するためにこれが不十分である固有のことが 2 つあることが判明しました。 デバイスの作成とデジタル登録は別々の時間に行われる可能性があります。これには、競合を防ぐために何らかのスコープが必要です。 ID スコープの概念を導入して、ID を特定のテナント DPS にスコープ化しました。</p>
+
+
+  <p>次に、スコープ メカニズムがある理由の例を示します。 もう 1 つの理由は、デバイス ID を証明するために使用されるセキュリティ テクノロジに関連する必要があります。 TPM 構成証明がサポートされ、実際のハードウェアを取得する前にシミュレートされたデバイスを使い始めたい開発者向けの TPM エミュレーターが提供されています。 発行する TPM エミュレーターにはGitHubの値にハードコーディングされた動作キーがあります。 開発&rsquo;のみを目的とします。そのため&rsquo;、これは大きな問題ではありません。 つまり、チュートリアルに従うすべてのユーザーが、X = mydevice、Y = EK_github を使用してデバイスを作成します。 このエントリは DPS サービスに固有ですが、全体的には一意ではありません。 チュートリアル デバイスが Device Provisioning Service と話し、チュートリアル デバイスが Device Provisioning Service と話す場合、サービスにはデバイスを別の方法で伝える必要があるため、ID スコープが必要です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53fd85e8-ea81-49b5-8318-600dac86308e.png"><img alt="To learn about provisioning and TPMs, go to: https://aka.ms/dps-tpm" border="0" height="384" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32374198-b443-4bc7-a16d-ec448d846944.png" style="border: 0px currentcolor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image: TPM の詳細を学習する" width="576"></a></p>
+
+
+  <p>一意の (X、 Y) が必要な場合は、デバイスが大量に作成され、1 年間保存された後、最終的にプロビジョニング サービスに登録されると、問題が発生します。 これらのデバイスの (X、 Y) は、特に比較的一般的な場合に、その期間に既に登録されている可能性があります。 これで、ストレージに置かっていたこれらのデバイスがプロビジョニング サービスに登録され、次のことが発生します。</p>
+
+
+  <ul>
+   <li>登録は、グローバル Device Provisioning Service に既に存在しているから拒否されます。</li>
+   <li>ウェアハウスされたデバイスは、新しいデバイスの ID をハイジャックします。 このサービスは、デバイスを離れて伝える方法はありません。</li>
+  </ul>
+
+
+  <p>残念ながら、これはサプライ チェーンでは非常に一般的です。 サプライ チェーンは重要なので、これはアウトです。</p>
+
+
+  <p>ID の選択と ID の登録の間の一時的な遅延のもう 1 つの例として、電子メール アドレス (またはドメイン名) とパスワードを選択してから、実際にその電子メール アドレスにサインアップします。 唯一の違いは、新しい電子メール アドレスを選択できる人間とは異なり、IoT デバイスでは新しい ID を選択できない点です。</p>
+
+
+  <p>省略&#39;新しい変数を導入する必要があります。そのため(X、Y、Z) は、プロビジョニング サービスの Z = ID スコープのサービス内の 1 つのデバイスです。 そのため、デバイスは (mydevice、EK_github、myIdScope) で、デバイスは (mydevice、EK_gitub、yourIdScope) です。 これらは一意であり、バランスが宇宙に復元され、私は夜間に十分にスリープ状態に保たることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cbf338fc-721e-4e68-b4b5-f8156b364cd9.png"><img alt="Pictoral representation of tenant data segregation in the Device Provisioning Service." border="0" height="394" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f5dacdb-9206-4afc-82fe-157cb697a81c.png" style="border: 0px currentcolor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Device Provisioning Service でのデータの分離" width="576"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53237c9c-27cc-4186-8779-89725e65519b.png"><img alt="A meme-like pictoral represenation of the permissions model in the Device Provisioning Service" border="0" height="381" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdf09a9b-11ce-4024-90e5-a231143ef139.png" style="border: 0px currentcolor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="登録を編集する男性、meme に似たもの" width="576"></a></p>
+
+
+  <p>OEM は、一意の (X、Y) ID を確保するために問題を取るように要求できますが、&#39;は既定ではるかに安全な顧客に大きなセキュリティ上の負担を押し付けしています。 お客様が安全になれるのを可能な限り簡単にしたいと考えています。つまり、お客様に自らをハングさせるのに十分な手段を与えたくないという意味です。 そのため、Z が必要です。</p>
+
+
+  <p>デバイスを Device Provisioning Service に提示し、ハブに割り当てるには、デバイスが (X、Y、Z) を知っている必要があります。 デバイスは、(X、Y、Z) を含むファームウェアを使用して作成されます。 デバイス&#39;Z 値を検出する方法はありません。これは、X と Y&rsquo; が必ずしもグローバルに一意であるとは限らないため、Z 値に対して一意の参照を実行できないと既に&#39;が判断したためです。 3 つの値すべてが同時に設定されたデバイスを作成する必要があります。</p>
+
+
+  <p>もちろん、ユーザーが自分のデバイスを偽装したり、自分の ID でしゃがんでいくのを防ぐには、作成するユーザー (X、Y、Z) を何らかの制御が必要です。 X&#39;Y は何でもできると既に確立している必要があります。そのため、&#39;必要があります。ただし、Z はサービスによって設定され、現在は特定のプロビジョニング サービス テナントに直接関連付けされています。 Z は、プロビジョニング サービスに接続できるデバイスを制御する方法です。 (X、Y、Z) の登録レコードを作成できるのは、Z に関連付けられているデバイス プロビジョニング サービスへの書き込みアクセス権を持つユーザーだけです。これは、何らかのアクセス ポリシー (Device Provisioning Service の場合は登録書き込み) で表されます。 これにより、デバイスの登録エントリを作成できるのは、レコードを作成できるユーザーのみです。</p>
+
+
+  <p>デバイス&#39;プログラマがクラウドアタッチを行わない場合&#39;シナリオも発生します。 すぐに&#39;に行く必要があります。</p>
+
+
+  <p>もちろん、悪意のあるアクターは、デバイス&#39;s (X、Y、Z) を技術的に推測し、悪意のあるデバイスを IoT ハブに接続できますが、これは新&#39;ではありません。 顧客&#39;保護するために実行できる機能は非常に多くがあります。 &quot;パスワードの対称キーを使用してすべてのデバイスにトースターN&quot; &quot;&quot; 形式の名前を付け、悪いアクターが ID スコープを検出した場合、デバイスの名前付けスキームをハイジャックするのを止めるには、&#39;の何もできません。 少なくとも、登録レコードがある ID のみを乗っ取り、リスクを多少軽減できます。 そうは言え、パスワード &quot;123!&quot; で銀行口座を開いて、生活の節約がはるかに簡単に失われる可能性があります。 常&#39;脅威になる可能性があります。それは、ユーザーが自分のセキュリティに取り組む&#39;量によって異なります。</p>
+
+
+  <p>すべて同じページに表示され、各デバイスには一意の (X、Y、Z) が必要であり、信頼されたアクターだけが特定の Z の登録レコードを作成できます。Device Provisioning Service は Z&rsquo; を難読化&#39;テナント名の名前を推測するのは難しい場合があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5067440-46f1-435e-b768-82dbae2edc7f.png"><img alt="Learning!" border="0" height="384" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/567231b2-8a0e-4018-a35a-bff76a24bad1.png" style="border: 0px currentcolor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ラーニング!" width="576"></a></p>
+
+
+  <h2>実際の OEM シナリオは難しい</h2>
+
+
+  <p>これは、最初のファームウェアをデバイスにプログラムする同じエンティティがクラウド接続 IoT ソリューションの責任を負う場合にも、正常に機能します。 これは、私が一対一の &quot;OEM と呼ぶシナリオです&quot;。 この OEM は、既製の IoT ソリューションを備え、それらを使用する特殊なデバイスまたは単一目的のデバイスを生成します。 OEM&#39;は、デバイスと、おそらく接続されているサービスのサブスクリプションを購入しますが、独自&#39;ソリューションを構築する必要はありません。 その例として、コーヒー メーカー (OEM がソリューションを geo シャード化したい) などのコンシューマー スマート デバイス、<a href="https://blogs.microsoft.com/iot/2016/09/12/azure-iot-suite-helps-sandvik-coromant-stay-on-cutting-edge-within-digital-manufacturing/#08ckShkjVuPGPOBP.99" target="_blank"></a>特殊な製造機器、多くの<a href="https://customers.microsoft.com/story/connecting-beverage-machines-to-the-cloud-to-power-productivity" target="_blank"></a>場合リースされるその他の大規模な&#39;があります。</p>
+
+
+  <p>一対一の &quot;OEM の反転は&quot; 、白いラベル OEM です。 ホワイト ラベル OEM は、それらのデバイスの顧客を持つ前に、多くのデバイスを生成します。 ホワイト ラベル OEM は、サプライ チェーンで多くのロールを持つ可能性があります。</p>
+
+
+  <ul>
+   <li>クラウドアタッチ &quot;を&quot; 処理する顧客に空のデバイスを販売する。 デバイスの購入者が最初のイメージに置く。 このシナリオは、一対一の &ldquo;OEM のように、一般的に機能&rdquo; します。</li>
+   <li>クラウドアタッチを処理する顧客に基本的なイメージを持つデバイスを販売します。 デバイスは、購入者にアクセスする前&#39;一括で作成されます。
+   <ul>
+    <li>デバイス購入者は、OEM によって提供されるオンボードを使用します。</li>
+    <li>デバイスの購入者は、デバイスを再フラッシュします。</li>
+   </ul>
+   </li>
+   <li>基本的なイメージを持つデバイスを顧客に販売する。 OEM は顧客と既存のビジネス関係を持ち、ID スコープなどのプロビジョニング構成を設定できます。</li>
+   <li>基本的なイメージを持つデバイスを顧客に販売する。 追加料金 (PaaS) で顧客の IoT ソリューション&#39;自動プロビジョニングの付加価値サービスを提供します。
+   <ul>
+    <li>デバイスに初期イメージを作成する必要があります。その場合、OEM には付加価値のための独自のプロビジョニング サービスが含まれるか、顧客が書き込む ID スコープを提供します。</li>
+   </ul>
+   </li>
+   <li>基本的なイメージを持つデバイスを顧客に販売する。 顧客は所有権要求プロセスを実行して SaaS に接続します。 所有権要求プロセスは、SaaS サービスを提供するエンティティによって設計および構築されます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95e78e8a-f08c-4fc0-924d-8525ff7ab593.png"><img alt="Two IoT scenarios side-by-side: on the left, a man holding a box of plants for planting. On the right, a stack of shipping containers." border="0" height="385" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e562a21a-ad63-4a30-a966-4a4f8c056b41.png" style="border: 0px currentcolor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2 つの異なる IoT シナリオ" width="576"></a></p>
+
+
+  <p>シナリオに関係なく、すぐに&#39;問題が発生します。 ホワイト ラベル OEM&#39;プロビジョニング サービスがある場合は想定できない場合があります。 プロビジョニング サービスはないので、デバイスにプログラムを実行する Z 値はありません。 次の 2 つのオプションがあります。</p>
+
+
+  <ul>
+   <li>顧客は OEM に初期イメージの Z 値を指定します。</li>
+   <li>OEM には独自の Z 値があります。</li>
+   <li>最初の書籍で Z 値を求める OEM プログラム デバイス。 これには、起動時にタッチする必要があります。</li>
+  </ul>
+
+
+  <p>このドキュメントでは、ID スコープの必要性に焦点を当て、シナリオについては詳しい説明しません。 関心がある場合&#39;、プロビジョニング シナリオ&#39;別のブログ投稿を行う必要があります。 そのため、当分の&#39;、デバイスに完全な ID が設定&#39;取得する Z 値が何らかの形であると仮定します。 これで、&#39;に対応する登録を持つデバイス (X、Y、Z) が DPS_Z&rsquo; に存在し、一意であり、スプーフィングできないことが確認されました。</p>
+
+
+  <h2>ID スコープが本当に必要です</h2>
+
+
+  <p>ここで&#39;学習した情報を次に示します。</p>
+
+
+  <ul>
+   <li>ID とキー のペアだけでは&#39;、IoT デバイスサプライ チェーンに関連するタイムラインを指定してデバイスを一意に識別するのに十分ではありません。</li>
+   <li>ホワイト ラベル OEM ケースでデバイスにスコープ識別子を取得することは困難であり、設計中です。 この領域にはいくつかのアイデアがあります。近日公開予定です&trade;。</li>
+  </ul>
+
+
+  <p>取り上げを合計するには、次の方法を使用します。</p>
+
+
+  <p>私たちは本当に「nope」と言ってみた<br>
+
+  デバイス ID スコープへ<br>
+
+  しかし、セキュリティ<br>
+
+  常に簡単ではない<br>
+
+  そのため、今は対処する必要があります。</p>

@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9edb8f3bb9cb616da01f5da78c6ac240bec8ef48
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904053"
+Slug: migrating-on-premises-hadoop-infrastructure-to-azure-hdinsight
+Title: ヒント Hadoop インフラストラクチャをオンプレミスの Hadoop インフラストラクチャに移行する方法とAzure HDInsight
+Summary: 現在、オンプレミスの Hadoop インフラストラクチャを HDInsight に移行する方法に関するヒントとテクニックシリーズMicrosoft Azureしています。
+Content: >-
+  <p>現在、オンプレミスの Hadoop インフラストラクチャを HDInsight に移行する方法に関するヒントとテクニックシリーズMicrosoft Azureしています。</p>
+
+
+  <p>毎日、何千もの顧客が、ミッション クリティカルなビッグ データ ワークロードをAzure HDInsight。 お客様の多くは、エンタープライズ レベルの機能と、Hive、Spark、Hadoop、Kafka、HBase、Phoenix、Storm、R などのオープン ソース ワークロードのサポートにより、ワークロードをオンプレミスから HDInsight に移行します。</p>
+
+
+  <p><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a8815e0-a5f9-433a-8795-dc0ded2cc80b.png"><img alt="migration" border="0" height="340" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e2bab10-d537-479a-a0ac-502094ed0b1b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="移行" width="482"></a></p>
+
+
+  <p>この 6 部構成のガイドでは、移行プロセスについて説明し、Hadoop ワークロードを Azure HDInsight に移行する方法だけでなく、アーキテクチャ、インフラストラクチャ、ストレージなどの最適化方法に関するベスト プラクティスも説明します。 このガイドは、多くのお客様が Hadoop の移行を支援した豊富な経験に基づいて、Azure Customer Advisory チームと共同で作成されています。 </p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-motivation?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json" target="_blank">動機と利点には</a> 、オンプレミスの Hadoop エコシステム コンポーネントを HDInsight に移行する利点と、移行を計画する方法が含まれます。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-motivation?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json" target="_blank">アーキテクチャのベスト プラクティスは</a> 、HDInsight システムのアーキテクチャに関するベスト プラクティスを提供し、さまざまな種類のワークロードに対応します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-best-practices-infrastructure?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json" target="_blank">インフラストラクチャのベスト プラクティス</a> では、HDInsight クラスターのインフラストラクチャを管理するための詳細な推奨事項について説明します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-best-practices-storage?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json" target="_blank">Storageベスト プラクティスでは</a>、HDInsight システムでのデータ ストレージに関する推奨事項を示します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-best-practices-data-migration?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json" target="_blank">データ移行のベスト プラクティスでは</a> 、HDInsight へのデータ移行に関する推奨事項が提供されます。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-best-practices-security-devops?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json" target="_blank">セキュリティとセキュリティDevOpsベスト プラクティスでは</a>、HDInsight システムでのセキュリティとDevOpsに関する推奨事項が提供されます。</li>
+  </ul>
+
+
+  <h2>HDInsight について</h2>
+
+
+  <p>Azure HDInsightは、Apache Hadoop、Spark、Kafka などの一般的なオープン ソース フレームワークを簡単に実行できる、オープンソース分析用の簡単でコスト効率の高いエンタープライズ レベルのサービスです。 このサービスは、米国とドイツの 27 のパブリック Azure Governmentクラウドで利用できます。 Azure HDInsightさまざまなセクターでミッション クリティカルなアプリケーションを提供し、ETL、ストリーミング、対話型クエリなどの幅広い用途を可能にしています。</p>
+
+
+  <h2>その他の技術情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/" target="_blank">Azure HDInsight</a> の詳細を確認する</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-component-versioning#hadoop-components-available-with-different-hdinsight-versions" target="_blank">HDInsight のオープン ソース コンポーネント ガイド</a>。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-release-notes" target="_blank">HDInsight リリース ノート</a>。</li>
+   <li>MSDN フォーラムで HDInsight に <a href="https://social.msdn.microsoft.com/forums/azure/en-us/home?forum=hdinsight" target="_blank">関する質問をする</a>。</li>
+   <li><a href="https://stackoverflow.com/questions/tagged/hdinsight" target="_blank">StackOverflow</a> に関する HDInsight の質問。</li>
+  </ul>

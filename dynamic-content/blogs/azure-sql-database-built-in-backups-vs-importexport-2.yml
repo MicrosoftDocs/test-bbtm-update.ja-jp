@@ -1,0 +1,230 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d8fdcb113d514fb151e886fb2c7c7c11aa296f56
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909966"
+Slug: azure-sql-database-built-in-backups-vs-importexport-2
+Title: 'Azure SQL Database: 組み込みのバックアップと Import/Export'
+Summary: Basic、Standard、およびプレミアム Azure SQL Database サービス階層のリリースにより、組み込みのバックアップと復元の機能が提供されます。
+Content: >-
+  <a href="https://msdn.microsoft.com/en-us/library/azure/dn741336.aspx">Basic、Standard、およびプレミアム</a>Azure SQL Database サービス階層のリリースにより、<a href="https://msdn.microsoft.com/en-us/library/azure/jj650016.aspx">組み込みのバックアップと復元の機能</a>が提供されます。 これらの新機能により、 <a href="https://msdn.microsoft.com/en-us/library/azure/hh335292.aspx">Import/Export サービス</a>を使用して、ディザスターリカバリー、偶発的なデータ破損の回復、および削除されたデータの回復のための手動バックアップを実行する必要性を軽減することができます。
+
+
+  次の表は、Import/Export と組み込みのバックアップ復元機能を簡単に比較したものです。
+
+  <table border="1" width="656" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="91"></td>
+
+  <td valign="top" width="90">
+
+  <p align="center"><span style="font-size: small;">ディザスターリカバリーのための設計</span></p>
+
+  </td>
+
+  <td valign="top" width="94">
+
+  <p align="center"><span style="font-size: small;">サポート <a title=" ポイントインタイムリストア " href="https://azure.microsoft.com/blog/2014/10/01/azure-sql-database-point-in-time-restore/"> PITR</a></span></p>
+
+  </td>
+
+  <td valign="top" width="102">
+
+  <p align="center"><span style="font-size: small;">運用上のオーバーヘッドはありません</span></p>
+
+  </td>
+
+  <td valign="top" width="101">
+
+  <p align="center"><span style="font-size: small;">トランザクション整合性バックアップ</span></p>
+
+  </td>
+
+  <td valign="top" width="99">
+
+  <p align="center"><span style="font-size: small;">追加コストなし</span></p>
+
+  </td>
+
+  <td valign="top" width="77">
+
+  <p align="center"><span style="font-size: small;">オンプレミスへの復元</span></p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="91">
+
+  <p align="center"><span style="font-size: small;">DB エクスポート</span></p>
+
+  </td>
+
+  <td valign="top" width="90">
+
+  <p align="center"><span style="font-size: small; color: #ff0000;">いいえ</span></p>
+
+  </td>
+
+  <td valign="top" width="94">
+
+  <p align="center"><span style="font-size: small; color: #ff0000;"><span style="color: #ff0000;">いいえ</span></span></p>
+
+  </td>
+
+  <td valign="top" width="102">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #ff0000;">エクスポートを外部でトリガーする必要があります</span></span></p>
+
+  </td>
+
+  <td valign="top" width="101">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #ff0000;">バックアップ前に必要な DB コピー。</span></span></p>
+
+  </td>
+
+  <td valign="top" width="99">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #ff0000;">Storage と追加の DB コスト。</span></span></p>
+
+  </td>
+
+  <td valign="top" width="77">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #00ff00;">はい</span></span></p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="91">
+
+  <p align="center"><span style="font-size: small;">組み込みのバックアップ</span></p>
+
+  </td>
+
+  <td valign="top" width="90">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #4fbc43;">はい</span></span></p>
+
+  </td>
+
+  <td valign="top" width="94">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #4fbc43;">はい</span></span></p>
+
+  </td>
+
+  <td valign="top" width="102">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #4fbc43;">はい</span></span></p>
+
+  </td>
+
+  <td valign="top" width="101">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #4fbc43;">はい</span></span></p>
+
+  </td>
+
+  <td valign="top" width="99">
+
+  <p align="center"><span style="font-size: small;"><span style="color: #4fbc43;">はい</span></span></p>
+
+  </td>
+
+  <td valign="top" width="77">
+
+  <p align="center"><span style="font-size: small; color: #ff0000;">いいえ</span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  &nbsp;
+
+  <h3>Azure SQL Database の組み込みバックアップとは何ですか。</h3>
+
+  Basic、standard、および premium データベースは、Azure SQL Database で自動的にバックアップされます。 これらのバックアップは、それぞれ7日間、14日間、および35日保持されます。 これらのバックアップでは Azure SQL Database 2 つの復元機能がサポートされます。
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/blog/2014/10/01/azure-sql-database-point-in-time-restore/">特定の</a> 時点への復元では、データベースの保有期間内で、ミリ秒までの任意の時点にデータベースを復元できます。</li>
+   <li><a href="https://azure.microsoft.com/blog/2014/09/13/azure-sql-database-geo-restore/">Geo リストア</a> では、データベースの最新の geo 冗長バックアップを利用してデータベースを復旧します。 これは、 <a href="https://msdn.microsoft.com/en-us/library/azure/hh852669.aspx">1 時間前の geo 冗長バックアップ</a>を使用して、リージョンの障害が発生した場合にデータベースを復旧できることを意味します。</li>
+  </ul>
+
+  &nbsp;
+
+  <h3>バックアップではどのようにエクスポートが使用されましたか?</h3>
+
+  組み込みのバックアップ機能を使用できるようになる前に、データベースをバックアップするためのメカニズムとしてエクスポートが使用されていました。
+
+
+  Export を使用して BACPAC ファイルを作成するには、次の手順を実行します。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/04/01/clip_image0018.png"><img class="aligncenter" style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="clip_image001 [8]" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0018_thumb.png" alt="clip_image001[8]" width="623" height="190" border="0" /></a>
+
+
+  データベースのコピーは、BACPAC ファイルのトランザクションの一貫性を保証するために使用されます。 このコピーは2番目のデータベースとして扱われ、そのように課金されます。
+
+
+  &nbsp;
+
+  <h3>Geo-Restore と1時間ごとのエクスポート</h3>
+
+  Geo-Restore の機能を一致させるには、1時間ごとにエクスポートを実行する必要があります。 1時間ごとに、データベースのコピーを geo 冗長ストレージにエクスポートする必要があります。 データベースとそのスキーマのサイズによっては、エクスポートが完了するまでに1時間以上かかることがあります。
+
+
+  1か月の間に、バックアップだけでなく、すべての追加の管理作業を行う場合とほぼ同じように、コストがほぼ同じになります。それでも、Geo-Restore 提供されるのと同じ回復ポイントの目標 (RPO) を満たすことができない可能性があります。
+
+
+  &nbsp;
+
+  <h3>ポイントインタイムリストアとエクスポート</h3>
+
+  特定の時点への復元では、データベースの保有期間内で、ミリ秒までの任意の時点にデータベースを復元できます。 エクスポートテクノロジでは、復元の粒度を同じにすることはできません。
+
+
+  &nbsp;
+
+  <h3>まとめ</h3>
+
+  Azure SQL Database によって提供される組み込みのバックアップおよび復元機能は、障害や人的なエラーからの復旧に優れた機能を提供します (間違っています)。 Import/Export と同じ機能を実現すると、コストが高くなり、運用上のオーバーヘッドが大量に発生する可能性があります。
+
+
+  Import/Export は、組み込みのバックアップによって完全に置き換えることはできません。 Import/Export は、 <a href="https://msdn.microsoft.com/en-us/library/azure/ee730904.aspx">SSDT や SSMS などのクライアントツール</a>と共に、Azure SQL Database との間でデータを移行する場合にも推奨されます。
+
+
+  Basic、Standard、またはプレミアムデータベースに移行し、Export を使用して手動バックアップを停止することで、運用上のオーバーヘッドを減らすことができます。
+
+
+  &nbsp;
+
+  <h3>次の手順</h3>
+
+  Azure SQL Database の組み込み復元機能を使用する方法について説明します。
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-geo-restore-tutorial-management-portal/">Geo リストアの方法</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-point-in-time-restore-tutorial-management-portal/">ポイントインタイムリストアの方法</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-restore-deleted-database-tutorial-management-portal/">削除されたデータベースを復元する方法</a></li>
+  </ul>
+
+  組み込みの復元機能の詳細については、こちらを参照してください。
+
+  <ul>
+   <li><a href="https://msdn.microsoft.com/en-us/library/azure/jj650016.aspx">SQL Database のバックアップと復元</a></li>
+   <li><a href="https://msdn.microsoft.com/en-us/library/azure/hh852669.aspx">ビジネス継続性の SQL Database</a></li>
+  </ul>

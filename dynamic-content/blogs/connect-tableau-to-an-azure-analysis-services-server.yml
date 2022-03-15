@@ -1,0 +1,46 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7bfa74276af74a90a7aea2f5d274c4db6e69926f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909934"
+Slug: connect-tableau-to-an-azure-analysis-services-server
+Title: Connectサーバーに Tableau をAzure Analysis Servicesする
+Summary: このAzure Analysis Services、Power BI、Excel、および多くのサードパーティ製クライアント ツールを使用して、サーバーに接続できます。 この投稿では、Tableau からサーバーに接続する方法について説明します。
+Content: >-
+  <p>このAzure Analysis Services、Power BI、Excel、および多くのサードパーティ製クライアント ツールを使用<a href="https://azure.microsoft.com/blog/connecting-power-bi-to-an-azure-analysis-services-server/"></a>して、サーバーに接続<a href="https://azure.microsoft.com/blog/connect-excel-to-an-azure-analysis-services-server/"></a>できます。 この投稿では、&rsquo;Tableau Desktop からサーバーに接続する方法に注目します。</p>
+
+
+  <p>開始する前に、次が&rsquo;必要です。</p>
+
+
+  <ul>
+   <li>サーバーにデプロイされたデータ モデル Azure Analysis Servicesで &ndash;最初のデータ モデルを <a href="https://azure.microsoft.com/blog/first-azure-as/">作成Azure Analysis Services</a>。</li>
+   <li>Tableau Desktop</li>
+   <li>最新の <a href="https://docs.microsoft.com/en-us/azure/analysis-services/analysis-services-data-providers" title="MSOLAP.7 プロバイダーMSOLAP.7"> プロバイダー</a></li>
+  </ul>
+
+
+  <ol>
+   <li>Tableau Desktop 10.1 の [Connect] で<strong>、[</strong>To <strong>a Server</strong> &gt; <strong>Microsoft</strong> Analysis Services] <strong> をクリックします</strong>。</li>
+   <li>
+   <p>接続ダイアログの [サーバー] <strong>で</strong>、サーバーの名前をAzure Analysis Servicesします。 次に、[<strong>特定のユーザー名とパスワード</strong>nancy@adventureworks.comを使用する] を選択し、組織のユーザー名 (例: ) とパスワードを入力します。</p>
+
+   <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0188266-11b9-49ca-9538-48a291b297ed.png"><img alt="image" border="0" height="535" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a8787da-3c64-435c-88ab-b9f23888335b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="495"></a></p>
+   </li>
+   <li>
+   <p>[データ <strong>ソース] タブ</strong> で、データベースとキューブ/モデルまたはパースペクティブを選択し、[シート <strong>1] をクリックします</strong>。</p>
+
+   <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0d521db2-c62b-4beb-9f50-fd31a8718858.png"><img alt="image" border="0" height="1022" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc0dbb1c-159e-4994-ad08-60b0562bfe84.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="1592"></a></p>
+   </li>
+  </ol>
+
+
+  <p>これで、Tableau ブックがサーバーにAzure Analysis Servicesされます。 モデルのフィールドが、横のディメンションとメジャーの下に一覧表示されます。 これらのフィールドをシートにドラッグ アンド ドロップして、ビジュアルの構築を開始できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c257d392-3b3c-4345-a1e6-59da708711b7.png"><img alt="image" border="0" height="1276" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6802d53d-c677-4dd7-8bbb-96d5288c8639.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="1987"></a></p>
+
+
+  <p><strong>詳細については<a href="https://azure.microsoft.com/services/analysis-services/">、Azure Analysis Services。</a></strong></p>

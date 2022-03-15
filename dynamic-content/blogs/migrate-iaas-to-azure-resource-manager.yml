@@ -1,0 +1,97 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8663b3671b5d945f43fdb0542d0fd6dd133ee328
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904090"
+Slug: migrate-iaas-to-azure-resource-manager
+Title: IaaS をアプリケーションに移行する利点Azure Resource Manager
+Summary: IaaS によって提供される、Azure Resource Managerの新機能と、ダウンタイムなしでクラシック サービスを移行する方法を確認してください。
+Content: >-
+  <h2>Why IaaS on Azure Resource Manager</h2>
+
+
+  <p>IaaS を開始して 2 年以上が経Azure Resource Manager。 それ以降、クラシック スタック&rsquo;のすべての機能に加えて、この新しいスタックにすばらしい機能を追加する必要があります。 以下に、インフラストラクチャをデプロイすることで得る機能と利点の一部を次に示Azure Resource Manager。</p>
+
+
+  <h3>Compute</h3>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Managed Disks</a> &ndash; ディスクをトップ レベルのリソースとして公開することで、ストレージ管理を簡素化します。 さらに、Managed Disks仮想マシンの可用性を向上するように設計されています。 この機能を使用するその他 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">の利点の詳細については、Managed Disks</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview" target="_blank">仮想マシン スケール セット</a> &ndash; 管理性のような PaaS とのコントロールのような IaaS の優れたブレンドを提供します。 スケール セットを使用すると、大規模な仮想マシンの大規模なセットを確実にデプロイおよび更新できます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank">可用性ゾーン</a> &ndash; ミッション クリティカルなアプリケーションがデータセンター レベルの障害に耐えられることを知り、安心してください。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service" target="_blank">インスタンス メタデータ サービス</a> &ndash; 仮想マシン インスタンスが、そのコンピューティング、ネットワーク、および今後のメンテナンス イベントに関する情報を仮想マシン内から取得できる RESTful エンドポイントを提供します。</li>
+      <li><a href="https://azure.microsoft.com/en-us/pricing/reserved-vm-instances/" target="_blank">予約インスタンス</a> &ndash; 仮想マシンを事前に予約し、移動料金と比較してコストを大幅に削減できます。</li>
+      <li><a href="https://azure.microsoft.com/en-us/blog/announcing-new-azure-vm-sizes-for-more-cost-effective-database-workloads/">コスト効率の高いデータベース ワークロードのための VM サイズ</a> &ndash; VM の vCPU 数を制限して、同じメモリ、ストレージ、I/O 帯域幅を維持しながら、ソフトウェア ライセンスのコストを削減できます。</li>
+  </ul>
+
+
+  <h3>ネットワーク</h3>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/blog/azure-networking-announcements-for-ignite-2017/" target="_blank">高速ネットワーク</a> &ndash; 仮想マシンで最大 30 Gbps の転送レートを取得しながら、VM から VM へのトラフィックに対して超低待機時間と 1 秒あたりの高いパケット レートを提供できます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-standard-overview" target="_blank">Load Balancer Standard</a> &ndash; 新世代の既存の SDN Load Balancerを使用すると、高パフォーマンスの仮想データ センターを設計し、TCP または UDP アプリケーションをサポートできます。 スタンドアロン VM インスタンス、または仮想マシン スケール セットの最大 1,000 インスタンスをバックエンド プールで使用します。 低転送待機時間、高スループット パフォーマンス、フル マネージドの Azure サービスの数百万のフローに対応するスケールを引き続き利用できます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview" target="_blank">仮想ネットワーク ピアリング</a> &ndash; 2 つの Azure 仮想ネットワークをシームレスに接続できます。 ピアリングされた仮想ネットワークは、接続において、見かけ上 1 つのネットワークとして機能します。 ピアリングされた仮想ネットワークに存在する仮想マシン間のトラフィックは Microsoft のバックボーン インフラストラクチャを介して、"プライベート" IP アドレスのみを使った同一仮想ネットワーク内の仮想マシン間のトラフィックと同じようにルーティングされます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview" target="_blank">仮想ネットワーク サービス エンドポイント</a> - 直接接続を使用して、仮想ネットワークのプライベート アドレス空間と VNet の ID を Azure サービスに拡張します。 エンドポイントを使用することで、重要な Azure サービス リソースへのアクセスを仮想ネットワークのみに限定することができます。 VNet から Azure サービスへのトラフィックは常に、Microsoft Azure のバックボーン ネットワーク上に残ります。</li>
+  </ul>
+
+
+  <h3>インフラストラクチャの管理</h3>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-mgmt-group-overview?toc=%2fazure%2fazure-resource-manager%2ftoc.json" target="_blank">管理グループ</a> &ndash; サブスクリプション全体のアクセス、ポリシー、コスト、コンプライアンスを管理するのに役立つサブスクリプションを整理できます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/managed-applications/overview">マネージド アプリケーション</a> &ndash; コンシューマーが簡単にデプロイして運用できるクラウド ソリューションを提供できます。 インフラストラクチャを実装して、継続的なサポートを提供します。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure" target="_blank">ロールベースのアクセス制御</a> &ndash; Azure に対してきめ細かなアクセス管理を有効にする。 RBAC を使用すると、職務に必要な範囲のアクセス権だけをユーザーに付与することができます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources" target="_blank">リソース ロック</a> &ndash; 管理者は、サブスクリプション、リソース グループ、またはリソースをロックするツールを提供して、組織内の他のユーザーが誤って重要なリソースを削除または変更しないようにします。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-policy" target="_blank">リソース ポリシー</a> &ndash; 組織内のリソースの規則を確立できます。 規則を定義することによって、コストを制御し、リソースをより簡単に管理することができます。 たとえば、特定の種類の仮想マシンのみが許可されるように指定したり、すべてのリソースに特定のタグが付けられることを要求したりすることができます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-create-first-template" target="_blank">コードとしてのインフラストラクチャ</a> &ndash; Azure Resource Managerテンプレートを使用すると、インフラストラクチャを簡単に表現して簡単にデプロイできます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-using-tags" style="background-color: transparent; border-bottom-color: rgb(95, 151, 175); border-bottom-style: none; border-bottom-width: 0px; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: rgb(95, 151, 175); border-left-style: none; border-left-width: 0px; border-right-color: rgb(95, 151, 175); border-right-style: none; border-right-width: 0px; border-top-color: rgb(95, 151, 175); border-top-style: none; border-top-width: 0px; color: rgb(95, 151, 175); font-family: Tahoma,&amp;quot;Helvetica Neue&amp;quot;,Arial,Helvetica,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; orphans: 2; outline-color: invert; outline-style: none; outline-width: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">タグ</a> &ndash; リソースをカテゴリ別に整理できます。 各タグは名前と値で構成されます。 たとえば、環境という名前と値 Production&quot; &quot;&quot; を&quot;実稼働環境のすべてのリソースに適用できます。</li>
+  </ul>
+
+
+  <h2>IaaS on Azure Resource Manager にアクセスするAzure Resource Manager</h2>
+
+
+  <p>お客様がこれらのすべての重要な機能を簡単に採用できるよう、ダウンタイムなし移行 <a href="https://azure.microsoft.com/en-us/blog/iaas-migration-classic-resource-manager/" target="_blank">サービスをリリースしました</a>。 このリリース以降、多&rsquo;くのお客様は、数個の VM から数百の VM に至るまで、実稼働環境を移行しています。 このサービスを継続的に改善し、お客様からのフィードバックに基づいて機能を追加しています。</p>
+
+
+  <p>移行プロセスの詳細なビデオの概要については、以下の Microsoft Mechanics のエピソード「Azure クラシック」の Corey Sanders を参照して、移行Azure Resource Managerしてください。</p>
+
+
+  <p style="text-align: center;"><iframe allow="encrypted-media" allowfullscreen="" frameborder="0" gesture="media" height="315" scrolling="no" src="https://www.youtube.com/embed/F82d9nv3ZBM" width="560"></iframe></p>
+
+
+  <h3>昨年の新機能</h3>
+
+
+  <ul>
+      <li>Express Route ゲートウェイを使用して仮想ネットワークを移行する。</li>
+      <li>Express Route と VPN ゲートウェイを使用して仮想ネットワークを移行します。</li>
+      <li>強化された検証操作で、さまざまな移行のブロックが早期にキャッチされる。 検証操作で、移行をブロックする十分なコンピューティングクォータとネットワーク クォータについて警告が表示される。</li>
+      <li>検証操作で、移行されるすべてのリソースに関する情報が表示されます。</li>
+      <li>移行の一環として作成された Key Vault では、 <a href="https://docs.microsoft.com/en-us/azure/key-vault/key-vault-ovw-soft-delete" target="_blank">ソフト削除機能が有効</a> になります。 これにより、誤って削除された場合Key Vaultを復旧できます。</li>
+  </ul>
+
+
+  <h2>ドキュメント</h2>
+
+
+  <p>VM の&rsquo;移行を開始する場合は、以下のドキュメント セットを確認してください</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-overview?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">プラットフォームでサポートされているクラシックから Azure Resource Manager への IaaS リソースの移行の概要</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-deep-dive?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">プラットフォームでサポートされているクラシックから Azure Resource Manager への移行に関する技術的な詳細</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-plan?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">クラシックから Azure Resource Manager への IaaS リソースの移行計画</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-ps?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">PowerShell を使用してクラシックから Azure Resource Manager へ IaaS リソースを移行する</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/migration-classic-resource-manager-cli?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">CLI を使用してクラシックから Azure Resource Manager へ IaaS リソースを移行する</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-classic-resource-manager-migration" target="_blank">VPN Gateway クラシックから Resource Manager への移行</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-migration-classic-resource-manager" target="_blank">クラシック デプロイ モデルから Resource Manager デプロイ モデルへの ExpressRoute 回線および関連する仮想ネットワークの移行</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-community-tools?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">クラシックから Azure Resource Manager への IaaS リソースの移行を支援するコミュニティ ツール</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-errors?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">クラシックから Azure Resource Manager への移行中に発生する一般的なエラー</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-faq?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json" target="_blank">クラシックから Azure Resource Manager への移行に関してよく寄せられる質問</a></li>
+  </ul>

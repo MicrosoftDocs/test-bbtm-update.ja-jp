@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 421884083e375d9da78cc92e904b726a4be5c079
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909884"
+Slug: easing-compliance-for-uk-public-and-health-sectors-with-new-azure-blueprints
+Title: 新しい Azure ブループリントによって英国のパブリックおよび正常性のセクターのコンプライアンスを緩和
+Summary: '今週、Government-Cloud (G) 標準の英国公式ブループリントと英国の National ヘルスサービス (nhs) 情報ガバナンスを利用できるようになったため、最新の Azure Blueprint がリリースされています。 新しいブループリントによって、azure でデプロイされたアーキテクチャに対して、適切な英国公式および英国 NHS コントロールに一連の Azure ポリシーがマップされます。 '
+Content: >-
+  <p>今月は、Government-Cloud (G) 標準の英国公式ブループリントと、英国の National ヘルスサービス (nhs) 情報ガバナンスを利用できる、主要なコンプライアンス標準の最新の Azure Blueprint をリリースしました。 新しいブループリントによって、azure でデプロイされたアーキテクチャに対して、適切な英国公式および英国 NHS コントロールに一連の Azure ポリシーがマップされます。 これにより、英国政府機関とパートナー、および英国の正常性組織は、英国の行政機関のデータと正常性データを格納して処理する Azure 環境をより簡単に作成できます。</p>
+
+
+  <p><a href="https://aka.ms/getblueprints" target="_blank">Azure ブループリント</a> は、お客様が標準、パターン、および要件を実装して準拠する、反復可能な Azure リソースのセットを定義できるようにするサービスです。 Azure のブループリントは、大規模な移行のために運用環境の実装をサポートするために拡張できる、管理された Azure 環境を設定するためにお客様に役立ちます。</p>
+
+
+  <p>national ヘルスサービスは、人口&#39;s の正常性データを保持する英国の国家医療システムです。 NHS デジタルでは、機密患者データを格納するためのパブリッククラウドサービスの使用に関するガイダンスを公開しました。これにより、患者データの収集、保存、および処理を管理する1つの標準が提供されます。 NHS に準拠することにより、不正なアクセス、損失、損害、および破棄から患者データの整合性と機密性を保護することができます。</p>
+
+
+  <p>G-クラウドは、英国の公的セクターによるクラウドサービスの導入を可能にする英国政府のイニシアチブです。 G-Cloud standard には、14の <a href="https://www.ncsc.gov.uk/collection/cloud-security?curPage=/collection/cloud-security/implementing-the-cloud-security-principles" target="_blank">クラウドセキュリティ原則</a>の実装が必要です。 毎年、マイクロソフトは、その範囲内のクラウドサービスがこれらの原則に準拠していることを証明する証拠を提出し、潜在的な G クラウドのお客様にリスク環境の概要を提供します。&nbsp;</p>
+
+
+  <p>英国の公式ブループリントには、14のクラウドセキュリティプリンシパルの8個に対するマッピングが含まれています。</p>
+
+
+  <p><strong>1. &nbsp; 転送中の保護のデータ。</strong> ストレージアカウントと Redis cache へのセキュリティで保護されていない接続を監査するために Azure Policy 定義を割り当てます。</p>
+
+
+  <p><strong>2. &nbsp; 保存データの保護 (資産の保護と回復性)</strong> 特定のやコントロールを適用し、弱い暗号設定の使用を監査する Azure Policy 定義を割り当てます。 には、英国の場所へのリソースの展開を制限するポリシーも含まれています。</p>
+
+
+  <p><strong>5. &nbsp; 運用上のセキュリティ。</strong> 不足している endpoint protection、不足しているシステムの更新、さまざまな脆弱性、無制限のストレージアカウント、およびホワイトリストアクティビティを監視する Azure Policy 定義を割り当てます。</p>
+
+
+  <p><strong>9. &nbsp; セキュリティで保護されたユーザー管理と10。Id と認証。 </strong>では、外部アカウント、multi-factor authentication (MFA) が有効になっていないアカウント、パスワードを使用しない仮想マシン (vm)、およびその他の問題を監査するために、いくつかの Azure Policy 定義が割り当てられます。</p>
+
+
+  <p><strong>11. 外部インターフェイスの保護。</strong> 無制限のストレージアカウントを監視する Azure Policy 定義を割り当てます。 では、Vm でアダプティブアプリケーション制御を有効にするポリシーも割り当てられます。</p>
+
+
+  <p><strong>12. &nbsp; セキュリティで保護されたサービス管理。</strong> 外部アカウント、Azure Active Directory 認証、MFA 有効化などの特権アクセス権に関連する Azure Policy 定義を割り当てます。</p>
+
+
+  <p><strong>13. &nbsp; ユーザーの監査情報。</strong> Azure リソースのさまざまなログ設定を監査または有効にする Azure Policy 定義を割り当てます。</p>
+
+
+  <p>Microsoft では、Azure が、3、4、6、7、8、14を含む14のクラウドセキュリティプリンシパルに準拠するためにどのように役立つかを説明するガイドを準備しました。 これは、 <a href="https://aka.ms/complianceuk" target="_blank">Microsoft Azure を使用した英国 cloud のドキュメント14のクラウドセキュリティコントロール</a>にあります。</p>
+
+
+  <p>すべての種類の組織では、ISO 27001、SASE-16、PCI DSS、英国の公式などの規制や標準に準拠する必要がますます高まっています。準拠基準への制御マッピングは、Azure ブループリント向けの自然なアプリケーションです。 Azure のお客様 (特に規制されている業界のお客様) は、コンプライアンスの設計において、コンプライアンスの義務を簡単に満たすために強力な関心を表しています。</p>
+
+
+  <p>Microsoft は、お客様がセキュリティとコンプライアンスの向上に役立つ方法で Azure を活用できるように努めています。 ISO 27001、PCI DSS、英国公式、英国 NHS 向けの Azure ブループリントがリリースされました。 &nbsp; 今後数か月の間に、HITRUST、NIST SP 800-53、FedRAMP、および Center for Internet Security (CI) のベンチマーク用の新しい組み込みのブループリントがリリースされる予定です。 初期のプレビューに参加する場合は、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR1fUHl9R1JtPng3uyom9BmxUQjdNN1FDTlI4U0NERTlXQzJLSTA0SFhHUi4u" target="_blank">このフォームでサインアップ</a>してください。または、コンプライアンスのブループリントの提案がある場合は、 <a href="https://feedback.azure.com/forums/915958-azure-governance" target="_blank">Azure ガバナンスフィードバックフォーラム</a>からご利用ください。</p>
+
+
+  <p>英国公式および英国 nhs ブループリント <a href="https://docs.microsoft.com/en-us/azure/governance/blueprints/samples/ukofficial/control-mapping" target="_blank">サンプルのドキュメントコントロールのマッピング</a>の英国公式および英国 nhs ブループリントの詳細については、こちらを参照してください。</p>

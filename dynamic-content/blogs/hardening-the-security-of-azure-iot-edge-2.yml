@@ -1,0 +1,40 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ef45b37d1bc98651695dc967cc6d7d431ebbcce2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908975"
+Slug: hardening-the-security-of-azure-iot-edge-2
+Title: Azure IoT エッジのセキュリティを強化する
+Summary: 最近一般公開されたエッジを Azure IoT、セキュリティを強化するための手段によってセキュリティを設計しています。 セキュリティ強化によって、悪意のあるアクターによるデバイスの物理的なアクセス性などの高い脅威に対応して、特定の展開に対して追加のセキュリティ対策が必要になります。
+Content: >-
+  <p>最近<a href="https://azure.microsoft.com/blog/azure-iot-edge-generally-available-for-enterprise-grade-scaled-deployments/" target="_blank">一般公開</a>された<a href="https://docs.microsoft.com/azure/iot-edge/" target="_blank">エッジを Azure IoT</a> 、セキュリティを強化するための手段によってセキュリティを設計しています。 セキュリティ強化によって、悪意のあるアクターによるデバイスの物理的なアクセス性などの高い脅威に対応して、特定の展開に対して追加のセキュリティ対策が必要になります。 しかし、関係者がセキュリティ強化についてはどうでしょうか。</p>
+
+
+  <p>IoT の性質 (Azure IoT エッジに含まれる) は、製品とデプロイの間でセキュリティの脅威が異なるため、ソリューションが1つのサイズに収まらないことはほとんどありません。 &rsquo;常にセキュリティへの投資と保護の目標のバランスを取る必要があります。また、このようなバランスが失われた場合は、保護が不十分であるか、過剰に消費されます。 このバランスを実現するための非常に重要な軸の1つは、IoT デバイスのリスクを評価し、ハードウェアセキュリティモジュール (HSM) などの適切なセキュリティで保護されたシリコンハードウェアテクノロジに投資することです。 HSM 製品は、機能やコストにおいて、他よりも桁違いにコストがかかります。 セキュリティ強化のために1つの HSM を強制的に使用するのではなく、Azure IoT のエッジではより多くのカスタマイズと対応を行うことができます。</p>
+
+
+  <p>Azure IoT edge では、このバランスの達成を容易にするために、 <a href="https://docs.microsoft.com/azure/iot-edge/iot-edge-security-manager" target="_blank">Azure IoT edge セキュリティマネージャー</a>が導入されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c8ec96d-1b98-49e4-80fe-04650a70ed69.png"><img alt="1807_EdgeSecurityManager" border="0" height="732" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35093220-1361-4dd7-bc3a-ce0aba90103a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1807_EdgeSecurityManager" width="871"></a></p>
+
+
+  <p>Azure IoT Edge セキュリティ マネージャーは、セキュア シリコン ハードウェアを抽象化することによって IoT Edge デバイスとそのすべてのコンポーネントを保護するための、適切に境界付けられたセキュリティ コアです。 これはセキュリティ強化の中心点であり、本来のデバイス製造元 (OEM) にテクノロジの統合ポイントを提供します。</p>
+
+
+  <p>Azure IoT エッジセキュリティマネージャーを使用すると、利害関係者は、展開に最適なセキュリティで保護されたシリコンテクノロジを使用して展開を強化できます。 元の設計とデバイスの製造元 (ODM および OEM) は IoT Edge デバイスをセキュリティで保護するための主要なテクノロジインテグレーターですが、すべての IoT Edge 利害関係者は、独立した投稿による需要への協力や、市場における力を得るために、セキュリティで保護されたシリコンテクノロジの選択に関与します。</p>
+
+
+  <p>1つは、世界が1つの一般的に信頼された1つのセキュリティプロセッサを採用しており、すべての関係者がすべての利害関係者を問題でに展開することですが、それについては将来に深く掘り下げます。 それまでは、Azure IoT security manager は、任意のテクノロジを使用して、カスタムセキュリティ目標を満たすことができます。</p>
+
+
+  <h2>その他の技術情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/azure/iot-edge/iot-edge-security-manager" target="_blank">Azure IoT セキュリティマネージャー</a>の詳細と開始方法については、こちらを参照してください。</li>
+   <li><a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fazure.microsoft.com%2Fen-us%2Fblog%2Fwhitepaper-selecting-the-right-secure-hardware-for-your-iot-deployment%2F&amp;data=02%7C01%7C%7Cd08e21ff321343a6e86508d60302b761%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636699707527517865&amp;sdata=19od62WfswOpaduS6p8XKcG06H5WQhrZWvExbTEdGMo%3D&amp;reserved=0" target="_blank">Iot デプロイに適した安全なハードウェアの選択</a>に関するホワイトペーパーをお読みください。</li>
+   <li>IoT のセキュリティの <a href="https://na01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fdownload.microsoft.com%2Fdownload%2FD%2F3%2F9%2FD3948E3C-D5DC-474E-B22F-81BA8ED7A446%2FEvaluating_Your_IOT_Security_whitepaper_EN_US.pdf&amp;data=02%7C01%7C%7Cd08e21ff321343a6e86508d60302b761%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636699707527517865&amp;sdata=%2FZHY9v7uKByZ1mFH6gPmlakuQ%2B0jMv7e8IoG%2F6LOfWU%3D&amp;reserved=0" target="_blank">評価</a>に関するホワイトペーパーを参照してください。</li>
+  </ul>

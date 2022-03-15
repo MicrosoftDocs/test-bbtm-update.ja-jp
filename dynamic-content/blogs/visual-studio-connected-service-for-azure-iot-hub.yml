@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3295ad2c711f6ee62400b1c346af8b5ef5447831
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903843"
+Slug: visual-studio-connected-service-for-azure-iot-hub
+Title: Azure IoT Hub の Visual Studio 接続されたサービスの概要
+Summary: Azure IoT hub 用の新しい Visual Studio 接続済みサービスを使用して、デバイスを数秒で Azure IoT ハブに Connect します。
+Content: >-
+  <p>Azure IoT チームでは、開発者がデバイスを IoT Hub に接続できるように、可能な限り簡単に &nbsp; することが重要です。 &rsquo;最初は2015年9月にパブリックプレビューを開始したため、開発者のエクスペリエンスが継続的に改善されていますが &rsquo; 、さらに多くのことができます。</p>
+
+
+  <h2>IoT Hub 用の VS 接続サービスについては、「hello」と言います。</h2>
+
+
+  <p>現在、 &rsquo; アプリケーションを IoT Hub に接続するときに、接続文字列やその他の詳細を処理する煩わしさを解消する Visual Studio 拡張機能をリリースしています。 <strong>Azure IoT Hub 用の VS 接続サービス</strong>を使用すると、Visual Studio を離れることなく、<i>数秒</i>で IoT Hub にアプリケーションを接続できます。</p>
+
+
+  <p><a href="https://visualstudiogallery.msdn.microsoft.com/e254a3a5-d72e-488e-9bd3-8fee8e0cd1d6">Visual Studio ギャラリー</a>から拡張機能をインストールできます。 または、[ツール]、[拡張機能と更新プログラム]、[オンライン] の順に移動して、Visual Studio から検索することもできます。</p>
+
+
+  <p>右側の [検索] ボックスに「Azure IoT &rdquo; 」と入力 &ldquo; します。 拡張機能をダウンロードし、メッセージが表示されたら Visual Studio を再起動します。 拡張機能を使用するには、次の <a href="https://visualstudiogallery.msdn.microsoft.com/e254a3a5-d72e-488e-9bd3-8fee8e0cd1d6">手順</a>に従ってください。</p>
+
+
+  <p><img alt="Introducing the Visual Studio Connected Service for IoT Hub" border="0" height="323" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a550fc66-3046-44c0-aeb7-cd71cae59072.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="IoT Hub 用の Visual Studio 接続済みサービスの概要" width="610">&nbsp;</p>
+
+
+  <p>この拡張機能は、アプリケーションから呼び出すことのできるボイラープレート &rdquo; コードを生成 &ldquo; します。 このコードは、アプリケーションの種類によって異なります。 C# の場合は、新しいファイル <b>AzureIoTHub</b> がプロジェクトに追加されていることがわかります。</p>
+
+
+  <p>このファイルで定義されているクラス <i>AzureIoTHub</i> には、 <i>SendDeviceToCloudMessageAsync</i> と <i>ReceiveCloudToDeviceMessageAsync</i>の2つのメソッドがあります。 これらのメソッドには、Azure との間でメッセージを送受信するために必要なすべてのものが含まれています。これらのメソッドは、アプリケーションの他の場所から直接呼び出すことができます。 もちろん、これらのメソッドのコードは、独自のロジックを記述するために、ジャンプオフの場所としてのみ扱う必要があります。</p>
+
+
+  <h2>接続の詳細に関する注意事項</h2>
+
+
+  <p>便宜上、Azure IoT Hub の接続済みサービスは、選択したデバイスの代わりに IoT Hub のインスタンスに接続するために必要な共有アクセスキーを含む<i>deviceConnectionString</i>変数を挿入しました。 この情報を所有しているすべてのユーザーが、そのデバイスの代わりにメッセージを送受信できることに注意してください。 そのため、ソース管理にコードをコミットする前に、ソースコードからこの文字列を削除することをお勧めします。 構成ファイル、環境変数、またはその他のソリューションに格納することを検討してください。</p>
+
+
+  <h2>フィードバックがある場合は、 お &rsquo; 待ちしています!</h2>
+
+
+  <p>この拡張機能により、アプリケーションを Azure IoT に接続する手間が軽減されると考えられます。 ただし、これ以上のことを行うことができます。 たとえば、拡張機能によって Azure IoT ハブのインスタンスを作成することが許可されている場合は、Azure portal でこれを行う必要がありません。 他のアイデアをお持ちですか? <a href="https://github.com/Azure/azure-iot-hub-vs-cs">GitHub</a>に進んで、提案された拡張機能を送信したり、バグを報告したりします。</p>

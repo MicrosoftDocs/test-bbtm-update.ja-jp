@@ -1,0 +1,113 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a4c38f6700f83e88d71b08c6932c34db97294edf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903648"
+Slug: burst-4k-encoding-on-azure-kubernetes-service
+Title: Azure Kubernetes サービスで4K エンコーディングをバーストする
+Summary: コンテンツの作成は、現在のところ、要求されていません。 プロフェッショナルとユーザーが生成したコンテンツは、過去数年にわたって指数関数的に増加しています。
+Content: >-
+  <h2>Azure とメディア Excel ヒーロープラットフォームを使用して、クラウドにエンコーディングをバーストします。</h2>
+
+
+  <p>コンテンツの作成は、現在のところ、要求されていません。 プロフェッショナルとユーザーが生成したコンテンツは、過去数年にわたって指数関数的に増加しています。 これにより、メディアのエンコードおよびトランスコードプラットフォームに大きな負荷がかかります。 今後4K と8K をミックスに追加して、これらの変数を使用して拡張できるプラットフォームが必要です。 Azure クラウドコンピューティングは、ニーズに合わせて柔軟に拡張できる方法を提供します。 Microsoft では、オンプレミス、ハイブリッド、またはネイティブのクラウドワークロードを完全にサポートするためのさまざまなツールと製品を提供しています。 <a href="https://azure.microsoft.com/en-us/overview/azure-stack/" target="_blank">Azure Stack</a> では、コンピューティングのニーズに合わせたハイブリッドシナリオがサポートされており、 <a href="https://azure.microsoft.com/en-us/services/azure-arc/" target="_blank">Azure ARC</a> によってハイブリッドセットアップを管理できます。</p>
+
+
+  <h2>ソリューションの検索</h2>
+
+
+  <p>一般に、4K/UHD ライブエンコードは専用のハードウェアエンコーダーユニットで実行されます。これは、Azure のようなパブリッククラウドでホストすることはできません。 オンプレミスでホストされている専用のハードウェアユニットで、4K を Azure データセンターにプッシュする必要がある場合、すぐに直面する問題は、エンコーダーユニットのオンプレミスと Azure データセンターの間に高帯域幅のネットワーク接続が必要になることです。 一般に、複数のリージョンに取り込み、エンコーダーと Azure データセンターの間で接続されているネットワークの負荷を増やすことがベストプラクティス&#39;ます。</p>
+
+
+  <p>パブリッククラウドに4K コンテンツを確実に取り込むにはどうすればよいですか。</p>
+
+
+  <p>または、クラウドのコンテンツをエンコードすることもできます。 azure で 4k/uhd live encoding を実行できる場合、その出力は、十分な帯域幅と信頼性を提供する azure ネットワーク内の Azure Media Services に取り込まれたすることができます。</p>
+
+
+  <p>Azure クラウドでは、4K/UHD ライブエンコードを確実に実行し、コンテナー化されたソリューションとしてスケーリングするにはどうすればよいでしょうか。 次の&#39;をご覧ください。&nbsp;</p>
+
+
+  <h2>Azure Kubernetes Service</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/kubernetes-service/" target="_blank">Azure Kubernetes Services (AKS)</a>を使用すると、Microsoft はお客様に管理された Kubernetes プラットフォームを提供します。 これは、ホスト型の Kubernetes プラットフォームであり、ネットワーク、クラスターマスタ、クラスターノードの OS 修正プログラムなど、必要な構成作業をすべて備えたクラスターの作成に多くの時間を費やす必要はありません。 また、Azure Monitor と Log Analytics とシームレスに統合される構成済みの監視機能も付属しています。 もちろん、独自のツールを柔軟に統合することもできます。 さらに、その他の標準の Kubernetes プラットフォームで実行されている既存のツールと完全に互換性があるため、これは単純なバニラの Kubernetes にすぎません。</p>
+
+
+  <h2>メディア Excel エンコード</h2>
+
+
+  <p><a href="https://www.mediaexcel.com/" target="_blank">メディア Excel</a>は、物理アプライアンスとソフトウェアベースのエンコードソリューションを提供するエンコードおよびトランスコードベンダーです。 メディア Excel は、長年にわたり Microsoft と提携しており、Azure media の顧客プロジェクトに関与しています。 また、fMP4 の Azure Media Services の推奨される投稿とテストされた<a href="https://docs.microsoft.com/en-us/azure/media-services/latest/recommended-on-premises-live-encoders#live-encoders-that-output-fragmented-mp4" target="_blank">寄与のエンコーダー</a>としても表示されます。 また、media Excel と Microsoft では、media Excel encoder から Server-Side Ad 挿入 (ssai) ワークフローをサポートしている Azure Media Services オリジンに、時間の切れたメタデータを35統合します。</p>
+
+
+  <h2>ネットワークの課題</h2>
+
+
+  <p>4K や8K などの画像品質の向上により、コンピューティングとネットワークの両方での負担は、大きな設計上の課題になります。 お客様との最近の取り組みでは、お客様のオンプレミスから Azure データセンターへの帯域幅の制限があるという課題がある4K ライブストリーミングプラットフォームを設計する必要があります。 メディア Excel を使って、スケーラブルなコンテナー化されたエンコードプラットフォームを AKS に構築しました。 クラウドコンピューティングを利用し、エンコーダーと Azure Media Services パッケージャー間のネットワーク待機時間を最小限に抑えます。 同じソースの上位ビットレート 4Kp60@20Mbps を持つ複数のビットレートがクラウドに生成され、さらに処理するために Azure Media Services プラットフォームに取り込まれたます。 これには、動的な暗号化とパッケージ化が含まれます。 このセットアップにより、次のような利点があります。</p>
+
+
+  <ul>
+      <li>複数の AKS ノードに瞬時にスケール</li>
+      <li>顧客と Azure データセンター間のネットワークの制約を排除する</li>
+      <li>コンテナーの自動化されたワークフローとコンテナーテクノロジに関する問題の簡単な分離</li>
+      <li>高品質で生成されたコンテンツの配布に対するセキュリティレベルの向上</li>
+      <li>非常に冗長な機能</li>
+      <li>最適化されたメディアワークロード用のさまざまな種類のノードプールを柔軟に提供</li>
+  </ul>
+
+
+  <p>この特定のテストでは、Azure 内のネットワークが、西ヨーロッパで実行されているコンテナー化されたエンコーダインスタンスから米国東部とクラクションの両方のデータセンターリージョンに <a href="https://azure.microsoft.com/en-us/global-infrastructure/global-network/" target="_blank">、高帯域幅、待機時間が重要な4k パケット</a> を送信できることを確認しました。 これにより、顧客はより多くのコンテンツをより適切に作成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e493aa8-a772-4b92-b75b-090cc6603dd0.png"><img alt="High-level Architecture of used Azure components for 4K encoding in the Azure cloud." border="0" height="516" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/269c55c6-561a-4a8d-b139-94c77409e400.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="アーキテクチャ Flow 図" width="980"></a></p>
+
+
+  <p>ワークフロー:</p>
+
+
+  <ol>
+      <li>Azure パイプラインがトリガーされ、AKS クラスターにデプロイされます。 <a href="https://github.com/fvneerden/mexl-aks" target="_blank">(Github にあります) yaml ファイルに</a>は、Azure Container Registry のメディア Excel コンテナーへの参照があります。</li>
+      <li>AKS は、デプロイを開始し、Azure Container Registry からコンテナーをプルします。</li>
+      <li>コンテナーの開始時に、カスタム PHP スクリプトが読み込まれ、コンテナーが HMS (ヒーロー管理サービス) に追加されます。 およびは、正しいデバイスプールとジョブに配置されています。</li>
+      <li>エンコーダーがソースを読み込み、(この場合は) 4K ライブストリームを Azure Media Services にプッシュします。</li>
+      <li>パッケージ化されたライブストリームを複数の形式に Media Services し、DRM (デジタル著作権管理) を適用します。</li>
+      <li>Azure Content delivery Network ライブストリーム。</li>
+  </ol>
+
+
+  <h2>スケール Azure Container Instances</h2>
+
+
+  <p>Azure Kubernetes Services を使用すると、 <a href="https://azure.microsoft.com/en-us/services/container-instances/" target="_blank">Azure Container Instances の機能</a> をすぐに活用できます。 Azure Container Instances は、事前にプロビジョニングされたコンピューティング能力を自由に拡張する方法です。 メディア Excel エンコードインスタンスを AKS に展開するときに、これらのインスタンスを作成する場所を指定できます。 これにより、低コストの低優先度のエンコードジョブを実現する低コストのノードでの密度の向上などの変数を柔軟に扱うことができます。また、高スループットの優先度の高いジョブでは、コストの高いノードを使用できます。 Azure Container Instances を使用すると、プロビジョニング時間を必要とせずに、ワークロードをスタンバイのコンピューティング能力に瞬時に移動できます。 コンピューティング時間に対してのみ、お客様の要求とプラットフォームのニーズに対する将来の変化に対する完全な柔軟性を提供します。 Media Excel &rsquo; s の柔軟なライブ/ファイルベースのエンコーディングロールを使用すると、AKS と Azure Container Instances によって提供されるさまざまなコンピューティング能力間でワークロードを簡単に移動できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95bb16ae-08c5-422e-8b3f-088d6f526b5c.png"><img alt="Container Creating on Azure Kubernetes Services (AKS)" border="0" height="156" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/945c840d-49af-4411-9091-caf347f1aaef.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="kubectl コンテナーオーケストレーション" width="822"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a994657d-97c6-4f8f-aed1-13a4cff12218.png"><img alt="Media Excel Hero Management System showing all Container Instances." border="0" height="376" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/942ffd8e-39e3-46a6-b977-d4e4fef7eacb.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="HMS ポータル" width="980"></a></p>
+
+
+  <h2>すべてをまとめて Azure DevOps パイプライン</h2>
+
+
+  <p>コンテナー化されたワークロードに付随する一般的な利点はすべて、次の場合に適用されます。 この概念実証のために、テストと展開を容易にするために、 <a href="https://azure.microsoft.com/en-us/services/devops/" target="_blank">Azure DevOps</a>で自動化されたデプロイパイプラインを作成しました。 デプロイ yaml とパイプライン yaml を使用すると、メディア Excel エンコーディングコンテナーのデプロイ、プロビジョニング、スケーリングを簡単に自動化できます。 DevOps によってデプロイジョブが AKS にプッシュされると、コンテナーイメージが<a href="https://azure.microsoft.com/en-us/services/container-registry/" target="_blank">Azure Container Registry</a>からプルされます。 コンテナーイメージは、レイヤーのノード側キャッシュを使用して大きくなる可能性がありますが、追加のコンテナーのプルは、数秒で大幅に改善されています。 メディア Excel を使用すると、media Excel&#39;の管理ポータルからコンテナーを追加したり削除したりするための、yaml ファイルコンテナー事前およびコンテナー後のライフサイクルロジックを作成しました。 これにより、複数のノードの種類、クラスター、およびリージョンにまたがる複数のインスタンスを簡単に管理できます。</p>
+
+
+  <p>このデプロイパイプラインは、特定のノードタイプに特定のマルチテナントの顧客またはジョブの優先順位を完全に柔軟に提供します。 これにより、GPU が有効になっているノードでエンコードジョブをプロビジョニングしてスループットを最大化したり、優先順位の低いジョブに低コストの汎用ノードを使用したりする可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bed1ee76-c25e-40bd-8bd5-cce5f829254e.png"><img alt="Deployment Release Pipeline in Azure DevOps." border="0" height="406" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/625e8716-a569-4ab2-870f-a1f8e1344660.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="Azure DevOps パイプライン" width="980"></a></p>
+
+
+  <h2>Azure Media Services と Azure Content Delivery Network</h2>
+
+
+  <p>最後に、4k ストリームを<a href="https://azure.microsoft.com/en-us/services/media-services/" target="_blank">Azure Media Services</a>にプッシュします。 クラウドベースのプラットフォームである Azure Media Services では、ブロードキャスト品質のビデオ ストリーミングを実現し、アクセス性と配信を強化し、コンテンツを分析するソリューションを構築できます。 アプリ開発者、コールセンター、政府機関、またはエンターテイメント会社を再利用&#39;かどうかにかかわらず、Media Services 最も人気のあるモバイルデバイスやブラウザーで、大量のユーザーに対し &rsquo; て、優れた品質のメディアエクスペリエンスを提供するアプリを作成するのに役立ちます。</p>
+
+
+  <p>Azure Media Services は、Azure Content Delivery Network とシームレスに統合されています。 azure Content Delivery Network では、Microsoft、azure Content Delivery Network から Verizon、Content Delivery Network azure の azure Content Delivery Network を選択して、<a href="https://azure.microsoft.com/en-us/services/cdn/" target="_blank">真のマルチ CDN を提供</a>しています。 Akamai から。 これは、プロビジョニングと管理を容易にするための単一の Azure Content Delivery Network API を通じて行われます。 追加の利点として、Azure Media Services オリジンと CDN エッジ間のすべての CDN トラフィックは無料です。</p>
+
+
+  <p>このセットアップでは、複数のクラスター間でリアルタイムの4K エンコードを処理する準備ができたことを示しまし &rsquo; た。 AKS、Container Registry、Azure DevOps、Media Services、azure Content Delivery Network などの azure サービスにより、高スループットの時間に依存する制約を満たすことができるアーキテクチャを簡単に作成できるようになりました。</p>

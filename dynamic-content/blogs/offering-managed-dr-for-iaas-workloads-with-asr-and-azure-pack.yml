@@ -1,0 +1,197 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dee87f837b8d3077947dad2d910a05607296c9fa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904011"
+Slug: offering-managed-dr-for-iaas-workloads-with-asr-and-azure-pack
+Title: ASR と Azure Pack を使用した IaaS ワークロード向けマネージド DR の提供
+Summary: Azure Site Recovery Azure Pack との統合により、サービス プロバイダーは IaaS ワークロードの上にマネージド DR サービスを顧客に提供できます
+Content: >-
+  数週間前に、  <a href="https://aka.ms/asr_wap_blog_service_providers_announcement">Azure Site Recovery</a> の新機能を発表しました。これは、サービス プロバイダーが ASR の上に付加価値サービスを提供できるさまざまなシナリオのロック<b></b>を解除します。 具体的には、ASR と Azure Pack を使用して、サービス プロバイダーは IaaS ワークロードに基いて、マネージド DR を Premium サービスとして顧客に提供できます。
+
+
+  このブログでは、サービス プロバイダーが Azure Pack との ASR 統合を活用して、最小限の構成変更とユーザー トレーニングを必要としながら、マネージド DR <b></b> サービスを顧客に提供する方法について説明します。 このブログでは、DR プラン/アドオンの作成、テナントのオンボード、フェールオーバー後の仮想マシンへのアクセスがいかに簡単かの概要も示します。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="1.2" alt="1.2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1.2.png" width="642" height="298" border="0" />
+
+
+  上のアーキテクチャ図に示したように、Azure Pack、System Center Virtual Machine Manager (SCVMM) および Windows Server は、Azure 整合性サービスを提供する基盤を形成しています。
+
+
+  サービス プロバイダーとして DR の提供を開始するには、インフラストラクチャを準備する必要があります。これは、いくつかの簡単な前提条件で実行できます。
+
+  <ul>
+   <li>ログインして Azure portal  <a href="https://aka.ms/asr_wap_blog_vault_creation">コンテナーを作成Azure Site Recoveryします</a></li>
+   <li><a href="https://aka.ms/asr_wap_blog_asr_provider_download">[Microsoft Azure Site Recovery プロバイダー] を</a>ダウンロードし、両方の SCVMM サーバーにインストールします。</li>
+   <li>ASR にMicrosoft Azure Site Recoveryプロバイダーを登録する</li>
+   <li>ASR <a href="https://aka.ms/asr_wap_blog_cloud_configuration">ポータルで保護のために SCVMM</a> クラウドを構成する</li>
+   <li>Microsoft スクリプト <a href="https://aka.ms/asr_wap_blog_asr_runbooks">センターから Azure Pack 用 ASR Runbook</a> をダウンロードし、それらを Service Management Automation</li>
+  </ul>
+
+  初期セットアップが完了したら、DR プランをロールアウトし、自動保護、非同期レプリケーション、仮想ワークロードの順序付<strong></strong>けされた復旧を<strong></strong>含む ASR 機能を活用する準備が整います。<strong> </strong>
+
+
+  以下のセクションでは、DR プラン/アドオンの作成、ASR Runbook のスケジュール設定、テナントのオンボード、フェールオーバー訓練の管理、フェールオーバー後の VM へのアクセスの手順について説明します。
+
+  <h2></h2>
+
+  <h2>DR プラン/アドオンを作成する</h2>
+
+  DR プランを提供するには、プランを作成して発行し、DR アドオンをリンクし、最後にセカンダリ Azure Pack 管理ポータルで対応するプライベート復旧計画を作成する必要があります。 これらの手順について詳しく説明するために、DR アドオンにリンクする "<i>Gold プラン"</i> という名前のプランを使用します。
+
+
+  <b>DR アドオンを作成するには、[</b>プラン] を展開し、[ADD-ON の作成] をクリックし、"<em>DRAddon" という名前を付します</em>。 これでアドオンが作成されますが、まだ構成する必要があります。 アドオンを構成するには、Azure Pack でアドオンをクリックし、新しく作成したアドオンを選択します。 アドオン サービスでは、"仮想マシン クラウド" がアクティブ化されていないのが表示されます。
+
+  <p align="justify"> <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="3.3" alt="3.3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3.3.png" width="1026" height="239" border="0" /></p>
+
+  [仮想マシン クラウド] をクリックし、プライマリ データ センターの Azure Pack で使用するように構成した "VMM 管理サーバー" と "VIRTUAL MACHINE CLOUD" の名前を選択します。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="4.4." alt="4.4" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4.4.png" width="542" height="154" border="0" />
+
+
+  オファリングに応じてコアやメモリなどの使用制限などの詳細を完了し、<a href="https://aka.ms/asr_wap_blog_ur4">Azure Pack UR4</a> リリースの<b></b>最新の追加であるカスタム設定の下にある [すべての仮想マシンの保護を有効にする] チェック マークをオンにします。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="[保護を有効にする] チェック ボックス" alt="Enableprotection checkbox" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Enableprotection-checkbox.png" width="1026" height="183" border="0" />
+
+
+  これで DR アドオンが正常に作成されました。次に、それをプランにリンクします。 アドオン <b>をリンクするには、[プラン </b>のリンク] をクリックし、[<em>Gold プラン] を選択します</em>。
+
+
+  この手順により、DR プランは顧客向けですが、このプランには、セカンダリ Azure <b></b> Pack に対応するプライベート プランが必要です。 このプライベート プランは、テナントのサブスクリプションが DR サイト上のサービスとオファリングとまったく同じことを保証するプランです。 ASR は、プライマリ プランからセカンダリ データ センターのプライベート プランにテナントのサブスクリプションを自動的に追加します。これは、両方のデータセンターのテナントに一貫したシームレスなエクスペリエンスを提供するのに役立ちます。
+
+
+  セカンダリ Azure Pack 管理ポータルにプライベート プラン ログインを作成し、"<em>Gold Plan–Recovery" という名前のプランを作成します</em>。 <strong>プライベート プランの名前は、プライマリ プラン名の後に、何でも指定できるサフィックスで始める必要がありますが、識別を容易にするために "-Recovery" を使用することが推奨されます</strong>
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Recoveryplan" alt="Recoveryplan" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Recoveryplan.png" width="642" height="151" border="0" />
+
+
+  プライベート プランを作成したら、セカンダリ データセンター SCVMM Server と Virtual Machine Cloud の名前を選択して、前の手順で説明したように構成する必要があります。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="5.5" alt="5.5" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5.5.png" width="542" height="146" border="0" />
+
+  <h2>マスター Runbook</h2>
+
+  ASR Runbook を使用すると、保護を自動的に展開し、テナントごとに手動で保護を有効にする必要がなされます。 プライマリ Azure Pack 管理ポータルにインポートする必要がある Runbook は合計で 5 つありますが、"Invoke-AzureSiteRecoveryProtectionJob.ps1" という名前のマスター Runbook を構成してスケジュール<em> する必要があります </em>。 残りの Runbook は、テナント サブスクリプションのクエリを実行するためにマスター Runbook によって内部的に呼び出され、保護が有効にされ、プライマリ Azure Pack 管理ポータルからセカンダリ Azure Pack 管理ポータルにサブスクリプションのコピーが追加されます。
+
+
+  マスター Runbook をスケジュールして構成するには、プライマリ Azure Pack 管理ポータルで "AUTOMATION" を参照し、マスター Runbook を選択し、[スケジュール] をクリックします。 スケジュールにユーザー の表示名を指定し、Runbook の頻度と時刻を指定します。 スケジュールを完了するには、Runbook パラメーターとして資産の名前を指定する必要があります。
+
+
+  <b> </b><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Runbookparameter" alt="Runbookparameter" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Runbookparameter.png" width="523" height="405" border="0" />
+
+
+  資産の作成の詳細については <a href="https://aka.ms/asr_wap_blog_asr_runbooks">、Microsoft スクリプト</a> センターを参照してください。ただし、1 つの資産を作成する例を次に示します。
+
+
+  "<b>PrimarySiteAdminConnection</b>" パラメーターの資産を作成するには、上部の [AUTOMATION] を参照し、上部の [資産] をクリックし、下部の中央にある [設定の追加] を選択します
+
+
+  1.) [接続の追加] を選択します
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Asset1" alt="Asset1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Asset1.png" width="345" height="147" border="0" />
+
+
+  2.) 接続の種類の名前を "<b>MgmntSvcAdmin" </b>として選択し、<b></b>プライマリ Azure Pack Login という名前を付け
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Asset2" alt="Asset2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Asset2.png" width="365" height="229" border="0" />
+
+
+  3.) プライマリ Azure Pack のコンピューター名、パスワード、ユーザー名を指定する
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Asset3" alt="Asset3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Asset3.png" width="474" height="282" border="0" />
+
+
+  同様に、残りの資産を作成し、マスター Runbook でこれらの資産の名前を指定できます。
+
+  <h2>テナントのオンボード</h2>
+
+  テナントはポータルで新しい DR プラン/アドオンを確認できるので、テナントのオンボードはシームレスです。 テナントは、自分のテナント ポータル アカウントにアクセスし、新しいプランにサインアップすることで、DR プランをサブスクライブします。 完了したら、自分のサブスクリプションに DR アドオンを追加する必要があります。 テナント アカウント ポータルは次のようになります。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="tenant1" alt="tenant1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/tenant1.png" width="1026" height="208" border="0" />
+
+
+  テナントはポータルで仮想マシンを作成できます。その仮想マシンはポータルに表示されます。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="tenant2" alt="tenant2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/tenant2.png" width="1026" height="275" border="0" />
+
+
+  <strong>テナントで を実行するための追加の手順はこれ以上はありません。</strong>
+
+  <h2>自動保護</h2>
+
+  <b> </b>テナントがプランにサブスクライブすると、ASR Runbook は次の 2 つのタスクを実行します。
+
+  <ul>
+   <li>プライマリ Azure Pack 管理ポータルで DR 対応プランを使用してサブスクリプションを自動的に検出し、そのサブスクリプションのコピーをセカンダリ Azure Pack プライベート プランに追加する</li>
+   <li>テナント仮想マシンの保護を有効にし、すべての仮想マシンを復旧 Azure パックにレプリケートする</li>
+  </ul>
+
+  <b>メモ：</b> ユーザー アカウントは、Runbook によってセカンダリ Azure Pack に自動的に追加されるのではなく、サービス プロバイダーが Active Directory フェデレーション サービス (AD FS) (ADFS) などのテクノロジを使用して帯域外でこれを行う必要があります。
+
+
+  次のスクリーンショットでは、Azure Pack プライマリ管理ポータルの [<em>Gold プラン]</em> の下のテナント サブスクリプションが、Azure Pack セカンダリ管理ポータルの "<em>Gold Plan-Recovery"</em> に追加されているのを確認できます。
+
+
+  <strong>プライマリ Azure Pack</strong>
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="subscription1" alt="subscription1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/subscription1.png" width="1026" height="208" border="0" />
+
+
+  <strong>セカンダリ Azure Pack</strong>
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="subscription2" alt="subscription2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/subscription2.png" width="1026" height="191" border="0" />
+
+
+  ASR Runbook では、テナントの仮想マシンの保護が有効になっています。つまり、Runbook は次に示すように、Azure Site Recovery ポータルでジョブを自動的にトリガーします。そうしないと、手動の手順でした。
+
+
+  &nbsp;
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="保護の有効化" alt="Enabling protection" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Enabling-protection.png" width="1026" height="306" border="0" />
+
+
+  プライマリ Azure Pack 管理ポータルでは、Runbook ジョブ ビューを表示して、Runbook によって実行されるジョブの詳細を取得することもできます。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="RB3" alt="RB3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/RB3.png" width="1026" height="562" border="0" />
+
+  <h2>ASR ポータルでフェールオーバーを実行する</h2>
+
+  サービス Azure Site Recoveryを使用して、お客様のアプリケーションの DR ドリルとフェールオーバーの両方を管理できます。 サービス プロバイダーは、ASR ポータルで復旧<a href="https://aka.ms/asr_wap_blog_recovery_plan"></a>計画、テスト <a href="https://aka.ms/asr_wap_blog_test_failover"></a> フェールオーバー、その他のフェールオーバー操作の機能を利用し、お客様に最適な RPO\RTO を提供できます。
+
+
+  このブログでは、ASR 復旧計画を使用して、テナント仮想マシンをフェールオーバーする方法を示しました。 計画されたフェールオーバーを実行するには、Azure Site Recovery ポータルに <a href="https://aka.ms/asr_wap_blog_asr_portal">ログインし</a> 、 <a href="https://aka.ms/asr_wap_blog_recovery_plan">復旧計画を作成します</a>。 次のスクリーンショットに示すように、この復旧計画では、テナント VM は 2 つのグループに分割されています。これは、データベース サーバー VM が最初に復旧サイトで起動され、その後に残りの 3 つの VM が起動します。 これは、バックエンド仮想マシンが、その仮想マシンに依存する VM の前に起動されるのを確認するための方法です。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="RP1" alt="RP1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/RP1.png" width="1026" height="259" border="0" />
+
+  <h2>フェールオーバー後の VM へのアクセス</h2>
+
+  ASR と Azure Pack を使用すると、テナントはセカンダリ データセンターで一貫したエクスペリエンスを得る。 サービス プロバイダーは、セカンダリ サイトの Azure Pack テナント ポータルのリンクを顧客と共有する必要があります。 ユーザーはログインし、プライマリ Azure Pack ポータルとまったく同じ方法で仮想マシンにシームレスにアクセスできます。 次のスクリーンショットは、セカンダリ サイトの Azure Pack テナント ポータルにテナントがログインした場合のビューを示しています。 フェールオーバー後、4 つの仮想マシンすべてが実行中の状態を示します。
+
+
+  <img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="tenant2" alt="tenant2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/tenant2.png" width="1026" height="275" border="0" />
+
+
+  この投稿では、サービス プロバイダーが顧客に DR プラン/アドオンをロールアウトし、ASR Runbook を使用して自動保護を有効にする方法について説明しました。 また、テナントが DR プランをサブスクライブし、フェールオーバー後に VM にアクセスする簡単な方法も説明しました。 ASR と Azure Pack の統合により、サービス プロバイダーは、既存の Azure Pack のセットアップに対する最小限の変更を DRaaS に提供できるだけでなく、DR を備えた IaaS の完全なソリューションを提供することで、収益を増やす独自の機会も提供されます。
+
+
+  試してみたい場合は<i> </i><i> </i>、WAP との統合に関するAzure Site Recovery<a href="https://aka.ms/asr_wap_blog_asr_wap_integration_getting_started">ガイドをご覧ください</a>
+
+
+  さらに質問がある場合は、 <a href="https://aka.ms/asr_wap_blog_msdn_forum">MSDN</a> の Azure Site Recovery フォーラムにアクセスして、追加情報を確認し、他のお客様と連絡を取り合います。

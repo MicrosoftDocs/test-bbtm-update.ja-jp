@@ -1,0 +1,185 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3bfb7a71a2cd4141203e2fcfbb82491acd245513
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909343"
+Slug: azure-automation-source-control-13
+Title: Azure Automation でのソース管理の統合
+Summary: ソース管理の自動化を使用すると、Azure Automation で記述しているコードをソース管理 (プッシュ) にチェックインし、ソース管理内のコードを Azure Automation (プル) に同期できます。 この記事では、ソース管理が非常に重要である理由と、これを環境内で設定する方法Azure Automationします。
+Content: >-
+  <p>&nbsp;</p>
+
+
+  <p><em><font color="#666666">Posted onhalf <a href="https://azure.microsoft.com/en-us/blog/author/cmank/" target="_blank" title="https://azure.microsoft.com/en-us/blog/author/cmank/">onHalfopher Mank (Concurrency)</a></font></em></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ソフトウェア開発プロジェクトには、確固たなるソース管理システムが不可欠です。 多くのシステム管理者とエンジニアが気づいていないのは、自動化開発が変わるという意味です。 スクリプトと自動化の作成者は、ソフトウェア開発者と同じ種類のツールを使用してコードを追跡および管理する必要があります。</p>
+
+
+  <p>つい先月、Azure Automationチームは、ソース管理統合のプレビューを UserVoice に発表しました。 現在、このソース管理はパブリックに使用できます。&nbsp;ソース管理の&nbsp;自動化により、Azure Automation で書き&#39;するコードをソース管理 (プッシュ) にチェックインし、ソース管理内の情報を Azure Automation (プル)&rsquo; に同期することができます。 この記事では、ソース&rsquo;管理が非常に重要である理由と、ソース管理環境でこれを設定する方法Azure Automationします。 ジャンプ&rsquo;インしましょう。</p>
+
+
+  <h1>ソース管理が重要な理由</h1>
+
+
+  <p>ソース管理は、現在スクリプトと Runbook を作成しているユーザーにとって重要なコンポーネントです。 変更を行ったユーザーと変更の履歴追跡が提供されるだけでなく、すべてのコードに対して 1 つの一元化されたソースが提供されます。これにより、何時間もの作業や問題が発生した場合のトラブルシューティングを節約できます。 さらに、自動化パイプラインの 1 つの部分に関する特定の知識を持っている可能性があるチーム間で簡単にコラボレーションできます。 自動化では、ビジネスにとってミッション クリティカルな複雑なプロセスを記述して、他の展開されたソフトウェアと同じ方法で管理する必要があります。&nbsp;</p>
+
+
+  <p>ソース管理の統合は、ソース管理の方向DevOpsです。 これにより、自動化に関する開発に似た分野の作成を開始し、ソリューションをより迅速にビジネスに提供できます。</p>
+
+
+  <p>この統合を Azure Automation に直接組み込むには、サービスの最も重要な機能の 1 つである必要があります。これは、UserVoice で最も要求の多い機能の 1 つです。 簡単に&nbsp;言えば、現在スクリプトと自動化にソース管理を使用していない場合は、次の必要があります。</p>
+
+
+  <h1>Azure Automation でのソース管理の統合</h1>
+
+
+  <p>ソース管理統合を使用すると、Automation アカウント内の Runbook をソース管理リポジトリにリンクできます。 このセットアップを取得する手順を次に示します。</p>
+
+
+  <h2>GitHub を構成する</h2>
+
+
+  <ol>
+   <li>を参照<a href="https://github.com/" target="_blank">https://github.com/</a>し、新しい アカウントを作成するか、既存のアカウントにGitHubします。
+
+   <ul>
+    <li><strong><font color="#ff0000">注</font></strong>: ソース管理プレビューは現在、ソース管理プレビューとGitHub。 この機能を、Visual Studio Online などの他のプラットフォームに拡張する計画があります。 お気に入りのソース管理システムに投票 <a href="https://www.surveymonkey.com/r/?sm=2dVjdcrCPFdT0dFFI8nUdQ%3d%3d" target="_blank">できます</a>。&nbsp;</li>
+   </ul>
+   </li>
+   <li>ホーム ページでGitHubリポジトリの作成&quot;]をクリックします。&quot;既存のリポジトリを選択することもできますが&rsquo;、このチュートリアルでは新しいリポジトリを作成します。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/942fa268-37a0-4fed-91ac-ed100510ea61.png"><img alt="Configure-Step2" border="0" height="429" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4f5b646-1efe-40f0-8e01-462623ce62c2.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 10px auto; display: block; padding-right: 0px" title="Configure-Step2" width="1042"></a></li>
+   <li>リポジトリに名前を付け、追加の設定を構成して、[リポジトリの作成] を &quot;クリックします。&quot;</li>
+  </ol>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ffd043f8-fc5e-4dd4-8be8-2fe6f97986e3.png"><img alt="Configure-Step3" border="0" height="543" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b73d19f-9263-4e3a-8b22-44552092eb1e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="Configure-Step3" width="1057"></a>&nbsp;</p>
+
+  </blockquote>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>ソース管理の統合を構成する</h2>
+
+
+  <ol>
+   <li>を参照 <a href="https://portal.azure.com" target="_blank">https://portal.azure.com</a> し、組織の Azure サブスクリプション&rsquo;にログインします。 ここから、[すべての Automation アカウントの参照] を &gt; クリックします。</li>
+   <li>[Automation アカウント] ブレードで、新しい アカウントを作成するか、ソース管理を構成する既存の Automation アカウントを選択します。</li>
+   <li>下部にある [ソース管理の &quot;セットアップ] をクリックします。&quot;</li>
+   <li>[ソース管理のセットアップ] ページで、リポジトリ構成に次の値を入力し、[OK] をクリックして統合を作成します。</li>
+  </ol>
+
+
+  <ul style="margin-left: 80px;">
+   <li><strong>ソースの選択</strong>: GitHub</li>
+   <li><strong>承認</strong>: [承認] &lsquo;ボタンを&rsquo;クリックして、Azure AutomationリポジトリGitHubアクセス権を付与し、下部にある [OK] をクリックします。 承認が完了すると、ウィザードにユーザー名GitHubされます。</li>
+   <li><strong>[リポジトリの</strong>選択]: 上記の手順 3. で作成したリポジトリを選択します。</li>
+   <li><strong>[ブランチの選択</strong>]: 使用可能なブランチのいずれかを <a href="https://www.git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging" target="_blank">選択します</a>。&nbsp; コードを分岐したことがない場合は &quot;、master&quot; のみを選択として使用できます。</li>
+   <li><strong>Runbook フォルダーパス</strong>: これは、Runbook ソース コードが格納GitHubリポジトリ内のフォルダー パスです。 フォルダー内の Runbook (サブフォルダーではない) だけが、そのフォルダーに同期Azure Automation。 フォルダー構造は、好きな方法で構成できます。 リポジトリを入力する形式は、 &ldquo;/&rdquo; 基本フォルダーまたは &ldquo;/folderToSync 用です。&rdquo;</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d81f3047-6b36-4de6-92a0-ba1bcf6f085c.png"><img alt="Configure-step4" border="0" height="898" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7fd9cefd-709d-4f9c-a118-e360c27b75c5.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 2px auto 5px; display: block; padding-right: 0px; border-top-width: 0px" title="Configure-step4" width="900"></a></p>
+
+
+  <blockquote>&nbsp;</blockquote>
+
+
+  <p>&nbsp; 5.&nbsp; ソース管理統合が Automation アカウント用に構成された。&nbsp;</p>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75434a74-2d97-49e3-ab3e-0f2f0ac4b6b2.png"><img alt="Configure-Step5" border="0" height="211" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a515d51-a087-401d-8187-ff645dcc330b.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 5px auto 0px; display: block; padding-right: 0px; border-top-width: 0px" title="Configure-Step5" width="387"></a></p>
+
+  </blockquote>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><b><font color="#ff0000">注</font></b>: この統合が作成されると、Automation ソース管理が承認されたアプリケーションとしてアカウントにGitHubされます。 この情報を表示するには、 [アプリケーション] を参照GitHub &gt;&nbsp; [アプリケーション] でプロファイル設定&gt;クリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8909356-d421-481a-935e-4f6633d72fca.png"><img alt="Configure-Step5B" border="0" height="501" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a54ee300-7e58-4aa5-945f-62305b0252d9.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="Configure-Step5B" width="1019"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h1>Runbook チェックイン (プッシュ)</h1>
+
+
+  <p>Runbook チェックインを使用すると&rsquo;、個々の Runbook に加えた変更をソース管理アカウントにプッシュできます。 チェックインを実行する手順を次に示します。</p>
+
+
+  <ol>
+   <li>ソース管理を設定した Automation アカウントから、新しい Runbook を作成するか、既存のテキスト Runbook を選択して [編集] を選択します。
+   <ul>
+    <li><b><font color="#ff0000">注</font></b>: ソース管理プレビューでは、Textual/PowerShell Workflow Runbook との統合のみをサポートしています。 グラフィカル Runbook と PowerShell スクリプトのサポートは近日公開予定です。</li>
+   </ul>
+   </li>
+   <li>作成ブレードの上部にあるコマンドに、チェックインのオプションが表示されます。 このチュートリアルでは、単純な&rsquo;変数を追加し、[チェックイン] を &ldquo;クリックします。&quot; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8b2595b-cbd1-4eb7-b051-51865ba5619d.png"><img alt="RunbookCheckin-Step2" border="0" height="245" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/564afc9e-f72b-4a08-8ed0-fbe26a1d7248.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 10px auto; display: block; padding-right: 0px" title="RunbookCheckin-Step2" width="780"></a></li>
+   <li>次の確認メッセージが表示されます。 [は &ldquo;い]&rdquo; をクリックしてチェックインを続行します。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a243e88-2dee-47b9-930f-80e63c3bbacc.png"><img alt="RunbookCheckin-Step3" border="0" height="284" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0a476f8a-ff6b-4ed7-94f8-36540576644c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 10px auto; display: block; padding-right: 0px" title="RunbookCheckin-Step3" width="1407"></a>
+   <ul>
+    <li><b><font color="#ff0000">注</font></b>: ソース管理に現在存在するAzure Automationのチェックインによって上書きされます。</li>
+   </ul>
+   </li>
+   <li>Runbook &quot;Sync-MicrosoftAzureAutomationAccountToGithubV1&quot; が開始され、変更が Azure Automation から GitHub にプッシュされます。 このジョブの進行状況を確認するには、Automation アカウントのルートに戻り、[リポジトリの同期] をクリックします。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e4efb17-1ce2-4386-9f1f-1ebd9575a030.png"><img alt="RunbookCheckin-Step4" border="0" height="883" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/742116bd-5536-4803-b8bc-70050348a3f7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 10px auto; display: block; padding-right: 0px" title="RunbookCheckin-Step4" width="1577"></a></li>
+   <li>同期ジョブを選択してドリルダウンし、ジョブの詳細を表示します。 [出力] をクリックし&ldquo;&rdquo;&quot;、エラーや警告を含むジョブの詳細をクリックして、ジョブの出力を表示ストリーム。&quot;</li>
+   <li>同期ジョブが完了したら、フォルダーと Runbook が正常に同期されたことを確認GitHub。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cefc03f1-8d1e-4f93-b221-6e1ff3490443.png"><img alt="RunbookCheckin-Step6" border="0" height="407" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd4b6ac4-a887-4b28-8629-d78add1e57e1.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="RunbookCheckin-Step6" width="1035"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h1>Runbook 同期 (プル)</h1>
+
+
+  <p>Runbook 同期を使用すると、ソース管理にある現在の Runbook コードをプルして、Azure Automation。 同期を実行する手順を次に示します。</p>
+
+
+  <ol>
+   <li>上の Runbook の例を使用して、鉛筆アイコンをクリックし、次の手順で Runbook を変更GitHub。 必要に応じて、ファイル システムを介してソース ファイルとやり取りできます。その場合は、クライアント用の GitHubのような git Windows<a href="https://windows.github.com/" target="_blank">できます</a>。</li>
+   <li>ソース管理を設定した Automation アカウントで、[リポジトリ同期同期] をクリック &agrave; します。次の確認メッセージが表示されます。 [はい &ldquo;]&rdquo; をクリックして同期を続行します。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37cb648d-3956-4398-85ef-30e3f8915673.png"><img alt="RunbookSync-Step2" border="0" height="276" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/393c567d-59ad-46c1-a281-281b075badbb.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 10px auto; display: block; padding-right: 0px" title="RunbookSync-Step2" width="924"></a>
+   <ul>
+    <li><b><font color="#ff0000">注</font></b>: ソース管理からの同期では、現在ソース管理中のすべての Runbook の Azure Automation に現在存在するコードが強制的に上書きされます。 1 つの Runbook に対して変更をプッシュするだけのチェックインとは対照的に、同期ではソース管理のすべての Runbook&rsquo; の変更がプルされ、既存の内容が上書きされ、使用している Azure Automation アカウントの作成状態がドラフト (編集中 <b>)</b> に変更されます。</li>
+   </ul>
+   </li>
+   <li>Runbook &quot;Sync-MicrosoftAzureAutomationAccountToGithubV1&quot; が開始され、変更が GitHub から Azure Automation にプルされます。 Automation アカウントのルートに戻り、[リポジトリの同期] をクリックすると、このジョブの進行状況を確認できます。</li>
+   <li>このAzure Automation、使用している Runbook の例に戻り、Runbook&rsquo; に適用されている GitHubの変更を確認します。
+   <ol>
+    <li><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3d8959d0-7f4e-410d-ad3a-384e6c635c29.png"><img alt="RunbookSync-Step4" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd58eac3-7118-43c4-9db3-f95ff59d8dbe.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="RunbookSync-Step4" width="713"></a></li>
+   </ol>
+   </li>
+  </ol>
+
+
+  <p>&nbsp;</p>
+
+
+  <h1>フィードバックを送信する</h1>
+
+
+  <p>ソース管理の自動化はパブリックに使用するためにリリースされたばかりであり、Azure Automationチームがフィードバックを受け取るのを楽しみにしています。 そのため、それをドライブに持って行き、UserVoice に関するフィードバックを送信して、ご意見をお <a href="https://feedback.azure.com/forums/246290-azure-automation/suggestions/5742120-source-control-support" target="_blank">知らせください</a>。 お疲れさまでした。</p>
+
+
+  <p>次のAzure Automation? このサービスについては、こちらを <a href="https://aka.ms/Q2p1ap" target="_blank">確認し</a>、Twitter のAzure Automation <a href="https://twitter.com/AzureAutomation" target="_blank">に従ってください</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><i><font color="#666666">このゲスト ブログの投稿は、Concurrency, Inc. の Was....Azure ブログで取り上Azure Automationに関する&rsquo;ブログ投稿の興味深いアイデアをお持ちですか?Twitter で Joe Levy にお問い合 </font></i><a href="https://twitter.com/jodoglevy" target="_blank">わせください</a><i>。</i></p>

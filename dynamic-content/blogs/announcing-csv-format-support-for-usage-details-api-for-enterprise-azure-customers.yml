@@ -1,0 +1,41 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 12f43172564dc35f45cc79a0f4b35887d7cd438b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903778"
+Slug: announcing-csv-format-support-for-usage-details-api-for-enterprise-azure-customers
+Title: Azure のお客様向け Usage Details API の CSV 形式Enterprise発表
+Summary: 'Azure Consumption and Charge Usage Detail API の CSV 形式サポートのパブリック プレビューをお知らせいたします。 2017 年 8 月に、JSON 形式をサポートする Azure Consumption API と Charge API の一般提供バージョンをリリースしました。 '
+Content: >-
+  <p>Azure Consumption and Charge Usage Detail API の CSV 形式サポートのパブリック プレビューをお知らせいたします。 2017 年 8&nbsp;&nbsp; 月に、JSON 形式をサポートする Azure Consumption API と Charge API の一元的に利用可能なバージョンをリリースしました。 CSV 形式のデータのサポートを要求Enterprise、特に使用状況の詳細レポートに関する多くのフィードバックを顧客から受け取っています。 このフィードバックに基づいて、CSV 形式のデータをプルするための 2 つのメカニズムをリリースしています。</p>
+
+
+  <ul>
+      <li>同期 (非ポーリング)</li>
+      <li>非同期 (ポーリング ベース)</li>
+  </ul>
+
+
+  <p>CSV 形式のサポートの詳細については、「CSV 形式」セクションにある詳細<a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-usage-detail"></a>なドキュメントを参照してください。 さらに、Enterprise のお客様が Azure の使用状況と支出の詳細に関する詳細な分析を実行するために使用できる Power BI Content <a href="https://azure.microsoft.com/en-us/blog/new-power-bi-content-pack-for-azure-enterprise-users/">Pack</a> と <a href="https://azure.microsoft.com/en-us/blog/new-power-bi-connector-for-azure-enterprise-users/">Power BI Connector</a> があります。</p>
+
+
+  <h2>API の詳細:</h2>
+
+
+  <ul>
+      <li><strong>使用状況の詳細</strong>: <a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-usage-detail">Usage Detail API では</a> 、登録別の消費数量と推定料金の毎日の内訳が提供されます。 結果には、インスタンス、メーター、および部門に関する情報も含まれます。 API は、請求期間または指定された開始日と終了日によって照会できます。
+
+      <ul>
+          <li><strong>同期非ポーリング</strong> ベースのソリューション: これは、データセットが小さいと知られている使用状況の詳細データをプルするために使用できる 1 ステップの呼び出しです。 より大きな量のデータを使用してより大きな時間範囲をプルすると、タイムアウトが発生する可能性があります。</li>
+          <li><strong>非同期ポーリング ベースのソリューション</strong>: これは、データの準備を確認するためにポーリングが必要な 2 段階の呼び出しです。 36 か月分の時間範囲とかなりの大きなデータセットをサポートできるこの API を使用することをお勧めします。</li>
+      </ul>
+      </li>
+  </ul>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>一貫性のあるチャネルに依存しない API セットの一部として、ARM サポートを使用した Azure Consumption と Charge のデータの提供に取り組みます。 いつものように、ご意見やご提案をお寄せください。 これらは、Azure フィードバック フォーラムと <a href="https://feedback.azure.com/forums/170030-billing">Azure</a> MSDN フォーラムを使用 <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=windowsazurepurchasing">して送信</a> できます。 引き続き、追加機能を使用して資料を強化し、使用状況に関するより豊富な分析情報を提供し、Azure で実行されているすべてのワークロードにデータを費やします。</p>

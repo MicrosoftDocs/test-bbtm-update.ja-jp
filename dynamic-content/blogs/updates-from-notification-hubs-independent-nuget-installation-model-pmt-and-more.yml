@@ -1,0 +1,167 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5196e9b82119eecb629b392df77a2575483a28af
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910281"
+Slug: updates-from-notification-hubs-independent-nuget-installation-model-pmt-and-more
+Title: 'Notification Hubsからの更新: 独立NuGet、インストール モデル、PMT など'
+Summary: 'ここでは、チームが過去数か月間に取り組み続け、よりスムーズな開発エクスペリエンスと便利な機能のセット (メッセージごとのテレメトリ、マルチテナント、プッシュ変数、直接送信など) を提供するための更新プログラムを次に示します。 '
+Content: >-
+  <p>スムーズな開発エクスペリエンスといくつかの便利な機能をお客様に提供するために努力しています。 過去数か月間&rsquo;に取り組み続け、次の作業を確認します。</p>
+
+
+  <ul>
+   <li>Notification Hubsは、Azure Service Bus から独立した独立したサービスNuGet。</li>
+   <li>デバイスと通知を処理する新しいプッシュ モデルであるインストール モデルが導入されました。 このモデルはプラットフォーム通知システムと一致し、冗長または古い登録を排除するために強化されています。</li>
+   <li>メッセージごとのテレメトリでは、送信要求の詳細な結果がメッセージに送信Notification Hubs。</li>
+   <li>名前空間レベルで資格情報を使用できるマルチテナントは、今まで以上に簡単です。</li>
+   <li>プッシュ変数を使用すると、個別にカスタマイズされたブロードキャスト通知を簡単に送信できます。</li>
+   <li>Direct Send を使用すると、デバイスをデバイスに登録せずにプッシュNotification Hubs。</li>
+  </ul>
+
+
+  <h2>Notification Hubs&#39;独立した Nuget</h2>
+
+
+  <p>Notification Hubsから正式に分割Service Bus。 Notification Hubs ゲートウェイと通信し、<a href="https://www.nuget.org/packages/Microsoft.Azure.NotificationHubs"></a>Notification &quot;Hub&quot; の型指定された名前空間とその SDK リファレンスと共に動作する独立した NuGet を参照する<a href="https://msdn.microsoft.com/en-us/library/azure/mt414893.aspx">必要があります</a>。</p>
+
+
+  <p>独立したNuGetは、今後の Azure SDK リリースでも導入される予定です。</p>
+
+
+  <p>Mixed 名前空間を変換してください。</p>
+
+
+  <p>Mixed <a href="https://azure.microsoft.com/en-us/blog/updating-mixed-notification-hubs-namespace-type/">Notification Update は</a> 、ほぼ完了です。 Notification Hubs と Service Bus の両方の機能を利用する名前空間が混在している場合は、将来のユーザー エクスペリエンスを向上するために、この変換を完了するための支援が必要です。 Mixed 名前空間を見つけて&ldquo;&rdquo;、Queues/Topics/Relays/Event Hubs&ldquo;&rdquo;メッセージング型の新しい名前空間に移動する必要があります。 Mixed &ldquo;名前空間&quot; には、1 回だけNotification Hubs、 &quot;Notification Hub 型に自動的に変換&quot; されます。</p>
+
+
+  <p>お客様は、Notification Hubs機能を使用して名前空間を指定された型に変換することが、新しい機能のロールアウトとバグ修正の恩恵を受け続ける上で不可欠です。</p>
+
+
+  <h2>新しい光のインストール モデル</h2>
+
+
+  <p>[<a href="https://msdn.microsoft.com/en-us/library/azure/mt621153.aspx">REST</a>, <a href="https://msdn.microsoft.com/en-us/library/azure/microsoft.azure.notificationhubs.notificationhubclient.createorupdateinstallationasync.aspx">NuGet</a>, <a href="https://azure.github.io/azure-sdk-for-node/tutorial-notification-hubs.html">Node.js</a>, <a href="https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-java-backend-how-to/">Java</a>]</p>
+
+
+  <p>インストール モデルについて紹介します。このモデルを使用して、デバイスと通知Notification Hubs管理する新しい方法です。 インストールは、デバイス上の特定のインストールに必要なすべてのプロパティ (プッシュ チャネル、タグ、テンプレートなど) を含む JSON バッグです。 このモデルは、より簡単で直感的なNotification Hubs操作を行う目的で設計されています。 インストールが気に入り、ユーザーもそうなると考える理由は次のいくつかです。</p>
+
+
+  <ul>
+   <li>インストールは、APNs、GCM、WNS など、主要なプラットフォーム通知システムで使用されるデバイス ベースのモデルに合わせて調整されます。</li>
+   <li>インストールでは、プッシュ関連の情報が整理および統合されます。 これにより、各デバイスの登録の一覧を維持する複雑さを簡略化できます。</li>
+   <li>インストールにより、重複した通知に対する保護が強化されます。</li>
+   <li>インストールでは、1 つのデバイスを対象とする機能がファーストクラスの機能として追加され、個々のインストール ID への送信が可能です。</li>
+   <li>インストールでは、修正プログラムの適用が許可されます。</li>
+   <li>インストール ID はユーザー指定であり、デバイスまたはユーザー GUID を [インストール] にリンクできます。</li>
+  </ul>
+
+
+  <p>インストールの一般的な作業フローは次のように表示されます。</p>
+
+
+  <ul>
+   <li>クライアントでインストール オブジェクトを作成する</li>
+   <li>に Installation オブジェクトを登録Notification Hubs</li>
+   <li>デバイスにインストール ID を保存し、今後のアクセスに成功する</li>
+   <li>通知を送信する (簡単に開始するために、プッシュ インターフェイスは前の登録モデルと同じです)</li>
+  </ul>
+
+
+  <p>多くのお客様は、既に SDK (<a href="https://msdn.microsoft.com/en-us/library/azure/microsoft.azure.notificationhubs.notificationhubclient.createorupdateinstallationasync.aspx">.NET</a>、 <a href="https://azure.github.io/azure-sdk-for-node/tutorial-notification-hubs.html">Node.js、</a><a href="https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-java-backend-how-to/">Java</a>) を使用している可能性があります。REST ドキュメントを次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://msdn.microsoft.com/en-us/library/azure/mt621153.aspx">インストールの作成または上書き</a></li>
+   <li><a href="https://msdn.microsoft.com/en-us/library/azure/mt621169.aspx">インストール ID によるインストールの更新</a></li>
+   <li><a href="https://msdn.microsoft.com/en-us/library/azure/mt621170.aspx">インストールの削除</a></li>
+  </ul>
+
+
+  <h2>メッセージごとのテレメトリ</h2>
+
+
+  <p>[<a href="https://msdn.microsoft.com/en-us/library/azure/mt608135.aspx">REST</a>]</p>
+
+
+  <p>最適な監視と診断エクスペリエンスを提供するために、メッセージごとのテレメトリを導入して非常に楽しみに思います。 送信要求の通知&rsquo; ID を指定すると、要求とそのプッシュ結果の状態を取得できます。 次のような他のプラットフォーム固有の結果の中で、要求が処理された時間を追跡します。</p>
+
+
+  <ul>
+   <li># 成功した送信の数</li>
+   <li># 無効な資格情報の</li>
+   <li># 到達できない PNS の数</li>
+   <li># 不良チャネルの数</li>
+   <li># PNS サーバー エラーの数</li>
+   <li># チャネル調整の数</li>
+   <li># スキップされた の数 (重複する登録)</li>
+  </ul>
+
+
+  <p>各プラットフォームの結果の完全な一覧については、こちらのドキュメントを <span style="font-size: 13px; font-family: tahoma, 'Helvetica Neue', arial, helvetica, sans-serif; font-weight: normal; font-style: normal; line-height: 20px">参照</span>&nbsp;<a href="https://msdn.microsoft.com/en-us/library/azure/mt608135.aspx">してください</a>。 これにより、通知を操作する開発エクスペリエンスが大幅に向上すると確信しています。</p>
+
+
+  <h2>マルチテナント</h2>
+
+
+  <p>[<a href="https://msdn.microsoft.com/en-us/library/azure/mt238294.aspx">REST</a>]</p>
+
+
+  <p>マルチテナントはこれまでよりも簡単になりました。これで、名前空間レベルでプッシュ システムの資格情報を使用できます。 名前空間 <a href="https://msdn.microsoft.com/en-us/library/azure/mt238294.aspx">プッシュ Notification Services (PNS) API</a> は、複数のハブにまたがる大規模なアプリ用に設計されています。 開発者は、同じ名前空間の下にある複数のハブの統合 PNS 設定を一度に簡単に読み取って更新できます。 プッシュ資格情報と証明書を名前空間レベルで設定し、名前空間内のすべてのハブに自動的に適用されるのを確認します。</p>
+
+
+  <h2>プッシュ変数</h2>
+
+
+  <p>[<a href="https://msdn.microsoft.com/en-us/library/azure/dn223265.aspx">REST</a>、現在登録モデルで利用可能]</p>
+
+
+  <p>新しいプッシュ変数機能を使用すると、ネイティブとテンプレートの両方で、最大 60 の文字列キーと値のペアを各デバイス登録に関連付けすることができます。 送信時に、ユーザーは登録済みキーをプレースホルダーとして使用できるのに対し、Notification Hubsは実行時の各送信に対応する値を置き換える必要があります。 これは、次の理由で非常に便利です。</p>
+
+
+  <ul>
+   <li>プッシュ変数機能では、JSON キーと値のペアのディクショナリが使用され、使いやすくカスタマイズが容易になります。</li>
+   <li>開発者は、登録ごとにユーザーまたはデバイスの情報を格納し、任意のメッセージで使用できます。 これにより、テンプレートプッシュ通知の書式設定制限が取り除かされ、より多くのメッセージバリエーションが可能です。</li>
+   <li>プッシュ変数は、特定の登録に対してペアの値が存在しない場合に、送信時に既定値と一緒に使用できます。</li>
+  </ul>
+
+
+  <p>この機能は、api-version=2015-04 以降のバージョンの既存の登録設計の拡張機能です。</p>
+
+
+  <pre class="prettyprint">
+
+  <font face="Calibri">&lt;{Platform}RegistrationDescription xmlns:i=&quot;https://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;https://schemas.microsoft.com/netservices/2010/10/servicebus/connect&quot;&gt;
+      &lt;Tags&gt;myTag, myOtherTag&lt;/Tags&gt;
+      &lt;ChannelUri&gt;{ChannelUri}&lt;/ChannelUri&gt;
+      ...
+      &lt;PushVariables&gt;{&quot;key1&quot;:&quot;value1&quot;,&quot;key2&quot;:&quot;value2&quot;}&lt;/PushVariables&gt;
+  &lt;/{Platform}RegistrationDescription&gt;</font></pre>
+
+
+  <p>プッシュ変数パラメーターは基本的にディクショナリです。</p>
+
+
+  <pre class="prettyprint">
+
+  <font face="Calibri">PushVariables = new Dictionary&lt;string, string&gt; {{&quot;deviceUser&quot;, &quot;Jane&quot;}, {&quot;deviceLocation&quot;, &quot;London&quot;}}</font></pre>
+
+
+  <p>テンプレートとの互換性と、テンプレートで受け入れられるすべての式のサポートに<a href="https://msdn.microsoft.com/en-us/library/azure/dn530748.aspx"></a>関して、プッシュ変数では既定値もサポートされています。 プッシュ変数やテンプレートで send を使用する場合、$(key:{defaultValue}) を使用した個々の登録またはテンプレート登録にキーが見つからない場合にキーが受け取る既定値をユーザーが指定できます。 &quot;おはよう、$(firstName:{friend})&quot; &quot;&quot; は、firstName キーを指定せずに、おはよう、フレンドを登録にプッシュします。</p>
+
+
+  <h2>直接送信</h2>
+
+
+  <p>[<a href="https://msdn.microsoft.com/en-us/library/azure/mt608572.aspx">REST</a>、<a href="https://msdn.microsoft.com/en-us/library/azure/microsoft.azure.notificationhubs.notificationhubclient.senddirectnotificationasync.aspx">NuGet</a>]</p>
+
+
+  <p>直接 <a href="https://msdn.microsoft.com/en-us/library/azure/microsoft.azure.notificationhubs.notificationhubclient.senddirectnotificationasync.aspx">送信を</a>使用すると、PNS ハンドルに直接通知を送信できます。 この機能は、自分のデバイスを管理するか、登録されていないデバイスに配信するために Notification Hubsを使用するお客様に最適です。</p>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>名前空間が混在している場合は、上記の手順に従って混合名前空間を変換してください。 それ以外の場合は、更新を<a href="mailto:nhtalk@microsoft.com">nhtalk@microsoft.com</a>&nbsp;楽しんだ後、以下のコメントまたはご質問やフィードバックがある場合はメモをお寄せください。</p>

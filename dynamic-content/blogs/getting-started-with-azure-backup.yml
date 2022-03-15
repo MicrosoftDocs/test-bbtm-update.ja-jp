@@ -1,0 +1,177 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f6726ee8d3dc609c1966cf3fba4926d4473d830e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909215"
+Slug: getting-started-with-azure-backup
+Title: Azure Backup の概要
+Summary: 'Azure Backup は、お客様が Azure にデータをバックアップできる優れたツールです。 この記事では、Azure Backup を簡単に使い始める方法について説明します。 必要なのは、Azure サブスクリプションだけです。 '
+Content: >-
+  <a href="https://aka.ms/getstarted_landing">Azure Backup</a> は、お客様が Azure にデータをバックアップできる優れたツールです。 Azure Backup の簡単な<a href="https://aka.ms/getstarted_intro">概要</a>については、こちらの<a href="https://aka.ms/getstarted_intro">記事</a>を参照してください。 この記事では、Azure Backup を簡単に使い始める方法について説明します。 必要なのは、 <a href="https://aka.ms/getstarted_freetrial">Azure サブスクリプション</a>だけです。 セットアップは簡単で、次の3つの簡単な手順で説明しています。
+
+
+  <strong><span style="text-decoration: underline;">Azure Portal:</span></strong>
+
+
+  1.<b> </b> <a href="/Users/vtata/Documents/Work/WAB/manage.windowsazure.com">Azure Portal</a>にサインインしてバックアップコンテナーを作成する<b></b>
+
+
+  2. [バックアップコンテナー] ページからエージェントとコンテナーの資格情報をダウンロードする
+
+
+  <strong><span style="text-decoration: underline;">サーバー上:</span></strong>
+
+
+  3. Recovery Services エージェントをインストールし、サーバーを登録する
+
+
+  &nbsp;
+
+
+  <b>1. バックアップコンテナーを作成する</b>
+
+
+  バックアップコンテナーは、保護されたサーバーが関連付けられているコンテナーです。ユーザーはポータルでバックアップコンテナーを作成できます。これを行うには、表示名と、実稼働サーバーに近い地理的領域を指定します。 次の図は、コンテナーを作成するための手順を示しています。
+
+
+  ポータルにログインし、左側のサービスギャラリーから [Recovery Services] を選択します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/01RecoveryServices.jpg"><img class="alignnone size-medium wp-image-186864" alt="Azure Backup Recovery Services - Backup Vaults page" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/01RecoveryServices-575x369.jpg" width="575" height="369" /></a>
+
+
+  コンテナーに認識可能な名前を付け、実稼働サーバーに最も近いリージョンを選択します。 複数のサブスクリプションがある場合は、適切なサブスクリプションが選択されていることを確認します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/02RecoveryServices.jpg"><img alt="Azure Backup Recovery Services - Create vaults" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/02RecoveryServices-575x369.jpg" width="575" height="369" /></a>
+
+
+  <strong>ヒント:</strong> 実稼働サーバーに近いリージョンを選択すると、データ転送が高速になります。 ユーザーが離れた場所にあるデータセンターを強制的に選択する信頼性要因の場合は、それらの問題を rest に配置できます。 Azure Backup によって、バックアップデータの3つのコピーが自動的に geo レプリケートされます。
+
+
+  &nbsp;
+
+
+  <b>2. エージェントとコンテナーの資格情報をダウンロードする</b>
+
+  <blockquote>前提条件: コンテナーが作成されます。</blockquote>
+
+  &nbsp;
+
+
+  [クイックスタート] ページに移動して、作成したコンテナーを選択します。 コンテナーの資格情報とエージェントをダウンロードする手順については、クイックスタートのページを参照してください。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/Quikstart.jpg"><img class="alignnone size-medium wp-image-186844" alt="Azure Backup Service- Backup vault Quick start" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Quikstart-481x369.jpg" width="481" height="369" /></a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0084.jpg"> </a>
+
+
+  コンテナーの資格情報ファイルは、 <a href="#Registration">登録プロセス</a>中に運用サーバーを承認するために使用される認証ファイルとして機能します。セキュリティのため、ファイルのキーは 48 時間で有効期限が切れます。 コンテナーの資格情報にはキーが含まれているため、ダウンロードしたファイルを保護することを強くお勧めします。
+
+
+  エージェントのダウンロードには、2つのバージョンが用意されています。1つは Windows server Essentials sku 用で、もう1つは他のすべての Windows サーバー sku と System Center Data Protection Manager 用です。  <a href="https://aka.ms/getstarted_dpm">System Center Data Protection Manager で Azure Backup を使用する方法</a>の詳細については、次の投稿を参照してください。
+
+
+  &nbsp;
+
+
+  <b>3. エージェントをインストールし、サーバーを登録します。</b>
+
+  <blockquote>前提条件: ポータルからダウンロードされたエージェントとコンテナーの資格情報。</blockquote>
+
+  次の図は、実稼働サーバーにエージェントをインストールし、バックアップコンテナーに登録する手順の概要を示しています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0124.jpg"><img class="alignnone size-medium wp-image-186544" alt="Azure Backup agent installation - Folder and scratch page settings" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0124-458x369.jpg" width="458" height="369" /></a>
+
+
+  <strong>ヒント:</strong> Azure Backup のパフォーマンスを最適化するために、キャッシュ/スクラッチ領域の少なくとも10% が使用可能であることを確認してください。
+
+
+  適切なプロキシ設定を入力してください:
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0144.jpg"><img class="alignnone size-medium wp-image-186564" alt="Azure Backup agent installation - Proxy settings" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0144-460x369.jpg" width="460" height="369" /></a>
+
+
+  <strong>ヒント:</strong> 場合によっては、internet Explorer でインターネット接続を使用できても、Recovery Services エージェントの登録が失敗する可能性があります。これは特に、認証されたプロキシサーバーがネットワーク用に構成されている場合に当てはまります。 適切なプロキシ設定が構成されていることを確認すると、バックアップと回復の操作がシームレスになります。
+
+
+  重要な更新プログラムは Microsoft Update から入手でき、オプトインすることを強くお勧めします。 既にオプトインされている場合、この手順は自動的にスキップされることに注意してください。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0164.jpg"><img class="alignnone size-medium wp-image-186584" alt="Azure Backup agent installation - Opt in for Microsoft Updates" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0164-460x369.jpg" width="460" height="369" /></a>
+
+
+  &nbsp;
+
+
+  インストーラーウィザードは、Recovery Services エージェントが動作するために必要なソフトウェア (Windows PowerShell および .net Framework 4.5) をサーバーでスキャンします。 .NET framework は、Recovery Services エージェントのインストールを続行する前に、ユーザーが個別にインストールする必要があります。
+
+
+  インストールが正常に完了したら、サーバーをバックアップ資格情報コンテナーに登録する必要があります。 [登録に進む] をクリックして、登録プロセスを開始します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0224.jpg"><img class="alignnone size-medium wp-image-186644" alt="Azure Backup agent installation - Proceed to Registration" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0224-460x369.jpg" width="460" height="369" /></a>
+
+  <a name="Registration"></a> ポータルからダウンロードしたコンテナーに関連付けられているコンテナー資格情報ファイルを参照して選択します。 サーバーの登録に進む前に、資格情報コンテナーの概要が表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0244.jpg"><img class="alignnone size-medium wp-image-186664" alt="Azure Backup agent registration - Backup vault identification" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0244-497x369.jpg" width="497" height="369" /></a>
+
+
+  &nbsp;
+
+
+  Azure Backup は常に、ソースのデータをパスフレーズで暗号化します。ユーザーは、選択したパスフレーズを指定することも、"パスフレーズの生成" を使用して生成することもできます。
+
+
+  パスフレーズは、データの暗号化に使用される英数字の文字列です。 Azure Backup はパスフレーズを保持しないことに注意してください。パスフレーズがユーザーによって失われた場合、データを復元または回復することはできません。 そのため、ユーザーは外部の場所にキーを保存することを <strong>強く</strong> お勧めします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0284.jpg"><img class="alignnone size-medium wp-image-186704" alt="Azure Backup agent registration - Encryption settings" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image0284-498x369.jpg" width="498" height="369" /></a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0284.jpg"> </a>
+
+
+  パスフレーズを入力すると、運用サーバーの登録が開始されます。 エージェントが運用サーバーをバックアップコンテナーに登録するまで数秒かかります。 コンテナーへの登録が完了するとすぐに、次の概要ページが表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/ServerRegistrationSuccessful.jpg"><img alt="Azure Backup agent - Server registration successful" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ServerRegistrationSuccessful-489x369.jpg" width="489" height="369" /></a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0324.jpg"> </a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/clip_image0324.jpg"> </a>これで、バックアップを開始するための、運用サーバー上のエージェントの設定が完了します。
+
+
+  デスクトップのショートカットから Azure Backup スナップインを起動します。
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/SnapIn.jpg"><img alt="Azure Backup - MMC Snap-in" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SnapIn-636x320.jpg" width="636" height="320" /></a>
+
+
+  &nbsp;
+
+
+  バックアップする項目とバックアップする頻度を選択して、バックアップポリシーを構成します。 次に、スケジュールを設定します。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/Schedule.jpg"><img class="alignnone size-medium wp-image-187704" alt="Azure Backup - MMC Snap-in - Schedule Backup" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Schedule-549x369.jpg" width="549" height="369" /></a>
+
+
+  &nbsp;
+
+
+  <strong>適用範囲</strong>
+
+
+  前の手順は、2014年9月からダウンロードした Recovery Service エージェントで利用できます。 古いエージェントが使用されている場合は、「証明 <a href="https://technet.microsoft.com/en-US/library/hh831761.aspx">書の使用</a>」を参照してください。
+
+
+  <strong>フィードバック</strong>
+
+
+  <a href="https://feedback.azure.com/forums/258995-azure-backup">ユーザーフォーラム</a> は、フィードバックを送信して顧客に確認するためのチャネルです。 <a href="https://social.msdn.microsoft.com/Forums/windowsazure/en-US/home?forum=windowsazureonlinebackup">Windows Azure Backup フォーラム</a>も、サポートクエリを開始するための優れた場所です。

@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2a4f573b2bdcf7cc572c0c1a1d908230d7de210b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903798"
+Slug: zone-redundant-virtual-machine-scale-sets-now-available-in-public-view
+Title: ゾーン冗長Virtual Machine Scale Setsパブリック プレビューで利用可能に
+Summary: '2017 年 9 月に、Azure Azure Availability Zones実行されているミッション クリティカルなワークロードに対する回復性と高可用性を実現する新しいサービスを導入しました。 現在、ゾーン冗長サービスのパブリック プレビューを明らかにVirtual Machine Scale Sets可用性ゾーンを使用したスケール セットのスケーラビリティと容易さをもたらしています。 '
+Content: >-
+  <p>2017 年 <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-availability-zones-for-resiliency-and-high-availability/" target="_blank">9</a> 月には、Azure Azure Availability Zones実行されているミッション クリティカルなワークロードに対する回復性と高可用性を実現する新しい機能が導入されました。 本日は、ゾーン冗長サービスのパブリック プレビューを発表Virtual Machine Scale Sets、スケール セットのスケーラビリティと使いやすさが可用性ゾーンに提供されます。</p>
+
+
+  <p>複数のゾーンにインフラストラクチャをデプロイする作業が簡単になりました。 スケール セットに使用する可用性ゾーンを指定します。 次&rsquo;のように単純です。</p>
+
+
+  <pre>
+
+  az vmss create -n &lt;name&gt; -l &lt;location&gt; --image &lt;image-name&gt; -g &lt;resource-group-name&gt; --zones 1 2 3</pre>
+
+
+  <p>ゾーン冗長構成Virtual Machine Scale Sets、可用性Virtual Machinesに自動的に分散されます。 ゾーン間&rsquo;での VM の分散、スケールイン時に削除する VM の選択などを心配する必要はありません。ゾーン冗長Virtual Machine Scale Setsリージョン リージョンと同じ機能をサポートVirtual Machine Scale Sets次の機能を含むが、これらに限定されない。</p>
+
+
+  <ul>
+      <li>Azure の自動スケール</li>
+      <li>Azure 仮想マシン拡張機能</li>
+      <li>Marketplace とカスタム イメージ</li>
+      <li>接続されているデータ ディスク</li>
+      <li>Azure Application Gateway</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-standard-overview" target="_blank">Azure Load Balancer Standard</a></li>
+  </ul>
+
+
+  <p>プレビュー期間中は、これらの機能の一部が完全なゾーン冗長ではない可能性があります。</p>
+
+
+  <p>スケール セットを使用すると、&rsquo;大規模なコンピューティング、ビッグ データ、コンテナー化されたワークロードを簡単に構築できます。 ゾーンを使用すると&rsquo;、特に前のブログ記事で説明した GA での 99.99% のアップタイム SLA を使用して、VM のアップタイムを簡単に管理できます。 これらは、ミッション クリティカルでスケーラブルなサービスを Azure 上に構築するバックボーンを提供します。</p>
+
+
+  <p>可用性ゾーンを使用して仮想マシン スケール <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-use-availability-zones" target="_blank">セットを作成</a> する方法については、この記事を参照してください。</p>

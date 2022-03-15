@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 15ef393af8622c9fdd0060db6e9f2532e1a11e69
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903602"
+Slug: dependency-call-stack-and-application-insights-sdk-labs
+Title: 依存関係呼び出し履歴と Application Insights SDK ラボ
+Summary: Visual Studio Application Insights によって収集されたすべての依存関係呼び出しのスタックをトレースするための試験的パッケージをリリースしました。 このプロジェクトは、収集されたすべての依存関係のコールスタック情報を提供するために、Application Insights SDK for .net を拡張します。
+Content: >-
+  <a href="https://azure.microsoft.com/services/application-insights/">Visual Studio Application Insights</a>によって収集されたすべての依存関係呼び出しのスタックをトレースするための試験的パッケージをリリースしました。 既存の <a href="https://azure.microsoft.com/documentation/articles/app-insights-start-monitoring-app-health-usage/">SDK for .net</a>を使用すると、アプリから外部の依存関係 (データベースや REST api など) への呼び出しを追跡し、低速または失敗した呼び出しを見つけることができます。 ただし、現在の SDK では、アプリ内のどの関数が呼び出しを行ったかを簡単に調べることはできません。 マイクロソフトの実験的なパッケージである NuGet は、この問題に対処します。 このプロジェクトは、収集されたすべての依存関係のコールスタック情報を提供するために、Application Insights SDK for .net を拡張します。
+
+  <h2><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-width: 0px;" title="010" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/010.png" alt="010" width="323" height="337" border="0" />
+
+  要件</h2>
+
+  <ul>
+   <li>ASP.NET web アプリケーションプロジェクト</li>
+   <li>プロジェクトにインストールされている<a href="https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web/">.net Web アプリケーション用の Application Insights sdk</a> (これは、プロジェクトに Application Insights を追加するために Visual Studio を使用する場合に取得する sdk です)</li>
+  </ul>
+
+  SDK は、各依存関係テレメトリデータポイントに1つのカスタムプロパティを追加します。
+
+  <h2>インストール</h2>
+
+  依存関係呼び出し履歴パッケージは、新しい SDK Labs NuGet ギャラリーでホストされています。 Visual Studio を使用してプロジェクトの NuGet パッケージを管理している場合は、次の手順を実行します。
+
+  <ol>
+   <li>NuGet に<a href="https://www.myget.org/gallery/applicationinsights-sdk-labs">Application Insights SDK Labs</a>パッケージソースを追加します。
+  電源 <a href="https://www.myget.org/F/applicationinsights-sdk-labs/">https://www.myget.org/F/applicationinsights-sdk-labs/</a><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-width: 0px;" title="nuget" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/nuget.png" alt="nuget" width="606" height="610" border="0" /></li>
+   <li>プレリリースパッケージ DependencyCallstacks をプロジェクトに追加します。 必ずプレリリースパッケージを含めてください。<img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-width: 0px;" title="020" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/020.png" alt="020" width="610" height="191" border="0" /></li>
+   <li>これで終了です。 アプリを再ビルドして実行します。</li>
+  </ol>
+
+  <strong>コマンドラインパッケージマネージャーを使用している場合は、</strong> 次のことが必要です。
+
+  <pre class="prettyprint">&gt; Install-Package "Microsoft.ApplicationInsights.DependencyCallstacks" -Source "https://www.myget.org/F/applicationinsights-sdk-labs/" -Pre</pre>
+
+  <h2>呼び出し履歴の表示</h2>
+
+  この実験を使用すると、この新しいデータをサポートするために Azure Portal でのエクスペリエンスが変更されます。 関連する依存関係がある Application Insights の要求を表示すると、依存関係の関係を示すビューが表示されるようになります。
+
+
+  この新しいビューの依存関係をクリックすると、[依存関係の詳細] ブレードが表示されます。 クラス名と関数名、およびファイル名と行番号 (使用可能な場合) を含む呼び出し履歴セクションが含まれるようになりました。
+
+
+  <img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-width: 0px;" title="osvaldo" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/osvaldo.png" alt="osvaldo" width="610" height="420" border="0" />
+
+
+  &nbsp;
+
+
+  この実験的なエクスペリエンスの取得を中止するには、プロジェクトからパッケージを削除します。 プロジェクトからパッケージを削除すると、すべての新しい要求が Azure Portal の既定の UI に表示されます。 パッケージのインストール時に行われた古い要求は、前のビューに引き続き表示されます。
+
+  <h2>現時点での制限事項</h2>
+
+  <ul>
+   <li>非同期的に呼び出される一部の呼び出し履歴情報が収集されない場合があります。</li>
+   <li>呼び出し履歴の "マイコードのみ" バージョンだけが収集されます。</li>
+  </ul>
+
+  <h2>SDK Labs について</h2>
+
+  このプロジェクトには、Application Insights SDK Labs の概念が導入されています。 プロジェクトは<a href="https://github.com/Microsoft/ApplicationInsights-SDK-Labs">GitHub のオープンソース</a>であり、 <a href="https://www.myget.org/gallery/applicationinsights-sdk-labs">MyGet</a>ギャラリーでリリースされています。
+
+  <h3>Microsoft の戦略:</h3>
+
+  <ol>
+   <li>すべての試験プロジェクトは、スタンドアロンの NuGet パッケージです。</li>
+   <li>専用の <a href="https://myget.org/">MyGet</a> フィードにプロジェクトを発行します。</li>
+   <li>試験的な機能を使用して、ダウンロードと参加している顧客の数を監視します。</li>
+   <li>実験が成功したかどうかを判断します。 役に立つことがない場合は、このプロジェクトを停止し、リポジトリから削除します。</li>
+   <li>成功したプロジェクトを独自のリポジトリまたは Application Insights SDK に昇格します。</li>
+  </ol>
+
+  <h2>まとめ</h2>
+
+  このプロジェクトは、いくつかの追加の診断シナリオを有効にします。 これにより、既存の機能の詳細と機能の強化によって Application Insights が向上します。 この追加が非常に役立つと考えられます。 パッケージがインターンプロジェクトとして作成されました。このパッケージを SDK の既定値に含めることができるように、関心が得られることを願っています。
+
+
+  GitHub に関するフィードバックを提供することで、この機能の評価にご協力ください。<a href="https://github.com/Microsoft/ApplicationInsights-SDK-Labs">https://github.com/Microsoft/ApplicationInsights-SDK-Labs</a>
+
+
+  その他の機能が必要な場合は、 <a href="https://github.com/Microsoft/ApplicationInsights-Home">ぜひお聞か</a>せください。
+
+  <h2>謝辞</h2>
+
+  このパッケージの執筆者に感謝いたします。このブログ投稿を準備するには、 <a href="https://github.com/OsvaldoRosado">Osvaldo Rosado</a> をご利用ください。

@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d3809c036778c872d834ffdabfc0e7e5ddeb42b6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909986"
+Slug: azure-media-services-powers-office-365-video
+Title: Azure Media ServicesビデオをOffice 365する
+Summary: 数週間前に、Microsoft は、Office 365 によって提供されるビデオビデオのAzure Media Services。
+Content: >-
+  <h1>はじめに</h1>
+
+  ビデオは単なるコンテンツ の種類以上の機能です。 コミュニケーション ツールとして、ビデオは、任意のコンテキストで従業員に情報を配信する非常に強力な方法を提供します。 ビデオは情報の消費に最適なだけでなく、コラボレーションにも利用できます。 この週の初めに、Office 365 Video のOffice 365を<strong>発表Azure Media Services</strong>。 このAzure Media Servicesプラットフォームは、企業向けのリッチでシンプルでスケーラブルで安全なメディア のバック エンドとモバイル デバイス再生のサポートを提供します。 Office 365 Video では、デバイスやブラウザー全体で魅力的で直感的なユーザー エクスペリエンスと組み合わされた拡張性の高いビデオ コンテンツ ストアを管理する手段が企業に提供され、SharePoint Online と統合されています。
+
+
+  ビデオは顧客の方法です。
+
+  <ul>
+   <li><strong>コミュニケーション</strong> – アイデア、概念、変更。</li>
+   <li><strong>教育 –</strong> オンボーディングとトレーニング</li>
+   <li><strong>共同作業</strong> - コミュニティ間でベスト プラクティスを共有する</li>
+  </ul>
+
+  企業内のビデオは、企業のイベントや町役場の会議など、さまざまな方法で利用できます。従業員とパートナーのトレーニング人事、法律、コンプライアンスに関するビデオ。 ビデオは非常に有効な機能であり、Office 365 Video は、すべての企業ユーザーがどこからでも簡単にビデオを使用し、ビデオを使用する豊富なモバイル アプリを作成できるプラットフォームを提供します。
+
+
+  Azure チームがビデオ用のバックエンドを構築するOffice 365、いくつかの目標を念頭に置いていました。
+
+  <ol>
+   <li>企業向け、豊富でシンプルで安全なターンキー ビデオ ソリューションを提供します。</li>
+   <li>デバイスやブラウザー全体で魅力的で直感的なユーザー エクスペリエンスを提供します。</li>
+   <li>一般的なデスクトップ/ラップトップ、タブレット、モバイル デバイスのサポート。</li>
+   <li>組織のビデオ資産のシームレスで安全なクラウド ベースのエンコード、ホスティング、暗号化された配信。</li>
+  </ol>
+
+  <h1>Office 365ビデオの概要</h1>
+
+  Office 365 Video は、組織内のユーザーがビデオを投稿および表示できるイントラネット Web サイト ポータルです。 これは、組織向けストリーミング ビデオ サービスで、Office 365 の SharePoint Online で利用できます。 これは、役員のコミュニケーションや、クラス、会議、プレゼンテーション、またはトレーニング セッションの記録のビデオを共有する最適な場所です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/20/SPC14-Office-Video-Session.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="SPC14 - Office ビデオ セッション" alt="SPC14 - Office Video Session" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SPC14-Office-Video-Session_thumb.png" width="937" height="528" border="0" /></a>
+
+
+  &nbsp;
+
+
+  Office 365 Video にコンテンツの一部をアップロードすると、SharePoint によってそのコンテンツが Azure Media Services にアップロードされます。この場合、コンテンツはアダプティブ スムーズ ストリーミング用にさまざまな形式にエンコードされ、コンシューマーはデバイスと帯域幅の機能の組み合わせに基づいて最適な再生エクスペリエンスを得る可能性があります。 再生は 720p 解像度の H.264 に基づいており、帯域幅は 400 kbps ~ 3000 kbps です。 再生中、サービスはサービスの品質を監視し、2 秒ごとに再生を調整して、各クライアントに最適なエクスペリエンスを提供します。 重要なのは、パイプライン全体で、ビデオは Azure Media Content Protection と AES-128 ビット暗号化を使用して暗号化される点に注意してください。ビデオのエンコードに加えて、Media Servicesによってメタデータとして使用されるビデオ内に一定の間隔でサムネイルSharePoint。
+
+
+  ビデオを効率的かつ安全かつ大規模にストリーミングする方法は、SharePoint で大きな焦点を当て、このオファリングは企業を可能にするビデオのターンキー ソリューションを提供すると信じています。
+
+  <h1>なぜAzure Media Services?</h1>
+
+  Office 365 Video は、長期的な投資の開始点であり、Media Services と SharePoint を統合してビデオ再生機能を強化します。 Media Servicesは、メディア ソリューションを効率的に構築して顧客に提供できるクラウドベースの PaaS ソリューションです。 ビデオの高速インジェスト、エンコード、フォーマット変換、ストレージ、コンテンツ保護、ストリーミング (ライブとオンデマンドの両方) を可能にする、すぐに使用できるサービスが多数用意されています。 Media Services、HTML5、Silverlight、Flash、Windows 8、iPad、iPhone、Android、Xbox、Windows Phone デバイスなど、任意のデバイスまたはクライアントにソリューションを提供するために使用できます。 この機能は、さまざまなストリーミング形式 (Smooth Streaming、HTTP ライブ ストリーミング (HLS)、MPEG-DASH ストリーミングなど) をサポートしています。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/20/SPC14-Office-Video-Session2.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="SPC14 - Office Video Session2" alt="SPC14 - Office Video Session2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SPC14-Office-Video-Session2_thumb.png" width="937" height="529" border="0" /></a>
+
+
+  &nbsp;
+
+
+  簡単に言うと、Office Video は Media Services &amp; を使用して、ユーザーがアップロードしたビデオ ファイルをトランスコードし、Azure から再生された に格納されているビデオをホストし、SharePoint ページにビデオを表示します。 SharePointを使用すると、互換性の問題を心配することなく、メディア資産をアップロードし、すべてのブラウザーでビデオを魅力的に再生できます。 このサービスは Media Services に基づくので、同じ入力ビデオ コーデック (H.264、MPEG-1、MPEG-2、MPEG-4、VC-1、DV、HQ、HQX など) をサポートしています。 オーディオには、AAC、MP3、WMA を指定できます。 サポートされている入力ファイル形式には、.asf、.avi、.mod、.mts、.vob、.mp4、.mpg、.wmv があります。
+
+
+  Office 365 Video では、SharePointオンラインが必要です。 Office 365ビデオが適格な顧客に展開された後、Office 365 Video は、対象となるプランのいずれかを持ち、SharePoint Online ライセンスが割り当てられているすべてのユーザーに対して有効になります。 最初のリリースを選択したお客様は、今後数日間Office 365ビデオの表示を開始します。 最初のリリースを超えた標準のデプロイ テナントへのデプロイは、2015 年初めに世界中で完了する予定です。

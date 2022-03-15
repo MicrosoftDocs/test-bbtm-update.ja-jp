@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 717eac92c6a9747bdfc18834f7930662f36abe16
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909089"
+Slug: azure-storage-release-append-blob-new-azure-file-service-features-and-client-side-encryption-ga
+Title: Azure Storage リリース-追加 Blob、Azure File Service の新機能、および Client-Side 暗号化の GA
+Summary: Azure Storage サービスの新機能を発表し、Storage クライアントライブラリを更新していただきます。
+Content: >-
+  <p>Azure Storage サービスの新機能を発表し、Storage クライアントライブラリを更新します。 新しい blob の種類として追加 Blob が用意されており、Azure File サービスの新機能が多数用意されています。 詳細については、次のものを追加します。</p>
+
+
+  <h2>新しい AppendBlock API を使用して Blob を追加する</h2>
+
+
+  <p>新しい blob の種類である追加 blob が使用できるようになりました。 追加 blob へのすべての書き込みは blob の末尾に順次追加されるため、ログ記録のシナリオに最適です。 追加 blob は、ブロックを blob に追加するための <a href="https://go.microsoft.com/fwlink/?LinkID=619941" target="_blank">追加ブロック</a> 操作をサポートします。 ブロックが追加ブロックと共に追加されると、すぐに読み取ることができます。これ以上のコミットは必要ありません。 追加されたブロックは変更できません。</p>
+
+
+  <p>詳細については<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-blobs/" target="_blank">、Blob Storage のはじめにを</a>参照してください。</p>
+
+
+  <h2>Azure File Service</h2>
+
+
+  <p>Azure File サービスでは、次のようないくつかの新機能を利用できます (テクニカルサポートがあるプレビュー &ndash; 版)。</p>
+
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619933" target="_blank">ファイル</a> &ndash; のコピーStorage アカウント内または別の Storage アカウント内のコピー先ファイルへの blob またはファイルのサーバー側コピー。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619944" target="_blank">ファイル</a> &ndash; のコピーの中止保留中のファイルのコピー操作を中止します。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619936" target="_blank">ファイル共有サイズクォータ</a> - ファイル共有のサイズを制限します。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619945" target="_blank">ファイルのプロパティ</a> - を取得するファイルのすべてのユーザー定義メタデータ、標準 HTTP プロパティ、およびシステムプロパティを返します。 ファイルのコンテンツは返しません。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619947" target="_blank">ファイルのプロパティ</a> &ndash; の設定ファイルのシステムプロパティを設定します。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619938" target="_blank">CORS のサポート</a> &ndash;<a href="https://go.microsoft.com/fwlink/?LinkID=619947">Set File properties</a>、 <a href="https://go.microsoft.com/fwlink/?LinkID=619945">Get file Properties</a>、および<a href="https://msdn.microsoft.com/en-us/library/azure/dn167006.aspx">プレフライトファイル要求</a>を使用してブラウザーアクセスを許可します。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619949" target="_blank">共有の統計</a> &ndash; 情報の取得ファイル共有の使用状況データを取得します。</li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=619935" target="_blank">共有アクセス署名</a> - REST API &rsquo; s を使用して、ファイル共有とファイルへの SAS ベースのアクセスを提供します。</li>
+   <li>共有<a href="https://go.microsoft.com/fwlink/?LinkID=619950" target="_blank">acl を取得</a>し、共有<a href="https://go.microsoft.com/fwlink/?LinkID=619951" target="_blank">acl</a> &ndash; を設定して、REST API &rsquo; s で使用する共有の共有アクセスポリシーを管理します。</li>
+   <li>ディレクトリメタデータを<a href="https://go.microsoft.com/fwlink/?LinkID=619937" target="_blank">取得</a>し、ディレクトリ<a href="https://go.microsoft.com/fwlink/?LinkID=619946" target="_blank">メタデータ</a> &ndash; を設定して、指定したディレクトリのすべてのユーザー定義メタデータを取得/設定します。</li>
+  </ul>
+
+
+  <p>詳細については、 <a href="https://blogs.msdn.com/b/windowsazurestorage/" target="_blank">Azure Files Preview 更新プログラム</a> のブログをご覧ください。 また、これらの新機能の使用方法については、「 <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-files/" target="_blank">PowerShell と .net で Azure File storage を使用する方法</a> 」を参照してください。</p>
+
+
+  <p>&rsquo;CORS または SAS 署名 &rsquo; を使い慣れていない場合は、次のドキュメントを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/storage-cors-support/" target="_blank">クロスオリジン リソース共有 (CORS)</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-shared-access-signature-part-1/" target="_blank">Shared Access Signatures</a></li>
+  </ul>
+
+
+  <h2>クライアント側の暗号化</h2>
+
+
+  <p>また、4月以降プレビュー段階にある .NET <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2015/04/28/client-side-encryption-for-microsoft-azure-storage-preview.aspx" target="_blank">クライアント側暗号化機能</a> の一般提供も発表します。 Blob、テーブル、キューの暗号化を有効にするだけでなく、追加 Blob もサポートされています。 詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-client-side-encryption/" target="_blank">Client-Side Encryption with Microsoft Azure Storage のはじめに</a>を参照してください。</p>
+
+
+  <h2>クライアントライブラリ &nbsp; とツールの更新プログラムの Azure Storage</h2>
+
+
+  <p>&nbsp;また、 <a href="https://github.com/Azure/azure-storage-net" target="_blank">.net</a>、 <a href="https://github.com/Azure/azure-storage-java" target="_blank">Java</a>、 <a href="https://github.com/Azure/azure-storage-cpp">C++</a>、 <a href="https://github.com/Azure/azure-storage-node/">Node.js</a>、 <a href="https://github.com/Azure/azure-storage-android/">Android</a> &nbsp; クライアントライブラリの新しいバージョンをリリース &nbsp; しました。これにより、新しい &nbsp; <strong>2015-02-21</strong> Storage バージョンがサポートされます。 &nbsp;ツールの場合、azcopy の &nbsp; 新しいバージョンもリリース&#39;ます。 詳細につい <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/">ては、AzCopy Command-Line ユーティリティを使用してはじめに</a> を確認してください。 また、 <a href="https://github.com/Azure/azure-powershell">Azure Powershell</a>と<a href="https://github.com/Azure/azure-xplat-cli">Azure CLI</a>の更新プログラムもリリースされました Storage&#39;。</p>
+
+
+  <p>これらの機能は役に立つと思います。 常に、フォーラムまたはこの投稿に関するコメントのいずれかについて、さらに質問がある場合は、お知らせください。</p>
+
+
+  <p>ありがとうございます。</p>
+
+
+  <p>Azure Storage チーム</p>

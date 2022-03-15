@@ -1,0 +1,24 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6b933e09167ee6516df41f025d9da29d1fbdc6ea
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909357"
+Slug: azure-analysis-services-integration-with-azure-virtual-networks-vnets
+Title: オンプレミス データ ゲートウェイを介した Azure Analysis Services と VNet の統合
+Summary: Azure 仮想ネットワーク (Vnet) に存在するクラウドデータソースとの統合を提供するようになったことをお知らせします Azure Analysis Services。 組織は、セキュリティと分離を強化するために Vnet を使用します。 azure SQL DW や azure Database などのクラウドデータソースは、VNet エンドポイントを使用してセキュリティで保護することができます。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview">Azure 仮想ネットワーク</a>(vnet) に存在するクラウドデータソースとの統合を提供するようになったことをお知らせします Azure Analysis Services。 組織は、セキュリティと分離を強化するために Vnet を使用します。 azure SQL DW や azure Database などのクラウドデータソースは、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-vnet-service-endpoint-rule-overview">VNet エンドポイントを使用</a>してセキュリティで保護することができます。</p>
+
+
+  <p>Azure Analysis Services 受信トラフィックは、 <a href="https://azure.microsoft.com/en-us/blog/hardening-azure-analysis-services-with-the-new-firewall-capability/">ファイアウォール規則</a>を使用して制御できます。 ただし、Azure Analysis Services では、データ更新操作を実行するためにデータソースにアクセスする必要があります。 データソースがクラウドベースであり、VNet でセキュリティ保護されている場合は、Analysis Services へのアクセスを提供する必要があります。 これは、 <b>Always Usegateway </b>サーバープロパティを使用して行うことができます。</p>
+
+
+  <p>このプロパティを <b>true</b> に設定すると、データソースへのアクセスにオンプレミスのデータゲートウェイを常に使用 Azure Analysis Services ことになります。データソースがクラウドベースであるかどうかによって決まります。 このため、この <a href="https://docs.microsoft.com/en-us/azure/analysis-services/analysis-services-gateway-install">記事</a>で説明されているようにオンプレミスデータゲートウェイを設定し、ゲートウェイコンピューターを VNet に配置する必要があります。 データ更新操作はゲートウェイコンピューターに転送され、その後、データソースに正常にアクセスできるようになります。</p>
+
+
+  <p><b>always usegateway</b>サーバープロパティは、SQL Server Management Studio (SSMS) を使用して設定できます。 Azure Analysis Services サーバーに Connect、サーバーを右クリックし、[<b>プロパティ</b>]、 <b>[全般</b>] の順に選択し、[<b>詳細 (すべて)] プロパティを表示</b>します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/847033b1-bd05-4a0a-96d0-b346c5a1b577.png"><img alt="AlwaysUseGateway" border="0" height="632" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f31abe1-5f61-4475-89a1-44c4c308362c.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto" title="AlwaysUseGateway" width="697"></a></p>

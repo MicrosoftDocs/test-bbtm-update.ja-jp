@@ -1,0 +1,157 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d2040166df0c87179925711324416d3cd0194219
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910126"
+Slug: announcing-the-public-preview-of-microsoft-azure-payment-hsm-service
+Title: Payment HSM サービスのパブリック プレビュー Microsoft Azure発表
+Summary: 金融機関が一部またはすべての支払いアプリケーションをクラウドに移行する中で、勢いが高くなっています。 これには、従来のオンプレミス アプリケーションとハードウェア セキュリティ モジュール (HSM) から、一般に直接制御されていないクラウドベースのインフラストラクチャへの移行が必要です。 本日は、Azure Payment HSM が米国東部と北ヨーロッパでパブリック プレビュー中です。
+Content: >-
+  <p><em>このブログ記事は、May Chen、ProductManager&nbsp;、Azure Security によって共同作成されています。</em></p>
+
+
+  <h2>クラウドで支払いワークロードを実行する増加傾向</h2>
+
+
+  <p>金融機関が一部またはすべての支払いアプリケーションをクラウドに移行する中で、勢いが高くなっています。 これには、従来のオンプレミス アプリケーションとハードウェア セキュリティ モジュール (HSM) から、一般に直接制御されていないクラウドベースのインフラストラクチャへの移行が必要です。 これは、多くの場合、物理的な機器やソフトウェアの永続的な所有権の獲得ではなく、サブスクリプション サービスの利用を意味します。 効率性と物理的プレゼンスのスケールダウンを推進する企業イニシアチブがその原動力となっています。 逆に、クラウドネイティブ組織では、オンプレミスに存在しないクラウドファーストの導入が、その基本的なビジネス モデルです。 クラウドベースの支払いインフラストラクチャのエンドユーザーは、IT の複雑さの軽減、セキュリティ コンプライアンスの合理化、ビジネスの成長に合ったシームレスなソリューションのスケーリングの柔軟性を期待しています。</p>
+
+
+  <h2>潜在的な課題</h2>
+
+
+  <p>クラウドには大きな利点があります。 しかし、従来のオンプレミスの支払いアプリケーション (支払い HSM を含む) をクラウドに移行する際には、対処する必要がある課題があります。 それらの一部を次に示します。</p>
+
+
+  <ul>
+      <li>共有責任と信頼は、&mdash;一部の領域で制御が失われる可能性がある程度許容されますか?</li>
+      <li>待機時間アプリケーション&mdash;と HSM の間の効率的で高パフォーマンスのリンクを実現するには、次の方法を使用します。</li>
+      <li>すべてをリモートで実行&mdash;する場合、既存のプロセスと手順を調整する必要がある場合があります。</li>
+      <li>セキュリティ認定と監査コンプライアンス&mdash;現在の厳しい要件が満たされる方法</li>
+  </ul>
+
+
+  <p>Azure Payment HSM サービスは、&nbsp;これらの課題に対処し、サービスのユーザーに説得力のある価値提案を提供します。</p>
+
+
+  <h2>Payment HSM Microsoft Azureの紹介</h2>
+
+
+  <p>本日、 <a href="https://azure.microsoft.com/en-us/services/payment-hsm/" target="_blank">Azure Payment HSM</a> が米国東部と北ヨーロッパでプレビュー中です。</p>
+
+
+  <p>Azure Payment HSM&nbsp;&ldquo; は<a href="https://cpl.thalesgroup.com/encryption/hardware-security-modules/payment-hsms/payshield-10k" target="_blank">、Thales payShield 10K</a> の支払い HSM を使用して提供される BareMetal&rdquo; サービスで、Azure クラウドでのリアルタイムの重要な支払いトランザクションに暗号化キー操作を提供します。 Azure Payment HSM は、&rsquo;サービス プロバイダーと個々の金融機関が、支払いシステムのデジタル変革戦略を加速し、パブリック クラウドを導入するのに特に役立つ設計です。 Payment Card Industry (PCI) による厳格なセキュリティ、監査コンプライアンス、低待機時間、高パフォーマンスの要件を満たします。</p>
+
+
+  <p>HSM はプロビジョニングされ、ユーザーの仮想ネットワーク&rsquo; に直接接続され、HSM はユーザーの管理管理下&rsquo; に置かされます。 高可用性を確保するために、HSM をデバイスのペアとして簡単にプロビジョニングして構成することができます。 サービスのユーザーは、Azure サブスクリプションの一部として HSM への安全なリモート アクセスのために <a href="https://cpl.thalesgroup.com/encryption/hardware-security-modules/payment-hsms/payshield-manager" target="_blank">Thales payShield Manager</a> を利用します。 幅広いパフォーマンスと複数のアプリケーション要件を満たす複数のサブスクリプションオプションが用意されており、エンド ユーザーのビジネスの成長に合わせて迅速にアップグレードできます。 Azure Payment HSMoffers&nbsp; の最高パフォーマンス レベルは 2,500 CPS です。</p>
+
+
+  <h3>強化されたセキュリティとコンプライアンス</h3>
+
+
+  <p>サービスのエンドユーザーは、Microsoft のセキュリティとコンプライアンスへの投資を活用して、セキュリティ体制を強化できます。 Microsoft は、Azure Payment HSM ソリューションが格納されているデータ センターを含む、PCI DSS および PCI 3DS 準拠の Azure データ センターを運営しています。 Azure Payment HSM は&nbsp;、検証済み PCI P2PE および PCI PIN コンポーネントまたはソリューションの一部としてデプロイできます。継続的なセキュリティ監査のコンプライアンスを簡素化できます。 セキュリティ インフラストラクチャでデプロイされた Thales payShield 10K HSM は、FIPS 140-2 レベル 3 および PCI HSM v3 の認定を受けています。</p>
+
+
+  <p>*Azure Payment HSM サービスは現在、PCI DSS PCI 3DS 監査評価を行っています。</p>
+
+
+  <h3>Azure で PaymentHSM&nbsp; を管理する</h3>
+
+
+  <p>Azure Payment HSM サービスは、HSM の完全な管理制御を顧客に提供します。 これには、HSM への排他的アクセスが含まれます。 顧客は、複数の金融機関または Azure Payment HSM に直接アクセスする金融機関の代理を行う支払いサービス プロバイダーである可能性があります。 HSM が顧客に割り当てられると、Microsoft は顧客データにアクセスできなくなります。 同様に、HSM が不要になった場合、お客様のデータはゼロ化され、プライバシーとセキュリティを維持するために HSM が Microsoft&nbsp; にリリースされるとすぐに消去されます。 お客様は、高可用性&nbsp;&nbsp;、バックアップ、ディザスター リカバリーの要件に合った HSM のデプロイと構成を行い、オンプレミスの HSM で使用できるのと同じパフォーマンスを実現する責任があります。</p>
+
+
+  <h3>クラウドにおけるデジタル トランスフォーメーションとイノベーションを加速する</h3>
+
+
+  <p>Azure Payment HSM ソリューションは、低待機時間でリフト アンド シフトを行う Azure &lsquo;&rsquo; の支払い HSM へのネイティブ アクセスを提供します。 このソリューションは、ミッション クリティカルな支払いアプリケーションに高パフォーマンスのトランザクションを提供します。 Thales payShield のお客様は、既存のリモート管理ソリューション (payShield Manager と payShield TMD を組み合わせて) を利用して、Azure Payment HSM サービスを操作できます。 payShield を使用する新規のお客様は、Pay HSM をデプロイする前に、Thales またはパートナーの 1 つからハードウェア アクセサリを提供できます。</p>
+
+
+  <h2>一般的なユース ケース</h2>
+
+
+  <p>待ち時間が短く、必要に応じて HSM 容量を迅速に追加する機能などの利点により、クラウド サービスは次のような幅広い使用例に最適です。</p>
+
+
+  <p><strong>支払い処理:</strong></p>
+
+
+  <ul>
+      <li>カードとモバイルの支払いの承認</li>
+      <li>PIN と EMV 暗号化グラムの検証</li>
+      <li>3D セキュアで保護された認証</li>
+  </ul>
+
+
+  <p><strong>支払い資格情報の発行:</strong></p>
+
+
+  <ul>
+      <li>カード</li>
+      <li>モバイル セキュリティ要素</li>
+      <li>ウェアラブル コンピュター</li>
+      <li>接続されたデバイス</li>
+      <li>ホスト カード エミュレーション (HCE) アプリケーション</li>
+  </ul>
+
+
+  <p><strong>キーと認証データのセキュリティ保護:</strong></p>
+
+
+  <ul>
+      <li>POS、mPOS、SPOC のキー管理</li>
+      <li>リモート キーの読み込み (ATM、&nbsp;POS、mPOS デバイス用)</li>
+      <li>PIN の生成と印刷</li>
+      <li>PIN ルーティング</li>
+  </ul>
+
+
+  <p><strong>機密データ保護:</strong></p>
+
+
+  <ul>
+      <li>ポイント対ポイント暗号化 (P2PE)</li>
+      <li>セキュリティ トークン化 (PCI DSS コンプライアンス用)</li>
+      <li>EMV 支払いトークン化</li>
+  </ul>
+
+
+  <h2>既存および新規の両方の決済用 HSM ユーザーに適しています</h2>
+
+
+  <p>このソリューションは、従来のオンプレミス HSM フットプリントを持つ支払い HSM&nbsp; ユーザーと、サポートするレガシ インフラストラクチャを持たなかった新しい支払いエコシステムの導入者と、クラウドネイティブアプローチを一から選択できるユーザーの両方に明確な利点を提供します。</p>
+
+
+  <p><strong>既存のオンプレミス HSM ユーザーの利点:</strong></p>
+
+
+  <ul>
+      <li>既存のアプリケーションを Azure ソリューションに移行するために、支払いアプリケーションまたは HSM ソフトウェアを変更する必要はありません。</li>
+      <li>HSM 使用率の柔軟性と効率性を高めることができます。</li>
+      <li>地理的に分散している複数のチーム間の HSM 共有を簡略化します。</li>
+      <li>レガシ データ センターの物理 HSM フットプリントを削減します。</li>
+      <li>新しいプロジェクトのキャッシュ フローを改善します。</li>
+  </ul>
+
+
+  <p><strong>新しい支払い参加者の特典:</strong></p>
+
+
+  <ul>
+      <li>オンプレミスの HSM インフラストラクチャの導入を回避します。</li>
+      <li>Azure サブスクリプション モデルを使用して、先行投資&nbsp;を削減します。</li>
+      <li>最新の認定ハードウェアとソフトウェアへのアクセスをオンデマンドで提供します。</li>
+  </ul>
+
+
+  <h2>サービスの詳細については、以下をご覧ください。</h2>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/services/payment-hsm/" target="_blank">Azure Payment HSM</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/payment-hsm/" target="_blank">Azure Payment HSM のドキュメント</a></li>
+      <li><a href="https://cpl.thalesgroup.com/encryption/hardware-security-modules/payment-hsms/payshield-10k" target="_blank">Thales payShield 10K</a></li>
+      <li><a href="https://cpl.thalesgroup.com/encryption/hardware-security-modules/payment-hsms/payshield-manager" target="_blank">Thales payShield Manager</a></li>
+      <li><a href="https://cpl.thalesgroup.com/encryption/hardware-security-modules/payment-hsms/payshield-trusted-management-device" target="_blank">Thales payShield Trusted Management デバイス</a></li>
+  </ul>

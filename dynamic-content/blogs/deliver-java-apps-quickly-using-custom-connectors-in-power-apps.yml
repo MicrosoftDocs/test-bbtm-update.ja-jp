@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 30819310aeca549f151a194d38f14142f572853d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909905"
+Slug: deliver-java-apps-quickly-using-custom-connectors-in-power-apps
+Title: Power Apps でカスタムコネクタを使用して Java アプリを迅速に配信する
+Summary: '2021では、Azure ソリューションでの低レベルのアプリケーション開発 (LCAD) のための今月のウェビナーを含む毎月のブログをリリースする予定です。 '
+Content: >-
+  <p>2021では、Azure ソリューションでの低レベルのアプリケーション開発 (LCAD) のための今月のウェビナーを含む毎月のブログをリリースする予定です。 lcad on Azure は、低レベルの Microsoft Power Apps と使い慣れた Azure 製品を統合する堅牢な開発機能を示す新しいソリューションです。&nbsp;&nbsp;<br>
+
+  今月のウェビナーでは<a href="https://info.microsoft.com/ww-Landing-DeliverJavaAppsQuicklyUsingCustomConnectors.html?LCID=EN-US">、Power Apps でカスタムコネクタを使用して Java アプリを迅速に提供して</a>います。 &rsquo; このブログでは、Azure での低レベルのアプリケーション開発、Azure での Java を使用したアプリの構築方法、アプリのデプロイ、Power Apps を使用したアプリ &rsquo; のフロントエンドとユーザーインターフェイス (UI) の構築について簡単に説明します。</p>
+
+
+  <h2>Azure での低コードアプリケーションの開発とは</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/solutions/low-code-application-development/" target="_blank">azure の低レベルのアプリケーション開発 (lcad)</a>が作成されました。開発者は、より少ないコードでより迅速にビジネスアプリケーションを構築できるようになりました。さらに、より具体的には Power Apps しながら、azure サービスを使用して Power Apps を拡張し、拡張することができます。&nbsp;&nbsp;</p>
+
+
+  <p>たとえば、製造会社に勤務している pro 開発者は、基幹業務 (LOB) アプリケーションを構築して、倉庫の従業員が受信した在庫を追跡できるようにする必要があります。 このアプリケーションのビルド、テスト、および展開には数か月かかります。 ただし Power Apps &rsquo; では、時間とリソースを節約するために時間がかかることがあります。&nbsp;</p>
+
+
+  <p>ただし、倉庫の従業員が、現在の在庫が特定の数に達したときに、追加の在庫の調達注文を自動的に配置する必要があるとします。 これまでは、開発チームが以前のアプリケーションイテレーションを再作成するために、別の大きなリフトを必要としていました。 Power Apps と Azure の統合により、プロフェッショナルな開発者は Visual Studio (VS) コードで api を構築し、Azure portal に発行し、api をカスタムコネクタとしてアプリケーションに統合 Power Apps にエクスポートできます。 その後、他のアプリケーションと共に今後使用するために、Power Apps &rsquo; studio で同じ API を無期限に再利用できるようになったため、会社や開発者はより多くの時間とリソースを節約できます。 詳細については、「 <a href="https://azure.microsoft.com/en-us/solutions/low-code-application-development/" target="_blank">azure の Lcad」ページ</a>を参照してください。前述のシナリオについては、「 <a href="https://dynamicstestdrive-uat.azurewebsites.net/en-us/guidedtour/power-platform/azure-low-code-app-development-with-power-apps/1/1" target="_blank">Azure での lcad」ガイドツアー</a>をご覧ください。</p>
+
+
+  <h2>Azure コード上の Java</h2>
+
+
+  <p>このウェビナーでは、サンプルアプリケーションは、JHipster を使用して生成された Spring Boot アプリケーションまたは Azure 上の Spring アプリケーションで、Azure アプリサービスを使用してアプリをデプロイします。 アプリ &rsquo; の目的は、モノリシックアプリで製品、製品の説明、評価、および画像リンクをカタログ化することです。 サーバーなしの PowerApps を構築する方法については、Azure ブログの先月 &rsquo; <a href="https://techcommunity.microsoft.com/t5/azure-developer-community-blog/a-deep-dive-into-serverless-applications-on-power-apps-and-azure/ba-p/2113430" target="_blank">のサーバーレス低コードアプリケーション開発</a> に関するページを参照してください。 API Sandra を使用して H2SQL を開発し、運用環境で MySQL を使用しました。 次に、JDL &nbsp; studio の API に説明、評価、およびイメージリンクを追加します。 最後に、Azure アプリサービスにデプロイする前に、GitHub リポジトリに API を適用します。</p>
+
+
+  <h2>サンプルアプリのデプロイ</h2>
+
+
+  <p>Sandra は、JHipster の Maven プラグインを利用して Azure アプリサービスにアプリをデプロイします。 GitHub アクションでの分割とデプロイ &rsquo; を選択したために Azure リソースグループ名を指定した後、手動でデプロイするの &lsquo; は一度だけです。そのマスターブランチからの新しい Git プッシュは自動的にデプロイされます。 アプリが正常にデプロイされると、myhispter.azurewebsites.net/V2APIdocs で使用できるようになります。ここでは、Swagger API ファイルを JSON にコピーします。これは、カスタムコネクタとして Power Apps にインポートされます。</p>
+
+
+  <h2>フロントエンド開発</h2>
+
+
+  <p>フロントエンド開発の目的は、エンドユーザーが API にアクセスできるように、エンドユーザーが満足できるユーザーインターフェイスを構築することです。そのためには、JSON をカスタムコネクタとして Power Apps にする必要があります。これにより、エンドユーザーが API にアクセスできるようになります。 最初の手順として、開いている api を Power Apps にインポートします。このプロセスの多くは、Azure API management と Power Apps の緊密な統合によって合理化されています。 この緊密な統合の詳細については、 <a href="https://www.youtube.com/watch?v=06CRN18kH1k&amp;list=PL8IYfXypsj2Dp-jDh4TpkxnYlGmIccKfM&amp;index=6" target="_blank">api management を使用した api の Power Apps への統合に関するデモ</a>をご覧ください。</p>
+
+
+  <p>API をインポートした後は、カスタムコネクタを作成し、バックエンド開発者が構築したオープン API を使用してそのカスタムコネクタに接続する必要があります。 カスタムコネクタを作成した後、dawid を使用してデータセットにデータを収集し、収集されたデータを使用してギャラリーの表示を作成する Power Apps ます。 最後に、Dawid は、完成したアプリケーションにデータを表示し、仕事仲間とアプリを共有したり、共同所有者にしたりするプロセスについて説明します。 最後に、アプリが共有されると、Dawid によってアプリのテストとアプリによるユーザーフィードバックの要請がわかります。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>最終的に、プロの開発者は、Java を使用して、または Power Apps を持つ任意のプログラミング言語で、アプリケーションのバックエンドとフロントエンドを迅速に構築できます。 Fusion 開発チーム、プロの開発者、および市民の開発者は、アプリで共同作業を行うことができるため、プロの開発者の揚力の多くが軽減されます。 今後、これらのブログやウェビナーを改善できるように、 <a href="https://info.microsoft.com/ww-Landing-DeliverJavaAppsQuicklyUsingCustomConnectors.html?LCID=EN-US" target="_blank">ウェビナー</a> をご覧になり、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRzDZlq55wCpLjWQ_IU7xv-VURVRFQUdPSTJVTjBOR0RWM0U1VFFSM1pYUS4u" target="_blank">アンケート</a> を完了してください。</p>
+
+
+  <h2>リソース</h2>
+
+
+  <ul>
+      <li>ウェビナー <ul>
+          <li><a href="https://info.microsoft.com/ww-Landing-DeliverJavaAppsQuicklyUsingCustomConnectors.html?LCID=EN-US" target="_blank">Java アプリを迅速に配信</a>します。</li>
+      </ul>
+      </li>
+      <li>Azure での低コードアプリケーション開発 <ul>
+          <li><a href="https://azure.microsoft.com/en-us/solutions/low-code-application-development/" target="_blank">低レベルのアプリケーション開発</a>。</li>
+          <li><a href="https://dynamicstestdrive-uat.azurewebsites.net/en-us/guidedtour/power-platform/azure-low-code-app-development-with-power-apps/1/1" target="_blank">低コードアプリ開発ガイドツアー</a>。</li>
+      </ul>
+      </li>
+      <li>Azure リソース上の Java <ul>
+          <li><a href="https://azure.microsoft.com/en-us/develop/java/" target="_blank">Azure 上の Java</a>。</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/paths/java-on-azure/" target="_blank">Azure &mdash; 上の Java について学習</a>します。</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/modules/publish-azure-web-app-with-azure-toolkit-eclipse/" target="_blank">Eclipse を使用して Azure で Java web アプリを開発</a>します。</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/modules/publish-web-app-with-maven-plugin-for-azure-app-service/" target="_blank">Maven を使用して Azure で Java web アプリを開発</a>します。</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/modules/deploy-java-containers/" target="_blank">Azure Pipelines で Java コンテナーのデプロイを自動化</a>します。</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/modules/azure-spring-cloud-workshop/" target="_blank">Spring マイクロサービスを Azure にデプロイ</a>します。</li>
+      </ul>
+      </li>
+      <li>Power Apps のリソース <ul>
+          <li><a href="https://powerapps.microsoft.com/en-us/power-apps-and-azure/" target="_blank">Azure plus Power Apps pro 開発者向け</a>です。</li>
+          <li>「 <a href="https://docs.microsoft.com/en-us/learn/paths/intro-developing-power-platform/" target="_blank">Power Platform を使用した開発の概要</a>」</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/paths/use-power-apps-component-framework/" target="_blank">Power Apps Component Framework を使用してコンポーネントを作成</a>します。</li>
+          <li><a href="https://docs.microsoft.com/en-us/learn/paths/get-started-cds/" target="_blank">Microsoft dataverse 定型文の使用を開始</a>します。</li>
+      </ul>
+      </li>
+  </ul>

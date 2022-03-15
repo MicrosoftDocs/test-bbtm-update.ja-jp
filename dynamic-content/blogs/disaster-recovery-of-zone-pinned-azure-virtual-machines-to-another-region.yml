@@ -1,0 +1,38 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f1a0a21e5a0a738be42505359d0b21b2cb1ca029
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904200"
+Slug: disaster-recovery-of-zone-pinned-azure-virtual-machines-to-another-region
+Title: 別のリージョンへのゾーン固定 Azure Virtual Machinesのディザスター リカバリー
+Summary: Azure Availability Zonesは、Azure リージョン内の固有の障害分離された物理的な場所であり、独立した電源、ネットワーク、冷却機能を備えた場所です。 各可用性ゾーンは、1 つ以上のデータセンターで構成され、データセンターの障害に対するフォールト トレランスを備えた高可用性のミッション クリティカルなアプリケーションをサポートするインフラストラクチャを備えています。
+Content: >-
+  <p><a href="https://azure.microsoft.com/global-infrastructure/availability-zones/" target="_blank">Azure Availability Zones</a> は、Azure リージョン内の、独立した電源、ネットワーク、冷却を備えた、固有の障害分離された物理的な場所です。 各可用性ゾーンは、1 つ以上のデータセンターで構成され、データセンターの障害に対するフォールト トレランスを備えた高可用性のミッション クリティカルなアプリケーションをサポートするインフラストラクチャを備えています。 Azure Virtual Machines で実行されている IaaS アプリケーションの場合、リージョン内の<a href="https://azure.microsoft.com/solutions/architecture/build-high-availability-into-your-bcdr-strategy/" target="_blank"></a>複数のゾーンに複数の仮想マシン (VM) をデプロイすることで、ビジネス継続性戦略に高可用性を組み込む可能性があります。 その際、VM はゾーン間で物理的に分離され、各サイトのロード バランサーを使用して仮想ネットワークが作成されます。 これらの場所は、十分近距離であるため高可用性レプリケーションができ、物理的な場所で問題が発生してもアプリケーションは実行されたままになります。</p>
+
+
+  <p>まれに、自然災害などの大規模なインシデントにより、リージョン全体が使用できなくなる可能性があります。 非一時的な大規模な障害は、高可用性 (HA) 機能の機能を超え、完全なディザスター リカバリー (DR) を必要とする場合があります。 本日は、Availability Zones ( <a href="https://azure.microsoft.com/services/site-recovery/" target="_blank">ASR)</a> を使用して別のリージョンにデプロイされた仮想マシンのディザスター リカバリーのサポートAzure Site Recovery発表します。 ゾーン固定仮想マシンを、仮想マシンを使用して、地理的クラスター内の<a href="https://aka.ms/a2asupportedregion" target="_blank"></a>他のリージョンにレプリケートAzure Site Recovery。 この新しい機能は、この機能をサポートしているすべてのリージョンで一般Availability Zones。 可用性セットと可用性グループAvailability Zones、Azure Site Recoveryは、Azure Virtual Machines で実行されているアプリケーション<a href="https://azure.microsoft.com/features/resiliency/" target="_blank"></a>の回復性の続きを完了します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26988d3b-cc6e-4b81-af65-a0eef4c97018.png"><img alt="Resiliency continuium diagram" border="0" height="491" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dfe7383c-5cbc-4a56-bd78-031d7b17e717.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="回復性のコンティニム図" width="722"></a></p>
+
+
+  <p>ゾーン固定 VM の DR の構成は非常に簡単です。 開始するには、VM を参照し、[<strong>ディ</strong>ザスター リカバリー] を選択<strong></strong>し、選択したターゲット リージョンを選択し、設定を確認して、[レプリケーションを有効にする] <strong>をクリックします</strong>。 ターゲット リージョンで可用性ゾーンがサポートされている場合は、ゾーン固定 VM としてデプロイするターゲット VM を構成できます。 そうではない場合は、単一のインスタンスまたは可用性セットにデプロイするターゲット VM を構成できます。 ターゲット リージョンにフェールオーバーしてソース リージョンにフェールバックすると、ソース リージョンの元のゾーン構成はそのまま残ります。 これにより、ソース リージョンの構成に影響を与えることなく、DR とフェールバックに対して任意の可用性ゾーンをサポートするかどうかに関係なく、サポートされている任意のターゲット リージョンにシームレスにフェールオーバーできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/55df290e-9452-442b-b13c-c3c8f567dfe6.png"><img alt="Configuring disaster recovery in Azure Site Recovery " border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b9ccb271-1b15-4494-9290-bd3ad268070f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="サーバーでのディザスター リカバリーのAzure Site Recovery " width="1184"></a></p>
+
+
+  <p>この機能は、ASR <a href="https://aka.ms/a2a-supported-regions" target="_blank">が使用可能なすべての Azure</a> リージョンで使用できます。 <a href="https://aka.ms/a2a-getting-started" target="_blank">概要</a> でAzure Site Recoveryできます。</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li><a href="https://aka.ms/a2a-getting-started" target="_blank">概要</a> 、Azure VM のディザスター リカバリーを構成することで行います。</li>
+   <li>Azure VM をレプリケート <a href="https://aka.ms/a2a-support-matrix" target="_blank">する場合にサポートされている</a> 構成の詳細を確認します。</li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Site Recovery <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=hypervrecovmgr" target="_blank">フォーラムに</a> 連絡してください。</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/256299-site-recovery" target="_blank">稿し、既存のアイデアAzure Site Recovery</a> 投票することで、新しいアイデアを改善する方法を教えて。</li>
+  </ul>

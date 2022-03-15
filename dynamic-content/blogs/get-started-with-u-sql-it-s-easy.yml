@@ -1,0 +1,173 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6a7ee4689c8ef22d5bfb4ad57d9e15b578a9aff2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908995"
+Slug: get-started-with-u-sql-it-s-easy
+Title: 'U-SQL の概要: 簡単です。'
+Summary: Azure Data Lake Analytics は、宣言型と命令型の概念を U-SQL と呼ばれる新しい言語の形式で結合します。 新しい言語を習得することは困難です。 心配する必要はありません！ U-SQL は簡単に学習できます。
+Content: >-
+  <p>Azure Data Lake Analytics は、宣言型と命令型の概念を<strong>U-SQL</strong>と呼ばれる新しい言語の形式で結合します。 新しい言語を習得することは困難です。 &rsquo;心配は無用です。 <strong>U-SQL は簡単に学習</strong>できます。 この言語の大部分は、1日で詳しく知ることができます。 C# や Java などの SQL または言語に精通している場合は、learning U-SQL が自然で、非常に高速に生産性が向上することがわかります。<br>
+
+  &nbsp;&nbsp;<br>
+
+  一般的な質問として、U-SQL の使用を開始するには &ldquo; どうすればよいでしょうか。 &rdquo;このブログでは、U-SQL で初め取得するために必要なすべての主要な手順を紹介します。</p>
+
+
+  <h2>U-SQL とは</h2>
+
+
+  <p>U-SQL は、Azure Data Lake Analytics のビッグデータクエリ言語および実行フレームワークです。 U-SQL は、使い慣れた SQL 概念と言語を使用して、ギガバイトからペタバイト規模のカスタムコード (.net/C#/Python) をスケールアウトします。 U-SQL には、読み取り、 &rdquo; カスタムプロセッサ、レジューサーなど、通常のビッグデータ処理の概念が用意されて &ldquo; います。 この言語を使用すると、Azure Data Lake Storage、Azure Blob Storage、azure SQL DB、Azure SQL Data Warehouse、azure vm で実行されている SQL Server インスタンスなど、複数のデータソースのデータを照会して結合できます。</p>
+
+
+  <h2>手順 1: U-SQL チュートリアルを読む</h2>
+
+
+  <p><a href="https://aka.ms/usqltutorial">U-SQL チュートリアル</a>は、開始するのに最適な場所です。 このチュートリアルでは、言語とツールを段階的に段階的に説明します。 &rsquo;この手順では、Azure サブスクリプションまたは ADLA アカウントは必要ありません。 このチュートリアルでは、独自の Windows ボックスで U-SQL を実行する方法について説明します。 このドキュメントでは、1日または2日間のみを使用します。その後、実際に記述しなければならない U-SQL コードのほとんどを理解できます。</p>
+
+
+  <h2>手順 2: Azure ポータルを使用して U-SQL ジョブを送信する</h2>
+
+
+  <p>この時点で、言語について理解できました &rsquo; 。 ここでは、Azure で言語を使用するしくみについて説明します。 この手順では、ADLA アカウントに U-SQL スクリプトを送信し、その進行状況を監視する方法について説明します。 <a href="https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-get-started-portal">はじめにガイド</a>を参照してください。 このガイドでは、必要なすべての手順について説明します。 別の方法として、 <a href="https://www.youtube.com/watch?v=lTvC6kWaM7w">この YouTube ビデオを見る</a>こともできます。</p>
+
+
+  <h2>手順 3: Azure Portal でいくつかの U-SQL サンプルを実行する</h2>
+
+
+  <p>この時点では言語が新しくなっているため、Azure Portal で使用できるサンプルスクリプトを利用できます。 これらのサンプルでは、いくつかの一般的な U-SQL シナリオについて説明します。 多くのユーザーは、空の U-SQL スクリプトで開始するのではなく、既存のサンプルの1つから始めたいと思います。</p>
+
+
+  <p>ポータルで既存のサンプルを使って作業を開始するには、次の手順を実行します。</p>
+
+
+  <ul>
+   <li>ADLA アカウントにアクセスする</li>
+   <li>[ <strong>サンプルスクリプト</strong> ] (左側または上部) をクリックします。</li>
+   <li>サンプルデータをインストールするように求めるメッセージが表示されたら、それを実行します。 これにより、いくつかのサンプルデータが ADLS アカウントにコピーされます</li>
+   <li><strong>TSV ファイルのクエリ</strong>などのサンプル &ndash; を選択し、[送信] をクリック <strong> します。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/49c11e0b-8d0a-4977-8233-d7cfc6f64331.png"><img alt="Sample scripts" border="0" height="1011" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee97a644-dfb5-4c08-bab4-807b46295b5c.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="サンプルスクリプト" width="1602"></a></strong></li>
+  </ul>
+
+
+  <h2>手順 4: Visual Studio 用の Data Lake ツールを使用して U-SQL ジョブを送信する</h2>
+
+
+  <p>手順1では、Visual Studio を使用して、自分のコンピューターで U-SQL スクリプトを実行しました。 手順2と3では、Azure portal を使用し、ADLA アカウントを使用するように切り替えました。 次に、Visual Studio に戻り、U-SQL スクリプトを Azure の ADLA アカウントに送信します。 この<a href="https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-data-lake-tools-get-started">はじめにガイド</a>を読み、Visual Studio を使用して U-SQL スクリプトを実行する手順に従います。</p>
+
+
+  <h2>手順 5: U-SQL スクリプトの実行方法について学習する</h2>
+
+
+  <p>これまで、ブログの投稿は U-SQL 言語の使用に重点を置いていました。 ここでは、U-SQL スクリプトの実行時に、内部で何が起こっているかを調べる必要があります。 U-SQL クエリの実行について理解することは、すべての U-SQL 開発者にとって必要な作業です。 これは、問題をデバッグし、スケーリングするためにコードを最適化するときに非常に役立ちます。<br>
+
+  &nbsp;<br>
+
+  ビデオを見る: <a href="https://www.youtube.com/watch?v=MP2oiwT5S7I">U-SQL バッチクエリの実行</a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2fec760d-7c62-4ce0-9faa-23a2ee6874bd.png"><img alt="Job execution" border="0" height="402" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3731a4e5-351d-4f55-9f1f-90b57f63d9d4.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="ジョブの実行" width="709"></a></p>
+
+
+  <h2>手順 6: Visual Studio での C# コードの分離</h2>
+
+
+  <p>U-SQL により、.net コードを簡単に使用できるようになります。 c# 開発者の場合、Visual Studio ツールを使用すると、c# コードを U-SQL c# の分離コードと呼ばれる &ldquo; 機能を使用して、U-SQL スクリプトで直接簡単に c# コードを再利用することができます。&rdquo;</p>
+
+
+  <p>ビデオを見る: <a href="https://www.youtube.com/watch?v=VnOdSVsoioY">Visual Studio の U-SQL の C# Code-Behind</a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3baed4dc-bda3-44fb-9c59-3a65d6f37f48.png"><img alt="6.1" border="0" height="446" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/72f7ff4e-8c31-4142-85c1-cf6c3b510cae.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="6.1" width="688"></a></p>
+
+
+  <p>C# の分離コードでメソッドを呼び出すスクリプトを U-SQL します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37d6cbd2-ebcb-48e3-aeb4-e1662d9857ce.png"><img alt="6.2" border="0" height="446" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9812bf7e-5f35-4568-aa30-1632785526dc.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="6.2" width="589"></a></p>
+
+
+  <p>&rsquo;C# のコードビハインドの内容 &rsquo; は次のとおりです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5b918de-f7b6-426c-8f55-23a4da8dee8d.png"><img alt="6.3" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb48c246-7e6a-4d12-8f0a-b36fe457cef2.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="6.3" width="709"></a></p>
+
+
+  <h2>手順 7: Visual Studio でのユーザーコードのデバッグ</h2>
+
+
+  <p>コードを分散方式で実行する際の課題の1つは、通常、障害の追跡と再現が非常に困難であることです。 Visual Studio ツールにより、エクスペリエンスが簡略化されました。 たとえば、U-SQL スクリプトで使用されているコードによってスローされた .net 例外のデバッグは、コンピューター上の通常の C# プロジェクトで例外をデバッグするのと同じくらい簡単です。</p>
+
+
+  <p>ビデオを見る:<a href="https://www.youtube.com/watch?v=3enkNvprfm4">失敗した U-SQL ジョブで C# コードエラーをデバッグ</a>する</p>
+
+
+  <h2>手順 8: AU Analyzer について学習する</h2>
+
+
+  <p>大量のデータに対して U-SQL スクリプトの使用を開始すると、最終的には、U-SQL ジョブの分析単位 (au) の数を最適化する方法について考えてみます。 幸いにも、これらの最適化を実行するために、AU Analyzer というすばらしいツールを構築しまし &rsquo; た。<br>
+
+  &nbsp;<br>
+
+  ビデオを見る: <a href="https://www.youtube.com/watch?v=cYLMJ5gHGSI">U-SQL ジョブのための AU 分析</a></p>
+
+
+  <h2>手順 9: コストを削減し、コストを管理する方法を学ぶ</h2>
+
+
+  <p>ビッグデータを使用して作業を開始するときは、コストを制御するすべての方法を考慮する必要があります。 <a href="https://aka.ms/adlasavemoney">コスト削減のガイド</a>をお読みください。</p>
+
+
+  <h2>手順 10: GitHub のサンプルを使用する</h2>
+
+
+  <p>解決が必要な問題に直面している場合は、他の人が似たようなものに直面している可能性があります。 GitHub を使用して、U-SQL コミュニティでコードサンプルなどを共有します。 さまざまなトピックについてよく寄せられる質問を受けています。 以下の特定のトピックのサンプルを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/usql/tree/master/Examples/JsonSample">JSON サンプル</a></li>
+   <li><a href="https://github.com/Azure/usql/tree/master/Examples/PythonExamples">Python の例</a></li>
+   <li><a href="https://github.com/Azure/usql/tree/master/Examples/R_Extensions/PredictLinearModel">R サンプル</a></li>
+   <li><a href="https://github.com/Azure/usql/tree/master/Examples/Builtin-UDOs/Builtin-UDOs">UDO のサンプル</a>&nbsp;</li>
+  </ul>
+
+
+  <p>その他の <a href="https://github.com/Azure/usql">サンプル</a>を検索し、Git リポジトリをダウンロードするには、[ <strong>複製</strong> ] または [ <strong>ダウンロード</strong>] をクリックし、[ <strong>ZIP</strong>のダウンロード] をクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/364b28a3-35ca-42bc-97ba-51f3406ef93e.png"><img align="left" alt="GitHub" border="0" height="157" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/950520cb-d83e-48bd-b45f-84714acc6fe6.png" style="border: 0px currentcolor; border-image: none; float: left; display: inline; background-image: none;" title="GitHub" width="273"></a><br>
+
+  &nbsp;</p>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h2>高度な学習</h2>
+
+
+  <p>高度な概念を理解するためのドキュメントを読む</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-u-sql-develop-user-defined-operators">U-SQL で UDO を定義して使用する方法</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-u-sql-python-extensions">U-SQL の Python</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-u-sql-r-extensions">U-SQL の R</a></li>
+   <li><a href="https://www.youtube.com/watch?v=lTvC6kWaM7w">Azure Portal での U-SQL ジョブの送信と監視</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-u-sql-programmability-guide">USQL プログラミングガイド</a></li>
+   <li><a href="https://microsoft.sharepoint.com/teams/DPGBigDataTeam/Documents/GTM/BLOGS/WORKING DRAFTS BLOGS/usql.io/">usql.io</a> には、チュートリアル、サンプル、開発者ツールへのリンクが用意されています。</li>
+   <li><a href="https://msdn.microsoft.com/en-us/azure/data-lake-analytics/u-sql/u-sql-language-reference">Usql-リファレンスに</a> 関するリファレンスドキュメント</li>
+  </ul>
+
+
+  <h2>U-SQL コミュニティに参加してください。</h2>
+
+
+  <p>今後の U-SQL ユーザーのコミュニティへのご要望をお待ちしており、皆様からのフィードバックをお待ちしております。 特に、他の方法では実行できなかった関数 &rsquo; を作成する方法を U-SQL がいかに簡単であるか、または圧縮された時間内に分析タスクを実行できないのかをお知らせください。 U-SQL ジョブを実行して、<a href="https://aka.ms/adlfeedback">エクスペリエンスを共有</a>しましょう。</p>
+
+
+  <p>U-SQL に関してご質問がある場合は、 <a href="https://stackoverflow.com/questions/tagged/u-sql">U-SQL Stack overflow</a>または<a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=AzureDataLake">Azure Data Lake MSDN</a>にお問い合わせください。</p>

@@ -1,0 +1,108 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e43314391107382e511c1779b30e4262bb431cfe
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903864"
+Slug: video-indexer-general-availability-and-beyond
+Title: Video Indexer –一般公開
+Summary: これまでは、一般公開されている Video Indexer を発表しました。 つまり、お客様は、Video Indexer のすべてのメタデータをカウントして、ビジネスを実行するために常に使用できるようにすることができます。
+Content: >-
+  <p>以前は、 <a href="https://aka.ms/IBCAzureMedia" target="_blank">Video Indexer の一般提供 (GA) について発表</a>しました。 つまり、お客様は、Video Indexer のすべてのメタデータをカウントして、ビジネスを実行するときに常に使用できるようにすることができます。 ただし、この GA だけでは、お客様に関してお客様に提供される唯一の Video Indexer 発表とは言えません。 2018年 5 <a href="https://azure.microsoft.com/en-us/blog/build-2018-video-indexer-updates/" target="_blank">月にパブリックプレビュー Video Indexer リリース</a>された時点では、イノベーションを停止したことはなく、さらに多くの新機能を追加して、ビデオやオーディオのニーズに合わせて Video Indexer をより洞察し、効果的にすることができました。</p>
+
+
+  <h2>すばらしいエクスペリエンスと強化されたウィジェット</h2>
+
+
+  <p>Video Indexer ポータルには、お客様が media insights を簡単に確認して評価できるようにするためのインサイトおよびタイムラインのウィンドウが既に含まれています。 同じエクスペリエンスを埋め込み可能な <a href="https://azure.microsoft.com/en-us/blog/embed-video-indexer-ai-widgets-in-your-website/" target="_blank">ウィジェット</a>で使用することもできます。これは、Video Indexer を任意のアプリケーションに統合するための優れた方法です。</p>
+
+
+  <p>改良された <strong>洞察とタイムラインウィンドウ</strong>をリリースすることに誇りを持っています。 新しい [洞察] ウィンドウと [タイムライン] ペインは、Video Indexer での洞察の増加に対応するように構築されており、さまざまなフォームファクターに自動的に応答します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b2ace1e-3620-45a1-9144-0ae539112969.gif"><img width="598" height="378" title="アニメーション" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="gif" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e59d15ff-3eaa-4ff5-9908-269200e67a22.gif" border="0"></a></p>
+
+
+  <p>また、新しい [洞察] ウィンドウでは、既存のキーフレーム抽出機能の視覚化と新しい感情検出の洞察も追加されています。 これにより、次の一連の発表に移ります。</p>
+
+
+  <h2>新しいモデルによる高度な分析のロック解除</h2>
+
+
+  <p>Video Indexer の中核となるのは、さまざまな <strong>クロスチャネル</strong> (オーディオ、音声、およびビジュアル) 機械学習モデルが提供することです。 私たちは、お客様のビデオでより洞察を得るために、より多くのデータをお客様に提供するために、モデルをさらに追加し、既存のモデルを改善するために努力を続けています。</p>
+
+
+  <p>Video Indexer のモデルに対する最新の追加は、新しい感情検出とトピック推論モデルです。 新しい<strong> 感情検出</strong> モデルでは、2つのチャネル、音声コンテンツ、音声の色調に基づいて、ビデオ資産とオーディオ資産で感情的な時間が検出されます。 これらは、怒り、恐怖、、悲しみという4つの感情的な状態に分割されます。 Video Indexer によって検出されたその他の洞察と同様に、ビデオで検出された各感情に対して正確な期間を提供します。結果は、簡単に統合するために提供する JSON ファイルと、ポータルで確認できる洞察やタイムラインのエクスペリエンス、または埋め込み可能なウィジェットとして使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6cf6d508-fb9c-4a8a-982f-a0fd8841f545.png"><img width="764" height="157" title="感情-02" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Emotions -02" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c8e5369-b4de-4634-99de-ca404bd61990.png" border="0"></a></p><p>Video Indexer に追加されるもう1つの重要な点は、 <strong>トピック推論</strong>を実行する機能です。 つまり、読み上げられた単語と視覚的な手掛かりに基づいて、ビデオファイルまたはオーディオファイルの上位レベルのトピックを理解します。このモデルは、Video Indexer に既に存在するキーワード抽出モデルとは異なります。 この例では、資産から推論されるさまざまな粒度 (サイエンス、天文学、ミッションなど) のトピックを検出しますが、必ずしも表示されるとは限りませんが、抽出されたキーワードは実際にはコンテンツに含まれていた特定の用語になります。 このモデルのトピックのカタログは、メディアの標準トピックを提供するために、 <a href="https://iptc.org/standards/media-topics/" target="_blank">IPTC メディアトピックの分類</a>など、複数のリソースから供給されています。</p>
+
+
+  <p>今日のトピックは JSON ファイルに存在することに注意してください。 試してみるには、プレーヤーの下にある<strong> 中かっこ</strong> を使用してファイルをダウンロードするか、API からダウンロードして、 <strong>トピック「hammock</strong>」を検索します。 現在作業している新しいユーザーポータルエクスペリエンスに関する最新情報をお待ちしております。</p>
+
+
+  <p>新しくリリースされたモデルに加えて、既存のモデルの改善に投資しています。 これらのモデルの1つは、よく知られている著名人認識モデルです。最近、IMDB、Wikipedia、などの一般的に要求されたデータソースに基づいて約100万の顔をカバーしています。 試してみてください。そのうちの1人かもしれません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/222261fd-00d5-46c0-a4b0-ed5d36facbf6.png"><img width="800" height="366" title="People-01" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="People-01" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e94313e7-7f6f-4413-a342-c63e42eb5426.png" border="0"></a></p>
+
+
+  <p>最近拡張されたもう1つのモデルは <a href="https://azure.microsoft.com/en-us/blog/bring-your-own-vocabulary-to-microsoft-video-indexer/" target="_blank">カスタム言語モデル</a> です。これにより、各お客様は、Video Indexer の音声テキスト変換のパフォーマンスを、独自の特定のコンテンツと業界用語に拡張できます。 先月以降、この <strong>カスタム言語サポート</strong> は、英語、スペイン語、イタリア語、アラビア語、ヒンディー語、中国語、日本語、ポルトガル語、フランス語などの10種類の言語に拡張されています。</p>
+
+
+  <p>最近リリースされたもう1つ <a href="https://azure.microsoft.com/en-us/blog/spoken-language-identification-in-video-indexer/" target="_blank">の</a> 重要なモデルは、動画で話されている言語を自動的に識別することです。 この新機能により、ユーザーは手動で言語を提供することなく、一連のビデオに簡単にインデックスを付けることができます。 モデルは、使用されている主要言語を自動的に特定し、適切な音声からテキストへの変換モデルを呼び出します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da4f0018-dafd-4a28-a2f9-4d72c162f738.png"><img width="636" height="449" title="ふた" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="LID" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8a35057-dcc4-428c-941d-4231e728f88d.png" border="0"></a></p>
+
+
+  <h2>アカウントを簡単に管理</h2>
+
+
+  <p>Video Indexer アカウントは Azure Media Services アカウントでリレーし、必要に応じてコンテンツのエンコード、計算、ストリーミングを実行するインフラストラクチャとしてさまざまなコンポーネントを使用します。</p>
+
+
+  <p>Video Indexer によって使用される Azure Media Services リソースを簡単に管理できるように、最近、Video Indexer ポータル内から関連する構成と状態の<strong>可視性</strong>を追加しました。 ここでは、インデックス作成ジョブにどのメディアリソースが使用されているか、インデックス作成用に割り当てられた予約ユニットの数と種類、現在実行中のインデックス作成ジョブの数、およびキューに登録されている数を確認できます。</p>
+
+
+  <p>また、インデックス作成のビジネスニーズに干渉する可能性のある構成を特定した場合は、それらの構成を Azure portal 内の場所へのリンクと共に警告やエラーとして扱うことにより、特定の問題が発生する傾向があります。 これには、サブスクリプションに含まれていない Event Grid 通知の登録、ストリーミングエンドポイントが無効になっている、予約ユニットの数などのケースが含まれます。</p>
+
+
+  <p>試してみるには、Video Indexer ポータルでアカウントの設定にアクセスし、[ <a href="https://www.videoindexer.ai/settings/account" target="_blank">アカウント] タブ</a>を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b13f8729-abbc-4120-8bf6-a0e8fde42ca0.png"><img width="1024" height="476" title="設定 (有料) 1.7" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Settings (paid) 1.7" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aee28bd6-8ffa-499c-9cf9-f80b5890af7b.png" border="0"></a></p>
+
+
+  <p>同じセクションで、インデックス作成に使用される <strong>計算単位を自動スケール</strong> する機能も追加しました。 つまり、Media Services アカウントに計算予約ユニットの最大量を割り当てることができ、Video Indexer は必要に応じて自動的に停止して開始します。 その結果、アイドル時間に対して余分な料金が発生することはなく、インデックス作成の負荷が高いときにインデックス作成ジョブが完了するまで待つ必要がなくなります。</p>
+
+
+  <p>コンテンツを表示することなく、洞察の抽出だけを希望するお客様にとっては、 <strong>ストリーミングなしのオプションもあり</strong>ます。 この場合、新しく追加されたパラメーターをインデックス作成時に使用できるようになりました。これにより、エンコードコストが回避されるだけでなく、インデックス作成が高速になります。 このオプションを選択すると、ポータルプレーヤーでビデオが再生されないことに注意してください。 そのため、ポータルまたはウィジェットがソリューションで利用されている場合は、ストリーミングを有効にすることをお勧めします。</p>
+
+
+  <h2>最小限の統合作業</h2>
+
+
+  <p>パブリックプレビューは数か月後にリリースされ、新しい <a href="https://aka.ms/viapi" target="_blank">Video Indexer v2 の RESTFUL API</a>もリリースされました。 この API を使用すると、クライアントとサーバー間またはサーバー間のアーキテクチャで、Video Indexer をアプリケーションにすばやく簡単に統合できます。</p>
+
+
+  <p>その API の後、最近、 <strong>Logic Apps と Flow 用の新しい Video Indexer v2 コネクタ</strong>をリリースしました。 独自のカスタム Video Indexer ワークフローを設定して、1行のコードを記述しなくても、ビデオから詳細な洞察をすばやく簡単に抽出するプロセスを自動化できます。</p>
+
+
+  <p>新しいコネクタの詳細については、「テンプレートの例」を参照し <a href="https://azure.microsoft.com/en-us/blog/logic-apps-flow-connectors-will-make-automating-video-indexer-simpler-than-ever/" target="_blank">てください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1ef567a0-6e76-49c6-acaf-dad2614facc1.png"><img width="636" height="332" title="フロー" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="flow" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10580dfb-2103-49a0-9e7f-1b2d85956f7c.png" border="0"></a></p>
+
+
+  <p>現在のワークフローや既存のインフラストラクチャに合わせて Video Indexer との統合を実現するために、 <strong>クローズドキャプションと字幕ファイル形式のサポート</strong> を、サブ Rip テキスト (SRT) および W3C の時間指定テキスト (TTML) ファイル形式を追加して拡張しました。 <a href="https://api-portal.videoindexer.ai/docs/services/operations/operations/Get-video-captions" target="_blank">さまざまなキャプション形式とサブタイトル形式を抽出</a>する方法の詳細については、こちらを参照してください。</p>
+
+
+  <h2>次の操作</h2>
+
+
+  <p>GA の起動は、ほんの始まりにすぎません。 このブログからわかるように、既に実行されているものはたくさんありますが、積極的に取り組んでいます。 私たちのパートナーやお客様と協力して、 <a href="https://www.videoindexer.ai/" target="_blank">Video Indexer</a> を強化し、ビデオやオーディオコンテンツを見つけやすく、洞察を高め、価値を高めることを目指しています。</p>
+
+
+  <p>質問やフィードバックがある場合や 皆様のご意見をお待ちしております。 <a href="https://cognitive.uservoice.com/forums/598144-video-indexer" target="_blank">UserVoice</a>を使用し<a href="mailto:VISupport@Microsoft.com ">て、機能に優先順位を付けたり、質問をしたり VISupport@Microsoft.com </a>することができます。</p>

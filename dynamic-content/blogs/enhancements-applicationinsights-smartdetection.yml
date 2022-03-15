@@ -1,0 +1,49 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 163c5844eca420df56a94534d0b9376fa4aa6f0c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909848"
+Slug: enhancements-applicationinsights-smartdetection
+Title: アプリケーションとスマート検出インサイトの機能強化
+Summary: >-
+  依存関係のパフォーマンスの低下を検出する
+
+
+  スマート検出とプロファイラーの統合
+Content: >-
+  <p>Application&rsquo; インサイト のスマート検出に 2 つの機能強化<a href="https://docs.microsoft.com/azure/application-insights/app-insights-proactive-performance-diagnostics"></a>が導入され、ライブ Web アプリでパフォーマンスの問題が表示された場合に自動的に通知されます。 ライブ Web アプリの依存関係が遅い場合 (たとえば、アプリが呼び出すデータベースやREST API通知が表示されます。 また、スマート検出の詳細から、問題が発生<a href="https://docs.microsoft.com/azure/application-insights/app-insights-profiler"></a>した操作のプロファイラー トレースまでをクリックできます。</p>
+
+
+  <h2>依存関係期間の低下のスマート検出</h2>
+
+
+  <p>スマート検出では、依存関係呼び出しの期間の低下 <a href="https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-dependencies">が検出されます</a>。 一般に、Web アプリケーションと最新のサービスは、多くの場合、主要なシナリオを実行するために外部サービスとプラットフォームに依存します。 これらのアプリケーションの依存関係呼び出しでは、アプリケーションの全体的なパフォーマンスの重要な要因は duration です。 スマート検出では、依存関係期間の変更が履歴パフォーマンスと比較して自動的に通知されます。 すべての依存関係呼び出しの種類でサポートされます。 <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics#dependency-duration-degradation">こちら</a>を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/299360ed-a4f8-488e-bd30-f7f6b5d6172d.png"><img alt="DependencyDurationDegradation-blog%20resolution" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/495779ab-3ca9-4a1a-a3a6-16008ac71ceb.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="DependencyDurationDegradation-blog%20resolution" width="416"></a></p>
+
+
+  <p>また、サーバー応答時間の低下の検出に依存関係 <a href="https://docs.microsoft.com/azure/application-insights/app-insights-proactive-performance-diagnostics#server-response-time-degradation">期間の分析も追加しました</a>。 そのため、操作のパフォーマンスの低下が、関連する依存サービスのパフォーマンスの低下に関連する場合、この情報は [検出分析] セクションに含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f6672b9-7158-4f5c-9756-aea687448a76.png"><img alt="Server response time degradation" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5f2d73a-caf0-4164-8dfd-f0b1adbf2369.png" style="border: 0px currentColor; border-image: none; width: 423px; height: 528px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="サーバーの応答時間の低下" width="516"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>スマート検出とプロファイラーの統合</h2>
+
+
+  <p>もう 1 つの新しい機能強化は、スマート検出とプロファイラー <a href="https://docs.microsoft.com/azure/application-insights/app-insights-profiler">の統合です</a>。 根本原因を見つける最も速い方法は、特定の操作の実行に費やされた時間を示す Profiler によって収集されたトレースの例を確認する方法です。 これで、スマート検出の詳細ブレードのリンクをクリックして、関連するプロファイラーの例を表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63f63ec7-e2c0-496f-b6aa-bae71293902c.png"><img alt="Smart detection profiler integrations" border="0" height="401" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36e8aa44-8f49-4401-a024-94634c1173e5.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="スマート検出プロファイラーの統合" width="764"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>注: プロファイラーの例を表示するリンクは、検出期間中にこの操作の例が収集された場合にのみ表示されます。</p>

@@ -1,0 +1,131 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2bcb108accc6c5b4b10ccacd7b51f9c81663e902
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903582"
+Slug: full-cloudera-enterprise-edh-support-on-azure
+Title: Azure での Cloudera Enterpriseの完全なサポート
+Summary: Azure での Cloudera の完全なサポートEnterpriseお知らせします。 Azure のこの新しいオファリングでは、Cloudera は、Azure 上の Impala、HBase、Spark、Solr を含む、実稼働サポートを拡張しました。
+Content: >-
+  <p>Azure での <a href="https://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-enterprise.html" target="_blank">Cloudera Enterpriseのサポートをお知らせ</a>します。 お客様は、<a href="https://www.cloudera.com/content/cloudera/en/products-and-services/product-comparison.html" target="_blank">Cloudera Enterprise Data Hub Edition を</a>使用してデプロイ<a href="https://azure.microsoft.com/en-us/marketplace/partners/cloudera/clouderaedhcloudera/" target="_blank">Azure Marketplace</a>。 Azure のこの新しいオファリングでは、Cloudera は次の主要な領域でサポートを拡張しました。</p>
+
+
+  <ol>
+   <li>すべての実稼働ワークロードの種類での Impala、HBase、Spark、Solr コンポーネントのサポート。 これは、リソースを消費するサービスや、さまざまなサービスを実行する実稼働ワークロードの増加に適しています。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-windows-sizes" target="_blank">DS12_V2、DS13、DS13_V2、DS14、DS14_V2、および DS15_V2</a> インスタンスの種類での、プレミアム Storage または Standard Storage VHD がワーカー ノード用にアタッチ<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-premium-storage-preview-portal/" target="_blank"></a>された構成のサポート。&nbsp;</li>
+   <li>GS4 と GS5 のインスタンスの種類は、ワーカー ノードプレミアム Storage接続されている複数の VM でサポートされています。</li>
+   <li>Azure Marketplace からの <a href="https://azure.microsoft.com/en-us/marketplace/partners/cloudera/director-on-azuredirector-with-env/" target="_blank">Cloudera Director</a> デプロイのサポート。&nbsp;&nbsp;&nbsp;</li>
+  </ol>
+
+
+  <p>DS13 Enterprise DS14 インスタンスを使用する Cloudera アプリケーションは、<a href="https://azure.microsoft.com/en-us/marketplace/partners/cloudera/clouderaedhcloudera/" target="_blank">Azure Marketplace</a> から 1 回クリックするか、GitHub でホストされている <a href="https://github.com/azure/azure-quickstart-templates/tree/master/cloudera-on-centos" target="_blank">Azure Resource Management</a> テンプレートからデプロイできます&nbsp;。すべてのインスタンスの種類を <a href="https://azure.microsoft.com/en-us/marketplace/partners/cloudera/director-on-azuredirector-with-env/" target="_blank">Cloudera Director</a> からデプロイし、カスタマイズのための制御レベルを追加することもできます。&nbsp;マスター ノードプレミアム Storage現在サポートされているのは 1 つのみである点に注意してください。</p>
+
+
+  <h2>Cloudera について</h2>
+
+
+  <p><a href="https://www.cloudera.com" target="_blank">Cloudera は</a> 、Apache Hadoop と関連プロジェクトを含む、エンタープライズ対応のオープン ソースディストリビューションを提供します。 Cloudera Enterprise、<a href="https://www.cloudera.com/content/cloudera/en/products-and-services/cdh.html" target="_blank">CDH</a>&rsquo;、世界で最も人気のあるオープン ソースの Hadoop ベースのプラットフォーム、および高度なシステム管理とデータ管理が含まれています。 この非常にスケーラブルなプラットフォームは、強力な処理および分析フレームワークの配列とストレージを統合し、エンタープライズ クラスの管理、データ セキュリティ、ガバナンスを追加します。 Cloudera Enterpriseには、Hadoop のコア要素 (HDFS、MapReduce、YARN) だけでなく、HBase、Impala、Solr、Spark なども含まれています。</p>
+
+
+  <h2>Azure での Cloudera Enterprise アーキテクチャ</h2>
+
+
+  <p>Cloudera クラスターは、ワーカー ノードとマスター ノードの両方の仮想マシン インスタンスで構成されます。 すべてのノードは、相互に通信Virtual Network、Azure リソースにデプロイされます。&nbsp; ノードへのアクセスは、サブネット レベルと VM レベルの両方でネットワーク セキュリティ グループ (NSG) で保護されます。 エッジ ノードを個別にデプロイして、クラスターの内部ネットワークに直接&rsquo;アクセスできます。</p>
+
+
+  <p>ノードは、CentOS 6.7 ベースの Cloudera VM イメージを使用してプロビジョニングされます。 このイメージは、Cloudera ワークロードのパフォーマンスを最適化するように構成されています。&nbsp;各ワーカー ノードには、プレミアム Storageをサポートする GS インスタンス以外にも、プレミアム Storage Standard Storage ディスクを接続できます。 各マスター ノードには、3 つの 512 GB プレミアム Storageがあります。 さらに、ノードごとにログ用に 512 GB のディスクが接続されています。 各ノードは、スループットを最大化するためにAzure Storageアカウント内に独自のノードがあります。</p>
+
+
+  <p>3 つのワーカー ノードと 1 つのマスター ノードを含む、少なくとも 4 つのノードのクラスターを評価目的でデプロイできます。 実稼働デプロイは、3 つのマスター ノードと 3 ~ 90 のワーカー ノードで構成されます。 高可用性 (HA) は、スタンバイ マスター ノードをプロビジョニングすることでサポートされます。</p>
+
+
+  <p>Azure での <a href="https://www.cloudera.com/content/cloudera/en/documentation/reference-architecture/latest/PDF/cloudera_ref_arch_azure.pdf" target="_blank">Cloudera アーキテクチャの</a> 詳細については、このホワイトペーパーを参照してください。</p>
+
+
+  <h2>Cloudera Enterprise のデプロイAzure Marketplace</h2>
+
+
+  <p>Marketplace テンプレートを使用して Azure に Cloudera クラスターをデプロイするには、Azure サブスクリプションに十分な数の CPU コアが必要です。 クラスターは、少なくとも 4 つの DS13 VM をデプロイし、それぞれ 8 コアを備えます。 そのため、少なくとも 32 コアが必要です。 コアのクォータの引き上げを要求するには、サポート チケットを開き、必要なコアの数、必要なリージョンを指定し、コアが Azure Resource Manager 用である必要があります。</p>
+
+
+  <p>Cloudera Enterprise オファリングAzure Marketplace、Azure portal で Marketplace に移動し、Cloudera を検索します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b412449f-2171-4ebe-8c8c-4e7d3204cc01.png"><img alt="marketplace" border="0" height="498" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e89bd593-544a-4066-9b0b-55c8bd431374.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-image: none" title="市場" width="1028"></a></p>
+
+
+  <p><strong>手順 1:</strong>次に示すように、&ldquo;&rdquo;ウィザードに従って、クラスター名、VM 資格情報、リソース グループなど、クラスターデプロイの基本構成を入力します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f0ca500-a5d9-4826-8c1f-129bb069b5f4.png"><img alt="image" border="0" height="550" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ebd86426-46ba-44d4-8c89-8a4f919d6328.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="426"></a></p>
+
+
+  <p><strong>手順 2:</strong> クラスターのネットワーク、ストレージ、仮想マシンの構成を指定します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9739a167-7474-4ba1-a69f-fdb334f351f9.png"><img alt="StandardStorage" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a9f7b5f-98f4-4dcd-86e7-787bd2a959ff.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px; border-image: none" title="StandardStorage" width="410"></a></p>
+
+
+  <p><strong>手順 3:</strong> Cloudera Manager の資格情報とクラスター サイズを入力します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adc7126e-7771-45fd-bec6-a0f92c5f88a4.png"><img alt="image" border="0" height="522" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c44d70e1-ac2e-4d55-882e-5f097093501e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="406"></a></p>
+
+
+  <p><strong>手順 4:</strong> ユーザー情報を入力します。&nbsp; ユーザー情報 <a href="https://www.cloudera.com/content/cloudera/en/legal/privacy-policy.html" target="_blank">の使用方法の</a> 詳細については、プライバシーに関する声明を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5c4566f-54df-4921-a8c8-c003384e1e56.png"><img alt="image" border="0" height="584" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/857760eb-168f-4179-bc04-16c15cc8ce66.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="452"></a></p>
+
+
+  <p><strong>手順 5:</strong> 概要を確認する:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d24ae636-80e3-4377-9ac8-d8746000a220.png"><img alt="image" border="0" height="482" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d0e6e95c-a0bf-4e7f-b500-a395be112831.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="533"></a></p>
+
+
+  <p><strong>手順 6:</strong> クラスターを購入してデプロイします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ff75503-5d54-4973-9a79-ab2c62b81fb3.png"><img alt="image" border="0" height="474" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64ec30d4-ecb0-4710-b627-a376a857f6fc.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="524"></a></p>
+
+
+  <h2>プロビジョニングされた Cloudera クラスターへのアクセス</h2>
+
+
+  <p>クラスターが正常にプロビジョニングされた後、Azure VNet 上の Hadoop エンドポイントにアクセスする SSH トンネルを作成します。&nbsp;<a href="https://blogs.msdn.microsoft.com/pliu/2017/01/17/ssh-tunnel-to-endpoints-in-azure-vnet-from-windows/" target="_blank">たとえば、Windows</a> または <a href="https://www.cloudera.com/documentation/director/latest/topics/director_get_started_azure_socks.html" target="_blank">MacOS および Linux</a> の手順に従って、マスター ノード [dnsName]-mn0 への SSH トンネルを設定し、デプロイ時に指定された Cloudera Manager ユーザー名とパスワードを使用して Cloudera Manager https://localhost:7180 にアクセスします。</p>
+
+
+  <h2>トラブルシューティングのヒント</h2>
+
+
+  <p>デプロイ中にエラーが発生した場合は、次の手順で Cloudera クラスターを含むリソース グループに移動Azure portal。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa7de970-6299-483b-a7f9-160337d9f2f1.png"><img alt="errordeploy" border="0" height="742" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4003448f-bd0f-4869-af0a-06e33cad4a8e.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-image: none" title="errordeploy" width="436"></a></p>
+
+
+  <p>失敗したデプロイをクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eeef40df-2075-42a9-91e4-65715ed83338.png"><img alt="image" border="0" height="442" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/920cf50f-99e5-4fef-9e81-c976fbcba535.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="522"></a></p>
+
+
+  <p>下にスクロールして最も古い失敗したイベントを見つけ、それをクリックして詳細なエラーを表示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4a215a2-d15f-4165-a99f-1c45142bef3a.png"><img alt="image" border="0" height="432" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52af3d06-5a71-4b83-9850-9c5ff49d7bbf.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="508"></a></p>
+
+
+  <p>エラーが一時的なものと&rsquo;思える場合は、Cloudera クラスターデプロイの外部で作成された他のリソースが含まれている場合は、リソース グループを削除して、もう一度やり直してください。</p>
+
+
+  <h2>Cloudera Enterprise からのデプロイGitHub</h2>
+
+
+  <p>Cloudera クラスターをデプロイするときにより高いレベルのカスタマイズが必要な場合は、この <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/cloudera-on-centos" target="_blank">Azure Resource Management</a> テンプレートが GitHub で公開されています。 &ldquo;[Azure&rdquo; へのデプロイ] ボタンをクリックすると、Marketplace からのデプロイと同様のエクスペリエンスでクラスターをデプロイできます。ただし、仮想ネットワークとサブネットのアドレス空間など、より多くのパラメーターが公開されている場合を除く。 また、Azure PowerShell <a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/" target="_blank">または Azure クロス プラットフォーム クライアント ツールを使用</a>してテンプレートをデプロイすることもできます。<a href="https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/" target="_blank"></a></p>
+
+
+  <p>マスター ノードまたはデータ ノードのサブテンプレートをカスタマイズする必要がある場合 (たとえば、各ノードに接続されているディスクの数を変更し、すべてのテンプレート ファイルとスクリプトを GitHub からダウンロードし、必要に応じて変更し、独自の GitHub レポポにアップロードします。 最後に、AzureDeploy.json &ldquo;の変数 scriptsUri&rdquo; を変更して、自分のリソース GitHubします。 Cloudera Director を使用してデプロイをカスタマイズできます。&nbsp;<a href="https://azure.microsoft.com/en-us/marketplace/partners/cloudera/director-on-azuredirector-with-env/" target="_blank"> Azure での Cloudera Director</a> を使用したクラスターのデプロイの詳細については、このドキュメントを<a href="https://www.cloudera.com/documentation/director/latest/topics/director_get_started_azure.html" target="_blank">参照してください</a>。</p>

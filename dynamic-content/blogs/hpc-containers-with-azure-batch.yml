@@ -1,0 +1,18 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ad2434d1a2747f8db95d53508f4df2a14b9f2223
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904138"
+Slug: hpc-containers-with-azure-batch
+Title: HPC コンテナーと Azure Batch
+Summary: 本日、最新の Batch Shipyard リリースで、Singularity コンテナーのサポートをお知らせします。 特異点は、共有 HPC 環境とクラスター コンピューティング環境の管理者とユーザーの両方に最適なコンテナー ソリューションであり、GPU やコンテナー コンテキストの特殊な相互接続などのアクセラレータへのアクセスを提供します。
+Content: >-
+  <p>アプリケーションの<a href="https://azure.microsoft.com/en-us/updates/azure-batch-updates-october2017/" target="_blank">最新の更新</a><a href="https://azure.microsoft.com/en-us/services/batch/" target="_blank">Azure Batch</a>、Docker コンテナー呼び出しとしてタスクをスケジュールするオプションが追加されました。 コンテナーと Azure Batch は、強力なクラウド ネイティブ ジョブ スケジューリング機能を利用して、ハイ パフォーマンス コンピューティング (HPC) アプリケーションとバッチ ワークロードを一貫した再現可能な方法でパッケージ化、実行、スケーリングするための理想的な方法です。</p>
+
+
+  <p>本日、最新&#39;<a href="https://singularity.lbl.gov" target="_blank">Batch Shipyard リリースで、Singularity</a> コンテナーのサポートをお知 <a href="https://github.com/Azure/batch-shipyard/releases" target="_blank">らせします</a>。 特異点は、共有 HPC およびクラスター コンピューティング環境の管理者とユーザーの両方に最適なコンテナー ソリューションであり、GPU や特殊な相互接続などのアクセラレータへのアクセスをコンテナー コンテキストで引き続き提供します。 <a href="https://github.com/Azure/batch-shipyard" target="_blank">Batch Shipyard</a> は、Azure Batch で単純な構成ベースのコンテナー実行を可能にするオープン システムであり、これらの共有コンピューティング環境のユーザーが Azure で既存の単数形ワークロードを簡単に実行できるのを目的としています。 Azure&#39;<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes-gpu" target="_blank">GPU</a> (<a href="https://azure.microsoft.com/en-us/blog/new-gpus-coming-to-azure-accelerate-hpc-and-ai-workloads/"> ND、NCv2、今後の NCv3</a> シリーズの VM など) と <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes-hpc" target="_blank">RDMA</a> 対応インスタンスは、このようなワークロードに最適である可能性があります。 また、Batch Shipyard と Azure Batch を使用すると、コンピューティング プールを簡単<a href="https://batch-shipyard.readthedocs.io/en/latest/30-batch-shipyard-autoscale/" target="_blank"></a>に自動的にスケーリングできるだけでなく、優先度の低い VM でワークロードを実行して最大 <a href="https://docs.microsoft.com/en-us/azure/batch/batch-low-pri-vms" target="_blank"></a> 80% の節約を実現することもできます。</p>
+
+
+  <p>特異点のサポートに加えて、Batch Shipyard の最新リリースには、Windows コンテナー、統合された Azure Batch コンテナーのサポート、YAML ベースの構成のサポート、複数のプライベート レジストリを参照する機能、ARM イメージベースのカスタム イメージ、CLI 用の事前構築済みバイナリの予備サポートが含まれています。 以前のバージョン<a href="https://github.com/Azure/batch-shipyard/blob/master/CHANGELOG.md" target="_blank">からアップグレード</a>する場合<a href="https://batch-shipyard.readthedocs.io/en/latest/94-batch-shipyard-major-version-migration/" target="_blank"></a>は、変更ログと移行ガイドを参照してください。 必要に応じて、Batch Shipyard はインストールを必要と <a href="https://azure.microsoft.com/en-us/features/cloud-shell/" target="_blank">Azure Cloud Shell</a> 内で直接使用できます。</p>

@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dc32db6a35767ecd384af209ac58f1d8f94e8898
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909287"
+Slug: documentdb-raises-sql-query-limits
+Title: Azure DocumentDB がクエリの制限を引き上げる
+Summary: 最新のサービスデプロイにより、DocumentDB では、クエリ操作に対するSQLが引き上げされています。
+Content: >-
+  <p>DocumentDB&#39;でさらに多くのことを行えるのでお知らせします。 最新のサービスデプロイでは、&nbsp;<a href="https://azure.microsoft.com/documentation/articles/documentdb-limits/">DocumentDB クエリのlimits を次に増やしました</a>。</p>
+
+
+  <ul>
+   <li>クエリあたりの AND 句の最大数を 20 に増やしました</li>
+   <li>クエリあたりの OR 句の最大数を 10 に増やしました</li>
+   <li>クエリあたりの JOIN 句の最大数を 5 に増やしました</li>
+   <li>クエリあたりの UDF の最大数 (2 に増加)</li>
+   <li>クエリ ページごとに返される項目の最大数 (無制限に増加 <em>)</em></li>
+  </ul>
+
+
+  <h2>DocumentDB の制限:</h2>
+
+
+  <p>リレーショナル データベース システム&#39;慣れている場合、DocumentDB に制限がある理由を疑問に <em>思うでしょう。</em> その理由は、Azure DocumentDB がスケールの第一に構築され、つまり、低コストで一貫した反復可能なパフォーマンスを実現しているからです。 すべてのクエリは、DocumentDB アカウントで実行されている他の操作、または同じマシン上に複数のアカウントで実行されている他の操作に関係なく、要求ユニットまたは <a href="https://azure.microsoft.com/documentation/articles/documentdb-manage/#request-units-and-database-operations">RUs</a> として測定された同じ量のリソースを消費します。 これらの制限は、割り当てられているシステム リソースの予算内のすべての DocumentDB コレクション操作がガードレールとして機能します。</p>
+
+
+  <p>これらの制限を引き上げるには、使用事例、フィードバック、使用状況の監視を継続的に評価します。 この最新のバッチの増加により、アプリケーションのシナリオが増えるのを期待しています。 新しい公開範囲の外部で操作する必要がある場合は、サポートを通じてお問い合 <a href="https://azure.microsoft.com/documentation/articles/documentdb-increase-limits/">わせください</a>。</p>
+
+
+  <p>1 つのクエリに 20 の AND&rsquo; 句を追加する機能により、次に示す、さらに強力なクエリを実行できます。</p>
+
+
+  <div>&nbsp;</div>
+
+
+  <div><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/limits.PNG" style="border-width: 2px; border-style: solid; width: 594px; height: 703px;"></div>
+
+
+  <h2>ページあたりの最大項目数の上限の引き上げ:</h2>
+
+
+  <p>現在 DocumentDB &quot;&nbsp;&quot;&nbsp;&nbsp;&#39;使用している場合、ページ制限の増加あたりの項目の最大数は、クエリのパフォーマンスを向上させるのに役立つ可能性があります。 DocumentDB SDK と REST API では、ページあたりの既定のページ サイズ (<a href="https://msdn.microsoft.com/library/azure/microsoft.azure.documents.client.feedoptions.maxitemcount.aspx">FeedOptions.MaxItemCount</a> ) が 1 ページあたり 100 項目であり、以前は最大 1,000 項目がサポートされています。 この変更により、より大きな値 (10000 など) を指定できます。または、-1&nbsp;&nbsp; を指定して、クエリが制約を受けず、可能な限り多くの結果を返します。</p>
+
+
+  <h2>ページあたりの最大項目数を最大に設定します。</h2>
+
+
+  <div><img alt="maxim items per page" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/paging.png" style="border-width: 2px; border-style: solid; width: 594px; height: 200px;"></div>
+
+
+  <div>&nbsp;</div>
+
+
+  <p>&nbsp;ページ&nbsp;あたりの最大項目数 (-1) を指定すると、2 つの方法でメリットがあります。1 つは、クエリの待機時間が短いクエリから結果を取得するために必要なネットワーク ラウンド トリップの数を最小限に抑え、2 つの方法でラウンド トリップ間の繰り返し作業 (RUs) の量を最小限に抑え、スループットを向上させる方法です。 クエリは、応答サイズとコレクションのスループット容量に対応できる限り多くの結果を返します。</p>
+
+
+  <h2>今すぐ試してみてください。</h2>
+
+
+  <p>これはサービス側の変更です。これらの新しい制限を利用するために、新しい SDK をダウンロードする必要はありません。 概要サポートされている SDK の 1 つをここからダウンロードして、DocumentDB のクエリを実行 <a href="https://msdn.microsoft.com/library/azure/dn781482.aspx">できます</a>。 ヘルプが必要な場合、または質問やフィードバックがある場合は、スタック オーバーフローに関<a href="https://stackoverflow.com/questions/tagged/azure-documentdb"></a>する開発者フォーラムに連絡するか、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。</p>
+
+
+  <p>Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

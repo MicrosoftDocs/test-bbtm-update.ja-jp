@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c1d4dc5eec4f58d84a9adbb79dbd285a29709553
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908936"
+Slug: introducing-azure-functions-2-0
+Title: Azure Functions 2.0 の導入
+Summary: 本日、Azure Functions 2.0! の一般提供が発表されました。 これは、いくつかの機能を備えた大きなマイルストーンで、拡張性の高いサーバーレスアプリケーションを作成するために、これまで以上に簡単になっています。
+Content: >-
+  <p>本日、Azure Functions 2.0! の一般提供を発表しまし &rsquo; た。 これは、いくつかの機能を備えた大きなマイルストーンで、拡張性の高いサーバーレスアプリケーションを作成するために、これまで以上に簡単になっています。</p>
+
+
+  <p>Azure Functions 2.0 は運用準備が整っており、 <a href="https://azure.microsoft.com/support/legal/sla/functions" target="_blank">99.95% の SLA</a>に基づいて、最も要求の厳しいワークロードを処理することができます。 2.0 の新しい開発を開始し、お客様が既存の1.0 アプリを2.0 バージョンにアップグレードすることを強くお勧めします。これにより、この新しいリリースのすべてのメリットが得られます。 具体的な手順については、 <a href="https://docs.microsoft.com/azure/azure-functions/functions-versions#migrating-from-1x-to-2x" target="_blank">2.0 へのアップグレードに関するガイダンスを</a>参照してください。</p>
+
+
+  <h2>このリリースの内容 &rsquo;</h2>
+
+
+  <p>Functions 2.0 は、ユーザーエクスペリエンス、開発者の能力、およびプラットフォームの堅牢性に関して製品を進めます。 最も重要な変更点は、ホストランタイムです。これは、移植性、クロスプラットフォーム、および効率性に優れています。 これにより、アプリをビルドして実行する方法について、さまざまなオプションを使用できるようになります。</p>
+
+
+  <h3>その他のプラットフォーム、その他のオプション</h3>
+
+
+  <p>Mac または Linux コンピューターのローカルを含め、より多くの環境で Azure Functions を実行できるようになりました。 これを<a href="https://docs.microsoft.com/azure/azure-functions/functions-create-first-function-vs-code" target="_blank">VS Code との</a>優れた統合と組み合わせると、任意のプラットフォームで最高クラスのサーバーレス開発エクスペリエンスを利用できます。 ランタイムは、Azure Functions サービスの外部でホストされ、任意の場所で実行できるようにすることもできます。 <a href="https://github.com/Azure/azure-functions-core-tools#getting-started-on-kubernetes" target="_blank">Kubernetes での Azure Functions</a>のサポートと、 <a href="https://docs.microsoft.com/azure/iot-edge/tutorial-deploy-function" target="_blank">IoT Edge に Azure Functions</a>をご確認ください。 この方法では、さらに多くのホストオプションがあります。詳細については、後述する「次 &rdquo; の &ldquo; 項目 &rsquo; 」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa6b2f9c-8f84-4699-80d9-f1c79c4cd126.png"><img alt="HTTP Trigger" border="0" height="892" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f07109e-f5ec-462e-96c7-ab1f47d5afea.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="HTTP トリガー" width="1430"></a></p>
+
+
+  <h3>コード用に最適化</h3>
+
+
+  <p>関数2.0 は、ホストの全般的な改善、より新しい言語ランタイムのサポート、 <a href="https://docs.microsoft.com/azure/azure-functions/run-functions-from-deployment-package" target="_blank">パッケージファイルからコードを実行する機能</a>により、これまで以上にパフォーマンスが向上しています。</p>
+
+
+  <p>.Net 開発者は、.NET Core 2.1 を使用して関数を作成できるようになりました。 これによってパフォーマンスが大幅に向上するだけでなく、より多くの場所で .NET 関数を開発および実行することもできます。 また、アセンブリの解決方法に大きな変更を加え、関数が独自の読み込みコンテキストを提供するようにしまし &rsquo; た。 これは、何度も競合しないことを意味 &rsquo; しますが、その &rsquo; 場合は、これまでよりも簡単に軽減することができます。</p>
+
+
+  <p>Non-.NET 言語は、言語ワーカーモデルで動作するようになりました。また、最初のスタックは JavaScript です。 Functions 2.0 では、ノード8とノード10の両方がサポートされるようになり、一般にパフォーマンスが向上することが期待されています。 ワーカーアプローチを使用すると、より適切なバージョンのサポートとイテレーションが可能になります。新しい言語を今後も &rsquo; 有効にするにはどうすれ &rsquo; ばよいのでしょうか ( &rsquo; 次の記事の詳細については、この投稿の次のセクションを参照し &ldquo; &rsquo; てください)。 &rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90708997-835c-46d2-bfda-2856c90c0c8b.png"><img alt="v1vsv2" border="0" height="302" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a87fd748-9ff4-4bc1-a3b1-9df31961bee6.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="v1vsv2" width="846"></a></p>
+
+
+  <h3>強力なプログラミングモデル</h3>
+
+
+  <p>1.0 ランタイムから移行する場合、最大の変更点 &rsquo; の1つとして、バインドと統合のしくみが変更されてい &rsquo; ます。 ここでは、HTTP とタイマーのコアサポートを除き、すべてのバインドが拡張機能として導入されています。 これらは、 <a href="https://docs.microsoft.com/azure/azure-functions/functions-triggers-bindings#register-binding-extensions" target="_blank">Functions ツールと共にインストール</a>できる単純なパッケージであり、再利用するのと同じ優れたプログラミングモデル &rsquo; を提供します。 分離された拡張機能パッケージに変更を行うと、バインド (およびその依存関係) をコアランタイムとは別にバージョン管理できます。 これは特に、アプリが依存するサービスが進化し続けるため、アプリケーションとその実行方法をより細かく制御できることを意味します。</p>
+
+
+  <p>Azure は常に新しいサービスを追加しています。また、パッケージモデルを使用すると、より迅速に統合することができます。 さらに、 <a href="https://azure.microsoft.com/services/signalr-service/" target="_blank">Azure SignalR service</a>は、完全に管理されたサービスであり、SignalR サーバーの設定、ホスティング、スケーリング、負荷分散を気にせずに、リアルタイムの web エクスペリエンスの構築に専念できます。 Azure Functions にこのサービスの拡張機能が用意されました。<a href="https://github.com/Azure/azure-functions-signalrservice-extension" target="_blank">この GitHub リポジトリ</a>で Microsoft Azure によってホストされるオープンソースバインドです。このドキュメントで<a href="https://docs.microsoft.com/azure/azure-functions/functions-bindings-signalr-service" target="_blank">SignalR サービスバインドのリファレンス</a>を確認することで、リアルタイムのサーバーレスアプリケーションの構築をすぐに開始できます。</p>
+
+
+  <h3>開発の簡素化</h3>
+
+
+  <p>Azure Functions には、 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-your-first-function-visual-studio" target="_blank">Visual Studio</a>、 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code" target="_blank">VS Code</a>、 <a href="https://docs.microsoft.com/en-us/visualstudio/mac/azure-functions" target="_blank">VS for Mac</a>の内部に強力なネイティブツールがあり、任意のコード編集操作と同時に実行できる<a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli" target="_blank">CLI</a>があります。 これらのオプションを以前に調査したこと &rsquo; がある場合は、生産性に直ちに影響を与えるため、これらのオプションを確認することを強くお勧めします。</p>
+
+
+  <p>サーバーレスアプリケーションには、さまざまなコンポーネントが含まれている場合があり、すぐに観察および監視が困難になります。 Functions 2.0 では、Azure アプリケーションインサイトとの統合が拡張され、分散トレースの可視性が向上しています。 依存関係は自動的に追跡され、クロスリソース接続はさまざまなサービス間で自動的に関連付けられ、近日中に追加される予定です。 これらはすべて <a href="https://docs.microsoft.com/azure/application-insights/app-insights-app-map" target="_blank">アプリケーションマップ</a>で視覚化されているので、コンポーネントがどのように対話して個々の実行にドリルスルーして問題を診断するかを理解することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a168e9f-ad21-4301-a07a-47cb93dc0dd6.gif"><img alt="FunctionsAppMap" height="1096" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1359c6d9-d49c-43cb-89b4-1f1c2bc63a6a.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="コード Appmap" width="1845"></a></p>
+
+
+  <p>Azure Functions 2.0 では、DevOps エクスペリエンスの改良にも投資しています。 新しい Deployment Center は、この方向の手順であり、統合されたエクスペリエンスでビルドとデプロイのオプションを集計します。 Function App のプラットフォーム機能 &rdquo; を使用してデプロイセンター &ldquo; にアクセスし、適切なソースを簡単に設定して、コードを関数にすぐにデプロイできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c993c56-7e81-484f-b721-71e6ba280aee.png"><img alt="Deployment center" border="0" height="694" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0acb2544-708a-4548-88ec-a7535eacc0f8.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="展開センター" width="1310"></a></p>
+
+
+  <p>最初の関数の作成から、DevOps エクスペリエンスに焦点を合わせています。 Azure portal の初級エクスペリエンスでは、開発とデプロイのオプションが強調表示され、すべての構成を行うことができます。 ポータルで新しい function app を作成するだけで、最初の2.0 関数をデプロイするために必要なすべての手順を説明し &rsquo; ます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8dfcd5b6-1a3c-4935-b744-3ae0a9c52374.png"><img alt="Azure Functions" border="0" height="1258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/84d95604-74f2-4d5a-af84-038303b633ec.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Azure Functions" width="2560"></a></p>
+
+
+  <h2>次のよう &rsquo; にします。</h2>
+
+
+  <p>&rsquo;また、短期的なロードマップを可視化することも興奮しています。 Azure Functions 2.0 では、いくつかの重要なイノベーションの基礎を説明しています。以下に、ホスティングオプションと言語サポートに関して近日中に予定されていることを簡単に示します。</p>
+
+
+  <h3>サーバーレス Linux</h3>
+
+
+  <p>Azure Functions の開発スタックとホスティングオプションを拡張するためのコミットメントの一環として、linux OS 上に構築された機能の従量課金プランのプレビューから始めて、サーバーレス linux ホスティング ( <a href="https://docs.microsoft.com/en-us/azure/service-fabric-mesh/service-fabric-mesh-overview" target="_blank">Service Fabric メッシュ</a>による) に投資しています。 これにより、Linux &ndash; および Mac &ndash; に重点を置いた開発者は、開発スタックとの関係が最も高いプラットフォームでホストするためのシームレスで自然なパスを利用でき、サーバーレスの利点を最大限に活用できます。 初期の bits にアクセスしてフィードバックを共有するには、Linux preview に <a href="https://aka.ms/functions-consumptionlinux-preview" target="_blank">サインアップ</a> してください。</p>
+
+
+  <h3>Python のサポート</h3>
+
+
+  <p>&rsquo;Functions 2.0 ランタイム、新しい言語ワーカーモデル、Linux ホスティングプラットフォームに基づいて、Python 3.6 のサポートを積極的に構築しています。 Python 関数は、データ操作、機械学習、自動化、およびスクリプト作成のシナリオに自然に適合します。 これらのシナリオを構築することによって、基盤となるインフラストラクチャを管理する負担を serverlessly ことがあります。そのため、ビジネス上の問題の解決に集中できます。 現在、この機能はプライベートプレビュー段階です。 お客様に <a href="https://aka.ms/functions-python-preview" target="_blank">フィードバックをお</a> 送りいただければ、お客様のご意見をお待ちしております。</p>
+
+
+  <h2>ご連絡ください。</h2>
+
+
+  <p>今すぐにリリースされ、間もなく公開されるようになったので、私 &rsquo; はフィードバックを切大好きです。 <a href="https://twitter.com/AzureFunctions" target="_blank">Twitter</a>と<a href="https://github.com/Azure/Azure-Functions" target="_blank">GitHub</a>でチームに連絡を取ることができます。また、 <a href="https://stackoverflow.com/questions/tagged/azure-functions" target="_blank">stackoverflow</a>と<a href="https://feedback.azure.com/forums/355860-azure-functions" target="_blank">UserVoice</a>も積極的に監視できます。 Functions 2.0 でお客様のお気に入りの機能をご連絡ください。今週の<a href="https://www.microsoft.com/en-us/ignite" target="_blank">Microsoft Ignite</a>に参加している場合 &rsquo; は、こちらのブースで、こんにちは。</p>

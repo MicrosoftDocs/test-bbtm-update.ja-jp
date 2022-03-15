@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9759a48acf7956774e17c6698d28775cbd7eba4a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903523"
+Slug: latest-updates-to-azure-database-for-postgresql
+Title: Azure Database for PostgreSQL に対する最新のAzure Database for PostgreSQL
+Summary: 2018 年 3 月末に Azure Database for PostgreSQL の一般提供を発表して以来、チームは さまざまな新機能と、および を強化するための追加機能を提供しています。
+Content: >-
+  <p>今年の 3 月に、 <a href="https://azure.microsoft.com/en-us/services/postgresql/">Azure Database for PostgreSQL</a> の一般提供 (GA) を発表し、組み込みの高可用性、99.99% の可用性 SLA、パフォーマンスのためのエラスティック スケーリング、Azure での業界をリードするセキュリティとコンプライアンスと共に、PostgreSQL のコミュニティ バージョンを提供しました。 GA 以降、チームは&nbsp; 、このサービスの価値を強化および拡張するためのさまざまな新機能と追加機能を提供しています。 お客様からのフィードバックに基づいて、このサービスへの新しい追加について、いくつかの詳細をお知らせください。</p>
+
+
+  <h2>プレビューでの仮想ネットワーク サービス エンドポイントのサポートによるセキュリティ強化</h2>
+
+
+  <p>サービスを使用できるすべてのリージョンAzure Database for PostgreSQLパブリック プレビューで、仮想ネットワーク サービス エンドポイント機能を使用できます。</p>
+
+
+  <p>仮想ネットワーク サービス エンドポイントを使用して、仮想ネットワーク内のサブネットまたはサブネットのセットからのみ論理サーバーへの接続を分離します。 仮想ネットワークから Azure Database for PostgreSQL へのトラフィックは常に Azure バックボーン ネットワーク内に留まるので、仮想アプライアンスまたはオンプレミス経由でインターネット トラフィックを受け取る特定のルートよりもこの直接ルートを優先します。 サービス&#39;経由の仮想ネットワーク アクセスに対する追加の課金はありません。 仮想ネットワーク サービス <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview">エンドポイントとそれらを構成する</a> 方法の詳細を <a href="https://docs.microsoft.com/azure/postgresql/howto-manage-vnet-using-portal">確認します</a>。</p>
+
+
+  <h2>大規模なデータベースのサポートと IOPS の向上</h2>
+
+
+  <p>General Purpose またはメモリ最適化サービス レベルを選択すると、Azure Database for PostgreSQL で 4 TB のサーバーを作成したり、既存のサーバー ストレージを 4 TB に更新したりできます。&nbsp; ストレージを増やすと、最大 6,000 IOPS も利用できます。</p>
+
+
+  <h2>geo 冗長バックアップと復旧を使用したリージョン間のディザスター リカバリーが容易になりました</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/postgresql/howto-restore-server-cli">geo リストア</a> が一般提供される。 Azure Database for PostgreSQL サーバーは、復元機能が有効になるように、バックアップが定期的に行われます。 この機能を使用すると、サーバーとそのすべてのデータベースを新しいサーバー上の以前の時点に復元して、リージョン間のディザスター リカバリーをさらに簡単にすることができます。</p>
+
+
+  <h2>PostgreSQL バージョン 10.3 のサポート</h2>
+
+
+  <p>PostgreSQL バージョン 10 バージョン <a href="https://www.postgresql.org/docs/10/static/release-10-3.html">10.3</a> に対する最新の更新プログラムが、Azure Database for PostgreSQL で一般提供されています。 このバージョンの機能には、クエリの並列処理の改善と宣言型テーブルのパーティション分割が含まれます。 このバージョンの使用を開始するには、 <a href="https://docs.microsoft.com/azure/postgresql/quickstart-create-server-database-portal">新しいサーバーサーバー Azure Database for PostgreSQL作成し</a>、バージョン 10 を選択します。</p>
+
+
+  <h2>Azure Database Migration Service (DMS) の制限付きプレビューでの移行のサポート</h2>
+
+
+  <p>お客様は、PostgreSQL データベースを移行して、Azure Database for PostgreSQL (DMS) を使用 <a href="https://azure.microsoft.com/services/database-migration/">Azure Database Migration Serviceダウンタイムを</a> 最小限に抑えることができます。&nbsp;お客様は、プレビュー サイトの Azure Database Migration Service <a href="https://dmspreview.azurewebsites.net/" target="_blank">サインアップできます</a>。</p>
+
+
+  <h2>メモリ最適化価格レベルの一般提供</h2>
+
+
+  <p>お客様は、新しいメモリ最適化価格レベルを作成して切り替え、トランザクション処理の高速化とコンカレンシーの向上のためにメモリ内のパフォーマンスを必要とする高パフォーマンスのデータベース ワークロード向けに設計されています。</p>
+
+
+  <p>境界のスケーリングが利用可能になされたので、顧客は SKU 間でスケーリング (General Purposeメモリ最適化) も可能になります。</p>
+
+
+  <h2>リージョンの可用性が世界 28 の国/地域に増加</h2>
+
+
+  <p>Azure Database for PostgreSQL の一般提供は、米国中部 (Gen 4)、米国中北部 (Gen 5)、フランス中部 (Gen 5)、東アジア (Gen 5)、オーストラリア東部 (Gen5)、オーストラリア東部 2 (Gen5)、オーストラリア南東部 (Gen 5)、インド中部 (Gen 5)、インド西部 (Gen 5)、韓国中部 (Gen 5) に拡張されています。</p>
+
+
+  <p>また、以前に利用できる Gen 4 コンピューティングに加えて、Gen 5 コンピューティングは、ブラジル南部、米国東部 2、東日本、西日本、米国中南部、東南アジアのリージョンで一般提供されています。</p>
+
+
+  <p>利用可能な 28 の国/地域の完全な一覧については、価格レベルに関する記事 <a href="https://docs.microsoft.com/azure/postgresql/concepts-pricing-tiers">Azure Database for PostgreSQL参照してください</a>。</p>
+
+
+  <h2>リソースの追加Azure Database for PostgreSQL</h2>
+
+
+  <p>現在このデータベース サービスを使用している場合は、次のリンクが役に立つ場合があります。</p>
+
+
+  <ul>
+      <li>Azure Database for PostgreSQL <ul>
+          <li><a href="https://aka.ms/PostgreSQL">サービス情報</a></li>
+          <li><a href="https://docs.microsoft.com/azure/postgresql/">ドキュメント</a></li>
+          <li><a href="https://feedback.azure.com/forums/597976-azure-database-for-postgresql">フィードバック フォーラム</a></li>
+          <li><a href="https://azure.microsoft.com/en-us/resources/videos/index/?services=postgresql">Azure ビデオ センター</a></li>
+      </ul>
+      </li>
+      <li>Azure で無料 <a href="https://azure.microsoft.com/free/">アカウントに</a> サインアップする</li>
+  </ul>
+
+
+  <p>この記事で利用できる最新の機能を使用して作業を楽しAzure Database for PostgreSQL。 必ず User Voice for <a href="https://feedback.azure.com/forums/597976-azure-database-for-postgresql">PostgreSQL</a> <a href="mailto:mailto:AskAzureDBforPostgreSQL@service.microsoft.com">@Ask</a>または Azure DB for PostgreSQL を使用して、ご自分の印象を共有してください。</p>

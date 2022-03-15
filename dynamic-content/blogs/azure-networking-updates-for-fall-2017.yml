@@ -1,0 +1,178 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9a55f4c32361b25a83356f6f4b97db56c84dbea9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903685"
+Slug: azure-networking-updates-for-fall-2017
+Title: 秋2017の Azure のネットワーク更新
+Summary: 9月の Ignite 2017 に、セキュリティ、パフォーマンス、監視、接続、可用性の基本的な柱に焦点を絞っています。 Ignite では、ミッションクリティカルなアプリケーションをサポートするために高度な仮想ネットワークを構築する数千のお客様から学んでした。
+Content: >-
+  <p>Ignite 2017 年9月 &rsquo; に、 <a href="https://azure.microsoft.com/en-us/blog/azure-networking-announcements-for-ignite-2017/">マイクロソフト</a> は、セキュリティ、パフォーマンス、監視、接続性、および可用性の基本的な柱に焦点を絞っています。 Ignite では、ミッションクリティカルなアプリケーションをサポートするために、洗練された仮想ネットワークを構築する数千人のお客様から学んました。 当社のサービスを強化し、管理を簡素化することに重点を置きまし &rsquo; た。 新しいオファリングが利用可能なリージョンは引き続き拡張されます。 ここでは、以下に詳細を記載した簡単な概要を示します。</p>
+
+
+  <ul>
+   <li>すべてのパブリックリージョンでの Vnet サービスエンドポイントプレビュー</li>
+   <li>現在、米国、ヨーロッパ、およびアジアリージョンでの DDoS protection</li>
+   <li>すべてのパブリックリージョンでのサービスタグプレビュー</li>
+   <li>すべてのパブリックリージョンでの拡張ルールの GA</li>
+   <li>Data Plane Developer Kit は現在プレビュー中です</li>
+   <li>ExpressRoute プレビューの Network Performance Monitor</li>
+   <li>ExpressRoute GA の Azure Monitor と Resource Health</li>
+   <li>ポータルでの視覚化のトラフィックビュー</li>
+   <li>Mac および AD 認証用のポイント対サイト VPN の GA</li>
+   <li>Azure DNS CAA レコードと IPv6 サポート GA</li>
+  </ul>
+
+
+  <h2>セキュリティ</h2>
+
+
+  <h3>VNet サービスエンドポイントのプレビューがすべてのパブリックリージョンで利用できるようになりました</h3>
+
+
+  <p>Virtual Network サービスエンドポイントは、仮想ネットワークのプライベートアドレス空間と VNet の id を azure サービスに拡張し、インターネットに接続する IP アドレスを持つ Storage や SQL Database などの azure サービスをセキュリティで保護します。 Azure パブリッククラウドのすべてのリージョンで、Azure Storage と Azure SQL Database のサービスエンドポイントをプレビューで利用できるようになりました。 今後数か月の間、VNet サービスエンドポイントに追加の Azure サービスが含まれる予定です。 詳細については、「 <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview">VNet サービスエンドポイント</a>」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74765468-7c69-45b3-86de-79212dc14e77.png"><img alt="image" border="0" height="342" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c4fa6db-9391-4a11-ac2b-d778cd6da58a.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="461"></a></p>
+
+
+  <p align="center"><em>Vnet サービスエンドポイントは、VNet からのみアクセスされるように Azure サービスを制限します。</em></p>
+
+
+  <h3 align="left">米国、ヨーロッパ、およびアジアでのプレビューを今すぐ DDoS Protection</h3>
+
+
+  <p align="left">新しい Azure DDoS Protection サービスは、対象となる DDoS 攻撃からアプリケーションを保護し、追加の構成、アラート、テレメトリを提供します。 &nbsp; 継続的および自動チューニングは、VNet 内のパブリックにアクセス可能なリソースを保護するのに役立ちます。 洗練された機械学習アルゴリズムを使用して悪意のあるトラフィックをインテリジェントに検出することで、アプリケーション &rsquo; の通常のトラフィックパターンをプロファイルすることで、対象となる DDoS 攻撃が軽減されます。 Azure DDoS Protection は、米国、ヨーロッパ、およびアジアでの選択領域でプレビューできるようになりました。 詳細については、「 <a href="https://aka.ms/azureddos">DDoS Protection</a>」を参照してください。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59e42e2d-dea6-481e-8ef7-0df98cb428da.png"><img alt="image" border="0" height="109" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8694bb64-7006-4fb1-8279-b6df2a4559e8.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="627"></a><br>
+
+  <em>Azure DDoS Protection は、VNet 内のパブリックにアクセス可能なリソースを保護するのに役立ちます。</em></p>
+
+
+  <h3 align="left">ネットワークセキュリティ管理の簡素化</h3>
+
+
+  <p align="left">ネットワークセキュリティグループ (NSGs) を使用すると、VNet 内の Vm およびサブネットへのアクセスを制御する IP アドレスに基づいて、ネットワークセキュリティアクセスポリシーを定義できます。 IP アドレスのみを使用して複雑なセキュリティポリシーを管理すると、煩雑でエラーが発生しやすくなります。 サービスタグ、アプリケーションセキュリティグループ、および拡張 NSGS ルール機能により、NSGs の管理が簡略化されました。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b45d730a-8219-4e2c-8ce0-6c3a462a490a.png"><img alt="image" border="0" height="205" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7bf2761d-5a9f-40f9-91f7-ba181aa76acd.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p align="center"><em>タグ、グループ、および拡張ルールを使用したネットワークセキュリティグループ管理の簡素化</em></p>
+
+
+  <h3 align="left">すべてのパブリッククラウドリージョンでのサービスタグプレビューの開始</h3>
+
+
+  <p align="left">以前は、Storage などのサービスへのアクセスを必要とする VNet は、Azure パブリック IP アドレスの範囲へのアクセスを許可する必要がありました。 これらの IP アドレス範囲を維持することは問題でした。 サービスタグは、指定された Azure サービスのすべての IP アドレスを表すために、グローバルまたは伴いのいずれかのシンボル名を使用して、この管理タスクを簡略化します。 たとえば、Storage という名前のサービスタグは、すべての Azure Storage IP アドレスを表します。 NSG ルールのサービスタグを使用すると、特定の Azure サービスへのトラフィックを名前で許可または拒否できます。 タグの基になる IP アドレスが自動的に更新されます。 <em>Storage</em>、 <em>SQL</em>、 <em>Traffic Manager</em>のサービスタグは、Azure パブリッククラウドのすべてのリージョンでプレビュー段階にあります。これにより、さらに多くのサービスが近日公開されます。 詳細については、「 <a href="https://aka.ms/servicetags">サービスタグ</a>」を参照してください。</p>
+
+
+  <h3 align="left">すべてのリージョンでのネットワークセキュリティグループの拡張ルールの GA</h3>
+
+
+  <p align="left">ネットワークセキュリティグループの拡張ルールにより、セキュリティ定義が簡略化します。 より簡単に管理できるルールを減らすことで、より大規模で複雑なネットワークセキュリティポリシーを定義できます。 複数のポート、複数の明示的な IP アドレス、サービスタグ、およびアプリケーションセキュリティグループを、1つの簡単に理解できるセキュリティ規則にまとめることができます。 これにより、クライアントごとに NSG ルールを作成するのではなく、単一の NSG ルールを使用して複数のインターネットクライアントが web サイトにアクセスできるようになります。 Azure パブリッククラウドのすべてのリージョンで、ネットワークセキュリティグループの拡張ルールが GA リリースになりました。 詳細については、「 <a href="https://aka.ms/nsgaugmentedrules">Nsg</a>の拡張ルール」を参照してください。</p>
+
+
+  <h2 align="left">パフォーマンス-Azure は最速のパブリッククラウドを維持</h2>
+
+
+  <h3 align="left">Azure Accelerated Networking</h3>
+
+
+  <p align="left">Azure ネットワークでは、お客様に最適なパフォーマンスを提供するために継続的にプッシュされています。 Ignite では、VM から VM への 30 Gbps のスループットでパブリッククラウドに提供される最速の Vm を発表しました。 この機能は、いくつかの VM インスタンスのサイズとディストリビューションで簡単に有効にできるようになりました。 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-vm-accelerated-networking">Azure 高速ネットワーク</a>」を参照してください。</p>
+
+
+  <h3 align="left">Data Plane Developer Kit preview の可用性</h3>
+
+
+  <p align="left">Ignite では、 <a href="https://dpdk.org/">Data Plane Developer Kit</a> (dpdk) のサポートを発表しました。 DPDK を使用すると、最も効率的で最高速度のパケット処理を必要とするネットワークアプライアンスなど、ネットワークを集中的に使用するアプリケーションのパフォーマンスを向上させることができます。 カナダ東部のすべての高速ネットワーク Vm で DPDK のパブリックプレビューが発表されます。 これは、お客様が評価できるようになりました。 DPDK の詳細については、までお問い合わせ <a href="mailto:AzureDPDK@microsoft.com">AzureDPDK@microsoft.com</a> ください。&nbsp;</p>
+
+
+  <h2 align="left">監視</h2>
+
+
+  <p align="left">お客様は、Azure を entrust してミッションクリティカルなワークロードを実行します。 これらの実稼働アプリケーションのリアルタイムの動作に対して詳細な operational insights を提供することが不可欠です。 お客様 &rsquo; のニーズに対応するために、引き続きネットワーク監視機能を強化していきます。</p>
+
+
+  <h3 align="left">ExpressRoute での Network Performance Monitor のプレビュー</h3>
+
+
+  <p align="left">Network Performance Monitor (NPM) は、オンプレミスから Microsoft への ExpressRoute 向けのエンドツーエンドの監視ソリューションです。 お客様は、待機時間、パケット損失、オンプレミスと Vnet 間の帯域幅を監視し、これらのメトリックを使用してしきい値ベースのアラートを設定し、ExpressRoute トポロジを視覚化することができます。 サービスエンドポイントの監視を使用すると、お客様は、Azure Storage などの Office 365 および PaaS サービスの到達可能性を追跡できます。 ExpressRoute プレビューの Network Performance Monitor は、米国東部、南東アジア、西ヨーロッパのリージョンでご利用いただけるようになりました。 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/expressroute/how-to-npm">ExpressRoute の Network Performance Monitor</a>」を参照してください。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/58b97924-8a3c-42d2-8f9a-57eae81ebd40.png"><img alt="image" border="0" height="268" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3cbd3411-57fb-4c20-92e6-48be3fe73dcc.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p align="left">&nbsp;</p>
+
+
+  <p align="center"><em>複数のパスでの ExpressRoute ネットワークパフォーマンスの監視</em></p>
+
+
+  <h3 align="left">ExpressRoute 回線 GA の Azure Monitor と Resource Health</h3>
+
+
+  <p align="left">ExpressRoute の Azure Monitor の一般提供が発表されます。 お客様は、ポータルでの Azure Monitor での ExpressRoute 回線の合計スループットについて確認できます。</p>
+
+
+  <p align="left">また、ExpressRoute 回線の Resource Health も発表します。 お客様は、ExpressRoute 回線に関する既知の問題を確認し、サポートチケットを送信する前に関連するトラブルシューティング手順を確認することができます。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbbb3878-1782-4c53-8646-370f557cfaad.png"><img alt="image" border="0" height="342" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf30e47a-02aa-4337-8bb5-df3e95229f77.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p align="center"><em>Azure Monitor を使用した ExpressRoute 回線あたりのスループット</em></p>
+
+
+  <h3 align="left">トラフィックビューを使用してトラフィックパターンを視覚化する</h3>
+
+
+  <p align="left">Azure Traffic Manager トラフィックビューは、ユーザーに関する実用的なインテリジェンスを提供し、パフォーマンス向上と待機時間の短縮のために Azure リージョンを選択するのに役立ちます。 私たちはトラフィックビュー&#39; データの強力な視覚化を追加しています。これにより、お客様は、世界規模でトラフィックパターンを把握し、特定の地域を拡大することができます。 詳細については、「 <a href="https://aka.ms/atmtv">トラフィックビューの概要</a>」を参照してください。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd3f0bb1-ee8b-4fcb-a1ab-99a6ff8a2aff.png"><img alt="image" border="0" height="403" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac13738e-3e9d-403d-8fe8-7ac74905a71b.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="612"></a></p>
+
+
+  <p align="center"><em>エンドポイントのトラフィックパターン</em></p>
+
+
+  <h2 align="left">接続</h2>
+
+
+  <h3 align="left">Mac および AD 認証のポイント対サイト VPN が GA になりました</h3>
+
+
+  <p align="left">MacOS 用のポイント対サイト (P2S) VPN と、P2S VPN の Active Directory (AD) ドメイン認証の一般提供が発表されます。 お客様は、ネイティブの IKEv2 VPN クライアントを使用して、macOS デバイスから P2S VPN 経由で Azure Virtual Network に接続できます。 SSTP は引き続き Windows の P2S ソリューションとなります。 IKEv2 と SSTP VPN の両方を有効にすることで、Windows と macOS の両方で構成される混合クライアント環境をサポートできます。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/809820ad-5b01-4d28-8a5a-c7c476536374.png"><img alt="image" border="0" height="218" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cfc6d69b-c024-4231-bc85-54e31fc7ead5.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="392"></a></p>
+
+
+  <p align="center"><em>P2S VPN は Windows と macOS マシンを Azure vnet に接続します</em></p>
+
+
+  <p align="left">認証を簡略化するために、ユーザーは RADIUS 認証を有効にすることで、IKEv2 および SSTP VPN 認証に組織のドメイン資格情報を使用できます。 Azure VPN Gateway は、Azure またはオンプレミスのデータセンターにおけるお客様&#39;の RADIUS および AD ドメインのデプロイと統合されています。 RADIUS サーバーは、P2S VPN 用に複数の認証オプション (多要素を含む) を提供する他の id プロバイダーと統合されます。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eaa60bdf-7ba1-465a-b5d9-a83f763b8538.png"><img alt="image" border="0" height="206" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f1327a79-c5f8-4499-9951-8e2e38c4f9ae.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="464"></a></p>
+
+
+  <p align="center"><em>P2S VPN の AD ドメイン認証</em></p>
+
+
+  <p>azure では、Windows と macOS のネイティブ vpn クライアントが azure に接続するために必要な vpn クライアント構成をお客様に提供します。 Mac 用の P2S VPN と AD ドメイン認証は両方とも、Basic SKU を除くすべてのゲートウェイ Sku で利用できます。 Azure P2S VPN の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/point-to-site-about">ポイント対サイト vpn</a> に関するページを参照してください。</p>
+
+
+  <h3>Azure DNS CAA レコードのサポートと IPv6 ネームの GA</h3>
+
+
+  <p>IPv6 DNS クエリのサポートと証明機関承認 (CAA) レコードのサポートに関して、一般公開されています。 ドメイン所有者は、 <a href="https://tools.ietf.org/html/rfc6844">証明機関の承認 (CAA) リソースレコード</a> を使用して、ドメインの証明書を発行する権限を持つ1つ以上の証明機関 (ca) を指定できます。 <a href="https://cabforum.org/2017/03/08/ballot-187-make-caa-checking-mandatory/">Ca で</a>は、証明書の発行プロセスの一環として CAA レコードを確認することが必須になりました。 この多層防御セキュリティ機能により、Ca は意図しない証明書の問題のリスクを軽減できます。 詳細については、 <a href="https://aka.ms/azurednsnovupdates">CAA レコードと IPv6 の Azure DNS サポートの</a>詳細については、こちらの投稿を参照してください。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>ここでは、ミッションクリティカルなアプリケーションの全体的なネットワーク管理、セキュリティ、スケーラビリティ、可用性、およびパフォーマンスを簡素化するための作業を続けます。 Azure ネットワークを使用すると、microsoft のクラウドとグローバルなバックボーンネットワークによって提供される特典を完全に享受できます。 今後数か月の間に、より多くの更新とお知らせがあります。 これは、クラウドが進化し続けるにつれて、すべてのお客様にとって魅力的な時間です。 Ignite でリリースされた機能に関するフィードバックをお待ちしており、これらの新機能を使用して、ロードマップが要件を満たしていることを確認してください。&nbsp;</p>

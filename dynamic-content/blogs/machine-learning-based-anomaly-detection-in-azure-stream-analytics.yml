@@ -1,0 +1,82 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 81f015d4e65a7b60c2df33474ce5969673e5115b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908877"
+Slug: machine-learning-based-anomaly-detection-in-azure-stream-analytics
+Title: Azure Stream Analytics での Machine Learning ベースの異常検出
+Summary: リアルタイムデータを監視しているお客様は、Azure Stream Analytics での機械学習に基づく異常検出により、予期されたパターンに準拠していないイベントや観測を簡単に検出できるようになりました。現在、プライベートプレビューが発表されています。
+Content: >-
+  <p>リアルタイムデータを監視しているお客様は、Azure Stream Analytics での機械学習に基づく異常検出により、予期されたパターンに準拠していないイベントや観測を簡単に検出できるようになりました。現在、プライベートプレビューが発表されています。</p>
+
+
+  <p>現時点では、高コストのカスタム機械学習モデルに依存してストリーミングデータを監視する、工業の IoT 顧客など。 実装者は、ユースケースと問題のドメインについて詳しい知識を持ち、これらのモデルを、複雑なデータパイプラインエンジニアリングを必要とするストリーム処理機構と統合する必要がありました。 多くの工業 IoT サイトに関連する値があるにもかかわらず、ストリーミングパイプラインでの異常検出を除外に導入するための大きな障壁。</p>
+
+
+  <h2>監視が簡単</h2>
+
+
+  <p>新しい機能により、時間の経過と共に Kpi を追跡することで、<strong>サービスの監視</strong>を迅速かつ簡単に行うことができます。また、時間の経過と共に、検索の数、クリック数、カウンターによる<strong>パフォーマンスの監視</strong>などのメトリックによる<strong>使用状況</strong>を監視することもできます。 お客様は、複雑で高価な異常検出モデルを構築し、ストリーミングパイプラインと統合する必要がなくなりました。</p>
+
+
+  <p>新しい機能は、数値の時系列データを対象としています。 Azure Stream Analytics は、正と負の傾向、および動的な範囲の値の変化を検出できます。 たとえば、イベントデータが Azure Stream Analytics にストリーム配信される IT 監視シナリオでは、メモリリークが発生している可能性があるため、メモリ使用量の上昇傾向のアラートを生成するために傾向検出を使用できます。 同様に、サービスの正常性が不安定であることを示す例外に関するアラートは、動的な値の範囲の変更を検出することによって取得できます。 &nbsp;ログインエラー数の変化を使用して、セキュリティの警告を発生させることができます。</p>
+
+
+  <h2>Machine Learning の力</h2>
+
+
+  <p>宣言 Azure Stream Analytics クエリの単純な関数呼び出しでは、入力データの異常を検出できます。 基になる汎用機械学習モデルは抽象化されており、関数呼び出しを行います。 基になる機械学習の検出機能は、値の変化を追跡し、その値の継続的な変化を異常スコアとして報告します。 汎用モデルでは、アドホックしきい値チューニングは不要であり、継続的な学習を使用して時間の経過と共に学習できます。 関数呼び出しは、特定の時点の異常スコアを返します。&nbsp;</p>
+
+
+  <h2>宣言型の SQL による異常検出を有効にする方法</h2>
+
+
+  <p>次の例では、クエリ言語のような宣言型の SQL での異常検出を有効にして、動作中のデータについての理由を示すことで、生産性を向上させています。</p>
+
+
+  <p>時系列データの1時間の異常を検出するための簡単な使用方法</p>
+
+
+  <pre class="prettyprint">
+
+  select id, val, ANOMALYDETECTION(val) OVER(LIMIT DURATION(hour, 1)) FROM input  </pre>
+
+
+  <p>パーティション分割を使用した使用状況</p>
+
+
+  <pre class="prettyprint">
+
+  select id, val, ANOMALYDETECTION(val) OVER(PARTITION BY id LIMIT DURATION(hour, 1)) FROM input  </pre>
+
+
+  <p>パーティション分割と &quot; when の使用&quot;</p>
+
+
+  <pre class="prettyprint">
+
+  select id, val, ANOMALYDETECTION(val) OVER(PARTITION BY id LIMIT DURATION(hour, 1) WHEN id != 2) FROM input  </pre>
+
+
+  <p>スコアの抽出を示す使用法:</p>
+
+
+  <pre class="prettyprint">
+
+  select id, val FROM input WHERE (GetRecordPropertyValue(ANOMALYDETECTION(val) OVER(LIMIT DURATION(hour, 1)), &#39;BiLevelChangeScore&#39;)) &lt; -1.0 </pre>
+
+
+  <p>3つのスコアフィールドが公開されています。</p>
+
+
+  <pre class="prettyprint">
+
+  BiLevelChangeScore, SlowPosTrendScore, SlowNegTrendScore </pre>
+
+
+  <h2>今すぐ始めましょう</h2>
+
+
+  <p>&rsquo;Azure Stream Analytics で異常検出を試してみることをお楽しみください。 この新機能を試すには、ここにある <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-machine-learning-anomaly-detection">異常検出オペレーターのドキュメント</a>を参照してください。</p>

@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 15810ef225989a43f6bbca581579e2252c1117bb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904224"
+Slug: deliver-scalable-costeffective-disk-storage-for-azure-vmware-solution
+Title: Azure VMware ソリューション向けのスケーラブルでコスト効率の高い Disk Storage を提供
+Summary: 現時点では、Azure VMware ソリューションの永続的なストレージオプションとして Azure Disk Storage を有効にするディスクプールのプレビューについてお知らせします。 この発表により、Azure で実行されている VMware ワークロード用のスケーラブルでコスト効率の高いクラウドストレージを使用して、データニーズに柔軟に対応できます。
+Content: >-
+  <p><em>この投稿は、Ashwin Kabadi、シニア PM Manager、Azure 専用によって共同作成されました。</em></p>
+
+
+  <p>現時点では、Azure VMware ソリューションの永続的なストレージオプションとして<a href="https://azure.microsoft.com/en-us/services/storage/disks/" target="_blank">Azure Disk Storage</a>を有効にするディスクプールのプレビューについてお知らせします。 この発表により、Azure で実行されている VMware ワークロード用のスケーラブルでコスト効率の高いクラウドストレージを使用して、データニーズ &nbsp; に柔軟に対応できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/azure-vmware/" target="_blank">Azure Vmware ソリューション</a> は、azure 上で実行される包括的な vmware 環境を提供し、専用のソフトウェア定義データセンター (SDDC) 内のストレージ仮想化のための <a href="https://docs.microsoft.com/en-us/azure/azure-vmware/concepts-storage" target="_blank">vmware vSAN</a> を含みます。 移行のニーズを迅速にサポートするために Azure VMware ソリューションを検討しているお客様が多いほど、他の Azure サービスを活用して、これらのアプリケーションの効率を向上させることができます。 現時点では、ストレージのニーズは、2019の45ZB から 2025<sup>1</sup> &mdash; まで成長することが予想されるデータの &rsquo; 合計が指数関数 &mdash; 的に増加しています。また、リソースのスケーラビリティと、クラウドによる柔軟性は、エンタープライズにとって不可欠なものになります。 Azure VMware ソリューションとのディスクプールの新しい統合により、Azure で実行されている使い慣れた VMware テクノロジの能力が、効率的な Azure Disk Storage と組み合わされます。</p>
+
+
+  <h2>Azure VMware ソリューションのディスクプールの概要</h2>
+
+
+  <p>ディスクプールは、記憶域ターゲットとして追加された、基になるすべてのディスクに対してインターネットの Small Computer Systems Interface (iSCSI) エンドポイントを公開する Azure サービスです。これにより、高パフォーマンスで持続性のあるブロック記憶域の Azure Disk Storage にアクセスできるようになります。 オンプレミスの SAN アプライアンスで公開されている iSCSI エンドポイントに vmware を接続 &nbsp; する場合と同じよう &nbsp; に、Azure vmware ソリューションをディスクプールに接続し、vmware データストア &mdash; としてディスクを追加することができます。 &nbsp;これにより、コンピューティングリソースに依存することなく Azure VMware ソリューション環境のストレージを拡張し、総保有コスト (TCO) を削減することができます。 追加の容量コスト効率を高めることに加えて、パフォーマンスのスケーリングとコストの最適化を可能にする、パフォーマンスレベル、動的スケーリング、バースティングなどの固有の Azure Disk Storage 機能を利用することもできます。</p>
+
+
+  <p>ディスクプールは、Azure 上のブロックストレージへのアクセスを提供するだけでなく、Azure VMware ソリューションとも統合されます。 Azure によって完全に管理され、Azure VMware ソリューション管理者に代わって最小限の労力を必要とします。 新規または既存の azure Ultra Disk Storage または azure プレミアム ssd をディスクプールに追加して、azure vmware ソリューション環境に接続するための個別の論理ユニット番号 (LUN) として公開することができます。これにより、ディスクから iSCSI LUN と Azure vmware ソリューションのデータストアに簡単かつ直接マッピングできるようになります。 ディスクプール &nbsp; には、データの配置ロジックを変更し、データが常にサブスクリプションに関連付けられているディスクに存在するようにするための、記憶域の仮想化層はありません。</p>
+
+
+  <p>ストレージ集中型のワークロードをホストする予定のお客様にとって、Azure VMware ソリューションでのスケールアウトを計画しているお客様の場合、ハイパー集約型インフラストラクチャは、コンピューティングリソースとストレージリソースの両方に拡張があることを示します。 お客様は、ディスクプールを使用して個別にストレージを個別にスケーリングし、必要に応じて完全なノードのみを SDDC クラスターに追加するオプションをご利用いただけます。&nbsp;</p>
+
+
+  <h2>一般的なユース ケースとシナリオ</h2>
+
+
+  <ul>
+      <li><strong>Storage 集中型のワークロード: </strong>azure vmware ソリューションで実行されるストレージを集中的に使用するワークロードの場合、azure vmware ソリューションノードの上に構築された vSAN のストレージ容量とパフォーマンスの制限に簡単に対応できます。 ディスクプールを使用すると、記憶域をスケールアップして、Ultra Disk Storage でアクティブなデータセットをホストすることも、固定ストレージのプレミアム ssd に対してデータを階層化することもできます。 これにより、新しい Azure VMware ソリューションホストでスケールアウトする場合と比較して、コアまたはメモリの増加を回避できます。</li>
+      <li><strong>ディザスターリカバリー:</strong> ディザスターリカバリー (DR) サイトとして Azure VMware ソリューションを使用するお客様は、ディスクプール &nbsp; を使用して、3つ &nbsp; のノードで構成される最小クラスターをデプロイできます。 ディスクプールがセットアップされ、Azure VMware ソリューションクラスターに接続されると、お客様は、vmware Site Recovery Manager などの DR 製品を vsphere レプリケーションと共に使用して、保護されたワークロードのストレージをオンプレミスの vmware SDDC からクラスターに接続されているディスクプールにレプリケートすることができます。 ワークロードの保護のニーズの変化に応じて、必要なストレージを調整できます。 Azure VMware ソリューションの SDDC がアクティブなサイトとして機能する DR イベントの場合、ワークロード &rsquo; のコンピューティング要件に対応するためにノードを追加して、Azure Vmware ソリューションクラスターをスケールアウトすることができます。 このアプローチにより、全体的な DR の総保有コストを低く抑えることができます。</li>
+  </ul>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>ディスクプールの使用を開始するには、いくつかの手順を実行します。</p>
+
+
+  <ul>
+      <li>リソースプロバイダーにサブスクリプションを登録し、ネットワークとディスクリソースを準備します。</li>
+      <li>ディスクプールを作成し、ディスクプールにディスクを追加します。</li>
+      <li>ディスクプールを Azure VMware ソリューションに Connect します。</li>
+  </ul>
+
+
+  <p><a href="https://aka.ms/diskpoolsetup" target="_blank">詳細な</a>手順については、この後の手順を参照してください。 パフォーマンスとスケーラビリティのターゲットを最適化するための考慮事項については、 <a href="https://aka.ms/diskpoolplanning" target="_blank">計画ガイダンス</a> を参照してください。 価格の詳細については、Azure Disk Storage の &nbsp; 価格に関する<a href="https://azure.microsoft.com/en-us/pricing/details/managed-disks/" target="_blank">ページ</a>を参照してください。</p>
+
+
+  <p>Azure VMware ソリューションへのオンボードと共にディスクプールを使用して評価する場合、詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-vmware/" target="_blank">Azure Vmware ソリューションのドキュメント</a> を参照してください。</p>
+
+
+  <p>ディスクプールのプレビューに関するフィードバックをお待ちしております。 に電子メールで <a href="mailto:azdiskpool@microsoft.com">azdiskpool@microsoft.com</a> ご連絡ください。</p>
+
+
+  <hr>
+
+  <p><sup>1</sup>ソース: IDC ホワイトペーパー: エッジからコアへの世界のデジタル化</p>

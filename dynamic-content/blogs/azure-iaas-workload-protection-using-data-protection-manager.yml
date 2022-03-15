@@ -1,0 +1,306 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2f8b2d9c059f333cc78b59c2da4103b47eea6855
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909159"
+Slug: azure-iaas-workload-protection-using-data-protection-manager
+Title: Data Protection Manager を使用した Azure IaaS ワークロード保護
+Summary: System Center Data Protection Manager (DPM) は、Microsoft のオンプレミス ワークロードを保護するための確立されたバックアップ製品です。 お客様がインフラストラクチャの一部またはすべてが Azure に移行する場合、重要な質問は、Azure で現在実行されているワークロードをバックアップする機能です。
+Content: >-
+  System Center Data Protection Manager (DPM) は、Microsoft のオンプレミス ワークロードを保護するための確立されたバックアップ製品です。 お客様がインフラストラクチャの一部またはすべてが Azure に移行する場合、重要な質問は、Azure で現在実行されているワークロードをバックアップする機能です。 このニーズに対応するために、 <strong>Azure IaaS VM で実行されている DPM をサポートして、Azure IaaS ワークロードを保護します</strong>。
+
+  <h3>サポートされるデプロイ</h3>
+
+  <p align="center"><span style="color: #a5a5a5;">図 1: ワークロード保護のために Azure での DPM のデプロイがサポートされている</span></p>
+
+
+
+  <div id="" align="aligncenter" width="720"><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2066/image_5F00_510F1AAF.png" alt="Supported deployment of DPM in Azure for workload protection" width="720"> ワークロード保護のために Azure での DPM のデプロイをサポート</div>
+
+
+  サポートされている構成を上の図に示します。 <a href="https://aka.ms/ar1_dpmprereq">TECHNet のドキュメントで</a>説明されているとおり、DPM のインストールの前提条件は変わりません。
+
+  <ul>
+   <li>DPM は、サイズ A2 以上の Azure IaaS 仮想マシンでサポートされます。</li>
+   <li>DPM では、同じ Azure 仮想ネットワークおよび Azure サブスクリプションの複数の Azure クラウド サービスで実行されるワークロードを保護できます。</li>
+   <li>ターゲット記憶域 (DPM の記憶域プール) として使用できるディスクの数は、仮想マシンのサイズ (最大 16) によって制限されます。 サイズ制限の詳細については、「 <a href="https://msdn.microsoft.com/library/azure/dn197896.aspx">Azure Virtual Machines</a>」を参照してください。</li>
+  </ul>
+
+  <h3>Azure 仮想マシンとして DPM を設定する場合の推奨事項</h3>
+
+  <ol>
+   <li>Standard コンピューティング レベルでインスタンス <em>を</em> 作成します。これは、接続されているディスクあたりの最大 IOPS が Basic レベルよりも Standard レベルで高くなるためです。</li>
+   <li>DPM 仮想 <em>マシン</em> には別のストレージ アカウントを使用します。これは、実行中の他の仮想マシンと共有されている場合に DPM 仮想マシンのパフォーマンスに影響する可能性があるストレージ アカウントのサイズと IOPS の制限があります。</li>
+   <li>DPM 仮想マシンには、Active Directory ドメイン コントローラーと保護されたワークロードへのネットワーク接続が必要です。 さらに、DPM 仮想マシンと保護されたワークロードは、ドメイン コントローラーとの信頼された通信のために、同じドメインまたは信頼されたドメイン上に必要です。</li>
+   <li>次の表は、各 DPM <em>仮想マシン サイズの保護された </em>ワークロードの最大数をまとめたものです。 この情報は、ワークロードのサイズとチャーンの標準値を使用した、内部のパフォーマンス テストとスケーリング テストに基づいています。 実際のワークロードのサイズは大きくなることはありますが、DPM の仮想マシンに接続されたディスクで対応できるはずです。
+  <table border="1" width="632" cellspacing="0" cellpadding="0" align="center">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="69">
+
+  <p align="center"><strong>DPM VM サイズ</strong></p>
+
+  </td>
+
+  <td valign="top" width="146">
+
+  <p align="center"><strong>保護されたワークロードの最大数</strong></p>
+
+  </td>
+
+  <td valign="top" width="142">
+
+  <p align="center"><strong>平均ワークロード サイズ</strong></p>
+
+  </td>
+
+  <td valign="top" width="155">
+
+  <p align="center"><strong>平均ワークロードチャーン </strong></p>
+
+  </td>
+
+  <td valign="top" width="118">
+
+  <p align="center"><strong>サンプルのワークロード</strong></p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="69">
+
+  <p align="center">A2</p>
+
+  </td>
+
+  <td valign="top" width="146">
+
+  <p align="center">20</p>
+
+  </td>
+
+  <td valign="top" width="142">
+
+  <p align="center">100 GB</p>
+
+  </td>
+
+  <td valign="top" width="155">
+
+  <p align="center">毎日の正味 5% チャーン</p>
+
+  </td>
+
+  <td valign="top" width="118">
+
+  <p align="center">SQL、ファイル サーバー</p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="69">
+
+  <p align="center">A3</p>
+
+  </td>
+
+  <td valign="top" width="146">
+
+  <p align="center">40</p>
+
+  </td>
+
+  <td valign="top" width="142">
+
+  <p align="center">150 GB</p>
+
+  </td>
+
+  <td valign="top" width="155">
+
+  <p align="center">毎日の正味 10% チャーン</p>
+
+  </td>
+
+  <td valign="top" width="118">
+
+  <p align="center">SQL、ファイル サーバー</p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="69">
+
+  <p align="center">A4</p>
+
+  </td>
+
+  <td valign="top" width="146">
+
+  <p align="center">60</p>
+
+  </td>
+
+  <td valign="top" width="142">
+
+  <p align="center">200 GB</p>
+
+  </td>
+
+  <td valign="top" width="155">
+
+  <p align="center">毎日の正味 15% チャーン</p>
+
+  </td>
+
+  <td valign="top" width="118">
+
+  <p align="center">SQL、ファイル サーバー</p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  </li>
+   <li>DPM に接続された記憶域に 1 日分データを保持し、1 日より前のデータ <em>を Azure Backupします。 </em>目標は、より多くのデータを保護するか、保有期間の範囲を長くすることです。 バックアップ データを DPM から AZURE BACKUPにオフロードすると、DPM サーバーに接続されている記憶域をスケーリングすることなく、リテンション期間の柔軟性が提供されます。</li>
+  </ol>
+
+  <h3></h3>
+
+  <h3>ワークロードの保護</h3>
+
+  DPM 仮想マシンのコンソールを使用して、<a href="https://aka.ms/ar1_UsingDPM"></a>DPM エージェントのインストール、保護グループの設定、データの回復、バックアップジョブと回復ジョブの監視など、すべての標準的なバックアップ操作を実行します。 Azure 仮想マシンとして実行されている DPM は、サポートされている特定のワークロードを保護Azure Backupサービスとシームレスに連携します。 詳細については、 <a href="https://aka.ms/ar1_dpm2aconfigure">TechNet のドキュメントを参照してください</a>。
+
+  <h5>サポートされるワークロード</h5>
+
+  オンプレミスの DPM でサポートされているワークロードのサブセットのみが、Azure デプロイでの保護 <a href="https://aka.ms/ar1_dpmsupportmatrix">に対してサポートされます</a>。 次の表は、Azure でサポートされているワークロードのバックアップ サポートをまとめたものです。 <strong>Azure でサポートされていないワークロードは、表に含まれていません。</strong>
+
+  <table border="1" width="704" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="366"></td>
+
+  <td valign="top" width="52"><b>DPM 2012 R2</b></td>
+
+  <td valign="top" width="65"><b>DPM 2012 with SP1 </b></td>
+
+  <td valign="top" width="52"><b>DPM 2012 </b></td>
+
+  <td valign="top" width="167"><strong>保護と回復</strong></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="366">Windows Server 2012 R2 - Datacenter および Standard</td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" width="65">×</td>
+
+  <td valign="top" width="52">×</td>
+
+  <td valign="top" width="167">ボリューム、ファイル、フォルダー</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="366">Windows Server 2012 - Datacenter および Standard</td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="65"><strong>Y</strong></td>
+
+  <td valign="top" width="52">×</td>
+
+  <td valign="top" width="167">ボリューム、ファイル、フォルダー</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="366">Windows Server 2008 R2 SP1 – Standard および Enterprise</td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="65"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" width="167">ボリューム、ファイル、フォルダー</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="366">SQL Server – 2012、2008 R2、2008</td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="65"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" width="167">SQL Server データベース</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="366">SharePoint – 2013、2010</td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="65"><strong>Y</strong></td>
+
+  <td valign="top" bgcolor="lime" width="52"><strong>Y</strong></td>
+
+  <td valign="top" width="167">ファーム、データベース、フロントエンド Web サーバーのコンテンツ</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  &nbsp;
+
+  <h3>重要なポイント</h3>
+
+  <ol>
+   <li>DPM を Azure IaaS 仮想マシンとして実行できる</li>
+   <li>お客様は、DPM を使用して Azure IaaS 仮想マシンで実行されているワークロードを保護できます</li>
+  </ol>
+
+  詳細については、DPM ブログをご覧ください。 <a href="https://blogs.technet.com/b/dpm/archive/2014/09/04/azure-iaas-workload-protection-using-data-protection-manager.aspx">以下</a> の関連リンクをクリックして開始し、ご意見やフィードバックをお送りください。
+
+  <ul>
+   <li>既存の DPM および Azure のお客様 - <a href="https://aka.ms/ur3-for-dpm-2012r2">DPM 用の更新プログラムロールアップ 3 と</a> 新しい <a href="https://aka.ms/azure-backup-agent">Azure バックアップ エージェントをダウンロードします</a>。</li>
+   <li>既存の DPM のお客様ですが、まだ Azure を試していませんか? 無料の <a href="https://aka.ms/azure-backup-free-trial">Azure 試用版サブスクリプションをクリックして</a> 開始します。</li>
+   <li>DPM を初めから使用する場合は、プライベート クラウド規模 <a href="https://aka.ms/Getting-Started-DPM-2012R2">での Hyper-V バックアップについて紹介します</a>。</li>
+   <li>Azure Backup <a href="https://aka.ms/ar1_AzureBackupUserForum">ユーザー フォーラムは</a> 、顧客からフィードバックや質問を求めるチャネルです。</li>
+   <li>また<a href="https://aka.ms/ar1_WindowsAzureBackupForum">Windows Azure Backupフォーラムは</a>、このフォーラムに関連するサポート クエリを開始する場合にもAzure Backup。</li>
+   <li>この<a href="https://aka.ms/ar1_SCDPMForums">System Center Data Protection Managerフォーラムは</a>、DPM に関連するサポート クエリに使用できます。</li>
+  </ul>

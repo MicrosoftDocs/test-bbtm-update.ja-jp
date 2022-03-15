@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9b151faec9d387d5489ec45c41c863bb4d79b90b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909528"
+Slug: protecting-large-data-disks-using-azure-site-recovery
+Title: データ を使用した大規模なデータ ディスクAzure Site Recovery
+Summary: Azure Site Recoveryユーザーは、1 TB を超えるサイズのデータ ディスク (VHD) を持つ Hyper-V VM を直接保護することはできません。 このブログでは、1 TB を超えるデータ ディスクを使用して Hyper-V VM を保護するのに役立つ回避策について説明します。
+Content: >-
+  Azure Site Recoveryユーザーは、1 TB を超えるサイズのデータ ディスク (VHD) を持つ Hyper-V VM を直接保護することはできません。 これは、IaaS VM の Azure のデータ ディスク サイズ制限が 1 TB に制限されている (このブログの発行時点) が原因です。 このブログでは、複数の小さな VHD で構成される新しいストライプ ボリュームの作成を含む回避策について説明します。このボリュームは、それぞれ 1 TB 未満です。 データが新しいディスク ドライブに移行され、古い大きな VHD が Hyper-V 仮想マシンから削除されると、Azure Site Recovery を使用して VM を保護できます。
+
+
+  次の手順は、Windows を実行している VM に適用され、R2 でテストWindows Server 2012されています。 RAID を使用した Linux VM の場合も同様の手順に従います。
+
+  <ul>
+   <li>VM に複数の 1000 GB VHD を追加します。 VHD の数は、TB 単位の古い VHD のサイズによって異なります。たとえば、3.2 TB の VHD を置き換える場合は、それぞれ 1,000 GB の 4 つの VHD を作成する必要があります。</li>
+   <li>VM 内で実行されているアプリケーションをオフにします (たとえば、SQLなど)。</li>
+   <li><strong>[コンピューターの管理]</strong> を開きます。 [ディスク管理] <strong>タブに移動</strong> します。新しいディスクの初期化を求めるメッセージが表示されたら、[OK] をクリックします。</li>
+   <li>新しい未アロケーション ボリュームのいずれかを右クリックし、[ストライプ ボリュームの作成<strong>] をクリックします</strong>。</li>
+   <li>ウィザードで未割り当てディスクを選択して、新しく追加した VHD からストライプ ボリュームを作成します。</li>
+  </ul>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/16/2015-03-11_11h30_27.png"><img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="新しいストライプ ボリューム" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2015-03-11_11h30_27_thumb.png" alt="New striped volume" width="480" height="389" border="0" /></a>
+
+  <ul>
+   <li>一時ドライブ文字を割り当てる (E:)を新しいドライブに追加します。 適切なファイル システムを選択し、 [クイックフォーマット <b>] オプションを</b> 選択します。</li>
+   <li>コマンド robocopy D:\ を使用して、古いドライブから新しいドライブ <strong><em>にデータをコピーします。E:\ /mir</em></strong>。 D: がデータが現在存在するボリュームと仮定します。</li>
+   <li>次に、 <strong>ディスク管理コンソールのドライブ</strong> 文字とパスの変更ウィザードを使用して、次の操作を行います。
+  <ul>
+   <li>古いドライブの文字を削除する (D:)</li>
+   <li>新しいドライブから一時ドライブ文字を削除する (E:)</li>
+   <li>D: を新しいドライブに割り当てる</li>
+  </ul>
+
+  </li>
+   <li>PowerShell を使用して diskpart を実行します。 「<strong>SAN POLICY=OnlineAll」と入力</strong>します</li>
+   <li>VM をシャットダウンする</li>
+   <li>Hyper-V マネージャーを使用して VM から古い VHD を削除する</li>
+   <li>VM、アプリケーション サービスを起動し、アプリケーション/サーバーの可用性を検証する</li>
+   <li>仮想マシンを使用して VM の保護を有効Azure Site Recovery</li>
+  </ul>
+
+  &nbsp;
+
+
+  今すぐ始めましょう! 仮想マシンを使用して、Hyper-V 仮想マシン (大または小) から Azure への保護Azure Site Recovery。
+
+
+  Azure を使用する場合は、無料の <a href="https://aka.ms/asr1tb_trial">Azure</a> 試用版にサインアップして、Azure Site Recovery。

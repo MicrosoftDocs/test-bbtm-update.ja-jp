@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 39a3fa71298881f66fe9f8dfa5832e534eecd008
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904093"
+Slug: migrate-heterogeneous-it-environments-to-azure-with-asr
+Title: ASR を使用して異種 IT 環境を Azure に移行する
+Summary: AoD の有効化テクノロジとして、Azure Site Recovery は、Hyper-V 仮想マシンと VMware 仮想マシンと物理サーバーを Azure にレプリケートする統合ソリューションを提供し、異種 IT 環境のワークロード対応の復旧と移行を可能にします。
+Content: >-
+  <p>Microsoft は、ハイブリッド環境と異種環境向けに Azure で包括的なオンデマンド <a href="https://aka.ms/asr_migration_aod">可用性 (AoD)</a> を提供しており、組織は DevTest、クラウド バースト、移行、レポート/分析、復旧、バックアップ、および長期的なデータ保持のために、クラウド内のコンピューティングとストレージをほぼ無制限に利用できます。 AoD の有効化テクノロジとして、Azure Site Recovery は<a href="https://aka.ms/asr_migration_hyperv">、Hyper-V</a> 仮想マシンと <a href="https://aka.ms/asr_migration_vmware">VMware</a> 仮想マシンと物理サーバーを Azure にレプリケートする統合ソリューションを提供し、異種 IT 環境のワークロード対応の復旧と移行を可能にします。 <a href="https://aka.ms/asr_migration_landingpage"></a> ASRs レプリケーション&rsquo; テクノロジを使用すると、自動化されたアプリケーション対応の保護を有効にし、物理的および仮想化されたワークロードを Azure に対して 1 クリックで復旧/移行するように調整できます。 物理サーバー、&rsquo;VMware、AWS、Hyper-V 仮想マシンを Azure に簡単に移行できる Microsoft 移行アクセラレータ機能が、Azure Site Recovery に組み込まれています。 アプリケーション データは Azure に 1 回だけレプリケートする必要があります。移行とディザスター リカバリーの両方に使用できます。 また、一貫した ASR エクスペリエンスを使用して、Azure portal。 AoD を使用すると、ASR を使用して異種ワークロードを Azure に移行し、次の機能を使用して IT の課題Microsoft Azure。</p>
+
+
+  <ul>
+   <li>IT の負担を軽減し、オンプレミス インフラストラクチャのコストを削減する</li>
+   <li>アプリを実行してデータを格納する場所を制御し、真のハイブリッド エクスペリエンスを実現する</li>
+   <li>階層 1 と階層 2 の両方のワークロードに対応するスケーラブルで信頼性の高いプラットフォーム</li>
+   <li>オンデマンド、ほぼ無限のクラウド スケーラビリティにより、データセンターの機敏性を高める</li>
+  </ul>
+
+
+  <p>&nbsp; 既存のオンプレミス仮想化ワークロードを Azure に移行できるソリューションを必要としているお客様は、ほとんどの場合、決定を行う際に 3 つの非常に重要な考慮事項を探します。</p>
+
+
+  <ul>
+   <li>移行中の実稼働ワークロードのダウンタイムを削減する</li>
+   <li>移行前に Azure でアプリケーションをテストする</li>
+   <li>移行と復旧の両方に対して、Azure にデータを 1 回だけレプリケートする</li>
+  </ul>
+
+
+  <p>&nbsp; 上記の条件 (その他) を満たす統合ソリューションを必要としているお客様は、組み込みの機能を備えた Azure Site Recovery を使用すると、Azure への移行をシンプルで信頼性の高い迅速な方法で行うのに役立ちます。 オンプレミス アプリケーションを Azure に移行する方法を次に示します。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/04/21/ASR_Migration_Flowchart.jpg"><img alt="Migrate VMware AWS Hyper-V to Azure" border="0" height="772" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ASR_Migration_Flowchart_thumb.jpg" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="VMware AWS Hyper-V を Azure" width="513"></a> &nbsp; に移行する方法を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/asr_migration_documenation_vmware">オンプレミスの VMware 仮想マシンまたは物理サーバーと Azure の間で保護を設定する</a></li>
+   <li><a href="https://aka.ms/asr_migration_documentation_hyperv">オンプレミスの Hyper-V サイトと Azure の間で保護を設定する</a></li>
+  </ul>
+
+
+  <p>&nbsp; 次の表に、ASR を使用して Azure に移行できるさまざまなオンプレミスソース環境を示します。</p>
+
+
+  <table width="100%">
+   <tbody>
+    <tr>
+     <td width="32%"><strong>ソース</strong></td>
+     <td width="14%"><strong>移行先</strong></td>
+     <td width="17%"><strong>可用性 </strong></td>
+     <td width="35%"><strong>サポートされているゲスト OS の種類</strong></td>
+    </tr>
+    <tr>
+     <td width="32%">Hyper-V 2012 R2</td>
+     <td width="14%">Azure</td>
+     <td width="17%">利用可能</td>
+     <td width="35%">Azure でサポートされているすべてのゲスト OS の種類</td>
+    </tr>
+    <tr>
+     <td width="32%">Hyper-V 2008 R2 SP1 および 2012</td>
+     <td width="14%">Azure</td>
+     <td width="17%">プレビューで利用可能</td>
+     <td width="35%">Windows* と Linux*</td>
+    </tr>
+    <tr>
+     <td width="32%">VMware vCenter Server 5.1、5.5、ESXi 5.1、5.5、物理サーバー</td>
+     <td width="14%">Azure</td>
+     <td width="17%">プレビューで利用可能</td>
+     <td width="35%">Windows* と Linux*</td>
+    </tr>
+    <tr>
+     <td width="32%">アマゾン ウェブ サービス (Windows AMIs)</td>
+     <td width="14%">Azure</td>
+     <td width="17%">プレビューで利用可能</td>
+     <td width="35%">Windows Server 2008 R2 SP1+</td>
+    </tr>
+    <tr>
+     <td width="32%">Hyper-V 2012</td>
+     <td width="14%">Hyper-V 2012R2</td>
+     <td width="17%">利用可能</td>
+     <td width="35%">Hyper-V でサポートされているすべてのゲスト OS の種類</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><i><span style="font-family: calibri; color: #000000;">*Windows Server 2008 R2 SP1+、CentOS 6.4、6.5、6.6、Oracle Enterprise Linux 6.4、6.5、SUSE Linux Enterprise Server 11 SP3</span></i> &nbsp; に制限されます <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/04/21/ASR_Migration.jpg"><img alt="Migration to Azure" border="0" height="442" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ASR_Migration_thumb.jpg" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Azure への移行" width="1028"></a> を開始する準備ができたら、追加の<a href="https://aka.ms/asr_migration_landingpage"></a>製品情報を確認して、ワークロードの移行を開始し、Microsoft AzureをAzure Site Recovery。 これで、&rsquo;可用性をオンデマンドで有効にしAzure Site Recoveryデータセンターの拡張と<a href="https://aka.ms/asr_migration_aod_page"></a>保護に役立てるために、より簡単に試しに取りかかっています。 レプリケートする新しい物理サーバーまたは仮想マシンごとに、Site Recovery の強力なレプリケーション機能を 31 日間無料で使用できます。 AoD Migration のお知らせと ASR の価格変更の詳細については、Joel Ferman による次のブログ <a href="https://aka.ms/asr_migration_ma">を参照してください</a>。</p>

@@ -1,0 +1,181 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b9b1b5666faf3bce15c3e0a1b6015508d4a69b63
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904022"
+Slug: obtaining-a-certificate-for-use-with-windows-azure-web-sites-waws
+Title: Azure Web サイト (WAWS) Windows使用する証明書の取得
+Summary: 最近のサイバー犯罪の増加に合い、SSL を使用して Web サイトをセキュリティで保護する機能は高く求められるものになり、Windows Azure Web サイトでサポートが提供されています。 それを使用するには、次の必要があります。
+Content: >-
+  最近のサイバー犯罪の増加に合い、SSL を使用して Web サイトをセキュリティで保護する機能は高く求められるものになり、Windows Azure Web サイトでサポートが提供されています。 それを使用するには、証明書を Azure にアップロードし、それをサイトに割り当てる必要があります。 このプロセスにはいくつかの手順が含まれるため、証明書の取得は困難な場合があります。 このガイドでは、証明書を取得する次の方法について説明します。
+
+  <ol>
+   <li>DigiCert の証明書ユーティリティの使用</li>
+   <li>CertReq の使用</li>
+   <li>IIS の使用</li>
+  </ol>
+
+  <strong><span style="text-decoration: underline;">背景</span></strong>
+
+
+  証明書を生成するプロセスは、2 つの部分で構成されます。 まず、ユーザーが証明書署名 <strong>要求</strong>を作成します。これは、要求の詳細を含むテキスト ファイルです。 ユーザーは、このファイルを選択した証明書プロバイダーに提供します。その代わり、<strong></strong>証明書応答ファイルを取得します。証明書応答ファイルをサーバーにインストールしてプロセスを完了し、完全な証明書を取得します。 Windows Azure Web サイトでこれを使用するには、証明書を PFX ファイルにエクスポート<sup>する 3 つ</sup>目の部分があります。これを Azure アカウントにアップロードできます。
+
+
+  ほとんどのサーバー製品には、CSR ファイルを生成して証明書応答ファイルを処理するためのメカニズムが組み込みされています。 たとえば、IIS では、[操作] ウィンドウのボタンを次に示します。
+
+
+  <span style="background-color: #ffff00;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4645.obtaining1.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133731" alt="4645.obtaining1.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4645.obtaining1.jpg-550x0.jpg" width="550" height="146" /></a></span>
+
+
+  IIS 管理者の方が、サーバーをすぐに使用できる場合、これはすべて非常にシンプルで簡単です。 そうでない場合、このガイドではこれを行う他の 2 つの方法を提供します。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">注: 次のすべての手順では、3 つの部分すべてが同じコンピューターで <strong>実行される必要</strong> があります。 その理由は、CSR 要求によって、このコンピューターに固有のプライベート暗号化/暗号化解除キーが生成されるからです。 別のコンピューターでプロセスを完了しようとした場合、証明書の応答には一致するキーが含め "な"、失敗します。</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  <strong><span style="text-decoration: underline;">DigiCert の証明書ユーティリティを使用して CSR を作成する</span></strong>
+
+
+  DigiCert の証明書ユーティリティは、プロセス用のシンプルなグラフィック ユーザー インターフェイスを提供することで、CSR を生成するプロセスを容易にするように設計<sup>されたサードパーティ製</sup> ツールです。 これは最も簡単な方法ですが、DigiCert 証明書ユーティリティは Microsoft ツールではなく、Microsoft ではサポートされていません。 このツールは、こちらからダウンロード <a href="https://www.digicert.com/util/">できます</a>。 このツールは、任意の証明書 <strong>プロバイダーで</strong> 使用できます。 手順は次のとおりです。
+
+  <ul>
+   <li>ユーティリティを実行し、右上隅 <strong>にある [CSR</strong> の作成] をクリックします。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0284.Obtaining2.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133721" alt="0284.Obtaining2.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0284.Obtaining2.jpg-550x0.jpg" width="550" height="147" /></a>
+
+  <ul>
+   <li>Web サイトの URL と他の詳細を入力します。</li>
+   <li>キーの長 <strong>さを選択します</strong>。 Microsoft では 2048 ビットのキー長を推奨しています</li>
+   <li>[ <strong>生成] を </strong>クリックし、CSR コードを受信します。</li>
+  </ul>
+
+  <span style="background-color: #ffff00;"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/6403.obtaining3.png-550x0.png"><img class="alignnone size-medium wp-image-133711" alt="6403.obtaining3.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6403.obtaining3.png-550x0-422x369.png" width="422" height="369" /></a></span>
+
+  <ul>
+   <li>結果の <strong>CSR コードを使用</strong> して証明書を購入します。 ほとんどのプロバイダーは、テキストを Web ページに貼り付け、他のプロバイダーではファイルに保存して Web サイトにアップロードする必要がある場合があります。 その代わり、 を含むファイルが提供されます <strong>。CER</strong> 拡張機能。 このファイルは、CSR 要求を実行したコンピューターに保存します。</li>
+   <li>プロセスを完了するには、DigiCert ユーティリティの右上隅にある [インポート] をクリックし、 に移動します<strong></strong><strong>。証明書</strong>プロバイダーから受け取った CER ファイル。 ***</li>
+   <li>これが完了すると、ツールに新しい証明書が表示されます。 それをクリックし、証明書の一 <strong>覧画面</strong> の下部にある [証明書のエクスポート] をクリックします。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8105.obtaining4.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133701" alt="8105.obtaining4.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8105.obtaining4.jpg-550x0.jpg" width="550" height="356" /></a>
+
+  <ul>
+   <li>選択すると <strong>、プライベート キーがエクスポート</strong>され、 <strong>PFX</strong> ファイルにエクスポートされます。このファイルは、Azure Web サイトで使用できます。 エクスポートのパスワードを設定します。これは、後で Azure にアップロードするときに使用します。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1145.obtaining5.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133691" alt="1145.obtaining5.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1145.obtaining5.jpg-550x0.jpg" width="550" height="206" /></a>
+
+
+  一部の証明書プロバイダーは、DigiCert のユーティリティと互換性がない形式で証明書を提供する場合があります。 インポートが成功しない場合は、次に説明するユーティリティを使用してプロセスを完了できます。次のセクションの手順 5 に従ってこれを行います。
+
+
+  <strong><span style="text-decoration: underline;">コマンド ライン ツール CertReq を使用して CSR を作成する</span></strong>
+
+
+  <strong>CertReq は</strong>、最新バージョンのオペレーティング システムに組み込Windowsツールです。 これは、いくつかのパラメーターを含む単純なテキスト ファイルを取得し、証明書プロバイダーに送信できる CSR ファイルを生成するように設計されています。 プロバイダーが CER ファイルを返したら、CertReq を使用して要求を完了できます。 その時点で、Windows <strong>Certificate Management</strong> コンソールを使用して、Azure Web サイトで使用される PFX Windowsエクスポートできます。 この手順を次に示します。
+
+  <ul>
+   <li>CertReq の入力ファイルを作成します。 これは、証明書に関する詳細を含む単純なテキスト ファイルです。 最も重要なものは <strong>サブジェクト</strong>名です。サブジェクト名は、証明書を使用するサイトの URL と一致する必要があります。 次のサンプルは標準の要求ですが、必要に応じて、CertReq のドキュメントを読み、ニーズに合わせてパラメーターを調整できます。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6835.bbbb_.JPG-550x0.jpg"><img class="alignnone size-full wp-image-133681" alt="6835.bbbb.JPG-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6835.bbbb_.JPG-550x0.jpg" width="550" height="229" /></a>
+
+
+  強調表示されている部分をサイトのアドレスに合わせて調整します。 たとえば、サイトが になる場合 <a href="https://www.contoso.com/" target="_blank">https://www.contoso.com</a>、行は次のようになります。
+
+
+  <strong>Subject = "CN=www.contoso.com"</strong>
+
+
+  要求の他のプロパティを調整できますが、これは高度なタスクです。 <a href="https://technet.microsoft.com/library/cc725793.aspx" target="_blank">CertReq</a> 用に構成できるその他のオプションの詳細については、このページを参照してください。
+
+  <ul>
+   <li>ハード ドライブにファイルをテキスト ファイルとして保存し、CMD ウィンドウを開き、ファイルを保存した場所に移動します。</li>
+   <li>コマンド <strong>CertReq –new MyRequest.txt MyRequest.csr</strong> を入力します。ここで、MyRequest.txt は前の手順で保存したファイルの名前であり、MyRequest.csr は作成されるターゲット ファイル名です。</li>
+  </ul>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0878.obtaining6.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133671" alt="0878.obtaining6.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0878.obtaining6.jpg-550x0.jpg" width="550" height="159" /></a></div>
+
+  <ul>
+   <li>結果の <strong>MyRequest.csr ファイルを使用</strong> して証明書を購入します。 ほとんどのプロバイダーから、ファイルをサーバーにアップロードする必要があります。 一部のプロバイダーでは、ファイルの内容を Web ページに貼り付ける必要がある場合があります (このページでファイルを<strong>開メモ帳</strong>)。 その代わり、プロバイダーは を含むファイルを提供します。CER 拡張機能。 このファイルを、CSR 要求を実行したコンピューターにコピーします。</li>
+   <li>CMD ウィンドウで、 を格納した場所に移動します <strong>。CER</strong> ファイルを入力し、「 <strong>CertReq –accept –user MyCertificate.cer」と入力します。 </strong></li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7522.obtaining7.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133661" alt="7522.obtaining7.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7522.obtaining7.jpg-550x0.jpg" width="550" height="123" /></a>
+
+  <ul>
+   <li>Windows <strong>+ R</strong>  キーの組み合わせを押し、「<strong>certmgr.msc</strong>」と入力して証明書管理コンソールを開き、Enter キーを<strong>押します。</strong></li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4212.obtaining8.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133651" alt="4212.obtaining8.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4212.obtaining8.jpg-550x0.jpg" width="550" height="326" /></a>
+
+  <ul>
+   <li>証明書マネージャーで、[個人/証明書 <strong>] に移動します</strong>。 新しい証明書がそこに表示されます。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1830.obtaining9.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133641" alt="1830.obtaining9.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1830.obtaining9.jpg-550x0.jpg" width="550" height="82" /></a>
+
+  <ul>
+   <li>証明書を右クリックし、[すべてのタスク/エクスポート <strong>] を選択します。</strong></li>
+   <li>ウィザードで [<strong>は</strong>い] を選択してプライベート キーをエクスポートし、次のページの [Personal <strong>Information Exchange – PKCS #12:</strong></li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7065.obtaining10.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133631" alt="7065.obtaining10.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7065.obtaining10.jpg-550x0.jpg" width="550" height="241" /></a>
+
+  <ul>
+   <li>次のページで、password オプション <strong>を有効</strong> にし、選択したパスワードを入力します。 後で証明書をアップロードするときに使用します。 次のページで、エクスポートされたファイルのターゲット パスと名前を入力します。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7041.obtaining11.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133621" alt="7041.obtaining11.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7041.obtaining11.jpg-550x0.jpg" width="550" height="241" /></a>
+
+  <ul>
+   <li>新しい PFX ファイルを Azure のアカウントにアップロードし、Web サイトで使用できます。</li>
+  </ul>
+
+  <strong><span style="text-decoration: underline;">IIS を使用して CSR を作成する</span></strong>
+
+
+  IIS サーバーを使用できる場合は、それを使用して証明書を生成できます。 インストールしない場合は、サーバー (サーバーまたはクライアント) を実行Windowsにインストールできます。 手順は次のとおりです。
+
+  <ul>
+   <li>これを行うコンピューターに IIS をインストールします。</li>
+   <li>IIS 管理コンソールを開く</li>
+   <li>左側のコンピューター<strong>名</strong>をクリックし、中央の [<strong></strong>サーバー証明書] をクリックし、右側の<strong></strong>操作ウィンドウの [証明書要求の作成] をクリックします。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5280.obtaining12.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133611" alt="5280.obtaining12.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5280.obtaining12.jpg-550x0.jpg" width="550" height="303" /></a>
+
+  <ul>
+   <li>ウィザードで、サイトのターゲット URL (プレフィックスを付けずに) HTTPS:// その他の詳細を入力します。 Microsoft では、キーの長さが 2048 ビットを推奨しています。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3113.obtaining13.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133601" alt="3113.obtaining13.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3113.obtaining13.jpg-550x0.jpg" width="550" height="191" /></a>
+
+  <ul>
+   <li>ウィザードを完了し、結果の <strong>CSR ファイルを使用</strong> して証明書を購入します。 ほとんどのプロバイダーから、ファイルをサーバーにアップロードする必要があります。 一部のプロバイダーでは、ファイルの内容を Web ページに貼り付ける必要がある場合があります (このページでファイルを<strong>開メモ帳</strong>)。 その代わり、プロバイダーは を含むファイルを提供します。CER 拡張機能。 このファイルを、CSR 要求を実行したコンピューターにコピーします。</li>
+   <li>IIS コンソールで、操作ウィンドウで [証明書要求の完了] をクリックします。</li>
+  </ul>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1033.obtaining14.jpg-300x0.jpg"><img class="alignnone size-full wp-image-133591" alt="1033.obtaining14.jpg-300x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1033.obtaining14.jpg-300x0.jpg" width="300" height="273" /></a>
+
+  <ul>
+   <li>前のセクションの手順 6 から 11 に従って、Azure Web サイトで使用できる PFX ファイルに証明書をエクスポートします。</li>
+  </ul>
+
+  <strong><span style="text-decoration: underline;">次の手順</span></strong>
+
+
+  PFX ファイルの形式で証明書を取得したので、それを Azure アカウントにアップロードし、Web サイトや他のサービスで使用できます。 <a href="https://azure.microsoft.com/en-us/develop/net/common-tasks/enable-ssl-web-site/" target="_blank">このプロセスの詳細については</a> 、この記事を参照してください。 場合によっては、証明書のニーズが異なる場合があります。 たとえば、SAN 証明書または自己署名証明書を使用する場合、それを取得するプロセスは異なります。 <a href="https://azure.microsoft.com/en-us/develop/net/common-tasks/enable-ssl-web-site/" target="_blank">詳細については、こちらをお読みください</a>。

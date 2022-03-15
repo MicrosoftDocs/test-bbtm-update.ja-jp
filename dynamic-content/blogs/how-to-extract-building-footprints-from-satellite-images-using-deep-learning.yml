@@ -1,0 +1,108 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7506d3a66066246c76f53811e51d852110afa3e9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909806"
+Slug: how-to-extract-building-footprints-from-satellite-images-using-deep-learning
+Title: ディープ ラーニングを使用して衛星画像から建物のフットプリントを抽出する方法
+Summary: 'AI for Earth チームの一員として、Microsoft 内のパートナーや他の研究者と協力して、機械学習や他の AI アプローチを使用して地球環境の課題を解決する新しい方法を開発しています。 この投稿では、Azure インフラストラクチャを使用してディープ ラーニング モデルをトレーニングし、地理空間データから分析情報を得るサンプル プロジェクトについて説明します。 '
+Content: >-
+  <p><a href="https://www.microsoft.com/en-us/aiforearth" target="_blank">AI for Earth</a> チームの一員として、Microsoft 内のパートナーや他の研究者と協力して、機械学習や他の AI アプローチを使用して地球環境の課題を解決する新しい方法を開発しています。 この投稿では、Azure インフラストラクチャを<a href="https://github.com/aiforearth/SpaceNetExploration" target="_blank"></a>使用してディープ ラーニング モデルをトレーニングし、地理空間データから分析情報を得るサンプル プロジェクトについて説明します。 このようなツールを使用すると、最終的に、破壊的破壊や人間と動物の競合などの問題に対するソリューションの影響を正確に監視して測定し、最も効果的な保護作業に投資することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ba6b1d1-cae5-468a-b22b-8276a7c0b263.png"><img alt="Image1" border="0" height="750" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac1cbed4-ec9e-420f-bff0-1417621b349b.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Image1" width="1452"></a></p>
+
+
+  <h2>地理空間データへの機械学習の適用</h2>
+
+
+  <p>環境空間で最も広く使用されているツールとデータセットを見て、衛星画像の形式のリモートセンサー データが飛び出しました。</p>
+
+
+  <p>現在、地理空間データに取り組む分野の専門家は、従来のソフトウェアの支援を受け、測定と傾向を取得するために、関心のあるオブジェクトの検索、カウント、および外線付けなどのタスクを実行して、このようなコレクションを手動で実行します。 高解像度の衛星画像が毎週または毎日すぐに利用できるようになると、データを活用してより多くの情報に基づいた意思決定を行ううえで、この取り組みで AI を活用することが不可欠になります。</p>
+
+
+  <p>AI のアクティブな分野である地理空間データとコンピューター ビジョンは、自然なパートナーです。従来のアルゴリズムでは自動化できないビジュアル データ、ラベル付けされたデータの豊富さ、さらにラベル付けされていないデータが、時間のとった方法で理解されるのを待つタスクです。 地理空間データと機械学習コミュニティは、この前面に取り組み、人々がオーバーヘッド画像にコンピューター ビジョン ソリューションを作成するための、世界の機能マップ (<a href="https://www.iarpa.gov/challenges/fmow.html" target="_blank">fMoW</a>) や xView データセットなど、いくつかのデータセットを公開しています。</p>
+
+
+  <p>毎日使用するアプリケーションに地理空間データと AI を組み込む例として、衛星画像を使用して建物の番地地図注釈を追加しています。 2018 年 6 月、Bing の同僚は、多くの<a href="https://blogs.bing.com/maps/2018-06/microsoft-releases-125-million-building-footprints-in-the-us-as-open-data" target="_blank"></a>場所ベースのサービスとアプリケーションを強化するオープン データ イニシアチブである Open Street Map プロジェクトをサポートする、米国 の 1 億 2,400 万の建物フットプリントのリリースを発表しました。 Bingチームは、各ピクセルを建物または建物以外として分類するディープ ニューラル ネットワーク モデルをトレーニングして適用することで、衛星画像から非常に多くの建物のフットプリントを作成しました。 これで、自分で正確に行えるのです。</p>
+
+
+  <p>このブログ<a href="https://github.com/aiforearth/SpaceNetExploration" target="_blank">投稿に</a>伴うサンプル プロジェクトでは、Azure Deep ラーニング Virtual Machine (DLVM) でこのようなモデルをトレーニングする方法<a href="https://azuremarketplace.microsoft.com/en-ca/marketplace/apps/microsoft-ads.dsvm-deep-learning" target="_blank">について説明します</a>。 <a href="https://spacenetchallenge.github.io/" target="_blank">SpaceNet</a> イニシアチブによって提供されるラベル付きデータを使用して、ディープ ラーニングを使用して視覚的環境データから情報を抽出する方法を示します。 使用を開始したい方は、GitHub のレポポに<a href="https://github.com/aiforearth/SpaceNetExploration" target="_blank"></a>アクセスして、データセット、ストレージ オプション、コードの実行または独自のデータセットの変更手順について説明します。</p>
+
+
+  <h2>セマンティック セグメンテーション</h2>
+
+
+  <p>コンピューター ビジョンでは、バックグラウンドや人などのさまざまなクラスのオブジェクトに属するピクセルをマスクするタスクは、セマンティック セグメンテーションと呼ばれます。 トレーニングしているセマンティック セグメント化モデル (pyTorch で実装された <a href="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/" target="_blank">U-Net</a>。Bing チームが使用したのとは異なる) &ndash; は、衛星画像、航空画像、またはドローン画像を分析する他のタスクに使用できます。同じ方法を使用して、衛星<a href="https://blogs.technet.microsoft.com/machinelearning/2018/03/12/pixel-level-land-cover-classification-using-the-geo-ai-data-science-virtual-machine-and-batch-ai/" target="_blank"></a>画像から道路を抽出<a href="https://www.microsoft.com/developerblog/2018/07/05/satellite-images-segmentation-sustainable-farming/" target="_blank"></a>したり、土地の使用を考え出したり、持続可能な農業プラクティスを監視したり、CT <a href="https://blogs.technet.microsoft.com/machinelearning/2018/03/07/using-microsoft-ai-to-build-a-lung-disease-prediction-model-using-chest-x-ray-images/" target="_blank">スキャンで画像を見つけるなど、幅広いドメイン内のアプリケーションに使用できます。は、病気の予測</a>と通りのシーンの評価を行います。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e722da44-5a11-44c6-962e-a12018bf10c1.png"><img alt="Image2_semantic_segmentation" border="0" height="256" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a721afb-b364-4c07-89cb-9b8dafd8dc4d.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="" width="585"></a> Image2_semantic_segmentation<em>トロント大学 (ソース)<a href="https://www.cs.toronto.edu/~tingwuwang/semantic_segmentation.pdf" target="_blank"></a></em> によるスライドからの図。</p>
+
+
+  <h2>衛星画像データ</h2>
+
+
+  <p>SpaceNet からのデータは、建物が住む 4 つの都市 (パリ、中国、ラスベガス、ラスベガス) 上の 3 チャネルの高解像度 (31 cm) 衛星画像です。 サンプル コードでは、サイズ 650 x 650 平方ピクセルの 3854 個の画像で構成される、ラスベガスのサブセットを使用します。 トレーニング画像の約 17.37% に建物が含まれています。 これはデータの割合が非常に小さいので、画像を除外したり、再サンプリングしたりしたのではありません。 さらに、トレーニング データ内のすべてのピクセルの 76.9% が背景、15.8% が建物の内部、7.3% が境界線ピクセルです。</p>
+
+
+  <p>元の画像は、SpaceNet によって提供されるユーティリティ関数 (詳細については、このレポポ) を使用して、いくつかの重なりを持つ 9 つの小さなチップに <a href="https://github.com/aiforearth/SpaceNetExploration" target="_blank">トリミングされます</a>。 ラベルは、マップ上のベクター ジオメトリ オブジェクトを表すマークアップ言語である既知のテキスト (<a href="https://en.wikipedia.org/wiki/Well-known_text" target="_blank">WKT</a>) を使用して定義された多角形図形として解放されます。 これらは、入力画像と同じ次元の 2D ラベルに変換されます。各ピクセルは、建物の背景、境界、または建物の内部の 1 つとしてラベル付けされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b726f753-2690-4b53-9e46-d6f4377264e8.png"><img alt="Image3" border="0" height="328" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f9e57c53-9c00-4940-9a09-f3ef39321dca.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Image3" width="640"></a></p>
+
+
+  <p>一部のチップは、次の例のように部分的または完全に空です。これは元の衛星画像の成果物であり、モデルは空の領域にフットプリントを構築しないほど堅牢である必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/331e323f-fe23-4214-91ac-3871897d2613.png"><img alt="Image4" border="0" height="284" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3092e8ce-e7d1-4ccf-aeaf-e2c08cc1f165.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Image4" width="1024"></a></p>
+
+
+  <h2>モデルのトレーニングと適用</h2>
+
+
+  <p>サンプル コードには、DLVM でトレーニングおよび評価パイプラインを実行するチュートリアルが含まれている。 次のセグメント化結果は、上に示した入力画像とラベル ペアのトレーニング中に、モデルによってさまざまなエポックで生成されます。 この画像は、さまざまな色、道路、木、および石畳の建物を特徴とします。 ネットワークでは、最初に、(道路の色とは異なる) 赤い建物が付く構成要素と建物の端を識別し、続いてエポック 5 の後にすべての色の建物を識別することが学習されるのを確認します。 エポック 7 の後、ネットワークは、構築ピクセルが道路ピクセルから分離された境界線ピクセルで囲まれたことを学習しました。 エポック 10 の後、建物の形状の定義が大きくなると、建物のピクセルの小さくてノイズの多いクラスターが消え始める。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36551886-5a72-4fcc-914a-7e43bd6cb752.png"><img alt="Image5" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f7d85ef-1537-4d2c-9d4c-d62154f75048.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Image5" width="718"></a></p>
+
+
+  <p>最後の手順では、境界を構築すると予測されるすべてのピクセルを背景として割り<em></em>当て、<em></em>建物のピクセルの BLOB を分離することで、多角形を生成します。 次に、接続された建物ピクセルの BLOB は、多角形の最小領域しきい値に従って多角形形式で記述されます。パラメーターを調整して誤検知の提案を減らします。</p>
+
+
+  <h2>トレーニングパラメーターとモデル パラメーター</h2>
+
+
+  <p>トレーニング プロセス、モデル アーキテクチャ、および調整できる多角形化ステップには、いくつかのパラメーターがあります。 Adam オプティマイザーに対して学習率 0.0005 (他のパラメーターの既定の設定) とバッチ サイズ 10 チップを選択しました。これは十分にうまく機能しました。</p>
+
+
+  <p>プロシージャの CNN 部分に関係のないもう 1 つのパラメーターは、構築ピクセルの BLOB が破棄される最小の多角形領域しきい値です。 このしきい値を 0 から 300 の 2 乗ピクセルに増やすと、ノイズの多い false セグメントが除外されるほど、偽陽性の数が急速に減少します。 最適なしきい値は約 200 平方ピクセルです。</p>
+
+
+  <p>トレーニング中の損失合計の計算における 3 つのクラス (背景、建物の境界、建物の内部) の重み付けは、実験するもう 1 つのパラメーターです。 より多くの重みを建物の内部に与<em></em>えることは、モデルが大幅に小さい建物を検出するのに役立つという結果が見つかりました (結果は次の図を参照してください)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a35d853-2b16-47bd-980d-5c81ae2b18e1.png"><img alt="Image6" border="0" height="1086" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f410efc0-8fe8-4268-8303-09cd4189bc64.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Image6" width="1888"></a></p>
+
+
+  <p align="center"><em>図の各プロットは、300 平方ピクセルから 6000 の領域で設定された検証で多角形を構築するヒストグラムです。オレンジ色の真陽性検出の数は、提案された多角形が一致したグラウンド の真の多角形の面積に基づいて決されます。上のヒストグラムは、背景の損失関数の比率 1:1:1 の重み付け用です。建物の内部 : 建物の境界。下部のヒストグラムは、比率 1:8:1 の重み付け用です。小さな建物が表されるヒストグラムの左側に向かって、オレンジ色の真陽性の提案の棒は、下部のプロットではるかに高い値を示しているのが分かっています。</em></p>
+
+
+  <h2>最後の考え</h2>
+
+
+  <p>この方法で生成されたフットプリント情報を構築して、入れ子の空間分布を文書化することができます。これにより、研究者は都市化の傾向と、おそらく、気候移行などの気候変化の開発的影響を定量化できます。 ここでの手法はさまざまな状況で適用できます。この具体的な例が、特定の問題に取り組むためのガイドとして役立ててください。</p>
+
+
+  <p>地理空間データを扱うユーザーのもう 1 つの良いニュースは、Azure には ESRIS&rsquo; <a href="https://www.esri.com/arcgis/products/arcgis-pro/overview" target="_blank">ArcGIS Pro</a> 地理情報システムを搭載した Geo 人工知能 Data Science Virtual Machine (<a href="https://docs.microsoft.com/en-gb/azure/machine-learning/data-science-virtual-machine/geo-ai-dsvm-overview" target="_blank">Geo-DSVM</a>) が既に用意されている点です。 また、Geo-DSVM を使用してディープ ラーニング モデルをトレーニングし、それらを ArcGIS Pro と統合して、使用を開始する方法に関するチュートリアルも作成しました。<a href="https://github.com/Azure/pixel_level_land_classification" target="_blank"></a></p>
+
+
+  <p>最後に、組織がデータと機械学習を使用して環境の課題に対処するソリューションに取り組む場合は、Azure リソースの活用をよりよくサポートし、この目的に合ったコミュニティに参加できるよう、 <a href="https://www.microsoft.com/en-us/aiforearth/grants.aspx" target="_blank">AI for Earth</a> の付与を申請してください。</p>
+
+
+  <h3>Acknowledgement</h3>
+
+
+  <p>2018 年の Spring 2018 で私と一緒にこのプロジェクトの元のバージョンに取り組んだ Microsoft のソフトウェア エンジニア、および&rsquo; Microsoft のプリンシパル データ科学者 マネージャーである Wee Hyong Tok に感謝します。</p>

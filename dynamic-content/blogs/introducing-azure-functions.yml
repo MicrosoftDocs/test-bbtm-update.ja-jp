@@ -1,0 +1,105 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 296439360bc29de0221b0e78d65d7785613576d3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908934"
+Slug: introducing-azure-functions
+Title: 機能のAzure Functions
+Summary: Azure Functionsは、既存の Azure アプリケーション プラットフォームを拡張し、Azure またはサード パーティのサービスやオンプレミス システムで発生するイベントによってトリガーされるコードを実装する機能を備えた、イベント 駆動型のコンピューティング オンデマンド エクスペリエンスです。
+Content: >-
+  <h2>クラウド開発の進化</h2>
+
+
+  <p>データはあらゆる場所にあります。 クラウド&#39;オンプレミスで使用され、インターネットに接続されたデバイス間でますます増加しています。 組織は、そのデータの価値のロックを解除するために取り組み、常に圧縮されたタイムテーブル上に構築された拡張性の高いソリューションで対応することを開発者に求めています。 多くの場合、開発者が必要に応じて、またはスケジュールされたバッチ ジョブを実装して、トランザクションの調整、データの取り込みと処理、またはリアルタイムでのイベントへの対応を必要とするソリューション。</p>
+
+
+  <p>これらの要求により、クラウド開発パラダイムを進化させ、簡素化されたスケーラブルなイベント駆動型ソリューションを提供します。 開発者は、クラウド アプリケーションの一般的な問題と概念を抽象化する方法を探しています。データ駆動型の高速な世界で実際の問題を解決するためのコードの記述に集中する必要があります。</p>
+
+
+  <h2>Azure Functions の概要</h2>
+
+
+  <p>現在、Microsoft は、お知Azure Functions。 Azure Functionsは、既存の Azure アプリケーション プラットフォームを拡張し、Azure またはサード パーティのサービスやオンプレミス システムで発生するイベントによってトリガーされるコードを実装する機能を備えた、イベント 駆動型のコンピューティング オンデマンド エクスペリエンスです。 Azure Functions開発者は、データ ソースまたはメッセージング ソリューションに接続することでアクションを実行できます。これにより、イベントの処理と対応が容易になります。 開発者は、さまざまなAzure Functions、モバイルおよび IoT デバイスからアクセスできる HTTP ベースの API エンドポイントを構築するために、アプリケーションを利用できます。 Azure Functionsはスケールベースでオンデマンドなので、使用するリソースに対してだけ料金を支払います。</p>
+
+
+  <p><img alt="Code Logs" border="0" height="388" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74ef3044-ee87-4125-aa80-cbff626a1343.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="コード ログ" width="610"></p>
+
+
+  <p>Azure Functions では、継続的配置と統合のサポートに加えて、直感的なブラウザー ベースのユーザー インターフェイスを提供し、さまざまなプログラミング言語で実装されたスケジュールされたコードまたはトリガーされたコードを作成できます。</p>
+
+
+  <p><img alt="Integrate" border="0" height="319" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5020e26b-b324-4bd8-9958-f95303b5e5a0.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="統合" width="610"></p>
+
+
+  <p>さまざまなトリガーとコネクタを使用すると、開発者は Azure サービスのイベントに対応できます。 Azure Functionsによって処理されたデータは、Azure Storage、Azure SQL DB、Document DB などの Azure データ サービスに保持できます。</p>
+
+
+  <h2>しくみ</h2>
+
+
+  <h4>堅牢な開発者エクスペリエンス</h4>
+
+
+  <p>Azure Functions を使用する開発者は、さまざまな言語 (JavaScript、C#、Python、PHP) でイベントを実装できるだけでなく、Bash、Batch、PowerShell&nbsp; などのスクリプト オプションも実装できます。また、開発者はプリコンパイル済み実行可能ファイルをアップロードしてトリガーできます。 各 Azure 関数は Git エンドポイントを使用してプロビジョニングされ、Visual Studio Team Services、GitHub、BitBucket のようなサービスを使用してシームレスなローカル開発と継続的インテグレーションが可能になります。 開発者は、アプリケーション エクスペリエンスに含Azure Functionsログ機能を使用して、データの監視とAzure Functionsできます。</p>
+
+
+  <h4>さまざまなトリガー オプション</h4>
+
+
+  <p>Azure Functionsは、CRON 式を利用して事前に定義された時間、Azure Storage BLOB コンテナーの変更、Azure キューへの変更、Service Bus からのメッセージ、HTTP トリガーなど、さまざまな方法でトリガーできます。 HTTP サポートを使用すると、Functions は、Web フックをサポートする事実上すべての SaaS 製品で生成されたイベントに対応できます。 これらは&#39;簡単に設定できます。最小限の構成が必要です。</p>
+
+
+  <h4>データにアクセスして処理する革新的な方法</h4>
+
+
+  <p>Azure Functions他のサービスのデータに基づいてコードをトリガーするだけでなく、そのデータへのアクセスと処理もこれまでよりも簡単になります。 Functions バインディングを使用すると、開発者は関数を介して他のデータ ソースやサービスと対話するだけで、関数との間でのデータの流れについて心配する必要はありません。 バインドを使用すると、キューにメッセージを追加したり、BLOB をフェッチしたりするタスクが、関数出力変数に JSON を渡したり、関数入力変数から BLOB を読み取るのと同じほど簡単になります。 この機能を使用すると、開発者は、対話する基になるサービス&#39;ほとんど知らない必要があります。これにより、後で別のサービスに簡単に切り替えできます。</p>
+
+
+  <h4>&ldquo;サーバーレス実行&rdquo; モデル</h4>
+
+
+  <p>PaaS ソリューションの主要な価値提案の 1 つは、コードからのオペレーティング システム レイヤーの抽象化です。 基になるプラットフォームには、修正プログラムの&rsquo;適用やメンテナンスを必要としない、アプリケーションの負荷に基づいて自動スケーリングできる、事前に構成されたオペレーティング システム イメージが提供されます。 Azure Functionsは、トリガー呼び出しに基づいて自動的にスケーリングされる実行ごとの課金モデルを通じて、基になるインフラストラクチャからの完全な抽象化を開発者に提供することで、PaaS の概念を拡張します。 Functions の価格の詳細については、こちらを参照 <a href="https://azure.microsoft.com/pricing/details/functions/">してください</a>。</p>
+
+
+  <h4>任意の場所で実行されるオープン ソース ランタイム</h4>
+
+
+  <p>Functions ランタイム、テンプレート、UI、および基になる WebJobs SDK はすべて、パブリックに開発されているオープン ソース プロジェクトです。 Azure 関数ランタイムは移植可能なので、Azure 上、データセンター、または他のクラウドの任意の場所で Functions を実行できます。</p>
+
+
+  <h4>その他の利点</h4>
+
+
+  <p>Azure Functionsを使用すると、開発者は、デプロイ スロット、簡単な認証など、開発者の生産性<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-staged-publishing/"></a>機能の大規模<a href="https://azure.microsoft.com/en-us/documentation/videos/azure-websites-easy-authentication-and-authorization-with-chris-gillum/"></a>なセットを利用できます。 アプリケーション コンテナーをきめ細かく制御する必要があるお客様は、Azure Functions環境 (ASEs) などの従来App ServiceプランでApp Serviceを実行できます。 さらに、企業ファイアウォール内にアプリケーション、API、またはデータベースをデプロイしているお客様は、ハイブリッド接続や <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-integrate-with-vnet/">VNET</a> などの Azure テクノロジ<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-hybrid-connection-connect-on-premises-sql-server/"></a>を利用して、オンプレミスのリソースから Azure Functions をトリガーしたり、Azure Functions からオンプレミス システムにデータを保持したりすることができます。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>開始するには、ポータルのAzure Functions <a href="https://functions.azure.com/">手順</a> に従います。 最初に、対処するシナリオ&rsquo;を確認します。</p>
+
+
+  <p>オプションを&rsquo;選択&rsquo;したら、Azure Functions ダッシュボードに戻ります。このダッシュボードでは、コードの記述、イベントの構成、実行の監視、その他の一般的な設定の管理を行えます。</p>
+
+
+  <p><img alt="Functions Dashboard" border="0" height="313" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4fa6fa7f-3299-4ae8-81b0-174992cb0e5e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Functions ダッシュボード" width="610"></p>
+
+
+  <p>ブラウザー内のコード エクスペリエンスにより、Azure でサポートされているすべての言語で簡単に記述できます。 ここでは、JavaScript とブラウザー内のチュートリアルの次の手順を確認できます。</p>
+
+
+  <p><img alt="In-Browser Code Experience" border="0" height="313" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a8c14e8-0e94-436d-90cd-ab31e4ea0995.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="In-Browser コード エクスペリエンス" width="610"></p>
+
+
+  <p>イベントとバインドの構成と管理は、[イベントとデータ] ページを使用した簡単なプロセスです。</p>
+
+
+  <p><img alt="Events and Data" border="0" height="309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4f88b1b-9280-401e-8111-f64712074ad7.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イベントとデータ" width="610"></p>
+
+
+  <h2>楽しみ</h2>
+
+
+  <p>Azure Functionsプレビューが開始され、すべての Azure のお客様と試用エクスペリエンスを使用しているお客様が利用できます。 機能バックログは、このページ<a href="https://github.com/projectkudu/WebJobsPortal/">でGitHubできます</a>。 新機能は今後数か月後にリリースされる予定であり、フィードバックをお寄せください。 <a href="https://aka.ms/azure-functions">Azure UserVoice サイトでコメントを送信します</a>。 クラウドでのアプリケーションの構築に関する考え方を、クラウドでアプリケーションを構築する方法をAzure Functions。</p>

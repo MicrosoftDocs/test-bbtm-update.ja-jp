@@ -1,0 +1,91 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4d99e59df391c51f3a5ff2be881e13e40e33ada4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909298"
+Slug: azure-la-container-monitoring
+Title: Azure Log Analytics - コンテナー監視ソリューションの一般提供、CNCF ランドスケープ
+Summary: 'Docker コンテナーは、最新のインフラストラクチャで簡単なプロビジョニングと継続的デリバリーを使用して開発者や開発を支援する新しいテクノロジです。 コンテナーは環境内でユビキタスになる可能性があります。そのため、監視は不可欠です。 複数の OS プラットフォームで Kubernetes、Docker Swarm、Mesos DC/OS、および Service Fabric コンテナー オーケストレーターをサポートするコンテナーに関する詳細な分析情報を提供する監視ソリューションを開発しました。 現在、Azure Log Analytics のコンテナー監視管理ソリューションの一般提供を発表Azure Marketplaceしています。 '
+Content: >-
+  <p>Docker コンテナーは、最新のインフラストラクチャで簡単なプロビジョニングと継続的デリバリーを使用して開発者や開発を支援する新しいテクノロジです。 コンテナーは環境内で&nbsp;広く使用&nbsp;される可能性があります。そのため、監視は不可欠です。 複数&#39;OS プラットフォーム上の Kubernetes、Docker Swarm、Mesos DC/OS、および Service Fabric コンテナー オーケストレーターをサポートするコンテナーに関する詳細な分析情報を提供する監視ソリューションを開発しました。 現在、Azure Log Analytics&nbsp; のコンテナー監視管理ソリューションの一般提供についてお知らせAzure Marketplaceしています。&nbsp;</p>
+
+
+  <p>すべてのコミュニティ貢献は、DC/OS が最新のアプリケーションを実行するより優れたプラットフォームになるのに役立ちます。また、<em>AZURE Log Analytics コンテナー監視ソリューションを DC/OS Universe&quot; に追加する方法は、意味のある貢献です。実際、Mesosphere の Technical Partnership Lead である Ravi Yadav 氏は述べています。&quot;</em> <strong></strong> <em>&quot;DC/OS ユーザーは多くの Docker コンテナーを実行しています。また、Azure Log Analytics コンテナー監視ソリューションのようなツールを使用してコンテナーを管理するオプションを使用すると、ユーザー エクスペリエンスが向上します。&quot;</em></p>
+
+
+  <div>
+
+  <p>Microsoft&nbsp; <a href="https://azure.microsoft.com/en-us/blog/announcing-cncf/">は Cloud</a>&nbsp; Native Computing Foundation (CNCF) に参加し、引き続きオープン ソース プロジェクトに投資しています。 Azure Log Analytics は、監視カテゴリ&nbsp;の下の<a href="https://github.com/cncf/landscape">Cloud Native Computing Foundation</a>&nbsp; (CNCF) ランドスケープの一部です。</p>
+
+  </div>
+
+
+  <div>
+
+  <h3>コンテナー&#39;ソリューションでサポートされる機能を次に示します。</h3>
+
+  </div>
+
+
+  <p><strong>このソリューションでは次のことが可能です。</strong></p>
+
+
+  <ul>
+   <li>1 つの場所のすべてのコンテナー ホストに関する情報を表示する</li>
+   <li>実行されているコンテナー、実行しているイメージ&rsquo;、および実行されている場所を&rsquo;確認する</li>
+   <li>コンテナーに対するアクションの監査証跡を確認する</li>
+   <li>Docker ホストへのリモート ログインなしで一元化されたログを表示して検索することでトラブルシューティングを行う</li>
+   <li>ホスト上でノイズの多い &ldquo;近隣で&rdquo; 過剰なリソースを消費している可能性があるコンテナーを見つける</li>
+   <li>コンテナーの一元化された CPU、メモリ、ストレージ、ネットワークの使用状況とパフォーマンスの情報を表示する</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56326e37-bbc2-428d-86ba-41bdeb96494c.png"><img alt="Diagram" border="0" height="398" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c36c3f42-edd2-47d5-ba39-b424244a6c83.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="図" width="516"></a></p>
+
+
+  <h2>一般提供の一部として利用できる新機能は次のとおりです。</h2>
+
+
+  <p>Kubernetes&#39;より優れた分析情報を提供する新機能が追加されました。 新機能を使用すると、Kubernetes クラスター内のコンテナーの問題を簡単に絞り込むできます。 これで、独自のカスタム ポッド ラベルと Kubernetes クラスター階層で検索フィルターを使用できます。 コンテナー プロセス情報を使用すると、より詳細な正常性分析のためにコンテナー プロセスの状態をすばやく確認できます。 これらの機能は Linux 専用の&mdash;機能Windows近日公開予定です。</p>
+
+
+  <ul>
+   <li><strong>Kubernetes クラスターから</strong> ポッドへの階層インベントリが一目でわかる Kubernetes クラスター認識</li>
+   <li>新 <strong>しい Kubernetes イベント</strong></li>
+   <li>カスタム <strong>ポッド ラベルをキャプチャし</strong> 、カスタムの複雑な検索フィルターを提供する</li>
+   <li>コンテナー プロセス <strong>情報を提供します</strong></li>
+   <li><strong>コンテナー ノード インベントリ</strong> (ストレージ、ネットワーク、オーケストレーションの種類、Docker バージョンを含む)</li>
+  </ul>
+
+
+  <p>コンテナー監視ソリューションの使用方法と収集できる分析情報の詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-containers?toc=%2fazure%2foperations-management-suite%2ftoc.json">Log Analytics のコンテナー ソリューション」を参照してください</a>。</p>
+
+
+  <p>詳細については、Azure Log Analytics コンテナー <a href="https://blogs.technet.microsoft.com/msoms/tag/keiko-harada/" target="_blank">監視に関</a> する以前のブログを参照してください。</p>
+
+
+  <h2>操作方法試してみてください。</h2>
+
+
+  <p>コンテナー監視ソリューション<a href="https://azure.microsoft.com/en-us/free/" style="font-weight: normal; font-style: normal; font-size: 13.008px; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; text-decoration-line: underline;">の機能をテストMicrosoft Azure</a>&nbsp;の無料サブスクリプションを取得できます。</p>
+
+
+  <h2>フィードバックを送信する方法</h2>
+
+
+  <p>フィードバックを提供するには、いくつかの異なるルートがあります。</p>
+
+
+  <ul>
+   <li>UserVoice: 作業する新しい Azure Log Analytics 機能のアイデアを投稿します。 <a href="https://feedback.azure.com/forums/267889-azure-operational-insights">UserVoice ページ</a>をご覧ください。</li>
+   <li>フォーラム: <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=opinsights">Azure Log Analytics フォーラムにアクセスします</a>。</li>
+   <li>電子メール: に電子メールでお <a>OMScontainers@microsoft.com</a>問い合わせください。</li>
+  </ul>
+
+
+  <p>コンテナーの監視機能を強化する予定です。 ご意見やご質問がある場合は、お問い合わせください。</p>

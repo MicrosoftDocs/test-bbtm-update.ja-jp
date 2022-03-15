@@ -1,0 +1,115 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 749ccce03f60b51814376a7957515cb8bf25f9b9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909584"
+Slug: point-to-site-p2s-connection-using-openvpn-infrastructure
+Title: OpenVPN インフラストラクチャを使用したポイント対サイト (P2S) 接続
+Summary: よく寄せられる質問の 1 つは、Unix に似たオペレーティング システム (Linux や FreeBSD など) と Virtual... に基づいて、クライアント コンピューターからポイント対サイト (P2S) 接続を確立することです。
+Content: >-
+  <p>よく寄せられる質問の 1 つは、クラウドにデプロイされた仮想マシンを管理する目的で、Unix に似たオペレーティング システム (Linux や FreeBSD など) と Azure 上の Virtual Network (VNet) に基づいてクライアント コンピューターからポイント対サイト (P2S) 接続を確立することです。 この記事では、この要求に対応する Azure Resource Manager (ARM) デプロイ モデルのカスタム ソリューションについて説明します。このサンプル コードでは、Azure でのアーキテクチャの<a href="https://github.com/simonesavi/p2s-with-openvpn" target="_blank"></a>セットアップを自動化します。</p>
+
+
+  <p>提案されたインフラストラクチャは、Azure 仮想ネットワーク ゲートウェイに基づくのではなく、Azure IaaS リソースとオープン ソース コミュニティ ソフトウェアの組み合わせです。 これは&#39;を望む人のためのソリューションです。</p>
+
+
+  <ul>
+   <li>VPN サーバーの完全な制御</li>
+   <li>パフォーマンスを気に入らなき非常に低コスト</li>
+   <li>P2S 自動セットアップ</li>
+  </ul>
+
+
+  <p>すべての IaaS アプローチに関して、クライアントはインフラストラクチャ管理とそのセキュリティの責任を負う点に注意することが重要です。</p>
+
+
+  <h2>ターゲット アーキテクチャ</h2>
+
+
+  <p>ビルドするターゲット アーキテクチャのスキーマに従います。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0c09277-6a0c-4a04-8b11-e812f679c8dc.png"><img alt="target-architecture" border="0" height="405" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e601941-1e84-42bd-92d2-5e91a069ecd9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ターゲット アーキテクチャ" width="866"></a></p>
+
+
+  <p>次のコンポーネントがあります。</p>
+
+
+  <ul>
+   <li>次を使用して VNet をターゲットとする: <ul>
+    <li>1 つの OpenVPN サブネット</li>
+    <li>OpenVPN サブネット用の 1 つのネットワーク セキュリティ グループ (NSG)</li>
+    <li>管理するリソースを含むサブネットの数Virtual Machines定義されていない</li>
+   </ul>
+   </li>
+   <li>OpenVPN Server &ndash; CentOS ベースの仮想マシン</li>
+   <li>インターネットに接続されたクライアント デスクトップ &ndash; OpenVPN クライアントが含まれている</li>
+  </ul>
+
+
+  <p>CentOS ベースの仮想マシンには、SSLv3/TLSv1 プロトコルに基づく VPN の作成に使用される OpenVPN サーバーが含まれる予定です。</p>
+
+
+  <p>プロキシ サーバーを介して動作する機能として、この製品を選択しました。 多くのクライアント ネットワーク実装では、インターネット アクセスをプロキシ サーバー経由でルーティングする必要があります。 このため、OpenVPN サーバーはポート 443 (HTTPS の既定のポート) でリッスンします。 通常、このポートはプロキシ サーバーによってフィルター処理されません。 これにより、インターネット アクセスが制限されているネットワークでも、クライアントとサーバーの間に管理 VPN を確立できます。</p>
+
+
+  <p>さらに、OpenVPN サーバーはオープン ソース コミュニティでよく知られています。また、さまざまなオペレーティング システムで使用できるクライアントが多数用意されています。</p>
+
+
+  <p><strong>メモ：</strong> この実装は、単一の OpenVPN サーバーに基づいて行います。 高可用性が要件である、または VPN 接続がサービス配信の一部として使用される実稼働環境では使用しません。</p>
+
+
+  <h2>アーキテクチャのしくみ</h2>
+
+
+  <p>OpenVPN サーバーは Azure サブネット内に存在し、VPN 接続からのすべての受信要求を受信します。 サーバーで実行される最も重要なタスクは、IP Masquerade です。</p>
+
+
+  <p>IP Masquerade は、ネットワーク アドレス変換 (NAT) の 1 つの形式で、VPN サーバーの着信通信を発信元のように変更できます。</p>
+
+
+  <p>この方法で機能することで、パッケージを VNet 上で自由にルーティングし、宛先 (管理する VM) に到達できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6345db88-8cdc-415a-8914-5fd7bbf0b63a.png"><img alt="how-architecture-works" border="0" height="245" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d98be70a-beb0-457b-804d-b94c092d3162.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="how-architecture-works" width="737"></a></p>
+
+
+  <p>ご覧のように、特定のルート規則を追加する必要性が示されていないのが分かったことです。 実際には、パケットが OpenVPN &ldquo;によって送信されるのをシミュレートすることで、そのすべてがシステム ルート 規則 Local Vnet Roule&rdquo; を使用してさまざまなサブネットにルーティングされます。</p>
+
+
+  <p><strong>メモ：</strong> ネットワーク トラフィックの実際の宛先ではない NIC にトラフィックを送信&#39;ルート規則は不要です。 すべての受信トラフィックは &ldquo;&rdquo; VPN トンネルにエンベロープされ、OpenVPN サーバーではラップ解除された後、Azure インフラストラクチャアクションなしで宛先に送信されます。</p>
+
+
+  <h2>サンプル コード</h2>
+
+
+  <p>自動化のために提案された <a href="https://github.com/simonesavi/p2s-with-openvpn" target="_blank">コード</a> には、次の 2 つの主要なコンポーネントがあります。</p>
+
+
+  <ol>
+   <li>Azure インフラストラクチャの準備に使用される PowerShell スクリプト</li>
+   <li>CentOS サーバーの自動構成を実行するために使用される Bash スクリプト</li>
+  </ol>
+
+
+  <p>最初の手順では、提案されたインフラストラクチャを作成するために必要な手順を実行し、最後の手順として、プロビジョニングの最後に、指定された Bash スクリプトをマシンで実行できる仮想マシン拡張機能を設定します。</p>
+
+
+  <p>Bash スクリプトは、CentOS イメージの必要なカスタマイズを処理します。 さらに、サーバーとの接続を確立するために OpenVPN クライアントに必要な資格情報を、新しいプライベート Azure BLOB にアップロードする必要があります。</p>
+
+
+  <p>コードの詳細なガイドについては、プロジェクトのGitHub<a href="https://github.com/simonesavi/p2s-with-openvpn" target="_blank">してください</a>。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>この記事では、一部のユーザーの特定の要件に対処するために、Azure IaaS リソースとオープン ソース コミュニティ ソフトウェアの組み合わせに基づくアーキテクチャについて説明しました。 サンプル コードも <a href="https://github.com/simonesavi/p2s-with-openvpn" target="_blank">リリースしました</a>。</p>
+
+
+  <p>これは、Azure で使用できるリソースとサービスの組み合わせによって、さまざまな状況に簡単に対処できる方法をさらに証明します。</p>
+
+
+  <p><strong>メモ：</strong> この種のソリューションに関心をお持ちのお&#39;、Azure VPN Gateway で OpenVPN サポートを有効にする公式の実装が利用可能になVPN Gatewayお知らしく思います。 Azure ポイント対サイト サービス &ldquo; (プレビュー) &rdquo; 用<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-openvpn" target="_blank">に Open VPN Gateway VPN</a> を構成する方法については、Microsoft Azure Docs のページを参照してください。</p>

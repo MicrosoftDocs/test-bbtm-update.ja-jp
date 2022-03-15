@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1049dc80d96226449615c04046d24aab53c0d119
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909038"
+Slug: compatibility-level-140-is-now-the-default-for-azure-sql-database
+Title: 互換性レベル140が既定で Azure SQL Database
+Summary: データベース互換性レベル140は、ほぼすべてのリージョンで Azure SQL Database で作成された新しいデータベースの既定値になりました。 このドキュメントの執筆時点では、互換性レベル140で既に実行されている Azure SQL Database に539903データベースが既に存在しています。
+Content: >-
+  <p>データベース互換性レベル140は、ほぼすべてのリージョンで Azure SQL Database で作成された新しいデータベースの既定値になりました。 現時点では、互換性レベル140で既に実行されている Azure SQL Database に539903データベースが既に存在しています。</p>
+
+
+  <p>この発表に関してよく寄せられる質問:</p>
+
+
+  <h3>データベース互換性レベル140に移行する理由</h3>
+
+
+  <p>最も大きな変更は、 <a href="https://docs.microsoft.com/en-us/sql/relational-databases/performance/adaptive-query-processing" target="_blank">アダプティブクエリ処理</a> 機能ファミリを有効にすることですが、クエリ処理に関連する修正とバッチモードの機能強化もあります。 明示的に有効にする互換性レベル140の詳細については、 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fblogs.msdn.microsoft.com%2Fsqlserverstorageengine%2F2017%2F07%2F07%2Fpublic-preview-of-compatibility-level-140-for-azure-sql-database%2F&amp;data=02%7C01%7CUmachandar.Jayachandran%40microsoft.com%7C04ae16681bcb4862657508d4eb04b66c%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636391853007257605&amp;sdata=a0pcmvnefLuzOKYpWRUQmCNwMoEsep%2BZNdGs0vNf5vs%3D&amp;reserved=0" target="_blank">Azure SQL Database の互換性レベル140のパブリックプレビュー</a>に関するブログ記事を参照してください。</p>
+
+
+  <h3>データベース互換性レベル140が既定値 &quot; であるとはどういう意味 &quot; ですか。</h3>
+
+
+  <p>新しいデータベースを作成し &rsquo; COMPATIBILITY_LEVEL 明示的に指定しない場合は、データベース互換性レベル140が使用されます。</p>
+
+
+  <h3>既存のデータベースのデータベース互換性レベルは、Microsoft によって自動的に更新されますか。</h3>
+
+
+  <p>いいえ、既存のデータベースのデータベース互換性レベルは更新されません。 これは、お客様の独自の裁量にまかされます。 このため、お客様が最新の改善点を活用するために、最新の互換性レベルに移行することを強くお勧めします。</p>
+
+
+  <h3>アプリケーション &rsquo; のデータベース互換性レベル140はまだ認定されていません。 このシナリオでは、新しいデータベースを作成する場合はどうすればよいですか。</h3>
+
+
+  <p>このシナリオでは、データベース構成スクリプトで、既定値に依存するのではなく、アプリケーションでサポートされている COMPATIBILITY_LEVEL を明示的に指定することをお勧めします。</p>
+
+
+  <h3>140が既定のデータベース互換性レベルになる前に、論理サーバーを作成しました。 これにはどのような影響がありますか。</h3>
+
+
+  <p>論理サーバーの master データベースには、論理サーバーの作成時に既定であったデータベース互換性レベルが反映されます。 Master データベースの互換性レベルが古い論理サーバー上に作成された新しいデータベースでは、明示的に指定されていない場合でもデータベース互換性レベル140が使用されます。 論理サーバーを再作成しないと、master データベースの互換性を変更できません。 Master が古いデータベース互換性レベルである場合、ユーザーデータベースの動作には影響しません。</p>
+
+
+  <h3>最新のデータベース互換性レベルに変更したいと考えています。</h3>
+
+
+  <p>より低い互換性レベルで実行されている既存のデータベースの場合、クエリプロセッサを高い互換性レベルにアップグレードするための推奨されるワークフローについては、「 <a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/change-the-database-compatibility-mode-and-use-the-query-store" target="_blank">データベース互換性モードを変更</a>する」と「クエリストアを使用する」をご覧ください。 この資料では、互換性レベル 130 および SQL Server について記載していますが、SQL Server と Azure SQL DB で 140 に移行する場合も同じ手法が適用されます。</p>

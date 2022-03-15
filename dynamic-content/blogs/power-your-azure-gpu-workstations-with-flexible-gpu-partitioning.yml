@@ -1,0 +1,125 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7e8bb5d74145205a337b49ef2d04789103537f1b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909560"
+Slug: power-your-azure-gpu-workstations-with-flexible-gpu-partitioning
+Title: 柔軟な GPU パーティションを使用して Azure GPU ワークステーションを強化する
+Summary: '本日は、今後数か月の間に予定されているリージョンを追加して、米国中南部、米国東部、西ヨーロッパのリージョンで NVv4 仮想マシンの一般提供を予定しています。 '
+Content: >-
+  <p>本日は、今後数か月に予定されているリージョンを追加して、米国中南部、米国東部、西ヨーロッパのリージョンで NVv4 仮想マシンの一般公開を再共有&#39;ます。 NVv4 では、Azure は業界標準の sr-iov テクノロジ上に構築された GPU パーティション分割を提供するための最初のパブリッククラウドです。</p>
+
+
+  <p>NVv4 Vm は、AMD &rsquo; s <a href="https://www.amd.com/en/products/professional-graphics/instinct-mi25" target="_blank">RADEON 性質 MI25</a> GPU を搭載しています。最大 32 amd <a href="https://www.amd.com/en/processors/epyc-7002-series" target="_blank">EPYC &trade; </a> 7002 シリーズ vcpus、最大 3.3 GHz、112 GB RAM、480 MB L3 キャッシュ、および同時マルチスレッド (SMT) を搭載しています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/" target="_blank">Windows</a>   デプロイの従量課金制の料金をご利用いただけます。 NVv4 Vm の1年と3年間の予約インスタンスとスポット料金は、4月1日に提供されます。 Linux のサポートはまもなく提供される予定です。</p>
+
+
+  <h2>クラウドに搭載された、最新の GPU 搭載仮想デスクトップ</h2>
+
+
+  <p>企業はクラウドに注目して、高度なモバイルワーカーに安全な方法で仮想デスクトップとワークステーションを提供しているため、ユーザーエクスペリエンスの期待に応えながら、コストとパフォーマンスを管理するための大きな課題に直面しています。 従来、パブリッククラウドは、1つまたは複数の gpu を備えた仮想マシンを提供しています。 gpu の能力とリソースを最大限に必要とする GPU 集中型のワークロードに最も適しています。 ただし、通常のナレッジワーカープロファイルでは、完全な GPU が過剰になる可能性があります。 これらのお客様の一部では、同時セッションが GPU を動的に共有できるようにすることで、 <a href="https://azure.microsoft.com/en-us/services/virtual-desktop/" target="_blank">Windows 仮想デスクトップ</a>によって提供されるようなマルチセッション仮想デスクトップが請求書に適合します。 ただし、VDI の一部のお客様は、パフォーマンスまたは分離の理由により、ユーザーごとに専用の仮想マシン (VM) を必要とします。 これらの種類のワークロードでは、要件を満たすために適切な GPU サイズを選択するためのスケールダウンオプションをお客様が探しています。</p>
+
+
+  <p>Microsoft のお客様は、生産性の高いアプリを実行しているオフィスの従業員から、CAD、ゲーム、シミュレーションなどの GPU を利用したワークロードを実行しているエンジニアリングワークステーションまで、各ユーザーの専用 GPU リソースで適切にサイズ設定されたコスト効果の高い VM オプションを必要としていました。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&ldquo;Azure の新しい AMD を利用したワークスペースクラウドデスクトップでは、さまざまなワークロードに対応した、複数のサイズのクラウドワークステーションを使用できるようになりました。&rsquo;新しいエントリレベルのクラウドワークステーションは、AMD GPU の一部を使用していますが、Microsoft Office 365 生産性向上ツールと Adobe design tools (Photoshop、Illustrator、InDesign) を実行しているユーザーにとってはすぐに使用できます。これにより、価格/パフォーマンス曲線にさらに多くの必要なポイントが追加されます。これにより、Azure 上の AMD を利用したワークスペースのクラウドデスクトップにさらに多くのユーザーを移行することができます。 &rdquo;Andy Knauf、CIO、Mead &amp; ハント</em></p>
+
+  </blockquote>
+
+
+  <h2>VDI ユーザープロファイルに適切な GPU 仮想マシンサイズを選択します</h2>
+
+
+  <p>NVv4 仮想マシンシリーズは、特にクラウド仮想デスクトップインフラストラクチャ (VDI) とサービスとしてのデスクトップ (DaaS) 市場向けに設計されています。 Gpu のスライスをクラウド内のすべてのデスクトップに配置することにより、GPU の処理能力を質量に取り入れたいと考えました。 NVv4 を使用すると、企業は、ワークロードに最適な価格とパフォーマンスのバランスを取ることで、クラウドで最新のデスクトップを提供できます。</p>
+
+
+  <p>次の図は、さまざまな VM サイズがさまざまな VDI ユーザープロファイルと要件にどのように適合しているかを示しています。</p>
+
+
+  <p><img alt="The NVv4 VM sizes mapped to different VDI user profiles to guide customers to pick the right sized VM" border="0" height="807" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4b7bfb9-8fb1-41f0-a4c5-038715a0dd20.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="997"></p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&ldquo;各エンジニアのアプリケーション要件に基づいて、AMD GPU のすべてまたは一部を、Azure 上のワークステーションに専用にすることができます。このコントロールの詳細な解決により、Azure 上のワークスペースのクラウドデスクトップにより多くの人を移動し、全体的な生産性を向上させるために必要な金融エッジが得られます。 &rdquo; &nbsp;Eric Quinn、CTO、C &amp; 社の企業。</em></p>
+
+  </blockquote>
+
+
+  <h2>GPU のハードウェアパーティション分割による予測可能なパフォーマンスとセキュリティ</h2>
+
+
+  <p>Azure では、顧客&#39;s ワークロードのセキュリティは常に最優先事項です。 SR-IOV ベースの GPU パーティション分割では、ハードウェアベースの強力なセキュリティ境界が提供され、各仮想マシンのパフォーマンスが予測可能になります。 1つの AMD Radeon 性質 MI 25 GPU をパーティション分割し、最大8台の仮想マシンに割り当てます。 各仮想マシンは専用の GPU リソースにアクセスすることができ、セキュリティで保護されたハードウェアのパーティション分割によって、他の Vm による未承認のアクセスを防ぐことができます。</p>
+
+
+  <p><img alt="The diagram describes the interactions between the host and the guest SR-IOV drivers for GPU partitioning" border="0" height="630" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a7b2a88-369d-4596-adf8-65585898c116.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1589"></p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&ldquo;Azure NVv4 VM シリーズでは、arcgis Pro ユーザーが、例外的なグラフィカルユーザーエクスペリエンスを提供しています。4つの NVv4 サイズは、ライト GIS 編集から3D 操作まで、ワークロードに対応できる柔軟性を備えています。&rdquo;&nbsp;ライアン Danzey, Sr-iov, 製品エンジニア &ndash; のパフォーマンス, ESRI ArcGIS</em></p>
+
+  </blockquote>
+
+
+  <h2>現在使用している仮想デスクトップおよび VDI パートナー Windows で動作するように設計されています</h2>
+
+
+  <p>VDI セグメントのお客様には、リモートプロトコルとインフラストラクチャの管理に関して多くの選択肢があります。 NVv4 仮想マシンのサポートを確保するために、主要なパートナーと密接に連携してきました。</p>
+
+
+  <p>Windows 仮想デスクトップでは、RDP を使用するネイティブの wvd デプロイを使用した新しい NVv4 仮想マシンと、承認されたプロバイダーである Citrix および VMware が提供するソリューションをサポートしています。</p>
+
+
+  <p>NVv4 virtual machines では、Microsoft リモートデスクトップ Protocol (RDP)、Teradici pcoip、および HDX 3d Pro がサポートされています。 Graphics API のサポートでは、DirectX 9 ~ 12、OpenGL 4.6、Vulkan 1.1 がサポートされています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/virtual-desktop/" target="_blank">Windows 仮想デスクトップ</a>、 <a href="https://www.citrix.com/global-partners/microsoft/azure.html" target="_blank">Citrix</a>、 <a href="https://connect.teradici.com/blog/microsoft-nvv4" target="_blank">Teradici</a>、<a href="https://www.workspot.com/" target="_blank">ワーク</a>スペース、 <a href="https://www.nutanix.com/products/frame" target="_blank">Nutanix Frame</a>は、新しい NVv4 仮想マシンを広範囲に検証し、顧客に提供する準備ができている Azure VDI パートナーの一部です。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&quot;これは citrix のお客様にとって、クラウドから Citrix ワークスペースを提供している素晴らしいニュースです。多くのお客様がクラウドに移行していることがわかるように、NVv4 インスタンスのリリースにより、コストを最適化すると同時に、Azure でグラフィカルに高速な Citrix ワークロードを配信するためのオプションが顧客に提供されます。 &quot; -Carisa Stringer、Sr Director Workspace Service 製品マーケティング</em></p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&quot;新しい Azure NV_v4 シリーズでは、お客様の仮想デスクトップとアプリケーションストリーミングのニーズに合わせて、より広範な GPU オプションを Xi Frame のお客様に提供します。クラウドで仮想化された Gpu を有効にすることで、Azure では、より広範な一連のユースケースをロック解除する新しいレベルの値がすべて提供されるようになりました。 &quot;  Nutanix で、Xi フレームの、Sr-1a のにあります。</em></p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&ldquo;必要に応じて Azure NVv4 が GPU リソースを共有し、アクセスするために提供する柔軟性は、多くの Teradici のお客様にとって有益な機能です。Microsoft と AMD は、AEC などの仮想デスクトップおよび仮想ワークステーションのユースケースに対して、より柔軟でコスト効果の高い GPU オプションを有効にすることを期待しています。 &rdquo; &nbsp;Teradici での製品管理担当副社長 Ziad Lammam</em></p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&ldquo;新しい AMD を利用したワークスペースと、Azure で業界をリードするクラウドサービスを使用することにより、ASTI とワークスペースは、AEC 業界における仮想デスクトップインフラストラクチャのニーズに対応することができます。これらの新しい AMD を利用するシステムは、エンタープライズクラスシステムのコンピューティング能力とグラフィックス機能を提供します。これにより、組織はリソースを管理し、プロジェクトを完了するまでにかかる時間を短縮できます。また、プロビジョニング &rdquo; を超えるコストをかけることなく、コンピューティング能力とグラフィックスパフォーマンスのバランスを取ることができます。Doug Dahlberg、IT 運用担当ディレクター、適用済みソフトウェア (ASTI)-職場スポット、Microsoft パートナー</em></p>
+
+  </blockquote>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>ここで説明するトピックの詳細については、次のドキュメントを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/nvv4-series?toc=/azure/virtual-machines/windows/toc.json&amp;bc=/azure/virtual-machines/linux/breadcrumb/toc.json" target="_blank">NVv4 仮想マシンのドキュメント</a>を参照してください。</li>
+      <li><a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/" target="_blank">仮想マシンの価格。</a></li>
+      <li>AMD <a href="https://www.amd.com/en/processors/epyc-7002-series" target="_blank">EPYC &trade; </a> 7002 シリーズ。</li>
+  </ul>

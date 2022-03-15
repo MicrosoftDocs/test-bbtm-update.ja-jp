@@ -1,0 +1,278 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ec813b7ca42e897353cb8a90444984a4b145b2f0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909622"
+Slug: more-performance-and-choice-with-new-azure-hbv3-virtual-machines-for-hpc
+Title: 新しい Azure HBv3 virtual machines for HPC を使用したパフォーマンスと選択肢の向上
+Summary: 現在、Azure は、最新のテクノロジを HPC のお客様に提供する速度と、すぐに使えるコンピューティングパフォーマンスを高めています。
+Content: >-
+  <h2>AMD EPYC 7003 シリーズプロセッサを搭載した HPC 最適化仮想マシン</h2>
+
+
+  <p>現在、Azure は、最新のテクノロジを HPC のお客様に提供する速度と、すぐに使えるコンピューティングパフォーマンスを高めています。 ハイパフォーマンスコンピューティング (HPC) 用の Azure HBv3 シリーズの仮想マシン (Vm) は、米国東部、米国中南部、および西ヨーロッパの Azure リージョンで一般公開されています。 HBv3 Vm は、近日中の <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=virtual-machines" target="_blank">US3 と東南アジア</a> のリージョンでも間もなく利用できるようになります。</p>
+
+
+  <p paraeid="{3df7dc7a-5ebb-4195-bbda-8622223f1639}{53}" paraid="2086121465">HBv3 Vm は、CFD、有限要素分析、計算 geoscience、レンダリング、気象シミュレーション、財務リスク分析、RTL シミュレーションなどのさまざまな実際の HPC ワークロードに対して、リーダーシップクラスのパフォーマンス、メッセージパッシングインターフェイス (MPI) のスケーラビリティ、コスト効率を実現するように設計されています。</p>
+
+
+  <p paraeid="{3df7dc7a-5ebb-4195-bbda-8622223f1639}{83}" paraid="1668655207">HBv3 Vm は、HPC および AI に最適化された VM オファリングの新しい機能を Azure &rsquo; に提供します。</p>
+
+
+  <ul>
+      <li>AMD EPYC 7003 シリーズプロセッサを搭載した Azure &rsquo; s 最初の vm。</li>
+      <li>コアパフォーマンスあたり最大19% 高くなります。</li>
+      <li>低スレッドのワークロードでは、VM ごとのパフォーマンスが最大で2.6 倍になります。</li>
+      <li>大規模な MPI ワークロードのパフォーマンスが最大で1.9 倍向上します。</li>
+      <li>複数の VM サイズがあるため、お客様は適した HPC コンピューティングをデプロイできます。</li>
+      <li>H シリーズ &rsquo; の最大パフォーマンスローカル SSD 構成は、最大 7 gb/秒の読み取りパフォーマンス、3 gb/秒の書き込みパフォーマンス、20万 IOPs を備えています。</li>
+      <li>アプリケーションの互換性を向上させるための、より単純な NUMA トポロジ。</li>
+  </ul>
+
+
+  <h2>さまざまな HPC カスタマーニーズに対応する仮想マシンのサイズ</h2>
+
+
+  <p>HBv3 Vm は、最大 120 AMD EPYC &trade; 7003 シリーズの CPU コア、448 GB の RAM、および同時マルチスレッド化を備えていません。 HBv3 シリーズの Vm では、最大 340 GB/秒のメモリ帯域幅が提供されており、コアあたり最大 32 MB の L3 キャッシュ、最大 7 GB/秒のブロックデバイス SSD のパフォーマンス、および最大 3.675 GHz のクロック周波数が提供されます。 すべての HBv3 シリーズ Vm は、8万コア MPI ワークロードを有効にするために NVIDIA Mellanox HDR 200 Gb/s InfiniBand を特徴としています。</p>
+
+
+  <table align="center" class="Table" style="background: white; border: currentcolor; border-image: none; width: 100%; border-collapse: collapse;" width="100%">
+      <tbody>
+          <tr>
+              <th style="padding: 12px; width: 24%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><b>[サイズ]</b></p>
+              </th>
+              <th style="padding: 12px; width: 9%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><b>CPU コア</b></p>
+              </th>
+              <th style="padding: 12px; width: 12%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><b>メモリ: GB</b></p>
+              </th>
+              <th style="padding: 12px; width: 15%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><b>コアあたりのメモリ: GB</b></p>
+              </th>
+              <th style="padding: 12px; width: 11%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><b>L3 キャッシュ</b></p>
+              </th>
+              <th style="padding: 12px; width: 13%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><b>ローカル SSD</b></p>
+              </th>
+              <th style="padding: 12px; width: 12%; height: 35px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;"><strong>InfiniBand</strong><br>
+              <b>RDMA ネットワーク</b></p>
+              </th>
+          </tr>
+          <tr>
+              <td style="padding: 12px; width: 24%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">Standard_HB120rs_v3</p>
+              </td>
+              <td style="padding: 12px; width: 9%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">120</p>
+              </td>
+              <td style="padding: 12px; width: 12%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">448 GB</p>
+              </td>
+              <td style="padding: 12px; width: 15%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">3.75 GB</p>
+              </td>
+              <td style="padding: 12px; width: 11%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">480 MB</p>
+              </td>
+              <td style="padding: 12px; width: 13%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">2 * 960 GB</p>
+              </td>
+              <td style="padding: 12px; width: 12%; height: 41px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">HDR 200 Gb</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 12px; width: 24%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">Standard_HB120-96rs_v3</p>
+              </td>
+              <td style="padding: 12px; width: 9%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">96</p>
+              </td>
+              <td style="padding: 12px; width: 12%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">448 GB</p>
+              </td>
+              <td style="padding: 12px; width: 15%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">4.67 GB</p>
+              </td>
+              <td style="padding: 12px; width: 11%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">480 MB</p>
+              </td>
+              <td style="padding: 12px; width: 13%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">2 * 960 GB</p>
+              </td>
+              <td style="padding: 12px; width: 12%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">HDR 200 Gb</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 12px; width: 24%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">Standard_HB120-64rs_v3</p>
+              </td>
+              <td style="padding: 12px; width: 9%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">64</p>
+              </td>
+              <td style="padding: 12px; width: 12%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">448 GB</p>
+              </td>
+              <td style="padding: 12px; width: 15%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">7 GB</p>
+              </td>
+              <td style="padding: 12px; width: 11%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">480 MB</p>
+              </td>
+              <td style="padding: 12px; width: 13%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">2 * 960 GB</p>
+              </td>
+              <td style="padding: 12px; width: 12%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">HDR 200 Gb</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 12px; width: 24%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">Standard_HB120-32rs_v3</p>
+              </td>
+              <td style="padding: 12px; width: 9%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">32</p>
+              </td>
+              <td style="padding: 12px; width: 12%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">448 GB</p>
+              </td>
+              <td style="padding: 12px; width: 15%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">14 GB</p>
+              </td>
+              <td style="padding: 12px; width: 11%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">480 MB</p>
+              </td>
+              <td style="padding: 12px; width: 13%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">2 * 960 GB</p>
+              </td>
+              <td style="padding: 12px; width: 12%; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">HDR 200 Gb</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 12px; width: 24%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">Standard_HB120-16rs_v3</p>
+              </td>
+              <td style="padding: 12px; width: 9%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">16</p>
+              </td>
+              <td style="padding: 12px; width: 12%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">448 GB</p>
+              </td>
+              <td style="padding: 12px; width: 15%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">28 GB</p>
+              </td>
+              <td style="padding: 12px; width: 11%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">480 MB</p>
+              </td>
+              <td style="padding: 12px; width: 13%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">2 * 960 GB</p>
+              </td>
+              <td style="padding: 12px; width: 12%; height: 18px; background-color: white;" valign="top">
+              <p align="center" style="text-align: center; margin-top: 12px; margin-bottom: 12px;">HDR 200 Gb</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p><em>&lsquo;r &rsquo; は、リモートダイレクトメモリアクセス (RDMA) のサポートを表します。 &lsquo;&rsquo;は Premium SSD ディスクのサポートを表します</em></p>
+
+
+  <p>Azure H シリーズでは、HBv3 Vm は、制約された <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/constrained-vcpu" target="_blank">コア</a> サイズを提供します。 これにより、他のすべての資産を維持しながら、VM に公開するコアの数を減らすことができます。 これにより、これらの資産がコアごとに割り当てられます。 HPC では、次のような一般的なシナリオが役に立ちます。</p>
+
+
+  <ul>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="1" data-font="Symbol" data-leveltext="" data-listid="2" role="listitem">
+      <p paraeid="{92fe5162-ab5a-4d56-ae3e-da334016e153}{119}" paraid="1554938824">CFD ワークロードの CPU コアあたりのメモリ帯域幅を増やす。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="2" data-font="Symbol" data-leveltext="" data-listid="2" role="listitem">
+      <p paraeid="{92fe5162-ab5a-4d56-ae3e-da334016e153}{132}" paraid="1606003688">RTL シミュレーションワークロード用に、コアあたりの L3 キャッシュをさらに割り当てます。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="1" data-font="Symbol" data-leveltext="" data-listid="2" role="listitem">
+      <p paraeid="{92fe5162-ab5a-4d56-ae3e-da334016e153}{143}" paraid="124498619">ライセンスにバインドされたシナリオで、より多くのコアに CPU 周波数を上げる。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="2" data-font="Symbol" data-leveltext="" data-listid="2" role="listitem">
+      <p paraeid="{92fe5162-ab5a-4d56-ae3e-da334016e153}{162}" paraid="1298042201">各コアにより多くのメモリまたはローカル SSD を提供します。</p>
+      </li>
+  </ul>
+
+
+  <h2>スケーラブルな HPC パフォーマンスでの世代の飛躍</h2>
+
+
+  <p>EPYC 7002 シリーズプロセッサを搭載した Azure HBv2 Vm では、分子 dynamics よりも8万コアを超える MPI ワークロードを実行する機能が既に表示されています。また、パブリッククラウド上の別の場所での <a href="https://www.youtube.com/watch?v=HQZm14eeaqk" target="_blank">12 倍</a> のスケール、 <a href="https://azure.microsoft.com/en-us/blog/supercomputing-2020-new-mpi-heights-joining-the-graph500-and-1-tbs-filesystems/" target="_blank">世界中の上位10個のスーパーモデルの1つ</a>にも対応しています。</p>
+
+
+  <p>HBv3 Vm は、MPI ワークロードのパフォーマンスを大幅に向上させることにより、Azure &rsquo; のリーダーシップをスケーラブルな HPC パフォーマンスで拡張します。 4000コアから33000コアにスケールアップされたワークロードのテストでは、HBv3 は HBv2 シリーズに対する1.23 倍の1.89 倍のパフォーマンス向上を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf67d3b6-6b59-4e41-a27a-30ddcd0231a5.png"><img alt="MPI Performance Improvements HBv3 (EPYC 7003-series) versus HBv2 (EPYC 7002-series" border="0" height="755" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a49e658-2c65-4c11-8415-ca9f4db8eb25.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>HBv3 Vm は、 <a href="https://www.mellanox.com/" target="_blank">NVIDIA ネットワーク</a> (旧称 Mellanox Technologies) のテクノロジパートナーの HDR 200 Gb/秒 InfiniBand の HBv2 vm に参加します。 HBv2 と同様に、InfiniBand fabric バッキング HBv3 Vm は、非ブロッキングの fat ツリーで、In-Network コンピューティングアクセラレーションエンジンとの一貫性があり、非常に短い待機時間を実現します。 標準の Mellanox/OFED ドライバーは、ベアメタル環境と同様に使用できます。 HBv3 Vm では、RDMA 動詞と、 <a href="https://www.mellanox.com/products/hpc-x-toolkit#:~:text=HPC-X%20main%20features%20are:%201%20Complete%20MPI,%20PGAS/SHMEM,performance%20with%20underlying%20hardware%20architecture%20More%20items..." target="_blank">HPC-X</a>、 <a href="https://www.open-mpi.org/" target="_blank">openmpi</a>、 <a href="https://mvapich.cse.ohio-state.edu/#:~:text=MVAPICH:%20MPI%20over%20InfiniBand,%20Omni-Path,%20Ethernet/iWARP,%20and%20RoCE,for%20Micr%20...%20%2010%20more%20rows" target="_blank">MVAPICH2</a>、 <a href="https://software.intel.com/en-us/mpi-library" target="_blank">Intel MPI</a>などのすべての MPI の種類とバージョンがサポートされています。 また、MPI 配布の <a href="https://techcommunity.microsoft.com/t5/azure-compute/adaptive-routing-on-azure-hpc/ba-p/1205217" target="_blank">アダプティブルーティング</a> とハードウェアアクセラレーションを利用して、パフォーマンスとスケーリングの効率を向上させることもできます。</p>
+
+
+  <p>1つの <a href="https://azure.microsoft.com/en-us/services/virtual-machine-scale-sets/" target="_blank">仮想マシンスケールセット</a>に対して、お客様は HBv3 上で1つの MPI ジョブを最大36000コアの Virtual Machines 実行できます。 最大規模のお客様にとって、HBv2 Virtual Machines は、1つのジョブに対して最大8万のコアをサポートしています。</p>
+
+
+  <h2>シングルおよび軽いスレッドの HPC ワークロードの大幅な向上</h2>
+
+
+  <p>また、HBv3 Vm では、シングルスレッドおよび低スレッドの HPC ワークロードのパフォーマンスを大幅に向上させることができます。 これは、サイズの小さい HPC ジョブ (設計空間でのパラメータースイープなど) を実行する必要があるお客様や、ソリューションの総コストの大部分を占めている商用ソフトウェアを使用するお客様にとって重要です。</p>
+
+
+  <p>Zen3 &rdquo; コアアーキテクチャから &ldquo; の IPC%、3倍の L3 キャッシュ、クロック周波数は 3.675 GHz と比べて、HBv3 vm では、既存の低スレッドのコア数で、HPC に最適化された既存の vm のパフォーマンスが最大2.6 倍になります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0ae7d920-b81a-4057-8d54-bf18ea233988.png"><img alt="16-core Perfromance Improvement ANSYS Mechanical 2021.1 - Power Suppy Module (V19cg-1) Solver Rating" border="0" height="755" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1fbfcb51-3e2e-42dc-b756-2aba23d77cf2.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <h2>最先端の HPC 機能で顧客とパートナーを支援</h2>
+
+
+  <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{175}" paraid="682010081">&ldquo;Microsoft Azure によって、クラウド &rdquo; 内の hpc ハードウェアのバーが再び生成されました。これは、Mulyanto poort で、hpc エンジニアリングの VP がスケーリングに使用されています。 &quot;クラス最高レベルの低待機時間のネットワークと、AMD からの最新かつ非常に汎用性の高い CPU を1つの仮想化されたパッケージに結合することにより、既に広範なハードウェアカタログに主力の HPC オファリングを追加することができます。&quot;</p>
+
+
+  <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{175}" paraid="682010081">&ldquo;HBv3 &rsquo; は、大規模にスケーラブルな CFD シミュレーションから、天気予報と Acoustics シミュレーションに見られる IO 集中型のワークロードや、調整時のエンジニアリングのシミュレーションなど、 &rdquo; 多くのさまざまな HPC ワークロードのパフォーマンスを向上させるために、非常に強力な機能を備えています。 &quot;さらに、HBv3 の積極的な価格設定を使用すると、ソフトウェアライセンスのコストが高いシナリオで、全シミュレーションの経済性を最適化するさまざまなターンキーソリューションをパッケージ化することができます。&quot;</p>
+
+
+  <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{175}" paraid="682010081">&ldquo;Microsoft では、お客様に HBv3 を提供し、お客様がこの優れた新しいテクノロジをどのように活用できるかをご紹介します。 &rdquo; Ethan Rasa、Corp Dev のシニアディレクター、およびスケール調整時のパートナーシップを言いました。&nbsp;</p>
+
+
+  <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{175}" paraid="682010081">&ldquo;Drizti は、Microsoft Azure の HBv3 シリーズの発売パートナーとして非常に興奮しています。 AMD EPYC Zen 3 ミラノと InfiniBand HDR を組み合わせた非常に優れたパフォーマンスを実現し、HBv3 のローカル NVMEs を使用すると、HPC のユーザーに大幅なパフォーマンスが向上します。 Azure と HPCBOX の組み合わせ機能により、HPC を1世代から次の世代にアップグレードすることができます。 &rdquo; Devarajan Subramanian は、Drizti で CEO と言いました。</p>
+
+
+  <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{175}" paraid="682010081">&ldquo;第3世代の AMD EPYC プロセッサを搭載した Azure の新しい HBv3 Vm は、クラウド &rdquo; 内のハイパフォーマンスコンピューティング機能へのアクセスを引き続きお客様に提供します。これは、Kumaran Siva (企業副社長、クラウドビジネス、AMD) と呼ばれています。 &ldquo;&rsquo;Azure での作業を継続してクラウドコンピューティングのパフォーマンス境界をプッシュし &rsquo; 、お客様がこれらの vm を使用して何をしているのかをお待ちしています。&rdquo;</p>
+
+
+  <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{183}" paraid="797302664">&ldquo;Azure HBv3 Vm は、パブリッククラウドで HPC パフォーマンスを提供するためのものであり、大規模なスループットとアクセラレーションを活用できるようにします。 nvidia Mellanox InfiniBand は、NVIDIA でのネットワークの Mittelman Shainer、シニアバイスプレジデントである、さまざまな HPC 研究 &rdquo; を進めることができます。</p>
+
+
+  <ul role="list">
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="1" data-font="Symbol" data-leveltext="" data-listid="3" role="listitem">
+      <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{190}" paraid="1467066165"> <a href="https://azure.microsoft.com/en-us/solutions/high-performance-computing/" rel="noreferrer noopener" target="_blank">Azure でのハイパフォーマンスコンピューティングの</a>詳細については、こちらをご覧ください。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="2" data-font="Symbol" data-leveltext="" data-listid="3" role="listitem">
+      <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{206}" paraid="1042842977"><a href="https://amd.com/epyc3" rel="noreferrer noopener" target="_blank">AMD 起動ハブ</a>。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="3" data-font="Symbol" data-leveltext="" data-listid="3" role="listitem">
+      <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{218}" paraid="865185282"><a href="https://www.youtube.com/watch?v=2hJHBNF2tr4" rel="noreferrer noopener" target="_blank">HBv3 の概要と Mark Russinovich</a>です。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="4" data-font="Symbol" data-leveltext="" data-listid="3" role="listitem">
+      <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{227}" paraid="1993170793"><a href="https://aka.ms/AMDHBv3TechCommunity" rel="noreferrer noopener" target="_blank">テクニカルコミュニティブログ</a>。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="5" data-font="Symbol" data-leveltext="" data-listid="3" role="listitem">
+      <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{242}" paraid="1070740335"><a href="https://github.com/Azure/azhpc-images" target="_blank">AZURE HPC 最適化 OS イメージ</a>。</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="6" data-font="Symbol" data-leveltext="" data-listid="3" role="listitem">
+      <p paraeid="{e388d9a3-c1b0-4069-a628-cce34ae39321}{251}" paraid="2114715536"><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-hpc" rel="noreferrer noopener" target="_blank">AZURE HPC 仮想マシン</a>。</p>
+      </li>
+  </ul>

@@ -1,0 +1,177 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4d8f847ecd6875affb4af09a21f8fb4e1ab14a2e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904206"
+Slug: disaster-recovery-for-sap-hana-systems-on-azure
+Title: Azure 上の SAP HANA システムのディザスター リカバリー
+Summary: Microsoft Azureは、クラウド内の SAP ソリューションを使用して、エンタープライズ対応のイノベーションへの信頼できるパスを提供します。 SAP などのミッション クリティカルなアプリケーションは、Azure 上で確実に実行されます。これは、顧客の SAP ランドスケープを実行するためにハイパースケール、機敏性、コスト削減を提供するエンタープライズ実証済みのプラットフォームです。
+Content: >-
+  <p>このブログでは、SAP S/4HANA ランドスケープでクラス最高の目標復旧時点 (RPO) と目標復旧時間 (RTO) を達成するために、企業のお客様のディザスター リカバリー (DR) を設定するための設計、テクノロジ、推奨事項について説明します。 この投稿は、Cognizants&rsquo; SAP Cloud Practice のグローバル ヘッドである <a href="https://www.linkedin.com/in/sivakumarvaradananjayan/" target="_blank">Sivaivar Varadananivan</a> 氏によって共同執筆されました。</p>
+
+
+  <p>Microsoft Azureは、クラウド内の SAP ソリューションを使用して、エンタープライズ対応のイノベーションへの信頼できるパスを提供します。 SAP などのミッション クリティカルなアプリケーションは、Azure&rsquo; 上で確実に実行されます。これは、顧客の SAP ランドスケープを実行するためにハイパースケール、機敏性、コスト削減を提供するエンタープライズ実証済みのプラットフォームです。</p>
+
+
+  <p>システムの可用性とディザスター リカバリーは、ミッション クリティカルな SAP アプリケーションを Azure で実行する顧客にとって非常に重要です。</p>
+
+
+  <p>RTO と RPO は、予期しないイベントが原因でビジネス継続性を維持できる適切なディザスター リカバリー計画を策定するために組織が検討する 2 つの重要なメトリックです。&nbsp;目標復旧時点&ldquo;&rdquo;とは、時間の観点から危険にさらされているデータの量を指します。一方、目標復旧時間とは、障害発生後にシステムがダウンする可能性がある時間または許容できる最大時間を指します。</p>
+
+
+  <p>次の図は、通常どおりのビジネス (BAU) シナリオのタイムライン ビューでの RPO と RTO のビューを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33f434cf-4d38-4484-aea1-a4d820a1aaec.png"><img alt="A timeline of RPO and RTO on a BAU secnario." border="0" height="79" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8450add3-2b75-4e38-ae32-c08f8848fd82.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="RPO と RTO のタイムライン (BAU のセクナリオ)。" width="1000"></a></p>
+
+
+  <p>Orica は、&#39;、石油およびガス、建設市場に対する商用爆発物および革新的な爆発システムの最大のプロバイダーです。 また、金色抽出用のサイロサイヤニドの主要サプライヤーであり、マイニングおよびトンネリングにおける地上サポート サービスのスペシャリスト プロバイダーです。</p>
+
+
+  <p>Oricas&rsquo; のデジタル変革体験の一環として、Cognizant は、sap S/4HANA や他の SAP アプリケーション用の高可用性でスケーラブルでディザスター プルーフな IT プラットフォームを Microsoft Azure で構築するために、信頼できるテクノロジ アドバイザーおよびマネージド クラウド プラットフォーム プロバイダーとして選択されています。</p>
+
+
+  <p>このブログでは、Cognizant がデジタル コアとして SAP S/4HANA を使用したデジタル変革プログラムの一部として Orica のディザスター リカバリー ソリューションを構築する課題を取り上げた方法について説明します。 このブログには、過去 2 年間の Cognizant と Orica による SAP on Azure アーキテクチャ設計に関する考慮事項が含まれているので、RTO が 4 時間に削減されました。 これを実現するには、Azure で使用できる最新のテクノロジ機能と自動化をデプロイします。 RTO&rsquo; の削減と共に、RPO が 5 分未満に削減され、SAP HANA システム レプリケーションや Azure Site Recovery などのデータベース固有のテクノロジが使用されます。</p>
+
+
+  <h2>ディザスター リカバリー システムの設計原則</h2>
+
+
+  <ul>
+      <li>SAP HANA の SAP &ndash; 認定 VM に基づく DR リージョンの選択 DR リージョンでの SAP 認定 VM の種類の可用性を確認することが重要です。</li>
+      <li>RPO と RTO の値 &ndash; ビジネスでは、ディザスター リカバリーのアーキテクチャと、ディザスター リカバリーの実装に必要なツールと自動化の要件に大きく影響する RPO と RTO の値に明確な期待を示す必要があります</li>
+      <li>DR、メンテナンス、DR ドリルの実装コスト <ul style="margin-left: 40px;">
+          <li>システムの重大 &ndash; DR 実装のコストとビジネス要件の間でトレードオフを確立できます。 最も重要なシステムでは最新の DR アーキテクチャを利用できます。中程度およびそれほど重要ではないシステムでは、RPO/RTO 値が高くなる可能性があります。</li>
+          <li>DR インスタンスのオンデマンド サイズ &ndash; 変更 DR インスタンスにはサイズの小さい VM を使用し、アクティブな DR シナリオ中にそれらの VM をアップサイズすることが望ましいです。 また、VM をスケールアップする待機時間が生じないので、DR &ldquo;&rdquo; リージョンで VM の必要な容量を予約できます。 Microsoft では、仮想マシンを事前に予約して最大 80% 節約できる予約インスタンスを提供しています。 必要な RTO 値に従って、小規模な VM の実行と Azure RI の間でトレードオフを行う必要があります。<em>&nbsp;予約インスタンスは容量要求&rsquo;に対して事前設定を提供しますが、DR 要求時に容量が完全に使用可能になる保証はありません。これは、コストの考慮事項とビジネス継続性の目標を考慮することをお勧めします。</em></li>
+          <li>クラウド インフラストラクチャのコストに関する追加の考慮事項、中断を伴う DR テスト用の環境の設定に関する取り組み。 中断のない DR テストとは、実際の生産的なシステムを DR システムにフェールオーバーすることなく DR テストを実行し、それによってビジネスのダウンタイムを回避する方法を指します。 これには、DR テスト中に完全に分離された vNet 内にある一時的なインフラストラクチャを設定する場合、追加のコストが伴います。&nbsp;</li>
+          <li>Azure Site Recovery を使用してレプリケートしないクラスター化されたネットワーク ファイル システム (NFS) などの SAP システム アーキテクチャの特定のコンポーネントでは、NFS レイヤー DR 用の SUSE Geo クラスターや SIOS データ キーパーなどのライセンス コストを含む追加ツールが必要です。</li>
+      </ul>
+      </li>
+      <li>&ndash;特定のテクノロジとツールの選択 Azure &ldquo;では、リージョン全体で仮想マシンをレプリケートする Azure Site Recovery (ASR) が提供されています。一方、このテクノロジは、データベースの一貫性を確保するために SAP HANA システム レプリケーション (HSR)&rdquo; などのデータベース固有の方法が使用されている間、システムの非データベース コンポーネントまたはレイヤーで使用されます。</li>
+  </ul>
+
+
+  <h2>SAP HANA Database で実行されている SAP システムのディザスター リカバリー アーキテクチャ</h2>
+
+
+  <p>次の図は、SAP HANA に基づく SAP システムのアーキテクチャと、ローカルまたはリージョンの障害が発生した場合に使用できるシステムを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4541c7d-0c90-4d88-ad99-186541b4d2b0.png"><img alt="An architecture diagram of SAP systems based on SAP HANA and which systems will be available in case of local or regional failures." border="0" height="654" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f0a13eb-c3fd-4b12-9a80-2021bc9baa73.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ローカルまたはリージョンの障害が発生した場合SAP HANA使用できるシステムに基づく SAP システムのアーキテクチャ図。" width="1000"></a></p>
+
+
+  <p>次の図は、ディザスター リカバリーを実現するためにSAP HANAシステム コンポーネントと対応するテクノロジの次のレベルの詳細を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c08c3702-90e1-48d2-83ce-e6e2176b73e0.png"><img alt="A more detailed diagram of SAP HANA systems components and corresponding technology used for achieving disaster recovery." border="0" height="529" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e3a682f-d1d0-4f85-b30e-9b07557c8777.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ディザスター リカバリーを実現するためにSAP HANAシステム コンポーネントと対応するテクノロジの詳細な図。" width="1000"></a></p>
+
+
+  <h2>データベース レイヤー</h2>
+
+
+  <p>データベース 層では、システム レプリケーション (HSR) などのSAP HANA固有のレプリケーション方法が使用されます。 データベース固有のレプリケーション方法を使用すると、さまざまなレプリケーション固有のパラメーターを構成することで RPO 値をより細く制御できます。また、DR サイトでのデータベースの整合性が提供されます。 バックアップや復元、復旧またはストレージ ベースのレプリケーションなど、データベース (DB) レイヤーでディザスター リカバリーを実現する別の方法を使用することもできますが、RTO 値が高くなります。</p>
+
+
+  <p>SAP HANA データベースの RPO 値は、レプリケーション手法 (高可用性の場合は同期、DR レプリケーションの場合は非同期)、バックアップ頻度、バックアップ データ保持ポリシー、セーブポイント、レプリケーション構成パラメーターなどの要因によって異なります。</p>
+
+
+  <p>SAP ソリューション マネージャーを使用して、レプリケーションの状態を監視し、レプリケーションが影響を受け取った場合に電子メール アラートがトリガーされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79ff0723-363d-407e-9f46-ef59e25c0dc4.png"><img alt="A diagram showing disaster recovery architecture at the HANA database level, HANA system replication (HSR) is used for local availability as well as disaster recovery." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e89deed8-6b7f-4287-aff3-0fe01bbff87d.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none; width: 1000px; height: 488px;" title="ブログ画像"></a></p>
+
+
+  <p>この記事の執筆時点で、SAP HANA 2.0 SP 3 リビジョン 33 の時点でマルチノード レプリケーションを使用できる場合でも、このシナリオは高可用性クラスターと組み合わせてテストされません。 マルチターゲット レプリケーションを正常に実装すると、DR メンテナンス プロセスが簡単になり、プライマリ サイトでのフェールオーバー シナリオのために手動の介入は必要ありません。</p>
+
+
+  <h2>アプリケーション層 &ndash; (A)SCS、APP、iSCSI</h2>
+
+
+  <p>Azure Site Recovery(A)SCS、アプリケーション サーバー、iSCSI などの Linux クラスター のフェンシング エージェントなど、SAP システム アーキテクチャのデータベース以外のコンポーネントのレプリケーションに使用されます (以下で説明する NFS レイヤーを除く)。Azure Site Recovery は、仮想マシン (VM) 上で実行されているワークロードをプライマリ サイトからストレージ 層のセカンダリの場所にレプリケートします。また、VM が実行状態である必要は生じず、実際の障害シナリオや DR 訓練中に VM を起動できます。</p>
+
+
+  <p>Azure で Pacemaker クラスターを設定するには、2 つのオプションがあります。 Azure API を使用して障害が発生したノードの再起動を行うフェンシング エージェントを使用するか、ストレージ ベースの死亡 (SBD) デバイスを使用できます。 SBD デバイスを使う場合、iSCSI ターゲット サーバーとして機能しつつ SBD デバイスを提供する仮想マシンが、少なくとも 1 つ、追加で必要となります。 ただし、これらの iSCSI ターゲット サーバーは、他の Pacemaker クラスターと共有できます。 SBD デバイスを使用する利点は、フェールオーバー時間の短縮です。</p>
+
+
+  <p>次の図では、アプリケーション層でのディザスター リカバリーについて説明します。(A)SCS、アプリ サーバー、iSCSI サーバーは、同じアーキテクチャを使用して、Azure Site Recovery を使用して DR リージョン間でデータをレプリケートします。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91af9f32-e937-40c7-a777-994e7c9c7b24.png"><img alt="A diagram showing disaster recovery at the application layer, (A)SCS, App servers, and iSCSI servers use the same architecture to replicate the data across DR region using Azure Site Recovery." border="0" height="462" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/48dbfe84-a3c5-46a5-8a90-0f20f13a096a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アプリケーション層 、(A)SCS、アプリ サーバー、iSCSI サーバーでのディザスター リカバリーを示す図では、同じアーキテクチャを使用して、Azure Site Recovery を使用して DR リージョン間でデータをレプリケートします。" width="1000"></a></p>
+
+
+  <p>プライマリ サイト &ndash; の NFS レイヤー NFS レイヤーでは、高可用性レプリケーションを目的として、分散レプリケートブロック デバイス (DRBD) を備えたクラスターが使用されます。 NFS レイヤーでの DR の実装について、複数のテクノロジを評価しました。 DRBD と Site Recovery の構成には互換性がありません。そのため、NFS レイヤー DR を実現するために、SUSE geo クラスター、SIOS データ キーパー、単純な VM スナップショットバックアップや復元などのソリューションを使用できます。 DRBD はディスク レプリケーションを使用して NFS レイヤーで高可用性を実現Site Recoveryレプリケーションはサポートされていません。 DRBD が有効になっている場合、NFS レイヤーの DR を実現するためのコスト効率の高いソリューションは、VM スナップショット バックアップを使用した単純なバックアップ/復元を使用する方法です。</p>
+
+
+  <h2>DR または DR ドリルを呼び出す手順</h2>
+
+
+  <p>Microsoft Azure Site Recoveryテクノロジは、DR リージョンでのデータのレプリケーションを高速化するのに役立ちます。 Site Recovery が使用または構成されていない DR 実装では、約 5 つのシステムの復旧に 24 時間以上かかり、最終的に RTO は 24 時間以上になります。 ただし、DB レイヤーでデータベース固有のレプリケーション方法が利用されているアプリケーション層で Site Recovery を使用する場合、同じ数のシステムで RTO 値を 4 時間を大幅に下回る可能性があります。 次の図は、4 時間の RTO 値を使用してディザスター リカバリーをアクティブ化する手順を含むタイムライン ビューを示しています。</p>
+
+
+  <p>DR または DR ドリルを呼び出す手順:</p>
+
+
+  <ul>
+      <li>新しい IP アドレスを使用する VM の DNS 変更</li>
+      <li>ASR レプリケートされたデータから iSCSI &ndash; 単一 VM を起動する</li>
+      <li>データベースを復旧し、VM のサイズを必要な容量に変更する</li>
+      <li>スナップショット バックアップを使用して NFS &ndash; 単一 VM を手動でプロビジョニングする</li>
+      <li>ASR レプリケートされたデータからアプリケーション レイヤー VM を構築する</li>
+      <li>クラスターの変更を実行する</li>
+      <li>アプリケーションを起動する</li>
+      <li>アプリケーションの検証</li>
+      <li>リリース システム</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ae27bdf-e53a-47bc-abfe-2df2a2802875.png"><img alt="A screenshot of an example DR drill plan." border="0" height="329" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/69f95d59-3f08-4660-a41d-77b47f97d6b4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DR ドリル プランの例のスクリーンショット。" width="1000"></a></p>
+
+
+  <h2>中断を伴う DR 訓練に関する推奨事項</h2>
+
+
+  <p>一部の企業では、DR 訓練中にダウンタイムを取る余裕がない場合があります。 DR を実行するためにダウンタイムを配置できない場合は、中断を伴う DR ドリルをお勧めします。 破壊的でない DR 手順は、追加の DR VNet を作成し、ネットワークから分離し、以下の手順で DR Drill を実行することで実現できます。</p>
+
+
+  <p>前提条件として、分離された VNet SAP HANAデータベース サーバーをビルドし、システム レプリケーションSAP HANA構成します。</p>
+
+
+  <ol>
+      <li>Express Route が切断されると、DR リージョンへの Express Route 回線を切断します。プライマリ リージョン内のシステムの突然の使用不能性がシミュレートされます</li>
+      <li>前提条件として、高速ルート切断時まで、バックアップ ドメイン コントローラーがアクティブで、プライマリ ドメイン コントローラーを使用したレプリケーション モードである必要があります</li>
+      <li>DNS サーバーは、分離された DR VNet (中断を伴う DR ドリル用に作成された追加の DR VNet) で構成し、高速ルート切断時までスタンバイ モードに維持する必要があります</li>
+      <li>DR テスト用に管理者と主要ユーザーのポイント対サイト VPN トンネルを確立する</li>
+      <li>DR VNet がネットワーク全体から分離された NSG を手動で更新する</li>
+      <li>DR リージョンで DR 有効化手順を使用してアプリケーションを起動する</li>
+      <li>テストが完了したら、NSG、Express Route、および DR レプリケーションを再構成します</li>
+  </ol>
+
+
+  <p>DR テストでは、関連するインフラストラクチャと SAP 分野の専門家の関与を強くお勧めします。</p>
+
+
+  <p>非実稼働システムでの事前の検証とテストでは、破壊的でない DR プロシージャを慎重に実行する必要があることに注意してください。 DR リージョンのデータベース VM 容量は、データベース VM のサイズを変更するために必要な容量を割り当てる場合と、完全な容量を予約する場合と Microsofts&rsquo; タイムラインの間でトレードオフを行って決定する必要があります。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>SAP 用の最適な Azure インフラストラクチャの設計の詳細については、次のリソースを参照してください。</p>
+
+
+  <ul>
+      <li>
+      <p><a href="https://azure.microsoft.com/en-us/blog/sap-on-azure-architecture-designing-for-security/" target="_blank">SAP on Azure - セキュリティの設計</a></p>
+      </li>
+      <li>
+      <p><a href="https://azure.microsoft.com/en-us/blog/sap-on-azure-architecture-designing-for-performance-and-scalability/" target="_blank">SAP on Azure - パフォーマンスとスケーラビリティのための設計</a></p>
+      </li>
+      <li>
+      <p><a href="https://azure.microsoft.com/en-us/blog/sap-on-azure-designing-for-availability-and-recoverability/" target="_blank">SAP on Azure - 可用性と回復性のための設計</a></p>
+      </li>
+      <li>
+      <p><a href="https://azure.microsoft.com/en-us/blog/sap-on-azure-designing-for-efficiency-operations/" target="_blank">SAP on Azure - 効率性と運用のための設計</a></p>
+      </li>
+  </ul>

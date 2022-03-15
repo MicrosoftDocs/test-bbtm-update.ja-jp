@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 911aee15f8f9d99ed55f4d8dd811e55fea99c3ec
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909545"
+Slug: protect-linux-containers-running-in-iaas-with-azure-security-center
+Title: IaaS で実行中の Linux コンテナーを Azure Security Center を使用して保護する
+Summary: 今日では、より多くの企業がモノリスアプリケーションを移行し、運用環境で、ミッションクリティカルでコンテナー化されたクラウドネイティブアプリケーションを実行しています。 コンテナーは、開発者と IT プロフェッショナルの両方にとって、複数の利点を提供します。
+Content: >-
+  <p>今日では、より多くの企業がモノリスアプリケーションを移行し、運用環境で、ミッションクリティカルでコンテナー化されたクラウドネイティブアプリケーションを実行しています。 コンテナーは、開発者と IT プロフェッショナルの両方にとって、複数の利点を提供します。 デプロイ、変更不可、迅速な反復処理を簡単かつ迅速に行うことができます。 デプロイするコンテナーの数が増え続けるのに応じて、コンテナーのセキュリティ状態に対する可視性を提供し、コンテナーを脅威から保護するための支援策として、セキュリティ ソリューションを導入する必要があります。</p>
+
+
+  <p>コンテナーのセキュリティ保護に役立つ新機能が Azure Security Center にいくつか用意されています。</p>
+
+
+  <h2>1. IaaS Linux マシンでホストされているコンテナーの可視性</h2>
+
+
+  <p>Azure Security Center にコンテナーの新しいタブが追加され、すべての仮想マシンと Docker に関する情報を表示できるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/13464db9-e312-4fa6-b95f-b353edb35b60.png"><img alt="A new tab of containers is now available in Azure Security Center" border="0" height="229" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/919ed450-8151-46a8-89f5-055006ff6eb7.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="コンテナーの新しいタブが使用できるようになりました Azure Security Center" width="1405"></a></p>
+
+
+  <p>仮想マシンのセキュリティの問題を調査する際に、Docker のバージョンやホスト上で実行されているイメージの数など、マシン上のコンテナーに関連する追加情報が Security Center から提供されるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a2589847-2587-40c8-ae6c-affb82da398b.png"><img alt="Docker version" border="0" height="698" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/839cd65c-1b29-4c82-865c-1614984622d3.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Docker のバージョン" width="1281"></a></p>
+
+
+  <h2>2. Docker の CI ベンチマークに基づくセキュリティの推奨事項</h2>
+
+
+  <p>Security Center は、Docker 構成をスキャンし、評価されたすべての失敗したルールの一覧を提供することによって、構成の誤りに対する可視性を提供します。 これらの問題を迅速に解決して時間を節約するのに役立つガイドラインが Security Center から提供されます。 Security Center は、Docker 構成を継続的に評価し、それらの最新の状態をユーザーに提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4f3050f-55c0-4a4f-afb1-3b87c0629c48.png"><img alt="Security recommendations based on the CIS benchmark for Docker" border="0" height="862" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9eb51942-22f2-4e69-8709-6c98bb437cf3.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Docker の CI ベンチマークに基づくセキュリティの推奨事項" width="1528"></a></p>
+
+
+  <h2>3. リアルタイムコンテナーの脅威の検出</h2>
+
+
+  <p>Security Center では、AuditD コンポーネントを使用して Linux マシン上のコンテナーに対する脅威をリアルタイムで検出できるようになりました。</p>
+
+
+  <p>アラートは、ホスト上での特権コンテナーの作成、Docker コンテナー内での Secure Shell (SSH) サーバーの実行の兆候、暗号マイナーの使用など、Docker の不審なアクティビティを識別します。 ユーザーは、この情報を使用して、迅速にセキュリティの問題を修復し、コンテナーのセキュリティを強化することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/76e36a14-71ef-4f8b-85d9-4d3ddaeeeb0a.png"><img alt="PremiumSSD" border="0" height="701" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11acbd40-5a24-4b4b-99b4-e9c96ecc4afa.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="PremiumSSD" width="612"></a></p>
+
+
+  <p>コンテナーのセキュリティ保護を開始するために、パブリッククラウドのお客様は、 <a href="https://azure.microsoft.com/en-us/pricing/details/security-center/" target="_blank">Security Center の Standard レベル</a>でこの機能のパブリックプレビューを利用できます。 Azure を初めてご利用になる場合、コンテナーのセキュリティは <a href="https://azure.microsoft.com/en-us/free/" target="_blank">無料の60日 Security Center 試用版</a>の一部となります。</p>

@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 23ea7b4422511286d11c0ea728be928a901dfe50
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903767"
+Slug: announcing-general-availability-of-azure-managed-applications-service-catalog
+Title: サービス カタログの一Azure Managed Applications発表
+Summary: 本日は、サービス カタログの一般提供をAzure Managed Applicationsいたします。 サービス カタログを使用すると、企業の中央 IT チームがソリューションのカタログを作成および管理できます。
+Content: >-
+  <p>本日は、サービス カタログの一般提供をAzure Managed Applicationsいたします。</p>
+
+
+  <p>Service Catalog を使用すると、企業の中央 IT チームは、その組織内の従業員が使用するソリューションとアプリケーションのカタログを作成および管理できます。 これにより、組織は承認されたソリューションを一中心に管理し、コンプライアンスを確保できます。 これにより、エンド カスタマー (この場合は組織の従業員) は、承認されたソリューションの一覧を簡単に検出できます。 これらのソリューションは、サービス、アップグレード、または管理のためにソリューションがどのように機能するかについて心配することなく使用できます。 このすべては、ソリューションを発行して所有している中央 IT チームによって行います。</p>
+
+
+  <p>この投稿では、マネージド アプリケーションに追加された新機能と、それが全体的なエクスペリエンスを向上させる方法について説明します。</p>
+
+
+  <h2>機能強化</h2>
+
+
+  <p>全体的なエクスペリエンスが改善され、作成がはるかに簡単かつ簡単になりました。 主な機能強化の一部を以下に示します。</p>
+
+
+  <h3>パッケージの構築が簡略化されました</h3>
+
+
+  <p>プレビュー バージョンでは、発行元は 3 つのファイルを作成し、zip にパッケージ化する必要がありました。 そのうちの 1 つは、Microsoft.Solutions/appliances リソースのみを含むテンプレート ファイルでした。 また、発行元は、このテンプレート ファイル内の実際のリソースのデプロイに必要なすべての実際のパラメーターを再度指定する必要がありました。 これは、他のテンプレート ファイルで既に指定されているこれらのパラメーターに加えてでした。 これは必要ですが、パブリッシャーにとって冗長で混乱を招く作業が多く発生しました。 今後、このファイルはサービスによって自動生成されます。</p>
+
+
+  <p>そのため &ndash; 、パッケージ (.zip) では、2 つのファイルだけが必要になります。i) mainTemplate.json (プロビジョニングする必要があるリソースを含むテンプレート ファイル) ii) createUIDefinition.json</p>
+
+
+  <p>入れ子になったテンプレート、スクリプト、または拡張機能をソリューションで使用している場合、それらのテンプレートを&rsquo;変更する必要は生じされません。</p>
+
+
+  <h3>ポータルのサポートが有効</h3>
+
+
+  <p>プレビューでは、サービス カタログのマネージド アプリケーション定義を作成するための CLI サポートが提供されたばかりでした。 これで、ポータルと PowerShell のサポートが追加されました。 これにより、組織の中央 IT チームはポータルを使用して、マネージド アプリケーション定義をすばやく作成し、組織内の人々と共有できます。 CLI を&rsquo;使用して、そこで提供されるさまざまなコマンドを学習する必要があります。</p>
+
+
+  <p>これらは、ポータルで [その他のサービス] をクリックし&ldquo;&rdquo;、[マネージド] を検索することで検出できます。 プレビュー&rsquo;と言うのは使用 &ldquo;しない&rdquo;。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3977d431-4704-44dc-9edd-737d7f94a74f.png"><img alt="image" border="0" height="357" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/73a9be4d-76de-4135-9d63-de469e71a039.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="610"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>マネージド アプリケーション定義を作成するには、[サービス&rdquo; カタログ&ldquo;のマネージド アプリケーション定義] を選択し、[追加] ボタンを&ldquo;クリック&rdquo;します。 これにより、下のブレードが開きます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1b717d6-52a9-4db2-b856-9f7b44f59498.png"><img alt="ManagedAppDefBlade" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c37f2a8-c729-4d2c-9ec3-9f8cfd853234.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ManagedAppDefBlade" width="496"></a></p>
+
+
+  <h3>パッケージ化ではなく、テンプレート ファイルをインラインで提供.zip</h3>
+
+
+  <p>.zip ファイルを作成し、BLOB にアップロードしてパブリックにアクセス可能にし、URL を取得してから、マネージド アプリケーション定義を作成するには、多くの手順が必要です。 そのため、CLI と PowerShell に追加された新しいパラメーターを使用して、これらのファイルをインラインで指定できる別のオプションを有効にしました。 インライン テンプレート ファイルのサポートは、まもなくポータルに追加されます。</p>
+
+
+  <h2>サービスの変更</h2>
+
+
+  <p>サービスに対して次の主な変更が行われた点に注意してください。</p>
+
+
+  <h3>新しい API バージョン</h3>
+
+
+  <p>一般公開リリースでは、上記のすべての機能強化を利用できる新しい API バージョンが導入されています。 新しい api-version は 2017-09-01 です。 Azure Portal では、この新しい API バージョンが使用されます。 最新バージョンの Azure CLIと Azure PowerShell、この新しい API バージョンが利用されます。 マネージド アプリケーションを開発および管理するには、この最新バージョンに切り替える必要があります。 マネージド アプリケーションの作成と管理は、2017 年 9 月 25 日より後に既存のバージョンの CLI を使用してサポートされません。 古い API バージョン (古い CLI) を使用して作成された既存のリソースは引き続き機能します。</p>
+
+
+  <h3>リソースの種類の名前が変更されました</h3>
+
+
+  <p>新しい api-version でリソースの種類名が変更されました。 そのため、Microsoft.Solutions/appliance は Microsoft.Solutions/applications、Microsoft.Solutions/applianceDefinitions は Microsoft.Solutions/applicationDefinitions です。</p>
+
+
+  <h3>最新の CLI と PowerShell にアップグレードする</h3>
+
+
+  <p>前述のように、マネージド アプリケーションの使用と作成を続行するには、最新バージョンの CLI と PowerShell を使用するか、Azure portal を使用できます。 以前の API バージョンで構築されたこれらのクライアントの既存のバージョンはサポートされなくなりました。 既存のリソースは、新しいリソースの種類を使用するために移行され、引き続き新しいバージョンのクライアントを使用して動作します。</p>
+
+
+  <h3>サポートされる場所</h3>
+
+
+  <p>現在、サポートされている場所は米国中西部と米国西部 2 です。</p>
+
+
+  <p>新しいバージョンのサービスを試して、ユーザーの音声チャネルまたは以下の<a href="https://feedback.azure.com/forums/281804-azure-resource-manager"></a>コメントからフィードバックをお知らせください。</p>
+
+
+  <h2>その他の技術情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-author-marketplace">Marketplace マネージド アプリケーションを発行する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-publishing">サービス カタログマネージド アプリケーションを発行する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-createuidefinition-overview">マネージド アプリケーションの UIDefinition を作成する方法</a></li>
+   <li><a href="https://github.com/Azure/azure-managedapp-samples">マネージド アプリケーションのサンプル GitHubリポジトリ</a></li>
+  </ul>

@@ -1,0 +1,90 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fca1c0390f58a6c608b2404ee32f1a9903c55b20
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909557"
+Slug: power-your-genomic-data-analysis-on-azure-with-azure-cyclecloud
+Title: Azure CycleCloud を使用した Azure でのゲノムデータ分析の活用
+Summary: Microsoft では、genomics コミュニティが直面する課題を認識しており、すべての genomics コンピューティング作業を促進できるエコシステムを構築するための取り組みを進めています。 私たちは、genomics データでの調査と検出、大規模な迅速な自動化と分析を可能にするプラットフォームの構築、および臨床レベルでのパイプラインの最適化とセキュリティ保護を実現するという3つの主要な分野に取り組んできました。 ゲノム分析を実行するために HPC 環境を利用できるようにしたコア Azure サービスの1つは、Azure CycleCloud です。
+Content: >-
+  <p>世界中の研究者は、これまで以上に多くの genomics データにアクセスできます。 多くの研究者が Genomics を利用できるようになったので、膨大なペースで検出をプッシュし、利用者 &rsquo; の生活を変えることができます。 この増加は、ゲノムテストと技術的な改善の間の完璧なストームによって発生します。 数年にわたって、人事部のゲノムシーケンスのコストは何百万ドルから数百ドルになりました。</p>
+
+
+  <p>Microsoft では、genomics コミュニティが直面する課題を認識しており、 <a href="https://www.microsoft.com/en-us/genomics/" target="_blank">すべての genomics コンピューティング作業</a>を促進できるエコシステム (オープンソースと Microsoft の製品およびサービスによって支えられています) を構築するために努力しています。 私たちは、genomics データでの調査と検出、大規模な迅速な自動化と分析を可能にするプラットフォームの構築、および臨床レベルでのパイプラインの最適化とセキュリティ保護を実現する3つ &nbsp; の主要な分野に取り組みまし &rsquo; た。 ゲノム分析を実行するために HPC 環境を利用できるようにしたコア Azure サービスの1つは、 <a href="https://azure.microsoft.com/en-us/features/azure-cyclecloud/" target="_blank">Azure CycleCloud</a>です。</p>
+
+
+  <h2>大規模なゲノム分析には、ハイパースケールコンピューティングが必要</h2>
+
+
+  <p>1つの個別 &rsquo; のゲノムをシーケンス処理するか、小規模なコーホートの場合でも、膨大な量のデータが生成され、分析のために大量の計算能力が必要になります。 このデータを効果的に分析、共有、および配布するために必要なコンピューティング能力は、従来、研究組織にオンプレミスで提供されていたことによって制限されていました。 多くの研究者にとって、ハイパフォーマンス &nbsp; コンピューティング (HPC) クラスターの可用性の通知により、研究の可能性、脅威の高い上位のインフラストラクチャへの投資、長期的な保守コストが hamstrung されています。 さらに、人口の正常性を正確に把握するには、今日の研究調査では、ゲノムデータを安全に保管、共有、転送する必要があります。これは、オンプレミスの中 &mdash; でも最も洗練されたコンピューティング要求を作成することを意味します。 そのため、十分なコンピューティングテクノロジが不足しているため、研究コミュニティをゲノムして、結果を簡単に共同作業および共有できるようになりました。&nbsp;</p>
+
+
+  <p>クラウドコンピューティングと、医療業界の幅広いデジタル変革は、最新のゲノム頼っの強力な機能を備えています。解き放つは、研究組織や医療機関がゲノムサイエンスを進めるために必要なコンピューティング需要を満たすために、実質的に無制限 &mdash; で幅広く、かつ手頃な価格で利用でき &mdash; ます。</p>
+
+
+  <h2>Azure での HPC とゲノム分析のための Azure CycleCloud</h2>
+
+
+  <p>Azure CycleCloud は、Azure 上の HPC 環境を調整および管理するためのエンタープライズ対応のツールです。 Azure CycleCloud を使用すると、ユーザーは HPC システムのインフラストラクチャをプロビジョニングし、使い慣れた HPC スケジューラをデプロイして、インフラストラクチャを自動的にスケーリングして、ジョブを任意の規模で効率的に実行できます。 Azure CycleCloud を使用すると、ユーザーはさまざまな種類のファイルシステムを作成し、それらをコンピューティングクラスターノードにマウントして HPC ワークロードをサポートできます。 クラスターを動的にスケーリングすることで、ビジネスは、Azure CycleCloud &rsquo; s の自動化された構成によって、必要なリソースを適切なタイミングで適切な価格で取得できます。これにより、ビジネスユーザーにとって価値の高いサービスを提供することに最終的に注力することができます。</p>
+
+
+  <p>ワークフローマネージャー ( <a href="https://github.com/microsoft/CromwellOnAzure" target="_blank">Cromwell</a>、 <a href="https://usegalaxy.org/" target="_blank">Galaxy</a>、 <a href="https://www.nextflow.io/" target="_blank">nextflow</a>、 <a href="https://snakemake.readthedocs.io/en/stable/index.html" target="_blank">Snakemake</a>など) を使用して、効率と拡張性を高めることでゲノム分析を高速化します。 たとえば、次世代のシーケンス処理の一般的なコンピューターでは、実行ごとに12から192のサンプルをシーケンス処理し、出力ファイルを作成します (バイナリベースの呼び出し [BCL] は、NSG によって生成される生データです)。 この出力ファイルは複数の FastQ ファイルに変換されます (FastQ ファイルは、nucleotide シーケンスとそれに対応する品質スコアの両方を格納するためのテキストベースの形式です)。 各 FastQ は、さらに BAM 形式 (シーケンスデータを格納するためのバイナリ形式) に変換してから、gene sequence バリエーションを格納するために生命情報工学で使用されるテキストファイルの形式を指定する、バリアント呼び出し形式 (.VCF) である必要があります。 次に、bioinformatician または臨床科学者がこれらのファイルを選択して、さらに分析します。 BCL から FASTQ ファイルへの変換手順のシーケンスは、汎用的なハードウェアで数時間から数日かかる場合があります。 このタイムラインを大幅に削減する方法の1つは、Azure CycleCloud または Azure Batch を使用して、並列で実行できる一連のジョブとしてこれらの手順を構成することです。</p>
+
+
+  <h2>Azure CycleCloud を使用してセカンダリ分析を最適化することで、germline テストを高速化する</h2>
+
+
+  <p>日本の<a href="https://belfasttrust.hscni.net/" target="_blank">医療およびソーシャルケア</a>による信頼は、英国で最も大きな統合された正常性とソーシャルケアの信頼です。 医療機関は、34万の市民に対して、統合された正常性サービスとソーシャルケアサービスを迅速に提供し、多くの地域専門家サービスを北アイルランドに提供します。 また、北アイルランドの教育およびトレーニング用の主要なネットワークも、ベル高速信頼によって構成されています。</p>
+
+
+  <p>分子 Diagnostics Service 北部アイルランド (RMDS) は、北アイルランドでの患者の成果を向上させることを目的とした、次世代シーケンス (NSG) パネルと exomes の包括的なポートフォリオを通じて、germline と somatic ですの分子テストを提供するサービスを開発し、提供することにより、迅速な信頼を得ました。</p>
+
+
+  <p>この戦略イニシアチブの主な目的は、 <a href="https://www.acgs.uk.com/quality/best-practice-guidelines/" target="_blank">臨床ゲノムサイエンスのアソシエーション</a> によるベストプラクティスガイドラインに従ってゲノム分析のターンアラウンド時間を短縮し、英国 labs を使用して平等分子サービスを提供することによって、高品質の患者ケアを向上させることです。</p>
+
+
+  <p>最初に、生成されるゲノムデータの複雑さとサイズは、サービスの配信に対する主要なコンピューティングバリアと見なされていました。 このコンピューティングの需要を満たすために、Snakemake workflow manager を Azure 上で使用して、認定された germline 計算パイプラインを開発しました。 最初のパイプラインでは、対象となるパネルのみが分析されています。これは、臨床 exomes、全体の使用量、またはその全体に比べてサイズが小さくなります。 生データをゲノム分析に必要な形式に変換するために、ジョブは1つの仮想マシンで順次実行するように構成されていました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a6360b10-6935-4fef-8498-8815fc7be57e.jpg"><img alt="Illustration of sequence of BCL to VCF data conversion steps for genomic analysis. " height="184" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b55fc6e3-1575-4d29-ae86-503e9216ffa8.jpg" style="display: inline;" title="Picture4" width="1024"></a></p>
+
+
+  <p>この問題は、より大きなサイズによって分析がより複雑で時間がかかるような、臨床 exomes、全体または全体を分析するときに発生しました。 たとえば、12サンプルの対象パネル分析は、2時間以内に完了できます。 ただし、12サンプルの臨床 exome の完全な分析を実行するには、48時間かかりました。 この問題を解決するには、Microsoft コンサルティングサービスと協力して、これらの大規模なデータセットを分析するための複雑さと時間を削減する方法を特定します。 Azure CycleCloud は、パイプラインの実行を並列化するために利用されました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85ca03d5-b8ca-4ee0-a819-76573bf611e4.jpg"><img alt="Illustration of running parallel pipeline executions for sample analysis " height="299" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca17f52f-3388-4ca1-b693-ad585cc4e72e.jpg" style="display: inline;" title="Picture5" width="511"></a></p>
+
+
+  <p>生成されたソリューションは複数の仮想マシンで並列に実行され、驚くべきの結果と共にサンプルパイプラインジョブを分析します。 12サンプルのターゲットパネル分析が20分で完了し、12サンプルの臨床 exome 分析が4時間と30分で完了し、分析期間の 6 &nbsp; ~ 10 倍向上しました。 ソリューションで使用されている仮想マシンも、以前に使用したものと比べてサイズが小さくなりました。これにより、パイプライン全体のコストを約 3 &nbsp; 回削減できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24e5290f-a8bd-4cd0-bf0e-527ee4f7a4c3.jpg"><img alt="Reference architecture illustrating the solution used by Belfast Trust, using imported samples from Next Generation Sequencer and flowing through Azure CycleCloud, the Snakemake Engine, and the role of parallel VM executions" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8971c054-dd74-449f-b784-58c15147f3b8.jpg" style="display: inline;" title="Picture6" width="1024"></a></p>
+
+
+  <p style="margin-left: 40px;"><em> &ldquo; AZURE で HPC を利用することで、germline ですのテストのためのコンピューティングバリアを克服することによって、サービスを拡張できました。Microsoft コンサルティングサービスとの共同作業では、ゲノムデータのデータ転送、パイプライン分析、第3の分析、ストレージソリューションを実現するエンドツーエンドの Azure クラウドベースのソリューションを開発しました。このコラボレーションを利用し、Azure CycleCloud for analysis を活用することで、分析時間を 6 &nbsp; ~ 10 回節約し、分析コストを約 3 &nbsp; 回削減できました。これにより、容量を拡張して、より多くの分析とテストを行うことができます。 &rdquo; &mdash; </em>Shirley Heggarty 博士、ディレクター、地域遺伝学研究所、ベルファースト市病院</p>
+
+
+  <p>この最適化されたソリューションを使用すると、より迅速な信頼によってリソースを管理し、そのシーケンス処理の実行効率を上げることができます。</p>
+
+
+  <p>Genomics research は、精度 &mdash; を調整し、患者に対してパーソナライズされた治療を各種し、人間の健康をさらに深く理解できるようにするために、ますます集中的な役割を果たしています。 オンデマンド、地理的に利用可能な、低価格の HPC サービスの向上により、研究組織やテクノロジパートナーは、その目的 &mdash; に合わせて引き続きビルドし、genomics のフィールドで新しい頼っを追跡できるようになります。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p><a href="https://www.microsoft.com/en-us/genomics/" target="_blank">Microsoft Genomics</a>ソリューションの詳細については、次を参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://www.microsoft.com/en-us/genomics/" target="_blank">Microsoft Genomics</a>: Azure でのゲノムデータ分析の強化</li>
+      <li><a href="https://azure.microsoft.com/en-us/features/azure-cyclecloud/" target="_blank">Azure CycleCloud</a>: HPC クラスターとワークロード管理</li>
+      <li>Azure CycleCloud を活用して Snakemake ワークフローを実装するための2部構成の記事: <ul>
+          <li><a href="https://www.linkedin.com/pulse/snakemake-pipeline-azure-cycle-cloud-part-1-manoj-kumar/" target="_blank">Azure CycleCloud の Snakemake パイプライン (パート 1)</a></li>
+          <li><a href="https://www.linkedin.com/pulse/snakemake-pipeline-azure-cycle-cloud-part-2-manoj-kumar/">Azure CycleCloud の Snakemake パイプライン (パート 2)</a></li>
+      </ul>
+      </li>
+      <li><a href="https://azure.microsoft.com/en-us/industries/healthcare/" target="_blank">正常性のための azure</a>: 他の正常性組織が azure を使用している方法について説明します</li>
+  </ul>

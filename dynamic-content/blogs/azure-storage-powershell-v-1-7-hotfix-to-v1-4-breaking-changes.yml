@@ -1,0 +1,199 @@
+### YamlMime:Yaml
+ms.openlocfilehash: baa3fadd9a452be2419956aefa84152556e519d3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903672"
+Slug: azure-storage-powershell-v-1-7-hotfix-to-v1-4-breaking-changes
+Title: Azure Storage PowerShell v.1.7 – v1.4 の変更に対する修正プログラム
+Summary: v1.4 では、Azure PowerShell変更が導入されました。 これらの重要な変更は、Azure PowerShellバージョン 1.4 から 1.6 およびバージョン 2.0 以降に存在します。 これらの重要な変更に対処するための修正プログラムがリリースされました。
+Content: >-
+  <div>
+
+  <p>v1.4 では、Azure PowerShell変更が導入されました。 これらの重要な変更は、Azure PowerShellバージョン 1.4 から 1.6 およびバージョン 2.0 以降に存在します。 次のAzure Storageコマンドレットが影響を受けしました。</p>
+
+
+  <ul>
+      <li><strong>Get-AzureRmStorageAccountKey: </strong>キーへのアクセス</li>
+      <li><strong>New-AzureRmStorageAccountKey: </strong>キーへのアクセス</li>
+      <li><strong>New-AzureRmStorageAccount: </strong>アカウントの種類とエンドポイントの指定</li>
+      <li><strong>Get-AzureRmStorageAccount: </strong>アカウントの種類とエンドポイントの指定</li>
+      <li><strong>Set-AzureRmStorageAccount: </strong>アカウントの種類とエンドポイントの指定</li>
+  </ul>
+
+
+  <p>コマンドレットへの影響を最小限に抑えるために、New-AzureRmStorageAccount、Get-AzureRmStorageAccount、Set-AzureRmStorageAccount のエンドポイント プロパティを指定する場合を除き、すべての壊れる変更に対応する修正プログラム <a data-mce-href="https://github.com/Azure/azure-powershell/releases/tag/v1.7.0-August2016" href="https://github.com/Azure/azure-powershell/releases/tag/v1.7.0-August2016"><u>Azure PowerShell v1.7</u></a> - をリリースします。 つまり、修正プログラムが適用されるお客様はコードの変更は必要ありません。 この修正プログラムは、バージョン 2.0 Azure PowerShellには存在しない予定です。 v2.0 に更新する場合は、上記のコマンドレットをAzure PowerShellしてください。</p>
+
+
+  <p>以下では、&rsquo;上記のコマンドレットがさまざまなバージョンのコマンドレットでどのように機能し、必要なアクションAzure PowerShell例を見つけることができます。</p>
+
+
+  <h3>キーとキーGet-AzureRmStorageAccountKeyアクセスNew-AzureRmStorageAccountKey</h3>
+
+
+  <p><strong>V1.3.2 以前:</strong></p>
+
+
+  <p><code>$key = (Get-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname).Key1</code></p>
+
+
+  <p><code>$key = (Get-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname).Key2</code></p>
+
+
+  <p><code>$key = (New-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname -KeyName $keyname).StorageAccountKeys.Key1</code></p>
+
+
+  <p><code>$key = (New-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname -KeyName $keyname).StorageAccountKeys.Key2</code></p>
+
+
+  <p><strong>V1.4-V1.6 および V2.0 以降:</strong></p>
+
+
+  <p>コマンドレットは、各キーのプロパティを持つオブジェクトではなく、キーの一覧を返します。</p>
+
+
+  <p><code># Replaces Key1</code><br>
+
+  <code>$key = (Get-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname)[0].Value</code></p>
+
+
+  <p><code># Replaces Key2</code><br>
+
+  <code>$key = (Get-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname)[1].Value</code></p>
+
+
+  <p><code># Replaces Key1</code><br>
+
+  <code>$key = (New-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname -KeyName $keyname).Keys[0].Value</code></p>
+
+
+  <p><code># Replaces Key2</code><br>
+
+  <code>$key = (New-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname -KeyName $keyname).Keys[1].Value</code></p>
+
+
+  <p><strong>V1.7 (修正プログラム):</strong></p>
+
+
+  <p>どちらのメソッドも機能します。</p>
+
+
+  <p><code>$key = (Get-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname).Key1</code></p>
+
+
+  <p><code>$key = (Get-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname)[0].Value</code></p>
+
+
+  <p><code>$key = (New-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname -KeyName $keyname).StorageAccountKeys.Key1</code></p>
+
+
+  <p><code>$key = (New-AzureRmStorageAccountKey -ResourceGroupName $groupname -Name $accountname -KeyName $keyname).Keys[0].Value</code></p>
+
+
+  <h3>New-AzureRmStorageAccount、Get-AzureRmStorageAccount、および Set-AzureRmStorageAccount</h3>
+
+
+  <p><strong>V1.3.2 以前:</strong></p>
+
+
+  <p><code>$AccountType = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).AccountType</code></p>
+
+
+  <p><code>$AccountType = (New-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).AccountType</code></p>
+
+
+  <p><code>$AccountType = (Set-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).AccountType</code></p>
+
+
+  <p><strong>V1.4-V1.6 および V2.0 以降:</strong></p>
+
+
+  <p>このコマンドレットの出力の AccountType フィールドの名前は、Sku.Name。</p>
+
+
+  <p><code>$AccountType = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).Sku.Name</code></p>
+
+
+  <p><code>$AccountType = (New-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).Sku.Name</code></p>
+
+
+  <p><code>$AccountType = (Set-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).Sku.Name</code></p>
+
+
+  <p><strong>V1.7 (修正プログラム):</strong></p>
+
+
+  <p>どちらのメソッドも機能します。</p>
+
+
+  <p><code>$AccountType = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).AccountType</code></p>
+
+
+  <p><code>$AccountType = (New-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).AccountType</code></p>
+
+
+  <p><code>$AccountType = (Set-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).AccountType</code></p>
+
+
+  <p><code>$AccountType = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).Sku.Name</code></p>
+
+
+  <p><code>$AccountType = (New-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).Sku.Name</code></p>
+
+
+  <p><code>$AccountType = (Set-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).Sku.Name</code></p>
+
+
+  <h3>New-AzureRmStorageAccount、Get-AzureRmStorageAccount、および Set-AzureRmStorageAccount でのエンドポイントの指定</h3>
+
+
+  <p><strong>V1.3.2 以前:</strong></p>
+
+
+  <p><code>$blobEndpoint = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob.AbsolutePath</code></p>
+
+
+  <p><code>$blobEndpoint = (New-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob.AbsolutePath</code></p>
+
+
+  <p><code>$blobEndpoint = (Set-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob.AbsolutePath</code></p>
+
+
+  <p><strong>V1.4-V1.6 および V2.0 以降:</strong></p>
+
+
+  <p>PrimaryEndpoints/セカンダリ エンドポイントの BLOB/テーブル/キュー/ファイルの出力の種類が Uri から String に変更されました。</p>
+
+
+  <p><code>$blobEndpoint = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob</code></p>
+
+
+  <p><code>$blobEndpoint = (New-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob</code></p>
+
+
+  <p><code>$blobEndpoint = (Set-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob</code></p>
+
+
+  <p><strong>メモ：</strong> これらのコマンドレットの ToString() メソッドは引き続き機能します。 次に例を示します。</p>
+
+
+  <p><code>$blobEndpoint = (Get-AzureRmStorageAccount -ResourceGroupName $groupname -Name $accountname).PrimaryEndpoints.Blob.ToString()</code></p>
+
+
+  <p><strong>V1.7 (修正プログラム):</strong></p>
+
+
+  <p>この壊れる変更に対する修正プログラムは提供されません。 戻り値エンドポイントは&rsquo;引き続き文字列である必要があります。Uri に戻す場合は、追加のブレークが発生します。</p>
+
+
+  <h3>次の手順</h3>
+
+
+  <ul>
+      <li><a href="https://github.com/Azure/azure-powershell/releases/tag/v1.7.0-August2016">v1.7 Azure PowerShell (修正プログラム) をダウンロードします</a>。</li>
+      <li>すべてのリリース<a href="https://github.com/Azure/azure-powershell/releases">Azure PowerShell表示します</a>。</li>
+      <li>Azure PowerShell <a href="https://github.com/Azure/azure-powershell/blob/dev/documentation/release-notes/migration-guide.2.0.0.md">2.0 の移行ガイドを参照してください</a>。</li>
+  </ul>
+
+  </div>

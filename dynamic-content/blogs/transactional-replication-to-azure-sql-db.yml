@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a0894f830279f73a27bb0d5753a01ce944c6415d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896999"
+Slug: transactional-replication-to-azure-sql-db
+Title: Azure SQL DB へのトランザクション レプリケーションがパブリック プレビュー中
+Summary: オンプレミスから Azure SQL Server DB にデータをレプリケートするSQLします。
+Content: >-
+  <p>Pass Summit 2015 でのプレゼンテーション中に、Azure SQL DB をトランザクション レプリケーションのサブスクライバーとして構成SQL Server発表しました。 トランザクション レプリケーションのこの新しい容量は、次のバージョンおよび更新プログラムからSQL Server。</p>
+
+
+  <ul>
+   <li>Community Technology Preview (CTP) 3.0 SQL Server 2016</li>
+   <li>SQL Server 2014 Service Pack 1 Cumulative Update 3</li>
+   <li>SQL Server 2014 RTM Cumulative Update 10</li>
+   <li>SQL Server 2012 Service Pack 2 累積的な更新プログラム 8</li>
+  </ul>
+
+
+  <p>これにより、次の 2 つの主なシナリオが可能になります。</p>
+
+
+  <ol>
+   <li>ダウンタイムを発生なく Azure SQL DB にデータを移行します。</li>
+   <li>オンプレミスSQL Server VM を Azure SQL DB にブリッジします。</li>
+  </ol>
+
+
+  <p>サブスクライバーとして Azure SQL DB を有効にするには、トランザクション レプリケーションの既存のロジックを拡張します。 &rsquo;このエクスペリエンスの観点から見ると、サブスクライバーを作成するときに気付く唯一の違いは、サーバーまたはインスタンスの名前を指定するのではなく、Azure SQL DB に URL を指定する点です。 シームレスなエクスペリエンスを提供するように機能を設計し、トランザクション レプリケーションについて既に知っているため、この容量を使用する学習曲線は 0 です。 Azure SQL DB へのデータのレプリケートを開始するのは非常に簡単でSQLです。</p>
+
+
+  <p>それはどのように機能しますか? Azure SQL &quot;&quot; DB には、言うごとにレプリケーション サービスはありません。 データの実際のレプリケーションは、ディストリビューション エージェントを介して実行されます。</p>
+
+
+  <p>次の図は、アーキテクチャの大きなレベルを示しています。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="SeedCloudTR diagram" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/seedcloudtr.png" style="float: none; margin-left: auto; display: block; margin-right: auto" width="781"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>詳細については、次のリンクを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://msdn.microsoft.com/library/mt589530.aspx" target="_blank">トランザクション レプリケーションの設定</a></li>
+   <li><a href="https://channel9.msdn.com/Shows/Data-Exposed/Azure-SQL-DB-Transactional-Replication" target="_blank">公開されたデータのエピソードで説明されている Azure DB トランザクション レプリケーション</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-cloud-migrate/" target="_blank">Azure SQL Database への SQL Server データベースの移行</a></li>
+  </ul>
+
+
+  <p>このプレビューを使用する際は、Microsoft に問い合わせに<a href="https://connect.microsoft.com/SQLServer" target="_blank">関するフィードバックConnect送信してください</a>。 フィードバックを送信する際は、件名フィールドに <strong>次のキー ワード SeedingTheCloud:</strong> を追加してください。</p>
+
+
+  <p>お楽しみに感謝します。</p>

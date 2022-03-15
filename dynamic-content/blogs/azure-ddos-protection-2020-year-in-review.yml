@@ -1,0 +1,173 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d7170696cc9552b363cd9b5a84c3051d89d483f4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903714"
+Slug: azure-ddos-protection-2020-year-in-review
+Title: Azure DDoS Protection —2020年のレビュー中
+Summary: 2020は、他の方法とは異なり、物理的とデジタルの両方の世界に大きな中断をもたらし、これらの変更は cyberthreat ランドスケープでも明らかになっています。 2020での分散型サービス拒否 (DDoS) 攻撃の流行が50% を超え、DDoS トラフィックの複雑さが増し、大幅に増加しています。
+Content: >-
+  <p><em>このブログ投稿は、Anupam Vij、Principal PM Manager &amp; syed Pasha、プリンシパルネットワークエンジニア、Azure ネットワークによって共同作成されました。</em></p>
+
+
+  <p>2020は、他のものとは異なり年でした。 これは、物理的な世界とデジタルの世界の両方に大きな中断をもたらし、cyberthreat ランドスケープでもこれらの変更が明らかになっています。 2020での分散型サービス拒否 (DDoS) 攻撃の流行が、より複雑になり、DDoS トラフィックの量が大幅に増加し、50% を超えています。</p>
+
+
+  <p>COVID-19 pandemic を使用すると、世界中の数十億のユーザーが、自宅の環境、作業、学習、さらには socializing に限定され、インターネットトラフィックが分割されています。 DDoS 攻撃は、最大のセキュリティ上の懸念事項の1つです。インターネットトラフィックが急激に増加すると、攻撃者は、サービスを停止するためのトラフィックを大量に生成する必要がないため &rsquo; 、ddos 攻撃を簡単に開始できるようになります。 倒すは、大量のトラフィックストリームを悪用して DDoS 攻撃を仕掛けることができるため、正当なトラフィックと悪意のあるトラフィックを区別することが難しくなります。</p>
+
+
+  <p>Microsoft では、 <a href="https://azure.microsoft.com/en-us/services/ddos-protection/" target="_blank">Azure DDoS Protection</a> チームは、Microsoft と Azure インフラストラクチャ全体のすべてのプロパティを保護します。 過去1年間、ますます発展し続けるサイバーランドスケープとかつてない課題が発生した場合、DDoS 攻撃から保護し続けています。 このレビューでは、2020年にわたって観察され、軽減される DDoS 攻撃に対して傾向と洞察を共有します。</p>
+
+
+  <h2>2020 DDoS 攻撃の傾向</h2>
+
+
+  <h3>DDoS 攻撃が急増しています。</h3>
+
+
+  <p>1年間、Azure リソース &nbsp; に対する500のマルチベクトル攻撃の平均が1日にわたって軽減されています。 全体として、グローバルインフラストラクチャに対する20万のマルチベクトル DDoS 攻撃をさらに軽減します。</p>
+
+
+  <p>ピーク時の攻撃期間は、2020年3月から4月に年4月 ~ 4 月に実行されました。これは、世界中の国において、lockdowns と自宅での継続的な対策を実装したものです。 1日あたり 800 ~ 1000 のマルチベクター攻撃を回避しています。これは、過去1年間の同時に、事前 COVID レベルよりも高い50% を超えています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbe6b21a-1b4d-4508-b145-0e39de68b8e8.png"><img alt="Number of DDoS attacks during COVID-19 outbreak" border="0" height="277" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5cc018a1-7136-4268-80b6-11bc9f490568.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="554"></a></p>
+
+
+  <p><em>COVID-19 の大量感染発生時の DDoS 攻撃の数</em></p>
+
+
+  <h3>大量の攻撃の短いバースト</h3>
+
+
+  <p>2020では、より短い期間での大量の攻撃に対する傾向を観察しています。 マルチベクター攻撃も引き続き普及しています。</p>
+
+
+  <p><strong>攻撃の帯域幅</strong></p>
+
+
+  <p>1つのパブリック IP に記録された最高の攻撃帯域幅ボリュームは 1 tbps でした。 別のインスタンスでは、複数の顧客に対する 1.6 tbps のリフレクション攻撃を軽減しています。 この2つの攻撃は、3月から2020年4月の攻撃期間中に発生しました。</p>
+
+
+  <p><strong>攻撃期間</strong></p>
+
+
+  <p>同時に、攻撃の大部分は短いバースト攻撃でした。 DDoS 攻撃の87% が1時間以内に行われ、そのうち10分以内に53% の攻撃が発生しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6eb5d5bf-05fe-4e4f-b48f-911f60bd62ef.png"><img alt="Attack Duration" border="0" height="371" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cac9247a-d087-4c93-9c12-42f12a1402f0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <h3>ユーザーデータグラムプロトコル (UDP) の洪水とリフレクション攻撃の増加</h3>
+
+
+  <p>攻撃ベクトルの上位には、ユーザーデータグラムプロトコル (UDP) フラッド攻撃の後に UDP リフレクション攻撃や SYN フラッド攻撃が行われていました。 上位のリフレクション攻撃は、DNS、NTP、CLDAP、WSD、SSDP、memcached、および OpenVPN でした。 これは、IoT に接続されたデバイスの増加に起因します。これは、ボットネットを構築し、リフレクション攻撃を起動するために悪用される、脆弱なオペレーティングシステムを備えています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/510aa4eb-7945-462b-9737-c25cb5bf2bc1.png"><img alt="Attack Vectors" border="0" height="406" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa813135-7e9a-4141-b737-5f2652c96876.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <h3>より広範な攻撃ソースと業界を対象とする</h3>
+
+
+  <p>DDoS 攻撃を生成する主な国は、米国とロシア、その後に英国があります。 不明なソースとは、自律システム番号 (ASNs) が、変換できなかった、ガベージ、スプーフィング、またはプライベート ASNs のいずれかであることを示します。</p>
+
+
+  <p>ほとんどの攻撃はヨーロッパ、アジア、および米国では、特に DDoS 攻撃に対して脆弱であることを示していますが、より幅広い業界の範囲が脆弱であることもわかりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/059013e0-35c0-47e1-89be-c765101733f4.png"><img alt="Source countries" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3d58d3df-ca3a-43a1-b5a9-2580ba529f99.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="532"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/97bc23fd-8e78-4a93-85bc-f329d273b28c.png"><img alt="Destination regions" border="0" height="391" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05c048fb-eabd-490a-b265-86de1cc69374.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <h3>新しい攻撃が観察された</h3>
+
+
+  <p>2020では、3つのゼロデイ攻撃ベクトルに対して保護されるようになります。</p>
+
+
+  <p><strong>Electrum DDoS マルウェア</strong></p>
+
+
+  <p>ヨーロッパの Azure virtual machines (Vm) は、TCP ポート50002で実行され、DDoS 攻撃の対象となったこのマルウェアによって悪用されたことが検出されました。<br>
+
+  <a href="https://blog.malwarebytes.com/detections/trojan-electrumdosminer/" target="_blank">ElectrumDoSMiner: Malwarebytes Labs Malwarebytes Labs 検出</a></p>
+
+
+  <p><strong>DVR 悪用のリフレクション攻撃</strong></p>
+
+
+  <p>この悪用は、特に UDP ポート37810で Azure ゲームのお客様を対象としています。 この攻撃の増幅率は30倍でした。これは、受信トラフィックの1バイトごとに30バイトが応答として送信されたことを意味します。 <a href="https://github.com/Phenomite/AMP-Research/tree/master/Port%2037810%20-%20Dahua%20DVR%20IP%20Camera%20(refined%20payload)" target="_blank">Dahua DVR/ポート 37810-マスター &middot; phenomite/amp-research &middot; GitHub での DVR IP カメラ (洗練ペイロード)</a></p>
+
+
+  <p><strong>MacOS の脆弱性のリフレクション攻撃</strong></p>
+
+
+  <p><a href="https://www.zdnet.com/article/macos-systems-abused-in-ddos-attacks/" target="_blank">Mac OS 脆弱性により、UDP SRC ポート-3283 での DDoS 攻撃につながり</a>ます。</p>
+
+
+  <h3>DDoS 攻撃に対するエントリの障壁が低い</h3>
+
+
+  <p>DDoS 攻撃に対する障壁が非常に低くなり、ddos サービスの DDoS が簡単に利用できるようになったため、対象となる DDoS 攻撃をより簡単かつ安価に生成できます。 マイクロソフトの研究チームでは、2020で、1時間の DDoS 攻撃の平均料金は $48 で、1日の攻撃は $134 であり、1か月の攻撃は $1000 でした。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3964fa60-15a3-4ac3-a2b3-c89d3f0ea323.png"><img alt="Trends and approximate average price for cybercriminal DDoS attack services" border="0" height="252" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9e574f1a-8c00-4344-91b6-6b4ea8f8de1f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p><em>Cybercriminal DDoS 攻撃サービスの傾向と概算平均価格</em></p>
+
+
+  <p>残念ながら、倒すは回避訴訟に簡単になります。 世界経済フォーラム&#39;s <a href="https://www.weforum.org/reports/the-global-risks-report-2020" target="_blank">グローバルリスクレポート 2020</a> では、サイバー犯罪アクターをキャッチして摘発する可能性がほぼ nil (0.05%) であることが明らかになっています。</p>
+
+
+  <h3>DDoS protection は、壊滅的に影響をもたらすことを意味します。</h3>
+
+
+  <p>DDoS 攻撃は、膨大なコストの損失を招く可能性があります。 重要な企業は、サービスのダウンタイムによって運用と運用の中断を即座に抑え、大幅な復旧コストを吸収します。 Gartner の研究によれば、小規模から中規模のビジネスにおけるダウンタイムの平均コストは <a href="https://blogs.gartner.com/andrew-lerner/2014/07/16/the-cost-of-downtime/" target="_blank">1 分あたり $5600</a>です。 これにより、特に知的財産権が盗まれた場合に、収益とビジネスの可能性が大幅に低下します。</p>
+
+
+  <p>評判の損失に起因する無形コストは、特に壊滅的な影響を受けます。このような攻撃によって、コンプライアンス非対応を露呈し、機密顧客データを保護することができないため、顧客が競合他社に変化することがあります。</p>
+
+
+  <h2>2021の&#39;は次のようになります。</h2>
+
+
+  <p>今年の初めには、サイバー攻撃の脅威が増加し続けています。 DDoS 攻撃は、より大きなネットワーク侵入をカバーするためにスモークスクリーンとしてよく使用されることがわかっています。これにより、企業とユーザーの両方で非常に大きな混乱が発生する可能性があります。 また、新しい brewing 国家セキュリティの脅威もあります。医療組織は、より厳しい COVID の需要に対応するために戦うと同時に、サイバー攻撃の主要なターゲットになりつつあります。</p>
+
+
+  <p>COVID-19 pandemic を維持すると、世界はデジタルサービスに大きく依存し、サービスの可用性とパフォーマンスがかつてないほど重要になります。 サイバーリスクの増大に伴い、ビジネスとユーザーの両方が、堅牢な <a href="https://docs.microsoft.com/en-us/azure/ddos-protection/ddos-response-strategy" target="_blank">DDoS 対応戦略</a>を開発し、そのリソースを積極的に保護することが、ますます重要になっています。</p>
+
+
+  <h3>Azure DDoS Protection Standard</h3>
+
+
+  <p>Azure DDoS Protection Standard には、DDoS 攻撃から保護するための強化された DDoS 軽減機能があります。 仮想ネットワーク内のすべてのパブリック IP アドレスを保護するように自動的に調整されます。 保護は、新規または既存の仮想ネットワークでは <a href="https://docs.microsoft.com/en-us/azure/ddos-protection/manage-ddos-protection" target="_blank">簡単に有効に</a> でき、アプリケーションやリソースの変更を必要としません。 Azure でパブリック IP アドレスをホストし、トラフィックをオンプレミスの環境にリダイレクトすることによって、Azure DDoS Protection Standard のスケール、容量、効率性を活用して、オンプレミスのリソースを保護することもできます。</p>
+
+
+  <p>Azure DDoS Protection Standard には、次のような主な利点があります。</p>
+
+
+  <ul>
+      <li><strong>Microsoft グローバルネットワークによってサポートされます。</strong> すべての Azure リージョンに大量の DDoS 軽減能力をもたらし、サービスの可用性に影響を与える前に、Azure ネットワークエッジでトラフィックをスクラブします。 攻撃ボリュームが重要であると判断した場合は、Azure のグローバルなスケールを利用して、攻撃を発信元から保護します。</li>
+      <li><strong>コストの保護:</strong> DDoS 攻撃は、多くの場合、Azure で実行されているサービスの自動スケールアウトをトリガーします。 これにより、ネットワーク帯域幅が大幅に増加したり、仮想マシンの数のスケールアップやその両方が発生したりする可能性があります。 攻撃が発生した場合、リソースのスケールアウトに対して Azure クレジットを受け取ることができるので、アプリケーションの自動スケールの設定や送信データ転送の超過コストの支払いについて心配する必要はありません。</li>
+      <li><strong>DDoS 迅速な応答:</strong> アクティブな攻撃または攻撃が発生したときに、DDoS Protection の迅速な対応チームに連絡して、攻撃調査や特別なサポートを受けることができます。 DDoS Protection 迅速な応答チームは、 <a href="https://azure.microsoft.com/en-us/support/plans/response/" target="_blank">Azure Rapid Response サポートモデル</a>に従っています。</li>
+      <li><strong>豊富な攻撃分析:</strong> DDoS 攻撃分析を使用すると、攻撃中に5分ごとに詳細なレポートにアクセスでき、攻撃が終了した後の完全な概要が得られます。 また、DDoS 軽減フローログをオンラインまたはオフラインのセキュリティ情報およびイベント管理 (SIEM) システムにストリーミングして、攻撃中のほぼリアルタイムの監視を行うこともできます。 詳細につい <a href="https://docs.microsoft.com/en-us/azure/ddos-protection/diagnostic-logging?tabs=DDoSProtectionNotifications" target="_blank">ては、Azure DDoS Protection 標準レポートとフローログ</a> のドキュメントを参照してください。 また、Azure Sentinel にログを接続したり、ブック内のデータを表示および分析したり、カスタムアラートを作成して調査プロセスに組み込んだりできます。 azure sentinel に接続するには、「 <a href="https://docs.microsoft.com/en-us/azure/sentinel/connect-azure-ddos-protection" target="_blank">azure sentinel ドキュメントへの Connect</a> 」を参照してください。</li>
+  </ul>
+
+
+  <h3>Azure DDoS Protection Standard の詳細情報</h3>
+
+
+  <ul>
+      <li>Azure DDoS Protection 標準の <a href="https://azure.microsoft.com/en-us/services/ddos-protection/" target="_blank">製品ページ</a>。</li>
+      <li>Azure DDoS Protection 標準の <a href="https://aka.ms/ddosprotectiondocs" target="_blank">ドキュメント</a>を参照してください。</li>
+      <li>Azure DDoS Protection 標準の <a href="https://docs.microsoft.com/en-us/azure/ddos-protection/ddos-protection-reference-architectures" target="_blank">参照アーキテクチャ</a>。</li>
+      <li>DDoS Protection の <a href="https://docs.microsoft.com/en-us/azure/ddos-protection/fundamental-best-practices" target="_blank">ベストプラクティス</a>。</li>
+      <li>Azure DDoS <a href="https://docs.microsoft.com/en-us/azure/ddos-protection/ddos-rapid-response" target="_blank">迅速な応答</a>。</li>
+      <li>DDoS Protection Standard の <a href="https://azure.microsoft.com/en-us/pricing/details/ddos-protection/" target="_blank">価格と SLA</a>。</li>
+  </ul>

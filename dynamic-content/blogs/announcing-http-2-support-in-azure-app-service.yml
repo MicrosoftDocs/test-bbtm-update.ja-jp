@@ -1,0 +1,137 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f387c8f97bd99e121f20f73da46f9eebc67a45d7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896925"
+Slug: announcing-http-2-support-in-azure-app-service
+Title: Azure App Service での HTTP/2 サポートの発表
+Summary: Azure App Service チームは、App Service でホストされているすべてのアプリについて、HTTP/2 プロトコルのサポートのグローバルデプロイを発表することをお勧めします。 HTTP/2 は、お客様が受け取った上位の顧客要求であり、サポートが開始されます。
+Content: >-
+  <p>Azure App Service チームは、App Service でホストされているすべてのアプリについて、HTTP/2 プロトコルのサポートのグローバルデプロイを発表することをお勧めします。 HTTP/2 は、お <a href="https://feedback.azure.com/forums/169385-web-apps/suggestions/9552936-enable-http-2-on-azure-web-apps">客様</a> が受け取った上位の顧客要求であり、サポートが開始されます。</p>
+
+
+  <h2>HTTP/2 とは</h2>
+
+
+  <p>http/2 は、TCP 接続経由での http セマンティクスの流れを修正し、Windows 10 と Windows Server 2016 に http/2 のサポートが存在することを示しています。 HTTP/2 は、約2億の HTTP/1.1 の使用後に大幅にアップグレードされ、web サーバーへの待機時間と接続負荷の影響を軽減します。</p>
+
+
+  <p>HTTP/1.1 の主な進歩は、行の複数の要求を処理するために永続的な接続を使用することでした。 HTTP/2 では、永続的な接続を使用して複数の同時要求を処理できます。 このプロセスでは、HTTP/2 で、ネットワーク上の HTTP の効率を向上させるいくつかの追加機能が導入されています。</p>
+
+
+  <h2>複数の要求に対して1つの接続</h2>
+
+
+  <p>すべての TCP 接続にはラウンドトリップを設定する必要があります。 &rsquo;暗号化を使用した場合、TLS ハンドシェイクは別の1-2 ラウンドトリップを実行します。 これは、最初の応答の最初のバイトが送信される前に発生します。 新しい接続を設定するのではなく、既存の接続を再利用することにより、多くの要求でこのオーバーヘッドを共有できます。 HTTP/2 を使用すると、新しい接続が確立されている間、または既存の接続がアイドル状態になるまで待機する要求の必要性が減少します。 1つの接続は多くの要求間で多重化されるため、要求は通常、他の要求が完了するのを待たずにすぐに送信できます。</p>
+
+
+  <h2>HPACK を使用したヘッダーの圧縮</h2>
+
+
+  <p>HTTP では、年齢のデータの圧縮がサポートされています。 ただし、ヘッダーは非圧縮テキストとして送信され、要求間で大量の冗長性があります。 (最長のヘッダーの多くは、すべての要求についてまったく同じ値で送信されます)。HTTP/2 では、HTTP ヘッダーの圧縮スキームである HPACK が導入されています。これにより、要求間の冗長性が低下します。</p>
+
+
+  <p>また、圧縮は、要求のサイズが小さいため、多重化にも役立ちます。 これにより、クライアントは、接続の最初のパケットで多くの要求を行うことができますが、TCP フロー制御ウィンドウは依然として小さくなります。</p>
+
+
+  <h2>HTTP/1.x との主な違いは何ですか?</h2>
+
+
+  <ul>
+   <li>HTTP/2 はバイナリです</li>
+   <li>順序付けされたブロックではなく、完全に多重化されます。</li>
+   <li>1つの接続を並列処理に使用できる</li>
+   <li>1つの TCP/IP 接続がある</li>
+   <li>ヘッダー圧縮を使用してオーバーヘッドを軽減する</li>
+  </ul>
+
+
+  <h2>ユーザーはどのようなアクションを実行する必要が App Service ますか。</h2>
+
+
+  <p>必要なのは単純な構成だけです。 HTTP/2 は、すべてのお客様に既定で無効になっています。 ただし、サイトに対して HTTP/2 をオプトインして適用する場合は、次の手順に従います。</p>
+
+
+  <p>Azure portal で、アプリを参照し、アプリケーションの設定を検索 &ldquo; します。ここには、[HTTP バージョン &rdquo; ] という &ldquo; 設定が表示され &rdquo; ます。 必要に応じて、1.1 または2.0 を選択します。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ff48317e-c958-4b72-a8b7-652862ab8d1e.png"><img alt="image1" border="0" height="402" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e657701e-071e-4989-b25b-3da79ea85dea.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image1." width="676"></a></p>
+
+
+  <p>次のいずれかの手順に従って、Azure Resource Explorer を参照することもできます。</p>
+
+
+  <p>1.<a href="https://portal.azure.com/">Azure portal</a>の App Service App &rsquo; s メニューで [リソースエクスプローラ &rdquo; ] を選択 &ldquo; します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/625e147e-e40b-46d7-aaa7-d8ca043b8425.png"><img alt="image2" border="0" height="303" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a64fd7a3-d21c-4f6a-9155-ef684049e541.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Image2" width="282"></a></p>
+
+
+  <p>[検索] を選択 &quot; します。&quot;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c6c6af9-d8fe-403c-a4d3-acc42246312d.png"><img alt="image3" border="0" height="123" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a045e22d-0e8e-4f7e-978b-0448b15d7687.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image3" width="558"></a></p>
+
+
+  <p>2. または、リソースエクスプローラー ( <a href="https://resources.azure.com/">https://resources.azure.com/</a> ) を直接参照してください。</p>
+
+
+  <p>Azure portal ルートを経由する利点は、要求されたアプリ &rsquo; の構成にブラウザーが自動的に移動することです。その後、config &gt; web に移動するだけで、更新に必要な値を確認できます。</p>
+
+
+  <p>リソースエクスプローラーを直接参照している場合は、次のパスを使用して、ツリー階層をサイトにドリルダウンします。</p>
+
+
+  <p>サブスクリプション &gt; リソースグループ &gt; サイト名 &gt; プロバイダー &gt; Microsoft. &gt; &gt; websites サイト名 &gt; 構成 &gt; web</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a0fd4b1-6436-4f2f-9952-2e32bfc1de3b.png"><img alt="image4" border="0" height="482" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/860ad793-b411-4df2-859a-635fb252c9c1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image4" width="328"></a></p>
+
+
+  <p>ページの上部で、読み取り/書き込みモードになっていることを &rsquo; 確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0b9251e-c5f1-47df-9438-44fb1a39990c.png"><img alt="image5" border="0" height="46" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/934d8b5e-9591-4868-9024-5076d96a9a41.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image5" width="489"></a></p>
+
+
+  <p>[編集] を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98904bda-1e06-45ff-ba1c-231cda1ccc84.png"><img alt="image6" border="0" height="58" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee59fde8-4cde-42e3-92e2-3a639dd67e64.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image6" width="140"></a></p>
+
+
+  <p>HTTP/2 のパラメーターを探します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/02290bfb-aabb-4e5a-aaaf-71aca491b1d7.png"><img alt="image7" border="0" height="22" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/497251b8-1830-44a3-9217-ddc37dbc88b2.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image7" width="196"></a></p>
+
+
+  <p>False &rsquo; の代わりに「 <strong>true</strong> &rsquo; 」 &lsquo; と &lsquo; 入力します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0dafcc2b-e089-4c16-b13f-6c447482052e.png"><img alt="image8" border="0" height="22" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9dce0ff-033f-4de8-a726-a7965545de4f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image8" width="195"></a></p>
+
+
+  <p>上部で、[PUT &rsquo; ] を選択し &lsquo; ます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3d758f0-402b-4d57-b2df-06c320309aae.png"><img alt="image9" border="0" height="56" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a7344dd-d393-4f11-a292-1e70375d65b3.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="image9" width="256"></a></p>
+
+
+  <p>完了しました &rsquo; 。</p>
+
+
+  <ul>
+   <li>App Service 環境と Azure National クラウドでの HTTP/2 のサポートもご利用いただけます。</li>
+  </ul>
+
+
+  <h2>HTTP/2 ブラウザーサポートには SSL が必要です</h2>
+
+
+  <p>ほとんどの最新のブラウザーでは、SSL を介した HTTP/2 プロトコルの使用のみがサポートされていますが、SSL 以外のトラフィックでは、HTTP/1.1 が引き続き使用されます。 App Service を使用すると、SSL を使い始めるのが簡単になります。 アプリの新しい SSL 証明書を<a href="https://docs.microsoft.com/en-us/azure/app-service/web-sites-purchase-ssl-web-site">構成する方法</a>、または<a href="https://docs.microsoft.com/en-us/Azure/app-service/app-service-web-tutorial-custom-ssl">既存の ssl 証明書</a>をアプリにバインドする方法について説明します。 また App Service は、 <em>*. azurewebsites.net</em> ドメインにバインドされている共通のワイルドカード ssl 証明書を使用して、すべてのアプリに対して既定のレベルの ssl 機能を提供します。 どの方法を選択する場合でも、アプリは SSL 経由で実行して、最新のブラウザーで HTTP/2 の利点を享受する必要があります。</p>
+
+
+  <ul>
+   <li>開発者フォーラムで質問する: <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=windowsazurewebsitespreview">MSDN</a> または <a href="https://stackoverflow.com/questions/tagged/azure-web-app-service">Stack Overflow</a></li>
+   <li><a href="https://portal.azure.com/">サポートチケット</a>を開く</li>
+  </ul>

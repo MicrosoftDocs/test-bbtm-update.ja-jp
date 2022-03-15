@@ -1,0 +1,64 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 22f001b9854eb72a33b47edd98467cf82c203246
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909237"
+Slug: ga-for-azure-ad-authentication-in-sql-database-and-sql-data-warehouse
+Title: SQL Database および SQL Data Warehouse での Azure AD 認証の GA
+Summary: Azure Active Directory 認証を使用して、ユーザーとグループの id を一元的に管理し、SQL Database と SQL Data Warehouse で認証することができます。
+Content: >-
+  <p>すぐに開始すると、Azure Active Directory (Azure AD) 認証は Azure SQL Database および Azure SQL Data Warehouse で<strong>一般公開</strong>されます。 Azure AD は、id とグループの集中管理を実現する SQL 認証の代替手段を提供します。 これにより、フェデレーションドメインの SQL Database と SQL Data Warehouse を使用したシングルサインオンエクスペリエンスが有効になります。 Azure AD を使用すると、増加している Azure やその他の Microsoft サービスに対して認証を行い、ユーザーとパスワードの急増を防ぐことができます。 その他の利点は次のとおりです。</p>
+
+
+  <ul>
+   <li>
+   <p>アクセス許可の管理が大幅に簡素化され、お客様は、基になるデータベースにアクセスすることなく<em>Azure AD グループ</em>を通じて<em>データベース</em>のアクセス許可を制御できるようになりました。</p>
+   </li>
+   <li>
+   <p>のサポート:</p>
+
+   <ul>
+    <li>
+    <p>ユーザー名/パスワードを使用して、管理対象ドメインとフェデレーションドメインを Azure AD します。 パスワードのローテーションは一元化され、Azure AD から自動的にトリガーされます。</p>
+    </li>
+    <li>
+    <p>ドメインに参加しているコンピューター上のフェデレーションドメインとクライアント Azure AD の統合 Windows 認証。 これにより、参加しているサービス全体でシングルサインオンが可能になります。 vpn を使用したリモート接続でも、統合 Windows 認証がサポートされます。</p>
+    </li>
+    <li>
+    <p>JSON Web トークン (JWT)。 SQL Database (サービスアカウントなど) に対して中間層アプリケーションの Azure AD 認証を実行できます。</p>
+    </li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>Azure AD Authentication を使用するには、Azure AD id にマップされている SQL 含まれるユーザーをプロビジョニングできる Azure AD 管理者を構成する必要があります。 Azure AD 管理者の作成は、PowerShell、REST API、または<a href="https://portal.azure.com/">Azure portal</a>を使用して行うことができます。</p>
+
+
+  <p><br>
+
+  次のスクリーンショットは、メンバーにフルサーバー管理アクセス権を持つ<strong> <a href="mailto:rachelb@contososales.onmicrosoft.com">rachelb@contososales.onmicrosoft.com</a> </strong> &nbsp; 、Azure AD グループを表す Azure portal AD 管理者<strong>DBA</strong>を示しています。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3324ad4a-59f6-4bb6-bae7-ae3730c5ea71.png" style="border-width: 0px; border-style: solid; width: 624px; height: 386px;"></p>
+
+
+  <p>次の画面は、 <strong>contososales.xlsx</strong>という SQL Database に接続されている SQL 管理者 ( <strong><a href="mailto:rachelb@contososales.onmicrosoft.com">rachelb@contososales.onmicrosoft.com</a></strong> ) Azure AD を示しています。 右側にある [クエリ] ウィンドウのサンプルの T SQL コードでは、salessalesという名前の Azure AD グループにマップされている<strong>salesreps</strong>者という名前の SQL ユーザーがプロビジョニングされ<strong>ます。</strong> その結果、AD の資格情報 (ユーザー名とパスワード) を使用して、AD グループ <strong>Salesreps</strong> 者 (接続ウィンドウに表示されるユーザー <a href="mailto:joep@contososales.onmicrosoft.com"><strong>joep@contososales.onmicrosoft.com</strong></a> など) のすべてのメンバーが <strong>contososales.xlsx</strong> に接続できるようになります。 Active Directory パスワード認証 &rdquo; と呼ばれる &ldquo; SSMS の新しい認証オプションに注意してください。</p>
+
+
+  <p><img border="0" height="338" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/71ff5514-3a59-46ec-b6dd-ef7944b9941e.jpeg" width="624"></p>
+
+
+  <p>次のステップ:</p>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-aad-authentication/">Azure Active Directory 認証を使用して SQL Database または SQL Data Warehouse に接続する</a></p>
+   </li>
+   <li>
+   <p><a href="https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/security/azure-active-directory-auth">GitHub デモ</a> - Azure AD Authentication デモコードサンプルを使用した Azure AD 認証方法の詳細については、こちらをご覧ください。 &nbsp;</p>
+   </li>
+  </ul>

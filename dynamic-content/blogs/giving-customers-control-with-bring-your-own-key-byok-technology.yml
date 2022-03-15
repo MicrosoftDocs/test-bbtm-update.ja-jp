@@ -1,0 +1,31 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 73236936d025f69ac682251246909936468044e4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909214"
+Slug: giving-customers-control-with-bring-your-own-key-byok-technology
+Title: Azure Bring Your Own Key (BYOK) テクノロジを使用したインテリジェント医療
+Summary: 病院や保険者によって処理される機密性の高い医療データは、個人の健康情報を盗んだり強要したりする目的で医療システムにアクセスしようとする悪意のあるアクターからの絶え間ない攻撃を受け続えています。 Change Healthcare では、現在、Bring Your Own Key クラウド サービスに基づく Microsoft Azure (BYOK) ソリューションを実装し、Intelligent Healthcare を導入しています。
+Content: >-
+  <p>病院や保険者によって処理される機密性の高い医療データは、個人の健康情報を盗んだり強要したりする目的で医療システムにアクセスしようとする悪意のあるアクターからの絶え間ない攻撃を受け続えています。 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.prnewswire.com%2Fnews-releases%2Fchange-healthcare-gives-payers-and-providers-the-keys-to-cloud-security-300681976.html%3Ftc%3Deml_cleartime&amp;data=02%7C01%7CEstienne.Granet%40microsoft.com%7C9dc03817048d46b6a02508d5ebecef8f%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636674325252527924&amp;sdata=9Uj0vlturCav13PtRPCngq7W31JspqKox3IY3cKvdxA%3D&amp;reserved=0" target="_blank">Change Healthcare では、現在、</a>Bring Your Own Key クラウド サービスに基づく Microsoft Azure (BYOK) ソリューションを実装し、Intelligent <a href="https://aka.ms/intelligenthealthcare" target="_blank">Healthcare を導入</a>しています。</p>
+
+
+  <p>Change Healthcare を使用すると、支払者とプロバイダーは、保存データの暗号化に使用される暗号化キーの所有権を転送することで、データを迅速にきめ細かく制御できます。 これにより、Change Healthcare のお客様は、Change Healthcare の担当者が関与することなくセキュリティを変更し、クラウドベースのシステムを再暗号化し、サービスを中断することなく運用することができます。 BYOK 管理機能には、暗号化キーへのアクセスの取り、必要に応じて、および潜在的な侵害が発生した時点での暗号化キーのローテーションまたは削除が含まれます。&nbsp;<br>
+
+  &nbsp;<br>
+
+  インテリジェント 医療ソリューションの場合、Change Healthcare は <a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql?view=azuresqldb-current" target="_blank">BYOK サポートAzure SQL Database Transparent Data Encryption (TDE) を実装</a>しました。 BYOK を使用した TDE では、ディスクに書き込まれたときにデータベース、ログ ファイル、バックアップが暗号化され、未承認のアクセスから保存データが保護されます。 BYOK サポートを使用した <a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">TDE は Azure Key Vault</a> と統合されています。これは、FIPS 140-2 レベル 2 で検証されたハードウェア セキュリティ モジュール (HSM) によってサポートされる RSA 暗号化キーに対して、高可用性でスケーラブルなセキュリティで保護されたストレージを提供します。 Key Vault管理プロセスが合理化され、お客様は暗号化キーの完全な制御を維持し、キーアクセスを管理および監査できます。</p>
+
+
+  <p>お客様は、RSA キーを生成してインポートしてAzure Key Vault、BYOK をサポートする Azure SQL Database および Azure SQL Data Warehouse TDE で使用できます。 Azure SQL Database は、データベース、ログ ファイル、およびバックアップに格納されているデータの暗号化と暗号化解除を、対称データベース暗号化キー (DEK) を使用して完全に透過的に処理します。これは、顧客所有の Azure Key Vault に格納されている TDE 保護機能と呼ばれるカスタマー マネージド キーで保護されます。</p>
+
+
+  <p>BYOK を利用することで、お客様はデータの制御を増やし、暗号化キーの作成、ローテーション、削除を行うだけでなく、Azure SQL Database へのキー コンテナーへのアクセス権をいつでも付与および取り消しすることができます。 TDE 保護機能にアクセスできない場合Azure Key Vaultでアクセスを取りやめ、すべてのデータベースへのアクセスを効果的にブロックAzure SQL Database。 TDE SQL Database&rsquo;アクセス権を持つアプリケーションがメモリに読み込まれなかった場合、Azure Key Vault または TDE 保護機能へのアクセスが失われるライブ データベースは 24 時間以内にオフラインになります。</p>
+
+
+  <p>カスタマー マネージド キーと統合機能を使用した TDE Azure Key Vault概要:&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e0bfdc7a-7bb0-486d-8077-739de3b7ecb1.png"><img alt="TDE_BYOK" border="0" height="365" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9a1034d-7d82-4b06-b416-e5cbc3cc43f2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="TDE_BYOK" width="629"></a></p>

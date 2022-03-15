@@ -1,0 +1,115 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a3a95f54ff7ff63a32ec9fc142598d93ded5a17d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904061"
+Slug: migrating-data-to-microsoft-azure-files
+Title: データをファイルにMicrosoft Azureする
+Summary: アプリケーションの使用を開始Azure Files、大量の既存のデータを Files サービスに移動する必要がある場合があります。 データをデータに効率的に移動するオプションAzure Files、選択するオプションは、データが最初にどこにあるかによって異なる場合があります。 この投稿では、これらのオプションと、各オプションを使用して最適なパフォーマンスを実現する方法について説明します。
+Content: >-
+  <h3><strong>ファイルMicrosoft Azureについて</strong></h3>
+
+  Microsoft Azure Files は、クラウド内の SMB2.1 プロトコル ベースのファイル共有を公開するクラウド ベースのストレージ サービスです。 Azure で実行されているアプリケーションでは、ReadFile や WriteFile のような標準の使い慣れたファイル システム API を使用して、VM 間でファイルを簡単に共有できます。 さらに、REST インターフェイスを介してファイルに同時にアクセスすることもできます。このインターフェイスを使用すると、さまざまなハイブリッド シナリオが開きます。 最後に、Azure Files は Blob、Table、Queue Services と同じテクノロジに基いて構築されています。つまり、Azure Files は、プラットフォームに組み込みの既存の可用性、耐久性、スケーラビリティ、geo 冗長性を活用できます。 サービスは現在プレビュー中です。 サービスの詳細については、Files に関するブログ <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2014/05/12/introducing-microsoft-azure-file-service.aspx">投稿を参照してください</a>。
+
+
+  &nbsp;
+
+  <h3>データの移行</h3>
+
+  アプリケーションの使用を開始Azure Files、大量の既存のデータを Files サービスに移動する必要がある場合があります。 データをデータに効率的に移動するオプションAzure Files、選択するオプションは、データが最初にどこにあるかによって異なる場合があります。 この記事の残りの部分では、これらのオプションと、各オプションを使用して最適なパフォーマンスを実現する方法について説明します。
+
+  <h3>1.インターネットをAzure Filesオンプレミス</h3>
+
+  ファイルをコピーするには、次の手順で提供される <a href="https://aka.ms/AzCopy">AzCopy</a> ツールMicrosoft Azure。 AzCopy では、コピー ジョブ (並列アップロード、複数のスレッド、調整の適切な処理など) に最適なスループットを確保するために、多数の最適化が実装されています。
+
+
+  <strong>AzCopy コマンド ラインの形式は次の形式です。</strong>
+
+  <blockquote><span style="font-family: Lucida Console; font-size: small;"><strong>Azcopy</strong> &lt;<span style="color: #00b050;">ソース パス</span>&gt;&lt;<span style="color: #7030a0;">宛先 URL</span>&gt; [<span style="color: #c00000;">省略可能な filespec</span>] /S /DestKey:&lt;<span style="color: #0070c0;">YourKey</span>&gt;</span></blockquote>
+
+  <strong>ここで</strong>、<span style="color: #00b050;">ソース</span> パスは、移行先 URL を移行するディレクトリへのパスです。<span style="color: #c00000;">これは、filespec</span> にコピーするディレクトリへの http <span style="color: #7030a0;">URL</span> で、移動するファイルのファイル フィルターを指定します (既定値は *です)。*<span style="color: #0070c0;">YourKey</span> は、コピー先のストレージ アカウント /S のストレージ アカウント キーです。ソース ディレクトリの下のすべてのディレクトリとサブディレクトリをコピーするためのオプションのスイッチです。AzCopy には他にも多くのコマンド ライン オプションがあり、その他の方法で使用する必要があります。 詳細については、AzCopy に関する <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2012/12/03/azcopy-uploading-downloading-files-for-windows-azure-blobs.aspx">ブログ投稿を参照してください</a>。
+
+
+  <strong>c:\data ディレクトリ内のファイルをコピーしてコピーするコマンドの例を次に示Azure Files。 </strong>
+
+  <span style="font-family: Lucida Console; font-size: small;">AzCopy c:\data https://myaccount.file.core.windows.net/myshare *.* /S /DestKey:myStorageAccountKey</span>
+
+
+  &nbsp;
+
+  <h3>2.IaaS VM 上の Azure ディスクから Azure File</h3>
+
+  Azure の IaaS VM でファイル サーバー ロールを実行しているお客様は、ファイル サーバー自体を管理する必要がなから、Azure File サービスが非常に魅力的です。
+
+
+  <strong>IaaS ディスクから共有にデータを移行するには、次の必要があります。 </strong>
+
+  <ol>
+      <li>ディスクを VM に接続する</li>
+      <li>VM に共有をマウントする</li>
+      <li>robocopy を使用して Azure ファイル共有にデータをコピーする</li>
+  </ol>
+
+  <a href="https://technet.microsoft.com/en-us/library/cc733145.aspx">Robocopy</a> は、大きなファイル コピーを実行する Windowsに含まれる、無料で堅牢なファイル コピー ユーティリティです。
+
+
+  <strong>使用するコマンド ライン形式は次です。</strong>
+
+  <blockquote><span style="font-family: Lucida Console; font-size: small;"><strong>Robocopy</strong> &lt;<span style="color: #00b050;">ソース パス</span>&gt;&lt;<span style="color: #7030a0;">dest path</span>&gt; [<span style="color: #c00000;">optional filespec</span>] /MIR /MT:<span style="color: #0070c0;">16</span></span></blockquote>
+
+  <strong>where:</strong>
+
+  <span style="color: #00b050;">source path</span> は <span style="color: #7030a0;">、dest</span> パスをコピーするディレクトリへのパスです。コピー先ディレクトリへのパスは <span style="color: #c00000;">、コピー</span> するファイルのファイル フィルターを指定します (既定値は *です*)。 <span style="color: #0070c0;">MT </span>は使用するスレッドの数です (下記の説明を参照してください)。 robocopy を使用する場合は、スループットを最大化するために "/mt" パラメーターを選択する必要があります。 これにより、コピーを実行する並列スレッドの数を制御し、基本的にストレージへの IO 要求のキューの深さを制御できます。 スレッド数が非常に少ない場合、クラウド アーキテクチャの固有の並列処理を利用できる十分な要求がサーバーに <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2010/12/30/windows-azure-storage-architecture-overview.aspx">キューに入れられます</a>。 スレッド数が非常に多い場合、サーバー側の調整が発生し、スループットが低下します。 このテストでは、スループットを最大化するために最適なキューの深さが 16 ~ 32 である必要があります。
+
+
+  &nbsp;
+
+  <h4>回避する方法:</h4>
+
+  xcopy または Windows Explorer を使用して、ファイルへの大きなファイル コピーを実行Azure Files。 これらのツールは、NTFS ファイル システムへのファイル コピーには最適ですが、データ ファイルへのコピーに十分な並列処理Azure Files。 Azure Files IO がサポートされています。そのため、同時コピーを実行するスレッドが多いと、パフォーマンスが大幅に向上します。 適切なスレッド数で robocopy を使用すると、コピーのスループットがはるかに高くなり、データ転送の合計時間が短くなります。
+
+
+  &nbsp;
+
+  <h3>3.Azure BLOB から Azure File</h3>
+
+  Azure BLOB から Azure File にデータを移動する最も速い方法は、AzCopy を使用することです。 AzCopy は、移行先ストレージ アカウントと同じデータセンター内の VM から実行する必要があります。
+
+
+  <strong>これを行う AzCopy コマンドの例を次に示します。</strong>
+
+  <blockquote><span style="font-family: Lucida Console; font-size: small;"><strong>Azcopy</strong> https://myaccount1.blob.core.windows.net/mycontainer Z:\mydirectory *.* /SourceKey:myStorageAccountKey</span></blockquote>
+
+  (これは、ファイル共有が Z ドライブにマップされている前提です)
+
+
+  &nbsp;
+
+
+  この場合、データは VM にダウンロードされ、そのデータが VM にAzure Files。
+
+
+  AzCopy の使い方の詳細については、上記のセクション 1 の説明を参照してください。 BLOB のコマンド ライン オプションや SAS などのその他の BLOB 固有のオプションを表示するには、<span style="font-family: Lucida Console; font-size: small;">AzCopy を "AzCopy /?" で実行します</span>。
+
+
+  &nbsp;
+
+  <h3>4.Azure Disk へのクラウド ドライブ</h3>
+
+  <a href="https://azure.microsoft.com/blog/2010/02/01/beta-release-of-windows-azure-drive/">Cloud Drive</a> は 2010 年にプレビューとしてリリースされました。 この機能により、Azure Cloud Servicesを使用して、Azure の Web ロールと Worker ロールにページ BLOB をドライブとしてマウントできます。 クラウド ドライブのリリースAzure Files、Cloud Drive でサポートされているすべてのシナリオを、クラウド ドライブを使用してよりAzure Files。 クラウド ドライブは 2015 年に非推奨とされます。そのため、クラウド ドライブを使用してデータをクラウド ドライブに移行Azure Files。 データを移動する方法は、次の方法で、AZURE VM からデータを移動する場合と非常に似ています。
+
+  <ol>
+      <li>クラウド ドライブを使用して BLOB をディスクとしてマウントします (ほとんどのお客様は、Web ロールまたは Worker ロールのセットアップの一環としてこれを行います)</li>
+      <li>共有を VM にマウントします。 共有を <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2014/05/12/introducing-microsoft-azure-file-service.aspx">作成してマウントする</a> 方法については、このブログ記事を参照してください。</li>
+      <li>Robocopy を使用してデータをコピーします。 Robocopy の使用に関するセクション 3 の説明と、最大スループットについては "/mt" パラメーターを参照してください。</li>
+  </ol>
+
+  &nbsp;
+
+
+  Azure Files にデータを移動するこれらのオプションは、データをファイル サービスに効率的に移動するのに役立ち、サービスを使用して既存のシナリオを最適化し、アプリケーションやビジネスに新しいシナリオを有効にするのに役立ちます。
+
+
+  &nbsp;

@@ -1,0 +1,167 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2004e3cf4426430723d06699449aa3e3f44a4d08
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903698"
+Slug: azure-networking-announcements-for-ignite-2016
+Title: Azure ネットワーク Ignite 2016 のお知らせ
+Summary: 今週は、パフォーマンスの向上、可用性の向上、セキュリティの向上、運用に関する分析情報の向上を顧客に提供するために、いくつかの新しい Azure ネットワーク サービスと機能を発表します。
+Content: >-
+  <p>今週は、パフォーマンスの向上、可用性の向上、セキュリティの向上、運用に関する分析情報の向上を顧客に提供するために、いくつかの新しい Azure ネットワーク サービスと機能を発表します。 引き続きイノベーションを行い、お客様がパブリック クラウドでサービスをより簡単かつシームレスに実行できます。 すべての Azure Ignite のお知らせの概要については、 <a href="https://aka.ms/azureigniteblog" target="_blank">Jason Zanders&rsquo; のブログ投稿を参照してください</a>。</p>
+
+
+  <h2>パフォーマンスの向上</h2>
+
+
+  <p>Azure では、9 年以上にわたり Microsofts&rsquo; のクラウド スケール データ センター インフラストラクチャを開発してきました。&nbsp; 早い段階で、大規模なデータ センターのネットワーク インフラストラクチャを構築し、データ転送速度を増やすには、ネットワーク テクノロジの基本的な変化が必要であるという気付きがありました。&nbsp; Microsoft は、Microsoft が開発したハードウェア ソリューションを含む最先端のネットワーク ソリューションを促進および開発するために、業界全体で取り組してきました。</p>
+
+
+  <p>現在、ネットワーク帯域幅のパフォーマンスを 33% から 50% 向上させる、グローバル サーバー フリート全体のブレークスルーの進歩を発表します。 これは、ハードウェアのネットワーク処理機能を利用する NVGRE オフロードなどのハードウェア テクノロジを利用することで実現されます。 Windows Linux VM では、アプリケーションに貴重な CPU サイクルを返しながら、これらのパフォーマンスが向上します。 世界全体のデプロイは 2016 年に完了し、完了したら、これらの新しいパフォーマンス上の利点を反映するように <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-sizes/#standard-tier-d-series" target="_blank">VM サイズ</a> テーブルを更新します。</p>
+
+
+  <p>さらに多くのパフォーマンスを提供するために、高速ネットワークのパブリック プレビューをお知らせします。 <em>高速ネットワークは最大 25 Gbps のスループットを提供し、ネットワーク待機時間を最大 10 倍に大幅に短縮します。</em> アプリケーションは、SR-IOV を含む新世代のハードウェア テクノロジの恩恵を受けるので、VM はハイパーバイザ&rsquo;ー仮想スイッチを完全にバイパスしてハードウェア NIC と直接通信できます。 アプリケーションでは、帯域幅が高く待機時間が短くなると共に、ジッターが減少し、1 秒あたりのパケット数 (PPS) のパフォーマンスが向上します。 高速ネットワークを使用すると、Azure SQL DB In-Memory OLTP トランザクションのパフォーマンスが 1.5 倍向上しました。&nbsp;また、このプレビューでは、DS15v2 と D15v2 の VM サイズで最大 25 Gbps のネットワーク スループットが提供されます。 リージョンの可用性とプレビューにサインアップするリンクの詳細については、仮想マシンの <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-network-accelerated-networking-powershell/" target="_blank">高速ネットワークに関するページを参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2031a850-ff25-4d00-a851-481ef7d5536d.png"><img alt="AzureAccelNetworking" border="0" height="192" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2115f459-20ee-4990-ab02-daec69fe2b87.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureAccelNetworking" width="457"></a></p>
+
+
+  <p>さらに、Azure Storageユーザーは、これらの進歩に基づいて大幅に向上した IOPS パフォーマンスと、新しく開発されたストレージ固有のオフロードの恩恵を受ける可能性があります。 ハードウェアは、NIC の行レートまで効率的にデータ転送を実行する。 2016 年Storageのロールアウトも完了します。</p>
+
+
+  <p>Virtual Network ピアリング (VNet ピアリング) の一般 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-network-peering-overview/" target="_blank">提供</a> を発表します。 VNet ピアリングは、同じリージョン内の仮想ネットワーク (VNet) を接続し、直接フル メッシュ接続を可能にします。 ピアリングされた VNet 内の VM は、同じ VNet の一部である場合と同様に相互に通信するため、高帯域幅と低待機時間の恩恵を受ける。 ハブ &amp; スポーク トポロジは、ゲートウェイ経由のトランジット ルーティングでサポートされています。 ゲートウェイのない VNet には、ピアリングされた VNet 内のゲートウェイを介したクロスオンプレミス接続が引き続き存在します。 VNet ピアリングはサブスクリプション間で機能し、サービス管理を簡素化できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c2c28a0d-0a80-4711-a811-93b35931fbb3.jpg"><img alt="AzureNetworkingVNetPeering" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4f8a46c-64fd-4aa2-991f-26b75dbff0bc.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworkingVNetPeering" width="442"></a></p>
+
+
+  <p>これにより、VPN ゲートウェイとネットワーク仮想アプライアンスを同じリージョンに統合し、管理を簡素化し、コストを削減できます。 User-Definedルート (UDR) とネットワーク セキュリティ グループ (NSG) は、ピアリングされた VNet 間のきめ細かい制御を管理できます。 Vnet ピアリングを使用すると、クラシック VNet と &ldquo;&rdquo; VNet をAzure Resource Managerできます。 これにより、新しいモデルを段階的に導入Azure Resource Managerできます。</p>
+
+
+  <p>多くの企業のお客様は、ExpressRoute を使用してプライベート ネットワークを Microsoft に接続しています。 ExpressRoute は、35 を超える場所にあるグローバル通信プロバイダー、クラウド交換、サービス プロバイダーの大規模なエコシステムによってサポートされています。 現在、最大 10 Gbps のスループットをサポートする <a href="https://azure.microsoft.com/en-us/documentation/articles/expressroute-about-virtual-network-gateways/" target="_blank">ExpressRoute 用 UltraPerformance Gateway SKU</a> が導入されています。 これは、99.95% の可用性 SLA を備える既存の ExpressRoute HighPerformance ゲートウェイに対する 5 倍の改善です。 UltraPerformance Gateway を使用すると、より多くのネットワーク集中型サービスとワークロードを仮想ネットワークにデプロイできます。</p>
+
+
+  <p>要求の厳しいネットワークと大規模なリアルタイム データ アクセス要件を備えるクラウド アプリケーションは、これらの新しいパフォーマンスの向上から大きなメリットを得るでしょう。 ワークロードの準備ができました。</p>
+
+
+  <h2>IPv6</h2>
+
+
+  <p>Azure では、Azure Virtual Machines でホストされているアプリケーションとサービスに対するネイティブ <a href="https://azure.microsoft.com/en-us/documentation/articles/load-balancer-ipv6-overview/?rnd=1" target="_blank">IPv6</a> ネットワーク接続がサポートVirtual Machines。 IPv6 の需要は、モバイル デバイスの増加が増え、何十億もの モノのインターネット (IOT) デバイスが市場に出回り、新しいコンプライアンス規制が適用され、増え続けています。 IPv6 は、3 年以上にわたり、Microsoft サービスなどの内部Office 365で使用されています。 現在、この機能は、すべての Azure のお客様に提供されています。 仮想マシンへのネイティブ IPv6 接続は、仮想マシンと Linux WINDOWSで使用できます。</p>
+
+
+  <h2>高可用性</h2>
+
+
+  <p>実稼働ワークロードには、High-Performance VPN ゲートウェイ SKU 用の新しい <a href="https://azure.microsoft.com/en-us/documentation/articles/vpn-gateway-highlyavailable/" target="_blank">Active-Active Virtual Private Network (VPN)</a> ゲートウェイをお勧めします。 可用性には、顧客の&rsquo;オンプレミス VPN デバイスと、さまざまなサービス プロバイダーを使用して VPN ゲートウェイに接続する完全なエンド Active-Active必要です。 各 VPN ゲートウェイには、2 つのアクティブなインスタンスがあります。 お客様は、クロスオンプレミス VPN 接続にデュアル冗長性を実装し、Azure VNet への VPN 接続の可用性を向上できます。 すべてのお客様は、新しいサービスの導入を検討Active-Active VPN Gateway。<br>
+
+  &nbsp;<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0937be90-85bb-42cd-b463-282c7982a651.png"><img alt="AzureNetworkingActActGateways" border="0" height="149" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/15f5d7d9-ad6f-4d5c-8400-4b4051916361.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworkingActActGateways" width="419"></a></p>
+
+
+  <p>お客様は、お客様の構成に対してより多くのAzure Load Balancer必要です。 現在、設計の柔軟性を高め、新しいシナリオを実現し、効率的なリソース統合を可能にするためのいくつかの発表を行っています。</p>
+
+
+  <p>内部ロード バランサーでの複数の <a href="https://azure.microsoft.com/en-us/documentation/articles/load-balancer-multivip-overview/">VIP</a> の一般提供と、パブリックロード バランサーと内部ロード バランサー間での新しいポート再利用オプションを発表します。 次の週は、特定のリージョンで 2 つの追加機能をプレビューします。ネットワーク インターフェイス カード <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-network-multiple-ip-addresses-portal/">(NIC)</a> 上の複数の IP アドレスと、VM 上のすべての NIC が NIC またはロード バランサー経由でパブリック IP アドレスを持つ機能を有効にします。 これらの機能 <a href="https://azure.microsoft.com/en-us/updates/?product=virtual-network&amp;updatetype=&amp;platform=" target="_blank">の可用性については、</a> サービスの更新に関するページを確認してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e38bbe0e-ab2a-4d13-9d99-601031a4863d.png"><img alt="AzureNetworking_4" border="0" height="216" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1a1b5e1f-fb4f-4f08-bd56-16d7c604c49d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_4" width="377"></a><br>
+
+  ネットワーク仮想アプライアンス (NVA) では、より柔軟な構成を提供できます。 ファイアウォール アプライアンスは、NIC 1 でインターネットに接続するサービスと、同じバックエンド マシンを使用して NIC 2 の内部管理サービスを公開できます。 さらに、NVA では、1 つの NIC を使用して、顧客/サービスごとに個々のプライベート IP アドレスをセキュリティで保護することで、複数のサービスをホストできます。 個々の IP アドレスを対象とする NSG 規則を使用して、セキュリティをさらに強化できます。</p>
+
+
+  <p>もう 1 つの使用SQL AlwaysOn と複数のリスナーがプレビューで利用可能になります。 同じクラスター上で複数の可用性グループをホストし、アクティブなレプリカの数を最適化することもできます。&nbsp;&nbsp;</p>
+
+
+  <h2>Azure DNS</h2>
+
+
+  <p>このリリースでは、GA リリースを発表<a href="https://azure.microsoft.com/documentation/articles/dns-overview/" target="_blank">Azure DNS。</a> お客様は、他の Azure サービスと同じ資格情報、API、ツール、課金、サポートを使用して、Azure DNS でドメインをホストし、DNS レコードを管理できます。&nbsp; Azure DNSレベルのセキュリティ機能Azure Resource Manager&rsquo;、ロールベースのアクセス制御と詳細な監査ログを有効にすることでもメリットがあります。 Azure DNSは、A、AAAA、CNAME、MX、NS、PTR、SOA、SRV、TXT など、複数の種類のレコードをサポートし、99.99% の可用性 SLA が付属しています。</p>
+
+
+  <p>Azure DNSは、ネーム サーバーのグローバル ネットワークを使用します。マルチリージョンの障害やネットワークのパーティション分割が発生した場合でも、非常に高可用性が提供されます。&nbsp; DNS クエリは、最も近い使用可能な DNS サーバーによって応答され、クエリのパフォーマンスが最速になります。</p>
+
+
+  <p>このAzure DNS、IT プロは<a href="https://azure.microsoft.com/documentation/articles/dns-getstarted-create-dnszone-portal/" target="_blank">、Azure Portal</a> を使用するか、<a href="https://azure.microsoft.com/documentation/articles/dns-getstarted-create-dnszone/" target="_blank">Azure PowerShell</a> またはクロスプラットフォーム サービスを使用してスクリプトを使用して DNS ゾーンとレコード<a href="https://azure.microsoft.com/documentation/articles/dns-getstarted-create-dnszone-cli/" target="_blank">を管理Azure CLI</a>。 開発者は、Azure DNS REST API <a href="https://azure.microsoft.com/documentation/articles/dns-sdk/" target="_blank">SDK</a> を使用して<a href="https://msdn.microsoft.com/library/mt163862.aspx" target="_blank"></a>、アプリケーション ワークフローの一部として DNS レコードのプロビジョニングを自動化できます。 どちらの場合も、高速 DNS レコードのプロビジョニングにより、新しい DNS レコードがネーム サーバーに伝達されるのを待つ必要が回避されます。 お客様は SDK を使用して、アプリケーション ワークフローの一部として DNS レコードのプロビジョニングを自動化できます。</p>
+
+
+  <h2>セキュリティの高い</h2>
+
+
+  <p>昨年は、サービスApplication Gatewayレイヤー 7 負荷分散を提供するアプリケーション配信コントローラー (ADC) であるアプリケーション配信コントローラーを紹介しました。 これは、Azure Traffic Managerリージョン間で負荷分散を行う場合は Azure Load Balancer (DNS ロード バランサー) を補完し、リージョン内のレイヤー 4 の負荷分散 (可用性セット) を補完します。 この 1 年間で、Web アプリケーションの要件Application Gatewayに対応するために、アプリケーションの機能が強化されました。 これらの機能には、SSL ターミネーション、ラウンド ロビン負荷分散、Cookie ベースのセッション アフィニティ、URL パス ベースのルーティング、同じロード バランサー上で複数の Web アプリケーションをホストする機能、アクセスログとパフォーマンス ログを使用した豊富な診断、WebSocket のサポート、VM スケール セットのサポート、ユーザーが構成可能な正常性プローブを定義する機能が含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/49a66941-cf68-4cac-b885-5e44e296fa56.jpg"><img alt="AzureNetworking_5" border="0" height="302" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c478f938-309b-4aa9-adc9-ce74b4b1de64.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_5" width="405"></a></p>
+
+
+  <p>アプリケーションセキュリティの強化に向けた継続的な取り組みApplication Gateway、エンド エンド SSL 暗号化とユーザーが構成可能な SSL ポリシーをサポートしています。 お客様は、SSL/TLS を使用して、ユーザー要求からバックエンドへのエンド エンド通信をセキュリティで保護しながら、APPLICATION GATEWAY で設定されたルーティング規則を利用できます。 ユーザーの&rsquo; SSL 要求はゲートウェイで終了します。ゲートウェイでは、ユーザーが構成したルーティング規則が適用され、バックエンドに送信する前に要求が再暗号化されます。 ユーザーが構成可能な SSL ポリシーを使用すると、お客様は古い SSL/TLS プロトコル バージョンを選択的に無効にし、Application Gateway の背後にあるアプリケーションのセキュリティ プロファイルをさらに強化することができます。</p>
+
+
+  <p>SQL インジェクションやクロスサイト スクリプティング攻撃などの一般的な脆弱性から Web アプリケーションを保護するための高度なセキュリティを提供するために、Application Gateway サービスの一部として <a href="https://azure.microsoft.com/en-us/documentation/articles/application-gateway-introduction/" target="_blank">Web Application Firewall</a> (WAF) のパブリック プレビューを発表します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3f2a433-848a-434e-9afb-320a8150976a.jpg"><img alt="AzureNetworking_6" border="0" height="193" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b9796efb-4dd4-42af-b0b7-be3ef06a0551.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_6" width="360"></a></p>
+
+
+  <p>Application Gateway WAF では、アプリケーション セキュリティの管理が簡素化され、<a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" target="_blank">Open Web Application Security Project (OWASP)</a> の上位 10 件の一般的な脆弱性によって識別される、最も一般的な Web 脆弱性からの保護が事前構成されています。 お客様は、Application Gatewayまたは検出のみモードで WAF を実行できます。 Application Gateway WAF には、Web アプリケーションを悪用から継続的に監視するリアルタイムメトリックとアラート レポートも用意されています。 セキュリティ 規則のカスタマイズと、Azure Security Centerとの統合は間もなく使用できる予定です。</p>
+
+
+  <h2>ネットワークの監視と診断</h2>
+
+
+  <p>クラウドの成熟が始まると、同じネットワーク パフォーマンスだけでなく、オンプレミス ソリューションと同じレベルの可視性と分析情報を提供することが重要です。&nbsp; 監視と診断の機能を継続的に強化し、ネットワークの管理を容易に行うことができます。</p>
+
+
+  <p>監視と診断に関して以前に発表された機能の継続 &ndash;</p>
+
+
+  <ul>
+   <li>ネットワーク セキュリティ グループのイベントとカウンター</li>
+   <li>SLB リソース枯渇イベントとプローブの正常性状態</li>
+   <li>Application Gatewayログとアクセス ログ</li>
+   <li>すべてのネットワーク リソースの監査ログ</li>
+  </ul>
+
+
+  <p>一連の新機能をリリースします。</p>
+
+
+  <p>お客様は、Azure portal でApplication Gatewayのパフォーマンス メトリックを表示できます。&nbsp; メトリックには追加の構成は必要はありません。 現在のリリースでは、継続的な集計スループット統計がサポートされ、追加のメトリックのサポートは間もなく利用可能になります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5b27e48c-b9df-4a3f-9ed5-36e1265d5f32.png"><img alt="AzureNetworking_7" border="0" height="200" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c10416dd-a4b9-46c4-a637-2db1b78c742f.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_7" width="420"></a></p>
+
+
+  <p>メトリックのしきい値ベースのアラートを構成して、ネットワークを事前に監視できます。 アラートは、サードパーティのメッセージングサービスと統合できる電子メール通知を送信したり、web フックを呼び出したりすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be1c8e06-db8c-417e-b248-af3b628082f1.png"><img alt="AzureNetworking_8" border="0" height="263" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/72f71274-80cb-4501-910c-4ad8081719e2.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_8" width="157"></a></p>
+
+
+  <p>ExpressRoute ユーザーは、ルーティング構成とネットワークピアリングの統計情報に対して operational insights を取得できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/84cef5e2-bfbf-4251-8133-ce6de173ab5d.png"><img alt="AzureNetworking_11" border="0" height="129" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d862f286-1bb7-400e-8cd0-ab3f9200db7c.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_11" width="438"></a></p>
+
+
+  <p>ネットワークセキュリティグループ (NSGs) とルートの診断機能が改善され、複雑なネットワーク接続の問題をより詳しく診断できるようになりました。 &nbsp; 有効なルートは、VM &rsquo; のネットワークトラフィックフローに影響を与える、ユーザー定義ルート (udr)、システム、および BGP ルートの集計ビューを提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d22c9ac8-fbda-42cd-aaae-5233f731bbdf.png"><img alt="AzureNetworking_9" border="0" height="224" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e784967-c164-48e8-9fd2-825c7d21080d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_9" width="413"></a></p>
+
+
+  <p>ネットワークセキュリティ設定の正確性を簡単に確認できることが重要です。 有効なセキュリティ規則ビューは、VM/NIC で構成されているセキュリティ規則を理解するための、簡潔で直感的な方法を提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c2c2f2e-72ea-4c5d-a59a-9f4c9cc3d948.png"><img alt="AzureNetworking_10" border="0" height="278" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/264c76a0-9035-44a3-a483-fb6b68ca08f1.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="AzureNetworking_10" width="395"></a></p>
+
+
+  <p>今後数か月にも多くの機能が提供される予定です。</p>
+
+
+  <h2>今後の参照</h2>
+
+
+  <p>クラウドは進化し続けており、お客様はより厳しい複雑なワークロードをデプロイしています。 この進化は、ミッションとコミットメントがエンドポイントではなく、その取り組みです。 &nbsp; お客様のニーズに合わせて新しいネットワークテクノロジを作成、拡張、展開する際には、新しいサービス、機能、機能についてご紹介し、貴重なフィードバックを提供していただきます。</p>

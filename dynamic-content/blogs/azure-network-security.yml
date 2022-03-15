@@ -1,0 +1,186 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dad778e25da837aef837a63f07df48eee7d90d29
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909127"
+Slug: azure-network-security
+Title: Azure ネットワーク セキュリティ
+Summary: Azure では、設計、コード開発、監視、運用、脅威インテリジェンス、対応など、あらゆる手順でセキュリティが組み込まれます。 クラウドの幅と規模には、深い理解が必要です。
+Content: >-
+  <p>Azure では、セキュリティは、すべての&mdash;ステップデザイン、コード開発、監視、操作、脅威インテリジェンス、および対応に組み込まれます。 クラウドの幅と規模には、少数の組織が提供できるセキュリティ テクノロジとプロセスに対する深いコミットメントが必要であるという理解があります。 &rsquo;Microsoft Azure、Bing、Dynamics 365、Office 365、OneDrive、OneDrive、Xbox Live など、エンタープライズ ソフトウェアを構築し、世界最大の オンライン サービス を実行してきた数十年は、セキュリティに関する Microsoft&rsquo; 独自の視点を形成してきました。 何兆ものシグナルと何十億ものソースから開発された脅威インテリジェンスを使用して、Microsoft は Microsoft <a href="https://www.microsoft.com/en-us/security/default.aspx">Secure</a> と呼ばれる包括的なアプローチを提供するために、セキュリティ機能に年間 10 億ドルを超える投資を行っています。 詳細については、 <a href="https://blogs.microsoft.com/microsoftsecure/2016/07/25/introducing-the-microsoft-secure-blog/#oPsVUTrbHAFGKfJu.99">Microsoft Secure ブログを参照してください</a>。<em> </em></p>
+
+
+  <p>セキュリティ&rsquo;で保護されたプラットフォームを作成し、セキュリティで保護されたアプリケーションの構築に役立つサービスを提供するために、膨大な運用エクスペリエンスを適用しました。 Microsoft の約束は、Azure を使用してアプリケーション、データ、ID をセキュリティで保護できるという約束です。 この約束は幅広い <a href="https://azure.microsoft.com/en-us/support/trust-center/">Azure</a> コンプライアンス認定を受け、クラウド サービス プロバイダーのリーダーです。 コンプライアンスとプライバシーの詳細については、 <a href="https://www.microsoft.com/en-us/trustcenter">Microsoft セキュリティ センターを参照してください</a>。</p>
+
+
+  <p>このブログでは、ネットワークの観点からセキュリティに焦点を当て、Azure ネットワーク機能を使用してセキュリティの高いクラウド サービスを構築する方法について説明します。 4 つの異なる領域は、お客様にセキュリティで保護されたネットワークを提供する方法を強調しています。</p>
+
+
+  <ul>
+   <li>基盤は <a href="https://azure.microsoft.com/en-us/services/virtual-network/">、お客様Virtual Network</a> 分離境界を提供するセキュリティで保護されたネットワーク ファブリックを提供するための Azure サービスです。</li>
+   <li>Virtual Networkとポリシーによってクラウド アプリケーションが保護されます。</li>
+   <li>アクティブな監視システムとツールは、セキュリティ検証を提供します。</li>
+   <li>組み込みの高度なセキュリティ強化を備える基になる物理ネットワーク インフラストラクチャは、グローバル ネットワーク全体を保護します。&nbsp;</li>
+  </ul>
+
+
+  <h2>単一の共有物理ネットワークでの顧客ネットワークの分離</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/how-microsoft-builds-its-fast-and-reliable-global-network/">Microsoft</a>&mdash; は、クラウド サービスの大きな成長をサポートし、高いネットワーク エクスペリエンスを維持するために、データセンターと顧客をつなぐ、世界で最大のダーク ファイバー バックボーンの 1 つを所有し、運用しています。 Azure では、共有物理ネットワークの上に論理オーバーレイ ネットワークを実行して、お客様に分離されたプライベート ネットワークを提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44af250d-c902-4b2e-908d-829037151dae.jpg"><img alt="ANS2" border="0" height="296" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5fa83b95-e4bd-4bcd-927d-02a669eb416f.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS2" width="551"></a></p>
+
+
+  <p align="center"><em>図 2。分離された顧客仮想ネットワークが同じ物理ネットワーク上で実行される </em></p>
+
+
+  <p>オーバーレイ ネットワークは、Azure ソフトウェア定義ネットワーク&rsquo; (SDN) スタックによって実装されます。 各オーバーレイ ネットワークは、具体的には、API 呼び出しを介して顧客に対してオンデマンドで作成されます。 このようなネットワークを構築する&mdash;構成はすべてソフトウェアで実行されます。これは、Azure が数千のオーバーレイ ネットワークを数秒で作成するようにスケールアップできる理由です。 各オーバーレイ ネットワークは、顧客のネットワーク (VNet) で構成される独自のレイヤー 3&rsquo; Virtual Networkドメインです。</p>
+
+
+  <h2>Azure Virtual Network</h2>
+
+
+  <p>Azure Virtual Networkは、セキュリティで保護された論理ネットワークであり、オンプレミス ネットワークのように扱うネットワークの分離とセキュリティ制御を提供します。 &mdash;各顧客は、 サブネットを使用して独自の構造を作成します。サブネットは、独自のプライベート IP アドレス範囲を使用し、ルート テーブル、ネットワーク セキュリティ グループ、アクセス制御リスト (ACL)、ゲートウェイ、仮想アプライアンスを構成して、クラウドでワークロードを実行します。&nbsp;</p>
+
+
+  <p>図 3 は、2 つの顧客仮想ネットワークの例を示しています。 顧客 1s&rsquo; VNet はオンプレミスの企業ネットワークに接続し、Customer 2s&rsquo; VNet には リモート デスクトップ プロトコル (RDP) 経由でのみアクセスできます。 インターネットから仮想マシン (VM) へのネットワーク トラフィックは、Azure ロード バランサーを通過してから、VM を実行している Windows Server&rsquo; ホストに送信されます。 ホストファイアウォールとゲスト ファイアウォールは、ネットワーク ポートのブロックと ACL 規則を実装します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d6f4fc5-cb44-413d-95b4-1f949c3ff7cd.png"><img alt="ANS3" border="0" height="356" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1bd8c715-5657-4598-87e6-09272ca1ff48.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS3" width="585"></a></p>
+
+
+  <p align="center"><em>図 3。Azure Virtual Network によって提供される顧客の分離</em></p>
+
+
+  <p>VNet にデプロイされた VM は、プライベート IP アドレスを使用して相互に通信できます。 IP アドレス ブロック、DNS 設定、セキュリティ ポリシー、ルーティング テーブルを制御します。 利点は次のとおりです。</p>
+
+
+  <ul>
+   <li><strong>分離：</strong> VNet は互いから分離できます。そのため、開発、テスト、および実稼働用に個別のネットワークを作成できます。 また、VNet 間の通信を許可できます。</li>
+   <li><strong>セキュリティ：</strong> ネットワーク セキュリティ グループを使用すると、サブネットと VM の入退出トラフィックを制御できます。</li>
+   <li><strong>接続：</strong> VNet 内のすべてのリソースが接続されています。 VNet ピアリングを使用して、同じリージョン内の他の仮想ネットワークと接続できます。 仮想プライベート ネットワーク (VPN) ゲートウェイを使用して、オンプレミス サイトから他のリージョンの VNet へのインターネット経由の VNet への IPsec 接続を有効にできます。 ExpressRoute は、インターネットをバイパスする VNet へのプライベート ネットワーク接続を提供します。</li>
+   <li><strong>高可用性:</strong> 負荷分散は、高可用性とネットワーク パフォーマンスをお客様のアプリケーションに提供する上で重要な部分です。 VM へのすべてのトラフィックは、仮想マシンAzure Load Balancer。</li>
+  </ul>
+
+
+  <h2>アプリケーションのセキュリティ保護</h2>
+
+
+  <p>セキュリティプロフェッショナルの <a href="https://www.csoonline.com/article/3146995/leadership-management/security-pros-most-worried-about-clouds-mobile.html">2016</a> &ldquo;年 12 月の調査では、過去最大の信頼度の低下は Web アプリケーションのセキュリティにあると示されました。これは、80% から 62&rdquo; % に 18 ポイント低下しました。Microsoft では、アプリケーションにセキュリティを組み込み、クラウドでホストされるアプリケーションのセキュリティを開発フェーズからサービスへのアクセス制御まで強化するための機能とサービスを提供することで、潜在的な脆弱性に対応しています。</p>
+
+
+  <p>Azure には、お客様がアプリケーションをセキュリティで保護するために使用できる豊富なネットワーク メカニズムのセットがあります。 次に例をいくつか示します。</p>
+
+
+  <p>ネットワーク ACL は、パブリック エンドポイント IP アドレスへのアクセスを制限するように構成できます。 エンドポイントの ACL は、トラフィックをさらに特定のソース IP アドレスにのみ制限します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/network-security-groups/">ネットワーク セキュリティ グループ</a> (NSG) は、VNet 内の VM へのネットワーク アクセスを制御します。 このネットワーク ACL のコレクションを使用すると、サブネットまたは VMS&rsquo; ネットワーク インターフェイスに入る、または終了するトラフィックに適用される規則の完全な 5 タプル (送信元 IP アドレス、送信元ポート、宛先 IP アドレス、宛先ポート、プロトコル) セットを適用できます。 サブネットまたは VM に関連付けられている NSG は、SDN スタックによって適用されます。</p>
+
+
+  <p>ネットワーク仮想アプライアンス (NVA) は VNet&rsquo; のセキュリティとネットワーク機能を強化し、多数のベンダーから <a href="https://azuremarketplace.microsoft.com/en-us">Azure Marketplace。</a> NVA は、高可用性ファイアウォール、侵入防止、侵入検出、Web アプリケーション ファイアウォール (WAF)、WAN の最適化、ルーティング、負荷分散、VPN、証明書管理、Active Directory、多要素認証にデプロイできます。</p>
+
+
+  <p>多くの企業にはセキュリティおよびコンプライアンスに関する厳密な要件があり、すべてのネットワーク パケットをオンプレミスで検査して特定のポリシーを適用する必要があります。 Azure には、カスタム ルートを作成するか、ExpressRoute または VPN 経由で Border Gateway Protocol (BGP) アドバタイズによって VM からオンプレミスにトラフィックをルーティングする強制トンネリングと呼ばれるメカニズムが提供されます。</p>
+
+
+  <p>図 4 は、分離されたサブネットで NSG ルールを使用し、NVA を使用してフロントエンド サブネットを保護する例を示しています。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27ca08da-42f8-4c4d-bbdc-aeba73b6d9b9.png"><img alt="ANS4" border="0" height="504" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdcff073-850e-4c5b-bd71-041fbe4d9ef3.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS4" width="441"></a></p>
+
+
+  <p align="center"><em>図 4。ネットワーク セキュリティ グループを使用して構築された境界ネットワーク アーキテクチャ</em></p>
+
+
+  <p>Azure <a href="https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-introduction">Application Gateway</a>レイヤー 7 ロード バランサーでは、最も一般的な Web の脆弱性から保護Web Application Firewall <a href="https://go.microsoft.com/fwlink/?linkid=845983">(WAF)</a> 機能も提供されます。</p>
+
+
+  <p>オンプレミスから Azure への安全な接続は、IPsec を使用してインターネット経由で <a href="https://azure.microsoft.com/en-us/services/vpn-gateway/">VPN Gateway</a> サービスにアクセスするか、ExpressRoute を使用してプライベート ネットワーク接続を使用 <a href="https://azure.microsoft.com/en-us/services/expressroute/">して実現できます</a>。 図 4&ndash; は、フロントエンド (インターネットに接続する) Web サーバーとバック エンド アプリケーション サーバーに対して異なる規則を持つ NSG を使用して Virtual Network アクセスを制限できる境界ネットワークスタイルの強化されたセキュリティ設計を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/69b85027-cef3-4780-b7ab-cc2793d0fc8b.png"><img alt="ANS5" border="0" height="384" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dad065a9-132d-400b-9696-ac4296d1dc45.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS5" width="559"></a></p>
+
+
+  <p align="center"><em>図 5。オンプレミスに接続されたインターネット フロントエンドとバック エンドに接続されたセキュリティで保護された VNet</em></p>
+
+
+  <p>その他の例とベスト プラクティスについては、 <a href="https://docs.microsoft.com/en-us/azure/best-practices-network-security">Microsoft クラウド サービスとネットワーク セキュリティに関するページを参照してください</a>。</p>
+
+
+  <h2>セキュリティ検証</h2>
+
+
+  <p>Azure には、セキュリティ イベントを監視、防止、検出、および対応するための多くのツールが用意されています。 顧客は、Azure リソース <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-intro">Azure Security Center</a>を可視化し、制御できるサービスにアクセスできます。 統合されたセキュリティ監視とポリシー管理を提供し、脅威の検出に役立ち、セキュリティ ソリューションの広範なエコシステムと一緒に動作します。</p>
+
+
+  <p>また、Azure <a href="https://azure.microsoft.com/en-us/services/network-watcher/">ネットワークNetwork Watcher</a> 監視、診断、および分析情報を得る方法も提供されています。 ネットワークのセキュリティとパフォーマンスを監視&rsquo;する診断ツールと視覚化ツールを使用すると、ネットワークの問題を特定して解決できます。 たとえば、NSG に対して入ってくるトラフィックと NSG から送信されるトラフィックに関する情報を表示するには、 <a href="https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-nsg-flow-logging-overview">NSG Network Watcherログを提供します</a>。 NSG が適切にデプロイされていることを確認し、リソースへのアクセスを試行している未承認の IPS を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/204c0542-316e-4f28-97ec-58616d9f20a4.png"><img alt="ANS6" border="0" height="366" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f92fb10a-2f53-477f-8cdc-46d186dd508c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS6" width="546"></a></p>
+
+
+  <p align="center"><em>図 6。データを使用して NSG FlowログをキャプチャNetwork Watcher</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9f7a42b-4b7f-4d24-acdb-96758f40d2ad.png"><img alt="ANS7" border="0" height="415" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8661550-0729-40ce-87a8-955b970f6fd7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS7" width="550"></a></p>
+
+
+  <p align="center"><em>図 7。データを使用して NSG Flowログを分析Power BI</em></p>
+
+
+  <h2>ネットワーク インフラストラクチャのセキュリティ強化</h2>
+
+
+  <p><a href="https://www.ponemon.org/library/2015-cost-of-cyber-crime-united-states?s=+cost+of+cyber">2015 年の Ponemon</a> 調査によると、企業の場合、セキュリティ侵害あたりの平均コストは 1,500 万ドルです。 &rsquo;組織の資産を保護するために、Microsoft Cloud データセンターは、境界フェンス、ビデオ カメラ、セキュリティ担当者、安全な入り口、リアルタイム通信ネットワーク、すべての物理サーバーなど、詳細な防御の層によって保護されています。 これらの定期的に監査されるセキュリティ対策は、Azure がコンプライアンス認定の強力なポートフォリオを達成するのに役立ちます。&nbsp;</p>
+
+
+  <p>何年もの間、オンライン&rsquo;の犯罪やハッカーから顧客を保護するために、製品とサービスで暗号化を使用してきました。<a href="https://blogs.microsoft.com/blog/2013/12/04/protecting-customer-data-from-government-snooping/#01svD48xbI8t3Cjs.99"></a> お客様&rsquo;のデータが侵害され、この問題に取り組む機会を得たくない。 ネットワークとサービス全体で顧客データの暗号化を強化するための包括的なエンジニアリング作業があります。 この取り組みにより、顧客が作成したコンテンツのライフサイクル全体にわたって保護が提供されます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/how-microsoft-builds-its-fast-and-reliable-global-network/">データセンター間の Azure トラフィックは、</a> グローバル ネットワーク上に残り、インターネット上を流れるのではありません。 これには、世界中の任意の場所Microsoft Azureパブリック クラウド サービス間のすべてのトラフィックが含まれます。 たとえば、Azure 内では、VM、ストレージ、SQL間のトラフィックは、ソースリージョンと宛先リージョンに関係なく、Microsoft ネットワーク上に残っています。 リージョン内の VNet 間およびリージョン間 VNet 間トラフィックは、Microsoft ネットワーク上に残っています。</p>
+
+
+  <p>分散型サービス拒否 (DDoS) 攻撃は、絶えず高まる脅威です。 このような攻撃の拡大するスケールと複雑さから保護するには、大規模にデプロイされた重要なインフラストラクチャが必要です。 Azure には、すべての Microsoft クラウド サービスをシールドする DDoS 保護システムが組み込みされています。 そのため、すべての Azure パブリック IPs は、すべての Azure データセンターにデプロイされたこの保護に該当します。 DDoS システムでは、動的脅威検出アルゴリズムを使用して、一般的な DDoS ボリューム攻撃 (UDP フラッド、SYN-ACK 攻撃、リフレクション攻撃など) を防止します。 毎日数百回の軽減された攻撃の試行を監視し、保護を継続的に拡大します。</p>
+
+
+  <p>また、Azure 自体は、インターネット経由のアクティブな監視とインテリジェンス収集によって保護されています。 潜在的なリスクと攻撃を特定し、軽減するために、脅威インテリジェンスの調査をダーク web に継続的に実行します。 この知識は、保護の手法と軽減策に適用されます。 <a href="https://blogs.microsoft.com/microsoftsecure/2017/01/17/microsofts-cyber-defense-operations-center-shares-best-practices/">マイクロソフトのサイバー防御オペレーションセンター</a>では、マイクロソフトのコミットメントを強調して、セキュリティインシデントに応答しています。</p>
+
+
+  <p>これらの投資をまとめると、図8に示すように、Azure で実行されているサービスを保護するために、階層型のセキュリティモデルが提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f83d04e-0df1-4fc2-920c-f4df2a38f195.png"><img alt="ANS8" border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4288b7a-ffe9-48ce-a74f-92b6696cc11e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ANS8" width="533"></a></p>
+
+
+  <p align="center"><em>図 8.Azure をセキュリティで保護するための多層アプローチ</em></p>
+
+
+  <h2>セキュリティで保護された Azure ネットワーク</h2>
+
+
+  <p>Azure はセキュリティに大きな投資を行ってきました。 お客様は、仮想ネットワークとその他のセキュリティ機能およびサービスを使用して、クラウドアプリケーションの設計、構成、および監視を行うことができます。 私たちは、グローバルインフラストラクチャを積極的に監視し、継続的に強化して、新しいサイバー脅威の変化に対応しています。</p>
+
+
+  <p>マイクロソフトは引き続き、ネットワークセキュリティ攻撃を防ぐことができます。 世界中で最も人気のあるクラウドサービスを実行している世界規模のフットプリントを使用すると、ネットワークをセキュリティで保護し、サービスをセキュリティで保護するための幅広い入力が可能になります。 Microsoft は引き続きネットワークセキュリティテクノロジに投資して、Azure でサービスを構築、デプロイ、監視、および実行するための安全 &mdash; で準拠した方法 &mdash; を提供します。 お客様のビジネスを安全に実行するためのパートナーです。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Blogs/Azure/Azure-Network-Security/player" width="960"></iframe></p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>このシリーズの投稿をさらに読むには、次のページを参照してください:</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/networking-innovations-that-drive-the-cloud-disruption/">クラウドの分断を促進するネットワークの革新</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/sonic-the-networking-switch-software-that-powers-the-microsoft-global-cloud/">SONiC: マイクロソフトの世界規模のクラウドを支えるネットワーク スイッチ ソフトウェア</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/how-microsoft-builds-its-fast-and-reliable-global-network/">マイクロソフトが高速で信頼性の高いグローバル ネットワークを構築する方法</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/lighting-up-network-innovation/">ネットワークの革新に着手する</a></li>
+  </ul>

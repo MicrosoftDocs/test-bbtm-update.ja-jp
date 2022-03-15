@@ -1,0 +1,197 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ff75d3c3542e8b349961f62475ad601150065dfa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909190"
+Slug: announcing-general-availability-of-standard-ssd-disks-for-azure-virtual-machine-workloads
+Title: Azure Virtual Machine ワークロード用の Standard SSD ディスクの一般提供の発表
+Summary: 仮想マシン用の新しい種類の永続的ストレージである Azure Standard SSD Managed Disks の一般提供を発表Microsoft Azureです。
+Content: >-
+  <p>仮想マシン用の新しい種類の永続的ストレージである Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/disks-standard-ssd" target="_blank">Standard SSD</a> Managed Disks の一般提供を発表Microsoft Azureです。 Standard SSDディスクは、低い IOPS レベルで一貫したパフォーマンスを必要とするワークロード向けに最適化された、コスト効率の高いストレージ オプションです。 Standard SSDディスクはソリッド ステート ドライブ (HDD) にデータを格納しますが、Standard HDD ディスクはハード ディスク ドライブ (HDD) にデータを格納します。 Standard SSD は、HDD ディスクと比較して、可用性、一貫性、信頼性、待機時間の点で優れており、Web サーバー、低 IOPS アプリケーション サーバー、軽い負荷で使用されるエンタープライズ アプリケーション、Dev/Test ワークロードに適しています。 プレミアム SSD ディスクは、Standard SSD ディスクよりもパフォーマンスが高く、待機時間が非常に短く、IOPS/スループットが高く、プロビジョニングされたディスクのパフォーマンスとの整合性が向上します。そのため、プレミアム SSD は、実稼働ワークロードに推奨されるディスクの種類です。</p>
+
+
+  <p>2018 年 6 月に 1 つのリージョンに対する Standard SSD の限定プレビューから開始し、それをすべての Azure リージョンに拡張し、ポータルや他のツールでサポートを追加しました。 何千もの Azure Disks のお客様が、過去数か月間にプレビューで Standard SSD を試し、HDD ディスクと比較してワークロードのパフォーマンスの向上を検証するのに役立っています。 すべてのプレビュー ユーザーに、製品の改善に関するご参加と貴重なフィードバックに感謝します。</p>
+
+
+  <p>Azure ディスクの種類の比較の概要を次に示します。</p>
+
+
+  <table border="1" cellpadding="1" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>ディスクの種類</strong></td>
+              <td valign="top"><strong>Premium SSD</strong></td>
+              <td valign="top"><strong>Standard SSD</strong></td>
+              <td valign="top"><strong>Standard HDD</strong></td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>概要</strong></td>
+              <td valign="top">IO 集中型のエンタープライズ ワークロード用に設計されています。 実稼働ワークロードに対して、低待機時間と高可用性で一貫したパフォーマンスを実現します。</td>
+              <td valign="top">低 IOPS ワークロードに対して一貫したパフォーマンスを提供するように設計されています。 HDD ディスクと比較して、可用性と待機時間が向上します</td>
+              <td valign="top">アクセスが少ない低コストの大容量ストレージ用に最適化されています。 パフォーマンスに一部のばらつきが生じ得る</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>[ワークロード]</strong></td>
+              <td valign="top">SQL Server、Oracle、Dynamics、Exchange Server、MySQL、Cassandra、MongoDB、SAP Business Suite、その他の実稼働ワークロードなどの厳しいエンタープライズ ワークロード</td>
+              <td valign="top">Web サーバー、低 IOPS アプリケーション サーバー、軽く使用されるエンタープライズ アプリケーション、開発/テスト</td>
+              <td valign="top">バックアップ ストレージ</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>最大 IOPS</strong></td>
+              <td valign="top">20,000 IOPS プロビジョニング*</td>
+              <td valign="top">最大 2,000 IOPS*</td>
+              <td valign="top">最大 2,000 IOPS*</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>最大スループット</strong></td>
+              <td valign="top">750 MBPS プロビジョニング*</td>
+              <td valign="top">最大 500 MBPS*</td>
+              <td valign="top">最大 500 MBPS*</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>*上記の最大 IOPS とスループットのターゲットは、プレビュー中の大容量ディスク用であり、高い IOPS とスループットを実現するには適切な VM の種類が必要です。 詳細については、 <a href="https://aka.ms/azure-large-disk-32TB-preview-blog" target="_blank">Large Disks プレビューのお知らせ</a> を参照してください。</p>
+
+
+  <h2>ディスクのStandard SSD利点</h2>
+
+
+  <p>Standard ディスクStandard SSDのパフォーマンスと信頼性を向上させるために、新しいディスクを設計しました。 この新しいディスク オファリングでは、プレミアム SSD と Standard HDD ディスクの要素を組み合わせ、ディスクに高いトランザクション負荷を持たない Web サーバーなどのアプリケーションに最適なコスト効率の高いソリューションを形成します。 このようなワークロードの多くは、コストを削減するために HDD ベースのディスクを使用しました。 ただし、HDD ディスクは通常、パフォーマンスが低く、SSD ベースのディスクよりも信頼性が低く、実稼働ワークロードで問題になる可能性があります。</p>
+
+
+  <p>Standard SSD の一般提供により、Azure のお客様は、コスト効率に優れた方法で Standard HDD ワークロードを SSD ディスクにアップグレードし、パフォーマンスの向上、信頼性の向上、全体的なスムーズな操作を実現できます。</p>
+
+
+  <p>たとえば、Nutanix Frame は、私たちが協力したパートナーの 1 つであり、その違いを経験しました。</p>
+
+
+  <p><em>&quot;Nutanix Frame のお客様は、任意の規模および任意の環境で、重要な仮想デスクトップとアプリケーションに最適なパフォーマンスを期待しています。新しい Azure Standard SSD により、お客様は Azure Standard HDD&rdquo; ディスクを使用した経験と比べてパフォーマンスが大幅に向上します。そのため、最も要求の厳しいアプリケーションでもスムーズに動作します。最近 Frame を取得した Nutanix の Desktop Services の VP/GM である Nikola B hoinovic 氏は述べています。</em></p>
+
+
+  <h3>仮想マシン</h3>
+
+
+  <p>Standard SSD は、すべての Azure 仮想マシン SKU で動作するように設計されています。 A シリーズ VM、N シリーズ VM、D シリーズ VM、または他の Azure VM シリーズを使用している場合は、その VM で Standard SSD を使用できます。 Standard SSD の導入により、以前は HDD ベースのディスクを使用して SSD ベースのディスクに移行し、SSD に備わる一貫したパフォーマンス、より高い可用性、全体的に優れたエクスペリエンスを体験していた幅広いワークロードを実現しています。</p>
+
+
+  <h3>Standard SSD マネージド ディスクのサイズ</h3>
+
+
+  <p>標準の SSD は、一種のサービスとして <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Managed Disks</a>。 アンマネージド ディスクとページ BLOB は、Standard SSD ではサポートされていません。</p>
+
+
+  <p>提供されるディスク サイズを次に示します。 4 TB を超えるディスク サイズは <a href="https://aka.ms/azure-large-disk-32TB-preview-blog" target="_blank">プレビュー中です</a>。</p>
+
+
+  <table border="1" cellpadding="1" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>Standard SSD ディスクの種類</strong></td>
+              <td valign="top"><strong>E10</strong></td>
+              <td valign="top"><strong>E15</strong></td>
+              <td valign="top"><strong>E20</strong></td>
+              <td valign="top"><strong>E30</strong></td>
+              <td valign="top"><strong>E40</strong></td>
+              <td valign="top"><strong>E50</strong></td>
+              <td valign="top"><strong>(プレビュー)E60</strong></td>
+              <td valign="top"><strong>(プレビュー)E70</strong></td>
+              <td valign="top"><strong>(プレビュー)E80</strong></td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>ディスク サイズ</strong></td>
+              <td valign="top">128 GiB</td>
+              <td valign="top">256 GiB</td>
+              <td valign="top">512 GiB</td>
+              <td valign="top">1 TiB</td>
+              <td valign="top">2 TiB</td>
+              <td valign="top">4 TiB</td>
+              <td valign="top">8 TiB*</td>
+              <td valign="top">16 TiB*</td>
+              <td valign="top">32 TiB*</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>ディスクあたりの IOPS</strong></td>
+              <td valign="top">最大 500</td>
+              <td valign="top">最大 500</td>
+              <td valign="top">最大 500</td>
+              <td valign="top">最大 500</td>
+              <td valign="top">最大 500</td>
+              <td valign="top">最大 500</td>
+              <td valign="top">最大 1,300*</td>
+              <td valign="top">最大 2,000*</td>
+              <td valign="top">最大 2,000*</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>ディスクあたりのスループット (MBps</strong> 単位)</td>
+              <td valign="top">最大 60</td>
+              <td valign="top">最大 60</td>
+              <td valign="top">最大 60</td>
+              <td valign="top">最大 60</td>
+              <td valign="top">最大 60</td>
+              <td valign="top">最大 60</td>
+              <td valign="top">最大 300*</td>
+              <td valign="top">最大 500*</td>
+              <td valign="top">最大 500*</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>*大きなディスク サイズ (8 TB 以上) の IOPS とスループットのターゲットはプレビューであり、高い IOPS とスループットを実現するには適切な VM の種類が必要です。 詳細については、 <a href="https://aka.ms/azure-large-disk-32TB-preview-blog" target="_blank">Large Disks プレビューのお知らせ</a> を参照してください。</p>
+
+
+  <p>Standard SSD ディスクでは、ディスクによって提供されるサービス管理操作はすべて <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Managed Disks</a>。 たとえば、マネージド スナップショットを作成する場合とStandard SSD Managed Disks方法で、マネージド スナップショットを作成Managed Disks。 すべてのディスク操作 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">のManaged Disksについては</a> 、次のドキュメントを参照してください。</p>
+
+
+  <h3>パフォーマンス</h3>
+
+
+  <p>Standard SSDディスクは、ほとんどの IO 操作で 1 桁ミリ秒の待機時間を提供するように設計されています。 さまざまな種類のディスクの IOPS とスループットのターゲットについては、上記の表を参照してください。 実際の IOPS とスループットは、トラフィックパターンによって異なる場合があります。 Standard SSD ディスクは、HDD ディスクよりも一貫したパフォーマンスと低い待機時間を提供します。 Premium SSD ディスクは、待機時間が非常に短く、IOPS/スループットが高く、プロビジョニングされたディスクのパフォーマンスとの整合性も向上し、運用環境のワークロードに推奨されるディスクの種類として、Standard SSD ディスクよりもパフォーマンスが優れています。</p>
+
+
+  <p>Premium SSD ディスクと同様に、Standard SSD ディスクは 256 kb の IO ユニットサイズも使用します。 転送されるデータが 256 KB に満たない場合は、1 つの I/O ユニットとみなされます。 I/O のサイズが大きくなると、サイズが 256 KB の複数の I/O としてカウントされます。 たとえば、1,100 KB の I/O は 5 つの I/O ユニットとしてカウントされます。</p>
+
+
+  <h3>優れた持続性と可用性</h3>
+
+
+  <p>Standard SSD ディスクは同じ Azure ディスクプラットフォーム上に構築されており、ディスクの高可用性と持続性が一貫して提供されています。 Azure ディスクは、99.999 パーセントの可用性を実現するように設計されています。 すべての Managed Disks と同様に、Standard SSD ディスクは<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-redundancy/" target="_blank">ローカル冗長 Storage</a> (LRS) も提供します。 LRS を使用すると、プラットフォームはすべてのディスクに対してデータの複数のレプリカを保持し、業界トップレベルの年間故障率のゼロ% で、IaaS ディスクのエンタープライズレベルの持続性を継続的に提供します。</p>
+
+
+  <h2>価格</h2>
+
+
+  <p>使用可能な <a href="https://azure.microsoft.com/en-us/pricing/details/managed-disks/" target="_blank">新しい Standard SSD ディスクの価格の詳細</a> を参照してください。 Standard HDD ディスクと同様に、課金はディスクのサイズと実際のトランザクション (i/o ユニット) に基づいています。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>Standard SSD ディスクの作成と管理は、通常の Managed Disks と同じ方法で行うことができます。 Azure ポータルを使用して VM を作成するときに、ディスクの種類を Standard SSD として指定できます。</p>
+
+
+  <p>Azure Resource Manager (ARM) テンプレートを使用して、Standard SSD ディスクを持つ Vm をデプロイできます。 テンプレートの <a href="https://github.com/azure/azure-quickstart-templates/tree/master/101-vm-with-standardssd-disk/" target="_blank">例</a> を次に示します。 次に、ARM テンプレートで作成するために必要なパラメーターを示します。<br>
+
+  Standard SSD ディスク:</p>
+
+
+  <ul>
+      <li>apiVersion for Microsoft. Compute/virtualMachines は 2018-04-01 &rdquo; (またはそれ以降) として &ldquo; 設定する必要があります。</li>
+      <li>Standard SSD ディスクを作成するには、storageAccountType を StandardSSD_LRS &rdquo; として &ldquo; 指定します</li>
+  </ul>
+
+
+  <p>既存の Managed Disks を Standard SSD に変換することもできます。 マネージド ディスクの変換に関する一般的なガイドラインについては、「<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/convert-disk-storage" target="_blank">Azure マネージド ディスクのストレージを Standard から Premium に (または Premium から Standard に) 変換する</a>」を参照してください。 [AccountType StandardSSD_LRS &rdquo; の値を使用して &ldquo; 、ディスクの種類を Standard SSD に更新します。</p>
+
+
+  <p>すべてのディスク操作の詳細な手順については、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Managed Disks のドキュメント</a> を参照してください。</p>
+
+
+  <p>Standard SSD に関する質問については、ディスクに関する <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq-for-disks#standard-ssd-disks" target="_blank">faq ドキュメント</a> を参照してください。</p>
+
+
+  <p>Azure ディスクのポートフォリオを参照するには、こちらの <a href="https://azure.microsoft.com/en-us/services/storage/disks/" target="_blank">ページ</a>をご覧ください。</p>

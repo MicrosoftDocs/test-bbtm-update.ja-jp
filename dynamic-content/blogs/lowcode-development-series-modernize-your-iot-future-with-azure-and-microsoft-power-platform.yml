@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5e30505fe8152105cb654773ec046e1f02beb70a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909718"
+Slug: lowcode-development-series-modernize-your-iot-future-with-azure-and-microsoft-power-platform
+Title: 'ローコード開発シリーズ: Azure と Azure を使用して IoT の将来を最新化Microsoft Power Platform'
+Summary: >
+  今月のウェビナーは、"新しいアプリケーションを通じてAzure IoTのPower Platform。 このブログでは、Azure 上の LCAD について簡単に説明し、Azure と Azure Functions での IoT の概要、azure 関数を Power Automate にプルする方法、Power Automate フローを Power Apps に統合する方法について説明します。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4032ef03-0cfe-4e40-a999-e6982b1a3be3.gif"><img alt="Unlock the Future of Azure IoT through Power Platform" height="577" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa481dc8-7649-479a-a6bc-f9100faeae71.gif" style="display: inline;" title="" width="1024"></a></p>
+
+
+  <p>2021 年には、毎月、Azure ソリューション上のローコード アプリケーション開発 (LCAD) に関する月のウェビナーについて説明する月次ブログが開く予定です。 LCAD on Azure は、ローコードの Microsoft Power Apps と使い慣れた Azure 製品を統合する堅牢な開発機能を示すソリューションです。&nbsp;&nbsp;</p>
+
+
+  <p>今月のウェ&rsquo;ビナーは、「&ldquo;<a href="https://info.microsoft.com/ww-Landing-UnlocktheFutureofAzureIoTthroughPowerPlatform.html?LCID=EN-US" target="_blank">Unlock the Future of Azure IoT through Power Platform</a>」です。&rdquo;このブログでは<a href="https://azure.microsoft.com/en-us/solutions/low-code-application-development/" target="_blank">、Azure 上の LCAD</a> を簡単にまとめ、Azure と Azure Functions での IoT の概要、Azure 関数を Microsoft Power Automate にプルする方法、Power Automate フローを Power Apps に統合する方法について説明します。</p>
+
+
+  <h2>Azure 上の LCAD とは&nbsp;</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/solutions/low-code-application-development/" target="_blank">Azure 上の LCAD は</a> 、開発者が少ないコードでビジネス アプリケーションをより迅速に構築するために作成されました。 Microsoft、Power Platform&nbsp;、より具体的にはPower Appsを利用することで、開発者は Azure サービスを使用してPower Appsを拡張し、拡張できます。 たとえば、製造会社に働くプロ開発者は、倉庫の従業員が受信在庫を追跡するのに役立つ、業務ラインオブビジネス (LOB) アプリケーションを構築する必要があります。 そのアプリケーションのビルド、テスト、デプロイには数か月かかる場合があります。 このPower Appsを使用すると、&mdash;時間とリソースのビルドに数時間しかかから "いない" 場合があります。&nbsp;</p>
+
+
+  <p>ただし、現在の在庫が決して低い値にヒットした場合に、追加の在庫の調達注文をアプリケーションに自動的に配置する必要がある場合は、ウェアハウスの従業員が必要とします。 以前は、開発チームは、以前のアプリケーションのイテレーションをリワークするために、もう 1 つの大きなリフトが必要でした。 Power Apps と Azure の統合により、プロの開発者は APIin&nbsp; Visual Studio (VS) コードをビルドし、それを Azure portal に発行し、API を Power Apps にエクスポートして、カスタム コネクタとしてアプリケーションに統合することができます。</p>
+
+
+  <p>その後、その同じ API を Power Apps&rsquo; Studio で無期限に再利用可能にし、将来他のアプリケーションと一緒に使用し、会社や開発者の時間とリソースを節約できます。</p>
+
+
+  <h2>Azure および Azure 上の IoT Azure Functions</h2>
+
+
+  <p>このウェビナーでは、Azure IoT Hub と Power Appsを使用して IoT デバイスを制御する方法を理解します。 最初に、IoT デバイスにコマンドを直接送信Azure IoT Hub&nbsp; にコードを記述します。 このウェビナーでは、Samuel は Node for Azure IoT Hub&nbsp; に書き込み、2 つの基本的なコマンド (ファンのオンとオフの切り替え) を&nbsp;作成しました。</p>
+
+
+  <p>コマンドは、最初は&nbsp; Azure IoTハブ内のコードを介して&nbsp;送信されます。 テストが完了し、正常に実行されていることを確認したら、次の質問は、世界中のどこからでも API を迅速に呼び出す方法です。 答えは、Power Automate でフローを作成し、そのフローを Power Apps に接続する方法です。これは、世界中のどこからでも IoT デバイスを制御する完全なダッシュボードです。 このタスクを実行するには、まず Azure 関数を作成する必要があります。次に、フローを作成する <strong>Get</strong> 関数Power Automateを使用して、この関数にプルされます。</p>
+
+
+  <p>Azure 関数&#39;したら&nbsp;、最初にローカルで実行してテストし、Azure 関数 URL を使用してオンとオフの状態をテストします。 Azure 関数のトリガーを作成するには、この場合は Power Automate フローを作成し、Azure 関数を確認し、そのローカル機能をテストする必要があります。 テストに失敗した場合は、IoT デバイスのアクセス トークンを作成しなかったか、アクセス トークンを持っている可能性があります。 デバイス、IoT、またはそれ以外の方法でクラウドに接続するには、アクセス トークンが必要です。</p>
+
+
+  <p>ウェビナーでは、Samuel は on コマンドと off コマンドの 2 つのアプリケーション設定を関数に追加しました。 これらのアクセス トークンを追加し、IoT デバイスの設定を調整した後、Samuel は Azure 関数を正常に実行できます。</p>
+
+
+  <h2>Azure 関数を使用して自動化Power Automate</h2>
+
+
+  <p>Azure 関数を構築した後、IoT デバイスを操作するためのグローバルにアクセスPower Automateダッシュボードの構築を開始するための新しいフローを構築できます。 Samuel は、基本的な Power Automate フレームワークを構築してからフローを作成し、完了したらフローをテストする方法を示します。 HTTP 要求から始め、Getcommand <strong></strong>&nbsp;を実装します。 そこから、IoT デバイスをテストして実行する簡単なプロセスです。</p>
+
+
+  <h2>Power Automateにフロー Power Apps</h2>
+
+
+  <p>システム フローをPower Automate、ファンのオンとオフを切り替えるシンプルな UI&nbsp; を開発します。 これを行うには、キャンバス Power App を構築し、アプリにPower Automateをインポートします。</p>
+
+
+  <p>最初に、空のキャンバス アプリを作成し、名前を指定します。 リボンのPower Appsボタンを選択<strong>し、</strong>&rsquo;ボタンのソースを選択し、[Power Automate] を<strong>選択</strong>&nbsp;してフロー<strong>を追加します</strong>。 デバイス名が選択メニューに反映Azure IoTに&mdash;接続されているフローを選択します。 すべてが正常に実行されている場合は、IoT デバイスがオンになります。 ウェビナーでは、Samuel が時間を使い切っているので、キャンバス アプリにインポートする新しい Power Automate フローを作成します。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <ul>
+      <li>Azure IoT と Azure Functions を Power Apps にインポートする方法の詳細については、「Azure IoT から Power Platform の未来のロックを解除する」のウェビナーをご覧ください。<a href="https://info.microsoft.com/ww-Landing-UnlocktheFutureofAzureIoTthroughPowerPlatform.html?LCID=EN-US" target="_blank"></a>&rdquo; &ldquo;</li>
+      <li>さらに、新しい <a href="https://docs.microsoft.com/en-us/learn/paths/transform-business-applications-with-fusion-development/" target="_blank">.NET x Power Apps</a> ラーニング パス、Azure Functions、Visual Studio、および API Management との統合をカバーする、<a href="https://register.build.microsoft.com/" target="_blank">Microsoft Build</a> 中に Azure Learn Livesession&nbsp; での低コード アプリケーション開発が行います。</li>
+  </ul>

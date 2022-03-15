@@ -1,0 +1,132 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 51d6a8aaf529d829dc78ea7690c4266790ca0bcf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909364"
+Slug: automating-sap-deployments-in-microsoft-azure-using-terraform-and-ansible
+Title: Terraform および Ansible を使用した Microsoft Azure への SAP 自動デプロイ
+Summary: 複雑な SAP ランドスケープをパブリック クラウドにデプロイすることは簡単な作業ではありません。 SAP ベースのチームは、オンプレミスで SAP システムをインストールおよび構成する従来のタスクに精通している傾向があります。一方で、クラウドデプロイの設計、構築、テストには、多くの場合、追加のドメイン知識が必要です。
+Content: >-
+  <p>複雑な SAP ランドスケープをパブリック クラウドにデプロイすることは簡単な作業ではありません。 SAP ベースのチームは、オンプレミスで SAP システムをインストールおよび構成する従来のタスクに精通している傾向があります。一方で、クラウドデプロイの設計、構築、テストには、多くの場合、追加のドメイン知識が必要です。</p>
+
+
+  <p>時間のかかる、エラーが発生しやすい SAP デプロイ プロジェクトからパブリック クラウドに推測を取り出すオプションは複数あります。</p>
+
+
+  <ul>
+   <li>開始する方法の 1 つは、パブリック クラウドに直接デプロイできる多数の SAP ソリューションのリポジトリである <a href="https://cal.sap.com/" target="_blank">SAP Cloud Appliance Library (CAL</a> ) です。 ただし、コスト <a href="https://www.sapstore.com/solutions/99007/SAP-Cloud-Appliance-Library" target="_blank">とは別に</a>、CAL には事前構成済みの仮想マシン (VM) イメージだけが含まれているので、構成の変更は困難または不可能です。</li>
+   <li>無料の代替手段は、ほとんどのパブリック クラウド プロバイダーによって提供される SAP クイックスタート テンプレートを使用する方法です。 通常、シェル スクリプトまたは独自の言語で記述されているこれらのテンプレートには、定義済みの SAP シナリオ用のカスタマイズ オプションがいくつか用意されています。 たとえば、 <a href="https://github.com/AzureCAT-GSI/SAP-HANA-ARM" target="_blank">Azures&rsquo; ARM テンプレートでは、</a> Azure portal で直接、SAP HANAソリューションの 1 回のクリックデプロイが提供されます)。</li>
+  </ul>
+
+
+  <p>どちらのソリューションも優れた開始点ですが、通常、実稼働可能な SAP ランドスケープを構築するために必要な構成オプションと柔軟性はありません。</p>
+
+
+  <p>SAP &ldquo;&rdquo; ランドスケープをクラウドに移行する実際の顧客からのフィードバックに基づいて、実際のクイックスタート テンプレートは、プレイグラウンド システムや概念実証を超える可能性はほとんどありません。堅牢すぎて、実際のビジネス要件と技術的要件をマップする柔軟性が少なすぎるというのが現実です。</p>
+
+
+  <p>このため、sap on Microsoft Azure Engineering &ldquo;&rdquo; チームは反対の方向に進もうとしました。ほとんど適応できない (拡張されるのは言うまでも) 限られた SAP シナリオに対して 1 つのサイズに適合するテンプレートを提供するのではなく、Azure &ldquo;&rdquo; の SAP デプロイを最も詳細なレベルに分割し、真にカスタマイズ可能で使いやすいエクスペリエンスの構成要素を提供しています。</p>
+
+
+  <h2>クラウドでの SAP デプロイを自動化するための新しいアプローチ</h2>
+
+
+  <p>Azure でさらに複雑な SAP デプロイを自動化するためのモジュール型の新しいアプローチでは、次の一貫性のあるコレクションを開発しました。</p>
+
+
+  <ul>
+   <li><strong>インフラストラクチャ コンポーネント (</strong> VM、ネットワーク、ストレージなど) を Azure にデプロイし、 を呼び出す Terraform モジュール。</li>
+   <li><strong>異なる を呼び出す Ansible</strong> プレイブック:</li>
+   <li><strong>Azure にデプロイされた</strong> インフラストラクチャに OS および SAP アプリケーションをインストールして構成する Ansible ロール。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/348695a3-835c-4e96-861a-8883edec68fc.png"><img alt="A new approach to automating SAP deployments in the cloud" border="0" height="1530" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c56be03-f49c-4398-89df-e89386eb7b7a.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="クラウドでの SAP デプロイを自動化するための新しいアプローチ" width="2058"></a></p>
+
+
+  <p align="center"><em>Flow、Terraform/Ansible SAP オートメーション テンプレートの図。</em></p>
+
+
+  <p align="center">設計上の重要な考慮事項は、すべてのコンポーネントを可能な限りオープンで柔軟に保つという点でした。Azure と SAP の両方の側でほぼすべてのパラメーターをカスタマイズすることもできますが、ほとんどのパラメーターは省略可能です。 つまり、定型構成テンプレートの 1 つを使用して、Azure での最初の SAP デプロイを 10 &ndash; 分以内に開始できますが、モジュールとロールを使用して、はるかに複雑なランドスケープを構築することもできます。</p>
+
+
+  <p align="center">&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c58c673-ae09-48c6-bc98-1e6554c23d8d.png"><img alt="Deployment" border="0" height="625" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3298500f-47c1-43cb-989c-8374168c2437.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="展開" width="1353"></a></p>
+
+
+  <p align="center"><em>HANA 高可用性ペアのデプロイ例。</em></p>
+
+
+  <p align="left">便宜上、Terraform と Ansible は Azure Cloud Shell にプレインストールされています。そのため、テンプレートは最小限の構成でそこから直接実行できます。 または、もちろん、ローカル コンピューターまたは任意の VM から使用することもできます。</p>
+
+
+  <p>リポジトリはプロジェクトによって公開および管理Microsoft Azureプロジェクトはコミュニティ駆動型であり、投稿やフィードバックを歓迎します。</p>
+
+
+  <h2>新しいSAP HANA開始しますが、さらに多くのことを行う必要があります</h2>
+
+
+  <p>数か月前に Terraform テンプレートと Ansible テンプレートの構築を開始した際に、HANA でエンジニアリング プロセスを開始することを決定しました。 SAPs&rsquo; の主要なインメモリ データベースは、S/4HANA や BW/4HANA など、ほとんどの最新の SAP エンタープライズ アプリケーションの基になるプラットフォームであり、事実上の標準です。 &rsquo;SAP HANA&rsquo;&rsquo; 高可用性クラスターをゼロから構築した場合は、この複雑なタスクから推測を取り出し、SAP によって認定されたパブリック クラウド参照アーキテクチャにテンプレートを調整したと思います。</p>
+
+
+  <p>現在、Terraform/Ansible テンプレートでは、次の 2 つのオプションがサポートされています (現在、より多くのアプリケーション固有のシナリオが作業されています)。</p>
+
+
+  <h3><strong><a href="https://github.com/Azure/sap-hana/tree/master/deploy/vm/modules/single_node_hana" target="_blank">HANA 単一ノード インスタンス</a></strong></h3>
+
+
+  <ul>
+   <li>単一ノード HANA インスタンス。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7533ccea-8a76-419a-8e85-095c426497bf.png"><img alt="Single-node HANA instance" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8255f7c5-93bb-4699-a29e-3c9af997da47.png" style="margin: 0px auto; border: 0px currentcolor; display: block; background-image: none; width: 500px; height: 708px;" title="単一ノード HANA インスタンス"></a></p>
+
+
+  <h3 style="font-style: normal; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;"><a href="https://github.com/Azure/sap-hana/tree/master/deploy/vm/modules/ha_pair" target="_blank">HANA 高可用性ペア</a></h3>
+
+
+  <ul>
+   <li style="font-style: normal; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;">単一ノード HANA インスタンス、HSR 経由の 2 層レプリケーション (プライマリ/セカンダリ)。</li>
+   <li style="font-style: normal; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;">Pacemaker 高可用性クラスター、SBD と SAP/Azure リソース エージェントで完全に構成されています。</li>
+  </ul>
+
+
+  <p style="font-size: 13.008px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d3992a1d-a835-40c5-ab74-ff30fb36d3c2.png" style="font-weight: 400; font-style: normal; font-size: 13.008px; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;"><img alt="HANA high-availability pair" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45d7b4bc-845b-4c25-8cc9-4c7269336b72.png" style="margin-right: auto; margin-left: auto; border-color: currentcolor; font-size: 13.008px; display: block; background-image: none; border-width: 0px; border-style: solid; width: 560px; height: 480px;" title="HANA 高可用性ペア"></a></p>
+
+
+  <p>私たちの主な焦点は、可能な限り最大限の柔軟性を提供することです。SAP HANAランドスケープのすべての側面をカスタマイズできます。次に示します。</p>
+
+
+  <ul>
+   <li>サイズ変更 (サポートされている Azure VM SKU を選択します)。</li>
+   <li>高可用性 (高可用性ペアのシナリオでは、可用性セットまたは可用性ゾーンの使用を選択します)。</li>
+   <li>Bastion ホスト (必要に応じて、HANA Studio をWindows Linux &ldquo;&rdquo; ジャンプ ボックスから選択します)。</li>
+   <li>バージョン (現在、HANA 1.0 SPS12 と HANA 2.0 SPS2 以上がサポートされています)。</li>
+   <li>XSA アプリケーション (必要に応じて、XSA アプリケーション サーバーを有効にし、HANA Cockpit や SHINE など、サポートされている一連のアプリケーションから選択します)。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa8aa4b3-cff0-4cea-afb1-1e50ed452066.png"><img alt="04_XSA-SHINE" border="0" height="665" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0a7bea8f-3fad-473b-a470-ecb0b6a52879.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="04_XSA-SHINE" width="1044"></a></p>
+
+
+  <p align="center"><em>HANA 用の XSA SHINE デモ コンテンツ。</em></p>
+
+
+  <p>すべての&rsquo;シナリオには &ldquo;、使用を開始するのに役立つ fill-in-the-blanks&rdquo; 定型構成テンプレートと詳細な手順が含まれています。</p>
+
+
+  <h2>簡単に使用を開始する</h2>
+
+
+  <p>数分かかっていますか? 人気のある Azure Friday シリーズでは、チーム メンバーの Page Bowers が Terraform/Ansible テンプレートをSAP HANAライブ デプロイについて説明します。</p>
+
+
+  <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="270" src="https://channel9.msdn.com/Shows/Azure-Friday/SAP-HANA-infrastructure-automation-with-Terraform-and-Ansible/player?format=ny" width="480"></iframe></p>
+
+
+  <p>今すぐ移動したいですか? GitHub <a href="https://github.com/Azure/sap-hana" target="_blank">リポジトリにアクセス</a>し、&ldquo;&rdquo;&ndash;&rsquo;はじめにガイドに従って、Azure クラウドで初めての SAP ランドスケープを簡単に構築できます。</p>

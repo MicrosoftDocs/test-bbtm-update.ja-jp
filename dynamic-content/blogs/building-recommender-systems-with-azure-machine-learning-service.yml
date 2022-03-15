@@ -1,0 +1,106 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6b435025f6f8d0dc971f4b4fe297200eeadd7be9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909297"
+Slug: building-recommender-systems-with-azure-machine-learning-service
+Title: Azure Machine Learning サービスを使用したレコメンダーシステムの構築
+Summary: 推奨システムは、量販店からニュースやメディアまで、さまざまな業界で使用されています。 以前に検討または購入した内容に基づいて推奨事項を提示したストリーミングサービスまたは e コマースサイトを使用したことがある場合は、推奨システムと対話しています。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2159003a-af6a-4799-9c89-df48b625464a.png" target="_blank"><img alt="Title card: Building recommendation systems locally and in the cloud with Azure Machine Learning Service." border="0" height="300" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5550c654-2318-4173-b761-c28aa413b958.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="タイトルカード: Azure Machine Learning サービスを使用して、ローカルおよびクラウドに推奨システムを構築します。" width="960"></a></p>
+
+
+  <p>推奨システムは、量販店からニュースやメディアまで、さまざまな業界で使用されています。 &rsquo;以前に検討または購入した内容 &rsquo; に基づいて推奨事項を提示したストリーミングサービスまたは e コマースサイトを使用したことがある場合は、 &rsquo; 推奨システムと対話します。 大量のデータが利用可能であれば、多くの企業では、重要な収益ドライバーとして推奨システムを使用しています。 しかし、適切なレコメンダーアルゴリズムを見つけることは、データ科学者にとって非常に時間がかかることがあります。 このため、マイクロソフトは、 <a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">Azure Machine Learning サービス</a>を使用した推奨システムの構築と評価を容易にするために、Python のベストプラクティスの例を含む<a href="https://github.com/Microsoft/Recommenders/tree/master/" target="_blank">GitHub リポジトリ</a>を提供しています。</p>
+
+
+  <h2>推奨システムとは何ですか?</h2>
+
+
+  <p>推奨事項システムには、共同フィルター処理とコンテンツベースのフィルター処理の2つの主要な種類があります。 共同フィルター (電子商取引のシナリオで一般的に使用されます) では、ユーザーとユーザーの間の相互作用を識別するために、以前に表示されていない新しい項目を推奨します。 コンテンツベースのフィルター処理 (ストリーミングサービスで一般的に使用される) では、ユーザー &rsquo; プロファイルまたは項目の説明に関する機能を特定して、新しいコンテンツの推奨事項を作成します。 これらのアプローチは、ハイブリッドアプローチでも組み合わせることができます。</p>
+
+
+  <p>レコメンダー systems では、顧客が企業 &rsquo; のサイトをより長く保持し、より多くの製品やコンテンツとやり取りし、顧客が店舗の販売関連として購入または関与する可能性のある製品やコンテンツを提案します。 次に、 &rsquo; このリポジトリの概要と、データ科学者がレコメンダーシステムを構築および実装する際の問題点について説明します。</p>
+
+
+  <h2>データ科学者のプロセスを簡略化する</h2>
+
+
+  <p>レコメンダー algorithm GitHub リポジトリには、jupyter notebook として提供される推奨システムを構築するための例とベストプラクティスが記載されています。 この例では、5つの主要なタスクについて学習を説明しています。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Microsoft/Recommenders/blob/master/notebooks/01_prepare_data/README.md" target="_blank">データの準備</a> - レコメンダーアルゴリズムごとのデータの準備と読み込み</li>
+   <li><a href="https://github.com/Microsoft/Recommenders/blob/master/notebooks/02_model/README.md" target="_blank">モデリング</a> - レコメンダーのようなさまざまなクラシックおよびディープラーニングのアルゴリズムを使用したモデルの構築 (<a href="https://spark.apache.org/docs/latest/api/python/_modules/pyspark/ml/recommendation.html#ALS" target="_blank">ALS</a>)、または非常に深い詳細なコンピューター (xDeepFM)</li>
+   <li><a href="https://github.com/Microsoft/Recommenders/blob/master/notebooks/03_evaluate/README.md" target="_blank">評価</a> - オフラインメトリックを使用したアルゴリズムの評価</li>
+   <li><a href="https://github.com/Microsoft/Recommenders/blob/master/notebooks/04_model_select_and_optimize" target="_blank">モデルの選択と最適化</a> - レコメンダーモデルのハイパーパラメーターのチューニングと最適化</li>
+   <li><a href="https://github.com/Microsoft/Recommenders/blob/master/notebooks/05_operationalize/README.md" target="_blank">運用</a> - Azure の運用環境での運用モデル</li>
+  </ul>
+
+
+  <p>さまざまなアルゴリズムによって想定される形式でのデータセットの読み込み、モデル出力の評価、トレーニング/テストデータの分割などの一般的なタスクをサポートするために、 <a href="https://github.com/Microsoft/Recommenders/blob/master/reco_utils" target="_blank">v</a> ユーティリティでいくつかのユーティリティが用意されています。 さまざまな最先端のアルゴリズムの実装は、組織またはデータ科学 &rsquo; 者が所有するアプリケーションの自己学習とカスタマイズのために提供されています。<br>
+
+  次の図では、リポジトリで使用可能なレコメンダーアルゴリズムの一覧を確認でき &rsquo; ます。 &rsquo;常にレコメンダーアルゴリズムを追加しています。そのため、GitHub リポジトリにアクセスして最新の一覧を確認してください。</p>
+
+
+  <p>&nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e45cb3e2-4fb9-45a2-bd39-710bf6d1e722.png" target="_blank"><img alt="A chart showing different algorithms and their uses." border="0" height="1621" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e796df5-ce15-488c-9c1b-ec110059b5d2.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="さまざまなアルゴリズムとその用途を示すグラフ。" width="1348"></a></p>
+
+
+  <h2>レコメンダーリポジトリがデータ科学 &rsquo; 者の問題点を解決する方法を詳しく見てみましょう &rsquo; 。</h2>
+
+
+  <ol>
+   <li>
+   <h3>レコメンダーアルゴリズムのさまざまなオプションを評価するのに時間がかかります &rsquo; 。</h3>
+
+   <ul>
+    <li>レコメンダー GitHub リポジトリの主な利点の1つは、一連のオプションを提供し、特定の種類の問題を解決するのに最適なアルゴリズムを示すことです。 また、さまざまなアルゴリズムを切り替える方法について、大まかなフレームワークも提供します。 モデルのパフォーマンス精度 &rsquo; が十分でない場合、リアルタイムの結果に適したアルゴリズムが必要になるか、または最初に選択されたアルゴリズム &rsquo; が使用されるデータの種類に最適ではない場合、データ科学者は別のアルゴリズムに切り替えることができます。</li>
+   </ul>
+   </li>
+   <li>
+   <h3>レコメンダーシステムの新しいモデルの選択、理解、および実装は、コストがかかることがあります。</h3>
+
+   <ul>
+    <li>適切なレコメンダーアルゴリズムをゼロから選択し、レコメンダーシステムの新しいモデルを実装すると、トレーニングとテストのための十分な時間と、大量のコンピューティング能力が必要になるため、コストが高くなる可能性があります。 レコメンダー GitHub リポジトリを使用すると、選択プロセスが効率化され、プロジェクトやシナリオに適していない多数のアルゴリズムをテストする際にデータ科学者の時間を節約することでコストを削減できます。 これは、 <a href="https://azure.microsoft.com/en-us/pricing/" target="_blank">Azure &rsquo; のさまざまな価格オプション</a>と組み合わせることにより、データ科学 &rsquo; 者のコストを削減し、テストと組織 &rsquo; のデプロイにかかるコストを削減します。</li>
+   </ul>
+   </li>
+   <li>
+   <h3>より多くの最新のアルゴリズムを実装すると、困難になる可能性があります。</h3>
+
+   <ul>
+    <li>レコメンダーシステムを構築するよう求められた場合、データ科学者は多くの場合、より一般的なアルゴリズムを使用して、より高度なアルゴリズムをプロジェクト/データセットに適合させることができる場合でも、より多くの最新のアルゴリズムを選択してテストするために必要な時間とコストを軽減します。 レコメンダー GitHub リポジトリには、特定のシナリオに最も適した、既知のレコメンダーアルゴリズムのライブラリが用意されています。 また、ベストプラクティスについても説明します。これに従うと、より多くの最新のアルゴリズムを実装する方法が簡単になります。</li>
+   </ul>
+   </li>
+   <li>
+   <h3>Azure Machine Learning サービスを使用してレコメンダーアルゴリズムのトレーニング、テスト、最適化、デプロイを行う方法については、データ科学者には馴染みがありません。</h3>
+
+   <ul>
+    <li>最後に、レコメンダー GitHub リポジトリは、azure および<a href="https://docs.microsoft.com/azure/machine-learning/service/" target="_blank">Azure Machine Learning (azure ML) サービス</a>でのレコメンダーモデルのトレーニング、テスト、最適化、デプロイの方法に関するベストプラクティスを提供します。 実際、Azure ML サービス上のリポジトリでレコメンダーアルゴリズムを実行する方法には、<a href="https://github.com/Microsoft/Recommenders/tree/master/notebooks#submit-an-existing-notebook-to-azure-machine-learning" target="_blank">いくつかのノートブックが用意</a>されています。 データ科学者は、既に作成されているノートブックを使用して、最小限またはまったく変更せずに Azure に送信することもできます。</li>
+   </ul>
+   </li>
+  </ol>
+
+
+  <h2>Azure ML は、次のような AI モデル開発に関連するタスクのために、さまざまな notebook で極度を使用できます。</h2>
+
+
+  <ul>
+   <li>ハイパーパラメーターの調整</li>
+   <li>モデル作成プロセスを強化するためのメトリックの追跡と監視</li>
+   <li>dsvm や Azure ML コンピューティングのようなコンピューティングでのスケールアップとスケールアウト</li>
+   <li>Azure Kubernetes Service への web サービスのデプロイ</li>
+   <li>パイプラインの送信</li>
+  </ul>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p><a href="https://github.com/Microsoft/Recommenders/tree/master/" target="_blank">独自のレコメンダーシステムには、GitHub リポジトリ</a>を利用します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">Azure Machine Learning サービス</a>の詳細については、こちらを参照してください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/" target="_blank">Azure Machine Learning サービス</a>の無料試用版の使用を開始します。</p>

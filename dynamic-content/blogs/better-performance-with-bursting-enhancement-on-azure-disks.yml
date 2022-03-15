@@ -1,0 +1,327 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6e21f66c19c160f923829c8216b3288cf2632800
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903663"
+Slug: better-performance-with-bursting-enhancement-on-azure-disks
+Title: Azure ディスクでバースティングが強化されることでパフォーマンスが向上
+Summary: Azure Premium SSD ディスクでのバースティングサポートのプレビューと、両方のプレミアム & Standard ssd の新しいディスクサイズ 4/8/16 GiB についてご紹介します。 対象となる Premium SSD ディスクは、プロビジョニングされたパフォーマンス目標の最大30倍を確保できるようになりました。これにより、激しいワークロードをより適切に処理できます。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><strong style="font-style: normal; font-size: 13.008px; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;">2020 年7月17日に更新されました</strong>。プレミアム ssd のサポートは一般公開されています。 詳細については、<a href="https://azure.microsoft.com/en-us/blog/general-availability-of-new-azure-disk-sizes-and-bursting/" target="_blank">新しい Azure ディスクサイズとバースティングの一般提供</a>に関するブログ記事 &nbsp; を参照してください。</div>
+
+
+  <p>Azure Premium SSD ディスクでのバースティングサポートのプレビューと、11月の Microsoft Ignite でのプレミアム &amp; Standard ssd の両方での新しいディスクサイズ 4/8/16 GiB のプレビューが導入されました。 詳細については、こちらを参照してください。 バースティングを使用すると、対象となる Premium SSD ディスクは、プロビジョニングされたパフォーマンスターゲットを最大30倍まで実現できるようになり、激しいワークロードの処理が向上します。 オンプレミスで実行されているワークロードのうち、予測可能なディスクトラフィックが少ない場合は、Azure に移行し、バースティングサポートを利用して全体的なパフォーマンスを向上させることができます。</p>
+
+
+  <p>ディスクバースティングはクレジットベースのシステムに適用されます。このシステムでは、トラフィックがプロビジョニングされたターゲットを下回る場合にクレジットが蓄積され、プロビジョニングされていない場合はクレジットを使用します。 以下のシナリオでは、この機能を最大限に活用することができます。</p>
+
+
+  <ul>
+      <li><strong>仮想マシン (VM) の起動を高速化する OS ディスク:</strong> OS ディスクの読み取りがより高い速度で実行される可能性がある VM ブートの一環として、ブーストが必要になることがあります。 Azure でクラウドワークステーションをホストしている場合は、追加のディスクスループットを利用してアプリケーションの起動時間が短縮される可能性があります。</li>
+      <li><strong>激しいトラフィックに対応するデータディスク:</strong> 一部の運用操作では、設計上、ディスク入出力 (IO) のスパイクが発生します。 たとえば、データベースチェックポイントを実行すると、データディスクに対する書き込みが急激に増加し、バックアップ操作の読み取りも同様に増加します。 ディスクバースティングを使用すると、ディスクトラフィックパターンの予測または予期しない変更を処理する柔軟性が向上します。</li>
+  </ul>
+
+
+  <p>このプレビューリリースでは、ディスクサイズを小さくしてクラウド導入の実績コストを削減し、バーストサポートを利用してディスクのパフォーマンスを向上させています。 これらの新しいディスク機能を活用して、今すぐ Azure 上で最もパフォーマンスに優れ、堅牢で費用効率の高いソリューションを構築しましょう。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/virtual-machines/windows/attach-managed-disk-portal" target="_blank">Azure portal</a>、 <a href="https://docs.microsoft.com/azure/virtual-machines/windows/attach-disk-ps" target="_blank">Powershell</a>、または<a href="https://docs.microsoft.com/azure/virtual-machines/linux/add-disk" target="_blank">コマンドラインインターフェイス (CLI)</a>を使用して、適用可能なサイズのバーストに新しい管理ディスクを作成します。 次の表に、バースト対象と新しいディスクサイズの仕様を示します。 バースティングと新しいディスクサイズをサポートするプレビュー領域については、 <a href="https://docs.microsoft.com/azure/virtual-machines/windows/faq-for-disks#new-disk-sizes-managed-and-unmanaged" target="_blank">Azure ディスクのよく寄せられる質問に関する記事</a>をご覧ください。 プレビューサポートをより多くのリージョンに積極的に拡張しています。</p>
+
+
+  <h3>Premium SSD マネージド ディスク</h3>
+
+
+  <p>バースティング機能は Premium SSD 管理ディスクでのみサポートされています。 サポートされているリージョンのすべての新しいデプロイで、既定で有効になります。 該当するサイズの既存のディスクについては、バースティングを有効にする方法として、ディスクのデタッチと再アタッチを行う方法と、接続されている VM を停止して再起動する方法の2つがあります。 バースティングのしくみの詳細については、「Azure &quot; <a href="https://docs.microsoft.com/azure/virtual-machines/windows/disks-types#premium-ssd" target="_blank">で使用できるディスクの種類」</a>を &quot; 参照してください。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p style="text-align: center;"><strong>バースト対応ディスク</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p style="text-align: center;"><strong>ディスク サイズ</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p style="text-align: center;"><strong>ディスクあたりのプロビジョニング済み IOPS</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p style="text-align: center;"><strong>ディスクあたりのプロビジョニングされた帯域幅</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p style="text-align: center;"><strong>ディスクあたりの最大バースト IOPS</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p style="text-align: center;"><strong>ディスクあたりの最大バースト帯域幅</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p style="text-align: center;"><strong>最大バースト時間 (ピーク時のバースト率)</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P1 &ndash; <i>新規 </i></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>4 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P2 &ndash; <i>新規</i></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>8 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P3 &ndash; <i>New </i></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>16 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P4</p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>32 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P6</p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>64 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>240</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>50 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P10</p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>128 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>500</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>100 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P15</p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>256 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>1,100</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>125 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>P20</p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>512 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>2,300</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>150 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="136">
+              <p>3,500</p>
+              </td>
+              <td style="vertical-align: middle;" width="148">
+              <p>170 MiB/秒</p>
+              </td>
+              <td style="vertical-align: middle;" width="144">
+              <p>30分</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h3>Standard SSD Managed Disks</h3>
+
+
+  <p>Standard SSD ディスクに導入された新しいディスクサイズを次に示します。 パフォーマンスターゲットは、これらのサイズで実現できる最大 IOPS と帯域幅を定義します。 上記の Premium SSD ディスクと比較すると、提供されるディスク IOPS と帯域幅はプロビジョニングされません。 パフォーマンスに依存するワークロードまたは単一インスタンスデプロイの場合は、プレミアム ssd を活用することをお勧めします。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td style="vertical-align: middle; text-align: center;" width="133">&nbsp;</td>
+              <td style="vertical-align: middle;" width="132">
+              <p style="text-align: center;"><strong>ディスク サイズ</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p style="text-align: center;"><strong>ディスクあたりの最大 IOPS</strong></p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p style="text-align: center;"><strong>ディスクあたりの最大帯域幅</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>E1 &ndash; <i>新規 </i></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>4 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MB/秒</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>E2 &ndash; <i>新規</i></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>8 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MB/秒</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="vertical-align: middle;" width="133">
+              <p>E3 &ndash; <i>新規 </i></p>
+              </td>
+              <td style="vertical-align: middle;" width="132">
+              <p>16 GiB</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>120</p>
+              </td>
+              <td style="vertical-align: middle;" width="154">
+              <p>25 MB/秒</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>サービス Web サイトにアクセスして<a href="https://azure.microsoft.com/services/storage/disks/" target="_blank">、AzureDisk&nbsp;&nbsp; Storage portfolio を確認してください</a>。 価格については、Azure の価格に関する <a href="https://azure.microsoft.com/pricing/details/managed-disks/">ページManaged Disks覧ください</a>。</p>
+
+
+  <h2>一般的なフィードバック</h2>
+
+
+  <p>新しいディスク サイズに関するご意見をお待ちしております。 メールをお送りください <a href="mailto:AzureDisks@microsoft.com">AzureDisks@microsoft.com</a>。</p>

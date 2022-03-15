@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4811047c63823932896e1a8dbf90cd23a9154661
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909856"
+Slug: enhanced-capabilities-to-monitor-manage-and-integrate-sql-data-warehouse-in-the-azure-portal
+Title: Azure Portal で SQL Data Warehouse を監視、管理、統合するための強化された機能
+Summary: 'Azure SQL Data Warehouse (SQL DW) では、データウェアハウスを監視、管理、統合する際のシームレスなユーザーエクスペリエンスを提供するために、引き続き Azure portal に更新プログラムが導入されます。 '
+Content: >-
+  <p>Azure SQL Data Warehouse (SQL DW) では、データウェアハウスを監視、管理、統合する際のシームレスなユーザーエクスペリエンスを提供するために、引き続き Azure portal に更新プログラムが導入されます。</p>
+
+
+  <h2>Azure Monitor メトリックのサポート</h2>
+
+
+  <p>SQL DW では<a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview" target="_blank">Azure Monitor</a>がサポートされるようになりました。これは、データウェアハウスのパフォーマンスと正常性のテレメトリを消費する組み込みの監視サービスです。 Azure monitor では、Azure portal 内でデータウェアハウスを監視できるだけでなく、Azure サービス間の緊密な統合により、単一のインターフェイス内で Data Analytics ソリューション全体を監視することもできます。 このリリースでは、データウェアハウスのメトリックが有効になり、パフォーマンスのボトルネックとユーザーアクティビティを識別できるようになりました。</p>
+
+
+  <ul>
+   <li>ファイアウォール接続による成功/失敗/ブロック</li>
+   <li>CPU</li>
+   <li>IO</li>
+   <li>DWU の制限</li>
+   <li>DWU の割合</li>
+   <li>使用済み DWU</li>
+  </ul>
+
+
+  <p>これらのメトリックには、データウェアハウスのリソースのボトルネックをほぼリアルタイムで把握するために、1分の頻度が設定されました。 Azure Monitor では、すべてのデータウェアハウスのメトリックに90日の既定のリテンション期間があります。</p>
+
+
+  <p>Azure ポータルを使用して <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts#how-do-i-create-a-new-chart">azure monitor サービスのメトリックグラフ</a> を構成するか、 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-rest-api-walkthrough#retrieve-metric-definitions-multi-dimensional-api">POWERSHELL または REST を使用してメトリックを</a>プログラムで照会します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7dcdd8f-c6bf-4171-8c79-907e8620c457.png"><img alt="AzureMonitor_Support" border="0" height="838" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac8d2f4c-a3ff-46e7-8f48-6dd349e7f8b0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AzureMonitor_Support" width="1904"></a></p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-portal/azure-portal-dashboards">Azure ダッシュボード</a>を使用して、データウェアハウスに構成されているグラフをピン留めします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1dbd50b2-508c-46d7-89ad-6ff426749c1f.png"><img alt="AzureMonitorDashboard_Support (002)" border="0" height="530" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea0e0f0f-f75b-4dd5-83fd-2bdae65bad36.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AzureMonitorDashboard_Support (002)" width="1514"></a></p>
+
+
+  <h3>一時停止してコストを安全に管理する</h3>
+
+
+  <p>SQL DW の<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-compute-overview">一時停止機能</a>を使用すると、アクティビティをほとんど行わずにコンピューティングをオフにすることで、データウェアハウスの運用コストを削減し、管理することができます。 この機能は、実行中のクエリを検出し、pause コマンドを発行する前に警告を指定することによって、Azure portal 内で強化されています。 一時停止すると、データウェアハウスをシャットダウンする前に、すべてのセッションがキャンセルされ、すぐにデータウェアハウスが停止します。 これにより、エンドユーザーのアプリケーションが中断されることがあります。 ここで、Azure portal の [一時停止] ボタンをクリックするだけで、実行中のクエリの数を検出し、一時停止するタイミングについての情報に基づいた決定を行うことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d2d0ffd5-b303-4ef6-b88d-90e3ddcf529c.png"><img alt="Pause_DW (003)" border="0" height="348" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c2108223-c262-4f91-a3f0-42677d8d7a1f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Pause_DW (003)" width="1099"></a></p>
+
+
+  <p>また、dataWarehouseUserActivities &rdquo; <a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-resource-provider-operations#microsoftsql">REST API</a>を利用して、 &ldquo; アプリケーションでクエリの検出をプログラムによって統合することもできます。</p>
+
+
+  <h3>Azure Analysis Services との統合</h3>
+
+
+  <p>SQL DW は多くの Azure サービスに緊密に統合されているため、高度な最新の Data Analytics ソリューションを開発できます。 一般的なパターンの1つとして、ハブとスポークパターンで<a href="https://azure.microsoft.com/en-us/blog/azuresqldw-hub-and-spoke-series-integration-with-azure-analysis-services/">SQL DW を使用して Azure Analysis Services (.aas) を利用</a>して、コスト、パフォーマンス、同時実行性を最適化することが挙げられます。 .AAS へのシームレスなアクセスを可能にするために、Azure Portal 内のより緊密な統合ポイントが有効になっています。 &ldquo;[タスク] パネル内の [モデルとキャッシュデータ &rdquo; ] ボタンをクリックして、データのセマンティックモデルの構築とホスティングをすぐに開始します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df314594-d543-4a42-92b4-52d816f7368b.png"><img alt="AAS_Portal (002)" border="0" height="620" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/971e36a6-3fac-4689-8cc9-00f5bffca4d2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AAS_Portal (002)" width="1445"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62b60777-72bb-438a-86aa-8bb0b661d056.png"><img alt="AAS_view (002)" border="0" height="876" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eed68c3d-e923-440d-90f8-5938471842c2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AAS_view (002)" width="1900"></a></p>
+
+
+  <p>POC のサポートが必要な場合は、 <a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/information-request/">直接お問い合わせ</a>ください。 最新の Azure SQL DW ニュースと機能については、Twitter <a href="https://twitter.com/AzureSQLDW">@AzureSQLDW</a> に関する記事をフォローして最新情報を入手してください。</p>

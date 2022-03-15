@@ -1,0 +1,129 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7d2533af9bdaca816228e7063d0e2f81f6d85e08
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909729"
+Slug: logic-apps-flow-connectors-will-make-automating-video-indexer-simpler-than-ever
+Title: Logic Apps、Flow コネクタによって、これまで以上に簡単に自動化 Video Indexer できるようになります。
+Summary: Video Indexer 最近、Video Indexer V2 API が新しくリリースされました。 この RESTful API は、サーバー間通信とクライアントとサーバー間の通信の両方をサポートしているため、ユーザーは次のように Video Indexer できます。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><em><strong>2020 年5月7日の更新:</strong> &nbsp;Video Indexer ロジックアプリと Power Automate コネクタの最新情報については、「<a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/logic-apps-connector-tutorial" target="_blank">チュートリアル: ロジックアプリでの Video Indexer の使用」と Power Automate</a> &nbsp; のドキュメントを参照してください。</em></div>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://vi.microsoft.com/en-us/" target="_blank">Video Indexer</a> 最近、 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/video-indexer/video-indexer-output-json-v2" target="_blank">Video Indexer V2 API</a>が新しくリリースされました。 この RESTful API は、サーバー間通信とクライアント/サーバー通信の両方をサポートし、Video Indexer ユーザーがビデオとオーディオの洞察をアプリケーションロジックに簡単に統合し、新しいエクスペリエンスと収益化の機会を解除できるようにします。</p>
+
+
+  <p>統合をさらに簡単にするために、新しい API と互換性のある新しい<a href="https://azure.microsoft.com/en-us/services/logic-apps/" target="_blank">Logic Apps</a>と<a href="https://preview.flow.microsoft.com/en-us/connectors/shared_videoindexer-v2/video-indexer-v2/" target="_blank">Flow</a>コネクタも追加しました。 新しいコネクタを使用すると、1行のコードを記述しなくても、大量のビデオやオーディオファイルに対して効率的にインデックスを作成し、洞察を抽出するカスタムワークフローを設定できるようになりました。 さらに、統合にコネクタを使用すると、フローの正常性をわかりやすくし、簡単にデバッグすることができます。&nbsp;</p>
+
+
+  <p>新しいコネクタをすぐに使い始めるために、新しいコネクタを使用して、ビデオからの洞察の抽出を自動化する Microsoft Flow テンプレートを追加しまし &rsquo; た。 このブログでは、これらのテンプレートの例について説明します。</p>
+
+
+  <h2>自動的にビデオをアップロードしてインデックスを付ける</h2>
+
+
+  <p>このシナリオは、連携する 2 つの異なるフローで構成されます。 <a href="https://preview.flow.microsoft.com/en-us/galleries/public/templates/362118cd69064ddb8f58ec109f9376c9/gain-and-store-video-insights-for-videos-uploaded-to-onedrive-part-1/" target="_blank">最初のフロー</a>は、OneDrive アカウント内の指定されたフォルダーに新しいファイルが追加されるとトリガーされます。 インデックス付けの操作が完了したら通知を送信するためのコールバック URL と共に、新しいファイルを Video Indexer にアップロードします。 <a href="https://preview.flow.microsoft.com/en-us/galleries/public/templates/78fb99bb89ad4e11bf443df4e09a0d72/gain-and-store-video-insights-for-videos-uploaded-to-onedrive-part-2/" target="_blank">2 番目のフロー</a>は、コールバック URL に基づいてトリガーされ、抽出された洞察を ONEDRIVE の JSON ファイルに保存します。 2つのフローが使用される理由は、非同期アップロードと大きなファイルのインデックス作成を効果的にサポートするためです。</p>
+
+
+  <h3>ファイルアップロードフローの設定</h3>
+
+
+  <p><a href="https://preview.flow.microsoft.com/en-us/galleries/public/templates/362118cd69064ddb8f58ec109f9376c9/gain-and-store-video-insights-for-videos-uploaded-to-onedrive-part-1/" target="_blank">最初のテンプレートページ</a>に移動します。</p>
+
+
+  <p>このフローを設定するには、 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/video-indexer/video-indexer-use-apis#subscribe-to-the-api" target="_blank">Video Indexer API キー</a>と<a href="https://onedrive.live.com/about/en-us/" target="_blank">OneDrive</a>資格情報を提供する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8af7245-ce4b-4825-96e1-8de1080aaad3.png"><img alt="Part1TemplatePage" border="0" height="1184" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3b5e083-90e8-4e19-9af0-306e2bd59adc.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part1TemplatePage" width="999"></a></p>
+
+
+  <p>両方のキーを入力すると、アカウントの近くに緑色のマークが表示されます。クリックしてフロー自体に進み、ニーズに合わせて構成することができます。</p>
+
+
+  <p>ビデオを配置するフォルダーを選択してください:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ce15b274-13a7-484d-b65c-98170e0884a3.png"><img alt="Part1WhenFileCreated" border="0" height="177" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a21755f5-c09d-420b-8836-1361a7114185.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part1WhenFileCreated" width="793"></a></p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/cognitive-services/video-indexer/video-indexer-use-apis#location" target="_blank">アカウントの場所と ID</a>を入力して Video Indexer アカウントトークンを取得し、ファイルのアップロード要求を呼び出します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1af7e74d-5778-4993-93f2-7ef5c2532d63.png"><img alt="Part1GetAccessToken" border="0" height="279" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b41fc3c6-e59b-45ee-bc52-746e7372d8fa.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part1GetAccessToken" width="821"></a></p>
+
+
+  <p>ファイルをアップロードする場合は、既定値を使用するか、コネクタをクリックして設定を追加することができます。 コールバック url は、コールバック URL が作成された2番目のテンプレートが完成した後にのみ追加されるので、ここ &hellip; &rsquo; では空のままにしておきます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eb8226c0-46c0-4818-afaa-54b59ce392bb.png"><img alt="image007" border="0" height="976" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ff364d1a-0592-4a3c-bc52-d2d6e5e55010.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="image007" width="840"></a></p>
+
+
+  <p>[フロー &rdquo; &rsquo; の保存] をクリックし、2番目のフローを構成して、アップロードが完了したら洞察を抽出するようにし &ldquo; ます。</p>
+
+
+  <h2>JSON 抽出フローの設定</h2>
+
+
+  <p><a href="https://preview.flow.microsoft.com/en-us/galleries/public/templates/78fb99bb89ad4e11bf443df4e09a0d72/gain-and-store-video-insights-for-videos-uploaded-to-onedrive-part-2/" target="_blank">2 番目のテンプレートページ</a>に移動します。</p>
+
+
+  <p>このフローを設定するには、Video Indexer API キーと OneDrive 資格情報を提供する必要があります。 最初のフローで更新したのと同じパラメーターを更新する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/572e60fc-33f9-4e3d-b62a-d3dcb517ecf7.png"><img alt="Part2TemplatePage" border="0" height="1159" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b9d9b53-467f-4228-a55b-43dea771d0f4.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part2TemplatePage" width="976"></a></p>
+
+
+  <p>次に、フローの構成を続行します。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/cognitive-services/video-indexer/video-indexer-use-apis#location" target="_blank">アカウントの場所と ID</a>を入力して、Video Indexer アカウントトークンとインデックス作成結果を取得します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4fecc028-b638-4127-b25e-dddc63d84d76.png"><img alt="Part1GetAccessToken" border="0" height="279" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dcacf7b7-e1d8-47bb-8c4a-2e3246f1c22b.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part1GetAccessToken" width="821"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f1fe28e-429a-4d32-89ef-7ec996e37991.png"><img alt="Part2GetVideoIndex" border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b69c855c-9865-473f-85ad-c28259e0a569.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part2GetVideoIndex" width="783"></a></p>
+
+
+  <p>また、分析情報を保存する OneDrive フォルダーを選択します。 インサイトを含む JSON ファイルの名前を変更する場合は、既定のパラメーターを編集することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26070db7-32f8-451f-9bd8-bec1e35533e5.png"><img alt="Part2CreateFile" border="0" height="246" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9565938a-b896-445f-859e-84bdd5c9a1d1.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part2CreateFile" width="782"></a></p>
+
+
+  <p>[フローの保存] をクリックし &ldquo; ます。&rdquo;</p>
+
+
+  <p>フローが保存されると、トリガーに URL が作成されます。 トリガーから URL をコピーします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0ea27bd0-168d-4faa-b845-9b04c0573518.png"><img alt="save flow" border="0" height="239" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b9bc76d-277f-47c2-bbf3-b331467deac1.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="フローの保存" width="862"></a></p>
+
+
+  <p>次に、作成された最初のフローに戻り、[コールバック URL] パラメーターの下にあるアップロードの &ldquo; ビデオとインデックス &rdquo; の操作に URL を貼り付けます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c0d6c86-cf4f-477a-b1a9-fcdfdc453972.png"><img alt="Part1Upload" border="0" height="976" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5e3272f-ffc5-41b4-9e33-1f3df2520366.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Part1Upload" width="840"></a></p>
+
+
+  <p>両方のテンプレートが保存されていることを確認し &rsquo; てください。</p>
+
+
+  <p>OneDrive フォルダーにビデオを追加して、新しく作成されたフローを試してみてください。数分後に、インサイトに表示されている情報を確認してください。</p>
+
+
+  <h2>無限の統合の可能性</h2>
+
+
+  <p>これは1つの例にすぎません。 Video Indexer によって提供されるすべての API 呼び出しに新しいコネクタを使用できます。 洞察をアップロードして取得するには、結果を翻訳し、すばらしいの埋め込み可能なウィジェットを入手して、モデルをカスタマイズします。 また、ファイルリポジトリや電子メールの更新などのさまざまなソースに基づいてアクションをトリガーしたり、関連するインフラストラクチャやアプリケーションに結果を更新したり、任意の数のアクションアイテムを生成したりすることもできます。 また、ファイルの数が多い場合や、コーディングが不要な場合や、反復的な手動作業を行う必要がない場合もあります。 ビジネスニーズに適したフローについては、今すぐに試してみてください。&#39;は簡単です。</p>
+
+
+  <h3>質問やフィードバックがある場合や 皆様のご意見をお待ちしております。</h3>
+
+
+  <p><a href="https://cognitive.uservoice.com/forums/598144-video-indexer" target="_blank">UserVoice</a>を使用して、機能に優先順位を付けるか、または質問に電子メールを送信 <a href="https://mailto:visupport@microsoft.com" target="_blank">VISupport@Microsoft.com</a> します。</p>

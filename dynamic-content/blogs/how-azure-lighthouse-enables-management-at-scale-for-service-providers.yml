@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 797a2eb936d770f0cfe09ada5d239aad2ad75c0e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909817"
+Slug: how-azure-lighthouse-enables-management-at-scale-for-service-providers
+Title: Azure Lighthouse がサービスプロバイダーに対して大規模な管理を有効にする方法
+Summary: Azure Lighthouse は、コードとしてのインフラストラクチャを継続的に導入し、管理されたサービスプラクティスに自動化することによって、テナント間のガバナンスと操作を簡略化する新しい委任されたリソースの概念を導入しました。
+Content: >-
+  <h3>委任されたリソース管理を使用した Azure Resource Manager の拡張</h3>
+
+
+  <p>現在、Erin Chapple 社バイスプレジデント、Microsoft Azure は、 <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-lighthouse/" target="_blank">azure Lighthouse の一般</a>公開を発表しました。これは、サービスプロバイダーがすべてのお客様の azure を表示および管理するための1つの制御プレーンです。 Azure Lighthouse は、コードとしてのインフラストラクチャを継続的に導入し、管理されたサービスプラクティスに自動化することによって、テナント間のガバナンスと操作を簡略化する新しい委任されたリソースの概念を導入しました。</p>
+
+
+  <h2>きめ細かいアクセス、高度な自動化、簡素化された顧客オンボード</h2>
+
+
+  <p>Azure Lighthouse の利用は、委任された <a href="https://aka.ms/azurelighthouse-docs" target="_blank">リソース管理</a>と呼ばれる Azure Resource Manager の機能です。 委任されたリソース管理を使用すると、サブスクリプション、リソースグループ、個々のリソースなどのスコープを介してサービスプロバイダーにアクセス許可を委任できます。これにより、サービスプロバイダーは管理操作をユーザーに代わって実行できるようになります。 顧客がリソースをサービスプロバイダーに委任すると、標準のロールベースのアクセス制御 (RBAC) メカニズムを使用して、顧客によって指定された制約内でプロバイダー &rsquo; のテナント内のユーザーまたはアカウントにアクセスできるようになります。 標準的な RBAC メカニズムは、顧客リソースがプロバイダー &rsquo; 独自のサブスクリプションのリソースである場合と同様に機能します。 最後に、委任されたリソース管理は、ライセンス構築サービスプロバイダーに関係なく一貫して動作します。また、お客様はエンタープライズ契約 (EA)、クラウドソリューションプロバイダー (CSP)、従量課金制を選択 &mdash; できます。</p>
+
+
+  <p><em>&ldquo;Azure の委任されたリソース管理により、Nordcloud のお客様は安全なアクセスを簡単に提供できます。新しい管理対象サービスのお客様のオンボードが簡素化され、高度なセキュリティとコンプライアンスの基準が満たされます。 &rdquo; </em></p>
+
+
+  <p align="right"><strong>Ilja Suma、グループ CTO、Nordcloud</strong></p>
+
+
+  <h2>可視性とガバナンスを強化した、大規模なテナント間管理</h2>
+
+
+  <p>委任された管理では、サービスプロバイダーが、顧客の代理として機能している管理対象サービスパートナーであるか、複数の Azure テナントを持つ企業の中央 IT チームであるかにかかわらず、サービスプロバイダーの大規模および自動化パターンを一意にサポートします。 パートナーは、独自の Azure portal または CLI のコンテキストから、何千もの顧客から数千のリソースを管理できるようになりました。 サービスプロバイダーは顧客のリソースを Azure リソースとして独自のテナントに表示できるため、サービスプロバイダーは簡単に状態の監視を自動化し、複数の顧客のリソースに対して、作成、更新、変更、削除 (CRUD) の変更を1か所から適用できます。</p>
+
+
+  <p>Azure リソース管理に関連するすべてのものが、Azure portal から Azure Policy、リソース Graph、Azure Monitor の Log Analytics 機能などのサービス、または Update Management のすべてが委任されたリソース管理を優先します。 &rsquo;さらに、顧客とサービスプロバイダーの両方が、アクティビティログからリソースに対してアクションを実行したユーザーを確認し、各パーティのアカウンタビリティを向上させることができます。これにより、個々のサービスプロバイダー id のプライバシーが保護されます。 &rsquo;これは、新しく構築されたリソースプロバイダーである Microsoft 管理サービスにより、Azure サービスがリソース &rsquo; のホームテナントまたはサービスプロバイダー &rsquo; のテナントからの呼び出しが行われたかどうかを判断できるためです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5124560-3505-4eeb-9c31-7d0d683c38c9.png"><img alt="Delegated Resource Mangement" border="0" height="510" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53b4d61f-745d-4471-89e8-014b0b479471.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="委任されたリソースの Management" width="1447"></a></p>
+
+
+  <p>パートナーには、これらの新機能を使用する方法に関するいくつかのオプションがあります。 Azure Lighthouse portal のエクスペリエンスには対応する Api、 <a href="https://aka.ms/azurelighthouse-docs" target="_blank">PowerShell、Azure CLI、REST api、またはクライアント sdk</a> &rsquo; があるため、他のクラウド管理ポータル、ITSM ツール、または監視ツールに簡単に統合できます。</p>
+
+
+  <h2>パートナーが Azure Lighthouse を使用する方法</h2>
+
+
+  <p>Rackspace と Sentia という2つのエキスパートパートナーの例では、Azure Lighthouse と委任されたリソース管理の機能が強調されています。</p>
+
+
+  <p><strong>Rackspace</strong> は、次の3つの手順で Azure Lighthouse を使用してセキュリティと応答の機能を強化します。</p>
+
+
+  <ol>
+   <li>Azure リソース Graph とクロステナントクエリを使用して、デプロイされたイメージまたはホストに影響を与えた顧客を迅速に検出する</li>
+   <li>影響/脆弱性に関連するホスト設定を確認するために、すべての顧客 &rsquo; 管理資産に対してゲスト内監査ポリシーを適用する</li>
+   <li>更新管理を使用して影響を受けるシステムに関するレポートを作成し、対象となるホットフィックスをスケジュールする</li>
+  </ol>
+
+
+  <p><strong>Sentia</strong> は、Azure CSP ライセンス構成の下にあるすべての顧客に対して管理アーティファクトをプロビジョニングするための宣言型の Azure Resource Manager テンプレートを使用するための CI/CD パイプラインをしています。 Sentia &rsquo; s managed services プランは、 <a href="https://aka.ms/azurelighthouse-github" target="_blank">Resource Manager テンプレート</a>に基づいて90% になりました。これにより、デプロイが大幅に簡素化され、監視、ガバナンス、および管理タスクが大規模に自動化されます。&nbsp;</p>
+
+
+  <h2>パートナー向けの継続的な Azure Resource Manager 投資</h2>
+
+
+  <p>Azure Lighthouse と委任されたリソース管理は、パートナーのために継続しているプラットフォーム投資の最新のものです。 Azure で管理されているアプリケーションやカスタムプロバイダーと共に、パートナーや顧客のための包括的な管理機能を利用できます。 詳細については、 <a href="https://mybuild.techcommunity.microsoft.com/sessions/77002" target="_blank">Microsoft ビルド2019のデモをご覧</a>ください。 その他のいくつかの管理イノベーション &rsquo; には、次のようなものがあります。</p>
+
+
+  <ul>
+   <li>Azure Resource Manager api と Azure Resource Graph クエリがテナントコンテキストで拡張されるため、パートナーは、最小限の開発でソリューションにクロステナントエクスペリエンスを構築できます。</li>
+   <li>サービスプロバイダーと Isv は、カスタムプロバイダーを使用して、Azure 内で IP をネイティブに拡張および提供できます。 Imagine エンドユーザーは、ITSM ツール &rsquo; の機能を azure にネイティブに統合するカスタムプロバイダーの機能により、azure 内からサービスプロバイダーにサービス要求を発行しています。</li>
+   <li>お客様は、サービスプロバイダーによって提供される管理の対象外となる Azure Marketplace から、パートナーによって開発されたアプリケーションを購入できます。 基になるアプリケーションリソースは顧客から保護されますが、新しいマネージアプリケーション UI を使用してアプリケーションと安全に対話できます。 サービスプロバイダーには、管理されたアプリケーションセンターから顧客のアプリケーションサポートを維持、更新、および提供するためのアプリケーションへのフルアクセスが与えられます。</li>
+  </ul>
+
+
+  <p><em>&ldquo;Microsoft は、新しい Azure Lighthouse 機能 &rsquo; の導入を喜びのサービスとしてのバックアップとして提供し、クラウドベースのビジネスオファリングの自然な拡張を表しています。このパートナーシップは、azure Lighthouse を使用して、Azure の顧客を大規模に管理するために、Azure のサービスとしてのバックアップを簡単に拡張できるようにする、管理されたサービスプロバイダーの絶好の機会です。 &rdquo; </em></p>
+
+
+  <p align="right"><strong>Tim FitzGerald、副社長、北米 Cloud、Ingram Micro Inc.。</strong></p>
+
+
+  <p>Azure をプラットフォームとしてお客様のパートナーに提供することにより、パートナーはより多くのお客様に差別化されたサービスを提供し、より高い価値を提供することができます。 これは、Azure でのパートナーの実現方法です。 Azure Lighthouse と委任されたリソース管理に関するフィードバックをお待ちしております。</p>

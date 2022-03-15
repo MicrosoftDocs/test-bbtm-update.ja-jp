@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 041cccaca758905bf4bac095a1e7e20527918bf7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909600"
+Slug: new-sample-model-for-azure-analysis-services
+Title: 新しいサンプル モデル (Azure Analysis Services
+Summary: 4 月に、Azure Analysis Services の実証済みの分析エンジンから進化した、Microsoft SQL Server Analysis Services。 最新のデータの成功-...
+Content: >-
+  <p>4 月に、Azure Analysis Services の実証済みの分析エンジンから進化した、Microsoft SQL Server Analysis Services。 最新のデータ駆動型組織の成功には、IT プロフェッショナルやデータ サイエンティストに対する意思決定をガイドするために、すべてのビジネス ユーザーが情報をすぐに入手できる必要があります。 セルフサービス BI ツールを使用すると、ビジネス ユーザーがデータにアクセスしやすくなりました。 &rsquo;ただし、ほとんどのビジネス ユーザーは、データを探索して分析情報を導き出す前に、データの適切なソースの検索、生データのインポート、適切な形式への変換、ビジネス ロジックとメトリックの追加など、通常必要とされる多大な作業を行う専門知識や望みはありません。 Azure Analysis Services を使用すると、BI プロフェッショナルは生データに対してセマンティック モデルを作成し、ビジネス ユーザーと共有することができます。そのため、必要なのは、任意の BI ツールからモデルに接続し、データをすぐに探索して分析情報を得る必要がある場合です。 Azure Analysis Services、高度に最適化されたメモリ内エンジンを使用して、考え方の速い速度でユーザー クエリに応答を提供します。</p>
+
+
+  <p>昨年 12 月に、新しいモデルを使用して最初 <a href="https://azure.microsoft.com/blog/first-azure-as/" target="_blank">のモデルを作成</a>するAzure Analysis Services。 これで、Adventure Works Internet Sales Azure Analysis Services基づく新しいサンプル モデルを使用して何もビルドすることなく、新しいサンプル モデルを作成できます。 モデリング機能の範囲を示Analysis Services設計されています。</p>
+
+
+  <p>では、実際に試してみます。 このブログ記事の残りの手順に従って、簡単&rsquo;な方法を確認できます。</p>
+
+
+  <p>開始する前に、次が&rsquo;必要です。</p>
+
+
+  <p>Azure サブスクリプション - <a href="https://azure.microsoft.com/free/?b=16.46">無料試用版にサインアップします</a>。</p>
+
+
+  <h2>Azure で Analysis Services サーバーを作成する</h2>
+
+
+  <p>1. に移動します <a href="https://portal.azure.com/">https://portal.azure.com</a>。</p>
+
+
+  <p>2. [メニュー] ブレードで、[新規] を <b>クリックします</b>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/363975fd-f03f-4477-aa61-1dafe0f71ab5.png"><img alt="image" border="0" height="285" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/73bb5f29-9659-43f7-a09d-4350f3414345.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="259"></a></p>
+
+
+  <p>3. [ <b>データ + 分析</b>] を展開し、[次へ] <b>をAnalysis Services</b>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d186d9b7-08c2-4f3c-915a-c260f76f1694.png"><img alt="image" border="0" height="521" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a398b447-975a-42dc-884f-83cda16b6cf2.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="417"></a></p>
+
+
+  <p>4. [作成] ブレードAnalysis Servicesを入力し、[作成] を <b>クリックします</b>。</p>
+
+
+  <ul>
+   <li><b>[サーバー名</b>]: 一意の名前を入力します。</li>
+   <li><b>[サブスクリプション]</b>:サブスクリプションを選択します。</li>
+   <li><b>[リソース グループ</b>]: [ <b>新規作成] を</b>選択し、新しいリソース グループの名前を入力します。</li>
+   <li><b>場所</b>: これは、サーバーをホストする Azure データセンターの場所です。 最も近い場所を選択します。</li>
+   <li><b>価格レベル</b>: 単純なモデルの場合は、[ <b>D1] を選択します</b>。 これは最小レベルであり、使用を開始する場合に最適です。 より大きなレベルは、キャッシュとクエリの処理単位の量によって区別されます。 キャッシュは、圧縮後にキャッシュに読み込み可能なデータの量を示します。 クエリ処理ユニット (QPUs) は、同時にサポートできるクエリの数を示します。 QPUs が高いほどパフォーマンスが向上し、ユーザーのコンカレンシーが高くなる可能性があります。</li>
+  </ul>
+
+
+  <p>サーバーを&rsquo;作成したら、そのサーバーにサンプルを追加できます。</p>
+
+
+  <h2>サーバーへのサンプル モデルの追加</h2>
+
+
+  <p>1.サーバーの概要ブレードで、左上の <strong>[新+しいモデル</strong>] をクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11cc1862-3553-4c97-8bf6-d55e2bf48a9e.png"><img alt="image" border="0" height="320" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/49b5d428-3551-4ffa-a382-d94668219095.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="493"></a></p>
+
+
+  <p>2. [データ ソースの選択] で [サンプル <strong>データ] を選択し、[</strong> 追加] を <strong>クリックします</strong>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6fe2cd4a-36e4-493c-9216-f08543d1fec0.png"><img alt="image" border="0" height="286" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/454214d8-4dc3-414a-876e-358f6246d5af.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="279"></a></p>
+
+
+  <p>モデルが作成されるには少し時間が必要です。 完了すると、サーバー上のモデルの一覧に が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8e2257a3-a588-4327-b394-ab1e4e7aba67.png"><img alt="image" border="0" height="157" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/397f492b-54fb-4ea5-981d-9ea1f8ee8e79.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="989"></a></p>
+
+
+  <p>モデル名の横にある 3 つのドットをクリックし、使用するツールを選択することで、Microsoft Excel、Power BI Desktop、または Visual Studio でモデルのクエリを実行したり、編集したりできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/774efc86-c3dd-40ef-9b44-c9cf4b0d6df8.png"><img alt="image" border="0" height="251" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37b11c91-7db9-4a22-a690-a750dbc7bdb9.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="955"></a></p>
+
+
+  <p>注: これらのツールをダウンロードする必要がある場合は、次のリンクをクリックしてください。</p>
+
+
+  <p>SQL Server Data Tools/Visual Studio - <a href="https://msdn.microsoft.com/library/mt204009.aspx">最新バージョンを無料でダウンロードします</a>。</p>
+
+
+  <p>Power BI Desktop - <a href="https://go.microsoft.com/fwlink/?LinkId=521662&amp;clcid=0x409">最新バージョンを無料でダウンロードします</a>。</p>
+
+
+  <p>その後、データの視覚化を開始できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/29f423b1-0a4f-4c58-a37e-c4c0b5f771d8.png"><img alt="image" border="0" height="570" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d50d3c60-6b8a-4347-9d97-be6e6c1f207b.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="795"></a></p>
+
+
+  <p><strong>詳細については<a href="https://azure.microsoft.com/services/analysis-services/">、Azure Analysis Services。</a></strong></p>

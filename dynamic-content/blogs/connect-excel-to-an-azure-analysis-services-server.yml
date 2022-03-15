@@ -1,0 +1,46 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5a9e574a1bcc2e15093c9c9924416ccbc90b0006
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903613"
+Slug: connect-excel-to-an-azure-analysis-services-server
+Title: Excel を Azure Analysis Services サーバーに接続する
+Summary: 他の多くのサード パーティAzure Analysis Services、Power BI、Excelからアプリケーションに接続できます。 このブログでは、Microsoft からサーバーに接続するAzure Analysis Servicesに焦点を当て、説明します。
+Content: >-
+  <p>他の多くのサード パーティ<a href="https://azure.microsoft.com/blog/connecting-power-bi-to-an-azure-analysis-services-server/">Azure Analysis Services、Power BI</a> Excelクライアント ツールから接続できます。 このブログでは、サーバーからサーバーに接続する方法Azure Analysis Services焦点を当Microsoft Excel。</p>
+
+
+  <p>開始する前に、次が&rsquo;必要です。</p>
+
+
+  <ul>
+   <li>サーバーにデプロイされたデータ モデル Azure Analysis Servicesで &ndash;最初のデータ モデルを <a href="https://azure.microsoft.com/blog/first-azure-as/">作成Azure Analysis Services</a>。</li>
+   <li>&ndash; <em>Microsoft Excel Excel 2016 の最新バージョンOffice 365場合は、追加の更新プログラムをインストールする必要があります。 Office 365以前のバージョンの Excel の場合は<a href="https://docs.microsoft.com/en-us/azure/analysis-services/analysis-services-data-providers" title="、MSOLAP.7 プロバイダーMSOLAP.7"> プロバイダー</a>が必要です。</em></li>
+  </ul>
+
+
+  <ol>
+   <li>[Excel 2016] リボン<strong>の [</strong>データから<strong></strong> &gt; <strong></strong> &gt;他のソースから外部データを取得<strong>Analysis Services</strong>。</li>
+   <li>
+   <p>データ接続ウィザードの [ <strong>サーバー名]</strong> に、サーバーの名前をAzure Analysis Servicesします。 そして <strong>[ログオン資格情報]</strong> で <strong>[以下のユーザー名とパスワードを使用する]</strong> を選択し、組織でのユーザー名 (たとえば nancy@adventureworks.com) とパスワードを入力します。</p>
+
+   <p><img alt="Connect in Excel logon" src=""></p>
+   </li>
+   <li>
+   <p><strong>[データベースとテーブルの選択]</strong> で、データベースとモデルまたはパースペクティブを選択し、 <strong>[完了]</strong> をクリックします。</p>
+
+   <p><img alt="Connect in Excel select model" src="https://docs.microsoft.com/en-us/azure/analysis-services/media/analysis-services-connect/aas-connect-excel-select.pnte>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/370ff014-6b84-42c7-a498-1284e13ad0bf.png"><img alt="image" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26ead2de-8cba-4cfd-a13e-aa4721ad30e2.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-toa></p>
+
+  </blockquote>
+
+
+  <p>A pivot table will be created and you will now see your field list on the side. You can drag and drop different fields to build out your pivot table.</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3c8276d-c45b-421f-b14c-e25fe6b0025f.png"><img alt="image" border="0" height="1008" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c12e34e-dd1b-40ed-ada1-2bbdd7c754d6.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="image" width="1560"></a></p>
+
+
+  <p><strong>データの詳細<a href="https://azure.microsoft.com/services/analysis-services/">とAzure Analysis Services</a>で高速ピボットテーブルを作成する<a href="https://blogs.office.com/2016/07/07/faster-olap-pivottables-in-excel-2016/">方法についてExcel 2016</a></strong></p>

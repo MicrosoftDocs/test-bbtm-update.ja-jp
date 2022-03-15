@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fc9c2513904fa2a52d78bb7c937867d9fd74d13d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908930"
+Slug: iot-python-sdk-troubleshoot
+Title: 'Azure IoT Python SDK の使用: 必ずバージョンを確認してください。'
+Summary: 2016のリリース以降、開発者は Azure IoT Python SDK を使用して、Azure IoT ハブとデバイスプロビジョニングサービスに接続するデバイスとバックエンドアプリケーションを作成し、Azure IoT Edge (プレビュー) 用のモジュールを作成しています。 Python は、プロトタイプを実現するための一般的な選択であり、埋め込みの世界で牽引力を高めています。
+Content: >-
+  <p>2016のリリース以降、開発者は<a href="https://github.com/Azure/azure-iot-sdk-python">Azure IoT Python SDK</a>を使用して、Azure IoT ハブとデバイスプロビジョニングサービスに接続するデバイスとバックエンドアプリケーションを作成し、Azure IoT Edge (プレビュー) 用のモジュールを作成しています。 Python は、プロトタイプを実現するための一般的な選択であり、埋め込みの世界で牽引力を高めています。</p>
+
+
+  <p>開発に python sdk を使用する場合は、注意が必要な点がいくつかあります。 python sdk は<a href="https://github.com/Azure/azure-iot-sdk-c">Azure IoT C SDK</a>のラッパーであり、Windows、Ubuntu、Raspbian の pip でバイナリパッケージをリリースします。これらはすべて python 2 および python 3 と互換性があります。 このアプローチには、ups とダウンがあります。 このように、C に表示される機能は Python で使用でき、機能の違いはありません。 欠点として、これはネイティブ Python SDK ではありません。 公開したアプリケーションプログラミングインターフェイス (Api) は、一般的な Python Api とは異なる場合があります。開発者は、特に pip を使用しているときに、基になるプラットフォームのアーキテクチャに注意する必要があります。</p>
+
+
+  <p>大まかに言えば、python SDK を適切に参照するためには、Python バージョン (2 または 3)、システムアーキテクチャ (x86 または x64)、pip 参照 (Python 2 または Python 3) の3つに合わせる必要があります。 この組み合わせにより、パッケージは Python 2 用の pip を使用してインストールされますが、スクリプトは Python 3 で実行されます。Python x86 は、x64 コンピューターなどにインストールされます。 これらのヒントは、開発環境に基づく一般的なエラーに役立ちます。</p>
+
+
+  <h2>Windows</h2>
+
+
+  <p>Windows には、Python がプレインストールされていません。 Python.org の既定のインストーラーは x86 ですが、これは PC のアーキテクチャではない可能性があります。 プロセッサの種類の情報については Windows 設定を参照してください。 システムが x64 プロセッサベースの場合は、Python から x86-64 インストーラーをダウンロードする必要があります。</p>
+
+
+  <h2>Ubuntu</h2>
+
+
+  <p>Ubuntu には Python 2 がインストールされており、OS から削除することはできません。 ただし、sudo apt を使用してシステムをアップグレードする場合は、必ず Python 3 をコンピューターにインストールしてください。 Ubuntu では、既定では pip と共に Python 2 が使用されるため、Python 2 を使用しようとすると、問題が発生 &rsquo; します。 Python 3 を使用する予定がある場合は、必ず、python 用の pip を使用して SDK をインストールし、Python 3 でスクリプトを実行してください。</p>
+
+
+  <h2>Raspbian (Raspberry Pi)</h2>
+
+
+  <p>Raspbian は Linux のディストリビューションであるため、Ubuntu と同様の動作をします。 Python 2 がインストールされているため、削除できません。 システムをアップグレードすると、Python 3 もコンピューターにインストールされます。 残念ながら、pip の既定値は Python 3 ですが、スクリプトを実行しようとすると OS の既定値は Python 2 になります。 これにより、パッケージが別の Python にインストールされるため、"<em>見つかりません</em>" というエラーが発生します。 python 2 ユーザーは、python 2 用の pip を使用してインストールする必要があり、python 3 ユーザーは<em>python</em>ではなく<em>python3</em>を使用して実行する必要があります。</p>
+
+
+  <h2>MacOS</h2>
+
+
+  <p>現時点では、Python SDK は MacOS 用の pip パッケージを提供していません。 これは進行中の作業であり、まもなく利用可能になります。 それまでの間は、次の手順に従って <a href="https://github.com/Azure/azure-iot-sdk-python/blob/master/doc/python-devbox-setup.md">SDK を構築</a> できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>お役に立てば幸いです。 Python 開発者のエクスペリエンスの向上に継続的に取り組んでいます。これには、ブーストライブラリの操作や、pip パッケージの使用などが含まれます。 この領域の詳細については、引き続きご案内します。</p>

@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e04d34529ea8befd66a326cd73ee8dc9b4de91bf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909827"
+Slug: gpus-vs-cpus-for-deployment-of-deep-learning-models
+Title: ディープ ラーニング モデルのデプロイ用の GPU と CPU
+Summary: ディープ ラーニング タスクに適切な種類のハードウェアを選択する方法については、広く説明されています。 明らかな結論は、決定は、スループットの要件やコストなどの要因に基づいて、目の前のタスクに依存する必要があるという結論です。
+Content: >-
+  <p><em>このブログ記事は、Mathew Salvaris、シニア データ科学者、Azure CAT、Daniel Grecoe、シニア ソフトウェア エンジニア、Azure CAT によって共同作成されました</em></p>
+
+
+  <p>ディープ ラーニング タスクに適切な種類のハードウェアを選択する方法については、広く説明されています。 明らかな結論は、決定は、スループットの要件やコストなどの要因に基づいて、目の前のタスクに依存する必要があるという結論です。 ディープ ラーニング トレーニングでは、CPU と比較した場合の大幅な速度のために GPU を使用する必要があるというのが広く受け入れられている。 ただし、コストが高く、トレーニングほどリソースが多くはない推論などのタスクでは、通常、CPU は十分であり、コスト削減のためにより魅力的と考えらされます。 ただし、推論速度がボトルネックである場合、GPU を使用すると、財務と時間の両方の観点からかなりの利益が得されます。 前のチュートリアル<a href="https://github.com/Microsoft/AKSDeploymentTutorial" target="_blank"></a>とブログ「<a href="https://blogs.technet.microsoft.com/machinelearning/2018/04/19/deploying-deep-learning-models-on-kubernetes-with-gpus/" target="_blank">Deploying Deep ラーニング Models on Kubernetes with GPU</a>(GPU を使用した Kubernetes へのディープ ラーニング モデルのデプロイ)」では、事前トレーニング済みの Convolutional Neural Network モデルの読み込みから、<a href="https://azure.microsoft.com/en-us/services/container-service/" target="_blank">Azure Container Service (AKS)</a> を使用して GPU を使用して <a href="https://kubernetes.io/" target="_blank">Kubernetes</a> クラスターでホストされるコンテナー化された Web アプリケーションの作成まで、詳細な手順を説明しています。</p>
+
+
+  <p>この前の作業を拡大し、フォローアップ分析として、ここでは、さまざまなディープ ラーニング モデルのデプロイを詳細に比較して、GPU と CPU デプロイのスループット パフォーマンスの大きな違いを強調して、少なくともテストされたシナリオでは、GPU が低コストでスループットと安定性を向上させるという証拠を提供します。</p>
+
+
+  <p>テストでは、次のように、2 つのフレームワーク Tensorflow (1.8) と Keras (2.1.6) と Tensorflow (1.6) バックエンドを使用して、ネットワーク サイズが小から大の順の 5 つの異なるモデルに対して使用します。</p>
+
+
+  <ul>
+   <li>MobileNetV2 (3.4M パラメーター)</li>
+   <li>NasNetMobile (4.2M パラメーター)</li>
+   <li>ResNet50 (23.5M パラメーター)</li>
+   <li>ResNet152 (58.1M パラメーター)</li>
+   <li>NasNetLarge (84.7M パラメーター)</li>
+  </ul>
+
+
+  <p>これらのモデルを選択しました。MobileNet などの小規模なパラメーター効率の高いモデルから NasNetLarge などの大規模なネットワークまで、幅広いネットワークをテストする必要がありました。</p>
+
+
+  <p>これらのモデルごとに、イメージをスコア付けする API を備えた Docker イメージが準備され、4 つの異なる AKS クラスター構成にデプロイされています。</p>
+
+
+  <ul>
+   <li>ポッドが 1 つの 1 ノード GPU クラスター</li>
+   <li>ポッドが 2 つの 2 ノード GPU クラスター</li>
+   <li>ポッドが 3 つの 3 ノード GPU クラスター</li>
+   <li>ポッドが 35 の 5 ノード CPU クラスター</li>
+  </ul>
+
+
+  <p>GPU クラスターは、K80 GPU を搭載した Azure NC6 シリーズ仮想マシンを使用して作成され、CPU クラスターは 8 コアの D4 v2 仮想マシンを使用して作成されました。 CPU クラスターは、最大の GPU クラスター コストにほぼ一致するように戦略的に構成されています。そのため、3 ノードの GPU クラスターと 5 ノードの CPU クラスターの間で、1 ドルあたりの公平なスループットを比較できます。これは、これらのテストの時点では近いですが、若干高価です。 最新の価格については、 <a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/?&amp;OCID=AID719825_SEM_pCdAsET3&amp;lnkd=Bing_Azure_Brand&amp;msclkid=b19169b2735a1cc03d1a32885c0e0394&amp;dclid=CNXZ1qXJgNwCFeGhswodvoUB7A" target="_blank">Azure Virtual Machine 料金計算ツールを使用してください</a>。</p>
+
+
+  <p>すべてのクラスターが米国東部リージョンに設定され、クライアントのテストは、米国東部と西ヨーロッパのテスト ハーネスを使用して発生しました。 目的は、異なるリージョンからのテストがスループットの結果に影響を与えるかどうかを判断することによりした。 結局のところ、異なるリージョンからのテストには影響はわずかですが、ほとんど影響を与え、したがって、この分析に記載されている結果には、合計 40 の異なるクラスター構成を持つ米国東部リージョンのテスト クライアントからのデータだけが含まれます。</p>
+
+
+  <p>テストは、デプロイされたスコアリング サービスと同じリージョン内の Azure Windows仮想マシンでアプリケーションを実行することで実施されました。 20 から 50 の同時実行スレッドの範囲を使用して、1000 の画像がスコア付けされ、記録された結果はセット全体の平均スループットでした。 テストの循環的な性質により、運用可能なサービスでは、実際の持続スループットが高くなると予想されます。 以下に示す結果では、テスト サイクルで設定された 50 スレッドの平均が使用され、これらの構成のテストに使用されるアプリケーションは <a href="https://github.com/grecoe/CloudAI/tree/master/Utilities/DistributedEndpointTesting" target="_blank">GitHub で確認できます</a>。</p>
+
+
+  <h2>GPU クラスターのスケーリング</h2>
+
+
+  <p>GPU クラスターの一般的なスループットの傾向は CPU クラスターとは異なります。つまり、クラスターに GPU ノードを追加すると、スループットのパフォーマンスが直線的に向上します。 次のグラフは、テストされたフレームワークとモデルごとにクラスターに追加される GPU が増えるので、スループットの線形増加を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8f1b9653-f32e-44b0-8f16-98668004fa82.png"><img alt="image" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5533a661-0e2a-42ce-9dd5-1a4ac8616b45.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="622"></a></p>
+
+
+  <p>クラスターの管理オーバーヘッドにより、スループットは大幅に増加しますが、増加は追加された GPU の数に比例しなく、追加された GPU あたり 100% 未満です。</p>
+
+
+  <h2>GPU と CPU の結果</h2>
+
+
+  <p>前に説明したように、テストの目的は、ディープ ラーニングのデプロイが GPU で大幅に優れたパフォーマンスを示すので、モデルをホストする際の財務コストが削減されるのを理解する必要があります。 次の図では、GPU クラスターは、各フレームワークのすべてのモデルに対して 35 ポッドを持つ 5 ノードの CPU クラスターと比較されています。 3 ノードの GPU クラスターは、これらのテストの時点で 5 ノードの CPU クラスターを使用して、1 か月あたりの同じドルのコストに大まかに変換されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/47de541e-4a56-450f-9f88-a3c1198c80fb.png"><img alt="image" border="0" height="393" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/96cac5e9-2ac1-4559-ab75-adb0d29bf34f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="636"></a></p>
+
+
+  <p>その結果、GPU クラスターからのスループットは、ディープ ラーニング モデルの推論に対して GPU が経済的な選択肢である可能性を示す、すべてのモデルとフレームワークの CPU スループットよりも常に優れたものになります。 どの場合も、35 ポッドの CPU クラスターは、1 つの GPU クラスターで少なくとも 186%、3 ノードの GPU クラスターによって 415% 上回り、これは同様のコストです。 これらの結果は、単一ノード GPU クラスターが TensorFlow フレームワークの CPU クラスターよりも 392% と 3 ノード GPU 804% 優れた MobileNetV2 などの小規模なネットワークの方が顕著です。</p>
+
+
+  <p>パラメーターの数がディープ ラーニング モデルほど多くはない標準の機械学習モデルの場合、CPU は引き続きより効果的でコスト効率が高いと見なす必要があります。 また、 <a href="https://github.com/intel/mkl-dnn" target="_blank">MKL DNN</a> や NNPACK などの CPU パフォーマンスを最適化する <a href="https://github.com/Maratyszcza/NNPACK" target="_blank">方法も存在します</a>。 ただし、TensorRT などの GPU にも同様の <a href="https://developer.nvidia.com/tensorrt" target="_blank">メソッドが存在します</a>。 また、GPU クラスターのパフォーマンスは CPU よりもはるかに一貫性があるものも見つかりました。</p>
+
+
+  <p>これは、CPU 専用のデプロイに存在するモデルと Web サービスの間にリソースの間に問題がないからだと仮定します。 パラメーターの数が多いモデルを使用するディープ ラーニング推論タスクの場合、GPU ベースのデプロイでは、リソースの不一致の恩恵を受け、同様のコストの CPU クラスターと比較してスループット値が大幅に高くなります。</p>
+
+
+  <p>この比較は、次のデプロイの決定に役立つと思います。質問やコメントがある場合は、お知らせください。</p>

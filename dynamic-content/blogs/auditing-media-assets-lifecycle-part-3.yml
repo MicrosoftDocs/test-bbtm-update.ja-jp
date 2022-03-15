@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b16b21ce0a44d44269cd413a5cf344c6af4c748a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910123"
+Slug: auditing-media-assets-lifecycle-part-3
+Title: メディア資産のライフサイクルの監査 – パート 3
+Summary: (サンプル コードを使用して) メディア資産のライフ サイクルを監査するのに役立つ一連の投稿のパート 3。 パート 3 では、個々のファイルが資産に追加された時間を示すレポートの生成に特に重点を置いた内容です。
+Content: >-
+  <a href="https://azure.microsoft.com/blog/2014/07/23/auditing-media-assets-lifecycle-part-1-2">このブログのパート 1</a> とパート <a href="https://azure.microsoft.com/blog/2014/08/06/auditing-media-assets-lifecycle-part-2">2</a> では、メディアアセットが作成、削除、およびメディア処理 VM にコピーされた時間を示す資産監査レポートを作成できる点に重点を置いています。 パート 3 では、個々のファイルが資産に追加された時間に関するデータでレポートを拡張する方法について説明します。 良いことは、コードを記述せずにこれが可能なことです。
+
+
+  &nbsp;
+
+  <h2>Storage 内のアセット ファイル</h2>
+
+  資産ファイルは、ストレージ内の資産コンテナーの下に BLOB として格納されます。 このブログのパート 1 で説明したように、資産コンテナーは "asset-" で始まる。 これを利用して、資産と資産ファイルのデータをインポートし、ExcelをExcel Power Query。 アプリを使用したことがないExcel Power Query、"<a href="https://office.microsoft.com/en-us/excel/download-microsoft-power-query-for-excel-FX104018616.aspx">Microsoft Power Query for Excel</a> のダウンロード" Web ページからダウンロードできます。 インストールが完了したら、Excelを開始すると、"POWER QUERY" というタブが表示されます。 そのタブをクリックし、[From Other Sources]/(その他のソースから)ボタンをクリックすると、次のスクリーンショットに示すように、"From Windows Azure Blob Storage" (From Windows Azure Blob Storage) というメニュー項目が表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_15h40_40.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_15h40_40" alt="2014-07-08_15h40_40" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_15h40_40_thumb.png" width="614" height="501" border="0" /></a>
+
+
+  そのメニュー項目をクリックし、アカウント名 (Storageアカウントに関連付けられている) を入力し、[OK Media Servicesクリックします。 次の画面でアカウント キーを入力し、[OK] をクリックします。 この段階では、次のスクリーンショットに示すように、右側に [ナビゲーター] ウィンドウが表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_15h49_45.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_15h49_45" alt="2014-07-08_15h49_45" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_15h49_45_thumb.png" width="614" height="463" border="0" /></a>
+
+
+  [ナビゲーター] ウィンドウでStorageアカウント名を右クリックし、[編集] をクリックします。 次に示すように、別のウィンドウが開き、すべてのコンテナーが列に読み込まれます
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_15h52_11.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_15h52_11" alt="2014-07-08_15h52_11" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_15h52_11_thumb.png" width="614" height="597" border="0" /></a>
+
+
+  [名前] 列の横にあるドロップダウン ボタンをクリックし、[テキスト フィルター] の後に [Begins With...]を選択します。 というメッセージが表示されていることを確認します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_15h55_26.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_15h55_26" alt="2014-07-08_15h55_26" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_15h55_26_thumb.png" width="614" height="597" border="0" /></a>
+
+
+  "begins with" 句に「asset-」と入力し (下図参照)、[OK] をクリックします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_15h57_47.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_15h57_47" alt="2014-07-08_15h57_47" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_15h57_47_thumb.png" width="614" height="224" border="0" /></a>
+
+
+  これで、テーブルに読み込まれた資産コンテナーだけが表示されます。 次に、[データ] 列の横にあるボタンをクリックし、[OK] をクリックします。 これで、コンテナーのすべての BLOB のデータが表示されます。 次に、[Data.Attributes] 列の横にあるボタンをクリックし、[OK] をクリックします。 結果は次のようになります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_16h03_49.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_16h03_49" alt="2014-07-08_16h03_49" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_16h03_49_thumb.png" width="1017" height="436" border="0" /></a>
+
+
+  この段階で、[閉じるの適用] をクリック &amp; できます。 これにより、すべてのデータが Excel ワークシートに読み込まれます。 ピボット テーブルにデータを読み込み、次のようなビューを生成できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2014-07-08_16h16_03.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2014-07-08_16h16_03" alt="2014-07-08_16h16_03" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-07-08_16h16_03_thumb.png" width="378" height="614" border="0" /></a>
+
+
+  つまり、資産内のすべてのファイルと、資産の最後に変更されたタイムスタンプを表示するビューが表示されます。
+
+
+  &nbsp;
+
+  <h2>考慮事項</h2>
+
+  最後に、次の点に注意してください
+
+  <ul>
+   <li>資産ファイルの削除操作は、上記を使用して決定できません。 このためには、次のログで DeleteBlob 操作を探Storageがあります。 このブログのパート 1 で提供されているサンプル コードを拡張して、その操作を検索し、 <strong>AssetAudit テーブルにエントリをログに記録 </strong>することができます。</li>
+   <li>多くの資産ファイルには最後に変更されたタイムスタンプが同じ場合があります。そのため、(LastModified タイムスタンプを RowKey として) 各資産ファイルのエントリを <strong>AssetAudit </strong>テーブルにログ記録する場合は、その点に気を付ける必要があります。</li>
+  </ul>

@@ -1,0 +1,118 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 866ce52720f5a27bf045ee3170aa19c1a6b624db
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909787"
+Slug: interactive-analytics-on-big-data-with-the-release-of-spark-for-azure-hdinsight
+Title: Microsoft では、ビッグ データに関する対話型の分析を提供し、ビッグ データのSpark for Azure HDInsight
+Summary: 本日は、パブリック プレビューのリリースをお知らせApache Spark for Azure HDInsight。 この投稿では、この新しいオファリングのインとアウトを提供します。
+Content: >-
+  本日は、パブリック プレビューのリリースをお知らせApache Spark for Azure HDInsight。 Apache Sparkは、人気が高くなっている Apache エコシステムのオープン ソース プロジェクトです。 この投稿では、この新しいオファリングのインとアウトを提供します。
+
+  <h2>Apache Spark とは</h2>
+
+  <a href="https://spark.apache.org/">Apache Spark</a> は、大規模なデータ分析アプリケーションをメモリ内で実行するオープン ソース処理フレームワークです。 これにより、Spark は、従来のビッグ データ ソリューションよりも最大 100 倍速くクエリを提供できます。また、抽出変換読み込み (ETL) プロセス、バッチ クエリ、対話型クエリ、リアルタイム ストリーミング、機械学習、Azure Storage に格納されたデータに対するグラフ処理など、さまざまなタスクに対する一般的な実行モデルも提供できます。
+
+
+  &nbsp;
+
+  <h2><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/09/image1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/image1_thumb.png" alt="image" width="565" height="318" border="0" /></a></h2>
+
+  <h2>Microsoft の Spark 向けオファリングとは</h2>
+
+  Microsoft は、ビッグ データを簡単でわかりやすいものにするための取り組みです。 現在、Microsoft は Azure ビッグ データ オファリングを拡張しています。これは、Azure ビッグ データの可用性を発表 <b>Apache Spark for Azure HDInsight</b>。 HDInsight では、Spark でのタスクのデプロイ、管理、実行に関連する多くの作業が不要になります。そのため、クラウドでビッグ データを処理する意味に関する問題が発生します。
+
+
+  お客様には、Spark がゲームを変更できた 3 つの特定のシナリオが見られます。
+
+  <ol>
+   <li>BI ツールまたはオープン ソース ノートブックを使用して Hadoop のビッグ データに対して対話型クエリを実行する</li>
+   <li>IOT またはリアルタイム アプリケーション用のストリーミング ソリューションを作成する</li>
+   <li>機械学習アルゴリズムを使用して、分析の結果を予測できる</li>
+  </ol>
+
+  <h3>BI ツールまたはオープン ソース ノートブックを使用したビッグ データに対する対話型クエリ<b> </b></h3>
+
+  さまざまなソースから収集されるデータが多くなほど、企業はビジネスに関する詳細な分析を受け入れるのを心配しています。 ただし、既存のビッグ データ テクノロジに不足している領域の 1 つは、アナリストやデータ サイエンティストが大規模なデータ セットに対して BI モデルとレポートを対話的に調査して構築することです。 Spark for HDInsight のリリースにより、アナリストや BI プロフェッショナルは、大規模な非構造化データを分析し、選択した BI ツールまたはオープン ソース ノートブックを使用してレポートを作成できます。
+
+  <h2>Power BI の使用</h2>
+
+  Spark を利用できると、7 月 24 日に Power BI が一般提供される予定です。この一般提供には、Spark への最新のコネクタが含まれます。 Power BI はクラウドベースのビジネス分析サービスで、これを使えばだれでもデータの視覚化と分析の速度と効率を向上させ、理解を深めることができます。 ユーザーは、Azure Storage の非構造化データまたは半構造化データから開始し、Azure HDInsight のノートブックを使用してデータをスキーマ化し、Microsoft Power BI を使用してデータ モデルを構築できます。 レポートのPower BI自動更新機能を使用して最新の状態に維持されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/09/clip_image002.png"><img style="display: inline;" title="clip_image002" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image002_thumb.png" alt="clip_image002" width="561" height="316" /></a>
+
+  <h2>選択した BI ツールを使用する</h2>
+
+  Spark for Azure HDInsight BI または視覚化ツールへの接続も組み込まれています。 Tableau、SAP、Qlik など、多くのサードパーティ BI ツール ベンダー<a href="https://blogs.sap.com/analytics/2015/07/10/sap-and-microsoft-bring-sap-lumira-to-apache-spark-in-the-cloud/">と</a>提携<a href="https://www.tableau.com/about/blog/2015/7/visualizing-data-cloud-microsoft-azure-tableau-online-40832"></a>しています。 これらの各企業は、新しい機能をサポートする豊富な視覚化とレポート作成機能を提供Spark for Azure HDInsight。 お客様は、HDInsight サービス内の任意の Spark クラスターに接続し、Spark の対話型クエリ機能を使用して、テラバイト単位のデータを視覚的に探索できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/09/clip_image005.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="clip_image005" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image005_thumb.png" alt="clip_image005" width="646" height="180" border="0" /></a>
+
+  <h2>オープンソース ノートブックの使用</h2>
+
+  ノートブックを使用して、ノートブックで実行されているデータを視覚化Spark for Azure HDInsight。 ノートブックはオープン ソース ツールであり、データ サイエンティストは、ライブ コード、統計式、物語テキスト、視覚化を組み合わせてデータのストーリーを伝える機能を提供します。 一般的な Jupyter (IPython) ノートブックと Zeppelin ノートブックをアプリで実行Spark for Azure HDInsight。 Jupyter には標準の IPython ビジュアル ライブラリが含まれています。Python を使用してコードを記述するユーザーに最適です。 Zeppelin は、Spark と Markdown をサポートしながら Scala で記述するSQL最適です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/09/clip_image008.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="clip_image008" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image008_thumb.png" alt="clip_image008" width="648" height="162" border="0" /></a>
+
+  <h3>IOT またはリアルタイム アプリケーション用のストリーミング ソリューションを作成する</h3>
+
+  バッチクエリや対話型クエリ以外にも、Spark は、不正行為の検出、クリック ストリーム分析、財務アラート、接続されたセンサーやデバイス (IoT) からのテレメトリなどの課題を解決できるリアルタイム ソリューションの構築にも最適です。 Spark for Azure HDInsightを使用しているお客様は、Azure Event Hubs を使用してデータを取り込み、ほぼリアルタイムで Spark で処理することができます。 Spark ストリーミング API を使用すると、結合やウィンドウのようなストリーミング関数で表現される複雑なアルゴリズムを記述できます。 これにより、Spark は、同じ一般的な実行モデルを使用してバッチ/対話型クエリとストリーミング関数の両方を処理する機能で一意です。 最後に、Kafka、Flume、Twitter、ZeroMQ、TCP ソケットなどの他のソースからデータを取り込む場合があります。 お客様は、オープン ソースの Apache ディストリビューションの一部としてこれらのコネクタを見つける可能性があります。
+
+  <h3>機械学習アルゴリズムを使用して分析の結果を予測する<b> </b></h3>
+
+  Spark の一部として、お客様は Spark MLib にもアクセスできます。これは、分類、回帰、クラスタリング、協調フィルタリング、次元削減、基になる最適化プリミティブなど、一般的な学習アルゴリズムとユーティリティで構成されるスケーラブルな機械学習ライブラリです。 これにより、お客様はアプリケーションの一部として予測分析機能を組み込む可能性があります。 より多くの機械学習ソリューションを構築する必要がある場合、<a href="https://azure.microsoft.com/en-us/services/machine-learning/">Azure Machine Learning</a> は、使いやすいエクスペリエンスと、フル マネージド Web サービスとして数分で ML モデルをデプロイする機能に最適なソリューションです。
+
+  <h2>Spark を実行するために Microsoft を選択する理由</h2>
+
+  Apache エコシステムのオープン ソース プロジェクトとしての Spark は、それをサポートするさまざまなオファリングで人気を獲得しています。 Microsoft は、エンド ユーザーを第一に考え、ミッション クリティカルなアプリケーション用に Spark を強化し、Spark を簡単にデプロイすることで、ユーザーに最適なエクスペリエンスを提供することで、Spark に大きな賭けを行いました。
+
+  <ul>
+   <li><strong>Enterpriseミッション</strong> クリティカルなデプロイのために Spark を強化する: Spark と Azure を統合することで、ミッション クリティカルなデプロイの需要を満たす準備が整います。 Azure では、一般提供時に 99.9% のサービス レベル アグリーメントで Spark を実行して、致命的なイベントに対する継続性と保護を確保することができます。 お客様は、24 時間 365 日のエンタープライズ サポートとクラスター監視に安心感を持ち、常に稼働状態を維持します。 同時実行クエリなど、オープン ソースの Spark では利用できない Premium 機能も有効にしました。 これにより、1 人のユーザーからの複数のクエリまたはさまざまなユーザーとアプリからの複数のクエリで、同じクラスター リソースを共有できます。 最後に、すべてのメタデータ コンテンツを外部化し、ノートブックを保存して、Spark クラスターをステートレスに非常に近くすることができます。 これにより、クラスターを削除して再作成し、残った場所を選択できます。</li>
+   <li><strong>展開の容易</strong>さ: Spark for HDInsight、時間のかかるインストールや設定はありません。 Azure では、この機能がユーザーに提供されます。 数分で稼働し、新しいハードウェアや他のアップフロント コストを購入することなく Spark をデプロイできます。 スケーリングする必要がある場合、Azure では、必要に応じてビッグ データを処理するために、任意のサイズの大規模なクラスターを作成できます。 多数の SSD を使用する VM の種類、または大量の RAM を使用する VM の種類を選択できます。 Spark を実行している間は、メモリまたはSSD でデータをキャッシュすることができます。 これにより、さまざまなアプリ内のリソースを簡単に調整して、特定のワークロードに合わせて最適化することができます。</li>
+  </ul>
+
+  <h2>開始するには?</h2>
+
+  開始するには、Azure サブスクリプションまたは Azure の無料試用版が必要です。 これを利用すると、この開始ガイドに従って、Spark クラスターを数分で <a href="https://go.microsoft.com/fwlink/?LinkId=618013">起動して実行できます</a>。
+
+
+  また、Azure Fridays で以下の Channel 9 ビデオをご覧ください。
+
+
+  <a href="https://go.microsoft.com/fwlink/?LinkId=618099"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="clip_image010" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image010.jpg" alt="clip_image010" width="644" height="362" border="0" /></a>
+
+
+  <b>概要</b>
+
+  <ul>
+   <li>Microsoft CVP T. K によるお知らせブログ。 "Ranga" Rengarajan</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/hdinsight/apache-spark/">Azure の Spark の [サービスの概要] ページ</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=618099">Azure Fridays の Channel 9 ビデオ</a></li>
+  </ul>
+
+  <b>ドキュメントと方法:</b>
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=616226">サービスのApache Spark for Azure HDInsight</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=618013">Spark クラスターをプロビジョニングする方法</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=618014">Spark を使用した対話型データ分析の実行</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=618015">BI ツールを Spark に接続する</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=616227">リアルタイム アプリケーションでの Spark Stream の使用</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=618016">Spark MLib を使用したMachine Learning</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=616228">Spark ジョブ サーバーについて</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=616230">Spark の概要Resource Manager</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=616229">Spark 用 ODBC ドライバーのダウンロード リンク</a></li>
+  </ul>
+
+  <b>その他のリソース</b>
+
+  <ul>
+   <li><a href="https://spark.apache.org/">Apache Spark Web サイト</a></li>
+   <li><a href="https://hortonworks.com/hadoop/spark/">Spark の Hortonworks ページ</a></li>
+   <li><a href="https://www.tableau.com/about/blog/2015/7/visualizing-data-cloud-microsoft-azure-tableau-online-40832">Tableau ブログ: Spark の視覚化</a></li>
+   <li><a href="https://blogs.sap.com/analytics/2015/07/10/sap-and-microsoft-bring-sap-lumira-to-apache-spark-in-the-cloud/">SAP ブログ #1</a>; <a href="https://scn.sap.com/community/lumira/blog/2015/07/10/sap-lumira-on-spark-for-azure-hdinsight">SAP のステップ バイ ステップ</a></li>
+  </ul>

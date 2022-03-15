@@ -1,0 +1,152 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e5e961e2be4ae1db9e700fe4c207a58d80e169ad
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909866"
+Slug: elastic-and-microsoft-azure-unified-observability-for-spring-boot-applications
+Title: 'エラスティックMicrosoft Azure: アプリケーションの統合された監視Spring Boot'
+Summary: データをエラスティックMicrosoft Azure Spring Cloudシームレスに出荷し、クラウドの取り組みのすべてのステップを監視します。 クラウド環境とオンプレミス環境Spring Bootアプリケーションや他のデータ セット全体を包括的に表示できます。
+Content: >-
+  <p>現在、Azure 上のアプリケーションの統合された監視機能を実現する Elastic 統合Spring Boot発表します。 ログとメトリックMicrosoft Azure Spring Cloud Elastic にシームレスに出荷<a href="https://aka.ms/Start-Elastic"></a>し、Spring Boot アプリケーションをインス<a href="https://aka.ms/Start-Elastic-APM"></a>トルメント化し、クラウド体験のすべてのステップを監視できます。 また、クラウドとオンプレミスの環境Spring Bootアプリケーションや他のログやメトリックを包括的に表示することもできます。</p>
+
+
+  <p>過去 2 年間、多くの企業のお客様と一緒に、直面するシナリオについて学習しました。 これらの顧客の多くは、オンプレミスのデータ センター Spring Boot数千ものアプリケーションを使用しています。 これらのアプリケーションをクラウドに移行する場合は、これらのアプリケーションからログとメトリックを集計し、開発者が使い慣れ、何年も使用してきたソリューションを使用して、アプリケーション パフォーマンス監視 (APM) のためにそれらをインストルメント化する必要があります。 さらに、ログとメトリックを既に出荷し、Elastic のようなシステムを使用したエンドツーエンドの監視用に事前にインストルメント化されている既存のサーバー側ソフトウェアの継続性を確保する必要があります。 アプリケーションの可視性を深め、根本原因分析に費やされる時間を短縮し、Web アプリケーションとモバイル アプリケーションで一貫したカスタマー エクスペリエンスを提供できます。 <a href="https://techcommunity.microsoft.com/t5/apps-on-azure-blog/2021-report-how-developers-migrate-spring-apps-to-the-cloud/ba-p/3021421" target="_blank">また、2021</a> &ldquo;&rdquo; 年の調査からの学習では、エンドツーエンドの監視が DevOps と IT マネージャーが Spring Boot アプリケーションをクラウドに移行する場合に直面する 2 番目の最大の課題です。 Elastic にログとメトリックAzure Spring Cloud統合すると、体験を効率化し、統合された監視のために Spring Boot アプリケーションを簡単にインストルメント化できます。</p>
+
+
+  <p><a href="https://www.youtube.com/watch?v=KjmQX1SxZdA&amp;ab_channel=JavaonAzure" target="_blank"><img alt="Unified Observability" border="0" height="583" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c281fe9a-d979-4ba3-96f4-3e141023500a.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="統一された監視" width="1024"></a></p>
+
+
+  <p><em><strong>図 1:</strong> Elastic を使用したアプリケーションの監視を示すダッシュボードSpring Bootのスクリーンショット</em></p>
+
+
+  <p>エラスティックで Microsoft Azure Spring Cloud からログとメトリックをシームレスに取り込み、DevOps と SLY&mdash;<a href="https://www.elastic.co/observability/cloud-monitoring" target="_blank"></a>&mdash; がクラウド、オンプレミス、またはハイブリッド環境の Spring Boot アプリケーションを監視し、監視サイロを削除して運用効率と開発者の生産性を向上させることができます。 DevOps SREs は、エラスティックに自動的に配布することで、Spring Bootログとアプリケーション メトリックの両方をすべての環境で監視できます。 Teams、環境全体の他の監視データ セットと Spring データを関連付け、コンテキストを追加して、包括的なエンドツーエンドの監視を実現することもできます。</p>
+
+
+  <p>&ldquo;Elastic は、組織&rdquo; がアプリケーションとインフラストラクチャを観察、理解、最適化するのを支援するために専念しています。Elastic の製品管理担当副社長である Steve <strong>Kearns 氏は述べています</strong>。 &quot;Azure Spring Cloud と Elastic Observability ソリューションのこのネイティブ統合により、&#39;アプリケーション、インフラストラクチャ、ユーザー データ全体で、Spring Boot アプリケーションの統一されたビューをまとめる方がこれまで以上に簡単になります。&quot;</p>
+
+
+  <p style="margin-left: 40px;"><em>&quot;Microsoft は、お客様がクラウドで Java アプリケーションを最新化しやすくなります。Elastic on Azure の拡張されたネイティブ統合には、Azure Spring Cloud のサポートが含まれています。このサポートにより、お客様は、Spring Boot アプリケーションのエンドツーエンドの監視を実現できます。&quot;</em>&mdash;<strong>Julia Liuson、Microsoft 開発者部門のプレジデント</strong></p>
+
+
+  <h2>ログAzure Spring Cloud Elastic に配布する</h2>
+
+
+  <p>ネイティブ統合により、Elastic Observability ソリューションにログをシームレスに出荷できます。 データが Elastic に出荷された後は、ターンキーの視覚化とダッシュボードを使用して、数分で分析を開始できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09a849cc-259b-4dad-be42-626cc0fd98cf.png"><img alt="Diagnostic Setting blade for Azure Spring Cloud Service" height="530" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f061a8d5-c317-46da-a798-3aa14c78779f.png" style="display: inline;" title="診断設定" width="1024"></a></p>
+
+
+  <p><em><strong>図 2: </strong>Azure Spring Cloud サービスの [診断設定] ブレード</em></p>
+
+
+  <h2>アプリケーションSpring Bootインストルメント化</h2>
+
+
+  <p>&quot;&quot; Elastics&rsquo; Terraform または ARM テンプレートを使用して作成およびデプロイする新しいアプリケーションをインストルメント化して監視するために、完全なハンズオフ エクスペリエンスのためにプロビジョニング自動化を実行します。 または、柔軟性と制御性を高める Azure コマンド ライン インターフェイス (CLI) を使用してオンデマンドで実行することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da847632-4782-41c3-b0bf-f339d6f255a1.jpg"><img alt="Code example" border="0" height="238" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63a2b5a7-777f-420b-a88e-0a7074d492ac.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="コード例" width="780"></a></p>
+
+
+  <p><em><strong>図 3:</strong> コマンド ライン インターフェイスを使用して Elastic instrumentation Azure CLI設定する例</em></p>
+
+
+  <h2>アプリケーションSpring Bootの分析</h2>
+
+
+  <p>Spring Boot アプリケーションからログをインストルメント化して配布した後、Elastic Observability を使用してデータを監視、分析、および検索し、アプリケーションのパフォーマンスを維持できます。</p>
+
+
+  <p>Elastic Observability 内のすぐに使用できるダッシュボードAzure Spring Cloud使用して、ログからすぐに分析情報をAzure Spring Cloudすることもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb032c48-f6a7-4260-9938-4258591f597d.png"><img alt="Out-of-the-box dashboards" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cfe4678c-a515-47b8-8fa4-6d7f671431df.png" style="display: inline;" title="Elastic Observability の Azure Spring Cloud Service ログ用の、使い切り可能なダッシュボード" width="914"></a></p>
+
+
+  <p><em><strong>図 4:</strong> Elastic Observability の Azure Spring Cloud Service ログ用の、使い切り可能なダッシュボード</em></p>
+
+
+  <p>エラスティック アプリケーション パフォーマンス監視 (APM) を使用すると、アプリケーションのパフォーマンス データを分析して検索できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ded9082c-b99a-4d69-9f0f-05827cb3c122.png"><img alt="Service Map for customer service from Spring Petclinic Application" height="575" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d1543db3-e93a-41c6-bd84-203646f702ea.png" style="display: inline;" title="Service Map" width="1024"></a></p>
+
+
+  <p><em><strong>図 5:</strong> Service Map Spring Petclinic アプリケーションからのカスタマー サービスのサポート</em></p>
+
+
+  <p>エラスティック APM を使用して Java 仮想マシン (JVM) メトリックを確認し、ヒープ メモリ使用量、システム メモリ使用量、CPU 使用率、および証拠ベースの容量計画の決定に役立つその他のメトリックを把握できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86e2a6c4-7609-4b22-9972-7b498aa06acc.png"><img alt="Java Virtual Machines metrics" height="522" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f7e10e1-d030-4a29-a7cb-a337fae0b2dc.png" style="display: inline;" title="顧客サービス向け Elastic APM の JVM メトリック" width="1024"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><em><strong>図 6: </strong>顧客サービス向け Elastic APM の JVM メトリック</em></p>
+
+
+  <p>エラスティック APM の分散トレース機能を利用して、アプリケーションのパフォーマンスをさらに詳細に把握し、顧客に最も影響を与えるトランザクションと、それらのトランザクションが最も時間を費やしている場所を把握できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a7ac6fc-1e10-4c0b-84c5-520f84b0a032.png"><img alt="Distributed tracing in Elastic APM for customers-service's GET owners operation" height="546" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/753b4f7f-6087-4121-b6a0-7235e48aeef5.png" style="display: inline;" title="Elastic APM での分散トレース" width="1024"></a></p>
+
+
+  <p><em><strong>図 7:</strong> 顧客サービスおよび GET 所有者操作に対する Elastic APM&#39;分散トレース</em></p>
+
+
+  <h2>機械学習によって異常が自動的に検出される</h2>
+
+
+  <p>Elastics の&rsquo;<a href="https://www.elastic.co/what-is/elasticsearch-machine-learning">組み</a>込みの機械学習機能を使用すると、Azure Spring Cloud&mdash; データから新しい分析情報を抽出するのと同じ方法で、ボタンをクリックして機械学習を真に運用できます。</p>
+
+
+  <p>エラスティック スタックは、取り込み時にデータを処理し、根本原因を特定したり、任意のイベントにコンテキストを追加したりするために必要なメタデータを確保します。 Data Visualizer のような組み込みツールを使用すると、探しているジョブ&#39;検索し、機械学習とうまく組み合わせているデータ内のフィールドを識別できます。</p>
+
+
+  <p>Elastic Observability 内の豊富なアラート機能と異常検出機能を使用して、ログと APM データからアクション可能な分析情報を取得できます。 たとえば、アプリケーションの応答時間で不規則なログ レートや異常な動作を明らかにAzure Spring Cloud</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/76130358-4414-4063-92f4-4746b432ffeb.png"><img alt="Anomaly Explorer in Elastic" height="591" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b15a5e22-76c1-4229-b0cc-a5fbe6a0817f.png" style="display: inline;" title="Elastic の Anomaly Explorer" width="1024"></a></p>
+
+
+  <p><em><strong>図 8: </strong>Elastic の Anomaly Explorer</em></p>
+
+
+  <h2>同じログを使用してクラウド規模で脅威を停止する</h2>
+
+
+  <p>Elastic には共通のスキーマと単一のリポジトリが用意されています。このため、Spring アプリケーションと他のデータ セットと同じ監視データを拡張検出および応答 (XDR) に使用して、平均検出時間をゼロに向けて駆動することもできます。 <a href="https://www.elastic.co/security" target="_blank">エラスティック</a> セキュリティでは、セキュリティ情報とイベント管理 (SIEM) とエンドポイント セキュリティが組み合わせて使用され、組織はさまざまなソースから大量のデータを取り込んで保持し、データの格納と検索を長く行い、検出と機械学習を使用して脅威ハンティングを強化することができます。</p>
+
+
+  <h2>ライトをオンにしながら、顧客の価値に焦点を当てる</h2>
+
+
+  <p>Azure での Elastic のネイティブ統合は、Elastic on Azure の使用を開始する最も簡単かつ迅速な方法です。 Azure Spring Cloud ログと APM データを Elastic&mdash; に迅速に出荷し、データが最も必要なときに、任意の種類のデータにどこからでもアクセスできます。データは、オンプレム環境かマルチクラウド環境かハイブリッド クラウド環境かの 2 種類です。 この包括的なビューは、クラウドへのアプリケーションのSpring Bootを効率化するのに役立ちます。 さらに、 <a href="https://www.elastic.co/cloud/shared-responsibility" target="_blank">Elastic Cloud は</a>セキュリティ、メンテナンス、および維持を処理し、可視性の向上、運用の向上、サイバー回復性によってビジネスを前進することができます。</p>
+
+
+  <h2>ソリューションを構築し、今すぐ監視する</h2>
+
+
+  <p>Azure Spring Cloudは、Microsoft と VMware によって共同で構築、運用、およびサポートされています。 これは、インフラストラクチャと Spring Cloud ミドルウェア管理の複雑さを抽象化する Spring Boot アプリケーション用のフル マネージド サービスです。そのため、ビジネス ロジックの構築に集中し、Azure で動的スケーリング、パッチ、セキュリティ、コンプライアンス、高可用性を処理できます。 いくつかの手順で、アプリケーションのプロビジョニング、Azure Spring Cloudアプリケーションの作成、アプリケーションのデプロイ、スケールSpring Boot、数分で監視を開始できます。 引き続き、開発者向けでエンタープライズ対応の機能を開発Azure Spring Cloud。 このサービスを使用して、影響を受けのあるソリューションを構築する方法をAzure Spring Cloud。</p>
+
+
+  <p><a href="https://aka.ms/Start-Elastic" target="_blank">Elastic でログとメトリックを</a> 分析 <a href="https://aka.ms/Start-Elastic-APM" target="_blank">し、Spring Boot</a> アプリケーションを監視します。</p>
+
+
+  <p><strong>リソース</strong></p>
+
+
+  <ul>
+      <li>MS Learn モジュール<a href="https://docs.microsoft.com/en-us/learn/modules/azure-spring-cloud-workshop/" target="_blank">または自習</a>ワークショップの使用について学習<a href="https://github.com/microsoft/azure-spring-cloud-training" target="_blank">GitHub</a></li>
+      <li>ソリューションの実装の詳細については、以下を <a href="https://docs.microsoft.com/en-us/azure/spring-cloud/" target="_blank">参照Azure Spring Cloud</a></li>
+      <li>Spring Petclinic <a href="https://github.com/Azure-Samples/spring-petclinic-microservices" target="_blank">アプリケーションの</a>分散バージョンをデプロイする</li>
+      <li>参照アーキテクチャSpring Boot通じてエンタープライズのベスト プラクティスを活用して、Azure Spring Cloudアプリケーション <a href="https://docs.microsoft.com/en-us/azure/spring-cloud/reference-architecture" target="_blank">をデプロイする</a></li>
+      <li>お使<a href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-spring-boot-to-azure-spring-cloud" target="_blank">いの Spring Boot</a>、<a href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-cloud" target="_blank">Spring Cloud</a><a href="https://aka.ms/migrate-tomcat-to-azure-spring-cloud-service" target="_blank">、および Tomcat</a> アプリケーションを移行して、Azure Spring Cloud</li>
+      <li>Azure サービスと対話するための Wire Spring <a href="https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/" target="_blank">アプリケーション</a></li>
+      <li>フィードバックと質問については、メールでお <a href="mailto:mailto:AzureSpringCloud-Talk@service.microsoft.com">問い合わせください</a></li>
+  </ul>

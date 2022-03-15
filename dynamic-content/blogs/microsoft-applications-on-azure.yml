@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b5b82ec19413e4adad42450185578c52c30d199f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904105"
+Slug: microsoft-applications-on-azure
+Title: Azure 上の Microsoft アプリケーション
+Summary: 過去数年間、Azure に多くの投資を行ってきました。これにより、お客様のアプリケーションプランに対するクラウドファーストアプローチである簡単かつ安全な方法で、Microsoft アプリケーションをパブリッククラウドにデプロイできるようになりました。 先週の AzureCon は、この分野で加えられた最新の機能強化について話をする絶好の機会でした。
+Content: >-
+  <p>過去数年間、Azure に多くの投資を行ってきました。これにより、お客様のアプリケーションプランに対するクラウドファーストアプローチである簡単かつ安全な方法で、Microsoft アプリケーションをパブリッククラウドにデプロイできるようになりました。 先週、AzureCon Server コンソールの出力、Azure Security Center、azure File Storage の GA、Office 365 および Skype for Business 用の azure ExpressRoute 接続 Windows など、この分野で加えられた最新の機能強化の一部について話をする絶好の機会でした。 これらの発表は、Azure cloud for Microsoft アプリの機敏性とスケールを簡単に使用できるように、構築した機能とポリシーの長い一覧に続きます。 次に示すのは、Azure に Microsoft Apps をデプロイしているお客様の例です。 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=12166" target="_blank">GE 医療</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=5853" target="_blank">blinkbox</a>、<a href="https://azure.microsoft.com/en-us/case-studies/customer-stories-toyota/" target="_blank">トヨタ</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=15732" target="_blank">Lufthansa</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=4234" target="_blank">telenor</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=1911" target="_blank">Tel aviv 市町村</a>、<a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=2417" target="_blank">シアトル市</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=21502" target="_blank">Chronodrive</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=21513" target="_blank">Serko</a>、 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=6900" target="_blank">saab</a>などです。</p>
+
+
+  <h2>展開と管理の容易さ</h2>
+
+
+  <p>Azure にデプロイする最大の利点の1つは、使いやすさです。 高速なアプリケーションのデプロイと構成によって、迅速なインフラストラクチャに付随する機敏性を組み合わせることに努めています。 これを非常に簡単にするために、複雑なアプリケーションを他のクラウドプロバイダーよりも多くのオプションを使用して簡単な方法でデプロイするソリューションを構築しました。</p>
+
+
+  <ul>
+   <li>SharePoint 製品チームをサポートする先週の<strong>SharePoint 2013</strong> &ndash; では、 <a href="https://azure.microsoft.com/en-us/marketplace/partners/sharepoint2013/sharepoint2013farmsharepoint2013-ha/" target="_blank">9 VM の高可用性 SharePoint ファーム</a>のデプロイを、SharePoint、SQL Server AlwaysOn、および Windows を使用して marketplace にリリースしました。 SharePoint チームによって定義されたベストプラクティスに従って、サーバーイメージ (Active Directory 用)。 これは、既存 <a href="https://azure.microsoft.com/en-us/marketplace/partners/sharepoint2013/sharepoint2013farmsharepoint2013-nonha/" target="_blank">の 3 VM ソリューション</a>を補完します。 どちらも DSC と Azure 拡張テクノロジを使用して SharePoint シームレスにデプロイします。 また、テンプレートを見て、拡大している<a href="https://github.com/Azure/azure-quickstart-templates/tree/master/sharepoint-server-farm-ha" target="_blank">GitHub リポジトリ</a>で任意の方法で拡張することもできます。</li>
+   <li><strong>SQL Server</strong> &ndash; SharePoint と同様に、Azure marketplace には SQL Server の高速デプロイオプションが多数用意されています。 marketplace では、複数のバージョン、Service Pack レベル、および製品レベル (Enterprise/standard/Web) で25種類のオプションが提供されており、SQL Server 2016 のプレリリース版を含め、できるだけ迅速に開始できます。 marketplace では、単一クリックのマルチ VM <a href="https://azure.microsoft.com/en-us/marketplace/partners/microsoft/sqlalwayson/" target="_blank">SQL Server AlwaysOn HA デプロイ</a>も提供します。 これらは SQL Server チームによって構築および構成されており、起動時間が短縮され、構成の誤りを最小限に抑えたり、サードパーティのクラウドでイメージを作成したりすることができます。 これらのイメージは、Azure vm のパフォーマンスを最大化するために、既定で Premium Storage を使用してデプロイされます。<br>
+  自動デプロイに加えて、Azure Virtual Machines で実行される SQL Server は、一連の自動化された管理機能を備えています。 これには、VM の展開の一部として、<a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-sql-server-automated-patching/" target="_blank">自動修正</a>、SQL 固有の診断、および<a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-sql-server-automated-backup/" target="_blank">自動バックアップ</a>(暗号化付き) の構成が含まれます。 これらすべてを組み合わせることにより、Azure は SQL Server を実行するのに最適なクラウドになります。</li>
+
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c68bf11e-5654-404b-aa69-a74868130889.png"><img alt="Automated management capabilities" border="0" height="770" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52817e23-b6aa-479b-acef-89e87fd4e749.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="自動化された管理機能" width="936"></a></p>
+
+
+  <ul>
+   <li><strong>Azure SQL Database</strong> &ndash; Azure platform では、VM 上で SQL Server を実行するためのサポートに加えて、完全に管理された SQL データベースもサポートしており、自己復旧、自動フェールオーバー、および geo レプリケーションにより、最新の SQL Server 機能と高可用性 (99.99% SLA) を提供します。</li>
+   <li><strong>DYNAMICS AX</strong> &ndash; Dynamics AX の Azure デプロイを簡素化し、標準化するために、dynamics team は、Dynamics AX 2012 実装の完全なライフサイクルをデプロイ、更新、および管理するための Azure ベースのポータルである <a href="https://lcs.dynamics.com/Logon/Index?redirectUrl=https%3a%2f%2flcs.dynamics.com%2fv2" target="_blank">Microsoft Dynamics ライフサイクルサービス (LCS)</a>を構築しています。 他のクラウドソリューションとは異なり、LCS では、デプロイする完全な AX ソリューションを識別、定義、設計できます。</li>
+   <li><strong>DYNAMICS NAV/GP</strong> &ndash;<a href="https://azure.microsoft.com/en-us/marketplace/partners/microsoft/microsoftdynamicsnav2015/" target="_blank">DYNAMICS NAV 2015</a>と<a href="https://azure.microsoft.com/en-us/marketplace/partners/microsoft/microsoftdynamicsgp2013r2onwindowsserver2012r2/" target="_blank">Dynamics GP 2013 R2</a>では、marketplace から簡単にデプロイでき、事前構成され、使用の準備ができているイメージを使用できます。 SQL や SharePoint と同様に、これらのイメージは、dynamics エンジニアによって定義されたベストプラクティスを使用して、dynamics エンジニアによって構築されます。</li>
+   <li><strong>BizTalk Server</strong> &ndash; BizTalk Server には、BizTalk チームによって作成された<a href="https://azure.microsoft.com/en-us/marketplace/?term=BizTalk+Server" target="_blank">6 つのイメージセット</a>があり、BizTalk Server のベストプラクティスに従って、すばやく作業を開始することができます。</li>
+   <li><strong>HPC Pack</strong> &ndash;Azure marketplace では、デプロイと使用の準備が整った<a href="https://azure.microsoft.com/en-us/marketplace/partners/microsoft/hpcpack2012r2onwindowsserver2012r2/" target="_blank">HPC Pack 2012 R2 イメージ</a>も、GitHub に格納されている<a href="https://azure.microsoft.com/en-us/documentation/templates/create-hpc-cluster/" target="_blank">強力なクイックスタートテンプレート</a>と組み合わせることができます。</li>
+   <li><strong>その他の Windows-Based テンプレート</strong> &ndash;上記のデプロイソリューションに加えて、Azure には、110を超える共同作成者による160を超えるデプロイテンプレートが含まれています。これには、DSC プルサーバーを作成する、IIS をデプロイする、Windows で Chef を起動する、Windows を設定する、HPC クラスターを作成する、WinRM を構成するなどの Windows 多くがあります。 この大規模なリポジトリは、 <a href="https://github.com/Azure/azure-quickstart-templates" target="_blank">GitHub</a>でホストされ、<a href="https://azure.microsoft.com/en-us/documentation/templates/" target="_blank">クイックスタートテンプレート</a>で見つけることができます。</li>
+  </ul>
+
+
+  <h2>ハイブリッド</h2>
+
+
+  <p>ハイブリッド IT はクラウドにデプロイされている多くのお客様にとっての現実であり、Microsoft Azure は、お客様がパブリッククラウドとプライベート/ホステッドクラウドの両方にソリューションをデプロイするための包括的なハイブリッドストーリーを提供します。これには、急速に成長している ExpressRoute パートナーエコシステム、グローバル接続があります。 以下の点では、ハイブリッドインフラストラクチャで Microsoft アプリケーションを実行するための最適な場所として、接続されたサービスとソリューションの例をいくつか紹介します。</p>
+
+
+  <ul>
+   <li><strong>SQL Server Stretch Database</strong> &mdash;SQL Server 2016 (現時点では CTP2) で提供されているより魅力的な機能の1つは、Stretch Database と呼ばれています。 Stretch database を使用すると、SQL Server の実行時に履歴データを Azure SQL Database に保存できるため、コストが削減され、アプリケーションを変更することなくデータをアーカイブする複雑さが軽減されます。 詳細については、<a href="https://msdn.microsoft.com/en-us/library/dn935011.aspx" target="_blank">こちら</a>をご覧ください。</li>
+   <li><strong>Azure Site Recovery</strong> &ndash; Hyper-v または VMware ベースのインスタンスからレプリケートできる、サイト間およびオンプレミスから Azure へのディザスターリカバリーを可能にする Azure ハイブリッドサービス。 microsoft アプリケーションの詳細なサポートにより、Azure Site Recovery は、SharePoint、Dynamics AX、Exchange 2013、SQL Server、IIS アプリケーションなどの microsoft アプリケーションに対してサポートされている唯一のハイブリッドディザスターリカバリーテクノロジです。 Azure を使用したこの独自のオファリングは、Microsoft のお客様向けに、差別化されたハイブリッドエクスペリエンスを実現します 詳細については、<a href="https://azure.microsoft.com/en-us/blog/application-aware-availability-solutions-with-azure-site-recovery/" target="_blank">こちら</a>をご覧ください。</li>
+   <li><strong>Azure ExpressRoute と Office 365</strong> &ndash;先週発表されたように、azure ExpressRoute は、azure Office 365 のアプリケーションとオンプレミスのデプロイを接続し、すぐに CRM Online を追加することにより、完全なハイブリッドストーリーを提供します。 ExpressRoute は、プライベート、高パフォーマンス、高スループット、および Microsoft クラウドサービスへの安全な接続を提供します。</li>
+   <li><strong>SQL Server バックアップと AlwaysOn セカンダリ</strong> &ndash; SQL Server インスタンスは、オンプレミスまたは Azure のどちらでも、バックアップ先として Microsoft Azure ストレージを提供することで、柔軟で信頼性が高く、ほぼ無制限のオフサイトストレージを実現します。 Azure へのバックアップを使用すると、Azure Blob スナップショットからのポイントインタイムリストアを使用してバックアップと復元のポリシーを簡素化し、Azure Key Vault を使用してセキュリティを強化するためにバックアップを暗号化することもできます。 詳細については、<a href="https://msdn.microsoft.com/en-us/library/dn449496.aspx" target="_blank">こちら</a>をご覧ください。 azure で SQL Server バックアップをホストするだけでなく、azure で提供されるアジャイルコンピューティングを利用して、読み取り専用レプリカを使用した直接 DR のために AlwaysOn レプリカを直接 azure にデプロイすることもできます。</li>
+   <li><strong>Azure Active Directory Connect</strong> &ndash; Azure Active Directory は、Azure、Office 365、Dynamics CRM Online を含むすべての Microsoft クラウドソリューションを接続する単一の id です。 Azure Active Directory Connect では、オンプレミスとクラウドで共通の同期されたハイブリッド id でサインオンし、ハイブリッド環境で Windows Server Active Directory と Azure Active Directory id を接続できます。 詳細については、<a href="https://azure.microsoft.com/en-us/documentation/articles/active-directory-aadconnect/" target="_blank">こちら</a>をご覧ください。</li>
+  </ul>
+
+
+  <h2>サポート</h2>
+
+
+  <p>Azure は、インフラストラクチャ、Azure Virtual Machines のインフラストラクチャから、完全なハイブリッドデプロイ全体にわたる Microsoft アプリケーションまで、テクノロジスタック全体のワンストップエンタープライズサポートを提供できる唯一のパブリッククラウドプロバイダーです。 これには、BizTalk Server、dynamics AX、dynamics CRM、dynamics GP、dynamics NAV、microsoft Exchange、microsoft Forefront Identity Manager、Microsoft Project Server、Microsoft SharePoint Server などの microsoft アプリケーションの非常に大規模な選択が含まれます。SQL Server、System Center、および Team Foundation Server。 サポートされているアプリケーションとバージョンの完全な一覧については、 <a href="https://support.microsoft.com/en-us/kb/2721672" target="_blank">こちら</a>を参照してください。</p>
+
+
+  <h2>開発/テストの特典</h2>
+
+
+  <p>パブリッククラウドを開始する最も簡単な方法の1つは、開発/テストソリューションを使用することです。 Azure は Microsoft アプリケーションに最適な開発/テストエクスペリエンスを提供します。 Azure では、追加料金なしで、開発/テスト目的で MSDN サブスクリプションに含まれるソフトウェアをデプロイできます。 これには、SharePoint、SQL、Exchange などが含まれます。 MSDN の特典の詳細については、 <a href="https://azure.microsoft.com/en-us/offers/ms-azr-0062p/" target="_blank">こちら</a>を参照してください。 さらに、MSDN サブスクライバー向けに、事前に構成された一連の VM イメージを作成し、Windows 8.1 Enterprise、Windows 7 Enterprise、Windows 10 Enterprise、さまざまな機能を含む Azure での開発とテストを迅速に行うことができます。Visual Studio Ultimate と Professional のイメージで、すべてがインフラストラクチャの価格に割引されます。 MSDN イメージの完全な一覧については、 <a href="https://azure.microsoft.com/en-us/marketplace/virtual-machines/all/?categories=msdn" target="_blank">こちら</a>を参照してください。</p>
+
+
+  <h2>Azure にライセンスを持ち込む</h2>
+
+
+  <p>最後に、azure に microsoft アプリケーションをデプロイするための上記の製品および技術ソリューションに加えて、SharePoint や SQL Server などの一般的な microsoft 製品の単純なライセンスモビリティをオンプレミスから azure にも有効にします。 Microsoft でソフトウェアアシュアランスをご利用のお客様には、新しいライセンスを購入しなくても、対象アプリケーションを Azure にデプロイできる柔軟性があります。詳細については、 <a href="https://azure.microsoft.com/en-us/pricing/license-mobility/" target="_blank">こちら</a>を参照してください。 azure に独自のライセンス (byol) を持ち込むサポートを拡張することで、既存の Windows サーバーライセンスを azure に取り込むことができるようになりました。 この新しい Azure の特典の詳細について <a href="https://azure.microsoft.com/en-us/overview/azure-for-microsoft-software/faq/" target="_blank">は、こちら</a>を参照してください。</p>
+
+
+  <p>Azure では、製品のデプロイ、管理、開発/テスト、ライセンスを通じて、Microsoft アプリケーションのデプロイに最適なクラウドを独自に提供しています。 さらに、さまざまなハイブリッドソリューションやサービスを利用することで、オンプレミスと Azure の間でデプロイを行うことができ、クラウドベースのバックアップ、ディザスターリカバリー、データベースの拡張などの利点が追加されます。 この記事では、Azure Vm でのデプロイの可能性についていくつかのアイデアを提供し、Microsoft アプリケーションを実行しているお客様にクラウドの最初のエクスペリエンスを実際に提供するためのコミットメントを示します。</p>
+
+
+  <p>Ya を参照してください。<br>
+
+  Corey</p>

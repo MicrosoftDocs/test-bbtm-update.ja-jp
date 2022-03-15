@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6e9ef1fce4eb03636c303bc66bb6a7b34ad44148
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909071"
+Slug: azure-vm-scale-sets-public-preview
+Title: Azure VM Scale Sets パブリックプレビュー
+Summary: VM Scale Sets は、仮想マシンのコレクションをセットとしてデプロイおよび管理するために使用できる Azure コンピューティングリソースです。 スケールセットは、大規模なコンピューティング、ビッグデータ、コンテナー化されたワークロードを対象とした大規模なサービスを構築する場合に適しています。クラウドコンピューティングの進化を続けるにつれて、これらすべてが重要度に高まります。
+Content: >-
+  <p><em>2016 年4月20日に更新されました。 </em>Azure VM Scale Sets の一般提供が開始されました。 GA のお知らせは次のとおりです。 <a href="https://azure.microsoft.com/en-us/blog/azure-virtual-machine-scale-sets-ga/">Azure VIRTUAL MACHINE SCALE SETS ga</a>、および製品ページは次のとおりです: <a href="https://azure.microsoft.com/en-us/services/virtual-machine-scale-sets/">Virtual Machine Scale Sets</a>。</p>
+
+
+  <p>本日、Azure Virtual Machine Scale Sets のパブリックプレビューを発表します。 VM Scale Sets は、仮想マシンのコレクションをセットとしてデプロイおよび管理するために使用できる Azure コンピューティングリソースです。 スケールセットは、ビッグコンピューティング、ビッグデータ、コンテナー化されたワークロード &ndash; を対象とする大規模なサービスを構築する場合に適しています。クラウドコンピューティングは進化し続けるにつれて、重要度が高くなります。</p>
+
+
+  <p>スケールセットの Vm は同じように構成されており、必要な数を選択するだけで、迅速かつ自動でスケールアウトおよびスケールインできます。 &nbsp;<a href="https://msdn.microsoft.com/en-us/library/azure/dn931943.aspx">Azure インサイト自動スケール</a>と統合すると、vm を事前にプロビジョニングする必要がない真の自動スケールが提供されるため、アプリケーションに必要なコンピューティングリソースのみをいつでも使用できます。 Azure Resource Manager テンプレートを使用して VM Scale Sets をデプロイできます。また、カスタムイメージや拡張機能だけでなく、Windows および Linux プラットフォームイメージもサポートしています。 また VM Scale Sets は、ロードバランサーやネットワークセキュリティグループなどの Azure ネットワークリソースとも統合することで、VM スケールセットの Vm 全体にワークロードを分散させ、トラブルシューティングのために特定の VM インスタンスに接続できるように NAT 規則を構成することができます。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4bae4785-8041-473a-bfc6-d24f82413543.png"><img align="right" alt="VMSS_High-level" border="0" height="209" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07ed41cb-fa01-409f-b84b-b912b13253bf.png" style="border-width: 0px; margin: 3px 5px; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: right; display: inline; background-image: none;" title="VMSS_High レベル" width="350"></a></p>
+
+
+  <p>VM スケールセットを定義するときは、vm スケールセットのプロパティで、vm、Nic、VM 拡張機能など、必要なリソースのみを定義します。 単一インスタンスの Vm とは異なり、個々の Vm のネットワーク、ストレージ、および拡張リソースを個別に定義し、関連付ける必要はありません。 これにより、azure インフラストラクチャを簡単に定義できるだけでなく、Azure で基になるファブリックへの呼び出しを最適化し、効率を高めることができます。</p>
+
+
+  <p>VM Scale Sets のエラスティック特性は、ステートレス web フロントエンド、コンテナーオーケストレーション、マイクロサービスクラスターなどのスケールアウトワークロードのサポートに最適です。 実際には、Azure Container Service は、作成および管理している Os クラスターの基礎として VM Scale Sets を使用します。</p>
+
+
+  <h1>VM スケールセットのデプロイ</h1>
+
+
+  <p>スケールセットをデプロイするには、Azure サブスクリプションを使用する必要があります。 仮想マシンスケールセットテンプレートの例を、 <a href="https://github.com/Azure/azure-quickstart-templates">azure クイックスタートテンプレート</a>GitHub リポジトリにいくつか配置しまし &rsquo; た。プレビュー段階ではさらに多くのものが追加されます。</p>
+
+
+  <p><a href="https://github.com/Azure/azure-quickstart-templates"><img alt="GitHub Templates" border="0" height="129" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e5bdbb6-393f-470b-b5dc-fee1438b5457.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="GitHub テンプレート" width="163"></a></p>
+
+
+  <p>この短いビデオでは、スケールセットテンプレートの詳細について説明します。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://channel9.msdn.com/Blogs/Regular-IT-Guy/Mark-Russinovich-Talks-Azure-Scale-Sets/player" width="560"></iframe></p>
+
+
+  <p>使用するテンプレートの例については、 <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/201-vmss-linux-nat">201-vmss-linux-nat</a>に関するページを参照してください。 このテンプレートでは、インスタンス間で HTTP トラフィックを分散するパブリック IP アドレスを持つ Load Balancer に割り当てられている Linux Vm で構成される VM スケールセットを作成します。また、セット内の各 VM に SSH で接続できるように NAT 規則を定義します。 他のクイックスタートテンプレートと同様に、次を選択して展開できます。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/acbba20e-c0f3-4856-a99c-6efdecb2d8bb.png"><img alt="Deploy" border="0" height="18" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9317938e-b6a6-46f7-87c3-87e78a635b97.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: none; display: inline; background-image: none;" title="[デプロイ " width="85"> </a> ] ボタン。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3431b07-7871-4fe0-978a-475363695da8.png"><img align="right" alt="VMSS_Parameters" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26ec7212-ba80-4b74-81d2-5b50d3744e8e.png" style="border-width: 0px; margin: 5px 2px 7px; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: right; display: inline; background-image: none;" title="この操作を行う VMSS_Parameters " width="284"> </a> 、Azure portal に移動し、テンプレート &rsquo; のパラメーターを指定するように求められます。</p>
+
+
+  <ul>
+   <li>VM サイズを Standard_A1 A1 &ndash; に設定すると、すべての vm が選択したサイズに設定されます。</li>
+   <li>OS バージョンを選択すると、このテンプレートでは Ubuntu Vm が作成される &rsquo; ので、15.10 を選択します。</li>
+   <li>VMSSNAME &rsquo; の場合は、9文字未満の値を選択します。このテンプレートでは、他のリソースを作成するときにも名前が使用されます。ストレージアカウントには、一意の文字列が付加されます。</li>
+   <li>この例では、INSTANCECOUNT パラメーターは、VM スケールセット内の Vm の数を示す capacity という名前の virtualMachineScaleSet リソースのプロパティに対応しています。 パブリックプレビュー期間中は、VM スケールセット内に最大100の Vm を作成できます。</li>
+   <li>ADMINUSERNAME パラメーターと ADMINUSERNAME パラメーターは、VM スケールセット内の各 VM のユーザー資格情報です。</li>
+   <li>[OK] をクリックして新しいリソースグループを作成し、場所を選択して、法律条項に同意します。</li>
+   <li>[作成] をクリックして、入力したパラメーターを使用してテンプレートをデプロイします。</li>
+  </ul>
+
+
+  <p>デプロイが完了すると、 &rsquo; vm スケールセットのリソースの概要が表示されます。これには、Vm スケールセット自体、ロードバランサー、パブリック IP アドレス、VNET、および一意に名前が付けられたストレージアカウントのセットが含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37ed4cd8-c89d-4535-8c60-3d2b5452eae3.png"><img alt="VMSS_Resources" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87fc2bde-27d7-42b8-9aea-6652a40db679.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="VMSS_Resources" width="154"></a></p>
+
+
+  <p>個々の VM に接続するには、(ロードバランサーに関連付けられている) パブリック IP アドレスリソースをクリックし、DNS 名をコピーします。 5万テンプレートで定義されている NAT 規則によって、1つ目の vm のポート 22 (SSH)、2番目の vm のポート22に対して受信ポート50001、およびその後の vm に接続するために、パブリック IP アドレスのポート5万に SSH 接続します。</p>
+
+
+  <h1>Azure CLI と PowerShell を使用したデプロイ</h1>
+
+
+  <p>Azure CLI を使用して VM Scale Sets を作成することもできます。</p>
+
+
+  <p><font style="background-color: rgb(204, 204, 204);">azure group deployment create-g myrg-n dep2 </font><a href="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-linux-nat/azuredeploy.json"><font style="background-color: rgb(204, 204, 204);">https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-linux-nat/azuredeploy.json</font></a></p>
+
+
+  <p>PowerShell を使用して VM スケールセットをデプロイするには、New-AzureRMResourceGroup コマンドレットを使用します。</p>
+
+
+  <p><font style="background-color: rgb(204, 204, 204);">New-azurermresourcegroupdeployment-name dep1-vmSSName myvmss-instanceCount 3-ResourceGroupName myrg-TemplateUri </font><a href="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-linux-nat/azuredeploy.json"><font style="background-color: rgb(204, 204, 204);">https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-linux-nat/azuredeploy.json</font></a></p>
+
+
+  <p><strong>注:</strong>1.0 未満の Azure PowerShell バージョンを使用する &rsquo; 場合は、新しい-azureresourcegroupdeployment を使用して、新しい Azure<strong>RM</strong>resourcegroupdeployment を置き換えます。</p>
+
+
+  <p>&rsquo;ResourceLocation、adminUsername などのようなテンプレートパラメーターを入力するように求められます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9aa6a02-7974-4957-8375-5352a4d71bbb.png"><img alt="PowerShell_VMSS" border="0" height="418" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8e9d546-7f05-47fb-919a-923838f85bfe.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="PowerShell_VMSS" width="640"></a></p>
+
+
+  <p>また、スケールセットとスケールセットの Vm を管理するための命令型コマンドを含むプレビュー CLI/PowerShell ビルドも用意されています。 これらの GitHub <a href="https://github.com/AzureRT/azure-powershell/releases">https://github.com/AzureRT/azure-powershell/releases</a> と </a> <a href="https://github.com/AzureRT/azure-xplat-cli/releases/" title=" https://github.com/AzureRT/azure-xplat-cli/releases/ "> https://github.com/AzureRT/azure-xplat-cli/releases/ で追跡できます。</p>
+
+
+  <h1>VM Scale Sets の調査</h1>
+
+
+  <p>&rsquo;スケールセットと Azure Portal の間により詳細な統合を追加しようとしています。その間に、作成したスケールセットのリソースを表示するための適切な場所は<a href="https://resources.azure.com/">Azure Resource Explorer</a>にあります。これにより、サブスクリプション内のすべてのリソースがどのように定義されているかを確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b4132e3-4c66-44f0-a97c-9bbb34cad721.png"><img alt="Resource Explorer" border="0" height="379" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/57d76411-5a8f-4b21-bdd1-9421be825146.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Resource Explorer" width="640"></a></p>
+
+
+  <p>VM Scale Sets をデプロイおよび管理する方法の詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-vmss-walkthrough/">Azure VM Scale Sets はじめにガイド</a>を参照してください。 開発者向けの<a href="https://msdn.microsoft.com/en-us/library/mt589023.aspx">REST API ガイド</a> &nbsp; も用意されています。 &nbsp;<a href="https://github.com/Azure/azure-quickstart-templates">クイックスタートテンプレート</a>の VM スケールセットの例でも、応用できる便利な例が提供されています。 また、VM Scale Sets の早期プレビューを示す <a href="https://windowsforum.com/threads/episode-191-virtual-machine-scale-sets-with-guy-bowerman-microsoft-azure-cloud-cover-show.214924/">Cloud カバー 191</a> と、VM スケールセットテンプレートの Channel9 <a href="https://channel9.msdn.com/Blogs/Windows-Azure/VM-Scale-Set-Template-Dissection/player">ビデオの概要</a> を確認することもできます。</p>
+
+
+  <p>スケールセットを試してみましょう。 スケールセット &rsquo; の使用についてのフィードバックをお寄せいただき、今後のお客様のご意見をお待ち &rsquo; しております。 に提案を <a href="mailto:vmssfeedback@microsoft.com">vmssfeedback@microsoft.com</a> 送信できます。</p>

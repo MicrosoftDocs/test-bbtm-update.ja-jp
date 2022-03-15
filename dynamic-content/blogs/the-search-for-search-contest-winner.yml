@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 02b3273b5744628f8f9d64896a25896e0726919b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903961"
+Slug: the-search-for-search-contest-winner
+Title: 検索コンテストの受賞者
+Summary: 昨年の終わりには、Azure Search の力を使用して優れた機能を構築するという課題があります。 結果が表示されます。 当選者を発表いたします。
+Content: >-
+  <p align="center"><img alt="-Search4SearchWinner-banner@2x" border="0" height="214" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7554aa1-15e2-4c6a-8e25-c45a9fbfd042.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="-Search4SearchWinner-banner@2x" width="610"></p>
+
+
+  <p align="center"><strong>&ldquo;私はクラウドを気に入っています。Azure PaaS では、インフラストラクチャの構築と保守を複雑にすることなく、アプリケーションの開発、実行、管理を行うことができました。 &rdquo; </strong>&nbsp;</p>
+
+
+  <p>昨年の終わりには、 <a href="https://azure.microsoft.com/en-us/services/search/" target="_blank">Azure Search</a>の力を使用して優れた機能を構築するという<a href="https://azure.microsoft.com/en-us/blog/azure-search-search-for-search-contest/" target="_blank">課題</a>があります。 結果が表示されます。 最初の #SearchForSearch コンテストが、ブリスベンオーストラリアの Robert Chiu であることを発表いたします。</p>
+
+
+  <p>Robert は、主にバックエンド開発者として機能し、現在は、オーストラリアの複数の宝くじ web サイトをサポートおよび管理するデジタルカテゴリチームの一員です。 Robert は自己記述型のユーザーであり、障害よりもはるかに多くの UI エクスペリエンスを備えています。 自分の言葉では、 &ldquo; 新しい区域で作業するときに、ハンズオンアプローチと、多数の試用およびエラーが必要になります。 当然、特定の期間内と予算内では、より良い結果が得られます。&rdquo;</p>
+
+
+  <p>この課題に Robert を設定した場合、ガス価格は依然として比較的高くなります。 価格はいくつかの都市ブロック内で大きく変化し、価格の変動は急激で予測できません。 私たちの主な不満は、ガソリンの価格が非常に複雑で不透明であるということ &ldquo; です。多くの&#39;場合、ドライバーは支援に最適な取引を得るために必要な情報を持っていません。 &rdquo; この問題を解決する最善の方法は、このデータに簡単かつ便利な方法でアクセスできるようにすることです。<img alt="-Search4SearchWinner-gasprices@2x" border="0" height="258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b86f067d-9b91-44dd-8bf3-0c80bc5b52d1.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="-Search4SearchWinner-gasprices@2x" width="610"></p>
+
+
+  <p>国全体のガス局をマップすることは膨大な作業であり、個人が手動で実行することはほとんど不可能です。 Robert は、このことを開始から認識し、ガス価格データのソースとして使用できるプラットフォームを作成することに決めました。 クラウドソーシングは、プルするのは困難です。 ソースとなるデータセットでは、重要な大量の共同作成者が貴重で自己保持される必要がありますが、投稿は値が確立されたときにのみ開始されます。 Azure を使用すると、Robert は技術的な詳細を確認し、その問題に焦点を当てることができました。</p>
+
+
+  <p>Robert は、 <a href="https://azure.microsoft.com/en-us/services/app-service/web/" target="_blank">Azure Web アプリ</a> によって提供されるアップロードページをまとめ、ユーザーがオーストラリア間で価格やステーションデータを投稿できるようにしました。 このアップロードページでは、プライマリストアとして提供されている <a href="https://azure.microsoft.com/en-us/services/documentdb/" target="_blank">DocumentDB</a> データベースにエントリを直接コミットしました。 また、DocumentDB の変更を検出して、自動的に検索可能にするように Azure Search <a href="https://msdn.microsoft.com/en-us/library/azure/dn946891.aspx" target="_blank">インデクサー</a> を構成しました。 3つのサービスにより、Robert は、ユーザーが互いに共有することによって大きなものを作成できるようにする、保守が容易なクラウドソーシングプラットフォームをセットアップできました。</p>
+
+
+  <p><img alt="-Search4SearchWinner-datapipeline@2x" border="0" height="258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5fb3b83-93ec-471c-b6ed-5757a43392c5.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="-Search4SearchWinner-datapipeline@2x" width="610"></p>
+
+
+  <p>しかし、データ &rsquo; が十分でない場合は、使いやすい方法で表示する必要があります。 &rsquo;車を運転していて、もう少しガソリンを持っている場合、 &rsquo; 検索を実行するための複雑なフォームに入力する時間はありません。 Robert は、お客様の場所を検出し、近くの価格をすぐに利用できるようにする、美しく simple Google マップ search インターフェイスを作成しました。 この場所ベースの検索を実行するには、<a href="https://azure.microsoft.com/en-us/documentation/videos/azure-search-and-geospatial-data/" target="_blank">地理空間データの組み込みサポート</a>Azure Search &rsquo; を使用して、多角形または距離のクエリを発行します。</p>
+
+
+  <p><img alt="mapviewcropped" border="0" height="313" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92a11aae-1820-4c72-a58d-14405510904b.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="mapviewcropped" width="610"></p>
+
+
+  <p>&rsquo;また、ラップトップを外出先に置いたことがないので、Robert もスムーズなモバイルエクスペリエンスを実現しました。 モバイルフレンドリな web アプリには、1つのコードベースの大きな利点があり、1つの言語のみを維持できます。 これは、角度と twitter のブートストラップを使用して実現されました。</p>
+
+
+  <p><img alt="-Search4SearchWinner-devices@2x" border="0" height="258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/024c7525-ba6b-4926-a32e-c8d3acbc7bf9.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="-Search4SearchWinner-devices@2x" width="610"></p>
+
+
+  <p>Robert では、高度な検索インターフェイスも必要でした。 &rsquo;本当に経験を持っているお客様は、最高の対コストのガスを取得するための旅行を計画することができます。または、お住まいの地域の傾向を参照することをお勧めします。 以下の高度な検索インターフェイスでは、州、サブ urb、および燃料供給業者に基づいてデータを <a href="https://azure.microsoft.com/en-us/documentation/articles/search-faceted-navigation/" target="_blank">スライスおよびフィルター処理</a> できます。 この種のファセットとフィルター処理を Azure search で構成することは、チェックボックスをオンにするだけで簡単です。</p>
+
+
+  <p><img alt="advanceviewcropped" border="0" height="363" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22f31e4a-a31d-4926-83c9-cdc079e56573.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="advanceviewcropped" width="610"></p>
+
+
+  <p>Robert は、自分の生活に影響を与え、その問題を解決することにしました。 検索、DocumentDB、Web Apps などの Azure サービスを使用して、プロトタイプをいつでも作成できました。 しかし、Robert と思います。</p>
+
+
+  <p align="center"><strong>&ldquo;私はクラウドを気に入っています。Azure PaaS では、インフラストラクチャの構築と保守を複雑にすることなく、アプリケーションの開発、実行、管理を行うことができました。 &rdquo; </strong></p>
+
+
+  <p>Robert は、このプロジェクトの次の大きな一歩として IoT を認識しています。 &ldquo;データの精度と整合性を維持するために、ソースからデータを取得する必要がありました。 このデータを最新の状態に保つことは、オーストラリアの5000局を超える課題であり、また、ステーション &rsquo; 価格ボードとの IoT 統合が非常に役に立ちます。&rdquo;</p>
+
+
+  <p>もう一度 Robert と、他のすべての参加者に感謝したいと思います。 Azure の強力な機能を使用してどのようなものが構築されたかをご確認ください。</p>

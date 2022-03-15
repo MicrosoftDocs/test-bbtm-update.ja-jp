@@ -1,0 +1,307 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 50ab6f76c16533d0e63a6479f6a4c9c34d1027c0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909249"
+Slug: futures-support-and-breaking-changes-in-azure-mobile-services-android-sdk
+Title: 将来のサポートと、将来の将来に対するMobile Services Android SDK
+Summary: Android での非同期呼び出しの使用に関するフィードバックに対処し、Azure Mobile Services 向け Android SDK で、将来のサポートに関するメジャー更新プログラムをリリースしました。 これで、複数の入れ子になったコールバックを処理することなく、これらの操作の複数を簡単に実行できます。 ほとんどのシナリオでは変更は追加的ですが、一部の高度なシナリオでは、非同期操作を処理するために Azure Mobile Services Android SDK によって使用される既定のモデルを将来に変更しました。
+Content: >-
+  Azure Android SDK の主要な更新プログラムがリリースMobile Services。 Android での非同期呼び出しの使用に関するフィードバックに対処し、複数の入れ子になったコールバックを処理することなく、これらの操作の複数を (バックグラウンド スレッドで) 簡単に実行できるよう、すべての非同期操作で <a href="https://developer.android.com/reference/java/util/concurrent/Future.html">Futures</a> のサポートを追加しました。 ほとんどのシナリオでは、変更は加法 (コールバック パラメーターを受け取るメソッドと並べて将来を返す新しいメソッド) ですが、より高度なインターフェイス (ServiceFilter など) で使用される一部の基本的なインターフェイスでは、futures が非同期操作を処理するために Mobile Services Android SDK によって使用される既定のモデルとして使用される、壊れる変更を行いました。 このリリースではオフライン サポートも追加されましたが、重要な変更に焦点を当てるには、今後の投稿でこの点についてお話しします。
+
+
+  <strong>TL;DR</strong>: この投稿の残りの部分では、新しい将来のサポートと、壊れる変更の一覧について話します。使用する新しい SDK が必要な場合は、 で取得できます<a title="</a>https://aka.ms/Iajk6q" href="https://aka.ms/Iajk6q">https://aka.ms/Iajk6q。 まだアルファ バージョンであり、変更される可能性があります。
+
+  <h2>予定</h2>
+
+  次に示すのは、新しい先物サポートの使用によって簡単にされるコードの例です。 以前は、複数の操作を実行する必要がある場合、コールバックの入れ子はすぐに負担になる可能性がありました。 たとえば、クエリの結果を反復処理して項目を更新する必要がある場合、コールバック ベースのコードはすぐに簡単ではない可能性があります。
+
+  <pre class="prettyprint">final MobileServiceTable&lt;TodoItem&gt; table = mClient.getTable(TodoItem.class);
+
+  table.where().field("complete").eq(false).execute(new TableQueryCallback&lt;TodoItem&gt;() {
+
+      @Override
+      public void onCompleted(final List&lt;TodoItem&gt; items, int unused,
+              Exception error, ServiceFilterResponse response) {
+
+          TableOperationCallback&lt;TodoItem&gt; updateCallback = new TableOperationCallback&lt;TodoItem&gt;() {
+
+              private int mIndex;
+
+              @Override
+              public void onCompleted(TodoItem updated,
+                      Exception error, ServiceFilterResponse response) {
+                  mIndex++;
+                  if (mIndex == items.size()) {
+                      tv.setText("Marked all items as complete");
+                  } else {
+                      TodoItem item = items.get(mIndex);
+                      item.setComplete(true);
+                      table.update(item, this);
+                  }
+
+              }
+          };
+
+          if (items.size() &gt; 0) {
+              TodoItem first = items.get(0);
+              first.setComplete(true);
+              table.update(first, updateCallback);
+          }
+
+      }
+  });</pre>
+
+  将来のサポートでは、コードでバックグラウンド スレッドが実行されている場合、呼び出しははるかにクリーンになります。 上記のコードと同じことを行う次のコードを使用します。 これは、6 行のコードまで処理されます (例外処理とスレッド スキップが発生します。これは、コードが UI スレッドに既に存在しない場合、または UI コンポーネントを変更する必要がなかった場合は必要ありません)。
+
+  <pre class="prettyprint">new AsyncTask&lt;Void, Void, Void&gt;() {
+
+      @Override
+      protected Void doInBackground(Void... params) {
+          final MobileServiceTable&lt;TodoItem&gt; table = mClient.getTable(TodoItem.class);
+          try {
+              MobileServiceList&lt;TodoItem&gt; results = table.where().field("complete").eq(false).execute().get();
+              for (TodoItem todoItem : results) {
+                  todoItem.setComplete(true);
+                  table.update(todoItem).get();
+              }
+              runOnUiThread(new Runnable() {
+
+                  @Override
+                  public void run() {
+                      tv.setText("Marked all items as complete");
+                  }
+              });
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+
+          return null;
+      }
+
+  }.execute();</pre>
+
+  上記のコードは小さいので、例外処理とスレッド スキップがいくつか発生しています。 ただし、コード ロジックは、次の 6 行のコードに分かっています。
+
+  <pre class="prettyprint">final MobileServiceTable&lt;TodoItem&gt; table = mClient.getTable(TodoItem.class);
+
+  MobileServiceList&lt;TodoItem&gt; results = table.where().field("complete").eq(false).execute().get();
+
+  for (TodoItem todoItem : results) {
+      todoItem.setComplete(true);
+      table.update(todoItem).get();
+  }</pre>
+
+  これは、先物を使用する主な利点です。単純なプログラミング モデル (特にチェーン先物に関する)。 ただし、キャンセル、複数の将来のマージ (結合) の容易さなど、他の機能も提供されます。
+
+  <h2>新しい API</h2>
+
+  よし、先物は良い、使い方は? メイン操作 (テーブル API とカスタム API) では、以前にコールバック パラメーターを受け取った各メソッドに新しいオーバーロードがあります。このオーバーロードはコールバックを受け取らないが、代わりに将来のインターフェイスを返します。 <code>@deprecated</code>既存のアプリに必要な変更を最小限に抑えるために、現在のコールバック ベースのメソッドはまだ存在しますが、今後のリリース (メジャー バージョンのアップグレード) で削除される可能性があるとしてマークされています。 これは、カスタム API (MobileServiceClient クラスの invokeApi メソッドのオーバーロードが 9 つ前の場合など)、プッシュ登録/登録解除、型指定されたテーブルと型指定されていないテーブル (すべての CRUD 操作) とログイン (すべてのオーバーロード) に適用されます。 たとえば、これらは invokeApi メソッドの古いオーバーロードです。
+
+  <pre class="prettyprint">public &lt;E&gt; void invokeApi(String apiName, Class&lt;E&gt; clazz, ApiOperationCallback&lt;E&gt; callback)
+
+  public &lt;E&gt; void invokeApi(String apiName, Object body, Class&lt;E&gt; clazz, ApiOperationCallback&lt;E&gt; callback)
+
+  public &lt;E&gt; void invokeApi(String apiName, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters, Class&lt;E&gt; clazz, ApiOperationCallback&lt;E&gt; callback)
+
+  public &lt;E&gt; void invokeApi(String apiName, Object body, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters, final Class&lt;E&gt; clazz, final ApiOperationCallback&lt;E&gt; callback)
+
+  public void invokeApi(String apiName, ApiJsonOperationCallback callback)
+
+  public void invokeApi(String apiName, JsonElement body, ApiJsonOperationCallback callback)
+
+  public void invokeApi(String apiName, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters, ApiJsonOperationCallback callback)
+
+  public void invokeApi(String apiName, JsonElement body, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters, final ApiJsonOperationCallback callback)
+
+  public void invokeApi(String apiName, byte[] content, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; requestHeaders, List&lt;Pair&lt;String, String&gt;&gt; parameters, final ServiceFilterResponseCallback callback)</pre>
+
+  これらは、既存のバージョンとサイド バイ サイドで存在する新しいバージョンです。
+
+  <pre class="prettyprint">public &lt;E&gt; ListenableFuture&lt;E&gt; invokeApi(String apiName, Class&lt;E&gt; clazz)
+
+  public &lt;E&gt; ListenableFuture&lt;E&gt; invokeApi(String apiName, Object body, Class&lt;E&gt; clazz)
+
+  public &lt;E&gt; ListenableFuture&lt;E&gt; invokeApi(String apiName, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters, Class&lt;E&gt; clazz)
+
+  public &lt;E&gt; ListenableFuture&lt;E&gt; invokeApi(String apiName, Object body, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters, final Class&lt;E&gt; clazz)
+
+  public ListenableFuture&lt;JsonElement&gt; invokeApi(String apiName)
+
+  public ListenableFuture&lt;JsonElement&gt; invokeApi(String apiName, JsonElement body)
+
+  public ListenableFuture&lt;JsonElement&gt; invokeApi(String apiName, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters)
+
+  public ListenableFuture&lt;JsonElement&gt; invokeApi(String apiName, JsonElement body, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; parameters)
+
+  public ListenableFuture&lt;ServiceFilterResponse&gt; invokeApi(String apiName, byte[] content, String httpMethod, List&lt;Pair&lt;String, String&gt;&gt; requestHeaders, List&lt;Pair&lt;String, String&gt;&gt; parameters)</pre>
+
+  <h2>互換性に影響する変更</h2>
+
+  futures-only/callback-less モデルに移行する場合は、既存のメソッドを非推奨にし、 <a href="https://developer.android.com/reference/java/util/concurrent/Future.html">Futures</a> の結果を使用して新しいメソッドを追加することで、主要なクラスの下位互換性を維持できます。 ただし、コールバックベースのインターフェイスもいくつかあるので、futures メソッドをそのインターフェイスに追加する必要がありました (実装されたクラスが壊れるので)。 すべてのインターフェイスを複製し、クラスに新しいインターフェイスと古いインターフェイスの両方を実装することもできますが、パッケージに不要な大きさがある可能性があります。 また、先物ベースのコードの方向に進むので、先に進み、これらのインターフェイスに対して壊動的な変更を導入することを決定しました。このため、新しいリリースにはメジャー バージョンの増加が含まれているのです。 また、非常に大きな変更のしきい値を超えたので、(かなり大きい) com.microsoft.windowsazure.mobileservices パッケージを複数の "サブパッケージ" に分割してクラスをより整理するなど、コードでいくつかのクリーンアップを行う機会を利用しました。 最後に、書き込むコードが少なくならず、クエリ結果も変更しました。 すべての壊れる変更と、コード内でどのように対処できるのかについて見てみしましょう。
+
+  <h3>パッケージの変更</h3>
+
+  これは、com.microsoft.windowsazure.mobileservices パッケージに属し、現在は新しいパッケージに属しているパブリック クラスの一覧です。 (*) でマークされているものには、以下に示す追加の変更点があります。
+
+  <ul>
+   <li>com.microsoft.windowsazure.mobileservices.authentication
+  <ul>
+   <li>MobileServiceAuthenticationProvider</li>
+   <li>MobileServiceUser</li>
+  </ul>
+
+  </li>
+   <li>com.microsoft.windowsazure.mobileservices.http
+  <ul>
+   <li>AndroidHttpClientFactory</li>
+   <li>AndroidHttpClientFactoryImpl</li>
+   <li>NextServiceFilterCallback (*)</li>
+   <li>ServiceFilter (*)</li>
+   <li>ServiceFilterRequest</li>
+   <li>ServiceFilterResponse</li>
+  </ul>
+
+  </li>
+   <li>com.microsoft.windowsazure.mobileservices.notifications
+  <ul>
+   <li>GcmNativeRegistration</li>
+   <li>GcmTemplateRegistration</li>
+   <li>MobileServicePush</li>
+   <li>登録</li>
+   <li>RegistrationCallback</li>
+   <li>RegistrationGoneException</li>
+   <li>TemplateRegistration</li>
+   <li>TemplateRegistrationCallback</li>
+   <li>UnregisterCallback</li>
+  </ul>
+
+  </li>
+   <li>com.microsoft.windowsazure.mobileservices.table
+  <ul>
+   <li>MobileServiceJsonTable</li>
+   <li>MobileServicePreconditionFailedException</li>
+   <li>MobileServicePreconditionFailedExceptionBase</li>
+   <li>MobileServiceSystemProperty</li>
+   <li>MobileServiceTable</li>
+   <li>TableDeleteCallback</li>
+   <li>TableJsonOperationCallback</li>
+   <li>TableJsonQueryCallback</li>
+   <li>TableOperationCallback</li>
+   <li>TableQueryCallback</li>
+  </ul>
+
+  </li>
+   <li>com.microsoft.windowsazure.mobileservices.table.query
+  <ul>
+   <li>MobileServiceQuery (*)
+  <ul>
+   <li>ExecutableQueryE&lt;&gt; と ExecutableJsonQuery の 2 つの新しいサブクラスを使用して、Query に名前が変更されました</li>
+  </ul>
+
+  </li>
+   <li>MobileServiceQueryOperations
+  <ul>
+   <li>型指定されたクエリの作成に使用される静的操作を含むクラス。 QueryOperations に名前が変更されました。</li>
+  </ul>
+
+  </li>
+   <li>QueryOrder</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  多数のパッケージ変更がありましたが、Eclipse で自動的に対処できます。[ソース] メニューで [インポートの整理] を選択します (または Ctrl + Shift + O)
+
+  <h3>MobileServiceQuery</h3>
+
+  MobileServiceQuery インターフェイスは、テーブルに対するクエリを表すのに使用され、パラメーター 'E' に型指定されたジェネリック クラスでした。 ただし、これは型指定 (シリアル化) と型指定されていない (JSON) の両方のシナリオで使用されました。これは、SDK の残りの部分で使用されるパターンに反します。 クエリ オブジェクトの型は、型指定されたケースの ExecutableQueryE&lt;&gt;、型指定されていないケースの ExecutableJsonQuery になります。 クエリ オブジェクトを変数に格納しない場合、コードを更新する必要はありません。 既存の (1.1.6) バージョンの SDK で動作する次のコードを使用します。
+
+  <pre class="prettyprint">public class QueryChangesDemo {
+      private MobileServiceTable&lt;TodoItem&gt; typedTable;
+      private TableQueryCallback&lt;TodoItem&gt; typedCallback;
+      private MobileServiceJsonTable jsonTable;
+
+      public QueryChangesDemo(MobileServiceClient client) {
+          typedTable = client.getTable(TodoItem.class);
+          jsonTable = client.getTable("TodoItem");
+          typedCallback = typedCallback = new TableQueryCallback&lt;TodoItem&gt;() {
+              @Override
+              public void onCompleted(List&lt;TodoItem&gt; results, int count, Exception error, ServiceFilterResponse response) {
+              }
+          };
+      }
+
+      public void before() {
+          // Not assigning to a query object - no changes needed
+          typedTable.where().field("complete").eq(false).execute(typedCallback);
+
+          // The type of 'query' will change
+          MobileServiceQuery&lt;TableQueryCallback&lt;Todoitem&gt;&gt; query = typedTable.where().field("complete").eq(false);
+          query.execute(typedCallback);
+
+          // The TableJsonQueryCallback.onCompleted will lose the 'count' parameter
+          TableJsonQueryCallback jsonCallback = new TableJsonQueryCallback() {
+              @Override
+              public void onCompleted(JsonElement result, int count, Exception error,
+                      ServiceFilterResponse response) {
+              }
+          };
+
+          // Not assigning to a query object - no changes needed
+          jsonTable.where().field("complete").eq(false).execute(jsonCallback);
+
+          // The type of the 'jsonQuery' variable will change
+          MobileServiceQuery&lt;TableJsonQueryCallback&gt; jsonQuery = jsonTable.where().field("complete").eq(false);
+          jsonQuery.execute(jsonCallback);
+      }
+  }</pre>
+
+  新しい SDK (2.x) では、クエリを実行する前に変数に割り当てる必要がある場合は、変数の型を変更する必要があります。そうしないと、変更は必要ありません。
+
+  <pre class="prettyprint">    public void after() {
+          // Not assigning to a query object - no changes needed
+          typedTable.where().field("complete").eq(false).execute(typedCallback);
+
+          // The type of 'query' changes to ExecutableQuery&lt;TodoItem&gt;
+          ExecutableQuery&lt;Todoitem&gt; query = typedTable.where().field("complete").eq(false);
+          query.execute(typedCallback);
+
+          // The TableJsonQueryCallback.onCompleted does not have the the 'count' parameter anymore
+          TableJsonQueryCallback jsonCallback = new TableJsonQueryCallback() {
+              @Override
+              public void onCompleted(JsonElement result, Exception error,
+                      ServiceFilterResponse response) {
+              }
+          };
+
+          // Not assigning to a query object - no changes needed
+          jsonTable.where().field("complete").eq(false).execute(jsonCallback);
+
+          // The type of the 'jsonQuery' variable will change
+          ExecutableJsonQuery jsonQuery = jsonTable.where().field("complete").eq(false);
+          jsonQuery.execute(jsonCallback);
+      }</pre>
+  上記のもう 1 つの変更: <code>onCompleted</code> <code>TableJsonQueryCallback</code> 以前は 'count' パラメーターを持っていたインターフェイスの メソッドですが、その値は設定されません (使用されている場合は正しくありません)。 Android API をマネージド コードに合わせて調整するために、このパラメーターを削除しました。
+
+  <h3>サービス フィルター</h3>
+
+  前に説明したように、サービス フィルターは内部的および高度なシナリオで使用され、コールバック ベースから先物ベースの定義に変更しました。 そのため、ServiceFilter.handleRequest メソッドと NextServiceFilterCallback.onNext メソッドでは、コールバック パラメーターを受け取る代わりに ListableFuture が返されます。 この変更とは別に、それらの動作は同じです。 たとえば、"ID" サービス フィルターを次に示します。このフィルターは、パイプライン内の次のフィルターを介してメッセージを渡します。
+
+  <pre class="prettyprint">ServiceFilter identityFilter = new ServiceFilter() {
+      @Override
+      public ListenableFuture&lt;ServiceFilterResponse&gt; handleRequest(
+              ServiceFilterRequest request, NextServiceFilterCallback next) {
+          return next.onNext(request);
+      }
+  };</pre>
+
+  前述のように、フィルターを使用する必要があるのは上級ユーザーだけなので、この変更について心配する必要はありません。
+
+  <h2>まとめ</h2>
+
+  SDK で受け取ったフィードバックに対処し、今後のサポートを追加Android SDK。 上記に示したいくつかの重要な変更がありました。そのため、大まかにリリースする前に追加のコメントや提案、クレームに対処できるよう、アルファ バージョンで SDK をリリースしています。 この週の後半に、追加したオフライン サポートについて書き込み、Android SDK が SDK のマネージド および iOS バージョンと同じ状態になりました。 で SDK をダウンロード<a title="https://aka.ms/Iajk6q</a>https://aka.ms/Iajk6q" href="https://aka.ms/Iajk6q">し、この投稿または <a href="https://social.msdn.microsoft.com/Forums/windowsazure/en-US/home?forum=azuremobile">MSDN</a> フォーラムでコメントとしてフィードバックをお送りください。

@@ -1,0 +1,142 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6c2a7cc0a00abd703e6c6aad53d91e5f6c7bd098
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909172"
+Slug: azure-data-factory-visual-studio-extension-for-authoring-pipelines
+Title: Azure Data Factory Visual Studio作成パイプライン用の拡張機能
+Summary: 'ADF (Visual Studio) の拡張機能のAzure Data Factoryお知らせします。 このリリースでは、豊富なデータ インターフェイスを使用してデータ パイプラインを作成Visual Studioできます。  '
+Content: >-
+  <p>ADF (Visual Studio) の拡張機能のAzure Data Factoryお知らせします。 このリリースでは、豊富なデータ インターフェイスを使用してデータ パイプラインを作成Visual Studioできます。 私たちの目標は、ADF 作成エクスペリエンスを簡素化し、オンボーディングとデプロイの課題を取り除く方法です。 ADF 拡張機能は、Visual Studioエクスペリエンスと豊富なツールを使用して、新規ユーザーと上級ユーザーの両方の生産性と効率性を向上させます。 ADF Visual Studio拡張機能は、Azure SDK 2.7 以上の azure SDK Visual Studio 2013。 &nbsp; このリリースで有効になっている機能:&nbsp;&nbsp;</p>
+
+
+  <ul>
+      <li><b>テンプレート ベースのオーサリング:</b> 使用事例ベースのテンプレート、データ移動テンプレート、またはデータ処理テンプレートを選択して、エンドツーエンドのデータ統合ソリューションをデプロイし、Data Factory ですぐにハンズオンを開始します。</li>
+      <li><b>エンティティを作成ソリューション エクスプローラーデプロイ</b>する Data Factory との統合: &amp; デプロイ パイプラインと関連エンティティをプロジェクトとしてVisual Studioする</li>
+      <li><b>作成中の視覚的な</b>操作のためのダイアグラム ビューとの統合: ダイアグラム ビューを使用してパイプラインとデータセットを視覚的に作成する</li>
+      <li><b>デプロイ済みのエンティティの参照と相互作用のためのサーバー エクスプローラーとの統合</b>: サーバー エクスプローラーを利用して、デプロイ済みの Data Factory と対応するエンティティを参照します。 デプロイされたデータ ファクトリまたは任意のエンティティ (パイプライン、リンクされたサービス、データセット) をプロジェクトにインポートする</li>
+      <li><b>スキーマ検証と豊富な Intellisense による JSON 編集</b>: 豊富な Intellisense とスキーマ検証を使用して Data Factory エンティティの JSON ドキュメントを効率的に構成し、編集します。</li>
+      <li><b>マルチ環境発行: </b>環境ごとに個別の構成ファイルを作成して、作成されたパイプラインを Dev、Test、または Prod 環境に発行する</li>
+      <li><b>変換アクティビティ実行コードのデプロイの統合サポート: </b>Hive スクリプト、Pig スクリプト、Map Reduce &amp; Hadoop Streaming コードを Data Factory プロジェクトに含め、発行エクスペリエンスの一部として自動的にデプロイできます。 .Net アクティビティの発行と管理Project C# の参照のサポート</li>
+      <li><strong>複数のサブスクリプションにデータ</strong> ファクトリを移行する: 既存のデータ ファクトリを新しいサブスクリプションに効率的に移行するには、データ ファクトリのエクスポート機能を使用サーバー エクスプローラー</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>前提条件</h2>
+
+
+  <p>コンピューターに以下がインストールされている必要があります。</p>
+
+
+  <ul>
+      <li>インストール Visual Studio 2013 (Update 4)</li>
+      <li><a href="https://go.microsoft.com/fwlink/p/?linkid=323510&amp;clcid=0x409" target="_blank">Azure SDK for .NET Windowsをインストールする - 2.7</a></li>
+  </ul>
+
+
+  <p>&nbsp;<strong>メモ</strong>ADF 拡張機能に対する新しい更新プログラムVisual Studioしています。 Azure SDK にWindowsしたら、次の手順に従って、Data Factoryの更新プログラムVisual Studio確認してください</p>
+
+
+  <ul>
+      <li>メニューの <strong>[ツール</strong> ] をクリックし、[拡張機能 <strong>と更新プログラム] を選択します</strong></li>
+      <li>左側<strong>のウィンドウ</strong>で [更新プログラム] を選択し、[ギャラリー Visual Studio<strong>選択します。</strong></li>
+      <li><strong>[Azure Data Factory tools for Visual Studio]</strong> を選択して、 <strong>[更新]</strong> をクリックします。 このエントリが表示されない場合は、最新バージョンのツールが既にインストールされています</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>チュートリアル</h2>
+
+
+  <p>このチュートリアルでは、&rsquo;ADF Visual Studio 拡張機能を使用して、Azure SQL から Azure Blob Storage にデータをコピーするパイプラインを作成します。</p>
+
+
+  <ul>
+      <li><strong>Visual Studio 2013</strong>を起動します。 <strong>[ファイル]</strong> をクリックし、 <strong>[新規作成]</strong> をポイントして、 <strong>[プロジェクト]</strong> をクリックします。 <strong>[新しいプロジェクト]</strong> ダイアログ ボックスが表示されます。</li>
+      <li>[新<strong>しいProject</strong>] ダイアログで<strong>、DataFactory</strong> テンプレートを選択し、[テンプレートの作成<strong>Data Factoryクリックします</strong>。</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/FileNewProject.png"><img alt="FileNewProject" border="0" height="544" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/FileNewProject_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="FileNewProject" width="786"></a> <strong>&nbsp; 図 1: Data Factory</strong> テンプレート &nbsp;</p>
+
+
+  <ul>
+      <li>[テンプレート] の一覧Data Factory表示します。 エンド エンドの<strong>使用事例テンプレート、データ移動テンプレート</strong>、<strong></strong>およびデータ処理テンプレート<strong>を確認できます</strong>。 Azure&rsquo; Blob テンプレートに対して [Azure SQL] を選択し、[サンプル データを含める<strong>] オプションをオン</strong>のままにします。 これにより、サンプル データを使用してこのパイプラインをデプロイできます。</li>
+  </ul>
+
+
+  <blockquote><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/gallery.png"><img alt="gallery" border="0" height="546" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/gallery_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ギャラリー" width="788"></a></blockquote>
+
+
+  <blockquote><strong>図 2:</strong> Data Factory テンプレート ギャラリー &nbsp; <strong>注 まだ</strong> サインインしていない場合は、Azure サブスクリプションに関連付けられているアカウントでサインインしてください &nbsp;</blockquote>
+
+
+  <ul>
+      <li>新しいデータ ファクトリを作成します。 サブスクリプション内の既存のデータ ファクトリを選択できます。 [ <strong>Publish to Data Factory]/(</strong> データ ファクトリにパイプラインを自動的にデプロイする) オプションを選択したままにする</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/create_df.png"><img alt="create_df" border="0" height="562" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/create_df_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="" width="809"></a> create_df<strong>図 3: Data Factory</strong>データ ファクトリの&ndash;作成または選択&nbsp;</p>
+
+
+  <ul>
+      <li>&nbsp;&nbsp;&nbsp;パイプラインの Azure SQLソースと Azure BLOB Storageリソースを構成します。 既存のリソースを選択するか、新しいリソースを作成できます。 この例では、新しいリソース&rsquo;を作成します</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/azureresource_create.png"><img alt="azureresource_create" border="0" height="559" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azureresource_create_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="" width="807"></a> azureresource_create<strong>図 4: Data Factory</strong>構成 &ndash; Azure リソース&nbsp;</p>
+
+
+  <ul>
+      <li>&nbsp;&nbsp;&nbsp; 構成設定を確認する</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/summary.png"><img alt="summary" border="0" height="574" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/summary_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="概要 図" width="823"></a> <strong>5: Data Factory</strong> 構成 &ndash; の概要 &nbsp;</p>
+
+
+  <ul>
+      <li>&nbsp;&nbsp;&nbsp; [次 <strong>へ]</strong> をクリックすると、すべての Azure リソースがプロビジョニングされ、データ ファクトリ パイプラインとすべての関連エンティティ (リンクされたサービスとデータセット) が作成され、パイプラインがデプロイされます</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/deployment.png"><img alt="deployment" border="0" height="574" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/deployment_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="デプロイ" width="827"></a><strong>図 6: Data Factory</strong> リソースのデプロイ&nbsp;</p>
+
+
+  <ul>
+      <li>デプロイ手順が完了したら、[完了] をクリックしてウィザードを閉じ、Visual Studioします。 この段階で、パイプラインはデータ ファクトリに作成され、実行されます。 パイプラインを監視Azure portal <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-monitor-manage-using-management-portal/">に移動します</a></li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+      <li>このフロー Visual Studio続けて、キャンバスにパイプライン ダイアグラムと対応する JSON コードが表示されます。 この <strong>ソリューション エクスプローラー</strong> パイプラインのデータ ファクトリ プロジェクトが含まれています。 リンクされたサービスとデータセットを表示するには、JSON ファイルをクリックし、キャンバスで開きます</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/canvas_landing.png"><img alt="canvas_landing" border="0" height="441" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/canvas_landing_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="" width="810"></a> canvas_landing<strong>図 7: Data Factory Visual Studio</strong>キャンバス&nbsp;</p>
+
+
+  <ul>
+      <li>豊富な IntelliSense を含む JSON エディターを使用してパイプラインを編集し、ツール バーの [発行] ボタンを<strong></strong>クリックして変更をファクトリにデプロイできます。</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/publish.png"><img alt="publish" border="0" height="211" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/publish_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="図" width="831"></a> <strong>8: 拡張機能の発行</strong>Data Factory Visual Studioエクスペリエンスを公開する&nbsp;</p>
+
+
+  <ul>
+      <li>サブスクリプションに <strong>サーバー エクスプローラー</strong> データ ファクターを表示するには、次のコマンドを使用します。 データ ファクトリまたはデータ ファクトリ エンティティを新しいプロジェクトまたは既存のプロジェクトVisual Studioとしてローカルにエクスポートする</li>
+  </ul>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/server_explore.png"><img alt="server_explore" border="0" height="465" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/server_explore_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="" width="855"></a> &nbsp; server_explore <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/21/server_explore_1.png"><img alt="server_explore_1" border="0" height="264" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/server_explore_1_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="" width="861"></a> server_explore_1<strong>図 9:</strong> Data Factory Visual Studio 拡張機能 サーバー エクスプローラー &nbsp; エクスペリエンス 空の Data Factory プロジェクトの開始など、ADF Visual Studio 拡張機能の追加機能については、こちらにある製品ドキュメントを参照してください。<a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-get-started-using-vs/" target="_blank"></a> ADF 拡張機能に関するフィードバックをお待ちしておりますVisual Studioしています。 特定の機能が不足している場合、または問題が発生した場合は、Azure Data Factory <a href="https://feedback.azure.com/forums/270578-azure-data-factory">フォーラム</a> にアクセスし、フィードバックをお寄せください。</p>

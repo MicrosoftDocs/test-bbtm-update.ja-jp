@@ -1,0 +1,94 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 108d18ceaa9dfeb104f3242081ccda43e1f7c014
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909606"
+Slug: new-general-purpose-and-memoryoptimized-azure-virtual-machines-with-intel-now-available
+Title: Intel を使用した新しい汎用およびメモリ最適化 Azure Virtual Machines を利用できるようになりました
+Summary: この発表では、2つの新しい Azure Virtual Machines ファミリが導入されています。その1つは、ポートフォリオ内の新しい製品カテゴリを表します。
+Content: >-
+  <p>現在、第2世代 Intel Xeon プラチナ 8272CL (Cascade Lake) に基づいて、新しい汎用およびメモリ最適化 Azure Virtual Machines の可用性の発表を&#39;しています。 このカスタムプロセッサは 2.5 GHz の基本速度で動作し、3.4 GHz のすべてのコアターボ周波数を実現できます。 <a href="https://www.intel.com/content/www/us/en/architecture-and-technology/avx-512-overview.html" target="_blank">intel &reg; ディープラーニングブーストテクノロジ、intel &reg; Advanced Vector Extensions 512 (intel &reg; AVX-512)</a>、 <a href="https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html" target="_blank">intel &reg; Turbo ブーストテクノロジ 2.0</a>、および<a href="https://www.intel.com/content/www/us/en/architecture-and-technology/hyper-threading/hyper-threading-technology.html" target="_blank">intel &reg; Hyper-Threading テクノロジ</a>が搭載されています。</p>
+
+
+  <p>この発表では、2つの新しい Azure Virtual Machines ファミリが導入されています。その1つは、ポートフォリオ内の新しい製品カテゴリを表します。</p>
+
+
+  <ul>
+      <li>ローカルデータ一時ディスク (一般公開) を含む、Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ddv4-ddsv4-series" target="_blank"><strong>Ddv4 と Ddsv4</strong></a> <strong> </strong>、および<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/edv4-edsv4-series" target="_blank"><strong>Edv4 と Edsv4</strong></a>の仮想マシン</li>
+      <li>リモートディスクに依存し、一時的なローカルストレージを提供しない仮想マシンの新しいカテゴリである Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dv4-dsv4-series" target="_blank"><strong>Dv4 and Dsv4</strong></a> <strong> </strong>and <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ev4-esv4-series" target="_blank"><strong>Ev4 and Esv4</strong></a> virtual machines (現在プレビュー段階)。</li>
+  </ul>
+
+
+  <p>新しい仮想マシン (VM) のサイズでは、以前の Dv3 VM ファミリと Ev3 VM ファミリと比較して、最大で約20% の CPU パフォーマンスの向上を実現しています。</p>
+
+
+  <h2>新しい Ddv4 と Ddsv4、Edv4 および Edsv4 Vm が一般公開されています</h2>
+
+
+  <p>新しい <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ddv4-ddsv4-series" target="_blank">Ddv4 と Ddsv4</a> および <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/edv4-edsv4-series" target="_blank">Edv4 と Edsv4</a> の VM サイズには、高速で大規模なローカルソリッドステートドライブ (SSD) ストレージが含まれており、短い待機時間、高速のローカルストレージ (たとえば、一時的なストレージへの高速な読み取りと書き込みを必要とするアプリケーションや、キャッシュや一時ファイルの一時的なストレージを必要とするアプリケーションなど) に対応するアプリケーション これらの新しい VM サイズでは、50% の大きなローカルストレージが提供され、読み取り操作と書き込み操作の両方に対してローカルディスク IOPS が向上します。これに対して、<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/generation-2" target="_blank">第2世代 (Gen 2) vm</a>での<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dv3-dsv3-series" target="_blank">Dv3 と Dsv3</a>および<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ev3-esv3-series?toc=/azure/virtual-machines/linux/toc.json&amp;bc=/azure/virtual-machines/linux/breadcrumb/toc.json" target="_blank">Ev3 と Esv3</a>のサイズが比較されます。 新しい Ddv4 と Ddsv4 および Edv4 と Edsv4 の VM サイズは、standard HDD、standard SSD、premium SSD、または ultra SSD 永続ディスクに接続できます。</p>
+
+
+  <p>新しい <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ddv4-ddsv4-series" target="_blank">Ddv4 と Ddsv4 の VM サイズ</a> は、最大 64 vcpu、256 GiB RAM、およびローカル SSD ストレージ (最大 <strong>2400 GiB</strong>) を備えた、メモリと vcpu のパフォーマンスのバランスを確保します。 これらの VM ファミリは、開発とテスト、小規模から中規模のデータベース、および低 ~ 中程度のトラフィックの web サーバーに最適です。</p>
+
+
+  <p>新しい <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/edv4-edsv4-series" target="_blank">Edv4 VM サイズと Edsv4 VM</a> サイズは、最大 64 vcpus、<strong> 504 GiB</strong> RAM、およびローカル SSD ストレージ (最大 <strong>2400 GiB</strong>) を備えたメモリ対 CPU 比の高い割合で機能します。 これらの VM ファミリは、リレーショナルデータベースサーバーとメモリ内分析に適しています。</p>
+
+
+  <h2>新しい Dv4 と Dsv4、Ev4、Esv4 Vm がプレビュー段階になりました</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dv4-dsv4-series" target="_blank">Dv4 と Dsv4</a> 、および<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ev4-esv4-series" target="_blank">Ev4 と Esv4</a>の VM サイズは、ローカル一時ディスクを含まない新しいオファリングです。 これらの新しい VM ファミリでは、Dv3 VM ファミリと Ev3 VM ファミリに対する CPU の20% の向上が実現されています。 新しい Dv4 と Ev4 の VM サイズは、standard HDD と standard SSD 永続ディスクに接続できます。 Dsv4 と Esv4 の VM サイズは、standard HDD、standard、SSD、premium SSD、または ultra SSD の永続ディスクに接続できます。 現在 v3 VM サイズを使用している場合、v4 サイズに切り替えると、より優れた価格のコアパフォーマンスオプションが提供されます。</p>
+
+
+  <p>新しい Dv4 VM サイズと Dsv4 VM サイズは、最大 64 Vcpu と 256 GiB の RAM を備えた、メモリと vCPU のパフォーマンスのバランスをとって優れています。 これらの VM ファミリは、開発とテストのワークロード、小規模から中規模のデータベース、および低 ~ 中程度のトラフィックの web サーバーに最適です。</p>
+
+
+  <p>新しい Ev4 と Esv4 の VM サイズは、最大 64 vCPUs と <strong>504 GiB</strong> の RAM を備えた高いメモリ対 CPU 比を特徴としています。 これらの VM ファミリは、リレーショナルデータベースサーバーとメモリ内分析に適しています。</p>
+
+
+  <p>現時点では、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR_Y3toRKxchLjARedqtguBRURE1ZSkdDUzg1VzJDN0cwWUlKTkcyUlo5Mi4u" target="_blank">このフォームに入力</a>することで、現在プレビュー段階にあるこれらの新しい vm へのアクセスを要求できます。 さらに質問やフィードバックがある場合は、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR_Y3toRKxchLjARedqtguBRUMzdCQkw0OVVRTldFUUtXSTlLQVBPUkVHSy4u" target="_blank">直接お</a>問い合わせください。</p>
+
+
+  <h2>お客様のニーズに応えながら Intel との共同作業を行う</h2>
+
+
+  <p style="margin-left: 40px;"><i> &ldquo; Azure D-V4 および E v4 シリーズの仮想マシンを起動することで、Microsoft IaaS ポートフォリオがさらに拡張され、お客様のさまざまなニーズに対応できるようになります。第2世代の Intel &reg; Xeon スケーラブルプロセッサを搭載したこれらの仮想マシンは、Azure に移行する web およびデータサービス、デスクトップ仮想化、ビジネスアプリケーションのために最適化されたアプリケーションパフォーマンスを提供します。 &rdquo; </i> <i>&mdash;</i>Jason、Intel CVP クラウドおよび Enterprise</p>
+
+
+  <p>これらの新しい VM サイズでは、より多くの顧客価値を提供し、より高い CPU パフォーマンスを実現しています。</p>
+
+
+  <p style="margin-left: 40px;"><em> &ldquo; シリコンデザインワークロードには、高い CPU パフォーマンス、多数のコア、高いメモリ対コア比、十分なローカルストレージが必要です。新しく導入された Edsv4 ファミリは、これらの要件をすべて満たしており、ユースケースに最適な選択肢となっています。TSMC は、Edsv4 Vm を使用して、新しいスケールアウト/スケールインのシリコン設計戦略を正常に作成できました。これにより、デザイナーは、大幅な実行時の高速化とコストの最適化を実現します。 &rdquo;</em> &mdash; Willy-peter Chen、Deputy Director、Design &amp; テクノロジプラットフォーム、tsmc</p>
+
+
+  <h2>よく寄せられる質問</h2>
+
+
+  <p>お客様は、新しい Vm と、現在使用している &rsquo; Dv3/Dsv3 またはメモリ最適化 Ev3/ESV3 VM のサイズの相違点を定期的に確認します。 回答 &rsquo; として、より多くのオプションを選択できるようになりました。 次の表は、主な違いをまとめたものです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/47cdc387-5e41-4607-b786-906a68fd44cb.png"><img alt="" border="0" height="228" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1679abaf-790d-45cb-b6f3-6b9633279a24.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="701"></a></p>
+
+
+  <p>また、VM のローカル一時ディスクが依然として必要な場合はどうなるかも尋ねられます。 ローカルディスクがまだ必要な場合は、アプリケーションの Ddv4 と Ddsv4、または Edv4 と Edsv4 の VM サイズを選択できます。</p>
+
+
+  <p>これらの VM サイズに関してよく寄せられる質問については、「 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/azure-vms-no-temp-disk/" target="_blank">ローカル一時ディスクを使用しない AZURE VM のサイズ」を参照してください</a>。</p>
+
+
+  <h2>Ddv4、Ddsv4、Edv4、Edsv4 VM のサイズに関する利用可能なリージョン</h2>
+
+
+  <p>新しい Ddv4、Ddsv4、Edv4、Edsv4 の各 VM ファミリは、従量課金制の予約インスタンスで利用でき、 <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=virtual-machines" target="_blank">次のリージョン</a>でご利用いただけます。 料金は地域によって異なります。</p>
+
+
+  <h2>今すぐ始めましょう</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ddv4-ddsv4-series" target="_blank">Ddv4 と Ddsv4</a>シリーズまたは<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/edv4-edsv4-series" target="_blank">Edv4 と Edsv4 シリーズ</a>(ローカル一時ディスクを使用) の一般提供が開始されました。</li>
+      <li>現在プレビューの段階にある <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/dv4-dsv4-series" target="_blank">Dv4、Dsv4 シリーズ</a> または <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/ev4-esv4-series" target="_blank">Ev4 の Esv4 シリーズ</a> vm (ローカル一時ディスクを除く) の詳細については、こちらを参照してください。</li>
+      <li><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR_Y3toRKxchLjARedqtguBRUMzdCQkw0OVVRTldFUUtXSTlLQVBPUkVHSy4u" target="_blank">このフォームに入力</a>して、現在プレビュー中の新しい vm へのアクセスを要求することもできます。 さらに質問やフィードバックがある場合は、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR_Y3toRKxchLjARedqtguBRUMzdCQkw0OVVRTldFUUtXSTlLQVBPUkVHSy4u" target="_blank">直接お</a>問い合わせください。</li>
+  </ul>

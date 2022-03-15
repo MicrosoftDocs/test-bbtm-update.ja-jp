@@ -1,0 +1,219 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 85f9fee0b4740597db8a79934f5ea13b45be61d1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909265"
+Slug: expressroute-or-virtual-network-vpn-whats-right-for-me
+Title: ExpressRoute または Virtual Network VPN –私にとって適切ですか?
+Summary: ハイブリッド接続のオプションをどのように積み重ねて、どのように適切なものにするかについて説明します。
+Content: >-
+  現在、Azure でサポートされているさまざまな接続オプションの機能について質問し、どのような接続オプションを選択するかについてのガイダンスを提供しています。 現在、お客様のオンプレミスを Azure に接続するハイブリッド接続ソリューションは3つあります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/HybridOptions.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="HybridOptions" alt="HybridOptions" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/HybridOptions_thumb.png" width="614" height="323" border="0" /></a>
+
+
+  <b>ポイント対サイト Virtual Network</b>
+
+
+  ポイント対サイト VPN では、特別なソフトウェアを展開することなく、Windows ベースのコンピューターから仮想ネットワークへのセキュリティで保護された接続を作成することもできます。 お使いのコンピューターにダウンロードして、Windows の組み込み vpn クライアントを使用できる vpn ポリシーを提供します。 VPN クライアントを使用して会社の企業ネットワークに接続するのと同じ方法で、仮想ネットワークに安全に接続できます。 Standard Secure Sockets トンネリングプロトコル (SSTP) を使用しているため、どこからでも Azure に安全に接続できます。 この機能により、プロトタイプ作成、開発、テスト、シミュレーションなどの目的で、Azure への接続をすばやく設定できます。 同じセットアップと構成を使用して、いくつかのサイト間接続オプションを操作できます。
+
+
+  <b>サイト対サイトの Virtual Network</b>
+
+
+  サイト間 VPN により、内部設置型サイトと仮想ネットワークの間にセキュリティで保護された接続を作成できます。 Azure で業界標準の IPsec VPN を使用しています。 そのため、ほとんどの VPN デバイスと相互運用できます。 互換性のある既知のデバイスの一覧と、Azure web サイトのサンプル構成を参照できます。 このサービスを使用すると、最大10個のオンプレミスサイトと仮想ネットワークを相互に安全に接続できます。 サイト間 VPN がセットアップされると、オンプレミスと Azure の仮想ネットワークの間で IP レベルの接続が可能になります。 これにより、Azure で真のハイブリッドアプリケーションを構築できます。 このサービスは、クロスプレミス接続のスループットが公称 (約 100 Mbps) の場合に使用します。
+
+
+  <b>ExpressRoute</b>
+
+
+  ExpressRoute を使用すると、Azure のデータセンターとオンプレミスや共用環境にあるインフラストラクチャ間にプライベート接続を作成できます。 ExpressRoute 接続はパブリック インターネットを経由しないため、インターネット経由の一般的な接続よりも信頼性が高く、より高速で待機時間が少なく、セキュリティも強固です。 ExpressRoute では、ExpressRoute の場所 (Exchange プロバイダーの施設) にある Azure への接続を確立したり、ネットワーク サービス プロバイダーが提供する既存の WAN ネットワーク (MPLS VPN など) から Azure に直接接続したりできます。 ExpressRoute の詳細については、前の <a href="https://azure.microsoft.com/blog/2014/06/02/expressroute-an-overview/">ブログ投稿</a>を参照してください。
+
+
+  これらの各サービスの機能、機能、およびユースケースを要約するために、小さなテーブルをまとめました。
+
+
+  &nbsp;
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="110"></td>
+
+  <td valign="top" width="161"><b>Virtual Network </b> <b>(ポイント対サイト)</b></td>
+
+  <td valign="top" width="150"><b>Virtual Network </b> <b>(サイト対サイト)</b></td>
+
+  <td valign="top" width="150"><b>ExpressRoute – Exchange プロバイダー</b></td>
+
+  <td valign="top" width="150"><b>ExpressRoute –ネットワークサービスプロバイダー</b></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>サポートされている Azure サービス</b></td>
+
+  <td valign="top" width="161">クラウドサービスの仮想マシン</td>
+
+  <td valign="top" width="150">クラウドサービスの仮想マシン</td>
+
+  <td valign="top" width="150">「検証済みリスト」を参照してください。</td>
+
+  <td valign="top" width="150">「検証済みリスト」を参照してください。</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>一般的な帯域幅</b></td>
+
+  <td valign="top" width="161">通常は &lt; 100 Mbps の集計</td>
+
+  <td valign="top" width="150">通常は &lt; 100 Mbps の集計</td>
+
+  <td valign="top" width="150">200 mbps、500 Mbps、1 Gbps、10 Gbps</td>
+
+  <td valign="top" width="150">10 Mbps、50 Mbps、100 Mbps、500 Mbps、1 Gbps</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>サポート対象プロトコル</b></td>
+
+  <td valign="top" width="161">Secure Sockets Tunneling Protocol (SSTP)</td>
+
+  <td valign="top" width="150">IPsec (詳細については、VPN に関するページを参照してください)</td>
+
+  <td valign="top" width="150">Vlan 経由の直接接続</td>
+
+  <td valign="top" width="150">NSP の VPN テクノロジ (MPLS、VPLS、...)</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>ルーティング</b></td>
+
+  <td valign="top" width="161">静的</td>
+
+  <td valign="top" width="150">静的–ポリシーベース (静的ルーティング) とルートベース (動的ルーティング VPN) をサポートしています。</td>
+
+  <td valign="top" width="150">BGP</td>
+
+  <td valign="top" width="150">BGP</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>接続の弾力性</b></td>
+
+  <td valign="top" width="161">アクティブ/パッシブ</td>
+
+  <td valign="top" width="150">アクティブ/パッシブ</td>
+
+  <td valign="top" width="150">アクティブ/アクティブ</td>
+
+  <td valign="top" width="150">アクティブ/アクティブ</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>一般的なユース ケース</b></td>
+
+  <td valign="top" width="161">·クラウドサービスと仮想マシンのプロトタイプ、開発/テスト/ラボシナリオ</td>
+
+  <td valign="top" width="150">·Cloud services と virtual machines 向けの開発/テスト/ラボシナリオと小規模な運用環境のワークロード</td>
+
+  <td valign="top" width="150">·すべての Azure サービス (検証済みリスト) へのアクセスEnterprise クラスとミッションクリティカルなワークロード。
+
+
+  ·Backup
+
+
+  ·ビッグデータ
+
+
+  ·DR サイトとしての Azure</td>
+
+  <td valign="top" width="150">·すべての Azure サービス (検証済みリスト) へのアクセスEnterprise クラスとミッションクリティカルなワークロード。
+
+
+  ·Backup
+
+
+  ·ビッグデータ
+
+
+  ·DR サイトとしての Azure</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>SLA</b></td>
+
+  <td valign="top" width="161">Link</td>
+
+  <td valign="top" width="150">Link</td>
+
+  <td valign="top" width="150"><a href="https://go.microsoft.com/fwlink/?linkid=391425&amp;clcid=0x409">リンク</a></td>
+
+  <td valign="top" width="150"><a href="https://go.microsoft.com/fwlink/?linkid=391425&amp;clcid=0x409">リンク</a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>料金</b></td>
+
+  <td valign="top" width="161"><a href="https://azure.microsoft.com/en-us/pricing/details/virtual-network/">リンク</a></td>
+
+  <td valign="top" width="150"><a href="https://azure.microsoft.com/en-us/pricing/details/virtual-network/">リンク</a></td>
+
+  <td valign="top" width="150"><a href="https://azure.microsoft.com/en-us/pricing/details/expressroute/">リンク</a></td>
+
+  <td valign="top" width="150"><a href="https://azure.microsoft.com/en-us/pricing/details/expressroute/">リンク</a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>テクニカル ドキュメント</b></td>
+
+  <td valign="top" width="161">OverviewHow to guide (ガイド)</td>
+
+  <td valign="top" width="150">OverviewHow to guide (ガイド)</td>
+
+  <td valign="top" width="150">OverviewHow to guide (ガイド)</td>
+
+  <td valign="top" width="150">OverviewHow to guide (ガイド)</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="110"><b>よく寄せられる質問</b></td>
+
+  <td valign="top" width="161">Link</td>
+
+  <td valign="top" width="150">Link</td>
+
+  <td valign="top" width="150">Link</td>
+
+  <td valign="top" width="150">Link</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>

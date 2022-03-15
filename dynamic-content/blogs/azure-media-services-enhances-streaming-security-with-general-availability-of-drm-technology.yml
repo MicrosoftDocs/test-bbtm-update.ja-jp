@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: de8b587101d451c59a830c4e31c96382d4840cbb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909991"
+Slug: azure-media-services-enhances-streaming-security-with-general-availability-of-drm-technology
+Title: Azure Media Services では、DRM テクノロジの一般提供によりストリーミングセキュリティが強化される
+Summary: 'Azure Media Services Content Protection (AES および DRM) サービスの一般提供を発表しています。 '
+Content: >-
+  Azure Media Services <b>Content Protection (AES および DRM)</b>サービスの<b>一般提供</b>を発表しています。 Content protection service を使用すると、AES または Microsoft PlayReady でビデオオンデマンドまたはライブストリームコンテンツをセキュリティで保護することができます。 コンテンツのセキュリティは、ビデオの収益化に向けた重要な要素です。 <a href="https://www.theverge.com/2015/1/21/7868645/netflix-lists-popcorn-time-as-competitor">Netflix</a>による最近のブログ投稿に記載されているように、不正コピーは、ビデオコンテンツの販売代理店やプロバイダの "最大の競合企業" の1つです。 業界標準の保護を使用してコンテンツを配信するオプションを使用すると、お客様がコンテンツを安全に配信できるようにすることをお手伝いします。
+
+
+  この機能は、世界中の複数のセンターでロールアウトされ、近日中に追加されています。 このサービスを利用して、企業のお客様にセキュリティで保護されたビデオストリーミングを提供する Office 365 ビデオのようなお客様は既にお持ちです。 4か月後のプレビュー期間中は、1000の <b>お客様</b> がサービスにサインアップし、 <b>その半数</b> が既にサービスを使用しています。 プレビュー期間中にこのサービスを利用する gratitude と感謝の全員を紹介し、貴重なフィードバックをお寄せください。
+
+
+  GA では、すべてのお客様に対して <b>99.9%</b> の Azure Service-Level AGREEMENT (SLA) が保証されるようになりました。
+
+  <h3><em><span style="color: #4f81bd;">最先端メディアテクノロジ: メディアコンテンツを即座に動的に暗号化</span></em></h3>
+
+  Azure Media Services は、VOD とライブストリームの両方に対して、暗号化を即座に提供する、市場の唯一のクラウドメディアソリューションプロバイダーです。 従来の静的な暗号化およびパッケージ化と比較して、標準の複数ビットレート MP4 のコピーを1つだけ格納し、その場で動的にビットを暗号化することで、ストレージコストを節約します。 また、コンテンツキーが侵害された場合、ライブラリ全体を再度暗号化する必要はなくなりますが、キーを変更するには単にサービスで Api を呼び出す必要があります。
+
+  <h3><em> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/28/architecture.png"><img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="アーキテクチャ" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/architecture_thumb.png" alt="architecture" width="640" height="303" border="0" /></a>
+
+  </em><em><span style="color: #4f81bd;">最先端の業界標準: EME を介して PlayReady で暗号化された MPEG ダッシュ再生</span></em></h3>
+
+  より多くのブラウザーが、 <a href="https://www.w3.org/TR/encrypted-media/">暗号化されたメディア拡張機能</a> (EME) に関する HTML 標準のサポートを開始しています。 EME は、HTML5 で暗号化されたコンテンツを再生するための標準的な方法を提供します。 このサービスでは、MPEG 鎖線ストリームで PlayReady common encryption (CENC) を有効にしました。これは、DASH.JS 参照クライアントなどのさまざまなプレーヤーでサポートされています。 次のビデオリンクをクリックして試してみることをお勧めします。
+
+
+  <a href="https://amsplayer.azurewebsites.net/azuremediaplayer.html?url=http%3A%2F%2Fsamplescdn.origin.mediaservices.windows.net%2Fc05a4a7a-9bc8-4225-ace7-e75517ec6a48%2FElephantDream.ism%2Fmanifest&amp;protection=playready&amp;token=Bearer%3Durn%253amicrosoft%253aazure%253amediaservices%253acontentkeyidentifier%3D186e3698-5157-4c11-8115-5325301dd85e%26Audience%3Durn%253atest%26ExpiresOn%3D1452806060%26Issuer%3Dhttp%253a%252f%252ftestacs.com%252f%26HMACSHA256%3DIOe54iF9u4EU5L5PQZL3JHwYs1PY97HyEyWK8Cwx8nE%253d"><img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="選手" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/player.png" alt="player" width="640" height="426" border="0" /></a>
+
+  <h3><em><span style="color: #4f81bd;">ビデオコンテンツの承認: Azure Active Directory などの既知のサービスと簡単に統合できます。</span></em></h3>
+
+  Content Protection サービスでは、キー/ライセンス配信でトークン認証サービスがサポートされています。 GA では、JWT トークンのサポートも追加されました。 さらに、より簡単にするために、Active Directory または ACS を使用して AES キーまたは PlayReady ライセンスへのアクセスを承認するのに役立つ <a href="https://github.com/Azure/azure-media-services-samples/tree/master/KDWithADMVC">サンプルコード</a> (とブログ) をリリースしました。
+
+  <h3><span style="color: #4f81bd;"><em>簡単: 本格的なキー/ライセンス配信サービスを数分で構成する</em></span></h3>
+
+  オンプレミスの完全なキー/ライセンスサーバーのセットアップと構成には数日かかることがあります。 このプロセスを大幅に簡略化しました。数分ですべてを設定できます。
+
+
+  <a href="https://www.youtube.com/watch?v=k6WWfZxE42w"><img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="ビデオ" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/youtubevideo.png" alt="youtubevideo" width="640" height="384" border="0" /></a>
+
+
+  Azure Media Services の新機能をご利用いただけることを願っています。ご質問やフィードバックがある場合は、コメントを残してください。

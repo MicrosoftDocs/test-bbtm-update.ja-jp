@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ea83bfa9e9be7d4ab656e505d96003140f6a9f0e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909363"
+Slug: automating-quota-management-with-azure-quota-rest-api
+Title: Azure Quota REST API を使用したクォータ管理の自動化
+Summary: 企業は、提供するカスタマー エクスペリエンスを含め、コア ビジネス プロセスを実行するために使用および構築するアプリケーションによってますます定義されています。 すべてのセクターで、チャレンジラー 銀行、オンライン 医療プロバイダー、eコマース プロバイダーなどのスタートアップ企業が、新しいアプリケーションを提供することで顧客を獲得している方法を確認します。
+Content: >-
+  <p>企業は、提供するカスタマー エクスペリエンスを含め、コア ビジネス プロセスを実行するために使用および構築するアプリケーションによってますます定義されています。 すべてのセクターで、チャレンジラー 銀行、オンライン 医療プロバイダー、eコマース プロバイダーなどのスタートアップ企業が、新しいアプリケーションを提供することで顧客を獲得している方法を確認します。 イノベーションと迅速な実現の継続的な必要性により、クラウド ネイティブと呼ばれるソフトウェア開発の新しいパラダイムが生み出されました。</p>
+
+
+  <p>クラウド ネイティブは、アプリケーション、アーキテクチャ、プラットフォーム、インフラストラクチャ、およびプロセスを記述します。このプロセスを組み合わせて使用すると、変化するランドスケープや増大する顧客のニーズに迅速に対応できます。 単純な言い方をすると、アプリケーション コードと、コンテナーにパッケージ化され、マイクロサービスとしてデプロイされ、API として公開される依存関係です。 また、プロセスとツールを使用<a href="https://azure.microsoft.com/en-us/solutions/devops/" target="_blank">DevOps</a>管理できます。</p>
+
+
+  <p>自動化は、自動化とアジャイル開発DevOps重要な側面です。 開発者や運用担当者が機械や手動のタスクを完了するのにかかる時間が長くなると、環境が遅くなり、柔軟性が低下します。 Azure Quota REST APIを使用すると、クォータ管理を自動化し、アプリケーション、ツール、および既存のシステムとプログラムでこの機能を統合できます。 これで、アプリケーションとシステムをより迅速にクラウドに移行し、コア ビジネスに集中する時間を解放できます。</p>
+
+
+  <p>1 月 19 日に、Azure Quota API の一般提供 <a href="https://azure.microsoft.com/en-us/updates/azure-quota-rest-apis-to-manage-service-limits-quota-are-now-generally-available/" target="_blank">を発表しました</a>。 このブログ記事では、Azure Quota API を使用して Azure リソース管理操作を自動化および改善する利点について説明します。</p>
+
+
+  <h2>クォータとは</h2>
+
+
+  <p>クォータ (サービス制限とも呼ばれます) は、Azure アカウント内のリソース、アクション、および項目の最大値です。</p>
+
+
+  <p>Azure サブスクリプションは、顧客と Microsoft の間の契約であり、顧客が Azure サービスを取得できます。 サブスクリプションの価格と関連条件は、サブスクリプションで選択されたオファーに応じて決まります。 特定のサブスクリプション、リージョン、および在庫維持単位 (SKU) には既定のクォータがあります。 各 Azure サービスでは、クォータと既定値が定義されます。</p>
+
+
+  <p>クォータについて考慮すべき点を次に示します。</p>
+
+
+  <ul>
+      <li>クレジット カードにもクレジット制限があるのと同様に、Azure サービスにも制限があります。 クォータは、Azure リソースの使用量の上限です。</li>
+      <li>クォータは、各サブスクリプション内のすべてのサービスで共有されます。 容量のニーズを評価する場合は、すべてのサービスの使用量を計算する必要があります。</li>
+      <li>一部のサービスには、調整可能な制限があります。 既定の制限を超えて制限を引き上げることはできますが、最大制限を超えることはできません。 既定の制限は、無料試用版、有料、仮想マシン シリーズ (Dv4、Fsv2、Easv4 など) など、オファーカテゴリの種類によって異なります。 既定 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits" target="_blank">と最大の制限の詳細については、「Azure</a> サブスクリプションとサービスの制限、クォータ、制約」を参照してください。</li>
+  </ul>
+
+
+  <h2>主な利点</h2>
+
+
+  <p>Microsoft Enterprise Agreement、クラウド ソリューション プロバイダー (CSP) サブスクリプションをお持ちのお客様は、Azure Quota API を使用して Azure リソース管理操作を改善するメリットがあります。 Azure Quota API を使用する場合の顧客の利点を次に示します。</p>
+
+
+  <ul>
+      <li>調整する必要があるクォータを管理するためのきめ細かくプログラムによる制御。</li>
+      <li>クォータチェックが失敗した場合に移行イベントを管理すると、クォータの引き上げに対するサポート チケットが作成されます。</li>
+      <li>Azure Quota API を使用して、クォータ使用量の検証をエンドツーエンドで自動化し、クォータの増加を要求します。</li>
+      <li>仮想マシンの有機的および有機的な成長を効率的に管理する。</li>
+  </ul>
+
+
+  <h2>Azure Quota API の使用</h2>
+
+
+  <p>企業が効果的に競争するには、開発者が最善の作業を行える環境を作成する必要があります。運用チームは、組織が期待する信頼性、セキュリティ、コンプライアンスの要件を自信を持って満たします。 これには、コンテナー、DevOps、API、マネージド サービス、環境やチーム全体で動作するための流動的性などの最新のコンストラクトをサポートするように設計された高度なクラウド機能が必要です。 Azure Quota API では、クォータ管理の自動化と、既存のツールやアプリケーションとのクォータ管理の統合に関するこの必要性に対処できます。</p>
+
+
+  <p>Azure Quota API は、クォータの表示と管理のプロセスを自動化し、Azure portal のサポート チケットを使用してクォータを作成および管理する手動プロセスを排除するための、1 つのストップ ショップです。 Azure Quota API を使用すると、現在のクォータ使用量を簡単に確認し、増加を要求できます。 現在のバージョンの Azure Quota API では、Azure Virtual Machines (cores/vCPU) と Azure Machine Learning のサービス制限 (クォータ) を管理できます。 今後のリリースでは、この機能を利用して、追加の Azure サービスとリソースの現在の使用状況とクォータを照会できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11b2cd3c-cc2e-4e2b-917d-a27a532a1475.png"><img width="1024" height="608" title="QuotaAPI-automation" style="margin-right: auto; margin-left: auto; float: none; display: block;" alt="Automating quota management with Quota API." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0076c600-2f2d-466b-ab36-1e7c8c6ba36e.png"></a></p>
+
+
+  <p>次の例は、Azure Quota API を使用してクォータ管理を自動化し、IT 運用の機敏性、開発者の速度、効率を向上させる方法を示しています。</p>
+
+
+  <p>クラウド対応性チームのリード開発者である場合は、大規模なさまざまな構成のソフトウェアをテストする必要がある場合があります。 テスト中に、多数の仮想マシンを作成する必要がある場合があります。 直面する可能性がある課題の 1 つは、クォータの上限に達したため、新しい仮想マシンをデプロイできません。 これは、組織内の仮想マシンの使用が増加し、頻繁に予期せず発生する可能性があります。</p>
+
+
+  <p>ワークフローを続行するには、サポート チケットを手動で作成してクォータの引き上げを要求する必要があります。 しかし、ワークフローの効率を向上させるために、Azure Quota API を使用して、クォータ要求と検証操作をエンドツーエンドで自動化できます。 使用量を確認し、仮想マシンがクォータ制限に達した時間を監視し、クォータ要求を自動的に送信して制限を増やします。 これは、運用効率を実現するのに役立ちます。これにより、中断のないファームウェア テストへの道が開ける可能性があります。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>Azure Quota API を使用してクォータ使用量を確認し、クォータの引き上げを要求し、クォータエラーに対処し、現在サポートされている Azure Quota REST API 操作を使用する方法の技術的な詳細については、 <a href="https://aka.ms/quotaapitechblog" target="_blank">Azure Quota API</a> のテクニカル ブログと <a href="https://docs.microsoft.com/rest/api/reserved-vm-instances/quotaapi" target="_blank">Azure Quota API</a> 製品ドキュメントを参照してください。</p>

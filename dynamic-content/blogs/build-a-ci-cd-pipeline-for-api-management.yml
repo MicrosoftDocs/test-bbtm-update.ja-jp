@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 760eabd3d3b955a56614d069e2bc36c144e7e9ba
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909951"
+Slug: build-a-ci-cd-pipeline-for-api-management
+Title: アプリケーション用の CI/CD パイプラインを構築API Management
+Summary: API は平気になっていました。 これらは、アプリ、データ、サービスを接続するための事実上の標準です。 大きな画像では、API が組織のデジタル変革を推進しています。
+Content: >-
+  <p>API は平気になっていました。 これらは、アプリ、データ、サービスを接続するための事実上の標準です。 大きな画像では、API が組織のデジタル変革を推進しています。</p>
+
+
+  <p>API の戦略的価値を受けて、継続的インテグレーション (CI) および継続的配置 (CD) パイプラインが API 開発の重要な側面になってきました。 これにより、組織は、エラーが発生しやすい手動の手順なしで API の変更のデプロイを自動化し、問題を早く検出し、最終的にエンド ユーザーに価値をより迅速に提供することができます。</p>
+
+
+  <p>このブログでは、Azure API Management で公開された API に変更をデプロイするための CI/CD パイプラインを実装するための概念 <a href="https://aka.ms/apimdevops" target="_blank">フレームワークについて説明します</a>。</p>
+
+
+  <h2>問題</h2>
+
+
+  <p>現在の組織は、通常、複数のデプロイ環境 (開発、テスト、実稼働など) を持ち、環境ごとに個別の API Management インスタンスを使用しています。 これらのインスタンスの一部は複数の開発チームによって共有されます。これらのチームは、異なるリリースの実行時間を持つさまざまな API を担当します。</p>
+
+
+  <p>その結果、お客様は多くの場合、次の課題を抱えています。</p>
+
+
+  <ul>
+   <li>API Management への API のデプロイを自動化する方法</li>
+   <li>ある環境から別の環境に構成を移行する方法</li>
+   <li>同じ API Management インスタンスを共有するさまざまな開発チーム間の干渉を回避する方法</li>
+  </ul>
+
+
+  <p>以下で説明するアプローチは、これらすべての課題に対処すると考えています。</p>
+
+
+  <h2>CI/CD と API Management</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3be93f4e-acea-4771-a62a-f452b79a3fa5.png"><img alt="CI-CD with API Management workflow graph" border="0" height="517" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9647266-7417-4b03-b091-885956757f9e.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="CI-CD と API Management" width="1024"></a></p>
+
+
+  <p>提案されたアプローチを上の図に示します。 この例では、デプロイ環境が 2 つあります。"開発" と "運用" です。 それぞれに、独自の API Management インスタンスがあります。 Production インスタンスは、API パブリッシャーと呼ばれる指定されたチームによって管理されます。 API 開発者は、Development インスタンスにのみアクセスできます。&nbsp;</p>
+
+
+  <p>この提案されたアプローチの鍵は、すべての構成をテンプレート内に保持 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates" target="_blank">Azure Resource Managerです</a>。 これらのテンプレートは、ソース管理システムに保持する必要があります。 例として Git を使用します。 次の図に示す Publisher リポジトリには、テンプレートのコレクション内の Production API Management インスタンスのすべての構成が含まれています。</p>
+
+
+  <ul>
+   <li><strong>サービス テンプレート:</strong> すべてのサービス レベルの構成 (価格レベルやカスタム ドメインなど) が含まれる。</li>
+   <li><strong>共有テンプレート:</strong> インスタンス全体の共有API Management (グループ、製品、ID プロバイダーなど) が含まれる。</li>
+   <li><strong>API テンプレート: </strong>API とそのサブリソース (操作やポリシーなど) の構成が含まれます。</li>
+   <li><strong>マスター テンプレート:</strong> すべてのテンプレートにリンク <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-linked-templates" target="_blank">することで、すべてを結び付け合います</a>。</li>
+  </ul>
+
+
+  <p>API 開発者は、リポジトリをフォークして複製Publisherします。 ほとんどの場合、API の API テンプレートに焦点を当て、共有テンプレートまたはサービス テンプレートを変更すべきではありません。</p>
+
+
+  <p>テンプレートを使用Resource Manager、API 開発者には次の 2 つの課題があります。</p>
+
+
+  <ul>
+   <li>まず、API 開発者は多くの場合、Open API の仕様を使用します。また、API のスキーマに慣Resource Managerがあります。 テンプレートの作成を簡略化するために、Open API 仕様に基づいて API テンプレートの作成を自動化するユーティリティ <a href="https://github.com/Azure/azure-api-management-devops-resource-kit/tree/master/src/APIM_ARMTemplate#Creator">ツールを作成しました</a>。</li>
+   <li>次に、既存の構成を既に使用しているお客様API Management、既存の構成をテンプレートに抽出するResource Managerがあります。 既存の構成に基づいて <a href="https://github.com/Azure/azure-api-management-devops-resource-kit/tree/master/src/APIM_ARMTemplate#Extractor">テンプレートを生成する別のツールを作成しました</a>。</li>
+  </ul>
+
+
+  <p>開発者は、API の開発とテストを完了し、API テンプレートを生成したら、pull requestリポジトリにPublisherします。 API 発行者は、プル要求を検証し、変更が安全で準拠していることを確認できます。 ほとんどの検証は、CI/CD パイプラインの一部として自動化できます。 変更が承認され、正常にマージされると、API パブリッシャーはそれらを Production インスタンスにデプロイします。 デプロイは、アプリケーションを使用して簡単<a href="https://azure.microsoft.com/en-us/services/devops/pipelines/" target="_blank">にAzure Pipelines</a>。</p>
+
+
+  <p>このアプローチでは、API Management インスタンスへの API の変更のデプロイを自動化し、ある環境から別の環境に変更を簡単に昇格できます。 さまざまな API 開発チームがさまざまな API テンプレート のセットに取り組むので、異なるチーム間の干渉の可能性も減少します。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>ガイダンス、例、ツールについては、このリポジトリGitHub<a href="https://aka.ms/apimdevops">できます</a>。 ご意見やご質問をお寄せください。</p>
+
+
+  <p>お客様は、さまざまなエンジニアリング文化と既存の自動化ソリューションを提供しています。 ここで提供されるアプローチとツールは、1 つのサイズに適合するソリューションではありません。 そのため&#39;ソリューションを拡張およびカスタマイズできるよう、GitHub ですべてを公開し、オープンソースにしました。</p>

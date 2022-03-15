@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 796b927a90d61655f9de0a0d1f3475d2ca8a27eb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909035"
+Slug: completers-in-azure-powershell
+Title: completers in Azure PowerShell
+Summary: バージョン 3.0 以降、PowerShell では、コマンドレット パラメーターへの引数のコンプリートの適用がサポートされています。 これらの引数コンプリートを使用すると、 パラメーターに対して有効な一連の値をタブ化できます。
+Content: >-
+  <p>バージョン 3.0 以降、PowerShell では、コマンドレット パラメーターへの引数のコンプリート <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/register-argumentcompleter?view=powershell-6" target="_blank">の適用</a> がサポートされています。 これらの引数コンプリートを使用すると、 パラメーターに対して有効な一連の値をタブ化できます。 ただし、 <a href="https://docs.microsoft.com/en-us/powershell/developer/cmdlet/validateset-attribute-declaration" target="_blank">指定された値</a> のみをコマンドレットに渡す ValidateSet とは異なり、引数の完了は文字列パラメーターに渡される値を制限するわけではありません。 さらに、引数の完了は、静的な文字列または動的な文字列のセットのいずれかになります。 この機能を使用して、azure への追加の呼び出しを行わずに有効なパラメーター値を選択できる引数コンプリートを Azure PowerShell モジュールに追加しました。 これらのコンプリートは、有効なパラメーター値を取得するために Azure に必要な呼び出しを行います。</p>
+
+
+  <p>コンプリートの機能を &ldquo;最適にキャプチャするために、次の例の Tab&rdquo; のキー バインドを変更して、すべての可能な値を一度に表示しました。 このセットアップをレプリケートする場合 &ldquo;は、Set-PSReadLineKeyHandler -Key Tab -Function Complete を実行します。&rdquo;</p>
+
+
+  <h2>Location completer</h2>
+
+
+  <p>最初に作成したコンプリートは、Location completer でした。 リソースの種類ごとに使用可能な Azure リージョンの一覧が異なっているので、リソースを作成するときに、有効なリージョンを簡単かつ迅速に選択する方法を作成したいと考えたのです。 したがって、Azure リージョンを受け入れるモジュール内のすべてのパラメーター (ほとんどの場合は Location と呼ばれる) に対して、リソースの種類を作成できるリージョンのみを返す引数コンプリートを追加しました。 次の例では、New-AzResourceGroup コマンドレットの -Location の直後に tab キーを押した結果を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53f84908-8f69-4bf9-a090-0013a3387f8f.png"><img alt="The Location completer was the first completer created." border="0" height="197" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/03c9ddcf-d256-4dba-b092-3cd4b6a78edf.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Location completer は、最初に作成されたコンプリート です。" width="628"></a></p>
+
+
+  <p>Location completer では、リソース グループを作成できる利用可能なすべてのリージョンを一覧に追加できるほか、検索するリージョンの最初の数文字を入力して結果をフィルター処理できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3b9e3184-6835-401d-ad68-23e355ac26a9.png"><img alt="The Location completer also allows you to filter the results by typing in the first few characters of a region you are looking for." border="0" height="65" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/283c1dfe-a845-4597-89c9-3f0136a289b8.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Location completer では、検索するリージョンの最初の数文字を入力して結果をフィルター処理できます。" width="634"></a></p>
+
+
+  <h2>リソース グループ名の完了</h2>
+
+
+  <p>PowerShell モジュールに追加した 2 つ目のコンプリートは、リソース グループ名のコンプリートです。 このコンプリートは、既存のリソース グループを受け入れ、現在のサブスクリプション内のすべてのリソース グループを返すすべてのパラメーターに適用されています。 Location completer と同様に、タブを押す前にリソース グループの最初の数文字を入力して結果をフィルター処理できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aeeb2235-0188-4125-8a52-1236c7c2b925.png"><img alt="Resource group name completer" border="0" height="34" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/384396cd-1128-4083-b30a-d47d8a1ff489.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="リソース グループ名の完了" width="370"></a></p>
+
+
+  <h2>リソース名の完了</h2>
+
+
+  <p>PowerShell モジュールに追加した 3 番目のコンプリートは、リソース名の完了です。 このコンプリートは、 パラメーターで必要なリソースの種類に一致するすべてのリソースの名前の一覧を返します。 さらに、この引数コンプリートは、コマンドレットの呼び出しに既に指定されている場合は、リソース グループ名でフィルター処理されます。 たとえば、次&ldquo;のスクリーンショットでは、「Get-AzVM -Name test&rdquo;」と入力した後にタブをクリックすると、テストで始まる現在のサブスクリプション内の 4 つの VM すべてが表示&ldquo;されます。&rdquo;&ldquo;次に、「Get-AzVM -ResourceGroupName maddie1 -Name test&rdquo;&ldquo;」と入力した後にタブをクリックすると、2 つの VM だけが表示&rdquo;されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/55a345c1-cfff-4e87-826a-ac0291d9027c.png"><img alt="Resource name completer" border="0" height="69" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/de57913c-3b6c-41e8-ac37-a169a7d1dbf7.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="リソース名の完了" width="511"></a></p>
+
+
+  <p>リソース名のコンプリートはリソース グループ名によってフィルター処理されるだけでなく、すべてのサブリソースに対して、コマンドレット呼び出しに指定されている場合は親リソースによってフィルター処理されます。 結果は、指定された各親リソースによってフィルター処理されます。 次の例では、 &ldquo;用意されているパラメーターのさまざまな組み合わせについて、maddiessqldatabase&rdquo; に対するタブ補完の結果を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6dcac4d9-701e-497c-87f3-c615ab4997b8.png"><img alt="The results of tab completion over “maddiessqldatabase” for various combinations of parameters being provided." border="0" height="161" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eafc7f45-6d9c-44e3-b9d0-5fdfcef18b79.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="指定されているパラメーターのさまざまな組み合わせについて、"maddiessqldatabase" に対するタブ補完の結果。" width="583"></a></p>
+
+
+  <p>現時点では、このコンプリートは Compute、Network、KeyVault、およびコンピューティング モジュールにのみSQLされています。 この機能を利用し、より多くのモジュールに適用されるのを確認する場合は、 <a href="https://docs.microsoft.com/en-us/powershell/module/az.accounts/send-feedback?view=azps-1.1.0" target="_blank">フィードバック</a> の送信コマンドレットを使用してフィードバックをお送りください。</p>
+
+
+  <h2>リソース ID の完了</h2>
+
+
+  <p>Az モジュールに追加した最後のコンプリートは、リソース ID のコンプリートです。 このコンプリートは、現在のサブスクリプション内のすべてのリソース ID を返し、パラメーターに必要なリソースの種類をフィルター処理します。 リソース ID の入力ツールを使用 *&lt;すると、ワイルドカード パターンの一部の文字を使用して、&#39;入力&gt;*&#39;フィルター処理できます。 このコンプリートは、Azure リソース ID を受け入れるコマンドレット内のすべてのパラメーターに適用されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/087f13e9-65ed-40d0-83ab-64dcc3c79dde.png"><img alt="Resource Id completer" border="0" height="106" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/854b5a8d-86f3-4492-a9eb-093dd025552b.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="リソース ID の完了" width="2170"></a></p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>自分でAzure PowerShell試す場合は、次の手順で <strong>Az</strong> モジュールを<a href="https://www.powershellgallery.com/packages/Az" target="_blank">インストールPowerShell ギャラリー</a>。 新しい Az モジュールの詳細については、Az のお知らせ <a href="https://azure.microsoft.com/en-us/blog/azure-powershell-az-module-version-1/" target="_blank">ブログを参照してください</a>。 組み込みの &ldquo;Send-Feedback&rdquo; コマンドレットを使用して、フィードバック、提案、または問題をお寄せください。 または、お客様のリポジトリでいつでも問題<a href="https://github.com/Azure/azure-powershell/issues" target="_blank">をGitHubできます</a>。</p>

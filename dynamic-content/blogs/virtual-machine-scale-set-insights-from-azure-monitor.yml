@@ -1,0 +1,67 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0850afba59f236bc2327061ef97b4c4f3e925ac9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903853"
+Slug: virtual-machine-scale-set-insights-from-azure-monitor
+Title: 仮想マシン スケール セットの分析情報 (Azure Monitor
+Summary: 2018 年 10 月に、Azure Monitor for VMs のパブリック プレビューが発表されました。 その時点で、仮想マシン スケール セットを監視するサポートが、仮想マシン スケール の下のスケール ビューからAzure Monitor。 現在、スケール セット リソース ブレード内から Windows および Linux 仮想マシン スケール セットを監視するパブリック プレビューを発表します。
+Content: >-
+  <p>2018 <a href="https://azure.microsoft.com/blog/rich-insights-for-virtual-machines-from-azure-monitor/" target="_blank">年</a> 10 月に、Azure Monitor (VM) のVirtual Machinesを発表しました。 その時点で、仮想マシン スケール セットを監視するサポートが、仮想マシン スケール の下のスケール ビューからAzure Monitor。</p>
+
+
+  <p>現在、スケール セット リソース ブレード内から Windows および <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-enable-overview#supported-operating-systems" target="_blank">LinuxVM</a>&nbsp; スケール セットを監視するパブリック プレビューを発表します。 この更新プログラムには、いくつかの機能強化が含まれています。</p>
+
+
+  <ul>
+   <li>スケール セット全体の上位 &ldquo;N&rdquo; ビュー、集計ビュー、およびリスト ビューを使用したスケール セットのブレード内監視。</li>
+   <li>ドリルダウン エクスペリエンスを使用して、特定のスケール セット インスタンスの問題を特定します。</li>
+   <li>1 つのインスタンスのドリルダウン マップをサポートしながら、スケール セット全体に依存関係図全体を表示するマッピング UI を更新しました。</li>
+   <li>スケール セットリソース ブレードからの監視の UI ベースの有効化。</li>
+   <li>新しいテンプレートを使用して監視を有効にするためのAzure Resource Managerを更新しました。</li>
+   <li>ポリシーを使用してスケール セットの監視を有効にする。</li>
+  </ul>
+
+
+  <h2>パフォーマンス</h2>
+
+
+  <p>パフォーマンス ビューは、ログ分析クエリを使用して機能し、上位 N&rdquo; ビュー、集計ビュー、およびリスト ビューを提供し、CPU、使用可能なメモリ、送信および受信したバイト数、使用される論理ディスク領域のゲスト レベル メトリックに基づいてスケール セット内の外れ値や問題をすばやく見つける機能を提供します。<a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-performance" target="_blank"></a> &ldquo;&nbsp;</p>
+
+
+  <p>これらのビューを使用すると、特定のインスタンスに問題が発生したかどうかを迅速に判断し、バックエンド サービスへの接続に失敗しているプロセス、または領域が使い切っている特定の論理ディスクに指定された問題をトラブルシューティングする手段を提供できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/94af88a2-4058-46af-b2b1-c4571eb7b03b.png"><img alt="An image of the Insights (preview) webpage." border="0" height="591" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/04635fe2-e9a7-4ef6-9419-97932a1ffa40.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Web ページのインサイト (プレビュー) の画像。" width="1024"></a></p>
+
+
+  <h2>Maps</h2>
+
+
+  <p>依存関係 <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-maps" target="_blank">マップとネットワーク</a> 接続データ セットは、サービス マップ ソリューションを利用し、&#39;Azure Virtual Machine 拡張機能を使用します。 マップでは、スケール セットに固有のビューが提供され、バインドされた接続で受け入れ中のインスタンス上のプロセスが自動的に検出され、バックエンド サーバーへの送信接続が行われます。 これにより、サード パーティ のサービスに対する不意の依存関係の特定、失敗した接続の監視、ライブ接続数の確認、プロセスごとに送信および受信されたバイト数の監視、サービス レベルの待機時間の特定を行います。</p>
+
+
+  <p>マップ ビューに加えて、接続の概要ブックのネットワーク接続データ セットを分析したり、ログ分析で直接分析したりすることもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a514431d-dc89-4543-a95f-a13b58e9a702.png"><img alt="An image of the Insights (preview) maps page." border="0" height="596" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c726596-09e8-44c7-8484-5eb0e30bc2b3.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="[インサイト (プレビュー) マップ ページの画像。" width="1024"></a></p>
+
+
+  <h2>Workbooks</h2>
+
+
+  <p>ブックを <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-workbooks" target="_blank">スケール セット ビュー</a> Azure Monitor Virtual Machinesから取り込んだ。 これらのブックは、収集した監視データに対してクエリを実行し、ポータルで同僚と共有できるカスタム レポートを作成するために変更できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92d45f47-e891-4f2b-9450-ea6005a90f92.png"><img alt="An image of the Insights (preview) workbooks page." border="0" height="399" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1cfc0ca8-b06e-4f20-9c91-91ad8e0a8b30.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="[インサイト (プレビュー) ブック ページの画像。" width="1024"></a></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>VM &ldquo;スケール&rsquo; セットを実行している場合は、スケール セット リソース ブレードの インサイト (プレビュー)&rdquo; メニューからパフォーマンスとマップ機能を使用して、リソースの制約を検索し、依存関係を視覚化できます。</p>
+
+
+  <p>開始するには、VM &ldquo;スケール セットのリソース ブレードに移動し、監視セクションの [インサイト (プレビュー)&rdquo; をクリックします。 [今すぐ試&ldquo;す&rdquo;&rsquo;] をクリックすると、ログ分析ワークスペースを選択するように求めるメッセージが表示されます。または、自動的に生成することもできます。 &ldquo;Virtual Machines Azure Monitor (プレビュー) <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-enable-overview" target="_blank"></a>&rdquo;&nbsp;の下の Azure Monitor で大規模にリソースを表示し、Azure Policy または PowerShell を使用して、リソース グループとサブスクリプション全体に対してオンボードすることができます。</p>

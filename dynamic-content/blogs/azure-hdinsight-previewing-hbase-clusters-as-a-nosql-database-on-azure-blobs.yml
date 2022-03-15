@@ -1,0 +1,122 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2babb7fccc2ca972b29e120b705ec85c5d022d88
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909160"
+Slug: azure-hdinsight-previewing-hbase-clusters-as-a-nosql-database-on-azure-blobs
+Title: Azure HDInsight Azure BLOB 上の NoSQL データベースとして HBase クラスターをプレビューする
+Summary: 6 月 3 日、Microsoft は、Hadoop 2.4 で 100 倍の高速クエリをサポートする HDInsight の更新プログラムを発表しました。  現在、HDInsight 内の Apache HBase クラスターのプレビューを発表します。
+Content: >-
+  6 月 3 日、Microsoft は、Hadoop 2.4 で 100 倍の高速クエリをサポートする <a href="https://azure.microsoft.com/blog/2014/06/03/azure-hdinsight-supports-hadoop-2-4-for-100x-faster-queries-on-azure-blobs/">HDInsight</a> の更新プログラムを発表しました。現在、HDInsight 内の <a href="https://hbase.apache.org/">Apache HBase クラスターの</a> プレビューを発表します。
+
+
+  HBase は、ビッグ データのオンライン トランザクション処理 (OLTP) を可能にする低待機時間の NoSQL データベースです。 HBase は、Azure 環境に統合されたマネージド クラスターとして提供されます。 クラスターは、パフォーマンスとコストの間の低待機時間と弾力性を提供するデータを Azure Blob Storage に直接格納するように構成されています。 そのため、顧客は大規模なデータセットを処理する対話的な Web サイトを構築できます。これにより、何百万ものエンドポイントからセンサーのデータおよびテレメトリ データを格納するサービスを構築したり、Hadoop ジョブによりこれらのデータを分析したりすることができます。
+
+
+  &nbsp;
+
+
+  <strong>HBase クラスターを作成する方法</strong>
+
+
+  プレビュー期間中に HBase を試してみるには、PowerShell を利用する必要があります。
+
+
+  1. <a href="https://go.microsoft.com/fwlink/p/?linkid=320376&amp;clcid=0x409">Windows Azure PowerShell のインストール</a>
+
+
+  2. <a href="https://go.microsoft.com/fwlink/?LinkId=325564">セットアップ環境</a>
+
+
+  3. クラスター資格情報を変数にキャプチャする
+
+
+  PS C:\&gt; $creds = Get-Credential
+
+
+  4. HBase クラスターを作成します。
+
+
+  PS C:\&gt; New-AzureHDInsightCluster -Name <i>yourclustername</i> -ClusterType HBase -Version 3.0 -Location "West US" '
+
+
+  -DefaultStorageAccountName <i>yourstorageaccount.blob.core.windows.net</i> -DefaultStorageAccountKey "<i>yourstorageaccountkey</i>" '
+
+
+  -DefaultStorageContainerName hbasecontainername -Credential $creds -ClusterSizeInNodes 4
+
+
+  &nbsp;
+
+
+  <strong>HBase クラスターでのデータの操作</strong>
+
+
+  アプリケーション開発者は、 <a href="https://hbase.apache.org/book/rest.html">REST</a> API、HBase シェル、Hive や Pig など、さまざまな種類の map reduce ジョブを使用して HBase データにアクセスできます。 HBase シェルには、HBase クラスターの管理、テーブルの作成と削除、その中のデータの操作を行う対話型コンソールが提供されます。
+
+
+  1. HBase シェルを開く場合は、最初にクラスターへの RDP 接続を有効にして接続します
+
+
+  クラスターが作成されると、HDInsight サービスの下の Azure Portal に表示されます
+
+
+  クラスターの [構成] タブを開きます。
+
+
+  ページの下部にある [リモートを有効にする] ボタンをクリックして、クラスターへの RDP 接続を有効にします。
+
+
+  [構成] タブの下部にある [接続] ボタンをクリックします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/clip_image002.jpg"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="clip_image002" alt="clip_image002" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image002_thumb.jpg" width="646" height="448" border="0" /></a>
+
+
+  &nbsp;
+
+
+  2. HBase シェルを開く
+
+
+  RDP セッション内で、デスクトップにある <b>Hadoop コマンド</b> プロンプトのショートカットをクリックします。
+
+
+  次のように HBase シェルを開きます。
+
+
+  cd %HBASE_HOME%\bin
+
+
+  hbase シェル
+
+
+  &nbsp;
+
+
+  3. サンプル テーブルを作成し、テーブルに行を追加し、テーブル内の行を一覧表示します。
+
+
+  create 'sampletable', 'cf1'
+
+
+  put 'sampletable'、'row1'、'cf1:col1'、'value1'
+
+
+  'sampletable' をスキャンする
+
+
+  &nbsp;
+
+
+  HBase と HDInsight の詳細については、以下を参照してください。
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=399134">HDInsight の Hadoop 環境での HBase の使用</a></li>
+   <li>MIcrosoft のパートナー Hortonworks から <a href="https://hortonworks.com/hadoop/hbase/">HBase</a> について読む</li>
+   <li><a href="https://azure.microsoft.com/en-us/solutions/big-data/">15 Azure HDInsight</a> 20 分で、クラウドで Hadoop クラスターを試してスピンアップする</li>
+   <li>詳細については<a href="https://azure.microsoft.com/en-us/documentation/services/hdinsight/">、「方法はじめに」</a>を参照Azure HDInsight</li>
+   <li>HDInsight ビデオ シリーズを使用はじめに <a href="https://channel9.msdn.com/Series/Getting-started-with-Windows-Azure-HDInsight-Service">Channel 9 のビデオを見る</a></li>
+  </ul>

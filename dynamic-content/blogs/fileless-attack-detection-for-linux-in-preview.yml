@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 34bdbf733f9c98e4a70300f4cdf096fe03dfd4c6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909843"
+Slug: fileless-attack-detection-for-linux-in-preview
+Title: Linux の Fileless 攻撃検出 (プレビュー)
+Summary: 'ファイルレス攻撃では、ソフトウェアの脆弱性が悪用されて、悪意のあるペイロードが正常なシステム プロセスに挿入され、メモリ内に隠されます。 '
+Content: >-
+  <p><em>このブログ投稿は、Joshi、シニアソフトウェアエンジニア、Enterprise の保護と検出によって共同で作成されました。</em></p>
+
+
+  <p>攻撃者は、検出を避けるために stealthier メソッドを利用することがますます増えています。 ファイルレス攻撃では、ソフトウェアの脆弱性が悪用されて、悪意のあるペイロードが正常なシステム プロセスに挿入され、メモリ内に隠されます。 これらの手法によって、ディスク上のマルウェアのトレースが最小化または除去され、ディスクベースのマルウェアスキャンソリューションによって検出される可能性が大幅に減少します。</p>
+
+
+  <p>この脅威に対抗するために、2018年10月に Windows の fileless 攻撃検出をリリース Azure Security Center ました。 2018の<a href="https://azure.microsoft.com/en-us/blog/detecting-fileless-attacks-with-azure-security-center/" target="_blank">ブログ投稿</a>では、Security Center によって、shellcode、コードインジェクション、ペイロードの難読化手法、およびその他の fileless 攻撃の動作を Windows で検出する方法について説明しています。 この調査では、Linux ワークロードに対する fileless 攻撃の増加についても示しています。</p>
+
+
+  <p>現時点 Azure Security Center では、 <a href="https://aka.ms/ASCLinuxFilelessPreview" target="_blank">Linux での fileless 攻撃を検出</a>するためのプレビューを発表することをお勧めします。 &nbsp; この記事では、Linux での実際の fileless 攻撃について説明し、fileless 攻撃検出機能を紹介し、プレビューへのオンボードの手順を説明します。&nbsp;</p>
+
+
+  <h2>Linux での実際の fileless 攻撃</h2>
+
+
+  <p>よく見られるパターンの1つは、ディスク上のパックされたマルウェアからのペイロードをメモリに挿入し、ディスクから元の悪意のあるファイルを削除する攻撃者です。 最近の例を次に示します。</p>
+
+
+  <ol>
+      <li>攻撃者は、既知のポート (8088) で実行されているサービスを識別して hadoop クラスターに感染し、Hadoop YARN の認証されていないリモートコマンド実行サポートを使用してコンピューターで実行時アクセスを実現します。 サブスクリプションの所有者が <a href="https://microsoft-my.sharepoint.com/personal/bnick_microsoft_com/Documents/aka.ms/asc-jit" target="_blank">SECURITY CENTER JIT</a>を構成することによって、攻撃のこの段階を軽減する可能性があることに注意してください。</li>
+      <li>攻撃者は、パックされたマルウェアを含むファイルを一時ディレクトリにコピーして起動します。</li>
+      <li>悪意のあるプロセスは、シェルコードを使用してファイルをアンパックし、プロセス &rsquo; 内のメモリ領域に新しい動的な実行可能領域を割り当て、新しいメモリ領域に実行可能なペイロードを挿入します。</li>
+      <li>その後、マルウェアは、挿入された ELF エントリポイントに実行を転送します。</li>
+      <li>悪意のあるプロセスが、そのトラックをカバーするために、元のパックされたマルウェアをディスクから削除します。&nbsp;</li>
+      <li>挿入された ELF ペイロードには、着信 TCP 接続をリッスンし、攻撃者 &rsquo; の指示を送信するシェルコードが含まれています。</li>
+  </ol>
+
+
+  <p>この攻撃は、スキャナーが検出するのは困難です。 ペイロードは難読化のレイヤーの背後に隠され、ディスク上には短時間のみ存在します。 &nbsp; Fileless 攻撃検出プレビューを使用すると、Security Center がこれらの種類のペイロードをメモリ内で識別し、ペイロード &rsquo; の機能をユーザーに通知できるようになりました。</p>
+
+
+  <h2>Fileless 攻撃の検出機能</h2>
+
+
+  <p>Windows の fileless 攻撃検出と同様に、この機能は、すべてのプロセスのメモリをスキャンして、fileless ツールキット、手法、および動作の証拠を探します。 プレビュー段階では、次のように、自動設定のマルウェアの動作を検出するための分析を有効にし、調整します。</p>
+
+
+  <ul>
+      <li>よく知られているツールキットと暗号化マイニングソフトウェア。&nbsp;</li>
+      <li>Shellcode、挿入された ELF 実行可能ファイル、およびプロセスメモリの実行可能領域内の悪意のあるコード。</li>
+      <li>LD_PRELOAD ベースのルートキットは、悪意のあるライブラリを事前に読み込むことができます。</li>
+      <li>ルート以外のプロセスの特権の昇格。</li>
+      <li>Ptrace を使用して別のプロセスをリモートで制御します。</li>
+  </ul>
+
+
+  <p>検出が発生した場合、[セキュリティアラート] ページにアラートが表示されます。 アラートには、使用されている手法の種類、メタデータの処理、ネットワークアクティビティなどの補足情報が含まれています。 これにより、アナリストは、マルウェアの性質をより深く理解し、さまざまな攻撃を区別し、修復手順を選択するときにより多くの情報に基づく決定を行うことができます。</p>
+
+
+  <p>&nbsp;<img alt="Picture1" border="0" height="1431" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8d1edfff-1676-46f2-8bad-1c5c319e622f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Picture1" width="1231"></p>
+
+
+  <p>スキャンは非干渉し、システム上の他のプロセスには影響しません。 &nbsp; スキャンの大部分は、5秒未満で実行されます。 すべてのメモリ分析がホスト自体で実行されるため、この手順全体でデータのプライバシーが保護されます。 スキャン結果には、セキュリティ関連のメタデータと疑わしいペイロードの詳細のみが含まれます。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>この特定のプレビューまたは継続的なプレビュープログラムにサインアップするには、 <a href="https://aka.ms/ASCLinuxFilelessPreview" target="_blank">Fileless 攻撃の検出</a>の &quot; プレビューに関心があることを示します。&quot;</p>
+
+
+  <p>オンボードを選択すると、この機能は linux マシンに自動的にデプロイされます。これは、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/log-analytics-agent" target="_blank">このドキュメントに</a>記載されている linux OS のディストリビューションをサポートする Log Analytics Agent for LINUX (OMS エージェントとも呼ばれます) の拡張機能です。 このソリューションは、Azure、クロスクラウド、オンプレミスの環境をサポートしています。 この機能を利用するには、参加者が Standard または Standard 評価版価格レベルに登録されている必要があります。</p>
+
+
+  <p>Azure Security Center の詳細については、 <a href="https://aka.ms/azuresecuritycenter" target="_blank">Azure Security Center のページ</a>を参照してください。</p>

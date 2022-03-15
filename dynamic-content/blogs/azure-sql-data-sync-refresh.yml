@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f2af5775caa573a28163d43b1462a05b7c2115ff
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909968"
+Slug: azure-sql-data-sync-refresh
+Title: Azure SQL データ同期の更新
+Summary: Azure SQL データ同期の更新をお知らせいたします。 Azure SQL データ同期ユーザーは、複数の Azure SQL データベースとオンプレミスの SQL の間で簡単にデータを同期できます...
+Content: >-
+  <p>Azure SQL データ同期の更新をお知らせいたします。 Azure SQL データ同期ユーザーは、複数の Azure SQL データベースとオンプレミスの SQL データベースの間で双方向にデータを簡単に同期できます。 このリリースには、新しい Azure portal サポート、PowerShell と REST API のサポート、セキュリティとプライバシーの強化など、サービスの主な機能強化がいくつか含まれています。&nbsp;</p>
+
+
+  <h2>新機能 &rsquo;</h2>
+
+
+  <h3>新しい Azure portal のデータ同期</h3>
+
+
+  <p>新しい<a href="https://portal.azure.com/" target="_blank">Azure portal</a>でデータ同期を使用できるようになりました。 これで、他のすべての Azure リソースを管理するのと同じ場所でデータ同期を管理できるようになりました。 データ同期は、2017年7月1日以降に古いポータルから廃止される予定です。</p>
+
+
+  <h3>PowerShell のプログラミングと REST Api (2017 年7月に利用可能)</h3>
+
+
+  <p>以前のデータ同期では、同期グループを作成し、UI を使用して変更を手動で行う必要がありました。 これは、多くのメンバーデータベースまたは同期グループを持つ複雑な同期トポロジで特に、面倒で時間のかかるプロセスである可能性があります。 7月以降データ同期では、開発者が利用できる PowerShell と REST api がサポートされるため、これらのタスクを迅速かつ簡単に行うことができます。 これは、PowerShell を使い慣れている多くのユーザーにも適しています。&nbsp;</p>
+
+
+  <h3>セキュリティの強化、プライバシーの強化、回復性の向上</h3>
+
+
+  <p>前の設計では、データ同期同期操作を管理するために、各リージョンに中央の共有データベースを使用していました。 これで、各ユーザーには専用のユーザー所有同期データベースが作成されるようになりました。 同期データベースは、顧客が所有する Azure SQL Database です。 共有された中央データベースを顧客固有のデータベースに置き換えることにより、プライバシーとセキュリティが向上します。 また、ユーザーのニーズに基づいて、同期データベースのパフォーマンスレベルを向上させたり減らしたりすることができます。</p>
+
+
+  <h4>同期データベースの要件</h4>
+
+
+  <ul>
+      <li>任意のサービス階層の Azure SQL Database</li>
+      <li>同期グループのハブデータベースと同じリージョン</li>
+      <li>同期グループと同じサブスクリプション</li>
+      <li>同期グループを持つリージョンごとに1つ (ハブデータベース)</li>
+  </ul>
+
+
+  <h3>強化された監視とトラブルシューティング</h3>
+
+
+  <p>監視とトラブルシューティングのために、いくつかの重要な機能強化が行われています。 ユーザーは、PowerShell と RESTful Api を使用して、同期の状態をプログラムで監視できるようになりました。 さらに、いくつかのエラーメッセージを改善し、より明確で実用的なものにすることができまし &rsquo; た。</p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <h3>新しいユーザー</h3>
+
+
+  <p>データ同期試す場合は、この<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-sql-data-sync" target="_blank">チュートリアル</a>を参照してください。</p>
+
+
+  <h3>既存のユーザー</h3>
+
+
+  <p>既存のユーザーは、2017年6月1日から新しいサービスに移行されます。 移行の詳細については、 <a href="https://azure.microsoft.com/en-us/blog/migrating-to-azure-data-sync-2-0/" target="_blank">Azure SQL データ同期2.0 へ</a>の移行に関するブログの投稿 &ldquo; を参照してください。&rdquo;</p>
+
+
+  <h2>その他のリソース</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-sql-data-sync" target="_blank">データ同期でのはじめに</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/blog/migrating-to-azure-data-sync-2-0/" target="_blank">データ同期2.0 への移行</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/support/forums/" target="_blank">Azure フォーラム</a></li>
+      <li>PowerShell スクリプトのリンク</li>
+      <li>CSS へのリンク</li>
+  </ul>
+
+
+  <h2>今後の予定</h2>
+
+
+  <p>一般公開に向けて、引き続き機能を追加し、データ同期を改善します。 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=ssdsgetstarted" target="_blank">Azure SQL Database フォーラム</a>で質問したり、<a href="https://feedback.azure.com/forums/217321-sql-database" target="_blank">ユーザーの声</a>にフィードバックを投稿したりしてください。 フィードバックは非常に歓迎します。</p>

@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: edef5affef55003627d6c687fb1adf9d356fefa7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903775"
+Slug: announcing-general-availability-of-azure-functions
+Title: Azure Functions の一般提供の発表
+Summary: 現在の組織では、ビジネスを促進するだけでなく、事業を変革するだけでなく、クラウドにも対応しています。 Azure PaaS ポートフォリオの一部である Azure Functions は、アプリケーションの迅速な開発と運用の俊敏性を実現する、サーバーレスのコンピューティングエクスペリエンスを提供します。
+Content: >-
+  <p>現在、組織は、事業を加速 &ndash; するだけでなく、ビジネスを変革 &ndash; するだけでなく、クラウドにも転換しています。 サービスとしてのプラットフォーム (PaaS) を使用すると、企業は、インフラストラクチャの管理やメンテナンスではなく、アプリケーションのイノベーションに重点を置いてビジネス変革 &ndash; を支援するスケールでイノベーションを行うことができます。 Microsoft Azure は、世界クラスのツールとサービスを開発者が利用できるようにするために、非常に長い期間にわたり<a href="https://azure.microsoft.com/en-us/blog/microsoft-azure-named-a-leader-in-gartner-s-enterprise-application-platform-as-a-service-magic-quadrant-for-the-third-consecutive-year/">PaaS</a>を利用しています。 Azure PaaS ポートフォリオの一部である Azure Functions は、アプリケーションの迅速な開発と運用の俊敏性を実現する、サーバーレスのコンピューティングエクスペリエンスを提供します。 プレビューで 2016 &rsquo; <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-functions/">年3月に</a>リリースされた Azure Functions 現在の一般提供を発表します。</p>
+
+
+  <p>Functions は、サーバーレスアーキテクチャでのイベント駆動型ソリューションの開発をサポートし、オンデマンドのスケーリングを可能にし、消費したリソースに対してのみ料金を支払います。 現在、C# と JavaScript の両方の関数サポートが一般公開されており、F #、PowerShell、PHP、Python、CMD、BAT、Bash はプレビュー段階です。 Functions は、統合されたツールのサポート、すぐに利用できる Azure とサードパーティのサービスバインド、継続的なデプロイを提供し、開発者の生産性を向上させます。</p>
+
+
+  <h3>コミュニティでの構築</h3>
+
+
+  <p>Azure Functions は、 <a href="https://github.com/Azure/azure-functions">GitHub</a>のコミュニティで開かれています。 Functions チームは、フィードバックが共有されているため、お客様のディスカッションに積極的に関与しています。 プレビュー期間中は、900を超える GitHub の問題が発生しており、高品質で運用可能なサービスを提供することを支援しています。 お客様にこのようなご意見をお送りします。また、 <a href="https://feedback.azure.com/forums/355860-azure-functions">UserVoice</a> の機能のバックログを保持し、提案を提供できます。</p>
+
+
+  <h3>統合ツールのサポート</h3>
+
+
+  <p>ベータ<a href="https://www.npmjs.com/package/azure-functions-cli">Azure Functions CLI</a>を使用して、Windows でローカルに関数を作成、実行、デバッグできるようになりました。 nodejs の JavaScript 関数の場合、CLI は Visual Studio Code と統合され、デバッグターゲットを自動的に設定します。 CLI は現時点では Windows でのみ機能しますが、 <a href="https://github.com/Azure/azure-webjobs-sdk-script/issues/509">Mac と Linux でのサポートについても説明 &rsquo; </a>します。</p>
+
+
+  <p>最初の UserVoice の提案は、Visual Studio 2015 のツールのサポートを対象としています。これはすぐにプレビューとしてご利用いただけます。 &rsquo;(準備ができたら &rsquo; 、ダウンロードリンクを使用してこの投稿を更新します)。 このプレビューツールを使用すると、開発者は新しい Function App の作成と開発、ローカルまたはリモートでのデバッグ、Azure への発行を行うことができます。</p>
+
+
+  <h3>サービスにバインドする</h3>
+
+
+  <p>市場における他の同等のサービスとは異なり、Azure Functions では、数回クリックするだけでサービスへのバインドを構成できます。 サービスが関数をトリガーするようにバインドを設定し、実行時にオブジェクトを関数に渡すことができます。 Azure サービス (Blob Storage、イベントハブ、Service Bus、Storage テーブル、外部サービス (OneDrive や DropBox など) がサポートされています。 たとえば、Azure Storage に構成されたバインディングは、新しいファイルがアップロードされたときに関数をトリガーできます。 このため、バインディングの実装がサービスによって管理されているため、開発者が管理するコードが少なくなります。 独自のツールチェーンを使用する開発者は、関数の json ファイルを直接編集して、バインドを構成することもできます。</p>
+
+
+  <p>sendgrid、Twillio、Box、DropBox、Google ドライブ preview の各バインドは、今後のプレビューで開始されるバインド拡張フレームワークに基づいて社内でビルドされました。 このフレームワークにより、開発者は独自のサービスバインドを作成し、Isv が拡張機能エコシステムに貢献できるようになります。</p>
+
+
+  <h3>使用した分だけお支払い</h3>
+
+
+  <p>Azure Functions では、リソースを予約する必要がなく、関数の実行時間とメモリ消費量に対してのみ課金されます。 Azure Functions 価格には、1か月あたり40万ギガバイト秒 (GB 秒) の実行時間と100万の合計実行回数の永続的な許可が含まれます。 &nbsp; 毎月の無料使用分を超えた場合、お客様は GB 秒と使用量に基づいて課金されます。 ミリ秒あたりの Azure Functions 料金は、最小で100ミリ秒になります。 既存の Azure App Service Basic/Standard/プレミアムのお客様については、関数の使用量がプランのコストに組み込まれています。 現時点では、Azure Functions は12の Azure リージョンで利用でき、料金は2017年1月1日からご利用いただけます。 詳細については、 <a href="https://azure.microsoft.com/en-us/pricing/details/functions/">価格</a>に関するページをご覧ください。</p>
+
+
+  <h3>運用効率の向上</h3>
+
+
+  <p>Azure Functions は必要に応じてスケールアップとスケールダウンが可能であるため &rsquo; 、大規模なシナリオ用のインフラストラクチャを構築する必要がなく、使用していないリソース &rsquo; に対して課金されます。 また、最大日次使用上限を設定して、ランナウェイ関数を防ぐこともできます。 また、修正プログラムの適用や、フレームワーク、オペレーティングシステム、インフラストラクチャの保守について心配する必要もありません。 関数は、基になるインフラストラクチャを自動的に処理します。</p>
+
+
+  <h3>Microsoft のお客様</h3>
+
+
+  <p>Azure Functions の真の力は、Accuweather や Plexure などの早期導入顧客のアプリケーションイノベーションを通じて実現されます。 どちらのお客様も、実稼働アプリケーションで Azure Functions を使用しています。</p>
+
+
+  <ul>
+      <li><strong>Accuweather:</strong> &ldquo;Azure Functions によって、簡単かつ効率的な方法で CRON ワークロードをクラウドに移行できるようになりました。 複雑なセットアップなしで強力な機能を提供し、ビジネスにとって重要なイベントドリブンプロセスとワークフローをすばやく簡単に実装できます。 &rdquo; Chris は、Chris が Accuweather の CTO です。</li>
+      <li><strong>Plexure:</strong> &ldquo;ソフトウェアベンダーとして、ソフトウェアが必要な90% のみを満たすというクライアントの問題を完全に解決するのは困難な場合があります。 関数を使用すると、チームは小規模な自動スケールのロジックを迅速に解放して、これらのギャップを埋めると共に、製品の重要な価値を顧客にロック解除できます。 これをソフトウェアアーキテクチャに組み込むことにより、チームはソフトウェアを迅速に進化させて顧客に固有のギャップを埋めることができますが、製品の標準化を維持することができます。 &rdquo; Plexure の David Inggs, CTO</li>
+  </ul>
+
+
+  <h3>次のステップ</h3>
+
+
+  <p>今すぐ始めましょう! 現在、 <a href="https://functionschallenge.azure.com/">Azure Functions の課題</a>について発表しています。 Azure Functions を使用する方法の詳細については、コードの課題に関するページを参照してください。また、友人に向けたバッジを受け取ることができます。</p>

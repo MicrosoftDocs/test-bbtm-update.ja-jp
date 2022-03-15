@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e02c6111c6028a199985da3e857d30b698e3f60e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904218"
+Slug: deploying-your-own-private-docker-registry-on-azure
+Title: Azure への独自のプライベート Docker Registry のデプロイ
+Summary: 'Microsoft Azure 年 6 月に、Linux VM 上の Docker コンテナーのサポートが追加され、Docker 化されたアプリケーションのクラウドへのデプロイが容易になりました。2 週間以上前に、Docker Open Orchestration API 用の Windows Server コンテナーと Azure サポート を発表しました。 '
+Content: >-
+  <span style="color: #ff0000;">重要な更新 (2015 年 6 月 19 日): </span>次の記事には、以前のバージョンとサポートされていない 1.0 バージョンの Docker Registry のデプロイに関する古い手順が含まれます。
+
+
+   <a title="Azure Blob Storage を使用して Docker Registry 2.0 インスタンスをデプロイする手順については、「Documentation: Deploying Your Own Private Docker Registry on AzureDeploying Your Own Private Docker Registry on Azuredocumentation" href="https://azure.microsoft.com/documentation/articles/virtual-machines-docker-registry-on-azure-blob-storage/"></a>  」の記事を参照してください。
+
+
+  <hr />
+
+
+  Docker への貢献は、Docker 上で独自の Docker レジストリを管理できる機能を追加することで、迅速なペースでMicrosoft Azure。
+
+
+  Microsoft Azure 6 月に、Linux VM 上の Docker コンテナーのサポートが追加され、クラウドへの Docker 化されたアプリケーションのデプロイが容易になりました。2 週間以上前に、Docker Open Orchestration API 用<a href="https://azure.microsoft.com/blog/2014/10/15/new-windows-server-containers-and-azure-support-for-docker/">の Windows Server</a> コンテナーと Azure サポート を発表しました。 先週、TechEd Europe で、Azure の CTO である Mark Russinovich が<a href="https://azure.microsoft.com/blog/2014/10/28/new-docker-coreos-topics-linux-on-azure/"></a>、すぐにオープン ソースを公開する予定の Windows 用 Docker Client のライブ デモを示しました。
+
+
+  コミュニティでのコンテナー テクノロジと Docker の迅速な導入を見て、とても楽しそうに思います。 また、オープン ソースの世界で人々が開発しているコンテナーやクールハッキングに関するニュースも聞こえています。
+
+
+  新しい <strong>Azure Storage Driver for Docker Registry</strong> は、2 番目のグローバル <a href="https://blog.docker.com/2014/10/announcing-docker-global-hack-day-2/">Docker Hack Day での作業の結果です</a>。 Corey Sanders が <a href="https://azure.microsoft.com/blog/2014/11/03/a-great-week-at-teched-with-docker/">ここで</a> 説明したように、このイベントは、Docker が非常に多く取り上げらた TechEd EU と重なりました。 Ross Gardler 氏は、Microsoft Open Technologies, Inc. ブログの Azure に関連する Docker コミュニティ ニュースの最近のラウンドアップでもこの機能について説明しました。 ただし、ブログのエントリは技術的な詳細には含められませんでした。また、コードを使用する準備が整い、開発日に <a href="https://github.com/ahmetalpbalkan/docker-registry-driver-azure">GitHub</a> でオープン ソースとして利用できたため、その使い方に関する技術的なガイダンスを提供してよいと思いました。
+
+  <h2><a href="https://gist.github.com/ahmetalpbalkan/8a1bc8242602d7bf1a16#what-is-a-private-docker-registry" name="user-content-what-is-a-private-docker-registry"></a>"プライベート Docker レジストリ" とは</h2>
+
+  コンテナー化されたアプリケーションをクラウドに出荷するには、Docker ツールを使用して Docker コンテナー イメージを構築します。 コンテナー イメージの作成およびクラウドへの配布は簡単ですが、生成されたイメージを確実に格納することは簡単ではありません。 このため、Docker はクラウドにコンテナー <a href="https://hub.docker.com">イメージを格納</a> する Docker Hub というサービスを提供し、それらのイメージを使用していつでもコンテナーを作成できます。
+
+
+  Docker Hubはプライベート イメージを格納するための有料サービスですが、Docker は開発者のニーズを尊重し、アプリケーションのビルドに使用されるオープン ソースの "<a href="https://github.com/docker/docker-registry">Docker Registry</a>" ソフトウェアを提供Docker Hub。 コンテナー イメージを格納して提供するように設計されているが、最も重要な部分は、独自のプライベート レジストリをホストできるという部分です。 つまり、選択したクラウド ストレージ プロバイダーまたはオンプレミスでホストする場合は、非常に簡単に行えるのです。
+
+  <h5></h5>
+
+  <h5></h5>
+
+  <h2><a href="https://gist.github.com/ahmetalpbalkan/8a1bc8242602d7bf1a16#what-does-that-mean-for-azure-customers" name="user-content-what-does-that-mean-for-azure-customers"></a>これは Azure のお客様にとって何を意味しますか?</h2>
+
+  今日まで、Blob Microsoft Azure にコンテナー イメージを格納Microsoft AzureサポートStorage。 Docker Registry には、既定で、仮想マシンのローカル ディスクにイメージを格納するローカル ファイル ストレージ プラグインが含まれています。 これは明らかに、これらのバイナリを格納するための最も信頼性の高い (または配布可能な) 方法ではなく、Azure Blob Storage が適切なサービスです。
+
+
+  ここで、Azure Storage <a href="https://github.com/ahmetalpbalkan/docker-registry-driver-azure"><strong>Driver for Docker Registry が</strong></a>提供されます。 これは、Azure Storage アカウントを使用して、Azure Storage 上にある Docker イメージを BLOB としてホストし、Azure Storage のセキュリティ、信頼性、地理的分散を利用できるプラグインです。
+
+  <h2><a href="https://gist.github.com/ahmetalpbalkan/8a1bc8242602d7bf1a16#setting-up-a-private-docker-registry-on-azure" name="user-content-setting-up-a-private-docker-registry-on-azure"></a>Azure でのプライベート Docker レジストリの設定</h2>
+
+  Docker がインストールされたクラウド上に仮想マシンがインストールされていない場合は、このチュートリアルに従って、Docker ホストを Microsoft Azure Virtual Machines で実行できます。
+
+
+  残りは簡単です。ローカル開発マシンで、次の <code>Dockerfile</code> 内容を含む というファイルを含む新しいフォルダーをどこかに作成します。
+
+  <pre class="prettyprint">FROM registry
+
+  RUN pip install docker-registry-driver-azureblob</pre>
+
+  このファイルは、Docker のイメージの上に Azure Storage プラグインをバンドルする新しい Docker イメージを作成するために使用<code><a href="https://registry.hub.docker.com/u/library/registry/">registry</a></code>されます。 このフォルダーで次のコマンドを実行して、この Dockerfile をビルドします。
+
+  <pre class="prettyprint">export DOCKER_HOST=tcp://&lt;your-docker-host&gt;.cloudapp.net:4243
+
+  docker --tls build --tag=registry-azure .</pre>
+
+  イメージがビルドされた後、このイメージを使用して Docker Registry サーバーを実行するコンテナーを開始する必要があります。 これを行うには、次のコマンドを実行します。
+
+  <pre class="prettyprint">docker run -d -p 5000:5000 \
+      -e SETTINGS_FLAVOR=azureblob \
+      -e AZURE_STORAGE_ACCOUNT_NAME="&lt;account name&gt;" \
+      -e AZURE_STORAGE_ACCOUNT_KEY="&lt;account key&gt;" \
+      -e AZURE_STORAGE_CONTAINER=registry \
+      registry-azure</pre>
+  これにより、仮想マシンのポート 5000 でリッスンしているクラウド上のコンテナーが開始され、指定した構成が環境変数としてコンテナーに渡されます。 ただし、新しい Docker イメージ レジストリには、まだ外部からアクセスできません。
+
+
+  ポート 5000 の既定の Docker 内部 VM エンドポイントをポート 80 の外部クラウド サービス エンドポイントにマップする Docker ホスト仮想マシンのエンドポイントを作成する必要があります。 これを行うには、ポータルまたは Azure クロスプラットフォーム コマンド ライン インターフェイスを使用して、次のコマンド ライン インターフェイスを実行します。
+
+  <pre class="prettyprint">azure vm endpoint create &lt;VMname&gt; 80 5000 -n HTTP</pre>
+
+  更新が完了すると、プライベート レジストリを使用する準備が整いました。 独自のプライベート レジストリを使用する方法に関する Docker エンジニアの Viスコアによる非常に優れた <a href="https://www.youtube.com/watch?v=CAewZCBT4PI">ビデオ記録があります</a>。 セルフホステッド <a href="https://github.com/docker/docker-registry"><code>docker-registry</code></a> Docker レジストリの認証やキャッシュなど、追加の設定を構成するドキュメントを参照することもできます。
+
+  <h2><a href="https://gist.github.com/ahmetalpbalkan/8a1bc8242602d7bf1a16#summary" name="user-content-summary"></a>概要</h2>
+
+  今日まで、ローカル ファイル システム、AWS S3、または Google Cloud Storage でプライベート Docker レジストリをホストし、組み込みまたはコミュニティで提供されるストレージ ドライバー プラグインを使用する可能性があります。
+
+
+  Microsoft Open Technologies のエンジニアである Jeff Mendoza を含む Docker Hack Day プロジェクトは、プライベート Docker レジストリをホストするために Azure Blob Storage を有効にする機会を得ました。 このプロジェクトのソース コードは <a href="https://github.com/ahmetalpbalkan/docker-registry-driver-azure"></a> GitHub 上のオープン ソースであり、他の Docker Registry コードベースと同様に Python で記述されています。
+
+
+  組み込みのストレージ ドライバーの 1 つとして Azure Storage Driver を出荷するために、Docker Registry "v2" の書き換えに対する Azure Storage サポートのレベルを高め、Docker と共同作業を行うお知らせを行います。
+
+
+  さらに多くのコンテナーと Docker ニュースをお知らせします。
+
+  <blockquote>Azure チームのオープン ソースと Linux でハッキングを行うオープン ソースのファンやセルフイニシエーターを採用しています。 お問い合わせに関心がある場合は、メールをお送りください。 <a href="mailto:ahmetb@microsoft.com">ahmetb@microsoft.com</a><em><a href="mailto:ahmetb@microsoft.com">
+
+  </a></em></blockquote>
+
+  Ahmet Alp Alpkan Engineer、Azure Compute <a href="https://twitter.com/ahmetalpbalkan">@ahmetalpbalkan</a>

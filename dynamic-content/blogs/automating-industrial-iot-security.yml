@@ -1,0 +1,61 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 098795fe99aebb368b4c1b5be7da62c5ec29437e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909365"
+Slug: automating-industrial-iot-security
+Title: 産業用 IoT セキュリティの自動化
+Summary: 産業用 IoT は、最大の IoT 機会です。 Microsoft では、産業用 IoT クラウド プラットフォーム参照アーキテクチャを提供することで、この垂直的なサービスを提供しています。これは、コネクテッド ファクトリと呼ばれるオープンソースの Azure IoT Suite ソリューションに便利にバンドルされ、1 年前に HMI 2017 で開始されました。
+Content: >-
+  <p>産業用 IoT は、最大 <a href="https://www.mckinsey.com/business-functions/digital-mckinsey/our-insights/the-internet-of-things-the-value-of-digitizing-the-physical-world" target="_blank">の IoT 機会です</a>。 Microsoft では、産業用<strong> IoT クラウド</strong> プラットフォーム参照アーキテクチャを提供することで、この垂直的なサービスを提供しています。これは、コネクテッド ファクトリと呼ばれるオープンソース<a href="https://www.azureiotsuite.com/" target="_blank">の Azure IoT Suite</a> ソリューションに便利にバンドルされ、1 年前に HMI 2017 で開始されました。<strong></strong></p>
+
+
+  <p>それ以降、OPC UA Industrial Interoperability Standard を開発している非営利組織である OPC Foundation とのコラボレーションを継続し、 <a href="https://github.com/opcfoundation" target="_blank">GitHub</a> ページに多くの新しいオープンソースの貢献を追加しました。OPC Foundation へのオープンソース ソフトウェアの最大の共同作成者としてのリードをさらに 10 要素増やしました。 また、オープンソースのクロス <a href="https://opcfoundation.org/certification/how-to-certify/" target="_blank">プラットフォーム</a> の <a href="https://github.com/OPCFoundation/UA-.NETStandard" target="_blank">.Net Standard OPC UAの</a> コンプライアンスを認定しました。 これは、コネクテッド ファクトリでこのスタックが内部的に使用OPC UA、オープンソースのプロセスにおける重要なステップでした。 また、最近発表された Azure IoT Hub の新しい価格構造により、コネクテッド ファクトリの<a href="https://azure.microsoft.com/en-us/blog/azure-iot-hub-is-driving-down-the-cost-of-iot/" target="_blank">月間 Azure 消費コストを</a>削減しました。</p>
+
+
+  <p>コネクテッド ファクトリは、マシン ビルダーと製造元の両方で非常に人気があります。ただし、実際のマシンを接続することはまだ困難であり、同時に IoT アプリケーションに対してこれらのマシンをセキュリティで保護することは困難な場合があります。 そのため、コネクテッド ファクトリにいくつかの新しいモジュールとサービスが追加されました。これにより、接続とセキュリティが完全に自動になります。 今年、HMI でこれらの新しいモジュールとサービスが開始されます。</p>
+
+
+  <p>詳細については、次の項目を追加しました。</p>
+
+
+  <ul>
+   <li><strong>OPC Twin</strong> <strong>と呼</strong>ばれる自動マシン/資産検出 Azure IoT Edge モジュール。OT ネットワーク上の OPC UA サーバーを検出し、Azure IoT <strong>Hub に自動的に登録します</strong>。 OPC Twin は、Azure で実行されているコンパニオン OPC Twin マイクロサービスを使用して、クラウドから制御および管理できます。</li>
+   <li>OPC Twin では、各サーバーのデバイス ツインも作成OPC UAメタデータでOPC UAされます。 これにより、 <strong>ネイティブ API を使用OPC UA、</strong>クラウドから個々のサーバーとIoT Hubできます。</li>
+   <li>また、OPC Twin は、個々の<strong></strong>サーバーに対して自動セキュリティ評価OPC UA、ユーザーに対するセキュリティの弱点を強調します。</li>
+   <li>さらに、クラウド支援型の OPC UA <strong>Global Discovery Server</strong> を追加し、再び新しいモジュールIoT Edgeしました。 <strong>OPC サーバーの自動セキュリティ</strong>構成が処理され、OPC Twin と同様に、クラウドからの制御と管理のための Azure ベースのマイクロ サービスが伴います。 マイクロ サービスは、このサービスとAzure Key Vault、 <strong>GDS コンテナーと呼ばれるものになります</strong>。 GDS Vault では、Key Vaultによって使用される X.509 証明書とプライベート キーを安全に格納および管理するために、OPC UA。 オペレーターは、クラウドベースのインターフェイスを使用して、OPC UA サーバーのセキュリティ設定を初めてグローバルな規模で管理でき、担当する各ファクトリ フロアの OPC UA クライアントとサーバーごとに OPC UA 証明書を手動で交換する必要がなくなりました。 したがって、GDS は、世界で最初に&rsquo;真にグローバルな GDS を表します。</li>
+  </ul>
+
+
+  <p>言うまでもなく、コネクテッド ファクトリでは、上記のすべてがオープンソース<a href="https://github.com/Azure/azure-iot-connected-factory" target="_blank">で</a>統合され、GitHubされます。</p>
+
+
+  <p>OPC Foundation と Platform Industry 4.0 の両方で、グローバル検出サーバーを使用してサーバーのセキュリティ管理を行OPC UAしています。 どちらの組織も、詳細を説明するホワイトペーパー (<a href="https://opcfoundation.org/security/" target="_blank">1</a>) (<a href="https://www.plattform-i40.de/I40/Redaktion/DE/Downloads/Publikation/hm-2018-opc.html" target="_blank">2</a>) をリリースしました。</p>
+
+
+  <p>新しいコネクテッド ファクトリ アーキテクチャの図を次に示します。<br>
+
+  &nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24a5a418-5d3c-4426-b044-c225537ed93b.png"><img alt="clip_image002[8]" border="0" height="457" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/80e503f0-7646-4428-bddf-8e5a575b8af1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image002[8]" width="756"></a></p>
+
+
+  <p>また、オープンソースのグローバル探索サーバー<a href="https://www.automation.com/automation-news/article/how-microsoft-is-leveraging-opc-ua-to-get-an-irreplaceable-position-in-your-factory" target="_blank"></a>を OPC Foundation に提供したという発表に応じて書かれた、リアルタイム <a href="https://azure.microsoft.com/en-us/blog/simplifying-opc-ua-security-for-everyone/" target="_blank"></a> オートメーションの John John John johnが投稿した記事から引用します。</p>
+
+
+  <p><em>グローバル探索サーバーは、導入に大きな違いを生み出します。このアーキテクチャの弱点の 1 つは、OPC UA実装に不足しています。Microsoft 製品は、テクノロジのOPC UAを大幅に改善し、工場のフロアにおける Microsofts&rsquo; の立場を固化します。すべてではない場合でも、ほとんどの場合、ファクトリ フロアの実装では、証明書管理を処理するために、GDS が必要です。つまり、ほぼすべて OPC UA インストールに Microsoft が存在します。</em></p>
+
+
+  <p>しかし、待ちます。さらに&rsquo;多くがあります。</p>
+
+
+  <p>また、OPC UA の機能を利用して <a href="https://www.microsoft.com/en-us/iot-central/" target="_blank">Azure IoT Central</a> を拡張し、オンプレミスのマシンへの非侵入接続を IoT Central のお客様にも可能にしました。</p>
+
+
+  <p>ご覧のように、製造における<a href="https://blogs.microsoft.com/iot/2018/04/04/microsoft-will-invest-5-billion-in-iot-heres-why/" target="_blank"></a>デジタル変革の取り込みのすべてのステップで、適切な Industrial IoT Cloud Platform をサポートするために投資を続けています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adafb35a-fd0f-4d55-b06b-bd3767d715d7.png"><img alt="yes" border="0" height="779" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6dd1e60e-efeb-4047-a284-7070fc4f8ffa.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="はい" width="1349"></a></p>
+
+
+  <p>それを使用&rsquo;してビルドする新しい製品を見るのを待つ必要があります。</p>

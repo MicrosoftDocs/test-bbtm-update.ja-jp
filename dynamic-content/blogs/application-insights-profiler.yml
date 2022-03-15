@@ -1,0 +1,111 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 863830b2d8db2a5bc2e6e7962d944659bbdb587a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909379"
+Slug: application-insights-profiler
+Title: Application インサイト Profiler のAzure App Service一般提供
+Summary: Application インサイト Profiler の一般提供を発表Azure App Service。
+Content: >-
+  <p>Application インサイト Profiler の一般提供を発表Azure App Service。 同時に、コンピューティング リソース (Virtual Machines、スケール セット、Cloud Services、Service Fabric など) 用のプロファイラーのパブリック プレビュー バージョンを導入できます。 プロファイラーを使用すると、実稼働アプリケーションで低速要求のコード レベル トレースを自動的に収集して表示できます。</p>
+
+
+  <h2>概要</h2>
+
+
+  <p>特にアプリがクラウドの実稼働環境で実行されている場合、パフォーマンスの問題を診断するのは困難です。 顧客がアプリを使用するときに応答が遅い場合は、要求を処理するパイプライン内のインフラストラクチャ、フレームワーク、またはアプリケーション コードが原因である可能性があります。 クラウドは、マシンの &ndash; 入出力が非常に動的で、ユーザー入力や他の条件が絶えず変化し、高スケールの可能性があります。</p>
+
+
+  <p>Application インサイト Profiler は、上記の正確な問題を解決します。このような動的な状況でアプリケーションのパフォーマンス トレースをキャプチャして表示し、エンド ユーザーに悪影響を与えることなく大規模に自動的に発生します。 Application インサイト Profiler では次の情報がキャプチャされ、アプリが Azure で実行されている場合のパフォーマンスの問題を簡単に特定できます。</p>
+
+
+  <ul>
+   <li>顧客が行った各 Web 要求の中央値、最速、最も遅い応答時間</li>
+   <li>特定 &ldquo;の Web&rdquo; 要求の処理に最も時間がかかるホット コード パス</li>
+  </ul>
+
+
+  <p>プロファイラーは、使い慣れたパフォーマンスの問題を診断するための PerfView ツールを基に構築されています。 PerfView アルゴリズムを大規模に実行するために最適化されています。各時間の短いオーバーヘッドの例を使用します。 すべての Azure アプリケーションで使用して、可能な限り早い段階でパフォーマンスの問題を特定することをお勧めします。 実際、私たちの目標は、プロファイラーが問題を早期にキャッチし、顧客が大きな影響を受けずにいれるのを可能にする、Azure&rsquo;&ndash; アプリケーションにパフォーマンスの問題が発生しなかからずに行うのに役立ちます。</p>
+
+
+  <h2>プロファイラーの有効化</h2>
+
+
+  <p>アプリケーションで Application インサイト Profiler を有効にするにはApp Services。</p>
+
+
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=848303">Application Insights を使用して実行中の Azure Web アプリのプロファイリングを行う</a></p>
+
+
+  <p>コンピューティング リソースで Application インサイト Profiler (プレビュー) を有効にするには:</p>
+
+
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=848155&amp;clcid=0x409">他の Azure コンピューティング サービスに対して Profiler を有効にする</a></p>
+
+
+  <h2>結果の表示</h2>
+
+
+  <p>アプリケーションのパフォーマンスの問題を簡単に特定する方法を示す簡単なツアーを次に示します。 顧客がオンラインで音楽の写真を購入できるミュージック ストア Web アプリケーションがある場合。 アプリを Azure にデプロイし、Application インサイト Profiler を有効にしました。 プロファイラーを使用すると、アプリケーションが確実にパフォーマンスを高めることができます。</p>
+
+
+  <h3>パフォーマンスの問題を検出する</h3>
+
+
+  <p>まず、Web アプリで使用インサイトリソースの [アプリケーション] に移動します。 [パフォーマンス] ブレードを開き、パフォーマンス統計情報の概要を確認します。</p>
+
+
+  <p>パフォーマンス ブレードの左側にある [新しい操作] セクションには、各 Web 要求にかかる時間の概要が表示されます。 特定の行をクリックすると、右側のコンテンツをフィルター処理できます。 既定では、すべての要求が選択されます。</p>
+
+
+  <p>右側の [全体] セクションは、通常よりも時間がかかっている要求の数、または平均範囲内の要求の数をパーセントでグループ化した分布を示しています。 スライダー バーを使用すると、期間の時間範囲をフィルター処理して、これらの要求の詳細をドリルダウンできます。</p>
+
+
+  <p>右下隅には、いくつかのアクションを実行できます。 この場合は、特定の要求が遅い理由を調査する必要があります。そのため、[ <strong>Profiler トレース] ボタンをクリック </strong>します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Performance-blade.png"><img alt="image" border="0" height="500" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Performance-blade.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="750"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>応答時間が最も遅い呼び出しを確認するために、95 番目の割合の時間を並べ替えました。 最悪の場合、ShoppingCart 関連の要求が本当に遅くなる可能性があります。 ShoppingCart は、顧客がチェックアウトして支払いを続行する場所です。 この重要な機能は、応答性と信頼性が高く、必ず機能する必要があります。 そのため、何が起こったのかについて詳しくは、以下を参照してください。</p>
+
+
+  <h3>パフォーマンスの問題の根本原因を特定する</h3>
+
+
+  <p>詳細なプロファイル トレースを取得するには、POST ShoppingCart/<b></b>RemoveFromCart メソッドの行にある [例] 列アイコンをクリックします。このメソッドは、最悪の場合の応答時間が最も遅くなります。 次に示す詳細なトレース ビュー ブレードが開きます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3cb48ea-6cfc-48fa-9f86-6cd45d4d1fe4.png"><img alt="LockContention" border="0" height="464" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60d4bc21-48cc-4ffc-88b5-3f979d54860d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="LockContention" width="906"></a></p>
+
+
+  <p>[95 番目のパーセントの例] バケットでサンプルを選択します。 トレース ビューで &ldquo;[ホット&rdquo; パスの表示] をクリックすると、ツリーが自動的に展開され、ほとんどの時間が費やされた呼び出し履歴が表示されます。 多くの場合、パフォーマンスを向上させるために介入が必要な呼び出しにアクセスできます。</p>
+
+
+  <p>この例では、ミュージック ストアの [カートから削除] 操作のホット パスが、ロックの問題に費やしすぎています。 プロファイラーはこれをすぐに識別し、ロックの問題への対処に関するガイダンスを示します。 これは、プロファイラーが役立つ多くの例の 1 つです。 その他には、低速なアルゴリズム/関数、外部呼び出しのブロック時間、キャッシュを必要とするデータ呼び出し、ロックの問題などが含まれます。</p>
+
+
+  <h2>価格と制限事項</h2>
+
+
+  <p>プロファイリング&rsquo; データが Application インサイトに含まれており、5 日間の保有期間が追加料金なしである場合にお知らせ<b>します</b>。</p>
+
+
+  <ul>
+   <li>1 日あたりの最大取り込みデータは 10 GB です。</li>
+   <li>Web アプリは、少なくとも App Services の Basic レベルでホストする必要があります。</li>
+  </ul>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>&nbsp;&nbsp;Application&rsquo; インサイト Profiler の一般提供に向け、実稼働アプリケーションのパフォーマンスの問題をより適切に診断して修正できるのを楽しみに思います。</p>
+
+
+  <p>今すぐ試してみてください。 メールを に送信するか <a href="mailto:serviceprofilerhelp@microsoft.com">serviceprofilerhelp@microsoft.com</a>、この投稿にコメントを残して、ご意見をお寄せください。</p>

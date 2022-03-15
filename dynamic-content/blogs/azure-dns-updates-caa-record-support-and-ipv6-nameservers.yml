@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fab460b87ccb16521e5946e7b5c1b26cceebb9c1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910041"
+Slug: azure-dns-updates-caa-record-support-and-ipv6-nameservers
+Title: Azure DNS更新 - CAA レコードのサポートと IPv6 ネームサーバー
+Summary: お客様が長く待ち望む Azure DNS に対するいくつかの更新をお知らせします。証明機関承認 (CAA) レコードと IPv6 ネームサーバーのサポート。
+Content: >-
+  <p>お客様から長く待ち望Azure DNSの更新が行われ、お知らせいたします。</p>
+
+
+  <ul>
+   <li>証明機関承認 (CAA) レコードのサポート</li>
+   <li>IPv6 ネームサーバー</li>
+  </ul>
+
+
+  <h2>CAA レコードのサポート</h2>
+
+
+  <p>証明機関 <a href="https://tools.ietf.org/html/rfc6844">承認 (CAA)</a> リソース レコードを使用すると、ドメイン所有者は、ドメインの証明書を発行する権限を持つ 1 つ以上の証明機関 (CA) を指定できます。 CA では、証明書発行プロセスの一環として CAA レコードを <a href="https://cabforum.org/2017/03/08/ballot-187-make-caa-checking-mandatory/">確認する必要があります</a>。 この詳細なセキュリティ機能により、CA は意図しない証明書の誤発行のリスクを軽減できます。</p>
+
+
+  <p>CAA レコードの種類では、次の 3 つのプロパティがサポートされています。</p>
+
+
+  <ul>
+   <li><strong>フラグ：</strong> RFC ごとに特定の意味を持つクリティカル フラグを表す 0 &ndash; から 255 の間の符号なし <a href="https://tools.ietf.org/html/rfc6844#section-3">整数</a></li>
+   <li><strong>タグ：</strong> 次のいずれかの ASCII 文字列。 <ul>
+    <li>問題: ドメイン所有者は、証明書の発行が許可されている CA を指定できます (すべての種類)</li>
+    <li>Issuewild: ドメイン所有者は、証明書の発行が許可されている CA を指定できます (ワイルドカード証明書のみ)</li>
+    <li>Iodef: ドメイン所有者は、CA が CA レコードを介して承認されていないドメインの証明書発行要求に対して通知できる電子メール アドレスまたはホスト名を指定できます</li>
+   </ul>
+   </li>
+   <li><strong>値:</strong> 使用される特定のタグに関連付けられている値</li>
+  </ul>
+
+
+  <p>Azure REST API、PowerShell、CLI を使用して CAA レコードを作成および管理できます。</p>
+
+
+  <h2>IPv6 ネームサーバー</h2>
+
+
+  <p>過去数年間、IPv6 をサポートする DNS クライアントだけでなく、IPv6 に対するドメイン名のクエリをサポートする再帰リゾルバーも大幅に増加してきました。 以前と同様に、Azure DNSサーバーで IPv4 に加えて、IPv6 に対するクエリがサポートされます。</p>
+
+
+  <p>例として、次のポータル画面キャプチャは、Azure DNS でホストされている DNS ゾーンの Azure DNS ネーム サーバーを見つける方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ec4f994b-e494-4c80-bf45-f82600b668af.png"><img alt="dnsnameservers" border="0" height="546" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/15322e2f-53d6-48d5-a31f-c7cbcce54025.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="dnsnameservers" width="898"></a></p>
+
+
+  <p>これらの各ネーム サーバーの IPv6 アドレスは、nslookup などのコマンドを使用して確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9dcf0f1-2372-4a51-96b0-09b813184c88.png"><img alt="image" border="0" height="52" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9d9a97b4-5ba9-45af-aeb9-0803e7346deb.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="623"></a></p>
+
+
+  <p>いつものように、お客様からのフィードバックをお寄&rsquo; せください。 機能と&nbsp;将来サポートされるシナリオに関する提案を受け取る <a href="https://feedback.azure.com/forums/217313-networking?category_id=77466">AzureFeedback&nbsp;</a>&nbsp; チャネルがあります。 他のユーザーが提案している情報を参照し、お気に入りに投票して、独自の提案を入力してください。</p>
+
+
+  <p>最も頻繁に寄せられる <a href="https://docs.microsoft.com/en-us/azure/dns/dns-faq">質問に</a> 対する回答については、パブリック FAQ を参照してください。</p>

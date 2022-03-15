@@ -1,0 +1,125 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1fe2de998e4fb4a6f62dc1170478155edccf9bbf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910148"
+Slug: announcing-azcopy-on-linux-preview
+Title: Announcing AzCopy on Linux Preview (AzCopy on Linux プレビューの発表)
+Summary: 完全に再設計されたコマンド ライン インターフェイスを使用して、待ち時間の長い AzCopy on Linux プレビューを発表
+Content: >-
+  <p>本日は、POSIX パラメーター規則を採用する再設計されたコマンド ライン インターフェイスを備えた <strong>AzCopy on Linux</strong> のプレビュー バージョンをお知らせします。 <a href="https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy">AzCopy</a> は、Azure BLOB との間で大量のデータをコピーし、最適なパフォーマンスで簡単なコマンドを使用してファイル ストレージをコピーするために設計されたコマンド ライン ユーティリティです。 AzCopy は でビルドされました<a href="https://docs.microsoft.com/en-us/dotnet/articles/core/">。</a><a href="https://docs.microsoft.com/en-us/dotnet/articles/core/">NET Core</a> は、Windows Linux プラットフォームの両方をサポートします。 AzCopy は、.NET Core を使用<a href="https://github.com/Azure/azure-storage-net-data-movement"></a>して構築されたデータ移動ライブラリにも依存し、AzCopy のデータ移動ライブラリの多くの機能を有効にしています。</p>
+
+
+  <h3>AzCopy on Linux をインストールして実行する</h3>
+
+
+  <ol>
+   <li><a href="https://www.microsoft.com/net/core#linuxredhat">Linux に .NET Core をインストールする</a></li>
+   <li>AzCopy の tar アーカイブをダウンロードして抽出する (バージョン 6.0.0-netcorepreview)</li>
+  </ol>
+
+
+  <pre class="prettyprint">
+
+  wget -O azcopy.tar.gz https://aka.ms/downloadazcopyprlinux
+
+  tar -xf azcopy.tar.gz</pre>
+
+
+  <ol>
+   <li value="3"><em>azcopy をインストールして実行する</em></li>
+  </ol>
+
+
+  <pre>
+
+  sudo ./install.sh
+
+  azcopy</pre>
+
+
+  <p>スーパーユーザー特権を持たしていない場合は、 <em>azcopy</em> ディレクトリに変更してから <em>./azcopy</em> を実行して AzCopy を実行できます。</p>
+
+
+  <h3>サポート対象</h3>
+
+
+  <ul>
+   <li>Blob および File のシナリオWindows AzCopy on Windows (5.2) との機能パリティ <ul style="list-style-type: circle;">
+    <li>並列アップロードとダウンロード</li>
+    <li>組み込みの再試行メカニズム</li>
+    <li>失敗した転送セッションから再開または再起動する</li>
+    <li>AzCopy ガイドで強調表示されているその他の <a href="https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy">多くの機能</a></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h3>サポートされていないもの</h3>
+
+
+  <ul>
+   <li>Azure Storage Table service は AzCopy on Linux ではサポートされていません</li>
+  </ul>
+
+
+  <h3>サンプル</h3>
+
+
+  <p>これは従来の AzCopy と同じ単純な方法で、POSIX 規則に従うコマンド ライン オプションを使用します。 サイズが 100 GB のディレクトリをアップロードする次のサンプルをご覧ください。 シンプルです。</p>
+
+
+  <p><img alt="AzCopy on Linux" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azcopy-v4-gif2.gif" style="width: 910px; height: 400px;"></p>
+
+
+  <p>すべてのコマンド ライン オプションの詳細については、 <em>azcopy</em><em> --help</em> コマンド&#39;を実行&#39;してください。</p>
+
+
+  <p>他のいくつかのサンプルを次に示します。</p>
+
+
+  <ol>
+   <li><strong>アップロード VHD ファイルを作成Azure Storage</strong></li>
+  </ol>
+
+
+  <pre class="prettyprint">
+
+  azcopy --source /mnt --include &quot;*.vhd&quot; --destination &quot;https://myaccount.blob.core.windows.net/mycontainer?sv=2016-05-31&amp;ss=bfqt&amp;srt=sco&amp;sp=rwdlacup&amp;se=2017-05-10T21:45:18Z&amp;st=2017-05-09T13:45:18Z&amp;spr=https,http&amp;sig=kQ42XrayIifuE4SGYaAy6COHoIanP7H9Qi3R0KqHs7M%3D&quot;</pre>
+
+
+  <ol>
+   <li value="2"><strong>アカウント キーを使用してコンテナー Storageダウンロードする</strong></li>
+  </ol>
+
+
+  <pre>
+
+  azcopy --recursive --source https://myaccount.blob.core.windows.net/mycontainer --source-key &quot;lYZbbIHTePy2Co&hellip;..==&quot; --destination /mnt</pre>
+
+
+  <ol>
+   <li value="3"><strong>複数のアカウント間Storageコピー</strong></li>
+  </ol>
+
+
+  <pre class="prettyprint">
+
+  azcopy --source https://ocvpwd5f77vcqsalinuxvm.blob.core.windows.net/mycontainer --source-key &quot;lXHqgIHTePy2Co&hellip;.==&quot; --destination https://testaccountseguler.blob.core.windows.net/mycontainer --dest-key &quot;uT8nw5&hellip;. ==&quot; &ndash;-sync-copy</pre>
+
+
+  <h3>AzCopy on Windows</h3>
+
+
+  <p>AzCopy on Windowsで開発.NET Frameworkは、引き続きリリースされ、ここに記載<a href="https://docs.microsoft.com/en-us/azure/storage/storage-use-azcopy">されます</a>。 AzCopy on Windowsには、ユーザーが使い慣れた DOS Windowsパラメーターが用意されています。</p>
+
+
+  <h3>フィードバック</h3>
+
+
+  <p>AzCopy on Linux は現在プレビュー中であり、ユーザーからご意見を受け取り、改善を行います。 そのため、コメントや問題がある場合は、以下のコメントを残してください。</p>
+
+
+  <p style="margin-left: 1in;">&nbsp;</p>

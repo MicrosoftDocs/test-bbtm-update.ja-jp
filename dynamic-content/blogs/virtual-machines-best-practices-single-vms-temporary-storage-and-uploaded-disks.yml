@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b78cd3cc3e7d071de95bb0262b0570c38e95fa52
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903851"
+Slug: virtual-machines-best-practices-single-vms-temporary-storage-and-uploaded-disks
+Title: 'Virtual Machines ベストプラクティス: 単一の vm、一時 Storage とアップロードされたディスク'
+Summary: >-
+  こんにちは、こんにちは。
+
+
+  私は、Virtual Machines 機能に携わっている Microsoft Azure チームから McDaniel を描き、最初から作業を行ってきました。
+
+
+  このブログ投稿では、お勧めします...
+Content: >-
+  <p>こんにちは、Virtual Machines 機能に携わっている Microsoft Azure チームから McDaniel を描き、最初から作業を行ってきました。 このブログ記事では、Azure Virtual Machines を最大限に活用するのに役立つベストプラクティスガイドラインをいくつか紹介します。 これらのガイドラインは、お客様からのフィードバックによってすぐに得られ、発生した最も一般的な問題に対応しています。</p>
+
+
+  <h4>可用性セットに単一の Vm を構成しない</h4>
+
+
+  <p>Azure にデプロイされた仮想マシンは、<a href="https://azure.microsoft.com/en-us/documentation/articles/manage-availability-virtual-machines/"><em>可用性セット</em></a> &nbsp; の一部として構成するか、可用性セットを<em>None &rsquo; に &lsquo; </em> &nbsp; 構成することができます。 [None] \ (<em>なし &rsquo; \) オプションは、すべてのユーザーが VM の高可用性を希望して &lsquo; </em> &nbsp; いるため、若干誤解する可能性があります。 &nbsp; ただし、同じ機能を提供するために2つ以上の仮想マシンが展開されている場合にのみ、可用性セットを選択することをお勧めします。 デプロイする vm が、同じ機能を提供する一連の vm (2 つ以上) に含まれていない場合 (たとえば、複数の web サーバーが共通のロードバランサーに配置されている場合や、データをレプリケートしている2つの SQL サーバーの場合など)。 デプロイする VM が、同じ機能を提供する一連の Vm に含まれていない場合は、[なし &rsquo; ] を選択 &lsquo; する必要があります。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/6712.drew1.png"><img alt="" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/6712.drew1.png"></a>&ldquo;1 つの可用性セットに単一の vm をデプロイすることが悪いのはなぜですか。 &rdquo;単に、可用性セット &nbsp; 内に1つの VM インスタンスをデプロイすると、高度な警告やプラットフォームメンテナンスの通知は表示されません。 この構成では、プラットフォームのメンテナンスが発生したときに、高度な警告なしで1つの VM インスタンスを再起動できます。 1つの VM インスタンスをデプロイし、availability set オプションを None &rsquo; に &lsquo; 設定すると、プラットフォームのメンテナンス操作のために vm が再起動される前に通知が送信されます。また、1つの vm インスタンスが再起動されないようにするために、いつとなぜを理解する必要もありません。 バックグラウンドでは、Vm が可用性セットにデプロイされると、Azure platform によって、可用性セット内の Vm のサブセットのみがプラットフォームのメンテナンスのためにダウンします。 可用性セットに複数の Vm がある場合は、少なくともこれらの Vm の一部が実行されていることになります。 1つの VM インスタンスが可用性セットに含まれていない場合は、このマシンが高可用性セットの一部ではないことを Azure プラットフォームに通知します。そのため、プラットフォームメンテナンス操作のために VM が再起動される前に、電子メールで通知する特別なプロセスが用意されています。 可用性セット内に仮想マシンが1つしかない場合、Azure は仮想マシンのダッシュボードで、これがベストプラクティス構成ではないという警告を表示します。 この構成は、既存のサービスレベルアグリーメント (SLA) の保証に含まれていません。 注: 仮想マシンを可用性セットに移動したり、可用性セットから移動したりすると、仮想マシンの再起動が行われます。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/3060.drew2.png"><img alt="" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/3060.drew2.png"></a>仮想マシンのサービスレベルアグリーメント (SLA) の保証の詳細について<a href="https://azure.microsoft.com/en-us/support/legal/sla/">は、こちら</a>を &nbsp; 参照してください。</p>
+
+
+  <h4>一時 Storage</h4>
+
+
+  <p>お客様が Microsoft Azure Virtual Machines を使用する主な理由の1つは、永続ディスクをサポート Virtual Machines ことです。 永続的には、これらの永続ディスクに書き込まれたデータは、再起動、開始/停止、またはその他のライフサイクルイベントによって使用できることを意味します。 ただし、仮想マシンには、各 VM 上に1つの一時ディスクも含まれます。 これらの一時ディスク上のデータは、標準の VM ライフサイクルイベントによって保持されない可能性があります。 これは、一時ディスクのデータは、ハイパーバイザーソフトウェアを実行しているホストオペレーティングシステムに格納されているのに対し、永続ディスクのデータは Microsoft Azure Storage に格納されているためです。 一時ディスクは、実際には一時的なものであると推測されたデータに非常に便利です。 Windows のこの種のデータの好例として、ページファイルがあります。 実際には、Azure のイメージから新しい Windows VM がプロビジョニングされるときに、この一時ディスクに配置されるようにページファイルを構成します。 &nbsp;永続化する必要があるデータには、一時ディスクを使用しないでください。 よく見られる間違った構成の誤りは、SQL データベースファイルを一時ドライブに配置したり、このドライブに Windows Active Directory ドメインコントローラーのデータベースファイルを配置したりすることです。 ほとんどの Windows vm では、一時ディスク上のボリュームのドライブ文字は d:\ になります。 また、一時 Storage &rdquo; の &ldquo; ドライブラベルも含まれます。 これは、次の Azure 仮想マシンのスクリーンショットで確認できます。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/5008.drew3.png"><img alt="" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/5008.drew3.png"></a> 一時ディスクを誤って使用していないことを確認するには、テスト手順の一部として一時ディスクをリセットするアクションを実行することをお勧めします。 一時ディスクをリセットする最も簡単な方法は、仮想マシンのサイズを変更することです。 まず、必要に応じて仮想マシンを構成し、VM のサイズを変更してから VM に戻って、すべてが期待どおりに機能していることを確認する必要があります。</p>
+
+
+  <h4>OS ディスクのアップロード</h4>
+
+
+  <p>Microsoft Azure の大きな利点の1つは、Azure 仮想マシンで使用する VHD フォーマットファイルを簡単にアップロードできることです。 アップロードされた vhd ファイルに、次の2つのカテゴリのいずれかに vhd がある Windows オペレーティングシステムが含まれている場合: (1) OS の一般化にアップロードする前にゲストオペレーティングシステムで sysprep が実行されているか、(2) sysprep がゲストオペレーティングシステムで実行されていません。 (2) 場合、ゲストオペレーティングシステムはオペレーティングシステムのディスクとして &nbsp; 登録されます。 このディスクを使用して VM を作成すると、プロビジョニングエージェントを使用して Microsoft Azure での使用を最適化することなく、VM が展開されます。 そのため、Azure で VM を起動した後に、次のベストプラクティスを実行する必要があります。 1. 前の手順で説明したように、一時ディスクは通常ドライブ D:\ に &nbsp; &ndash; あります。 &nbsp; ページファイルを一時ディスクに移動することをお勧めします。 これにより、ページファイルに関連付けられているストレージトランザクションの料金が解消され、永続ディスクに格納する必要があるデータの Microsoft Azure ストレージの帯域幅が解放されます。 2. アクティブ化サーバー &ndash; を構成します &nbsp; 。このステップは、Windows の製品版また &nbsp; &nbsp; &nbsp; は Windows のボリュームライセンス版のいずれかであるアップロードされたディスクに対して有効です。 これらの手順は、Windows の評価版のアクティブ化には使用できません。 Microsoft Azure 提供されたアクティベーションサーバーを使用してアクティブ化するように仮想マシンを構成するに &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; は、管理コマンドプロンプトから次 &nbsp; &nbsp; &nbsp; の手順を実行します。 a. vm が製品版の Windows 実行されている場合は、次の手順を使用して、vm を Windows の volumelicense エディションになるように構成します。 &nbsp;次のページで、Windows エディションの適切な KMS クライアントセットアップキー (汎用ボリュームライセンスキー) を見つけます。 &nbsp; <a href="https://technet.microsoft.com/en-us/library/jj612867.aspx">KMS クライアントセットアップキー</a> ii」を参照してください。 &nbsp;クライアントセットアップキーをインストールします。「 &nbsp; <strong>slmgr.vbs/ipk &nbsp; </strong><em> &lt; セットアップキー &gt; </em> &nbsp; &lt; 」と入力 &gt; します。 「 &nbsp; <strong>slmgr.vbs/skms</strong> &nbsp; kms.core.windows.net &lt; ENTER &gt; i」と入力して、KMS サーバーの DNS アドレスを設定します。21vianet によって操作される Microsoft Azure については、kms.core.windows.net を kms.core.chinacloudapi.cn c に置き換えてください。 &nbsp;「 &nbsp; <strong>Slmgr.vbs/ato)</strong> &nbsp; &lt; ENTER &gt; 3」と入力して、ライセンス認証を開始します。 &nbsp;&ndash;San ポリシーを構成して新しいボリュームを自動的にオンラインにするように構成するには、管理コマンドプロンプトから次のコマンドを実行します。</p>
+
+
+  <ol>
+   <li>
+   <ol>
+    <li>Diskpart</li>
+    <li>SAN ポリシー = すべてのオフライン</li>
+    <li>終了</li>
+   </ol>
+   </li>
+  </ol>
+
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/7484.drew4.png"><img alt="" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1806/7484.drew4.png"></a></div>
+
+
+  <div>&nbsp;4. &nbsp; RDP セッションを回避するためにキープアライブ &ndash; を構成する: 次のコマンドを管理コマンドプロンプトから実行する必要があります。</div>
+
+
+  <div>。 &nbsp;reg add &quot; HKLM\SOFTWARE\Policies\Microsoft\ Windows NT \ ターミナルサービス &quot; /t REG_DWORD/vKeepAliveEnable/d</div>
+
+
+  <div>b. reg add &quot; HKLM\SOFTWARE\Policies\Microsoft\ Windows NT \ ターミナルサービス &quot; /t REG_DWORD/vKeepAliveInterval/d</div>
+
+
+  <div>これらのベストプラクティスが役に立つ場合は、コメントでお知らせください。 また、その他の一般的な課題が発生した場合は、コメントのセクションに記載してください。今後の投稿では、その他のベストプラクティスについて説明します。 --McDaniel の描画</div>

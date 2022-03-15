@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1dc0de4ed4948497f174bf4bc9430d5a4dfd2432
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909687"
+Slug: mandatory-update-for-azure-backup-agent
+Title: Azure Backup エージェントの必須の更新
+Summary: Azure Backupは、バックアップを確実に Azure に保持するために、Azure Backup エージェントに対して 2 つの必須の更新プログラムを提供しました。 更新プログラムには、Azure プラットフォームでの変更による重要な修正プログラムが組み込まれています。
+Content: >-
+  <p><a href="https://azure.microsoft.com/services/backup/" target="_blank">Azure Backup</a> は、バックアップを確実に Azure に保持するために、Azure Backup エージェントに対して 2 つの必須の更新プログラムを提供しました。 これらの更新プログラムには、Azure プラットフォームでの変更に関連する重要な修正プログラムが組み込まれています。</p>
+
+
+  <ol>
+   <li><strong>Microsoft Azure Storage削除:</strong> 古い Azure Backup エージェントは、バックアップ エラーの原因となる Storage API のバージョンを使用します。 この理由により、間もなく削除されます。 バージョンの削除に関するStorage<a href="https://azure.microsoft.com/blog/2014/08/04/microsoft-azure-storage-service-version-removal/" target="_blank">については</a>、Azure ブログを参照してください。 新しいエージェントは、新しいバージョンの Azure Storage API を介して通信することで、これを修正します。</li>
+   <li><strong>サーバー登録証明書の更新</strong>: 2 &ldquo;年以上前に登録されたマシンには、バックアップ サービスでこのサーバーを認証するためにサーバー登録証明書を使用できないというエラーが表示されます。&quot; このエラーが発生しないようにするには、エージェントをバージョン 2.0.8719.0 以上に更新する必要があります。 このエラーの唯一の軽減策は、マシンを再登録する方法です。 これは、既存のバックアップ コピーや今後のバックアップに影響を与える影響はありません。</li>
+  </ol>
+
+
+  <p>これらの新しい拡張機能を利用するには、最新のエージェント <a href="https://aka.ms/azurebackup_agent" target="_blank">をインストールします</a>。 DPM サーバーで、最初にエージェントを更新Azure Backup DPM <a href="https://support.microsoft.com/en-us/kb/3030574" target="_blank">を DPM 2012 R2 UR6 以降に</a> 更新 <a href="https://support.microsoft.com/en-us/kb/3065246" target="_blank">します</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>FAQ</strong>:</p>
+
+
+  <ol>
+   <li><strong>インストールされているエージェントに必須のAzure Backupを確認する方法</strong><br>
+  Azure Backup 2.0.8719.0 以上のエージェントには、必須の修正プログラムがあります。 Recovery Services エージェントの [Azure Backup プログラム&ndash;&gt;&gt; &ndash;&gt; &ndash;と機能] の [すべてのコントロール パネル] コントロール パネルに移動して、Microsoft Azure エージェントのバージョン番号を確認できます。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cfdb7e4c-818f-407c-a8e1-e934276f8aee.png"><img alt="azureBackupAgent2.0.8719" border="0" height="31" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09364f97-d378-40e8-b4e5-f3f1d34b5bca.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="azureBackupAgent2.0.8719" width="432"></a><br>
+  &nbsp;</li>
+   <li><strong>DPM サーバーが UR6 の上にあるか確認する方法</strong><br>
+  DPM サーバーのバージョンは <a href="https://support.microsoft.com/en-us/kb/3030574" target="_blank">4.2.1312.0 以上である</a> 必要 <a href="https://support.microsoft.com/en-us/kb/3065246" target="_blank">があります</a>。 DPM サーバーのバージョンは、「バージョン情報」セクションで確認できます。 次に、一度移動する手順を示します。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp;デスクトップ上の Microsoft System Center 2012 R2 Data Protection Managerアイコンをダブルクリックして、DPM 管理コンソールを開きます。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; DPM 管理コンソールの上部のリボンにある [ヘルプ] メニューに移動します。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp;[バージョン情報Data Protection Managerをクリックして、サーバーのバージョン情報を表示します。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6fac1572-742c-4368-a124-80976db88ccc.jpg"><img alt="DPM-UR6" border="0" height="476" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eddc43c7-9523-43cc-955b-3bc92d9e43a2.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="DPM-UR6" width="420"></a><br>
+  &nbsp;</li>
+
+  </ol>
+
+
+  <p><strong>関連リンク/コンテンツ:</strong></p>
+
+
+  <ul>
+   <li>DPM のインストールと<a href="https://aka.ms/azurebackup_landingpage" target="_blank">Azure Backup</a>詳細<a href="https://aka.ms/dpm_learnmore" target="_blank">System Centerしてください</a>。</li>
+   <li>無料の <a href="https://aka.ms/azure_freetrial" target="_blank">Azure 試用版サブスクリプションをクリックし</a> 、最新の Azure Backup <a href="https://aka.ms/azurebackup_agent" target="_blank">エージェントを</a> ダウンロードして開始します。</li>
+   <li>ヘルプが必要ですか? <a href="https://aka.ms/dpmforums" target="_blank">サポートについては、DPM フォーラムとAzure Backup</a><a href="https://aka.ms/azurebackup_forum" target="_blank">フォーラムに</a>連絡してください。</li>
+   <li>新しいアイデアを投稿し <a href="https://aka.ms/azurebackup_feedback" target="_blank">Azure Backup</a>既存のアイデアを投票する方法を教えて。</li>
+   <li>Twitter と Channel9 <a href="https://twitter.com/azurebackup" target="_blank">でフォロー</a><a href="https://channel9.msdn.com/Series/Azure-Backup" target="_blank">して、</a>最新のニュースと更新情報を取得してください。</li>
+  </ul>

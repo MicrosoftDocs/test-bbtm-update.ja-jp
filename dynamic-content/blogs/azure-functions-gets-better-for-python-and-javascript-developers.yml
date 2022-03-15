@@ -1,0 +1,95 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a359b80d4f10350d0f70ed5a144e97d36fcbd802
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909322"
+Slug: azure-functions-gets-better-for-python-and-javascript-developers
+Title: Azure Functions Python と JavaScript 開発者の方が優れたもの
+Summary: サーバーレス テクノロジを使用すると、開発者はインフラストラクチャ管理ではなく、アプリのビジネス ロジックの差別化に集中できます。
+Content: >-
+  <p>サーバーレス テクノロジを使用すると、開発者はインフラストラクチャ管理ではなく、アプリのビジネス ロジックの差別化に集中できます。 <a href="https://azure.microsoft.com/blog/introducing-azure-functions-2-0/" target="_blank">Azure Functions 2.0</a> の一般提供に関する発表に従って、新しいクロスプラットフォームの Azure Functions ホスト ランタイムを活用して、新しい言語のサポートと Azure Functions の新しいホスティング オプションを使用しているより多くの開発者とのミーティングに引き続き焦点を当て続けしました。</p>
+
+
+  <p>現在、Azure Functions での Python サポートはパブリック プレビューで利用できます。サーバーレスの実行ごとのホスティング オプションの新しい Linux 従量課金プラン プランに Python 関数アプリを発行できます。 このLinux 従量課金プランホスティング オプションは、JavaScript 関数アプリでも使用できます。 JavaScript 開発者がサーバーレス ワークフローをプログラムで調整する機能をさらに有効にするために、JavaScript Durable Functions 拡張機能を Azure Functions ランタイムに一般提供し、実稼働ワークロードで使用する準備が整いました。 ソリューションがサーバーレス API の場合は、適切な API 設計と管理パターンに対するプラットフォーム サポートを、新しい従量消費レベルで利用API Management。 Azure Functions 機能のセットが増える中で、コミュニティ全体でコードを再利用すると生産性が向上する可能性があります。そのため、事前に構築されたオープンソース コンポーネントをホストするサーバーレス Community ライブラリを作成しました。 これらの新機能の詳細については、引き続きお読みください。</p>
+
+
+  <h2>新しいサービス プランでLinux 従量課金プラン関数をホストする (パブリック プレビュー)</h2>
+
+
+  <p>Azure Functionsで Linux サーバーレス ホスティングをサポートする一方で、以前は Linux へのデプロイは、App Service プランでの実行中にのみサポートされました。 この最新リリースでは、イベント アクティビティに関する詳細な分析情報に基づき、実行ごとのサーバーレス モデルを利用して、動的スケールで Linux OS を対象とする関数をデプロイできます。 Mac および Linux プラットフォームで開発したお客様は、プラットフォーム固有の変換を回避するために、クラウド内の Linux ホスティングにシームレスに移行できます。 Linux でのホスティングは、Linux でのみ使用できるライブラリを関数コードから利用できるという意味もあります。</p>
+
+
+  <p>この新しいホスティング オプションでは、開発言語に最も高いアフィニティを持つ関数アプリをプラットフォームに配置することで、将来のインフラストラクチャの概念をさらに抽象化する方法も開きます。 たとえば、既定では、Python を Linux 従量課金プランしています。 詳細については、ドキュメントLinux 従量課金プランホスティングに関するページを <a href="https://aka.ms/functions-consumptionlinux-preview" target="_blank">参照してください</a>。</p>
+
+
+  <h2>Python 関数の開発を開始する (パブリック プレビュー)</h2>
+
+
+  <p>Azure Functions Python で記述できます。 現在から、Functions 2.0 ランタイムと Linux ベースのホスティング プラットフォームに基づいて、Python <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-functions-2-0/" target="_blank">3.6</a> (CPython) を使用して関数を構築できます。 これにより、以前はサーバーレスまたは FaaS ソリューションとして実装するのは難しい、データ処理、機械学習ワークロード、自動化スクリプトなど、さまざまなシナリオが開きます。</p>
+
+
+  <p>新しい Python ランタイムは一意の Functions プログラミング モデルを共有します。そのため、Python スクリプトを簡単にインポートし、標準の要件形式を使用してすべての依存関係を管理できます。 これまでと同様に、さまざまなトリガーとバインドを使用すると、メソッド属性を使用するだけで、Azure Storage、Cosmos DB、Service Bus、Event Hubs、Event Grid などのクラウド スケール データ ソースとメッセージング サービスにシームレスに接続できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/29cfb718-ad46-4d57-a0e6-c7f6bc36802a.png"><img alt="Python code sample" border="0" height="477" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f58c656f-ebe2-4a2d-af7e-c10d9baa3bae.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Python コード サンプル" width="719"></a></p>
+
+
+  <p>Python 開発者は、Mac、Linux、または仮想マシンを使用して Functions をローカルでビルド、デバッグ、テストWindowsできます。 この <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local" target="_blank">Azure Functions Core Tools</a> (CLI) を使用すると、トリガー テンプレートの使用を開始し、Azure に直接発行しながら、構成とビルドを自動的に処理できます。</p>
+
+
+  <p>さらに&#39;は、<a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions" target="_blank">Visual Studio Code 用の</a> Azure Functions 拡張機能を使用して、コード エディター自体の中から関数を作成、デバッグ、管理、およびデプロイするのに役立つ、緊密に統合された GUI エクスペリエンスを提供できるというものです。 これを VS Code 用<a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" target="_blank">の Python</a> オーサリング拡張機能と組み合わせると、任意のプラットフォームで、Python 用のクラス最高のサーバーレス開発エクスペリエンスを利用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/97ff13eb-e75b-4ca1-a423-2a3f37578e20.png"><img alt="Python authoring extension for VScode" border="0" height="583" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e98918c-ddb5-4782-976b-89be8c419e78.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="VScode 用の Python オーサリング拡張機能" width="1024"></a></p>
+
+
+  <p>開始するには、このチュートリアルに <a href="https://aka.ms/functions-python-preview" target="_blank">従って、</a> 最初のサーバーレス Python 関数を作成して発行します。 また、Python を使用した Azure Functions の開発エクスペリエンスと、現在可能なシナリオを紹介するウェビナーも用意しています。今すぐ <a href="https://aka.ms/ml-functions-python-webinar" target="_blank">登録してください</a>。</p>
+
+
+  <p>この機能は現在プレビュー中なので、GitHub の会話に従って<a href="https://github.com/Azure/azure-functions-python-worker/issues" target="_blank"></a>フィードバックを共有し、今後の機能強化と機能に関する詳細な分析情報を取得してください。</p>
+
+
+  <h2>JavaScript サーバーレス ワークフローを Durable Functions調整する (一般提供)</h2>
+
+
+  <p>javaScript の新しい GA サポートを使用して、Azure Functions ランタイムに対する Durable Functions 拡張機能を使用して、サーバーレス ワークフローをプログラムで調整し、実稼働ワークロードに使用する準備が整いました。 Durable Functionsを使用すると、開発者は JSON スキーマやビジュアル デザイナーを使用する代わりにコードでワークフローを定義することで、サーバーレス アプリケーションでの複雑でステートフルな調整の問題を簡略化できます。 このリリースでは、関数チェーン、ファンアウト/ファンイン (下の例)、人間の操作などの開発パターンを表す Node.js 開発者と JavaScript 開発者向けの新しいシナリオを有効にします。 概要このクイック <a href="https://aka.ms/DurableFunctionsJSQuickstart" target="_blank">スタートを使用して、</a> JavaScript と Durable Functions を使用してステートフル ワークロードを構築します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e951359d-e522-4cb9-9f31-ebdb0fc0246b.png"><img alt="Stateful workloads using JavaScript with Durable Functions" border="0" height="574" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/12645e35-85e4-4c8a-8e01-80179c718737.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="JavaScript と仮想マシンを使用したステートフル ワークロードDurable Functions" width="1024"></a></p>
+
+
+  <h2>サーバーレス API を管理するには、次のAPI Management</h2>
+
+
+  <p>お客様の一般的なシナリオは、Azure Functions がエンドポイントを起動してサーバーレス API を構築し、HTTP またはイベント駆動型のトリガーの恩恵を受け、バインディングを使用してデータおよびメッセージング サービスとの統合を容易にすることです。 API を構築する際には、要求の認証と承認、レート制限とクォータの適用、要求と応答の変換、ログとトレース、バージョン管理など、多くの考慮事項に注意する必要があります。</p>
+
+
+  <p>Azure API Management では Azure Functions、API 要求のメディア処理に関連するこれらのすべてのタスクを処理できますが、これまでは、お客様がソリューションに対して好む実行ごとの支払いモデルと一致しない固定コストが発生しました。</p>
+
+
+  <p>現在から、新しいインスタンスを作成するときに新しい Consumption レベルAPI Managementできます。 この新しいレベルは、基本的に、要求API Management自動スケールのサーバーレス原則を中心に設計および実装された、サービスの一種です。 このブログ記事の新しい Consumption レベル<a href="https://aka.ms/apimconsumptionblog" target="_blank"></a>の詳細については、サーバーレス バックエンドを利用した API 管理の利点をAzure Functions覧ください。</p>
+
+
+  <h2>サーバーレス ライブラリを使用Communityする</h2>
+
+
+  <p>サーバーレス Community ライブラリは、一般的な Azure Functions と Logic Apps の一般的な使用例に基づく、事前構築済みのコンポーネントのオープンソース セットです。 これらのサンプルは既に構築され、目的の Azure サブスクリプションにデプロイする準備ができているので、開発者は、あらかじめ構築されたコンポーネントをすぐに使用して、コーディング時間を節約し、生産性を向上させることができます。 サーバーレス Community ライブラリで<a href="https://github.com/toolboc/stripe-function" target="_blank">、Stripe</a> での支払いの処理や <a href="https://github.com/nastassiar/CognitiveServicesOCRFunction" target="_blank">Cognitive Services</a> でのインテリジェンスの追加など、使用可能なサンプルを<a href="https://serverlesslibrary.net/" target="_blank">確認</a>し、GitHub で独自のコンポーネントに投稿します。<a href="https://github.com/Azure/ServerlessLibrary" target="_blank"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c02d3bd7-c9dd-4721-8dba-27de4e21afdd.gif"><img alt="Serverless Library" border="0" height="735" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7df9f18b-94d0-4df9-be88-6e40832f6f23.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="サーバーレス ライブラリ" width="1274"></a></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>これらの新機能を試して、ご自分の考えをお知らせください。 <a href="https://feedback.azure.com/forums/355860-azure-functions" target="_blank">Functions UserVoice</a> の新しい機能Azure Functionsアイデアをお聞かしいと思います。 Azure Functions GitHub のレポポAzure Functionsでキャプチャされた問題に対して参加して<a href="https://github.com/Azure/Azure-Functions/issues/new" target="_blank"></a>満足しています。Twitter でいつでも Azure Functions チームにアクセスできます<a href="https://twitter.com/AzureFunctions" target="_blank">@AzureFunctions</a>。</p>
+
+
+  <ul>
+   <li>このウェビナーに参加して、 <a href="https://aka.ms/ml-functions-python-webinar" target="_blank">Azure Functions が Python</a> を使用して機械学習ワークロードを効率化する方法の詳細を確認し、このチュートリアルに従って Python を使用して初めての関数を構築 <a href="https://aka.ms/functions-python-preview" target="_blank">してください</a>。</li>
+   <li>このクイックスタートに従って、JavaScript と Durable Functionsを使用してワークフロー オー <a href="https://aka.ms/DurableFunctionsJSQuickstart" target="_blank">ケストレーターを構築します</a>。</li>
+   <li>Serverless Community ライブラリで使用可能な<a href="https://serverlesslibrary.net/" target="_blank">コンポーネントを参照</a>し、独自のコンポーネント<a href="https://github.com/Azure/ServerlessLibrary" target="_blank">を使用して貢献を開始します</a>。&nbsp;&nbsp;</li>
+   <li>Azure サーバーレス プラットフォーム <a href="https://azure.microsoft.com/solutions/serverless" target="_blank">サービスの詳細を</a> 確認します。</li>
+  </ul>

@@ -1,0 +1,120 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5a39fe8b98f7543b58ce926ff7d72fc5ea68ddf7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904040"
+Slug: multiple-vm-nics-and-network-virtual-appliances-in-azure
+Title: Azure の複数の VM Nic とネットワーク仮想アプライアンス
+Summary: TechEd 欧州2014では、Azure Vm での複数のネットワークインターフェイス (Nic) のサポートと、ネットワーク仮想アプライアンスを Azure に導入する際の重要なパートナーシップ (特に Citrix Netscaler と Riverbed アプライアンス) が発表されました。
+Content: >-
+  TechEd 欧州2014では、Azure Vm での複数のネットワークインターフェイス (Nic) のサポートと、ネットワーク仮想アプライアンスを Azure に導入する際の重要なパートナーシップ (特に Citrix Netscaler と Riverbed アプライアンス) が発表されました。 多くのネットワーク仮想アプライアンスには複数の Nic が必要です。 これで、Azure Vm に複数の Nic を作成できるようになりました。 複数の Nic を使用すると、ネットワークトラフィックをより適切に管理できます。 また、フロントエンド NIC とバックエンド Nic の間のトラフィックを分離したり、管理プレーンの通信からデータプレーンのトラフィックを分離したりすることもできます。 次に、3つの Nic を持つ VM の例を示します。
+
+
+  <img class="aligncenter size-medium wp-image-209513" alt="image.png" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/image-636x272.png" width="636" height="272" />
+
+  <h2>複数の Nic を持つ VM を作成する方法</h2>
+
+  次の手順では、3つの Nic (既定の NIC と2つの追加の Nic) を使用して VM を作成する方法について説明します。 構成手順では、次に示すように、3つのサブネット (フロントエンド (10.1.0.0/24)、Midtier (10.1.1.0/24)、バックエンド (10.1.2.0/24) を含む仮想ネットワークを使用します。
+
+
+  <img class="aligncenter size-full wp-image-209533" alt="image.png" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/image.png" width="471" height="247" />
+
+
+  次の構成コマンドレットは、最新の Azure PowerShell リリースを使用します。 <a href="https://azure.microsoft.com/en-us/documentation/articles/install-configure-powershell">ここで</a>説明するように Azure PowerShell をダウンロードして構成してください。
+
+
+  1. Azure VM イメージ ギャラリーから VM イメージを選択します。
+
+  <pre class="prettyprint">$image = Get-AzureVMImage -ImageName "a699494373c04fc0bc8f2bb1389d6106__Windows-Server-2012-R2-201408.01-en.us-127GB.vhd"</pre>
+
+  2. Azure VM の構成と、既定の管理者ログインを作成します。
+
+  <pre class="prettyprint">$vm = New-AzureVMConfig -Name "MultiNicVM" -InstanceSize "ExtraLarge" -Image $image.ImageName –AvailabilitySetName “MyAVSet”</pre>
+
+  <pre class="prettyprint">Add-AzureProvisioningConfig –VM $vm -Windows -AdminUserName “&lt;YourAdminUID&gt;” -Password “&lt;YourAdminPassword&gt;”</pre>
+
+  3. 既定の NIC のサブネットと IP アドレスを指定します。 サブネット名パラメーターは、仮想ネットワーク内のいずれかのサブネットの名前である必要があることに注意してください。 この例では、フロントエンドサブネットを使用しています。
+
+  <pre class="prettyprint">Set-AzureSubnet -SubnetNames "Frontend" -VM $vm
+
+  Set-AzureStaticVNetIP -IPAddress "10.1.0.10" -VM $vm</pre>
+
+  4. VM 構成に NIC を追加します。 手順 (3) と同様に、サブネット名と StaticVNetIPAddress は、仮想ネットワークのサブネット定義に対応している必要があります。 インターフェイス名は VM で一意である必要がありますが、VM 内の Nic の名前は表されません。
+
+  <pre class="prettyprint">Add-AzureNetworkInterfaceConfig -Name "NIC1" -SubnetName "Midtier" -StaticVNetIPAddress "10.1.1.11" -VM $vm
+
+  Add-AzureNetworkInterfaceConfig -Name "NIC2" -SubnetName "Backend" -StaticVNetIPAddress "10.1.2.22" -VM $vm</pre>
+
+  5. これらの手順を実行すると、VM を作成する準備が整います。 上で使用したサブネット名と IP アドレスを含む VM を仮想ネットワーク内に作成する必要があります。
+
+  <pre class="prettyprint">New-AzureVM -ServiceName "MultiNIC-CS" –VNetName “ThreeTier-VNet” –VM $vm</pre>
+
+  <h2>複数の NIC に関する Faq &amp; の制約:</h2>
+
+  複数の NIC 機能の現在のリリースには、次の要件と制約があります。
+
+
+  1. GA またはプレビューの機能ですか?
+
+  <ul>
+   <li>GA</li>
+  </ul>
+
+  2. 複数の Nic を使用できるリージョンを選択してください。 すべてのリージョンではない場合、残りのリージョンについてはどうでしょうか。
+
+  <ul>
+   <li>現在、複数の Nic を持つ Vm の作成は、北ヨーロッパリージョンから開始し、その後、今後数週間のすべての Azure リージョンで開始できます。  <a href="https://azure.microsoft.com/en-us/updates/?service=virtual-network">ここで</a>ロールアウト更新プログラムを検索します。</li>
+  </ul>
+
+  3. 複数の Nic の価格はどのようなものですか?
+
+  <ul>
+   <li>Nic の数は VM Sku に関連付けられますが、追加料金は発生しません。</li>
+  </ul>
+
+  4.Linux、FreeBSD、およびその他の非 Windows OS イメージで複数の nic を使用できますか。
+
+  <ul>
+   <li>複数の Nic は、Basic Sku を除く Azure 内のすべての Vm で動作します。</li>
+  </ul>
+
+  5. Nic はいくつ作成できますか。
+
+  <ul>
+   <li>Large (A3) および A6: 2</li>
+   <li>ExtraLarge (A4) および A7: 4</li>
+   <li>A9: 2</li>
+   <li>D3: 2</li>
+   <li>D4: 4</li>
+   <li>D13: 4</li>
+  </ul>
+
+  6. この機能には、お客様が知っておくべき制限事項がありますか。
+
+  <ul>
+   <li>Azure Vm (IaaS、Standard Sku) では、複数の NIC がサポートされています。Vm は Azure Virtual Network に存在している必要があります。</li>
+   <li>現在のリリースでは、VM の作成後の Nic の追加または削除はサポートされていません。</li>
+   <li>Azure Vm の Nic は、トラフィックを転送したり、レイヤー 3 (IP) ゲートウェイとして機能したりすることはできません。</li>
+   <li>インターネットに接続された VIP は、"既定の" NIC でのみサポートされ、既定の NIC の IP にマップされる VIP は1つだけです。 追加の Nic は、負荷分散セットでは使用できません。</li>
+   <li>VM 内の Nic の順序はランダムになりますが、IP アドレスと対応する Mac は変わりません。</li>
+   <li>既定以外の Nic にネットワークセキュリティグループまたは強制トンネリングを適用することはできません。 サポートを追加する方法については、ロードマップをご覧ください。</li>
+  </ul>
+
+  <h2>Azure の仮想アプライアンス– Citrix および Riverbed</h2>
+
+  Microsoft では、複数のネットワークアプライアンスベンダーと協力して、Azure で仮想アプライアンスをオンボードしています。 TechEd で、Citrix Netscaler と Riverbed Steelhead のデモを行いました。 さらに多くのサードパーティの仮想アプライアンスをサポートするために、引き続きプラットフォームを強化します。 複数の Nic に加えて、Nic のイーサネット (MAC) アドレスは、VM のライフサイクルを通じて永続的に作成されます。 これは、ライセンスの MAC アドレスに依存するアプライアンスに役立ちます。
+
+
+  TechEd ヨーロッパのデモの詳細については、以下を参照してください。
+
+  <ol>
+   <li>2つの Nic を使用し、MAC 永続化を使用して、Azure で実行されている Citrix Netscaler の動作プロトタイプを示しました。</li>
+   <li>ここでは、オンプレミスの SteelHead を使用して Riverbed との共同デモを構築し、WAN の最適化のために Azure を使用して、WAN の最適化を Azure Site Recovery および ExpressRoute と統合する方法について説明します。</li>
+  </ol>
+
+  現在、riverbed が提供されています。 Azure 認定プログラムのネットワークパートナーの数が増えるにつれて、引き続き調整してください。
+
+
+  これは、Azure ネットワークプラットフォームを仮想アプライアンス用に準備するための取り組みの始まりに過ぎません。 Azure platform の機能強化と仮想アプライアンスのパートナーシップに関して、さらに多くのことがあります。

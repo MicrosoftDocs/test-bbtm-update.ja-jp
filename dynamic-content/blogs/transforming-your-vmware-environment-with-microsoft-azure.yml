@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5e2ee416bbc984332c622c936209dd0784ec9e57
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910298"
+Slug: transforming-your-vmware-environment-with-microsoft-azure
+Title: Microsoft Azure を使用した VMware 環境の変換
+Summary: 現在、VMWare から Azure への移行のすべての手順に役立つ新しいサービスが発表されています。
+Content: >-
+  <p><em>更新12/19 日: Azure 上の VMware 仮想化に関する以前の情報は、以下から削除され、 <a href="https://azure.microsoft.com/en-us/blog/vmware-virtualization-on-azure/">この新しい投稿</a>に移行されました。</em></p>
+
+
+  <p>各組織が一意であるように、各組織はクラウドへの一意のパスを取得します。 Azure では、データの転送、インフラストラクチャの移行、アプリケーションの最新化、新しいアプリの構築など、ニーズに最も適した方法でクラウドに移行することができます。</p>
+
+
+  <p>この旅の一環として、既存のオンプレミスの VMware ワークロードを Azure に移行することが、よく寄せられる要求の1つです。 これには、VMware ベースのアプリケーションを Azure に移行し、Azure と統合する作業が含まれます。&nbsp;</p>
+
+
+  <h2>VMware 環境での Azure への競合のないパス</h2>
+
+
+  <p>現在、VMware から Azure への移行のすべての手順に役立つ新しいサービスが発表されています。</p>
+
+
+  <ul>
+   <li><strong>Azure Migrate でアプリケーションを移行します。</strong> <em>11月の27日では、無料のサービスである Azure Migrate、すべての Azure ユーザーが幅広く利用できます。</em> ほとんどのクラウドベンダーは単一のサーバー移行機能を提供していますが、Azure Migrate は次のフェーズでマルチサーバーアプリケーション全体を移行するために役立ちます。&nbsp;</li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><em>検出と評価。</em> <a href="https://aka.ms/azuremigrateproductpage" target="_blank">Azure Migrate</a> は、vmware 環境に変更を加えることなく、オンプレミスの vmware ベースのアプリケーションを検出できます。 Azure Migrate には、マルチ VM アプリケーションでグループレベルの依存関係を視覚化するための固有の機能が用意されており、移行のためにアプリケーション全体を論理的にグループ化し、優先順位を付けることができます。 CPU、メモリ、ディスク、およびネットワークの使用率の検出によって Azure Migrate も、サイズとコストのガイダンスを提供するための組み込みのサイズが組み込まれています。これにより、移行時にコストを節約できます。</p>
+
+
+  <p><img alt="VMWare" border="0" height="508" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cb828f68-53fd-46af-b1e4-4161745b0389.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="VMWare" width="1024"></p>
+
+
+  <p align="center"><em>アプリケーションの依存関係全体を Azure Migrate で一意に視覚化する</em></p>
+
+
+  <p style="margin-left: 40px;"><em>移行。</em> 検出が完了したら、数回クリックするだけで、オンプレミスのアプリケーションを Azure に移行できます。 Azure Site Recovery (ASR) を使用すると、ダウンタイムを最小限に抑えて VMware 仮想化 Windows サーバーおよび Linux のワークロードを<a href="https://docs.microsoft.com/en-us/azure/site-recovery/tutorial-migrate-on-premises-to-azure" target="_blank">移行</a>できます。 ASR はアプリケーション中心の移行機能を提供し、移行時にアプリケーションサーバーをシーケンス処理できるようにします。 この組み込みの多層シーケンス処理は、他のクラウドプロバイダーによって提供されていません。 さらに、Azure Database Migration Service を使用すると、SQL Server と Oracle データベースを完全に管理された Azure SQL Database に直接移行できます。 大規模なボリュームストレージの移行を必要とするお客様については、最近、Azure へのデータ移動を簡単にするために設計された <a href="https://azure.microsoft.com/en-us/services/storage/databox/" target="_blank">Azure Data Box</a>を発表しました。</p>
+
+
+  <p style="margin-left: 40px;"><em>リソース &amp; コストの最適化。</em> 無料の <a href="https://azure.microsoft.com/en-us/services/cost-management/" target="_blank">Azure Cost Management</a> サービス (旧称 Cloudyn) を使用して Azure にデプロイすると、簡単に支出の予測、追跡、および最適化を行うことができます。 この計算では、特定のオンプレミスの VMware から Azure への移行シナリオで、最大で84% の TCO 削減率が示されます。 この <a href="https://aka.ms/vmwazuretco" target="_blank">VMware を Azure の tco ガイドに</a> 参照して、さらに詳細な情報を入手したり、お客様自身で <a href="https://tco.microsoft.com/" target="_blank">tco の計算</a>を実行したりすることもできます。 例として、 <a href="https://customers.microsoft.com/en-us/story/capstone-mining" target="_blank">Capstone マイニング</a> はこの旅を経て、$ 6 分を資本コストと運用コストで既に保存しています。</p>
+
+
+  <ul>
+   <li><strong>VMware ワークロードを Azure サービスと統合します。</strong> 移行やデプロイを行わずに VMware ワークロードと共に使用できる多くの Azure サービスがあるため、環境全体をクラウドとオンプレミスの間で安全かつ適切に管理できます。 これには、Azure Log Analytics を使用した Azure Backup、Azure Site Recovery (ディザスターリカバリー用)、更新/構成管理、Azure Security Center および運用インテリジェンスが含まれます。 また、VMware vRealize の自動化コンソールを使用して、パブリッククラウドで Azure リソースを管理することもできます。 <a href="https://customers.microsoft.com/en-us/story/somerset-county-council-local-government" target="_blank">Somerset 郡協議会</a> と <a href="https://customers.microsoft.com/en-us/story/russell-reynolds-and-attunix" target="_blank">Russell Reynolds の関連付け</a> は、Azure サービスを VMware vm と統合しているお客様の例です。&nbsp;</li>
+  </ul>
+
+
+  <p>Azure への移行に役立つリソースを次に示します。</p>
+
+
+  <ul>
+   <li>VMware から Azure への移行に<a href="https://aka.ms/vmwazuretco" target="_blank">関して考えられるコスト</a>の概要</li>
+   <li><a href="https://turbonomic.com/solutions/technologies/azure-cloud/" target="_blank">Turbonomic</a>、 <a href="https://www.movere.io/product/" target="_blank">Movere</a> 、 <a href="https://www.cloudamize.com/" target="_blank">Cloudamize</a>などのツール、ガイダンス、推奨される移行テクノロジパートナーを含む<a href="https://azure.microsoft.com/migrate/" target="_blank">Azure Migration Center</a></li>
+   <li><a href="https://azure.microsoft.com/campaigns/vmw-to-azure/" target="_blank">VMware から Azure への移行シナリオ</a>に関する追加情報&nbsp;</li>
+   <li><a href="https://www.pluralsight.com/courses/microsoft-azure-vms-vmware-vsphere-admins" target="_blank">VMware vSphere 管理者コース向け</a>無料オンライン Azure</li>
+   <li>11月28日の午前10時 (太平洋標準時) の<a href="https://info.microsoft.com/Running-VMWare-on-Azure-Webinar.html" target="_blank">Web キャスト</a>では、今日 &rsquo; の発表に関する詳細情報を共有します。</li>
+  </ul>
+
+
+  <h2>移行後の注意事項</h2>
+
+
+  <p>多くのお客様がクラウドに移行することを検討しています。 Azure は、アプリケーションの配信と拡張に役立つセキュリティ、信頼性、およびグローバルなスケールを提供します。 同時に、クラウドでビジネス全体を実行できない可能性があることを理解しています。 低待機時間、規制、またはコンプライアンスの要件によって、アプリケーションの一部をハイブリッドな方法でオンプレミスで実行する必要がある場合があります。 実際には、クラウドで VMware 仮想化スタックを実行しても、ハイブリッドの要件には対応していません。 &nbsp; そのためには、接続と仮想化だけでなく、クラウド環境とオンプレミス環境での一貫性を維持する、さまざまなハイブリッドサービスとソリューションのセットが必要です。&nbsp;&nbsp;</p>
+
+
+  <p>Azure は、アプリケーション開発、管理、セキュリティ、データ、および id 間の一貫性を実現する唯一の真の <a href="https://azure.microsoft.com/en-us/overview/hybrid-cloud/?wt.mc_id=AID601064_QSG_BNR_156079" target="_blank">ハイブリッドクラウド</a> です。 これは、クラウドとオンプレミスの両方のサーバーの修正プログラム、構成、および監視によって、Azure Stack、Azure Backup、Azure Site Recovery、Azure Security Center、SQL Server Stretch DB、Azure Active Directory、およびハイブリッド管理などの豊富なオファリングによって可能になります。 他のクラウドでは、このレベルの包括的なハイブリッド機能は提供されません。</p>
+
+
+  <p>Microsoft では、お客様のニーズやクラウドへの移行場所に関係なく、Azure をシンプルにするツール、ソリューション、サービスへの投資に努めています。 クラウドのストーリーについて、より多くのことを待つことができ &rsquo; ます。</p>
+
+
+  <p>よろしくお願いします。</p>
+
+
+  <p>Corey</p>

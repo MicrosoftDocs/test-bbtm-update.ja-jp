@@ -1,0 +1,270 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f18063611e16bcabe960c76f1ccdf18ff7ad7eed
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903694"
+Slug: azure-networking-announcements-for-ignite-2017
+Title: Ignite 2017 の Azure のネットワーク発表
+Summary: 昨年、お客様がサービスをパブリッククラウドで実行しやすくすることをお約束しました。 世界中のお客様を対象としているため、一般的な懸念事項は客様からです。
+Content: >-
+  <p>昨年、お客様がサービスをパブリッククラウドで実行しやすくすることをお約束<a href="https://azure.microsoft.com/en-us/blog/azure-networking-announcements-for-ignite-2016/" target="_blank">しました</a>。 世界中のお客様との間でよくある懸念事項は、クラウドベースのミッションクリティカルなアプリケーションについて、成長を続ける客様からのポートフォリオを管理するための課題です。 Microsoft では、セキュリティ、パフォーマンス、監視、接続性、可用性、豊富なパートナーエコシステムの基礎について重点的に説明してきただけでなく、ネットワークサービスの全体的な管理を簡素化し、セキュリティで保護された準拠の方法でサービスを実行するためのより多くの選択肢を提供することにも重点を置いています。 ここでは、Ignite で行っている発表の概要について説明します。</p>
+
+
+  <h2>セキュリティ</h2>
+
+
+  <h3>仮想ネットワーク サービス エンドポイント</h3>
+
+
+  <p>Storage や SQL などの azures いるサービスは、インターネットに接続された IP アドレスを持っています。 &nbsp;多くのお客様は、Azure サービスがインターネットに直接公開されないようにしたいと考えています。 Virtual Network サービスエンドポイントは、仮想ネットワークのプライベートアドレス空間と、VNet の id を Azure サービスに拡張します。 インターネット経由ではなく、VNet からのみアクセスできるように Azure リソースを制限することができます。 1回のクリックで、サブネット上の VNet サービスエンドポイントが有効になります。 &nbsp;サービスエンドポイントは、選択したリージョンでの Azure Storage と Azure SQL Database のプレビューで利用できます。 今後数か月の間、VNet サービスエンドポイントに追加の Azure サービスが含まれる予定です。 詳細については、「 <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview" target="_blank">VNet サービスエンドポイント</a>」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40c06b13-672b-4a30-8647-7821a3172aa0.jpg"><img alt="VNet Service Endpoints" border="0" height="837" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c5bd5d2-71f0-4e44-896a-f52bc43c0f89.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="VNet サービスエンドポイント" width="1058"></a></p>
+
+
+  <p align="center"><strong>Vnet サービスエンドポイントは、VNet からのみアクセスされるように Azure サービスを制限します。 </strong></p>
+
+
+  <h3>仮想ネットワークの DDoS Protection</h3>
+
+
+  <p>ネットワーク攻撃の種類や巧妙さが増すにつれて、Azure では、アプリケーションのセキュリティと可用性を保護するためのソリューションをお客様に提供しています。 Azure &rsquo; の basic DDoS Protection は、グローバルにデプロイされた DDoS インフラストラクチャの規模と容量を使用して、Microsoft &rsquo; のクラウドを保護するためのリアルタイムの軽減策を自動的に提供します。 ただし、アプリケーションによっては、きめ細かなポリシーが必要になる場合があります。</p>
+
+
+  <p>新しい <strong>Azure DDoS Protection</strong> サービスは、対象となる DDoS 攻撃からアプリケーションを保護し、追加の構成、アラート、テレメトリを提供します。 継続的なチューニングと自動チューニングでは、VNet 内のパブリックにアクセス可能なリソースを保護します。 洗練された機械学習アルゴリズムを使用して悪意のあるトラフィックをインテリジェントに検出することで、アプリケーション &rsquo; の通常のトラフィックパターンをプロファイルすることで、対象となる DDoS 攻撃が軽減されます。 Azure Monitor とのシームレスな統合により、詳細なテレメトリとアラートが提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c537fc6-6727-4150-971a-2ddca906d531.png"><img alt="Azure DDoS Protection" border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6cbd776-4795-45a5-9468-32a64877d701.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure DDoS Protection" width="1399"></a></p>
+
+
+  <p align="center"><strong>Azure DDoS Protection は、Virtual Network 内のパブリックにアクセス可能なリソースを保護します</strong></p>
+
+
+  <p>を構成することは、新規または既存の Vnet の保護をアクティブ化するための単純なクリックです。 &nbsp; また、Azure アプリケーションゲートウェイ WAF を使用して、アプリケーションベース (レイヤー 7) の攻撃から保護することもできます。 DDoS Protection は、包括的な多層防御セキュリティソリューションのために、ネットワークセキュリティグループ (NSG) などの既存の Virtual Network セキュリティ機能を補完します。 詳細については <a href="https://aka.ms/azureddos" target="_blank">DDoS Protection web ページ</a>を参照してください。</p>
+
+
+  <h3>Application Gateway と web アプリケーションファイアウォールの機能強化</h3>
+
+
+  <p>現在 &rsquo; のクラウドベースの web アプリケーションでは、アプリケーションレベルの負荷分散と web アプリケーションファイアウォール (WAF) が必要です。 Azure アプリケーションゲートウェイは、cookie ベースのセッションアフィニティ、SSL オフロード、URL/ホストベースのルーティング、SSL 再暗号化、WAF など、レイヤー7のアプリケーション配信コントローラー (ADC) サービスを提供します。 Application Gateway &rsquo; s <a href="https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-ssl-policy-overview" target="_blank">SSL ポリシーによる</a> 暗号スイートの選択と優先順位付けのサポートにより、セキュリティが強化され、コンプライアンスが簡単になります。 新しい <a href="https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-redirect-overview" target="_blank">リダイレクト</a> 機能 (HTTP から HTTPS など) によって、すべての web サイトトラフィックが確実に暗号化されます。 現時点では、 <a href="https://azure.microsoft.com/en-us/services/app-service/web/" target="_blank">Azure Web Apps</a>のような<a href="https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-web-app-overview" target="_blank">マルチテナントバックエンド</a>エンティティのサポートにより、柔軟性とスケーラビリティが向上しています。 WAF では、運用サービスに推奨されるオープンソース <a href="https://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project" target="_blank">Owasp ModSecurity Core Rule Set 3.0</a> がサポートされるようになりました。 特定のルールを有効または無効にする機能を使用して、アプリケーションに最も関連性の高いルールを選択します。 WAF と Azure Security Center の統合により、WAF の管理容易性と監視が容易になります。</p>
+
+
+  <h3>ネットワークセキュリティ管理の簡素化</h3>
+
+
+  <p>ネットワークセキュリティグループ (NSGs) を使用すると、VNet 内の Vm およびサブネットへのアクセスを制限する IP アドレスに基づいて、ネットワークセキュリティアクセスポリシーを定義できます。 ただし、IP アドレスのみを使用して複雑なセキュリティポリシーを管理するのは煩雑でエラーが発生しやすい場合があります。 サービスタグ、アプリケーションセキュリティグループ、および拡張 NSGS ルール機能により、NSGs の管理が簡略化されました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0628d99-d42e-4080-9865-e0d6564bc15e.png"><img alt="Simpler Network Security Group management" border="0" height="636" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3862bd71-4e3a-4665-ae3f-80b2b271dccc.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ネットワークセキュリティグループの管理の簡素化" width="1939"></a></p>
+
+
+  <p align="center"><strong>タグ、グループ、および拡張ルールを使用したネットワークセキュリティグループ管理の簡素化 </strong></p>
+
+
+  <h3>サービスタグ: 特定の Azure サービスへのネットワークアクセスの調整</h3>
+
+
+  <p>Azure サービスでは、パブリック IP アドレスを使用します。 Storage などのサービスへのアクセスを必要とする VNet は、すべての Azure パブリック IP アドレスへのアクセスを開く必要があります。 これらの IP アドレスを維持することは問題になります。 サービスタグは、指定された Azure サービスのすべての IP アドレス (グローバルまたは伴い) を表す名前です。 たとえば、Storage という名前のサービスタグは、すべての Azure Storage IP アドレスを表します。 NSG ルールのサービスタグを使用すると、サービス名によって特定の Azure サービスへのトラフィックを許可または拒否できます。 各タグの基になる IP アドレスは、プラットフォームによって自動的に更新されます。 初期リリースには、Storage、SQL、および Traffic Manager 用のサービスタグが含まれています。 詳細については、「 <a href="https://aka.ms/servicetags" target="_blank">サービスタグ</a>」を参照してください。</p>
+
+
+  <h3>アプリケーションセキュリティグループ: ユーザー定義の VM グループに基づくネットワークセキュリティ</h3>
+
+
+  <p>アプリケーションセキュリティグループを使用すると、Vm のグループを表す独自のタグを作成できます。 NSGs でこのタグを使用できます。 たとえば、AppServers のすべての WebServers またはグループのグループを作成し、セキュリティポリシーでこれらの名前を使用できます。 詳細については、「 <a href="https://aka.ms/applicationsecuritygroups" target="_blank">アプリケーションセキュリティグループ</a>」を参照してください。</p>
+
+
+  <h3>ネットワークセキュリティグループの拡張ルール: 強化されたネットワークセキュリティ定義</h3>
+
+
+  <p>ネットワークセキュリティグループの拡張ルールにより、セキュリティ定義が簡略化します。 より大規模で複雑なネットワークセキュリティポリシーを定義して、ルールを減らすことができます。 複数のポート、複数の明示的な IP アドレス、サービスタグ、およびアプリケーションセキュリティグループを、1つの簡単に理解できるセキュリティ規則にまとめることができます。 詳細については、「 <a href="https://aka.ms/nsgaugmentedrules" target="_blank">Nsg</a>の拡張ルール」を参照してください。</p>
+
+
+  <h2>パフォーマンス-Azure は最速のパブリッククラウドを維持&nbsp;</h2>
+
+
+  <p>Azure は、引き続き最速のパブリッククラウドとなります。 クラウドでミッションクリティカルなワークロードを実行するには、パフォーマンスが重要です。 昨年、25 Gbps の Vm が導入され、30 Gbps の Vm が発表されるようになりました。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90ac90e1-b915-4f28-ae73-4ad792746349.png"> を作成します。<img align="right" alt="30Gbps" border="0" height="167" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8874458-853d-426e-bf85-d8995d5a4494.png" style="margin: 16px 0px 0px; border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: right; display: inline; background-image: none;" title="" width="193"> </a> 30 gbps D64 V3、Ds64 V3、E64 V3、Es64 v3、または M128ms vm は、高速ネットワークを使用して 30 gbps のパフォーマンスを実現し、vm 間のトラフィックに対して非常に短い待機時間と高いパケット/秒レートを提供します。</p>
+
+
+  <p>高速ネットワークサポートは、Windows および Linux の Dv2、Dv3、Ev2、Ev3、F、M シリーズの各インスタンスの4つ以上の物理コア vm すべてに大幅に拡張されています。 &nbsp;高速ネットワークは、Windows のすべてのパブリックリージョンで一般公開されており、Linux サポートのプレビューを20のリージョンに拡張しまし &rsquo; た。 Azure Marketplace の Ubuntu、SLES、および CentOS イメージは、手動での手順なしで <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-vm-accelerated-networking" target="_blank">高速ネットワーク</a> をサポートするようになりました。 Linux ディストリビューションの自動化が近日中に公開されます。</p>
+
+
+  <p>私たち &rsquo; は、パートナーと協力して、ネットワークハードウェアへの直接アクセスを提供する <a href="https://dpdk.org/" target="_blank">Data Plane Development</a> KIT (dpdk) テクノロジを使用して高速なパケット処理で、高性能なネットワーク仮想アプライアンスを提供してきました。 Ignite セッションで発表されたように、A10 を使用して、 &rsquo; D シリーズの vm で高速ネットワークと DPDK を使用して、Azure の運用環境でアプライアンスを立ち上げることができるようになりました。また、vThunder アプライアンスでは30Gbps の回線率が見られます。&nbsp;</p>
+
+
+  <p>&rsquo;A10<em>と Microsoft では、ワークロードをパブリッククラウド &rdquo; に移行する際に非常に最高のパフォーマンスを実現するために、 &ldquo; </em>Raj Jalan、最高テクノロジ責任者、a10 ネットワークと呼ばれています。 <em>&ldquo;Azure cloud with DPDK を使用すると、ネットワークのパフォーマンスが大幅に向上します。&rsquo;Azure 上の VTHUNDER ADC は、10倍のパフォーマンスと待機時間の短縮を顧客に提供します。&rdquo;</em></p>
+
+
+  <p>高速ネットワークを使用した Linux Vm の DPDK のサポートは、最適なネットワークパフォーマンスを提供するパートナー向けの開発者プレビューになりました。 詳細については、に <a href="mailto:AzureDPDK@microsoft.com" target="_blank">AzureDPDK@microsoft.com</a> お問い合わせください。&nbsp;</p>
+
+
+  <h3>6x VPN のパフォーマンス</h3>
+
+
+  <p>Azure Virtual Network への 1 Gbps VPN 接続を可能にするために、VPN gateway のパフォーマンスを向上させまし &rsquo; た。 &nbsp; このようなパフォーマンス VPN は、プライベートネットワーク接続ソリューションである ExpressRoute に適したバックアップオプションになります。 コアネットワークが ExpressRoute を使用しているときに、ブランチオフィスを VNet に接続するために新しい VPN Gateway を使用することもできます。 次回の VPN ゲートウェイからのパフォーマンスの更新をさらに予測します。</p>
+
+
+  <h2>監視</h2>
+
+
+  <p>お客様は、Azure を entrust してミッションクリティカルなワークロードを実行します。 これらの実稼働アプリケーションのリアルタイムの動作に対して詳細な operational insights を提供することが不可欠です。 これらのニーズに対応するために、ネットワーク監視機能を強化しました。</p>
+
+
+  <h3>Operations Management Suite を使用した ExpressRoute の監視</h3>
+
+
+  <p>ExpressRoute は、インターネットをバイパスする Microsoft &rsquo; のクラウドサービスへのプライベートネットワーク接続を提供します。 Operations Management Suite (OMS) の2つの新機能により、オンプレミスから Microsoft への ExpressRoute のエンドツーエンドの監視が可能になります。</p>
+
+
+  <ol>
+   <li>ExpressRoute &ndash; <strong>の Network Performance Monitor (npm)</strong>お客様は、エンドツーエンドの接続を監視して、Azure サービス管理ポータルで待機時間、パケット損失、トポロジスナップショットを継続的に測定できます。 アラートを設定し、待機時間の変動、パケット損失、ExpressRoute 回線、ピアリング、接続の統計情報を表示できます。</li>
+   <li><strong>エンドポイントの監視</strong> &ndash; お客様は、待機時間、パケット損失を測定し、Microsoft でホストされている PaaS または SaaS サービスへの接続のネットワークトポロジを表示することができます。 たとえば、エンドポイント監視では、Office 365 と Azure ストレージアカウントへの到達可能性を追跡できます。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1cd2dce-50f6-45ef-b91e-ae8af6cb0901.png"><img alt="Network Performance Monitor and Endpoint monitoring 1" border="0" height="198" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/21767d98-5370-4b08-82af-d16fac4b4f50.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Network Performance Monitor とエンドポイントの監視1" width="459"></a><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79224153-d358-4c25-ab1c-206fac932f5b.png"><img alt="Network Performance Monitor and Endpoint monitoring 2" border="0" height="220" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d38be24f-ae2a-46d4-ad61-14c9871c703c.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Network Performance Monitor とエンドポイントの監視2" width="229"></a></p>
+
+
+  <p align="center"><strong>Network Performance Monitor とエンドポイントの監視による ExpressRoute の監視の強化</strong></p>
+
+
+  <h3>拡張サイト間 (S2S) VPN 監視</h3>
+
+
+  <p>Azure Monitor 用の Azure VPN ゲートウェイには、S2S VPN トンネルと重要なイベントログのスループットを提供するメトリックと診断ログの両方が用意されています。 VPN トンネルメトリックに基づいてアラートを設定することもできます。 学習したルートとアドバタイズされたルートの両方について、BGP ピアリングの状態を使用して、ルーティング情報の可視性が向上します。</p>
+
+
+  <h3>Network Watcher の接続確認と nsg Flow ログの統合</h3>
+
+
+  <p>Network Watcher を使用すると、ネットワーク診断ツールと視覚化ツールを使用して、Azure サービスの診断と洞察を得ることができます。 新しい接続チェック機能では、高度な接続診断機能を使用して、待機時間、パケットが宛先に到着するまでにかかった経路などのホップ情報によってホップを確認できます。 また、NSGs、ゲストファイアウォール、ユーザー定義ルートによってブロックされたトラフィックなど、構成の問題を特定することもできます。 Network Watcher nsg Flow ログは、エラスティック Stack、Grafana、およびグレーのログなどの<a href="https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-visualize-nsg-flow-logs-open-source-tools" target="_blank">オープンソースのログ管理ツール</a>と簡単に統合できます。</p>
+
+
+  <h4>Azure Traffic Manager &ndash; リアルユーザー測定とトラフィックビュー</h4>
+
+
+  <p>Traffic Manager は、グローバルクラウドサービスのエンドユーザーに、待機時間が最も短い Azure リージョンエンドポイントを指示します。 Azure Traffic Manager は、Microsoft &rsquo; のクラウドサービスによって収集されるネットワーク待機時間の測定値を使用して、場所に基づいて受信クエリをカスタマイズします。 新しい Azure Traffic Manager &rsquo; リアルユーザー測定により、エンドユーザー &rsquo; のエクスペリエンスを向上させることができます。 詳細については、 <a href="https://aka.ms/atmrum" target="_blank">リアルユーザー測定の概要</a>に関するページを参照してください。</p>
+
+
+  <p>Traffic Manager トラフィックビューを使用すると、ユーザーの所在地、リージョンからのトラフィック量、代表的なユーザーの待機時間、および特定のトラフィックパターンを把握できます。 この実用的なインテリジェンスにより、ユーザーが優れたネットワークエクスペリエンスを得られるように、容量とグローバルな拡張をより適切に管理できます。 詳細については、 <a href="https://aka.ms/atmtv" target="_blank">トラフィックビューの概要</a>に関するページを参照してください。</p>
+
+
+  <h2>接続</h2>
+
+
+  <h3>グローバル Virtual Network ピアリング</h3>
+
+
+  <p>グローバル VNet ピアリングを使用すると、さまざまな Azure リージョンで Vnet をリンクすることで、Microsoft &rsquo; のグローバルバックボーンネットワークを介して vm 間の通信を行うことができます。 Vnet 内のリソースは、単一のグローバルネットワークに属しているかのように相互に通信します。 データレプリケーション、ディザスターリカバリー、およびデータベースのフェールオーバーは、グローバルな抽象化によって大幅に容易になります。 グローバル VNet ピアリングの詳細については、 <a href="https://aka.ms/globalvnetpeering" target="_blank">グローバル Vnet ピアリング</a>に関するページを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e28e3d34-7060-48ed-8d22-76f95379f1bf.png"><img alt="Global VNet Peering" border="0" height="561" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f66eb175-c245-43eb-8115-551cfcd46b7b.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="グローバル VNet ピアリング" width="1085"></a></p>
+
+
+  <p align="center"><strong>グローバル VNet ピアリングは異なるリージョンの Vnet を接続します </strong></p>
+
+
+  <h3>ExpressRoute の機能強化</h3>
+
+
+  <h4>Microsoft ピアリング、ルートフィルター、IPv6 を使用した Azure サービスへのアクセス</h4>
+
+
+  <p>以前は、ExpressRoute には3つのピアリングがありました。 azure vnet に接続するためのプライベートピアリング、azure サービスに接続するためのパブリックピアリング、および Office 365 と Dynamics 365 用の Microsoft ピアリングです。 ExpressRoute の管理と構成を簡素化するために、パブリックピアリングと Microsoft ピアリングを結合しました。 Microsoft ピアリング経由で Azure PaaS および Microsoft SaaS サービスにアクセスできるようになりました。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/expressroute/how-to-routefilter-portal" target="_blank">ルートフィルター</a> を使用すると、ExpressRoute 経由でネットワークにアドバタイズされる IP プレフィックスの数を大幅に減らすことができます。 ExpressRoute を使用してアクセスする特定の Office 365 または Dynamics 365 サービスを選択できます。 リージョン別の Azure サービスを選択することもできます。 &nbsp;さらに、IPv6 を使用して Microsoft ピアリング経由で Office 365 にアクセスできるようになりました。</p>
+
+
+  <h3>VPN の機能強化</h3>
+
+
+  <h4>MacOS および Active Directory (AD) 認証用のポイント対サイト (P2S) VPN のサポート</h4>
+
+
+  <p>P2S VPN 接続を使用すると、お客様は Windows マシンと macOS を使ってどこからでも Azure VNet に接続できます。 Active Directory ドメイン認証では、ユーザーは、クライアントコンピューターに証明書を挿入する代わりに、VPN 認証に組織 &rsquo; のドメイン資格情報を使用できるようになりました。 Azure VPN Gateway は、Azure またはオンプレミスのいずれかで実行されている RADIUS および AD ドメインのデプロイと統合します。 RADIUS サーバーを他の id システムと統合して、P2S VPN 用の追加の認証オプションを選択します。</p>
+
+
+  <h3>Azure DNS-プライベートゾーン</h3>
+
+
+  <p>Azure ドメインネームサービス (DNS) のプライベートゾーンは、Vnet 内およびその間で名前を管理および解決するための DNS サービスを提供します。 この情報をインターネットに公開することなくアプリケーションの内部 DNS 名を管理して、アプリケーションの内部構造をプライベートに保つことができます。 プライベートゾーンは、Vnet 内の Vm のホスト名レコードを自動的に管理します。 、NS、TXT、CNAME、SOA、SPF、およびワイルドカードを含む、すべての共通レコードの種類がサポートされています。</p>
+
+
+  <p>プライベートゾーンでは、Azure DNS は分割線ビューをサポートします。 プライベートゾーンとインターネットに接続するゾーンで同じ名前を使用できます。 DNS クエリは、外部から照会された場合に、VNet 内で実行された場合は内部 IP アドレスに解決され、外部 IP アドレスに解決されます。 これは、同じ内部および外部の名前を持つ web サイトが異なる IP アドレスに解決する場合に便利です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8d3e115-f743-460c-be3c-64995b3d4ab6.png"><img alt="Azure DNS Private Zones" border="0" height="335" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3701eae7-c82d-498b-a06f-03f6d8d53275.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure DNS Private Zones" width="609"></a></p>
+
+
+  <p align="center"><strong>VNet 内または VNet 外から DNS クエリが呼び出された場合、Azure DNS Private Zones は異なる Ip を返すことがあります。</strong></p>
+
+
+  <h2>可用性</h2>
+
+
+  <h3>新しい Load Balancer:10 倍スケール、高度な分析、Availability Zones、HA ポート</h3>
+
+
+  <p>負荷分散により、アプリケーションのサービスの可用性が向上します。 新しい Azure Load Balancer では、負荷分散された vm を100から 1000 vm の10倍に増やすことができるようになりました。 Load Balancer は、リージョンのエニーキャスト Ip を利用して外部または内部のトラフィックを迅速に負荷分散し、障害の発生に備えて可用性を確保します。 Availability Zones にデプロイされているすべての Vm 間で負荷を分散して、ゾーンベースのフロントエンドとバックエンドのクロスゾーン負荷分散を使用するシナリオを実現できます。 &nbsp; また、データプレーンの正常性、エンドポイントの正常性プローブの状態、パケットのカウンター、バイト数、接続試行回数、送信接続数など、広範な状態と診断メトリックを取得できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f111b750-045a-4025-ad3b-67ee8ced6bb3.png"><img alt="Azure’s new Load Balancer" border="0" height="410" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a8befc3c-7e2f-43a6-9445-d348e14ec15e.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure の新しい Load Balancer" width="1325"></a></p>
+
+
+  <p align="center"><strong>Azure &rsquo; の新しい Load Balancer は Availability Zones をサポートし、より優れた診断機能を提供します。</strong></p>
+
+
+  <h3>ネットワーク仮想アプライアンスの高可用性: HA ポート</h3>
+
+
+  <p>ネットワーク仮想アプライアンス (Nnv) は、お客様が重要なワークロードをセキュリティで保護するのに役立ちます。 新しい Load Balancer では、高可用性 (HA) ポートを利用して、1つの負荷分散規則を簡単に構成できます。これにより、より高速なフェールオーバーとスケールアウトオプションにより、信頼性が向上します。 内部ネットワークトラフィックは、仮想ルーター、ファイアウォール、アプリケーション配信コントローラーなどの複数の NVAs 負荷分散されます。</p>
+
+
+  <p>詳細については <a href="https://aka.ms/lbpreview" target="_blank">Load Balancer Standard Preview</a> と <a href="https://aka.ms/haports" target="_blank">HA ポート</a>を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/34b94b94-b1a7-4db7-a171-6359ddab2443.png"><img alt="HA Ports" border="0" height="535" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a4f26259-22a1-42f9-8619-c9e148035bfc.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="HA ポート" width="929"></a></p>
+
+
+  <p align="center"><strong>HA ポートを使用すると、</strong></p>
+
+
+  <h2>エコシステム: より優れたソリューションとより多くの選択肢を提供する</h2>
+
+
+  <p>パートナーの豊富なエコシステムを構築することで、より包括的なソリューションが提供され、特定の要件に最適な方法を選択できます。 グローバルネットワークを使用して、リージョンあたり1.6 の Pbps 容量と、Azure で利用可能な優れたネットワークパフォーマンスを利用することで、サービス企業としてのソフトウェアの傾向、azure での優れたネットワークパフォーマンスを提供します。</p>
+
+
+  <h3>Zscaler プライベートアクセス: azure 上に構築され、Azure アプリケーションにアクセスするための高速ローカルテクニカルを構築</h3>
+
+
+  <p>企業は、基幹業務アプリケーションに対して、セキュリティで保護されたユーザーごとのアクセスを提供することに苦労しています。 Zscaler は、パブリック環境とハイブリッド環境の両方について、Azure への企業の取り組みを簡略化するのに役立ちます。 <a href="https://www.zscaler.com/press/zpa-on-azure" target="_blank">Azure 上に構築</a>された Zscaler Private Access (zpa) は、企業ネットワーク全体を公開することなくビジネスアプリケーションに安全にアクセスするユーザーに対して、優れた高速でシームレスなポリシーベースのアクセスエクスペリエンスを提供します。 Zscaler は、認証と簡略化されたポリシー管理のために Active Directory と統合されています。</p>
+
+
+  <h3>Azure 上に構築されたサービスとしての F5 WAF</h3>
+
+
+  <p>Web アプリケーションファイアウォールインフラストラクチャを維持することは、チームにとって大きな負担になる可能性があります。 Azure 上に構築されたサービスとしての F5 &rsquo; s NEW waf は、エンタープライズグレードの WAF と API 駆動型サービスを組み合わせて、アプリの保護を容易にします。 Azure Marketplace から、WAF をサービスとしてデプロイできます。 <a href="https://f5wafsaaspreview.azurewebsites.net/default.html">F5 キー &rsquo; のアナウンスを読み取り</a>ます。</p>
+
+
+  <h3>ネットワーク仮想アプライアンス: より多くのパートナーとその他の選択肢</h3>
+
+
+  <p>Azure Marketplace で利用可能な NVAs 数は増え続けています。 最近の追加には、Arista vRouter、Citrix Netscaler SD-WAN、Riverbed SteelConnect、Cisco Viptela Vrouter、Verisign DNS ファイアウォールなどが含まれています。 NVA エコシステムの詳細について <a href="https://azure.microsoft.com/en-us/solutions/network-appliances/" target="_blank">は、こちら</a> を参照してください。</p>
+
+
+  <h3>ExpressRoute パートナー Tripled</h3>
+
+
+  <p>Tripled は、expressroute <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-locations" target="_blank">パートナーエコシステム</a> を利用して、世界中で40の expressroute のニーズに対応できるようになりました。 この強力なパートナーエコシステムを使用すると、世界中のどこからでもプライベートに接続できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3885c843-aefe-423b-a8c4-cb8aa68bf19f.png"><img alt="Partner ecosystem" border="0" height="663" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4e21235-e3ca-4c12-9d28-13d2d8af2707.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="パートナーエコシステム" width="1223"></a></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>ミッションクリティカルなワークロードを Azure に継続的に導入すると、アプリケーションの全体的なネットワーク管理、セキュリティ、スケーラビリティ、可用性、およびパフォーマンスの簡素化が引き続き実現されます。 グローバルクラウドとグローバルなバックボーンネットワークによって提供される特典を最大限に活用することができます。 1つの重要な教訓は、ネットワークベースのサービスとしてのソフトウェアを使用すると、エクスペリエンスが大幅に簡素化されていることです。 今後数か月の間に、マイクロソフトからより魅力的な発表を行うことができます。 お客様の要件を満たすためのロードマップをさらに改善するためのガイダンスに加えて、新しい機能についてのフィードバックをお待ちしております。</p>

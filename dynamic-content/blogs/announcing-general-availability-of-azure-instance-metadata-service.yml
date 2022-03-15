@@ -1,0 +1,173 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b4e98cecbf0ed930d028d6095b6ee820754bb18c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903770"
+Slug: announcing-general-availability-of-azure-instance-metadata-service
+Title: グローバルな Azure リージョンでの Instance Metadata Service の一般提供を発表
+Summary: すべてのグローバル Azure リージョンで Azure Instance Metadata Service の一般提供が発表されています。 Azure Instance Metadata Service は、仮想マシンインスタンスがコンピューティング、ネットワーク、今後のメンテナンスイベントに関する情報を取得できるようにする RESTful エンドポイントです。
+Content: >-
+  <p><strong>すべてのグローバル Azure</strong>リージョンでの Instance Metadata Service の一般提供を発表し、ドイツ/政府および中国のクラウドで<strong>パブリックプレビュー</strong>を発表します。 Instance Metadata Service は、仮想マシンインスタンスがコンピューティング、ネットワーク、および <a href="https://aka.ms/scheduledevents">今後のメンテナンスイベント</a>に関する情報を取得できるようにする RESTful エンドポイントです。 このエンドポイントは、VM からのみアクセスできる、よく知られているルーティング不可 IP アドレス (169.254.169.254) で使用できます。 Instance Metadata Service のデータは、 <a href="https://aka.ms/azureimds">クラスターのセットアップ、レプリカの配置、サポート性、テレメトリ</a>、その他のクラスターのブートストラップやランタイムのニーズに役立ちます。</p>
+
+
+  <h2>サービスの可用性</h2>
+
+
+  <p>サービスは、 <strong>すべてのグローバル Azure </strong>リージョンに作成されたすべての Azure Resource Manager vm で使用できます。 このサービスは、Government/中国/ドイツの Azure クラウドのプレビューでも利用できるようになりました。</p>
+
+
+  <h2>詳細なドキュメント</h2>
+
+
+  <p><a href="https://aka.ms/azureimds">Azure Instance Metadata Service</a> についての詳細情報</p>
+
+
+  <h2>インスタンスメタデータの取得</h2>
+
+
+  <p>Instance Metadata Service は、 <a href="https://docs.microsoft.com/en-us/rest/api/resources/?redirectedfrom=MSDN">Azure Resource Manager</a>を使用して作成または管理された vm を実行するために使用できます。 インスタンスのすべてのデータカテゴリにアクセスするには、Linux または Windows の次のサンプルコードを使用します。</p>
+
+
+  <h3>Linux</h3>
+
+
+  <p><code>curl -H Metadata:true <a href=""></a></code></p>
+
+
+  <h3>Windows</h3>
+
+
+  <p><code>curl &ndash;H @{&lsquo;Metadata&rsquo;=&rsquo;true&rsquo;} <a href=""></a></code></p>
+
+
+  <p>すべてのインスタンスメタデータの既定の出力は json 形式 (コンテンツタイプ Application/JSON) です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b71a0b83-c4e6-41c9-98fb-e828a6472d22.gif"><img alt="Azure Instance Metadata Service" height="734" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d264d9e2-d2bc-4505-89fb-f4cd5f8b80d7.gif" style="display: inline;" title="Azure Instance Metadata Service" width="1175"></a></p>
+
+
+  <h2>インスタンスメタデータのデータカテゴリ</h2>
+
+
+  <p>次の表に、インスタンスメタデータを使用して利用可能なすべてのデータカテゴリの一覧を示します。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="901">
+   <tbody>
+    <tr>
+     <td valign="top" width="290">Data</td>
+     <td valign="top" width="609">説明</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">
+     <p>location</p>
+     </td>
+     <td valign="top" width="609">
+     <p>VM が実行されている Azure リージョン</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">name</td>
+     <td valign="top" width="609">VM の名前</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">offer</td>
+     <td valign="top" width="609">VM イメージのプラン情報。これらの値は Azure イメージ ギャラリーからデプロイされるイメージについてのみ存在します</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">publisher</td>
+     <td valign="top" width="609">VM イメージの発行元</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">sku</td>
+     <td valign="top" width="609">VM イメージの特定の SKU</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">version</td>
+     <td valign="top" width="609">VM イメージのバージョン</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">osType</td>
+     <td valign="top" width="609">Linux または Windows</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">platformUpdateDomain</td>
+     <td valign="top" width="609">VM が実行されている更新ドメイン。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">platformFaultDomain</td>
+     <td valign="top" width="609">VM が実行されている障害ドメイン。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">vmId</td>
+     <td valign="top" width="609">VM の一意の ID。詳細については<a href="https://aka.ms/azureimds">ここ</a>を参照</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">vmSize</td>
+     <td valign="top" width="609">VM サイズ</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">ipv4/privateIpAddress</td>
+     <td valign="top" width="609">VM のローカル IP アドレス</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">ipv4/publicIpAddress</td>
+     <td valign="top" width="609">インスタンスのパブリック IP アドレス</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">subnet/address</td>
+     <td valign="top" width="609">サブネットのアドレス</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">subnet/prefix</td>
+     <td valign="top" width="609">サブネットプレフィックス、例24</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">ipv6/ipaddress</td>
+     <td valign="top" width="609">VM の IPv6 アドレス</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">macAddress</td>
+     <td valign="top" width="609">VM の mac アドレス</td>
+    </tr>
+    <tr>
+     <td valign="top" width="290">scheduledevents</td>
+     <td valign="top" width="609">「 <a href="https://aka.ms/scheduledevents">scheduledevents</a> &nbsp; <strong>(プレビュー)」を</strong>参照してください。</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>FAQ</h2>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+   <li>無効な要求を取得しています。必要なメタデータヘッダーが指定されていません。 これはどういう意味でしょうか。
+   <p>Metadata Service 要求で渡されるには、メタデータのヘッダーが必要です。 渡すヘッダーはアクセスを許可します</p>
+   </li>
+   <li>VM のコンピューティング情報を取得できないのはなぜ &nbsp; ですか。
+   <p>現在 Instance Metadata Service Azure Resource Manager 作成されたインスタンスのみがサポートされていますが、今後 Cloud Services (クラシック) Vm のサポートが追加される予定です。</p>
+   </li>
+   <li>ARM a を使用して仮想マシンを作成しましたが、コンピューティングメタデータ情報が表示されないのはなぜですか。
+   <p>Sep 2016 より後に作成された Vm では、単に新しい <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-using-tags">タグ</a> を追加して、コンピューティングメタデータの表示を開始することができます。 (Sep 2016 より前に作成された) 古い Vm の場合、メタデータを更新するには、VM に <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/classic/manage-extensions">拡張機能</a> を追加/削除する必要があります。</p>
+   </li>
+   <li>"500 - 内部サーバー エラー" というエラーを受け取るのはなぜですか。</li>
+  </ul>
+
+
+  <p>&nbsp;&nbsp;&nbsp;指数バックオフシステムに基づいて要求を再試行してください。 問題が解決しない場合は、Azure サポートにお問い合わせください。</p>
+
+
+  <ul>
+   <li>その他の質問/コメントはどこで共有すればいいですか。
+   <p>コメントを送信する <a href="https://feedback.azure.com">https://feedback.azure.com</a></p>
+   </li>
+  </ul>

@@ -1,0 +1,180 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 19640c02cd26ddb2e8e8e24cd41fa49e368d71fa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903838"
+Slug: visual-studio-team-services-april-2018
+Title: 'Visual Studio Team Services の brewing: 2018 年4月ダイジェスト'
+Summary: この投稿シリーズでは、Visual Studio Team Services に関する最新の更新プログラムとニュースが提供されており、Azure ユーザーは3週間ごとにリリースされる新機能を最新の状態に保つことができます。 Visual Studio Team Services には、効率的な継続的インテグレーションとリリースパイプラインを Azure に作成するための最適な DevOps ツールが用意されています。
+Content: >-
+  <p>この投稿シリーズでは、 <a href="https://visualstudio.com/team-services/?utm_source=AzureCOM&amp;utm_medium=Blog&amp;utm_campaign=Oct2016Digest">Visual Studio Team Services</a>に関する最新の更新プログラムとニュースが提供されており、Azure ユーザーは3週間ごとにリリースされる新機能を最新の状態に保つことができます。 Visual Studio Team Services には、効率的な継続的インテグレーションとリリースパイプラインを Azure に作成するための最適な DevOps ツールが用意されています。 Team Services の機能が急速に拡大しているため、チームは、任意の言語で記述され、任意の OS にデプロイされたアプリについて、Azure ワークフローのすべての領域に対して、より効率的な活用を開始できます。</p>
+
+
+  <h2>ビルド完了トリガーを使用して関連するビルドをチェーンする</h2>
+
+
+  <p>大規模な製品には、互いに依存する複数のコンポーネントがあります。 これらのコンポーネントは、多くの場合、独立して構築されます。 上流コンポーネント (ライブラリなど) が変更された場合、ダウンストリーム依存関係を再構築および再検証する必要があります。 Teams 通常、これらの依存関係は手動で管理します。</p>
+
+
+  <p>これで、別のビルドが正常に完了したときにビルドをトリガーできるようになりました。 アップストリームビルドによって生成された Artifacts は、後のビルドでダウンロードして使用できます。また、これらの変数からデータを取得することもできます。 BuildDefinitionId、BuildId、builddefinitionname です。 詳細については、 <a href="https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/build/triggers">ビルドトリガー</a> のドキュメントを参照してください。</p>
+
+
+  <p>この機能は、現在、2番目に投票された <a href="https://visualstudio.uservoice.com/forums/330519-visual-studio-team-services/suggestions/2165043-provide-build-configuration-dependencies-in-tfs-bu">提案</a> のうち、1129の投票に基づいて優先順位が付けられています。</p>
+
+
+  <p><img alt="Setup build chaining" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/132_03.png"></p>
+
+
+  <p>場合によっては、単一の <a href="https://docs.microsoft.com/en-us/vsts/build-release/concepts/process/phases">マルチフェーズビルド</a> がニーズを満たす可能性があることに注意してください。 ただし、ビルド完了トリガーは、要件に異なる構成設定、オプション、または別のチームが依存プロセスを所有している場合に便利です。</p>
+
+
+  <h2>YAML からの CI ビルドのトリガー</h2>
+
+
+  <p>YAML ビルド定義ファイルの一部として、継続的インテグレーション (CI) トリガーの設定を定義できるようになりました。 既定では、新しい <code>.vsts-ci.yml</code> ファイルを Git リポジトリにプッシュすると、すべてのブランチに対して CI が自動的に構成されます。</p>
+
+
+  <p>トリガーする分岐を制限するには、次の内容をファイルに追加して、マスターへのプッシュまたはリリース/* パターンに一致する分岐に対するビルドをトリガーします。</p>
+
+
+  <p>YAMLCopy</p>
+
+
+  <pre>
+
+  <code>trigger:
+
+  - master
+
+  - releases/*
+
+  </code></pre>
+
+
+  <p>トリガーを無効にしたり、YAML ファイルのトリガー設定を上書きしたりする場合は、定義で実行できます。</p>
+
+
+  <p>詳細については、 <a href="https://github.com/Microsoft/vsts-agent/blob/master/docs/preview/yamlgettingstarted-triggers.md">Yaml ビルドトリガー</a> に関するドキュメントを参照してください。</p>
+
+
+  <p><img alt="ci triggers from yaml" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/133_04.png"></p>
+
+
+  <h2>ヘルムを使用した Kubernetes へのデプロイの効率化</h2>
+
+
+  <p><a href="https://github.com/kubernetes/helm/">ヘルム</a> は、Kubernetes アプリケーションのインストールと管理を合理化するツールです。 また、昨年、人気とコミュニティのサポートも増えてきました。 <strong>リリース</strong>のヘルムタスクを使用して、 <a href="https://azure.microsoft.com/services/container-service/">Azure Container Service (AKS)</a>またはその他の Kubernetes クラスターに対して、ヘルムグラフのパッケージ化と配置を行うことができるようになりました。</p>
+
+
+  <p>VSTS では、Kubernetes と Docker コンテナーが既にサポートされています。 このヘルムタスクを追加することで、Kubernetes クラスターにコンテナーを配信するための、ヘルムベースの CI/CD パイプラインを設定できるようになりました。 詳細については、「 <a href="https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azure/deploy-container-kubernetes?view=vsts">Deploy Using Kubernetes」 Azure Container Service を</a> 参照してください。</p>
+
+
+  <p><img alt="helm tasks" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/133_09.png"></p>
+
+
+  <h2>継続的に Azure Database for MySQL にデプロイする</h2>
+
+
+  <p>Azure &rsquo; s MySQL Database をサービスとして<a href="https://azure.microsoft.com/services/mysql/">Azure Database for MySQL</a> - に継続的にデプロイできるようになりました。 バージョン管理で MySQL スクリプトファイルを管理し、PowerShell スクリプトではなくネイティブタスクを使用してリリースパイプラインの一部として継続的にデプロイします。</p>
+
+
+  <h2>Azure DevOps プロジェクトを使用したゴーおよび Ruby アプリケーションの構成</h2>
+
+
+  <p>Azure DevOps Projects を利用すると、Azure を使い始めるのが簡単になります。 これは、いくつかの手順で、任意の Azure サービスでアプリケーションを起動するのに役立ちます。 DevOps Projects は、アプリの開発、展開、および監視に必要なすべてのものを設定します。 これで、DevOps パイプライン全体を、ゴーアプリケーションと Ruby アプリケーションにも設定できるようになりました。 詳細については、 <a href="https://docs.microsoft.com/en-us/vsts/deploy-azure">Azure へのデプロイに</a> 関するドキュメントを参照してください。</p>
+
+
+  <h2>Ruby on Rails アプリケーションをデプロイする</h2>
+
+
+  <p>新しい <strong>Azure App Service</strong> リリース定義テンプレートには、 <strong>Linux 上の Azure WebApp</strong>に Ruby on Rails アプリケーションをデプロイするために必要なタスクが含まれるようになりました。 このリリース定義テンプレートを使用した場合、 <strong>App Service のデプロイ</strong> タスクには、bundler (dependency manager) によってアプリケーションの依存関係がインストールされるインラインデプロイスクリプトが事前に設定されます。</p>
+
+
+  <h2>外出先で作成されたアプリケーションの構築</h2>
+
+
+  <p>これで、VSTS でゴーアプリケーションをビルドできるようになりました。 <strong>ゴーツールインストーラー</strong>タスクを使用して、1つまたは複数のバージョンの実行ツールを即座にインストールします。 このタスクは、プロジェクトに必要な特定のバージョンのゴー Tool を取得し、ビルドエージェントのパスに追加します。 ターゲットの移動ツールのバージョンが既にエージェントにインストールされている場合、このタスクは、ダウンロードとインストールのプロセスをスキップします。 <strong>[</strong>実行] タスクを使用すると、アプリケーションの依存関係のダウンロード、ビルド、テストを行うことができます。 このタスクを使用して、任意のカスタムの [ジャンプ] コマンドを実行することもできます。</p>
+
+
+  <h2>配置グループは一般公開されています</h2>
+
+
+  <p>デプロイグループがプレビュー版ではなくなり、一般公開されていることが発表されました。 配置グループは、VSTS/TFS の Release Management の、すぐに使える、堅牢なマルチマシン展開機能です。</p>
+
+
+  <p>配置グループを使用すれば、アプリケーション全体の高可用性を確保しながら、複数のサーバーの間で配置を調整し、ローリング更新を実行できます。 また、Azure または任意のクラウド上のオンプレミスまたは仮想マシンにサーバーをデプロイでき、さらには、デプロイされた成果物をエンド ツー エンドで、サーバー レベルまで追跡できます。</p>
+
+
+  <p><img alt="" height="901" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/deploymentPools.png" width="1567"></p>
+
+
+  <p>エージェントベースの展開は、ビルドとリリースが使用するのと同じエージェントに依存します。これにより、ターゲットコンピューターで完全なタスクカタログを使用できるようになります。 拡張性の観点から、プログラムによるアクセスに対して<a href="https://docs.microsoft.com/en-us/rest/api/vsts/distributedtask/deploymentgroups">配置グループ</a>と<a href="https://docs.microsoft.com/en-us/rest/api/vsts/distributedtask/targets">ターゲット</a>の REST API を使用することもできます。</p>
+
+
+  <p>エージェント ベースの配置機能は、既に使用可能になっている同じビルドと配置エージェントに依存します。 配置グループ フェーズで、ターゲット コンピューター上の完全なタスク カタログを使用できます。 拡張性の観点から、プログラムによるアクセスに対して<a href="https://docs.microsoft.com/en-us/rest/api/vsts/distributedtask/deploymentgroups">配置グループ</a>と<a href="https://docs.microsoft.com/en-us/rest/api/vsts/distributedtask/targets">ターゲット</a>の REST API を使用することもできます。</p>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/devops/2018/03/26/deployment-groups-is-now-generally-available-sharing-of-targets-and-more/">GA の発表</a>について詳しくは、こちらをご覧ください。</p>
+
+
+  <h2>SonarSource からの最新の拡張機能を使用してコード品質を向上させる</h2>
+
+
+  <p>SonarSource は、最近更新された <a href="https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube">Sonarqube 拡張機能</a> と新しい <a href="https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarcloud">sonarsource 拡張機能</a>をリリースしました。これにより、さまざまな言語の静的コード分析が可能になります。 VSTS Gradle と Maven のタスクでは、特に Java ビルドにこれらの拡張機能を利用します。 Gradle または Maven タスクのバージョン 2. * で <strong>sonarqube または Sonarcloud 分析の実行</strong> を有効にするだけです。その後、次に示すように、sonarqube/sonarcloud タスクの <strong>準備</strong> と <strong>公開</strong> を行います。 詳細については、 <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS">SonarQube での分析</a> に関するドキュメントを参照してください。</p>
+
+
+  <p><img alt="Tasks for Gradle and Maven" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/131_03.png"></p>
+
+
+  <h2>Markdown ファイルを Git リポジトリから Wiki として発行する</h2>
+
+
+  <p>開発者は、コードリポジトリ内のコード &rdquo; について説明する api &rdquo; 、 &ldquo; sdk &rdquo; 、および &ldquo; ヘルプドキュメントの &ldquo; ドキュメントを作成します。 リーダーは、コードを使用して適切なドキュメントを見つける必要があります。 これで、コードリポジトリから markdown ファイルを発行し、Wiki でホストできるようになりました。</p>
+
+
+  <p><img alt="public code as wiki action" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/132_04.png"></p>
+
+
+  <p>Wiki 内から、[ <strong>wiki としてコードを発行</strong>] をクリックして開始します。 次に、昇格する必要がある Git リポジトリ内のフォルダーを指定できます。</p>
+
+
+  <p><img alt="publish pages dialog" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/132_05.png"></p>
+
+
+  <p>[ <strong>発行</strong>] をクリックすると、選択したフォルダーにあるすべての markdown ファイルが wiki として公開されます。 これにより、ブランチの head が wiki にマップされ、Git リポジトリに加えた変更が直ちに反映されるようになります。</p>
+
+
+  <p>詳細については、 <a href="https://blogs.msdn.microsoft.com/devops/2018/03/25/announcement-publish-markdown-files-from-your-git-repository-to-vsts-wiki/">お知らせ</a>を参照してください。 また、wiki REST Api が公開されました。 詳細については、 <a href="https://docs.microsoft.com/en-us/rest/api/vsts/wiki/wikis/create">wiki の関数</a> と <a href="https://docs.microsoft.com/en-us/rest/api/vsts/search/wiki%20search%20results/fetch%20wiki%20search%20results">wiki の検索</a> に関するドキュメントを参照してください。</p>
+
+
+  <h2>ビューを使用して Power BI を VSTS Analytics と統合する</h2>
+
+
+  <p>Power BI を<a href="https://docs.microsoft.com/en-us/vsts/report/analytics/what-is-analytics?view=vsts">VSTS Analytics</a>拡張機能と統合するための<a href="https://blogs.msdn.microsoft.com/devops/2018/04/16/power-bi-and-vsts-integration-made-easy/">使いやすいソリューションを発表</a>します。 &rsquo;OData クエリを記述する方法を知る必要はありません。 新しい特徴<a href="https://docs.microsoft.com/en-us/vsts/report/analytics/what-are-analytics-views?view=vsts">分析ビュー</a>を使用すると、VSTS work の追跡データを Power BI シンプルになり、最大のアカウントに対して機能します。 作業項目クエリと同様に、分析ビューでは、作業項目データと列の結果のスコープを指定するフィルターを指定します。 また、ビューを使用すると、作業項目の過去のリビジョンを報告したり、傾向レポートを簡単に作成したりすることができます。</p>
+
+
+  <p>少数のアカウントと基本的なシナリオを持つ顧客に適した、 <a href="https://docs.microsoft.com/en-us/vsts/report/analytics/analytics-default-views">既定の分析ビュー</a> のセットが用意されています。 大規模なアカウントでは、Power BI にプルされるデータのスコープを限定することが必要になる場合があります。 分析ビューを使用すると、そのような操作を行うことができます。 データと履歴の範囲を Power BI のレポート対象に限定します。 vsts の分析ハブで作成した分析ビューは、 <a href="https://docs.microsoft.com/en-us/vsts/report/powerbi/data-connector-connect?view=vsts">vsts Power BI Data Connector</a>からすぐに選択できます。 これで、既定のビューを編集し、<a href="https://go.microsoft.com/fwlink/?linkid=870160">新しいビューを作成</a>して、Power BI に返されるレコード、フィールド、および履歴を微調整できます。</p>
+
+
+  <p><img alt="Work item tab showing a view filtered to Priority 1 bugs on the Fiber Suite App team and the Fiber Suite report team." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1WorkItem-927x1024.png"></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>すべての機能の一覧については、リリースノートを参照してください。 VSTS の最新の計画と開発については、必ず<a href="https://blogs.msdn.microsoft.com/devops/">DevOps のブログ</a>を購読してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2018/mar-05-vsts">3 月 5 日</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2018/apr-03-vsts">4 月 3 日</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/release-notes/2018/apr-16-vsts">4 月 16 日</a></li>
+  </ul>
+
+
+  <p>コーディングをお楽しみください!</p>
+
+
+  <p><a href="https://twitter.com/tfsbuck">@tfsbuck</a></p>

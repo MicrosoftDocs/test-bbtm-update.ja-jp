@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 12d0b7bdfdafa8666038509c5f13e83c16e584d4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903896"
+Slug: understanding-performance-and-usage-impact-of-releases-using-annotations-in-application-insights
+Title: Application Insights の注釈を使用したリリースのパフォーマンスと使用状況の影響について
+Summary: 少し前に、Application Insights チームはリリース注釈を再導入しました。これにより、ユーザーはアプリとサービスリリースの発生を APM に関連付けることができるようになります。
+Content: >-
+  <p>少し前に、Application Insights チームは<a href="https://azure.microsoft.com/en-us/blog/application-insights-announces-availability-of-release-annotations/" target="_blank">リリース注釈</a>を再導入しました。これにより、ユーザーはアプリとサービスのリリースとその APM データを関連付けることができるようになります。 VSTS ユーザーは、リリーススクリプトにステップを追加して注釈を作成することができます。また、サードパーティのリリースエンジンを利用するユーザーは、 <a href="https://azure.microsoft.com/en-us/blog/application-insights-powershell-script-available-for-creating-release-annotations/" target="_blank">Powershell スクリプト</a>を呼び出すだけで、リリース注釈を Application Insights にプッシュできます。</p>
+
+
+  <p>それまでの間、vsts チームは VSTS リリースツールでの <a href="https://www.visualstudio.com/en-us/docs/build/get-started/aspnet-4-ci-cd-azure-automatic" target="_blank">継続的な継続的インテグレーション/デプロイ</a> 機能の成熟度を維持し、その機能を <a href="https://www.visualstudio.com/en-us/docs/build/overview" target="_blank">他の多くのプラットフォーム</a>に拡張しています。 CI/CD の概念は、世界中の開発者にとって勢いと評判を継続的に得られるため、関連する厳密なリリースサイクルに対する注釈生成の価値は劇的に高まります。</p>
+
+
+  <h2>簡単な例</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ea6dd9e-2f9c-43ba-b63b-2c8c00ef7961.png"><img alt="image" border="0" height="574" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d6fe873-038f-4474-a42e-a45e4cc77c3e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="969"></a></p>
+
+
+  <p>上の図では、MyEnterpriseApp という名前のアプリが継続的デプロイによって定期的にデプロイされています。 ここでは、ユーザーとブラウザーのページ読み込み時間という2つの統計が選択されています。 コメントはリリーススクリプトに追加されたため、リリースがいつ発生しているか、およびそれらがパフォーマンスや使用状況にどのような影響を与えるかを明確に確認できます。 グラフの前の部分では、非常に一般的なユーザーのリズムが示されています。これは、平日の平日の時間の急増、夜間の谷、週末のユーザー数が少ないことを示しています。 ページの読み込み時間は常に2秒以内であるため、ユーザーベースの一貫性は維持されます。</p>
+
+
+  <p>ただし、次の週 (4 月17日) に発生するリリースを確認すると、問題が明らかになります。 ページの読み込みにかかる時間は最大で8秒で、アクティブなユーザーの数は、このレベルのパフォーマンスを許容しているユーザーの数が、週末に通常表示されるものよりも少なくなるまで大幅に減少しています。 これらのイベントの後に、4月19日にリリースされた別のリリースが示されています。このリリースでは、ページの読み込み時間が通常の範囲を低下させ、アクティブなユーザーカウントを再利用できるようになったため、パフォーマンスが許容可能な状態に戻ります。</p>
+
+
+  <p>では、何か起きたのでしょうか。 リリースは適切にテストされていませんか? テストに含まれて &rsquo; いない運用環境に環境要因が存在しましたか? 次の手順では、問題を調査して、再度発生しないことを確認 &rsquo; します。 ここでも、リリースの注釈を活用して、問題を解決するための詳細な掘り下げを始めることができます。 注釈をポイントすると、リリースに関する情報が提供されることに注意してください。</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40bb1abd-b7ee-4ea5-9885-2f663f1b0d47.png"><img alt="image" border="0" height="135" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10c4eed9-44a0-4572-be7b-21f6dae77fc7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px; display: inline; padding-right: 0px" title="絵" width="240"></a></p>
+
+
+  <p>情報バルーンをクリックすると、リリースを説明する詳細ブレードが開き、VSTS のリリーススクリプト (または、Powershell スクリプトで注釈が作成されたときに指定されていた場合はサードパーティシステム) へのリンクが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/57e22df5-250d-4054-be76-60971f0be108.png"><img alt="image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2293c38a-9e41-4ed3-aaf6-a3db47d60de2.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="799"></a></p>
+
+
+  <p>このようにして、リリースについてどのような情報を必要としているかをすばやく確認し、個々の手順やデプロイされたコンポーネントを調査できます (コードエラーが発生した可能性がある場合)。</p>
+
+
+  <p>メトリックスエクスプローラーの結果をお気に入りとして保存できるため、今後使用するためにこれらの重要な統計情報のビューを保持することができます。 これにより、次の日に戻ることができます。また、エラーが繰り返されていないことを確認したり、問題が発生した場合にすぐに調査したりできるように、リリースのビューをすぐに入手できます。 リリース注釈を使用して、リリースをパフォーマンスと使用状況データに関連付けることができるだけで、確認や調査に必要な時間が大幅に短縮されます。</p>
+
+
+  <p>常に、 <a href="https://visualstudio.uservoice.com/forums/357324-application-insights">Application Insights UserVoice ページ</a>で新しい機能や改善された機能についてアイデアを共有してください。 質問がある場合は、 <a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/home?forum=ApplicationInsights">Application Insights フォーラム</a>にアクセスしてください。</p>

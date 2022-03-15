@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e08b5249ef87d38b89b17bdc420d85f001222540
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903522"
+Slug: latest-updates-to-open-source-database-services-for-azure-ignite-2018
+Title: Open Source Database Services for Azure の最新の更新プログラム – Ignite 2018
+Summary: 2018 年 7 月に、MySQL および PostgreSQL 用の Azure データベース サービスに追加の機能を提供するために、このチームが行ったすべての優れた作業についてブログに投稿しました。
+Content: >-
+  <p>2018 年 7 月に、<a href="https://azure.microsoft.com/blog/author/ssannakk/" target="_blank"></a><a href="https://aka.ms/mysql" target="_blank">MySQL</a> および <a href="https://aka.ms/PostgreSQL" target="_blank">PostgreSQL</a> 用の Azure データベース サービスに追加の機能を提供するために、このチームが行ったすべての優れた作業についてブログに投稿しました。 それ以降、チームは、より多くのリレーショナル データベース エンジンの選択肢を提供し、Ignite 2018 カンファレンスに合わせ提供する新しい機能セットを拡張する戦略に取り組み続け、 &rsquo;お客様とユーザーからのフィードバックに基づいて引き続き実装を続けていける、オファリングと既存のサービスに加えた追加に関する情報をお寄せください。</p>
+
+
+  <h2>Azure Database for MariaDB (プレビュー)</h2>
+
+
+  <p>Azure Database for <a href="https://aka.ms/mariadb" target="_blank">MariaDB</a> サービスはプレビューで提供され、オープンソースの互換性、組み込みの高可用性、動的スケーリング、柔軟な価格を備える、エンタープライズ対応のフル マネージド コミュニティ MariaDB を提供します。 MariaDB Communityエディションは、お客様が選択した言語とフレームワークを使用して、クラウドに簡単にリフト アンド シフトするのに役立ちます。 お客様は、Azure で実行されている MariaDB の機能を活用できます。</p>
+
+
+  <h2>&ndash; Azure Database for MySQL読み取りレプリカのプレビュー中</h2>
+
+
+  <p>Azure Database for MySQL、同じリージョン内の 1 つの Azure Database for MySQL サーバー (マスター) から最大 5 つの Azure Database for MySQL サーバー (レプリカ) へのデータの継続的な非同期レプリケーションがサポートされます。 これにより、読み取り負荷の高いワークロードを 1 つの Azure Database for MySQL サーバーの容量の制約を超えてスケーリングし、ユーザーの好みに応じてレプリカ サーバー間でバランス&#39;できます。 レプリカ サーバーは、マスター上のデータ変更からレプリケートされた書き込みを除き、読み取り専用です。 レプリカ サーバーへのレプリケーションを停止すると、読み取りと書き込みを受け入れるスタンドアロン サーバーになります。</p>
+
+
+  <h2>&ndash; Azure Database for PostgreSQLインテリジェント パフォーマンス機能のプレビュー中</h2>
+
+
+  <p>Azure Database for PostgreSQLインテリジェント パフォーマンス オファリングの一部として、クエリ ストア、<strong></strong>Query Performance Insight、およびパフォーマンスに関<strong></strong>する推奨事項のプレビュー サポートが提供されます。<strong></strong> この機能の組み合わせを使用して、お客様はデータベースを調べ、ワークロードを理解し、ボトルネックを特定し、クエリのパフォーマンスの変化を検出できます。</p>
+
+
+  <ul>
+      <li><strong>クエリ ストア</strong> 実行統計と待機イベント分散を収集して格納します。 これにより、お客様はデータベースを検査してワークロードを把握し、ボトルネックを特定し、クエリのパフォーマンスの変化を検出できます。 クエリ ストア、2 つのインテリジェント パフォーマンス機能 (パフォーマンスの推奨事項とQuery Performance Insight機能も有効にできます。</li>
+      <li><strong>Query Performance</strong> <strong>Insight</strong> を使用すると、Azure Portal を使用してデータベース ワークロードを視覚的に検査して、実行時間の長いクエリを識別し、クエリに関連付けられている待機統計を検査し、クエリのパフォーマンスの変動を特定できます。</li>
+      <li><strong>パフォーマンスに関する</strong> 推奨事項を使用すると、お客様はデータベースを分析し、そのデータベースのパフォーマンスを向上させる推奨事項の一覧を取得できます (その場合)。 現在、パフォーマンスに関する推奨事項機能では、インデックスの作成 <strong>に関する推奨事項だけが</strong> 生成されます。 インデックスの作成に関する推奨事項には、テーブル名や列名などの一般的な情報と、関連付けられているインデックスを作成するための SQL コマンドが含まれている必要があります。 パフォーマンスに関する推奨事項に従って、お客様はコマンドをコピーし、PostgreSQL クライアント アプリケーションに貼り付けます。 パフォーマンスに関する推奨事項を実装した後、お客様はパフォーマンスをテストして、それらの変更が加えた影響を特定する必要があります。</li>
+  </ul>
+
+
+  <h2>MySQL および PostgreSQL &ndash; Advanced Threat Protection 用の Azure データベース サービスがプレビューで提供される</h2>
+
+
+  <p>Azure Database Services for MySQL および PostgreSQL 用の Advanced Threat Protection を使用すると、潜在的な脅威が発生した場合に検出して対応できます。 ユーザーは、潜在的な脆弱性、異常なデータベース アクセス、クエリ パターンを含む、疑わしいデータベース アクティビティに関するアラートを受け取る。 この機能は、アラートを Azure Security Center に統合して、疑わしいアクティビティの詳細と、それらを調査して軽減する方法に関する推奨事項を提供します。 Advanced Threat Protection は、データベースの脅威への対応も簡素化します。セキュリティの専門家を必要とせず、高度なセキュリティ監視システムを管理する必要もありません。</p>
+
+
+  <h2>MySQL および PostgreSQL &ndash; Online の Azure への移行のための Azure データベース サービスがプレビューで提供開始</h2>
+
+
+  <p>Azure Database Migration Service (DMS) は、ダウンタイムを最小限に抑え、複数のデータベース ソースから Azure Data プラットフォームへのシームレスな移行を可能にするように設計されたフル マネージド サービスであり、次のプレビュー サポートを提供します。</p>
+
+
+  <ul>
+      <li>オンプレミスまたは仮想マシン上で実行されている MySQL データベースをAzure Database for MySQL。</li>
+      <li>オンプレミスまたは仮想マシン上で実行されている PostgreSQL Azure Database for PostgreSQL。</li>
+  </ul>
+
+
+  <h2>MySQL、PostgreSQL、MariaDB 用の Azure データベース サービスのその他のリソース</h2>
+
+
+  <p>これらのデータベース サービスのいずれかを現在使用している場合は、次のリンクが役に立つ場合があります。</p>
+
+
+  <ul>
+      <li>Azure Database for MariaDB <ul>
+          <li><a href="https://aka.ms/mariadb" target="_blank">サービス情報</a></li>
+          <li><a href="https://aka.ms/mariadbdocs" target="_blank">ドキュメント</a></li>
+          <li><a href="https://feedback.azure.com/forums/915439-azure-database-for-mariadb" target="_blank">フィードバック フォーラム</a></li>
+      </ul>
+      </li>
+      <li>Azure Database for MySQL <ul>
+          <li><a href="https://aka.ms/MySQL" target="_blank">サービス情報</a></li>
+          <li><a href="https://docs.microsoft.com/azure/mysql/" target="_blank">ドキュメント</a></li>
+          <li><a href="https://feedback.azure.com/forums/597982-azure-database-for-mysql" target="_blank">フィードバック フォーラム</a></li>
+      </ul>
+      </li>
+      <li>Azure Database for PostgreSQL <ul>
+          <li><a href="https://aka.ms/PostgreSQL" target="_blank">サービス情報</a></li>
+          <li><a href="https://docs.microsoft.com/azure/postgresql/" target="_blank">ドキュメント</a></li>
+          <li><a href="https://feedback.azure.com/forums/597976-azure-database-for-postgresql" target="_blank">フィードバック フォーラム</a></li>
+      </ul>
+      </li>
+      <li>Azure で無料 <a href="https://azure.microsoft.com/free/" target="_blank">アカウントに</a> サインアップする</li>
+      <li><a href="https://aka.ms/dmguide" target="_blank">Azure データベース移行ガイド</a></li>
+  </ul>
+
+
+  <p>MariaDB、MySQL、PostgreSQL 用の Azure データベース サービスで利用できる最新の機能を使用して作業してください。 User Voice for <a href="https://feedback.azure.com/forums/915439-azure-database-for-mariadb" target="_blank">MariaDB</a>、 <a href="https://feedback.azure.com/forums/597982-azure-database-for-mysql" target="_blank">MySQL</a>、 <a href="https://feedback.azure.com/forums/597976-azure-database-for-postgresql" target="_blank">または PostgreSQL</a> を使用して、ご自分の印象を共有してください。</p>

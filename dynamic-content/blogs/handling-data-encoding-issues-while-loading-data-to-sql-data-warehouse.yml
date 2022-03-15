@@ -1,0 +1,247 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cf8f1a1794c6dd53917c3569e563180edfbc3ba2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139908991"
+Slug: handling-data-encoding-issues-while-loading-data-to-sql-data-warehouse
+Title: データの読み込み中のデータ エンコードの問題のSQL Data Warehouse
+Summary: このブログは、Polybase を使用してデータを読み込む間に発生する可能性があるデータ エンコードの問題の一部に関する分析情報を提供することを目的SQL Data Warehouse。
+Content: >-
+  <p>このブログは、Polybase を使用してデータを読み込む間に発生する可能性があるデータ エンコードの問題の一部に関する分析情報を提供SQL Data Warehouse。 この記事では、こうした問題を解決してデータを正常に読み込むために使用できるいくつかの選択肢についても説明しています。</p>
+
+
+  <h2>問題</h2>
+
+
+  <p>ほとんどの場合、外部システムから SQL Data Warehouse にデータを移行するか、フラット ファイル形式でエクスポートされたデータを操作します。 データが UTF-8 または UTF-16 エンコード標準を使用して書式設定されている場合は、Polybase を使用してデータを読み込む方法があります。 ただし、データの形式は、ソース システムでサポートされているエンコード オプションによって異なります。 一部のシステムでは、UTF-8 または UTF-16 エンコードがサポートされていません。 使用しているデータが ISO-8859-1 などの別の形式で書式設定されている場合、データを UTF-8/UTF-16 形式に変換すると、貴重な時間と労力を節約できます。</p>
+
+
+  <p>次の図は、ソース システムから Azure Blob Storage へのデータフローと Azure SQL Data Warehouse (DW) へのフローを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9a823073-e14e-4f80-ad99-0d274ea9d41c.png"><img alt="Azure Blog Storage" border="0" height="110" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/963a1ce4-977f-4ec7-84fd-04496cd8bc0e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Azure Blog Storage" width="438"></a></p>
+
+
+  <p>Azure Blob Storageは、DW など、Azure サービスで使用するデータを格納SQLです。 PolyBase を使用すると、T-SQL を使用してデータに簡単にアクセスできます。たとえば、Azure Blob Storage 上のデータの外部テーブルを作成し、単純な SELECT クエリを使用してデータを SQL Data Warehouse の内部テーブルに読み込むなどです。</p>
+
+
+  <p>読み込まれるデータの量が少ない場合は、UTF-8/UTF-16 エンコードを使用して、ソース システムからデータを再度エクスポートする方が簡単な場合があります。 ただし、データの量が多い場合、Azure BLOB への再エクスポート、データ圧縮、データの読み込Storage数週間かかる場合があります。 この遅延を回避するには、ソース システムに再度アクセスすることなく、Azure 環境内のデータ ファイルのエンコードを変換できる必要があります。</p>
+
+
+  <h2>ソリューション</h2>
+
+
+  <p>以下のセクションでは、ソース ファイルエンコードを UTF-8/UTF-16 に変換するためのオプションについて詳しくは、以下をご覧ください。</p>
+
+
+  <p><b>大事な：</b> PolyBase では UTF16-LE がサポートされます。 お客様&rsquo;は、Windowsエコシステム内の顧客には問題ありませんが、顧客は UTF16-BE を指定し、負荷が失敗する可能性があります。</p>
+
+
+  <h3>オプション 1: メモ帳++</h3>
+
+
+  <p>メモ帳++ ツールを使用して、ローカル コンピューター上のファイルのエンコードを変更できます。 データ ファイルをローカル コンピューターにダウンロードし、メモ帳++ でファイルを開き、ファイル エンコーディングを UTF-8/UTF-16 に変換します。</p>
+
+
+  <p>1. ソース <b>ファイルのエンコードを表示するには、</b>次の図に示 <b>すように、[エンコード</b> ] メニューをクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/de0bd3ca-391f-40d7-a56c-f0fef657bf6b.png"><img alt="Encode 1" border="0" height="175" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7af74fd8-2347-45ee-bfac-2a885ae4bd05.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="エンコード 1" width="404"></a></p>
+
+
+  <p>上記の例のソース ファイルは ANSI でエンコードされています。</p>
+
+
+  <p>2.ファイル<b> エンコードを UTF-8 に変換するには、[</b>エンコード] <b></b> メニューの [<b>UTF-8 に変換] を選択します</b>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b7ad8b02-7cfb-4577-96e2-dd7f87cc88c5.jpg"><img alt="Encode 2 " border="0" height="175" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9eb1ddb-130b-4665-bc9b-6ad47c6f2fb6.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="エンコード 2 " width="407"></a></p>
+
+
+  <p>3. ファイルを保存し、[エンコード] <b>メニューを</b> 使用してエンコードを表示し、ファイルが UTF-8 を使用してエンコードされたのを確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30d99a39-56f3-474c-8a9f-8a724c31e5c8.png"><img alt="Encode 3" border="0" height="177" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35f83cbe-6d12-4370-ab2e-a5ede733d20e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="エンコード 3" width="412"></a></p>
+
+
+  <p>ファイルを UTF-8 エンコードで保存した後、Polybase を使用して Azure Blob Storage にアップロードし、それを SQL Data Warehouse に読み込SQL Data Warehouse。</p>
+
+
+  <p>これは実行可能なアプローチですが、次に示すいくつかの欠点があります。</p>
+
+
+  <ul>
+   <li>[ダウンロード時間]</li>
+   <li>ローカル システムで使用可能な領域</li>
+   <li>アップロード時刻</li>
+   <li>メモリとスペースの制約により、小さなファイルでのみ動作します</li>
+  </ul>
+
+
+  <h3>オプション 2: Azure VM</h3>
+
+
+  <p>メモ帳++ の使用に関連するいくつかの欠点を克服するには、Azure VM を使用してデータ ファイルのエンコードを変換します。 この方法では、プロセス全体が Azure 環境内で行われるので、Azure とローカル システム間のデータ転送に関連する遅延がなくなります。 このプロセスを次の図に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/301f4ae1-05cc-4663-8635-fd62f73ab530.png"><img alt="Azure VM" border="0" height="279" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f34251c-63e1-4b88-8dc4-abb74b59d24d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="Azure VM" width="148"></a></p>
+
+
+  <p>この方法には、次の大レベルの手順があります。</p>
+
+
+  <ol>
+   <li>Azure VM (Windows Linux) をセットアップする</li>
+   <li>Azure BLOB ストレージから Azure VM 上Storageストレージにデータ ファイルをダウンロードする</li>
+   <li>データ ファイルを抽出する (該当する場合)</li>
+   <li>ユーティリティ (カスタム/組み込み) を使用してデータ ファイルエンコードを変換する</li>
+   <li>アップロード Azure VM 上のローカル ストレージから Azure BLOB ファイルに変換されたデータ ファイルをStorage</li>
+  </ol>
+
+
+  <p>この方法には独自の欠点があります。</p>
+
+
+  <ul>
+   <li>[ダウンロード時間]</li>
+   <li>ローカル システムで使用可能な領域</li>
+   <li>アップロード時刻</li>
+  </ul>
+
+
+  <h3>オプション 3: Azure File Storage</h3>
+
+
+  <p>Azure VM を使用する場合のダウンロードとアップロードの時間に関連する制限を克服するには、Azure File Storage を使用できます。このファイル共有を使用すると、コストの高い書き換えなしで、ファイル共有に依存するレガシ アプリケーションをすばやく Azure に移行できます。 Azure File Storageを使用すると、デスクトップ アプリケーションが一般的な SMB 共有をマウントするのと同様に、Azure 仮想マシンまたはクラウド サービスで実行されているアプリケーションは、クラウドにファイル共有をマウントできます。 次の図に示すように、任意の数のアプリケーション コンポーネントが同時にファイル 共有Storageマウントしてアクセスできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8701bbe6-f695-4beb-b2db-ddcd6c7232e6.png"><img alt="Azure Storage Concepts " border="0" height="205" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/410f33c3-4423-497c-8bac-93a9edf1a50c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="Azure Storage概念" width="349"></a></p>
+
+
+  <p><strong>メモ： </strong>詳細については<a href="https://docs.microsoft.com/en-us/azure/storage/storage-introduction">、Azure Storage。</a></p>
+
+
+  <p>Azure File Storage使用する場合は、次の表に示す容量の制限に注意してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/88a9838e-4d6e-4159-a5d2-7937cdf22010.png"><img alt="Resource-Limit" border="0" height="84" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e55e5b18-172e-47d9-80b2-18171a9806fe.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="リソース制限" width="347"></a></p>
+
+
+  <p><strong>メモ：</strong>スケーラビリティとパフォーマンス<a href="https://docs.microsoft.com/en-us/azure/storage/storage-scalability-targets">のAzure Storageの完全な一覧が</a>利用可能になります。</p>
+
+
+  <p>この方法では、Azure File Storage 上のすべてのデータ ファイルを作成し、Azure File Storage をマウントできる Azure VM を作成できます。 マウントが完了すると、Azure VM は Azure File Storage との間で直接ファイルの読み取りおよび書き込みを行うことができます。Azure VM 上のローカル ストレージにダウンロードしたり、ローカル ストレージからアップロードしたりする必要があります。</p>
+
+
+  <p>この方法には、次の大レベルの手順が含まれます。</p>
+
+
+  <ol>
+   <li>Azure VM (Windows Linux) をセットアップする</li>
+   <li>Azure VM に Azure File Storageをマウントする (下記の手順を参照)</li>
+   <li>データ ファイルを抽出する (該当する場合)</li>
+   <li>ユーティリティ (カスタム/組み込み) を使用してデータ ファイルエンコードを変換する</li>
+  </ol>
+
+
+  <p>次の図は、PolyBase を介して DW へのデータ圧縮、転送、抽出、変換、読み込みSQLしています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e1f9570-3bdc-454d-8e15-06904d184880.png"><img alt="image" border="0" height="329" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/abcc89a0-d77b-4166-9217-934172516e6a.png" style="background-image: none; display: inline; border-image: none" title="イメージ" width="552"></a></p>
+
+
+  <h3>VM への Azure File Storageのマウント</h3>
+
+
+  <p>この場合、AZURE File Storage VM (このUbuntu Linux VM にマウントするプロセスには、次の 3 つの大レベルの手順が含まれます。</p>
+
+
+  <ol>
+   <li>必要なライブラリ/パッケージのインストール。
+   <ul>
+    <li>sudo apt-get install <b>cifs-utils</b></li>
+   </ul>
+   </li>
+   <li>Azure ファイル ファイルのマッピングに使用するマウント ポイントの場所Storage作成します。
+   <ul>
+    <li>sudo mkdir /mnt/mountpoint</li>
+   </ul>
+   </li>
+   <li>Azure VM マウント Storage Azure File Storageマウント。
+   <ul>
+    <li>sudo mount -t cifs <b>//myaccountname.file.core.windows.net/mysharename</b> <b>/mnt/mountpoint</b> -o <b>vers=3.0,user</b>=myaccountname,password=StorageAccountKeyEndingIn==,dir_mode=0777,file_mode=0777,serverino</li>
+   </ul>
+   </li>
+  </ol>
+
+
+  <p><b>注</b>: <a href="https://docs.microsoft.com/en-us/azure/storage/storage-how-to-use-files-linux">Linux VM からの Azure File Storageのマウントに関する詳細を確認します</a>。</p>
+
+
+  <h3>データ エンコード変換の自動化</h3>
+
+
+  <p>このセクションでは、この方法を利用してデータ ファイルのエンコードを変換したプロジェクトについて、いくつかの詳細を説明します。</p>
+
+
+  <ul>
+   <li>Netezza システムからエクスポートされた 131 テーブルのデータ</li>
+   <li>ソース テーブルを表すフォルダー名の下に編成されたソース テーブルごとに 4 つのデータ ファイル</li>
+   <li>ANSI 形式でエンコードされたすべてのデータ ファイル (ISO-8859-1)</li>
+   <li>GZ 圧縮を使用して圧縮されたすべてのデータ ファイル</li>
+   <li>圧縮されたデータ ファイルの合計サイズは <b>750 GB でした</b></li>
+   <li>圧縮されていない変換されたデータ ファイルの合計サイズは <b>7.6 TB でした</b></li>
+  </ul>
+
+
+  <p>データ ファイルは、次の構造Storage Azure File Storageに編成されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e3165a6-45d1-4d37-b2a3-0727621f2379.png"><img alt="ConvertedData" border="0" height="191" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53c86540-0f4a-471f-886b-fae16a51eb98.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ConvertedData" width="294"></a></p>
+
+
+  <p>データ ファイルのエンコードを自動的に変換するために使用された Ubuntu VM 上の bash スクリプトのスナップショットを次の図に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e0a3620b-c0e8-4183-a435-50376ca1bec0.png"><img alt="3d8849cb-bc90-4558-88a0-212b2d2f7be4" border="0" height="261" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/88b80df0-6220-4b11-96ac-52cd1421e5bf.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="3d8849cb-bc90-4558-88a0-212b2d2f7be4" width="803"></a></p>
+
+
+  <p>このスクリプトでは、次の操作を実行しました。</p>
+
+
+  <ol>
+   <li>引数としてテーブル名を受け入れる</li>
+   <li>指定されたテーブルの 4 つの各データ ファイルをループ処理します</li>
+   <li>データ ファイルごとに <ul>
+    <li>gunzip コマンドを使用して圧縮された GZ <b>ファイルを抽出</b> しました</li>
+    <li>ソース ファイルのエンコードが ISO-8859-1 として指定され、ターゲット ファイルのエンコードが UTF-8 として指定されている <b>iconv</b> コマンドを使用して、各ファイルのエンコードを変換しました</li>
+    <li>ConvertedData の下のテーブル名を持つフォルダーに変換されたファイル <b>を書き込んだ</b></li>
+   </ul>
+   </li>
+  </ol>
+
+
+  <p>テーブル名を引数として受け入れするのではなく、テーブル名のリストをループ処理し、上記のプロセスを繰り返すスクリプトがさらに強化されました。</p>
+
+
+  <h4>任意のエンコードから他のエンコードへの変換</h4>
+
+
+  <p>スクリプトは、スクリプト内でハードコード<b></b>するのではなく、<b></b>引数として から エンコードと エンコードを受け入れ、変更できます。 iconv コマンドでサポートされているエンコーディングの完全な一覧は、データ エンコーディングの変換に使用するコンピューターでコマンド <b><i>アイコンv -l</i></b> を実行することで取得できます。 コマンドを実行する前に、指定されたエンコード形式の入力ミスを確認してください。 汎用スクリプトのスナップショットと、それを呼び出す方法の例を次の図に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5700594c-f1e7-43fb-938b-f6282287e062.jpg"><img alt="afa49072-d4d6-4918-8b99-e46740002686" border="0" height="297" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/71ed8152-a4d5-41d5-bd81-b242cc95e415.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="afa49072-d4d6-4918-8b99-e46740002686" width="800"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c858255f-a674-4d38-9f57-5c4016498bd8.jpg"><img alt="a33935b2-bb3a-4185-ac81-af6f975cc934" border="0" height="18" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37613f81-1dfe-471e-8954-481dd706b1fd.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="a33935b2-bb3a-4185-ac81-af6f975cc934" width="301"></a></p>
+
+
+  <p>上記のコマンドは、データ ファイルを UTF-8 エンコードから ISO_8859-1 エンコード形式に変換します。</p>
+
+
+  <h2>認識</h2>
+
+
+  <p>データ移行チームは、このブログ投稿の準備に取り組む主な共同作成者 RakeshNum、Andy Isley、Joe Kar、Casey Karst、Mukesh Kumar に感謝します。 提供された詳細は、CSE DM ジャンプスタート プログラムによってスポンサーされる顧客エンゲージメントの一部として収集されています。</p>

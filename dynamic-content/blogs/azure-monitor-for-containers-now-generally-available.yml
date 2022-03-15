@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e7135f35616513d0d315d940b019a2dd4744c19c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903700"
+Slug: azure-monitor-for-containers-now-generally-available
+Title: Azure Monitorコンテナーの一般提供
+Summary: コンテナーの一般提供がAzure Monitor、お知らせします。 Azure Monitorコンテナーの場合、Azure Kubernetes Service (AKS) でホストされている Kubernetes クラスターの正常性とパフォーマンスが監視されます。
+Content: >-
+  <p>コンテナーの一般提供がAzure Monitor、お知らせします。 Azure Monitorコンテナーの場合、Azure Kubernetes Service (AKS) でホストされている Kubernetes クラスターの正常性とパフォーマンスが監視されます。 2018 年 5 月のビルドでパブリック プレビューが開始された後、お客様から大きな人気を得ていました。 お客様は、AKS クラスターを作成するとすぐに監視を有効にし、コンテナーにログインしたり、他のツールに依存したりすることなく、Azure の一元的な場所ですべての監視テレメトリを取得できるという事実を気に入っています。 パブリック プレビュー以降、より多くの機能を追加し、フィードバックに基づいてエクスペリエンスを改善しています。 最近&rsquo;の変更の一部を確認します。</p>
+
+
+  <p><strong>マルチクラスター ビュー &ndash;</strong> 多くの場合、複数の AKS クラスターを管理する必要があります。 すべてのクラスター&rsquo;を一緒に表示して管理すると良いでしょうか。 マルチクラスター ビューは、サブスクリプション、リソース グループ、ワークスペース全体のすべての AKS クラスターを検出し、正常性ロールアップ ビューを提供します。 監視されていないクラスターを検出&rsquo;し、数回のクリックで監視を開始することもできます。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a8d7f8fd-a2c3-4d11-aba2-19323a8694ea.png"><img alt="Multi-cluster view in Azure Monitor" border="0" height="848" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a22a214-176a-413d-8341-3b5839ec5d8b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Monitor のマルチクラスター ビュー" width="1839"></a></p>
+
+
+  <p><strong>Performance Grid ビューを使用して AKS クラスターをさらにドリルダウンする &ndash;</strong> さらに調査するには、ノード、コントローラー、コンテナーの正常性とパフォーマンスを示すパフォーマンス グリッド ビューにドリルダウンします。 ノード ビュー タブから、ポッドでノイズの多い近隣ノードの問題を簡単に特定し、さらにドリルして、それが含むコントローラーを確認できます。 コントローラーの制限、要求設定、実際の使用状況をさらに確認して、コントローラーが正しく構成済みかどうかを判断できます。 そのコントローラーに関連付けられている Kubernetes イベント ログを調べて、調査を続行できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c913245-cba0-441f-9b13-8baafe0edcba.png"><img alt="Drill down into AKS cluster with Performance Grid view" border="0" height="774" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b623079-ebe0-4b21-9a4f-2e42af447147.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Performance Grid ビューを使用して AKS クラスターにドリルダウンする" width="1432"></a></p>
+
+
+  <p><strong>ライブ デバッグ &ndash;</strong> 特に更新プログラムをデプロイした後で、アプリケーションが期待した通り動作することの確認の重要性は、すべてわかっています。 ライブ ログを使用すると、コンテナー ログのリアルタイムのライブ ストリームが、お使Azure portal。 ライブ ストリームを一時停止し、ログ ファイル内でエラーや問題を検索できます。 ログのAzure Monitorとは異なり、ライブ ストリーム データは一時的であり、リアルタイムのトラブルシューティングを意図しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b879b533-710b-40b8-b654-c123fa3cf648.png"><img alt="Live debugging in Azure Monitor" border="0" height="1001" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f85a8a0b-b5b0-4898-9093-b5d02eaa902d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Monitor でのライブ デバッグ" width="1844"></a></p>
+
+
+  <p><strong>オンボーディング &ndash;</strong> コンテナーのAzure portalに加えて、コンテナーのオンボードを自動化するAzure Monitor追加されました。</p>
+
+
+  <ul>
+   <li>Azure CLI ARM テンプレート &ndash; アドオン オプションを使用すると、1 つのコマンドでコンテナー Azure Monitorをオンボードできます。 このコマンドにより、既定の Log Analytics ワークスペースが自動的に作成され、エージェントが自動的にデプロイされます。</li>
+  </ul>
+
+
+  <p>新しい AKS クラスターの場合:</p>
+
+
+  <pre>
+
+  az aks create --resource-group myAKSCluster --name myAKSCluster --node-count 1 --<strong>enable-addons monitoring </strong>--generate-ssh-keys </pre>
+
+
+  <p>既存の AKS クラスターの場合:</p>
+
+
+  <pre>
+
+  az aks <strong>enable-addons -a monitoring </strong>-n MyExistingAKSCluster -g MyExistingAKSClusterRG </pre>
+
+
+  <p>また、ARM テンプレートを使用してコンテナーのAzure Resource Managerを有効にすることもできます。 詳細については、arm テンプレートと ARM テンプレートを使用したオンボードの詳細 <a href="https://aka.ms/coingfonboarding" target="_blank">Azure CLIを確認してください</a>。</p>
+
+
+  <ul>
+   <li>Terraform &ndash; ARM テンプレートと同様に、Terraform を使用して AKS クラスターをデプロイしている場合は、テンプレートから監視を有効にできます。 詳細については、 <a href="https://aka.ms/citerraform" target="_blank">Terraform の AKS クラスター、Log Analytics ソリューション、</a>ワークスペースの設定に関するドキュメントを参照してください。</li>
+  </ul>
+
+
+  <p>最後に、最近ケース スタディを公開した、お客様の 1 人である Hafslund (北日本電力会社) からの感動的な言葉で <a href="https://aka.ms/cicasestudy1" target="_blank">終わらせたく思います</a>。</p>
+
+
+  <p><em>&ldquo;コンテナーに対して簡単にAzure Monitor実行できる状態が見つかりました。[モニター] ボックスの外にあるメトリックとグラフは、クラスターとサービスをすばやく調整し、技術的な問題を解決するのに役立ちます。&rdquo;</em></p>
+
+
+  <p align="right">- Stle&aring; Heitmann、CTO、Hafslund Nett AS</p>
+
+
+  <p>コンテナーのコンテナーのAzure Monitorについては、コンテナーの&ldquo;概要に関するAzure Monitor<a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview" target="_blank">ドキュメントを参照してください</a>。&rdquo;パブリック プレビュー期間中にフィードバックをお寄せいただきありがとうございます。また、引き続きサポートをお待ちしております。コンテナーに対するサポートには、より多くのおAzure Monitor機能が追加されています。</p>

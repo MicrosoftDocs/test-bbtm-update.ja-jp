@@ -1,0 +1,353 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d88a99cf9ab64e4fe639253cee98ba5a721e14be
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909738"
+Slug: learn-how-to-orchestrate-serverless-functions-by-scraping-apis-in-8-minutes
+Title: API を 8 分でスクレーピングしてサーバーレス関数を調整する方法について説明します
+Summary: 'このシナリオ私が取り組むプロジェクトでは、NuGet API や GitHub API などの複数のソースから情報を取得する必要があります。 API からデータをダウンロードする方法に焦点を当GitHubしましょう。 '
+Content: >-
+  <p><em>このブログ記事は、Microsoft のクラウド デベロッパー アドボケイト II である Maxime Rouille 氏によって作成されました。</em></p>
+
+
+  <h2>このシナリオ</h2>
+
+
+  <p>Im が作業&rsquo;しているプロジェクトでは、api のソースや api など、複数のソースからNuGet取得GitHubがあります。 API&rsquo; からデータをダウンロードする方法&rsquo;に焦点を当GitHubします。 Twitter でフォロー <a href="https://twitter.com/MaximRouiller/status/1019597611341402112">している場合</a>は&rsquo;、おそらく既に私がそれについて話しているのを聞いたことがあります。</p>
+
+
+  <p>最終的には、発生した問題を&rsquo;&rsquo;カバーする必要があるサンプルを作成しましたが、うまく機能しません。 次に、最後のコミット日を&rsquo;確認して、前回のコミットから 2 年が経ったと認識します。 クラウドの進化の方法では、そのサンプルはユーザーにはほとんど問題はありません。</p>
+
+
+  <p>&rsquo;&rsquo;Azure-Samples 組織のリポジトリの一部には、これらの正確な問題があります。これは、IM が解決しようとしている多くの問題の 1 つです。</p>
+
+
+  <p>GitHub &ldquo;の <a href="https://github.com/Azure-Samples/">Azure-Samples</a> 組織にはサンプルが数多くあるので、古すぎるサンプルを確認したいと思っています。&rdquo;ユーザーが有効なサンプルと見なすのは何ですか? 私にとって、有効なサンプルは最新のサンプルです。</p>
+
+
+  <p>900 を超えるサンプルを取得し、最後のコミット日を検証する方法が必要です。</p>
+
+
+  <p>ただし、最初に、すべての情報を取得できる必要があります。</p>
+
+
+  <pre>
+
+  File -&gt; New Project -&gt; Console Application</pre>
+
+
+  <p>プログラマとしての最初の本能は、コンソール アプリケーションを使用して 1 回試みるという考え方です。 最小限&rsquo;の複雑さです。 コンソールで&rsquo;動作させるの&rsquo;が可能な場合、他の場所で動作させる望みはありません。</p>
+
+
+  <p>そこで、GitHub <a href="https://developer.github.com/v3/">API</a> のドキュメントを参照し、GitHub トークンを作成し、必要な情報のハンティングを開始しました。</p>
+
+
+  <p>最終的に <a href="https://www.nuget.org/packages/Octokit/">Octokit ライブラリを使用</a> して、すべての API アクセスを実行しました。 最後のコミット日を取得するコードは次のとおりです。</p>
+
+
+  <pre>
+
+  var github = new GitHubClient(new ProductHeaderValue(&quot;AzureSampleChecker&quot;)) { Credentials = new Credentials(&quot;&quot;) };
+
+  var lastCommit = await github.Repository.Commit.GetAll(repositoryId, new ApiOptions { PageSize = 1, PageCount = 1 });
+
+  var commit = lastCommit.FirstOrDefault()?.Commit;
+
+  var lastCommitDate = commit.Committer.Date;
+
+  //snipped: saving to the database</pre>
+
+
+  <h2>最初の問題: ローカルでの実行</h2>
+
+
+  <p>すべてが問題ありませんが、その時点で問題が発生したのは、ローカルで実行されている単一のコンソール アプリケーションでした。 アプリケーションをコンテナーに対して引き受け取っただけでしたが、これを解決する別の方法を見た。 スケールアップする別の方法を見た。 Azure Functions、スケールアップに役立ちます。</p>
+
+
+  <p>既存のコードを Azure 関数に移行することで、現在の問題は、まだ単なるコンソール アプリケーションがアプリケーション内で実行Azure Functions。 これは、単に切り取るのではありません。 同&rsquo;じワークフローを順に実行します。 このワークフローを並列で実行し、スケールアウトできる必要があります。</p>
+
+
+  <p>クエリを実行するリポジトリがわかっている場合は、分散問題になります。 一度にヒットできるリポジトリの数は、相互に関連付ける状態を持たなくてもどれくらいですか? 答えは、すべてです。</p>
+
+
+  <p>このプロセスをより見ごたえのあるものにするためにリファクタリングする必要がありました。 永続性を持つ必要がありました。</p>
+
+
+  <h2>次のDurable Functions</h2>
+
+
+  <p>サーバーレスを使いこ&rsquo;なす方には<a href="https://docs.microsoft.com/dotnet/standard/serverless-architecture/serverless-architecture?WT.mc_id=appserviceteam-blog-marouill"></a>、速く立ち上がれる優れた書籍が、Jeremy Likness 氏によって提供されています。 Azure Functionsは、サーバーレス アーキテクチャの Microsoft&rsquo; の実装です。 リフレクサーが必要な場合は、可能なAzure Functions <a href="https://docs.microsoft.com/azure/azure-functions/functions-overview?WT.mc_id=appserviceteam-blog-marouill">の</a> 概要に関するページを確認できます。</p>
+
+
+  <p>Durable Function とは Durable を使用すると、&rsquo;オーケストレーションに関するすべてが行います。 音楽の場合と同様&rsquo;に、オーケストレーターは誰もが声に従っているのを保証しますが、各音楽家が自分の音楽を再生する責任があります。</p>
+
+
+  <p>このDurable Functions&rsquo;オーケストレーターは、一連の関数の開始と追跡を担当しますが、各アクティビティの役割を実行する必要があります。 オーケストレーターは、コードとアクティビティで記述されたワークフローをワークフローのステップと考えます。 オーケストレーターとアクティビティは引き続きAzure Functions。</p>
+
+
+  <p>では&rsquo;、コードで Im が使用する&rsquo; 2 つのパターンを紹介します。</p>
+
+
+  <h2>関数チェーン</h2>
+
+
+  <p>すぐにカバーしたいパターンは、 <a href="https://docs.microsoft.com/azure/azure-functions/durable-functions-sequence?WT.mc_id=appserviceteam-blog-marouill">関数チェーンです</a>。 最&rsquo;も単純で最も一般的に使用されるパターンです。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ba39f58-353f-4d3b-a050-66d49223b14d.png" style="margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <h2>関数チェーン</h2>
+
+
+  <p>オーケストレーターが別の関数を実行する前に関数&rsquo;を待つたび、関数チェーンを実行します。 コード&rsquo;例で視覚化された上記の画像を次に示します。</p>
+
+
+  <pre>
+
+  [FunctionName(&quot;FunctionChaining&quot;)]
+
+
+  public static async Task RunFunctionChaining([OrchestrationTrigger]) DurableOrchestrationContext context)
+
+
+  {
+      await context.CallActivityAsync(&quot;F1&quot;, null);
+      await context.CallActivityAsync(&quot;F2&quot;, null);
+      await context.CallActivityAsync(&quot;F3&quot;, null);
+      await context.CallActivityAsync(&quot;F4&quot;, null);
+  }</pre>
+
+
+  <h2>ファンアウト/ファンイン</h2>
+
+
+  <p>使用したDurable Functionsパターンの 1 つは、 <a href="https://docs.microsoft.com/azure/azure-functions/durable-functions-cloud-backup?WT.mc_id=appserviceteam-blog-marouill">Fan-Out/Fan-In です</a>。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/870bee86-855c-4e80-9c4a-5e4f93584826.png" style="margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <h2>ファンアウト/ファンイン パターン</h2>
+
+
+  <p>ファンアウトとは、オーケストレーター関数 (F1) が必要な数の関数 (F2) を、必要なリポジトリのようないくつかの初期パラメーターと並行して開始します。 これらの関数の実行が完了したら、要求されたデータをオーケストレーター (F3) に返す方法が必要です。 これらの関数はすべて、同じサーバー上で実行されていない可能性があります。 マルチスレッド アプリケーションほど単純ではありません。 マルチスレッド&rsquo;のマルチサーバーの高度な並列実行ワークフローです。</p>
+
+
+  <p>ローカル データ センターでこれを行うにはどうすれば良いでしょうか。 コンソール アプリケーションは、ファンアウトする項目の一覧を取得します。その後、そのリストをメッセージング システムにキューに入れられます。 キューに入ると、異なるサーバー上にある他のコンソール アプリケーションによって、これらのメッセージを非同期的にデキューする必要があります。 その後、各コンソール アプリケーションは、実行結果を共有ストレージに格納する必要があります。 完了したら、ワークフローを&rsquo;完了する最初のコンソール アプリケーションを取得する方法を見つける必要があります。 ワークフローを終了するには、すべての結果をファンインしてデータベースに保存する必要があります。</p>
+
+
+  <p>このAzure Functions、オブジェクト&rsquo;を返すのと同じほど簡単です。 個々の関数の結果を格納し、それらをまとめて集計するために必要なすべての作業が自動的に行われます。</p>
+
+
+  <p>このシナリオは難しい問題です。 Durable Functions、1 週間の作業と、プロセスのテスト、デバッグ、および絞り込み作業の日数が簡単に保存されました。</p>
+
+
+  <p>導入が完了したら、このシナリオ&rsquo;に戻って説明します。</p>
+
+
+  <h2>オーケストレーターは特殊な関数です</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/azure-functions/durable-functions-bindings?WT.mc_id=appserviceteam-blog-marouill">OrchestrationTrigger を使用する関数の動作は、通常の Azure 関数とは大きく異なります</a>。 このトリガーによって、通常の Azure 関数が Orchestrator 関数になります。 ちょうど</p>
+
+
+  <p>その動作は、他の関数とは非常に異なります。 これらの関数の実行を調整するために、異なる時点で複数回呼び出されます。 時間を計算し、そのコンテキストで外部リソース (SQL、Storage、API など) にアクセスしないのが最も重要です。 オーケストレーターは、何かが変化した場合に繰り返し実行することで開始した関数の状態を実行して追跡するタスクを実行します。 オーケストレーター関数をデターミスティックにしたい。つまり、異なる時刻に実行される同じコードが同じ結果を得る必要がある。 そのため、DateTime は使用されません。Math.Random や Guid.NewGuid() はオーケストレーター内に配置する必要はありません。</p>
+
+
+  <p>また&rsquo;、CallActivityAsync&rsquo; を使用して行うすべての呼び出しは、同じオーケストレーター インスタンスに対して 2 回実行されません。 結果はキャッシュされ、データ が処理Durable Functions。</p>
+
+
+  <p>CallActivityAsync は、チェックポイントと再生を呼び出す概 <a href="https://docs.microsoft.com/azure/azure-functions/durable-functions-checkpointing-and-replay?WT.mc_id=appserviceteam-blog-marouill">念の一部です</a>。 簡単に言うと、これにより、サーバー間で信頼性の高い方法で実行された以前のアクティビティの実行状態を記憶しながら、オーケストレーターの実行を再び開始できます。</p>
+
+
+  <h2>Web スクレイピング のシナリオ</h2>
+
+
+  <p>サンプル&rsquo; オーケストレーターのコードを次に示します。</p>
+
+
+  <pre>
+
+  [FunctionName(&quot;DownloadSamples_Orchestrator&quot;)]
+
+  public static async Task RunOrchestrator([OrchestrationTrigger] DurableOrchestrationContext context, TraceWriter log)
+
+  {
+      var repositories = await context.CallActivityAsync&lt;List&gt;(&quot;DownloadSamples_GetAllPublicRepositories&quot;, null);
+      var tasks = new Task[repositories.Count];
+      for (int i = 0; i &lt; repositories.Count; i++)
+      {
+          tasks[i] = context.CallActivityAsync(&quot;DownloadSamples_UpdateRepositoryData&quot;, repositories[i]);
+      }
+      await Task.WhenAll(tasks);
+      var samplesToAdd = tasks.Select(x =&gt; x.Result).ToList();
+      await context.CallActivityAsync(&quot;DownloadSamples_SaveAllToDatabase&quot;, samplesToAdd);
+  }</pre>
+
+
+  <p>そのため、&rsquo;これをまとめて分解します。 最初に、関数を呼び出して、Azure-Samples で使用可能な 900 を超えるパブリック リポジトリの一覧を取得し、結果を待った後、先に進む必要があります。 次に、Tasks の配列を作成し、サンプルを確認し、それぞれについて await なしで関数を開始します。 これらの&rsquo;関数の実行は、クラウドによって自動的に実行およびスケーリングされます。 ここでは await&rsquo; を使用していない必要があります。 それ以外の場合は、並列ではなく順番に実行されます。</p>
+
+
+  <p>その後、タスクは完了するまで待つ必要があります。 最後に、これらの関数から返された Samples オブジェクトを一覧に集計します。 最後に、関数に送信してデータベースに保存します。 &rsquo;100 の関数の結果をうまく取り入えました。 サードパーティのシステムは必要ない。 他の構成はありません。 複雑なメッセージングアーキテクチャはありません。 コードのみ。</p>
+
+
+  <p>同じように、複雑な並列問題を簡単に行うことができまし &rsquo; た。</p>
+
+
+  <h2>高度なシナリオ: サブ orchestrators 使用した orchestrators 統制</h2>
+
+
+  <p>&rsquo;すばらしいことはないでしょうか。 ここでは、900 DownloadSamples_UpdateRepositoryData 関数をインスタンス化して、GitHub API からデータをダウンロードする Orchestrator を用意しました。 データインジェストに関して複数のオーケストレーター必要な場合はどうなるでしょうか。</p>
+
+
+  <p>Orchestrators 統制を操作方法。 もちろん、別の orchestrator が必要です。 ここでは、コードの簡略化されたバージョンを示し &rsquo; ます。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  [FunctionName(&quot;MainDownloadOrchestrator_TimerStart&quot;)]
+
+
+  public static async Task TimerStart([TimerTrigger(&quot;0 0 7 * * *&quot;)]TimerInfo myTimer,
+
+      [OrchestrationClient]DurableOrchestrationClient starter,
+
+  TraceWriter log)
+
+
+  {
+
+      string instanceId = await starter.StartNewAsync(&quot;MainDownloadOrchestrator&quot;, null);
+
+  log.Info($&quot;Started orchestration with ID = &#39;{instanceId}&#39;.&quot;);
+
+
+  }
+
+
+  [FunctionName(&quot;MainDownloadOrchestrator&quot;)]
+
+
+  public static async Task RunOrchestrator(
+
+      [OrchestrationTrigger] DurableOrchestrationContext context)
+
+  {
+
+      var runId = await context.CallActivityAsync(&quot;CommonActivityFunctions_CreateRun&quot;, null);
+
+      var downloadPipelines = new List();
+
+  downloadPipelines.Add(context.CallSubOrchestratorAsync(&quot;DownloadSamples_Orchestrator&quot;, runId));
+
+
+  downloadPipelines.Add(context.CallSubOrchestratorAsync(&quot;DownloadSomethingElse_Orchestration&quot;, runId));
+
+      //todo: add more orchestrators
+
+      await Task.WhenAll(downloadPipelines);
+
+      return context.InstanceId;
+
+  }</pre>
+
+  </blockquote>
+
+
+  <h3>内容</h3>
+
+
+  <p>他のすべてのデータインジェスト orchestrator を呼び出すために使用される単一の実行を作成します。</p>
+
+
+  <p>これらのすべてのオーケストレーター、毎日午前7時に開始される予定です。 これらはすべて、前に説明したとおりに実行されます。 現時点では、別の orchestrator にも報告しています。</p>
+
+
+  <p>単純なワークフローの実装を開始すると、単純なワークフローから複雑なシナリオを構築するのが簡単になります。 1つの orchestrator の構築に使用したものと同じパターンを使用して、複数のサブ orchestrators 統制できます。</p>
+
+
+  <h3>なぜこれが必要なのですか。</h3>
+
+
+  <p>並列で実行する必要がある多数の異なるプロセスを使用して、チームで作業 Imagine ます。 1つのチームが出荷プロセスで作業しているかもしれませんが、もう1つは支払いプロセスです。 複数のサブ orchestrators 管理する1つの orchestrator を使用すると、チームのコラボレーションが容易になります。</p>
+
+
+  <p>ここでは、他のユーザーが別の API の解析を追加しようとしている場合はどうでしょうか。 これらの機能は、orchestrator で動作し、MainDownloadOrchestrator 関数 &rsquo; にプラグインします。</p>
+
+
+  <p>API からのデータのスクラップは単なるシナリオです。 注文処理システムを構築する場合でも、会議組織ツールでも、IoT データ処理で次の変革を行う場合でも、ソリューション内で複雑さを整理する方法が必要であることがわかっています。 システムの重要な部分を1つの関数よりも頻繁に再利用する必要があることがわかっています。</p>
+
+
+  <p>Durable Functions は、サーバーレスで複雑なシステムを構築する方法です。</p>
+
+
+  <h3>不足している内容</h3>
+
+
+  <p>実装されていることは、 &rsquo; レート制限を処理する方法です。 GitHub api は、1時間あたりの api 呼び出しが 5000 (書き込み時) に制限されています。これは、それを使用するための十分な数です。</p>
+
+
+  <p>ただし、他のチームがクエリを実行する必要がある場合は、それを実装することを検討する必要があり GitHub &rsquo; ます。 &rsquo;これには洗練さ &rsquo; れたソリューションはありませんが &rsquo; 、次のように実装したいと思います。</p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>試してみる場合は、試用アカウントを使用していても、Azure Functions に無料クォータが付属しています。 アカウントが必要な場合は、 <a href="https://azure.microsoft.com/free/?WT.mc_id=appserviceteam-blog-marouill">無料で作成でき</a>ます。</p>
+
+
+  <h3>投稿</h3>
+
+
+  <p>Azure Functions もオープンソースです。 これらのリポジトリを参照して、プロジェクトで何 &rsquo; が起こっているかを知る必要がある場合は、これらのリポジトリを確認してください。</p>
+
+
+  <ul>
+   <li>
+   <p><a href="https://github.com/Azure/azure-functions-host">Azure Function Runtime</a></p>
+   </li>
+  </ul>
+
+
+  <ul>
+   <li>
+   <p><a href="https://github.com/Azure/azure-functions-core-tools">ローカル開発用の Azure Function CLI</a></p>
+   </li>
+   <li>
+   <p><a href="https://github.com/Azure/azure-functions-ux">Azure 関数ポータル</a></p>
+   </li>
+   <li>
+   <p><a href="https://github.com/Azure/azure-functions-templates">ポータルと Visual Studio のテンプレートを Azure Functions する</a></p>
+   </li>
+  </ul>
+
+
+  <p>使用を開始するためのリソース</p>
+
+
+  <ul>
+   <li>
+   <p><a href="https://docs.microsoft.com/azure/azure-functions/functions-overview?WT.mc_id=appserviceteam-blog-marouill">Azure Functions の概要</a></p>
+   </li>
+  </ul>
+
+
+  <ul>
+   <li>
+   <p><a href="https://docs.microsoft.com/azure/azure-functions/functions-create-first-azure-function?WT.mc_id=appserviceteam-blog-marouill">Azure Portal で初めての関数を作成する</a></p>
+   </li>
+   <li>
+   <p><a href="https://docs.microsoft.com/azure/azure-functions/functions-create-scheduled-function?WT.mc_id=appserviceteam-blog-marouill">タイマートリガーでの Azure Functions の実行</a></p>
+   </li>
+   <li>
+   <p><a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-install?WT.mc_id=appserviceteam-blog-marouill">Durable Functions 拡張機能のインストール</a></p>
+   </li>
+   <li>
+   <p><a href="https://docs.microsoft.com/en-us/dotnet/standard/serverless-architecture/durable-azure-functions?WT.mc_id=appserviceteam-blog-marouill">持続性のある Azure Functions とは</a></p>
+   </li>
+  </ul>

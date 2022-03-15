@@ -1,0 +1,100 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2e9c1bb8590c92a91c37b4534c428f70da6c28aa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909199"
+Slug: accessing-and-using-azure-vm-unique-id
+Title: Azure VM の一意の ID へのアクセスと使用
+Summary: 最近、Azure VM の一意の ID のサポートが追加されました。 Azure VM 上のプラットフォームやアプリケーションの要件に関係なく、Azure VM の一意の識別子にアクセスできます。
+Content: >-
+  最近、Azure VM の一意の ID のサポートが追加されました。 Azure VM の一意の ID は、エンコードされ、すべての Azure IaaS VM の SMBIOS に格納され、プラットフォーム BIOS コマンドを使用して読み取り可能な 128 ビットの識別子です。
+
+
+  この識別子は、VM が Azure 上で実行されている場合でもオンプレミスでも、さまざまなシナリオで使用できます。また、Azure IaaS デプロイに関するライセンス、レポート、または一般的な追跡要件に役立ちます。 多くの独立系ソフトウェア ベンダーやパートナーは、アプリケーションを構築し、Azure でそれらを認定するために、ライフサイクル全体を通して Azure VM を識別し、VM が Azure、オンプレミス、または他のクラウド プロバイダーで実行されているのかを確認する必要がある場合があります。 このプラットフォーム ID は、たとえば、ソフトウェアが適切にライセンスされているかどうかを検出したり、適切なプラットフォームに適切なメトリックを設定して他の用途の中からこれらのメトリックを追跡して関連付けるために VM のデータとそのソースを関連付けたりするために使用できます。
+
+
+  この一意識別子は変更できません。クエリのみを実行できます。 2014 年 9 月 18 日より後に作成された新しい VM だけが作成時にこの機能を有効にしますが、2014 年 9 月 18 日より前に作成された VM は、次回の VM の再起動時に自動的にこの機能を取得します。 再起動、シャットダウン (計画外)、開始/停止の割り当て解除、サービス復旧、または復元の実施時に、Azure の一意の VM ID は変更されません。 ただし、VM がスナップショットであり、新しいインスタンスを作成するためにコピーされた場合は、Azure VM ID が変更されます。
+
+
+  この新機能が展開された後に古い VM を作成して実行している場合 (2014 年 9 月 18 日)、VM を再起動して、リセット時に使用を開始できる一意の ID を自動的に取得してください。
+
+
+  &nbsp;
+
+
+  VM 内から Azure VM ID にアクセスするには、次の手順に従います。
+
+
+  &nbsp;
+
+  <h2><strong>手順 1</strong> - VM を作成する (2014 年 9 月 18 日より後に作成された VM のみ、この機能は既定で有効になります)</h2>
+
+  &nbsp;
+
+
+  次の手順に従 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-create-custom/" target="_blank">います。カスタム仮想マシンを作成する方法</a>
+
+
+  &nbsp;
+
+  <h2><strong>手順 2</strong> - Connect VM に接続する</h2>
+
+  &nbsp;
+
+
+  次の手順に従います。Windows <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-log-on-windows-server/" target="_blank">Server</a> を実行している仮想マシンにログオンする方法または Linux を実行している仮想マシンにログオン<a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-how-to-log-on/" target="_blank">する方法</a>
+
+
+  &nbsp;
+
+  <h2><span style="font-weight: bold">手順 3 </span>– VM の一意の ID に対してクエリを実行する</h2>
+
+  <h3></h3>
+
+  <h3><span style="font-weight: bold"><span style="text-decoration: underline">Linux VM</span></span></h3>
+
+  <blockquote><span style="font-size: medium"><span style="font-weight: bold"><span style="text-decoration: underline">コマンド (Ubuntu):</span></span></span>
+
+  <pre class="prettyprint">sudo dmidecode | grep UUID</pre>
+
+  <span style="font-size: medium"><span style="text-decoration: underline"><strong>予想される結果の例</strong>:</span></span></blockquote>
+
+  <blockquote>
+
+  <pre class="prettyprint">UUID: 090556DA-D4FA-764F-A9F1-63614EDA019A</pre>
+
+  </blockquote>
+
+  <blockquote>ビッグ エンディアン ビットの順序付けにより、この場合の実際の一意の VM ID は次の値です。</blockquote>
+
+  <blockquote>
+
+  <pre class="prettyprint">DA 56 05 09 – FA D4 – 4f 76 - A9F1-63614EDA019A</pre>
+
+  </blockquote>
+
+  &nbsp;
+
+  <h3><span style="font-weight: bold"><span style="text-decoration: underline">Windows VM</span></span></h3>
+
+  <blockquote><span style="font-size: medium"><span style="font-weight: bold"><span style="text-decoration: underline">コマンド：</span>  </span></span>
+
+  <pre class="prettyprint">$computerSystemProduct = Get-WmiObject -class Win32_ComputerSystemProduct -namespace root\CIMV2
+
+
+  'BIOS GUID:             "{0}"' -f $computerSystemProduct.UUID</pre>
+
+  <span style="font-size: medium"><strong><span style="text-decoration: underline">予想される結果の例: </span></strong></span>
+
+  <pre class="prettyprint">'BIOS GUID: "BC5BCA47-A882-4096-BB2D-D76E6C170534"</pre>
+
+  <h3><span style="font-size: medium"> </span></h3>
+
+  </blockquote>
+
+  Azure VM 上のプラットフォームやアプリケーションの要件に関係なく、Azure VM の一意の識別子にアクセスできます。
+
+
+  この新機能が展開された後に古い VM を作成して実行している場合は、VM を再起動して、リセット時に使用を開始できる一意の ID を自動的に取得してください。

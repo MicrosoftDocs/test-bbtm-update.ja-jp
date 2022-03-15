@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bf2aa34436c3d89467b442f3f116b18e8626c9a8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909208"
+Slug: global-performance-acceleration-with-azure-traffic-manager
+Title: グローバル パフォーマンスアクセラレーション (Azure Traffic Manager
+Summary: クラス最高のユーザー エクスペリエンスを提供するには、顧客のトラフィックに関する分析情報を得る必要があります。 トラフィック ビューの新機能である Azure Traffic Managerを使用すると、豊富な情報を取得できます。
+Content: >-
+  <p>クラス最高のユーザー エクスペリエンスを提供するには、顧客のトラフィックに関する分析情報を得る必要があります。 <a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-traffic-view-overview" target="_blank">トラフィック ビューの</a>新機能である Azure Traffic Manager を使用すると、<a href="https://azure.microsoft.com/en-us/services/traffic-manager/" target="_blank"></a>ユーザー エクスペリエンスのヒートマップをキャプチャする豊富な情報と強力な視覚化を取得&rsquo;できます。 これにより、トラフィック パターンをグローバルに把握し、特定の地理的な場所を拡大することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31fdcb58-027f-47ab-939c-3c31407e4a76.jpg"><img alt="Azure Traffic Manager" border="0" height="422" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f281fe96-4d8f-4f3e-b4e7-8691d4f29dd8.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Traffic Manager" width="640"></a></p>
+
+
+  <h2>データを活用してパフォーマンスをトラフィック ビュー</h2>
+
+
+  <p>本日は、昨年のフォールのパブリック プレビューで発表された トラフィック ビュー の<a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-traffic-view-overview"></a>一般提供 (GA) <a href="https://azure.microsoft.com/en-us/blog/azure-networking-updates-for-fall-2017/" target="_blank">をお知らせ</a>します。 それ以降、多大な導入とフィードバックを受け取っています。 インサイトによって提供トラフィック ビュー、ユーザー ベースの地理的な場所、これらの場所から発生した待機時間、トラフィックの量が含まれます。 これらの分析情報を使用して、さまざまな Azure リージョンでのワークロードの配置を最適化できます。 Azure portal で提供される視覚化を使用するか、<a href="https://portal.azure.com/" target="_blank"></a>または生データをダウンロードして、Power BIまたは同様のツールを使用してカスタム<a href="https://powerbi.microsoft.com/en-us/" target="_blank">分析</a>を実行できます。</p>
+
+
+  <p>細分性を高トラフィック ビュー、サブスクリプション レベルではなくプロファイル レベルで有効にできます。 この週から、変更をロールアウトする場合は、必要なプロファイルのトラフィック ビュー再び有効にする必要があります。 トラフィック ビュー 2018 年 5 月 1 日から課金されます。 支払いは、有効にしたプロファイルに対してだけ行います。コストは、アプリケーションを作成するために処理されたデータ ポイントの量トラフィック ビュー。 価格の詳細<a href="https://azure.microsoft.com/en-us/pricing/details/traffic-manager/" target="_blank">については、Azure Traffic Managerの価格</a>に関するページを参照してください。</p>
+
+
+  <h2>ユーザーのパフォーマンス ルーティング精度の向上</h2>
+
+
+  <p>&rsquo;Azure Traffic Managerパフォーマンス ルーティング方法を使用すると、ユーザーは最も近い場所 (最小待機時間) にルーティングされます。 これは、インターネット上の異なるサブネットからすべての Azure リージョンにネットワーク待機時間の測定値を収集することで行われます。 ほとんどの場合、これらの測定場所はユーザーの場所と重複しています。 ただし、この外部にまたがっているエンド ユーザー ベースがある場合、Azure Traffic Manager は、これらの特定のユーザーから取得した測定値を組み込むことで、最適な Azure リージョンにルーティングするのに役立ちます。</p>
+
+
+  <p>このプロセスの最初の手順では、このような追加の待機時間情報を収集する必要がある場所にユーザーがいる場合を特定します。 トラフィック ビューは、ユーザーが Azure に接続している場所、その場所に関連付けられている待機時間情報、およびユーザーが転送された Azure リージョンを記録するために、このデータを提供できます。 その情報がデータのデータからトラフィック ビュー場合は、ユーザーからこの測定データを提供する次の手順に進みます。</p>
+
+
+  <p>Ignite カンファレンスの昨年の昨年のフォールでは、 <a href="https://azure.microsoft.com/en-us/blog/azure-networking-announcements-for-ignite-2017/" target="_blank">リアル ユーザー測定</a> のパブリック プレビューを発表しました。これにより、お客様は Azure 提供の <a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-create-rum-web-pages" target="_blank">JavaScript</a> タグを Web プロパティに埋め込む可能性があります。 ユーザーがこのタグをレンダリングするか、モバイル アプリケーションを使用すると、そのデバイスから Azure リージョンに対して測定が行い、Azure に報告され、ネットワーク待機時間インテリジェンス マップに追加されます。 そのため、ユーザーの 1 人が新しい測定値が得られた場所から接続すると、Azure Traffic Manager によるルーティングの決定の精度が高く、ユーザーのパフォーマンス エクスペリエンスが向上します。</p>
+
+
+  <p>すべての顧客に対して<a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-rum-overview" target="_blank">リアル ユーザー測定が一</a>般提供Azure Traffic Managerされます。 Web サイトに <a href="https://portal.azure.com/" target="_blank">埋め込Azure portal</a> JavaScript タグリアル ユーザー測定を取得するには、次のコマンドを使用します。 ユーザーのパフォーマンス ルーティングの精度の向上を経験するために必要な追加の手順はありません。 この GA 発表の一環として、2018 年 5 月 1 日からリアル ユーザー測定使用量に対して顧客に課金されます。 価格の詳細リアル ユーザー測定については、価格に関するページ<a href="https://azure.microsoft.com/en-us/pricing/details/traffic-manager/" target="_blank">Azure Traffic Manager覧ください</a>。</p>
+
+
+  <p>これらの便利な機能の使用を開始するには、チュートリアルのAzure Traffic Manager<a href="https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-create-profile" target="_blank">を参照してください</a>。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/services/traffic-manager/" target="_blank">Azure の Traffic Manager</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/dns/" target="_blank">Azure DNS</a></li>
+  </ul>

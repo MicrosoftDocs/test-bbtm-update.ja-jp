@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e6ad3f0360a52fb666a42a9eb0d81dbd7bcf5eb3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909384"
+Slug: announcing-the-general-availability-of-azure-shared-disks-and-new-azure-disk-storage-enhancements
+Title: Azure 共有ディスクと新しい Azure Disk Storage拡張機能の一般提供を発表
+Summary: 現在、 の一般提供を発表します。既存のオンプレミスの Windows および Linux ベースのクラスター化環境を Azure に移行できます。 また、Azure での可用性、セキュリティ、柔軟性を向上するために、重要な新しいディスク拡張機能も発表します。
+Content: >-
+  <p>組織はビジネスの実行方法を変更しています。多くの組織は、クラウドへの移行を加速させ、総保有コスト (TCO) の削減や柔軟性とセキュリティの向上など、クラウドが提供する利点を活用して、パフォーマンス、アプリケーションの互換性、可用性を犠牲にすることなく実現する必要があります。 お客様がビジネスに不可欠なアプリケーションを Azure に簡単に移行するために、新しいイノベーションを提供します。</p>
+
+
+  <p>現在、Azure Disk <strong></strong>&mdash;上の共有ディスクの一般提供を発表します Storage既存のオンプレミスの Windows および Linux ベースのクラスター化環境を Azure に簡単に移行できます。 また、Azure Disk Storage の重要な新しい機能強化を発表し、Azure での可用性、セキュリティ、柔軟性を向上します。</p>
+
+
+  <h2>Azure 共有ディスクの一般提供</h2>
+
+
+  <p>共有<a href="https://aka.ms/azureshareddiskdocs" target="_blank">ディスクでは</a>、Azure Disk Storage は、<b>Windows と Linux</b> ベースのクラスター化アプリケーションまたは高可用性アプリケーションの両方をサポートするクラウド内の唯一の共有ブロック ストレージです。 この独自のオファリングにより、単一のディスクを複数の仮想マシン (VM) から同時に接続して使用できます。これにより、クラスター化されたデータベース、並列ファイル システム、永続<u></u>コンテナー、機械学習アプリケーション<u></u>など、最も要求の厳しい<u></u>エンタープライズ アプリケーションをクラウドで実行できます。高速フェールオーバーと高可用性のための既知のデプロイ パターンを損なうことなく済みます。 <u></u></p>
+
+
+  <p>Azure 共有ディスクを使用すると、パートナーは、既存のアプリケーションと一貫性のある <a href="https://www.t10.org/members/w_spc3.htm" target="_blank">SCSI 永続的</a> 予約 (PR) または STONITH ブロック デバイス (SBD) のフェンシング モデルを利用できます。 SCSI PR では、既知のコマンド セットを使用して、1 つ以上のノードがディスク<b></b>に対して読み取りまたは書き込みを<b></b>行う場合に、サポートされているさまざまなアクセス モードから選択できます。 また、パートナーは、ファイル システムのオーバーヘッドを回避したいデータベースなどのステートフル Kubernetes アプリケーションに対して、<b>ReadWriteMany</b> <a href="https://github.com/kubernetes-sigs/azuredisk-csi-driver/tree/master/deploy/example/sharedisk" target="_blank"></a> 生ブロック デバイスとして Azure 共有ディスクを利用することもできます。 <b>Ultra Disks と プレミアム </b>の両方の<b> SSD</b> で共有ディスクを利用できる場合、パートナーはさまざまなブロック ストレージ オプションを利用してコストとパフォーマンスを最適化することで、Azure で独自の説得力のあるオファリングを構築できます。</p>
+
+
+  <p>共有ディスクを使用すると、次のアプリケーションを Azure に簡単に移行できます。</p>
+
+
+  <ul>
+      <li>SQL Server <a href="https://docs.microsoft.com/azure/azure-sql/virtual-machines/windows/failover-cluster-instance-overview" target="_blank">フェールオーバー</a> クラスター インスタンス (FCI)、スケールアウト ファイル サーバー (SoFS)、Windows Server 2008 以降で実行されている SAP ASCS/SCS。</li>
+      <li>GFS2、OCFS2 で実行されている Linux アプリケーション、または Red Hat Enterprise Linux 高可用性 (HA)、SUSE Linux Enterprise HA、Ubuntu HA など、Linux 上の IO フェンシングを利用する分散アプリケーション。</li>
+  </ul>
+
+
+  <p>Azure 共有ディスクの使用を開始するには、アクセス <a href="https://aka.ms/AzureSharedDiskGASignUp" target="_blank">を要求します</a>。</p>
+
+
+  <p>2020 年 2 月 13 日のプレビュー発表以降、共有ディスクを使用すると、ミッション クリティカルなワークロードとビジネス クリティカルなワークロードをクラウドに移行できるので、幅広い顧客やパートナーからの強力な導入と大きなフィードバックが得られます。<a href="https://azure.microsoft.com/en-us/blog/announcing-the-preview-of-azure-shared-disks-for-clustered-applications/" target="_blank"></a></p>
+
+
+  <p>プレビュー プログラムの参加者からの引用を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad0fd4d2-9d90-4763-aedc-e73c91c0f0b5.png"><img alt="Azure shared disks and new Azure Disk Storage enhancements are now generally available 1" border="0" height="79" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2fbe4719-9a69-4c7c-a4d9-f1a43783bb5c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure 共有ディスクと新しい Azure Disk Storage拡張機能が一般提供される 1" width="386"></a></p>
+
+
+  <p style="margin-left: 40px;"><i>&ldquo;初日から Azure の共有ディスクを待機しています。これで、Azure SQL Server と Azure Disk Virtual Machines を使用してフェールオーバー クラスターをデプロイStorage。これにより、高可用性ワークロードをオンプレミス環境からクラウドに簡単に移行できます。これにより、アプリケーションの互換性の利点が追加されます。&rdquo;</i>&mdash;Msc テクノロジ、グローバル データベース管理者デザイン コーディネーター、</p>
+
+
+  <p style="margin-left: 40px;">&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/48b493b4-55b6-4c51-8f0a-7ed48aca9159.png"><img alt="Azure shared disks and new Azure Disk Storage enhancements are now generally available 3" border="0" height="68" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44c027b9-d769-40fb-95ee-0b2dff6c4bc6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure 共有ディスクと新しい Azure Disk Storage拡張機能が一般提供される 3" width="386"></a></p>
+
+
+  <p style="margin-left: 40px;">Azure 共有ディスクを使用すると、高スケールのエンタープライズ ワークロード、ディザスター リカバリー、Azure でのテストと開発のための業界をリードするブロック ストレージ オファリングである <i>Pure Cloud Block Store の導入を加速できます。&quot;共有ディスクを使用すると、共同顧客が運用アプリケーションとプライマリ ストレージ インフラストラクチャをクラウドに移行するために、Azure で包括的な高可用性ソリューションを提供できます。また、共有ディスクを使用すると、製品アーキテクチャを簡素化し、Ultra Disks と プレミアム の組み合わせによるバランスの取れた価格パフォーマンス オプションを提供できます。&quot; </i><i>&mdash;</i>ディレクターの製品管理 (クラウド Data Services)</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/101c1126-2e20-4e23-9509-caafcc2dc8ae.png"><img alt="Azure shared disks and new Azure Disk Storage enhancements are now generally available 4 v3" border="0" height="64" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08f71e92-5f5c-4539-913b-df4a69311fd6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure 共有ディスクと新しい Azure Disk Storage拡張機能が一般提供される 4 v3" width="286"></a></p>
+
+
+  <p style="margin-left: 40px;">Teradata Vantage は、高可用性、回復性、スケーラブルなアーキテクチャを必要とするミッション クリティカルなエンタープライズ アプリケーション用のクラウドベースの分析プラットフォーム<i>を提供します。&ldquo;Azure 共有ディスクは、システム復旧時間を 70% 短縮するのに役立ちます。最終的には、カスタマー エクスペリエンスが向上し、お客様の可用性 SLA が向上します。また、SCSI 永続的予約の包括的なサポートを使用してソリューションを簡素化することもできます。さまざまな種類のディスクをサポートすることで、さまざまなワークロード要件とビジネス ニーズを満たすために、さまざまなパフォーマンス オプションを顧客に提供することもできます。&rdquo;</i><i>&mdash;</i>Eleni Rundle、Teradata、クラウドおよびアプリケーションの製品エンジニアリング担当副社長</p>
+
+
+  <h2>共有ディスクの種類、サイズ、価格</h2>
+
+
+  <p>共有ディスクは、Ultra Disks および プレミアム SSD (P15 より大きいディスク) で使用できます。また、データ ディスクとしてのみ有効にできます (OS ディスクではありません)。 プレミアムでは、共有ディスクへの追加マウントごとに、ディスク サイズに応じてマウント料金が課金されます。 このUltra Disks、マウントごとに料金は発生します。ディスク上の容量、合計 IOPS、合計スループットに対して課金されます。 一般提供価格の <a href="https://azure.microsoft.com/en-us/pricing/details/managed-disks/" target="_blank">詳細については、Azure ディスク</a> の価格に関するページを参照してください。</p>
+
+
+  <p>&nbsp;共有ディスクを使用して新しいブロック ストレージ ワークロードをクラウドに移行できるだけでなく、Azure で実行されているワークロードの可用性、セキュリティ、柔軟性を向上させる Azure Disk Storage の新しい機能強化も導入しています。</p>
+
+
+  <h2>仮想マシンと仮想マシンの単一 VM SLA を使用した可用性Standard SSD向上Standard HDD</h2>
+
+
+  <p>VM の可用性の保証を強化するために、単一インスタンスの VM SLA を、Standard SSD や Standard HDD を含むすべてのディスクの種類に拡張しています。 以前は、SSD と Ultra Disks を使用する単一インスタンス VM に対して 99.プレミアム9% の SLA を提供しました。</p>
+
+
+  <p>Standard SSD を使用する単一インスタンス VM に対して 99.5% の SLA を提供し、Standard HDD を使用する単一インスタンス VM に対して 95% の SLA を提供し、すべての単一インスタンス VM をカバーする可用性の保証を向上しました。 この SLA の更新により、Azure は、実稼働環境で SSD ディスク オプションを利用する VM に対して業界をリードする可用性保証を提供します。</p>
+
+
+  <h2>Azure Private Links 統合 (プレビュー) を使用してプライベート仮想ネットワークを使用してデータを安全にエクスポートおよびインポートする</h2>
+
+
+  <p>Azure Disk Storage では、期限付き Shared Access Signature (SAS) の一様リソース識別子 (URI) を使用して、ディザスター リカバリーのためにデータを他のリージョンにエクスポートしたり、データを読み取って法法を分析したりすることができます。 SAS URI を使用して、オンプレミスから空のディスクに仮想ハード ディスク (VHD) を直接アップロードすることもできます。 セキュリティを強化するために、プライベート Azure 仮想ネットワークからのインポートとエクスポートのみを許可することで、Azure Private Link との統合を利用して、データへのアクセス <a href="https://review.docs.microsoft.com/en-us/azure/private-link/private-link-overview" target="_blank">を制限できます</a>。 概要ドキュメントを確認して、今すぐ使用 <a href="https://aka.ms/disksprivatelinksdoc" target="_blank">できます</a>。</p>
+
+
+  <h2>パフォーマンス レベル (プレビュー) を使用して、より高いパフォーマンスとコスト削減を実現する</h2>
+
+
+  <p>現在、Azure Disk Storageには、短期的な予期<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/disk-bursting" target="_blank"></a>しないトラフィックを処理するためのより高いパフォーマンスを実現するための組み込みのバースト機能が用意されています。&nbsp;ブラック フライデー、パフォーマンス テスト、トレーニング環境の実行のようなイベントでは、数日または数時間のパフォーマンスを一貫して高くしてから、通常のパフォーマンス レベルに戻る必要があります。 現在プレミアムSSD では、ディスク サイズを増やさずにディスク のパフォーマンスを向上し、ベースライン パフォーマンスに戻す柔軟性が得れ、ワークロードのパフォーマンスのニーズに合わせてコストを削減できます。</p>
+
+
+  <p>ベースライン パフォーマンス レベルは、プロビジョニングされたディスク サイズに基づいて設定されます。 より高い需要を満たして、この期間が完了したら初期のベースライン パフォーマンス レベルに戻る必要がある場合は、より高いパフォーマンス レベルを設定できます。 たとえば、P10 ディスク (128 GB) をプロビジョニングする場合、ベースライン パフォーマンス レベルは P10 (500 IOPS と 100 MB/秒) に設定されます。 ディスク サイズを増やさずに P50 (7500 IOPS および 250 MB/秒) のパフォーマンスに合わせてレベルを更新し、より高いパフォーマンスが不要になった場合は P10 に戻することができます。 プライベート <a href="https://aka.ms/perftiersignup" target="_blank">プレビューへの</a> アクセスにサインアップしてください。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>共有ディスクの使用を開始するには、共有ディスクのドキュメント <a href="https://aka.ms/azureshareddiskdocs" target="_blank">ページを参照してください</a>。 共有ディスクのリージョンの可用性と可用性のUltra Diskについては、Azure ディスクに関する FAQ を <a href="https://aka.ms/azurediskfaq">参照してください</a>。 今後数週間で、ポータルのサポートを有効にする予定です。 現在、Azure BackupとAzure Site Recoveryのサポートは利用できません。 すべてのディスク操作 <a href="https://aka.ms/azuredisksdocs" target="_blank">の詳細な手順については、Azure Disks</a> のドキュメントを参照してください。 フィードバックを共有するには、 にメール<a href="mailto:AzureDisks@microsoft.com">AzureDisks@microsoft.com</a>を送信するか、フィードバック フォーラムにコメント<a href="https://feedback.azure.com/forums/217298-storage" target="_blank">Azure Storageしてください</a>。</p>

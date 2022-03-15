@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c506cb54377d25c9ca2c383233873123e5425bc4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903763"
+Slug: announcing-general-availability-of-consumption-and-charge-apis-for-enterprise-azure-customers
+Title: Azure のお客様向け消費および課金 API の一Enterprise発表
+Summary: 今年の 5 月にプレビューした Azure Consumption および Charge API の一般提供リリースをお知らせいたします。 Enterpriseお客様は、これらの API を使用して Azure をプルできます。
+Content: >-
+  <p>今年の 5 月にプレビューした Azure Consumption および Charge API の一般提供リリースをお知らせいたします。 Enterpriseお客様は、これらの API&rsquo; を使用して、Azure と Market Place の両方のリソースの Azure の料金と使用状況のデータを取得できます。 これらの API を使用すると、組織は Azure 上で実行されているすべてのワークロードの使用状況と支出に関する詳細な分析情報を得られる可能性があります。 カスタムの日付範囲と請求期間の両方をサポートするために、Usage Details API と Marketplace Store Charges API&rsquo; が強化されました。 また、Price Sheet API には新しい列 Meter ID&nbsp; が追加され、特定のメーターの使用状況の詳細を検索するために使用できます。</p>
+
+
+  <p>プレビューブログの投稿に記載されている現在のプレビュー API&rsquo; は、2017 年 12 月 4 日まで引き続き動作し続け、その後は非推奨となる予定です。<a href="https://azure.microsoft.com/en-us/blog/announcing-preview-of-consumption-and-charge-apis-for-enterprise-azure-customers/" target="_blank"></a></p>
+
+
+  <p>詳細については、API の使用 <a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api" target="_blank">に関する詳細なドキュメントを参照してください</a>。 現在、Azure の使用状況<a href="https://azure.microsoft.com/en-us/blog/new-power-bi-content-pack-for-azure-enterprise-users/" target="_blank">と支出の詳細に</a>関する詳細な分析を実行するために企業のお客様が使用できる Power BI コンテンツ パックも用意されています。</p>
+
+
+  <h2>API の詳細</h2>
+
+
+  <ul>
+      <li><strong>残高と概要:</strong><a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-balance-summary" target="_blank">Balance と Summary API</a> では、残高、新規購入、Azure Marketplace サービスの料金、調整、および過剰料金に関する情報の月次概要が提供されます。</li>
+      <li><strong>使用状況の詳細:</strong><a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-usage-detail" target="_blank">Usage Detail API では</a>、登録別の消費量と推定料金の毎日の内訳が提供されます。 この結果には、インスタンス、測定、および部署に関する情報も含まれています。 API は、請求期間または指定された開始日と終了日によって照会できます。</li>
+      <li><strong>Marketplace ストアの料金:</strong><a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-marketplace-storecharge" target="_blank">Marketplace Store Charge API は</a>、指定された請求期間または開始日と終了日に関する使用量ベースのマーケットプレース料金の内訳を日別に返します。</li>
+      <li><strong>価格シート:</strong><a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-pricesheet" target="_blank">Price Sheet API は、</a>特定の登録と請求期間に対して各メーターに適用される料金を提供します。 また、お客様が使用状況に関してデータをクロスチェックするのに役立つ meterId フィールドも追加されました。</li>
+      <li><strong>請求期間:</strong> Billing <a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api-billing-periods" target="_blank">Periods API は</a> 、指定された登録の使用量データを持つ請求期間の一覧を、逆の時系列順で返します。 各期間には、残高の概要、使用状況の詳細、Marketplace の料金、価格シートの 4 つのデータ セットの API ルートを指すプロパティが含まれています。</li>
+  </ul>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>一貫性のあるチャネルに依存しない API セットの一部として、このデータを ARM で提供する作業を行っています。 いつものように、ご意見やご提案をお寄せください。 これらは、Azure フィードバック フォーラムと <a href="https://feedback.azure.com/forums/170030-billing" target="_blank">Azure</a> MSDN フォーラムを使用 <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=windowsazurepurchasing" target="_blank">して送信</a> できます。 引き続き、追加機能を使用して資料を強化し、使用状況に関するより豊富な分析情報を提供し、Azure で実行されているすべてのワークロードにデータを費やします。</p>

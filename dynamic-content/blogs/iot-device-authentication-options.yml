@@ -1,0 +1,161 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 42fd8e87fade72b72b1c98dba0ce19bd5cd65dc1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909764"
+Slug: iot-device-authentication-options
+Title: IoT デバイス認証オプション
+Summary: ジョブに対して適切なセキュリティを選択すると、困難な問題です。 明らかに、誰もが IoT ソリューションのセキュリティを最大化したいと考えています。 ただし、ハードウェアの制限、コスト意識、セキュリティの専門知識の欠如などの問題は、IoT デバイスがクラウドに接続する方法に最終的に選択されるセキュリティ オプションに関する問題です。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><strong>更新：</strong>デバイスのセキュリティに関する最も関連Azure IoT、デバイスの製造元向けセキュリティ プラクティスに<a href="https://docs.microsoft.com/en-us/azure/iot-dps/concepts-device-oem-security-practices">関するAzure IoT参照してください</a>。</div>
+
+
+  <p>ジョブに対して適切なセキュリティを選択すると、困難な問題です。 明らかに、誰もが IoT ソリューションの最大のセキュリティを必要とします。 ただし、ハードウェアの制限、コスト意識、セキュリティの専門知識の欠如などの問題は、IoT デバイスがクラウドに接続する方法に最終的に選択されるセキュリティ オプションに関する問題です。 <a href="https://www.microsoft.com/en-us/research/publication/seven-properties-highly-secure-devices/" target="_blank">IoT セキュリティには多</a>くのディメンションがあります。私のエクスペリエンスでは、認証の種類は顧客が最初に遭遇する傾向があります。しかし、すべてが重要です。</p>
+
+
+  <p>このブログ記事では、&#39;<a href="https://docs.microsoft.com/en-us/azure/iot-dps/about-iot-dps" target="_blank">Azure IoT Hub Device Provisioning Service</a> と Azure IoT Hub でサポートされる認証の種類について<a href="https://docs.microsoft.com/en-us/azure/iot-hub/" target="_blank">説明します</a>。 他にも認証方法がありますが、最も広く使用されている認証方法が見つかりました。</p>
+
+
+  <p>Azure IoT <a href="https://download.microsoft.com/download/D/3/9/D3948E3C-D5DC-474E-B22F-81BA8ED7A446/Evaluating_Your_IOT_Security_whitepaper_EN_US.pdf" target="_blank">IoT</a> セキュリティの評価に関するホワイトペーパーを公開しました。また、セキュリティ プログラムも提供<a href="https://azureiotpartners.azurewebsites.net/" target="_blank">Azure IoT。</a> このセキュリティ プログラムは、状況に応じて適切なセキュリティ監査者を見つけるのに役立ち、ソリューションに必要なセキュリティの量を把握するのに役立ちます。 これらの企業は、IoT セキュリティの評価に関する専門家です。セキュリティに関する詳細な質問がある場合は、試してみるのを強くお勧めします。 セキュリティで保護された&ldquo;ハードウェアを選択する方法については、ブログ記事「<a href="https://azure.microsoft.com/en-us/blog/whitepaper-selecting-the-right-secure-hardware-for-your-iot-deployment/" target="_blank">ホワイトペーパー: IoT</a>&rdquo; デプロイに適切なセキュリティで保護されたハードウェアを選択する」または付随するホワイトペーパーで確認<a href="https://download.microsoft.com/download/C/0/5/C05276D6-E602-4BB1-98A4-C29C88E57566/The_right_secure_hardware_for_your_IoT_deployment_EN_US.pdf" target="_blank">できます</a>。</p>
+
+
+  <p>このブログ投稿はセキュリティ監査の代わりではなく、特定の形式のセキュリティに関する推奨事項として意図された投稿ではありません。 皆さんを可能な限り安全にし、良心的にそれ以下を推奨することはできません。 このブログ記事は、IoT のセキュリティ体験に着手する場合に、すべて可能なことを大きなレベルで理解し、何を念頭に置く必要があるのかを理解するのに役立つ、このブログ記事を紹介しています。 思い出してください。疑わしい場合は、 <a href="https://azureiotpartners.azurewebsites.net/" target="_blank">専門家を探してください</a>。</p>
+
+
+  <h2>X.509 証明書</h2>
+
+
+  <p>X.509 証明書は、 <a href="https://tools.ietf.org/html/rfc5280" target="_blank">IETF RFC 5280</a> で標準化されているデジタル ID の一種です。 時間と時間がある場合は、RFC を読んで、X.509 証明書が IoT シナリオで役立つものについて学習することをお勧めします。 <a href="https://azure.microsoft.com/en-us/blog/installing-certificates-into-iot-devices/" target="_blank">デバイスへの証明書のインストールについて学習します</a>。</p>
+
+
+  <p>証明書を認証するには、いくつかの方法があります。</p>
+
+
+  <ul>
+      <li>拇印: 証明書で拇印アルゴリズムを実行して生成された証明書を一意に識別する 16 進文字列。</li>
+      <li>完全なチェーンに基づく CA 認証: 証明書チェーンが証明書のどこかの信頼された署名者によって署名されたのを確認します。</li>
+  </ul>
+
+
+  <h3>長所</h3>
+
+
+  <ul>
+      <li>最も安全なキーの種類は、Azure IoT。</li>
+      <li>これにより、管理に関する多くの制御が可能です。</li>
+      <li>ベンダーのオプションは多数ある。</li>
+  </ul>
+
+
+  <h3>短所</h3>
+
+
+  <ul>
+      <li>多くのお客様は、証明書の外部ベンダーに依存しています。</li>
+      <li>管理は価格で提供されます。ソリューションの全体的なコストが追加されます。</li>
+      <li>ライフサイクル管理は、関係するロジスティックな複雑さのために課題になる可能性があります。</li>
+  </ul>
+
+
+  <h2>トラステッド プラットフォーム モジュール (TPM)</h2>
+
+
+  <p>TPM は、プラットフォームの認証に使用される安全に保管されたキーの標準を参照できます。または、標準を実装しているモジュールとの対話に使用される I/O インターフェイスを参照できます。 TPM は、個別のハードウェア、統合ハードウェア、ファームウェア ベースのモジュール、またはソフトウェア ベースのモジュールとして存在できます。 TPM と対称キー (以下で説明します) の主な違いは次のとおりです。</p>
+
+
+  <ul>
+      <li>TPM チップでは、X.509 証明書を格納することもできます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-dps/about-iot-dps" target="_blank">Device Provisioning Service</a> の <a href="https://docs.microsoft.com/en-us/azure/iot-dps/concepts-tpm-attestation" target="_blank">TPM</a> 構成証明では、非対称認証の一形式である TPM の認証キー (EK) が使用されるのに対し、対称キーは対称認証です。</li>
+  </ul>
+
+
+  <h3>長所</h3>
+
+
+  <ul>
+      <li>TPM は多くの Windows デバイスに標準で提供され、OS として Windowsを使用&#39;場合Windowsサポートされます。</li>
+      <li>TPM 構成証明は、SAS トークンベースの対称キー構成証明よりも安全です。</li>
+      <li>また、資格情報を簡単に取り出し、TPM デバイスが再プロビジョニングを行うたびに、Device Provisioning Service によって IoT Hub 資格情報が自動ロールされます。</li>
+  </ul>
+
+
+  <h3>短所</h3>
+
+
+  <ul>
+      <li>TPM に慣れ親し&#39;、一般的に使用するのは困難です。</li>
+      <li>物理 TPM または品質エミュレーターを使用せずに の開発が困難です。</li>
+      <li>ハードウェアに含めるには、ボードの再設計が必要な場合があります。</li>
+      <li>基本的に&#39;を破棄して新しい ID を与えなくても、EK をロールしない方法があります。 複製&#39;場合と同様に、複製の物理的特性は自分と同じですが、最終的には別の人物です。 物理チップは同じままですが、IoT ソリューションの ID は新しくなります。</li>
+  </ul>
+
+
+  <h2>対称キー</h2>
+
+
+  <p>対称キーはデバイスとサービスの両方で知られています。キーは、パーティ間で送信されるメッセージの暗号化と暗号化解除の両方に使用されます。 Azure IoT SAS トークン<a href="https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security" target="_blank">ベースの対称</a>キー接続がサポートされています。 対称キーを保護する最善の方法は、ハードウェア セキュリティ モジュールを使用する方法です。</p>
+
+
+  <h3>長所</h3>
+
+
+  <ul>
+      <li>最も簡単に開始できます。</li>
+      <li>生成に追加の必要はありません。</li>
+  </ul>
+
+
+  <h3>短所</h3>
+
+
+  <ul>
+      <li>X.509 証明書または TPM よりも安全性が低いのは、デバイスとクラウドの間で同じキーが共有されるからです。つまり、キーは 2 か所で保護する必要があります。 一般的に、証明書、TPM、PKI の場合、キーのプライベート部分を明らかにすることなく、キーの所有を証明する必要があります。</li>
+      <li>セキュリティに関する悪いプラクティスは簡単です。 対称キーを使用するユーザーは、デバイス上のクリア (暗号化されていない) でキーをハードコーディングする傾向があります。キーは脆弱なままです。 デバイス&#39;安全に格納することで、ある程度のリスクを軽減できますが、一般に、対称キーを使用する人は必ずしもキー ストレージに関するベスト プラクティスに従っている&#39;ではありません。 これは&#39;不可能ではなく、一般的ではありません。</li>
+  </ul>
+
+
+  <h2>共有対称キー</h2>
+
+
+  <p>すべてのデバイスで同じ対称キーを使用する。 この&#39;行う必要があります。</p>
+
+
+  <h3>長所</h3>
+
+
+  <ul>
+      <li>大規模に簡単に生成できます。</li>
+  </ul>
+
+
+  <h3>短所</h3>
+
+
+  <ul>
+      <li>実際には、すべての&rsquo;デバイスで同じ対称キーを使用する必要があります。 リスクは、簡単な実装の利点をはるかに上回っています。 共有対称キーが IoT 認証の深刻なソリューションである可能性を示唆するのは、セキュリティの誤りです。</li>
+      <li>攻撃に対して非常に脆弱です。</li>
+      <li>キーを手に入れる場合は、だれでもデバイスを偽装できます。</li>
+      <li>共有対称キーに依存している場合、デバイスの制御が失われる可能性があります。 共有対称&rsquo;キーが<a href="https://en.wikipedia.org/wiki/Mirai_(malware)" target="_blank"></a>&rsquo;悪い考えだと確信していない場合は、ボットネットに関する詳細を読んでください。</li>
+  </ul>
+
+
+  <h2>デバイスの適切な選択</h2>
+
+
+  <p>IoT 認証を決定するには、特定のリスクと利点を評価する必要があります。 このブログの投稿では、すべてを説明するには短すぎますが、Azure IoT決定の支援<a href="https://azureiotpartners.azurewebsites.net/" target="_blank"></a>が必要な場合は、Azure IoT セキュリティ プログラムを提供しています。 オプションの詳細については、IoT セキュリティの <a href="https://download.microsoft.com/download/D/3/9/D3948E3C-D5DC-474E-B22F-81BA8ED7A446/Evaluating_Your_IOT_Security_whitepaper_EN_US.pdf" target="_blank">評価に</a> 関するホワイトペーパーを参照してください。</p>
+
+
+  <p>取り上げを合計するには、次の方法を使用します。</p>
+
+
+  <p>セキュリティとは、多くのことを意味します<br>
+
+  マシンの種類に合った変化<br>
+
+  その量だけ<br>
+
+  必要な場合&hellip;<br>
+
+  特定のニーズによって異なります</p>

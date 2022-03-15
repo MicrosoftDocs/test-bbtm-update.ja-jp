@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dc72967300d3fc059e00e4385a2be8fe7dc69ecd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139903552"
+Slug: introducing-azure-confidential-computing
+Title: Azure Confidential Computing の概要
+Summary: Microsoft は、サイバーセキュリティに年間 10 億ドルを費やしています。その多くが、最も信頼できるクラウド プラットフォームMicrosoft Azureを構築するために費やされています。 厳密な物理的なデータセンターのセキュリティから、データの確保...
+Content: >-
+  <p>Microsoft は、サイバーセキュリティに年間 10 億ドルを費やしています。その多くが、最も信頼できるクラウド プラットフォームMicrosoft Azureを構築するために費やされています。 厳格な物理的なデータセンターのセキュリティ、データのプライバシーの確保、保存データと転送中のデータの暗号化、脅威検出のための機械学習の新しい使用、厳格な運用ソフトウェア開発ライフサイクル 制御の使用から、Azure はクラウドのセキュリティとプライバシーの最先端を表します。</p>
+
+
+  <p>本日、&rsquo;Microsoft Azure は、Azure Confidential Computing と呼ばれる一連の機能とサービスを備えた新しいデータ セキュリティ機能を提供する最初のクラウドです。 簡単に言えば、Confidential Computing は、現在までパブリック クラウドから欠落している保護、使用中のデータの暗号化を提供します。 つまり、データは常に顧客の管理下にあるという保証を使用してクラウドで処理できます。 Azure チームは、Microsoft Research、Intel、Windows、および 開発者ツール グループと共に、4 年以上にわたりコン秘コンピューティング ソフトウェアおよびハードウェア テクノロジに取り組んでいます。 この投稿の下部には、機密コンピューティングに関連する Microsoft Research の論文の一覧が含まれています。 現在は、その最先端の機能をさらに一歩進め、早期アクセス プログラムを通じて顧客が利用できます。</p>
+
+
+  <p>データ侵害は事実上毎日のニュース イベントであり、攻撃者は個人を特定できる情報 (PII)、財務データ、および企業の知的財産にアクセスできます。 多くの侵害は、アクセス制御の構成が不十分な結果ですが、ほとんどの場合、管理者アカウントを介して、または侵害されたキーを利用して暗号化されたデータにアクセスすることで、使用中にアクセスされるデータにトレースできます。 高度なサイバーセキュリティの制御と軽減策にもかかわらず、一部のお客様は、使用されているデータに対する攻撃を恐れて、最も機密性の高いデータをクラウドに移動する気がしません。 機密コンピューティングを使用すると、保存中だけでなく、次の脅威から使用しても安全であるというデータを Azure に移動できます。</p>
+
+
+  <ul>
+      <li>管理特権を持つ悪意のある内部関係者、またはそれが処理されているハードウェアへの直接アクセス</li>
+      <li>オペレーティング システム、アプリケーション、またはハイパーバイザーのバグを悪用するハッカーとマルウェア</li>
+      <li>サード パーティが同意せずにアクセスする</li>
+  </ul>
+
+
+  <p>&ldquo;&rdquo;機密コンピューティングを使用すると、効率的な処理に必要なデータが明確に見え、そのデータが信頼された実行環境 (TEE ( エンクレーブとも呼ばれる) 内で保護されます。その例を次の図に示します。 TEE によって、外部からは、デバッガーを使用しても内部のデータや操作を見る方法がないようになっています。 それらは、承認されたコードのみがデータへのアクセスを許可されるようにさえしています。 コードが変更されたり改ざんされたりしている場合、操作は拒否され、環境が無効にされます。 TEE は、その内部でのコードの実行全体を通して、これらの保護を強制します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e92d133d-3835-4f28-b2dc-0aa6259ebe09.png"><img alt="Azure confidential computing" border="0" height="541" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91f67ece-811d-46de-8add-ab64d4fd050f.png" style="border-width: 0px; border-style: initial; border-color: initial; background-image: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto;" title="Azure Confidential Computing" width="861"></a></p>
+
+
+  <p>Azure Confidential Computing では、開発者&rsquo;がコードを変更することなくさまざまな TE を利用できるプラットフォームを開発しています。 最初は、仮想セキュア モードと Intel SGX の 2 つの TE をサポートしています。 仮想セキュア モード (VSM) は、Hyper-V によって実装されるソフトウェア ベースの TEE&rsquo; Windows 10および Windows Server 2016。 Hyper-V では、コンピューターまたはサーバーで実行されている管理者コードだけでなく、ローカル管理者やクラウド サービス管理者が VSM エンクレーブの内容を表示したり、その実行を変更したりできません。 また&rsquo;、パブリック クラウド内の最初の SGX 対応サーバーを備えたハードウェアベースの Intel SGX TEE も提供しています。 信頼モデルに Azure または Microsoft を一向に含めたくないお客様は、SGX TEEs を利用できます。 Intel&rsquo; および他のハードウェアおよびソフトウェア パートナーと協力して、追加の TE を開発し、利用可能になったらそれらをサポートします。</p>
+
+
+  <p>Microsoft では既にエンクレーブを使用して、ブロックチェーンの財務操作から、SQL Server に格納されているデータ、および Azure 内の独自のインフラストラクチャまで、すべてを保護しています。 &rsquo;これまでは、<a href="https://azure.microsoft.com/en-us/blog/announcing-microsoft-s-coco-framework-for-enterprise-blockchain-networks/" target="_blank">Confidential Computing</a> ブロックチェーンの取り組み (Coco Framework と呼ばれる) について説明しましたが、現在は、Azure SQL Database と SQL Server に対して暗号化を実装するために同じテクノロジを使用すると発表しています。 これは、Always Encrypted 機能の強化です。これにより、SQL データベース内の機密データを、SQL クエリの機能を損なうことなく、SQL データベース内で暗号化することができます。 Always Encryptedを実現するには、機密データの計算をエンクレーブに委任します。エンクレーブでは、データが安全に復号化および処理されます。 Microsoft は引き続き Microsoft の製品およびサービス内でエンクレーブを使用して、機密情報を処理する必要がある場所に応じて、使用中にセキュリティで保護することができます。</p>
+
+
+  <p>財務、医療SQL Server AI など、さまざまな業界に Azure Confidential Computing が幅広く適用されています。 たとえば、財務では、個人ポートフォリオ データと資産管理戦略が TEE の外部に表示されなくなりました。 医療組織は、ゲノム シーケンスなどの個人の患者データを共有することで共同作業を行い、他の組織にデータが漏洩するリスクなく、複数のデータ セット間で機械学習からより深い分析情報を得られる可能性があります。 石油とガス、IoT のシナリオでは、企業の中核となる知的財産を表す機密性の高い地震データを処理のためにクラウドに移動できますが、暗号化された使用テクノロジを保護することができます。&nbsp;</p>
+
+
+  <p>お客様は、Azure VSM と SGX 対応の仮想マシン、ツール、SDK、および Windows および Linux サポートへのアクセスを含む、早期アクセス プログラムを通じて Azure Confidential Computing を試し、クラウド内の任意のアプリケーションが使用中にデータを保護できるようすることができます。</p>
+
+
+  <h3>Azure Confidential Computing <a href="https://aka.ms/azurecc" target="_blank">Early Access プログラムにサインアップします</a>。</h3>
+
+
+  <p>Azure でのエンクレーブのデモンストレーションを行う <a href="https://ignite.microsoft.com/" target="_blank">Ignite</a>&rsquo; でお会いできるのを楽しみにしています。 Azure&rsquo; クラウド、Intel ハードウェア、および Microsoft のテクノロジ、サービス、製品を使用して、多くの機会と使用事例をまとめてセキュリティで保護することができます。&nbsp;</p>
+
+
+  <p>今日は、セキュリティで保護されたコンピューティングの新しい時代の始まりです。 この将来を作成する場合は、Azure に参加してください。</p>
+
+
+  <p>- マーク</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>機密コンピューティングに関連する Microsoft Research の論文:</p>
+
+
+  <ul>
+      <li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/osdi2014-haven.pdf" target="_blank">Haven を使用して信頼されていないクラウドからアプリケーションをシールドする</a>&nbsp;</li>
+      <li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/vc3-oakland2015.pdf" target="_blank">VC3: SGX を使用したクラウドでの信頼できるデータ分析</a></li>
+      <li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/paper.pdf" target="_blank">信頼されたプロセッサ上の難Machine Learningマルチパーティ の構成</a>&nbsp;</li>
+      <li><a href="https://people.eecs.berkeley.edu/~rsinha/research/pubs/pldi2016.pdf" target="_blank">セキュリティで保護された分離リージョンの設計と検証の手法</a></li>
+  </ul>
+
+
+  <p>&rsquo;「Microsoft Story Labs 機能: クラウドのセキュリティ保護」で、機密コンピューティングが Microsoft のより広範なクラウド セキュリティ戦略に適合する方法<a href="https://news.microsoft.com/stories/cloud-security/" target="_blank">を確認します</a>。</p>

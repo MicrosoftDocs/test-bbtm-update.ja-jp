@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 87b68d8ecf2164a6e225515652f2844335e7b67e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910043"
+Slug: azure-dns-private-zones-now-available-in-public-preview
+Title: Azure DNS Private Zonesパブリック プレビューで使用できる
+Summary: 'すべての Azure パブリック クラウド リージョンでの DNS Private Zones のパブリック プレビューをお知らせします。 '
+Content: >-
+  <p style="text-align: justify;">すべての Azure パブリック クラウド リージョンでの DNS Private Zones のパブリック プレビューをお知らせします。 この機能により、Azure 内の仮想ネットワークに対してセキュリティで保護された信頼性の高い名前解決が提供されます。 Private Zones は、昨年のフォールでマネージド プレビューとして発表されました。</p>
+
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59e6db07-ecf2-42a2-876d-6c23cc12879b.png"><img alt="image" border="0" height="277" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aae15d4e-390e-4833-85a4-f866d7e29d00.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="383"></a></p>
+
+
+  <h2 style="text-align: justify;">カスタム DNS サーバーの負担がこれ以上ない</h2>
+
+
+  <p style="text-align: justify;">Private Zones を使用すると、カスタム DNS サーバーをセットアップおよび管理する必要が生じしません。 アプリケーションを Azure クラウドにリフトアンドシフトする場合、またはアプリケーションを構築する場合は、仮想ネットワークに DNS ゾーンCloud-Nativeできます。 また、会社のドメイン名などの&rsquo;カスタム ドメイン名を柔軟に使用できます。</p>
+
+
+  <h2 style="text-align: justify;">仮想ネットワーク間およびリージョン間での名前解決</h2>
+
+
+  <p style="text-align: justify;">プライベート ゾーンは、仮想ネットワーク内での名前解決と仮想ネットワーク間での名前解決を両方提供します。 プライベート ゾーンは、同じリージョンの複数の仮想ネットワークをまたぐだけでなく、複数のリージョンおよびサブスクリプションをまたぐことができます。 この機能は、すべての Azure パブリック クラウド リージョンで使用できます。</p>
+
+
+  <h2 style="text-align: justify;">スプリットホライズンのサポート</h2>
+
+
+  <p style="text-align: justify;">スプリットホライズン ビューを<a href="https://en.wikipedia.org/wiki/Split-horizon_DNS" target="_blank"></a>使用してゾーンを構成できます。プライベート DNS ゾーンとパブリック DNS ゾーンで同じ名前を共有できます。 これは、より広範な使用のために実稼働環境で展開する前に、ローカルテスト環境でワークロードを検証する場合に一般的なシナリオです。 このシナリオを実現するには、単にパブリック ゾーンとプライベート ゾーンの両方と同じ DNS ゾーンを構成Azure DNS。 ゾーンに接続されている仮想ネットワーク内のクライアントの場合、Azure はプライベート ゾーンから DNS 応答を返し、インターネット上のクライアントの場合、Azure はパブリック ゾーンから DNS 応答を返します。 名前解決は構成済みの仮想ネットワークに限定されるので、DNS の侵入を防ぐことが可能です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/edfa973b-c1b8-4528-acdb-4deea5d32daa.png"><img alt="image" border="0" height="389" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b867b665-09af-446d-8247-373d469f692c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="598"></a></p>
+
+
+  <h2 style="text-align: justify;">動的 DNS 登録</h2>
+
+
+  <p style="text-align: justify;">この更新プログラムでは、DNS ゾーンに 2 つの概念を導入しています。登録仮想ネットワークと解決仮想ネットワーク。 ゾーンを更新するときに、プライベート ゾーンの作成時以降に仮想ネットワークを登録仮想ネットワークとして指定すると、Azure では、この仮想ネットワーク内の仮想マシンのプライベート ゾーンに DNS A レコードが動的に登録され、仮想ネットワーク内の仮想マシンの追加または削除が追跡され、プライベート ゾーンの更新が維持されます。 これは、ユーザーが何の作業も行う必要がない場合です。</p>
+
+
+  <p style="text-align: justify;">プライベート ゾーンを作成または更新するときに、最大 10 の仮想ネットワークを解決仮想ネットワークとして指定できます。 転送 DNS クエリは、これらの仮想ネットワークのプライベート ゾーン レコードに対して解決されます。 仮想ネットワーク間で DNS 解決を機能するために仮想ネットワークをピアリングする依存関係や要件はありません。<br>
+
+  Azure DNS Private Zones登録仮想ネットワークのプライベート IP アドレス空間に対する逆引き DNS クエリもサポートしています。</p>
+
+
+  <h2 style="text-align: justify;">使い慣れたゾーンとレコードの管理</h2>
+
+
+  <p style="text-align: justify;">プライベート ゾーンとレコード管理は、通常の (パブリック) DNS ゾーンと同Azure DNS REST API、SDK、PowerShell、CLI と同じ方法で行われます。 ポータルのサポートは間もなくサポートされます。</p>
+
+
+  <p style="text-align: justify;">この機能&rsquo;を試すのを待つ必要があります。 詳細については、概要<a href="https://docs.microsoft.com/en-us/azure/dns/private-dns-overview" target="_blank">と、</a>この機能を使用して実現<a href="https://aka.ms/privatednsscenarios" target="_blank"></a>できる一般的なシナリオを参照してください。 PowerShell とプライベート ゾーンを使用したプライベート ゾーンの作成と管理に<a href="https://docs.microsoft.com/en-us/azure/dns/private-dns-getstarted-powershell" target="_blank"></a>関するドキュメントを<a href="https://aka.ms/privatednscli" target="_blank">参照</a>Azure CLI。 この機能に関連 <a href="https://docs.microsoft.com/en-us/azure/dns/dns-faq#private-dns" target="_blank">する最も頻繁</a> な質問への回答については、パブリック FAQ を確認してください。</p>
+
+
+  <p style="text-align: justify;">いつものように、フィードバックをお寄せください。 この機能に関するご提案やフィードバック、および今後のシナリオについては、ユーザーの音声チャネル <a href="https://feedback.azure.com/forums/217313-networking?category_id=77466" target="_blank">で送信できます</a>。 また、この領域のより興味深い更新については、Azure DNS!</p>

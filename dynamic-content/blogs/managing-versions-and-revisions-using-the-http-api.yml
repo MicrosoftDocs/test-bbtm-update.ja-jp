@@ -1,0 +1,509 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 280dc56ed787110a05ce87decd825bcc624452a6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909688"
+Slug: managing-versions-and-revisions-using-the-http-api
+Title: HTTP API を使用したバージョンとリビジョンの管理
+Summary: '新しいバージョンとリビジョン機能は、既存の管理 API に可能な限りシームレスに適合するように設計されています。 大きな観点から見ると、現在のリビジョンの操作は、API の操作方法と常に同じです。 '
+Content: >-
+  <p>新しい <a href="https://blogs.msdn.microsoft.com/apimanagement/2017/09/14/versions-revisions/">バージョンとリビジョン機能</a> は、既存の管理 API に可能な限りシームレスに適合するように設計されています。</p>
+
+
+  <p>大きな観点から見ると、現在のリビジョンの操作は、API の操作方法と常に同じです。 API の異なるバージョンの操作は、別の API の操作と同様です。 各バージョンには、独自の apiId 識別子があります。 現在以外のリビジョンを使用するには、少しのマジックが必要です。 現在のリビジョンの apiId を使用する代わりに、余分なサフィックス ;rev=n があります。ここで、n はリビジョン番号です。</p>
+
+
+  <p>ARM 経由で API にアクセスする場合は、次のベース URL を使用します。</p>
+
+
+  <pre>
+
+  https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ApiManagement/service/{serviceName}/</pre>
+
+
+  <p>また、Authorization ヘッダーに ARM のベアラー トークンが必要です。 <a href="https://github.com/projectkudu/ARMClient">ArmClient を使用</a>すると、テスト用のトークンを取得する最も簡単な方法です。</p>
+
+
+  <p>ただし、クラシック サービス を使用している場合Management APIベース URL は次のとおりです。</p>
+
+
+  <pre>
+
+  https://{serviceName}.management.azure-api.net/</pre>
+
+
+  <p>必要な Authorization ヘッダーは、Azure Portal の [Security-API Management&gt;] の下にある Management API。</p>
+
+
+  <p>ARM API の利点は、管理者以外に API へのアクセス権を付与できると、操作の監査証跡があるという利点があります。 唯一の特別な複雑さは、API 応答データが標準の ARM ペイロード エンベロープに埋め込まれている場合です。 ここで説明するシナリオはすべて両方の API で動作しますが、一部は 1 つの API に対してしか示されません。</p>
+
+
+  <h2>API とバージョンの一覧</h2>
+
+
+  <p>API の一覧を要求すると、すべてのバージョン管理された API とバージョン管理されていない API の現在のリビジョンが表示されます。 現在以外のリビジョンは、この一覧には表示されません。</p>
+
+
+  <pre>
+
+  GET {{baseUrl}}/apis?api-version=2017-01-01 HTTP/1.1
+
+
+  Authorization: {{authValue}}
+
+
+  HTTP/1.1 200 OK
+
+
+  Content-Type: application/json; charset=utf-8
+
+
+  {
+
+    &quot;value&quot;: [
+
+          {
+
+        &quot;id&quot;: &quot;/subscriptions/6b7f02d9-1f17-43e0-a02c-24e99753d14a/resourceGroups/Api-Default-East-US/providers/Microsoft.ApiManagement/service/conference/apis/5942d3b49ea6ed985e913bc4&quot;,
+
+        &quot;type&quot;: &quot;Microsoft.ApiManagement/service/apis&quot;,
+
+        &quot;name&quot;: &quot;5942d3b49ea6ed985e913bc4&quot;,
+
+        &quot;properties&quot;: {
+
+          &quot;displayName&quot;: &quot;Big Conference API-v2&quot;,
+
+          &quot;apiRevision&quot;: &quot;1&quot;,
+
+          &quot;description&quot;: &quot;Sample hypermedia API running in an API App on App Service.&quot;,
+
+          &quot;path&quot;: &quot;bigconf&quot;,
+
+          &quot;protocols&quot;: [
+
+            &quot;https&quot;
+
+          ],
+
+          &quot;authenticationSettings&quot;: null,
+
+          &quot;subscriptionKeyParameterNames&quot;: null,
+
+          &quot;isCurrent&quot;: true,
+
+          &quot;apiVersion&quot;: &quot;v2&quot;,
+
+          &quot;apiVersionSet&quot;: {
+
+            &quot;id&quot;: &quot;/subscriptions/6b7f02d9-1f17-43e0-a02c-24e99753d14a/resourceGroups/Api-Default-East-US/providers/Microsoft.ApiManagement/service/conference/api-version-sets/5e02bd74-4323-4531-b889-85ab4b51563e&quot;,
+
+            &quot;name&quot;: &quot;Big Conference API&quot;,
+
+            &quot;description&quot;: null,
+
+            &quot;versioningScheme&quot;: &quot;Segment&quot;,
+
+            &quot;versionQueryName&quot;: null,
+
+            &quot;versionHeaderName&quot;: null
+
+          }
+
+        }
+
+      },
+
+    ],
+
+    ...
+
+  }</pre>
+
+
+  <p>バージョン管理されていない API と元のバージョンの場合、apiVersion プロパティは空になります。 つまり、バージョン管理される前に存在していた API です。</p>
+
+
+  <p>apiRevision プロパティは、API のリビジョン番号を識別し、既存のすべての API の既定値は 1 になります。 この一覧では、isCurrent プロパティは常に true であり、すべてのケースで読み取り専用プロパティです。</p>
+
+
+  <p>apiVersionSet オブジェクトは、API が属するバージョン セットを示します。 API バージョン セットでは、バージョン セット内のすべての API のバージョン管理規則を定義します。</p>
+
+
+  <h2>現在のリビジョンへのアクセス</h2>
+
+
+  <p>現在のリビジョンとの対話は、過去と同様に機能します。</p>
+
+
+  <pre>
+
+  GET {{baseUrl}}/apis/{{apiId}}?api-version=2017-03-01 HTTP/1.1
+
+
+  Authorization: {{authValue}}</pre>
+
+
+  <h2>現在以外のリビジョンへのアクセス</h2>
+
+
+  <p>現在以外のリビジョンにアクセスするには、リビジョン サフィックスを追加して apiId を少し変更する必要があります。</p>
+
+
+  <pre>
+
+  GET {{baseUrl}}/apis/5942d3b49ea6ed985e913bc4;rev=2?api-version=2017-03-01 HTTP/1.1
+
+
+  Authorization: {{authValue}}</pre>
+
+
+  <p>これにより、オンラインとしてまだマークされている現在以外のリビジョンにアクセスできます。 API 定義には、新しいブール型プロパティ isOnline があります。</p>
+
+
+  <h2>新しいリビジョンの作成</h2>
+
+
+  <p>リビジョンは、他の API と同様に作成できます。 唯一の違いは、apiId に追加されたリビジョン サフィックスです。 任意の apiId に対して作成された最初のリビジョンは、現在のリビジョンと見なされます。</p>
+
+
+  <pre>
+
+  PUT {{classicBaseUrl}}/apis/myApiId;rev=1?api-version=2017-03-01
+
+
+  Authorization: {{authValue}}
+
+
+  Content-Type: application/json
+
+
+  {
+
+    &quot;name&quot; : &quot;My Api&quot;,
+
+    &quot;path&quot; : &quot;api&quot;,
+
+    &quot;serviceUrl&quot; : &quot;https://example.org&quot;,
+
+    &quot;protocols&quot; : [&quot;https&quot;]
+
+  }</pre>
+
+
+  <p>rev パラメーターは、リビジョンが単なる<a href="https://www.w3.org/DesignIssues/MatrixURIs.html"></a>別の API 定義であるが、同じ ApiId を持つリビジョンのセット間にリレーションシップがあることを強調するマトリックス パラメーターとして表されます。 リビジョンは、API とは異なる概念ではありません。 これは、単に特殊な識別子を持つ API です。</p>
+
+
+  <p>rev サフィックスなしで PUT を使用すると、リビジョン 1 として新しい API が作成されます (存在しない場合)。</p>
+
+
+  <h2>別のバージョンに基づくリビジョンの作成</h2>
+
+
+  <p>API リビジョンを作成する最も簡単な方法は、既存の API リビジョンに基づく方法です。 これを行うには、通常の API コントラクト ペイロードを渡す代わりに、特別なペイロードを送信します。このペイロードは、クラシック API では application/vnd.ms-azure-apim.revisioninfo+json という名前の新しいメディアの種類で示されます。</p>
+
+
+  <pre>
+
+  PUT {{classicBaseUrl}}/apis/myapiId;rev=2?api-version=2017-03-01
+
+
+  Authorization: {{authValue}}
+
+
+  Content-Type: application/vnd.ms-azure-apim.revisioninfo+json
+
+
+  {
+
+        &quot;sourceApiId&quot;:&quot;/apis/myapiId&quot;,
+
+        &quot;apiRevisionDescription&quot;:&quot;My new revision&quot;
+
+  }</pre>
+
+
+  <p>ターゲット URL は作成される新しいリビジョンを示し、sourceApiId はベース パスに続くソース API リビジョンのパスです。 この場合は、現在の API のリビジョンを作成します。</p>
+
+
+  <p>次のAzure portal、ユーザー インターフェイスにより、リビジョンが線形シーケンスになります。 つまり、新しいリビジョンを追加すると、リビジョン n に基づいてリビジョン n+1 が作成されます。 ただし、これは API を介して制約されません。 線形パスからのスレイトに対して気を付けてください。または、更新プログラムが失なっている可能性があります。</p>
+
+
+  <p>この操作の動作により、Azure デプロイ テンプレートではサポートされない可能性があります。 デプロイ テンプレートでリビジョンをサポートする最善の方法を検討しています。 しばらくお待ちください。</p>
+
+
+  <p>ただし、応答は ARM ペイロードに準拠しています。</p>
+
+
+  <pre>
+
+  {
+
+    &quot;id&quot;: &quot;/subscriptions/6b7f02d9-1f17-43e0-a02c-24e99753d14a/resourceGroups/Api-Default-East-US/providers/Microsoft.ApiManagement/service/conference/apis/55bae80192ff5c0314040001;rev=2&quot;,
+
+    &quot;type&quot;: &quot;Microsoft.ApiManagement/service/apis&quot;,
+
+    &quot;name&quot;: &quot;55bae80192ff5c0314040001;rev=2&quot;,
+
+    &quot;properties&quot;: {
+
+      &quot;displayName&quot;: &quot;Echo API&quot;,
+
+      &quot;apiRevision&quot;: &quot;2&quot;,
+
+      &quot;description&quot;: null,
+
+      &quot;serviceUrl&quot;: &quot;https://echoapi.cloudapp.net/api&quot;,
+
+      &quot;path&quot;: &quot;echo&quot;,
+
+      &quot;protocols&quot;: [
+
+        &quot;https&quot;
+
+      ],
+
+      &quot;authenticationSettings&quot;: {
+
+        &quot;oAuth2&quot;: null,
+
+        &quot;openid&quot;: null
+
+      },
+
+      &quot;subscriptionKeyParameterNames&quot;: {
+
+        &quot;header&quot;: &quot;Ocp-Apim-Subscription-Key&quot;,
+
+        &quot;query&quot;: &quot;subscription-key&quot;
+
+      },
+
+      &quot;apiRevisionDescription&quot;: &quot;My new revision&quot;
+
+    }
+
+  }</pre>
+
+
+  <h2>リビジョンからのバージョンの作成</h2>
+
+
+  <p>顧客がオプトインする必要がある API に変更を加える必要がある場合は、新しいバージョンの API を作成する必要があります。</p>
+
+
+  <p>新しい API バージョンは異なる apiId を持っていますが、ApiVersionSet に関連付けられているので、API のすべてのバージョンに共通であり、バージョン管理スキームを定義するメタデータが含まれています。 リビジョンが特別に識別された API リソースであるのと同様に、バージョンも同様です。</p>
+
+
+  <p>既存の API リビジョンから新しい API バージョンを作成する方法は、別のリビジョンに基づくリビジョンの作成と非常に似ています。 主な違いは、apiVersionSet オブジェクトを含めることです。 apiVersionSet に有効な id プロパティが含まれる場合、API は既存の apiVersionSet に追加されます。 それ以外の場合は、新しい apiVersionSet が作成されます。</p>
+
+
+  <pre>
+
+  PUT {{classicBaseUrl}}/apis/{newApiId}
+
+
+  Content-Type: application/vnd.ms-azure-apim.revisioninfo+json
+
+
+  {
+
+      &quot;sourceApiId&quot; : &quot;/apis/{existingApiId[rev]}&quot;,
+
+      &quot;apiVersionName&quot; : &quot;v2&quot;,
+
+      &quot;apiVersionDescription&quot; : &quot;Description&quot;,
+
+      &quot;apiVersionSet&quot; : {
+
+          &quot;versioningScheme&quot; : &quot;Segment&quot;
+
+      }
+
+  }</pre>
+
+
+  <p>apiVersionName は必須のプロパティであり、versioningScheme は Segment、Header、または Query の 1 つである必要があります。 [ヘッダー] または [クエリのバージョン管理] が選択されている場合は、headerParameterName または queryParameterName を指定する必要があります。</p>
+
+
+  <p>セグメントのバージョン管理スキームが使用されている場合、Azure API Management によって公開される API を呼び出す場合、apiVersionName は、API サフィックスの後のセグメントと Operation UrlTemplate の前に表示される必要があります。</p>
+
+
+  <h2>バージョン管理された API を最初から作成する</h2>
+
+
+  <p>バージョン管理戦略を事前に定義する新しい API 定義を作成できます。 必要なのは、API 定義表現に既存の apiVersionSet への参照を含める必要があります。</p>
+
+
+  <pre>
+
+  PUT {{classicBaseUrl}}/apis/{{apiId}}?api-version=2017-03-01
+
+
+  Authorization: {{authValue}}
+
+
+  Content-Type: application/json
+
+
+  {
+
+    &quot;name&quot; : &quot;My Api&quot;,
+
+    &quot;path&quot; : &quot;api&quot;,
+
+    &quot;serviceUrl&quot; : &quot;https://example.org&quot;,
+
+    &quot;protocols&quot; : [&quot;https&quot;]
+
+    &quot;apiVersion&quot; : &quot;v1&quot;,
+
+    &quot;apiVersionDescription&quot; : &quot;Initial Version&quot;,
+
+    &quot;apiVersionSetId&quot; : &quot;/api-version-sets/myapiversionset&quot;
+
+  }</pre>
+
+
+  <h2>リビジョンの一覧</h2>
+
+
+  <p>特定の apiId のリビジョンのセットを表示するには、次のように要求を行います。</p>
+
+
+  <pre>
+
+  GET https://{{baseUrl}}/apis/{{apiId}}/revisions?api-version=2017-03-01 HTTP/1.1
+
+
+  Authorization: {{authValue}}
+
+
+  HTTP/1.1 200 OK
+
+
+  Content-Type: application/json; charset=utf-8
+
+
+  {
+
+    &quot;value&quot;: [
+
+      {
+
+        &quot;apiId&quot;: &quot;/apis/echo-api;rev=2&quot;,
+
+        &quot;apiRevision&quot;: &quot;2&quot;,
+
+        &quot;createdDateTime&quot;: &quot;2017-05-30T18:32:06.463&quot;,
+
+        &quot;updatedDateTime&quot;: &quot;2017-05-30T18:32:06.463&quot;,
+
+        &quot;description&quot;: &quot;its a test&quot;,
+
+        &quot;privateUrl&quot;: &quot;/api;rev=2/&quot;,
+
+        &quot;isOnline&quot;: true,
+
+        &quot;isCurrent&quot;: false
+
+      },
+
+      {
+
+        &quot;apiId&quot;: &quot;/apis/echo-api;rev=1&quot;,
+
+        &quot;apiRevision&quot;: &quot;1&quot;,
+
+        &quot;createdDateTime&quot;: &quot;2017-05-30T00:21:33.037&quot;,
+
+        &quot;updatedDateTime&quot;: &quot;2017-05-30T00:21:33.037&quot;,
+
+        &quot;description&quot;: null,
+
+        &quot;privateUrl&quot;: null,
+
+        &quot;isOnline&quot;: true,
+
+        &quot;isCurrent&quot;: true
+
+      }
+
+    ],
+
+    &quot;count&quot;: 2,
+
+    &quot;nextLink&quot;: null
+
+  }</pre>
+
+
+  <p>返される表現は、リビジョンに関する情報の読み取り専用の概要ビューです。</p>
+
+
+  <h2>すべてのリビジョンを削除する</h2>
+
+
+  <p>.../revisions リソースは読み取り専用ですが、apiId に関連付けられているすべてのリビジョンをすばやく削除するために使用できます。</p>
+
+
+  <pre>
+
+  DELETE {{baseUrl}}/apis/{{apiId}}/revisions?api-version=2017-03-01 HTTP/1.1
+
+
+  If-match: *
+
+
+  Authorization: {{authValue}}</pre>
+
+
+  <h2>リビジョンのリリースを作成する</h2>
+
+
+  <p>一度に、API ごとに現在のリビジョンとしてマークされているリビジョンは 1 つのみです。 API 表現には、リビジョンが最新かどうかを示す isCurrent フラグが含まれている。 これは読み取り専用属性です。 最新のリビジョンを変更するには、リリース リソースを作成する必要があります。 要求ペイロードは、最新になる API リビジョンを識別する必要があります。</p>
+
+
+  <pre>
+
+  PUT {{classicBaseUrl}}/apis/{{apiId}}/releases/{{releaseId}}?api-version=2017-03-01 HTTP/1.1
+
+
+  Authorization: {{authValue}}
+
+
+  Content-Type: application/json
+
+
+  {
+
+    &quot;apiId&quot; : &quot;/apis/echo-api;rev=2&quot;,
+
+    &quot;notes&quot; : &quot;Let&#39;s release it&quot;
+
+  }</pre>
+
+
+  <p>ここに含まれるメモは、開発者ポータルのリリース ノートに表示されます。 これは省略可能なプロパティです。 リリース リビジョンをロールバックするには、前のリビジョンを対象とする新しいリリースを作成するだけで、もう一度最新の状態になります。</p>
+
+
+  <h2>API のリリース ノートを取得する</h2>
+
+
+  <p>API のリリース ノートのセットは、次の要求で取得できます。</p>
+
+
+  <pre>
+
+  GET {{baseUrl}}/apis/{{apiId}}/releases?api-version=2017-03-01 HTTP/1.1
+
+
+  Authorization: {{authValue}}</pre>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>バージョンとリビジョンの実装は現在プレビュー中なので、これらの API はフィードバックに基づいて変更される可能性があります。 ご自分の考えをお知らせください。 何が好きですか? 何が&#39;好きですか? 明確化を使用できる部分は何ですか? API がありませんか? 試して、お知らせください。</p>

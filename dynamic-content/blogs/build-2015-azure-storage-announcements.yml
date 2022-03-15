@@ -1,0 +1,126 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3067c59a6cdba3bbdf7107e7dae48ca4c57eec83
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904245"
+Slug: build-2015-azure-storage-announcements
+Title: 'ビルド 2015: Azure Storage アナウンス'
+Summary: 'ビルド2015の時点で、Azure Storage チームにはいくつかの魅力的なお知らせがあります。 これらの新機能により、Azure Storage でより強力なアプリケーションを記述できるようになることを願っています。 '
+Content: >-
+  ビルド2015の時点で、Azure Storage チームにはいくつかの魅力的なお知らせがあります。 これらの新機能により、Azure Storage でより強力なアプリケーションを記述できるようになることを願っています。 このブログ投稿では、新しい GA お知らせの概要、プレビュープログラムの更新プログラム、およびその他すべての機能について説明しています。
+
+  <h2><strong>一般提供のお知らせ</strong></h2>
+
+  <h3>Premium Storage の一般提供</h3>
+
+  Azure Premium Storage は最近一般公開が開始しました。 Premium Storage は、ssd (ソリッドステートドライブ) にデータを格納することで、Azure Virtual Machines で実行される i/o 集中型のワークロードに対して、高パフォーマンスで待機時間の少ないディスクサポートを提供します。 Premium Storage を使用すると、アプリケーションは vm あたり最大 32 TB のストレージをプロビジョニングし、vm ごとに 64000 IOPS (入出力操作数/秒) を実現でき、読み取り操作の待機時間は非常に短くなります。
+
+
+  Premium Storage の詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-premium-storage-preview-portal/">Premium Storage の概要に</a>関するページをご覧ください。
+
+  <h3>C++ 1.0.0 一般公開</h3>
+
+  <strong>C++ 用の Microsoft Azure Storage クライアントライブラリの GA バージョン (v 1.0.0) をリリースしました。</strong>
+
+
+  c++ 用の Azure Storage クライアントライブラリには、次の機能を含む Azure Storage を操作するための包括的な c++ API が用意されています。
+
+  <ul>
+      <li>BLOB コンテナー、テーブル、キューの作成、読み取り、削除、一覧表示。</li>
+      <li>Blob の作成、読み取り、削除、一覧表示、コピー、blob 範囲の読み取りと書き込みを行います。</li>
+      <li>Azure テーブル内のエンティティの挿入、削除、置換、結合、クエリ。</li>
+      <li>Azure キューでのメッセージのエンキューとデキュー。</li>
+      <li>コンテナー、blob、テーブル、キューの遅延、および遅延クエリエンティティ (<em>バージョン1.0.0 の新</em>)</li>
+  </ul>
+
+  この新しいリリースの詳細については、 <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2015/04/29/microsoft-azure-storage-client-library-for-c-v1-0-0-general-availability.aspx">C++ v1.0 の Microsoft Azure Storage クライアントライブラリ (一般公開)</a>に関するブログを参照してください。
+
+  <h2><strong>プレビュープログラムのお知らせ</strong></h2>
+
+  <h3>Azure Files でテクニカルサポートを利用できるようになりました</h3>
+
+  テクニカルサポートのサブスクリプションをお持ちのお客様は、Azure Files のサポートのためにテクニカルサポートプロフェッショナルのチームを利用できるようになったことをお知らせいたします。
+
+
+  Azure Files の新機能 詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-files/">Azure Files のはじめに</a> を参照してください。
+
+  <h3>Client-Side 暗号化のプレビュー</h3>
+
+  お客様からのよく寄せられる要求は、Azure Storage に送信する前にデータを暗号化する簡単な方法を提供することです<strong>。ご意見をお待ちしております。また、.net 用 Azure Storage クライアントライブラリでクライアント側の暗号化のパブリックプレビューを発表</strong>しています。 クライアント側の暗号化を使用して、blob データの暗号化、テーブルデータ (暗号化するプロパティの選択)、メッセージのキュー作成を行うことができます。 クライアント側の暗号化は Azure Key Vault とも統合されており、必要に応じて他のキー管理システムと統合できます。
+
+
+  クライアント側の暗号化では、エンベロープ暗号化方式を使用して優れたパフォーマンスを維持します。 ほとんどの場合、アプリケーションに数行のコードを追加することで、クライアント側の暗号化を利用できます。 サーバー側の暗号化とは異なり、この新機能により、ユーザーは暗号化に使用するキーを完全に制御できます。 Azure Storage はキーを認識しないため、データの暗号化を解除できません。
+
+
+  クライアント側の暗号化に関する <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2015/04/28/client-side-encryption-for-microsoft-azure-storage-preview.aspx">ブログ記事</a>にアクセスして、クライアント側の暗号化の使用を開始します。
+
+  <h3>Xamarin クライアントライブラリのプレビュー</h3>
+
+  <a href="https://xamarin.com/"><strong>Xamarin</strong></a><strong>用の Azure Storage クライアントライブラリのプレビューを発表し</strong><strong>ます。</strong>
+
+
+  Xamarin を使用すると、開発者は、共有 C# コードベースを使用して、iOS、Android、および Windows ストアアプリをネイティブユーザーインターフェイスで作成できます。
+
+
+  <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2015/04/29/getting-started-with-azure-storage-on-xamarin.aspx">Azure Storage 「xamarin の</a>概要」チュートリアルに従って、Azure Storage を使用する xamarin アプリの構築を開始します。
+
+  <h3>Azure Resource Manager: Azure リソースを管理するための新しい強力な方法</h3>
+
+  今後、Azure リソースのプロビジョニングは、新しい <a href="https://msdn.microsoft.com/en-us/library/azure/dn790568.aspx">Azure Resource Manager</a> (ARM) に基づいて行われます。これには、テンプレート、RBAC、リソースグループなどの多数の新機能が用意されています。 ARM は、"リソースプロバイダー" を通じてリソースを公開します。このリソースは、各リソースが独自のリソースプロバイダーによって管理されます。 <strong>ARM の Storage リソースプロバイダー (SRP) についてお知らせします。</strong>
+
+
+  SRP では、ARM プロビジョニングスタックを使用する利点を継承しながら、ストレージアカウント (作成/削除/更新/読み取り、ストレージアカウントの取得/削除、キーの取得/設定など) を管理できます。
+
+
+  Azure Powershell の <a href="https://msdn.microsoft.com/en-us/library/azure/mt163683.aspx">srp REST API</a> と <a href="https://msdn.microsoft.com/en-us/library/azure/mt125979.aspx">srp コマンドレット</a>の詳細については、こちらのドキュメントを参照してください。
+
+
+  Azure Resource Manager の詳細については、次の <a href="https://azure.microsoft.com/blog/2015/04/29/iaas-just-got-easier-again/">ブログ記事</a>もご覧ください。
+
+  <h2><strong>短期的なロードマップ</strong></h2>
+
+  また、追加 Blob、高速追加操作用に最適化された新しい blob の種類、新しい iOS ストレージクライアントライブラリ、さまざまな SAS の改善など、作業中のいくつかのロードマップ項目を共有することもできました。 また、Azure Import/Export サービスオファリングを日本とオーストラリアに拡張しています。
+
+  <h3>新しい Blob の種類: 追加 Blob</h3>
+
+  追加 Blob は、高速追加操作用に最適化された新しい blob の種類であり、既存の blob にデータを追加するシナリオに最適で、ログ記録や監査など、blob の既存の内容を変更することはできません。 詳細については、「 <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2015/04/13/introducing-azure-storage-append-blob.aspx">Blob の追加</a>」ブログの Azure Storage を参照してください。 2015年夏に追加 Blob をリリースする予定です。
+
+  <h3>iOS クライアントライブラリのプレビュー</h3>
+
+  <strong>iOS 用の新しい Azure Storage クライアントライブラリに取り組んでいます。</strong> 夏2015では、ブロック blob のパブリックプレビューをご利用いただけます。 詳細について、または制限付きプレビューに参加したい場合は、 <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2015/04/01/help-us-shape-the-azure-storage-ios-library.aspx">こちら</a> を参照してください。
+
+  <h3>SAS の機能強化</h3>
+
+  Storage チームは、Shared Access signature (SAS) の改善に努めています。 <strong>次の3つの主な機能強化は、お客様のフィードバックに基づいて、夏2015に予定されています。</strong>
+
+  <ul>
+      <li>Storage アカウント sas –1つの sas トークンで、単一のオブジェクトまたはコンテナーではなく、アカウント全体へのアクセスを提供できるようになりました。</li>
+      <li>プロトコル SAS – SAS トークンを HTTPS のみに制限できるようになりました。 ユーザーがストレージクライアントライブラリを使用している場合は、クライアント側にプロトコルが適用されます。これにより、SAS トークンが HTTP 経由で送信されることはありません。</li>
+      <li>IP 制限付き SAS – SAS トークンでは、単一の IP または範囲を指定できるようになりました。 このアドレスまたは範囲外から発信された要求は失敗します。</li>
+  </ul>
+
+  これらの改善により、SAS は、開発者と管理者のニーズを幅広いシナリオで満たす必要があり、アカウントの共有キーを使用する必要性が大幅に減少します。
+
+  <h3>Azure Import/Export</h3>
+
+  <strong>Azure Import/Export は、2015年夏に日本とオーストラリアに予定されています。</strong>azure Import/Export は、現在、すべてのパブリック azure リージョンで提供されています。 日本またはオーストラリアにストレージアカウントがある場合、別のリージョンに発送するのではなく、日本またはオーストラリアの国内の住所にディスクを発送できるようになりました。 Import/Export では、最大 6 TB のハードドライブもサポートされるようになりました。
+
+
+  Azure Import/Export の詳細について<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-import-export-service/">は、こちら</a>を参照してください。
+
+
+  最後に、Azure Storage の新しいユーザーについては、Storage、Premium Storage、ファイルの5分間の概要ビデオも含め、新しい<a href="https://azure.microsoft.com/en-us/documentation/services/storage/">Azure Storage ドキュメントページ</a>をご覧ください。
+
+
+  ありがとうございます。
+
+
+  Azure Storage チーム
+
+
+  &nbsp;
+
+
+  &nbsp;

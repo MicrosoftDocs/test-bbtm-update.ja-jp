@@ -1,0 +1,41 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7f5f4091281c8120f4e6c62be88ee1bac1d5f9a5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910092"
+Slug: azure-cli-supports-microsoft-account-logins
+Title: Azure CLI は Microsoft アカウントログインをサポートしています
+Summary: Microsoft アカウント (Live Ids) を使用したログインをサポートする Azure CLI v 0.9.10 を紹介します。 Azure CLI v 0.9.10 が WebPI、Mac、NPM 経由で利用できるようになりました。
+Content: >-
+  <p>Microsoft アカウント (Live Ids) を使用したログインをサポートする Azure CLI v 0.9.10 を紹介します。 Azure CLI v 0.9.10 が<a href="https://aka.ms/webpi-azure-cli">WebPI</a>、 <a href="https://aka.ms/mac-azure-cli">Mac</a>、 <a href="https://www.npmjs.com/package/azure-cli">npm</a> 、 <a href="https://github.com/Azure/azure-xplat-cli/releases/tag/v0.9.10-October2015">GitHub</a>で使用できるようになりました。</p>
+
+
+  <p>以前のバージョンの Azure CLI では、Azure の組織アカウントとサービスプリンシパルを使用して、サポートされている認証スキームのみを使用していました。 このリリースの前に、Azure CLI ユーザーは、Microsoft アカウント (Live Id) を使用して Azure 管理ポータルにログインし、Azure CLI にログインするだけで Azure Active Directory インスタンス内にユーザーを作成する必要がありました。 このフローでは、Azure CLI する新しいユーザーのオンボードを改善する機会が提供されているため、Azure Active Directory と連携して、Microsoft アカウントの使用を可能にする Azure CLI の新しい認証フローを開発しました。</p>
+
+
+  <h2>&#39;を使用して、ログインコマンドの Azure CLI のヘルプを確認します。</h2>
+
+  <script src="https://gist.github.com/devigned/1a62a90f52d594ba60a3.js"></script>
+
+
+  <h2>Azure CLI には3つの認証フローがあります。</h2>
+
+
+  <ol>
+   <li>Microsoft アカウント (Live Ids) と組織アカウント<br />
+   <script src="https://gist.github.com/devigned/5dd22909b88255a4eafe.js"></script></li>
+   <li>組織アカウント (非 Multi-Factor Authentication)<br />
+   <script src="https://gist.github.com/devigned/6c0e980f5cc74b075806.js"></script></li>
+   <li>サービスプリンシパル (Azure Active Directory 内の automation アカウント)<br />
+   <script src="https://gist.github.com/devigned/ad5ea4bc93c2bba9c2ac.js"></script></li>
+  </ol>
+
+
+  <p>Azure Active Directory での認証の詳細については、Azure Resource Manager での認証については、 &ldquo; Dushyant Gill&#39;s の記事「Developer&#39;s」を参照してください。&rdquo;</p>
+
+
+  <h2>ここでも、Azure CLI を使用したログインは簡単です。</h2>
+
+  <script src="https://gist.github.com/devigned/5dd22909b88255a4eafe.js"></script>

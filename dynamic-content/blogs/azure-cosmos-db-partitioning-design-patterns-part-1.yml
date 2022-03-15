@@ -1,0 +1,110 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8663323b4dfa672b175dc8de25c2a8fe141b8422
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139910069"
+Slug: azure-cosmos-db-partitioning-design-patterns-part-1
+Title: パーティション分割デザインパターンの Azure Cosmos DB-パート1
+Summary: この記事では、パーティションキーを使用して効率的にデータを配布し、アプリケーションのパフォーマンスを向上させ、より高速な検索を可能にする方法について説明します。 この記事の前提条件は、Azure Cosmos DB に関する一般的な知識と、変更フィード、要求ユニット (RU)、Azure Functions についてよく理解していることです。
+Content: >-
+  <p>この記事では、パーティションキーを使用して効率的にデータを配布し、アプリケーションのパフォーマンスを向上させ、より高速な検索を可能にする方法について説明します。 この記事の前提条件は、Azure Cosmos DB に関する一般的な知識と、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed">変更フィード</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units">要求ユニット</a>(RU)、および<a href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a>についてよく理解していることです。</p>
+
+
+  <p>高スループットで挿入するデータと、2つ以上の異なるキーに対してクエリを実行する Imagine ます。 このシナリオでは、航空会社で作業していて、ユーザーの予約情報をコレクションに保存する必要があるとします。 ユーザーデータは次のように定義されます。</p>
+
+
+  <pre>
+
+  {
+       UserId: user@email.com,
+       FirstName: John,
+       LastName: Doe,
+       PNR: 2345423,
+       CityOfOrigin: Seattle,
+       CityOfDestination: London,
+       DOB: 12.2.76,
+       other details &hellip;.
+  }</pre>
+
+
+  <p>可能な値が多数存在する場合は、ユーザー id &rdquo; (ユーザーの電子メールアドレス) をパーティションキーとして選択 &ldquo; します。 ユーザー id &rdquo; はすべてのユーザーに対して一意であり、データが確実に配信されるようにするため &ldquo; 、これはパーティションキーに適しています。 図1に示すように、データはすべてのパーティションに均等に分散されます。 ただし、データに対し &ldquo; てクエリを実行する場合は、常に UserId &rdquo; があるとは限りません。 場合によっては、ユーザーの姓またはユーザーの乗客名レコード (PNR) 番号を使用してデータを照会することがあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59bc2d78-5964-4bd1-ad72-a58dd800c68e.png"><img alt="GoodPartition" border="0" height="278" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a5b75b8-9abd-4224-bc1e-c4f67a50b24a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="GoodPartition" width="321"></a></p>
+
+
+  <p align="center"><em>図 1: 複数のパーティションに均等に分散したデータ</em></p>
+
+
+  <p>既定では、すべてのデータのインデックスを Azure Cosmos DB します。 LastName &quot; で &quot; データに対してクエリを実行しようとすると、結果が得られますが、パーティションキーのないクエリはファンアウトクエリになるため、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units">要求ユニット</a>(RU/秒) の方がコストがかかります。 ファンアウトクエリはすべてのパーティションをチェックします。これにより、余分な RU/秒が発生し、アプリケーションのパフォーマンスに影響を与える可能性があります。 データ量が少ない少数のパーティションがある場合、ファンアウトクエリの重大な副作用は認識されませんが、大量のパーティションや大量のデータを取得し始めると、アプリケーションに悪影響を及ぼす可能性があります。 頻度の低いクロスパーティションクエリでも問題はありませんが、頻繁にクエリを実行する場合は、どのような解決策がありますか。</p>
+
+
+  <p>1つの方法として、2つ以上の参照コレクション (PNR) と &ldquo; lastname &rdquo; から userid &rdquo; へ &ldquo; のマッピング、lastname &rdquo; から userid &rdquo; へ &ldquo; のマッピングを指定する方法 &ldquo; があります。 PNR コレクションでは、値として、パーティションキー、行キー、および &ldquo; UserId &rdquo; として pnr が設定されます。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9d2f02b1-e0d0-447f-a4cb-58eb5ec6e98b.png"><img alt="clip_image002" border="0" height="215" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35380b34-d223-42b5-92c9-b0c9de91ea62.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image002" width="659"></a></p>
+
+
+  <p>これらの異なる参照コレクションにより、アプリケーションの効率が向上します。 PR で詳細を参照するには、まず、id &rdquo; を取得 &ldquo; するために、まず、pnr コレクションに対してクエリを実行します。 次に、UserId &rdquo; を使用 &ldquo; して、すべての詳細についてユーザーコレクションにクエリを実行します。 この2つの呼び出しは、数ミリ秒以内に完了することができ、1つのファンアウトクエリよりも RU/秒の使用量が少なくなります。 ポイント参照のほとんどは、1 ~ 2 ミリ秒以内に完了できます。 2つの参照の後でも、ほとんどのクエリに対して10ミリ秒以内に実行できます。</p>
+
+
+  <p>を呼び出すためにいくつかの追加のミリ秒を追加する必要はありません。代わりに、データを PNR コレクションと &ldquo; LastName &rdquo; コレクションに複製することを決定する場合があります。 これにより高速な参照が可能になりますが、 &rsquo; データを更新するときに複雑さとコストが増加する可能性があるため、推奨されません。 最終的には、要件、パフォーマンス、および複雑さのバランスを取る必要があります。 多くの場合、単純なソリューションから始めることをお勧めします。</p>
+
+
+  <p>では、さまざまなコレクションでのデータの分布を見てみましょう &rsquo; 。 たとえば、LastName コレクションを見る &ldquo; と、データが均等に分散されていないことがわかります。これは、姓 &ldquo; &rdquo; が Zubrkee &rdquo; よりも &ldquo; 多くのユーザーがいるためです。 &rdquo; この場合、データは図2のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/02535643-5f76-4e7a-9483-9b3d70a7de97.png"><img alt="BadPartition" border="0" height="278" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ce4f0c82-4f2b-4e0c-8e2f-fd1ec96f8945.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="BadPartition" width="320"></a></p>
+
+
+  <p align="center"><em>図 2: 複数のパーティションに分散したデータ均等</em></p>
+
+
+  <p>このシナリオのデータは分散均等であり、一部のパーティションが完全に使用されていません。 この種類のデータ分布では、多くの問題が発生します。</p>
+
+
+  <ul>
+   <li>コレクションの RU/s の合計は、すべてのパーティションに分割されます。 つまり、1000 RU/秒は、パーティションごとに 200 RU/秒として5つのパーティションに分散されます。 これらのパーティションのいずれかに 200 RU/秒以上を書き込もうとすると、しきい値を超えたときに呼び出しが失敗し始めます。 コレクションレベルで 1000 RU/s が割り当てられていても &rsquo; 、開発者が 300 ru/秒で調整されたことを検出した場合、問題は多くの場合、不良パーティションキーが1つのパーティションのみに到達することになります。</li>
+   <li>現在、パーティションキーには最大 10 GB のデータがあります (これは将来変更される可能性があります)。パーティションキーを使用して、すべてのパーティションを効率的に入力することが重要です。 LastName &rdquo; の &ldquo; 例では、データを均等に分散するためにより詳細なパーティションキーが必要です。 データにはオリジンの市区町村 &rdquo; も含まれ &ldquo; ているので、新しいパーティションキーは LastName &rdquo; と &ldquo; Origin の都市 &rdquo; から &ldquo; 作成でき、結果は次の図3のようになります。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/68082817-1ab1-4a3c-9d23-b6b4fb6bf7cd.png"><img alt="NotBadPartition" border="0" height="285" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cde41df7-c3b8-45bd-97f8-661be847d04b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="NotBadPartition" width="323"></a></p>
+
+
+  <p align="center"><em>図 3: 粒度の細かいパーティションキーを適用した後のデータ分布</em></p>
+
+
+  <p>これは、はるかに便利です。 データはより均等に分散されます。旅行者は、姓と出発地を入力するだけで、簡単かつ迅速に予約を検索できます。</p>
+
+
+  <p>&rsquo;データを均等に分散したので、他のコレクションをどのように設定すればよいでしょうか。 そのためには、変更フィードについて理解しておく必要があります。 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed">Change feed</a> は、コレクション内で発生するすべての内部変更を公開します。 Azure Cosmos DB の変更フィードのサポートは、Azure Cosmos DB コレクションの変更をリッスンすることで機能します。 変更されたドキュメントは、変更された順に並べ替えられた一覧に出力されます。 変更は保持され、非同期的に増分処理できます。また、出力を 1 つ以上のコンシューマーに分散させて並列処理することもできます。</p>
+
+
+  <p>Change feed は、ドキュメントコレクション内の各パーティションキー範囲で使用できます。したがって、並列処理のために1つ以上のコンシューマーに分散できます。 ユーザーコレクションにレコードが挿入されるたびに、変更フィードに表示されます。 Change feed を使用する最も簡単な方法は、Azure 関数です。 Azure Functions は、インフラストラクチャを明示的にプロビジョニングまたは管理することなく、オンデマンドでコードを実行できるようにする、 <a href="https://azure.microsoft.com/solutions/serverless/">サーバーレス</a> のコンピューティングサービスです。 Azure Functions を使用すると、各種のイベントに応じてスクリプトまたはコードの一部を実行できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c05eafc5-3823-4fdb-93de-8f4ab499fe4b.png"><img alt="PNRAF" border="0" height="385" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2604e7e9-8ed9-4946-8a33-c97d0d710045.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="PNRAF" width="564"></a></p>
+
+
+  <p>Azure 関数で change feed を使用すると、挿入または変更されたすべてのドキュメントが関数のパラメーターとして関数に含まれます。</p>
+
+
+  <pre>
+
+  public static async Task Run(IReadOnlyList&lt;Document&gt; input, TraceWriter log)</pre>
+
+
+  <p>関数にドキュメント全体を作成したら、それに応じて、PNR および &ldquo; LastName &rdquo; コレクションを更新できます。&nbsp;</p>
+
+
+  <p>Azure Cosmos DB、Azure の機能と変更フィードの使用方法、変更フィードについては、こちらの<a href="https://www.youtube.com/watch?v=iprndNsUeeg&amp;t=454s">スクリーンキャスト</a>をご覧ください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed#azure-functions">Azure Functions の使用</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed#sql-sdk">Azure Cosmos DB SDK の使用</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed#change-feed-processor">Azure Cosmos DB 変更フィード プロセッサ ライブラリの使用</a></li>
+  </ul>

@@ -1,0 +1,138 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bea61daa290e50098f419b70ef5879be3fbfad0f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909523"
+Slug: protecting-windows-virtual-desktop-environments-with-azure-security-center
+Title: 仮想Windowsを使用した仮想デスクトップ環境Azure Security Center
+Summary: 大規模な従業員が離れ、IT 管理者とセキュリティプロフェッショナルは、進化する脅威に対処しながら、すべてのユーザーの生産性と接続を維持する必要が高い圧力を受けている。
+Content: >-
+  <p>大規模な従業員が離れ、IT 管理者とセキュリティプロフェッショナルは、進化する脅威に対処しながら、すべてのユーザーの生産性と接続を維持する必要が高い圧力を受けている。</p>
+
+
+  <p><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2019/09/30/windows-virtual-desktop-generally-available-worldwide" target="_blank">Windows Virtual Desktop</a> は、Azure で実行される包括的なデスクトップおよびアプリケーション仮想化サービスであり、仮想デスクトップ インフラストラクチャ (VDI) の管理を簡素化します。</p>
+
+
+  <p>組織ではこの変革が進み、従業員の生産性を維持できる一方で、IT およびセキュリティの専門家は、ビジネスに不要なリスクを追加しないので、セキュリティのベスト プラクティスに従って Windows Virtual Desktop&rsquo; のデプロイを確実に行う必要があります。 このブログでは、Azure Security Center Virtual Desktop 環境<a href="https://azure.microsoft.com/en-us/services/security-center/" target="_blank"></a>の構成のWindowsとコンプライアンスを維持し、脅威から保護する方法について説明します。</p>
+
+
+  <h2>仮想デスクトップ ホスト Windowsアーキテクチャの概要</h2>
+
+
+  <p>仮想デスクトップ環境Windows設定する場合は、最初に、1 つ以上の同一の仮想マシン (VM) のコレクションであるホスト プールを作成する必要があります。 リモートの従業員の使用事例をサポートするために、これらの VM は通常、マルチセッション OS Windows 10を実行します。 アーキテクチャの概要を次に示します。<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2278be12-2c0f-4ecb-bc7a-6694a9b6eeb9.png"><img alt="Customer Windows Virtual Desktop host pool VNET graph " border="0" height="599" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a4c9a083-142d-4492-991a-f56517b74619.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="551"></a>&nbsp;<br>
+
+  ホスト プールで実行されている VM を見つけるには、ホスト プールの詳細を確認し、[リソース グループ名] <strong>をクリック</strong> します。</p>
+
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a7b37c9-a18b-41d3-b8d9-295b66f0d01c.png"><img alt="Windows Virtual Desktop host pools blade." border="0" height="827" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2cc511b5-c228-4027-9682-737d80d1e467.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1428"></a></p>
+
+
+  <p>これにより、リソース グループの詳細が表示されます。 仮想マシンによる <strong>フィルター処理では</strong> 、VM の一覧が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0aa3cf83-6502-4981-8d67-36305ab2420a.png"><img alt="Resource Group Windows Virtual Desktop VMs list." border="0" height="829" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ca8069a-300d-410d-833e-c57242be1d6b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1430"></a></p>
+
+
+  <h2>仮想デスクトップWindowsを使用した仮想デスクトップのデプロイAzure Security Center</h2>
+
+
+  <p>共同責任モデルを考慮すると、お客様が Virtual <a href="https://docs.microsoft.com/en-us/azure/virtual-desktop/security-guide#security-responsibilities" target="_blank"></a> Desktop のデプロイで責任を負うWindowsを次に示します。</p>
+
+
+  <ul>
+      <li>ネットワーク。</li>
+      <li>デプロイ構成。</li>
+      <li>セッション ホスト OS。</li>
+      <li>アプリケーションのセキュリティ。</li>
+      <li>ID。</li>
+  </ul>
+
+
+  <p>これらのニーズは、セキュリティ対策と脅威保護の両方のコンテキストで調べる必要があります。 次に例を示します。</p>
+
+
+  <ul>
+      <li>VM ネットワーク 層の構成が正しく行われると、攻撃面が増加し、エンドポイントが侵害される可能性があります。 確認する必要がある 1 つのことは、仮想デスクトップ仮想マシンですべての管理ポートをWindowsする必要があることです。</li>
+      <li>ユーザーは、仮想デスクトップ セッションWindows接続すると、悪意のあるサイトを参照したり、悪意のあるマシンに接続したりするために操作される可能性があります。 これは、マシンにマルウェアが発生した場合にも発生する可能性があります。 ネットワーク トラフィックを分析して、コンピューターがコマンド アンド コントロール センターと通信した可能性のあることを検出する別の保護レイヤーです。</li>
+  </ul>
+
+
+  <p>Azure Security Center仮想デスクトップ VM に対する次のセキュリティ体制管理および脅威Windows機能を使用します。</p>
+
+
+  <ul>
+      <li>セキュリティで保護された構成の評価とセキュア スコア。</li>
+      <li>業界でテストされた脆弱性評価。</li>
+      <li>ホスト レベルの検出。</li>
+      <li>エージェントレス クラウド ネットワークのマイクロセグメント化 &amp; 検出。</li>
+      <li>ファイルの整合性の監視。</li>
+      <li>Just In Time VM アクセス。</li>
+      <li>適応型アプリケーション制御。</li>
+  </ul>
+
+
+  <p>Virtual Desktop のセキュリティ ニーズに合Azure Security Center保護機能Windowsを次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a6e2dcdf-32bb-4ab3-a5a0-14bdd58404ac.png"><img alt="Mapping of Azure Security Center protection capabilities to Windows Virtual Desktop security needs." border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0c8cea3-f7dd-4bae-9a67-9e03b6494585.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="596"></a></p>
+
+
+  <p>推奨事項とアラートの完全な一覧については、次のリファレンス ガイドAzure Security Center覧ください。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/security-center/recommendations-reference" target="_blank">セキュリティに関する推奨事項</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/security-center/alerts-reference" target="_blank">アラートの一覧</a>。</li>
+  </ul>
+
+
+  <p>Azure Security Center ポータルに切り替えて、[コンピューティング アプリ] の [Windows Virtual Desktop <strong>&amp;</strong> ホスト プール VM] の後に [VM とサーバー] タブ、および<strong></strong>それぞれのセキュリティ スコアと状態を確認できます。</p>
+
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38f41dfc-406c-474a-905d-d4182a139fdb.png"><img alt="In Azure Security Center portal, we can see the Windows Virtual Desktop host pool VMs under Compute &amp; apps followed by the VMs and Servers tab, as well as their respective Secure Score and status." border="0" height="593" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4404364-27b3-4f6f-8381-5b985655f72e.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>特定の VM にドリル ダウンすると、推奨事項の完全な一覧と重大度レベルが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a4f498c-70a0-44e4-a02d-360abfbdc88d.png"><img alt="Showing full recommendation list as well as Severity level of a specific VM." border="0" height="593" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fbd5085b-e782-47c2-9b24-a5ba7371010e.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a>&nbsp;</p>
+
+
+  <p>これらの VM は、さまざまな規制要件、組み込みまたはカスタムの要件への準拠も評価され、コンプライアンスの問題は[規制コンプライアンス] ダッシュボードでフラグが設定 <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-compliance-dashboard">されます。</a></p>
+
+
+  <p>さらに、セキュリティ アラートが [Threat Protection] の下に <strong>表示され、[</strong> セキュリティ アラート] が <strong>表示されます</strong>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/855d5cda-ce51-4df3-8892-a3ef8230df29.png"><img alt="Showing VM security findings under Threat Protection blade followed by Security Alerts." border="0" height="597" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/68170ad4-9d82-41cc-8c3d-144ed45cc536.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>セキュリティ アラートと推奨事項はどちらも、Security Center ポータルから使用および管理できます。また、他のツールにエクスポートして詳細な分析と修復を行う場合もあります。 1 つの良い例は、仮想Azure Security Center環境Azure Sentinel監視の一環として、Windows<a href="https://techcommunity.microsoft.com/t5/azure-sentinel/monitoring-windows-virtual-desktop-environments-fall-2019/ba-p/1356632" target="_blank">と統合する方法です</a>。</p>
+
+
+  <h2>仮想デスクトップAzure Security CenterのWindowsを有効にする</h2>
+
+
+  <p>Azure Security Center Free レベルでは、仮想デスクトップデプロイのセキュリティに関する推奨事項とセキュリティ スコアWindowsが提供されます。</p>
+
+
+  <p>すべての保護機能を有効にするには、次の 2 つの手順に従う必要があります。</p>
+
+
+  <ol>
+      <li>Standard レベルを使用Azure Security Center確認します (次に示します)。</li>
+      <li>Virtual Machines に対して脅威保護を有効にします。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/101d04c2-7a1b-46cb-970a-9bf19aa3296b.png"><img alt="Enabling threat protection for Virtual Machines in Azure Security Center." border="0" height="593" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0760c703-2c4d-425e-be0e-135734cf5de0.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>最後の 1 つのヒント。 azure Devops CI/CD Pipelines と Windows 10 Azure VM イメージを継続的にビルドして Windows Virtual Desktop&rsquo; ソリューションをデプロイするためのソリューションとして使用している場合は、シークレット管理に Azure Key Vault を使用する可能性が最も高い必要があります。 まだ有効になっていない場合は、次の停止 <a href="https://techcommunity.microsoft.com/t5/azure-security-center/validating-azure-key-vault-threat-detection-in-azure-security/ba-p/1220336" target="_blank">Azure Key Vault</a> 脅威保護を設定する必要があります。</p>
+
+
+  <p>仮想デスクトップ環境でWindows保護する方法 他にも多くのアイデアが出ていて、コミュニティが自分のレポポに投稿GitHub<a href="https://github.com/Azure/Azure-Security-Center" target="_blank">しています</a>。</p>

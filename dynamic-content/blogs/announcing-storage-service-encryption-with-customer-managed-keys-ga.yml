@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 33f23aa3b927efb377c1e99d0e71f553c8c8ad26
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896914"
+Slug: announcing-storage-service-encryption-with-customer-managed-keys-ga
+Title: カスタマー マネージド キー Storageを使用した Service Encryption の一般提供の発表
+Summary: '本日は、Azure Blob Storage の Azure Key Vault と統合されたカスタマー マネージド キーを使用した Azure Storage Service Encryption の一般提供をお知らせします。 '
+Content: >-
+  <p>本日は、Azure Blob および File Storage の Azure Key Vault と統合されたカスタマー マネージド キーを使用した Azure Storage Service Encryption の一般提供をお知らせします。 Azure のお客様は、Microsoft マネージド Storageを使用して Azure BLOB とファイルの暗号化を使用Storageサービス暗号化の恩恵を既に受け取っています。</p>
+
+
+  <p>Storageマネージド キーを使用した Service Encryption では、FIPS 140-2 レベル 2 で検証されたハードウェア セキュリティ モジュール (HSM) によってサポートされる RSA 暗号化キーに対して、高可用性でスケーラブルなセキュリティで保護されたストレージを提供する <a href="https://azure.microsoft.com/en-us/services/key-vault/">Azure Key Vault</a> を使用します。 Key Vault管理プロセスを効率化し、データの暗号化、キーの管理、および監査に使用されるキーの完全な制御を維持できます。</p>
+
+
+  <p>これは、規制またはコンプライアンスのニーズである HIPAA と BAA 準拠の一部として機密データを保護する企業のお客様から最も要求される機能の 1 つです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8524c7e-25d7-48fa-93a8-8f721e213502.jpg"><img alt="ssecmkpic" border="0" height="720" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a955051-7cee-41f1-acd6-99552d941e93.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ssecmkpic" width="1280"></a></p>
+
+
+  <p>お客様は RSA キーを生成またはインポートしてAzure Key Vaultサービス暗号化で使用Storageできます。 Azure Storageは、AES 256 ベースのキーを使用してデータが<a href="https://docs.microsoft.com/en-us/azure/storage/storage-client-side-encryption"></a>暗号化されるエンベロープ暗号化を使用して、暗号化と暗号化解除を完全に透過的に処理します。これは、Azure Key Vault に格納されているカスタマー マネージド キーを使用して保護されます。</p>
+
+
+  <p>お客様は、コンプライアンス ポリシーに従って Azure Key Vault 内のキーをローテーションできます。 キーをローテーションすると、Azure Storageアカウント暗号化キーが再暗号化されます。 これにより、すべてのデータが再暗号化されるとは言え、ユーザーに必要なその他の操作はありません。</p>
+
+
+  <p>お客様は、Azure Key Vault 内のキーでアクセスを取り消すことにより、ストレージ アカウントへのアクセスを取り消すことができます。 キーへのアクセスは、いくつかの方法で取り消すことができます。 詳細については、<a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.keyvault/?view=azurermps-4.0.0">Azure Key Vault PowerShell</a> に関するページと <a href="https://docs.microsoft.com/en-us/cli/azure/keyvault">Azure Key Vault CLI</a> に関するページを参照してください。 アクセスを取り消すと、Azure Storage がアカウント暗号化キーにアクセスできなくなるため、ストレージ アカウント内の全 BLOB へのアクセスが事実上ブロックされます。</p>
+
+
+  <p>お客様は、ランサムウェア &quot;のシナリオから保護するのに役立つカスタマー マネージド キーに対して、Do Not Purge&quot; &quot;と Soft Delete&quot; を有効にする必要があります。</p>
+
+
+  <p>お客様は、Premium Storage を含め、使用可能なすべての冗長性の種類の Azure BLOB およびファイル ストレージでこの機能を有効にできます。また、Microsoft マネージドキーの使用からカスタマー マネージド キーの使用に切り替えることができます。 この機能の有効化については、追加料金は発生しません。</p>
+
+
+  <p>Azure portal、Azure PowerShell、<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-azure-cli/">Azure CLI</a>、または Microsoft Azure Storage リソース プロバイダー API を使用して、任意の Azure Resource Manager ストレージ アカウントでカスタマー マネージド キーを使用<a href="https://msdn.microsoft.com/en-us/library/azure/mt607151.aspx"></a>して、Microsoft Azure Storage Service <a href="https://docs.microsoft.com/en-us/rest/api/storagerp/storageaccounts">Encryption を有効</a>にできます。 Storage</p>
+
+
+  <p>カスタマー マネージド キーを使用<a href="https://docs.microsoft.com/azure/storage/storage-service-encryption-customer-managed-keys">Storage Service Encryption の詳細を確認します</a>。</p>

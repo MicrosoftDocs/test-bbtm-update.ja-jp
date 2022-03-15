@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a9fe41b4c7d0b7d54fef1003d437a77f0b0ebf4a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909844"
+Slug: feeding-iot-device-telemetry-data-to-kafka-based-applications
+Title: Kafka ベースのアプリケーションに IoT デバイステレメトリ データを供給する
+Summary: Event Hubs で新しくリリースされた Kafka ストリームのサポートにより、Azure IoT Hub のお客様は、IoT デバイスのテレメトリ データを Kafka ベースのアプリケーションに簡単にフィードして、さらにダウンストリームの処理または分析を行うことができます。
+Content: >-
+  <p>Event Hubs で新しくリリースされた <a href="https://azure.microsoft.com/en-us/blog/azure-event-hubs-for-kafka-ecosystems-in-public-preview/">Kafka</a> ストリームのサポートにより、Azure IoT Hub のお客様は、IoT デバイスのテレメトリ データを Kafka ベースのアプリケーションに簡単にフィードして、さらにダウンストリームの処理または分析を行うことができます。 これにより、既存の Kafka ベースのアプリケーションを使用しているお客様は、アプリケーションの一部を前もって書き直す必要なく、Azure IoT Hub の迅速な導入の柔軟性が向上します。 つまり、お客様は、メッセージング、デバイス、および構成管理に対する IoT Hub&#39;のネイティブ サポートの使用を早期に開始し、後で Event Hubs をネイティブに使用するためにテレメトリ処理アプリケーションを移行する決定を延期することができます。</p>
+
+
+  <h2>該当する顧客シナリオ</h2>
+
+
+  <p>IoT デバイスのテレメトリ データを Kafka ベースの処理アプリケーションにフィードする機能は、いくつかのシナリオで重要です。</p>
+
+
+  <ul>
+   <li>主なシナリオには、Kafka クラスターとのインターフェイスAzure IoT既に書き込まれたレガシ データ処理アプリケーションを持つ見込み顧客のハブ顧客が含まれます。 Event Hubs での Kafka のサポートにより、お客様は、Azure IoT Hub へのオンボードの一環として、このようなアプリケーションに対して変更を行う必要を延期できます。 この新しい機能により、お客様のIoT Hubを迅速に実行し、開発コストを削減できます。</li>
+   <li>第 2 のシナリオでは、既存の Kafka ベースのテレメトリ処理アプリケーションを維持する必要があるお客様が、他の種類のソース (Azure-IoT-Hub で管理されていないデバイスなど) によって Kafka ストリームとして生成されたテレメトリ データを処理するために使用する場合があります。 同様に、この新しい機能は、既存の Kafka ベースのアプリケーションのチャーンを減らすことで、お客様にメリットがあります。</li>
+   <li>最終的なシナリオには、将来の導入のために Azure IoT Hub&#39;の機能を評価しているだけで、通常は外部の外部外部データ処理システムに大きな変更を加えることなく、IoT Hub&#39;の機能を検証するために必要な最小限の変更セットを実行したいお客様が関係します。</li>
+  </ul>
+
+
+  <h2>Kafka ベースのアプリケーションとテレメトリをIoT Hubする</h2>
+
+
+  <p>次の図に示すように、IoT Hubテレメトリ データのパイプとして機能します。 このデータは、Event Hubs保存され、最終的にはダウンストリーム アプリケーションによって使用されます。</p>
+
+
+  <p>Kafka ベースのアプリケーションでこのデータを取得するには、イベント ハブをエンドポイント/ルートとして IoT Hub に追加し、データが格納されているイベント ハブの接続文字列を使用して Kafka ベースのアプリケーションを構成する必要があります。 次の手順を実行する方法については、以下のリンクを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create-kafka-enabled#create-a-kafka-enabled-event-hubs-namespace">新しい Kafka 対応</a> の Event Hubs 作成ガイドを作成します ( &quot;作成プロセスで [Kafka&quot; を有効にする] オプションが選択されている必要があります)。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-endpoints#custom-endpoints">イベント ハブを新しいエンドポイントとして</a> IoT Hubし、デバイス メッセージを <a href="https://docs.microsoft.com/en-us/azure/iot-hub/tutorial-routing">ルーティングするルート</a> を追加します。</li>
+   <li>アプリケーションの接続文字列を使用して Kafka コンシューマーを構成Event Hubs (サンプル Kafka コンシューマーとして<a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-quickstart-kafka-enabled-event-hubs"></a>クイック スタート コードを使用できます)</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ebfd2f70-7a66-4be3-ada2-e530c298fb48.png"><img alt="image" border="0" height="653" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b39c430b-4937-4df5-bb1c-e082176c0548.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="1024"></a></p>
+
+
+  <p>関連する手順の詳細なデモについては、以下の記録されたビデオを参照してください。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Kafka-Integration-with-Azure-IoT-Hub/player" width="960"></iframe></p>

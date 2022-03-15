@@ -1,0 +1,153 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 49eab3131faaeaebc405ca2466bf6f46f21e70d6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139897027"
+Slug: the-emerging-big-data-architectural-pattern
+Title: 新たなビッグ データ アーキテクチャ パターン
+Summary: ラムダ アーキテクチャは一般的なビッグ データ アーキテクチャ パイプラインであり、バッチ レイヤー (コールド レイヤーとも呼ばれる) の両方を利用して大量のデータを処理するように設計されています。
+Content: >-
+  <h2>ラムダの理由</h2>
+
+
+  <p>ラムダ アーキテクチャは、ビッグ データ パイプラインを構築する場合に一般的なパターンです。 バッチ レイヤー (コールド レイヤーとも呼ばれる) とストリーム処理レイヤー (ホットレイヤー<a href="https://en.wikipedia.org/wiki/Batch_processing"></a>またはスピード レイヤーとも呼ばれる) の両方を利用<a href="https://en.wikipedia.org/wiki/Stream_processing"></a>して、大量のデータを処理するように設計されています。</p>
+
+
+  <p>特にビッグ データ処理パイプラインにおいて、ラムダ アーキテクチャの人気と成功を導いた理由の一部を次に示します。</p>
+
+
+  <h3>スピードとビジネスの課題</h3>
+
+
+  <p>トランザクション処理やリアルタイム レポートなどの運用上のニーズには、ストリーミング コンテキストでデータを高速に処理する機能が必要です。 たとえば、障害/不正検出、コネクテッド/スマート カー/工場/病院/市区町地、センチメント分析、在庫管理、ネットワーク/セキュリティ監視などです。</p>
+
+
+  <p>通常、大量のデータを含むバッチ処理と、関連する相関関係と集計は、ビジネス レポートにとって重要です。 これは、ビジネスのパフォーマンス、傾向、およびビジネスまたはカスタマー エクスペリエンスを向上させるために実行できる是正措置または加法メジャーを理解するための方法です。</p>
+
+
+  <h3>製品の課題</h3>
+
+
+  <p>ラムダ アーキテクチャの存在を引き起こすトリガーの 1 つは、テクノロジとツール セットを活用して使用可能にしました。 データ ウェアハウス、データ レイク、Spark/Hadoop などの既存のバッチ処理システムでは、ペタ&rsquo;バイト規模のデータ操作を簡単に処理できますが、運用上のニーズによって保証されるほど高速に処理する必要がありました。</p>
+
+
+  <p>同様に、キャッシュ データベース、NoSQL、ストリーミング テクノロジなどの非常に高速なレイヤーでは、小規模なデータ セットに対する高速な運用分析が可能ですが、バッチ システムのように大規模な相関関係と集計、その他の分析操作 (オンライン分析 <a href="https://en.wikipedia.org/wiki/Online_analytical_processing">処理など)</a> を実行することはできません。</p>
+
+
+  <h3>スキルの課題</h3>
+
+
+  <p>さらに、市場では、バッチ システムの高度なスキルを持つ人を見つけるでしょう。また、多くの場合、ストリーム処理のスキルの深さが同じで、その逆も同様です。</p>
+
+
+  <h3>Azure 上のラムダ</h3>
+
+
+  <p>ビッグ データ パイプラインを構築する Azure の代表的なラムダ アーキテクチャの 1 つを次に示します。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4fd6d1cc-0834-4d6c-a7e9-7d8c22c1804a.png"><img alt="Figure 1" border="0" height="713" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38f819e8-b707-442e-9374-97b57c5d5742.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 1" width="1541"></a><br>
+
+  &nbsp;<br>
+
+  <em>図 1: Azure の製品とサービスで表されるビッグ データ処理のラムダ アーキテクチャ。特定の要件に基づいて、必要に応じて、他の Azure および (または) ISV ソリューションを組み合わせに配置できます。</em></p>
+
+
+  <h2 align="left">ラムダによってどのような問題が解決されるのか、どのような問題が発生しますか?</h2>
+
+
+  <p>前のセクションで説明したように、ラムダ アーキテクチャはいくつかのビジネス上の課題を解決します。 ビジネスのさまざまな部分では、速度、粒度、およびデータを使用するメカニズムに関して異なるニーズがあります。 また、&rsquo;最高の速度レイヤーとバッチ レイヤーを組み合わせて使用し、1 つの製品を引き伸ばして、実行に問題がある両方を行うのではなく、テクノロジの選択の課題も解決します。 最後に、トランザクション層と速度レイヤーを扱うスキルを持つユーザーが、バッチ処理のスキルを持つユーザーと並行して作業できます。</p>
+
+
+  <p>多くの業界で非常に成功し、広く採用され、ビッグ データ パイプラインのアーキテクチャ パターンは非常に広く採用されましたが、独自の課題があります。 いくつかの例を次に示します。</p>
+
+
+  <ul>
+   <li>
+   <p><strong>一時的なデータ サイロ:</strong> ラムダ パイプラインは、多くの場合、ビジネスでいくつかの課題を引き起こす可能性があるサイロを作成します。 運用チームが処理している速度レイヤーでのレポートは、管理チームが処理している集計バッチ レイヤーでは異なる場合があります。 このような折り目は最終的に解決される可能性がありますが、一部の不整合を引き起こす可能性があります。</p>
+   </li>
+  </ul>
+
+
+  <ul>
+   <li><strong>より多くの管理オーバーヘッド: </strong>また、メンテナンス時間中に多くのサブシステムを管理および保守する必要がある結果として、サブシステムの数も増やされます。 これは、深く幅広いスキル セットを持つより大きなチームが必要な可能性を意味する可能性があります。</li>
+  </ul>
+
+
+  <h2>新たなビッグ データ設計パターン</h2>
+
+
+  <p>&rsquo;個別の速度レイヤーまたはバッチ レイヤーを必要としなかったテクノロジの適切な組み合わせを利用する方法がある場合は、1 つのレイヤーのみを持ち、速度レイヤーとバッチ レイヤーの両方の属性を許可するシステムを構築できます。 Microsoft の技術的なブレークスルーにより、特に <a href="https://azure.microsoft.com/en-gb/services/cosmos-db/">Azure Cosmos DB</a> では、これが可能になります。</p>
+
+
+  <p>Azure Cosmos DB は、グローバル分散型のマルチモデル データベースです。 COSMOS DB を使用すると、スループットとストレージを、任意の数の Azure リージョンおよび地理的リージョン&#39;個別にスケーリングできます。 包括的なサービス レベル アグリーメント (SLA) を使用して、スループット、待機時間、可用性、整合性 <a href="https://aka.ms/acdbsla">の</a> 保証を提供します。</p>
+
+
+  <p>Cosmos DB を提案された参照アーキテクチャの実装に適した候補としてレンダリングする主な機能の一部を次に示します。このアーキテクチャでは、後で速度とバッチ レイヤーが 1 つのレイヤーにマージされます。</p>
+
+
+  <h3>Cosmos DB 変更フィード</h3>
+
+
+  <ul>
+   <li>最も重要なのは、この新しいビッグ データ アーキテクチャ パターンを構築する上で重要な機能は、DB Cosmos<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed">重要です</a>。 変更フィードのサポートは、変更について Azure Cosmos DB コレクションをリッスンすることで機能します。 次に、変更された順序で変更されたドキュメントの並べ替え済みリストを出力します。 変更は保持され、非同期的に増分処理できます。また、出力を 1 つ以上のコンシューマーに分散させて並列処理することもできます。</li>
+  </ul>
+
+
+  <h3>速度/ホット レイヤーの機能</h3>
+
+
+  <ul>
+   <li>Azure Cosmos DBS&rsquo;&ndash; データベース エンジンはスキーマに依存せず、スキーマやインデックスを必要とせずに取り込んだすべてのデータに自動的にインデックスを作成し、高速なクエリを提供します。</li>
+   <li>Cosmos DB を使用すると、1 秒あたりの粒度でデータベースの<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units"></a>スループットを簡単にスケーリングし、必要に応じいつでも変更できます。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/tutorial-global-distribution-sql-api">ボタンをクリック</a>して、任意の数の <a href="https://azure.microsoft.com/regions/">Azure リージョン</a>に<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/distribute-data-globally">データを配布</a>できます。 これにより、ユーザーの近くにデータを配置でき、顧客の待ち時間を最小限に抑えることができます。</li>
+   <li>Azure Cosmos DB では、お客様に対してエンドツーエンドの待ち時間を 99% の確率で低水準にとどめることを保証しています。 一般的な 1 KB の項目であれば、エンドツーエンドの待ち時間は読み取りが 10 ミリ秒未満、インデックス付きの書き込みが 15 ミリ秒未満となる確率が 99% です (同じ Azure リージョンを対象とする場合に限ります)。 待ち時間の中央値はこれよりも大幅に低く、5 ミリ秒未満です。</li>
+  </ul>
+
+
+  <h3>バッチ/コールド レイヤーの機能</h3>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/documentdb-introduction">SQL</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction">MongoDB</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/cassandra-introduction">Cassandra API</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/table-introduction">Table</a> API など、選択した API を使用してデータにアクセスし、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/graph-introduction">Gremlin API</a> を使用してグラフにアクセスできます。 すべての API が完全にネイティブでサポートされています。</li>
+   <li>また、ストレージ サイズを透過的かつ自動的にスケーリング <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/partition-data">して</a> 、今もいつまでもサイズ要件を処理することもできます。</li>
+   <li>明確に定義された実用的でわかりやすい 5 種類の<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels">整合性モデル</a>により、SQL のような厳密な整合性から、緩やかな NoSQL のような結果整合性 (およびその 2 つの中間) に至るまで、幅広く対応できます。</li>
+   <li>データベースのスキーマやインデックスの管理に関して心配する必要はなく、アプリケーションのスキーマをすばやく反復処理できます。</li>
+   <li>上記の機能を使用して、新しいアーキテクチャ パターンの実装を次に示します。</li>
+  </ul>
+
+
+  <p>次に示すのは、このブログで説明した新しいビッグ データ パイプラインの図的な表現です。</p>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/470f387e-5aa4-4c0f-a40c-7cf35b87feda.png"><img alt="Figure 2" border="0" height="666" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eb7a5666-1040-454f-a535-84c1d219389a.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 2" width="1723"></a></p>
+
+
+  <p align="center"><em>図 2: 従来のラムダ アーキテクチャの進化としてビッグ Cosmos DB for Big Data パイプラインを使用して実装された新しいアーキテクチャ パターン。</em></p>
+
+
+  <p>そのため、DB のCosmos特に変更フィード アーキテクチャを利用することで、この新しいパターンによって、一般的な多くの使用事例<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/use-cases">を解決できます</a>。 これにより、ラムダ アーキテクチャのすべての利点が得され、ラムダによって発生する複雑な一部が解決されます。 これを採用する顧客が増え、コミュニティが成功し、この新しいパターンが成功し、Azure Cosmos DB の導入が増加しました。</p>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>すぐに始めるのに役立つ可能性があるリソースの一覧を次に示します。</p>
+
+
+  <ul>
+   <li>まだ行っていない&#39;、<a href="https://github.com/Azure/azure-cosmosdb-spark">azure-cosmosdb-spark</a> Cosmos リポジトリから Spark を Azure Cosmos DB コネクタ GitHubにダウンロードします。</li>
+   <li><a href="https://github.com/tknandu/TwitterCosmosDBFeed">Twitter から CosmosDB へのストリーム フィード</a>は、新しいデータを Azure Cosmos DB にプッシュするためのメカニズムです。</li>
+   <li>Cosmos DB の Time-to-Live (TTL) 機能と同様に、設定した期間の後で自動的に削除されるようにドキュメントを構成できます。 Azure Cosmos DB TTL 機能の詳細については、「有効期限が切れた Azure Cosmos DB コレクションのデータを自動的に期限切れにする<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/time-to-live">」を参照してください</a>。</li>
+   <li>Azure Cosmos DB <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/bulk-executor-overview">BulkExecutor ライブラリの概要</a>。</li>
+   <li>Azure Services を使用して、実際のシミュレート<a href="https://github.com/rangv/AzureIoTLabs">されたデバイスAzure IoT</a>ハブに接続するエンド to エンド ソリューションを構築するラボAzure IoTします。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/spark-connector-graph">Spark と Apache TinkerPop Gremlin を使用してグラフ分析を実行します</a>。</li>
+   <li>Connect BI <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/odbc-driver">分析ツールCosmosして Azure Cosmos DB</a> に接続します。</li>
+  </ul>

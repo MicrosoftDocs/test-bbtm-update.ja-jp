@@ -1,0 +1,46 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 164af4ea24e44bf36bfd6c69dd23a33f178724fe
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909016"
+Slug: disaster-recovery-to-azure-using-azure-site-recovery-is-now-ga
+Title: アプリケーションを使用した Azure Azure Site Recoveryディザスター リカバリーが GA に
+Summary: Azure Site Recovery仮想マシンを一貫してレプリケート、保護、シームレスにフェールオーバーして、仮想マシンをMicrosoft Azure。 AZURE での自動保護、継続的な正常性監視、ワンクリック オーケストレーション、および復旧により、ASR は、お客様にハイブリッド クラウド ビジネス継続性ソリューションを提供する Microsoft の戦略の不可欠な部分です。
+Content: >-
+  この記事を使用して Azure への DR のプレビューを発表して数か月が経ち、 <a href="https://aka.ms/asr_ga_azureblog_preview">Azure Site Recovery</a>。 お客様には、仮想マシンを一貫してレプリケートし、保護し、シームレスに<b></b>仮想マシンを<b></b>仮想マシンに直接フェールオーバーする ASR のMicrosoft Azure。<b></b> お客様が <i> </i>DR のセカンダリ データセンターの構築とサポートに費やしていた貴重な CAPEX と OPEX を節約する利点を実現し始める中で、お客様は Enterprise と SME のお客様に価値を提供し始め始めております。 クラウドベースの DR ソリューションを構築する目標は 2 つの 2 つでした。DR ソリューションをあらゆる場所で利用可能にすることで、DR ソリューションをユビキタスにし<strong></strong>、ビジネス継続性を民主化<strong>します</strong>。
+
+
+  Microsoft は、モバイルファースト、クラウドファーストの世界の生産性とプラットフォーム企業として、ほとんどの CIO が常に最優先事項としてランク付けするビジネス継続性の課題の解決に取り組んでいます。 <a href="https://aka.ms/asr_ga_azureblog_inmage">InMage</a> の取得と <a href="https://aka.ms/asr_ga_azureblog_inmageintegration">InMage Scout と Azure Site Recovery</a> の統合により、お客様の IT 環境 (Windows や Linux など)、Hyper-V、VMware、その他で物理的または仮想化されたハイブリッド クラウド ビジネス継続性ソリューションを提供する戦略が加速されます。<i> </i> Microsoft Azureは、世界中の事実上すべてのエンタープライズ サーバーのディザスター リカバリーに最適な場所です。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DRtoAzureGA.jpg"><img class="aligncenter size-full wp-image-202304" alt="DRtoAzureGA" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DRtoAzureGA.jpg" width="1262" height="506" /></a>
+
+
+  この GA リリースでは、複数の地域の DR サイトとして Microsoft Azure を有効にしただけでなく、ASR の AZURE 機能に対する既に広範な一覧も大幅に追加されています。
+
+  <ul>
+   <li><strong><b><sup><span style="color: #00aa55">新機能</span> </sup></b><b></b>ASR の復旧計画とAzure Automation</strong> 統合することで、DR プランの堅牢で簡素化された 1 回限りでオーケストレーションできます。 Azure Automation RUNbook を ASR 復旧計画内から直接 <a href="https://aka.ms/asr_ga_rp_blog">呼び出す</a></li>
+   <li><b><strong><b><sup><span style="color: #00aa55">NEWTrack</span> </sup></b></strong> 仮想マシン データ</b>が顧客所有のマネージド geo 冗長ストレージ アカウントにレプリケートAzure Storageされます。 この新機能は、企業サイト間でオンプレミスのプライベート クラウド間で DR を構成する場合にも使用できます。</li>
+   <li><strong><b><sup><span style="color: #00aa55"></span> </sup></b></strong><b>NEWSimplified セットアップ</b>と登録では、オンプレミスの System Center Virtual Machine Manager サーバーを Site Recovery コンテナーに登録するために必要な証明書と整合性キーの生成の複雑さを取り除き、DR のセットアップを効率化します</li>
+   <li><b>VM レプリケーションと保護</b> 設定の大規模な構成により、必要な保護ポリシーを使用してアプリケーションが構成されます。 オンプレミス ネットワークを Azure 内のネットワークと接続するサポートにより、アプリケーションが再開され、Azure にフェールオーバーされると接続されるのを保証できます</li>
+   <li><b></b> 30 秒という低い目標復旧ポイント (RTOP) をサポートする、ほぼ同期レプリケーション。 また、24 時間の期間から一貫性のあるスナップショットを保持 (および使用) することもできます</li>
+   <li><b>クラス最高のセキュリティとデータ </b>暗号化により、Azure にレプリケートするときにアプリケーション データが常にセキュリティで保護されます。 Azure に格納されている VM の保存データは、カスタマー マネージド暗号化キーを使用して暗号化できます</li>
+   <li><b> </b>テスト フェールオーバーによる DR ドリル、データ損失ゼロ、計画外フェールオーバー、フェールバックを保証する計画フェールオーバーを完全にサポートするセルフサービスディザスター リカバリー モデル – すべての DR アクションは正確で一貫性があり、目標復旧時間 (RTO) を達成するのに役立つ設計です</li>
+   <li><b>Reliable Recovery を使用 </b>した監査とコンプライアンスレポートにより、コンプライアンスのニーズを満たすリスクフリーで非実稼働の影響を受け、頻繁かつ信頼性の高い DR テストを確実に行えます。 サービスを使用して実行されたアクティビティをエクスポートできるレポート機能を備え、監査要件を満たしてい</li>
+  </ul>
+
+  &nbsp;
+
+
+  ASR によって DR が Azure に有効にされるだけでなく、<a href="https://aka.ms/asr_ga_azureblog_migration">Windows Server 2012 R2</a> で既に仮想化されている場合は仮想マシンを Azure に効果的に移行したり、Azure で追加の開発およびテスト環境を起動したりするための最適な選択肢もあります。 また、先日<a href="https://aka.ms/asr_ga_azureblog_ma">、</a>移行アクセラレータのプレビューを発表しました。これは、任意のクラウドで実行されている物理ワークロードまたは Windows Server 2012 R2 より前の仮想化<i></i>ワークロードを Azure に移行するのに役立ちます。
+
+
+  10 月から、Azure Backup Site Recovery と Azure へのアクセスも、Microsoft Enterprise Agreement を通じて購入できる便利で経済的なプロモーション オファーで利用できます。Azure Backup Site Recovery 年間サブスクリプション オファーの各ユニットでは、Site Recovery を使用した Azure への 1 つのインスタンスの保護と、Azure Backup を使用した最大 100 GB のデータの保護が対象です &amp; 。詳細については、Microsoft Reseller または Microsoft の担当者にお問い合わせください。
+
+
+  <a href="https://aka.ms/asr_ga_azureblog_channel9" target="_blank">TechEd 2014 で ASR</a> セッションの記録を確認します。そこで、Dr to Azure の機能を発表しました。また、 <a href="https://aka.ms/asr_ga_azureblog_forum">MSDN の Azure Site Recovery フォーラム</a> にアクセスして、追加情報を確認し、他の顧客と関わりを持つ場合も利用できます。
+
+
+  無料<a href="https://aka.ms/asr_ga_azureblog_landingpage">試用版の使用</a>Azure Site Recovery簡単です。価格情報を確認し、無料<a href="https://aka.ms/asr_ga_azureblog_pricing" target="_blank"></a>試用版Microsoft Azure<a href="https://aka.ms/asr_ga_azureblog_trial" target="_blank">してください</a>。

@@ -1,0 +1,137 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9bb479cac5fa6cce3e40d58c0b171e366a57d998
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139897049"
+Slug: proactively-monitoring-cloud-operations-with-microsoft-azure-stack
+Title: Microsoft Azure Stack を使用したクラウド運用の事前監視
+Summary: このAzure Stackは、サービスの統合、サービス のプロビジョニング、およびライフ サイクルを担当Azure Stack。 Azure Stackはハイパーコンバージドの統合システムとしてデプロイされるので、アプライアンスのように動作し、以前のクラウド テクノロジ ソリューションの複雑で深い領域に関する専門知識の多くが最小限に抑えられます。
+Content: >-
+  <h2>はじめに</h2>
+
+
+  <p>Azure のお客様は、さまざまなサービスやリージョンにワークロードをデプロイおよび管理する機能を利用できます。 問題の監視など、これらの Azure リソースを管理する責任があります。 ただし、Azure をサポートする基になるハードウェアとソフトウェア (Azure&rsquo; の物理ホストやネットワークなど) は、Microsoft のエンジニアによって管理および監視されます。</p>
+
+
+  <p>Azure Stackは、独自のデータセンターで統合システムとして実行され、モデルが異なります。 Azure Stack を導入する場合は、ワークロードをプロビジョニングして使用するのと同じ機能を利用できますが、Azure Stack サービスとハードウェアがデータセンターに存在する場合、システムの正常性と信頼性を確保するために Azure Stack 環境を管理および監視する責任があります。 これらのタスクは、組織の新しいロール (組織のオペレーター) によってAzure Stackされます。</p>
+
+
+  <h2>Azure Stack 演算子のロール</h2>
+
+
+  <p>このAzure Stackは、サービスの統合、サービス のプロビジョニング、およびライフ サイクルを担当Azure Stack。 このAzure Stackはハイパーコンバージドの統合システムとしてデプロイされるので、アプライアンスのように動作します。 アプライアンスとして、以前のクラウド テクノロジ ソリューションの複雑さと深い領域の専門知識の多くが最小限に抑えらされます。</p>
+
+
+  <p>ソリューションがデータセンターにデプロイされた後、Azure Stack オペレーターのほとんどの定期的なメンテナンス タスクは、通常、プランとクォータの管理、Azure サービスとコンテンツのプロビジョニングと管理など、構成タスクが分離またはまれになります。 Azure Stackの役割の&rsquo;大きな部分は、データセンター内の変更や問題に対応しています。</p>
+
+
+  <p>このAzure Stack、変更や問題Azure Stack&rsquo;に関連するアラートによって、多くのユーザーが作業を行う必要があります。 特定の修復アクションと共に、Azure Stackオペレーターが効果的でAzure Stackアラートを受け取Azure Stackの監視と正常性システムを設計しました。 アラートは、Azure Stackインフラストラクチャの状態について Azure Stackオペレーターに通知し、必要なアクションの指示を提供します。</p>
+
+
+  <h2>ソフトウェア インフラストラクチャAzure Stack監視</h2>
+
+
+  <p>ソフトウェア インフラストラクチャの監視とAzure Stackについて説明する場合は、通常、次のレイヤーについて説明します。</p>
+
+
+  <ul>
+   <li><strong>Azure Resource Manager (ARM) レイヤー</strong>。 パブリック ポータルと管理ポータル、ARM API、およびこれらの API を実装する ARM コンポーネント。</li>
+   <li><strong>リソース プロバイダー (RP) レイヤー</strong>。 Azure リソース (IaaS サービスなど) をテナントに提供する基礎 RP と、正常性状態とアラート情報を提供する正常性 RP (HRP) などのインフラストラクチャ管理機能を提供する Azure Stack 固有の RP。</li>
+   <li><strong>インフラストラクチャ制御レイヤー</strong>。 RPs からの要求を処理し、それらをシステム内のアクションに変換するインフラストラクチャ ロール。 インフラストラクチャ ロールには通常の&rsquo;管理は必要ないが、特定の状況では再起動が必要な場合があります。 インフラストラクチャ ロールはインフラストラクチャ ロール インスタンスによってサポートされています。同様に、特定の状況では再起動が必要な場合があります。</li>
+   <li><strong>ハードウェア レイヤー</strong>。 コンピューティング デバイスとストレージ デバイスを構成するネットワーク スイッチとサーバーは、Azure Stack。</li>
+  </ul>
+
+
+  <p>図 1 は、さまざまなレイヤーとコンポーネントの概要を示Azure Stack。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f76a4ec-26ff-42c8-b924-1b4b7ceadaee.png"><img alt="image" border="0" height="330" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b48ae31d-0e9e-47b1-a0ca-acac63a1fb7c.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a><br>
+
+  <em>図 1: &ndash; Azure Stackインフラストラクチャの概要</em></p>
+
+
+  <p>ソフトウェア インフラストラクチャのAzure Stack (上の図の 3 つの上位レイヤー) を監視するには、Azure Monitoring エージェントを使用します。 各コンポーネントに固有のイベントを収集し、既定のプロバイダー サブスクリプションAzure Stackストレージ アカウントに転送します。 その後、Health RP とそのサービスは、これらのイベントに対するアラートを生成します。これらのイベントは Azure Stack ポータルに表示され、Rest API または PowerShell クエリの両方で使用できます。</p>
+
+
+  <p>問題が発生した場合、テナントへの影響を回避Azure Stack&rsquo;最小限に抑えるために、迅速に解決する必要があります。 Azure Stack オペレーターが問題の根本原因に迅速に取り組むのを支援するために、コンテンツと重大度、整合性、および各アラートが影響と問題を解決するために必要な手順を明確に理解できるよう、コンポーネントアラートを設計して確認しました。</p>
+
+
+  <p>Azure Stack オペレーターに対する明確なアクションを含むアラート シナリオの例として、次の図 2 を参照してください。 このアラートは、インフラストラクチャ ロール インスタンスの 1 つが使用できないことを Azure Stack &ldquo;オペレーターに通知し、AZS-CA01&rdquo; をクリックしてブレードに直接移動し、開始または再起動のアクションを実行できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8317bdff-5ba2-45d7-b8e4-9912609b60e3.png"><img alt="image" border="0" height="541" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/241cfdbf-109f-45a3-9b2b-c2f0c9d60e3c.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p align="center"><em>図 2 &ndash; Azure Stackアラートの例</em></p>
+
+
+  <p align="left">インフラストラクチャ ソフトウェアのアラート シナリオの他のAzure Stack例を次に示します。</p>
+
+
+  <ul>
+   <li>RP とインフラストラクチャ ロールの可用性</li>
+   <li>コンピューティング メモリ、ストレージ、および使用可能なパブリック IPS の容量</li>
+   <li>ノードの可用性</li>
+  </ul>
+
+
+  <h2>ハードウェア コンポーネントAzure Stack監視</h2>
+
+
+  <p>またAzure Stackハードウェア コンポーネントの正常性を維持する責任は、Azure Stackです。 Health RP によって公開される監視ソリューションは、ソフトウェア インフラストラクチャの正常性状態とアラートAzure Stack処理します。 そのスタックの下位レベルでは、図 3 に示すように、障害が発生した物理ディスク、ネットワーク カード、およびノードに対するアラートを提供するサブシステムがあります。</p>
+
+
+  <p>ノード (物理サーバー) のハードウェア監視では、外部ソリューションを使用して、Azure Stackできます。 これらのソリューションでは、ベース ボード管理コントローラーとのエージェントレス通信を使用してノードを監視し、障害が発生した電源、ファン、温度センサー、その他の標準ノード ハードウェア監視に関するアラートを生成します。</p>
+
+
+  <p>同様に、ネットワーク スイッチでは、環境内のデータセンター監視ツールを使用するか、ソリューション プロバイダーから取得した外部監視Azure Stack必要があります。</p>
+
+
+  <p>外部ソリューションを使用してハードウェアを監視することは、ハードウェアの障害が原因でソフトウェア障害が発生し、アラートの生成が遅延または防止される場合にアラートが発生する状況を保証するためのベスト プラクティスです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/84a33350-1a2b-4a70-adf4-cc8bf8338a49.png"><img alt="image" border="0" height="351" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6fe17c1d-a16c-40b6-bbcd-f9865e2ef857.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p align="center"><em>図 3 ハードウェア &ndash; 監視の概要</em></p>
+
+
+  <h2 align="left">データセンター監視システムとの統合</h2>
+
+
+  <p>Azure Stackは、完全に統合されたシステムです。 物理コンポーネントまたはインフラストラクチャ コンポーネントにエージェントをインストールできません (テナントは、必要なエージェントをテナント VM <strong>に</strong> 追加できます)。&nbsp; 既存の管理システム&rsquo; を顧客に統合すると、Azure Stack (統合) システムとして表示され、基になるコンポーネントは公開されません。 もう 1 つの言い方として、Azure Stack内部です。</p>
+
+
+  <p>お客様が Azure Stack のデプロイとデバイスからすべてのアラートを 1 つのビューで取得し、アラートを既存の IT サービスマネジメント ワークフローに統合してチケットを送信する場合、Azure Stack では、Health RP Rest API または PowerShell アクセスを使用した外部データセンター監視ソリューションとの統合がサポートされています。</p>
+
+
+  <p>Nagios を使用して Azure Stack デプロイを監視する統合サポートの例は、Nagios プラグイン ディレクトリからダウンロードできるオープン ソース コネクタ <a href="https://aka.ms/masnagios">で提供されています</a>。 さらに、Azure Stack 管理パックSystem Center Operations Manager展開を監視<a href="https://azure.microsoft.com/en-us/blog/management-pack-for-microsoft-azure-stack-now-available/">Azure Stackサポートしています</a>。</p>
+
+
+  <p>次の図 4 は、正常性 RP アラート、ネットワーク スイッチ、ハードウェア監視の統合ポイントを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eb05f671-8c77-46f4-941c-f625b5d62cf7.png"><img alt="image" border="0" height="351" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3e16a48a-834f-4ad5-8d30-09fd07076bfb.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p align="center"><em>図 4 Azure Stack &ndash; 監視システムとの統合を示します。</em></p>
+
+
+  <h2 align="left">次の手順</h2>
+
+
+  <p align="left">今すぐ開発キット <a href="https://azure.microsoft.com/en-us/overview/azure-stack/development-kit/">Azure Stackダウンロードしてインストールし</a> 、アラートと正常性の表示に慣れ親しまれています。 アラートを検索する方法の詳細については、「Azure Stack での正常性とアラートの監視」 <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-monitor-health" target="_blank">をAzure Stack</a>。</p>
+
+
+  <h2 align="left">詳細情報</h2>
+
+
+  <p>今年のオーランドでの Ignite では、すべての側面について教育を行う一連のセッションをAzure Stack。 <a href="https://myignite.microsoft.com/sessions?f=%5B%7B%22name%22:%22Azure%20Stack%22,%22facetName%22:%22products%22%7D%5D" target="_blank">セッションの一覧を参照し、こちらから登録してください</a>。</p>
+
+
+  <p>運用と監視の詳細については、このAzure Stackの <a href="https://myignite.microsoft.com/sessions/53274" target="_blank">BRK3127</a> 運用原則に関するページをAzure Stack。</p>
+
+
+  <p>フィードバックは常に探しています。お問い合わせが必要な場合は、こちら <a href="https://www.surveymonkey.com/r/azsjoin">からサインアップしてください</a>。</p>

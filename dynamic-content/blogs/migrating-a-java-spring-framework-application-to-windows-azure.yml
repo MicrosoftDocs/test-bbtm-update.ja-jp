@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: aae73d33a2b6f62493a7c060a08f99dc7512c43f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139904065"
+Slug: migrating-a-java-spring-framework-application-to-windows-azure
+Title: Azure への Java Spring Framework アプリケーションWindowsする
+Summary: 新しいチュートリアルとサンプル コードを公開し、Azure Java 関連のテクノロジWindowsの多くを説明しました。&nbsp;このガイドでは、以下を示す詳細なチュートリアルを提供します。
+Content: >-
+  <p>新しいチュートリアルとサンプル <a href="https://aka.ms/JavaAzureTutorial" target="_blank">コード</a>を公開し、Azure Java 関連のテクノロジWindowsの多くを説明しました。&nbsp;このガイドでは、Java Spring Framework アプリケーション (PetClinic サンプル アプリケーション) を Azure Cloud の Windows に移行する方法を示す詳細なチュートリアルを提供します。&nbsp;このドキュメントに伴うコードは、この<a href="https://github.com/Logic2020Inc/spring-petclinic-mod" target="_blank">ドキュメントにもGitHub</a>。&nbsp;Java 開発者には、この新しいサンプルとチュートリアルをダウンロードして探索してください。</p>
+
+  <h4>詳細</h4>
+
+  <p>Windows Azure はオープン クラウド プラットフォームであり、Microsoft .NET、Java、Node.js、PHP、Python、Ruby&nbsp; など、さまざまなプログラミング言語とフレームワークをサポートしています。このガイドは、一般的な Java アプリケーションを Azure クラウドのアプリケーションに移行する方法を示す Java 開発者向けにWindowsされています。 このチュートリアルでは、一般的な Spring Framework サンプル アプリケーション (Java PetClinic) に焦点を当てながら説明します。このチュートリアルでは、Azure Java SDK for Eclipse、memcached、Windows Azure Cloud Services、Windows Azure SQL Database を使用した Windows Azure Caching、および他の多くの種類の Java アプリケーションで使用されるその他のさまざまなテクノロジについて説明します。</p>
+
+  <h4>Windows Azure Cloud Services (PaaS) または Azure Windows (IaaS) Virtual Machinesを使用しますか?</h4>
+
+  <p>基本的に、Azure 上で Web サイトなどのアプリケーション レイヤーを実行するには、2 つの異なるWindowsがあります。&nbsp;1 つ目は、サービスとしてのプラットフォーム (PaaS) 経由で Azure Cloud Services。 2 つ目は、Azure Virtual Machines (VM) 経由でサービスとしてのインフラストラクチャ (IaaS Windows) を介して行います。&nbsp;どちらの場合も、開発者は複数の世界規模のデータ センター (米国では 4 つ、ヨーロッパでは 2 つ、アジアでは 2 つ) のいずれかを選択してアプリケーションをホストします。</p>
+
+  <ul>
+
+  <li><a href="https://azure.microsoft.com/en-us/develop/net/fundamentals/compute/#CloudServices" target="_blank">Windows Azure Cloud Services</a> を使用すると、開発者はアプリケーションに焦点を当て、プラットフォームによって自動的にプロビジョニングされ、アプリケーション層が実行されるインスタンス (その下には Windows YHyperHY Hyper-V VM&nbsp;) が自動的にプロビジョニングおよび管理されます。インスタンスは 1 から数百の複製に水平方向にスケーリングできます。負荷分散は自動的に行います。&nbsp;インスタンスのサイズは (仮想コアとメモリの数が異なります) 一方で、インスタンスは基本的に Windows Azure によって管理されます。たとえば、OS レイヤーのすべての修正プログラムとセキュリティ更新プログラムが含まれています。 このガイドでは、Java Pet Clinic サンプル アプリケーションを Windows Azure Cloud Services。</li>
+
+  <li><a href="https://azure.microsoft.com/en-us/develop/net/fundamentals/compute/#VMachine" target="_blank">Azure Windows Virtual Machines</a> を使用すると、開発者は独自の VM イメージを作成し、VM&nbsp; にインストールするソフトウェアを含め、その VM のインストールと管理を担当します。Java 開発者向けには、Linux の Windows ディストリビューションなど、さまざまな事前構築済み VM イメージ<strong>が用意されています</strong>。&nbsp;これは、Windows Azure Cloud で Java アプリケーションを実行する場合にも最適な方法です。開発者は OS と VM を低レベルで制御し、mySQL などの他のソフトウェアを任意の数の VM に直接インストールして、アプリケーションレイヤーからデータ層に完全なアプリケーションを構築できます。 ほとんどの Java アプリケーションは、コードの変更をほとんど、または一緒に行うだけで移行できます。 負荷分散を設定して、複数の VM (Tomcat/JSP レイヤーを実行している可能性があります) がラウンド ロビンを介して負荷分散される場合もあります。 ただしAzure Cloud Servicesとは異なり、開発者は、VM がオンプレミスで実行されている場合と同様に、セキュリティ修正プログラムの適用も含めて VM を管理する必要があります。 新 Windowsしいチュートリアルでは Windows Azure Cloud Services で実行されている Java に焦点を当てながら、開発者には Windows または Linux VM を使用して Windows Azure Virtual Machines を試してみるのも推奨されます。</li>
+
+  </ul>
+
+  <h4>Windows Azure Platform 上の Spring Framework&nbsp;</h4>
+
+  <p>Spring Frameworks&rsquo; が最近更新した PetClinic サンプルは、Spring Data JPA、MVC、AOP、JMX、EhCache、Logback などのスケーラブルな Java Enterprise Edition アプリケーションを作成するために使用されるいくつかのエンタープライズ テクノロジを示す使い慣れた車両なので、この新しいガイドに選択されました。 AOP を介して Azure Cache に一時的な障害処理と Memcached を挿入することで、PetClinic を拡張します。</p>
+
+  <p>Eclipse と STS に精通している Java 開発者のために、Microsoft &lsquo; は Azure Windows <a href="https://msdn.microsoft.com/en-us/library/windowsazure/hh690946.aspx" target="_blank">for Eclipse with Java Toolkitを提供しています</a>&rsquo;。 このツールキットは、Azure 上の Eclipse での Java 開発を支援するために、次Windows提供します。&nbsp;</p>
+
+  <ul>
+
+  <li>Windows Azure Plugin for Eclipse with Java</li>
+
+  <li>Microsoft JDBC 4.0 Driver for SQL Server and Windows Azure SQL Database</li>
+
+  <li>JMS 用 Apache Qpid クライアント ライブラリのパッケージ</li>
+
+  <li>Azure Libraries for Java Windows用パッケージ</li>
+
+  <li>Windows Azure Access Control Services フィルター</li>
+
+  <li>Windows Azure Common Plugin</li>
+
+  </ul>
+
+  <p>このガイドでは、Java での Azure Plugin for Eclipse Windows Microsoft JDBC 4.0 Driver for SQL Server を使用します。 Eclipse のプラグインは、Azure サービスと Azure エミュレーター Windows Java ラッパー Windows提供します。</p>
+
+  <h4>まとめ</h4>
+
+  <p>Windows Azure はオープン クラウド プラットフォームであり、さまざまなプログラミング言語とフレームワークをサポートしています。 Java 開発者には、Windows Azure のチュートリアルとサンプル コードで新しい <a href="https://aka.ms/JavaAzureTutorial" target="_blank">Java</a> を探索し、Azure Java 関連のテクノロジの多くを実際に説明Windowsを紹介してください。&nbsp;&nbsp;</p>

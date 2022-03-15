@@ -1,0 +1,126 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5d506530226b9afd00a1d6e3a5f3aedf7c75e11c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139909247"
+Slug: fv2-vms-are-now-available-the-fastest-vms-on-azure
+Title: Azure で最速の VM である Fv2 VM が使用可能に
+Summary: 本日は、新しい Fv2 VM ファミリの一般提供についてお知らせします。 Azure では、パブリック クラウドで、コード名が Skylake という最速の Intel® Xeon® Scalable プロセッサが提供されます。 Azure では、財務モデリング、科学的分析、ゲノム、視覚エフェクト、ディープ ラーニングを行うお客様による大規模な計算の需要が高まっています。
+Content: >-
+  <p>本日は、新&rsquo;しい Fv2 VM ファミリの一般提供についてお知らせします。 Azure では、パブリック クラウドで、コード名が Skylake という最速の <a href="https://www.intel.com/content/www/us/en/processors/xeon/scalable/xeon-scalable-platform.html">Intel&reg; Xeon&reg; Scalable</a> プロセッサが提供されます。 Azure では、財務モデリング、科学的分析、ゲノム、視覚エフェクト、ディープ ラーニングを行うお客様による大規模な計算の需要が高まっています。 Azure で継続的にイノベーションを起こしていけば、これらの世界で変化するワークロードに対して、コスト効率が高くクラス最高のハードウェアを提供できます。 パブリック クラウド NCv2 で最初の Tesla P40s を提供し、Tesla P100 を提供し、InfiniBand 接続を備えた唯一のクラウドである ND の最近の発表では、Azure によって、すばらしいスケールアウトの GPU を利用した計算が可能になります。 現在、Fv2 を使用すると、Azure では Intel Intel&reg; Xeon Scalable プロセッサに基づく最速の CPU 搭載&reg; 計算が提供されます。</p>
+
+
+  <p>これらの VM サイズはハイパースレッド化され、Intel&reg; Xeon&reg; Platinum 8168 プロセッサ上で実行され、基本コア周波数は 2.7 GHz、最大シングルコア の Turbo 周波数は 3.7 GHz です。 Intel スケーラブル プロセッサの新機能である Intel&reg; <a href="https://www.intel.com/content/www/us/en/architecture-and-technology/avx-512-overview.html">AVX-512</a> 命令では、単精度浮動小数点演算と倍精度浮動小数点演算の両方で、ベクター処理ワークロードのパフォーマンスが最大 2 倍向上します。 つまり、これらはあらゆるコンピューティング ワークロードで非常に高速です。 Skylake を提供する最も近いクラウド競合他社は、現在、2.0 GHz のみを提供しています。 これにより、ジョブに対する最新の最適なツールを使用して、計算負荷の高いワークロードに最適な場所が Azure に提供されます。</p>
+
+
+  <p>Fv2 VM は 7 つのサイズで利用できます。最大サイズは 72 vCPU と 144 GiB の RAM を備えています。 これらのサイズでは、Azure Premium Storage ディスクが既定でサポートされます。また、クラウドの最高スループットと VM 間の待機時間が非常に短い高速ネットワーク機能もサポートされます。 Azure 上で最高のパフォーマンスと価格の比率を備えた Fv2 VM は、コンピューティング集中型のワークロードに最適です。&nbsp;</p>
+
+
+  <p>これらの新しい Fv2 VM サイズの詳細を次に示します。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="613">
+      <tbody>
+          <tr>
+              <td valign="top" width="57">
+              <p align="center">サイズ</p>
+              </td>
+              <td valign="top" width="57">
+              <p align="center">vCPU 数</p>
+              </td>
+              <td valign="top" width="57">
+              <p align="center">メモリ:<br>
+  GiB</p>
+              </td>
+              <td valign="top" width="90">
+              <p align="center">ローカル SSD:<br>
+  GiB</p>
+              </td>
+              <td valign="top" width="182">
+              <p align="center">キャッシュされた最大 IOPS とローカル ディスク IOPS (GiB のキャッシュ サイズ)</p>
+              </td>
+              <td valign="top" width="141">
+              <p align="center">最大 データ ディスク数 (各ディスク 1,023 GB)</p>
+              </td>
+              <td valign="top" width="28">
+              <p align="center">Max.NIC&nbsp;</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F2s_v2</td>
+              <td valign="top" width="57">2</td>
+              <td valign="top" width="57">4 GiB</td>
+              <td valign="top" width="90">16</td>
+              <td valign="top" width="182">4000 (32)</td>
+              <td valign="top" width="141">4</td>
+              <td valign="top" width="28">2</td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F4s_v2</td>
+              <td valign="top" width="57">4</td>
+              <td valign="top" width="57">8 GiB</td>
+              <td valign="top" width="90">32</td>
+              <td valign="top" width="182">8000 (64)</td>
+              <td valign="top" width="141">8</td>
+              <td valign="top" width="28">2</td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F8s_v2</td>
+              <td valign="top" width="57">8</td>
+              <td valign="top" width="57">16 GiB</td>
+              <td valign="top" width="90">64</td>
+              <td valign="top" width="182">16000 (128)</td>
+              <td valign="top" width="141">16</td>
+              <td valign="top" width="28">4</td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F16s_v2</td>
+              <td valign="top" width="57">16</td>
+              <td valign="top" width="57">32GiB</td>
+              <td valign="top" width="90">128</td>
+              <td valign="top" width="182">32000 (256)</td>
+              <td valign="top" width="141">32</td>
+              <td valign="top" width="28">8</td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F32s_v2</td>
+              <td valign="top" width="57">32</td>
+              <td valign="top" width="57">64GiB</td>
+              <td valign="top" width="90">256</td>
+              <td valign="top" width="182">64000 (512)</td>
+              <td valign="top" width="141">32</td>
+              <td valign="top" width="28">8</td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F64s_v2</td>
+              <td valign="top" width="57">64</td>
+              <td valign="top" width="57">128GiB</td>
+              <td valign="top" width="90">512</td>
+              <td valign="top" width="182">128000 (1024)</td>
+              <td valign="top" width="141">32</td>
+              <td valign="top" width="28">8</td>
+          </tr>
+          <tr>
+              <td valign="top" width="57">Standard_F72s_v2</td>
+              <td valign="top" width="57">72</td>
+              <td valign="top" width="57">144GiB</td>
+              <td valign="top" width="90">576</td>
+              <td valign="top" width="182">144000 (1520)</td>
+              <td valign="top" width="141">32</td>
+              <td valign="top" width="28">8</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>現在から、これらのサイズは米国西部 2、西ヨーロッパ、米国東部で使用できます。 東南アジアは近日公開予定です。 これらの新しいサイズを楽しめ、それらを使用して何を行うのか楽しみに思います。&nbsp;</p>
+
+
+  <p>ya around を参照してください。&nbsp;<br>
+
+  コーリー</p>
