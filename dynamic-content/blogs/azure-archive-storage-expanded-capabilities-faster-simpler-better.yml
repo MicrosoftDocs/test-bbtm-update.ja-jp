@@ -1,0 +1,134 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b7e8467140df29481cfb079b381befaadbfa9d0c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894575"
+Slug: azure-archive-storage-expanded-capabilities-faster-simpler-better
+Title: 'Azure Archive Storage 拡張された機能: より高速で、より簡単です。'
+Summary: '2017年12月に Azure Archive Storage を起動したため、さまざまな業界から、かつてない興味と革新的な使用法を確認しました。 Archive Storage は、アクセス頻度の低いデータを長期間保存するコスト効率を高めるスケーラブルなサービスとして構築されています。 '
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><strong>2020 年4月 21</strong>日の更新: Azure Archive Storage のこれらの機能強化が一般公開されています。 詳細については Azure Archive Storage ブログ投稿<a href="https://azure.microsoft.com/en-us/blog/enhanced-features-in-azure-archive-storage-now-generally-available/" target="_blank">の拡張機能に</a>関する記事をご覧 &nbsp; ください。&nbsp;</div>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/cloud-storage-now-more-affordable-announcing-general-availability-of-azure-archive-storage/">Azure Archive Storage を起動</a>したため、さまざまな業界から、かつてない関心と革新的な使用法を確認しました。 Archive Storage は、アクセス頻度の低いデータを長期間保存するコスト効率の高い、スケーラブルなサービスとして構築されています。 以前に削除された可能性のあるアプリケーションバックアップ、医療記録、自律運転記録などのコールドデータは、Azure Storage &rsquo; s アーカイブ層にオフライン状態で格納し、必要に応じてオンライン層に復元することができます。 今月の前半では、コスト効率の高いデータストレージオファリングを提供するためのコミットメントの一環として、<a href="https://azure.microsoft.com/en-us/blog/we-re-making-azure-archive-storage-better-with-new-lower-pricing/" originalsrc="https://azure.microsoft.com/blog/we-re-making-azure-archive-storage-better-with-new-lower-pricing/" shash="H6qJNS1TUhNFL0bGqgdvO8aOFVI6jbjJsvS0COzePOjImElrfwNwWTM86dHvvuBh/Mri1Bh+THEOqiixMiW9Xy8WapPjx+WsTXuEvQd31f6RfI1Tx3EZQa8KTR2+xDOUYsapszee5Ad9yP0Dc8qXXBuo6qfDE2wO86pc8a3Ej2c=" target="_blank">一部のリージョンでは最大50% の価格を削減</a>することで、さらに手ごろな価格を Azure Archive Storage ました。</p>
+
+
+  <p>Azure Archive Storage に関するフィードバックを収集しまし &rsquo; た。本日は、サービスをさらに向上させるために、<strong>パブリックプレビュー</strong>で3つのアーカイブの機能強化を共有することをお &rsquo; 勧めします。</p>
+
+
+  <h2>1. Azure Archive からの優先度の取得</h2>
+
+
+  <p>Azure Archive Storage に格納されているデータを読み取るには、まず blob の層をホットまたはクールに変更する必要があります。 このプロセスは、復元と呼ばれ、完了までに数時間かかります。 &rsquo;本日、アーカイブから優先度の高いパブリックプレビューリリースを共有し、より高速なオフラインデータアクセスを実現しています。 優先順位を取得することで、オフラインのアーカイブ層のデータの復元を、優先度の高いアクションとしてオンラインホットまたはクール層に戻すことができます。 優先順位の復元操作についてもう少し料金を <a href="https://azure.microsoft.com/en-us/pricing/details/storage/blobs/" target="_blank">支払う</a> ことにより、アーカイブの取得要求は他の要求の前に配置され、オフラインデータは1時間以内に返されることが予想されます。</p>
+
+
+  <p>アーカイブデータセットのサブセットに対する緊急要求には、優先度の取得を使用することをお勧めします。 ほとんどのユースケースでは、お客様は、15時間以内に完了する標準的なアーカイブの取得を計画し、利用します。 ただし、まれに、1時間以下の取得時間が必要になる場合があります。 優先順位の取得要求では、標準の取得操作の時間帯にアーカイブデータを配信できるため、顧客は通常どおりビジネスを迅速に再開できます。 詳細については、「 <a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-rehydration" target="_blank">Blob Storage の復元</a>」を参照してください。</p>
+
+
+  <p>オプションのパラメーターでアーカイブ取得オプションが提供されるようになりました。</p>
+
+
+  <ul>
+      <li><strong>Standard</strong> 復元は過去2年間にアーカイブされた新しい名前であり、Archive SetBlobTier および copyblob 要求の既定のオプションであり、最大15時間かかります。</li>
+      <li><strong>High</strong> 復元は、10 GB 未満の blob を取得することで、アーカイブからの緊急データアクセスの必要性を満たします。通常、これは1時間未満です。</li>
+  </ul>
+
+
+  <p>要求時点でのリージョン優先度の取得要求は、データの復元が完了する速度に影響を与える可能性があります。 ほとんどのシナリオでは、高優先度の復元要求によって、1時間以内にアーカイブデータが返される場合があります。 アーカイブが非常に大量の復元要求を同時に受け取るまれなシナリオでは、要求は標準の復元優先順位よりも優先されますが、アーカイブデータを返すには 1 ~ 5 時間かかることがあります。 非常にまれなケースとして、高復元の要求に5時間以上かかり、アーカイブ blob が数 GB で返されることはほとんどありません。</p>
+
+
+  <h2>2. 選択されたアクセス層 (ホット、クール、またはアーカイブ) に blob ダイレクトをアップロードします。</h2>
+
+
+  <p>汎用 v2 と blob storage アカウントの blob レベルの階層制御を使用すると、ホット、クール、またはアーカイブアクセス層の blob を、同じコンテナー内に簡単に格納できます。 以前にオブジェクトをコンテナーにアップロードすると、アカウントのアクセス層が継承され、blob &rsquo; のアクセス層は、アカウントの構成設定に応じて、ホット (推定) またはクール (推定) として表示されます。 データの使用パターンが変化すると、 <em>Setblobtier</em> API を使用して blob のアクセスレベルを手動で変更したり、 <a href="https://docs.microsoft.com/azure/storage/blobs/storage-lifecycle-management-concepts" target="_blank">blob ライフサイクル管理ルール</a>を使用してプロセスを自動化したりすることができます。</p>
+
+
+  <p>&rsquo;本日は、アップロード blob ダイレクトのパブリックプレビューリリースをアクセス層に共有し直しています。これにより、 <em>putblob</em>または<em>PutBlockList</em>を使用して blob を直接、オプションのパラメーター ( <strong>x-y</strong>) を使用して選択したアクセス層にアップロードできます。 これにより、アカウント &rsquo; の既定のアクセス層の設定に関係なく、ホット、クール、またはアーカイブ層にオブジェクトを直接アップロードできます。 この新しい機能により、お客様は単一のトランザクションで Azure Archive に直接オブジェクトを簡単にアップロードできます。 詳細については、「 <a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-storage-tiers" target="_blank">Blob Storage アクセスレベル</a>」を参照してください。</p>
+
+
+  <h2>3. CopyBlob の拡張機能</h2>
+
+
+  <p>場合によっては、元のデータをそのまま残しておく必要がありますが、データの一時的なコピーで作業できます。 これは特に、アーカイブ内のデータを読み取る必要があり、アーカイブに保持する必要がある場合に当てはまります。 CopyBlob 拡張機能のパブリックプレビューリリースでは、既存の CopyBlob API を基にして、アーカイブアクセスレベル、アーカイブからの優先度の取得、および選択したアクセスレベルへの直接のサポートが追加されています。</p>
+
+
+  <p>これで、CopyBlob API は、アーカイブアクセス層をサポートできるようになりました。同じストレージアカウント内のアーカイブアクセス層との間でデータをコピーできます。 選択肢の拡張のアクセスレベルを使用すると、省略可能なパラメーターとして " <strong>x-ms" アクセス</strong> 層を設定して、データのコピー先となるターゲットアクセス層を指定できるようになりました。 アーカイブ層から blob をコピーする場合は、移行先のホット層またはクール層でコピーを作成する速度の <strong>復元優先度</strong> を指定することもできます。 新しい copyblob アクセス層機能の詳細については、「 <a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-rehydration" target="_blank">Blob Storage の復元</a>」と次の表を参照してください。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td width="156">
+              <p>&nbsp;</p>
+              </td>
+              <td width="156">
+              <p><b>ホット層のコピー元</b></p>
+              </td>
+              <td width="156">
+              <p><b>クール層のコピー元</b></p>
+              </td>
+              <td width="156">
+              <p><b>アーカイブ層のコピー元</b></p>
+              </td>
+          </tr>
+          <tr>
+              <td width="156">
+              <p><b>ホット層のコピー先</b></p>
+              </td>
+              <td width="156">
+              <p>サポートされています</p>
+              </td>
+              <td width="156">
+              <p>サポートされています</p>
+              </td>
+              <td width="156">
+              <p>同じアカウント内でサポートされています。リハイドレート保留</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="156">
+              <p><b>クール層のコピー先</b></p>
+              </td>
+              <td width="156">
+              <p>サポートされています</p>
+              </td>
+              <td width="156">
+              <p>サポートされています</p>
+              </td>
+              <td width="156">
+              <p>同じアカウント内でサポートされています。リハイドレート保留</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="156">
+              <p><b>アーカイブ層のコピー先</b></p>
+              </td>
+              <td width="156">
+              <p>サポートされています</p>
+              </td>
+              <td width="156">
+              <p>サポートされています</p>
+              </td>
+              <td width="156">
+              <p>サポートされていない</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>現在説明されているすべての機能 (blob をアクセス層に直接アップロード、アーカイブからの優先度の取得、および CopyBlob の機能強化) は、 <a href="https://portal.azure.com/#home" target="_blank">Azure Portal</a>、 <a href="https://github.com/Azure/azure-storage-net/" target="_blank">.net クライアントライブラリ</a>、 <a href="https://github.com/azure/azure-storage-java" target="_blank">Java クライアントライブラリ</a>、 <a href="https://github.com/Azure/azure-storage-python/tree/master/azure-storage-blob" target="_blank">Python クライアントライブラリ</a>の最新のリリースでサポートされています。 常に、 <a href="https://msdn.microsoft.com/library/azure/dd894041.aspx" target="_blank">Storage Services REST API</a> (バージョン2019-02-02 以降) を直接使用することもできます。 一般に、これらの新機能を使用しているかどうかに関係なく、常に最新バージョンを使用することをお勧めします。</p>
+
+
+  <h2>ビルドして使用してください。</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers" target="_blank">アーカイブと Blob Storage サービス</a>の向上を続けており、これらの機能についてのフィードバックをに電子メール <a href="mailto:ArchiveFeedback@microsoft.com">ArchiveFeedback@microsoft.com</a> でお寄せください。 ご意見をお寄せください。 Azure Storage についてのご意見やご提案をお聞かせください。 <a href="https://feedback.azure.com/forums/217298-storage" target="_blank">Azure Storage フィードバックフォーラム</a>で投稿できます。</p>
+
+
+  <p>Azure Storage チーム全体から感謝いたします。</p>

@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d8ac43b35b60c6d9570e7e97a53c5e5630cf57ad
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891127"
+Slug: azure-elastic-database-jobs-is-now-in-public-preview
+Title: Azure Elastic Database ジョブがパブリックプレビューになりました
+Summary: Azure Elastic Database ジョブの新しい、大幅にアップグレードされたパブリックプレビューリリースの可用性を発表いたします。 Elastic Database ジョブが完全に Azure でホストされるサービスになりました...
+Content: >-
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=874534" target="_blank">Azure Elastic Database ジョブ</a>の新しい、大幅にアップグレードされたパブリックプレビューリリースの可用性を発表いたします。 Elastic Database ジョブは、完全に Azure でホストされるサービスになりました。 以前のバージョンでホストされている Elastic Database ジョブとは異なり、このバージョンは Azure の不可欠な部分であり、追加のサービスやコンポーネントをインストールして構成する必要はありません。 また、このリリースでは、ユーザーがデータベースのグループに対して PowerShell、REST、または t SQL api を使用して t-sql SQL ジョブを簡単に自動化および実行できるようにする重要な機能も追加されています。 これらのジョブを使用して、インデックスの再構築、スキーマの更新、分析用のクエリ結果の収集、パフォーマンスの監視など、さまざまなタスクを処理できます。</p>
+
+
+  <p>クラウドの SaaS 開発者は、大規模ストアのコレクションに対してオンライン注文サービスを提供している Imagine ます。 これをサポートし、無制限のスケールを許可するには、 &rsquo; 各店舗 &rsquo; のビジネスを処理するために個別の Azure SQL データベースをプロビジョニングし、この一連のデータベースが共通のスキーマを共有します。 アプリケーションでは、顧客トランザクションを適切なストア &rsquo; のデータベースに送信しますが、すべてのデータベースを簡単に管理して、パフォーマンスとカスタマーエクスペリエンスが最適であることを確認する必要があります。 さらに、お客様のアプリケーションに統合する予定の新機能の準備として、各データベースに配置するための新しいスキーマを定期的に用意しています。</p>
+
+
+  <p>新しい顧客が追加または削除されると、メンテナンスジョブスクリプトを変更しなくても、追加のデータベースを作成または削除する必要があります。 Azure Elastic Database ジョブを使用すると、使い慣れた T SQL ベースのジョブスクリプトを使用して、これらすべてを実現できます。 これらのジョブは、T SQL、PowerShell、REST api、および Azure portal を使用して、スケジュール、実行、管理、および監視できます。 この更新されたバージョンの Elastic Database ジョブは、これらすべての機能を提供し、重要な追加機能を追加します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc3ab858-afef-41ca-a48d-8243fd91d66e.png"><img alt="elastic-jobs" border="0" height="338" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ec91aa4-7ed0-47cf-83af-32cc5b1b903a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="エラスティックジョブ" width="539"></a></p>
+
+
+  <p>このリリースの機能と機能強化には、次のようなものがあります。</p>
+
+
+  <ul>
+   <li>Elastic Database ジョブは、完全に統合された Azure サービスになりました。</li>
+   <li>ジョブは、1つまたは複数の Azure SQL エラスティックプール、論理サーバー、シャードマップ、および複数のサブスクリプションにまたがるデータベースを対象とすることができます。</li>
+   <li>ジョブは、実行シーケンスをカスタマイズするための複数の手順で構成できます。</li>
+   <li>ターゲットグループ内のターゲットデータベースの一覧が動的に列挙されます。 ターゲットグループに追加または削除されたデータベースは、明示的なジョブスクリプトの変更を行わなくても自動的に選択されます。</li>
+   <li>ジョブは、リソースの最適化を確保するために、ジョブを実行するデータベースの数を並列で制限するように構成できます。</li>
+   <li>ターゲットグループは、特定のデータベース、プール、またはサーバーの参照を含める &rdquo; か除外 &rdquo; するか &ldquo; によって &ldquo; カスタマイズできます。</li>
+   <li>T SQL、PowerShell、REST api、Azure portal サポート。</li>
+  </ul>
+
+
+  <p>Azure Elastic Database ジョブを使用すると、多数のデータベースにわたるデータベースのメンテナンスと管理を簡単かつ信頼性の高い方法で自動化できます。 この <a href="https://go.microsoft.com/fwlink/?linkid=874535" target="_blank">チュートリアル</a> では、データベースのグループに対してジョブを作成および実行するために必要な手順について説明します。また、スケジュールを作成し、ジョブを実行し、結果を保存することもできます。 Elastic Database ジョブは、Azure SQL Database のすべてのサービス階層のデータベースに対して操作を実行できます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=874534" target="_blank">Elastic Database ジョブ</a>は Azure SQL Database サービスの一部であり、パブリックプレビューバージョンを使用する場合に追加料金は発生しません。 開始するには、Elastic Database ジョブのパブリックプレビューにアクセスし、 <a href="https://go.microsoft.com/fwlink/?linkid=874534" target="_blank">ドキュメント</a>の概要に関する記事をご覧ください。</p>
+
+
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=874536" target="_blank">移行スクリプト</a> は、以前の顧客がホストしていた Elastic Database ジョブのプレビュー版を使用しているお客様に提供されます。</p>

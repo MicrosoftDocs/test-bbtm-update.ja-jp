@@ -1,0 +1,142 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a1b9ac784476238c63b509293f493fb7db837df3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896127"
+Slug: azurecom-operates-on-azure-part-1-design-principles-and-best-practices
+Title: 'Azure.com Azure で動作するパート 1: 設計原則とベスト プラクティス'
+Summary: 'この 2 部構成のシリーズのパート 1 では、Azure.com Web ページの背後を見て、大規模なブランド Web サイトをグローバルに実行する方法について説明します。 '
+Content: >-
+  <p>Azure では、強力なクラウド コンピューティング ツールが世界中のクリエイティブな人々の手に取り込まれています。 そのため、Web サイトがそのブランドの顔である場合は、構築した機能を使用する方が優れたものになるのです。 同様に、99.99% の複合 SLA が良好です。</p>
+
+
+  <p>Microsoft&rsquo; が次の Azure.com を発明する人々を促すプラットフォームである、Microsoft の仕事です。 Azure.com、毎日何百万人ものユーザーにコンテンツを提供しています。 これは、ほぼすべての国の人々に到達し、27 の言語でローカライズされています。 これは、昇格する非常に多くのツールで実行されている間に行います。</p>
+
+
+  <p>アプリケーションの開発 Azure.com、私たちは何を考えるのかを実践します。 お客様 <a href="https://docs.microsoft.com/en-us/azure/architecture/framework/" target="_blank">に採用をアドバイス</a> する基本原則と、持続可能なソフトウェア <a href="https://principles.green/" target="_blank">エンジニアリング (</a> SSE) の原則に従います。 このブログ記事も、記述されている非常にインフラストラクチャ上でホストされています。</p>
+
+
+  <p>この 2 部構成のシリーズのパート 1 では、Azure.com Web ページの背後を見て、大規模なブランド Web サイトをグローバルに実行する方法について説明します。 グローバル規模でのセキュリティ、回復&mdash;性、スケーラビリティ、可用性、環境の持続性、コスト効率の高い運用のための設計アプローチとベスト プラクティスを共有します。</p>
+
+
+  <h2>サポートされている製品、機能、デモ Azure.com</h2>
+
+
+  <p>Azure.com&mdash; は、コンテンツ プラットフォームとして、SP&amp; 500 企業から独立系ソフトウェア ベンダー、政府機関から小規模企業まで、ビジネスおよび技術の人々の対象ユーザーにサービスを提供します。 コンテンツがすべてのユーザーに届くのを確認するために、Web コンテンツアクセシビリティ ガイドライン (WCAG) に従います。 また、責任を持って世界規模を達成し、二酸化炭素排出量を削減するために、持続可能なソフトウェア エンジニアリングの原則 <a href="https://news.microsoft.com/climate/" target="_blank">を採用しました</a>。</p>
+
+
+  <p>Azure.com、製品や機能の説明などの静的コンテンツがサポートされています。 しかし、楽しいのは対話型コンポーネントであり、61 リージョン (および成長中) <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?regions=all&amp;products=all" target="_blank"></a> のサービスの可用性を示すリージョン別の利用可能な製品ページ、Azure の変更に関する情報を保持する <a href="https://azure.microsoft.com/updates/" target="_blank">Azure</a> の更新ページ、検索ボックスなど、詳細<a href="https://azure.microsoft.com/search/" target="_blank"></a>をカスタマイズできます。</p>
+
+
+  <p><a href="https://azure.com/pricing" target="_blank">Azure の価格</a>ページでは、複数の市場で 200 を超えるサービスの最新の価格情報が提供され、サインインしているユーザーが対象となる割引が考慮されます。 また、すべてのサービスの <a href="https://azure.com/calculator" target="_blank">包括的な料金計算</a> ツールも構築しました。 見込み顧客は、24 通貨で複雑なコスト見積もりを計算して共有できます。</p>
+
+
+  <p>マーケティング チャネルとして、Azure.com もホストします。 たとえば、ブラウザー内の対話型デモを作成して、Azure Cognitive Services の利点を表示し、ストーリーテリング用 <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank">の</a>ストリーミング メディア <a href="https://azure.microsoft.com/en-us/developer/stories/" target="_blank">をサポートしています</a>。 また、27 の言語と 12 のリージョンでクラウド移行の節約を見積もる総保有コスト <a href="https://azure.com/tco" target="_blank">(TCO)</a> 計算ツールも提供しました。</p>
+
+
+  <p>また、99.99% の複合 Azure.com <a href="https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/business-metrics#composite-slas" target="_blank">SLA</a> について言及しましたか。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a10bc232-0106-4c48-993c-5bbd0c5b6981.png"><img alt="Azure Pricing calulator." border="0" height="719" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b74e0e5-4422-46a8-ad91-38cf23689b6e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Pricing Calulator。" width="1024"></a></p>
+
+
+  <p align="center"><i>料金計算ツール: すべての Azure 製品とサービスの対話型コスト見積もりツール。</i></p>
+
+
+  <h2>データの Azure.com</h2>
+
+
+  <p>Azure サービスの数が増え、Web サイトも増え、常に Azure で実行されています。 Azure.com 作業は常に進行中ですが、開発履歴のいくつかのマイルストーンを次に示します。</p>
+
+
+  <ul>
+      <li><strong>2013</strong> 年: Azure.com オープンソースの Umbraco CMS での使用が開始されます。 7 つの Azure サービスを、コンピューティング、データ サービス、アプリ サービス、ネットワークの 4 つのカテゴリに分けて販売します。</li>
+      <li><strong>2015</strong>: Azure.com、Azure でホストされている ASP.NET モデル ビュー コントローラー (MVC) アプリケーションに移動します。 現在、4 つのカテゴリで 16 の Azure サービスがサポートされています。</li>
+      <li><strong>2020</strong> 年: Azure.com コンテンツのより多くのカテゴリのサポートを拡大し続ける。 現在、この Web サイトには、Azure サービス、機能、機能など、200 を超える Azure オファリングが記述されています。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91d9ea0d-a1c4-43f9-9782-3dbdc880ecc4.png"><img alt="Azure.com timeline of supported products and services." border="0" height="382" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/88759c0b-6108-4513-8114-8a6842829dd2.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure.com 製品とサービスのタイムラインを示します。" width="1028"></a></p>
+
+
+  <p align="center"><i>Azure.com タイムライン: 毎年、より高い Azure 製品とサービスがサポートされています。</i></p>
+
+
+  <h2>開発の背後にある設計 Azure.com</h2>
+
+
+  <p>Azure アーキテクチャの主要な柱に従って、Azure.com アーキテクチャの基盤を構築します。 これらの柱は、セキュリティ、パフォーマンス、可用性、効率性の背後にある設計原則であり、Azure.com を円滑に実行し、ビジネス目標を達成します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a6ac8681-f499-45cb-9f85-44154fa1dc28.png"><img alt="The core pillars of great Azure architecture." border="0" height="580" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f555adb1-f0a1-425d-b029-b6d026aa053a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure アーキテクチャの重要な柱。" width="1024"></a></p>
+
+
+  <p align="center"><em>設計原則: Azure.com、Azure アーキテクチャのベスト プラクティスの原則に従います。</em></p>
+
+
+  <p>Microsoft Azure Well-Architected Framework を使用して最適なソリューションを構築する<a href="https://docs.microsoft.com/en-us/learn/modules/pillars-of-a-great-azure-architecture/" target="_blank">方法に関するクラスを受け取る。</a></p>
+
+
+  <h2>セキュリティと回復性の柱</h2>
+
+
+  <p>他のクラウド アプリケーションと同様に Azure.com すべてのレイヤー <a href="https://docs.microsoft.com/en-us/azure/architecture/framework/security/overview" target="_blank">でセキュリティ</a> が必要です。 つまり、ネットワークからアプリケーション、Web ページ、バックエンドの依存関係まで、Open Systems Interconnection (OSI) モデルの対象となるすべてのものが含まれています。 これは、セキュリティ <a href="https://docs.microsoft.com/en-us/learn/modules/pillars-of-a-great-azure-architecture/3-design-for-security" target="_blank">に対する詳細な</a> 防御アプローチです。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/overview" target="_blank">回復性</a> とは、悪意のある攻撃、悪意のあるアクター、またはボットがコンピューティング リソースを飽和状態にし、不要なスケールアウトとコストオーバーランを引き起こす可能性があるボットから防御する機能です。 回復性は、&rsquo;障害を回避するのではなく、ダウンタイムやデータ損失を回避する方法で障害に対応することです。</p>
+
+
+  <p>回復性のメトリックの 1 つは目標復旧 <a href="https://docs.microsoft.com/azure/architecture/framework/resiliency/business-metrics#recovery-metrics" target="_blank">時間 (</a> RTO) です。これは、障害が発生した後にアプリケーションをオフラインにできる時間を示します。 私たちの場合、&rsquo;30 分未満です。 <a href="https://docs.microsoft.com/en-us/azure/architecture/resiliency/failure-mode-analysis" target="_blank">障害モード分析</a> (FMA) は、回復性のもう 1 つの評価であり、障害の計画とライブ火災訓練の実行が含まれます。 これらの両方の方法を使用して、アプリケーションの回復性を評価 Azure.com。</p>
+
+
+  <h2>非常にスケーラブルで高可用性</h2>
+
+
+  <p>どのクラウド アプリケーションでも、ピーク時の負荷 <a href="https://docs.microsoft.com/en-us/azure/architecture/framework/scalability/overview" target="_blank">を処理するのに</a> 十分なスケーラビリティが必要です。 たとえば Azure.com、主要なイベントやマーケティング キャンペーン中にピークが発生します。 負荷に関係なく、Azure.com 操作をサポートするには高可用性が必要です。 ビジネス継続性をサポートし、予期しない停止、リソースの過負荷、アップストリームの依存関係による障害から保護するために、プラットフォームを信頼しています。</p>
+
+
+  <p>その場合、 <a href="https://mybuild.microsoft.com/" target="_blank">Microsoft Build</a> と <a href="https://www.microsoft.com/en-us/ignite" target="_blank">Microsoft Ignite</a> (Azure.com によって処理される最大の年間イベント) の需要の急増に対処するために、Azure のスケーラビリティに依存しています。 1 秒あたりの要求数 (RPS) は、新しく発表された Azure 製品とサービスについて学習するために、数万人のイベント参加者が Azure.com に押し上げたので、20 から 30% にジャンプします。</p>
+
+
+  <p>どのような規模でも、Azure プラットフォームは信頼性の高い持続可能な運用を提供し、Microsoft や他の企業が顧客にプレミアム コンテンツを提供することを可能にしています。</p>
+
+
+  <h2>コスト効率の高いハイ パフォーマンスは、主要な設計原則です</h2>
+
+
+  <p>お客様から、お金を節約するためにクラウドベースのシステムに移行したいとよく言っています。 コスト&rsquo;効率の高いプロビジョニング Azure.com の設計 <a href="https://docs.microsoft.com/en-us/azure/architecture/framework/cost/overview" target="_blank">原則である</a> 場合でも、同じ方法に違いはありません。 Azure.com には、オンプレミスでの実行 <a href="https://azure.com/tco" target="_blank">コスト</a> と Azure での実行コストを比較する便利なコスト計算ツールがあります。</p>
+
+
+  <p>効率性とは、過小使用リソースを追跡<a href="https://docs.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations" target="_blank"></a>および最適化し、動的スケーリング<a href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/auto-scaling" target="_blank"></a>を使用して季節的なトラフィック需要をサポートする方法を持つことを意味します。 この原則は、ソフトウェア開発ライフ サイクル (SDLC) のすべてのレイヤーに適用されます。まず、すべての作業項目の管理、ソース コード リポジトリの使用、継続的インテグレーション (CI) と継続的デプロイ (CD) の実装から始める必要があります。 コスト効率は、複数の環境で&nbsp;リソースをプロビジョニングおよびホストし、デジタル資産のインベントリを維持する <a href="https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/digital-estate/" target="_blank">方法まで拡張されます</a>。</p>
+
+
+  <p>しかし、コスト志向であることは、&rsquo;速度をあきらめるという意味では "ない" という意味です。 最も高いパフォーマンスにより、ネットワーク待機時間が最小限に抑え、サーバーの応答時間が速く、ページの読み込みとレンダリングの時間が一貫します。 Azure.com は常にユーザー エクスペリエンスに焦点を当て、ネットワーク ルーティングを最適化し、ラウンドトリップ時間 (RTT) を最小限に抑えます。</p>
+
+
+  <h2>ダウンタイムをゼロにした運用</h2>
+
+
+  <p>アップタイムは、大規模な Web アプリケーションにとって重要です。 ダウンタイムをゼロに抑えます。 つまり、サービスのダウンタイムは発生&mdash;しません。 これは&rsquo;大きな目標&rsquo;ですが、ビルドサイクルとデプロイ サイクルの影響からユーザーを助け出す CI/CD プラクティスを使用すると可能です。</p>
+
+
+  <p>たとえば、コードの更新をプッシュする場合は、サイトのダウンタイムや要求の失敗、ユーザーへの悪影響を Azure.com します。 CI/CD パイプラインは <a href="https://azure.microsoft.com/en-us/services/devops/" target="_blank">Azure DevOps</a> に基づいており、毎日何百ものビルドと複数のデプロイをライブ実稼働サーバーに送信します。</p>
+
+
+  <p>使用する別のサービス レベル インジケーター (SLI) は、平均修復時間 (MTTR) です。 このメトリックでは、低い方が優れた値です。 <a href="https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/business-metrics#availability-metrics" target="_blank">MTTR SLI を最小限に抑</a>えるためには、ボトルネックDevOpsプロセスを特定して修復するためのツールが必要です。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure.com に取り組む経験から、これらの設計原則とベスト プラクティスに従えば、アプリケーションの回復性が向上し、コストが削減され、セキュリティが強化され、スケーラビリティが確保されます。</p>
+
+
+  <p>Azure アーキテクチャの動作を確認するには、アーキテクチャの評価を検討 <a href="https://aka.ms/architecturereview" target="_blank">してください</a>。</p>
+
+
+  <p>Azure.com&nbsp; を構成する Azure サービスの詳細については、このブログ シリーズの次の記事「Azure.com が Azure でどのように動作するの<a href="https://azure.microsoft.com/blog/how-azurecom-operates-on-azure-part-2-technology-and-architecture" target="_blank">か 2:</a> テクノロジとアーキテクチャ」を参照してください。</p>

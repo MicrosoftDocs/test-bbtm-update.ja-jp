@@ -1,0 +1,183 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bd0f923ddd4262cbd3f9d9af7ccaa969fd002780
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895849"
+Slug: live-247-reference-streams-available
+Title: Live 24/7 リファレンス ストリーム利用可能
+Summary: この投稿では、参照線形ストリーム、その設定方法、およびそれらを使用する方法について説明します。
+Content: >-
+  <h1><img alt="12657101123_1bd8b402f2_o" border="0" height="317" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/12657101123_1bd8b402f2_o.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="12657101123_1bd8b402f2_o" width="480"></h1>
+
+
+  <p>テスト、参照、デモの目的で、Microsoft Azure Media Services Live サービスを通じて 24/7/365 を運用する一連の連続線形ストリームを利用できます。 これらのストリームは、MPEG-DASH、HLS バージョン 3、HLS バージョン 4、およびファイル形式でストリーミングSmooth Streamingされます。</p>
+
+
+  <h2>ストリームの詳細</h2>
+
+
+  <p>現在、アーカイブ ウィンドウ&nbsp;が異なるアニメーション化された 3 つの短いアニメーションのセットをストリーミングするチャネルがあります。 チャネルはすべて 1 つのフラグメント化された MP4 取り込みストリームを受信しますが、動的パッケージ化を通じて上記のすべての形式でストリーミング エンドポイントからプルできます。 最初の 4 つは米国東部であり、キャッシュを使用Azure CDNされます。 5 つ目は西 EU で、CDN。</p>
+
+
+  <blockquote>チャネル 1 のアーカイブ ウィンドウは 1 時間です。 Channel 2 のアーカイブ ウィンドウは 15 分です。 Channel 3 は AES (Open) で暗号化され、30 分のアーカイブ ウィンドウがあります。Channel 4 は PlayReady Encryption (Open) を備え、アーカイブ ウィンドウは 30 分チャネル 5 には暗号化なし、アーカイブ ウィンドウは 1 時間です。</blockquote>
+
+
+  <p>PlayReady DRM の詳細については、MingFei <a href="https://azure.microsoft.com/blog/2014/12/22/announcing-azure-media-services-live-streaming-with-playready-encryption-capability/" title="&#39;PlayReadyhere の発表に関するブログ記事を参照">してください</a>。 <em>(現在、両方のストリームが米国東部リージョンにある点に注意してください。リージョンに対して参照ストリームを設定する場合は</em>、コメントを残してください。または、直接お問い合わせください)。 &nbsp;</p>
+
+
+  <h2>リソース</h2>
+
+
+  <h3>チャネル 1</h3>
+
+
+  <ul>
+   <li>プロパティ <ul>
+    <li>リージョン:&nbsp; 米国東部</li>
+    <li>アーカイブ ウィンドウ: 1 時間</li>
+    <li>フラグメント サイズ: 2 秒</li>
+    <li>HLS セグメント サイズ: 10 秒</li>
+    <li>HLS パッキング率: 5</li>
+    <li>暗号化: なし</li>
+   </ul>
+   </li>
+   <li>マニフェスト ファイル <ul>
+    <li><a href="https://B028.wpc.azureedge.net/80B028/Samples/a38e6323-95e9-4f1f-9b38-75eba91704e4/5f2ce531-d508-49fb-8152-647eba422aec.ism/Manifest(format=mpd-time-csf)" target="_blank">MPEG-DASH</a></li>
+    <li><a href="https://B028.wpc.azureedge.net/80B028/Samples/a38e6323-95e9-4f1f-9b38-75eba91704e4/5f2ce531-d508-49fb-8152-647eba422aec.ism/Manifest" target="_blank">Smooth Streaming</a></li>
+    <li><a href="https://B028.wpc.azureedge.net/80B028/Samples/a38e6323-95e9-4f1f-9b38-75eba91704e4/5f2ce531-d508-49fb-8152-647eba422aec.ism/Manifest(format=m3u8-aapl-v3)" target="_blank">HLS v3 </a></li>
+    <li><a href="https://B028.wpc.azureedge.net/80B028/Samples/a38e6323-95e9-4f1f-9b38-75eba91704e4/5f2ce531-d508-49fb-8152-647eba422aec.ism/Manifest(format=m3u8-aapl)" target="_blank">HLS v4</a></li>
+   </ul>
+   </li>
+   <li>ビデオ プレーヤー <ul>
+    <li><a href="https://aka.ms/247dash" target="_blank">Azure HTML5 Player(DASH) </a></li>
+    <li><a href="https://amsplayer.azurewebsites.net/player.html?player=flash&amp;format=smooth&amp;url=https://B028.wpc.azureedge.net/80B028/Samples/a38e6323-95e9-4f1f-9b38-75eba91704e4/5f2ce531-d508-49fb-8152-647eba422aec.ism/Manifest" target="_blank">AMS Player(Smooth) </a></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>チャネル 2</h3>
+
+
+  <ul>
+   <li>プロパティ <ul>
+    <li>リージョン:&nbsp; 米国東部</li>
+    <li>アーカイブ ウィンドウ: 15 分</li>
+    <li>フラグメント サイズ: 2 秒</li>
+    <li>HLS セグメント サイズ: 10 秒</li>
+    <li>HLS パッキング率:&nbsp; 5:1</li>
+    <li>暗号化: なし</li>
+   </ul>
+   </li>
+   <li>マニフェスト ファイル <ul>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/SampleStream/595d6b9a-d98e-4381-86a3-cb93664479c2/b722b983-af65-4bb3-950a-18dded2b7c9b.ism/Manifest(format=mpd-time-csf)" target="_blank">MPEG-DASH</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/SampleStream/595d6b9a-d98e-4381-86a3-cb93664479c2/b722b983-af65-4bb3-950a-18dded2b7c9b.ism/Manifest" target="_blank">Smooth Streaming</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/SampleStream/595d6b9a-d98e-4381-86a3-cb93664479c2/b722b983-af65-4bb3-950a-18dded2b7c9b.ism/Manifest(format=m3u8-aapl-v3)" target="_blank">HLS v3</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/SampleStream/595d6b9a-d98e-4381-86a3-cb93664479c2/b722b983-af65-4bb3-950a-18dded2b7c9b.ism/Manifest(format=m3u8-aapl)" target="_blank">HLS v4</a></li>
+   </ul>
+   </li>
+   <li>ビデオ プレーヤー <ul>
+    <li><a href="https://aka.ms/247dash2" target="_blank">Azure HTML5 Player(DASH)</a></li>
+    <li><a href="https://amsplayer.azurewebsites.net/player.html?player=flash&amp;format=smooth&amp;url=https://b028.wpc.azureedge.net/80B028/SampleStream/595d6b9a-d98e-4381-86a3-cb93664479c2/b722b983-af65-4bb3-950a-18dded2b7c9b.ism/Manifest" target="_blank">AMS Player(Smooth)</a></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>チャネル 3</h3>
+
+
+  <ul>
+   <li>プロパティ <ul>
+    <li>リージョン:&nbsp; 米国東部</li>
+    <li>アーカイブ ウィンドウ: 30 分</li>
+    <li>フラグメント サイズ: 2 秒</li>
+    <li>HLS セグメント サイズ: 10 秒</li>
+    <li>HLS パッキング率:&nbsp; 5:1</li>
+    <li>暗号化: AES (開く)</li>
+   </ul>
+   </li>
+   <li>マニフェスト ファイル <ul>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=mpd-time-csf)" target="_blank">MPEG-DASH</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest" target="_blank">Smooth Streaming</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=m3u8-aapl-v3)" target="_blank">HLS v3</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=m3u8-aapl)" target="_blank">HLS v4</a></li>
+   </ul>
+   </li>
+   <li>ビデオ プレーヤー <ul>
+    <li><a href="https://amsplayer.azurewebsites.net/player.html?player=flash&amp;format=smooth&amp;url=https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest" target="_blank">AMS Player(Smooth)</a></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>チャネル 4</h3>
+
+
+  <ul>
+   <li>プロパティ <ul>
+    <li>リージョン:&nbsp; 米国東部</li>
+    <li>アーカイブ ウィンドウ: 30 分</li>
+    <li>フラグメント サイズ: 2 秒</li>
+    <li>HLS セグメント サイズ: 10 秒</li>
+    <li>HLS パッキング率:&nbsp; 5:1</li>
+    <li>暗号化: PlayReady DRM (開く)</li>
+   </ul>
+   </li>
+   <li>マニフェスト ファイル <ul>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/859b335f-eebc-4ff1-ac03-98e9b614e2c1/0cc164eb-193e-48cb-bc6b-041cc28307e4.ism/Manifest(format=mpd-time-csf)" target="_blank">MPEG-DASH</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/859b335f-eebc-4ff1-ac03-98e9b614e2c1/0cc164eb-193e-48cb-bc6b-041cc28307e4.ism/Manifest" target="_blank">Smooth Streaming</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/859b335f-eebc-4ff1-ac03-98e9b614e2c1/0cc164eb-193e-48cb-bc6b-041cc28307e4.ism/Manifest(format=m3u8-aapl-v3)" target="_blank">HLS v3</a></li>
+    <li><a href="https://b028.wpc.azureedge.net/80B028/Samples/859b335f-eebc-4ff1-ac03-98e9b614e2c1/0cc164eb-193e-48cb-bc6b-041cc28307e4.ism/Manifest(format=m3u8-aapl)" target="_blank">HLS v4</a></li>
+   </ul>
+   </li>
+   <li>ビデオ プレーヤー <ul>
+    <li><a href="" target="_blank">ヘルス モニター (Smooth)</a>&nbsp; - ページ読み込み後に [Play]をクリックする必要があります。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h3>&nbsp;<strong>Channel 5</strong></h3>
+
+
+  <ul>
+   <li>プロパティ <ul>
+    <li>リージョン:&nbsp; 西 EU</li>
+    <li>アーカイブ ウィンドウ:&nbsp;60 分</li>
+    <li>フラグメント サイズ: 2 秒</li>
+    <li>HLS セグメント サイズ: 10 秒</li>
+    <li>HLS パッキング率:&nbsp; 5:1</li>
+    <li>暗号化: なし</li>
+   </ul>
+   </li>
+   <li>マニフェスト ファイル <ul>
+    <li><a href="https://samplestreamseu.streaming.mediaservices.windows.net/056163f2-b8ed-4023-abef-753dbe9b3638/7d55569c-54e0-4954-8bea-7dbe19f039f5.ism/Manifest(format=mpd-time-csf)" target="_blank">MPEG-DASH</a></li>
+    <li><a href="https://samplestreamseu.streaming.mediaservices.windows.net/056163f2-b8ed-4023-abef-753dbe9b3638/7d55569c-54e0-4954-8bea-7dbe19f039f5.ism/Manifest" target="_blank">Smooth Streaming</a></li>
+    <li><a href="https://samplestreamseu.streaming.mediaservices.windows.net/056163f2-b8ed-4023-abef-753dbe9b3638/7d55569c-54e0-4954-8bea-7dbe19f039f5.ism/Manifest(format=m3u8-aapl-v3)" target="_blank">HLS v3</a></li>
+    <li><a href="https://samplestreamseu.streaming.mediaservices.windows.net/056163f2-b8ed-4023-abef-753dbe9b3638/7d55569c-54e0-4954-8bea-7dbe19f039f5.ism/Manifest(format=m3u8-aapl)" target="_blank">HLS v4</a></li>
+   </ul>
+   </li>
+   <li>ビデオ プレーヤー <ul>
+    <li><a href="https://dashplayer.azurewebsites.net/?URL=https://samplestreamseu.streaming.mediaservices.windows.net/056163f2-b8ed-4023-abef-753dbe9b3638/7d55569c-54e0-4954-8bea-7dbe19f039f5.ism/Manifest(format=mpd-time-csf)" target="_blank">Azure HTML5 Player(DASH)</a></li>
+    <li><a href="https://amsplayer.azurewebsites.net/player.html?player=flash&amp;format=smooth&amp;url=https://samplestreamseu.streaming.mediaservices.windows.net/056163f2-b8ed-4023-abef-753dbe9b3638/7d55569c-54e0-4954-8bea-7dbe19f039f5.ism/Manifest" target="_blank">AMS Player(Smooth)</a></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>&nbsp;&nbsp; DASH ライブ&nbsp; ストリーミングに関する&nbsp;詳細については、 に投稿する「&#39; Roy Hughes」を参照してください<a href="https://azure.microsoft.com/blog/2014/09/13/dash-live-streaming-with-azure-media-service/" title="</a>https://azure.microsoft.com/blog/2014/09/13/dash-live-streaming-with-azure-media-service/">https://azure.microsoft.com/blog/2014/09/13/dash-live-streaming-with-azure-media-service/。 独自のアプリケーションを設定する場合Live Stream Jason Suess を見て、&#39;投稿を確認してください<a href="https://azure.microsoft.com/blog/2014/09/10/getting-started-with-live-streaming-using-the-azure-management-portal/" title="</a>https://azure.microsoft.com/blog/2014/09/10/getting-started-with-live-streaming-using-the-azure-management-portal/">https://azure.microsoft.com/blog/2014/09/10/getting-started-with-live-streaming-using-the-azure-management-portal/。</p>
+
+
+  <p>リンクは 2018 年 10 月 9 日に最後に更新されました。</p>

@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 47cd9783e97333e8ac749659a65bffd49034323c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891666"
+Slug: continuous-integration-and-deployment-to-azure-container-service
+Title: 継続的インテグレーションとデプロイによるAzure Container Service
+Summary: 今日の企業は、市場での競争力を高めるために、迅速にイノベーションを行う必要があります。 乗車共有会社では、毎日の需要の変動に対応するために、アプリを 1 日に数回更新する必要がある場合があります。
+Content: >-
+  <p>今日&rsquo;の企業は、マーケットプレースで競争力を高め、迅速なペースでイノベーションを行う必要があります。 乗車共有会社では、毎日の需要の変動に対応し、その価格を調整するために、アプリを 1 日に数回更新する必要がある場合があります。 場所ベースのソーシャル ゲーム アプリでは、毎日アクティブなユーザーを増やし、アプリ ストアのランキングの上位にランク付けするために、ユーザーに新機能を常に取り入れる必要があります。 高品質で最新のアプリケーションを提供するには、DevOpsのサイクルを実現するために不可欠なツールとプロセスが必要です。&nbsp;開発者は、適切DevOpsツールを使用して、継続的なデプロイを効率化し、革新的なアプリケーションをより迅速にユーザーに&rsquo;提供できます。 繰り返し繰り返します。</p>
+
+
+  <p>継続的インテグレーションとデプロイのプラクティスは十分に確立されているの<a href="https://www.microsoft.com/en-us/cloud-platform/containers"></a>に対し、コンテナーを導入すると、特にマルチ コンテナー アプリケーションを操作する場合に新しい考慮事項が生み出されます。 11 月 7 日に、<a href="https://azure.microsoft.com/en-us/blog/azure-container-service-the-cloud-s-most-open-option-for-containers/"></a>ACS がクラウド オーケストレーターでさらに多くの顧客の選択を提供するクラウドでコンテナー アプリケーションを実行するための最も合理化されたオープンで柔軟な方法を示し続ける Azure Container Service (ACS) &mdash; の一連の更新を発表しました。</p>
+
+
+  <p>現在、マルチコンテ<a href="https://channel9.msdn.com/events/connect/2016/204"></a>イン Linux アプリケーションの継続的インテグレーションとデプロイのプレビューは、Visual Studio、Visual Studio Team Services、およびオープン ソース Visual Studio Code を使用して利用できます。 デプロイの機敏性を引き続き有効にするために、これらのツールは、開発および CI/CD ソリューションの選択を使用して、コンテナー ワークロードに対して優れた開発からテストから運用へのデプロイ エクスペリエンスを提供します。</p>
+
+
+  <h2>キーで使用</h2>
+
+
+  <h3>継続的なパイプラインを作成して、Azure Container ServiceをVisual Studio Team Services</h3>
+
+
+  <p>標準の Docker 資産を使用して、好みの言語 (Java、C#、PHP など) と好みの IDE (Eclipse、Visual Studio、IntelliJ など) を使用してアプリを作成できます。 <a href="https://docs.microsoft.com/en-us/azure/xplat-cli-install">次に、Azure コマンド</a> ライン インターフェイス (CLI) を使用して簡単なコマンドを実行して、ソース リポジトリを<a href="https://aka.ms/acs">ターゲット Azure Container Service</a> (ACS) クラスターに接続し、マルチコンテナー Docker アプリケーション用のコンテナー化されたビルドとデプロイ パイプラインを設定できます。 そのため、ソース コードが GitHub のリポジトリにプッシュされるといつでも、VSTS を自動的にトリガーしてコンテナー イメージのビルドとタグ付け、単体テストの実行、Azure Container Registry へのプッシュ、ダウンタイムをゼロで ACS にデプロイできます。 プレビューでは、DC/OS にのみデプロイするパイプライン <strong>の作成がサポートされています</strong>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c431ff22-a76b-4260-9a91-b74dee1cf9e6.jpg"><img alt="Sample App Azure Container Release" border="0" height="129" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4e3732f-4d2c-4aab-a3fd-4873b287a8b0.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="サンプル アプリの Azure Container Release" width="640"></a></p>
+
+
+  <p>AZURE CLIに加えて、CI/CD を設定する同様のエクスペリエンスは、Azure Portal (ACS ブレード) と Visual Studio IDE でも直接使用できます。</p>
+
+
+  <h3>イメージを格納Azure Container Registryを使用する</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-container-registry-preview/">Azure Container Registry</a> は、コンテナー イメージをホストするプライベート レジストリです。 顧客はAzure Container Registryを使用して、すべての種類のコンテナー デプロイに対して Docker 形式のイメージを格納できます。 Azure Container Registry Docker Swarm、DC/OS、Kubernetes など、Azure Container Service でホストされているオーケストレーターとうまく統合されます。&nbsp; 継続的インテグレーションとデプロイ ツールは、ビルド後にコンテナー イメージを Azure Container Registryにプッシュします。 後で、コンテナー レジストリからイメージをプルし、ACS クラスターにデプロイします。</p>
+
+
+  <h3>環境間でイメージを簡単に昇格する</h3>
+
+
+  <p>継続的インテグレーションとデプロイ ツールでは、変更できないサービスの原則がサポートされています。 つまり、イメージ&rsquo;を開発環境からテスト環境や実稼働環境などのダウンストリーム リリース環境に簡単に昇格できます。重要なのは、イメージを昇格するごとにコンテナー イメージを再構築する必要がなさいという点です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4ee6ae0-c849-42fa-a7b1-c8e371321de3.jpg"><img alt="Azure Container Promoting Images" border="0" height="573" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b2892a68-2c9e-4fe8-95af-b2e11c6abf45.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージの昇格に関する Azure コンテナー" width="1024"></a></p>
+
+
+  <p>&mdash;これらのイノベーションは、コンテナー エコシステムへの継続的な投資を示し、DC/OS、Docker Swarm、Kubernetes のオープン ソース オーケストレーション テクノロジの選択肢を提供する唯一のパブリック クラウド コンテナー オーケストレーション サービスを提供する独自の戦略を強調しています。 継続的インテグレーションとデプロイ ツールのサポートにより、組織がクラウドにコンテナーを導入しやすくなります。</p>
+
+
+  <p>お客様は、11 月 16 &mdash; 日から継続的インテグレーションおよびデプロイ ツールのプレビューにアクセスできます。詳細については、Microsoft Connect();!</p>
+
+
+  <h3>詳細情報</h3>
+
+
+  <p>このチュートリアル <a href="https://docs.microsoft.com/azure/container-service/container-service-setup-ci-cd">では、</a> 複数コンテナー アプリの継続的インテグレーションとデプロイを設定して、アプリケーションをAzure Container Service。</p>

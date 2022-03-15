@@ -1,0 +1,203 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f8e073ed5427e45c82fb58cbc94b4252bfd1ff81
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891604"
+Slug: ingesting-a-data-stream-from-nist-manufacturing-lab-data-part-2
+Title: NIST 製造ラボ データからのデータ ストリームの取り込み - パート 2
+Summary: 業界エクスペリエンス チームは最近、既存の IoT データから分析情報を抽出するためのソリューション ガイドを公開しました。 このソリューションは、次のコンポーネントで構成されます。
+Content: >-
+  <p>業界エクスペリエンス チームは最近、既存 <a href="https://docs.microsoft.com/azure/industry/manufacturing/extracting-insights-from-iot-data?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">の</a> IoT データから分析情報を抽出するためのソリューション ガイドを公開しました。 このソリューションは、次のコンポーネントで構成されます。</p>
+
+
+  <ul>
+   <li>データの取り込み</li>
+   <li>ホット パスの処理</li>
+   <li>コールド パスの処理</li>
+   <li>分析クライアント</li>
+  </ul>
+
+
+  <p>これは、これらのコンポーネントを詳しく説明する一連のブログの 2 番目の部分です。 データの取り込みは 2 つの部分に分かれています。 これはパート 2 で、生データを変換し、データ レコードをデータ レコードにポストするコンポーネントをAzure Event Hubs。 詳細については、「 <a href="https://azure.microsoft.com/en-us/blog/creating-a-data-stream-from-nist-manufacturing-lab-data-part-1/" target="_blank">NIST 製造ラボ データからのデータ ストリームの作成パート 1」 &ndash; を参照してください</a>。</p>
+
+
+  <h2>2 つのマイクロサービス間の通信</h2>
+
+
+  <p>問題は、ロジック アプリ コンポーネントと、生データを変換し、結果のデータ レコードを Event Hubs にポストするカスタム コードとの間で通信を機能させる方法です。 イベントやサンプルなどの各データ レコードの種類は、異なるデータ レコードEvent Hubs。</p>
+
+
+  <p>通信&rsquo;メカニズムから始める。 マイクロサービス間の通信、ダイレクト メッセージングまたはネットワーク通信、およびメッセージパッシングの 2 つの一般的な方法について説明できます。</p>
+
+
+  <p><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee2f0ba2-47ce-4494-8e69-5722083efbde.png"><img alt="image" border="0" height="135" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3937665-3957-4d64-ba25-fd3944460846.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>ベスト プラクティスは、メッセージ パッシングを使用してマイクロサービスを切り離す方法です。 メッセージの受信側のマイクロサービスは、メッセージが到着して処理されるのを待機します。 また、この方法を使用すると、複数のサーバーが 1 つのキューを処理し、スケーラビリティを容易に実現できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4a9d704-22d4-4629-a460-f54f484d205a.png"><img alt="image" border="0" height="90" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/20e4dee2-76ef-4774-8656-d2fd0883a52b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="322"></a></p>
+
+
+  <p>このプロジェクトでは、<a href="https://docs.microsoft.com/azure/storage/queues/storage-queues-introduction?WT.mc_id=%20iotinsightsblog3-blog-ercenk%20" target="_blank">Azure Queue Storage サービス</a> (Storageします。 キューを使用Storage、生メッセージを変換するコンポーネントは、キュー サービスに新しいメッセージをポーリングして処理する必要があります。</p>
+
+
+  <h2>変換コンポーネントとポスト コンポーネント</h2>
+
+
+  <p>カスタム コードは、受信した生の結果を XML でデータ レコードのフラットな構造に変換します。 レコードは、タイムスタンプを含む名前と値のペアのセットです。</p>
+
+
+  <p>タイムスタンプを抽出するには、この MTConnect クライアントを使用<a href="https://github.com/Ercenk/MTConnect.Client" target="_blank">GitHub。</a> また、ライブラリをパッケージの一部としてインストール<a href="https://www.nuget.org/packages/MTConnect.Client/" target="_blank">NuGetすることもできます</a>。 ライブラリは Standard 2.0 targets.NET 使用できます。</p>
+
+
+  <p>コンポーネントはキュー サービスをポーリングしてメッセージを取得します。 <a href="https://github.com/Azure/azure-webjobs-sdk/wiki" target="_blank">Azure WebJobs SDK では</a> 、ストレージ BLOB、キュー、テーブルを操作する宣言型のバインドおよびトリガー システムを提供することで、このタスクを簡略化します。 SDK では、キューのポーリングも制御されます。</p>
+
+
+  <p><a href="https://github.com/Azure/azure-functions-host" target="_blank">Azure Functionsホストを使用</a> すると、SDK をターゲットとするカスタム コードAzure WebJobsできます。 このコードは、さまざまな環境で実行できます。 この場合は、Docker コンテナーを使用して関数コードをホストし、Docker コンテナーは次のコマンドで <a href="https://docs.microsoft.com/azure/container-instances/?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">ホストAzure Container Instances</a>。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/azure-functions/functions-run-local?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">Azure Functions Core Tools</a> は、実装の残りの部分を続行するために使用されます。 バージョン 2.x を使用します。 ツールがインストールされた後、言語、名前、関数に必要なオプションを指定して func new コマンドを実行して、スタブ メソッドを生成します。 func templates list コマンドを実行して、サポートされているテンプレートを表示し、[キュー トリガー] を選択します。</p>
+
+
+  <h2>WebJob のコード例</h2>
+
+
+  <p>メイン エントリ メソッドを次に示します。 属性の FunctionName は、これが WebJobs 関数であるホストに指示します。 次に、トリガーとバインドが表示されます。 このコードは、smssamples キューにメッセージがある場合にトリガーされます。 その後、さまざまなターゲットでデータの読み取りおよび書き込みを行うバインディングが続きます。 3 つのバインドが、Event Hubsとして使用されます。 Azure BLOB の入力バインドと、3 つのテーブルに対する出力<a href="https://azure.microsoft.com/services/storage/tables?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">Azure Storage</a>があります。 BLOB の名前は、メッセージの内容から取得されます。 C# 属性引数 streams/{queueTrigger} は、BLOB の名前がメッセージの内容に含まれます。 詳細については、「 <a href="https://docs.microsoft.com/azure/azure-functions/functions-bindings-storage-blob?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">Azure Blob Storage のバインド」を参照Azure Functions</a>。</p>
+
+
+  <pre>
+
+  [FunctionName(&quot;FlattenAndPost&quot;)]
+
+  public static async Task Run(
+       [QueueTrigger(&quot;smssamples&quot;, Connection = &quot;queueConnectionString&quot;)]
+       string myQueueItem,
+       TraceWriter log,
+       ExecutionContext context,
+       [EventHub(&quot;samplesEventHub&quot;, Connection = &quot;smssamplesEventHub&quot;)]
+       IAsyncCollector&lt;string&gt; asyncSampleCollector,
+       [EventHub(&quot;eventsEventhub&quot;, Connection = &quot;smsEventsEventHub&quot;)]
+       IAsyncCollector&lt;string&gt; asyncEventCollector,
+       [EventHub(&quot;conditionsEventhub&quot;, Connection = &quot;smsConditionsEventHub&quot;)]
+       IAsyncCollector&lt;string&gt; asyncConditionCollector,
+       [Table(&quot;eventsfromfunction&quot;, Connection = &quot;queueConnectionString&quot;)]
+       IAsyncCollector&lt;EventTableRecord&gt; asyncEventTableCollector,
+       [Table(&quot;samplesfromfunction&quot;, Connection = &quot;queueConnectionString&quot;)]
+       IAsyncCollector&lt;SampleTableRecord&gt; asyncSampleTableCollector,
+       [Table(&quot;conditionsfromfunction&quot;, Connection = &quot;queueConnectionString&quot;)]
+       IAsyncCollector&lt;ConditionsTableRecord&gt; asyncConditionTableCollector,
+       [Blob(&quot;streams/{queueTrigger}&quot;, FileAccess.Read)]
+       Stream blobStream)</pre>
+
+  <p>BLOB が読み取らた後、 <a href="https://github.com/Ercenk/MTConnect.Client" target="_blank">MTConnect クライアント ライブラリ</a> オブジェクト モデルを&rsquo;使用できます。 DeserializeResults メソッドは <a href="https://docs.microsoft.com/dotnet/api/system.xml.serialization.xmlserializer?view=netframework-4.7.2" target="_blank">、XMLSerializer</a> を使用して XML をオブジェクトに逆シリアル化します。 詳細 <a href="https://docs.microsoft.com/dotnet/framework/wcf/feature-details/using-the-xmlserializer-class?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">については、「XMLSerializer の使用」</a> を参照してください。</p>
+
+
+  <pre>
+
+  var sampleResult = DeserializeResults&lt;MTConnectStreamsType&gt;(blobContents);</pre>
+
+
+  <p>その後、このコードでは、基本的に同じ操作を実行する個別の関数を使用して、イベント、サンプル、条件を処理します。 つまり、LINQ を使用して階層をフラット構造に投影し、バインドに書き込むのです。</p>
+
+
+  <pre>
+
+  var nonEmptyEvents = sampleResult.Streams.Where(
+           s =&gt; s.ComponentStream != null
+                &amp;&amp; s.ComponentStream.All(cs =&gt; cs.Events != null &amp;&amp; cs.Events.Any()))
+       .ToList();
+
+  events = nonEmptyEvents.SelectMany(
+       s =&gt; s.ComponentStream.SelectMany(
+           cs =&gt; cs.Events.Select(
+               e =&gt; new EventRecord()
+               {
+                   HourWindow =
+                       new DateTime(
+                           e.timestamp.Year,
+                           e.timestamp.Month,
+                           e.timestamp.Day,
+                           e.timestamp.Hour,
+                           0,
+                           0),
+                   Id = Guid.NewGuid().ToString(),
+                   DeviceName = s?.name,
+                   DeviceId = s?.uuid,
+                   Component = cs?.component,
+                   ComponentName = cs?.name,
+                   ComponentId = cs?.componentId,
+                   EventDataItemId = e?.dataItemId,
+                   EventTimestamp = e?.timestamp,
+                   EventName = e?.name,
+                   EventType = e.GetType().Name,
+                   EventSequence = e?.sequence,
+                   EventSubtype = e?.subType,
+                   EventValue = e?.Value
+               }))).OrderBy(r =&gt; r.EventSequence).ToList();</pre>
+
+  <p>また、Event Hubs バインディングは既定ではインストールされません。また、NuGet から必要なライブラリ (Microsoft.Azure.WebJobs.Extensions.EventHubs) を参照する必要があります。</p>
+
+
+  <p>このセットアップでは、次の手順に従って関数をローカルで実行 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?WT.mc_id=iotinsightsblog3-blog-ercenk" target="_blank">Azure Functions Core Tools</a>。</p>
+
+
+  <h2>Docker コンテナーでの実行</h2>
+
+
+  <p>この&rsquo;コードを Docker コンテナーに取り込む方法について説明します。 Dockerfile は、いくつかの注意事項を除き、簡単です。</p>
+
+
+  <ul>
+   <li>microsoft/azure-functions-dotnet-core2.0 コンテナー イメージに依存します。</li>
+   <li><strong>workdir が /</strong>app である必要があります。</li>
+   <li>[ASPNETCORE_ENVIRONMENT <strong>を [開発] に</strong> 設定すると、ソリューションのビルド中にテストとデバッグを行います。 コンポーネントをデプロイしたら、それを削除するか、 <strong>Production</strong> に反転する必要があります</li>
+   <li><strong> AzureWebJobsScriptRoot 環境変数を</strong> /app/bin/Debug/netstandard2.0/ に設定します。</li>
+   <li><strong> </strong>local.settings.json ファイルの値を環境変数としてコピーします。</li>
+   <li>環境変数を設定するときに、周囲に &ldquo;=&rdquo; スペースが入らなかからなか確認します。</li>
+  </ul>
+
+
+  <pre>
+
+  FROM microsoft/azure-functions-dotnet-core2.0
+
+  WORKDIR /app
+
+  ENV ASPNETCORE_ENVIRONMENT=&quot;Development&quot;
+
+  ENV AzureWebJobsScriptRoot=/app/bin/Debug/netstandard2.0/
+
+  ENV AzureWebJobsStorage=&quot;&hellip;&quot;
+
+  ENV AzureWebJobsDashboard=&quot;&hellip;&quot;
+
+  ENV queueConnectionString=&quot;&hellip;&quot;
+
+  ENV smssamplesEventHub=&quot;&hellip;&quot;
+
+  ENV smsEventsEventHub=&quot;&hellip;&quot;
+
+  ENV smsConditionsEventHub=&quot;&hellip;&quot;
+
+  ENV consoleLoggingMode=always
+
+  COPY . .</pre>
+
+
+  <p>新しい Docker コンテナーを通常どおりビルドし、新しいコンテナー イメージを Azure Container Registry に登録してから、チュートリアルの説明に従って実行します。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>サンプル リポジトリ <a href="https://github.com/MSIndustryExperiences/IoTInsights" target="_blank">を複製します</a>。</li>
+   <li>Azure Functions を使用してクール ソリューションを構築するには、 <a href="https://docs.microsoft.com/azure/azure-functions/functions-run-local?WT.mc_id=iotinsightsblog3-acomblog-ercenk" target="_blank">Azure Functions Core Tools</a>。<br>
+  &nbsp;</li>
+
+  </ul>

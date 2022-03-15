@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6ded75e25951e59a606bda902d925f36e0be2ceb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896474"
+Slug: event-driven-java-with-spring-cloud-stream-binder-for-azure-event-hubs
+Title: イベント 駆動型 Java と Spring Cloud Stream Binder for Azure Event Hubs
+Summary: 'Spring Cloud用 Stream Binder Azure Event Hubs一般提供中です。 Spring Cloud Stream と Event Hubs を使用して、拡張性の高いイベント駆動型 Java アプリを簡単に構築できます。これは、任意の状況に対する回復性と信頼性の高いサービスを備えた、Azure 上のフル マネージドのリアルタイム データ インジェスト サービスです。 '
+Content: >-
+  <p>Spring Cloud用 Stream Binder Azure Event Hubs一般提供中です。 Spring Cloud Stream と <a href="https://azure.microsoft.com/en-us/services/event-hubs/" target="_blank">Event Hubs</a> を使用して、拡張性の高いイベント駆動型 Java アプリを簡単に構築できます。これは、任意の状況に対する回復性と信頼性の高いサービスを備えた、Azure 上のフル マネージドのリアルタイム データ インジェスト サービスです。 これには、geo ディザスター リカバリー機能と geo レプリケーション機能により、緊急時が含まれます。</p>
+
+
+  <p><a href="https://cloud.spring.io/spring-cloud-stream/" target="_blank">Spring Cloud Stream は、</a> 一般的なメッセージ ブローカー実装のバインダー抽象化を提供します。 これは、永続的な pub/sub セマンティクス、コンシューマー グループ、ステートフル パーティションのサポートなど、既に確立され、使い慣れた Spring の慣用句とベスト プラクティスを基に構築された柔軟なプログラミング モデルを提供します。 これで、開発者は同じパターンを使用して、アプリケーションを使用して Java アプリをEvent Hubs。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8f41d637-3698-4460-a711-1929acf9973c.png"><img alt="Azure Event Hubs and Spring Apps graphic" border="0" height="320" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3c9140f3-422e-4ab2-939e-7695ea73cdaa.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Event Hubs Spring Apps のグラフィック" width="1024"></a></p>
+
+
+  <h2>作業の開始&nbsp;</h2>
+
+
+  <p>Azure Event Hubs を使用して <a href="https://docs.microsoft.com/en-us/java/azure/spring-framework/configure-spring-cloud-stream-binder-java-app-azure-event-hub" target="_blank">Spring Cloud Stream Binder</a> アプリケーションを作成し、Spring Boot Initializer と Azure Event Hubs を使用して Java ベースの Spring Cloud Stream Binder アプリケーションをビルドする方法に関するチュートリアルを参照してください。&rdquo; &ldquo; 名前空間に移動Azure portal新しい名前空間をEvent Hubsします。 次の Maven 依存関係を Java プロジェクトに追加します。&nbsp;</p>
+
+
+  <pre>
+
+  &lt;dependency&gt;
+       &lt;groupId&gt;com.microsoft.azure&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-cloud-azure-eventhubs-stream-binder&lt;/artifactId&gt;
+       &lt;version&gt;1.1.0.RC4&lt;/version&gt;
+  &lt;/dependency&gt;</pre>
+
+
+  <h2>メッセージを発行する</h2>
+
+
+  <p>( @EnableBindingSource.class) を使用してソース クラスに注釈を付け、Stream パターンを使用してEvent HubsにSpring Cloud発行します。 構成を使用してソースの出力チャネルをカスタマイズできます。</p>
+
+
+  <ul>
+   <li><strong>先：</strong> 出力チャネルに接続するイベント ハブを指定します。</li>
+   <li><strong>Sync/Async:</strong> メッセージを生成するモードを指定します。</li>
+  </ul>
+
+
+  <h2>メッセージをサブスクライブする&nbsp;</h2>
+
+
+  <p>シンク @EnableBindingクラスに注釈を付け、シンク クラスからのメッセージを使用するには、(Sink.class) をEvent Hubs。 構成を使用して入力チャネルをカスタマイズできます。 完全な一覧については、「 &ldquo; Spring Cloud Stream Binder アプリケーションを作成する方法」のドキュメント<a href="https://docs.microsoft.com/en-us/java/azure/spring-framework/configure-spring-cloud-stream-binder-java-app-azure-event-hub" target="_blank">を参照Azure Event Hubs</a>。&rdquo;</p>
+
+
+  <ul>
+   <li><strong>先：</strong> 入力チャネルとバインドするイベント ハブを指定します。</li>
+   <li><strong>顧客グループ:</strong> メッセージを <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-features" target="_blank">受信するコンシューマー グループ</a> を指定します。</li>
+  </ul>
+
+
+  <h2>Stream Binder for Spring Cloud を使用して、イベント駆動型 Java アプリを構築Event Hubs&nbsp;</h2>
+
+
+  <p>Azure Event Hubs <a href="https://docs.microsoft.com/en-us/java/azure/spring-framework/configure-spring-cloud-stream-binder-java-app-azure-event-hub?view=azure-java-stable" target="_blank">の Spring Cloud Stream Binder を</a>使用して Java アプリを試し、以下の電子メールまたはコメントを通じてご意見<a target="_blank"></a>をお寄せください。</p>
+
+
+  <h3>その他の技術情報</h3>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/java/azure/spring-framework/configure-spring-cloud-stream-binder-java-app-azure-event-hub?view=azure-java-stable" target="_blank">Azure Event Hubs を使用する Spring Cloud Stream Binder アプリケーションを作成する方法</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/java/azure/spring-framework" target="_blank">Spring on Azure Developer Hub</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/java/azure/" target="_blank">Azure Developer Hub 上の Java</a></li>
+   <li><a href="https://github.com/Microsoft/spring-cloud-azure" target="_blank">Spring Cloud azure の場合</a>&nbsp;</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/event-hubs/" target="_blank">Azure Event Hubs</a></li>
+  </ul>

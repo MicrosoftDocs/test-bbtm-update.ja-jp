@@ -1,0 +1,115 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9d33ff207c1c02aa7822552bec79b5649f756918
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895850"
+Slug: linux-on-azure-app-service-environment-now-generally-available
+Title: Linux on Azure App Service Environment一般提供
+Summary: Linux またはコンテナー化された Web アプリを Azure Virtual Network にデプロイすることに関心がありますか? このAzure App Serviceチームは、Linux の一般提供を発表Azure App Service...
+Content: >-
+  <p>Linux またはコンテナー化された Web アプリを Azure Virtual Network にデプロイすることに関心がありますか? Azure App Serviceチームは、Azure App Service Environment と App Service Environment の機能を組み合わせた linux <strong>on Azure App Service Environment (ASE App Service on Linux)</strong> の一般提供をお知らせします。 パブリック プレビュー リリースの時点で発表された Linux のお客様は、Linux とコンテナー化されたアプリを App Service Environment にデプロイできます。これは、セキュリティで保護されたネットワーク アクセスまたは高スケールで実行されているアプリのために VNet にアプリケーションをデプロイする場合に最適です。&nbsp;</p>
+
+
+  <h2>Linux on ASE で実行できる操作</h2>
+
+
+  <p>Linux on ASEを使用すると、独自のカスタム コンテナーを取り込むか、組み込みイメージのいずれかを使用してコードを取り込むだけで、Linux Web アプリケーションを Azure 仮想ネットワーク (VNet) にデプロイできます。</p>
+
+
+  <ul>
+   <li>独自のカスタム Docker コンテナーを使用する場合は、DockerHub、Azure Container Registry、または独自のプライベート レジストリからイメージを取り込む必要があります。</li>
+   <li>組み込みイメージのいずれかを使用する場合は、Node、PHP、Java、.NET Core など、多くの一般的なスタックがサポートされます。</li>
+  </ul>
+
+
+  <p>Windows、Linux、コンテナー化された Web アプリケーションを同じ ASE にデプロイし、同じ VNet を共有できます。 Windows と Linux Web アプリは同じ App Service Environment に含め、Windows Web アプリと Linux Web アプリは別々の App Service プランに含む必要があります。 Linux on ASE では、Dv2 VM と追加のスケーリング機能を備えた Isolated SKU を使用します (Windows と Linux の間で、1 つの ASE で最大 <strong>100 の App Service</strong> プラン インスタンス)。</p>
+
+
+  <p>使用するケースに最適な ASE の種類を決定するには、ASE でホストされているアプリを公開するために使用する IP の種類について考える必要があります。 パブリックにするか、プライベートにするか。 インターネットにアクセスできるエンドポイントが必要かどうかに応じて、次の 2 種類の ASE を作成できます。</p>
+
+
+  <ul>
+   <li>インターネット <em>にアクセス可能な</em> エンドポイントを持つ外部 ASE。</li>
+   <li>内部 <em>ロード バランサー</em> (ILB) を使用する VNet 内のプライベート IP アドレスを持つ内部 ASE。</li>
+  </ul>
+
+
+  <p>このドキュメント ページでは、使用を開始するための手順 <a href="https://docs.microsoft.com/en-us/azure/app-service/environment/create-external-ase" target="_blank">と</a>、ASE 用のネットワークを構成する方法に関するその <a href="https://docs.microsoft.com/en-us/azure/app-service/environment/network-info" target="_blank">他のコンテキストを提供します</a>。</p>
+
+
+  <h2>プレビューからの価格の変更</h2>
+
+
+  <p>コンテナーにデプロイされた Linux アプリとコンテナー化されたアプリApp Service Environment、通常のアプリとApp Service on LinuxにApp Service Environmentされます。 パブリック プレビューからの Linux App Service プランの 50% の割引は、一般提供のために削除され、提供されなくなりました。</p>
+
+
+  <h2>新しいリージョン/国の追加</h2>
+
+
+  <p>パブリック プレビュー以降、20 以上のリージョン&rsquo;Linux on ASE国App Service on Linuxすべてのリージョンに拡張されました。</p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top">
+     <ul>
+      <li>オーストラリア東部</li>
+      <li>オーストラリア南東部</li>
+      <li>ブラジル南部</li>
+      <li>カナダ中部</li>
+      <li>カナダ東部</li>
+      <li>インド中部</li>
+      <li>米国中部</li>
+      <li>東アジア</li>
+      <li>米国東部</li>
+     </ul>
+     </td>
+     <td valign="top">
+     <ul>
+      <li>米国東部 2</li>
+      <li>東日本</li>
+      <li>西日本</li>
+      <li>韓国中部</li>
+      <li>韓国南部</li>
+      <li>米国中北部</li>
+      <li>北ヨーロッパ</li>
+      <li>米国中南部</li>
+      <li>インド南部</li>
+     </ul>
+     </td>
+     <td valign="top">
+     <ul>
+      <li>東南アジア</li>
+      <li>英国南部</li>
+      <li>英国西部</li>
+      <li>米国中西部</li>
+      <li>西ヨーロッパ</li>
+      <li>インド西部</li>
+      <li>米国西部</li>
+      <li>米国西部 2</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>ファースト ステップ</h2>
+
+
+  <p>新しい Web アプリを作成し、LINUX を OS (組み込みイメージ) として選択するか、Docker (カスタム コンテナー) を選択するか、新しい Web App for Containers (カスタム コンテナー) を作成するだけで、新しい ASE に Linux Web アプリを作成できます。</p>
+
+
+  <p>より詳細な手順が必要な場合は、次の手順に従って、最初の Linux/コンテナー化された Web アプリを ASE <a href="https://docs.microsoft.com/en-us/azure/app-service/environment/create-external-ase" target="_blank">に作成します</a>。</p>
+
+
+  <p>Wed&rsquo; は、ご意見をお聞かしいのが楽しそうです。 Wed Apps フォーラムを使用してLinux on ASEフィードバック <a href="https://feedback.azure.com/forums/169385-web-apps?category_id=333220" target="_blank">をお寄せください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e60d802-c415-4e63-ade1-4d8d694ce097.png"><img alt="Getting started" border="0" height="827" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/15943a4b-f8f6-4c70-96eb-bf34bd0657f2.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="はじめ" width="1128"></a></p>
+
+
+  <p>一般提供 <a href="https://aka.ms/linuxasega">に関してよく</a> 質問される質問に対する回答については、このブログLinux on App Service Environment確認してください。</p>

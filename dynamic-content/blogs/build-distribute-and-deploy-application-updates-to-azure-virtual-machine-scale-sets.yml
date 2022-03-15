@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a3ee96e47a0265d7d13bd3460f1221547219f8dc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891685"
+Slug: build-distribute-and-deploy-application-updates-to-azure-virtual-machine-scale-sets
+Title: Azure 仮想マシン スケール セットへのアプリケーション更新プログラムのビルド、配布、デプロイ
+Summary: 'Azure は、分散クラウド環境間でアプリケーションの更新プログラムのビルドと配布を容易にする新機能に引き続き投資しています。 '
+Content: >-
+  <p>ビジネスのニーズが拡大し、ビジネスに不可欠なアプリケーションをクラウド規模でデプロイすると、それらのアプリケーションを管理する複雑性と管理オーバーヘッドが大幅に増加する可能性があります。 この管理オーバーヘッドを削減するために、Azure は、分散クラウド環境間でアプリケーション更新プログラムのビルドと配布を容易にする新機能に引き続き投資しています。</p>
+
+
+  <p>最近、カスタム イメージ<a href="https://azure.microsoft.com/updates/automatic-image-upgrade-for-custom-images-now-available-for-azure-vmss" target="_blank"></a>のイメージベースの自動アップグレードの一般提供を発表しました。仮想マシン (VM) イメージの新しいバージョンを仮想マシン スケール セットに自動的にデプロイする機能が提供されます。 <a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-automatic-upgrade" target="_blank">イメージ</a> の自動アップグレードは <a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/shared-image-galleries" target="_blank">、Shared Image Gallery</a> とネイティブに統合され、VM イメージのスケーラブルな分散と、調整されたインフラストラクチャ更新の容易さと安全性を組み合わせて、イメージの公開からワークロードのデプロイまで、エンドツーエンドのソリューションを提供します。</p>
+
+
+  <p>このブログでは、統合された Azure サービスを使用して、アプリケーションの更新プログラムを使用してカスタム イメージを構築し、それらのイメージを組織全体に配布し、新しいイメージを仮想マシン スケール セットに自動的にデプロイする方法について説明します。</p>
+
+
+  <p><img alt="Building and deploying application updates with custom images." border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/806e3cf2-c447-44e8-99b6-ab0cfee38544.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="カスタム イメージを使用したアプリケーション更新プログラムの構築と展開。"></p>
+
+
+  <h2>アプリケーションの更新プログラムを使用してイメージをビルドする</h2>
+
+
+  <p>多くの場合、組織全体にアプリケーションとセキュリティの更新プログラムを展開すると、複雑なプロセスになる可能性があります。複雑なプロセスでは、不一部のシステム間でのデプロイの複数のステージが含まれています。 標準化された VM イメージを使用すると、組織はデプロイ間で一貫性を確保できます。これらのイメージには、通常、定義済みのセキュリティと構成設定、およびソフトウェア ワークロードが含まれます。</p>
+
+
+  <p>独自のイメージング パイプラインを使用して標準化されたイメージを構築したり、Azure VM Image Builder <a href="https://docs.microsoft.com/azure/virtual-machines/linux/image-builder-overview" target="_blank">できます</a>。 (Azure VM Image Builderプレビュー中) を使用すると、独自のイメージング パイプラインを設定することなく、標準化されたイメージの構築をすばやく開始できます。 イメージを記述する単純な構成を指定し、Image Builder サービスに送信すると、イメージがビルドされ、配布されます。</p>
+
+
+  <p>このAzure VM Image Builderでは、<a href="https://docs.microsoft.com/azure/virtual-machines/windows/image-builder-gallery" target="_blank">Windows</a> または <a href="https://docs.microsoft.com/azure/virtual-machines/linux/image-builder-gallery" target="_blank">Linux</a> ベースの Azure Marketplace イメージと既存のカスタム イメージから始め、独自のカスタマイズを追加できます。</p>
+
+
+  <h2>イメージを配布する</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/shared-image-galleries" target="_blank">Shared Image Gallery</a> を使用すると、一元化されたイメージ管理プラットフォームを介して複数のサブスクリプションとリージョン間でイメージを配布できます。 Shared Image Gallery、異なるイメージ定義とイメージ バージョンを指定することで、論理グループ内のイメージを整理するのに役立ちます。これにより、さまざまなアプリケーションに対して新しいイメージ ビルドを反復処理できます。</p>
+
+
+  <p>Image Builder を使用して新しいイメージ バージョンを構築する場合は、組織のニーズに基づいて複数の Azure リージョンにイメージをレプリケートすることで、これらのイメージをグローバルに配布&rsquo;することもできます。 ターゲット リージョンを指定する必要があるだけで <a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/shared-image-galleries#replication" target="_blank">Shared Image Gallery選択した</a> リージョンにイメージ バージョンがレプリケートされます。</p>
+
+
+  <p><img alt="Global replication of virtual machine images." border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53139aa6-f1a8-4955-976f-ca4f66743ed0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想マシン イメージのグローバル レプリケーション。"></p>
+
+
+  <p>Shared Image Gallery、サブスクリプションと Azure Active Directory (Azure AD) テナント間でイメージを共有し、組織全体でイメージ管理を一元化することもできます。</p>
+
+
+  <h2>イメージをデプロイする</h2>
+
+
+  <p>プロセスの最後の手順は、新しく作成したイメージを仮想マシン スケール セットにデプロイする手順です。 スケール <a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-automatic-upgrade" target="_blank">セットに対して OS</a> イメージの自動アップグレードを有効にした場合、イメージをデプロイするために追加のアクションを実行する必要はありません。 OS イメージの自動アップグレードでは、イメージ ギャラリーが監視され、新しいイメージ バージョンがデプロイされた場合にスケール セットのアップグレードが自動的に開始され、手動によるオーバーヘッドなしでイメージのデプロイが高速化されます。</p>
+
+
+  <p>アップグレードは、VM の OS ディスクを、最新のイメージ バージョンを使用して作成された新しいディスクに置き換えることによって実行されます。 構成されている拡張機能とカスタム スクリプトは OS ディスク上で実行され、データ ディスクは保持されます。 アプリケーションのダウンタイムを最小限に抑えるために、アップグレードはバッチで実行されます。スケール セットの 20% 以下がいつでもアップグレードされます。 更新オーケストレーターは、アップグレード中の VM の正常性と、アップグレード プロセス中のスケール セットの正常性を監視します。 スケール セットの仮想マシンの 20% 以上が不健康になった場合、スケール セットのアップグレードは現在のバッチの最後に停止します。 アップグレード プロセスでは、アップグレード エラーの自動ロールバックもサポートされます。 これにより、ロールアウトが段階的かつ安全な方法で調整され、イメージ内のカスタマイズによって発生するスケール セット全体の中断を防ぐのが保証されます。</p>
+
+
+  <p>スケール セットのアップグレードは、新しいイメージ バージョンがスケール セットのリージョンにレプリケートされた場合にのみ開始されます。 異なる時点で異なるリージョンへのイメージング レプリケーションをステージングすることでグローバルデプロイをずらして、グローバル アプリケーションのアップタイムをさらに向上できます。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>Shared Image Gallery から Azure portal の下のイメージ定義から開始し、[VMSS の作成] オプションを使用してイメージから新しいスケール セットを作成できます。<strong>+</strong></p>
+
+
+  <p><img alt="Creating virtual machine scale set from Shared Image Gallery." border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a34701a5-7e11-46d3-b708-0ceeb0a2d1c8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想マシン スケール セットを Shared Image Gallery。"></p>
+
+
+  <p>仮想マシン スケール セットの作成エクスペリエンスの [管理] タブ<strong></strong>で、[自動 OS アップグレード] の [<strong>オン</strong><strong>] オプションを選択します</strong>。</p>
+
+
+  <p><img alt="Enabling automatic OS upgrades on a virtual machine scale set." border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6747ea54-2c15-49a9-a7bd-aa64c9924178.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想マシン スケール セットで OS の自動アップグレードを有効にする。"></p>
+
+
+  <p>プロセスをさらにカスタマイズし、既存のイメージ構築パイプラインを Shared Image Gallery と統合して、OS イメージの自動アップグレードを利用できます。</p>
+
+
+  <p>上記の強力な機能の詳細については、Azure のドキュメントを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-automatic-upgrade" target="_blank">OS イメージの自動アップグレード</a></li>
+      <li><a href="https://docs.microsoft.com/azure/virtual-machine-scale-sets/shared-image-galleries" target="_blank">共有イメージ ギャラリー</a></li>
+      <li><a href="https://docs.microsoft.com/azure/virtual-machines/linux/image-builder-overview" target="_blank">Azure VM Image Builder</a></li>
+  </ul>

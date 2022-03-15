@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 99f29ae8841285dfe1397f24032377d1268865d9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894845"
+Slug: boost-your-client-performance-with-azure-files-smb-multichannel
+Title: SMB マルチチャネルを使用してAzure Filesを向上させる
+Summary: Premium レベルのサーバー メッセージ ブロック (SMB) マルチチャネルを使用してクライアントのパフォーマンスを向上しながら、デプロイ コストを削減します。
+Content: >-
+  <p>Premium レベルのサーバー メッセージ ブロック (SMB) マルチチャネルを使用してクライアントのパフォーマンスを向上しながら、デプロイ コストを削減します。</p>
+
+
+  <p>現在、Premium レベルの SMB マルチチャネルAzure Filesプレビューを発表します。 SMB 3.0 では、SMB マルチチャネル テクノロジが、Windows Server 2012クライアントWindows 8されました。 この機能を使用すると、SMB 3.x クライアントは SMB 3.x サーバーへの複数のネットワーク接続を確立して、複数のネットワーク アダプターと、受信側スケーリング (RSS) が有効になっているネットワーク アダプターを使用してパフォーマンスを向上させることができます。 このプレビュー リリースでは、AZURE FILES SMB クライアントは、クラウド内の Premium ファイル共有を使用して SMB マルチチャネル テクノロジを利用できます。</p>
+
+
+  <h2>メリット</h2>
+
+
+  <p>SMB マルチチャネルを使用すると、並列処理によるパフォーマンスの向上を可能にする最適なネットワーク パスを使用して複数の接続を行えます。 パフォーマンスの向上は、複数の NIC での帯域幅の集計、または複数の CPU 間の分散 IOs と動的負荷分散を可能にする受信側スケーリング (RSS) の NIC サポートによって実現されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fbe93c88-4abb-4af2-8385-9fc8bb215064.jpg"><img alt="SMB MC Blog pic" border="0" height="258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7b36fc4f-fc98-42d0-9d6f-daf34e7c9fe0.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SMB MC ブログの画像" width="1024"></a></p>
+
+
+  <h3>SMB マルチチャネルAzure Files利点は次のとおりです。</h3>
+
+
+  <ul>
+      <li><strong>スループットの</strong>向上: この機能は、コンテンツの作成/コード変換、ゲノミクス、金融サービスリスク分析のためのメディア エンタテインメントなど、大きな IOs &amp; を持つ大きなファイルを含むアプリケーションに適しています。</li>
+      <li><strong>IOPS の増加</strong>: これは、データベース アプリケーションなどの小規模な IO シナリオで特に役立ちます。</li>
+      <li><strong>ネットワークフォールト トレランス</strong>: 複数の接続により、ネットワーク接続が失われるにもかかわらず中断のリスクが軽減されます。</li>
+      <li><strong>自動構成</strong>: 複数のネットワーク パスの動的検出と作成。</li>
+      <li><strong>コストの最適化</strong>: 完全な VM 制限を利用して、単一の仮想マシン (VM) クライアントからより高いスケールを実現します。 Premium 帯域幅Azure Files IOPS スケールを実現するために、必要なスケールを実現するために必要な VM クライアントの数を少なくする必要があります。</li>
+  </ul>
+
+
+  <p>SMB マルチチャネル機能を有効にした場合の最大 3 回のパフォーマンス向上を示すサンプル テスト結果を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/522b9cb0-5dae-415d-b164-80fcc71a2892.jpg"><img alt="Placeholder" border="0" height="303" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f892a43-c5a2-4cb6-92dc-0ce1fefc2e6b.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>上記のサンプル テスト結果は、Premium ファイル共有に接続された単一の仮想マシン クライアント (1 つの RSS が有効な NIC を持つ Standard_D32s_v3) でランダム IO 負荷を生成することで実行される内部テストに基づいて行われます。 Diskspd ツールは、1 つの共有内の複数のファイルに対して複数のスレッド化されたワークロード パターンをシミュレートするために、キューの深さが 64 個の 10 個のファイルに対する負荷を生成するために使用されました。 IOPS の結果は 4 KiB の読み取り/書き込み IO サイズに基づいて行い、スループット テストはパフォーマンスを最適化するために 512 KiB の読み取り/書き込み IO サイズに基づいて行います。 書き込みスループットと読み取りスループットでは、より大きな割合の増加が観察されました。</p>
+
+
+  <p>この機能の詳細については、SMB マルチチャネル<a href="https://docs.microsoft.com/en-us/azure-stack/hci/manage/manage-smb-multichannel" target="_blank">の管理に</a>関するガイドを参照してください。詳細については、Windowsしてください。</p>
+
+
+  <h2>価格と使用可能状況</h2>
+
+
+  <p>Premium Storage アカウントAzure Files SMB マルチチャネルは追加コストゼロです。 さらに、ワークロードに対して最もコスト効率の高いファイル ストレージを提供するための継続的なコミットメントの一環<a href="https://aka.ms/pfs/lowerpricing" target="_blank"></a>として、<strong>Azure Files Premium</strong> レベルで <strong>33%</strong> を超える価格引き下げを発表しました。 Premium レベルの <a href="https://azure.microsoft.com/en-us/pricing/details/storage/files/" target="_blank">価格の詳細については</a> 、価格に関するページを参照してください。</p>
+
+
+  <p>現時点では、Premium 共有の SMB マルチチャネル プレビューは、SMB 3.x クライアントWindowsリージョンで利用できます。 Premium レベルを使用して、すべての <a href="https://azure.microsoft.com/en-us/updates/azure-files-premium-tier-is-now-available-in-more-regions-with-lrs-zrs-and-nfs-support/" target="_blank">Azure リージョンにカバレッジを迅速に拡張しています</a>。 SMB マルチチャネル <a href="https://aka.ms/AzureFiles/SMBMultichannel/regions" target="_blank">のリージョンの</a> 可用性を最新の情報に更新するには、次のドキュメントAzure Filesしてください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>機能と SMB マルチチャネルの <a href="https://aka.ms/AzureFiles/SMBMultichannel/docs" target="_blank">パフォーマンスの詳細については、</a> 次のドキュメントAzure Filesしてください。 開始するには、SMB マルチチャネル機能プレビューのサブスクリプションを登録する必要があります。 登録が完了したら、サポートされているリージョンの 1 つでボタンをクリックして、Premium Storage アカウント (<em>FileStorage</em>) で SMB <a href="https://aka.ms/AzureFiles/SMBMultichannel/regions" target="_blank"></a> マルチチャネルを有効または無効にできます。 プレビュー プログラム <a href="https://aka.ms/AzureFiles/SMBMultichannel/setup" target="_blank">に登録する方法の</a> 詳細なガイダンスを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ec20214-c7ab-49d1-a8e5-bb893e406296.png"><img alt="Placeholder" border="0" height="507" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00689dfa-88ce-4cc1-9e1a-670cec879a64.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>プレビューをお試しください。フィードバックを共有するには、 にメールをお送りください <a href="mailto:AzureFiles@microsoft.com">AzureFiles@microsoft.com</a>。 フィードバック フォーラムで、フィードバックに関するアイデアAzure Storage提案を<a href="https://feedback.azure.com/forums/217298-storage" target="_blank">投稿できます。</a></p>
+
+
+  <p>幸せな共有。</p>

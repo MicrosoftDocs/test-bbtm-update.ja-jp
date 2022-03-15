@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2e1b7b4ca305295d1e8e8e865e9e34f37b27659d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896716"
+Slug: leveraging-cognitive-services-to-simplify-inventory-tracking
+Title: インベントリの追跡Cognitive Servicesを簡素化する方法を活用する
+Summary: Whoニュー英国研究で夏Microsoft Garageを過ごします&amp;開発センター (または "NERD") この部下は、学習を希望する学生を探し、新しい体験をすることを恐れず、あいまいな状況に直面した場合に快適性ゾーンから抜け出す機会を与えます。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f171c90a-19e9-4c88-9bc0-9ea8f0cdc59b.jpg"><img alt="The team of interns at the New England Research and Development Center in Cambridge" border="0" height="620" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cfe7cb1b-24e7-4748-b7eb-2d85e1b84919.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="pic 1" width="827"></a><br>
+
+  Whoニュー英国研究で夏Microsoft Garageを過ごします&amp;開発センター (または &ldquo;NERD&rdquo;) Microsoft Garageは、あいまいな状況に直面した場合に、新しいことを試すことを恐れず、快適性ゾーンから抜け出すことを恐れず、学習することを希望する学生を探します。 このプログラムでは、Mass bostons Institute of Technology の Grace Hsu、米国北東部大学の MitopherBunn 氏、Boston University の Grace Lai 氏、カーネギー メロン大学の Ashley Hong 氏が参加しました。 彼らは&mdash;&mdash;、製品に重点を置き、開発サイクル全体を考え出し、出荷し、顧客に取り付く方法を学ぶことに重点を置き、自転車を選んだのです。</p>
+
+
+  <p>Microsoft Garageインターンは、新しいテクノロジをハッキングして創造性と製品開発スキルを構築するために、試験的なプロジェクトに取り組んでいます。 通常、これらのプロジェクトは Microsoft の内部製品グループからの提案ですが、Black &amp; Decker が Microsoft が建設現場で資産管理に画像認識を適用できると尋ねると、4 人のインターンのこのチームは、12 週間で作業プロトタイプを作成するという課題を受け入れました。</p>
+
+
+  <p>画像認識を活用するための単純な要求から始め、チームは市場分析とユーザー調査を行い、製品が目立ち、役に立つことを確認しました。 彼らは、モバイル アプリ開発と AI の経験を積み、少なくとも人間と同じ精度でツールを認識するアプリを作成するために、夏に費やしました。</p>
+
+
+  <h2>問題</h2>
+
+
+  <p>建設業界では&rsquo;、請負業者が毎月 50 時間を超える在庫追跡を行うのは珍しいことではありません。これは、不要な遅延、過剰在庫、および不足しているツールにつながる可能性があります。 大規模な建設現場では、長いプロジェクトの過程で 20 万ドルを超える機器が失われる可能性があります。 この問題への対処は、通常、バーコード、Bluetooth、QR コードを含む、標準ではない組み合わせです。 Black Decker &ldquo;&rsquo;のチームは&amp;、写真を撮ってツールを自動的に認識する方が簡単だと思いますか?&rdquo;</p>
+
+
+  <p>細分差のあるツール モデルが多数あるため、たとえば、特定のドリルを認識するには、DCD996 などのモデル番号を読み取る必要があります。 ツールは、ビットまたはバッテリ パックを取り付ける場合と接続しない場合など、複数の構成で組み立て、さまざまな角度から表示できます。 また、照明条件の数&rsquo;と、一般的な建設現場で発生する可能性のある背景を考慮する必要もあります。 コンピューター ビジョンを使用して解決すると、すぐに非常に興味深い問題になります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0bfafec1-cdfb-48b8-a4f4-2c87f8aedc1c.png"><img alt="Four different DeWalt drills that look very similar" border="0" height="268" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b733582-5579-4181-a571-6c12bbc17d97.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="pic 2" width="1024"></a><br>
+
+  &nbsp;</p>
+
+
+  <h2>ハッキングした方法</h2>
+
+
+  <p>分類アルゴリズムは、ドリル、のこぎり、テープメジャーの区別など、個別のオブジェクトを識別するときに強力な精度に到達するために簡単にトレーニングできます。 代わりに、分類子が上に示した 4 つのドリルのような非常に類似したツールを正確に区別できるのか知りたかったのです。 プロジェクトの最初のイテレーションでは、チームは PyTorch と Microsofts&rsquo; <a href="https://azure.microsoft.com/en-us/services/cognitive-services/custom-vision-service/" target="_blank">の</a> サービスCustom Visionしました。 Custom Visionは、作業モデルを取得するために高いレベルのデータ サイエンスの知識を必要とせず、十分な画像 (ツールごとに約 400) を備えた Custom Vision が適切なソリューションであることが証明されました。 しかし、この多くの画像を手動で収集すると、何千ものツールを含む製品ラインのスケーリングが困難になるのはすぐに明らかになりました。 トレーニング画像を合成的に生成する方法を見つけるために、フォーカスはすぐに変化しました。</p>
+
+
+  <p>最初のアプローチでは、チームはツールの 3 次元スキャンと緑の画面レンダリングの両方を行いました。 その後、これらの画像は、実際の写真を模倣するためにランダムな背景でオーバーレイされました。 このアプローチは有望に思えましたが、生成された画像の品質は困難であることが証明されました。</p>
+
+
+  <p>次のイテレーションでは、Black &amp; Deckers&rsquo; エンジニアリング チームと共同で、チームは、コンピューター支援設計 (CAD) モデルからの写真現実的なレンダリングを使用した新しいアプローチを探しました。 比較的単純な Python スクリプトを使用して、これらの画像を大きな背景セットにサイズ変更、回転、ランダムにオーバーレイする方法が可能でした。 この手法により、チームは数分以内に何千ものトレーニング画像を生成できます。</p>
+
+
+  <p><br>
+
+  &nbsp;&nbsp;&nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d5821ad7-ca60-43fe-978a-b5c14c907036.png"><img alt="Image generated in front of a green screen vs an image rendered from CAD" border="0" height="376" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/77c912e3-7686-43ba-b118-49998e0492ef.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スカメラルト画像" width="778"></a></p>
+
+
+  <p>左側には、緑色の画面の前に生成された画像と、右側の CAD からの抽出が表示されます。</p>
+
+
+  <h2>イテレーションのベンチマーク</h2>
+
+
+  <p>このCustom Visionは、次に示すように、モデルの精度に関するレポートを提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c1d68f8-b23d-4d14-aa0b-c9b920e532d0.png"><img alt="Exemplary report extracted from the custom vision service" border="0" height="237" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63ae80b7-c139-4389-90a5-004342fed9cd.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="pic 5" width="600"></a><br>
+
+  視覚的に類似した製品を対象とする分類モデルの場合、次のような混同行列が非常に役立ちます。 混同行列は、行内のクラスの真のラベルと、列内のモデルによって出力されたラベルを比較することで、予測モデルのパフォーマンスを視覚化します。 対角線のスコアが高いほど、モデルの精度が高くなります。 高い値が対角線から外されている場合、データ サイエンティストは、トレーニングされたモデルによって、どの 2 つのクラスが互いに混同されているのか理解するのに役立ちます。</p>
+
+
+  <p>既存の Python ライブラリを使用すると、一連のテスト イメージを使用して混同行列をすばやく生成できます。<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/288ec66e-6f9c-46c7-9b30-11ad8df450e1.png"><img alt="Confusion matrix for 10 products from DeWalt" border="0" height="1060" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4ee446e-7626-45b3-8a9b-7e707643baa1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="pic 6" width="1226"></a>&nbsp;</p>
+
+
+  <h2>結果が</h2>
+
+
+  <p>チームは、iOS React Native Android の両方で実行され、クリーンで直感的な UI を備えた軽量の資産管理ツールとして機能する、新しいアプリケーションを開発しました。 アプリはさまざまな程度の Wi-Fi 可用性に適応し、信頼性の高い接続が存在する場合、取得されたイメージは Azure Cloud 上のトレーニング済みの Custom Vision モデルの API に送信されます。 インターネット接続がない場合、画像はローカルコンピューター ビジョン モデルに送信されます。</p>
+
+
+  <p>これらのローカル モデルは、iOS 用の Core ML、Android 用 TensorFlow、または Azure の Linux App Service で実行できる Docker コンテナーとしてモデルをエクスポートする Custom Vision を使用して取得できます。 機械学習モデルに新しい製品を追加するための簡単なフレームワークは、レンダリングされた画像を CAD からエクスポートし、合成画像を生成することで実装できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/199862e9-8fec-4a2a-b2cb-ede55f9943cf.png"><img alt="Captures of the user interface of the inventory app" border="0" height="423" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5b96427-7b1b-4b6c-90b8-4117e188be18.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="インベントリ イメージ 1" width="395"></a><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56858278-f34b-4c2a-84ea-8c520f7c3d6b.png"><img alt="Captures of the user interface of the inventory app" border="0" height="432" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3218e705-246b-4666-9a02-cfd63a62ad4a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="インベントリ イメージ 2" width="395"></a><br>
+
+  &nbsp;&nbsp;<br>
+
+  画像の左から右への順: インベントリ チェックリスト画面、Custom Vision サービスに画像を送信するカメラ機能、機械学習モデルの結果の表示、チェックリストにツールを追加するための手動フォーム。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3367ae85-9426-40da-a885-f0edb44deffc.png"><img alt="Arch_Diagram" border="0" height="865" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e533f8f-01bd-4ebe-b6bb-2570eff07edd.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Arch_Diagram" width="1478"></a></p>
+
+
+  <h2>次の&rsquo;情報</h2>
+
+
+  <p>チームがコンピューター ビジョン プロジェクトをハッキングする機会をお探しですか? 近くの <a href="https://openhack.microsoft.com/">OpenHack を</a> 検索します。</p>
+
+
+  <p>Microsoft OpenHack は、開発者向けのイベントです。さまざまな参加者 (オープン) が、開発者体験を模倣するように設計された実際の顧客エンゲージメントに基づく課題を使用してハンズオン実験 (Hack) を通じて学習します。 OpenHack は、お客様とパートナーに独自のスキル向上エクスペリエンスを提供するプレミアム Microsoft イベントです。 OpenHack は、従来のプレゼンテーションベースのカンファレンスではなく、開発者向けの独自のハンズオン コーディング エクスペリエンスを提供します。</p>
+
+
+  <p>ラーニング <a href="https://docs.microsoft.com/en-us/learn/paths/classify-images-with-vision-services/" target="_blank">パスは、</a> コグニティブ サービスの使用にも役立ちます。</p>

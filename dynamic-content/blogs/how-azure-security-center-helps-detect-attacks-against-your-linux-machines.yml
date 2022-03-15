@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 78983236b9450331d90b0b32d49f8b02d2cdc068
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896759"
+Slug: how-azure-security-center-helps-detect-attacks-against-your-linux-machines
+Title: Linux Azure Security Center攻撃を検出する方法
+Summary: 'Azure Security Center (ASC) は現在、クラウドとオンプレミスの両方で Linux 脅威検出プレビュー プログラムを拡張しています。 新しい機能には、疑わしいプロセスの検出、疑わしいログイン試行、異常なカーネル モジュールの読み込みがあります。 '
+Content: >-
+  <p>Azure Security Center (ASC) は現在、クラウドとオンプレミスの両方で Linux 脅威検出プレビュー プログラムを拡張しています。 新しい機能には、疑わしいプロセスの検出、疑わしいログイン試行、異常なカーネル モジュールの読み込みがあります。 Security Center、マシン イベントの収集に auditd&rsquo; を使用しています。これは、Linux での監査の最も一般的なフレームワークの 1 つです。 Auditd には、長い時間を費やし、メインライン カーネルに住んでいるという利点があります。 既定で監査が実行され、このパブリック プレビューの恩恵Security Center対象となる Linux マシン。 コレクションのしくみの詳細については、10 月のプライベート プレビューのお <a href="https://azure.microsoft.com/en-us/blog/azure-security-center-previews-new-threat-detections-for-linux/">知らせをご</a> 覧ください。</p>
+
+
+  <p>Linux 固有の検出の構築に加えて、最初に開発された現在の検出の適用性Windows。 攻撃者は、特に大規模な攻撃に対して OS に依存しないのが好きであり、可能な場合はツールと手法を再利用します。 このような状況では、オペレーティング システム間でも同じ検出が適用されます。 幸いにも、分析のいくつかは最小限のチューニングで動作しました。 今日は、&rsquo;悪意のある暗号コイン マイニングの形式で分析の例について説明します。</p>
+
+
+  <h2>悪意のある暗号コイン マイナーの脅威の拡大</h2>
+
+
+  <p><a href="https://cloudblogs.microsoft.com/microsoftsecure/2018/03/13/invisible-resource-thieves-the-increasing-threat-of-cryptocurrency-miners/">Windows Defender研究チームは</a>先月、暗号化通貨マイナーの脅威の増加に関するブログ記事を公開しました。 これらのリソースの盗用者は、通貨の数と価値が増えたので、より多くの問題になっています。 Windows Defenderチームは、一部のサイバー犯罪者がランサムウェア攻撃から、犠牲マシンへの独自のマイニング ツールのインストールと実行に向かっている可能性があるという情報を示しています。 2017 年 9 月から 2018 年 1 月の間に、平均 644,000 台の一意のコンピューターでコイン マイニング マルウェアが検出されました。 この投稿では、私たちが見てきたさまざまなコイン マイニング マルウェア、その動作、および企業が System Center Configuration Manager と Windows Defender Advanced Threat Protection の両方を使用して自分自身を守る方法について説明します。</p>
+
+
+  <p>また、<a href="https://cloudblogs.microsoft.com/microsoftsecure/2018/03/07/behavior-monitoring-combined-with-machine-learning-spoils-a-massive-dofoil-coin-mining-campaign/">Windows Defender</a> チームは先月、Windows Defender ウイルス対策 の 3 月 6 日に、Dofoil マルウェア キャンペーンの 500,000 件近くのインスタンスを数ミリ秒以内に特定し、ブロックした方法について話しました。 このマルウェアには、コイン マイニング ペイロードも含まれています。 その後、最初の感染 <a href="https://cloudblogs.microsoft.com/microsoftsecure/2018/03/13/poisoned-peer-to-peer-app-kicked-off-dofoil-coin-miner-outbreak/">ベクター</a> が有害なピア ツー ピア アプリケーションであるのが検出され、報告されました。 ピア ツー ピア アプリケーションは、望ましくない可能性のあるアプリケーション <a href="https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/detect-block-potentially-unwanted-apps-windows-defender-antivirus">(PUA) として分類されました。</a> Windows Defender PUA 保護機能を有効にしていた AV のお客様は、そのベクターが既にブロックされているという利点があります。</p>
+
+
+  <h2>linux Azure Security Center脅威検出の検出</h2>
+
+
+  <p>では、これは Azure と、Linux 用の脅威検出に関する新しいAzure Security Centerパブリック プレビューとどのように関連しているのでしょうか。 1 年前に、JessenEn は、コンピューターの暗号化通貨マイニング攻撃を <a href="https://azure.microsoft.com/en-us/blog/how-azure-security-center-detects-a-bitcoin-mining-attack/">ASC</a> で検出する方法Windowsしました。 暗号化通貨マルウェア業界では、多くのサイバー犯罪者が、ドロップされた場所に基づいて異なるオペレーティング システムにインストールして実行するポータブル ツールを使用しています。 また、システム全体で一般的な手法を利用しています。これは、一般的な検出を記述する機会を意味します。<br>
+
+  <br>
+
+  2 月に<a href="https://www.fireeye.com/blog/threat-research/2018/02/cve-2017-10271-used-to-deliver-cryptominers.html">、FireEye</a> は、これらのマイニング ツールと手法が Windows と Linux の両方の世界にまたがっている方法を示すブログ投稿を公開しました。 概要では、追加のマルウェアのダウンロード、タスクのスケジュール設定、競合するマルウェアの削除を行う Windows ベースの PowerShell コマンドと Bash シェル スクリプト コマンドの両方を確認できます。 独自のデータの分析でも同じことが示されます。 これらの一般的な手法を使用すると、仮想マシンと Linux マシンの両方でWindowsを作成できます。</p>
+
+
+  <p>また、分析を作成する際には、そのライフサイクルの複数の時点で悪意のある動作を特定しようと試み、検出の可能性が高くなっています。 暗号化通貨マイニング分析は、この良い例です。 単純な実行可能ファイルまたはコマンド マッチングから始め、分析の洗練レベルを徐々に上げ、コイン マイニングの動作を探す検出を作成しました。 最近の分析の 1 つは、システムがいつコイン マイニング用に最適化されているのか検出を試みる方法です。</p>
+
+
+  <h2>Linux アラート (Azure Security Center</h2>
+
+
+  <p>では、Linux でこれらの暗号コイン マイニング アラートを確認するにはどうすれば良いでしょうか。 Azure Security Centerを実行している Linux マシンをお客様は、他のアラートと共にこれらのアラートAzure Security Centerできます。 [概要] ページAzure Security Center移動します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24a6867a-cc28-4eba-8af0-de90c052b021.png"><img alt="image" border="0" height="288" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62253631-5818-49b4-89d5-1276b9c82dc8.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="イメージ" width="975"></a></p>
+
+
+  <p>次に、新しいアラート インシデント &amp; 、検出を使用してサブスクリプションアラートをクリックするか、特定のリソースに詳細を表示します。</p>
+
+
+  <p>暗号コインマルウェアのアラートは、次に示す疑わしいプロセス実行アラートとして表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbc9f217-304d-4928-9152-f489fbb0ace7.png"><img alt="image" border="0" height="398" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22e684cc-6ed8-43c5-8e94-04c6ab7c3f9e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="イメージ" width="966"></a></p>
+
+
+  <p>アラートをクリックすると、アラートをトリガーしたプロセスとコマンド ライン、および推奨される修復手順が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36d4242c-ddad-4a98-bd4f-4099311cb7e9.png"><img alt="image" border="0" height="882" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39fe8295-1894-45af-9532-f603f44e0585.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="イメージ" width="853"></a></p>
+
+
+  <p>ご覧のように、このイベントは疑わしいプロセスの実行としてトリガーされます。 実行されたコマンドは、以下の説明と特定のコマンド ラインで確認できます。 また、これは暗号コイン マイニングの動作として認識されるので、マイナーに関するレポートビットコインしました。</p>
+
+
+  <h2>その他のリソース</h2>
+
+
+  <p>これは、暗号化通貨の例を使用してAzure Security Center新しい Linux 分析の簡単な概要です。 アプリケーション側から使い慣れたものWindows、使い慣れたように見える必要があります。 アプリケーションの動作の詳細についてはAzure Security Centerを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-detection-capabilities">Azure Security Center検出機能</a> &mdash; 高度なAzure Security Center&rsquo;機能について説明します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-managing-and-responding-alerts">セキュリティ アラートの管理</a>&mdash;とAzure Security Centerセキュリティ アラートを管理して対応する方法について学習します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-recommendations">セキュリティに関する推奨事項のAzure Security Center</a> &mdash; 推奨事項が Azure リソースの保護に役立つ方法について説明します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-monitoring">セキュリティ正常性の監視 (Azure Security Center</a> &mdash; Azure リソースの正常性を監視する方法について説明します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-partner-solutions">Azure Security Center を使用したパートナー ソリューションの監視</a> &mdash; パートナー ソリューションの正常性状態を監視する方法について学習します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-faq">Azure Security Center FAQ</a> &mdash; サービスの使用に関してよく寄せられる質問を見つける。</li>
+   <li><a href="https://blogs.msdn.com/b/azuresecurity/">Azure セキュリティブログ</a> &mdash; 最新の Azure セキュリティニュースと情報を取得します。</li>
+  </ul>

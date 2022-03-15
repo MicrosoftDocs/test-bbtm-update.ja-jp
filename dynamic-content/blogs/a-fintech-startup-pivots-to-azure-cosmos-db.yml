@@ -1,0 +1,110 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 42fa708133262922187d33762b1905e1d4500d53
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891052"
+Slug: a-fintech-startup-pivots-to-azure-cosmos-db
+Title: Fintech スタートアップが Azure Cosmos DB にピボットする
+Summary: 適切なテクノロジの選択により、クラウドで生まれたビジネスの成功を加速できます。 これは、fintech の立ち上げ clearTREND Research に当てはまる。 ソリューション アーキテクチャ チームは、最も重要な決定の 1 つが、SQLまたは NoSQL の間のデータベースの決定SQLわかっていました。
+Content: >-
+  <p>適切なテクノロジの選択により、クラウドで生まれたビジネスの成功を加速できます。 これは、fintech の立ち上げ <a href="https://cleartrendresearch.com/" target="_blank">clearTREND Research に当てはまる。</a> ソリューション アーキテクチャ チームは、最も重要な決定の 1 つが、SQLまたは NoSQL の間のデータベースの決定SQLわかっていました。 調査、実験、および多くの設計イテレーションの後、チームは Microsoft Azure Cosmos DB にデプロイする決定<a href="https://azure.microsoft.com/en-us/services/cosmos-db/?WT.mc_id=ms-docs-kbaroni" target="_blank">に感激しました</a>。 このブログでは、その決定がどのように行われたかについて説明します。</p>
+
+
+  <p>データと AI によってクラウドビジネスチャンスの急増が推進され、慎重に評価する必要がある 1 つのテクノロジ上の決定は、クラウド データベースの選択です。 リレーショナル データベースは引き続き人気が高く、クラウドベースのソリューションで大きな需要を引き出していますが、NoSQL データベースは分散グローバル スケール ソリューションに適しています。</p>
+
+
+  <p>パートナーの clearTREND では、財務トレンド エンジンを商品化し<a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/cleartrend.cleartrend_research?tab=Overview" target="_blank"></a>、個人と専門家にサブスクリプション投資サービスを提供する計画でした。 clearTRENDs&rsquo; SaaS ソリューションを担当するチームは、長年クラウドベースのソリューションを実装してきたソフトウェア開発者とアーキテクトのチームです。 彼らはビジネスチャンスを理解し、データベース テクノロジのオプションをよりよく理解したいと考えたのです。 その適正な注意を通じて、ビジネスの優先順位とデータ セットとしてアーキテクチャが変更されました。 多くの研究と実践的な実験の後、アーキテクチャ チームは、ソリューションに最適なCosmos DB を Azure Cosmos に決定しました。</p>
+
+
+  <p>特に金融業界では、ビジネス モデルが攻撃を受けしています。 Cosmos DB は、ビジネスを迅速にイノベーションし、機会を戦略的な利点に変え、適応、進化、および可能にするテクノロジです。&nbsp;</p>
+
+
+  <h2>Azure Cosmos DB を選択する 6 つの理由</h2>
+
+
+  <p>clearTREND のチームが Azure Cosmos DB を選択した理由を次に示します。</p>
+
+
+  <ol>
+      <li><strong>スキーマの設計ははるかに簡単で柔軟です</strong>。 アジャイル開発手法では、スキーマは頻繁に変更され、変更を迅速かつ安全に実装する機能は大きな利点です。 Azure Cosmos DB はスキーマに依存しないので、データの使用方法に関する柔軟性が非常に高い。</li>
+      <li><strong>データベースの読み取りと書き込みは非常に高速です</strong>。 Azure Cosmos DB では、サービス レベル アグリーメント (SLA) を使用して、10 ミリ秒未満の読み取りと書き<a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_0/?WT.mc_id=ms-docs-kbaroni" target="_blank">込みを</a>提供できます。</li>
+      <li><strong>クエリは非常に高速で実行され、自動インデックス作成はゲームの変更者です</strong>。 プライマリ キーまたはパーティション キーに基づく読み取りと書き込みは高速ですが、多くの NoSQL 実装では、キー以外のドキュメント属性に対して実行されるクエリのパフォーマンスが低下する可能性があります。 セカンダリ インデックス作成は、管理とメンテナンスの負担になる可能性があります。 既定では、Azure Cosmos DB によってドキュメント内のすべての属性のインデックスが自動的に作成されます。そのため、データが読み込まれるとすぐにクエリのパフォーマンスが最適化されます。 自動インデックス作成のもう 1 つの利点は、スキーマとインデックスが完全に同期され、セカンダリ インデックスに必要なダウンタイムや管理なしでスキーマの変更を迅速に実装できる点です。</li>
+      <li><strong>思いやりのある設計の Azure Cosmos DB は、非常にコスト効率が高い場合があります</strong>。 Azure Cosmos DB コスト モデルは、コレクションの数、パーティション 分割キー、インデックス戦略、ドキュメント サイズ、ドキュメント数によってデータベースがどのように設計されるのかによって異なります。 Azure Cosmos DB の価格は、予約されているリソースに基づいており、これらのリソースは要求ユニットまたは RUs &ldquo; と呼ばされ、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/request-units/?WT.mc_id=ms-docs-kbaroni" target="_blank">Azure Cosmos DB</a>&rdquo; の要求ユニットに関するドキュメントで説明されています。 clearTREND スキーマの設計は、単一のドキュメント コレクションとして実装され、Azure Cosmos DB を含む Azure 上のソリューションのコスト全体が、手頃な価格の月額料金で提供されます。 これはマネージド データベース サービスなので、毎月のコストには、サポート、99.999% の高可用性、読み取り/書き込みパフォーマンスの SLA、自動パーティション分割、既定で暗号化されたデータ、自動バックアップが含まれます。</li>
+      <li><strong>ワークロード バーストの容量をプログラムで再サイズ変更します</strong>。 clearTREND ワークロードには予測可能な毎日のバースト パターンがあります。また、RUs はプログラムで調整できます。 複雑な処理のために、またはより高いスループット要件を満たすために追加のコンピューティング リソースが必要な場合は、RUs を増やします。 処理が完了すると、RUs は戻って調整されます。 この弾力性はCosmosワークロードの需要に効果的に適応するために、Azure Cosmos DB のサイズを変更できます。</li>
+      <li><strong>プッシュ ボタンのグローバル分散データ</strong>。 ソリューションの将来のスケーラビリティのために設計すると、難しい場合があります。ソリューションが最初のビジョンを超えて成長するにつれて、テクノロジと設計の選択が非効率的になる可能性があります。 Azure Cosmos DB の利点は、わずか数回のクリックでグローバルに構成され、大規模にスケールアウトされたソリューションになることです。 クラウド規模の NoSQL 分散データベースの設定と管理には、運用上の複雑な問題はありません。</li>
+  </ol>
+
+
+  <h2>Azure Cosmos DB の設計と実装に関するヒント</h2>
+
+
+  <p>Azure Cosmos DB を初Cosmos、ソリューションを設計および実装する際に考慮すべき clearTREND チームからのヒントを次に示します。&nbsp;&nbsp;</p>
+
+
+  <ul>
+      <li><strong>クエリと API の最適化に関するスキーマを設計します</strong>。 NoSQL データベースのスキーマ設計は、リレーショナル データベース管理システム (RDBMS)&rsquo; データベースの場合と同様に重要ですが、異なります。 NoSQL&rsquo; データベースには定義済みのテーブル構造は必要ないが、ドキュメント スキーマの整理と定義について意図的に行う必要がある一方で、リレーションシップがどこでどのように表され、どのように埋め込まれているのかも認識している必要があります。 スキーマ設計をガイドするために、clearTREND&rsquo; チームは、ソリューション API によって記述および取得されたデータ要素に基づいてデータをグループ化する傾向があります。</li>
+      <li><strong>柔軟なパーティション キーを実装します。</strong> Cosmos DB では、10 GB を超えるドキュメント コレクションを作成するときにパーティション キーを指定する必要があります。 パーティション キーの決定は、最初はパーティション キーに最適な選択肢が明確ではない可能性があります。データ カテゴリ、地理的リージョン、識別子、またはタイムスケール (毎月や毎年など) である必要がありますか? パーティション キーの設計&lsquo;&rsquo;が不十分な場合、ホット スポットと呼ばれるパフォーマンスのボトルネックが生じ、パーティション間でアクティビティを分散するのではなく、読み取りおよび書き込みアクティビティを 1 つのパーティションに集中させることができます。&nbsp;データベースのパーティション キーが変更された場合は、基になるデータが新しいコレクションにコピーされ、インデックスが再作成される際に、アプリケーションの可用性に影響を与える可能性があるインデックス変更操作が必要です。&nbsp;&nbsp;<br>
+  &nbsp;<br>
+
+  clearTrend チームは、データベースのインデックス変更操作の必要性を軽減するために、パーティション キーの設計に柔軟性を組み込み、&nbsp;これらのシナリオでは、ドキュメント コレクション内の共通フィールドは型であり、各型には独自のスキーマがあります。&nbsp;設計時に、最適なパーティション キーはドキュメントの種類によって異なる可能性があることを実現しました。&nbsp;種類はパーティション キー値の 1 つになりました。&nbsp;パーティション キーの 2 番目の値では、チームは論理フィールドを文字列として定義し、<strong>PartitionID という名前を付けます</strong>。&nbsp;<strong>PartitionID</strong> の背後にある考え方は、最初は 1 つの値 (クライアント識別子など) &ndash; &ndash; に設定し、より効率的なキー値がプログラムによって新しい値に置き換えられたときに設定できるという考え方です。&nbsp;&nbsp;この方法では、パーティション キーの論理定義は変更されませんが、パーティション キーの値は変更される可能性があります。&nbsp;&nbsp;CosmosDB では、パーティション キーを再ハッシュし、適切な論理パーティション内の項目を再検索する必要がありますが、コレクション内のドキュメントのサブセットのみが影響を受け、データベース全体の再インデックス作成操作を回避するために使用できます。</li>
+      <li><strong>1 つのコレクションに基づくスキーマ設計を検討します</strong>。 一般的な設計戦略では、コレクションごとに 1 つのドキュメント型を使用しますが、1 つのコレクションに複数のドキュメント型を格納する利点があります。 コレクションはパーティション分割とインデックス作成の基礎なので、複数のドキュメント型を 1 つのコレクションに格納すると直感的に見えない場合があります。 ただし、複数のコレクション間の操作が不要で機能を最大化し、全体的なコストを最小限に抑える可能性があります。これは、1 つのコレクションが複数のコレクションよりもコストが低いためです。 clearTREND ソリューションには 7 つの異なるドキュメントの種類があります。すべて 1 つのコレクションに格納されます。 このアプローチは、ドキュメント型と呼ばれる列挙フィールド <strong>を</strong> 使用して実装されます。このフィールドからすべてのドキュメントが派生します。 すべてのドキュメントには、7 つのドキュメントの種類の 1 つに対応するドキュメント型プロパティがあります。&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <li><strong>複雑なクエリとストアド プロシージャ操作の RU コストを理解することで、スキーマの設計を調整します</strong>。 &rsquo;複雑なクエリとストアド プロシージャのコストを予測するのは困難な場合があります。特に、Azure Cosmos DB で操作を実行する必要がある読み取りまたは書き込みの数を事前に知らない場合は、 複雑な操作のメトリックとコスト (RUs) をキャプチャし、その情報を使用してスキーマ設計を効率化します。 これらのメトリックをキャプチャする 1 つの方法は、Azure <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/monitor-accounts/?WT.mc_id=ms-docs-kbaroni" target="_blank">Cosmos DB</a> ダッシュボードからクエリまたはストアド プロシージャを実行Azure portal。</li>
+      <li><strong>単純式または計算式をドキュメント プロパティとして埋め込む場合を検討してください</strong>。 カウント、合計、最小値、最大値などの単純な集計を計算する必要がある場合、または単純なブール型のロジック式を評価する必要がある場合は、式を基本ドキュメント クラスのプロパティとして定義するのも理にかなっている可能性があります。 たとえば、ログ アプリケーションでは、条件を評価し、操作が成功したかどうかを判断するロジックが含まれています。 ロジックが次のような単純なブール式である場合は、それをクラス定義に含めて検討してください。</li>
+  </ul>
+
+
+  <pre>
+
+  public class LogStatus
+
+  {
+      // C# example of a Boolean expression embedded in a class definition
+        public bool Failed =&gt; !((WasReadSuccessful &amp;&amp; WasOptimizationSuccssful &amp;&amp; StatusMsg == &ldquo;Success&rdquo;) ||
+  (WasReadSuccessful &amp;&amp; !IsDataCurrent));
+        public string StatusMsg {get; set;}
+        public bool WasReadSuccessful {get; set;}
+        public bool WasOptimizationSuccessful {get;set}
+        public bool IsDataCurrent {get;set}
+    }</pre>
+
+  <p>Failed を示 <strong>すコマンド フィールドは </strong>、読み取り専用の計算プロパティとして定義されます。 データベースの使用が主に読み取り集中型である場合、この方法では、式が評価および格納される場合、またはドキュメントが書き込まれるときに、全体的な RU コストを削減できる可能性があります。 これは、ドキュメントに対してクエリを実行するごとにコストを削減する代わりに使用できます。&nbsp;</p>
+
+
+  <ul>
+      <li><strong>参照整合性はアプリケーション層に実装されます</strong>。 参照整合性により、データ要素間のリレーションシップが保持され、RDBMS 参照整合性がキーを介して適用されます。 たとえば、RDBMS では、プライマリ キーと外部キーを使用して、注文を作成する前に製品が存在することを確認します。 参照整合性が要件であり、データの依存関係を監視して適用する必要がある場合は、アプリケーション層で行う必要があります。 参照とデータの整合性のテストについては、厳密に行います。</li>
+      <li><strong>Application インサイト を使用して、Azure Cosmos DB アクティビティを監視します</strong>。 <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-overview/?WT.mc_id=ms-docs-kbaroni" target="_blank">Application インサイト</a>はテレメトリ サービスであり、このソリューションでは、Azure Cosmos DB アクティビティに関する詳細なパフォーマンス、可用性、使用状況の情報を収集して報告するために使用されました。 <a href="https://azure.microsoft.com/en-us/services/functions/?WT.mc_id=ms-docs-kbaroni" target="_blank">Azure Functions</a> メトリックス エクスプローラー を使用した Azure Cosmos DB と Application インサイト <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-metrics-explorer/?WT.mc_id=ms-docs-kbaroni" target="_blank">の</a>統合と、<a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.applicationinsights.telemetryclient?view=azure-dotnet/?WT.mc_id=ms-docs-kbaroni" target="_blank">TelemetryClient.GetMetric()</a><strong> </strong>を使用してカスタム イベントをキャプチャ<a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics/?WT.mc_id=ms-docs-kbaroni" target="_blank"></a>する機能が提供されています。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p>&ldquo;AppInsights との統合は非常に便利です&hellip;。&rdquo; Tim Miller、プリンシパル コンサルタント の &ndash; 技術</p>
+
+  </blockquote>
+
+
+  <ul>
+
+  </ul>
+
+
+  <h2>推奨される次の手順</h2>
+
+
+  <p>NoSQL は、データベース ソリューションをクラウドに実装する方法を急速に変えるパラダイムです。 開発者でもデータベースプロフェッショナルでも、Azure Cosmos DB はクラウド データベースランドスケープにおいてますます重要なプレーヤーであり、ソリューションのゲーム 変更者になる可能性があります。 まだ行っていない&rsquo;場合は、Azure Cosmos DB の利点と機能について説明します。 ドキュメントを見て<a href="https://azure.microsoft.com/en-us/blog/a-technical-overview-of-azure-cosmos-db/?WT.mc_id=ms-docs-kbaroni" target="_blank">、</a>アプリケーションのサンプルをGitHub、<a href="https://github.com/Azure-Samples/documentdb-dotnet-todo-app" target="_blank"></a>設計パターンの詳細を確認します。</p>
+
+
+  <ul>
+      <li><a href="https://www.skylinetechnologies.com/Case-Studies/fintech-startup-commercializes-internal-saas-tool" target="_blank">Fintech Startup は、内部ツールを SaaS 製品として製品化します</a>。</li>
+      <li><a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/cleartrend.cleartrend_research?tab=Overview" target="_blank">世界で初めてのクラウドベースの&rsquo;財務トレンド エンジンである clearTREND を発見します</a>。</li>
+      <li><a href="https://azure.microsoft.com/en-us/try/cosmosdb/?WT.mc_id=ms-docs-kbaroni" target="_blank">Azure Cosmos DB を無料でお試しください</a>。 期間限定のフルサービス エクスペリエンスが得られる。 試しに、チュートリアルまたはデモを実行し、必要な Azure アカウントやクレジット カードなしでクイック スタートを実行します。</li>
+      <li>開発者の場合は、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator/?WT.mc_id=ms-docs-kbaroni" target="_blank">Azure Cosmos DB エミュレーターをお試しください</a>。 Azure サブスクリプションを作成したりコストを発生したりすることなく、アプリケーションをローカルで開発してテストします。 アプリケーションが動作したら、Azure Cosmos DB を使用するように切り替えます。</li>
+  </ul>
+
+
+  <h2>パートナー様、clearTREND および Technologies に感謝します。</h2>
+
+
+  <p>Microsoft に取り組む上で大きな問題の 1 つは、顧客やパートナーと協力し、テクノロジを実装するためのクリエイティブなアプローチについて学ぶ機会です。 clearTREND ソリューションを設計して実装したチームは、デザインと開発者が <a href="https://www.skylinetechnologies.com/" target="_blank">、他の技術を持つアーキテクトです</a>。 ビジネス クライアントに情熱を注いでおり、複雑な技術的課題を解決しました。非常に初期のクラウド導入者でした。 <a href="https://www.linkedin.com/in/timrmiller" target="_blank">Tim Miller</a>、<a href="https://www.linkedin.com/in/greglevenhagen/" target="_blank">Greg Levenhagen</a>、<a href="https://www.linkedin.com/in/mikelauer/" target="_blank">Michael Michaeler</a> など、この作業に時間を与えたチーム メンバーに特に感謝します。 ご&rsquo;自分と一緒に作業を行うのは楽しい作業でした。</p>

@@ -1,0 +1,184 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f650d66b0a294731f9858ac6925642c14ce4d4d6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891165"
+Slug: azure-data-explorer-and-stream-analytics-for-anomaly-detection
+Title: Azure Data Explorer検出のStream Analyticsと設定
+Summary: 異常検出は、金融業界の不正検出、病院での健康の監視、製造、石油とガス、ユーティリティ、輸送、航空、自動車業界での障害検出と運用環境の監視など、世界中の多くの業界で重要な役割を果たします。
+Content: >-
+  <p>異常検出は、金融業界の不正検出、病院での健康の監視、製造、石油とガス、ユーティリティ、輸送、航空、自動車業界での障害検出と運用環境の監視など、世界中の多くの業界で重要な役割を果たします。</p>
+
+
+  <p>異常検出とは、予想される動作に準拠していないデータのパターンを見つけることです。 意思決定者がそれらを検出し、必要に応じてプロアクティブなアクションを実行することが重要です。 石油ガス業界を 1 つの例として使用すると、さまざまな機器を搭載したディープ ウォーター リグは、さまざまな頻度と形式で測定を送信する数百のセンサーによって集中的に監視されます。 分析または視覚化は、従来のソフトウェア プラットフォームを使用するのは難しく、異常の検出の失敗によって引き起こされたディープ ウォーター 石油リグ プラットフォームでの非生産的な時間は、毎日大きな財務上の損失を意味する可能性があります。</p>
+
+
+  <p>企業は、探索と生産を強化し、製造効率を向上し、安全性と環境保護を確保するために、データを取り込み、処理し、戦略的ビジネス インテリジェンスに変換するために、Azure IoT、Azure Stream Analytics、Azure Data Explorer、機械学習などの新しいテクノロジを必要とします。 また、これらのマネージド サービスは、お客様がソフトウェア開発時間を大幅に短縮し、市場投入までの時間を短縮し、費用対効果を提供し、高可用性とスケーラビリティを実現するのにも役立ちます。</p>
+
+
+  <p>Azure プラットフォームには異常検出のための多くのオプションが用意され、お客様はニーズに最も適したテクノロジを選択できます。一方、お客様は、各ソリューションに最も適した使用事例について、現場向けアーキテクトに質問しました。 以下&rsquo;の質問に対する回答を確認&rsquo;しますが、まず、いくつかの定義を知る必要があります。</p>
+
+
+  <p><strong>時系列とは</strong> 時系列は、時系列でインデックスが作成された一連のデータ ポイントです。 石油およびガス業界では、ほとんどの機器またはセンサーの測定値は、連続した時点または深さのシーケンスです。</p>
+
+
+  <p><strong>加法時系列の分解とは</strong> 分解は、次のグラフに示すように、時系列をコンポーネントに分割するタスクです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ec76de81-7289-4d68-b1ec-acbbbbccb073.jpg"><img alt="Decomposition is the task to separate a time series into components" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c7c56dc-da3d-4812-92ff-bbc4cec86886.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="分解は、時系列をコンポーネントに分割するタスクです" width="601"></a></p>
+
+
+  <h2>時系列予測と異常検出</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79020b2b-0486-4808-97e3-89c215c9a3a4.png"><img alt="A graph showing a time series with forecasting." border="0" height="252" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11ebdd30-471b-4e16-b9f9-6da1a224129a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="予測を含む時系列を示すグラフ。" width="467"></a></p>
+
+
+  <p>異常検出は、大部分のデータセットと大きく異なる観測値を識別するプロセスです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9df88f64-bfa9-409d-b6f4-219207668503.png"><img alt="A graph showing an anomaly detection example." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3c0da8eb-d648-48cd-8a1f-6d6550aa5e98.png" style="border: 0px currentcolor; border-image: none; width: 900px; height: 453px; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="異常検出の例を示すグラフ。"></a></p>
+
+
+  <p style="text-align: center;">これは、異常検出の例で、Azure Data Explorer。</p>
+
+
+  <ul>
+      <li>赤い線は元の時系列です。</li>
+      <li>青い線は、ベースライン (季節 + 傾向) コンポーネントです。</li>
+      <li>紫色の点は、元の時系列上の異常な点です。</li>
+  </ul>
+
+
+  <p>異常を検出するには、Azure Stream AnalyticsまたはAzure Data Explorer、次の図に示すリアルタイムの分析と検出に使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd567ae4-20b5-4f74-926e-9eee15beef81.png"><img alt="A diagram showing an Azure powered pattern for real-time analytics." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a56a296f-ac16-4398-a30d-e2c38e6f5cb4.png" style="border: 0px currentcolor; border-image: none; width: 900px; height: 507px; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="リアルタイム分析のための Azure を利用したパターンを示す図。"></a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/stream-analytics/" target="_blank">Azure Stream Analytics</a> は、ミッション クリティカルなワークロードに向けて設計された、簡単に使用できるリアルタイム分析サービスです。 数回のクリックでエンドツーエンドのサーバーレス ストリーミング パイプラインを構築したり、SQL を使用して 0 から数分で実稼働にしたり、カスタム コードと組み込みの機械学習機能を使用して拡張して、より高度なシナリオを実現することができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/data-explorer/" target="_blank">Azure Data Explorer</a> は、アプリケーション、Web サイト、IoT デバイスなどから大量のデータ ストリーミングをほぼリアルタイムで分析する、高速でフル マネージドのデータ分析サービスです。 製品の改善、カスタマー エクスペリエンスの向上、デバイスの監視、運用の強化、データのパターン、異常、傾向をすばやく特定するために、質問をしてデータを繰り返し調査することができます。</p>
+
+
+  <h2>Azure Stream AnalyticsまたはAzure Data Explorer?</h2>
+
+
+  <h3>ユース ケース</h3>
+
+
+  <p><b>Stream Analytics</b> は、継続的またはストリーミングのリアルタイム分析用です。集計関数はホッピング、スライディング、タンブリング、またはセッション ウィンドウをサポートします。 JavaScript または C#&nbsp; 以外の言語で UDF または Uダを記述する場合、またはソリューションがマルチクラウド環境またはオンプレミス環境にある場合は、実際の使用事例には適していくではありません。</p>
+
+
+  <p><b>データ エクスプローラー</b> は、オンデマンドまたは対話型のほぼリアルタイムの分析、大量のデータ ストリームに対するデータ探索、季節性の分解、アドホック作業、ダッシュボード、およびほぼリアルタイムから過去のデータに対する根本原因分析用です。 エッジに分析をデプロイする必要がある場合は、この方法は使用事例には適していない。</p>
+
+
+  <h3>予測</h3>
+
+
+  <p>Stream Analytics Studio と統合<strong>&nbsp;</strong>する Azure Machine Learning<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-machine-learning-integration-tutorial" target="_blank">を設定できます</a>。</p>
+
+
+  <p><b>データ エクスプローラー</b> 、同じ分解モデルに基づいて時系列を予測するネイティブ関数が提供されます。 予測は、予防メンテナンス、リソース計画など、多くのシナリオに役立ちます。</p>
+
+
+  <h3>季節性</h3>
+
+
+  <p><b>Stream Analytics</b> のサイズの制限により、季節性のサポートは提供されていません。</p>
+
+
+  <p><b>データ エクスプローラー</b> では、時系列内の期間を自動的に検出する機能が提供されます。また、メトリックが特定の期間を持つ必要がある場合は、それらを確認できます。</p>
+
+
+  <h3>分解</h3>
+
+
+  <p><strong>Stream Analytics </strong>分解はサポートされていません。</p>
+
+
+  <p><strong>データ エクスプローラーは、</strong> 時系列のセットを受け取り、各時系列を季節、傾向、残差、ベースラインの各コンポーネントに自動的に分解する関数を提供します。</p>
+
+
+  <h3>フィルター処理と分析</h3>
+
+
+  <p><strong>Stream Analytics </strong>、スパイクやディップ、または変更ポイントを検出する関数が提供されます。</p>
+
+
+  <p><strong>データ エクスプローラー</strong><a href="https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis" target="_blank">、一</a>連の時系列で異常な点を検出する分析と、異常が検出された後の根本原因分析 (RCA) 関数が提供されます。</p>
+
+
+  <h3>フィルター処理</h3>
+
+
+  <p><strong>Stream Analytics</strong> 参照データ、低速移動、または静的を含むフィルターが提供されます。</p>
+
+
+  <p><strong>データ エクスプローラーには、</strong> 次の 2 つのジェネリック関数があります。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; 移動平均、差別化、形状照合に使用できる有限インパルス応答 (FIR)<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; 指数スムージングと累積合計のための無限インパルス応答 (IIR)</p>
+
+
+  <h3>異常検出</h3>
+
+
+  <p><strong>Stream Analytics </strong>は、 <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-machine-learning-anomaly-detection" target="_blank">次の検出を提供</a> します。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; スパイクとディップ (一時的な異常)<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; 変更ポイント (レベルや傾向の変化などの永続的な異常)</p>
+
+
+  <p><strong>データ エクスプローラー</strong> は、 <a href="https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection" target="_blank">次の検出を提供</a> します。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; 強化された季節 &amp; 分解モデルに基づく急上昇 (自動季節性検出をサポートし、トレーニング データの異常に対する堅牢性)<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; セグメント化線形回帰による変化点 (レベルシフト、傾向変化)<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; KQL インライン Python/R プラグインを使用すると、Python または R で実装されている他のモデルとの拡張が可能です</p>
+
+
+  <h2>次&#39;は何ですか?</h2>
+
+
+  <div>
+
+  <div>
+
+  <p paraeid="{9250f76e-40bc-49d7-a52a-168c17ed6b03}{214}" paraid="1286605291">Azure Data Analytics は、一般に、ワークロードごとに最適なテクノロジを提供します。 新しい Real-Time Analytics アーキテクチャ (上図) では、異常検出を含むストリーム分析と時系列分析に対して、ワークロードの種類ごとに最適なテクノロジを活用できます。 すぐに始めるのに役立つ可能性があるリソースの一覧を次に示します。</p>
+
+  </div>
+
+
+  <div>
+
+  <ul role="list">
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="1" data-font="Symbol" data-leveltext="" data-listid="6" role="listitem">
+      <p paraeid="{9250f76e-40bc-49d7-a52a-168c17ed6b03}{239}" paraid="410604765">まだ行っていない&#39;、このリポジトリの異常GitHubの検出に関する<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FMicrosoftDocs%2Fazure-docs%2Fblob%2Fmaster%2Farticles%2Fstream-analytics%2Fstream-analytics-machine-learning-anomaly-detection.md&amp;data=02%7C01%7CJames.Ding%40microsoft.com%7Ca87b26b13a744741bd8108d751819747%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637067489340372085&amp;sdata=613rA9bEChOvz4axK2UNUIC3nQTJUEBjUgUvgIBhTiM%3D&amp;reserved=0" rel="noreferrer" target="_blank">ページをAzure Stream Analytics</a></p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="1" data-font="Symbol" data-leveltext="" data-listid="6" role="listitem">
+      <p paraeid="{9250f76e-40bc-49d7-a52a-168c17ed6b03}{239}" paraid="410604765">Azure Data Explorer での異常検出と予測に関<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FMicrosoftDocs%2Fazure-docs%2Fblob%2Fmaster%2Farticles%2Fdata-explorer%2Fanomaly-detection.md&amp;data=02%7C01%7CJames.Ding%40microsoft.com%7Ca87b26b13a744741bd8108d751819747%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637067489340377063&amp;sdata=ZNw%2B3yXc6H036kVoiEPOte75KHMS9ghRZALPjTamwUY%3D&amp;reserved=0" rel="noreferrer" target="_blank"></a>する彼の GitHub リポジトリと、Azure Data Explorer の時系列分析に関するリポジトリ<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FMicrosoftDocs%2Fazure-docs%2Fblob%2Fmaster%2Farticles%2Fdata-explorer%2Ftime-series-analysis.md&amp;data=02%7C01%7CJames.Ding%40microsoft.com%7Ca87b26b13a744741bd8108d751819747%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637067489340382042&amp;sdata=icvuEc6iPQGZ%2FaKxQ%2FcceMxdf3OZ7RgosN6hEdOsk54%3D&amp;reserved=0" rel="noreferrer" target="_blank">を確認してください</a>。&nbsp;</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="3" data-font="Symbol" data-leveltext="" data-listid="6" role="listitem">
+      <p paraeid="{1d893899-04b1-4ae2-8e41-038f39eca8c0}{11}" paraid="1091938622"><a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fstream-analytics%2Fstream-analytics-machine-learning-anomaly-detection&amp;data=02%7C01%7CJames.Ding%40microsoft.com%7Ca87b26b13a744741bd8108d751819747%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637067489340387019&amp;sdata=xItQdrl%2FLu0CRLb0x1W3r6eCO23shXNNgT4I25qSJOw%3D&amp;reserved=0" rel="noreferrer" target="_blank">Azure Stream Analytics</a> での異常検出概要</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="4" data-font="Symbol" data-leveltext="" data-listid="6" role="listitem">
+      <p paraeid="{1d893899-04b1-4ae2-8e41-038f39eca8c0}{21}" paraid="1997174529"><a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fdata-explorer%2Fanomaly-detection&amp;data=02%7C01%7CJames.Ding%40microsoft.com%7Ca87b26b13a744741bd8108d751819747%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637067489340391997&amp;sdata=wK%2FzTTqKfPMJJ6D3pMCoTeMD6Q7e%2F1yFN9IW0idMbJg%3D&amp;reserved=0" rel="noreferrer" target="_blank">データ の異常検出と予測Azure Data Explorer</a> 概要</p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="4" data-font="Symbol" data-leveltext="" data-listid="6" role="listitem">
+      <p paraeid="{1d893899-04b1-4ae2-8e41-038f39eca8c0}{21}" paraid="1997174529">このブログ <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fdata-explorer%2Ftime-series-analysis&amp;data=02%7C01%7CJames.Ding%40microsoft.com%7Ca87b26b13a744741bd8108d751819747%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637067489340396976&amp;sdata=lgdtWcMRwjG%2BQDiqXq8bBdEzUSIrcrVPF4o1SgkWjeE%3D&amp;reserved=0" rel="noreferrer" target="_blank">の時系列Azure Data Explorer</a> に関する <a href="https://azure.microsoft.com/en-us/blog/time-series-analysis-in-azure-data-explorer/" rel="noreferrer" target="_blank">ドキュメント</a></p>
+      </li>
+      <li aria-setsize="-1" data-aria-level="1" data-aria-posinset="4" data-font="Symbol" data-leveltext="" data-listid="6" role="listitem">
+      <p paraeid="{1d893899-04b1-4ae2-8e41-038f39eca8c0}{21}" paraid="1997174529">Kusto クエリ言語と時系列 <a href="https://docs.microsoft.com/en-us/azure/kusto/query/machine-learning-and-tsa" rel="noreferrer" target="_blank">分析に関するドキュメント</a>&nbsp;</p>
+      </li>
+  </ul>
+
+  </div>
+
+  </div>

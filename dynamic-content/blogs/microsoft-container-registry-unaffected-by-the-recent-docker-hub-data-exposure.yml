@@ -1,0 +1,41 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b3bae0d08deb4964101445fade1ac4e456fdde7d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895412"
+Slug: microsoft-container-registry-unaffected-by-the-recent-docker-hub-data-exposure
+Title: Microsoft container registry は、最新の Docker Hub データ公開の影響を受けません
+Summary: docker について最近発表された docker hub には、docker hub データベースへの未承認のアクセスを有効にし、190k Hub アカウントとそれに関連付けられている GitHub トークンを自動ビルド用に公開するための、セキュリティについての簡単な公開 初期情報によって、アカウントのハッシュがイメージにつながる可能性があります。公式や microsoft/組織のイメージなど、脆弱性によって更新されるタグは、そうではありませんでした。 Microsoft は、Docker Hub でホストされている公式の Microsoft イメージが侵害されていないことを確認しました。
+Content: >-
+  <p>docker について最近発表された docker hub には、docker hub データベースへの未承認のアクセスを有効にし、190k Hub アカウントとそれに関連付けられている GitHub トークンを自動ビルド用に公開するための、セキュリティについて<a href="https://success.docker.com/article/docker-hub-user-notification">の簡単な公開</a> 初期情報によって、アカウントのハッシュがイメージにつながる可能性があります。公式や <a href="https://hub.docker.com/u/microsoft">microsoft/</a> 組織のイメージなど、脆弱性によって更新されるタグは、そう &nbsp; ではありませんでした。Microsoft は、Docker Hub でホストされている公式の Microsoft イメージが侵害されていないことを確認しました。</p>
+
+
+  <h2>Microsoft Container Registry からの Microsoft イメージの使用 (MCR)</h2>
+
+
+  <p>クラウドおよびソフトウェア企業として、Microsoft は microsoft が2018年5月に microsoft <a href="https://azure.microsoft.com/en-us/blog/microsoft-syndicates-container-catalog/">に直接提供されるように、Docker Hub から</a> の microsoft の公式なイメージを移行しています。 既存の顧客の破損を防ぐために、イメージ: 以前に Docker Hub で使用できたタグは引き続き利用できます。 ただし、新しい Microsoft イメージとタグは、mcr.microsoft.com の Microsoft Container Registry (MCR) から直接入手できます。 イメージの検索と見つけやすさは <a href="https://hub.docker.com/u/microsoft">Docker Hub</a>を介して利用できますが、docker pull、run ステートメントと build ステートメントでは mcr.microsoft.com を参照する必要があります。 たとえば、 <a href="https://hub.docker.com/_/microsoft-windows-servercore">windows servercore</a> イメージをプルすると、次のようになります。<br>
+
+  <code>docker pull mcr.microsoft.com/windows/servercore</code></p>
+
+
+  <p><a href="https://hub.docker.com/u/microsoft">Microsoft/</a>組織の公式イメージは、同じ形式に従います。</p>
+
+
+  <p>Microsoft は、mcr.microsoft.com から Microsoft の公式イメージをプルすることをお勧めします。</p>
+
+
+  <h2>推奨される運用方法</h2>
+
+
+  <p>Docker Hub と Microsoft のコミュニティと公式のイメージを活用することは、今日 &rsquo; のクラウドネイティブ開発の重要な部分です。 同時に、これらのパブリックイメージと実稼働ワークロードの間にバッファーを作成すること &rsquo; は常に重要です。 これらのバッファーによって、可用性、パフォーマンス、信頼性、脆弱性のリスクが考慮されます。 使用するクラウドにかかわらず、またはオンプレミスで作業している場合は、イメージのプルの認証、可用性、信頼性、およびパフォーマンスを制御するためのベストプラクティスとして、運用イメージをプライベートレジストリにインポートすることをお勧めします。 詳細については、「 <a href="https://stevelasker.blog/2018/11/14/choosing-a-docker-container-registry/">Docker Container Registry の選択</a>」を参照してください。</p>
+
+
+  <h2>自動コンテナービルド</h2>
+
+
+  <p>イメージにプライベートレジストリを使用することに加えて、企業統合認証を組み込むクラウドコンテナービルドシステムを使用することもお勧めします。 たとえば、Azure には、コンテナービルドを自動化するための<a href="https://azure.microsoft.com/en-us/services/devops/pipelines/">Azure Pipelines</a>と<a href="https://aka.ms/acr/tasks">ACR のタスク</a>が用意されています (OS &amp; .NET Framework 修正プログラムの適用など)。 また、ACR は、Docker Hub およびその他のレジストリからイメージをインポートするための <a href="https://aka.ms/acr/import">az acr import</a>も提供し、このバッファーを有効にします。</p>
+
+
+  <p>Microsoft は、お客様のソフトウェアとワークロードのセキュリティと信頼性について引き続きお約束します。</p>

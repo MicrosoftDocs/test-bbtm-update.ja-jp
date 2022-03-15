@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 120007cbd21f420fb2dac605725bbec905134f30
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891455"
+Slug: networking-for-a-hybrid-application-environment
+Title: ハイブリッドアプリケーション環境のネットワーク
+Summary: David Lef は、基幹業務アプリケーションを Azure を使用してオンプレミスの環境からクラウドに移行するときに、ネットワーク環境をサポートするための考慮事項と課題を識別します。
+Content: >-
+  <h2>移行中のネットワークのサポート: Q&a &amp; ブログ投稿シリーズ (David Lef)</h2>
+
+
+  <p><em>一連のブログ記事では、これは、Microsoft IT の第4部、David Lef、主要ネットワークアーキテクトであり、従来のインフラストラクチャから完全なワイヤレスクラウドコンピューティングプラットフォームに移行するネットワークをサポートすることについて、お客様とのチャットを行っています。Microsoft IT は、世界中の900の場所と22万ユーザーをサポートする責任を負います。David は、Azure のクラウドベースモデルに対するネットワークトポロジの進化を定義し、顧客の需要や最新のアプリケーション設計の変更をサポートしています。</em></p>
+
+
+  <p>David Lef は、基幹業務アプリケーションを Azure を使用してオンプレミスの環境からクラウドに移行するときに、ネットワーク環境をサポートするための考慮事項と課題を識別します。</p>
+
+
+  <h4><strong>Q:</strong> ロールとサポートする環境を説明できますか?</h4>
+
+
+  <p><strong>A:</strong> Microsoft のロールは、Microsoft IT によるプリンシパルネットワークアーキテクトです。 私のチームでは、世界中の約900のサイトと、これらのサイトを接続するネットワークコンポーネントがサポートされています。これらのサイトは、Microsoft の従業員やベンダーを超える22万の組み合わせによって使用されます。 Microsoft のネットワークでは、2500を超える個別のアプリケーションとビジネスプロセスがサポートされています。 &rsquo;microsoft は、組織にワイヤード、ワイヤレス、およびリモートネットワークアクセスを提供し、ネットワーク全体 (ネットワークエッジを含む) にネットワークセキュリティを実装し、クラウドでの Microsoft Azure への接続を行います。 内部 Windows Server Active Directory フォレストと同期する単一の Azure Active Directory テナントを使用して、大規模な Azure テナントをサポートしています。 ExpressRoute を使用して、オンプレミスのデータセンターから Azure への接続がいくつかあります。 Azure テナントは、azure リソースの大部分をサポートしています。一部は公開されており、一部は公開されており、Microsoft の内部にあるアプリとサービスとしてホストされていますが、Azure プラットフォームでホストされています。 現在、Azure を使用している LOB アプリの40% をホストしており、その数は継続的に増加しています。</p>
+
+
+  <p><img alt="Figure 1. The Microsoft IT environment" border="0" height="354" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cab18c22-e373-4e9c-a2ec-ecc784792b51.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="図 1. Microsoft IT 環境" width="480"></p>
+
+
+  <h4><strong>Q:</strong> この移行がどのように行われたか、およびネットワークチームがどのようにサポートしているかを簡単に把握できますか。</h4>
+
+
+  <p><strong>A:</strong> サービスとしてのプラットフォーム (PaaS) の使用を開始しました。これは、内部および外部のアプリおよびサービスソリューションに使用されていました。 PaaS は、Azure で提供された最初の主要なコンポーネントであるため、ソリューションの開発時には始めました。 初期のアプリケーションのほとんどは、Azure で完全にホストされていました。 ハイブリッドシナリオ &rsquo; は完全には開発もサポートもされていないため &rsquo; 、ソリューションに実装していません。</p>
+
+
+  <p>ただし、Azure のネットワークとサービスとしてのインフラストラクチャ (IaaS) コンポーネントが導入され、成熟 &rsquo; しているため、azure ベースのソリューションの実装方法と、それらのソリューションが相互にどのように連携するかについて、さらに柔軟性が高くなりました。</p>
+
+
+  <p>最初に、基本的な web アプリ、新しいソリューション、設計の再設計の対象となったソリューションなど、最も論理的な移行シナリオに対応する Azure 移行の戦略を採用しました。 次に、大規模な帯域幅やリソース使用量の要件を持つアプリや、規制に影響を与えたり、ビジネスに不可欠な操作を行ったりしたアプリなど、いくつかの困難なアプリを見てきました。 最後に、最も困難で費用のかかるアプリは残されています。たとえば、更新が困難なコードを持つカスタマイズされたレガシソリューションなどです。</p>
+
+
+  <p><img alt="Figure 2. Azure IT migration roadmap" border="0" height="172" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ffa8fcb1-c7a5-4fa6-b5e5-5fbbc843e207.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="図 2. Azure IT の移行のロードマップ" width="480"></p>
+
+
+  <p>ハイブリッド基幹業務 (LOB) アプリの主要なイネーブラーとして、ExpressRoute が追加されました。これにより、Azure テナントは自社のデータセンターから Azure へのプライベートな専用接続を取得できるようになります。また、azure IaaS の成熟は、インフラストラクチャのコンポーネントを変更することなく、オンプレミスのインフラストラクチャを使用して直接 Azure でホスト また、Office 365 などのソリューションとしてのソフトウェア (SaaS) ソリューションとして広く採用されています。</p>
+
+
+  <p>主なサポートチャネルは、ハイブリッドソリューションに必要な接続を容易にすることです。 ExpressRoute を通じてバックエンドで接続が多く、データセンターを Azure に接続するために必要な構成と管理を行いますが、Azure 内のネットワークも管理します。 クラウドとオンプレミスの組み合わせでは、セキュリティとコンプライアンスに関する重要な考慮事項がいくつかあります。また、クラウド内のデータとインフラストラクチャが、自社のデータセンターにあるのと同じようにセキュリティで保護されていることを確認し &rsquo; ています。 ほとんどの Azure アプリとサービスは、一部のインターネットタッチポイントから入手できます。そのため、ソリューション内でフロントエンドとバックエンドの間を区切ること &rsquo; が重要です。 &rsquo;私たちは、パブリックインターネットに公開されている IaaS でのインフラストラクチャの生きを望んでいません。</p>
+
+
+  <h4><strong>Q:</strong> この取り組みによって課題は変化していますか。</h4>
+
+
+  <p><strong>A:</strong>&rsquo;常に変化しています! 変更はクラウド &rsquo; の特性であり、実際に直面した最初の課題です。ソリューション、プロセス、およびメソッドは、Azure では流動的で変更されていることを理解しています。 機能の継続的なストリームが提供され、変更されています。ソリューションにとっては重要ではないものもあれば、ゲームチェンジャーになるものもあります。</p>
+
+
+  <p>Azure に接続するには、データセンターの観点から、またはユーザーの観点から、さまざまな方法があることを理解しています。 可能な限り、Azure のアプリケーション所有者が、お客様のアプリをデータセンターと顧客に接続する方法を選択できます。</p>
+
+
+  <p>組織では、 &rsquo; 最初にクラウドに専念するための戦略を変更する方法を習得する必要がありました。 Azure で LOB アプリをホストすることは、アプリの使用方法とサポート方法に関する基本的な変更です。 私たち &rsquo; は、お客様のアプリケーション所有者と顧客 &rsquo; との間でサポートおよび通信チャネルを開いたままにすることを目指しています。クラウドの性質と、それによってビジネスにとっての意味を理解することが重要です。 クラウド優先のモバイル優先戦略では、すべてが Azure に最初に送られることを意味します。これ &rsquo; は、CEO、Satya Nadella、およびその他の組織の spearheaded によってカスケードされている文化の変化です。 クラウド戦略の継続的な進化に焦点を当てた、優れた <a href="https://www.microsoft.com/itshowcase/Article/Content/697/Microsoft-IT-cloud-computing-strategies-continue-to-evolve">記事</a> があります。</p>
+
+
+  <p>技術的な観点からは、環境の円滑なと一致する方法で Azure リソースを管理するためのツールとプロセスが多数用意されています。 Azure Resource Manager (ARM) の統合は、Azure 内でのソリューション管理と構成の一元化と標準化に不可欠でした。 リソースグループと ARM テンプレートは、適切に構成するために必要な機能を提供し、アプリの要件や Azure の機能に対する変更によって、適切に構成されていることを確認します。 技術的と logistically の両方で、データセンターと Azure の両方を同時に維持すること &rsquo; は、非常に困難です。 Azure への移行は定数ストリームであるため、データセンターと Azure 環境の構成は一定の流束になります。 しばらくの間に繰り越される長いレガシテールが用意されています。そのため、Azure とオンプレミス環境の間の通信を可能な限り事前に提供し、管理する必要があります。また、両方を効果的に使用する方法について、テナントとユーザーを教育する必要があり &rsquo; ます。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>このシリーズの他のブログ記事:</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/supporting-network-architecture-that-enables-modern-work-styles/"><em>最新の作業スタイルを有効にするネットワークアーキテクチャのサポート</em></a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/engineering-the-move-to-cloud-based-services/"><em>クラウドベースのサービスへの移行のエンジニアリング</em></a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/cloud-first-mobile-first-microsoft-moves-to-a-fully-wireless-network/"><em>クラウドファースト、モバイルファースト: Microsoft が完全なワイヤレスネットワークに移行</em></a></li>
+  </ul>
+
+
+  <p>Microsoft IT がネットワークアーキテクチャをどのように進化させているかについては、 <a href="https://www.microsoft.com/itshowcase/Article/Content/648/Architecting-your-network-for-successful-Azure-adoption">こちら</a>を参照してください。</p>

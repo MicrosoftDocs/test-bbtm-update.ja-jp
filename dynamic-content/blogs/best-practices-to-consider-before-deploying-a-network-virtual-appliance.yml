@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 65a1386314024baf4cea52993f16b6ec64ae1f1f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896121"
+Slug: best-practices-to-consider-before-deploying-a-network-virtual-appliance
+Title: ネットワーク仮想アプライアンスをデプロイする前に考慮する必要があるベスト プラクティス
+Summary: ネットワーク仮想アプライアンス (NVA) は、主にネットワーク関数の仮想化に重点を置く仮想アプライアンスです。 一般的なネットワーク仮想アプライアンスには、ファイアウォール、WAN オプティマイザー、アプリケーション配信コントローラー、ルーター、ロード バランサー、IDS/IPS、プロキシ、SD-WAN エッジなど、4 から 7 の機能のさまざまなレイヤーが含まれます。
+Content: >-
+  <p>ネットワーク仮想アプライアンス (NVA) は、主にネットワーク関数の仮想化に重点を置く仮想アプライアンスです。 一般的なネットワーク仮想アプライアンスには、ファイアウォール、WAN オプティマイザー、アプリケーション配信コントローラー、ルーター、ロード バランサー、IDS/IPS、プロキシ、SD-WAN エッジなど、さまざまなレイヤー 4 から 7 の機能が含まれます。 パブリック クラウドではこれらの機能の一部がネイティブで提供される場合があります。一般的に、独立系ソフトウェア ベンダー (ISV) からネットワーク仮想アプライアンスをデプロイしているお客様を確認します。 パブリック クラウドでこれらの機能を使用すると、ハイブリッド ソリューションが有効になります。一般 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/category/networking?page=1" target="_blank">に</a>、パブリック クラウドからAzure Marketplace。</p>
+
+
+  <h2>クラウド内のネットワーク仮想アプライアンスは正確に何ですか?</h2>
+
+
+  <p>ネットワーク仮想アプライアンスは、多くの場合、Linux カーネルで構成される完全な Linux 仮想マシン (VM) イメージであり、ユーザー レベルのアプリケーションとサービスが含まれます。 VM が作成されると、まず Linux カーネルを起動してシステムを初期化し、ネットワーク仮想アプライアンスを機能させるのに必要なアプリケーションまたは管理サービスを起動します。 クラウド プロバイダーはコンピューティング リソースを担当し、ISV は仮想アプライアンスのソフトウェア スタックを表すイメージを提供します。</p>
+
+
+  <p>標準の Linux ディストリビューションと同様に、Linux カーネルは NVAs&rsquo; イメージに不可欠であり、多くの場合、カスタマイズされた ISV によって提供されます。 カーネル自体には、仮想マシンで使用できるすべてのネットワーク デバイスとディスク デバイスに必要なドライバーが含まれています。 NVAs&rsquo; カーネルに対して行われたバージョンとカスタマイズは、多くの場合、仮想マシンのパフォーマンスと機能に影響します。Linux &ldquo; と高速ネットワークの詳細については、高速ネットワークを使用した <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fvirtual-network%2Fcreate-vm-accelerated-networking-cli&amp;data=02%7C01%7Creyandap%40microsoft.com%7C5de313ff164f42ce46bd08d67b457ae2%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636831935668168822&amp;sdata=VBpx%2BqORSMmsF50JzdZ9Sr%2FSCvcqSNh%2FVzBDc6uC0iA%3D&amp;reserved=0" target="_blank">Linux</a>&rdquo; 仮想マシンの作成に関するドキュメントを参照してください。パフォーマンスの向上や完全に新しいネットワーク機能など、Azure プラットフォームに新しいネットワーク拡張機能が追加された場合、ISV では、これらの機能強化のサポートを提供するためにソフトウェア イメージを更新する必要がある場合があります。 多くの場合、アップストリームの Linux プロジェクトから Linux カーネルのバージョンを更新する必要があります。 最新の更新プログラムについては、 <a href="https://www.kernel.org/" target="_blank">Linux カーネル アーカイブの Web サイトを参照</a> してください。</p>
+
+
+  <p>アプリケーションで公開されている NVA イメージはすべて、Azure Marketplaceのテストとオンボードのワークフローを実行します。 Azure&rsquo; の継続的インテグレーションとデプロイのライフ サイクルの一環として、NVA イメージは、回帰や問題について実稼働前環境でデプロイおよびテストされます。 ISV は、特定の製品のデプロイ ガイドラインと <a href="https://www.github.com/" target="_blank">GithHub</a> Azure Resource Manager (ARM) テンプレートを公開する責任を負います。 アプライアンスの技術仕様とパフォーマンス仕様は ISV によって所有され、Microsoft はホスト環境の技術仕様とパフォーマンス仕様を所有しています。 お客様の仮想アプライアンス&rsquo;、ITS&rsquo; 機能、推奨される OS バージョン、カーネル バージョン、およびセキュリティ更新プログラムのテクニカル サポートは、ISV によって提供されます。</p>
+
+
+  <p>NVA ソリューションの価格は、製品の種類と発行元の仕様によって異なる場合があります。 ソフトウェア ライセンス料金とMicrosoft Azure使用コストは、Azure サブスクリプションを通じて個別に課金されます。 詳細については、仮想アプライアンスと Azure Marketplace に関連する <a href="https://azure.microsoft.com/en-us/marketplace/faq/" target="_blank">Marketplace の FAQ</a> の一覧を参照してください。</p>
+
+
+  <p>オンプレミス ネットワークを Azure に拡張するハイブリッド ネットワークの例を次に示します。 非武装地帯 (DMZ) は、NVA を含むオンプレミスと Azure の間の境界ネットワークを表します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2db17e69-d2fa-4950-8a27-d117e9496f3e.png"><img alt="Flowchart example of a hybrid network that extends an on-premises network to Azure" border="0" height="491" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/77ad3006-fea7-45a5-b92f-49e37843e2fb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="オンプレミス ネットワークを Azure に拡張するハイブリッド ネットワークのフローチャートの例" width="1446"></a></p>
+
+
+  <p>次に示すもう 1 つの例は、NVA と Azure Virtual WAN。 Virtual WAN ハブ&ldquo;からネットワーク仮想アプライアンスへのトラフィックをルーティングする方法の詳細については、ネットワーク仮想アプライアンスへのトラフィックを管理する仮想ハブ ルート テーブルの作成に関するドキュメントを参照してください。<a href="https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-route-table" target="_blank"></a>&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45447616-f3a5-47b9-bcb9-9834c98676ba.png"><img alt="Flowchart example of NVA with Azure Virtual WAn" border="0" height="511" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89a112a2-8c8e-45a7-8d5c-c152802c4a44.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Virtual WAn を使用した NVA のフローチャートの例" width="1399"></a></p>
+
+
+  <h2>一般的なベスト プラクティス</h2>
+
+
+  <p>Microsoft は引き続き複数の ISV と共同作業を行い、Microsoft のお客様のクラウド エクスペリエンスを向上しています。</p>
+
+
+  <ul>
+   <li><strong>Azure 高速ネットワークの</strong>サポート: Azure&rsquo; の高速ネットワーク機能を使用して、サポートされている VM の種類の 1 つで使用できる仮想アプライアンスを検討します。 高速ネットワークによって、VM との間でシングル ルート I/O 仮想化 (SR-IOV) が可能になり、ネットワークのパフォーマンスが大幅に向上します。 この高パフォーマンス パスは、ホストをデータパスからバイパスし、サポートされている VM の種類で最も要求の厳しいネットワーク ワークロードで使用する待機時間、ジッター、CPU 使用率を削減します。 高速ネットワークは、2つ以上の vCPUs を備えた、汎用目的およびコンピューティングに最適化されたインスタンスサイズのほとんどでサポートされています。 サポートされている OS &ldquo; の一覧と追加情報については、「高速ネットワークを使用して仮想Windows仮想マシンを作成する<a href="https://docs.microsoft.com/en-us/azure/virtual-network/create-vm-accelerated-networking-powershell" target="_blank">」を参照してください</a>。&rdquo;&nbsp;</li>
+   <li><strong>マルチ NIC のサポート</strong>: ネットワーク <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface" target="_blank">インターフェイス</a> (NIC) は、VM と仮想ネットワーク (VNet) の間の相互接続です。 VM には少なくとも 1 つの NIC が必要ですが、作成する VM のサイズに応じて複数の NIC を使用できます。 各 VM サイズが Windows と Linux &ldquo; に対してサポートする NIC の数については、ドキュメント「Azure の Windows 仮想マシンのサイズ」または<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes" target="_blank">「Azure</a>&rdquo; &ldquo;&rdquo; の <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes" target="_blank">Linux</a> 仮想マシンのサイズ」を参照してください。多くのネットワーク仮想アプライアンスでは、複数の NIC が必要です。 複数の NIC を使用すると、さまざまな NIC 間でさまざまな種類のトラフィックを分離することで、ネットワーク トラフィックをよりよく管理できます。 良い例として、管理プレーンからデータ プレーン トラフィックを分離し、少なくとも 2 つの NIC をサポートする VM があります。 VM には、VM のサイズが対応できるだけの数のネットワーク インターフェイスしか接続できません。 NVA の展開後に NIC の追加を検討している場合は、NIC で IP 転送を有効にしてください。 この設定により、Azure&#39;ネットワーク インターフェイスのソースと宛先のチェックが無効になります。 ネットワーク インターフェイスの IP 転送を有効にする方法の詳細については、<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fvirtual-network%2Fvirtual-network-network-interface%23enable-or-disable-ip-forwarding&amp;data=02%7C01%7Cv-jujame%40microsoft.com%7C510821e5cfc24ad0f50e08d68879af8f%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636846453552702577&amp;sdata=DUbp%2BaMbkB0rJZ%2Bh%2ByP2JA4KftdZNBXW1LtleY%2BLGFc%3D&amp;reserved=0" target="_blank">こちら</a>をご覧ください。</li>
+   <li><strong>HA ポートと Azure Load Balancer</strong>: Azure Standard Load Balancer を使用すると、内部ロード バランサーを使用するときに、すべてのポートで TCP フローと UDP フロー&#39;同時に負荷分散できます。 高可用性 (HA) ポート負荷分散規則は、内部負荷分散規則に構成された負荷分散規則の一種Standard Load Balancer。 内部ロード バランサーのバック エンド プールに NVA インスタンスを追加し、HA ポートのロード バランサー規則を構成するだけで、これらの目標を達成するために、NVA を信頼性と高可用性にしたいと考えています。 HA ポートの概要の詳細については、ドキュメント「高可用性ポートの概要 &ldquo;<a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-ha-ports-overview" target="_blank">」を参照してください</a>。&rdquo;</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c99b6831-5160-4192-83f0-eb8e190bd4ea.png"><img alt="Flowchart example of HA Port with Azure Load Balancer" border="0" height="569" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4580ba09-6d3e-4c7d-92a6-f26e572ab077.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="HA ポートとポートのフローチャートAzure Load Balancer" width="972"></a></p>
+
+
+  <ul>
+   <li><strong>仮想マシン (VMSS)</strong> のVirtual Machine Scale Sets: Azure Virtual Machine Scale Sets、同一の負荷分散された VM のグループを作成および管理できます。 VM インスタンスの数は、需要または定義されたスケジュールに応じて自動的に増減できます。 スケール セットは、アプリケーションの高可用性を実現します。また、多数の VM の一元的な管理、構成、更新を可能にします。 スケール セットは、仮想マシンをベースに構築されます。 スケール セットには、アプリケーションの実行とスケーリングを行うための管理レイヤーと自動化レイヤーがあります。 詳細については、仮想マシン スケール セットに &ldquo;<a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview" target="_blank">関するドキュメントを参照してください</a>。&rdquo;</li>
+  </ul>
+
+
+  <p>企業がミッション クリティカルなワークロードをクラウドに移行する中で、デプロイ、管理、スケーリング、監視が容易な包括的なネットワーク サービスを検討することが重要です。 クラウドのすべての利点をネットワークニーズと組み合わせて提供できる最適なネットワーク仮想アプライアンス エクスペリエンスを提供できるよう、私たちは完全にコミットしています。 ネットワークを設計するときに、仮想アプライアンスを選択することが重要な決定になる場合があります。 使いやすく、スケーリングし、より良い未来を共に提供するために、お客様がこれを確実に行いたいと考えています。</p>
+
+
+  <h2>その他のリンク</h2>
+
+
+  <ul>
+   <li><a href="https://support.microsoft.com/en-us/help/2941892/support-for-linux-and-open-source-technology-in-azure" target="_blank">Azure での Linux とオープン ソース テクノロジのサポート</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/dmz/nva-ha" target="_blank">高可用性のネットワーク仮想アプライアンスをデプロイする</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/" target="_blank">Azure リファレンス アーキテクチャ</a></li>
+  </ul>

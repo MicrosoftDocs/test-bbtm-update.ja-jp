@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0668abe899d7ad862b663d72a994f4fa2ada42a1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896701"
+Slug: manage-rdp-and-ssh-connectivity-at-scale-with-azure-bastion
+Title: Azure 要塞を使用した大規模な RDP と SSH 接続の管理
+Summary: セキュリティは、クラウドサービスに対するユーザーと管理者の接続性を備えています。 企業がミッションクリティカルなアプリケーションをクラウドに移行し続けるにつれて、セキュリティで保護された、スケーラブルで信頼性の高いリモートパブリック接続とジャンプボックスサービスが必要になります。
+Content: >-
+  <h2>大規模なリモート接続を安全に管理 &nbsp;</h2>
+
+
+  <p>セキュリティは、クラウドサービスに対するユーザーと管理者の接続性を備えています。 企業がミッションクリティカルなアプリケーションをクラウドに移行し続けるにつれて、セキュリティで保護された、スケーラブルで信頼性の高いリモートパブリック接続とジャンプボックスサービスが必要になります。 このシフトによって、企業は、仮想マシン (Vm) およびアプリケーションを実行しているクラウドインフラストラクチャ上でパブリック IP アドレスを公開しなくなり、ユーザー接続を容易にするために、管理されたジャンプボックスサービスに依存しています。 基本的に、リモート接続とマネージジャンプボックスサービスは、次の4つのコア機能を提供する必要があります。</p>
+
+
+  <ol>
+      <li>セキュリティで保護されたパブリックアクセス。ターゲットアプリケーションへのパブリック IP アドレスとエントリポイントの公開を最小限に抑えます。</li>
+      <li>ローカルまたは接続された仮想 (プライベート) ネットワーク間の接続を管理する単一のデプロイ。</li>
+      <li>同時リモート接続数を管理するインフラストラクチャスケーリング機能。</li>
+      <li>インフラストラクチャでのメトリック、監視、およびアラート機能により、リモート接続が容易になります。</li>
+  </ol>
+
+
+  <h2>セキュリティで保護されたパブリックアクセス</h2>
+
+
+  <p>従来の (オンプレミスの) ジャンプボックスソリューションは、多くの場合、信頼度の低い管理ネットワークにデプロイされます。 このネットワークは、アプリケーションサービスとプライベートエンドポイントを含むローカルネットワークとは別のものです。 ジャンプボックスソリューションのパブリック IP アドレスは、管理ネットワークで定義され、アプリケーションへの接続とターゲットローカルネットワーク内のプライベートエンドポイントは、仮想プライベートネットワーク (VPN) ソリューションによって有効になります。 その後、ユーザーは管理ネットワークのジャンプボックスソリューションのプライベート IP アドレスに接続し、VPN 接続経由で宛先アプリケーションへのリモート接続を確立します。 また、一部の企業では、アプリケーションを管理ネットワークにデプロイし、ターゲットアプリケーションをホストする Vm でパブリック IP アドレスを公開しています。また、ユーザーはリモートデスクトッププロトコル (RDP) と Secure Shell (SSH) 接続をアプリケーションに直接確立します。 ただし、この方法では、リモートユーザー接続を必要とするすべての VM にパブリック IP アドレスをスケールアウトすることで、潜在的な攻撃対象領域が広がります。 最終的に、企業のワークロードには、信頼されたセキュリティで保護されたアクセスの必要性が不可欠です。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/azure-bastion/" target="_blank">Azure 要塞</a> は、完全に管理されたサービスとしてのジャンプボックスであり、ローカルまたはピアリングされた Azure 仮想ネットワークにデプロイされた vm に対して、セキュリティで保護された RDP と SSH 接続を提供します。 リモート接続は、azure Portal からトランスポート層セキュリティ (TLS) 接続を介して Azure 要塞のパブリック IP アドレスに直接確立されます。 そこから、Azure 要塞は、ローカルまたはピアリングされた Virtual Network 内のターゲット Vm のプライベート IP アドレスに RDP および SSH セッションを確立します。 顧客が仮想ネットワークに追加の Vm をデプロイすると、Azure 要塞は、単一のパブリック IP アドレスを使用して、既存の Vm と新しく構成された Vm の両方へのリモート接続を容易にします。 さらに、お客様は、ネットワークセキュリティグループ (NSGs) を構成して、Azure 要塞のパブリック IP アドレスへの受信パブリックアクセスを制限することで、より安全なアクセス境界を作成することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0ac15018-aea8-4d89-aeab-374692febbb0.png"><img alt="Azure Bastion Architecture Overview." height="565" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a380e21f-b1a6-457b-94c5-1fd1b800db63.png" style="margin-right: auto; margin-left: auto; display: block;" title="" width="1024"></a></p>
+
+
+  <h2>ローカルまたは接続された仮想ネットワーク間の接続を管理する単一のデプロイ</h2>
+
+
+  <p>多くの場合、最新の企業は、アプリケーションサービスの構築時にハブアンドスポークトポロジを利用しています。 この種類のアーキテクチャでは、管理ネットワーク仮想アプライアンス (Nnas) とジャンプボックスサービスをハブネットワークに一元化し、アプリケーションを接続されているスポークネットワークに展開します。 その後、アプリケーショントラフィックは、ターゲットスポークアプリケーションに到達する前にハブネットワークを通過します。</p>
+
+
+  <p>Azure 要塞と Virtual Network ピアリングを使用すると、お客様は Azure 内のハブアンドスポークアーキテクチャから引き続きリモート接続を実現できます。 具体的には、Azure 要塞をハブ Virtual Network にデプロイし、スポークネットワークでアプリケーション Vm を構成することができます。 お客様がハブとスポークのネットワークの間で Virtual Network ピアリングを構成すると、Azure 要塞はローカル Virtual Network ハブ内の Vm への RDP および SSH 接続を管理できます。また、ピア全体をアプリケーションスポークの仮想ネットワーク内の Vm に接続することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4fb79cf-357a-4764-afdc-ac9e76c845e0.png"><img alt="Hub-and-spoke network architecture." border="0" height="410" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63dfc2ff-f0d9-4a9f-ab37-02200e4a7b0f.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="1024"></a></p>
+
+
+  <h2>インフラストラクチャのスケーリング機能</h2>
+
+
+  <p>企業がミッションクリティカルなワークロードをクラウドに移行する主な理由の1つは、サービスとしてのプラットフォーム (PaaS) インフラストラクチャスケーリング機能を利用することです。 具体的には、ボタンをクリックすると、インフラストラクチャをスケールアップおよびスケールアウトして、アプリケーションへの需要やトラフィックの増加に対応できます。 さらに、お客様が追加のアプリケーションをスポークネットワークにデプロイすると、ハブネットワークを通過するトラフィックの量が増加します。 その結果、ハブネットワークにデプロイされた nnna とジャンプボックス services を促進するインフラストラクチャは、追加のワークロードを提供するために拡張できる必要があります。</p>
+
+
+  <p>Azure 要塞では、手動によるホストスケーリングがサポートされるようになりました。 お客様が標準の Azure 要塞をデプロイする場合は、2 ~ 50 のスケールユニットを構成できます。 さらに、リソースの作成後に、Azure 要塞構成ブレードでインスタンスの数を管理できます。 RDP と SSH は、使用量ベースのプロトコルです。 同時セッションの数と各セッションのワークロードによっては、アプリケーションの接続を提供するために追加のインスタンスをスケールアウトすることが必要になる場合があります。 具体的には、ユーザーが追加のアプリケーションをスポークネットワークにデプロイするか、ハブネットワークに追加のスポークネットワークをピアリングすると、Azure 要塞接続を維持するためにホストインスタンスのスケールアウトが必要になる場合があります。 最終的に、Virtual Network ピアリングとホストスケーリングの両方をサポートすることで、Azure 要塞はリモート接続をグローバルに管理できます。</p>
+
+
+  <h2>メトリックの監視とアラート</h2>
+
+
+  <p>クラウドサービスのもう1つの重要な利点は、サービスとしてのインフラストラクチャ (IaaS) および PaaS リソースのパフォーマンス、可用性、およびトラフィックに関するほぼリアルタイムのメトリック、監視、アラートです。 多くの場合、企業は、これら3つのカテゴリに含まれるメトリックに対するカスタムアラートを監視して有効にすることで、パフォーマンスの問題 &mdash; を事前に検出し、さらに重要な点として、アプリケーションの需要が増すにつれてインフラストラクチャサービスをスケールアウトする &nbsp; ことができます。</p>
+
+
+  <p>Azure 要塞と Azure Monitor を使用すると、お客様は可用性、パフォーマンス、およびトラフィックのメトリックに関するアラートを有効にすることができます。 これらの機能により、顧客は、中央処理装置 (CPU) 使用率、メモリ使用率、セッション数を監視し、ホストインスタンス別に分割して、ホストインスタンスをスケールアウト &nbsp; するタイミングを測定できます。</p>
+
+
+  <p>サポートされているメトリックの完全なビューについては、「 <a href="https://docs.microsoft.com/azure/bastion/howto-metrics-monitor-alert" target="_blank">Azure Monitor を使用して Azure 要塞の監視とメトリックを構成する方法</a>」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a58bf3c-ab02-46e5-a282-fe9a3edd28ee.png"><img alt="Monitoring and Metrics for Azure Bastion within Azure Monitor." height="589" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81ae9be9-a5ec-434c-bcc8-d3a9d4a42f86.png" style="margin-right: auto; margin-left: auto; display: block;" title="" width="1024"></a></p>
+
+
+  <h2>ボタンをクリックしてインフラストラクチャをデプロイ、管理、監視する</h2>
+
+
+  <p style="margin-bottom:11px">Azure 要塞に対するこれらの変更により、お客様は、大規模なアプリケーションへの安全なリモート接続を確実に管理できるようになりました。 企業が運用ワークロードをクラウドに移行し続けるにつれて、クラウドプロバイダーは、基盤となるプラットフォームのメリットを顧客に公開する PaaS サービスに投資する必要があります。 最終的には、インフラストラクチャの展開、管理、および監視を、ボタン &mdash; をクリックして実行することで、インフラストラクチャをアプリケーション開発に費やしていました。</p>
+
+
+  <p style="margin-bottom:11px">新しい Azure 要塞 Standard SKU とホストスケーリング機能の詳細については、 <a href="https://docs.microsoft.com/azure/bastion" style="color:#0563c1; text-decoration:underline" target="_blank">Azure 要塞のドキュメント</a>を参照してください。</p>
+
+
+  <p style="margin-bottom:11px">その他のリソース:</p>
+
+
+  <ul>
+      <li style="margin-left:8px"><a href="https://docs.microsoft.com/en-us/learn/modules/intro-to-azure-bastion/" style="color:#0563c1; text-decoration:underline" target="_blank">Azure 要塞の概要</a>。</li>
+      <li style="margin-bottom:11px; margin-left:8px">Azure 要塞を安全にデプロイして<a href="https://docs.microsoft.com/en-us/learn/modules/connect-vm-with-azure-bastion/" style="color:#0563c1; text-decoration:underline" target="_blank">Azure vm に接続する方法について説明</a>します。</li>
+  </ul>

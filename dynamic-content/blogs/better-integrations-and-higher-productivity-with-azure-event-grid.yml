@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2c908e56776ef3109fc7322ef53dea0ad382a0a4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895575"
+Slug: better-integrations-and-higher-productivity-with-azure-event-grid
+Title: 統合と生産性の向上を実現Azure Event Grid
+Summary: Azure Event Grid の一般提供を発表して以来、優れた導入を確認し、イベント駆動型アーキテクチャで他に何をしたいかについて良いフィードバックを受け取っています。 今日は...
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-azure-event-grid/" target="_blank">Azure Event Grid</a> の一般提供を発表して以来、優れた導入を確認し、イベント駆動型アーキテクチャで他に何をしたいかについて良いフィードバックを受け取っています。 現在、開発者エクスペリエンスの向上、Event Grid とネイティブに統合される Azure サービスの一覧の拡張、クロス クラウド相互運用を可能にする標準の導入を目的とした新機能のホストに対するパブリック プレビュー サポートをお知らせします。</p>
+
+
+  <h2>CloudEvents オープン標準サポート</h2>
+
+
+  <p>エンタープライズ ソリューション用のマルチクラウド アーキテクチャは、顧客が複数のクラウド ベンダーから最適なツールやサービスを選択し、さまざまなベンダーのパブリック クラウド プラットフォームとサービスにまたがるソリューションを構築しているという一般的な傾向でした。 お客様が、これらのマルチクラウド ソリューションで Azure サービスとリソースを統合する機能を持っている必要があります。 パブリック クラウド プラットフォーム、SaaS 企業、その他のベンダー間の相互運用性を向上させるこの取り組みの一環として、<a href="https://github.com/cloudevents/spec/blob/master/community/contributors.md" target="_blank"></a><a href="https://openevents.io/" target="_blank">CloudEvents</a> と呼ばれるイベントのオープン標準で他の多くのクラウド プロバイダーと取り組み続け、 このプロジェクトは、<a href="https://www.cncf.io/" target="_blank">Cloud Native Compute Foundation (CNCF)</a> のサーバーレスワーキング グループで作成され、最近、Azure <a href="https://aka.ms/cloudeventsblog" target="_blank"></a> が、CloudEvents のファーストクラスのサポートを提供する主要なパブリック クラウドとして初めて、InEventen の CloudNativeCon で発表しました。<a href="https://github.com/cncf/wg-serverless" target="_blank"></a></p>
+
+
+  <p>Azure Event Gridは、CloudEvents で使用可能なサポートを備える最初のパブリック クラウド サービスの 1 つであり、CloudEvents と Azure ネイティブ イベント スキーマの両方を使用してイベントを発行および使用できます。 つまり、現在、CloudEvents 形式の Azure Storage イベントを処理のために選択したサーバーレス プラットフォームに送り込むか、CloudEvents&rsquo; を Azure プラットフォームに発行する他のクラウド プラットフォーム サービスからイベントを取り込み、既に Event Grid に接続されている be beお客様の Azure Functions または Logic Apps で処理することができます。 すべてネイティブに実行されます。カスタム コードは必要とされません。</p>
+
+
+  <p>このお知らせと同じご質問がある場合は、Event Grid で <a href="https://aka.ms/cloudeventsblog" target="_blank">CloudEvents</a> をサポートする方法を確認し、試してみてください。</p>
+
+
+  <h2>イベントのカスタム スキーマによる生産性の向上とエンドポイント検証の容易化</h2>
+
+
+  <p>Azure サーバーレス プラットフォームの相互運用性の向上に関して CloudEvents&rsquo; のサポートが十分でなかった場合、Event Grid では入力マッピングがサポートされています。このマッピングにより、独自のスキーマを使用してイベント内のフィールドを Event Grid にマップし、残りの部分を処理します。 &rsquo;入力マッピングでは、ネイティブでないスキーマを使用して既存のイベントに変更を加える必要はないが、Event Grid&rsquo; s の可用性、フィルター処理、その他の機能を利用する必要がある。 現在から、入力 <a href="https://aka.ms/eginputmappings" target="_blank">マッピングがどのように機能</a> Event Grid確認してください。</p>
+
+
+  <p>セキュリティは常に機密性の高い問題であり、イベント サブスクリプションを作成するための検証プロセスはセキュリティ上不可欠です。 ただし、IFTTT&rsquo; のような一部のプラットフォームでは、検証で使用される HTTP 応答 POST の本文を変更するサポートが提供されていません。 これらのプラットフォームをサポートするために、エンドポイント検証の代替 <a href="https://docs.microsoft.com/en-us/azure/event-grid/security-authentication#webhook-event-delivery" target="_blank">形式を発表します</a>。 これは、&rsquo;既存の検証ソリューションが動作を停止するという意味ではなく、今後のすべての検証イベントには、今後の検証 URL も含まれます。 この検証 URL に対して GET 要求を行う場合は、エンドポイントも検証されます。つまり、ブラウザーにコピーして貼り付けるだけで済む可能性があります。</p>
+
+
+  <h2>新しい統合とクライアント SDK を使用した開発エクスペリエンスの向上</h2>
+
+
+  <p>エンド イベント ソースとイベント ハンドラー &ndash; の両方でAzure Event Gridの統合の数を増やします。&nbsp; これにより、既存の Azure サービスの使用状況からより多くの価値を得て、さまざまな部分を接続することで、より興味深いシナリオを構築できます。</p>
+
+
+  <p>今年の初めに、すべての <a href="https://docs.microsoft.com/en-us/azure/event-grid/event-sources" target="_blank">Azure</a> サービスを接続する目標に向けて、キューが空ではないイベントを含む <a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-to-event-grid-integration-example?toc=%2fazure%2fevent-grid%2ftoc.json" target="_blank">Service Bus</a> &ldquo;&rdquo; イベントのサポートが追加されました。これにより、プロセスをウェイクアップし、アイドル状態のキューにメッセージが入るとすぐに読み取りを開始できます。 現在、ビデオの処理と処理のさまざまな段階でアクションを<a href="https://docs.microsoft.com/en-us/media-services/latest/media-services-event-schemas" target="_blank">実行</a>できる Azure Media Services イベントのサポートをお知らせします。 また、今後数週間で新しいソースとして新しいイベントAzure Container Registry追加する予定です。</p>
+
+
+  <p>また、キューとハイブリッド接続の 2 つの<a href="https://docs.microsoft.com/en-us/azure/event-grid/event-handlers" target="_blank"></a>新しいイベント ハンドラー Azure StorageサポートAzure Relay追加されました。</p>
+
+
+  <p>Storageキューを使用&rsquo;すると、実行時間の長いジョブを処理し、エンドポイントで受信ワークロードをバッファーし、競合するコンシューマー モデルを実装できます。 同様のソリューションは、イベント ハンドラーとしてEvent Hubsを使用して実現できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-relay-hybrid-connections-ga/" target="_blank">ハイブリッド接続</a> を使用すると、WebSocket またはオンプレム サーバー アプリケーションにイベントを使用して、リアルタイムの通知を取得できます。 &rsquo;ハイブリッド接続では、パブリック HTTP エンドポイントを公開できるアプリケーションは、ハイブリッド接続への WebSocket 接続を開くだけで、Event Grid によってこれらのイベントがハイブリッド接続に配信され、アプリに自動的にリレーされます。 これは、アプリ&rsquo;がデスクトップにあるローカル コンピューティング シナリオ、またはオンプレム サービスを使用し、ファイアウォールに穴を開けたくない場合に非常に便利です。</p>
+
+
+  <p>最後に、Event Grid とのサービス統合の管理と実行を支援するために、Event Grid 用の Java 管理 SDK とクライアント SDK を紹介します。 既存の GA 機能については、安定したバージョンの .NET、Node、Python、Go、Ruby の管理 SDK とクライアント SDK もリリースしています。 新しいクライアント SDK <a href="https://docs.microsoft.com/en-us/azure/event-grid/sdk-overview" target="_blank">と更新されたクライアント SDK の一覧で</a> 、その詳細を確認してください。</p>
+
+
+  <h2>その他のリージョンでの可用性</h2>
+
+
+  <p>最後に、&hellip;東日本、西日本、オーストラリア東部、オーストラリア南東部で利用可能なリージョンが近日公開される予定です。</p>
+
+
+  <p>また、現在、Azure Functions&rsquo; に関する多くの新機能と機能強化を発表し、開発の生産性とセキュリティの向上に重点を置いてお知らせします。すべてのプラットフォームで開発者の生活を容易にし、コードという非常に重要な点に集中することができます。 「ビルドのお知<a href="https://aka.ms/funcbuild2018" target="_blank">らせAzure Functions見</a>&rsquo;て、Azure の急速に変化するサーバーレスの世界で何が起こっているかを確認します。</p>
+
+
+  <p>これらを使用してビルドするアプリケーションが表示されるのを待つ必要があります。 そのため、お気に入りのサーバーレス テクノロジを使用して最もクールな IoT アプリを構築しながら、お金を得る機会を得て、5 月 2 日から申請を受け入れ始めたサーバーレス オンライン ハッカソンで <a href="https://azurehacks.devpost.com/" target="_blank">IoT</a> に参加してください。&rsquo;&rsquo; これは、お金を獲得する機会であるだけでなく、Azure で構築している優良なサーバーレス ソリューションに関する言葉を広め、Azure ブログで優良なプロジェクトを取り上げるので、お客様を待っています。 機会&rsquo;をお見逃しなく。</p>
+
+
+  <p>Happy Eventing! Event Grid チーム</p>

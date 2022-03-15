@@ -1,0 +1,124 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e61da32c6b8ab7cd42ce9d7d80e96631086d8b64
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896783"
+Slug: get-high-performance-scaling-for-your-azure-database-workloads-with-hyperscale
+Title: ハイパースケールを使用して Azure データベースワークロードのパフォーマンスを向上させることができます。
+Summary: 現在のデータドリブン環境では、デジタル変革の推進は、大量のデータを管理し、その可能性を活用する能力に依存しています。 インテリジェントでイマーシブなアプリケーションを構築する開発者は、最終的に顧客のエクスペリエンスに影響を与えるリソースの制限によって制約される必要はありません。
+Content: >-
+  <p>現在 &rsquo; のデータドリブン環境では、デジタル変革の推進は、大量のデータを管理し、その可能性を活用する能力に依存しています。 インテリジェントでイマーシブなアプリケーションを構築する開発者は、最終的に顧客 &rsquo; のエクスペリエンスに影響を与えるリソースの制限によって制約される必要はありません。</p>
+
+
+  <p>残念ながら、リソースの制限は、アプリケーション開発者のための inescapable 現実です。 ほとんどの開発者は、データベースのコンピューティング、ストレージ、メモリの制限によってアプリケーション &rsquo; のパフォーマンスに影響を与えた時点を思い出してください。 実際には、時間とコストから、プラットフォームの制限に対する補正、ユーザビリティの待機時間の短縮、および大規模なデータ操作に関連するダウンタイムが発生しました。</p>
+
+
+  <p>NoSQL の制限は、グローバルに分散されたマルチモデルデータベースで、マルチマスターレプリケーションを使用した<a href="https://azure.microsoft.com/services/cosmos-db/">Azure Cosmos DB</a>によって既に壊れています。 また、 <a href="https://azure.microsoft.com/services/sql-data-warehouse">Azure SQL Data Warehouse</a>を使用して優れた<a href="https://azure.microsoft.com/services/sql-data-warehouse/compare/">パフォーマンス</a>を提供しています。 現時点では、アプリケーション開発者の制限をさらに排除するリレーショナルモデルである Hyperscale を使用して、アプリケーションの高パフォーマンスのスケーリング機能を提供しています。</p>
+
+
+  <h2>ハイパースケールの説明</h2>
+
+
+  <p>ハイパースケールは、コンピューティング、ストレージ、メモリ、またはこれら3つの組み合わせのいずれかを使用して、クラウドのスケーラビリティに関する一般的な制限に対処するために構築された新しいクラウドネイティブソリューションです。 どのような場合でも、アプリケーションを再設計ことなくハイパースケールを利用できます。 ハイパースケールのテクノロジ実装は、さまざまなシナリオに合わせて最適化されており、データベースエンジンによってカスタマイズされています。</p>
+
+
+  <p>公表</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li style="margin-bottom: 2px;"><a href="https://azure.microsoft.com/services/postgresql/">ハイパースケールの Azure Database for PostgreSQL</a> (プレビューで利用可能)</li>
+      <li style="margin-bottom: 2px;"><a href="https://azure.microsoft.com/services/sql-database/">Azure SQL Database ハイパースケール</a>(一般公開)</li>
+  </ul>
+
+
+  <h2>Azure Database for PostgreSQL Hyperscale</h2>
+
+
+  <p>ハイパースケール ( <a href="https://www.citusdata.com/">Citus データ</a> テクノロジを利用) は、1つのデータベースを数百のノードで水平方向にスケーリングすることによって、驚異的高速なパフォーマンスとスケールを実現することで、PostgreSQL データベースワークロードに高パフォーマンスのスケーリングをもたらします。 これにより、より多くのデータをメモリ内に格納し、数百のノードにわたってクエリを並列化し、データのインデックスを作成しやすくなります。 これにより、開発者は、大量の行を含む任意のスケール &ndash; で、データの取り込みとクエリをリアルタイムでリアルタイムで実行する必要があるワークロードシナリオを満たすことができます。 <a href="https://azure.microsoft.com/services/postgresql/">Azure Database for PostgreSQL</a>のデプロイオプションとしてのハイパースケールの追加により、インフラストラクチャとアプリケーションの設計が簡素化され、ビジネスニーズに専念するための時間が短縮されます。 ハイパースケールは PostgreSQL の最新のイノベーション、バージョン、およびツールと互換性があるため、既存の PostgreSQL の専門知識を活用できます。</p>
+
+
+  <p>また、 <a href="https://github.com/citusdata/citus">Citus 拡張機能</a>は、GitHub でオープンソースのダウンロードとして入手できます。 最新のリリースを最新の状態に保つために PostgreSQL コミュニティと提携し、開発者が生産性を維持できるように努めています。</p>
+
+
+  <p>次のような低待機時間、高スループットのシナリオでは <a href="https://azure.microsoft.com/services/postgresql/">Azure Database for PostgreSQL ハイパースケール</a> を使用します。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li style="margin-bottom: 2px;">リアルタイム運用分析の開発</li>
+      <li style="margin-bottom: 2px;">マルチテナント SaaS アプリケーションの有効化</li>
+      <li style="margin-bottom: 2px;">トランザクションアプリケーションの作成</li>
+  </ul>
+
+
+  <p><a href="https://www.citusdata.com/blog/2019/05/06/introducing-hyperscale-citus-on-azure-database-for-postgres/">ハイパースケールの</a>詳細については Azure Database for PostgreSQL を参照してください。</p>
+
+
+  <h2>Azure SQL Database Hyperscale</h2>
+
+
+  <p><a href="https://azure.microsoft.com/services/sql-database/">Azure SQL Database ハイパースケール</a>は、拡張性に優れたストレージアーキテクチャにより、データベースを必要に応じて拡張できるようになります。これにより、ストレージリソースを事前にプロビジョニングする必要がなくなります。 コンピューティングリソースとストレージリソースを個別にスケーリングすることで、ワークロードのパフォーマンスを柔軟に最適化できます。 データベースを復元したり、スケールアップまたはスケールダウンしたりするのに必要な時間は、データベース内のデータの量とは関係なく、データベースのバックアップは実質的に瞬時に行われます。 読み取りを集中的に行うワークロードでは、読み取りワークロードのオフロードのために必要に応じて追加の読み取りレプリカをプロビジョニングすることによって、迅速なスケールアウトを実現します。&nbsp;</p>
+
+
+  <p>ハイパースケール Azure SQL Database は、General Purpose と Business Critical のサービス階層を結合します。これは、さまざまなワークロードに対応するように構成されています。&nbsp;</p>
+
+
+  <ul style="margin-left: 40px; width:80%;">
+      <li style="margin-bottom: 2px;"><strong>General Purpose</strong> - は、バランスの取れたコンピューティングとストレージを提供し、最大 8 TB のストレージを備えたほとんどのビジネスワークロードに最適です。</li>
+      <li style="margin-bottom: 2px;"><strong>Business Critical</strong> - 最大 4 TB のストレージで高速 IO と高可用性を必要とするデータアプリケーション向けに最適化されています。</li>
+  </ul>
+
+
+  <p>Azure SQL Database ハイパースケールは、100 tb までのストレージを使用した OLTP および高スループット分析ワークロード向けに最適化されています。 &nbsp;拡張性の高いストレージと読み取りスケールの要件を満たし、対称型マルチプロセッサ (SMP) データベースで実行されている大規模なオンプレミスのワークロードとデータマートを移行します。 Azure SQL Database ハイパースケールは、ストレージサイズによって制限されることなく、アプリケーションの拡張の可能性を大幅に拡大します。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/sql-database/sql-database-service-tier-hyperscale">Azure SQL Database Hyperscale</a> の詳しい情報を見る。</p>
+
+
+  <p>現在発表されている SQL イノベーションは、ハイパースケールの Azure SQL Database ではありません。 Azure SQL Database では、サーバーレスの Azure SQL Database 新しいコンピューティングオプションも導入されています。 この新しいオプションを使用すると、コンピューティングとメモリをワークロードの要件に基づいて個別にスケーリングできます。 コンピューティングは自動的に一時停止および再開されるため、容量管理とコスト削減の要件が解消されます。 Azure SQL Database サーバーレスは、予期しない、または断続的なコンピューティング要件を持つアプリケーションにとってすばらしいオプションです。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/sql-database/sql-database-serverless">Azure SQL Database サーバーレス</a>の詳細については、こちらをご覧ください。</p>
+
+
+  <h2>使い慣れたツールを使用して使い慣れた環境でアプリケーションを構築する</h2>
+
+
+  <p>Azure リレーショナルデータベースは、ハイパースケールを超えて共有しています。 これらは同じプラットフォーム上に構築されており、インテリジェンスやセキュリティなどの革新的な機能をデータベース間で共有しているため、お好きなエンジンで最も生産性を高めることができます。</p>
+
+
+  <p>長年にわたり何百万ものデータベースでトレーニングされています。これらのインテリジェントな機能は次のとおりです。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li style="margin-bottom: 2px;">データベースを検査してワークロードを理解する</li>
+      <li style="margin-bottom: 2px;">ボトルネックの特定</li>
+      <li style="margin-bottom: 2px;">アプリケーションのパフォーマンスを最適化するためのオプションを自動的に推奨する&nbsp;</li>
+  </ul>
+
+
+  <p>インテリジェンスは、次のようなセキュリティ機能にも拡張されます。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li style="margin-bottom: 2px;">疑わしいアクティビティを継続的に監視する高度な脅威保護</li>
+      <li style="margin-bottom: 2px;">潜在的な脆弱性に関する迅速なセキュリティアラートを提供する</li>
+      <li style="margin-bottom: 2px;">脅威を調査して軽減する方法に関するアクションの推奨</li>
+  </ul>
+
+
+  <p>フォークされたバージョンのエンジンに依存しないため、使用 &ndash; しているツールを使用して使い慣れた環境で自信を持って開発できます。また、ハイパースケーリングされたデータベースには常に互換性があり、最新の SQL および PostgreSQL のバージョンと同期していることが保証されます。</p>
+
+
+  <h2>制限を解除する準備はできましたか?</h2>
+
+
+  <p>ハイパースケールでは、Azure SQL Database と Azure Database for PostgreSQL の両方で既存のスキルを使用して、拡張性の高い、分析アプリケーション、低待機時間のエクスペリエンスを開発することができます。 Azure データベースでハイパースケールを使用すると、アプリケーションは従来のデータベースの制限を超え、高いパフォーマンスのスケーリングを実現できます。 &rsquo;私たちが何を作成するかをお待ちしております。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li style="margin-bottom: 2px;"><a href="https://www.citusdata.com/blog/2019/05/06/introducing-hyperscale-citus-on-azure-database-for-postgres/">ハイパースケールの</a>詳細については、Azure Database for PostgreSQL を参照してください。</li>
+      <li style="margin-bottom: 2px;"><a href="https://docs.microsoft.com/azure/sql-database/sql-database-service-tier-hyperscale">Azure SQL Database ハイパースケール</a>の詳細情報</li>
+      <li style="margin-bottom: 2px;"><a href="https://docs.microsoft.com/azure/sql-database/sql-database-serverless">Azure SQL Database サーバーレス</a>の詳細情報</li>
+  </ul>

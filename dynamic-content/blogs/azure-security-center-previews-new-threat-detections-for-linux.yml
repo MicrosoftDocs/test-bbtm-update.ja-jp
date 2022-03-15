@@ -1,0 +1,41 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8f60ae05e4025755ada45798edf9a18ee39b0cfa
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895603"
+Slug: azure-security-center-previews-new-threat-detections-for-linux
+Title: Azure Security Center Linux の新しい脅威検出をプレビューする
+Summary: Azure Security Center、監査レコードを利用してクラウドおよびオンプレミスの Linux マシン上の悪意のある動作を検出する新しい分析の限定プレビューを最近開始しました。
+Content: >-
+  <p>Azure Security Center、監査レコードを利用してクラウドおよびオンプレミスの Linux マシン上の悪意のある動作を検出する新しい分析の限定プレビューを最近開始しました。 Windows マシンの Security Center 検出と同様に、これらの新機能を使用して、疑わしいプロセス、疑わしいログイン試行、カーネル モジュールの読み込み/アンロード、およびマシンが攻撃を受けたか侵害された可能性のあるその他のアクティビティを検出できます。 これらは、以前は Linux で使用できるネットワーク検出に加え、VM のWindowsに追加されます。</p>
+
+
+  <h2>しくみ</h2>
+
+
+  <p>Security Center は、auditd (最も一般的な Linux 監査フレームワークの 1 つ) を使用して Linux マシンから監査レコードを収集します。 Auditd には、長い時間を費やし、メインライン カーネルに住んでいるという利点があります。 監査システムは、2 つの主要なコンポーネントで構成されています。 1 つ目は、さまざまな操作を提供する一連のユーザー空間ユーティリティです。管理者は、規則の調整、監査ログ ファイルの分析、または正しく構成されていない場合のトラブルシューティングを行うことができます。 2 つ目は、システム呼び出しを監視し、特定のルール セットでフィルター処理し、一致メッセージをバッファーに書き込むカーネル レベルのサブシステムです。 どちらのコンポーネントも、netlink ソケットを介して通信しています。</p>
+
+
+  <p>監査レコードは収集され、イベントに集計され、最新バージョンの Linux OMS エージェントを使用して強化されます (現在、Security Center で使用されているのと同じエージェント)。 監査イベントはワークスペースに格納され、監査イベントによってSecurity Center。 脅威が検出されると、次Security Centerアラートが生成されます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da575b15-99c2-47a9-b3c5-51a1c0ed3a62.png"><img alt="SuspiciousProcessAlert" border="0" height="575" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ed6e1d86-0a50-4d53-a97d-cabf9ee38361.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SuspiciousProcessAlert" width="428"></a></p>
+
+
+  <h2>Linux 検出を有効にする方法</h2>
+
+
+  <ol>
+   <li>Standard レベルSecurity Centerにアップグレードします (まだアップグレードしていない場合)。</li>
+   <li>Linux 用 OMS エージェントのバージョン 1.4.0-12 (以降) を実行している必要があります。 OMS へのプラットフォーム移行の一環として ASC によってインストールされたエージェントは、最新のリリースを実行しています。 エージェントを手動でインストールしたお客様は、次のコマンドを実行して oms エージェントのバージョンを取得できます: dpkg -l |grep omsagent</li>
+   <li>コンピューターに auditd がインストールされていることを確認します。 通常、Red Hat のフレーバーには監査が既にインストールされますが、Debian ベースのフレーバーはインストールされていません。 バージョン 1.4.0-12 が以前に監査なしでシステムにインストールされている場合は、まず監査をインストールしてから、1.4.0-12 (以降) &ldquo;のエージェント インストーラーを --upgrade&rdquo; で再び実行すると、監査プラグインがインストールされます。 OMS エージェントが監査データ収集に関する問題を検出すると、Log Analytics 内で見つかる情報メッセージが生成されます。 メッセージの種類は &ldquo;Operation です&rdquo;。<br>
+   <br>
+  注: 監査データ収集が有効になっている場合は、一部の監査規則も有効になります。 1 つのルールにより、execve システム呼び出しの監査が有効にされます。 ほとんどのワークロードでは、監査データ収集の全体的なリソース消費量はごくわずかです。 ただし、システムに 1 秒あたり 1,000&rsquo; のプロセスを作成するワークロードがある場合、監査データ収集の CPU 使用率は、ローエンド システムでは最大 10% に達する可能性があります。</li>
+   <li>サブスクリプション ID を含む電子メールを送信して、 <a href="mailto:ASC_linuxdetections@microsoft.com">限定プレビューへの </a>参加を要求します。 次の数週間で、次の条件を満たすワークスペースで監査データ収集が自動的に有効になります。1) ノードごとの課金、2) Red Hat フレーバーマシンが含まれます。3) セキュリティ ソリューションが有効になっている、4) Linux マシンがバージョン 1.4.0-12 (以降) の OMS エージェントを実行しています。 監査を有効に <a href="mailto:ASC_linuxdetections@microsoft.com">しない場合 </a>は、電子メールを送信することもできます。</li>
+   <li>フィードバックは <a href="mailto:ASC_linuxdetections@microsoft.com">、お客様 </a>のチームSecurity Centerしてください。</li>
+  </ol>
+
+
+  <p>Security Center 脅威検出の詳細については、Security Center が SQL ブルート フォース<a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-detection-capabilities"></a>攻撃、<a href="https://azure.microsoft.com/en-us/blog/how-azure-security-center-detects-a-bitcoin-mining-attack/">ビットコイン</a> マイニング、サイバー脅威インテリジェンスを使用した <a href="https://azure.microsoft.com/en-us/blog/how-azure-security-center-detects-ddos-attack-using-cyber-threat-intelligence/">DDoS</a> 攻撃、および<a href="https://azure.microsoft.com/en-us/blog/how-azure-security-center-helps-reveal-a-cyberattack/"></a>悪意を持って使用されている優れたアプリケーションを検出する方法に関するセキュリティ研究者のドキュメントまたはケース スタディを参照してください。<a href="https://azure.microsoft.com/en-us/blog/how-azure-security-center-aids-in-detecting-good-applications-being-used-maliciously/"></a></p>

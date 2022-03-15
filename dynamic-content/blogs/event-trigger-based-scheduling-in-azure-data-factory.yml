@@ -1,0 +1,52 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 19b170579262ff8e08a8c27362ed32d1eaab29cd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896801"
+Slug: event-trigger-based-scheduling-in-azure-data-factory
+Title: Azure Data Factory とのイベントトリガーベースのデータ統合
+Summary: イベントドリブンアーキテクチャ (EDA) は、実稼働、検出、使用、およびイベントへの対応を含む一般的なデータ統合パターンです。 現時点では、Azure Data Factory (ADF) パイプラインでイベントベースのトリガーがサポートされることが発表されています。
+Content: >-
+  <p>イベントドリブンアーキテクチャ (EDA) は、実稼働、検出、使用、およびイベントへの対応を含む一般的なデータ統合パターンです。 現時点では、 <a href="https://docs.microsoft.com/en-us/azure/data-factory/" target="_blank">Azure Data Factory</a> (ADF) パイプラインでイベントベースのトリガーがサポートされることが発表されています。</p>
+
+
+  <p align="center"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="364" src="https://www.youtube.com/embed/LTsvOPB4k9I?rel=0" width="610"></iframe></p>
+
+
+  <p>大量のデータ統合シナリオでは、data factory のお客様がイベントに基づいてパイプラインをトリガーする必要があります。 一般的なイベントとしては、ファイルのランディングや azure storage での削除などがあります。 これで、data factory パイプラインでイベントベースのトリガーを作成できるようになりました。</p>
+
+
+  <p><img alt="image" border="0" height="364" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ff1fe576-05c4-46d7-847e-ffeda788619a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image" width="610"></p>
+
+
+  <p>ストレージの場所にファイルが到着するとすぐに、対応する blob が作成されると、data factory パイプラインがトリガーされ、実行されます。 Data factory パイプラインでは、blob の作成、blob の削除、またはその両方でイベントベースのトリガーを作成できます。</p>
+
+
+  <p><img alt="image" border="0" height="363" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e67e56e6-4333-4daa-a56b-d3abd61113a2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image" width="610"></p>
+
+
+  <p>&ldquo; <strong>Blob パスがで &rdquo; </strong> &ldquo; 始まり、 <strong>blob パスの末尾 &rdquo; </strong>がプロパティである場合は、イベントを受信するコンテナー、フォルダー、および blob の名前を指定できます。 さまざまなパターンを &ldquo; 使用することもできます。この場合、blob パスは<strong>で &rdquo; 始まり</strong>、 <strong> &ldquo; blob パスはプロパティで &rdquo; 終わり</strong>ます。 少なくとも、これらのプロパティのいずれかが必要です。</p>
+
+
+  <p><img alt="image" border="0" height="362" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74ea48a0-d5a2-4f7f-8e47-a1033144cf54.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image" width="610"></p>
+
+
+  <p>例:</p>
+
+
+  <ul>
+   <li><b>Blob パスの先頭 (</b>/containername/<b>)</b> &ndash; は、コンテナー内の任意の blob のイベントを受け取ります。</li>
+   <li><b>Blob パスの先頭 (</b>/containername/blobs/foldername<b>)</b> &ndash; は、containername コンテナーと foldername フォルダー内の任意の blob のイベントを受け取ります。</li>
+   <li><b>Blob パスの先頭が (</b>/containername/blobs/foldername/file.txt<b>)</b> &ndash; は、file.txt という名前の blob のイベントを、containername コンテナーの下の foldername フォルダーに受信します。</li>
+   <li><b><b>Blob のパスが (</b></b>file.txt<b>)</b> &ndash; で終わっていますは、任意のパスで file.txt という名前の blob のイベントを受け取ります。</li>
+   <li><b>Blob パスの末尾が (</b>/containername/blobs/file.txt<b>)</b> &ndash; は、コンテナー containername の file.txt という名前の blob のイベントを受け取ります。</li>
+   <li><b><b>Blob のパスが (</b></b>foldername/file.txt<b>)</b> &ndash; で終わっていますは、任意のコンテナーの下にある [foldername] フォルダー内の file.txt という名前の blob のイベントを受け取ります。</li>
+  </ul>
+
+
+  <p>私たちの目標は、機能を追加し、Data Factory ツールの使いやすさを向上させることです。 <a href="https://go.microsoft.com/fwlink/?linkid=874554" target="_blank">Data factory のイベントベースのトリガー</a>の詳細と詳細な手順については、こちらを参照してください。</p>
+
+
+  <p>Azure Data Factory を使用して、簡単かつ迅速に<a href="https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal">パイプラインの構築を開始しましょう</a>。 機能に関する要望がある場合、またはフィードバックを提供する場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory" target="_blank">Azure Data Factory フォーラム</a>にアクセスしてください。</p>

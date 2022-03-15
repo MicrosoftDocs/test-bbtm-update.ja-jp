@@ -1,0 +1,140 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 155e95c7536d13f0fba6e608a89aefa768018c1b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896738"
+Slug: implement-an-application-insights-telemetry-processor
+Title: Application Insights 機能拡張を使用してネットワークの正常性を調査する
+Summary: この投稿では、アプリケーションのリモート依存関係に対して実行中のネットワーク層テストを実行するカスタムテレメトリプロセッサを実装することによって提供される既定の Application Insights 機能について説明します。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-overview/">Application Insights</a> (ai) は、ポータルに送信される前に、ai SDK によって生成された各データポイントを検査、フィルター処理、および変更できるようにする<a href="https://azure.microsoft.com/en-us/blog/request-filtering-in-application-insights-with-telemetry-processor/">テレメトリプロセッサ</a>機能をリリースしました。 この機能を使用してプレイし、実行時にアプリケーション &rsquo; のリモート依存関係を識別するためのプログラムソリューションを提供していることがわかり &rsquo; ました。 これにより、アプリケーション &rsquo; の依存関係に対してネットワーク診断テストを実行するカスタム拡張機能を実装できるようになりました。 結果として得られるデータは、AI &rsquo; s の既定のテレメトリを拡張して補完します。 テレメトリプロセッサの柔軟性と豊富さにより、多くのシナリオが可能になりますが、ネットワークの正常性については、最初に指摘したものです。 この投稿では、プロジェクトから学んだ &rsquo; ことを共有しています。</p>
+
+
+  <h2>概要</h2>
+
+
+  <p>1つのリモート HTTP 依存関係を持つ単純な ASP.NET プロジェクトを作成し、履歴の値をフェッチしました。 このアプリケーションは AI SDK を使用してインストルメント化され、ping メッシュ &rdquo; テレメトリプロセッサ拡張機能を実装 &ldquo; します。この拡張機能では、ai リモート依存データ (RDD) イベントを検査し、個別の uri を解析し、一連の TCP ポート ping を実行します。 次に、診断結果が AI メトリックとして送信されます。これは、リモートの依存関係がネットワークに関連しているかどうかを特定するのに役立ちます。 このテレメトリの価値は、パフォーマンスの低下や障害についてネットワークを implicate したり、問題がそのスタックより高くなっていることを明確にしたりするのに役立ちます。</p>
+
+
+  <h2>目標</h2>
+
+
+  <ol>
+   <li>カスタム AI テレメトリプロセッサ拡張機能を登録して、個々の AI テレメトリイベントを処理する方法について説明します。</li>
+   <li>AI &rsquo; s リモート依存関係テレメトリイベントを使用して、実行時にアプリケーションの依存関係を動的に識別する方法を示します。</li>
+   <li>AI SDK 内でカスタムコードを統合して、依存関係のネットワークの正常性とパフォーマンスを評価する方法について説明します。</li>
+   <li>カスタムテレメトリを AI アプリケーションに記録する方法を示します。</li>
+  </ol>
+
+
+  <h2>実装の概要</h2>
+
+
+  <p>Application Insights SDK を使用すると、ai 処理パイプラインに統合されているカスタム拡張機能を登録して、ai によって生成された各テレメトリ項目を処理することができます。 この例では、アプリケーションのリモートの依存関係を決定することに関心があるため、アプリケーションがリモートエンドポイントを呼び出すたびに生成される AI &rsquo; s リモート依存関係イベントを処理します。 次の図は、このソリューションの簡略化されたフローを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67a03983-2bd2-492f-908c-7e496e00b376.png"><img alt="2016-05-18_19h11_45" border="0" height="411" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b29086f-381c-4eb0-bd25-5189fe2d7195.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_19h11_45" width="610"></a></p>
+
+
+  <ul>
+   <li>アプリケーションコードは、リモートの依存関係への呼び出しを行います。</li>
+   <li>AI SDK は各リモート呼び出しをインターセプトし、登録したテレメトリプロセッサ拡張機能にリモート依存イベントを送信します。</li>
+   <li>エンドポイントのプロパティ (ホスト名とポート) は、リモートの依存関係イベントから解析され、Ping メッシュオブジェクト内の静的ハッシュテーブルに格納されます。</li>
+   <li>Ping メッシュオブジェクトは、ハッシュテーブルを継続的にポーリングし、そのエンドポイントのネットワークの正常性とパフォーマンスを評価する ping &rsquo; スレッドを作成 &lsquo; します。</li>
+   <li>各 Ping スレッドが完了すると、ネットワークの正常性と応答時間に AI メトリックが送信されます。</li>
+  </ul>
+
+
+  <p>エラー発生時にクライアント側のネットワークの状態 ( &ndash; netstat、tracert、ipconfig など) をキャプチャし、それを AI にトレースイベントとして送信するために、さらに改良を加えることができます ( <a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-api-custom-events-metrics/">SDK ガイダンス)</a>。</p>
+
+
+  <h2>結果</h2>
+
+
+  <p>実装について詳しく説明する前に、シナリオを共有することによってソリューションの価値を示すことを望んでいます。 アプリケーションアーキテクチャには、WebAPI コントローラーを使用してリモートの Yahoo finance API を呼び出すフロントエンド ASP.NET web サイトがあります。 履歴データは、リモートの依存関係からフェッチされ、ユーザーに返されます。 このフローを次の図に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/953d0152-8842-4203-aecf-8bee2a7b55c5.png"><img alt="2016-05-18_19h15_17" border="0" height="198" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0d496698-8978-4a8b-bd42-c852b8f15d9b.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_19h15_17" width="610"></a></p>
+
+
+  <p>ASP.NET VM と Yahoo API サーバーの間にネットワークの速度が低下している場合は、web サイトのユーザーのページ読み込みが遅くなります。 リモートの依存関係の正常性を理解するために、AI には、履歴の応答時間とエラー率の優れたビューが用意されています。 次の例では、アプリの依存関係呼び出し期間全体に対して AI から取得した既定のメトリックを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c39548c-8ab0-4330-a01b-4722ad9d7f43.png"><img alt="2016-05-18_19h18_16" border="0" height="181" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5940fb2e-52c0-4c2f-a227-901bfbc7a449.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_19h18_16" width="610"></a></p>
+
+
+  <p>ただし、ネットワークが原因で遅延が発生しているかどうかを判断するのは困難な場合があります。 カスタム Ping メッシュ拡張機能には、問題の場所を特定するのに役立つ継続的なベースラインメトリックが用意されています。 探している基本的なパターンは次のとおりです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b0e467d-fe13-42a6-b90c-cd2db1c95f9a.png"><img alt="image" border="0" height="189" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31558468-409a-41cf-aaf7-019b4214dd24.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="651"></a></p>
+
+
+  <p>AI &rsquo; s remote dependency テレメトリを使用すると、リモートエンドポイントへの呼び出しの全体的な正常性とパフォーマンスについての十分な洞察を得ることができます (つまり &ndash; 、青い線が表示されます)。 AI テレメトリプロセッサ拡張機能として実装されているカスタムコードを使用すると、独自のネットワークの正常性とパフォーマンスのメトリック ( &ndash; オレンジ色の線) を生成することができます。</p>
+
+
+  <p>ネットワークの遅延をシミュレートし、Application Insights の外観を示すために、Azure VM で web サイトを設定し、ネットワーク WAN シミュレーターを使用して、Yahoo API エンドポイントへの呼び出しに対して大きなネットワーク待機時間を導入しました。 次に、AI のメトリックが、上のネットワーク問題 &rdquo; パターンに一致 &ldquo; する明確なデータをどのように提供しているかを確認できます (つまり、ネットワークの遅延がリモート依存関係の遅延に直接関連しています)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5cd0cb75-a898-49e3-aa84-bf0badae70e8.png"><img alt="2016-05-18_19h00_13" border="0" height="468" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a7425e3-7592-42bb-b213-042a3e804f2a.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_19h00_13" width="610"></a></p>
+
+
+  <p>そのため、カスタムコードを少し使用すると、AI テレメトリに拡張して、アプリケーションが新しいエンドポイントに接続するときに動的にスピンアップされる継続的なネットワーク診断を提供できました。 すばらしいですね。</p>
+
+
+  <h2>実装の詳細</h2>
+
+
+  <p>Ping メッシュソリューションを実装するために必要な手順は、AI テレメトリパイプラインへのフックに関してごくわずかです。 ほとんどのコードは、カスタム PingMesh.dll で実装されていました。 ソリューションの動作を確認するための手順の概要は次のとおりです。</p>
+
+
+  <ol>
+   <li>最新の AI SDK を使用してアプリケーションをインストルメント化し、AI 内にアプリケーションをセットアップします (VS プロジェクトを右クリックして、ウィザードで手順を実行します)。</li>
+   <li>ネットワーク診断を実装するカスタム ping メッシュライブラリの参照をプロジェクトに追加します。</li>
+   <li>テレメトリプロセッサ (AITelemetryProcessor) のコードを追加し、そのコンストラクターで Ping メッシュオブジェクトをインスタンス化します。</li>
+   <li>テレメトリプロセッサの構成で ApplicationInsights.config を更新します。</li>
+   <li>プロジェクトをビルドして実行します。</li>
+  </ol>
+
+
+  <p><em>ソースコードは GitHub で確認でき</em> <a href="https://github.com/Microsoft/ApplicationInsights-Home/tree/master/Samples/PingMeshWeb" target="_blank"><em></em></a><em>ます。</em></p>
+
+
+  <p>次の図は、ITelemetryProcessor コードがどのように実装されたかを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1177ee2-8a2a-417f-ae5d-269dc4848caf.png"><img alt="2016-05-18_18h51_59" border="0" height="457" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62bfd9dd-1a8a-4d5c-a4d7-ad72bfed642f.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_18h51_59" width="610"></a></p>
+
+
+  <p>テレメトリプロセッサコードを作成した後、それを AI 構成に登録する必要がありました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61ef5679-2ea7-475d-9b37-c0ebf0de2611.png"><img alt="2016-05-18_18h50_15[9]" border="0" height="308" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e2f7826-50c7-45c0-9635-3fcb49d2e7a6.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_18h50_15 [9]" width="610"></a></p>
+
+
+  <p>Ping クライアントの SubmitEndpointToTargetList メソッドは、エンドポイントをネットワーク診断コードによって ping できる形式に解析します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a966894-9624-4dff-a994-f93df182a224.png"><img alt="2016-05-18_18h57_55" border="0" height="404" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08a9eeaa-9e00-4573-a878-a4169536df03.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_18h57_55" width="610"></a></p>
+
+
+  <p>前述のように、ping クライアントオブジェクトが初期化されると、 &ldquo; ping &rdquo; スレッドが作成されます。 この ping スレッドは30秒ごとに実行されます (この設定は拡張機能の構成に移動しますが、このデモではハードコーディングされています)。また、前述のよう &rsquo; に、上記の Ping ターゲットハッシュセットに追加されたすべてのエンドポイントをポーリングします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/250d70c1-07fc-4d86-a929-912a6c7cf9c3.png"><img alt="2016-05-18_18h58_55" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/876e06f0-6b32-4951-ad17-ffb2560cac9d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_18h58_55" width="610"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9fa179eb-d6d8-40eb-8c74-70db71deaaeb.png"><img alt="2016-05-18_18h59_24" border="0" height="291" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adc5d1e7-6dbd-4799-94b7-378bb9710287.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_18h59_24" width="610"></a></p>
+
+
+  <p>最後に、Ping クライアントでは、すべてのネットワーク診断結果が、テスト中に DNS または TCP の問題が発生したかどうかを示すカスタムメトリックとして Application Insights に送信されます (注: 次 &ldquo; &rdquo; のように、メトリック名の特殊文字に関する潜在的な問題を回避するために、 &ldquo; を _ &rdquo; に置き換えました)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8449847e-45a4-487b-bec7-4864555ebb5c.png"><img alt="2016-05-18_18h59_53" border="0" height="118" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/57b795b2-f533-4ab3-8633-20c347abbe7f.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2016-05-18_18h59_53" width="610"></a></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>この記事では、ai テレメトリプロセッサパイプラインに接続するコードを作成して、AI によって提供される既定の分析を拡張する方法について説明しました。 この例では、AI が実行するリモートの依存関係検出を使用して、ネットワーク正常性の履歴ベースラインを提供する診断を実装しています。 この実装をさらに拡張して、問題が発生したときにオペレーティングシステムでネットワークの状態をキャプチャすることもできます。 これにより、AI テレメトリプロセッサ機能の柔軟性と性能が向上します。&nbsp;</p>

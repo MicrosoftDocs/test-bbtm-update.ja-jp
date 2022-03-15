@@ -1,0 +1,114 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0ffdc607c47fb26a439cbc6ddc760dc065dab85d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891565"
+Slug: introducing-the-preview-of-direct-upload-to-azure-managed-disks
+Title: Azure マネージド ディスクへの直接アップロードのプレビューの紹介
+Summary: Azure マネージド ディスクへの直接アップロードのプレビューをお知らせします。 現在、オンプレミスの VHD をマネージド ディスクとして Azure に取り込むには、2 つの方法があります。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview">Azure</a> マネージド ディスクへの直接アップロードのプレビューをお知らせします。 現在、オンプレミスの VHD をマネージド ディスクとして Azure に取り込むには、次の 2 つの方法があります。</p>
+
+
+  <ol>
+      <li>VHD をマネージド ディスクに変換する前に、VHD をストレージ アカウントにステージします。&nbsp;</li>
+      <li>空のマネージド ディスクを仮想マシンに接続し、コピーを実行します。</li>
+  </ol>
+
+
+  <p>どちらの方法にも欠点があります。 1 つ目のオプションでは、管理する追加のストレージ アカウントが必要ですが、2 番目のオプションには仮想マシンの実行コストが追加されます。 直接アップロードは、これらの問題の両方に取り組み、オンプレミス VHD のコピーをマネージド ディスクとして直接許可することで、簡素化されたワークフローを提供します。 サポートされているすべてのサイズの SSD Standard HDD、Standard SSD、プレミアム SSD マネージド ディスクにアップロードするために使用できます。</p>
+
+
+  <p>Azure&rsquo; の IaaS 仮想マシンのバックアップ ソリューションを提供する独立系ソフトウェア ベンダー (ISV) の場合は、直接アップロードを利用して顧客のバックアップをマネージド ディスクに復元することをお勧めします。 これは、ストレージ アカウント管理から離れて復元プロセスを簡略化するのに役立ちます。 大規模 <a href="https://azure.microsoft.com/en-us/updates/azure-backup-large-disk-preview/">Azure Backupのサポートは</a> 、直接アップロードによって提供されます。 直接アップロードを使用して、大規模なマネージド ディスクを復元します。</p>
+
+
+  <p>生産性を<a href="https://azure.microsoft.com/en-us/features/storage-explorer/">向上Azure Storage Explorerマネージド</a> ディスク<a href="https://azure.microsoft.com/en-us/blog/new-disk-support-capabilities-in-azure-storage-explorer/">のサポートも追加されました</a>。 使いやすいグラフィカル ユーザー インターフェイス (GUI) を介して直接アップロードが公開され、数回のクリックでローカルの GUID をマネージド ディスクに移行できます。 さらに、直接アップロードを利用して、マネージド ディスクをコピーして別の Azure リージョンにシームレスに移行することもできます。 このリージョン間コピーは、Azure での大規模なデータ移動をサポートするように設計された <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10">AzCopy v10</a> を利用しています。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/rest/api/compute/disks/createorupdate">Azure Compute Rest API</a> または SDK を使用する場合は、最初に <a href="https://docs.microsoft.com/en-us/rest/api/compute/disks/createorupdate#create-a-managed-upload-disk.">createOption</a> プロパティを アップロード に設定し、<a href="https://docs.microsoft.com/en-us/rest/api/compute/disks/createorupdate#create-a-managed-upload-disk.">uploadSizeBytes</a> プロパティをアップロードする VHD の正確なサイズと一致する空のマネージド ディスクを作成する必要があります。</p>
+
+
+  <h3>Rest API</h3>
+
+
+  <pre>
+
+  {
+     &quot;location&quot;: &quot;WestUS2&quot;,
+     &quot;properties&quot;: {
+       &quot;creationData&quot;: {
+         &quot;createOption&quot;: &quot;Upload&quot;,
+         &quot;uploadSizeBytes&quot;: 10737418752
+       }
+     }
+  }</pre>
+
+
+  <h3>Azure CLI</h3>
+
+
+  <pre>
+
+  az disk create \
+
+  -n mydiskname \
+
+  -g resourcegroupname \
+
+  -l westus2 \
+
+  --for-upload \
+
+  --upload-size-bytes 10737418752 \
+
+  --sku standard_lrs</pre>
+
+
+  <p>ディスクの書き込み可能 SAS を生成する必要があります。そのため、アップロード先として参照できます。</p>
+
+
+  <pre>
+
+  az disk grant-access \
+
+  -n mydiskname \
+
+  -g resourcegroupname \
+
+  --access-level Write \
+
+  --duration-in-seconds 86400</pre>
+
+
+  <p>AzCopy v10 を使用して、生成した SAS URI を指定して、ローカル VHD を空のマネージド ディスクにアップロードします。</p>
+
+
+  <pre>
+
+  AzCopy copy &quot;c:\somewhere\mydisk.vhd&quot; &quot;SAS-URI&quot; --blob-type PageBlob</pre>
+
+
+  <p>アップロードが完了したら、SAS を取り消します。 SAS を取り替えると、マネージド ディスクの状態が変更され、仮想マシンにディスクを接続できます。</p>
+
+
+  <pre>
+
+  az disk revoke-access -n mydiskname -g resourcegroupname</pre>
+
+
+  <h2>サポートされているリージョン</h2>
+
+
+  <p>すべてのリージョンは、Azure Compute Rest API バージョン <a href="https://docs.microsoft.com/en-us/rest/api/compute/disks/createorupdate">2019-03-01</a>、最新バージョンの Azure CLI、Azure PowerShell SDK、Azure .Net SDK、AzCopy v10、Storage エクスプローラーを使用してサポートされています。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <ol>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/disks-upload-vhd-to-managed-disk-powershell">Azure PowerShell と AzCopy V10 を使用して Azure に VHD をアップロードする</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/disks-upload-vhd-to-managed-disk-cli">Azure CLI と AzCopy V10 を使用して Azure に VHD をアップロードする</a></li>
+      <li><a href="https://aka.ms/md-explorer">Azure Storage Explorer を使用して、マネージド ディスクのアップロード、ダウンロード、およびリージョン間コピーを行う</a></li>
+  </ol>

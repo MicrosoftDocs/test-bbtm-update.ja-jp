@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0e511cc996582c1ff85661220dc28ef0e1401d22
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891760"
+Slug: azure-monitor-multiple-diagnostic-settings
+Title: 'Azure Monitor: ログとメトリックをルーティングするための強化された機能'
+Summary: 現在、Azure リソースの診断ログとメトリックをストレージアカウント、Event Hubs、または Log Analytics にルーティングするために、Azure Monitor 内に新しい一連の機能が発表されています。
+Content: >-
+  <p>現在、Azure リソースの診断ログとメトリックを <a href="https://docs.microsoft.com/azure/storage/storage-introduction">ストレージアカウント</a>、 <a href="https://azure.microsoft.com/services/event-hubs/">Event Hubs</a> 名前空間、または <a href="https://azure.microsoft.com/services/log-analytics/">Log Analytics</a> のワークスペースにルーティングするために、Azure Monitor 内に新しい一連の機能が発表されています。 リソースごとに複数のリソース診断設定を作成できるようになりました。これにより、さまざまな種類のログカテゴリとメトリックを異なる宛先 (パブリックプレビュー) にルーティングし、メトリックとログを別のサブスクリプションの宛先にルーティングできます。 この記事では、これらの新機能について説明し、 &rsquo; これらの機能を今すぐ使用する方法を紹介します。</p>
+
+
+  <h2>複数の診断設定の作成</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-overview-of-diagnostic-logs#resource-diagnostic-settings">リソース診断設定</a>は、個々の Azure リソースのルールであり、そのリソースの種類で使用可能なログとメトリックを収集し、そのデータがどこに送信されるかを決定します。 リソース診断設定には、データを監視するための3つの変換先または &lsquo; データシンク &rsquo; があります。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-archive-diagnostic-logs">アーカイブ用の Storage アカウント</a></li>
+   <li><a href="https://docs.microsoft.com/azure/log-analytics/log-analytics-azure-storage">検索と分析のためのワークスペースの Log Analytics</a></li>
+   <li><a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-stream-diagnostic-logs-to-event-hubs">サードパーティ製ツールまたはカスタムソリューションとの統合のための名前空間の Event Hubs</a></li>
+  </ul>
+
+
+  <p>以前は、リソースごとに1つの診断設定しか設定できませんでした。 次の2つの方法では制限が厳しすぎるというフィードバックを聞きました。</p>
+
+
+  <ol>
+   <li>監視データは、各宛先の1つのインスタンスのみに送信されるように制限されています。 たとえば、特定の Application Gateway のログとメトリックのみを1つのストレージアカウントに送信できます。 2つの独立したチームがセキュリティと監視を行い、それぞれがこのデータを使用しようとした場合、そのデータを両方のチームに対して個別に提供することが制限されています。</li>
+   <li>ログカテゴリとメトリックの同じ順列をすべての送信先にルーティングする必要があります。 たとえば、同じアカウント &rsquo; のメトリックをストレージアカウントに送信しているときに、特定の Batch アカウント &rsquo; のサービスログを Log Analytics にルーティングできませんでした。</li>
+  </ol>
+
+
+  <p>現在、1つのリソースに対して複数の診断設定を作成する機能のパブリックプレビューが導入されており、上記の両方の制限が解消されています。 Azure Portal でこれを設定する方法を簡単に見てみましょう &rsquo; 。 [モニター] ブレードに移動し、[診断設定] をクリック &ldquo; します。&rdquo;</p>
+
+
+  <p><img alt="Azure diagnostic settings blade" border="0" height="620" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d5a494bb-dd74-4029-9de5-d49ba5da39d9.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="Azure 診断設定ブレード" width="1103"></p>
+
+
+  <p>ここでは、このセクション &ldquo; の診断設定 &rdquo; を診断ログ &rdquo; から &ldquo; 変更し、ログデータとメトリックデータの両方をリソースからルーティングする機能をより正確に反映するようにしまし &rsquo; た &rsquo; 。 このブレード &rsquo; には、診断設定をサポートするリソースの一覧が表示されます。 1つをクリックすると、そのリソースのすべての設定の一覧が表示されます。</p>
+
+
+  <p><img alt="Azure multiple diagnostic settings" border="0" height="443" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3ea1378-52c3-47fc-ad3f-bdee256cf1ec.png" style="background-image: none; float: none; margin: 0px auto; display: block; border-image: none" title="Azure の複数の診断設定" width="1030"></p>
+
+
+  <p>存在しない場合は、作成を求めるメッセージが表示されます。</p>
+
+
+  <p><img alt="Azure no diagnostic settings" border="0" height="294" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fede6a1e-d717-4890-9621-77d3880d7111.png" style="background-image: none; float: none; margin: 0px auto; display: block; border-image: none" title="Azure 診断設定がありません" width="517"></p>
+
+
+  <p>[診断 &rdquo; を有効にする] をクリック &ldquo; すると、診断設定を設定するための使い慣れたブレードが表示されますが、名前 &rdquo; の &ldquo; フィールドが追加されていることがわかります。 設定に名前を付けて、同じリソースの複数の設定を区別します。</p>
+
+
+  <p><img alt="Azure named diagnostic setting blade" border="0" height="593" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/229ba2d9-8260-41a7-8f64-883a91838214.png" style="background-image: none; float: none; margin: 0px auto; display: block; border-image: none" title="Azure 名前付き診断設定ブレード" width="583"></p>
+
+
+  <p>[保存] を &rdquo; クリック &ldquo; し、前のブレードに戻ると、作成された設定が表示され、追加の設定が追加されます。</p>
+
+
+  <p><img alt="Azure multiple diagnostic settings" border="0" height="510" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ed74f072-3956-4978-870f-5a139898f402.png" style="background-image: none; float: none; margin: 0px auto; display: block; border-image: none" title="Azure の複数の診断設定" width="1027"></p>
+
+
+  <p>診断設定を追加すると、この一覧に追加されます。 リソースごとに最大3つの診断設定を持つことができることに注意してください。</p>
+
+
+  <p>また、REST API または ARM テンプレートを使用してこれを行うこともできます。 PowerShell のサポートは近日公開予定です。 同じ種類の追加の送信先にデータをルーティングすると、課金情報ごとにサービス料金が発生することに注意してください。</p>
+
+
+  <h2>サブスクリプション間での監視データの書き込み</h2>
+
+
+  <p>以前は、リソースのメトリックとログカテゴリは、ストレージアカウント、Event Hubs 名前空間、またはデータを出力するリソースと同じサブスクリプション内の Log Analytics ワークスペースにのみルーティングできました。 多数のサブスクリプションを追跡する集中管理された監視チームがある企業では、サブスクリプションごとに宛先リソースを維持するのは面倒であり、サブスクリプションごとに一意のストレージアカウント (または名前空間また Event Hubs はワークスペース) に関する知識が必要です。 これで、ユーザーアカウントがその送信先リソースへの適切な書き込みアクセス権を持っている場合に、別のサブスクリプションの宛先に監視データを送信するように診断設定を構成できます。</p>
+
+
+  <p><img alt="Azure cross subscription diagnostic setting" border="0" height="581" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac7f0e3b-ad5c-495a-b808-0c367df32d97.png" style="background-image: none; float: none; margin: 0px auto; display: block; border-image: none" title="Azure クロスサブスクリプション診断設定" width="1164"></p>
+
+
+  <p>認証は特定の Azure Active Directory テナント内で行われるため、監視データは、データを出力するリソースと同じテナント内の送信先にのみルーティングされることに注意してください。</p>
+
+
+  <p>これらの新機能は、今日からのすべてのパブリック <a href="https://azure.microsoft.com/en-us/regions/">Azure リージョン</a> にロールアウトされています。 ご意見をお寄せいただき、 <a href="https://feedback.azure.com/forums/231545-diagnostics-and-monitoring">UserVoice チャネル</a> または以下のコメントでご意見をお聞かせください。</p>

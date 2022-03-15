@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c363df24f3e8c0b9434d96b9c0c8203878e7018c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895552"
+Slug: device-provisioning-identity-attestation-with-tpm
+Title: 'デバイスプロビジョニング: TPM での Id 構成証明'
+Summary: IoT Hub Device Provisioning Service を使用してデバイスを安全にプロビジョニングすると、ハードウェアセキュリティモジュール (HSM) を使用してデバイスにキーを格納する機会が得られます。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/iot-dps">IoT Hub Device Provisioning Service</a>を使用してデバイスを安全にプロビジョニングすると、ハードウェアセキュリティモジュール (HSM) を使用してデバイスにキーを格納する機会が得られます。 ハードウェアセキュリティモジュールは、暗号化キーと操作を保護します。 Hsm は、デバイスソフトウェアとファームウェアのバグによるキーの侵害に対する高レベルの保護を提供し、通常はハードウェアの攻撃からの優れた保護を提供します。 ハードウェアベースのセキュリティにより、デバイスの複製のリスクが軽減され、サプライチェーンのセキュリティが向上し、デバイスプロビジョニングサービスを使用してセキュリティで保護された信頼性の高いデバイスの登録をブートストラップできるようになります。 Hsm の使用が初めての場合、デバイスプロビジョニングサービスがデバイス &rsquo; id を検証する方法 (特に、tpm を使用する場合) とその理由 &rsquo; を正確に把握している場合があります。 この投稿では、TPM を使用する場合の id 構成証明プロセスについて説明します。</p>
+
+
+  <p>TPM はトラステッドプラットフォームモジュールを表し、HSM の一種です。 このブログ投稿では、個別、ファームウェア、または統合された TPM を使用する &rsquo; ことを前提としています。 ソフトウェアでエミュレートされた TPM はプロトタイプの作成やテストには適していますが、ディスクリート TPM、ファームウェア TPM、または統合された TPM と同じレベルのセキュリティを提供することはできません。 &rsquo;実稼働環境でソフトウェア tpm を使用しないようにしてください。 TPM の種類については、<a href="https://trustedcomputinggroup.org/wp-content/uploads/TPM-2.0-A-Brief-Introduction.pdf" target="_blank">こちら</a>をご確認してください。</p>
+
+
+  <p>この記事は、認証に x.509 証明書を使用するデバイスではなく、HMAC キーのサポートとその保証キーを持つ TPM 2.0 を使用しているデバイスのみに関連しています。 TPM は Trusted Computing Group からの業界標準の ISO 標準であり、tpm <a href="https://trustedcomputinggroup.org/tpm-library-specification/">2.0 仕様</a> または <a href="https://www.iso.org/standard/66510.html">iso/IEC 11889 仕様</a>の tpm に関する詳細を参照できます。 <a href="https://azure.microsoft.com/en-us/blog/azure-iot-supports-new-security-hardware-to-strengthen-iot-security/">このブログ投稿</a> では、x.509 証明書を使用した Device Provisioning Service でのセキュリティ保護されたハードウェアの詳細についてご確認ください。 また、この記事は、公開キーおよび秘密キーのペアと、これらを使用して暗号化を行う方法について熟知していることを前提としています。</p>
+
+
+  <p>&rsquo;Device Provisioning Service デバイス sdk &ndash; を使用している場合は &rsquo; 、これを実装する必要はありません。このよう &rsquo; な処理はすべて処理します。 Tpm を初めて使用する人は、セキュリティチップについて理解 &rsquo; を深め、セキュリティチップ &rsquo; のセキュリティを強化したいと考えています。</p>
+
+
+  <p>TPM は、セキュリティで保護された信頼のルートとして保証キー (EK) と呼ばれるものを使用します。 EK は、TPM に対して一意であり、EK を変更するとは、実質的にデバイスを新しいものに変更することを意味します。 Tpm には、ストレージルートキー (SRK) と呼ばれる別の種類のキー&#39;があります。 Tpm の所有権を取得した後、TPM&#39;の所有者によって、SRK が生成される場合があります。 Tpm の所有権を取得することは、他のユーザーが HSM にパスワードを設定するという &quot; tpm 固有の方法です。 &quot; TPM デバイスが新しい所有者に販売されている場合、新しい所有者は、TPM の所有権を取得して新しい SRK を生成できます。これにより、以前の所有者が TPM を&#39;ことができるようになります。 SRK は TPM の所有者に一意であるため、SRK を使用してその所有者のデータを TPM 自体に封印できます。 SRK は、所有者がキーを格納するためのサンドボックスを提供し、デバイスまたは TPM が販売された場合にアクセス権を取り消すことができるようにします。 新しい家への移行と同様に&#39;、所有権を取得することは、ドアのロックを変更し、前の所有者 (SRK) によって残されたすべての家具を破棄することですが、&#39;t (EK) のアドレスを変更することができます。 これは完全な例えではありませんが、アイデアは&#39;。 デバイスの設定が終了し、使用する準備が整うと、EK と SRK の両方が使用可能になります。</p>
+
+
+  <p style="text-align: center;"><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c14c9f70-bc9f-42af-82cf-3522d755806c.png"><img alt="image" border="0" height="233" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/29da2da6-f812-47ed-b5b4-ca4dae9cfdf8.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="610"></a></p>
+
+
+  <p>Tpm の所有権を取得することに関する注意事項: tpm の所有権を取得することは、tpm の製造元、使用されている TPM ツールのセット、デバイスの OS など、さまざまな項目に依存します。 お使いのシステムに該当する手順に従って、所有権を取得してください。</p>
+
+
+  <p>Device Provisioning Service では、EK (EK_pub) の公開部分を使用して、デバイスの識別と登録を行います。 デバイスの製造元では、製造または最終テスト中に EK_pub を読み取ることができ、EK_pub をプロビジョニング サービスにアップロードして、プロビジョニングのために接続するときにデバイスが認識されるようにすることができます。 Device Provisioning Service は、SRK や所有者を確認しないので &ldquo; 、TPM をクリア &rdquo; すると顧客データが消去されますが、EK (およびその他のベンダーデータ) は保持され、デバイスはプロビジョニングに接続するときに Device Provisioning service によって認識されます。</p>
+
+
+  <p>TPM を装備したデバイスを Device Provisioning Service に初めて接続すると、このサービスは最初に、提供された EK_pub を、登録リストに格納されている EK_pub と照合します。 EK_pub が一致しない場合、デバイスのプロビジョニングは許可されません。 EK_pub が一致した場合、サービスは nonce チャレンジを介して EK の秘密部分の所有権を証明することをデバイスに要求します (nonce チャレンジ とは、ID を証明するために使用されるセキュリティで保護されたチャレンジのことです)。 Device Provisioning Service は nonce を生成し、SRK とその後に EK_pub を使用して暗号化します。これらは両方とも、初期登録呼び出し中に、デバイスから提供されます。 TPM は常に EK の秘密部分をセキュリティで保護します。 これにより、偽造が防止され、SAS トークンが承認済みデバイスに安全にプロビジョニングされます。</p>
+
+
+  <p>構成証明プロセスの詳細につい &rsquo; て説明します。</p>
+
+
+  <p><strong>手順 1: </strong>デバイスが初めて Device Provisioning Service に接続し、プロビジョニングするように要求すると、登録 ID、ID スコープ、TPM からの EK_pub と SRK_pub がサービスに提供されます。 サービスは暗号化された nonce をデバイスに返します。また、nonce を復号化し、これを使用して SAS トークンに署名して再接続し、プロビジョニングを完了するようデバイスに要求します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b468b985-bcdd-4778-a402-0d9e93700a21.png"><img alt="image" border="0" height="263" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a99e09a4-5fd4-45c0-8fe4-39f425c7ee0c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="610"></a></p>
+
+
+  <p><strong>手順 2:</strong> デバイスは nonce を受け取り、EK と SRK のプライベート部分を使用して、nonce を TPM に復号化します。nonce 暗号化の順序は、変更できない EK から SRK に信頼を委任します。これは、新しい所有者が TPM の所有権を取得した場合に変更される可能性があります。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b338b49-b44d-463b-8308-3455eb59fbe5.png"><img alt="image" border="0" height="342" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/50cd0f99-4bb7-4ce4-a8b7-8d568258e238.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="330"></a></p>
+
+
+  <p><strong>手順 3:</strong> デバイスは、復号化された nonce を使用して SAS トークンに署名し、署名された SAS トークンを使用して Device Provisioning Service への接続を再確立できます。 Nonce チャレンジを完了すると、このサービスは、デバイスのプロビジョニングを許可します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5b780932-fa49-4bd1-bda0-afebc3cf3b11.png"><img alt="image" border="0" height="233" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c2a25a1-2ab2-48de-be43-19214bebeb6d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="610"></a></p>
+
+
+  <p>これで、デバイスが IoT Hub に接続できるようになりました。また、デバイス &rsquo; キーが安全に保存されていることを知らせるセキュリティを確保することができます。 これで、Device Provisioning Service が TPM を使用してデバイス &rsquo; の id を安全に検証する方法がわかりました。次は、sdk を使用して <a href="https://docs.microsoft.com/en-us/azure/iot-dps/quick-setup-auto-provision">自動プロビジョニングの使用を開始</a> し、フローを処理します。</p>
+
+
+  <p>Limerick を使用して合計を計算するには、次の手順を実行します。</p>
+
+
+  <p>装飾的な nonce チャレンジが識別する<br>
+
+  承認するデバイスなろうと<br>
+
+  および自動プロビジョニング<br>
+
+  (ID の精度を持つ)<br>
+
+  TPM &rsquo; s キーストレージの演習</p>

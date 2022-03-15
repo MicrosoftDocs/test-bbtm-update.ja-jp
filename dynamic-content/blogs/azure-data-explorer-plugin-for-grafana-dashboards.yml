@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6dbe137778b6df024d3aaea5710d072949d2708b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891163"
+Slug: azure-data-explorer-plugin-for-grafana-dashboards
+Title: Azure Data Explorer Grafana ダッシュボード用の Azure Data Explorer プラグイン
+Summary: 大量のデータAzure Data Explorerクエリを実行するために、データを使用していますか? Grafana ダッシュボードでビジネス メトリックと KPI に従っていますか? アプリケーションを使用して Grafana データ ソースAzure Data Explorer簡単に作成できます。
+Content: >-
+  <p>大量のデータAzure Data Explorerクエリを実行するために、データを使用していますか? Grafana ダッシュボードでビジネス メトリックと KPI に従っていますか? アプリケーションを使用して Grafana データ ソースAzure Data Explorer簡単に作成できます。</p>
+
+
+  <p>Grafana は、時系列分析を視覚化するために設計された主要なオープン ソース ソフトウェアです。 これは、データのクエリと視覚化を行い、それらの視覚化に基づいてダッシュボードを作成および共有できる分析およびメトリック プラットフォームです。 Grafanas&rsquo; の美しい視覚エフェクトと&rsquo; Azure Data Explorer大量のデータに対するスナップアドホック クエリを組み合わせることで、驚く可能性が生み出されます。</p>
+
+
+  <p>Grafana チームと Azure Data Explorer チームは、直感的で強力な Kusto クエリ言語を使用して Azure Data Explorer に接続してデータを視覚化できる専用プラグインを作成しました。 わずか数分で、データの可能性のロックを解除し、データを使用して初めての Grafana ダッシュボードを作成Azure Data Explorer。</p>
+
+
+  <p>Grafana でAzure Data Explorerデータ ソースを作成したら、ダッシュボード パネルを作成し、[編集] を選択 <strong>してクエリを</strong> 追加できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ab53b05c-7821-40d4-9225-a6fd6175d800.png"><img alt="Creating a Grafana dashboard panel screenshot" border="0" height="316" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/77df857d-9d56-4c8d-bef2-fc31683a3bd0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Grafana ダッシュボード パネルの作成のスクリーンショット" width="185"></a></p>
+
+
+  <p>[メトリック] タブでクエリを実行するには、Kusto クエリ言語 <strong>を使用 </strong>できます。クエリ用語の補完を提案する組み込みの Intellisense は、クエリの作成を支援します。 クエリを実行してデータを視覚化します。</p>
+
+
+  <pre>
+
+  GithubEvent
+
+  | where Repo.name has &#39;Microsoft&#39;
+
+  | summarize TotalEvents = count() by bin(CreatedAt,30d)
+
+  |order by CreatedAt asc</pre>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6879a5f4-dacc-4011-87f2-b64222b85d72.png"><img alt="Running GitHub event code screenshot" border="0" height="171" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af448073-27d9-4d51-a632-e3830e00d2b9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イベント GitHubの実行のスクリーンショット" width="1042"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4bab63df-c271-434c-b6b9-08bd24226a91.png"><img alt="Final version of sample Grafana dashboard panel screenshot" border="0" height="703" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b8dde15-8338-4dcf-b6ca-9d77b5f23538.png" style="border-image: none; display: block; background-image: none;" title="サンプル Grafana ダッシュボード パネルの最終バージョンのスクリーンショット" width="1367"></a></p>
+
+
+  <p>Grafana のデータからデータを視覚化する方法のAzure Data Explorer、Grafana &ldquo; のデータの視覚化に関するドキュメントAzure Data Explorer<a href="https://docs.microsoft.com/en-us/azure/data-explorer/grafana" target="_blank">参照してください</a>。&rdquo;Grafana のデータ ソースとして Azure Data Explorer を設定し、サンプル クラスターからのデータを視覚化するために必要なステップ バイ ステップのプロセスを示します。</p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <p>このブログでは、Grafana を使用して、データセットを基にダッシュボードを構築する利点Azure Data Explorer示します。 分析ツールとサービスへの追加のコネクタとプラグインは、今後数週間以内に追加される予定です。 少々お待ちください。</p>
+
+
+  <p>この方法の詳細についてはAzure Data Explorer次の方法があります。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/services/data-explorer/" target="_blank">今すぐAzure Data Explorer</a> プレビューで試してみてください。</li>
+   <li><a href="https://azure.microsoft.com/pricing/details/data-explorer" target="_blank">価格情報を見つける</a> for Azure Data Explorer。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/data-explorer/" target="_blank">アクセス に関するドキュメント</a> for Azure Data Explorer。</li>
+  </ul>

@@ -1,0 +1,30 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 938a218ee8b2bdbf8225c1846ec725007ab9c6d6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891798"
+Slug: azure-hdinsight-introduces-built-in-integration-with-azure-websites-to-do-web-log-analytics
+Title: Azure HDInsight Web Log Analytics を行う Azure Websites との組み込み統合について説明します
+Summary: お客様が Hadoop ですぐに生産性を向上するために、Azure HDInsight では、顧客がテンプレートのギャラリーを参照し、タスクの完了に関するガイドを受け取るクエリ コンソールを更新しました。
+Content: >-
+  現在、Azure Websites を使用して Web サイトと Web アプリをデプロイしているすべてのお客様は、すべての HTTP トランザクションと詳細なエラー ログを追跡する Web ログを生成します。 これらのログは、半構造化された非リレーショナル ファイルとして Azure BLOB に格納されます。 従来、半構造化ファイルは、リレーショナル テーブル/データベースに抽出および変換しない限り、分析が困難でした。
+
+
+  大量の非リレーショナル ファイルを分析する機能など、これらの特定の使用例用に構築された Hadoop を入力します。 Hadoop は、Web ログに関連して、Web トラフィック全体、ユーザーがサイトに残る時間の長さ、特定のページやキャンペーンの有効性などのサイト メトリックを理解するのに役立ちます。
+
+
+  ただし、多くの組織はまだ Hadoop を使用して専門知識を構築していないので、開始に役立つ必要があります。 お客様が Hadoop ですぐに生産性を向上するために、Azure HDInsight では、顧客がテンプレートのギャラリーを参照し、タスクの完了に関するガイドを受け取るクエリ コンソールを更新しました。 この場合、使用可能なタスクは、Azure Web サイトでキャプチャされたログ ファイルに対して分析を行います。 今後数か月でさらに多くのタスクを導入する予定です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/12/09/HDInsight.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="HDInsight" alt="HDInsight" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/HDInsight_thumb.png" width="1435" height="955" border="0" /></a>
+
+
+  開始するには、クラスターのプロビジョニングに関する <a href="https://manage.windowsazure.com/">https://manage.windowsazure.com/</a> ページAzure HDInsight Hadoop、"クエリ コンソール" を選択してソリューションを表示してください。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/12/09/HDInsight-Query.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="HDInsight クエリ" alt="HDInsight Query" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/HDInsight-Query_thumb.png" width="1420" height="943" border="0" /></a>
+
+
+  そこから、Hive を使用して、Web ログSQLのようなクエリを発行できます。 最後に、グラフを作成Excel、使い慣れたグラフで分析を視覚化Excelできます。 HDInsight で Excelを使用する方法については、こちらを参照<a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-connect-excel-power-query/">してください</a>。

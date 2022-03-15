@@ -1,0 +1,43 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 75231faafb951f58a8aa6f534727fb2286e4cbb5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896823"
+Slug: design-patterns-for-microservices
+Title: マイクロサービスの設計パターン
+Summary: AzureCAT パターン プラクティス チーム &amp; は、9 つの新しい設計パターンを Azure アーキテクチャ センター。 これらの 9 つのパターンは、設計と実装を行う場合に特に便利です。
+Content: >-
+  <p>AzureCAT パターン プラクティス チーム&amp;は、9 つの新しい設計パターンを<a href="https://aka.ms/architecture">Azure アーキテクチャ センター。</a> これらの 9 つのパターンは、マイクロサービスを設計および実装するときに特に便利です。 業界内のマイクロサービスに対する関心が高かったのは、これらのパターンを文書化する動機でした。</p>
+
+
+  <p>次の図は、マイクロサービス アーキテクチャでこれらのパターンを使用する方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ba865aef-4e7f-4b97-a94b-517aacf8d29a.png"><img alt="MSA patterns" border="0" height="697" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf41dea6-76a3-46b9-9c3b-43869f3496f5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="MSA パターン" width="991"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>各パターンについて、問題、解決策、パターンを使用する場合、および実装に関する考慮事項について説明します。</p>
+
+
+  <p>新しいパターンを次に示します。</p>
+
+
+  <ul>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/ambassador">アンバサダー</a></strong>は、監視、ログ記録、ルーティング、セキュリティ (TLS など) といった一般的なクライアント接続のタスクを言語に関係ない方法でオフロードするのに役立ちます。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/anti-corruption-layer">破損対策レイヤーでは</a></strong> 、&ccedil;新しいアプリケーションとレガシ アプリケーションの間にフェイドが実装され、新しいアプリケーションの設計がレガシ システムへの依存関係によって制限されるのを防がします。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/backends-for-frontends">フロントエンド用バックエンド</a></strong>は、デスクトップやモバイルなど、クライアントのさまざまな種類に応じて独立したバックエンド サービスを作成します。 そうすることで、1 つのバックエンド サービスで&rsquo;、さまざまなクライアントの種類の競合する要件を処理する必要が生じ "ない" のです。 このパターンを使用すると、クライアント固有の問題を切り離すことによって、各マイクロサービスのシンプルさを維持できます。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/bulkhead">バルクヘッド</a></strong>は、接続プール、メモリ、CPU などの重要なリソースをワークロードまたはサービスごとに独立させます。 バルクヘッドを使用すると、1 つのワークロード (またはサービス)&rsquo; がすべてのリソースを消費し、他のリソースを使い切る可能性があります。 このパターンでは、1 つのサービスによって発生した障害の連鎖を防ぐことによって、システムの回復性が向上します。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/gateway-aggregation">ゲートウェイ集約</a></strong>では、複数の個々のマイクロサービスへの要求を単一の要求に集約し、コンシューマーとサービスの間のトラフィックを削減します。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/gateway-offloading">ゲートウェイ オフロード</a></strong>では、SSL 証明書の使用などの共有サービス機能を各マイクロサービスから API ゲートウェイにオフロードすることができます。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/gateway-routing">ゲートウェイ ルーティング</a></strong> は、1 つのエンドポイントを使用して複数のマイクロサービスに要求をルーティングします。そのため、コンシューマー&#39;多くの個別のエンドポイントを管理する必要が生じないのでです。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/sidecar">サイドカー</a></strong>では、アプリケーションのヘルパー コンポーネントを別のコンテナーまたはプロセスとしてデプロイし、分離性とカプセル化を実現します。</li>
+   <li><strong><a href="https://docs.microsoft.com/azure/architecture/patterns/strangler">Strangler では、</a></strong> 特定の機能を新しいサービスに段階的に置き換えて、増分移行をサポートしています。</li>
+  </ul>
+
+
+  <p>マイクロサービスの目標は、個別にデプロイできる小さい自律的なサービスにアプリケーションを分解して、アプリケーションのリリース速度を上げることです。 マイクロサービス アーキテクチャにもいくつかの課題が生じ、これらのパターンはこれらの課題を軽減するのに役立ちます。 ご自分のプロジェクトで役に立つ場合があります。 ご意見をお寄せいただきありがとうございます。</p>

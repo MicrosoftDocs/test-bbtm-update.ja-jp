@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cd4617c41b7d4214c6a4e45ad1f864dd02135d94
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896679"
+Slug: mesosphere-dcos-azure-docker-vmware-everything-between-deploying-dc-os-with-azure-container-service
+Title: Mesosphere DCOS、Azure、Docker、VMware &間のすべて – 仮想マシンを使用した DC/OS のAzure Container Service
+Summary: vSphere の上に動作する DC/OS クラスターがありますが、次は Azure Container Service (ACS) を使用して別のクラスターをデプロイします。 恐れてはいけないので、今まで以上に問題を起こ&、この赤ん子を Azure で実行する方がはるかに迅速になります。
+Content: >-
+  <p>この投稿は、 &ldquo;Mesosphere DC/OS、Azure、Docker、VMware &amp; Everything Between multiple&rdquo; ブログ投稿シリーズの一部です。 このシリーズの前の投稿では、次のトピックを見ていました。</p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-and-everything-between-architecture-and-ci-cd-flow/">Mesosphere DCOS、Azure、Docker、VMware&ndash;、およびアーキテクチャと CI/CD の間のすべてのものFlow</a></p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-and-everything-between-security-docker-engine-installation/">Mesosphere DCOS、Azure、Docker、VMware、 &ndash; および Security Docker エンジンのインストールの間 &amp; のすべてのもの</a></p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-everything-between-ssh-authorized-keys/">Mesosphere DCOS、Azure、Docker、VMware &amp; SSH 承認 &ndash; キー間のすべて</a></p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-everything-between-deploying-dc-os-on-vmware-vsphere/">Mesosphere DCOS、Azure、Docker、VMware &amp; 仮想 &ndash; マシンを使用した DC/OS のデプロイの間Azure Container Service</a></p>
+
+
+  <p>何が楽しいでしょう。 vSphere&rsquo; の上に動作する DC/OS クラスターがありますが、現在は、acs (Azure Container Service を使用して別のクラスターをデプロイします。 恐れてはい &amp; けないので、この赤ん子を Azure で実行する方がはるかに速く、今まで以上に問題はありません。</p>
+
+
+  <p>ご記憶のように、このシナリオでは、2 つの DC/OS クラスターがあります。 1 つは実稼働 Docker コンテナーの実行&ldquo;&rdquo;に使用され、2 つ目は統合テスト用に&ldquo;使用&amp;されます&rdquo;。</p>
+
+
+  <p>Azure にクラスターをデプロイするには、半管理コンテナー オーケストレーション プラットフォームである Azure Container Serviceのマジックを使用します。 すべての big-3 &ndash; DC/OS、Kubernetes、Docker Swarm がサポートされています。 手動のオンプレミスデプロイとは異なり、ACS は多大な作業を行います。 必要なのは、必要なマスター ノードとスレーブ ノードの数を指定し、それを&rsquo;示す操作です。</p>
+
+
+  <p>ACS のデプロイとオンプレミスのデプロイのもう 1 つの大きな違いは、Azure では、プライベートスレーブ ノードとパブリック スレーブ ノードの両方を使用して DC/OS をデプロイする必要がある点です。 ご記憶がある場合、vSphere ベースのデプロイでは、パブリック エージェント&rsquo;はインストールしていけなかったのです。</p>
+
+
+  <p>現在、ACS&rsquo; を使用して DC/OS を使用および展開する方法に関するブログ投稿、KB、記事が多数あるので、できるだけ短く包括的にしてください。 IMHO、 <a href="https://docs.microsoft.com/en-us/azure/container-service/">Microsoft ACS のドキュメント</a> は、最初に非常に良い場所です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ae35197-f496-4ec5-ade1-17085a580dd7.png"><img alt="DC OS 1.9 deployment" border="0" height="402" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/180386da-3bd8-48ae-b812-af11abac4d1e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DC OS 1.9 の展開" width="770"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>DC/OS 1.9 の展開に関する詳細については、個人用ブログVMware vSphere <a href="https://imallvirtual.com/mesosphere-dcos-azure-docker-vmware-everything-between-part-5/">を参照してください</a>。</p>

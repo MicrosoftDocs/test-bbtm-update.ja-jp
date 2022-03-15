@@ -1,0 +1,99 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3ae35799f3acb470a43368ec6c44f95478304e2d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895942"
+Slug: getting-started-with-azure-data-factory-and-azure-machine-learning-4
+Title: Azure Data Factory と Azure Machine Learning の概要
+Summary: この投稿では、最新の AzureMLBatchExecution アクティビティを使用して Azure Data Factory を使用して Azure Machine Learning と統合する方法Azure Data Factoryを示します。
+Content: >-
+  <p>この投稿では、<strong>AzureMLBatchExecution </strong> アクティビティを使用して Azure Data Factory を使用して Azure Machine Learning と統合する方法Azure Data Factory更新プログラムを提供します。このAzure Data Factory、ビッグ データ パイプラインを作成できます (例: Pig と Hive) を使用して、さまざまなデータ ソースからデータを取り込んで処理し、Azure Machine Learning Web サービスを使用して顧客の行動を予測します。 次に例を示します。</p>
+
+
+  <p>Imagineサービス オペレーターであり、数か月以内にサブスクリプションを取り消す可能性があるサブスクライバーを特定する必要があります。 これにより、生データをインテリジェントなアクションに変換し、顧客がチャーンする可能性があるさまざまな方法を把握するのに役立ちます。 次の例では、月内にチャーンする可能性が高いモバイル顧客を把握するエンドツーエンドソリューションの概要を示します。</p>
+
+
+  <p>ADF を使用すると、Azure Blob Storage へのデータの取り込み、HDInsight クラスターとジョブの実行の管理、Machine Learning プロセスの実行、最終的な結果の Azure BLOB ストレージへの発行など、例に必要なすべてのプロセスとリソースを簡単に調整できます。 HDInsight で実行される Hive クエリでは、顧客プロファイルとマージする前に、呼び出しの詳細 (顧客ごとの呼び出しに費やされた月単位の分) が集計されます。 この結合されたデータは、顧客のチャーンをAzure Machine Learningモデルへの入力として使用できます (次の図を参照)。</p>
+
+
+  <p>この図では、Hive ジョブを実行して HDInsight クラスターで集計を実行する AggregateMobileCustomerUsage パイプラインを確認できます。 データが集計された後は、データ モデルを呼び出す PredictCustomerChurnPipeline への入力Azure Machine Learningされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81d99b53-de04-479c-91c1-7aa3b0f75e04.png"><img alt="ML Experiment" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ed9a80c-f97f-4a86-a8be-e293adb9fc48.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="ML実験" width="1024"></a></p>
+
+
+  <p>このソリューションには、次の 2 つの重要な部分について詳しく説明します。</p>
+
+
+  <ol>
+   <li><strong>Azure Machine Learning</strong>: 顧客チャーン モデルのデプロイ</li>
+   <li><strong>Azure Data Factory</strong>: 発行された web サービスAzure Machine Learning使用する</li>
+  </ol>
+
+
+  <h2>&ndash;&nbsp; Azure Machine Learning顧客チャーン モデルのデプロイ</h2>
+
+
+  <p>データ サイエンティストが公開した予測実験を確認しましょう。 予測実験に示されている Web サービスの入力と Web サービスの出力 (下の図) に注意してください。 Web サービス入力を使用すると、公開された Web サービスへの入力として使用されるデータを指定し、顧客ごとにチャーンの可能性の予測結果を生成できます。 Web サービス出力では、予測結果が書き込まれる Azure Blob Storage を指定します。 Azure Machine Learning を使用して予測実験を作成すると、Web サービスの入力と出力が自動的に作成されます。 詳細については、Web サービス<a href="https://azure.microsoft.com/en-us/documentation/articles/machine-learning-publish-a-machine-learning-web-service/" target="_blank">へのAzure Machine Learningに関する記事</a>を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f04a3cf2-7d37-4757-aadc-2bfbea38deee.png"><img alt="Customer Churn Predictive Model" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5fd3dc45-56eb-42cb-86fd-f472dbcaa7b5.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="顧客チャーン予測モデル" width="497"></a></p>
+
+
+  <p>実験が Web サービスとしてデプロイされた後、Web サービスのダッシュボードを表示して、次に示すように API キーと Batch URI を取得できます。 API キーと Batch URI は、次の手順で使用され、リンクされたサービスAzure Data Factory作成します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6026c66-de94-4aa0-b85a-38ab8c3eeb51.png"><img alt="Machine Learning Model API Key" border="0" height="374" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb54f7ab-2344-4ee6-a510-01b3c828a9d2.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Machine Learning Model API キー" width="640"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44375680-5f49-4b75-aa2a-753fe22edb39.png"><img alt="Machine Learning Model Batch URI" border="0" height="308" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa22cb5e-93b1-4f16-8c8c-0b135af8e7e5.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Machine Learning バッチ URI" width="640"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>Azure Data Factory - 発行された web サービスAzure Machine Learning使用する</h2>
+
+
+  <p>Batch URI と API キーを使用すると、Azure Data Factory パイプラインで<strong> AzureMLBatchExecution</strong> アクティビティを使用して、入力データをスコア付けし、定期的に実行するようにスケジュールすることができます。</p>
+
+
+  <p>サービスへの接続に必要な情報を指定Azure Machine Learning、リンクされたサービスを定義する<a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-introduction/" target="_blank">必要があります</a>。 ADFMobileCustomerChurnML というリンクされたサービスを次に示します。 リンクされたサービスでは、 <strong>mlEndpoint</strong> プロパティを使用して、前の手順で取得した Batch URI をポイントします。 また、デプロイされた Web サービスにアクセスするために必要な API キー Azure Machine Learning指定します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad51b500-faec-4bca-9cbb-539839786e6e.png"><img alt="Machine Learning Linked Services" border="0" height="317" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a391bfd1-a7f8-4f2c-8083-e24fb4a27ce9.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Machine Learning されたサービス" width="640"></a></p>
+
+
+  <p>次に、リンクされたサービスをパイプラインでAzure Data Factoryします。 パイプライン (下図参照) に、 <strong>AzureMLBatchExecution</strong> アクティビティがリンクされたサービス <strong>ADFMobileCustomerChurnML</strong> を参照しているのが表示されます。 アクティビティは月単位で実行される予定であり、入力の依存関係 (&nbsp; &ldquo;入力&rdquo;: [ { &ldquo;name&rdquo; : MergedCustomerProfileCallTrendsCSV&rdquo;} ] ) が準備できた場合にのみ開始されます。 これにより、ビッグ データ パイプラインによるアップストリーム データ処理が完了した場合にのみ、Web サービスを呼び出す可能性があります。</p>
+
+
+  <p>また、デプロイされた Web サービスの Web サービス入力に必要なデータが、 <strong>MergedCustomerProfileCallTrendsCSV</strong> データセットによって提供されるデータがアクティビティ定義によって指定されているのも確認できます。 <strong>MergedCustomerProfileCallTrendsCSV データセットは</strong>、Azure BLOB ストレージに格納されている処理を指します。 公開された Azure Machine Learning Web サービスによってバッチ スコアリングが実行された後、データ (顧客がチャーンする可能性が高いかどうかに関する予測結果を含む) は<strong>、PredictedChurnCustomersBlob</strong> データセットで指定されたストレージの場所に書き込まれます。</p>
+
+
+  <p>アプリケーションと統合するパイプラインを作成するAzure Data Factory<a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-create-predictive-pipelines/" target="_blank">方法の詳細については、Azure Machine Learning</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3115f1bf-1341-4f0a-b9a4-fd630adfefbe.png"><img alt="Predict Customer Churn Pipeline" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44e6cab8-d39c-4e0e-8135-37c6124e8d5f.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="顧客チャーン パイプラインを予測する" width="511"></a></p>
+
+
+  <hr>
+
+  <p>注: 以前の <strong>AzureMLBatchScoring </strong>アクティビティを使用して Azure Machine Learning と統合している場合は、最新の <strong>AzureMLBatchExecution </strong>アクティビティ (最新の Azure Windows PowerShell リリースから利用可能) を使用<a href="https://go.microsoft.com/?linkid=9811175&amp;clcid=0x409" target="_blank">することをお勧</a>めします。</p>
+
+
+  <p><strong>AzureMLBatchExecution</strong> アクティビティ (2015 年 8 月にリリース) では、デプロイされた Azure Machine Learning Web サービスの Web サービスの入力/出力と Azure Data Factory データセット定義との間のマッピング セマンティクスが明確になります。 さらに、Web サービスによって&nbsp;提供される Web サービス パラメーターの値を明確に指定することもできます。</p>
+
+
+  <hr>
+
+  <p><br>
+
+  ソリューションを構築してソリューションを統合する方法の詳細については、Azure Machine LearningとData Factoryドキュメントを<a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-azure-ml-batch-execution-activity/" target="_blank">参照してください</a>。</p>
+
+
+  <p>お客様がソリューションを構築し、Azure Data FactoryとAzure Machine Learningを統合する場合は、フィードバック フォーラムでお客様の意見をお知<a href="https://feedback.azure.com/forums/270578-azure-data-factory" target="_blank">らせください</a>。</p>
+
+
+  <p>今後数週間以内に、他のブログAzure Data Factory投稿をお楽しみにしてください。</p>

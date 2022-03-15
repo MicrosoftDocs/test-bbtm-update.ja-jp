@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 314c232ef6ffc7432cb802364b1c54f3405380c0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895851"
+Slug: linux-fuse-adapter-for-blob-storage
+Title: Blob Storage 用 Linux FUSE アダプター
+Summary: Blob Storage 用 Linux FUSE アダプターのお知Storage。 これで、Linux に BLOB コンテナーをマウントし、Linux ファイル システム経由でアクセスできます。
+Content: >-
+  <p>Azure Blob Storageは、コスト効率、スケール、シンプルさのために、クラウド アプリケーションで日常的に使用されています。 しかし、現在、多くのアプリケーションはローカル ファイル システムを念頭に置いて開発され続け、多数のレガシ アプリケーションがまだ存在しています。 多くの場合、REST API を使用して BLOB ストレージを使用するためにこれらのアプリケーションを変更する方法は、提供する SDK が多い場合でも課題でした。 これらの課題に対処するために、Blob Storage 用の新しい FUSE アダプターのプレビュー<a href="https://github.com/Azure/azure-storage-fuse">が導入されています</a>。 これにより、Linux プラットフォームに BLOB コンテナーをマウントできます。 アプリケーションを書き直す必要はありません。&nbsp;</p>
+
+
+  <h2>blobfuse &ndash; Azure Blob Storage によってサポートされる Linux 用の仮想ファイル システム</h2>
+
+
+  <p><a href="https://github.com/libfuse/libfuse">Userspace (FUSE) のファイルシステムは</a> Linux 上のインターフェイスであり、ユーザーはカーネル コードを複雑にすることなく独自のファイル システムを作成できます。 blobfuse は、このインターフェイスと通信するために必要な関数を実装し、Azure Blob Storage によってサポートされる仮想ファイル システムを作成します。 blobfuse を使用すると、Linux 上の特権を持つユーザー以外のコンテナーをマウントし、Linux 上の通常のファイル システム インターフェイスを使用して REST API からアクセスするのと同じデータにアクセスできます。&nbsp;</p>
+
+
+  <p>ffmpeg を使用したビデオのトランスコードなど、blobfuse でいくつかの簡単な操作を実行するデモを次に示します。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/blobfuse2.gif"></p>
+
+
+  <h2>機能</h2>
+
+
+  <p>現時点では、blobfuse に次の機能を実装しています。</p>
+
+
+  <ul>
+   <li>Linux に BLOB コンテナーをマウントする</li>
+   <li>mkdir、opendir、readdir、rmdir、open、read、create、write、close、unlink、truncate、stat、rename などの基本的なファイル システム操作</li>
+   <li>後続のファイル アクセス時間を短縮するためのローカル キャッシュ</li>
+   <li>データの並列ダウンロードとアップロードによるスループットの向上</li>
+   <li>複数のノードが同じコンテナーをマウントできます。 blobfuse を複数のノードにマウントすると、通常のファイル システム API を使用してデータにアクセスしながら、ストレージ アカウントのスループットと <a href="https://azure.microsoft.com/en-us/blog/announcing-larger-higher-scale-storage-accounts/">IOPS</a> 制限の増加を利用できます。 (ただし、BLOB ストレージへの書き込み時にノード間で同期が行えない点に注意してください。 詳細については、次の制限事項に関するセクションを参照してください。&nbsp;</li>
+  </ul>
+
+
+  <h2>制限事項</h2>
+
+
+  <p>blobfuses&rsquo; の主な使用シナリオは、開発者、データ サイエンティスト、システム管理者が使い慣れたファイル システム操作を使用して BLOB ストレージと対話することです。 また、一部のレガシ アプリケーションを BLOB ストレージ上で実行するのにも役立ちます。 blobfuse はオブジェクト ストアの上で実行されるので、すべての機能が通常のファイル システムと同じように動作するとは思えないことです。 次に例をいくつか示します。&nbsp;</p>
+
+
+  <ul>
+   <li>blobfuse でのファイル システムの操作が不要な場合は、既存のアプリケーションが破損する可能性があります。 シンボリック リンク、ファイル権限、フラグ、および POSIX ファイル ロック操作は現在実装されていません。</li>
+   <li>blobfuse がファイル全体をローカル ディスクにダウンロードしてから内容を変更する場合、既存のファイルの更新はコストのかかる操作です。</li>
+   <li>複数のノードから blobfuse をマウントすることもできますが、Blob Storage への書き込みに関するノード間の同期はありません。 同時書き込みには blobfuse を使用しない。</li>
+  </ul>
+
+
+  <p>blobfuse を評価する際には、これらの制限に注意してください。 すべての制限事項と問題の完全な一覧については、Github の blobfuse リポジトリを参照してください。&nbsp;</p>
+
+
+  <h2>インストール</h2>
+
+
+  <p>インストールの<a href="https://github.com/Azure/azure-storage-fuse/wiki/Installation"> 指示に従います</a>。 現時点では、インストールする唯一の方法は、ソース コードからビルドし、リポジトリに用意されているマウント スクリプトを使用してマウントする方法です。 今後、インストール パッケージを提供する予定です。詳細については、ご期待ください。</p>
+
+
+  <h2>メモ</h2>
+
+
+  <p>blobfuse は現在プレビュー中です。blobfuse を使用する前に、データの適切なバックアップを作成してください。 HTTPS を有効にして、ネットワーク経由でデータをセキュリティで保護し、データの破損から保護することをお勧めします。</p>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>すべてのフィードバックをお寄せください。 blobfuse リポジトリで問題を作成して、 <a href="https://github.com/azure/azure-storage-fuse/issues">1 行を削除してください</a>。 フィードバックを得て Blobfuse を改善します。 そのため、お問&rsquo;い合わせのうえにぜひお問い合わせください。</p>

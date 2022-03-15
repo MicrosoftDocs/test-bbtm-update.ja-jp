@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 98fddcfd1e97825702135303408c24664e1d8cd0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891736"
+Slug: azure-service-fabric-updates-at-ignite-2018
+Title: Ignite 2018 Service Fabric Azure Service Fabric更新プログラム
+Summary: 'Service Fabricは、メッセージ ルーティング、待ち時間の短いストレージ、正常性の監視を使用してサービスを構築、デプロイ、検出、およびスケーリングするためのマイクロサービス プラットフォームです。 '
+Content: >-
+  <p>Service Fabricは、メッセージ ルーティング、待ち時間の短いストレージ、正常性の監視を使用してサービスを構築、デプロイ、検出、およびスケーリングするためのマイクロサービス プラットフォームです。 コア Azure インフラストラクチャとクラウド サービスを含むファースト パーティとサード パーティの両方のアプリケーションと、企業向けミッション クリティカルなアプリケーション <a href="https://aka.ms/servicefabriccustomers" target="_blank">の両方を提供します</a>。</p>
+
+
+  <p>今週は、今年 7 月にリリースされたサーバーレス マイクロサービス プラットフォームである Azure Service Fabric Mesh プレビューの更新を、マイアミのマイアミで開いた Microsoft Ignite カンファレンスで発表します。 また、対応する SDK とツールの更新プログラムを含む Service Fabric ランタイム バージョン 6.4 も発表します。この更新プログラムは数週間後に展開が開始され、多くの機能強化が行われていきます。</p>
+
+
+  <h2>Windows Server バージョン 1803 とマルチテナント機能のサポート</h2>
+
+
+  <p>Windows Server バージョン 1803 を実行している Azure クラスターと、Azure クラスターと Service Fabric Mesh の同じイメージに基づいてコンテナーを実行しているクラスターのサポートを発表します。 Windows Server バージョン 1803 には、<a href="https://docs.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-1803" target="_blank">いくつかの機能強化と修正が含まれています</a>。</p>
+
+
+  <p>多くの場合、マルチテナント シナリオを有効にするのに役立つコンピューティング分離に加えて、ネットワークの分離を提供する必要があります。 この更新プログラムにより、Service Fabricアプリケーションごとに分離されたネットワークがプレビューとして有効になります。 アプリケーションごとに分離されたネットワークでは、サービス エンドポイントは、明示的に構成されている場合にのみ、他のアプリケーションから到達できます。</p>
+
+
+  <h2>Mesh: 自動スケールとリソース</h2>
+
+
+  <p>この更新により、Mesh アプリケーション モデルを通じて有効<a href="https://aka.ms/sfmesh" target="_blank">Service Fabric Azure Service Fabric Mesh</a> 環境が<a href="https://docs.microsoft.com/en-us/azure/service-fabric-mesh/service-fabric-mesh-service-fabric-resources" target="_blank">大幅に強化されます</a>。 Mesh が基づくランタイムは 6.4 Service Fabricランタイムと同じWindows Server バージョン 1803 もサポートされています。</p>
+
+
+  <p>Azure クラスターではステートレス インスタンスの自動スケール&rsquo;がサポートされ、この機能が Mesh Applications に追加されました。 これで、アプリケーション モデルで CPU とメモリのしきい値を指定するだけで、サービスを自動的にスケーリングできます。 そのため、スケールの需要を処理するためにノードの数について心配する必要がなくなりました。 サービスに&rsquo;対して適切な &ndash; 数のインスタンスが何かを考える必要さえなくても、Mesh がそれを管理できます。</p>
+
+
+  <p>Mesh&rsquo; のシークレット、ネットワーク、ゲートウェイ、ボリュームのリソースのサポートが追加されました。 Mesh アプリケーション モデルの Secrets リソースを使用してインライン シークレットを指定し、それらを Azure Service Fabric Mesh にデプロイできます。 ネットワークリソースとゲートウェイ リソースを使用すると、複数のイングレスとルーティングが可能になります。これを使用すると、Mesh アプリケーション内のサービスへの要求ごとのルーティングを指定できます。 シークレットとルーティングを使用して、Http エンドポイントと HTTPS エンドポイントを使用してアプリケーションを Service Fabricできます。</p>
+
+
+  <p>さらに、ボリューム リソースのサポートにより、HA シナリオ用に Azure Files と Service Fabric ボリューム ディスクをマウントできます (詳細については、次のセクションを参照してください)。</p>
+
+
+  <p>新しいシナリオをサポートできるランタイム拡張機能は、ストーリーの一部にしか含め "されません"。 Mesh&rsquo; <a href="https://docs.microsoft.com/en-us/azure/service-fabric-mesh/service-fabric-mesh-howto-setup-developer-environment-sdk" target="_blank">Applications</a> と Maven CLI Visual Studio を使用してツールを強化し、Mesh アプリケーションの Azure portal エクスペリエンスを向上しました。 これで、次の方法で Mesh アプリケーションを参照および管理Azure portal。</p>
+
+
+  <p align="center"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/-6qds7KSeC0" width="560"></iframe></p>
+
+
+  <h2>ステートフル サービスの低待機時間ストレージの機能強化</h2>
+
+
+  <p>Service Fabric ステートフル サービスの自動バックアップおよび復元サービスの一般提供を発表します。これにより、クラスター全体でステートフル サービスを確実にバックアップできます。 さらに、復元する&rsquo;前に、データを表示し、人間に優しい形式で編集するサポートが追加されました。 データのバックアップと復元は、ユーザーがデータのバックアップまたは復元のためにコードを作成する必要がなされないので、簡単になります。</p>
+
+
+  <p>低待機時間のシナリオで必要な高速読み取りおよび書き込みのために、ディスクに永続化することなく、VM 間で状態をメモリ内にレプリケートできる揮発性ストレージのサポートを有効にしました。</p>
+
+
+  <p>このサービスでサポートされる固有の機能の 1 Service Fabric、Reliable Collections を使用した状態ストレージです。 現在まで、Reliable Collections では、新しいプログラミング モデルを採用Service Fabric必要でした。 このリリースでは、任意のコードまたはプログラミング モデルから Reliable Collections をキー値ストアとして使用できるスタンドアロン Reliable Collections ライブラリをプレビューしています<em></em>。 それだけでなく、単なるライブラリにしかならならず、ランタイムを必要とせずにService Fabric外部で実行することもできます。 次に、Service Fabric で実行すると、ミッション クリティカルなアプリケーションをサポートするために、組み込みのレプリケーションとコロケーションによって状態が HA になります。 これは、.NET Core と Java の両方のプレビューとしてリリースされます。</p>
+
+
+  <p>コンテナーは、多くの場合、状態のボリューム ディスクと一緒に使用されます。 一貫性、障害からの迅速な復旧、要求のルーティングは、リモート ストレージでは複雑です。 さらに、ローカルにマウントされたディスクは HA ではなく、データが失われる可能性があります。 &rsquo;また、リモート マウントされたディスクでは、待機時間が問題になる可能性があります。そのため、これらの問題に対処するために、Reliable Collections によってサポートされる Service Fabric ボリューム ディスクを解放して、コンピューティングと共に置く HA 待機時間の短いストレージ ボリュームを提供します。 お使いのアプリケーションで<em>ボリューム ディスク</em>を使用するために変更Service Fabric必要はありません。 NoSQL のデータベースによってサポートされているコンテナーをリフトアンドシフトし、クラウドに移行して HA に移行する方が、これまで以上に簡単になります。</p>
+
+
+  <h2>その他&hellip;</h2>
+
+
+  <p>上記は、この更新プログラムの一部の機能にのみ対応しています。 ロールアウトを開始Service Fabric詳細を取得するには、ブログ<a href="https://blogs.msdn.microsoft.com/azureservicefabric/feed/" target="_blank">の RSS</a> フィードにサインアップします。</p>
+
+
+  <p>このリリースでは、EventStore API が一般提供されます。そのため、クエリが実行され、表示される短期的な履歴データを使用してクラスターとサービスを診断しやすくなります。</p>
+
+
+  <p>最新リリースをお試しください。フィードバックをお寄せください。 何がうまく <a href="https://github.com/Azure/service-fabric-issues/issues" target="_blank">機能し&rsquo;、何がうまく機能しないのかをお知&rsquo;らせください</a>。 ドキュメントを<a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-quickstart-containers" target="_blank">読み</a>、<a href="https://blogs.msdn.microsoft.com/azureservicefabric/tag/customer-profile/" target="_blank">無料の Azure クラスター Service Fabric</a>使用しているお客様<a href="https://aka.ms/tryservicefabric" target="_blank">から学び、試してみてください</a>。 製品チームとの直接の対話を行う場合は、毎月のコミュニティ呼び出 <a href="https://blogs.msdn.microsoft.com/azureservicefabric/2017/11/09/service-fabric-community-qa-18th-edition/" target="_blank">しを調整してください</a>。</p>
+
+
+  <p>&rsquo;Ignite に参加する場合は、ブースまたは講演中に必ずご参加ください。ご質問や詳細をご確認ください。 スケジュールとブースの詳細に関する <a href="https://aka.ms/sfignite2018sessions" target="_blank">詳細を確認してください</a>。</p>

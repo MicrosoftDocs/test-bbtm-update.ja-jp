@@ -1,0 +1,260 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2e48cd77f4b822793645298f102efdd63fe8dfe7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895480"
+Slug: local-testing-with-live-data-means-faster-development-with-azure-stream-analytics-2
+Title: ライブ データを使用したローカル テストは、データを使用した迅速な開発Azure Stream Analytics
+Summary: ライブ データローカル テストが、現在、ライブ データ ツールのパブリック プレビューで使用Azure Stream Analytics Visual Studioしています。
+Content: >-
+  <p>ライブ データのローカル テストが、新しいツールでパブリック プレビューで利用Azure Stream Analytics Visual Studio<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-quick-create-vs" target="_blank">しています</a>。 クラウドで実行することなく、ライブ データAzure Stream Analyticsクエリ ロジックをテストできると考えたことはありますか? クエリがデプロイされるのを待つ必要がなさそうで、その他のラウンドトリップの遅延が発生する可能性にワクワクしていますか? この機能強化により、Azure Event Hubs、IoT Hub、Blob Storage などのクラウド ソースからのライブ データ ストリームを使用しながら、ローカルでクエリをテストできます。 ローカル環境ですべての時間Azure Stream Analyticsポリシーを使用Visual Studioできます。 数秒でクエリを開始および停止し、ローカル デバッグを実行することで、クエリ ロジック テストの内部ループで貴重な時間を節約することで、開発の生産性が大幅に向上します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ae7ad334-d27d-4de9-bd59-b22d27a438e9.gif"><img alt="ASALiveTesting2" border="0" height="585" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/326882f1-0408-4fcc-a0ba-b5f85d856144.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ASALiveTesting2" width="1024"></a></p>
+
+
+  <h2>ライブ データのローカル テスト エクスペリエンス</h2>
+
+
+  <p>新しいローカル テスト ランタイムは、クラウドまたはローカルの静的ファイルからライブ ストリーミング データを読み取る可能性があります。 クラウド ランタイム と同じように動作し、Azure Stream Analytics多くのテスト シナリオに必要な同じ時間ポリシーをサポートします。 このクエリは、単一のサーバーの開発環境に適したシミュレートされた環境で実行され、クエリ ロジックのテスト目的でのみ使用する必要があります。 パフォーマンス/スケーラビリティと可用性のテストには適していない。</p>
+
+
+  <h2>主な利点</h2>
+
+
+  <h3>クエリの動作の一貫性</h3>
+
+
+  <p>指定された入力に対して、ローカルおよびクラウドで実行されているクエリは同じ結果を出力します。 Visual Studioのライブ データ テストには、タイム パトと機械学習機能の完全なサポートが含まれています。</p>
+
+
+  <h3>はるかに短いテスト サイクル</h3>
+
+
+  <p>クラウドでの実行と比較すると、クエリ テストのラウンドを開始するのに数秒しかかから "ない" と言います。 これにより、環境を切り替える必要なく、Visual Studioクエリを直接テストできます。 クエリを簡単に調整し、ライブ データの結果をすぐに確認するために必要なデータの形状を理解できます。</p>
+
+
+  <h3>ジョブ メトリックとエラー メッセージの表示</h3>
+
+
+  <p>入力データ サイズ、出力データ サイズなどのジョブ メトリックは、ローカルの実行中に使用できます。 エラー メッセージは、テストとデバッグにも表示されます。</p>
+
+
+  <h3>流動的なエクスペリエンス</h3>
+
+
+  <ul>
+   <li>クエリはローカルで実行されますが、入力データ クラウド ソースに直接接続します。 最初にローカルにデータをサンプリングする必要はありません。</li>
+   <li>クエリ結果は、テーブル形式ですぐに表示Visual Studio。</li>
+  </ul>
+
+
+  <h2>ローカル テスト オプション</h2>
+
+
+  <p>現在のローカル実行機能に加えて、この大幅な改善により、以下に示すすべてのローカル テスト オプションがサポートされます。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td style="text-align: center; vertical-align: middle;" width="208">
+     <p style="text-align: left;"><b>入力</b></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="208">
+     <p style="text-align: left;"><b>出力</b></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="208">
+     <p style="text-align: left;"><b>ジョブの種類</b></p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: middle;" width="208">
+     <p>ローカル静的データ</p>
+     </td>
+     <td style="vertical-align: middle;" width="208">
+     <p>ローカル静的データ</p>
+     </td>
+     <td style="vertical-align: middle;" width="208">
+     <p>クラウド/エッジ</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: middle;" width="208">
+     <p>ライブ入力データ</p>
+     </td>
+     <td style="vertical-align: middle;" width="208">
+     <p>ローカル静的データ</p>
+     </td>
+     <td style="vertical-align: middle;" width="208">
+     <p>クラウド</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: middle;" width="208">
+     <p>ライブ入力データ</p>
+     </td>
+     <td style="vertical-align: middle;" width="208">
+     <p>ライブ出力データ</p>
+
+     <p>(Power BI ADLS は現時点ではサポートされていません)</p>
+     </td>
+     <td valign="top" width="208">
+     <p>クラウド</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>ローカル テストとクラウド実行に関する注意点</h2>
+
+
+  <p>このローカル テスト機能は、機能テスト目的でのみ使用する必要があります。 クラウドで実行するパフォーマンステストとスケーラビリティ テストは置き換えら "ない"。 ローカル環境で実行してもサービス&rsquo; SLA が保証されないので、これは実稼働目的では使用できません。</p>
+
+
+  <p>マシン上ではローカル リソースにのみ依存できます。クラウドにデプロイする場合は、複数のノードにスケールアウトできます。 さらに、クラウドデプロイにより、チェックポイント処理やアップグレードが保証されます。 また、ジョブを 24 時間 365 日実行するインフラストラクチャもすべて提供されます。</p>
+
+
+  <p>次の表は、ローカル環境でのクエリの実行とクラウドでのクエリの実行の比較を示しています。 タイム ポリシーと機械学習関数はクラウド入力オプションでのみサポートされ、ローカル入力ではサポート&rsquo;されていません。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td style="vertical-align: middle;" width="87">&nbsp;</td>
+     <td style="text-align: center; vertical-align: middle;" width="54">
+     <p style="text-align: left;"><strong>クエリ ロジック </strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="65">
+     <p style="text-align: left;"><strong>JavaScript UDF/UDA</strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="68">
+     <p style="text-align: left;"><strong>Machine Learning関数</strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="61">
+     <p style="text-align: left;"><strong>時間ポリシー</strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="90">
+     <p style="text-align: left;"><strong>実行環境</strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="80">
+     <p style="text-align: left;"><strong>リソースの割り当て</strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="70">
+     <p style="text-align: left;"><strong>サービス SLA</strong></p>
+     </td>
+     <td style="text-align: center; vertical-align: middle;" width="63">
+     <p style="text-align: left;"><strong>スケーラビリティ</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: middle;" width="87">
+     <p>ローカル入力を使用 <b>したローカル</b> テスト</p>
+     </td>
+     <td style="vertical-align: middle;" width="54">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="65">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="68">
+     <p>いいえ</p>
+     </td>
+     <td style="vertical-align: middle;" width="61">
+     <p>いいえ</p>
+     </td>
+     <td style="vertical-align: middle;" width="90">
+     <p>ローカルでシミュレートされた</p>
+     </td>
+     <td style="vertical-align: middle;" width="80">
+     <p>CPU/メモリなし</p>
+
+     <p>コミットメント</p>
+     </td>
+     <td style="vertical-align: middle;" width="70">
+     <p>いいえ</p>
+     </td>
+     <td style="vertical-align: middle;" width="63">
+     <p>いいえ</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: middle;" width="87">
+     <p>ライブ入力を使用 <b>したローカル</b> テスト</p>
+     </td>
+     <td style="vertical-align: middle;" width="54">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="65">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="68">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="61">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="90">
+     <p>ローカルシミュレート</p>
+     </td>
+     <td style="vertical-align: middle;" width="80">
+     <p>CPU/メモリなし</p>
+
+     <p>コミットメント</p>
+     </td>
+     <td style="vertical-align: middle;" width="70">
+     <p>いいえ</p>
+     </td>
+     <td style="vertical-align: middle;" width="63">
+     <p>いいえ</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: middle;" width="87">
+     <p>クラウドでの実行</p>
+     </td>
+     <td style="vertical-align: middle;" width="54">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="65">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="68">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="61">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="90">
+     <p>クラウド</p>
+     </td>
+     <td style="vertical-align: middle;" width="80">
+     <p>SU 別</p>
+     </td>
+     <td style="vertical-align: middle;" width="70">
+     <p>はい</p>
+     </td>
+     <td style="vertical-align: middle;" width="63">
+     <p>はい</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>今すぐ試す</h2>
+
+
+  <p>この機能は非常に使いやすい機能です。 スクリプト エディターで必要な入力/出力の種類を選択し、[ローカルで実行] &ldquo;をクリックします&rdquo;。 このガイドの「ローカルでライブ データをテストする」にAzure Stream Analytics<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-live-data-local-testing" target="_blank">ツールを使用Visual Studio</a>試してみてください。</p>
+
+
+  <h2>フィードバックとアイデアの提供</h2>
+
+
+  <p>チームAzure Stream Analyticsフィードバックに耳を傾け、非常にコミットしています。 会話に参加し、UserVoice を通じて音声を <a href="https://feedback.azure.com/forums/270577-stream-analytics/filters/top" target="_blank">聞いへようこそ</a>。 ツールのフィードバックについては、 にアクセスできます <a href="mailto:ASAToolsFeedback@microsoft.com">ASAToolsFeedback@microsoft.com</a>。</p>
+
+
+  <p>パブリック プレビューで 10 を超える新機能が追加されたことをご存知でしたか? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8zMnUkKzk5Elg9i6hoUmJVUMFo3NDIwNzVENTI2TlY2T1hLVzVIT0c4Ri4u" target="_blank">プレビュー プログラムにサインアップして試</a> してください。また、最新の機能 <a href="https://twitter.com/azurestreaming" target="_blank">@AzureStreaming</a> については、お問い合わせください。</p>

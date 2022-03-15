@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cee8c6cadb0a56c954282ddf200675f72042aea0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891081"
+Slug: getting-started-with-iot-what-do-you-do-with-all-that-data
+Title: 'IoT の使用を開始する: すべてのデータを使用して何を行いますか?'
+Summary: このモノのインターネット (IoT) は、データの生成、そのデータからの運用に関する新しい分析情報の検出、生産性と革新的な機会の特定に役立ちます。
+Content: >-
+  <p>このモノのインターネット (IoT) は、データの生成、そのデータからの運用に関する新しい分析情報の検出、生産性と革新的な機会の特定に役立ちます。 このシリーズの最初の投稿では、IoT の使用を開始する方法 (接続、セキュリティ保護、管理の方法) <a href="https://azure.microsoft.com/en-us/blog/getting-started-with-iot-how-to-connect-secure-and-manage-your-things/">を紹介&ldquo;しました&quot;。 </a>ただし、IoT デバイスが Azure IoT Hub を使用してデプロイ、セキュリティ保護、プロビジョニングされた後は、すべてのデータをどこに送信するかという疑問が残ります。</p>
+
+
+  <p>デバイスやセンサーによって生成されるテレメトリ データなどの情報は、時間に依存します。 その他の情報は表示&rsquo;されます。 Azure IoT Hub の役割は、各データ パケットの優先順位付け方法と送信先を決定することです。 これらのメッセージは、次の 4 つの一般的なカテゴリに分類されます。</p>
+
+
+  <ul>
+      <li><strong>IoT Hub ルーティング:</strong> アラートと時間に依存するテレメトリ データが含まれます</li>
+      <li><strong>ファイルのアップロード</strong>: 断続的に接続されたデバイスによってアップロードされた、または帯域幅を節約するために圧縮された、メディア ファイルとテレメトリ データの大規模なバッチ</li>
+      <li><strong>デバイス ツインで報告される</strong>プロパティ: 機能や条件などのデバイス状態情報、またはファームウェアや構成の更新などのワークフローの状態</li>
+      <li><strong>IoT Hub Event Grid</strong> との統合: メッセージ ルーティングの代替手段として、Event Grid イベントIoT Hub Azure および Azure 以外のサービスに統合されます。 これらのイベントには、IoT デバイスの作成や削除などのイベントが含まれます。</li>
+  </ul>
+
+
+  <h2>メッセージ ルーティングと Event Grid</h2>
+
+
+  <p>メッセージ ルーティングとEvent Grid機能は似ているので、一方を互いから選択する必要がある場合を知りにくい場合があります。 どちらも回復性があり、メッセージが通過するように設計されているのに対し、それぞれ異なるシナリオ用に設計されています。</p>
+
+
+  <h3>Azure Message Routing</h3>
+
+
+  <ul>
+      <li>限られたエンドポイントをサポートしますが、他のエンドポイントへのコネクタを構築することもできます (一から、<strong>Event Hub</strong>、<strong>Storage Hub</strong>、<strong>Service Bus Queue</strong>、Service Bus トピックに<strong>接続</strong>します)。</li>
+  </ul>
+
+
+  <ul>
+      <li>次の目的で設計されています。 <ul>
+          <li>他のサービスへのテレメトリ データの送信</li>
+          <li>デバイスとバック エンド間の通信</li>
+          <li>メッセージのヘッダーまたは本文の情報に&rsquo;基づいてカスタム エンドポイントにメッセージをルーティングする</li>
+      </ul>
+      </li>
+  </ul>
+
+
+  <h3>Event Grid</h3>
+
+
+  <ul>
+      <li>より多くのエンドポイントをサポートし、Azure エコシステムの外部に拡張してサードパーティのビジネス アプリに接続できます</li>
+      <li>イベントに関するアラートを複数のエンドポイントに送信できる</li>
+      <li>イベントの送信&rsquo;順序は保証されませんが、時系列レコードの保持に役立つタイム スタンプを含めることができます</li>
+      <li>次の目的で設計されています。 <ul>
+          <li>サーバーレス コンピューティング アプリケーションの作成</li>
+          <li>IT 運用の自動化</li>
+          <li>新しい仮想マシンの作成など、特定のイベントが発生するたびにアクションをトリガーするビジネス アプリとの統合。&nbsp;</li>
+      </ul>
+      </li>
+  </ul>
+
+
+  <p>生成した情報を処理する方法と、それをルーティングする場所を知るのは難しい場合があります。 しかし、接続の確立を開始したら、IoT がビジネスを変革する可能性を理解し始めできます。</p>
+
+
+  <p>IoT 機能の構築の詳細と、最初のデプロイを開始する簡単な方法について説明します。 開発者ガイド<a href="https://content.microsoft.com/iot/developerguide">Azure IoTダウンロードし</a>、IoT をビジネスに組み込む方法の詳細を確認してください。</p>

@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7333996f584ea5bf85d7fa70716ae92ac164dd7f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896600"
+Slug: azure-container-registry-adds-individual-identity-webhooks-and-delete-capabilities
+Title: 個々の id、webhook、および削除機能を追加 Azure Container Registry
+Summary: Azure Container Registry チームは、より多くの機能を備えた新しい Container Registry Sku のプレビューを共有することに興奮しています。   Azure Container Registry 管理対象層の新しいプレビューは...
+Content: >-
+  <p>Azure Container Registry チームは、より多くの機能を備えた新しい Container Registry Sku のプレビューを共有することに興奮しています。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Blogs/Seth-Juarez/New-Azure-Container-Registry-Features/player" width="960"></iframe></p>
+
+
+  <p>Azure Container Registry 管理対象層の新しいプレビューは、Basic、Standard、プレミアムを含む3つのオプションで使用できます。</p>
+
+
+  <p>これらの新しいコンテナーレジストリは、米国東部、西ヨーロッパ、および米国中西部を含む3つのリージョン内でプレビュー版として提供されています。 他のリージョンのサポートは、フィードバックに基づいて、次の週にわたってロールアウトされます。</p>
+
+
+  <p>使用できる新機能は次のとおりです。</p>
+
+
+  <ul>
+      <li>リポジトリの AAD 認証</li>
+      <li>削除操作</li>
+      <li>Webhook のサポート</li>
+  </ul>
+
+
+  <h2>管理対象 Sku</h2>
+
+
+  <p>これらの sku のイメージは、ユーザーに指定されたストレージアカウントに依存するのではなく、ACR サービスによって管理される Storage アカウントに格納されます。 この変更により、信頼性が向上し、元のオファリングでは&#39;できない新しい機能が有効になります。 このモデルを引き続き使用する場合は、独自のストレージアカウントに依存するレジストリを作成して使用することもできます。</p>
+
+
+  <h2>個々の AAD 認証</h2>
+
+
+  <p>以前は、1つの管理者アカウントを有効にするか、サービスプリンシパルを設定することによって、レジストリへのアクセスを認証する方法は2つしかありませんでした。 管理されたレジストリを使用して、AAD の資格情報を使用してレジストリにサインインできます。 これは、作成したすべての管理対象レジストリに対して自動的に機能します。 ポータルまたは az cli を使用してサインインすると、AAD アカウントのすべてのレジストリにアクセスできるようになります。 さらに、AAD の資格情報を使用してサインインした場合は、リポジトリにイメージをプッシュするときに、資格情報を再度渡す必要が&#39;ます。</p>
+
+
+  <p>コマンドラインを使用して AAD で認証するには、Azure CLI 2.0 で az login &quot; を使用し &quot; て Azure アカウントにサインインします。 ログインしたら、az acr login &quot; コマンド &quot; を使用します。これにより、Azure アカウントへのサインインに使用した資格情報が自動的に取得されます。</p>
+
+
+  <h2>機能の削除</h2>
+
+
+  <p>新しいレジストリ Sku を使用すると、要求された機能であるリポジトリの削除を実行できます。 レジストリ全体を削除することなく、特定のリポジトリ、イメージ、またはタグをレジストリから削除することができます。 この機能は、Azure portal のコンテキストメニューとして、または <a href="https://docs.microsoft.com/en-us/cli/azure/acr/repository#delete" target="_blank">az acr repository delete api</a>を介して使用できます。</p>
+
+
+  <h2>Webhook のサポート</h2>
+
+
+  <p>クラウドに接続されたワークフローを有効にするために、レジストリの webhook 通知を追加しまし &rsquo; た。 これらの webhook は、プッシュ操作または削除アクションによってトリガーされるように構成できます。 さらに、レジストリ内のリポジトリ、特定のリポジトリ、または特定のタグに対して発生したアクションによってトリガーされるように、webhook のスコープを変更できます。</p>
+
+
+  <p>また、webhook に対して ping を実行し、webhook がトリガーされたときのイベントを表示することで、webhook を簡単にテストすることもできます。 特定のイベントについては、さらに問題をテストまたは診断するために、要求と応答を確認することができます。 Webhook のサポートは、ポータルと <a href="https://docs.microsoft.com/en-us/cli/azure/acr/webhook" target="_blank">az acr webhook cli</a>の両方で利用できます。</p>
+
+
+  <h2>価格</h2>
+
+
+  <p>詳細については、 <a href="https://aka.ms/acr/pricing" target="_blank">ACR の価格</a> に関するページを参照してください。 プレビュー期間中、これらの Sku の割引は50% です。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>個々の AAD サポート、削除、Webhook 機能は、コンテナーレジストリでさらに多くのことを可能にすることを目的として設計されました。 Azure Container Registry の新機能をご利用いただけることを願っています。 現時点では、米国東部、西ヨーロッパ、または &nbsp; 米国 &nbsp; 中西部で新しいレジストリを作成し、管理対象レジストリを SKU として選択することで、これらのユーザーを試してみることができます。</p>
+
+
+  <p>ご意見やご質問がある場合は、以下のコメントをお寄せください。または、 <a href="https://github.com/azure/acr/issues" target="_blank">GitHub</a>または<a href="https://stackoverflow.com/questions/tagged/azure-container-registry" target="_blank">stackoverflow</a>にご連絡ください。</p>
+
+
+  <p>- Azure Container Registry チーム</p>

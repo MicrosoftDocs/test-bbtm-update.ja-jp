@@ -1,0 +1,100 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 22e0f66b0180deb5d82960ab483d4d1086479493
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895359"
+Slug: ml-powered-detections-with-kusto-query-language-in-azure-sentinel
+Title: Machine Learning Kusto クエリ言語を使用した検出をサポートAzure Sentinel
+Summary: サイバー攻撃が複雑になり、検出が困難になる。 SIEM の従来の関連付け規則では十分ではなく、攻撃の完全なコンテキストが不足し、以前に見られた攻撃のみを検出できます。 これにより、環境内で誤検知やギャップが発生する可能性があります。 さらに、関連付け規則では、顧客環境に基づいて異なる結果が得られますので、大幅なメンテナンスとカスタマイズが必要です。
+Content: >-
+  <p><em>この投稿は、プリンシパル セキュリティ エンジニアリング マネージャーの Tim Timell と、プリンシパル ソフトウェア エンジニアの Dotan Patrich が共同執筆しています。 </em></p>
+
+
+  <p>サイバー攻撃が複雑になり、検出が困難になる。 SIEM の従来の関連付け規則では十分ではなく、攻撃の完全なコンテキストが不足し、以前に見られた攻撃のみを検出できます。 これにより、環境内で誤検知やギャップが発生する可能性があります。 さらに、関連付け規則では、顧客環境に基づいて異なる結果が得られますので、大幅なメンテナンスとカスタマイズが必要です。</p>
+
+
+  <p>Azure Sentinel に組み込Machine Learning高度な機能を使用すると、脅威の示す動作を検出し、セキュリティ アナリストが企業で期待される動作を学習するのに役立ちます。 さらに、Azure Sentinel には、ファイアウォール データの異常なトラフィック、疑わしい認証パターン、リソース作成の異常など、疑わしい動作を検出できる <a href="https://docs.microsoft.com/en-us/azure/kusto/query/">Kusto</a> クエリ言語の Machine Learning 機能を活用する、最新の検出クエリが提供されています。 クエリは、コミュニティのAzure Sentinel GitHub<a href="https://github.com/Azure/Azure-Sentinel">できます</a>。</p>
+
+
+  <p>環境を保護するために組み込みの機能を利用する検出Machine Learning例を次に示します。</p>
+
+
+  <h2>通常とは異なる多数の場所からのユーザー アカウントの認証の時系列分析</h2>
+
+
+  <p>一般的な組織では、認証に多くのユーザーと多くのアプリケーションがAzure Active Directory使用している場合があります。 一部のアプリケーション (Office365 Exchange Online など) は、他のアプリケーション (Visual Studio など) よりも多くの認証を持ち、データを支配する場合があります。 ユーザーは、アプリケーションに応じて異なる場所プロファイルを持つ場合があります。 たとえば、電子メール アクセスの場所のばらつきが高い場合がありますが、認証に関連付けられている開発アクティビティの場合Visual Studio低い可能性があります。 すべてのユーザーとアプリケーションの組み合わせの場所のばらつきを追跡し、最も異常なケースの一部を調査する機能は、演算子の <a href="https://docs.microsoft.com/en-us/azure/kusto/query/make-seriesoperator">make-series</a> と <a href="https://docs.microsoft.com/en-us/azure/kusto/query/series-fit-linefunction">series_fit_line</a> を使用して組み込みのクエリ機能を活用することで実現できます。</p>
+
+
+  <pre>
+
+  SigninLogs
+
+  | where TimeGenerated &gt;= ago(30d)
+
+  | extend  locationString= strcat(tostring(LocationDetails[&quot;countryOrRegion&quot;]), &quot;/&quot;, tostring(LocationDetails[&quot;state&quot;]), &quot;/&quot;, tostring(LocationDetails[&quot;city&quot;]), &quot;;&quot;)
+
+  | project TimeGenerated, AppDisplayName , UserPrincipalName, locationString
+
+  | make-series dLocationCount = dcount(locationString) on TimeGenerated in range(startofday(ago(30d)),now(), 1d)
+
+  by UserPrincipalName, AppDisplayName
+
+  | extend (RSquare,Slope,Variance,RVariance,Interception,LineFit)=series_fit_line(dLocationCount)
+
+  | where Slope &gt;0.3</pre>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8436a92-e917-475a-9e2a-9281e3214379.png"><img alt="image" border="0" height="280" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07765e85-07ed-4dc7-b521-fc1bfb2fea88.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="381"></a></p>
+
+
+  <h2>異常な数のリソースの作成</h2>
+
+
+  <p>Azure でのリソースの作成は、環境内での通常の操作です。 運用チームと IT チームは、組織のニーズと要件に基づいて環境とリソースを頻繁に起動します。 ただし、アクセス許可を持た&rsquo;&rsquo;ない、またはこれらのリソースを作成すると想定されていないユーザーによるリソースの異常な作成は非常に興味深いものです。 Azure アクティビティ ログで異常なリソースの作成または疑わしいデプロイ アクティビティを追跡すると、攻撃者によって実行される実行手法を見つける可能性があります。</p>
+
+
+  <pre>
+
+  AzureActivity
+
+  | where TimeGenerated &gt;= ago(30d)
+
+  | where OperationName == &quot;Create or Update Virtual Machine&quot; or OperationName == &quot;Create Deployment&quot;
+
+  | where ActivityStatus == &quot;Succeeded&quot;
+
+  | make-series num = dcount(ResourceId)  default=0 on EventSubmissionTimestamp in range(ago(30d), now(), 1d) by Caller
+
+  | extend  outliers=series_outliers(num, &quot;ctukey&quot;, 0, 10, 90)
+
+  | project-away num
+
+  | mvexpand outliers
+
+  | where outliers &gt; 0.9
+
+  | summarize by Caller</pre>
+
+
+  <h4><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/43d86bd2-bb04-4054-a18d-b9dd48f11b31.png"><img alt="image" border="0" height="320" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f05714c-01e8-4d65-b097-741cbbd17b2c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="516"></a></h4>
+
+
+  <h2>ファイアウォール トラフィックの異常</h2>
+
+
+  <p>ファイアウォール トラフィックは、組織内の潜在的な攻撃を示す追加の指標になる可能性があります。 毎週または 1 時間単位で通常のファイアウォール トラフィックの動作を表すベースラインを確立する機能は、トラフィックの異常な増加を指摘するのに役立ちます。 Log Analytics クエリ言語の組み込み機能を使用すると、トラフィックの異常を直接指し示し、調査することができます。</p>
+
+
+  <pre>
+
+  CommonSecurityLog
+
+  | summarize count() by bin(TimeGenerated, 1h)</pre>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4163a9f-58bc-43d5-b4cb-df2e9089c768.png"><img alt="image" border="0" height="354" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dcd0e37f-5aab-49b1-9b1f-e753b08a9180.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/azure-sentinel/">Azure Sentinel を</a>使用すると、上記の<a href="https://docs.microsoft.com/en-us/azure/sentinel/tutorial-detect-threats"></a>高度な検出ルールを作成して、環境内の異常や疑わしいアクティビティを検出したり、独自の検出ルールを作成したり、Microsoft セキュリティ研究者によって作成された検出を含む豊富な <a href="https://github.com/Azure/Azure-Sentinel/tree/master/Detections">GitHub</a> ライブラリを活用することができます。</p>

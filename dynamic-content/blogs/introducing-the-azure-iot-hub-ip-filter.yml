@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 192a699794136f376ac4d956d268f5e96c0dba4f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891585"
+Slug: introducing-the-azure-iot-hub-ip-filter
+Title: Azure IoT Hub IP フィルターの概要
+Summary: モノのインターネット (IoT) になる企業が増えるにつれて、多くの場合、セキュリティとプライバシーが考慮されます。 Microsoft の目標は、お客様の IoT ソリューションを安全に保つことです。 進行中...
+Content: >-
+  <p>モノのインターネット (IoT) になる企業が増えるにつれて、多くの場合、セキュリティとプライバシーが考慮されます。 Microsoft の目標は、お客様の&#39; IoT ソリューションのセキュリティを確保することです。 継続的なセキュリティの取り組みの一環として、最近、 <a href="https://blogs.microsoft.com/microsoftsecure/2016/10/26/securing-the-internet-of-things-introducing-the-security-program-for-azure-iot/">Azure IoT のセキュリティプログラム</a>を発表しました。これにより、お客様は、IoT ソリューションをデバイスからクラウドに評価できるセキュリティ監査担当者を選択できます。 Microsoft では、IoT のセキュリティと Azure IoT Suite および Azure IoT hub に組み込まれている最先端のセキュリティに関する<a href="https://blogs.microsoft.com/microsoftsecure/2016/10/26/securing-the-internet-of-things-introducing-the-security-program-for-azure-iot/">包括的なガイダンス</a>も提供しています。 現在、もう1つ重要なセキュリティ機能で &rsquo; ある IP フィルター処理を発表しています。</p>
+
+
+  <p>IP フィルターを使用すると、特定の ip アドレスからの接続のみを許可したり、特定の IP アドレスまたは両方の組み合わせを拒否したりするように、IoT Hub に指示できます。 管理者がこれらの IP フィルタリング規則を IoT Hub に簡単に構成できるようにしまし &rsquo; た。 これらの規則は、サポートされているプロトコル (現在 AMQP、MQTT、AMQP/WS、MQTT/WS、HTTP/1) でデバイスまたはバックエンドアプリケーションが接続しているときに適用されます。 拒否 IP ルールに一致する IPv4 アドレスのアプリケーションは、メッセージの IP ルールを特定せずに、許可されていない401状態コードを受け取ります。</p>
+
+
+  <p>IP フィルターでは、最大10個の規則で、各 IPv4 アドレスまたはサブネットを CIDR 表記形式で拒否または受け入れます。 次の2つの例では、IP アドレスをブラックリストに登録し、特定のサブネットをホワイトリストに登録する方法を示します。</p>
+
+
+  <h3>チュートリアル: IP アドレスをブラックリストにする方法</h3>
+
+
+  <p>既定では、Azure IoT Hub は、この機能を提供する前に、既存の顧客構成と互換性のあるすべての IP アドレスを受け入れるように構成されています。<br>
+
+  &nbsp;<br>
+
+  このチュートリアルでは、 &rsquo; IoT Hub 管理者に、アドレス184.13.152.8 からの不審なアクティビティを通知し、その IP アドレスからのトラフィックを拒否することを想定しています。 アドレス184.13.152.8 をブロックするには、IoT Hub 管理者は、次に示すように、この IP を拒否する規則を追加する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66a96b88-4810-4da9-a579-459588b4a03c.png"><img alt="Azure IoT Hub administrator rejects IP Image" border="0" height="564" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ed0e830-b115-44f3-9de1-5795770d21f7.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Azure IoT Hub 管理者が IP イメージを拒否する" width="1024"></a></p>
+
+
+  <p>この例では、拒否された IP アドレスを持つデバイスまたはバックエンドアプリケーションがこの IoT Hub に接続するたびに、401の承認されていないエラーが発生します。 IoT Hub 管理者はこれがログに記録されていることを確認できますが、悪意のある攻撃者はそれ以上のエラーメッセージを受信しません。</p>
+
+
+  <h3>チュートリアル: サブネットをホワイトリストに登録する方法</h3>
+
+
+  <p>次のチュートリアルでは、 &rsquo; 192.168.100.0 から192.168.103.255 への IPv4 範囲のみを受け入れるように Azure IoT ハブを構成し、他のすべてを拒否するとします。 これは、CIDR 表記を使用して2つのルールのみを追加するだけで実現できます。</p>
+
+
+  <ol>
+   <li>CIDR 表記マスク 192.168.100.0/22 を受け入れます。</li>
+   <li>すべての IP アドレスを拒否する</li>
+  </ol>
+
+
+  <p>CIDR (クラスレスドメイン間ルーティング) 形式を使用すると、IoT Hub のネットワーク管理者は1つのルールでアドレス範囲を簡単に受け入れたり拒否したりできるため、192.168.100.0/22 は <em>192.168.100.0</em> から <em>192.168.103.255</em>の範囲に変換されます。 &nbsp; ネットワーク管理者でないユーザーには、CIDR 形式の複雑さについて説明したり、電卓を提供したりする、オンラインドキュメントがたくさんあります。 お気に入りの1つが <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">ここ</a>にあります。 0.0.0.0/0 を拒否する最後の規則を追加することにより、管理者は既定のをブラックリストに変更します。</p>
+
+
+  <p>次の図は、192.168.100.0 が192.168.103.255 範囲のみを一覧表示する IoT Hub を示しています。 <em>順序は重要であり</em>、IP と一致する最初の規則によってアクションが決定されることに注意してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c99b7046-48c3-469b-95d4-6ea81aeef8e3.png"><img alt="Azure IoT Hub whitelist" border="0" height="514" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/83cae8d9-ff75-4e44-97dc-794725345318.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Azure IoT ハブのホワイトリスト" width="1024"></a><br>
+
+  &nbsp;</p>
+
+
+  <p>最後に、IoT Hub は <a href="https://azure.microsoft.com/en-us/documentation/articles/expressroute-faqs/">Azure Express route</a>を使用したプライベート接続を既にサポートしていますが、IP フィルタリングは、管理者がプライベート expressroute 接続を受け入れることができるようにすることで、セキュリティのレベルをさらに向上させます。 &nbsp; これを有効にするには、IP フィルタリングを使用して Expressroute からの接続を受け入れ、他のすべてを拒否します。</p>

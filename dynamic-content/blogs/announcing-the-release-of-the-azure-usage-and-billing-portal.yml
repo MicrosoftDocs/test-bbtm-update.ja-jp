@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6df52acd3c5913e1b20132a78634913ae84e593e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896893"
+Slug: announcing-the-release-of-the-azure-usage-and-billing-portal
+Title: Azure Usage and Billing Portal のリリースの発表
+Summary: この投稿では、Azure の複数のサブスクリプションにわたる使用状況と課金を追跡および表示するオープン ソース アプリケーションである Azure Usage and Billing Portal のリリースについて詳しく説明します。
+Content: >-
+  <p>多くの組織では、複数のサブスクリプションにわたる使用状況と課金情報を確認して視覚化するための便利な方法を求めがあります。&nbsp;現在、これは課金情報に対するアクセス制限のために解決する複雑な問題です。 昨年、Azure Resource Usage API と <a href="https://azure.microsoft.com/en-us/documentation/articles/billing-usage-rate-card-overview/">RateCard API の可用性を発表しました</a>。 これらの API を使用すると、サブスクリプションの使用状況情報にプログラムでアクセスできるだけでなく、さまざまな料金コードに対する Azure 使用量の課金レートも提供されます。 これらの API を組み合わせて使用すると、時間のと共にさまざまなサービスの使用量だけでなく、その消費コストを確認できます。 これまで、開発者は&rsquo;、このレベルのインテリジェンスを取得するためにこれらの API をブリッジする必要があります。</p>
+
+
+  <h2>Azure の使用状況と課金ポータル</h2>
+
+
+  <p>数か月前に、Developer Experience チーム内の小さなグループがプロジェクトに取り組み始め、複数のサブスクリプションで Azure&rsquo; の使用状況を可視化し、課金を追跡し、プロジェクトやイベントの完了後にリソースが実行され続けずに済まされたことを確認しました。 他の開発者と同様&rsquo;に、必要に応じて 1,000&rsquo; 台のマシン クラスターを稼働状態のままにしたくなかったのです。&nbsp;そのプロジェクトは、Azure Usage and Billing Portal になりました。&nbsp;本日は&rsquo;、プロジェクトがオープン ソースであり、現在はオープン ソースで利用可能<a href="https://github.com/Microsoft/AzureUsageAndBillingPortal">GitHub。</a> デプロイ後は&rsquo;、組織で使用されているサブスクリプションを登録して、使用状況が毎日ポーリングされます。&nbsp;そこから、その使用量と請求金額が、使いやすく、非常に構成可能なダッシュボードPower BIされます。</p>
+
+
+  <p><img alt="Announcing the Release of the Azure Usage and Billing Portal" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eeb00223-9ba6-41a1-9a3b-a292c4c35809.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure 使用状況と課金ポータルのリリースの発表" width="631">このリリースは、このプロジェクトで&rsquo;実現する必要がある作業の始めにすがっています。 今後は、異常な Azure の使用状況に基づいてアラートをトリガーする機能を追加し、追加のレポートを提供し、サブスクリプションごとのレート コードを有効にし、デプロイを簡略化する機能を追加する予定です。 Azure の使用状況と課金ポータル&rsquo;の使用を開始する場合は、フィードバックを提供し、作業している改善に貢献してください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>Azure Usage and Billing Portal は、次の複数の要素で構成されています。</p>
+
+
+  <ul>
+   <li>Azure サブスクリプションへのシステム アクセスを提供するための登録 Web サイト</li>
+   <li>アクセスを許可したサブスクリプションを確認し、ジョブ要求の状態を表示し、スケジュールされていないジョブを開始して使用状況データをプルするダッシュボード Web サイト</li>
+   <li>SQL Databaseと課金データを格納するためのデータ</li>
+   <li>Storageと RateCard API からデータをプルする要求を格納するためのキューの作成</li>
+   <li>サブスクリプションごとに毎日のサブスクリプションをトリガー pull requestスケジュールされた Web ジョブ</li>
+   <li>要求がキューに入るたびにデータをプルする継続的な Web ジョブ</li>
+   <li>Power BIダッシュボードを使用して結果を表示する</li>
+  </ul>
+
+
+  <p>幸い、独自&rsquo;のバージョンのポータルをデプロイするために必要なすべての Azure&rsquo; リソースを生成する PowerShell スクリプトを作成する作業を行いました。 詳細な手順に従<a href="https://github.com/Microsoft/AzureUsageAndBillingPortal/blob/master/Documentation/HOWTO.md"></a>って、これらのリソースを生成し、Visual Studio で必要な構成ファイルを更新し、すべてのプロジェクトを Azure にデプロイすることができます。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>プロジェクトの&rsquo;ビルド方法の詳細については、次のリソースを確認してください。</p>
+
+
+  <ul>
+   <li><a href="https://msdn.microsoft.com/library/azure/1ea5b323-54bb-423d-916f-190de96c6a3c">Azure Billing REST API リファレンスには</a>、使用状況と RateCard の情報を取得するために使用される 2 つの API の詳細が示されています。</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/samples/?term=billing">Azure Billing API コード サンプルには、</a>これらの API の使用例が含まれています。</li>
+   <li>特に重要なのは、 <a href="https://azure.microsoft.com/en-us/documentation/samples/billing-dotnet-webapp-multitenant/">登録 Web サイト</a> の同意プロセスのしくみを示すマルチテナント Web アプリケーション サンプルです。</li>
+  </ul>

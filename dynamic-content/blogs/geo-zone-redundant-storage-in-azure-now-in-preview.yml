@@ -1,0 +1,217 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 444827063c759417185a8e2e2735f946200c7d5a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891642"
+Slug: geo-zone-redundant-storage-in-azure-now-in-preview
+Title: Azure での Geo ゾーン冗長 Storage のプレビュー開始
+Summary: Azure での Geo ゾーン冗長 Storage のプレビューを発表します。 Geo ゾーン冗長 Storage は、高パフォーマンス、高可用性、ディザスターリカバリーの優れたバランスを実現し、Azure で高可用性アプリケーションやサービスを構築するときに役立ちます。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><b><i>Update 5 月 6 2020</i></b>: <em>Geo ゾーン冗長ストレージの一般提供が開始されました。最新の詳細については、 <u><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy" target="_blank">microsoft のドキュメント</a></u> を参照してください。</em></div>
+
+
+  <p>Azure での Geo ゾーン冗長 Storage のプレビューを発表します。 Geo ゾーン冗長 Storage は、高パフォーマンス、高可用性、ディザスターリカバリーの優れたバランスを実現し、Azure で高可用性アプリケーションやサービスを構築するときに役立ちます。 Geo ゾーン冗長 Storage は、次の手順を実行して、より高いデータ回復性を実現するのに役立ちます。</p>
+
+
+  <ul>
+      <li>
+      <p>現在、 <a href="https://docs.microsoft.com/azure/storage/common/storage-redundancy-zrs">ゾーン冗長ストレージ</a> などの複数の Azure Availability Zones 間でデータの3つのレプリカを同期的に作成し、クラスター、データセンター、またはゾーン全体の障害から保護します。</p>
+      </li>
+      <li>
+      <p>同じ geo 内の別のリージョンにデータを非同期的にレプリケートすると、ローカル冗長ストレージなど、リージョン内の障害から保護されます。</p>
+      </li>
+  </ul>
+
+
+  <p>Geo ゾーン冗長 Storage を使用する場合、プライマリリージョンの可用性ゾーンのいずれかが使用できない場合でも、引き続きデータの読み取りと書き込みを行うことができます。 リージョンの障害が発生した場合は、読み取りアクセス Geo ゾーン冗長 Storage を使用して、読み取りアクセスを継続することもできます。</p>
+
+
+  <p>読み取りアクセス Geo ゾーン冗長 Storage には<a href="https://docs.microsoft.com/azure/storage/common/storage-account-options#general-purpose-v2" target="_blank">汎用 v2 アカウント</a>が必要であり、ブロック blob、ディスク以外のページ blob、ファイル、テーブル、キュー、および Azure Data Lake Storage Gen2 で使用できることに注意してください。</p>
+
+
+  <p>Geo ゾーン冗長 Storage プレビューのリリースにより、Azure は、ストレージニーズに応じた優れた耐久性オプションを提供します。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td>
+              <p><strong>シナリオ</strong></p>
+              </td>
+              <td>
+              <p><strong>ローカル冗長ストレージ</strong></p>
+              </td>
+              <td>
+              <p><strong>geo 冗長ストレージ</strong></p>
+              </td>
+              <td>
+              <p><strong>読み取りアクセス geo 冗長ストレージ</strong></p>
+              </td>
+              <td>
+              <p><strong>ゾーン redundent ストレージ</strong></p>
+              </td>
+              <td>
+              <p><strong>Geo ゾーン冗長 Storage</strong></p>
+              </td>
+              <td>
+              <p><strong>読み取りアクセス Geo ゾーン冗長 Storage</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>データ センター内でノードを使用できない</p>
+              </td>
+              <td colspan="6">
+              <p style="text-align: center;">はい</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>データ センター全体 (ゾーンまたは非ゾーン) が使用できなくなる</p>
+              </td>
+              <td>
+              <p style="text-align: center;">いいえ</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">はい (<a href="https://docs.microsoft.com/azure/storage/common/storage-disaster-recovery-guidance" target="_blank">フェールオーバー</a> が必要)</p>
+              </td>
+              <td>
+              <p style="text-align: center;">はい</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">はい</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>リージョン全体の停止</p>
+              </td>
+              <td>
+              <p style="text-align: center;">No</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">はい (<a href="https://docs.microsoft.com/azure/storage/common/storage-disaster-recovery-guidance" target="_blank">フェールオーバー</a> が必要)</p>
+              </td>
+              <td>
+              <p style="text-align: center;">No</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">はい (<a href="https://docs.microsoft.com/azure/storage/common/storage-disaster-recovery-guidance" target="_blank">フェールオーバー</a> が必要)</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>リージョン全体が使用できなくなった場合に (リモートの geo 冗長化されたリージョンの) データへの読み取りアクセス</p>
+              </td>
+              <td>
+              <p style="text-align: center;">いいえ</p>
+              </td>
+              <td>
+              <p style="text-align: center;">いいえ</p>
+              </td>
+              <td>
+              <p style="text-align: center;">はい</p>
+              </td>
+              <td>
+              <p style="text-align: center;">いいえ</p>
+              </td>
+              <td>
+              <p style="text-align: center;">いいえ</p>
+              </td>
+              <td>
+              <p style="text-align: center;">はい</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>特定の年にオブジェクトの X% の持続性を提供するように設計されています。</p>
+              </td>
+              <td>
+              <p style="text-align: center;">11 9&#39;以上</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">16 9&#39;以上</p>
+              </td>
+              <td>
+              <p style="text-align: center;">12 9&#39;以上</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">16 9&#39;以上</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>サポートされるストレージ アカウントの種類</p>
+              </td>
+              <td colspan="3">
+              <p style="text-align: center;">GPv2、GPv1、BLOB</p>
+              </td>
+              <td colspan="3">
+              <p style="text-align: center;">GPv2</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>読み取り要求の可用性 SLA</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">99.9% 以上 (クールアクセス層の場合は99%)</p>
+              </td>
+              <td>
+              <p style="text-align: center;">99.99% 以上 (クール アクセス層の場合、99.9%)</p>
+              </td>
+              <td colspan="2">
+              <p style="text-align: center;">99.9% 以上 (クール アクセス層の場合、99%)</p>
+              </td>
+              <td>
+              <p style="text-align: center;">99.99% 以上 (クール アクセス層の場合、99.9%)</p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+              <p>書き込み要求の可用性 SLA</p>
+              </td>
+              <td colspan="6">
+              <p style="text-align: center;">99.9% 以上 (クールアクセス層の場合は99%)</p>
+
+              <p align="center">&nbsp;</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>現在の<a href="https://azure.microsoft.com/pricing/details/storage/blobs/" target="_blank">Geo ゾーン冗長 Storage 料金</a>は割引プレビュー価格であり、一般公開時に変更されます。 さまざまな冗長オプションの詳細については、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy" target="_blank">Azure Storage の冗長性</a>に関するドキュメントを参照してください。 読み取りアクセス Geo ゾーン冗長 Storage が使用できないリージョンでは、可用性の高いアプリケーションを作成するために引き続き使用できます。</p>
+
+
+  <p>geo ゾーン冗長 Storage と読み取りアクセス geo ゾーン冗長 Storage のプレビューは米国東部で最初に利用可能であり、2019の後に続くリージョンが増えています。 プレビューが有効になっている <a href="https://aka.ms/gzrs" target="_blank">リージョンの</a> 最新の一覧については、ドキュメントを確認してください。</p>
+
+
+  <p>Geo ゾーン冗長 Storage アカウントは、Azure portal、Azure CLI、Azure PowerShell、Azure Resource Manager、Azure Storage 管理 SDK などのさまざまな方法を使用して作成できます。 詳細については、<a href="https://aka.ms/gzrs" target="_blank">読み取りアクセス Geo ゾーン冗長 Storage のドキュメント</a>を参照してください。</p>
+
+
+  <p>ローカル冗長ストレージ、geo 冗長ストレージ、読み取りアクセス geo 冗長ストレージ、またはゾーン冗長ストレージから、読み取りアクセス geo ゾーン冗長 Storage に変換することがサポートされています。 ゾーン冗長ストレージから読み取りアクセス Geo ゾーン冗長 Storage に変換するには、Azure CLI、Azure PowerShell、Azure portal、Azure Resource Manager、および Azure Storage 管理 SDK を使用できます。</p>
+
+
+  <p>非ゾーン冗長 storageaccounts から読み取りアクセス Geo ゾーン冗長 Storage に移行するには、次の2つのオプションがあります。</p>
+
+
+  <ul>
+      <li>既存のアカウントから新しい読み取りアクセス Geo ゾーン冗長 Storage アカウントにデータを手動でコピーまたは移動します。</li>
+      <li>ライブ マイグレーションを要求する。</li>
+  </ul>
+
+
+  <p>ご質問がある場合やサポートが必要な場合は、お知らせください。 プレビューへの参加をお待ちしており、フィードバックをお待ちしています。</p>
+
+
+  <h2>リソース</h2>
+
+
+  <ul>
+      <li>変換プロセスの詳細については、<a href="https://aka.ms/gzrs" target="_blank">読み取りアクセス Geo ゾーン冗長 Storage に関するドキュメント</a>を参照してください。</li>
+      <li>microsoft が提供する<a href="https://docs.microsoft.com/azure/storage/" target="_blank">クイックスタートとチュートリアル</a>を使用して、アプリケーションの Azure Storage を活用する方法について説明します。</li>
+      <li>価格の詳細については、価格に関する <a href="https://azure.microsoft.com/pricing/details/storage/blobs/" target="_blank">ページ</a> を参照してください。</li>
+  </ul>

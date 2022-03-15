@@ -1,0 +1,55 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 855544eede6f9b4c3ee688413c7c56fdca4e3b8c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894907"
+Slug: azure-backup-security-feature
+Title: Azure Backupバックアップを保護するためのセキュリティ機能を強化する
+Summary: この投稿では、Azure Backup によって提供される新しいセキュリティ機能についてAzure Backup。
+Content: >-
+  <p align="left">セキュリティの問題に見合うお客様が多くなっています。 これらのセキュリティの問題により、データが損失し、セキュリティ侵害のコストが増加しています。 セキュリティ対策は実施されているにもかかわらず、複数の IT システムによって公開される脆弱性により、組織はサイバー脅威に直面します。 これらすべてのこのようなデータ ポイントは、 &ndash;組織の IT アプリケーションとデータの安全に関して非常に <strong>強い疑問を生み出します。&rsquo;サイバー攻撃が起きたら、ビジネスへの大きな影響から復旧するコストは何ですか?バックアップ戦略が導入されている場合、クラウド バックアップはセキュリティで保護されていますか?</strong></p>
+
+
+  <p align="left">&ldquo;現在、ランサムウェア ファミリは <em>120&rsquo;</em> を超え、攻撃を開始するサイバー犯罪インターネット インフラストラクチャが 3,500% &rdquo; 増加しています。これは、年の初めに最近の CRN 四半期ランサムウェア レポートが指摘されています。 このような攻撃の脅威を軽減するために、 <a href="https://www.ic3.gov/media/2016/160915.aspx">FBI</a> では、データを定期的にバックアップし、クラウド内のバックアップをセキュリティで保護する方法 <strong>をユーザーに推奨しています</strong>。 このブログでは、ハイブリッド バックアップのセキュリティ保護にAzure Backupセキュリティ機能について説明します。</p>
+
+
+  <h2>価値の提案</h2>
+
+
+  <p>現在発生しているマルウェア攻撃では、実稼働サーバーを対象にデータを再暗号化するか、完全に削除します。 また、実稼働データが影響を受けた場合、ネットワーク共有とバックアップも影響を受け、データの損失やデータの破損につながる可能性があります。 そのため、高度な攻撃から、実稼働データとバックアップ データを保護し、データの回復性を確保するための強力なセキュリティ戦略を設定する必要があります。</p>
+
+
+  <p>Azure Backup、クラウド バックアップを保護するためのセキュリティ機能が提供されます。 これらのセキュリティ機能により、お客様は、<strong></strong>実稼働サーバーとバックアップ サーバーが侵害された場合に、クラウド バックアップを使用してバックアップをセキュリティで保護し、<strong>データを回復することができます</strong>。&nbsp;これらの機能は、組織&ndash;&ndash;が攻撃に対する準備を増やし、堅牢なバックアップ ソリューションを提供するために、防止、アラート、回復の 3 つの原則に基いて構築されています。<img alt="Azure Backup Security Principles" border="0" height="219" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/82f6f631-2dd9-46b3-9106-fb3499a5bd29.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Backupセキュリティ原則" width="610"></p>
+
+
+  <h2>機能</h2>
+
+
+  <ol>
+   <li><strong>防止： </strong>バックアップ データの削除、パスフレーズの変更など、重要な操作に新しい認証レイヤーが追加されました。 これらの操作では、有効な Azure 資格情報を持つユーザーだけがセキュリティ PIN を使用できる必要があります。&nbsp;</li>
+   <li><strong>警告： </strong>バックアップ データの可用性に影響を与える重要な操作については、電子メール通知が送信されます。 これらの通知により、ユーザーは攻撃が発生するとすぐに検出できます。</li>
+   <li><strong>回復： </strong>Azure Backup では、削除されたバックアップ データが 14 日間保持され、古い復旧ポイントまたは最近の復旧ポイントを使用した復旧が保証されます。 また、復旧ポイントの最小数は常に維持され、復旧できるポイントの数は常に十分です。</li>
+  </ol>
+
+
+  <h2>セキュリティ機能の使用を開始する</h2>
+
+
+  <p>これらの機能の利用を開始するには、コンテナー内の Recovery Services コンテナーに移動Azure portal有効にしてください。 以下のビデオでは、これらの機能を有効にすることで開始する方法と、これらの機能を有効にする方法について説明Azure Backup。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="360" src="https://channel9.msdn.com/Series/Azure-Backup/Azure-Backup-Security-Features/player" width="640"></iframe></p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li>セキュリティ機能の <a href="https://go.microsoft.com/fwlink/?linkid=835219">詳細Azure Backupする</a></li>
+   <li><a href="https://azure.microsoft.com/documentation/articles/backup-azure-arm-vms-prepare/">Recovery Services コンテナーの使用を開始する</a></li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">フォーラムに</a> 連絡してください</li>
+   <li>新しいアイデアを貢献し <a href="https://feedback.azure.com/forums/258995-azure-backup">、既存のアイデアAzure Backup</a> 投票することで、より良い方法を教えて</li>
+   <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください</li>
+  </ul>

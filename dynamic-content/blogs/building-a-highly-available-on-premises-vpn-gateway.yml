@@ -1,0 +1,357 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0bdd94bf968768987280e6ccb8ed3c538961e5bc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896065"
+Slug: building-a-highly-available-on-premises-vpn-gateway
+Title: '高可用性オンプレミス VPN ゲートウェイの構築 '
+Summary: このブログでは、Azure に接続するための Windows テクノロジを使用して高可用性オンプレミス VPN ゲートウェイを設定するための詳細なガイドを提供します。
+Content: >-
+  <h4></h4>
+
+  <h1>概要</h1>
+
+  ハイブリッド ネットワークを使用すると、企業はオンプレミス ネットワークを Azure のようなクラウド サービス プロバイダーに接続できます。 企業はますますワークロードをクラウドに移行する中で、クラウドへの接続の高可用性を要求しています。 このブログでは、Windows Server テクノロジを使用する企業が、2 ノード フェールオーバー クラスター上にオンプレミスのサイト間 VPN ゲートウェイを構築し、Azure に接続する方法について説明します。 <a href="https://technet.microsoft.com/en-us/library/hh831579.aspx">フェールオーバー</a> クラスタリングを使用すると、ソフトウェアのバグやハードウェアの問題によって、1 つのクラスター ノードがノードで実行されているサービス (この場合はサイト間 VPN) で障害が発生した場合に、すぐにもう一方のノードに移動され、サービスのダウンタイムが最小限に抑えられます。
+
+  <h1>トポロジのセットアップ</h1>
+
+  次の図は、設定する 2 ノード クラスターの論理トポロジを示しています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/Topology.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="トポロジ" alt="Topology" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Topology_thumb.png" width="769" height="346" border="0" /></a>
+
+
+  2 つのノードは 3 つのネットワークに接続されています。 外部ネットワークはパブリック インターネットに接続されています。 内部ネットワークは、企業のオンプレミス ネットワークです。 管理サービスとクラスター サービスは、3 番目のネットワークで実行されます。
+
+  <h1>前提条件</h1>
+
+  サイト間 VPN ゲートウェイは、それぞれ Hyper-V サーバーでホストされている 2 つの仮想マシンで実行するように構成されます。 <b>仮想マシンと Hyper-V サーバーの両方が R2 でWindows Server 2012があります</b>。
+
+
+  Hyper-V サーバーは、3 つのネットワークすべてに接続されます。 <b>Hyper-V スイッチは事前構成されています。仮想マシンの VHD が使用できる状態です</b>。
+
+
+  フェールオーバー クラスタリングでは、ここでは 2 つの仮想マシンであるすべてのクラスター ノードがドメインに参加している必要があります。 そのため、 <b>Active Directory サーバーを事前に構成し、管理/クラスター ネットワークで実行する必要があります</b>。
+
+
+  2 ノード クラスターは、3 つ目の "監視" で提供される方が優れた方法です。 2 つのノードが相互に通信できなかった場合、ミラーリング監視サーバーはアクティブ なノードを指定するのに役立ちます。 この演習では、ミラーリング監視サーバーとしてファイル共有を使用します。 ファイル共有は、管理/クラスター ネットワーク上で実行されている構成<b> 済みのファイル サーバー上にある</b>。
+
+
+  <b>DHCP は、3 つのネットワークで実行するように構成されていません。 </b>2 つの仮想マシンの管理 IP は、管理ネットワーク インターフェイスで静的に構成されます。 内部/外部ネットワーク インターフェイスは、最初に <a href="https://en.wikipedia.org/wiki/Apipa">APIPA を</a> 取得します。 "実際の" 内部 IP アドレスと外部 IP アドレスは、以下で説明するようにクラスター リソースとして組み込みされます。
+
+  <h1>構成</h1>
+
+  手順を 2 つのセクションに分け、次の 2 つのセクションに分け、次の手順を実行します。
+
+  <ul>
+   <li>Hyper-V ホストの構成</li>
+   <li>仮想マシンの構成</li>
+  </ul>
+
+  <h2>Hyper-V ホストの構成</h2>
+
+  次の PowerShell 構成は、最初の仮想マシンをホストする最初の Hyper-V ホストに適用する必要があります。 2 番目の仮想マシンの名前を除き、同じ構成を 2 番目の Hyper-V ホストに適用する必要があります。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#外部スイッチと内部スイッチが事前構成されている</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> </span>$externalSwitch <span><span style="color: #8b0000; font-size: 9pt;">"Internet"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> </span>$internalSwitch <span><span style="color: #8b0000; font-size: 9pt;">OnPrem"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#2 つ目の仮想マシンの名前を忘確認してください</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> </span>$vm <span><span style="color: #8b0000; font-size: 9pt;">"VPN_GW_1"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#VHD パスを入力します</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">new-vm</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #ff4500;">$vm</span></span> <span><span style="color: #000080;">-SwitchName</span></span> <span><span style="color: #ff4500;">$externalSwitch</span></span> <span><span style="color: #000080;">-VHDPath</span></span> <span><span style="color: #8a2be2; background-color: #ffff00;">&lt;VHD パス&gt;</span></span> <span><span style="color: #000080;">-MemoryStartupBytes</span></span> <span><span style="color: #800080;">2 GB</span></span> <span><span style="color: #000080;">-Generation</span></span> </span><span><span style="color: #800080; font-size: 9pt;">2</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#この VM NIC は外部スイッチに接続されています。そのため、パブリック インターネットに接続しています</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Rename-VMNetworkAdapter</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-VMName</span></span> <span><span style="color: #ff4500;">$vm</span></span> <span><span style="color: #000080;">-NewName</span></span> </span><span><span style="color: #8a2be2; font-size: 9pt;">InternetNIC</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#内部ネットワークに接続するための VM NIC を追加する</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Add-VMNetworkAdapter</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-VMName</span></span> <span><span style="color: #ff4500;">$vm</span></span> <span><span style="color: #000080;">-VMNetworkAdapterName</span></span> <span><span style="color: #8a2be2;">InternalNIC</span></span> <span><span style="color: #000080;">-SwitchName</span></span> </span><span><span style="color: #ff4500; font-size: 9pt;"></span></span> $internalSwitch</span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#管理/クラスター ネットワークに接続するための VM NIC を追加する</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Add-VMNetworkAdapter</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-VMName</span></span> <span><span style="color: #ff4500;">$vm</span></span> <span><span style="color: #000080;">-VMNetworkAdapterName</span></span> <span><span style="color: #8a2be2;">ManagementNIC</span></span> <span><span style="color: #000080;">-SwitchName</span></span> </span><span><span style="color: #ff4500; font-size: 9pt;"></span></span> $internalSwitch</span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#この演習では、VLAN 2 で管理/クラスター ネットワークを作成します</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> </span>$managementVLAN <span><span style="color: #800080; font-size: 9pt;">2</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Set-VMNetworkAdapterVlan</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-VMName</span></span> <span><span style="color: #ff4500;">$vm</span></span> <span><span style="color: #000080;">-VMNetworkAdapterName</span></span> <span><span style="color: #8a2be2;">ManagementNIC</span></span> <span><span style="color: #000080;">-Access</span></span> <span><span style="color: #000080;">-VlanId</span></span> </span><span><span style="color: #ff4500; font-size: 9pt;"></span></span> $managementVLAN</span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#この演習では、VLAN 11 の内部ネットワークを作成します</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> </span>$internalVLAN <span><span style="color: #800080; font-size: 9pt;">11</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#内部 NIC でマルチテナントを有効にする。ブログの説明を参照してください</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Set-VmNetworkAdapterIsolation</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-VMName</span></span> <span><span style="color: #ff4500;">$vm</span></span> <span><span style="color: #000080;">-VMNetworkAdapterName</span></span> <span><span style="color: #8a2be2;">InternalNIC</span></span> <span><span style="color: #000080;">-MultiTenantStack</span></span> <span><span style="color: #8a2be2;">on</span></span> <span><span style="color: #000080;">-IsolationMode</span></span> <span><span style="color: #8a2be2;">Vlan</span></span> <span><span style="color: #000080;">-AllowUntaggedTraffic</span></span> </span><span><span style="color: #ff4500; font-size: 9pt;"></span></span> $true</span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Add-VmNetworkAdapterRoutingDomainMapping</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-VMName $vm</span></span> <span><span style="color: #ff4500;"></span></span> <span><span style="color: #000080;">-VMNetworkAdapterName</span></span> <span><span style="color: #8a2be2;">InternalNIC</span></span> <span><span style="color: #000080;">-RoutingDomainID</span></span> "" <span><span style="color: #000080;">-RoutingDomainName</span></span> <span><span style="color: #8b0000;">"{10000000-1000-1000-1000-000000000001}</span></span><span><span style="color: #8b0000;">Onprem"</span></span> <span><span style="color: #000080;">-IsolationID</span></span> <span><span style="color: #ff4500;">$internalVLAN</span></span> <span><span style="color: #000080;">-IsolationName</span></span> </span><span><span style="color: #8b0000; font-size: 9pt;">"OnPremVLAN"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Start-vm</span></span></span><span><span><span style="color: #ff4500; font-size: 9pt;">$vm </span></span></span></span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  VLAN は、外部 NIC "InternetNIC" に対して構成されていません。 外部 NIC と、Hyper-V ホストが接続されている物理ネットワークとの間でトラフィックのタグが設定されていません。
+
+
+  <a href="https://technet.microsoft.com/en-us/library/dn464283.aspx">Set-VmNetworkAdapterIsolation</a> と <a href="https://technet.microsoft.com/en-us/library/dn464285.aspx">Add-VmNetworkAdapterRoutingDomainMapping</a> が主要な構成です。 <b>サイト間 VPN のフェールオーバー クラスタリングは、ゲートウェイがマルチテナント モードの場合にのみサポートされます。</b> これら 2 つのコマンドレットは、仮想マシンをマルチテナントに設定します。 具体的には、内部ネットワーク用に個別のルーティング ドメイン "Onprem" を追加しました。 VLAN 11 は、このルーティング ドメイン内のトラフィックの識別子です。 ルーティング ドメイン ID と名前をメモします。 これらは後でどのように使用されるのかについて説明します。
+
+
+  ホストの構成が完了しました。 2 つの Hyper-V ホストのフェールオーバー クラスターを作成する必要がない点 <b>に関するページに書き込む必要があります</b>。
+
+  <h2>仮想マシンの構成</h2>
+
+  この時点では、両方の仮想マシンが実行されている必要があります。 さらに進める前に、両方 <b>のマシンで</b> 次の構成を行う必要があります。
+
+  <ul>
+   <li>Active Directory でホストされているドメインに参加する</li>
+   <li>管理者としてドメイン ユーザーを追加する</li>
+   <li>外部ネットワークに接続されているネットワーク アダプターの名前を "Internet" に変更します。 <i>内部ネットワーク アダプターと管理ネットワーク アダプターの名前を変更する場合は省略可能です。</i></li>
+   <li>フェールオーバー クラスタリングをインストールする。 簡単な方法は、次の 2 つの PowerShell コマンドレットを実行する方法です。</li>
+  </ul>
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Get-WindowsFeature</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #8a2be2;">*クラスター*</span></span> <span><span style="color: #a9a9a9;">|</span></span></span><span><span style="color: #0000ff; font-size: 9pt;">Install-WindowsFeature</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Get-WindowsFeature</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #8a2be2;">*ファイル*</span></span> <span><span style="color: #a9a9a9;">|</span></span></span><span><span style="color: #0000ff; font-size: 9pt;">Install-WindowsFeature</span></span></span></span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  フェールオーバー クラスタリングがインストールされた後、2 つの仮想マシンの 1 つで次の構成を実行しますが、 <b>両方で実行することはできません</b>。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#2 つの仮想マシンの名前が、それぞれ "VPN_GW_1" と "VPN_GW_2" に変更されました</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> </span>$clustername <span><span style="color: #8b0000; font-size: 9pt;">"OnPremGW"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span> $clusternodes @(<span><span style="color: #8b0000;">"VPN_GW_1"</span></span><span><span style="color: #a9a9a9;">,"</span></span><span><span style="color: #8b0000;">VPN_GW_2"</span></span>)</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">new-cluster</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #ff4500;">$clustername</span></span> <span><span style="color: #000080;">-Node</span></span> <span><span style="color: #ff4500;">$clusternodes</span></span> </span><span><span style="color: #000080; font-size: 9pt;">-NoStorage</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#"クラスター" は、ファイル サーバーに事前構成されたファイル フォルダーです</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Set-ClusterQuorum</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">–FileShareWitness</span></span> </span><span><span style="color: #8b0000; font-size: 9pt;">"\\FS\Cluster"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;"># 内部ネットワークの内部 IP アドレスを追加する</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span>$res <span><span style="color: #0000ff;">Add-ClusterResource</span></span> <span><span style="color: #000080;">-ResourceType</span></span> <span><span style="color: #8b0000;">"Disjoint IPv4 Address"</span></span> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8b0000;">"InternalAddress"</span></span> <span><span style="color: #000080;">-Group</span></span> </span><span><span style="color: #8b0000; font-size: 9pt;">"Cluster Group"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">|</span></span>$res <span><span style="color: #0000ff;">Set-ClusterParameter</span></span> <span><span style="color: #000080;">-Multiple</span></span> @{<span><span style="color: #8b0000;">"PrefixLength"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"24"</span></span>;<span><span style="color: #8b0000;">"Address"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"192.168.200.1"</span></span>;<span><span style="color: #8b0000;">"VSID"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"11"</span></span>;<span><span style="color: #8b0000;">"RDID"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"{10000000-1000-1000-1000-000000000001}"</span></span>}</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Start-ClusterResource</span></span></span><span><span><span style="color: #ff4500; font-size: 9pt;">$res</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;"># インターネットに接続する外部 IP を追加する</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span>$res <span><span style="color: #0000ff;">Add-ClusterResource</span></span> <span><span style="color: #000080;">-ResourceType</span></span> <span><span style="color: #8b0000;">"Disjoint IPv4 Address"</span></span> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8b0000;">"ExternalAddress"</span></span> <span><span style="color: #000080;">-Group</span></span> </span><span><span style="color: #8b0000; font-size: 9pt;">"Cluster Group"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">|</span></span>$res <span><span style="color: #0000ff;">Set-ClusterParameter</span></span> <span><span style="color: #000080;">-Multiple</span></span> @{<span><span style="color: #8b0000;">"PrefixLength"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"24"</span></span>;<span><span style="color: #8b0000;">"Address"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"131.</span></span><span><span style="background-color: #000000;">xx.xx.xx</span></span><span><span style="color: #8b0000;">"</span></span>;<span><span style="color: #8b0000;">"AdapterName"</span></span><span><span style="color: #a9a9a9;">=</span></span><span><span style="color: #8b0000;">"Internet"</span></span>}</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Start-ClusterResource</span></span></span><span><span><span style="color: #ff4500; font-size: 9pt;">$res</span></span></span></span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  前述のように、ファイル <a href="https://blogs.technet.com/b/askpfeplat/archive/2012/06/27/clustering-what-exactly-is-a-file-share-witness-and-when-should-i-use-one.aspx">共有監視は</a> 、このクラスター用に構成されています。 具体的には、 \\FS\Cluster はファイル サーバー上の単なるファイル フォルダーです。 両方の仮想マシンがファイル フォルダーへの読み取り/書き込みアクセス権を持っている必要があります。
+
+
+  <b>"Disjoint IPv4 Address" は、R2</b> で追加された新しいWindows Server 2012です。 PowerShell でのみ構成できます。構成できるのは、フェールオーバー クラスター マネージャー Server 上の GUI ツールWindowsではありません。 このリソースの種類の 2 つの IP アドレスを追加しました。1 つは内部ネットワーク用、もう 1 つは外部ネットワーク用です。
+
+  <ul>
+   <li>内部アドレスは、ルーティング ドメイン ID と VLAN 番号によって識別されるクラスター ネットワークに対して組み込みされます。 前に Hyper-V ホスト上の内部ネットワーク アダプターにマップしました。 このアドレスは、Azure に接続する必要がある内部ネットワーク上のすべてのマシンの既定のゲートウェイ アドレスです。</li>
+   <li>外部アドレスは、ネットワーク アダプター名で識別されるクラスター ネットワークに対して組み込みされます。 両方の仮想マシンで外部ネットワーク アダプターの名前を "インターネット" に変更しました。</li>
+  </ul>
+
+  &nbsp;
+
+
+  他のクラスター リソースと同様に、両方のアドレスがクラスター内のアクティブ ノードによって所有されます。 アクティブ ノードが失敗するたびに、両方のアドレスが新しいアクティブ ノードにプルダウンされます。
+
+
+  次の手順では、両方の仮想マシンに既定 <b>のルートをインストールします</b>。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">New-NetRoute</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-InterfaceAlias</span></span> <span><span style="color: #8a2be2;">Internet</span></span> <span><span style="color: #000080;">-DestinationPrefix</span></span> <span><span style="color: #8a2be2;">0.0.0.0/0</span></span> <span><span style="color: #000080;">-NextHop</span></span> <span><span style="color: #8a2be2;">131.</span></span><span><span style="background-color: #000000;">xx.xx.xx</span></span></span></span></span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  <b>各仮想マシンに既定のルートが 1 つしかないのが重要です。DHCP がネットワーク上で実行されている場合は、通常、DHCP サーバーを指す既定のルートがインストールされます。そのルートは削除する必要があります。</b>
+
+
+  次の手順では、両方の仮想マシンにサイト間 VPN 機能 <b>をインストールします</b>。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Add-WindowsFeature</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8a2be2;">RemoteAccess</span></span> <span><span style="color: #000080;">-IncludeAllSubFeature</span></span> </span><span><span style="color: #000080; font-size: 9pt;">-IncludeManagementTools</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;"></span></span></span><span><span>Install-RemoteAccess-Multitenancy<span style="color: #000080; font-size: 9pt;"></span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Enable-RemoteAccessRoutingDomain</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8a2be2;">Onprem</span></span> <span><span style="color: #000080;">-Type</span></span> </span><span><span style="color: #8a2be2; font-size: 9pt;">VpnS2S </span></span></span></span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  "Onprem" は、Hyper-V ホストを構成するときに前に追加したルーティング ドメインの名前です。 Hyper-V ホストによって構成が仮想マシンにフィードされ、ルーティング ドメイン <i>ごとにコンパートメントが</i> 作成されます。 Get-NetCompartment両方の仮想マシンで実行すると、次の出力が表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/get-netcompartment.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="get-netcompartment" alt="get-netcompartment" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/get-netcompartment_thumb.png" width="470" height="140" border="0" /></a>
+
+
+  ルーティング ドメイン ID と名前は、基本的にそれぞれコンパートメント GUID と説明です。
+
+
+  最後に、構成を完了するには、クラスター内のアクティブ ノードである仮想マシンで次の PowerShell <b>コマンドレットを実行します</b>。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623">
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#Azure に接続するためのインターフェイスを追加します。共有キーを入力する</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Add-VpnS2SInterface</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-Protocol</span></span> <span><span style="color: #8a2be2;">IKEv2</span></span> <span><span style="color: #000080;">-AuthenticationMethod</span></span> <span><span style="color: #8a2be2;">PSKOnly</span></span> <span><span style="color: #000080;">-NumberOfTries</span></span> <span><span style="color: #800080;">3</span></span> <span><span style="color: #000080;">-ResponderAuthenticationMethod</span></span> <span><span style="color: #8a2be2;">PSKOnly</span></span> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8a2be2;">168.</span></span><span><span style="background-color: #000000;">xx.xx.xx-xx.xx</span></span> <span><span style="color: #000080;">-</span></span> <span><span style="color: #8a2be2;">168.</span></span> Destination <span><span style="background-color: #000000;">xx.xx.xx</span></span> <span><span style="color: #000080;">-IPv4Subnet</span></span> @(<span><span style="color: #8b0000;">"10.0.0.0/8:100"</span></span>) <span><span style="color: #000080;">-SharedSecret</span></span> <span><span style="color: #8a2be2; background-color: #ffff00;">&lt;&gt;</span></span> 共有キー<span><span style="color: #000080;">ルーティング</span></span></span><span><span style="color: #8a2be2; font-size: 9pt;">ドメインOnprem</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="font-size: 9pt;"> </span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span><span style="font-family: Lucida Console;"><span style="color: #006400; font-size: 9pt;">#VPN 構成の同期を維持するクラスター リソースを追加する</span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Add-ClusterResourceType</span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8b0000;">"RAS Cluster Resource"</span></span> <span><span style="color: #000080;">-Dll</span></span> </span><span><span style="color: #8a2be2; font-size: 9pt;">RasClusterRes.dll</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">=</span></span>$res <span><span style="color: #0000ff;">Add-ClusterResource</span></span> <span><span style="color: #000080;">-ResourceType</span></span> <span><span style="color: #8b0000;">"RAS クラスター リソース"</span></span> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8b0000;">"S2SVPN"</span></span> <span><span style="color: #000080;">-Group</span></span> </span><span><span style="color: #8b0000; font-size: 9pt;">"Cluster Group"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #ff4500;"><span style="font-size: 9pt;"></span></span></span><span><span style="font-size: 9pt;"> <span><span style="color: #a9a9a9;">|</span></span>$res <span><span style="color: #0000ff;">Set-ClusterParameter</span></span> <span><span style="color: #000080;">-Name</span></span> <span><span style="color: #8b0000;">"ConfigExportPath"</span></span> <span><span style="color: #000080;">-Value</span></span> </span><span><span style="color: #8b0000; font-size: 9pt;">"\\FS\Cluster"</span></span></span></span></p>
+
+  <p class="MsoNormal" style="background: white; margin: 0in 0in 8pt; line-height: 12pt;"><span style="font-family: Lucida Console;"><span><span style="color: #0000ff;"><span style="font-size: 9pt;">Start-ClusterResource</span></span></span><span><span><span style="color: #ff4500; font-size: 9pt;">$res </span></span></span></span></p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  サイト間 VPN ゲートウェイはマルチテナントなので、VPN 接続が終了する場所にルーティング ドメインを指定する必要があります。 この演習では、明らかに "Onprem" です。
+
+
+  <b>"RAS クラスター リソース" は、R2 で追加された別の新しいWindows Server 2012リソースの種類です</b>。 このリソース オブジェクトは、サイト間 VPN 構成を格納する場所を指定します。 ファイル共有は、2 つの仮想マシンが読み取り/書き込みアクセス権を持つ任意の場所にできます。 単純に保つために、先ほどクラスターのファイル共有監視として構成したのと同じファイル フォルダーを選択しました。 アクティブなノードが失敗すると、スタンバイ ノードは、このフォルダーから構成を読み取り、Azure に再接続します。
+
+  <h2>検証</h2>
+
+  Azure 上の仮想ネットワーク ゲートウェイが既に構成されていることを前提とします。 サイト間 VPN 接続が稼働している必要があります。 Get-VpnS2SInterface出力を提供する必要があります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/clip_image002.jpg"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="clip_image002" alt="clip_image002" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image002_thumb.jpg" width="628" height="61" border="0" /></a>
+
+
+  アクティブなクラスター ノードで障害が発生した後にオンプレミス ネットワークと Azure の間の接続が再開されるのを確認するには、サイト間 VPN が常にアクティブ なノードで実行される点を思い出してください。仮想マシンを、Windows Server の GUI ツールである Hyper-V マネージャーからオフにします。 内部ネットワーク上のローカル コンピューターから、内部アドレス 192.168.200.1 と Azure 上の VM 10.0.20.4 の両方に ping を実行します。 次に示す通り、4 つの ping パケットが失われると、新しいアクティブ ノードへの接続が再開されます。 その後すぐに、さらに 1 つのパケット損失が発生します。Azure への接続も再開されます。
+
+
+  <i>ローカル コンピューターからオンプレミスのサイト間 VPN ゲートウェイに ping を実行します。</i>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/clip_image003.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="clip_image003" alt="clip_image003" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image003_thumb.png" width="517" height="227" border="0" /></a>
+
+
+  <i>サイト間 VPN 接続を使用して、ローカル コンピューターから Azure VM に ping を実行します。</i>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/clip_image004.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="clip_image004" alt="clip_image004" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image004_thumb.png" width="506" height="186" border="0" /></a>

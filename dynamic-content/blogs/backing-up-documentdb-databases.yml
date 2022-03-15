@@ -1,0 +1,219 @@
+### YamlMime:Yaml
+ms.openlocfilehash: aa75252317c906c5352db5d247c51ee8f970a6d7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891692"
+Slug: backing-up-documentdb-databases
+Title: DocumentDB データベースのバックアップ
+Summary: DocumentDB チームは、お客様からのフィードバックに基づいて、すべてのお客様が正常なバックアップ計画を構築できるバックアップ戦略を開発し、検証しました。
+Content: >-
+  <p>2016 年 9 月 23 日の更新: 自動オンライン バックアップと復元の機能が利用可能にされ、 <a href="https://azure.microsoft.com/documentation/articles/documentdb-online-backup-and-restore/"><em>DocumentDB</em></a> による自動オンライン バックアップと復元に関するドキュメント記事に記載されています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/services/documentdb/">DocumentDB</a> &ldquo;チームが頻繁に質問する質問の 1 つは、データベースをバックアップするための推奨パターンは何ですか?&rdquo;バックアップは、ビジネス継続性とディザスター リカバリー (BCDR) 計画の基本的な構成ブロックであり、間違って取得することはできません。</p>
+
+
+  <p>DocumentDB サービスは、geo 冗長性が組み込みで内部的にバックアップされます。 これは、地域的な障害が発生した場合でも、顧客データが安全な状態を維持するために行うデータ保護対策です。 ただし、お客様から、個々のビジネス ニーズに基づいてアーカイブおよび復元できる独自の追加バックアップを作成する必要があるというご意見をお聞きしました。 お客様とのエンゲージメントを通じて、すべてのお客様が成功した BCDR プランを構築するためのバックアップ戦略を開発し、検証しました。</p>
+
+
+  <h1>シナリオ</h1>
+
+
+  <p>BCDR 応答をトリガーする一般的なイベントは、次の 2 つのシナリオに分割できます。</p>
+
+
+  <h4><em>おっと！誤ってデータを削除しました</em></h4>
+
+
+  <p>データが誤って削除または誤った形式で発生するプログラムまたはユーザー エラー。</p>
+
+
+  <h4><em>Oh oh!データセンターへのファイバー リンクがバックホーによって切断された。</em></h4>
+
+
+  <p>サービス リージョンをオフラインにするインシデントに影響する可用性。</p>
+
+
+  <h2>BLOB ベースのバックアップ、&ldquo;Oops シナリオ&rdquo;</h2>
+
+
+  <p>この障害が発生した場合にビジネス継続性を提供するために推奨される戦略は、DocumentDB アカウント内のすべてのデータの収集レベルのバックアップを維持することです。</p>
+
+
+  <p>実装には、次の 2 つのオプションがあります。</p>
+
+
+  <ol>
+   <li>In-Cloudを使用したバックアップAzure Data Factory: この方法に関する情報は、DocumentDB を使用した <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-azure-documentdb-connector/">DocumentDB</a> 間のデータの移動に関するページAzure Data Factory。 このオプションは、より均一なデータ セットと大規模な場合に有効です。</li>
+   <li><a href="https://www.microsoft.com/download/details.aspx?id=46436">DocumentDB</a> データ移行ツールを使用したオンプレミス (+ クラウド) バックアップ: このツールを使用して、物理または仮想の Windows マシン (ソース: GitHub) を使用してバックアップ<a href="https://github.com/azure/azure-documentdb-datamigrationtool">を実行できます</a>。 これにより、ローカル ストレージまたは Azure Blob Storage にデータを出力できます (追加の geo 冗長性のために)。</li>
+  </ol>
+
+
+  <h3>DocumentDB 移行ツールの使用</h3>
+
+
+  <p>このツールを使用して、こちらに記載されているエクスポート操作を実行 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/#export-to-json-file">します</a>。 次のスクリーンショットに示すように、すべての手順に従いますが、[概要] ページでエクスポート操作を実行する代わりに、[データ移行ツール] ウィンドウの上部にある [コマンドの表示] ボタンをクリックしてコマンドを表示できます。 その後、基になるコマンドが [コマンド ライン プレビュー] ウィンドウに表示されます。</p>
+
+
+  <p><strong>メモ：</strong> [ソース情報] ウィンドウの [コレクション] フィールドは正規表現を受け入れる</p>
+
+
+  <p><img alt="Backing up DocumentDB Databases" border="0" height="521" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc32d59b-bb84-4b10-a7b0-7a659a510968.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DocumentDB データベースのバックアップ" width="624"></p>
+
+
+  <p>このコマンドは、データ移行&nbsp; ツールのコマンド ライン コアを使用して使用、コピー、および実行dt.exe。</p>
+
+
+  <p>通常のスケジュールでこのコマンドを実行する簡単な方法は、次のコマンドWindows タスク スケジューラ。</p>
+
+
+  <p>アプリケーションを起動タスク スケジューラ Win+S (検索) をクリックし、次のコマンドを入力タスク スケジューラ。 右側のウィンドウで、[タスクの作成] をクリックします。このウィンドウが表示されます。 ここでは、タスクに名前を付け、説明を追加できます。 また、ユーザーがログインしている (推奨) かどうかに関して、タスクを [実行] に設定できます。</p>
+
+
+  <p><img alt="Backing up DocumentDB Databases" border="0" height="449" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63922a04-93d6-4e0e-875e-3d967ede52de.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DocumentDB データベースのバックアップ" width="624"><br>
+
+  [トリガー] タブに切り替えて、[新規] をクリックしてトリガーを設定します。 ここでは、タスクを実行する条件を設定できます。 次のスクリーンショットでは、タスクは毎日午前 12 時にトリガーされます。 [OK] をクリックして、そのトリガーを保存します。</p>
+
+
+  <p><img alt="Backing up DocumentDB Databases" border="0" height="504" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/41a9d6c3-1707-4fbb-9326-d500a7850360.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DocumentDB データベースのバックアップ" width="624"></p>
+
+
+  <p>[アクション] タブに切り替えて、[新規] をクリックして、実際のバックアップ タスクを起動するコマンドを設定します。 [参照] をクリックdt.exe移行ツールを展開したフォルダーから [コピー] を選択します。</p>
+
+
+  <p>[引数の追加 (省略可能) ] ボックスに、移行ツールからコピーしたコマンドを貼り付けします。</p>
+
+
+  <p>[OK] をクリックして [新しいアクション] ウィンドウを閉じ、[OK] をクリックして [タスクの作成] を保存して閉じます。</p>
+
+
+  <p><img alt="Backing up DocumentDB Databases" border="0" height="508" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b869d798-023b-40ae-8c06-7e5086dfa335.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DocumentDB データベースのバックアップ" width="624"></p>
+
+
+  <p>このスケジュールされたタスクは、DocumentDB データベースのバックアップを自動化して、スケジュールした時点で構成した設定を使用して移行ツールを起動します。</p>
+
+
+  <p>閲覧者は、2 回目の実行時にバックアップが上書きされる可能性が原因で、このアクションが失敗する可能性に気付いた可能性があります。 スナップショットを保持する方法は、powerShell スクリプトで dt.exe コマンドをラップすることです。このスクリプトでは、dt.exe を呼び出す前に、一意の文字 (日付など) を含む新しい出力ファイル名が生成されます。</p>
+
+
+  <h3>データの復元</h3>
+
+
+  <p>データが Azure BLOB ストアに格納されている場合は、Azure Data Factory を使用して、Document DB の新しい (または、書き込み時に削除および再作成された) 新しいコレクションにすばやく書き戻します。 このオプションは、均一な構造を持つ大規模なデータセットに適しています。</p>
+
+
+  <p>データを復元するもう 1 つのオプションは、ソースと変換先を反転して移行ツールを実行することです。つまり、ソースはバックアップ ファイルで、変換先は DocumentDB アカウントです。</p>
+
+
+  <h2>二重書き込み、&ldquo;Outage&rdquo; シナリオ</h2>
+
+
+  <p>このシナリオは、別のリージョンのセカンダリ DocumentDB データベース アカウントに対して二重書き込みを実行する場合に最適です。 推奨されるパターンは次の 1 つです。</p>
+
+
+  <ul>
+   <li>2 つの&rsquo; DocumentDB アカウントへの書き込みを透過的に二重コミットするアプリケーション データ アクセス層を設計します。</li>
+   <li>DocumentDB <a href="https://azure.microsoft.com/services/app-service/web/">アカウントへのすべての</a> 要求が渡される単純な REST インターフェイスを公開する Azure Web アプリを実行します。 このパススルー サービスは、すべてのクライアントに対する書き込みの二重コミットを管理します。 このパターンには、クライアントの耐久性の負担を軽減する利点があります。</li>
+   <li>定期的に <a href="https://azure.microsoft.com/services/cloud-services/">次の手順を実行する Azure クラウド</a> サービスを実行します。 <ul>
+    <li>このジョブが最後に実行された時刻 &ldquo;より大きい ts&rdquo; プロパティを持つすべてのドキュメントを探します</li>
+    <li>バックアップ リージョン内のデータベース内の各ドキュメント (一意の ID でアドレス指定) を作成/更新します。 このパターンは、書き込み待機時間の短縮とスループットの向上のために、1 秒以下の目標復旧時点 (データ損失の最大時間) をトレードオフします。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h3>データの復元</h3>
+
+
+  <p>プライマリ リージョンの可用性が影響を受ける場合、読み取りと書き込みをセカンダリ リージョンに続行できます。 プライマリ リージョンが再び使用可能な場合、最も簡単な復旧方法は、クライアントからセカンダリ リージョンへの書き込みを中断し、DocumentDB 移行ツールを使用してプライマリ リージョンを再構築する方法です。</p>
+
+
+  <p>特定の環境でを実行していないWindows、次の 2 つのオプションがあります。</p>
+
+
+  <ul>
+   <li>Azure で Windows VM を起動して、移行ツールを実行します。</li>
+   <li>セカンダリ リージョンに対してクエリを実行し、すべての JSON オブジェクトをプライマリ リージョンに書き戻す、DocumentDB SDK を使用して復旧スクリプトを作成します。</li>
+  </ul>
+
+
+  <h1>トレードオフ</h1>
+
+
+  <p>上記の推奨パターンには、次のトレードオフが含まれます。</p>
+
+
+  <div align="center">
+
+  <table align="center" border="0" cellpadding="2" cellspacing="0" width="773">
+   <tbody>
+    <tr>
+     <td valign="top" width="218"><strong>機能</strong></td>
+     <td valign="top" width="277"><strong>BLOB ベースのバックアップ</strong></td>
+     <td valign="top" width="276"><strong>二重書き込み</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="218">
+     <p align="left"><strong>ポイントインタイム バックアップ</strong></p>
+     </td>
+     <td valign="top" width="277">
+     <p align="left">クライアントからの書き込みを中断する必要があります</p>
+     </td>
+     <td valign="top" width="276">
+     <p align="left">クライアントからの書き込みを中断する必要があります</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="218">
+     <p align="left"><strong>コレクション間の整合性</strong></p>
+     </td>
+     <td valign="top" width="277">
+     <p align="left">クライアントからの書き込みを中断する必要があります</p>
+     </td>
+     <td valign="top" width="276">
+     <p align="left">クライアントが両方の書き込みを常に成功に保つ場合は、コレクション間の整合性を維持できます。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="218">
+     <p align="left"><strong>geo 冗長性</strong></p>
+     </td>
+     <td valign="top" width="277">
+     <p align="left">オンプレミスストレージを使用する場合は低く、BLOB ストレージを使用する場合は高くなります。</p>
+     </td>
+     <td valign="top" width="276">
+     <p align="left">データの地理的な分離による冗長性の向上</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="218">
+     <p align="left"><strong>書き込みのロールバックが間に合う</strong></p>
+     </td>
+     <td valign="top" width="277">
+     <p align="left">可能</p>
+     </td>
+     <td valign="top" width="276">
+     <p align="left">によってリークし、バックアップに書き込む</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+  </div>
+
+
+  <h1>まとめ</h1>
+
+
+  <p>DocumentDB 管理者は、上記の戦略の少なくとも 1 つを使用して、自然災害や他の中断が発生した場合でも、データが安全で使用可能な状態を維持できます。 上記の両方の戦略を同時に使用すると、説明した両方のシナリオがカバーされ、最も包括的な安全性ネットが提供されます。</p>
+
+
+  <p>DocumentDB チームは、サービスのバックアップ サポートを積極的に改善していますが、現在のガイダンスはホット トピックです。</p>
+
+
+  <p>DocumentDB の詳細については、 <a href="https://azure.microsoft.com/services/documentdb/">DocumentDB 製品ページを参照してください</a>。 サポートが必要な場合、または質問やフィードバックがある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">Stack Overflow</a> の開発者フォーラムにお問い合わせください。または、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。</p>
+
+
+  <p>Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

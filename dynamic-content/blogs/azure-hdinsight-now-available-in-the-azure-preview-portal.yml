@@ -1,0 +1,164 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 981afbaac1a0d8211fbec16023e2056eac5d73bd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891785"
+Slug: azure-hdinsight-now-available-in-the-azure-preview-portal
+Title: Azure HDInsight Azure プレビュー ポータルで使用できる
+Summary: Azure HDInsight既存のポータルに加えて、Azure プレビュー ポータルでAzure portal。
+Content: >-
+  現在、既存のAzure HDInsightに加えて <a href="https://azure.microsoft.com/en-us/overview/preview-portal/">、Azure プレビュー ポータル</a> で使用できるAzure portal。
+
+
+  Azure プレビュー ポータルは昨年<a href="https://azure.microsoft.com/blog/2014/04/03/announcing-preview-of-new-portal-and-exciting-updates-to-other-azure-services/"></a>発表され、再イメージ化された管理ポータルを提供してリソース管理を簡素化し、統合された課金を提供し、アプリケーションとサービスの豊富なギャラリーを提供します。 プレビュー ポータルAzure HDInsightを提供することで、次を含む Azure Resource Manager <b> </b><strong>フレームワーク</strong><b> (ARM) にも</b> アクセスできます。
+
+  <ul>
+   <li>ポータル インターフェイス、PowerShell コマンドレット、新しい .NET SDK パッケージなど、新しいツールと更新されたツール。 PowerShell コマンドレットと .NET SDK パッケージは、今週後半に使用できる予定です。</li>
+   <li>リソース グループを使用すると、リソースのグループをデプロイし、サブスクリプションでリソースを管理および作成できるユーザーを制御できます。</li>
+  </ul>
+
+  Azure Resource Manager <b>フレームワーク (ARM) の詳細については</b> 、フレームワークのドキュメントを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/">してください</a>。
+
+
+  Azure プレビュー ポータルで HDInsight の使用を開始するには、次の簡単な手順に従います。
+
+
+  1) Azure プレビュー ポータル () にアクセスする<a href="https://portal.azure.com">https://portal.azure.com</a>
+
+
+  2) 新しいクラスターを作成する: [新規] <b>をクリック</b> し、新しいクラスターに <b>データ + 分析</b>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/10/portalscreenshot1.jpg"><img class="alignnone size-medium wp-image-327721" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/portalscreenshot1-572x369.jpg" alt="portalscreenshot1" width="572" height="369" /></a>
+
+
+  3) クラスターを表示するには、[すべて参照] <b>をクリックします</b>。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/10/portalscreenshot2.jpg"><img class="alignnone size-medium wp-image-327731" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/portalscreenshot2-591x369.jpg" alt="portalscreenshot2" width="591" height="369" /></a>
+
+
+  <b>新しいポータルのその他の機能:</b>
+
+  <ul>
+   <li>クラスターのスケーリングのような一般的な操作は、クラスターの概要画面の上部で簡単に見つけ出されます。</li>
+   <li>クラスターを作成またはスケーリングするときに、便利な価格の内訳が表示されます。</li>
+   <li>クラスター ダッシュボードは、クラスターの概要画面の [クラスター ダッシュボード] タイルで使用できます。
+  <ul>
+   <li>クラスター ダッシュボードには、Hadoop クラスターのクエリ コンソール、Linux クラスター用の Ambari Web、Spark クラスター用の Zeppelin および Jupyter ノートブックが含まれます。</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/10/portalscreenshot3.jpg"><img class="alignnone  wp-image-327741" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/portalscreenshot3-471x369.jpg" alt="portalscreenshot3" width="583" height="457" /></a>
+
+
+  <b>注意が必要な重要な点:</b>
+
+
+  新しいプレビュー ポータルで HDInsight を利用する場合、いくつかの変更点があります。
+
+
+  a) クラスター識別の変更
+
+  <ul>
+   <li>新しいツールで作成されたクラスターは、現在、Azure Resource Manager <b>フレームワーク (ARM) クラスターとして識別されます</b>。
+  <ul>
+   <li>クラスター名とリソース グループ名で識別されます (例: "costosobigdata" というリソース グループ内の "contoso-hadoop-cluster1")。</li>
+   <li>前のポータルのように、以前のツールでは表示または管理できません。</li>
+  </ul>
+
+  </li>
+   <li>以前のツールで作成されたクラスターは、 <b>Azure Service Management</b> (<b>ASM) クラスターとして識別されます</b>。
+  <ul>
+   <li>既存のクラスターはすべて <b>ASM クラスターです</b>。</li>
+   <li>ASM クラスターは、新しい一意のリソース グループ (例: "hdinsight587493872-West-US") に自動的に割り当てられます。</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  b) プレビュー ポータルでの Azure Resource Manager <b>フレームワーク (ARM) クラスターの新しい</b> 既定のサイズ
+
+
+  Azure HDInsight の実行に関する学習に基づいて、実行しようとしているワークロード (Hadoop、HBase、Storm、または Spark) によって決定される Azure HDInsight の既定のノード サイズを変更しています。 これにより、より多くのコア、RAM、またはディスク サイズが必要になる可能性がある特性を持つさまざまなワークロードを最適に実行できます。 また、VM の種類を既定から、ニーズにより具体的に適した種類に変更することもできます。
+
+  <table border="0" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td width="174"></td>
+
+  <td width="76"><b>Hadoop</b></td>
+
+  <td width="76"><b>HBase</b></td>
+
+  <td width="76"><b>Storm</b></td>
+
+  <td width="76"><b>Spark</b></td>
+
+  </tr>
+
+  <tr>
+
+  <td width="174"><b>Head / Nimbus</b></td>
+
+  <td width="76">D12</td>
+
+  <td width="76">A3</td>
+
+  <td width="76">A3</td>
+
+  <td width="76">D12</td>
+
+  </tr>
+
+  <tr>
+
+  <td width="174"><b>Worker/Region /Supervisor</b></td>
+
+  <td width="76">D12</td>
+
+  <td width="76">D3</td>
+
+  <td width="76">D3</td>
+
+  <td width="76">D12</td>
+
+  </tr>
+
+  <tr>
+
+  <td width="174"><b>Zookeeper</b></td>
+
+  <td width="76">N/A</td>
+
+  <td width="76">A2</td>
+
+  <td width="76">A2</td>
+
+  <td width="76">N/A</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  各サイズの詳細については、Azure HDInsight <a href="https://azure.microsoft.com/en-us/pricing/details/hdinsight/">の価格に関するページを参照してください</a>。
+
+
+  c) Azure Resource Manager <b>フレームワーク (ARM) および</b> <b>Azure Service Management</b> <b>(ASM)</b> クラスターのツールのロードマップ
+
+  <ul>
+   <li>現在から、ツールの新機能と機能強化は、Azure Resource Manager <b>フレームワーク (ARM) ツールでのみ使用</b> できます。</li>
+   <li>最終的に、 <b>Azure サービス管理</b> <b>(ASM) ツール</b> が削除されます。 今後の新しい ARM ツールについて理解を深めにお勧めしています。</li>
+   <li>新しい ARM ツールでは、ASM クラスターと ARM クラスターを管理できます。 ASM ツールでは、ASM クラスターのみを管理できます。</li>
+  </ul>

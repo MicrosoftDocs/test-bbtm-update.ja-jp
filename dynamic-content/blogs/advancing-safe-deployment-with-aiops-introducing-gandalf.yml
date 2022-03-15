@@ -1,0 +1,144 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 749e67758f765f82e2652f1696beda4b0eecc004
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894606"
+Slug: advancing-safe-deployment-with-aiops-introducing-gandalf
+Title: AIOps による安全なデプロイの推進— Gandalf の概要
+Summary: 正常性メトリックの継続的な監視は、このプロセスの基本的な部分であり、AIOps が重要な役割を果たします。 次の記事では、AI と機械学習を使用して DevOps エンジニアを強化し、Azure デプロイプロセスを大規模に監視し、問題を早期に検出し、影響の範囲と重要度に基づいてロールアウトまたはロールバックの決定を行う方法を紹介します。
+Content: >-
+  <p><em> &ldquo; Azure サービスと azure platform 自体に加えられた変更は、更新プログラム、新機能、およびセキュリティの強化を継続的に提供するために、不可避で有益です。ただし、変更は、サービスの回帰の主要な原因でもあります。これは、すべての IT サービスプロバイダーにとって、ハイパースケールのクラウドプロバイダーの信頼性の問題 &mdash; に寄与する可能性があります。そのため、お客様のエクスペリエンスへの影響を最小限に抑えるために、開発およびデプロイのロールアウト中にできるだけ早い段階でこのような問題をキャッチすることが重要です。継続的に<a href="https://www.aka.ms/AdvancingReliability" target="_blank">進化する信頼性</a>に関するブログシリーズの一部として、現在 &rsquo; 、Azure の信頼性を向上させるために、このような変更のリスクを軽減するために機械学習をさら &rsquo; に活用する方法を紹介するために、Jian Zhang チームからのプリンシパルプログラムマネージャーの<strong>zhang</strong>を求めています。 &rdquo; </em> &mdash;Mark Russinovich、CTO、Azure</p>
+
+
+  <hr>
+
+  <p><em>この投稿には、プリンシパルデータ科学者 Ken Hsieh と Ze Li、プリンシパルデータサイエンスマネージャー Yingnong Dang、およびパートナーグループソフトウェアエンジニアリングマネージャー Murali Chintalapati からの投稿が含まれています。</em></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>この前のブログ &ldquo; では、<a href="https://azure.microsoft.com/blog/advancing-safe-deployment-practices/" target="_blank">安全なデプロイのベストプラクティス</a> &rdquo; について説明します。佐藤さん del Amo Casado では、 <a href="https://azure.microsoft.com/en-us/" target="_blank">Azure</a> platform 全体でコードと構成の変更の両方について、運用環境への変更をリリースする方法について説明しています。 プロセスは、変更を段階的に配信することで構成されています。また、テスト中に不足しているほとんどの回帰に対して小さなスケールでの検出を可能にするために十分な焼き付ける時間が組み込まれている</p>
+
+
+  <p>正常性メトリックの継続的な監視は、このプロセスの基本的な部分です。これは、AIOps が重要な役割 &mdash; を果たし、異常を検出してアラートをトリガーし、展開の停止やロールバックの開始などのアクションを自動化できるようにすることです。</p>
+
+
+  <p>次の記事では、AI と機械学習を使用して DevOps エンジニアを強化し、Azure デプロイプロセスを大規模に監視し、問題を早期に検出し、影響の範囲と重要度に基づいてロールアウトまたはロールバックの決定を行う方法を紹介します。</p>
+
+
+  <h2>安全な展開のために AIOps を使用する理由</h2>
+
+
+  <p><a href="https://www.gartner.com/en/documents/3892967/market-guide-for-aiops-platforms" target="_blank">Gartner</a>社で定義されているように、aiops は、ビッグデータ、機械学習、および視覚化を組み合わせて it 運用プロセスを自動化する洞察を通じて it 運用を強化します。これには、イベントの相関関係、異常検出、因果関係決定などが含まれます。 これまでの記事では、 &quot; <a href="https://azure.microsoft.com/en-us/blog/advancing-azure-service-quality-with-artificial-intelligence-aiops/" target="_blank">人工知能を使用した Azure サービス品質の向上: aiops</a> &quot; によって、私たちのビジョンと、既に実行中の aiops (安全なデプロイなど) を使用しているいくつかの方法を共有していました。 AIOps は、デプロイのロールアウト中に発生するエラーをキャッチするために適しています。特に、サービス間の依存関係の複雑さ、ハイパースケールのクラウドサービスの規模、さまざまなさまざまな顧客シナリオでサポートされています。</p>
+
+
+  <p>段階的な展開と強化された正常性信号は、デプロイプロセスの監視と意思決定を容易にするために使用されますが、展開の意思決定に関係するシグナルの量と複雑さのレベルは、数千を超えるサービスコンポーネントにわたって、60を超えるリージョンで200データセンターを超えているため、人的な理由を超えます。 いくつかの潜在的な問題は、デプロイ後、数日後にマニフェストを獲得 &rsquo; しています。また、異なるクラスターにまたがるグローバルな問題がありますが、マニフェストはローカルのウォッチドッグだけでは検出が困難です。 疎結合を使用すると、ほとんどのサービスコンポーネントを個別に展開できますが、展開は互いに複雑な影響を与える可能性があります。 たとえば、アップストリームサービスの単純な変更によって、2つのサービス間の API 呼び出しのコントラクトが破損した場合、ダウンストリームサービスが影響を受ける可能性があります。</p>
+
+
+  <p>これらの課題は、自動監視、異常検出、ロールアウトの影響評価ソリューションを呼び出して、速度におけるデプロイの決定を容易にします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea272394-b78c-496a-a993-bc1c8733c6d0.png"><img alt="Gandalf safe deployment – including pre-qualification test, safe deployment policy, local watchdog, and “Gandalf” the global and intelligent watchdog." border="0" height="209" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/47cf1def-15ef-41dd-b9bb-69eb6ed10a44.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="gandalf img1" width="240"></a></p>
+
+
+  <p><em>図 1: Gandalf の安全な展開</em></p>
+
+
+  <h2>Gandalf safe deployment service: AIOps ソリューション</h2>
+
+
+  <p>Azure Compute インサイトチームは、上で説明した課題に対して、安全なデプロイのためのエンドツーエンドの継続的監視システムを開発 &ldquo; &rdquo; &mdash; しました。 Gandalf AIOps ソリューションスイートのこの部分は、他のいくつかのインテリジェントな監視サービスを含むことを考慮しています。 コードネーム Gandalf は、図1に示すように、リングの主役によって作成されたもので、グローバルウォッチドッグとして機能します。これにより、収集されたシグナルに基づいてインテリジェントなデプロイの決定が行われます。 これは、ローカルのウォッチドッグ、安全なデプロイポリシー、事前認定テストと連携して、デプロイの安全性とベロシティを保証します。</p>
+
+
+  <p>図2に示すように、Gandalf システムは、Azure からの豊富で代表的な信号を監視し、異常検出と相関関係を実行し、展開の意思決定とアクションをサポートするために洞察を導き出します。</p>
+
+
+  <p><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6dcc2c12-e23a-44d1-905f-2a4a01da7ff2.png"><img alt="Gandalf system overview – showing data sources, the detection/correlation/decision engine, result orchestration, consumers, and the deployment engine." border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c1aa8d8-2f29-4752-bc86-b2eeecdd0a59.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Figure2" width="1024"></a></strong></p>
+
+
+  <p><em>図 2: Gandalf システムの概要</em></p>
+
+
+  <h3>データ ソース</h3>
+
+
+  <p>Gandalf は、以下に示すように、パフォーマンス、障害、およびイベントの間でシグナルを監視します。 データを事前に処理して、下流の Data Analytics をサポートするために、統合されたデータスキーマを中心にデータを構築します。 また、Azure 内の他のいくつかの分析サービスを利用して正常性信号を利用しています。これには、仮想マシンのエラー分類サービスやほぼリアルタイムの障害の属性処理サービスなどが含まれます。 Gandalf によるシグナル登録は、完全なカバレッジを保証するために、新しいサービスコンポーネントをオンボードする場合に必要です。</p>
+
+
+  <ul>
+      <li><strong>パフォーマンスデータ: </strong>Gandalf では、パフォーマンスカウンター、CPU 使用率、メモリ使用量など &ndash; が監視され、ホステッドサービスのパフォーマンスとリソース消費のパターンの概要が表示されます。</li>
+      <li><strong>失敗シグナル:</strong> Gandalf は、顧客 &rsquo; の仮想マシン (データプレーン) とテナントレベルのサービス (コントロールプレーン) の両方のホスティング環境を監視します。 データプレーンの場合は、OS のクラッシュ、ノードの障害、再起動などのエラーシグナルを監視して、VM &rsquo; のホスト環境の正常性を評価します。 &nbsp; 同時に、API 呼び出しの失敗などの制御プレーンのエラーシグナルを監視して、テナントレベルのサービスの正常性を評価します。</li>
+      <li><strong>更新イベント:</strong> Gandalf は、収集されたテレメトリデータに加えて、デプロイの進行状況と問題を報告するデプロイイベントのパルスにも指を保持します。</li>
+  </ul>
+
+
+  <h3>検出、関連付け、および決定</h3>
+
+
+  <p>Gandalf は、デプロイ &mdash; の影響スコープ (影響を受けるノード、クラスター、顧客 &mdash; の数など) を評価して、動的にトレーニングされた意思決定条件を使用して、ゴー/ゴーダウンの決定を行います。 速度とカバレッジのバランスを取るために、Gandalf では、ストリーミングエンジンとバッチ分析エンジンの両方を備えたアーキテクチャを利用しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/040317ab-ee8f-4043-96f4-138476f62040.png"><img alt="Gandalf correlation process (identifying which rollouts are suspicious) and decision process (assessing the customer impacts of the blamed components/failures)." border="0" height="431" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bac9753f-e782-4ece-987b-214cb2b012c9.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="gandalf img3" width="841"></a></p>
+
+
+  <p><em>図 3: Gandalf 異常検出と相関モード</em></p>
+
+
+  <p>図3は、Gandalf Machine Learning (ML) モデルの概要を示しています。 これは、異常検出と相関プロセスという2つの部分 &mdash; で構成されています (疑わしいデプロイを識別するため)。また、意思決定プロセス (顧客への影響を評価する場合) です。</p>
+
+
+  <h3>異常検出と相関プロセス</h3>
+
+
+  <p>正確な検出を確実に行うために、Gandalf は、エラーを一意に識別するために使用できる入力シグナルからエラー署名を派生させます。 次に、エラー署名の発生に基づいて検出されます。</p>
+
+
+  <p>Azure のような大規模なクラウドシステムでは、単純なしきい値ベースの検出が現実的ではありません。これは、ホストされるシステムとワークロードの動的な性質と、膨大な量のフォールト署名が原因で発生します。 Gandalf は機械学習手法を適用し、履歴データに基づいて基準設定を自動的に推定し、必要に応じてトレーニングによって設定を調整できます。</p>
+
+
+  <p>Gandalf が異常を検出すると、観察された障害をデプロイイベントと関連付け、その影響の範囲を評価します。 これは、ランダムなファームウェアの問題など、展開以外の理由によって発生した障害を除外するのに役立ちます。</p>
+
+
+  <p>複数のシステムコンポーネントが同時に配置されることが多いため、エラーとロールアウトコンポーネントの関係を確立するために投票拒否メカニズムが使用されます。 さらに、障害発生時にコンポーネントを識別するために、テンポラルと空間の相関関係が使用されます。 障害期間は、ロールアウトと障害署名の検出の間の時間を測定するものであり、以前のロールアウトによって新たに観察された障害が発生する可能性が低くなるため、古いロールアウトよりも新しい展開に重点を置いていると見なされます。</p>
+
+
+  <p>このようにして、Gandalf は、プロセス &mdash; の早い段階で、顧客の影響を広範囲に生成する前に、ユーザーエクスペリエンスの潜在的な回帰につながる異常を検出できます。 詳細については、公開されているペーパー &ldquo; Gandalf を参照してください。大規模な<a href="https://www.usenix.org/conference/nsdi20/presentation/li" target="_blank">クラウドインフラストラクチャで安全にデプロイするための、インテリジェントなエンドツーエンドの分析サービス</a>です。&rdquo;</p>
+
+
+  <h3>意思決定プロセス</h3>
+
+
+  <p>最後に、Gandalf は、影響を受けたクラスター/ノード/顧客の数など、デプロイの影響範囲を評価し、最終的にはゴー/ゴー &quot; ダウンを &quot; 決定します。 &rsquo;Gandalf は、開発者が経験に基づいて信号 &rsquo; の重み割り当てをカスタマイズできるように設計されていることに注意してください。 このようにして、機械学習ソリューションを補完するために、人間の専門家からのドメインナレッジを組み込むことができます。</p>
+
+
+  <h3>結果のオーケストレーション</h3>
+
+
+  <p>速度とカバレッジを調整するために、Gandalf は受信信号のストリーミングとバッチ処理の両方を利用します。 ストリーミング処理では、迅速な分析をサポートするクラウドストレージソリューションである Azure データエクスプローラーのデータを使用します。 ストリーミング処理は、各ノードの各デプロイの前後1時間で発生するエラーシグナルを処理するために使用され、迅速な応答のための軽量分析アルゴリズムを実行します。</p>
+
+
+  <p>バッチ処理は、膨大な量のデータをサポートする Hadoop に似たファイルシステムである Cosmos のデータを使用します。 これ &rsquo; は、高度なアルゴリズムを使用して、より大きな時間枠 (通常は30日間) でエラーを分析するために使用されます。</p>
+
+
+  <p>ストリームとバッチ処理はどちらも、5分間隔で段階的に実行されます。 一般に、Gandalf の受信テレメトリ信号は両方とも kusto にストリーミングされ、毎時/日単位で Cosmos に格納されます。 同じデータソースを使用する場合は、処理パイプラインによって一貫性のない結果が生じる可能性があります。 これは、バッチ処理によってより多くの情報に基づいた意思決定が行われ、高速/ストリーミングプロセスで検出できない潜在的な問題が発生するため、設計によるものです。</p>
+
+
+  <h2>配置操作の変換</h2>
+
+
+  <p>Gandalf システムが Azure 内の DevOps ワークフローに十分に統合され、すべての保有期間にわたってデプロイの正常性を監視するために広く採用されてきました。 これは、問題のあるロールアウトが可能な限り迅速に発生するのを防ぐだけでなく、ソフトウェアの変更 &mdash; を展開するためのエンジニア &rsquo; やリリースマネージャー &rsquo; のエクスペリエンスも、1つのソースを使用した、アドホック診断から対話型のトラブルシューティング &mdash; を使用するように、また、Gandalf と対話するエンジニアの多くについても変革しました。 阻害から代弁まで進化しています。</p>
+
+
+  <p>多くの Azure サービスで、Gandalf はすべてのリリース検証の既定のベースラインになり、Gandalf を信頼しているお客様の訪問者の数を聞いて &rsquo; います。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>この記事では、Azure サービスを安全にデプロイするためのインテリジェントなエンドツーエンドの分析サービスである、 <a href="https://www.usenix.org/conference/nsdi20/presentation/li" target="_blank">Gandalf</a> セーフデプロイサービスを導入しました。 Gandalf セーフデプロイサービスを使用すると、最新の異常検出、特別および一時的な相関関係、および結果のオーケストレーションにより、DevOps のエンジニアは、Azure などのハイパースケールのクラウドプラットフォームで必要とされる速度を正確に決定できます。</p>
+
+
+  <p>クラウドサービスの管理を改善するための AI および機械学習ベースのテクノロジの適用に投資し、最終的にカスタマーエクスペリエンスの向上を続けます。 私たちの AIOps ソリューションの詳細をご確認ください。これには、実稼働前分析も含まれます。</p>

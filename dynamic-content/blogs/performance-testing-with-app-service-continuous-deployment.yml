@@ -1,0 +1,55 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 10608d09da3c7ce2ec93f4a1e6ec0b46acf66ab1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891412"
+Slug: performance-testing-with-app-service-continuous-deployment
+Title: 継続的デプロイを使用App Serviceパフォーマンス テスト
+Summary: App Service継続的デプロイ機能を使用してデプロイ プロセスを自動化するのに役立ち、継続的インテグレーション ワークフローの一部としてテストをトリガーする Visual Studio ロード テストとの統合が追加されました。
+Content: >-
+  <p>アプリケーション用に新しいビットをデプロイする場合、最も基本的な検証は、アプリが動作し、予想されるパフォーマンス目標を達成している点です。 App Service継続的デプロイ機能を使用してデプロイ プロセス <strong>を自動化するのに</strong> 役立ちます。 この機能の詳細については、以下のビデオを参照してください。</p>
+
+
+  <blockquote>
+
+  <p><iframe allowfullscreen="" frameborder="0" height="360" src="https://channel9.msdn.com/Series/Windows-Azure-Web-Sites-Tutorials/Github-Continuous-Delivery-in-the-Preview-Portal/player" width="640"></iframe></p>
+
+  </blockquote>
+
+
+  <p>継続的インテグレーション ワークフローの<a href="https://azure.microsoft.com/en-us/blog/announcing-public-preview-for-performance-test-on-webapps/" target="_blank">一Visual Studioテスト</a>をトリガーするために、ロード テストをサポートするテストと統合しました。 つまり、新しいバージョンをチェックインするとすぐに、アプリを更新してテストし、動作とパフォーマンスを自動で検証できます。</p>
+
+
+  <p>これは、デプロイ スロットと組み合わせて<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-staged-publishing/" target="_blank"></a>使用するとさらにうまく機能します。そのため、新しいビットを実稼働環境にスワップする前に追加の検証を行う必要があります。</p>
+
+
+  <p>継続的<strong></strong>配置<strong>ワークフローの一</strong><strong></strong>&rsquo;&gt;部としてパフォーマンス テストを設定するには、アプリの [デプロイ ソース設定に移動し、選択したプロバイダーから継続的デプロイを設定します。</p>
+
+
+  <p><img alt="image" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dfdb5559-e987-4f07-b104-6410defb9739.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="612"></p>
+
+
+  <p>構成が完了すると、継続的デプロイ パイプラインを介して新しいビットがデプロイ<strong></strong>されるごとに実行されるパフォーマンス テストを構成するオプション<strong>も提供</strong>されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a904528b-2f1d-4ae4-84c3-ecd81ed16c92.png"><img alt="image" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3c8a457-53e1-4994-a4de-a710a117d160.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="612"></a></p>
+
+
+  <p><strong>パフォーマンス テスト</strong> は、デプロイ後のアクションとして実行されます。</p>
+
+
+  <p><img alt="image" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e89c0499-e642-436e-8127-382dac09fa57.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="612"></p>
+
+
+  <p>[ログの表示] リンクをクリックすると、最新の実行の <strong>結果を確認 </strong>できます。</p>
+
+
+  <p><img alt="image" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e0cdc07d-ce2e-4bd8-9c46-69b7f11c680e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="612"></p>
+
+
+  <p><strong>パフォーマンス テスト</strong> は、コマンド バーの [パフォーマンス <strong> </strong>テストの構成] アイコンをクリックして、既存の継続的配置構成に追加できます。</p>
+
+
+  <p>ご意見、ご質問、アイデアについては、以下のコメント セクション、または <a href="https://feedback.azure.com/forums/169385-web-apps-formerly-websites">User Voice フィードバック フォーラムをご覧</a> ください。</p>

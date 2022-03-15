@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6272fcb62d18b49bb8dd10638e2a31e9272a5a82
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891515"
+Slug: laliga-entertains-billions-with-azure-based-conversational-ai
+Title: Azure ベースの会話 AI を使用した Lentertains 何百万
+Summary: L整列 a の場合は、ファンを維持しておくことが最優先事項です。 また、ファンに関しては、スペインのフットボールリーグは、世界中に約16億のソーシャルメディアフォロワーを持っています。 そのため、ファンに新しい機能、フォーラム、またはアプリが導入されたときに、グローバルな人気をほぼ確実に使用できます。 また、これは L整列 a に関するすばらしいニュースですが、何百もの人が楽しい新しいアプリを試すときに、システムがクラッシュしたり応答しなくなったりすることを望む技術的な課題にもなります。
+Content: >-
+  <p>L整列 a の場合は、ファンを維持しておくことが最優先事項です。 また、ファンに関しては、スペインのフットボールリーグは、世界中に約16億のソーシャルメディアフォロワーを持っています。 そのため、ファンに新しい機能、フォーラム、またはアプリが導入されたときに、グローバルな人気をほぼ確実に使用できます。 これは L整列 a に関するすばらしいニュースですが、何百万もの人が楽しい新しいアプリを試しているときに、システムがクラッシュしたり応答しなくなったりすることを必要とする技術的な課題 &mdash; もあります。</p>
+
+
+  <p>Microsoft Azure で実行されている個人のデジタルアシスタントを開発することを選択した場合、その開発者は、さまざまな音声プラットフォームにわたって複数の言語の大規模なユーザーボリュームの面で最適なパフォーマンスを確保するために、慎重に手順を実行しました。 具体的には、Azure を使用して、複数のチャネルで優れたエクスペリエンスを提供し、何百万ものユーザーのグローバルなボリュームを処理するために、言語とニックネームの特性に対応できる会話 AI ソリューションを構築しています。</p>
+
+
+  <p>このように、このスコープとスケールのデプロイに取り組むために、いくつかの重要な教訓が生まれています。</p>
+
+
+  <p align="center"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" src="https://www.microsoft.com/en-us/videoplayer/embed/RE2PP4F" width="560"></iframe></p>
+
+
+  <h2>言語とニックネームの特性に対応</h2>
+
+
+  <p>仮想アシスタントが Google assistant と Skype 用に起動し、最終的に11のプラットフォームがサポートされるようになりました。 アシスタントは<a href="https://azure.microsoft.com/services/bot-service/" target="_blank">Azure Bot Service</a>と<a href="https://dev.botframework.com/" target="_blank">Microsoft Bot Framework</a>で作成され、 <a href="https://azure.microsoft.com/services/cognitive-services/" target="_blank">azure Cognitive Services</a>とその他のさまざまな azure ツールが組み込まれています。 アシスタントのメインエンジンは、開発を効率化するためにサービスとしてのプラットフォーム (<a href="https://azure.microsoft.com/overview/what-is-paas/" target="_blank">PaaS</a>) &mdash; を<a href="https://azure.microsoft.com/services/app-service/" target="_blank">Azure App Service</a> &mdash; のスケーラビリティと柔軟性を活用します。 LAlexa は、bot logic、image service、Google Assistant コネクタ、コネクタ、データローダー、キャッシュ管理、およびライブデータとプロアクティブメッセージ用の2つの Azure functions の開発を促進するために複数回使用されていました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0387e619-0cd7-4976-9d1f-9c5ae8f49b04.png"><img alt="A chart of the LaLiga virtual assistant architecture" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87f0e33d-929f-46e4-afe0-efff40e69d8e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想アシスタントのアーキテクチャの図" width="1024"></a></p>
+
+
+  <p align="center"><em>図 1.仮想アシスタントのアーキテクチャの概要</em></p>
+
+
+  <p>ファンは自然言語を使用してアシスタントの質問をすることができます。また、システムは、この入力を解析して、 <a href="https://azure.microsoft.com/services/cognitive-services/text-analytics/" target="_blank">azure Text Analytics</a> と <a href="https://azure.microsoft.com/services/cognitive-services/language-understanding-intelligent-service/" target="_blank">azure Cognitive Services Language Understanding</a> をスペイン語または英語のどちらでも使用してユーザーの意図を判断します。 これは簡単だと思われるかもしれませんが、開発者は、言語のサブタイトルによってプロセスが複雑になる可能性があります。 たとえば、goalkeeper &rdquo; の &ldquo; 主な単語は、スペイン、アルゼンチン、コロンビアで使用されるスペイン語の言語によって異なります。 そのため、これらのバリエーションに対して多対一の関係に対応するために、質問をインテントにマッピングする必要があります。</p>
+
+
+  <p>同様の問題が発生しました。名前が複雑なスペルで、発音に明確に対応し &rsquo; ていません。たとえば、Griezmann &quot; の &quot; 代わりに Griesman &quot; を使用すると、 &quot; さまざまな翻訳が発生します。 ここでの解決策は、エイリアスを使用して、システムを正しいプレーヤーに導くことでした。 ニックネームはもう1つの場所にありませんでした。 開発者は、 <a href="https://azure.microsoft.com/services/monitor/" target="_blank">Azure Monitor Application Insights</a>を使用して、既存のプレーヤーにマッピングされていないユーザークエリ &rsquo; を調査し、多くの人が自分の正式な名前ではなく、プレーヤーについて質問していたことを発見しました。 もう一度、エイリアスは復旧になりました。</p>
+
+
+  <h2>複数のチャネルでの優れたエクスペリエンスを保証する</h2>
+
+
+  <p>開発チームの1つの目標は、さまざまなモバイルプラットフォームとデバイスで一貫した高品質なユーザーエクスペリエンスをサポートすることでした。それぞれに独自の表示パラメーターがあり、また、接続プロトコルも異なる場合があります。 すべてのユーザークエリへの応答として、仮想アシスタントは、画像、テキスト、音声返信という3つの要素を返します。 画像は、対戦結果またはプレイヤーの統計情報を示すプレーヤーまた &ldquo; はヒーローカード &rdquo; の画像にすることができます。 視覚的に表示されるチャネルについては、イメージとテキストが XAML でカスタマイズされ、特定の表示解像度で簡単に読みやすくなります。</p>
+
+
+  <p>すべてのチャネル &rsquo; は、ユーザーの人気に達したときに同じように作成されません。 L整列 a では、一部のチャネルが他のチャネルよりもはるかに頻繁に使用されることを想定しています。これには、スケーラビリティリソースを適切に管理するための調整が必要です。 開発者は、チャネルごとに app service を作成し、予想される使用量に合わせて最適化しました。</p>
+
+
+  <p>また、開発者は、チャネル &rsquo; の機能や要件に応じて、さまざまなチャネルに対して、アシスタントが使用するコネクタをカスタマイズする必要があります。 たとえば、Alexa インターフェイスは microsoft .NET Framework に基づいており、microsoft ツールを使用した接続を簡単に開発できますが、Google Assistant は Node.js を使用するため、より複雑な開発が必要になります。 開発者は、L整列 a 仮想アシスタントから Google Assistant が認識する型にメッセージをマップするのが難しいことを発見しました。 App Service でホストされているカスタムコネクタを追加すると、問題が解決されます。 App Service は、チャネルのスケーラビリティ要件の管理にも役立ちます。 Microsoft では、Azure ベースのボットでのコネクタの作成をすべての開発者が効率化するために、仮想アシスタントから学んだ教訓を利用しています。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62c5975a-4613-4086-8258-2fcb3f1b61e7.png"><img alt="A chart showing integration with Google Assistant and Alexa" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0d1d76dd-14b3-4c9e-b551-5986d7771f8c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Google Assistant と Alexa の統合を示すグラフ" width="1024"></a></p>
+
+
+  <p align="center"><em>図 2.Google Assistant と Alexa との統合の概要</em></p>
+
+
+  <h2>数百万人の連ねユーザーのための計画</h2>
+
+
+  <p>L作っは、アシスタントが人気のものであり、ほとんどのユーザーが複数の質問をし、毎日システムで大量のヒットを生成し、コンピューティングリソースを大量に消費することを予想しています。 開発者は、この高い需要を軽減するために複数の戦略を採用しています。</p>
+
+
+  <p>受信クエリは2つのカテゴリ &mdash; に分類され、ライブと非アクティブになります。 ライブクエリは、データが絶えず変更される可能性がある一方で、ライブクエリは完成したゲームまたはプレーヤー &rsquo; の基本的な統計に関連する場合があります。 非ライブクエリが到着するたびに結果がキャッシュされます。そのため、他のユーザーが同じ質問をした場合に、答えをすぐに使用できるようになります。 lている仮想アシスタントは、高度に最適化された Azure SQL データベースを、構造化されていない data lake ではなくメインデータストレージとして使用して、結果を迅速にします。</p>
+
+
+  <p>スケーラビリティは大きな問題であるため、チームは開発者をスケーラビリティテストに専念することを早期に決定しました。 開発者は、アシスタントに対するクエリをシミュレートする自動化システムを作成し、最終的には、1日に数百万のヒットをテストし、スムーズな起動の段階を設定しました。 多くのクエリ &mdash; を使用してシステムを Bombarding すると、このようなヒットは正規のクエリでしたが、一部の web サービスでは膨大な量のボリュームが表示され、分散型サービス拒否 (DDOS) 攻撃によってシステムがヒットしていると考えられます。 &rsquo;そのため、すべてのコンポーネントがアシスタントの人気を考慮するように構成されていることを確認する必要があります。</p>
+
+
+  <h2>L整列 a から学び、独自のすばらしいボットを作る</h2>
+
+
+  <p>これらのユースケースの一部は単純に思えるかもしれませんが、仮想アシスタントの開発エクスペリエンスでは、開発プロセスやアプリケーションの構成に小さな微調整が発生した場合に、システムのパフォーマンスと開発時間の面で大きなメリットが得られることがわかりました。 L整列プロジェクトで学んだ教訓が、非常に人気のあるデジタルアシスタントの構築に役立つことを願っています。</p>
+
+
+  <p>L整列 a &rsquo; s デジタル変革とそのイニシアチブによるファンエンゲージメントの向上の詳細については、<a href="https://customers.microsoft.com/story/laliga-media-entertainment-azure" target="_blank">ケーススタディ</a>を参照してください。</p>
+
+
+  <p>独自のブランド化された <a href="https://aka.ms/azportalvalink" target="_blank">仮想アシスタントの</a>構築を開始しましょう。</p>
+
+
+  <p>より簡単に開始し、 <a href="https://docs.microsoft.com/azure/cognitive-services/qnamaker/tutorials/create-publish-query-in-portal">QnA Maker を使用して最初の q&a &amp; を作成</a>します。</p>

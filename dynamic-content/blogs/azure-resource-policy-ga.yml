@@ -1,0 +1,155 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 717204186143274505626aed31e788adc025f159
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895611"
+Slug: azure-resource-policy-ga
+Title: Azure Resource Policy の一般提供の発表
+Summary: 本日は、リソース ポリシーの一般提供をお知らせします。リソース ポリシーは、Azure Resource Manager。
+Content: >-
+  <p>すべてのサイズの組織がクラウドを採用する場合、企業ポリシーを満たし、ガバナンス要件を満たすためにリソース構成を制御する必要があります。</p>
+
+
+  <p>本日は、リソース ポリシーの一般提供をお知らせします。リソース ポリシーは、Azure Resource Manager。</p>
+
+
+  <p>リソース ポリシーを使用すると、Azure サービスや地域全体で許容されるリソース構成を管理するポリシー ドキュメントを定義できます。 フィードバックに基づいて、リソース ポリシーの機能を強化する新しい機能がいくつか追加されました。</p>
+
+
+  <h2>リソース SKU の制御</h2>
+
+
+  <p>AzureCon 以降、Azure リソース ポリシーでは、タグ、リソース名、サービスの種類、場所など、多くのファセットがサポートされています。 また、エンタープライズ IT では、セキュリティと制御のコストを確保するために、仮想マシンイメージと SKU を制限したいと思っています。</p>
+
+
+  <p>次の例では、仮想マシンの SKU を仮想マシンまたはStandard_A0制限Standard_A1。</p>
+
+
+  <pre class="prettyprint">
+
+  {
+    &quot;if&quot;: {
+      &quot;allOf&quot;: [
+        {
+          &quot;field&quot;: &quot;type&quot;,
+          &quot;equals&quot;: &quot;Microsoft.Compute/virtualMachines&quot;
+        },
+        {
+          &quot;not&quot;: {
+            &quot;field&quot;: &quot;Microsoft.Compute/virtualMachines/sku.name&quot;,
+            &quot;in&quot;: [ &quot;Standard_A0&quot;, &quot;Standard_A1&quot; ]
+          }
+        }
+      ]
+    },
+    &quot;then&quot;: {
+      &quot;effect&quot;: &quot;deny&quot;
+    }
+  }</pre>
+
+
+  <p>多くのリソースの種類に対して SKU を制御できます。詳細については、こちらを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-manager-policy/#fields-and-sources">してください</a>。</p>
+
+
+  <h2>VM イメージを制御する</h2>
+
+
+  <p>SKU と同様に、VM イメージの使用を制御するポリシーを実装できます。 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-cli-ps-findimage/">Azure VM のイメージは</a>、Publisher、SKU、およびバージョンによって定義されます。</p>
+
+
+  <p>次の例は、ユーザーが正規イメージを使用して VM のみをプロビジョニングできるよう、許容される VM パブリッシャーを制御する方法を示しています。</p>
+
+
+  <pre class="prettyprint">
+
+  {
+    &quot;if&quot;: {
+      &quot;allOf&quot;: [
+        {
+          &quot;field&quot;: &quot;type&quot;,
+          &quot;equals&quot;: &quot;Microsoft.Compute/virtualMachines&quot;
+        },
+        {
+          &quot;not&quot;: {
+            &quot;field&quot;: &quot;Microsoft.Compute/virtualMachines/imagePublisher&quot;,
+            &quot;equals&quot; : &quot;Canonical&quot;
+          }
+        }
+      ]
+    },
+    &quot;then&quot;: {
+      &quot;effect&quot;: &quot;deny&quot;
+    }
+  }</pre>
+
+
+  <h2>既定のタグまたはプロパティを適用する</h2>
+
+
+  <p>また、プロビジョニング プロセス中に特定のタグまたはプロパティが Azure リソースに追加されるのを確認することもできます。 たとえば、costCenter タグ&ldquo;が&rdquo;&rsquo;指定されていない場合、このポリシーは定義済みの値を持つタグを追加します。&nbsp;</p>
+
+
+  <pre class="prettyprint">
+
+
+  &nbsp;</pre>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><code><code>{<br />
+
+  &nbsp; &quot;if&quot;: {<br />
+
+  &nbsp;&nbsp;&nbsp; &quot;field&quot;: &quot;tags&quot;,<br />
+
+  &nbsp;&nbsp;&nbsp; &quot;exists&quot;: &quot;false&quot;<br />
+
+  &nbsp; },<br />
+
+  &nbsp; &quot;then&quot;: {<br />
+
+  &nbsp;&nbsp;&nbsp; &quot;effect&quot;: &quot;append&quot;,<br />
+
+  &nbsp;&nbsp;&nbsp; &quot;details&quot;: [<br />
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;field&quot;: &quot;tags&quot;,<br />
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;value&quot;: { &quot;costCenter&quot;: &quot;myDepartment&quot; }<br />
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+
+  &nbsp;&nbsp;&nbsp; ]<br />
+
+  &nbsp; }<br />
+
+  }</code></code></p>
+
+
+  <h2>ポリシー評価イベントに関するアラート</h2>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ポリシー違反によってトリガーされるアラート ルールを定義することもできます。 アラートは、電子メール通知をトリガーしたり、Webhook を呼び出したりできます。 次の PowerShell では、ポリシーがユーザーアクションを拒否するときにトリガーされるアラート ルールを定義します。</p>
+
+
+  <pre class="prettyprint">
+
+  $action = New-AzureRmAlertRuleWebhook -ServiceUri &quot;your web hook url&quot;
+
+  Add-AzureRmLogAlertRule -Name &lt;alertrulename&gt; -Location &lt;location&gt; -ResourceGroup &lt;resourcegroupName&gt; -OperationName Microsoft.Authorization/policies/deny/action -TargetResourceGroup &lt;resourcegrouptomonitor&gt; -Actions $action
+
+  </pre>
+
+
+  <p>ポリシー違反のアラート ルールの詳細については、//Build からの <a href="https://channel9.msdn.com/Events/Build/2016/T690">Ryans&rsquo; セッション</a> に関するページを参照してください。</p>
+
+
+  <p>フィードバックをお送りください。 リソース ポリシー&rsquo;に慣れていない場合は、 <a href="https://aka.ms/azurepolicy">Azure</a> のドキュメントとこのビデオ <u><a href="https://www.youtube.com/watch?v=R11V3iDs_Lw#t=23">を参照して</a></u> 開始してください。</p>

@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9f91791b80176efbb849dc42b51546caea62718b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891837"
+Slug: azure-backup-announcing-support-for-windows-client-operating-system
+Title: Azure Backup - クライアント オペレーティング システムのWindowsの発表
+Summary: Azure Backup を使用して、Windows 7、Windows 8、Windows 8.1 マシンから Azure にデータをバックアップするサポートをお知らせします。
+Content: >-
+  Azure Backup を使用して、Windows 7、Windows 8、Windows 8.1 マシンから Azure にデータをバックアップするサポートをお知<a href="https://aka.ms/azurebackup_landingpage">らせします</a>。 サポートされているクライアント オペレーティング システムのバージョン、SKU の詳細については、<a href="https://support.microsoft.com/kb/3015072">KB3015072 を参照</a>してください<i>。</i> この更新プログラムをダウンロードすると、次を含む、過去数か月間にリリースされたすべての機能が自動的に取得されます。
+
+  <ul>
+   <li><a href="https://support.microsoft.com/kb/2989574">KB2989574:</a> 850 GB を超えるデータ ソースのサポート</li>
+   <li><a href="https://support.microsoft.com/kb/2997692">KB2997692</a>: <a href="https://azure.microsoft.com/blog/2014/09/11/announcing-long-term-retention-for-azure-backup/">長期保有と</a> 簡略化 <a href="https://azure.microsoft.com/blog/2014/09/11/getting-started-with-azure-backup/">されたサインアップ &amp; 登録</a></li>
+   <li><a href="https://support.microsoft.com/kb/2999951">KB2999951</a>: <a href="https://azure.microsoft.com/blog/2014/10/06/announcing-support-for-backup-of-windows-server-2008-with-azure-backup/">Windows Server 2008 のサポート</a></li>
+   <li><a href="https://support.microsoft.com/kb/3015072">KB3015072</a>: Windows 7、Windows 8、Windows 8.1</li>
+  </ul>
+
+  このリリースでは、顧客がオンプレミスのファイルAzure Backupフォルダーを Azure に直接バックアップすることで、新しいシナリオを開始できます。 最初のバックアップ コピーが完了すると、バックアップAzure Backup変更を追跡し、変更されたコンテンツのみを HTTPS 経由で効率的に転送します。
+
+
+  このAzure Backup設定は非常に簡単で、手順を説明する 3 部 <a href="https://azure.microsoft.com/blog/2014/11/04/back-up-your-data-to-the-cloud-with-3-simple-steps/">構成のビデオ</a> シリーズがあります。 手順については、ブログ記事の「使い始める」 <a href="https://azure.microsoft.com/blog/2014/09/11/getting-started-with-azure-backup/">でも</a> 詳しく説明されています。
+
+
+  &nbsp;
+
+
+  このブログ記事では、このシナリオのベスト プラクティスと推奨事項について説明します。
+
+  <ol>
+   <li>データを格納するバックアップ コンテナーにマシンを登録するには、次の 2 つの方法があります。
+  <ul>
+   <li><b>オプション #1: </b>バックアップ コンテナーごとに 1 つのマシンを登録します。 バックアップ コンテナーは、Azure サブスクリプションの [Recovery Services] の下に作成されます。<b> </b>このオプションを使用すると、サブスクリプションあたり 25 のバックアップ コンテナーのみを作成できます。 Azure にバックアップするマシンがさらに多い場合は、2 番目のオプションを使用してください。</li>
+   <li><b>オプション #2: </b>複数のマシンを同じコンテナーに登録します。 これにより、最大 50 台のマシンを 1 つのバックアップ コンテナーに登録できます。</li>
+  </ul>
+
+  </li>
+
+  </ol>
+
+  <p style="padding-left: 60px;">どちらのオプションでも、バックアップ データへのアクセスは暗号化パスフレーズを使用して制御されます。 コンピューターをバックアップ コンテナーに登録する時点で、暗号化パスフレーズがユーザーによって提供されます。これは、バックアップされるデータの暗号化と暗号化解除に使用されます。 異なる暗号化パスフレーズが異なるマシンに使用されている場合、分離が保証されます。</p>
+
+  <p style="padding-left: 30px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clientencryption-passphrase.png"><img class="alignnone size-full wp-image-237554" alt="clientencryption passphrase" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clientencryption-passphrase.png" width="471" height="335" /></a></p>
+
+  <p style="padding-left: 30px;">2.ノート PC がバッテリで実行されている場合、Azure へのスケジュールされたバックアップはインテリジェントにスキップされます。 代わりに、バックアップ ジョブは、ラップトップが充電のために電源に接続された後すぐに開始されます。</p>
+
+  <p style="padding-left: 30px;">3.1 日にバックアップ時刻を選択する場合は、セットアップに最適な時間を選択してください。 夜間にマシンをシャットダウンする傾向がある場合は、バックアップがこのような時間にスケジュールされていないことを確認してください。</p>
+
+  <p style="padding-left: 30px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/client-backup-schedule.png"><img class="alignnone size-full wp-image-237564" alt="Azure Backup Client Backup Schedule" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/client-backup-schedule.png" width="398" height="344" /></a></p>
+
+  <p style="padding-left: 30px;">4.バックアップ ジョブのバックアップの進行状況または状態を監視する場合は、"Microsoft Azure Backup" を検索し、<b><i>対応</i></b>する mmc を起動します。 バックアップ ジョブに関する最新情報と統計が提供されます。</p>
+
+  <p style="padding-left: 30px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/client-monitoring.png"><img class="alignnone size-full wp-image-237574" alt="Azure backup client monitoring" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/client-monitoring.png" width="626" height="287" /></a></p>
+
+  まとめると、このリリースでは、クライアント コンピューターから Azure にデータをバックアップする機能が追加されました。 Azure を使い始め、アカウント/サブスクリプションが必要な場合は、こちらを <a href="https://aka.ms/azure_freetrial">クリック</a> して開始してください。 また、こちらから直接Azure Backupエージェントをダウンロード <a href="https://aka.ms/azurebackup_agent">することもできます</a>。
+
+
+  ヘルプが必要な場合は、フォーラムに質問 <a href="https://aka.ms/azurebackup_forum">Azure Backupしてください</a>。 既存のアイデアを追加または投票する提案がある場合は、フィードバック ページにアクセスするか、このブログ<a href="https://aka.ms/azurebackup_feedback"></a>にコメントを残してください。

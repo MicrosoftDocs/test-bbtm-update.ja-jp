@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a962ebaaf9fb12d2d5cc1fc35f17e9a38e1d932a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891695"
+Slug: azure-storage-client-library-retry-policy-recommendations
+Title: Azure Storage クライアント ライブラリの再試行ポリシーに関する推奨事項
+Summary: クライアント ライブラリの再試行Azure Storage設定の選択に関するガイダンス。
+Content: >-
+  Azure Storage Library 再試行<strong><em></em></strong>ポリシーを構成する方法については、「<a href="https://gauravmantri.com/2012/12/30/storage-client-library-2-0-implementing-retry-policies/">SCL 2.0 –</a> Gaurav Mantri による再試行ポリシーの実装」が優れています。 ただし、使用する再試行 <strong><em>ポリシー設定に</em></strong> 関する実用的なガイダンスが必要な場合は、見つけるのが困難です。 この投稿では、負荷の高いシナリオで SCL を使用した 1 つの Microsoft チームの実際の経験に基づいて、いくつかの推奨事項を提供します (トラフィックの少ないシナリオでは、既定の再試行ポリシーで問題ありません)。
+
+  <h2>ExponentialRetry と LinearRetry</h2>
+
+  応答時間を短くする気にしないバッチ プロセスの場合、ExponentialRetry クラスは最初は簡単な呼び出しのように聞こえます。 一時的なエラーを可能な限り速くクリアするために、すぐに再試行する必要がありますが、サーバーをハンマリングしたくないので、既に悪いサービスの問題が増えています。 また、Azure Storageチームは、ポリシーをよりインテリジェントにし、最適な全体的なパフォーマンスを提供するために、引き続きポリシーを調整します。
+
+
+  ただし、サービスへの接続の品質を追跡する機能への影響Storageしてください。 非常に長いタイムアウトと多数の再試行で ExponentialRetry を使用する場合、ほとんどの一時的なエラーに対して例外を処理する必要は回避されますが、頻繁に発生しているかどうかはわかりません。 応答時間を追跡できますが、原因が一時的なエラーかどうかはわかりません。
+
+
+  解決策の 1 つは、OperationContext.RequestResults を使用する方法です。この操作には、クライアント ライブラリによって実行されたすべての操作の結果が含まれている必要があります。 OperationContext には、分散システムの問題を診断するために役立つエンドツーエンドのトレースも用意されています。 再試行について通知を受け取る場合は、OperationContext.Retrying という名前の新しいイベントを使用できます。 残念ながら、OperationContext の使用例を示すドキュメントはありません。
+
+
+  さらに多くの診断情報が必要な場合のもう 1 つのオプションは、比較的短い再試行間隔で LinearRetry クラスを使用し、わずか数回の再試行で非常に高速に失敗する方法です。 その後、例外をキャッチし、エラーを報告しながら独自のバックオフを実装できます。 ほとんどの要求が最終的に成功する場合は、バックオフが非常に重要です。
+
+  <h2>MaximumExecutionTime</h2>
+
+  IRequestOptions インターフェイスには、MaximumExecutionTime プロパティも含まれています。 この値は、すべての再試行に費やされる合計時間を制限します。 この操作を実行する操作の種類によっては、大きな操作が失敗する場合がある場合、非常に大きなサイズが必要になる場合があります。 大きな操作を要求する負荷の高い状況では、10 秒を下回る値が原因で多くのエラーが発生する可能性がありました。 MaximumExecutionTime を 60 秒に設定すると、例外が回避されました。 これはバックグラウンド プロセスに対してうまく機能します。顧客向けシナリオの場合は、調整を異なる方法で行う必要があります。
+
+
+  ServerTimeout と再試行の最大数の値が影響を受けずにいました。 5 秒と 10 回の再試行に設定すると、問題ありません。 繰り返しになりますが、これは、迅速な応答時間よりも最終的な成功についてより重要なバックグラウンド プロセス用です。 また、これはすべてのシナリオでは機能しません。たとえば、アプリケーションが 1 TB の BLOB をダウンロードしている場合 (たとえば、5 秒では十分な長さではありません)。 タイムアウトが必要ない場合のもう 1 つのオプションは、ServerTimeout を null に設定する方法です。 StorageClient Library 4.0 より、null が既定値になります。
+
+  <h2>不要な作業を回避する</h2>
+
+  一部の操作では、例外を回避するために使用できる IfExists メソッドが SCL API によって提供されます。例:
+
+  <pre class="prettyprint">foreach (IListBlobItem blobItem in this.BlobList())
+
+  {
+      CloudBlockBlob cloudBlob = (CloudBlockBlob)blobItem;
+      cloudBlob.DeleteIfExists(options: this.requestOptions);
+  }</pre>
+
+  これは優れた防御的プログラミングのように見えますが、トラフィックが失敗して追加される可能性も高いです。ストレス テストでは、頻繁に失敗しました。 また、項目が存在することを知っている場合は不要です。 <a href="https://msdn.microsoft.com/en-us/library/microsoft.windowsazure.storage.blob.cloudblockblob.deleteifexists(v=azure.10).aspx">DeleteIfExists</a> ではなく <a href="https://msdn.microsoft.com/en-us/library/microsoft.windowsazure.storage.blob.cloudblockblob.delete(v=azure.10).aspx">Delete を呼び</a>出すコードを変更すると、操作のパフォーマンスがはるかに向上し、失敗する頻度が減っています。 そのため、既知の情報を使用してトラフィックを減らし、失敗する可能性を減らすことが最善です。
+
+  <h2>例外の処理</h2>
+
+  再試行ポリシーを使用する場合でも、エラーが例外を取得するのに十分な時間が保持される場合があります。 クライアント Azure Storageフレームワークは、StorageException または System のいずれかになるのを確認する優れたジョブです。<a href="https://msdn.microsoft.com/en-us/library/system.aggregateexception(v=vs.110).aspx">AggregateException</a>。
+
+
+  また、再試行ポリシー クラスは、4xx 状態コードで再試行を行う必要はありません。 他にもいくつかがあります (現在は 306、501、505)。 これらのコードは、一時的ではなく、対処する必要がある状況を表します。 一般的な例は、404 (見つかりません) と 409 (競合) です。 カスタム再試行ポリシーを作成する場合は、これらの状況を確認してください。
+
+  <h2>ラッパー ライブラリ不要</h2>
+
+  Azure Storage クライアントが必要な方法で再試行を行うラッパー ライブラリを設計する計画を立て、エクスペリエンスを開始しました。 最後に、不要と判明しました。 再試行のチューニングとエラー処理を一元化するためのビジネス ロジック用のライブラリの作成を引き続き確認していますが、Azure Storage Client コードに基づいています。
+
+
+  &nbsp;
+
+
+  テストを行い、この投稿のコンテンツを提供してくれた Allen Prescott に感謝します。

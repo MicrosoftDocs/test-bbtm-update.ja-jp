@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b63def474a0fabba9163fa3b1338f892758749c3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896582"
+Slug: 4-new-features-now-available-in-azure-stream-analytics
+Title: Azure Stream Analytics で利用可能になった 4 つの新機能
+Summary: Azure Stream Analytics は、データの高速移動ストリームでリアルタイム分析を実行する、Azure のサーバーレス PaaS サービスです。 本日、Azure Stream Analytics でいくつかの新機能を発表します。
+Content: >-
+  <p>Azure Stream Analytics は、データの高速移動ストリームでリアルタイム分析を実行する、Azure のサーバーレス PaaS サービスです。 本日、Azure Stream Analytics でいくつかの新機能を発表します。</p>
+
+
+  <h2>"パブリック プレビュー段階"</h2>
+
+
+  <h3>セッション ウィンドウ</h3>
+
+
+  <p>ウィンドウ関数のネイティブサポートは、開発者がテンポラルウィンドウで複雑なストリーム処理ロジックを作成するのに役立つ Azure Stream Analytics の重要な機能です。 Stream Analytics、ストリーミングデータに対してテンポラル操作を実行するためのタンブリング、ホッピング、スライディングウィンドウが提供されていました。 本日は、 <a href="https://msdn.microsoft.com/azure/stream-analytics/reference/session-window-azure-stream-analytics">セッションウィンドウ</a>と呼ばれる新しいウィンドウの種類を発表します。 既存の3つのウィンドウの種類とは異なり、セッションウィンドウでは、受信データのバッチに基づいて可変サイズの動的なテンポラルウィンドウが作成されます。 このため、ユーザーはデータのない期間をフィルターで除外することができます。 主に、タイムアウト、最大期間、パーティション分割キーという3つのパラメーター (省略可能) を使用すると、開発者はクリックストリーム analytics、接続された車両テレメトリなどのシナリオに対応したソリューションを簡単に構築できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/395a5fc6-659e-4335-95f6-f7a42db50d3a.png"><img alt="image" border="0" height="249" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/611af02f-4fb5-425f-bedc-f3144408730f.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="598"></a></p>
+
+
+  <p align="center"><em>5分間のタイムアウトがあるセッションウィンドウの例</em></p>
+
+
+  <h2 align="left">プライベートプレビュー</h2>
+
+
+  <h3 align="left">IoT Edge での Stream Analytics ジョブの C# カスタムコードサポート</h3>
+
+
+  <p align="left">昨年、JavaScript <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-javascript-user-defined-functions" target="_blank">ユーザー定義関数</a>を導入しました。 そのため、多くのお客様は、他のいくつかの言語を使用して機能を拡張することを望んでいました。 本日、 <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-edge" target="_blank">IoT Edge の Azure Stream Analytics</a>での C# カスタムコードのサポートについてお知らせします。 IoT Edge によって提供されるクエリ作成と展開の容易さを Visual Studio サポートにより、ユーザーは豊富なストリーミングパイプラインを作成できます。 これにより、SQL 言語がシンプルになるだけでなく、既存のコードやライブラリを活用したり、ストリーミングエンジンで直接実行される新しいロジックを開発したりすることができます。</p>
+
+
+  <h3 align="left">カスタム属性による BLOB 出力のパーティション分割</h3>
+
+
+  <p align="left">これで、クエリ内の任意の列に基づいて、Azure Stream Analytics 出力を Blob ストレージにパーティション分割できるようになりました。 以前は、{date} と {time} 個のパーティション分割のみがサポートされていました。 この機能は、blob 出力をより細かく制御できるようにすることで、下流のデータ処理ワークフローを大幅に改善するように設計されています。 パーティションキーは、入力ストリームの列にすることも、クエリ自体のフィールドにすることもできます。 たとえば、顧客インテリジェンスのリアルタイムアプリケーションで、Blob 出力のパスプレフィックスフィールドを {client_id} に設定するだけで済みます。</p>
+
+
+  <h3 align="left">異常検出のために Built-In ML モデルが更新されました</h3>
+
+
+  <p align="left">この機能は数か月、パブリックプレビュー段階にあります。 重要なお客様からのフィードバックに基づいて、現在使用可能な双方向、低速で低速で低速の負の傾向の検出に加えて、スパイク &rsquo; と &lsquo; dip &rsquo; 検出の &lsquo; モデルサポート ML 追加しています。 また、お客様が結果をより良く解釈できるように、異常スコアの正規化を改善しています。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d18c23e7-b742-48d6-8fd6-57a6d5b73d86.png"><img alt="image" border="0" height="189" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8eaaa771-fc65-478d-91c1-2c85d2ed32b5.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="645"></a></p>
+
+
+  <p align="center"><em>赤色のドットとスパイクの異常が示されているレベル変更異常 (赤の矢印で示される)</em></p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eea6e687-261c-4894-8e86-8940b865e828.png"><img alt="image" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea1ff6f8-1566-4192-ab54-a34f3d66135f.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="絵" width="300"></a></p>
+
+
+  <p align="center"><em>正の傾向変化異常</em></p>
+
+
+  <h3>フィードバックとアイデアを常にお寄せください</h3>
+
+
+  <p>Azure Stream Analytics チームは、フィードバックをリッスンし、ユーザーの声に将来の投資を指示することを強く約束しています。 会話に参加して、 <a href="https://feedback.azure.com/forums/270577-stream-analytics/filters/top" target="_blank">UserVoice</a>から音声を聞くことができます。</p>

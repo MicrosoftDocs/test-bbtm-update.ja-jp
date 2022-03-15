@@ -1,0 +1,46 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f99110232cdd581719593f01ba79932c01d265c7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891158"
+Slug: azure-data-factory-july-new-features-update
+Title: Azure Data Factory 7 月の新機能の更新
+Summary: Azure Data Factory 7 月には、データ管理 Gateway の高可用性とスケーラビリティのプレビュー、コピー中に互換性のない行をスキップまたはログ記録するフォールト トレランス機能、サービス プリンシパルを使用した Azure Data Lake Analytics へのアクセスの認証サポートなど、新しい機能が追加されました。
+Content: >-
+  <p>7 月に、次Azure Data Factory新しい機能が追加されたことをお知らせします。</p>
+
+
+  <ul>
+      <li>データ管理 Gateway の高可用性とスケーラビリティのプレビュー</li>
+      <li>フォールト トレランスのためにコピー中に互換性のない行をスキップまたはログに記録する</li>
+      <li>サービス プリンシパル認証のサポートAzure Data Lake Analytics</li>
+  </ul>
+
+
+  <p>このブログ記事では、これらの新機能を 1 つ 1 つ紹介します。</p>
+
+
+  <h2>データ管理 Gateway の高可用性とスケーラビリティのプレビュー</h2>
+
+
+  <p>異なるマシンにインストールされている複数のデータ管理ゲートウェイ ノードを 1 つの論理ゲートウェイに関連付け、データ管理 Gateway が単一障害点を回避できます。 さらに、これは、コピーのパフォーマンスを向上するためにスケールアウトするのに役立ちます。 また、負荷に基づいて各ゲートウェイ ノードをスケールアップすることもできます。 さらに、Azure Data Factoryのゲートウェイの状態とリソース使用率に関するより豊富な監視エクスペリエンスが提供Azure portal。 詳細については、「 <a href="https://go.microsoft.com/fwlink/?linkid=852749" target="_blank">データ管理 Gateway</a> - High Availability and Scalability Preview」を参照してください。</p>
+
+
+  <h2>フォールト トレランスのためにコピー中に互換性のない行をスキップまたはログに記録する</h2>
+
+
+  <p>コピー アクティビティを使用してAzure Data Factoryコピーする場合、ソース データ ストアとシンク データ ストア間で互換性のないデータを処理するためのさまざまなオプションが追加されています。 互換性のないデータ (既定の動作) が発生した場合にコピーの実行を中止して失敗するか、互換性のない行をスキップしてすべてのデータのコピーを続行することができます。 さらに、Azure Blob のログに互換性のない行を記録することもできます。これにより、エラーの原因を特定し、データ ソース上のデータを修正して、再度操作を実行できます。 この機能は、コピー ウィザードと JSON 編集の両方で使用できます。 サポートされているシナリオと構成の詳細については、ドキュメント ページの「コピー アクティビティのフォールト トレランス <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-copy-activity-fault-tolerance" target="_blank">で &ndash; 互換性のない行をスキップする」を参照してください</a>。</p>
+
+
+  <h2>サービス プリンシパル認証のサポートAzure Data Lake Analytics</h2>
+
+
+  <p>U-SQL アクティビティを使用するために、Azure Data Factory では、既存のユーザー資格情報認証に加えて、Azure Data Lake Store の場合と同様に、Azure Data Lake Analytics のサービス プリンシパル認証がサポートされます。 サービス プリンシパル認証を使用して、ユーザーの資格情報を使用して定期的なトークンの有効期限の動作を取り除U-SQL勧めします。 サポートされている認証の種類と構成の詳細については、ドキュメント「U-SQL スクリプトを実行してデータを変換<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-usql-activity" target="_blank">する」をAzure Data Lake Analytics</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>上記は、7 月に導入された新機能です。 質問やフィードバックはありますか? フォーラムまたはフィードバック サイトで<a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=AzureDataFactory">Azure Data Factoryご</a><a href="https://feedback.azure.com/forums/270578-data-factory"></a>&rsquo;意見をお聞かせください。</p>

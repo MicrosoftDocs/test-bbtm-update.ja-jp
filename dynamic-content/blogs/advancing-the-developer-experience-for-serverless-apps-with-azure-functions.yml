@@ -1,0 +1,124 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e999d8a260353f0aaff545b6602c257eb8a7044a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894597"
+Slug: advancing-the-developer-experience-for-serverless-apps-with-azure-functions
+Title: Azure Functions を使用してサーバーレスアプリの開発者エクスペリエンスを進める
+Summary: Azure Functions は、サーバーレスアプリケーションでさらに多くのことを達成できるように継続的にイノベーションされています。開発者は、生産性の高いイベントドリブンプログラミングモデルを通じて、一般的なサーバーレスの課題を克服できます。
+Content: >-
+  <p>Azure Functions は、サーバーレスアプリケーションでさらに多くのことを達成できるように継続的にイノベーションされています。開発者は、生産性の高いイベントドリブンプログラミングモデルを通じて、一般的なサーバーレスの課題を克服できます。 ここ数週間でいくつかのリリースは、次のような優れた例です。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/functions-premiumplan" target="_blank">Azure Functions premium プラン</a>では、短い待機時間とネットワークのシナリオ全体を新しい範囲で実現できます。</li>
+   <li><a href="https://aka.ms/functions-powershellpreview-blog" target="_blank">Azure Functions での PowerShell サポート</a>のプレビューでは、クラウドの自動化シナリオに取り組む方法が提供されています。これは、IT プロフェッショナルにとっての一般的な課題であり、世界中のすべてを対象としています。</li>
+  </ul>
+
+
+  <p>新しいリリースと機能強化はここでは停止しません。現在、 <a href="https://azure.com/serverless" target="_blank">サーバーレス</a> アプリケーションを構築するときに優れたエンドツーエンドのエクスペリエンスを提供するために、いくつかの改善点を提示しています。 以下の詳細については、以下を参照してください。</p>
+
+
+  <ul>
+   <li>Kubernetes 環境で Azure Functions をホストするための新しい方法</li>
+   <li>Durable Functions を持つステートフルエンティティ (プレビュー)</li>
+   <li>依存関係の挿入を伴う、乱雑度の低い .NET アプリケーション</li>
+   <li>Azure DevOps による展開の合理化</li>
+   <li>Azure API Management との統合の強化 (プレビュー)</li>
+  </ul>
+
+
+  <h2>KEDA で Kubernetes に Azure Functions する</h2>
+
+
+  <p>&rsquo;Azure Functions のように、クラウドで完全に管理されたサービスを使用するよりも、サーバーレスの利点を活用する方法はありません。 ただし、一部のアプリケーションは、接続されていない環境で実行する必要がある場合や、カスタムのハードウェアと依存関係が必要な場合があります。 通常、このようなシナリオにはコンテナー化されたアプローチを採用しており、Kubernetes は事実上業界標準です。 これらの環境でのアプリケーション対応のイベントドリブンスケールの管理は、CPU やメモリなどのリソース使用量にのみ基づいているため、あまり重要ではなく &rsquo; 、通常は不十分です。</p>
+
+
+  <p>Microsoft と Red Hat が提携して、Kubernetes ベースのイベントドリブン自動スケーリング (KEDA) を構築します。 KEDA は、Kubernetes 用のオープンソースコンポーネントです。コンテナーを有効にすると、コンテナーは、イベントメトリック (Azure キューや Kafka ストリームの長さなど) に基づいて0から数千のインスタンスにスケーリングし、処理が完了すると再度ゼロに戻すことができます。</p>
+
+
+  <p>Azure Functions はコンテナー化できるため、Azure Functions サービスと同じスケーリング動作を維持しながら、任意の Kubernetes クラスターに Function App をデプロイできるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f075421-5570-4aff-9204-2dd8776b0bef.png"><img alt="Kubernetes cluster diagram showing journey from CLI to external trigger source" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07b8e935-6728-4043-92db-e31e35a182a2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="CLI から外部トリガーソースへの旅を示す Kubernetes クラスター図" width="559"></a></p>
+
+
+  <p>これは、Kubernetes に関連するオープンソースエコシステムの重要なマイルストーンです。そのため &rsquo; 、「 <a href="https://aka.ms/keda-blog" target="_blank">keda: イベントドリブンコンテナーと関数を Kubernetes に導入する」と</a>いうタイトルの別のブログ記事で、 &ldquo; より多くの情報を共有しています。 &rdquo;詳細については、「」で後ほど予定されている<a href="https://aka.ms/keda-webinar" target="_blank">Azure ウェビナーシリーズ</a>をご登録ください。 このウェビナーでは、このすばらしいトピックについてさらに詳しく説明します。</p>
+
+
+  <h2>ステートフルパターンの Durable Functions</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview" target="_blank">Durable Functions</a>のコミュニティからの魅力とエネルギー、およびサーバーレスワークフローの新しいステートフルパターンとワークフローパターンをロック解除する Functions ランタイムの拡張機能を嬉しく思いしました。 現在、Durable Functions のプレビューパッケージでいくつかの新機能をリリースしています。</p>
+
+
+  <p>IoT デバイスやゲームセッションなどのエンティティにマップされるステートフル関数の場合、Azure Functions のアクターに似た機能に対して新しいステートフルエンティティトリガーを使用できます。 また、Durable Functions の状態プロバイダーとしての Redis cache のプレビューサポートにより、ステートフル関数の状態管理がより柔軟になり、アプリケーションが切断またはエッジ環境で実行される可能性があります。</p>
+
+
+  <p>新しい持続性機能の詳細については、 <a href="https://aka.ms/dfactors-docs" target="_blank">Durable Functions 2.0 preview (Azure Functions)</a>」を &ldquo; 参照してください。&rdquo;</p>
+
+
+  <h2>.NET アプリケーションの依存関係の挿入</h2>
+
+
+  <p>関数のコーディング、テスト、および管理を容易にする新しいパターンと機能の追加には、常に努力しています。 .NET 開発者は、アプリケーションの設計を改善するために <strong>依存関係の注入 (di)</strong> を利用してきました。現在 &rsquo; 、.net で記述された Azure Functions で DI をサポートすることに興奮しています。 これにより、接続と依存サービスの管理が簡素化され、作成した関数のテストが容易になります。</p>
+
+
+  <p>ドキュメントでの依存関係の挿入の詳細については、「 <a href="https://aka.ms/functions-di-docs" target="_blank">.net Azure Functions での依存関係の挿入</a>」を &ldquo; 参照してください。&rdquo;</p>
+
+
+  <h2>効率的な Azure DevOps エクスペリエンス</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/devops/pipelines/" target="_blank">Azure Pipelines</a>の新しいビルドテンプレートを使用すると、.net、Node.js、および Python アプリケーションをビルドするために、関数に最適化されたタスクを使用して Azure パイプラインをすばやく構成できます。 また、Azure Functions デプロイタスクの一般提供も発表されています。これは、関数アプリに最適なデプロイオプションを使用するように最適化されています。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a3a962e2-2992-4510-af24-a8e40ff8da93.png"><img alt="Configuring Azure Pipelines with function-optimized tasks" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c62a8cb-0b2d-42ec-976e-7b884461e7e2.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="関数に最適化されたタスクを使用した Azure Pipelines の構成" width="640"></a><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/788efe5b-c3a9-4a9a-8ec7-4c7ed013ec26.png"><img alt="Deploying a function app to Azure Functions" border="0" height="265" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ab9abb27-6a6b-43aa-8fc6-fdf9d57d19a4.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Functions する関数アプリの配置" width="640"></a></p>
+
+
+  <p>また、最新の<a href="https://docs.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest" target="_blank">Azure CLI リリース</a>では、関数アプリの Azure DevOps パイプラインを自動的に作成して構成できる新しいコマンドが導入されました。 DevOps 定義がコードに含まれるようになりました。これにより、ビルドおよび配置タスクを微調整できます。</p>
+
+
+  <p>詳細については、 <a href="https://aka.ms/functions-azure-devops" target="_blank">Azure DevOps を使用した継続的デリバリー</a>に関するドキュメントを &ldquo; ご確認ください。&rdquo;</p>
+
+
+  <h2>サーバーレス API Management を使用した Functions Api の定義と管理</h2>
+
+
+  <p>また、API Management を通じて Azure Functions でビルドされた Api を公開および管理する方法も簡略化されています。 この強化された統合により、Azure portal の [Function Apps] ブレードには、HTTP でトリガーされる関数を、API Management の新規または既存の API を介して公開するオプションが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/76ba811a-5c4f-4d7e-8641-06a25adb016b.png"><img alt="Linking API Management dashboard to Function Apps" border="0" height="789" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d387253-1694-43ae-a3fe-db114aada9cb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="API Management ダッシュボードを関数アプリにリンクする" width="1684"></a></p>
+
+
+  <p>Function App が API Management にリンクされると、API 操作の管理、ポリシーの適用、OpenAPI 仕様ファイルの編集とダウンロード、または API Management インスタンスに移動してフル機能のエクスペリエンスを実現できます。</p>
+
+
+  <p><a href="https://aka.ms/functionstoapim" target="_blank">関数アプリを公開する方法</a>の詳細については、ドキュメントの API Management を参照してください。</p>
+
+
+  <h2>共有は気</h2>
+
+
+  <p>また、更新された外観、合理化されたサンプル送信プロセス、各サンプルの詳細情報など、Azure サーバーレス Community ライブラリに対する一連の機能強化も含まれています。  <a href="https://www.serverlesslibrary.net/" target="_blank">サーバーレス Community ライブラリ</a>   を調べて、次のサーバーレスプロジェクトのインスピレーションを取得し、構築した &rsquo; 後でクールを共有します。</p>
+
+
+  <h2>今すぐ始めましょう</h2>
+
+
+  <p>関数のオプションを拡張して迅速に改善することで、私たちのフィードバックを切たいと思い &rsquo; ます。  <a href="https://twitter.com/AzureFunctions" target="_blank">Twitter</a>   と <a href="https://github.com/Azure/Azure-Functions" target="_blank">GitHub</a>でチームに連絡を取ることができます。また、 <a href="https://stackoverflow.com/questions/tagged/azure-functions" target="_blank">stackoverflow</a>   と <a href="https://feedback.azure.com/forums/355860-azure-functions" target="_blank">UserVoice</a>も積極的に監視できます。 最新の更新プログラムについては、 <a href="https://aka.ms/azurefunctionslive" target="_blank">毎月のライブ web キャスト</a>を購読してください。</p>
+
+
+  <p>Azure Functions についてのご意見をお聞かせください。現在提供しているすべての新機能について、さらに理解を深めることができます。</p>
+
+
+  <ul>
+   <li>Keda を使用して関数アプリをホストする方法の詳細については、 &ldquo; keda の発表に関するページを参照してください。 <a href="https://aka.ms/keda-blog" target="_blank">keda の発表: イベントドリブンコンテナーと関数を Kubernetes</a> &rdquo; に導入し、 <a href="https://aka.ms/keda-webinar" target="_blank">Azure ウェビナーシリーズ</a>に登録して、その動作を確認します。</li>
+   <li>このドキュメントでは、.net での<a href="https://aka.ms/functions-di-docs" target="_blank">依存関係の挿入</a>、セッションが<a href="https://aka.ms/functions-sbextension" target="_blank">有効になっている Service Bus トリガー</a>、および関数アプリ用の<a href="https://aka.ms/functions-extensionbundle" target="_blank">拡張機能バンドル</a>を活用する方法について説明します。</li>
+   <li>Durable Functions に追加されたプレビュー機能を使用して、 <a href="https://aka.ms/dfactors-docs" target="_blank">ステートフル関数をエンティティにマッピング</a> する方法について説明します。</li>
+   <li>新しいタスクと CLI コマンドを使用して、簡素化された<a href="https://aka.ms/functions-azure-devops" target="_blank">Azure DevOps エクスペリエンス</a>で、サーバーレスアプリケーションのデプロイを簡略化します。</li>
+   <li>Azure Functions と Azure API Management を統合する <a href="https://aka.ms/functionstoapim" target="_blank">サーバーレス api を公開および管理</a> する方法について説明します</li>
+   <li>まだお持ちでない場合は &rsquo; 、 <a href="https://azure.microsoft.com/free/serverless" target="_blank">Azure 無料アカウント</a>にサインアップして、今すぐクラウドですばらしいサーバーレスアプリケーションの構築を開始してください。</li>
+  </ul>

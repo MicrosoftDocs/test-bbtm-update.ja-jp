@@ -1,0 +1,28 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 78c5c8b4c425c788cb7409f8788e974971c562bc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896757"
+Slug: how-azure-security-center-helps-you-protect-your-environment-from-new-vulnerabilities
+Title: 新Azure Security Centerから環境を保護する方法
+Summary: 最近、オープンソース ソフトウェア (OSS) コンテナー ランタイム runc で脆弱性 (CVE-2019-5736) の開示が発表されました。 この脆弱性により、攻撃者は "ホスト" でルートレベルのコード実行を取得する可能性があります。 runc" は、多くの一般的なコンテナーの下にある基になるコンテナー ランタイムです。
+Content: >-
+  <p>最近、オープンソース ソフトウェア (OSS) コンテナー ランタイム runc で脆弱性 <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-5736" target="_blank">(CVE-2019-5736)</a> の開示が発表されました。 この脆弱性により、攻撃者はホストでルートレベルのコード実行を取得する可能性があります。 Runc は、多くの一般的なコンテナーの下にある基になるコンテナー ランタイムです。</p>
+
+
+  <p>Azure Security Center、オンプレミス、または他のクラウド内の環境Microsoft Azure脆弱なリソースを検出するのに役立ちます。 Azure Security Center悪用が発生したと検出し、アラートを生成できます。</p>
+
+
+  <p>Azure Security Center、悪意のある動作を軽減または検出するために適用できるいくつかの方法が用意されています。</p>
+
+
+  <ul>
+      <li><strong>セキュリティ体制を強化する</strong> &ndash; Azure Security Centerリソースのセキュリティ状態を定期的に分析します。 潜在的なセキュリティの脆弱性を特定すると、推奨事項が作成されます。 推奨事項では、必要なコントロールを構成するプロセスについて説明します。 未パッチのリソースが検出されると、推奨事項を追加する予定があります。 セキュリティ体制の強化に関する詳細については&ldquo;、「セキュリティに関する推奨事項の管理」のドキュメントを参照<a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-recommendations" target="_blank">Azure Security Center。</a>&rdquo;</li>
+      <li><strong>ファイルの整合性の監視 (FIM)</strong> &ndash; この方法では、オペレーティング システムやアプリケーション ソフトウェアなど、攻撃を示す可能性がある変更のファイルとレジストリ キーを調べてください。 FIM を有効にするとAzure Security Center、悪意のあるアクティビティを示す可能性のあるディレクトリ内の変更を検出できます。 LINUX &ldquo; マシンで FIM を有効にし、ファイル追跡を追加する方法に関するガイダンスは、次のドキュメントの「ファイルの整合性の監視」<a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-file-integrity-monitoring#add-a-new-entity-to-monitor" target="_blank">Azure Security Center</a>。&rdquo;</li>
+      <li><strong>セキュリティ アラート</strong> &ndash; Azure Security Center監査フレームワークを使用して、Linux マシン上の疑わしいアクティビティを検出します。 収集されたレコードは脅威検出パイプラインに流れ込み、悪意のあるアクティビティが検出されるとアラートとして表示されます。 セキュリティ アラートの対象範囲には、Runc の脆弱性によって侵害されたマシンを識別するための新しい分析が間もなく含まれます。 セキュリティ アラートの詳細については、&ldquo;ドキュメント「セキュリティ検出機能Azure Security Center<a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-detection-capabilities" target="_blank">覧ください</a>。&rdquo;</li>
+  </ul>
+
+
+  <p>セキュリティの最も安全な状態のプラクティスを適用するには、お使いの環境を構成して、配布プロバイダーから最新の更新プログラムを提供するように設定してください。 システム更新プログラムは、Azure Security Center を&ldquo;使用して実行できます。詳細については、ドキュメント「Apply <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-apply-system-updates" target="_blank">system updates in Azure Security Center」を参照</a>してください。&rdquo;</p>

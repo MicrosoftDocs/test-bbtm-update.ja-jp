@@ -1,0 +1,128 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b1368e191c805d9da87c7394cffe6e60c3d22bc9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891624"
+Slug: how-to-accelerate-devops-with-machine-learning-lifecycle-management
+Title: ライフサイクル管理を使用してDevOpsをMachine Learningする方法
+Summary: DevOps、プロセス、製品を組み合わして、エンド ユーザーに価値を継続的に提供します。 DevOps学習の方法は、機械学習のライフサイクル管理をDevOpsにMachine Learning。
+Content: >-
+  <p>DevOps、プロセス、製品を組み合わして、エンド ユーザーに価値を継続的に提供します。 DevOps学習の方法は、機械学習のライフサイクル管理をDevOpsにMachine Learning。 このMachine Learning、DevOpsワークフローとコラボレーション プロセスを簡略化しながら、モデルの管理、監視、バージョン管理を簡単に行うことができます。</p>
+
+
+  <p>成功を収めるにはMachine Learningライフサイクルを効果的に管理DevOps&rsquo;があります。 機械学習ライフサイクル管理の最初の部分は、機械学習パイプラインの構築です。</p>
+
+
+  <h2>Machine Learning パイプラインとは&nbsp;</h2>
+
+
+  <p>DevOps Machine Learningには、データの準備、実験、モデルのトレーニング、モデル管理、デプロイ、監視が含まれます。また、モデル開発プロセス全体でガバナンス、再現性、コラボレーションも強化されます。 Pipelinesを個別のステップにモジュール化し、モデルとアセットを自動化、共有、および再現するためのメカニズムMLできます。 機械学習フェーズをまとめるワークフローを作成および管理します。 基本的に、パイプラインを使用すると、シンプルさ、速度、移植性、再利用性を備え、ワークフローを最適化できます。</p>
+
+
+  <p>データ サイエンティスト、エンジニア、IT 専門家が共同作業を行う機械学習のデプロイには、次の 4 つの手順が含まれます。</p>
+
+
+  <ol>
+   <li>データ インジェストおよび準備</li>
+   <li>モデルのトレーニングと再トレーニング</li>
+   <li>モデルの評価</li>
+   <li>デプロイ</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8cfc96cf-54d4-42a3-a524-ebee58419bf2.png"><img alt="fig1" border="0" height="363" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d243dc01-3c83-42b4-822a-94c61f1c22cb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="fig1" width="960"></a></p>
+
+
+  <p>これらの手順を組み合わせて、パイプラインMachine Learningします。 次に示すのは、Azure Machine Learning <a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-ml-pipelines"></a> サービスを使用したマシン パイプラインの構築に関するドキュメントからの抜粋です。詳細については説明しています。</p>
+
+
+  <p>&ldquo;個別の手順を使用すると、ワークフローを調整してテストする際に必要な手順のみを再実行できます。 ステップとは、パイプラインにおけるコンピューティング単位です。 前の図に示すように、データを準備するタスクには多数のステップが含まれる場合があります。 これには、正規化、変換&#39;、およびフィーチャー化が含まれますが、これらに限定される必要があります。 データ ソースと中間データはパイプライン全体で再利用され、コンピューティングの時間とリソースが節約されます。&rdquo;</p>
+
+
+  <h2>アプリケーションのパイプラインを高速化Machine Learning 4 つの利点DevOps</h2>
+
+
+  <ol>
+
+  </ol>
+
+
+  <p>&nbsp;</p>
+
+
+  <blockquote>
+
+  <h3>1. チーム間で簡単に共同作業を行う</h3>
+
+
+  <ul>
+   <li>機械学習パイプラインを使用するデータ サイエンティスト、データ エンジニア、IT プロフェッショナルは、データ準備からデプロイまで、機械学習のライフサイクルに関係するあらゆるステップで共同作業を行う必要があります。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-manage-workspace">Azure Machine Learningサービス ワークスペースは</a>、作成したパイプラインをチームのメンバーに表示するように設計されています。 Python を使用して機械学習パイプラインを作成し、Jupyter Notebook または別の推奨される統合された開発環境でそれらを操作できます。</li>
+  </ul>
+
+
+  <h3>2.ワークフローを簡略化する</h3>
+
+
+  <ul>
+   <li>データの準備とモデリングは、他のビジネス目標から時間と注意を払って、数日または数週間続く可能性があります。</li>
+   <li>Azure Machine Learning <a href="https://docs.microsoft.com/en-us/python/api/overview/azure/ml/intro?view=azure-ml-py">SDK には</a>、データの依存関係がない場合にパイプラインのステップをシーケンス処理および並列化するための命令型コンストラクトが用意されています。 また、特定のシナリオのパイプラインをテンプレート化し、REST エンドポイントにデプロイして、バッチ スコアリングまたは再トレーニング ジョブをスケジュールすることもできます。 パイプラインを再実行するときにワークフローを調整してテストする場合は、必要な手順を再実行する必要があります。</li>
+  </ul>
+
+
+  <h3>3.集中管理</h3>
+
+
+  <ul>
+   <li>モデルとそのバージョン履歴の追跡は、機械学習パイプラインを構築DevOpsチームが直面する多くの問題です。</li>
+   <li>新<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-model-management-and-deployment">Azure Machine Learning モデル レジストリでは</a>、モデル、そのバージョン履歴、その一覧、成果物が追跡されます。 モデルが実稼働環境に入った後、Application インサイト サービスはアプリケーションテレメトリとモデル テレメトリの両方を収集します。これにより、運用とモデルの正しさについてモデルを実稼働環境で監視できます。 インフェレンシング中にキャプチャされたデータは、データ サイエンティストに返送されます。この情報を使用して、モデルのパフォーマンス、データ ドリフト、モデルの減衰、および機械学習の実験と Web サービスを 1 つの中央ビューでトレーニング、管理、デプロイするためのツールを決定できます。</li>
+   <li>Azure Machine Learning SDK では、個々のパイプラインの実行を送信および追跡することもできます。 反復処理時にデータと結果パスを手動で追跡する代わりに、データ ソース、入力、出力に明示的に名前を付け、バージョン管理することができます。 また、生産性を向上させるために、スクリプトとデータを個別に管理することもできます。 パイプライン内の各ステップについて。 Azure では、 <a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-azure-machine-learning-architecture">使用するさまざまな</a> コンピューティング ターゲット間で調整を行い、中間データをダウンストリームのコンピューティング ターゲットと簡単に共有できます。 Azure portal で直接、パイプライン実験のメトリックを追跡できます。</li>
+  </ul>
+
+
+  <h3>4.実験を簡単に追跡する</h3>
+
+
+  <p>&nbsp;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <ul>
+   <li>DevOpsとエッジにデプロイされたモデルの実験追跡と管理を可能にすることで、機械学習の機能を使用して生産性をさらに向上させることができます。 これらの機能はすべて、データ サイエンティストワークステーションを含め、任意の場所で実行されている任意の Python 環境から&rsquo; アクセスできます。 データ サイエンティストは実行を比較し、問題のステートメントに&ldquo;&rdquo;最適なモデルを選択できます。</li>
+   <li>[Azure Machine Learning ワークスペースには、モデルのトレーニングに使用できるコンピューティング先の一覧が保持されます。 また、スクリプトのログ、メトリック、出力、スナップショットなど、トレーニング実行の履歴も保持されています。 複数のユーザーが共有する複数のワークスペースまたは共通ワークスペースを作成します。</li>
+  </ul>
+
+  </blockquote>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ol>
+
+  </ol>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>ご覧のように、Machine Learning の DevOps は、トレーニング、実験メトリック、およびモデルバージョンの可視性を高め、ML パイプライン全体で合理化できます。 Azure Machine Learning、Azure サービスとシームレスに統合され、Machine Learning ライフサイクル全体にエンドツーエンドの機能が提供され、これまでよりも簡単かつ迅速になります。</p>
+
+
+  <p>これは、サービスの重要な柱である 4 部構成のシリーズの第 2 Azure Machine Learningです。 パート 1&rsquo;&rsquo; をまだ確認していない場合は、必ず次のブログを参照してください。ここで、大規模なML説明します。</p>
+
+
+  <h3>詳細情報</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/">製品サイトにアクセスして</a>、Azure Machine Learning サービスの詳細を確認し、サービスの無料試用版<a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/">をAzure Machine Learningしてください</a>。</p>

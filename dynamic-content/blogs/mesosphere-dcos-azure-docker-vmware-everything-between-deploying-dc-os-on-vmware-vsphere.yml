@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 423d92baa95f6983a0849ffac85a6f49444f970d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896681"
+Slug: mesosphere-dcos-azure-docker-vmware-everything-between-deploying-dc-os-on-vmware-vsphere
+Title: Mesosphere DCOS、Azure、Docker、VMware & VMware vSphere で DC/OS をデプロイする
+Summary: Docker エンジンが稼働状態になり、ネットワーク & セキュリティ関連の構成がすべて整ったら、VMware vSphere の上に DC/OS クラスターをロールアップします。 これは、プラットフォームのセットアップ全体における最初の大きなマイルストーンです。
+Content: >-
+  <p><em>この投稿は、複数のブログ投稿シリーズの Mesosphere DC/OS、Azure、Docker、VMware &amp; &rdquo; に含まれて &ldquo; います。このシリーズの前の posta では、次のトピックについて説明しました。</em></p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-and-everything-between-architecture-and-ci-cd-flow/">Mesosphere DCOS、Azure、Docker、VMware、アーキテクチャと CI/CD 間の &ndash; すべての Flow</a></p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-and-everything-between-security-docker-engine-installation/">Mesosphere DCOS、Azure、Docker、VMware、およびセキュリティ &amp; Docker エンジンのインストール間の &ndash; すべてのもの</a></p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azure.microsoft.com/en-us/blog/mesosphere-dcos-azure-docker-vmware-everything-between-ssh-authorized-keys/">Mesosphere DCOS, Azure, Docker, VMware &amp; すべて SSH 承認キー間 &ndash;</a></p>
+
+
+  <p>これで、Docker エンジンが稼働状態になり、ネットワーク &amp; セキュリティ関連のすべての構成が配置されたので、 &rsquo; VMware vSphere 上で DC/OS クラスターがロールアップされます。 これは、プラットフォームのセットアップ全体における最初の大きなマイルストーンです。 移動してみましょう &rsquo;&hellip;</p>
+
+
+  <p>これは DC/OS &rdquo; 詳細情報シリーズでは &ldquo; ありませんが、dcos コンポーネントの詳細については説明しませんが、その理由について関連情報を提供します。</p>
+
+
+  <p>インストールの手順に進む前に、 <a href="https://dcos.io/docs/1.9/overview/architecture/node-types/">Dcos ノードの種類</a> と <a href="https://dcos.io/docs/1.9/overview/concepts/#infrastructure-network">ネットワーク kb</a>を検討しておくことを強くお勧めします。</p>
+
+
+  <p>VSphere DCOS クラスターデプロイでは、パブリックエージェントノードはデプロイされません。 その理由を理解するために、前に戻って CI/CD フローを確認する必要があります。</p>
+
+
+  <p>このフローでは、運用コンテナー &rdquo; は &ldquo; vsphere にデプロイされた dcos クラスターで停止します。 パブリックノードを展開しない理由 (たとえば、DMZ にデプロイされたホストと考える) は、運用コンテナーを企業 LAN または VPN 経由でのみ使用できるようにするための顧客要件です。 後で、企業のロードバランサーを介してインターネットにアクセスできるようにすることを計画していますが、簡単にするために、プライベートエージェントのみをデプロイします。</p>
+
+
+  <p>エージェントノードは、Docker コンテナーをホストする役割を担います。このデプロイでは、3つを使用します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81b28ff2-216e-4d07-92d1-b7c430eeabb1.png"><img alt="DCOS Dashboard" border="0" height="507" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/049fe87d-c5d2-416b-b989-ad1b7bd7a4ed.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DCOS ダッシュボード" width="1024"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>DC/OS 1.9 のデプロイに関する詳細については、VMware vSphere 上の <a href="https://imallvirtual.com/mesosphere-dcos-azure-docker-vmware-everything-part-4/">ブログ</a>を参照してください。</p>

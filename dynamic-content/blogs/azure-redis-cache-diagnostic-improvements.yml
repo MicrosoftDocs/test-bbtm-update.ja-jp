@@ -1,0 +1,28 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 90b544db527c851765df2e79e716c9cff331f26e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894508"
+Slug: azure-redis-cache-diagnostic-improvements
+Title: Azure Redis Cache 診断の機能強化
+Summary: '来年、Azure Redis Cache のテレメトリインフラストラクチャを新しい Azure Monitor サービスに移行します。その結果、監視とアラートのエクスペリエンスが向上します。 '
+Content: >-
+  <p>来年、Azure Redis Cache &rsquo; s テレメトリインフラストラクチャを新しい <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview">Azure Monitor サービス</a>に移行します。これにより、監視とアラートのエクスペリエンスが向上します。 このアップグレードでは、次の利点が得られます。</p>
+
+
+  <ul>
+      <li>現時点でサービスメトリック &ndash; を取得するには、Azure Storage アカウントを作成し、キャッシュを監視または警告するために、そのアカウントにメトリックデータを書き込むように Azure Redis を構成する必要があります。 変更後は、これは不要になりました。 すべてのキャッシュで、Azure サービスポータルにメトリックが自動的に表示されます。 これらの新しい Redis メトリックデータには、Azure Monitor service &rsquo; s <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-rest-api-walkthrough">REST API</a>からアクセスすることもできます。 メトリックを30日より長い期間保持する必要がある場合でも、 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-archive-diagnostic-logs">アーカイブ</a> およびオフライン分析のために独自のストレージアカウントにエクスポートできます。</li>
+      <li>アラートルールを使用すると、アラートをより効果的 &ndash; に管理できます。 Azure Monitor サービスを使用すると、メトリックやイベントにトリガー条件を追加できます。これにより、いずれかの条件が満たされた場合に、標準チャネル (電子メール、webhook など) を使用して通知されます。 さらに、アラートの構成方法をより細かく制御することもできます。 現在、リージョンとサブスクリプションに対してではなく、各キャッシュインスタンスのアラートを個別に設定できます。</li>
+      <li>Azure Redis からのサードパーティ製ツール &ndash; ログとの統合は、ほぼリアルタイムでイベントハブにストリーミングされます。 これにより、キャッシュインスタンスからのイベントは、サードパーティ製のログ分析システム、SIEMs、またはカスタムテレメトリパイプラインでほぼ瞬時に使用できるようになります。 Azure Monitor には、このデータを取り込むことができる <a href="https://azure.microsoft.com/en-us/documentation/articles/monitoring-partners/">パートナーのセット</a> が用意されており、エコシステムパートナーの一覧は継続的に拡大しています。</li>
+  </ul>
+
+
+  <p>Azure Redis サービスは、2017年1月の開始から始まる複数のフェーズで更新されます。 今月のすべての Azure リージョンでロールアウトを完了する予定です。</p>
+
+
+  <p>更新プログラムは、ほとんどのユーザーに対してシームレスに実行され、ポータルに表示される新しいメトリックを簡単に確認できます。 アラートの設定を開始して、選択する必要があります。 azure インサイトライブラリを使用して azure Redis メトリックを読み取る場合は、<a href="https://www.nuget.org/packages/Microsoft.Azure.Insights/">最新バージョンのライブラリ</a>にアップグレードするだけで済みます。 ただし、ストレージアカウントからメトリックデータに直接アクセスする場合は、Azure インサイトライブラリまたは Azure Monitor REST API を使用するか、データのエクスポートとアーカイブ用にストレージアカウントを再構成するように、ツールを変更する必要があります。 Azure <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-rest-api-walkthrough">Monitoring REST API チュートリアル</a>では、azure リソースメトリックにプログラムでアクセスする方法の概要を説明します。 ツールの移行を容易にするために、Azure Redis は2017年2月の終わりまで、引き続き現在のアカウントにメトリックデータを書き込みます。 その後、Azure Monitor サービスにデータを発行するだけです。 できるだけ早い段階で必要な変更を行うことをお勧めします。</p>
+
+
+  <p>新しい Azure Redis メトリックをご希望の方は幸いです。 試してみる機会があれば、ご意見をお聞かせください。</p>

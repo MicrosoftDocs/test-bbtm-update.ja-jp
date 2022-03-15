@@ -1,0 +1,131 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 392d93a11bb4eb2d715cdd9c72fb462f7d83a207
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890994"
+Slug: accelerate-bot-development-with-bot-framework-sdk-and-other-updates
+Title: Bot Framework SDK と他の更新プログラムを使用してボット開発を加速する
+Summary: パッケージを追跡する場合でも、店舗の営業時間を確認する場合でも、会話エクスペリエンスが標準になっています。 Microsoft Build 2019 では、カスタマー エクスペリエンスを変革するために Microsoft Bot Framework と Azure Bot Service を使用してこのような会話エクスペリエンスを構築しているいくつかのお客様を強調しました。
+Content: >-
+  <p>パッケージを追跡する場合&rsquo;&rsquo;でも、何時間もの操作で店舗を見つける場合でも、会話エクスペリエンスが標準になっています。 Microsoft Build 2019 では、カスタマー エクスペリエンスを変革するために <a href="https://dev.botframework.com/" target="_blank">Microsoft Bot Framework と Azure Bot Service</a> を使用してこのような会話エクスペリエンスを構築しているいくつかのお客様<a href="https://azure.microsoft.com/en-us/services/bot-service/" target="_blank"></a>を強調しました。</p>
+
+
+  <ul>
+   <li><strong>LaLiga は</strong> 独自の <a href="https://azure.microsoft.com/en-us/blog/laliga-entertains-billions-with-azure-based-conversational-ai/" target="_blank">仮想アシスタントを構築</a>しました。これにより、ファンは複数のプラットフォームで LaLiga を体験し、対話することができます。</li>
+   <li><strong>複数</strong> のキャンバス間で <a href="https://mybuild.techcommunity.microsoft.com/sessions/77563#top-anchor" target="_blank">会話エクスペリエンスを提供するために、この機能を備えた「INTELLIGENT Personal Assistant</a> 」が作成されました。</li>
+  </ul>
+
+
+  <p>ユーザーはボットや仮想アシスタントに慣れ親しんだら、会話エクスペリエンスから常に多くのことを期待します。 このため、Bot Framework SDK とツールは、開発者が会話型 AI ソリューションを構築する上で生産性を高め支援するように設計されています。 ビルド 2019 で行った主な発表の一部を次に示します。</p>
+
+
+  <h2>Bot Framework SDK とツール</h2>
+
+
+  <h3>アダプティブ ダイアログ</h3>
+
+
+  <p>Bot Framework SDK でアダプティブ ダイアログ (プレビュー) がサポートされます。 アダプティブ ダイアログでは、コンテキストとイベントに基づいて会話フローが動的に更新されます。 開発者はアクションを定義できます。各アクションは、会話で発生したイベントの結果によって定義される一連のステップを持ち、コンテキストに動的に調整できます。 これは、会話の途中で会話コンテキストの切り替えや中断を処理する場合に特に便利です。 アダプティブ ダイアログでは、入力認識、イベント処理、会話のモデル (ダイアログ) と出力生成が、1 つの自己格納型の 1 つの単位に結合されます。 次の図は、アダプティブ ダイアログを使用してユーザーがコンテキストを切り替える方法を示しています。 この例では、ユーザーはフライトの予約を探していますが、旅行計画に影響を与える可能性がある気象関連の情報を求め、コンテキストを切り替える場合があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/078730ab-88b6-4838-9a29-9d5e5f7fdf20.png"><img alt="An image depicting the flow of adaptive dialogs and context switching from book flights to weather requests." border="0" height="358" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8444e66c-2046-4651-a1c4-c96e00031ae1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アダプティブ ダイアログのフローと、書籍のフライトから気象要求へのコンテキストの切り替えを示す画像。" width="949"></a></p>
+
+
+  <p>アダプティブ ダイアログの詳細 <a href="https://github.com/microsoft/BotBuilder-Samples/tree/master/experimental/adaptive-dialog" target="_blank">については、こちらを参照してください</a>。</p>
+
+
+  <h3>スキル</h3>
+
+
+  <p>開発者は、再び使用できる会話機能 (スキルと呼ばれる) を組み合わせて会話エクスペリエンスを作成 <a href="https://github.com/microsoft/botframework-solutions/blob/master/docs/readme.md#skills-1" target="_blank">できます</a>。 スキルはBot Frameworkとして実装され、アプリケーション間で再利用可能な言語モデル、ダイアログ、カードが含まれます。 プレビューで使用できる現在のスキルには、電子メール、カレンダー、および関心のあるポイントが含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56a3414a-ddc5-4e2b-a0c5-012a4d7705aa.png"><img alt=" Images of the UI for skills such as Mail, Calendar, and Point of Interest." border="0" height="358" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/551a4839-e3f0-4524-a6a7-0fbe9863ccf5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図 2 メール、カレンダー、関心ポイントなどのスキルの UI の画像。" width="1024"></a></p>
+
+
+  <p>スキルを使用する企業内では、異なるチームが所有する複数のサブボットを中央のボットに統合したり、他の開発者が提供する一般的な機能を幅広く活用したりすることができます。 スキルのプレビューを使用すると、開発者は (Virtual Assistant テンプレートから) 新しいボットを作成し、すべてのディスパッチと構成の変更を組み込む 1 つのコマンド ライン操作でスキルを追加/削除できます。 概要開発者向けテンプレート (<a href="https://github.com/microsoft/botframework-solutions/blob/master/docs/tutorials/csharp/skill.md" target="_blank">.NET</a>、 <a href="https://github.com/microsoft/botframework-solutions/blob/master/docs/tutorials/typescript/skill.md" target="_blank">TS) を使用します</a>。</p>
+
+
+  <h3>仮想アシスタント ソリューション アクセラレータ</h3>
+
+
+  <p>Enterprise テンプレートは <a href="https://github.com/microsoft/botframework-solutions/blob/master/docs/readme.md#tutorials" target="_blank">Virtual Assistant</a> テンプレートであり、開発者はスキル、アダプティブ カード、typescript ジェネレーター、更新された会話テレメトリと PowerBI 分析、ARM ベースの自動 Azure デプロイを備えた仮想アシスタントを構築できます。 また、依存関係の挿入を使用して MVC パターンに合わせて ASP.NET C# テンプレートも提供されます。 Enterprise テンプレートを既に使用し、新しい機能を使用したい開発者は、これらの手順に従ってすぐに<a href="https://github.com/microsoft/botframework-solutions/blob/master/docs/howto/assistant/csharp/ettovamigration.md" target="_blank">開始できます</a>。</p>
+
+
+  <h3>エミュレーター</h3>
+
+
+  <p>Bot Framework Emulator では、新しい Bot Inspector 機能のプレビューがリリースされました。Microsoft Teams、Slack、Cortana、Facebook Messenger、Skype などのチャネルで Bot Framework SDK v4 ボットをデバッグしてテストする方法です。会話を行う間、メッセージは、ボットが受信Bot Framework Emulatorデータを検査できる場所にミラー化されます。 さらに、チャネルとボットの間の特定のターンに対するボット状態のスナップショットも表示されます。 このデータを検査するには、メッセージBot State&quot;&quot;要素をクリックします。 <a href="https://github.com/Microsoft/BotFramework-Emulator/blob/master/content/CHANNELS.md" target="_blank">Bot Inspector の詳細を参照してください</a>。</p>
+
+
+  <h3>言語生成 (プレビュー)</h3>
+
+
+  <p>ボットがユーザーに返送できる意味のある、変数、および文法的に正しい応答を構築することで、スマートで動的なボット応答の作成を効率化します。 詳細については<a href="https://github.com/Microsoft/BotBuilder-Samples/tree/master/experimental/language-generation" target="_blank">、GitHub のレポ</a>ポを参照してください。</p>
+
+
+  <h2>QnA Maker</h2>
+
+
+  <h3>複数ターンの会話を簡単に処理する</h3>
+
+
+  <p>このQnA Maker、定義済みの複数ターンの質問と回答フロー <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/how-to/multiturn-conversation" target="_blank">のセットを処理できます</a>。 たとえば、一連の質問を事前に構成し、質問プロンプトをフォローアップしてユーザーを特定の回答に導いて、顧客との製品のトラブルシューティングに役立つ QnA Maker を構成できます。 QnA Makerでは、URL、データ、またはファイルから階層 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/how-to/multiturn-conversation#create-a-multi-turn-conversation-from-documents-structure" target="_blank">型 QnA</a> ペア.pdf抽出.docxできます。 ドキュメントで複数ターンQnA Maker詳細を確認 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/overview/overview" target="_blank">し、</a>最新のサンプルを確認 <a href="https://github.com/Microsoft/BotBuilder-Samples/tree/master/experimental/qnamaker-prompting" target="_blank">し、短</a>いビデオを <a href="https://channel9.msdn.com/Shows/AI-Show/Build-a-Bot-in-Minutes-with-QnA-Maker" target="_blank">見る</a>。</p>
+
+
+  <h3>展開の単純化</h3>
+
+
+  <p>ボット&rsquo;をデプロイするプロセスが簡略化されました。 定義済みのボット フレームワーク v4 テンプレートを使用して、公開されている<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/tutorials/create-qna-bot" target="_blank"></a>任意のナレッジ ベースからボットQnA Maker作成できます。 複雑な QnA Maker ナレッジ ベースを数分で作成できるだけでなく、Teams、Skype、Slack など、サポートされているチャネルに数分でデプロイできます。</p>
+
+
+  <h2>Language Understanding (LUIS)</h2>
+
+
+  <p>Language Understanding、開発者がテキストからより詳細な情報を抽出できる機能がいくつか追加され、ユーザーは労力を減らしてよりインテリジェントなソリューションを構築できます。</p>
+
+
+  <h3>任意のエンティティ型のロール</h3>
+
+
+  <p>すべてのエンティティ型に <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/luis/tutorial-entity-roles" target="_blank">ロール</a> を拡張しました。これにより、同じエンティティをコンテキストに基づいて異なるサブタイプで分類できます。</p>
+
+
+  <h3>新しいビジュアル分析ダッシュボード</h3>
+
+
+  <p>より&rsquo;詳細で視覚的に豊富な包括的な <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-how-to-use-dashboard">分析ダッシュボードが追加されました</a>。 ユーザー&#39;&rsquo; な設計では、ほとんどのユーザーがアプリケーションを設計するときに直面する一般的な問題を強調しています。これは、ユーザーがモデルの品質、潜在的なデータの問題、ベスト プラクティスを採用するためのガイダンスに関するより多くの分析情報を得るために、アプリケーションを解決する方法に関する簡単な説明を提供することです。</p>
+
+
+  <h3>動的リスト</h3>
+
+
+  <p>データは常に変化し続け、エンド ユーザー間で異なります。 開発者は、動的リストと外部エンティティを使用して実行時にモデルを識別および更新できるなど、Language Understanding で実行できる操作を細かく制御できます。 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-migration-api-v3#dynamic-lists-passed-in-at-prediction-time" target="_blank">動的リスト</a> は、予測時にエンティティを一覧表示するために追加するために使用され、ユーザー固有の情報を正確に一致できます。</p>
+
+
+  <p>新しい v3 API をLanguage Understanding新機能の詳細については、ドキュメント <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-migration-api-v3" target="_blank">を参照してください</a>。より迅速に高度なボットを構築し、顧客と接続するための新しい方法を見つけるために、AZURE を使用しているお客様 (「ACCENTURE」、Vodafone、LaLiga など) をご利用ください。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/AI-Show/LaLiga-boosts-fan-engagement-with-multiple-digital-channels-and-conversational-AI/player?format=ny" width="960"></iframe></p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>これらの機能強化により、開発者がさまざまな会話エクスペリエンスを構築する上で生産性を向上するために、Microsoft Bot Framework SDK とツール、Language Understanding、QnA メーカー全体に価値を提供しています。</p>
+
+
+  <p>顧客に対してどのような会話エクスペリエンスを構築するのかを楽しみにしています。 <a href="https://docs.microsoft.com/en-us/azure/bot-service/what-is-new?view=azure-bot-service-4.0" target="_blank">概要今日!</a></p>
+
+
+  <h2>Microsoft Build 2019 のオンデマンド セッションを見る:</h2>
+
+
+  <ul>
+   <li><a href="https://mybuild.techcommunity.microsoft.com/sessions/76965?source=sessions#top-anchor" target="_blank">Conversational AI を使用してビジネスをスケーリングする方法</a>。</li>
+   <li><a href="https://mybuild.techcommunity.microsoft.com/sessions/76969#top-anchor" target="_blank">ブランド、アシスタント &ndash; 独自の音声ファースト アシスタントを構築する方法</a>。</li>
+   <li><a href="https://mybuild.techcommunity.microsoft.com/sessions/77563#top-anchor" target="_blank">&ndash;ライブビルドソリューション アクセラレータBot Framework Virtual Assistantとソリューション アクセラレータ</a>。</li>
+   <li><a href="https://mybuild.techcommunity.microsoft.com/sessions/77320?source=sessions#top-anchor" target="_blank">仮想ネットワークを使用して、真の会話型ボットを数分で作成QnA Maker</a>。</li>
+  </ul>

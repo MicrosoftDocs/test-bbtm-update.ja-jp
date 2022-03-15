@@ -1,0 +1,91 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7dffaaf46e55d0c37a28f238382c01dd86ad5de8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895601"
+Slug: azure-security-center-single-click-remediation-and-azure-firewall-jit-support
+Title: シングルクリックによる修復と Azure Firewall JIT サポートの Azure Security Center
+Summary: 'Azure Security Center を使用すると、Azure 環境全体にわたって目を通したセキュリティ体制が提供されるため、Azure のセキュリティで保護されたスコアを使用して、セキュリティ体制を継続的に監視し、改善することができます。 '
+Content: >-
+  <p><em>このブログ投稿は、Rotem Lurie、Program Manager、Azure Security Center によって共同作成されました。 </em></p>
+
+
+  <p>Azure Security Center を使用すると、Azure 環境全体でのセキュリティに関する概観 &rsquo; が表示されるため、azure のセキュリティ <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-secure-score" target="_blank">スコア</a> を使用して、セキュリティの体制を継続的に監視し、改善することができます。 Security Center は、セキュリティのベストプラクティスとして推奨されるセキュリティ強化タスクを特定して実行し、コンピューター、データサービス、およびアプリ全体に実装するのに役立ちます。 これには、セキュリティポリシーを管理して適用し、Azure Virtual Machines、Azure 以外のサーバー、Azure PaaS サービスが準拠していることを確認することが含まれます。</p>
+
+
+  <p>現在、2つの新機能 &mdash; が発表されています。このプレビューでは、修復のために、セキュリティで保護されたスコアと、ジャストインタイム (JIT) 仮想マシン (VM) Azure Firewall アクセスの一般提供 (GA) を使用して、大量のリソースに対する推奨事項を確認できます。 これで、ネットワークセキュリティグループ (NSG) で保護された環境に加えて、JIT で Azure Firewall 保護された環境をセキュリティで保護することができます。</p>
+
+
+  <h2>一括リソースに対するシングルクリックによる修復 (プレビュー)</h2>
+
+
+  <p>多くのサービスでセキュリティ上の利点を提供しているので、多くの場合&#39;、ワークロードを保護し、セキュリティを強化するために最初に実行する手順を理解することは困難です。 Azure のセキュリティで保護されたスコアは、セキュリティに関する推奨事項を確認し、優先順位を付けます。そのため、最初に実行する推奨事項について説明します。 これは、最も重大なセキュリティの脆弱性を見つける助けになるため、調査に優先順位を付けることができます。 セキュリティ スコアは、ワークロードのセキュリティに対する姿勢を評価するのに役立つツールです。</p>
+
+
+  <p>セキュリティの誤りの修復を簡略化し、セキュリティスコアを迅速に向上させるために、1回のクリックで大量のリソースに関する推奨事項を修復できる新しい機能が導入されています。</p>
+
+
+  <p>この操作により、ユーザーは修復を適用するリソースを選択し、ユーザーに代わって設定を構成する修復アクションを起動できます。 [Security Center の推奨事項] ブレードの一部として、プレビュー版のお客様には、現在、シングルクリックによる修復をご利用いただけます。</p>
+
+
+  <p>推奨事項の横にある <strong>1 クリックの [修正]</strong> ラベルを探し、推奨事項をクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6312b1e-fa81-4160-b3f1-e95f5c1b9c5f.png"><img alt="Recommendations blade in Azure Security Center" border="0" height="633" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/58325a5a-6cd9-4092-b8d6-6913198159dc.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Security Center の推奨事項ブレード" width="997"></a></p>
+
+
+  <p>修復するリソースを選択して [ <strong>修復</strong>] を選択すると、修復が実行され、リソースが [ <strong>正常なリソース</strong> ] タブに移動します。修復アクションは、エラーが発生した場合に追加の詳細を提供するために、アクティビティログに記録されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa79bb63-406c-4435-91f3-5d0f4b0941b1.png"><img alt="Enabling auditing on SQL Server in Azure Security Center" border="0" height="862" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7fc1713-2ff2-4212-ba91-638795a8862d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Security Center の推奨事項" width="1672"></a></p>
+
+
+  <p>Preview では、次の推奨事項に対して修復を利用できます。</p>
+
+
+  <ul>
+   <li>Web Apps、関数アプリ、API Apps は HTTPS 経由でのみアクセス可能である必要があります</li>
+   <li>関数アプリ、Web Apps、および API Apps では、リモートデバッグを無効にする必要があります</li>
+   <li>CORS では、すべてのリソースが関数アプリ、Web Apps、または API Apps にアクセスすることを許可しないでください</li>
+   <li>ストレージ アカウントへの安全な転送を有効にする必要がある</li>
+   <li>Azure SQL Database の Transparent data encryption を有効にする必要があります</li>
+   <li> お使いの仮想マシンに監視エージェントをインストールする必要があります</li>
+   <li>Azure Key Vault と Azure Service Bus の診断ログを有効にする必要があります</li>
+   <li>Service Bus で診断ログを有効にする必要がある</li>
+   <li>脆弱性評価を SQL サーバー上で有効にする必要がある</li>
+   <li>Advanced Data Security を、SQL サーバー上で有効にする必要がある</li>
+   <li>脆弱性評価を SQL マネージド インスタンス上で有効にする必要がある</li>
+   <li>Advanced Data Security を SQL マネージド インスタンス上で有効にする必要がある</li>
+  </ul>
+
+
+  <p>シングルクリックによる修復は Azure Security Center &rsquo; s free レベルの一部です。</p>
+
+
+  <h2>Azure Firewall のジャストインタイム仮想マシンアクセスが一般公開されています</h2>
+
+
+  <p>Azure Firewall に対するジャストインタイム仮想マシンアクセスの一般提供を発表します。 これで、NSG で保護された環境に加えて、Azure Firewall 保護された環境を JIT で保護できるようになりました。</p>
+
+
+  <p>JIT VM アクセスを使用すると、必要な場合にのみ vm へのアクセスを制御できるため、NSG と Azure Firewall の規則を使用して vm へのアクセスを制限することで、VM &rsquo; をネットワーク容量攻撃にさらすことができます。</p>
+
+
+  <p>VM で JIT を有効にする場合は、保護するポート、ポートを開放しておく時間、これらのポートにアクセスできる承認済み IP アドレスを指定したポリシーを作成します。 このポリシーは、ユーザーがアクセスを要求したときに実行できる操作を制御するのに役立ちます。</p>
+
+
+  <p>要求はアクティビティログに記録されるので、アクセスを簡単に監視および監査できます。 Jit が有効になっている既存の仮想マシンや、jit が推奨されている仮想マシンを簡単に特定することもできます。</p>
+
+
+  <p>Azure Security Center は、最近承認された要求を表示します。 [ <strong>構成済み</strong> の vm] タブには、前回承認された JIT 要求の最後のユーザー、時刻、および開いているポートが反映されます。 ユーザーが Azure Firewall によって保護されている VM に対して JIT 要求を作成すると、Security Center は、Azure Firewall 宛先ネットワークアドレス変換 (DNAT) から直接翻訳された仮想マシンへの適切な接続詳細をユーザーに提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad29ddd3-e1a2-4268-8c27-18ea387d8197.png"><img alt="Configured virtual machines in Azure Security Center" border="0" height="802" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a00997ab-9924-400f-bcdb-90e97b5f5fe3.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Security Center で構成された仮想マシン" width="1430"></a></p>
+
+
+  <p>この機能は、Security Center の <a href="https://azure.microsoft.com/en-us/pricing/details/security-center/" target="_blank">Standard 価格レベル</a> で利用できます。このレベルは、最初の30日間 <a href="https://azure.microsoft.com/en-us/free/" target="_blank">無料で試す</a> ことができます。</p>
+
+
+  <p>Security Center でのこれらの機能の詳細については、Azure Security Center、 &rdquo; <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-just-in-time" target="_blank">ジャストインタイム VM アクセスのドキュメント</a>、Azure Firewall の<a href="https://docs.microsoft.com/en-us/azure/firewall/overview" target="_blank">ドキュメント</a><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-remediate-recommendations#one-click" target="_blank">で、推奨事項の修復</a>に関するページを参照してください。 &ldquo; Azure Security Center の詳細については、 <a href="https://azure.microsoft.com/en-us/services/security-center/" target="_blank">Azure Security Center のホームページ</a>を参照してください。</p>

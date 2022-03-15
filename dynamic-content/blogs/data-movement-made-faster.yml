@@ -1,0 +1,52 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d514f5fe600c351743be8934f5bb4a0a9004cd4f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891121"
+Slug: data-movement-made-faster
+Title: Azure でのデータ移動の高速化
+Summary: 'Azure Data Factoryにより高速なデータ移動が可能になります。 詳細については、後の説明を参照してください。 '
+Content: >-
+  <p>さまざまなデータ ストアとエンドポイント (現在利用可能な一 <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-data-movement-activities/#supported-data-stores" target="_blank">覧) に</a>接続を追加し、さまざまなデータ形式 (現在サポートされているデータ形式は Text、Avro、JSON) を使用できるのとは別に、 <strong>Azure Data Factory</strong> ではデータ移動の高速化も可能になります。 これを行うのは、データ移動のスループットを高め、Azure Data Factory。 現在、次のコードは、コピー機能を使用してAzure Data Factory。</p>
+
+
+  <ul>
+      <li>オンプレミスのファイル システムと Azure Blob Storage から Azure Blob Storage に約 3 時間で 1 TB のデータを取り込む (つまり、 @ 100 MBps)</li>
+      <li>オンプレミスのファイル システムと Azure Blob Storage から Azure Data Lake Store に約 3 時間で 1 TB のデータを取り込む (つまり、 @ 100 MBps)</li>
+      <li>約 3 時間 (つまり 100 MBps) で Azure Blob Storage から 1 TB のデータを Azure SQL Data Warehouse に取り込む</li>
+  </ul>
+
+
+  <p>これらは、次の方法で有効になっています。</p>
+
+
+  <h2>移動中の並列処理の有効化</h2>
+
+
+  <p>コピー操作のスループットを向上し、データ移動の全体的な時間を短縮する方法の 1 つは、ソースからデータを読み取り、またはデータを変換先に並列で書き込む方法です。 正確に有効にしました。</p>
+
+
+  <p>ソース ストアからデータを読み取り、データをコピー先ストアに書き込むときに、並列処理係数を指定する方法が得されました。 指定しない場合も、サービスによって最適な情報が自動的に判断されます。</p>
+
+
+  <p>データを並列でコピーする場合、コピー操作では、処理電力、メモリ、およびネットワーク割り当ての観点から、より多くのリソースが必要になります。 これらのリソースは、Azure Data Factory でクラウド データ移動<strong></strong>ユニットと総称され、クラウドからクラウドへのコピーを実行する場合に適用されます。 コピー アクティビティに関連付けられているクラウド ユニットの数を調整できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-copy-activity-performance/#parallel-copy" target="_blank">この機能</a> と関連ガイダンスを最適に利用する方法の詳細を確認してください。 この機能を使用すると、ADF の課金にほとんどまたは全く影響を与える必要はありません。</p>
+
+
+  <h2>PolyBase を利用して Azure SQL Data Warehouse にデータを読み込む</h2>
+
+
+  <p><a href="https://msdn.microsoft.com/en-us/library/mt143171.aspx" target="_blank">PolyBase</a> は、大量のデータを Azure SQL Data Warehouse に読み込む効率的な方法です。 既定の BULKINSERT メカニズムと比較して、PolyBase を使用して Azure BLOB から Azure SQL Data Warehouse へのデータ移動を実行する場合、最大約 300 倍のパフォーマンス向上 (.3 MBps から 100 MBps まで) を確認しました。</p>
+
+
+  <p>ただし、PolyBase は、すべてのデータ ストア、形式、および型で動作するわけではありません。 ソース データ ストア、形式、または型が PolyBase に必要なデータと互換性がない場合は、まずソース データ ストアから Azure Blob Storage にステージング ストアとしてデータをコピーしてから、PolyBase を使用してステージング ストアから Azure SQL Data Warehouse にデータを読み込む方法を検討できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-azure-sql-data-warehouse-connector/#use-polybase-to-load-data-into-azure-sql-data-warehouse" target="_blank">アプリケーションで</a> PolyBase を活用する方法と、その要件Azure Data Factoryガイドラインについて説明します。</p>
+
+
+  <p>Azure へのデータ移動、Azure 内および Azure 外へのデータ移動を高速化する方法を引き続き示します。 上記の機能に関するフィードバックがある場合は、Azure Data Factory <a href="https://feedback.azure.com/forums/270578-azure-data-factory">User Voice</a> または <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=AzureDataFactory">MSDN フォーラム</a> にアクセスしてご覧ください。ご意見をお待ちしています。</p>

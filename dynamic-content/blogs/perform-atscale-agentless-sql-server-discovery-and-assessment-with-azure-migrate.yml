@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 017698756bc1a225795f9b5a1d9fc3de88461be1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891423"
+Slug: perform-atscale-agentless-sql-server-discovery-and-assessment-with-azure-migrate
+Title: Azure Migrate を使用して、大規模でエージェントレスの SQL Server 検出と評価を実行する
+Summary: オンプレミスのインフラストラクチャ、データベース、アプリケーションを Azure に移行することは、クラウドへの移行と最新化の取り組みを成功させるための鍵となり、このプロセスを簡略化することに努めています。 使用...
+Content: >-
+  <p>オンプレミスのインフラストラクチャ、データベース、アプリケーションを Azure に移行することは、クラウドへの移行と最新化の取り組みを成功させるための鍵となり、このプロセスを簡略化することに努めています。 主要なマイルストーンごとに、これらのプライマリ移行シナリオを可能な限りシームレスにするように設定します。 現時点では、SQL Server のための、大規模なエージェントレス検出と移行準備の評価のプレビューが発表されています。 <a href="https://azure.microsoft.com/en-us/free/services/azure-migrate/" target="_blank">Azure Migrate</a>を使用して、Windows Server、Linux、SQL Server 全体にわたるデータセンター全体の統合ビューを作成できるようになりました。</p>
+
+
+  <p>Azure Migrate は、移行のニーズを満たすために、Microsoft およびパートナーツールの合理化された包括的なポートフォリオを1か所で提供します。 今回のリリースでは、サーバー、データベース、および web アプリの評価に役立つ3つのツールを利用しており、ガイド付きのエンドツーエンドのフローに統合されています。 この旅の最初のステップは、 <a href="https://azure.microsoft.com/en-us/services/azure-sql/sql-managed-instance/" target="_blank">Azure SQL Managed Instance</a>と<a href="https://azure.microsoft.com/en-us/services/sql-database/" target="_blank">Azure SQL Database</a>の評価です。 さらに、Azure App Service の統合評価をサポートするためにも拡張されます。</p>
+
+
+  <p>VMware 環境で実行されている SQL Server インスタンスとデータベースを検出し、その構成、パフォーマンス、アプリケーションの依存関係を分析して、Azure SQL Database と Azure SQL Managed Instance に移行することができます。 評価には、Azure SQL の準備、適切なサイジング、コストの予測が含まれます。 SQL 資産全体を簡単に見つけることができるようになりました。 IaaS と PaaS の移行の評価については、1つの統合されたエクスペリエンスをご利用いただけます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/936f94a2-f433-4c3e-87e2-f7b05549e924.jpg"><img alt="Customer datacenter" border="0" height="485" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70ac4a13-f03e-4666-90cd-ce8b4ed508d0.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="お客様のデータセンター" width="722"></a></p>
+
+
+  <h2>Windows Server、Linux、および SQL Server 用の統合オンボード</h2>
+
+
+  <p>VMware の Azure Migrate アプライアンスは、検出、評価、ソフトウェアインベントリ、アプリケーション依存関係マッピング、および移行に役立ちます。</p>
+
+
+  <ul>
+      <li>新しい Azure Migrate オンプレミスのアプライアンスをデプロイするか、既存のアプライアンスをアップグレードして、SQL Server のインスタンスとデータベースの検出を開始します。 また、アプライアンスを使用して、インストールされているソフトウェアをインベントリし、エージェントレスの依存関係マッピングを行うこともできます。</li>
+      <li>探索に複数の資格情報 (ドメイン、ドメイン以外、および SQL 認証) を指定できるようになりました。 Azure Migrate アプライアンスでは、サーバーとデータベースの資格情報がすべての資産に自動的にマップされます。</li>
+      <li>資格情報がセキュリティで保護されていることを確認するために、ユーザーは暗号化され、データセンターのアプライアンスに格納されます。 資格情報はマイクロソフトに送信されません。</li>
+  </ul>
+
+
+  <h2>SQL Server 検出とアプリケーションの依存関係のマッピング</h2>
+
+
+  <p>Azure Migrate 検出は、SQL Server を実行しているサーバーと、同じサーバー上で実行されている複数の SQL インスタンスを含むさまざまなインスタンスとデータベースをモデル化するのに役立ちます。</p>
+
+
+  <ul>
+      <li>1つの Azure Migrate アプライアンスで最大6000のデータベースを検出できます。SQL パフォーマンスデータは30秒ごとに収集され、最適なサイズの推奨事項が最も正確に得られるようになっています。</li>
+      <li>SQL Server 2019 を介して SQL Server 2008 で実行されている SQL インスタンスとデータベースを検出できます。 Developer、Enterprise、Express、および Web edition がサポートされています。</li>
+      <li>検出の詳細には、SQL Server バージョン、エディション、可用性モード、ユーザーデータベースの数とサイズ、および互換性レベルが含まれます。</li>
+      <li>エージェントレスの依存関係マッピング機能を使用して、アプリケーション層または相互に依存するアプリケーションを特定することもできます。この情報は、相互に依存するサーバーの移行を計画する必要がある場合に役立ちます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/418372f0-a769-49f4-89ae-3e8d2b64919a.jpg"><img alt="Azure Migrate discovery and assessment" border="0" height="459" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3d7c923d-b649-4378-ad9a-08086e9b8bc1.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Migrate の検出と評価" width="1092"></a></p>
+
+
+  <h2>Azure SQL の評価、適切なサイジング、コスト計画</h2>
+
+
+  <p>Azure Migrate 評価には、SQL Server チームが長年にわたって構築した評価ロジックがネイティブに含まれるようになりました。 SQL Server に対して、スケールの高いエクスペリエンスを提供するように強化されています。 Azure Migrate は、Azure インフラストラクチャサービスと Azure VMware ソリューションの評価もサポートしています。&nbsp;&nbsp;</p>
+
+
+  <ul>
+      <li>ターゲットの azure リージョン、azure SQL のデプロイの種類、予約容量、サービスレベル、パフォーマンス履歴を指定する機能を使用して、独自のシナリオの評価をカスタマイズできます。</li>
+      <li>最適な推奨事項が得られます。これには、パフォーマンス履歴とサービスレベルの推奨事項に基づく適切なサイズ設定 &rsquo; が含まれます。 評価には、目標とする Azure SQL のデプロイに基づいて予測されるコンピューティングコストとストレージコストも含まれます。これは、最もコスト効率の高いものです。</li>
+      <li>移行の準備情報に加えて、必要に応じて軽減できるように、ブロッカーと問題が明らかになります。</li>
+      <li>また、評価入力をいつでも変更したり、同じセットの SQL インスタンスとデータベースに対して複数の評価を作成して、最適なターゲットの Azure オプションを比較して特定したりすることもできます。</li>
+  </ul>
+
+
+  <p>新機能の動作を確認するには、以下の Microsoft のメカニズムに関する <a href="https://www.youtube.com/watch?v=O4tUDPOJF2w" target="_blank">ビデオシリーズ</a> を参照してください。</p>
+
+
+  <p><a href="https://www.youtube.com/watch?v=O4tUDPOJF2w" target="_blank"><img alt="New unified tools for discovering and assessing SQL databases, .NET apps and VMs – Microsoft Mechanics video" border="0" height="720" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ebce136-941e-4c08-a1d2-5ce0c8cfee71.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SQL データベース、.net アプリ、vm の検出と評価を行うための新しい統合ツール-Microsoft の機能に関するビデオ" width="1280"></a></p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>Azure Migrate は無料で、すべての Azure 地域で利用できます。 Azure Migrate には、検出、アプリケーションの依存関係のマッピング、評価、移行に加え、 <a href="https://techcommunity.microsoft.com/t5/azure-migration/containerize-and-migrate-applications-to-aks-with-the-azure/ba-p/2178551" target="_blank">ASP.NET と Java app コンテナー化の新機能</a>が追加されました。</p>
+
+
+  <p>今すぐ <a href="https://docs.microsoft.com/en-us/azure/migrate/how-to-discover-sql-existing-project" target="_blank">Azure Migrate</a> を開始しましょう。</p>

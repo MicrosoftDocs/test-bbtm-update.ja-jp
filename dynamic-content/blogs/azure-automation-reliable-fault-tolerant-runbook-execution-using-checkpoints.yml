@@ -1,0 +1,281 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 61a1f9d2ecc3b90689719dcb695ceec469633055
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891173"
+Slug: azure-automation-reliable-fault-tolerant-runbook-execution-using-checkpoints
+Title: 'Azure Automation: チェックポイントを使用した Reliable、Fault-Tolerant Runbook の実行'
+Summary: 'Azure Automation の runbook 作成者は、エラー、例外、ネットワークの問題、クラッシュなどの予期しない問題が発生した場合に、確実に実行する runbook を作成する必要があります。 この投稿では、Automation runbook でチェックポイントを使用する理由、タイミング、および方法について説明します。  '
+Content: >-
+  <p>Azure Automation の runbook 作成者は、エラー、例外、ネットワークの問題、クラッシュなどの予期しない問題が発生した場合に、確実に実行する runbook を作成する必要があります。 &nbsp;これには Azure Automation が役立ちます。 &nbsp;Azure Automation は Windows PowerShell ワークフロー &ndash; に基づいて構築されています。ワークフローの状態を永続化することによって、中断された場合は中断された時点で後で再開することができます。 &nbsp;このため、チェックポイント処理は、Automation runbook で利用することができる強力な機能です。 &nbsp;チェックポイント機能をよく使用すると、実行時間の長いプロセスを確実に自動化する runbook を作成し、ネットワークに接続されたさまざまなシステムに確実にアクセスすることができます。また、繰り返しない (べき等ではない) 操作を繰り返さないようにすることも、手動の手順を含めて意図的に中断することもできます。 この投稿では、Automation runbook でチェックポイントを使用する理由、タイミング、および方法について説明します。 &nbsp;<a href="https://technet.microsoft.com/en-us/library/jj574114.aspx" target="_blank">PowerShell ワークフローのチェックポイント</a>処理に関する既存の情報があります。これは、理解を深めるために利用できます。</p>
+
+
+  <h3>チェックポイントとは何ですか。</h3>
+
+
+  <p>チェックポイントは、現在の runbook ジョブの状態のスナップショットです。変数の現在の値、出力、およびその他のシリアル化可能な状態情報が含まれます。 &nbsp; 各チェックポイントはストレージに保存されます。 &nbsp; Runbook が意図的または誤って中断された後に再開された場合、ワークフローエンジンは最新のチェックポイントのデータを使用して runbook を復元および再開します。</p>
+
+
+  <h3>Azure Automation でのチェックポイント処理</h3>
+
+
+  <p>Azure Automation では、runbook ジョブを永続化すると、チェックポイントが作成され、Azure Automation データベースに格納されます。 &nbsp; 各ジョブの最新のチェックポイントのみがデータベースに格納されます。各チェックポイントは、前 &nbsp; のチェックポイントに置き換わるものです。Runbook が中断された後に再開された場合、保存されているチェックポイントが runbook の復元と再開に使用されます。 ワークフローセッションをホストしているコンピューターのハードドライブにチェックポイントを格納する PowerShell ワークフローとは異なり、Azure Automation では Azure Automation データベースにチェックポイントが格納されます。 &nbsp; したがって、runbook を実行しているワーカーがクラッシュした場合、同じ再起動されたワーカーまたは別のワーカーがジョブを選択し、データベース内の最後のチェックポイントを使用してジョブを再開できます。</p>
+
+
+  <h3>チェックポイントを確認する理由</h3>
+
+
+  <p>Runbook でチェックポイントを使用する理由はいくつかあります。</p>
+
+
+  <ul>
+   <li>特定のアクションが繰り返されないようにする <ul>
+    <li>チェックポイント処理は、runbook がクラッシュ (中断) してから再開した場合に、反復不可能なアクション (非べき等) が繰り返されないことを保証するのに役立ちます。 &nbsp; 1つの例として、VM を作成した直後に runbook のチェックポイントを作成して、runbook ジョブが中断された後に再開された場合に、重複する VM が作成されないようにします。</li>
+   </ul>
+   </li>
+   <li>長時間実行されるタスクの保護 <ul>
+    <li>現実には、エラーが発生します。 複数のステップで実行時間の長いタスクは、ネットワークの問題、マシンの再起動またはクラッシュ、タイムアウト、停電などによって中断される可能性があります。 &nbsp; コストのかかる作業の再実行を回避するには、重要なポイントで runbook をチェックポイントし、runbook の再起動によってその作業をやり直すことがないようにします。</li>
+   </ul>
+   </li>
+   <li>実行時間の長い runbook が完了したことを確認する <ul>
+    <li>Azure Automation にはフェアシェア &rdquo; という &ldquo; 機能があり、3時間 &nbsp; 実行されている runbook はアンロードされ、他の runbook の実行が許可されます。 &nbsp;最終的には、アンロードされた runbook は再読み込みされ、runbook の最後のチェックポイントから実行が再開されます。 &nbsp;したがって、runbook が最終的に完了することを保証するために、実行間隔を3時間未満にするチェックポイントを追加する必要があります。 &nbsp;(<a href="https://social.msdn.microsoft.com/Forums/windowsazure/en-US/2e6be10b-97cb-49e3-b871-40825fcfac45/trying-to-make-automation-automatically-rebuild-all-tables?forum=azureautomation" target="_blank">このフォーラムの投稿</a>では、問題の一例を示しています)。</li>
+   </ul>
+   </li>
+   <li>計画的または手動による中断を許可する <ul>
+    <li>実行中の runbook を意図的に中断することが必要なシナリオがあります。 &nbsp; 例として、承認の継続を待機するために runbook ジョブを中断する場合や、runbook ジョブを中断して、予期しないシステムの問題または計画されたシステムの問題の修正を待機する場合があります。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <p>&nbsp;</p>
+
+
+  <h4>Runbook にチェックポイントを追加する方法</h4>
+
+
+  <h3>Checkpoint-Workflow アクティビティ</h3>
+
+
+  <p>Checkpoint-Workflow アクティビティ (別名永続) は、標準の PowerShell ワークフローアクティビティであり、特定の時点でチェックポイントを作成するために runbook で使用できます。 &nbsp; チェックポイントは、Checkpoint-Workflow アクティビティが発生する runbook のポイントで作成されます。 &hellip; Download-Updates 再起動-VM Checkpoint-Workflow Email-Team Checkpoint-Workflow &hellip;</p>
+
+
+  <h3>-PSPersist アクティビティ共通パラメーター</h3>
+
+
+  <p>アクティビティを呼び出すたびに、 &ndash; pspersist 共通ワークフローアクティビティパラメーターを含めることができます。 &nbsp; これにより、アクティビティが完了した直後にチェックポイントが作成されます。</p>
+
+
+  <pre class="prettyprint">
+
+  &hellip;
+
+  Download-Updates
+
+  Reboot-VM &ndash;PSPersist $True
+
+  Email-Team &ndash;PSPersist $True
+
+  &hellip;</pre>
+
+
+  <h3>$PSPersistPreference ワークフローユーザー設定変数</h3>
+
+
+  <p>Runbook では、ステートメント $PSPersistPreference = $True を含めることができます。 &nbsp; この結果、preference ステートメントに従う各アクティビティの後にチェックポイントが作成されるようになります。 &nbsp; Runbook の開始時にこの設定を設定した場合、runbook の各活動の後にチェックポイントが作成されます。 &nbsp; 自動チェックポイント処理をオフにするには、ステートメント $PSPersistPreference = $False (runbook の既定値) を追加し、その後、自動チェックポイントを使用せずにアクティビティを実行します。 パフォーマンスと戦略的な理由から、各アクティビティの後に保持することは、最適な方法ではない可能性があることに注意してください。 &nbsp; 各チェックポイントでは、ワークフロー状態をシリアル化してデータベースに格納する処理が必要です。 &nbsp; また、runbook が中断されている場合には、いくつかのアクティビティを繰り返す必要があるシナリオもあります。 このような理由から、この方法はお勧めできません。</p>
+
+
+  <pre class="prettyprint">
+
+  &hellip;
+
+  Download-Updates
+
+  $PSPersistPreference = $True
+
+  Update-VM
+
+  Email-Team
+
+  $PSPersistPreference = $False
+
+  &hellip;</pre>
+
+
+  <h3>Suspend-Workflow アクティビティ</h3>
+
+
+  <p>Runbook で Suspend-Workflow アクティビティが使用されている場合、直ちに応答するには、runbook をチェックポイントしてから中断します。 &nbsp; Runbook でこのアクティビティを使用します。たとえば、runbook で何らかの作業を行い、承認を待ってから続行する必要がある場合などです。 承認を許可 &rdquo; する方法 &ldquo; は、runbook ジョブを再開することです。</p>
+
+
+  <pre class="prettyprint">
+
+  &hellip;
+
+  Download-Updates
+
+  # Get permission to apply updates
+
+  Suspend-Workflow
+
+  # Continue if resumed
+
+  Reboot-VM &ndash;PSPersist $True
+
+  Email-Team &ndash;PSPersist $True
+
+  &hellip;</pre>
+
+
+  <h3>チェックポイントを追加する場所</h3>
+
+
+  <p>一般に、ワークフローを永続化する場所を明確にすることをお勧めします。 &nbsp; $PSPersistPreference 変数を設定して各アクティビティの後に一括チェックポイントを取得するのではなく、通常は慎重で戦略的であり、永続化が有効であるワークフロー内の場所で Checkpoint-Workflow または Suspend-Workflow アクティビティまたは &ndash; pspersist パラメーターを使用することをお勧めします。 &nbsp; ワークフローを永続化する必要がある場所と、ワークフローを永続化したくない場所があります (以下の例を参照)。 &nbsp; また、ワークフローを永続化するにはシステムからの作業が必要であり、ワークフローのパフォーマンスに多少の影響が及ぶことに注意してください。 <strong>ベストプラクティス:</strong> &nbsp;次のような場合に、ワークフローにチェックポイントを追加することができます。</p>
+
+
+  <ul>
+   <li>(べき等ではなく) 繰り返す必要のあるアクティビティの後。</li>
+   <li>実行時間の長いアクティビティまたは高額なアクティビティが発生した後で、コストによって繰り返さないようにします。</li>
+   <li>任意の runbook 内で3時間以上実行されます。 &nbsp;3時間 &nbsp; 後、フェアシェア &rdquo; 機能が &ldquo; 開始され、runbook が一時的にアンロードされ、他の runbook を実行できるようになります。 &nbsp;最終的に、システムは runbook を再読み込みし、最後のチェックポイントから実行を再開します。 &nbsp;&rsquo;チェックポイントを追加していない場合、runbook は最初から再開され、フェアシェアの制限に再び実行されます。これは何度も行われ、runbook は完了しません。</li>
+   <li>障害やワークフローの中断につながる可能性がある問題の通常の確率を上回るアクティビティの前。 &nbsp; ワークフローが再開されたときにアクティビティを繰り返して、アクティビティの作業が確実に行われるようにします。 &nbsp; 例として、ネットワークの問題の影響を受けやすいリモートシステムにアクセスするアクティビティがあります。</li>
+  </ul>
+
+
+  <p><strong>ベストプラクティス:</strong> &nbsp;このような場合は、チェックポイントを追加しないでください。</p>
+
+
+  <ul>
+   <li>ワークフローが中断され、再開された場合に繰り返す必要がある作業の後</li>
+   <li>べき等で、チェックポイントを作成するよりも時間がかからない作業の後</li>
+   <li>InlineScript ブロック (これは許可されていません)</li>
+  </ul>
+
+
+  <h4>&nbsp;</h4>
+
+
+  <h3>例: VM の更新</h3>
+
+
+  <ol>
+   <li>Windows Update から最新の修正プログラムをダウンロードする</li>
+   <li>修正プログラムを適用するには、VM を再起動してください
+   <ul>
+    <li>Checkpoint</li>
+   </ul>
+   </li>
+   <li>更新プログラムが適用されたことを報告するようにチームに電子メールを送信する
+   <ul>
+    <li>Checkpoint</li>
+   </ul>
+   </li>
+   <li>&hellip;</li>
+  </ol>
+
+
+  <p>このシナリオでは、手順 1 (べき等) を繰り返しますが、手順2または3は繰り返しません。 したがって、手順 2. と 3. の後にチェックポイントが必要です。 &nbsp; 各活動が正常に実行された後も自動的に保持する。ただし、ステップ1の後にチェックポイントを追加すると、不必要にシステムに作業が追加されます。</p>
+
+
+  <h4>&nbsp;</h4>
+
+
+  <h3>例: 顧客への通知</h3>
+
+
+  <ol>
+   <li>データベースから顧客の一覧を取得する</li>
+   <li>新しいポリシーについて顧客に電子メールを送信する <ul>
+    <li>Checkpoint</li>
+   </ul>
+   </li>
+   <li>顧客の電子メールが送信された電子メール管理 <ul>
+    <li>Checkpoint</li>
+   </ul>
+   </li>
+   <li>&hellip;</li>
+  </ol>
+
+
+  <p>繰り返さないアクティビティ &rsquo; のグループがある場合もありますが、そのグループ内のすべてのアクティビティが成功した場合に限ります。 &nbsp; このシナリオでは、手順 1. と 2. を常に一緒に実行して、取得した顧客の一覧が電子メールの送信時に最新の状態になるようにする必要があります。 &nbsp; したがって、手順 2 (顧客の電子メールの送信) の前に runbook worker がクラッシュした場合は、runbook ジョブが再開されたときに、もう一度手順1から開始するようにします (顧客リストを取得します)。 &nbsp; ただし、手順3の直前にクラッシュまたは中断が発生した場合は、手順2が繰り返されないようにする必要があります ( &rsquo; 顧客にもう一度電子メールを送信したくありません)。 <strong>ベストプラクティス:</strong> &nbsp;ワークフローの InlineScript ブロックまたは関数内にチェックポイントを追加することはできないことに注意してください。 &nbsp;これは、InlineScript ブロックおよび関数のコードは powershell ワークフロースクリプトとしてではなく PowerShell スクリプトとして実行されるためです。 &nbsp;そのため、ワークフローの永続化を利用するには、runbook コードを複数のモジュール化アクティビティに分割して、アクティビティ間にチェックポイントを追加できるようにするか、InlineScript が必要な場合は複数の InlineScript ブロックを使用してそれらの間のチェックポイントを作成する必要があります。</p>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <h3>Runbook の中断と再開</h3>
+
+
+  <p>Runbook のチェックポイント処理と中断/再開は手動で行います。 &nbsp; Runbook が中断された場合、runbook を最新のチェックポイントから再開できるように、runbook にチェックポイントを追加します。 Azure Automation の runbook ジョブは、次のいくつかの方法で中断できます。</p>
+
+
+  <ul>
+   <li>Azure Automation portal UI で意図的にユーザーにより
+   <ul>
+    <li>Azure Automation portal UI を使用すると、実行中の runbook ジョブを中断するように選択できます。</li>
+    <li>ジョブは、次のチェックポイントで中断されます。 &nbsp; Runbook にチェックポイントが作成されていない場合、runbook は最後まで実行を続行し、すべての状態 &ldquo; が [中断 &rdquo; 中] と表示されます。</li>
+   </ul>
+   </li>
+   <li>Suspend-Workflow を使用した runbook 内のユーザーによる意図的な使用
+   <ul>
+    <li>Runbook に Suspend-Workflow アクティビティを含めます。</li>
+    <li>ジョブはチェックポイントされ、Suspend-Workflow が呼び出された場所で中断されます。</li>
+   </ul>
+   </li>
+   <li>ユーザーが Suspend-AzureAutomationJob コマンドレットを使用して意図的に行う
+   <ul>
+    <li>PowerShell スクリプトまたはワークフローから Suspend-AzureAutomationJob コマンドレットを使用して、実行中の Azure Automation runbook ジョブを中断できます。</li>
+    <li>ジョブは、次のチェックポイントで中断されます。 &nbsp; Runbook にチェックポイントが作成されていない場合、runbook は最後まで実行を続行し、すべての状態 &ldquo; が [中断 &rdquo; 中] と表示されます。</li>
+   </ul>
+   </li>
+   <li>Runbook の実行時間が3時間を超えたときに Azure Automation ワークフローエンジンによって意図的に
+   <ul>
+    <li>実行中のジョブの実行時間が3時間 &nbsp; &ldquo; を超えた場合、フェアシェア &rdquo; 機能が開始され、runbook は一時的にアンロードされます。 ジョブの状態は [実行中] に設定 &ldquo; され、リソース &rdquo; を待機します。 &nbsp; 最終的には、runbook は再読み込みされ、最後のチェックポイントから実行が開始されます。</li>
+   </ul>
+   </li>
+   <li>Runbook の例外後の Azure Automation ワークフローエンジンによって意図せずに実行される
+   <ul>
+    <li>実行中のジョブが例外をスローすると、そのジョブは runbook worker からアンロードされ、その状態は中断 &rdquo; として &ldquo; 設定されます。</li>
+   </ul>
+   </li>
+   <li>runbook worker のクラッシュが原因で誤って発生する
+   <ul>
+    <li>Runbook worker がクラッシュした場合、そのワーカーで実行されているジョブは直ちに終了します。 &nbsp;データベース内のこれらのジョブの状態は、実行中 &rdquo; のまま &ldquo; になります。 同じまたは置換ワーカーが行に戻ると、ジョブが取得され、最後のチェックポイントから再開されます。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>Azure Automation の runbook ジョブは、いくつかの方法で再開できます。 &nbsp; いずれの場合も、ジョブは最後のチェックポイントから再開されるか、チェックポイントがない場合は最初から再開されます。</p>
+
+
+  <ul>
+   <li>Azure Automation portal UI で手動で行う
+   <ul>
+    <li>Azure Automation portal UI を使用すると、中断されたジョブを再開するように選択できます。</li>
+   </ul>
+   </li>
+   <li>Resume-AzureAutomationJob コマンドレットの使用
+   <ul>
+    <li>PowerShell スクリプトまたはワークフローから、Resume-AzureAutomationJob コマンドレットを使用して、中断されたジョブを再開できます。</li>
+   </ul>
+   </li>
+   <li>runbook worker のクラッシュに自動的に従う
+   <ul>
+    <li>ワーカーがオンラインに戻ったとき、または別のワーカーが置換対象として割り当てられている場合、ワーカーは、割り当てられているデータベース内のジョブを検索します。 &nbsp; の &ldquo; &rdquo; 状態がで、まだワーカーで実行されていないジョブの場合、ワーカーは最後のチェックポイントからジョブを自動的に再開します (これは、上記の中断リストで #5 と同じシナリオです)。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>Runbook が再開されると、runbook は、中断する前とは別のワーカーで再開できることに注意してください。 &nbsp; したがって、runbook が存在すると想定されているすべてのローカル状態を再作成する必要があります。 たとえば、このような場合、runbook がチェックポイント後に azure に接続する必要がある場合は、ローカルファイルに状態を設定する Connect-Azure、追加-azureaccount、Select-azureaccount、または set azureaccount などのコマンドレットを各チェックポイントの後に再度呼び出す必要があります。</p>
+
+
+  <h3>まとめ</h3>
+
+
+  <p>ご覧のように、runbook にチェックポイントを追加することは、PowerShell ワークフローのこの重要な機能を活用して、中断を伴う回復力のある runbook を作成する場合に重要です。 &nbsp; チェックポイントの追加は簡単です。 &nbsp; Runbook の作成中に少し考慮するだけで、実行時間が長く、コストのかかるタスクを予期しない中断から保護し、堅牢で信頼性の高い runbook を実際に作成することができます。</p>

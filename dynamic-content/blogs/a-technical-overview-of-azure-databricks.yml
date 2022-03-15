@@ -1,0 +1,112 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2dc3e26c6b2ad6cdc5114104878e744a8cffce81
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891007"
+Slug: a-technical-overview-of-azure-databricks
+Title: Azure Databricks の技術概要
+Summary: 現在、Microsoft Connect () では、Apache Spark 分析プラットフォームと Azure クラウドを統合する優れた新しいサービスである Azure Databricks を発表しました。
+Content: >-
+  <p><em>このブログ投稿は、Peter Carlin、識別エンジニア、データベースシステム、Matei Zaharia、共同創設者、チーフ技術者、Databricks によって共同で作成されています。</em></p>
+
+
+  <p>現在、 <a href="https://www.microsoft.com/en-us/connectevent/default.aspx" target="_blank">Microsoft Connect ()</a>では、Apache Spark 分析プラットフォームと Azure クラウドの両方をまとめた、魅力的な新しいサービスである<a href="https://www.azure.com/databricks" target="_blank">Azure Databricks</a>を発表しました。 Databricks と Microsoft の間の密接なパートナーシップとして、Azure Databricks は他のクラウドプラットフォームには存在しない独自のメリットをもたらします。 このブログ投稿では、Azure で Databricks を活用して、データ科学者、データエンジニア、およびビジネス上の意思決定者が利用できるテクノロジと新機能について説明します。</p>
+
+
+  <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Events/Connect/2017/T257/player" width="960"></iframe></p>
+
+
+  <h2>Apache Spark + Databricks + enterprise cloud = Azure Databricks</h2>
+
+
+  <p>クラウドで大規模なデータを管理すると、予測分析、AI、およびリアルタイムアプリケーションで大量の可能性が生まれます。 この5年間では、これらのアプリケーションを構築するためのプラットフォームが Apache Spark されており、世界中の数千の企業の大規模なコミュニティにより、強力な分析アルゴリズムを大規模に実行し、リアルタイムでビジネスの洞察を得ることができるようになりました。 ただし、大規模な Spark の管理とデプロイは、特に、多数のユーザーと強力なセキュリティ要件を持つエンタープライズのユースケースでは、困難なままです。</p>
+
+
+  <p>「Databricks」と入力します。 2013で Spark プロジェクトを開始したチームが設立した、Databricks は、クラウド向けに最適化されたエンドツーエンドのマネージ Apache Spark プラットフォームを提供します。 ワンクリックデプロイ、自動スケール、および最適化された Databricks Runtime により、クラウドでの Spark ジョブのパフォーマンスを10倍に向上させることができます。これにより、Databricks は、大規模な Spark ワークロードを実行するためのシンプルでコスト効率が向上します。 さらに、Databricks には、多数のユーザーがいる企業で Spark を簡単に活用できるようにする、対話型のノートブック環境、監視ツール、セキュリティ制御が含まれています。</p>
+
+
+  <p>Azure Databricks では、Databricks と Microsoft の間のコラボレーションを通じて Azure サービスと緊密に統合することで、基本の Databricks プラットフォームの1つを超えています。 Azure Databricks は、最速のデータアクセスのために azure storage プラットフォーム (Data Lake や Blob Storage など) に最適化されたコネクタと、azure コンソールから直接のワンクリック管理機能を備えています。 これは、最初から Data Analytics のワークロードを最適化するために、Apache Spark platform プロバイダーがクラウドプロバイダーと密接に提携していることです。</p>
+
+
+  <h2>データエンジニアとデータ科学者にとってのメリット</h2>
+
+
+  <p>データ科学者やエンジニアにとって Azure Databricks 役に立つのはなぜですか。 いくつかの方法を見てみましょう &rsquo; 。</p>
+
+
+  <h3>最適化された環境</h3>
+
+
+  <p>Azure Databricks は、クラウドのパフォーマンスとコスト効率が完全に最適化されています。 Databricks Runtime は、いくつかの重要な機能を Apache Spark ワークロードに加えて、Azure での実行時に 10 から 100 倍のパフォーマンス向上やコスト削減が可能です。これには以下が含まれます。</p>
+
+
+  <ol>
+   <li>Azure Blob ストアや Azure Data Lake など、Azure storage サービスへの高速コネクタは、これらのサービスの背後にある Microsoft teams と共に開発されています。</li>
+   <li>自動スケーリングおよび自動終了により、Spark クラスターで自動的にコストを最小限に抑えられるようにすることができます。</li>
+   <li>キャッシュ、インデックス作成、高度なクエリ最適化などのパフォーマンスの最適化。これにより、クラウドまたはオンプレミスの環境における従来の Apache Spark デプロイに比べて、10倍のパフォーマンスを向上させることができます。</li>
+  </ol>
+
+
+  <h3>シームレスなコラボレーション</h3>
+
+
+  <p>ドキュメントが非常に編集可能になったときに、生産性の向上に注意してください。 &rsquo;なぜ、Data Engineering とデータサイエンスについてはなぜでしょうか。 Azure Databricks はそのことを正確にもたらします。 Databricks の notebook はライブで共有され、リアルタイムの共同作業により、組織内のすべてのユーザーがデータを操作できるようになります。 ダッシュボードを使用すると、ビジネスユーザーは、新しいパラメーターを使用して既存のジョブを呼び出すことができます。 また、Databricks は、インタラクティブな視覚化のために PowerBI と密接に統合されています。 Azure Databricks は Azure Database や、高い同時アクセス、高速パフォーマンス、geo レプリケーションを実現するその他のテクノロジによって支えられているため、これはすべて可能です。</p>
+
+
+  <h3>使いやすさ</h3>
+
+
+  <p>Azure Databricks は、一般的なデータソースに接続し、機械学習アルゴリズムを実行し、すぐに使用を開始するための Apache Spark の基礎を学ぶことができる対話型ノートブックでパッケージ化されています。 また、対話型ノートブック内からの Spark ジョブの進行状況を分析するための統合デバッグ環境や、過去のジョブを分析するための強力なツールも用意されています。 最後に、Python や R データサイエンススタックなどのその他の一般的な分析ライブラリがプレインストールされているので、Spark でそれらを使用して洞察を得ることができます。 ビッグデータが10倍に簡単に使用できるようになるということは信じられています。また、Apache Spark で開始された理念を継続して、統合されたエンドツーエンドプラットフォームを提供しています。</p>
+
+
+  <h2>Azure Databricks のアーキテクチャ</h2>
+
+
+  <p>では、どのように Azure Databricks するのでしょうか。 大まかに言えば、サービスは各 Azure customer&#39;s サブスクリプションのワーカーノードを起動して管理し、お客様のアカウント内の既存の管理ツールを活用できるようにします。</p>
+
+
+  <p>具体的には、顧客が Databricks を &quot; 使用してクラスターを起動すると、Databricks アプライアンス &quot; が Azure リソースとして顧客&#39;のサブスクリプションにデプロイされます。 お客様は、使用する Vm の種類と数を指定しますが、Databricks はその他のすべての側面を管理します。 このアプライアンスに加えて、管理対象リソースグループは、VNet、セキュリティグループ、およびストレージアカウントを設定する顧客&#39;s サブスクリプションにデプロイされます。 これらは、Azure ユーザーが使い慣れた概念です。 これらのサービスの準備が整うと、ユーザーは Azure Databricks UI または自動スケールなどの機能を使用して、Databricks クラスターを管理できます。 メタデータ (スケジュールされたジョブなど) はすべて Azure Database に格納され、geo レプリケーションによるフォールト トレランスが確保されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2285c592-5687-4d5d-983b-366d20857535.png"><img alt="2A_Technical blog image_11132017" border="0" height="490" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d85b0f5c-2ec1-4a98-a2f0-5d4be3f78b70.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2A_Technical ブログ image_11132017" width="1023"></a></p>
+
+
+  <p>ユーザーにとって、この設計は2つのことを意味します。 まず、既存の Blob ストアサブスクリプションや Data Lake など、アカウント内の任意のストレージリソースに Azure Databricks を簡単に接続できます。 2つ目は、Databricks を Azure control center から一元的に管理し、追加の設定を必要としないことです。</p>
+
+
+  <h2>Azure 統合の合計</h2>
+
+
+  <p>Microsoft では、プラットフォームを最大限に活用するために、Azure プラットフォームのすべての機能と Azure Databricks 密接に統合しています。 これまでに実行した部分 &rsquo; を次に示します。</p>
+
+
+  <ul>
+   <li>VM の種類の多様性: お客様は、機械学習シナリオの場合は F シリーズ、大規模なメモリシナリオの場合は M シリーズ、汎用目的の場合は D シリーズなど、すべての既存の Vm を使用できます。</li>
+   <li>セキュリティとプライバシー: Azure では、データの所有権と制御は顧客によって行います。 これらの標準に準拠するように Azure Databricks を構築しました。 Azure Databricks は、Azure の残りの部分で準拠するすべてのコンプライアンス認定を提供することを目的としています。</li>
+   <li>ネットワークトポロジの柔軟性: さまざまなネットワークインフラストラクチャのニーズに対応しています。 Azure Databricks は、アクセスできるソースとシンク、およびアクセス方法を制御できる、customer Vnet での配置をサポートしています。</li>
+   <li>Azure Storage と Azure Data Lake の統合: これらのストレージサービスは、既存のデータに対するキャッシュと最適化された分析を提供するために、DBFS を介して Databricks ユーザーに公開されます。</li>
+   <li>Azure Power BI: ユーザーは、使い慣れたツールを使用して、非常に大規模なデータを対話形式で照会するために、JDBC を使用して直接 Databricks クラスターに Power BI 接続できます。</li>
+   <li>Azure Active Directory は、リソースへのアクセス制御を提供し、ほとんどの企業で既に使用されています。 Azure Databricks ワークスペースは顧客のサブスクリプションにデプロイされるため、自然な AAD を使用して、ソース、結果、およびジョブへのアクセスを制御できます。</li>
+   <li>Azure SQL Data Warehouse、azure SQL DB、azure CosmosDB: Azure Databricks を使用すると、簡単かつ効率的にこれらのサービスに結果をアップロードして、さらに分析やリアルタイムのサービスを行うことができます。これにより、Azure でエンドツーエンドのデータアーキテクチャを簡単に構築できます。</li>
+  </ul>
+
+
+  <p>ご紹介したすべての統合に加えて、お客様が見 &ndash; られる &rsquo; ような方法で統合することは困難ですが、の利点を確認できます。</p>
+
+
+  <ul>
+   <li>内部的には、Azure Container Services を使用して、コンテナーを介して Azure Databricks コントロールプレーンとデータプレーンを実行します。</li>
+   <li>高速ネットワークは、クラウドで最も高速な仮想化されたネットワークインフラストラクチャを提供します。 Azure Databricks ではこれを利用して Spark パフォーマンスをさらに向上させます。</li>
+   <li>最新世代の Azure ハードウェア (Dv3 Vm)。 I/O の待機時間が非常に長くなります。 これらにより、Databricks の I/O パフォーマンスはさらに向上します。</li>
+  </ul>
+
+
+  <p>私たちは、私たちの表面を初歩だけです。 サービスが一般に利用可能になり、それ以上に進むにつれて、今後の Azure サービスとの継続的な統合を追加する予定です。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>パートナーと協力して、Azure Databricks を得ることができます。 最初に、最先端のクラウドプロバイダーと最先端の分析システムプロバイダーが提携して、Azure&#39;s ストレージとネットワークインフラストラクチャから最適に最適化 &ndash; されたクラウド分析プラットフォームを構築し、Apache Spark 用に&#39;s ランタイムを Databricks することができました。 Azure Databricks によってエンタープライズ級の実稼働データアプリケーションの作成が大幅に簡素化され、サービスのロールアウトに応じてフィードバックをお寄せください。</p>

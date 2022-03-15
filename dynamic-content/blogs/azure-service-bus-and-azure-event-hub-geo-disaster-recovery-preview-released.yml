@@ -1,0 +1,31 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5b41f1bd39a853d949b722c7d7997ad999840f07
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895592"
+Slug: azure-service-bus-and-azure-event-hub-geo-disaster-recovery-preview-released
+Title: Azure Service Bus および Azure Event Hubs geo ディザスター リカバリー プレビューがリリースされました
+Summary: '2 つの長い間知られている、よく知られた評価の高い Azure Core Services (Azure Service Bus と Azure Event Hubs) は、今後一般公開される geo ディザスター リカバリー機能のプレビューをリリースしたばかりです。 この機能を利用することで、コードを使用して geo ディザスター リカバリー シナリオを管理する必要がなくなったクライアントはなくなりましたが、代わりに、2 つの独立した名前空間間でメタデータ同期を実行するサービスに依存できます。 現時点では、データ レプリケーションはまだサポートされていません。後で (一般提供後) 時点で追加されます。 '
+Content: >-
+  <p>Azure Service Bus と Azure Event Hubs という 2 つの古くから知られた高い評価を受け、一般公開される Geo ディザスター リカバリー機能のプレビューがリリースされたばかりです。 この機能を利用することで、コードを使用して geo ディザスター リカバリー シナリオを管理する必要がなくなったクライアントはなくなりましたが、代わりに、2 つの独立した名前空間間でメタデータ同期を実行するサービスに依存できます。 現時点では、データ レプリケーションはまだサポートされていないので、後で追加されます (一般提供後)。&nbsp;</p>
+
+
+  <p>障害と停止には大きな違いがあります。 通常、災害により、火災、水害、地震など、データ センターの完全または部分的な停止が発生します。 通常、停止は一時的な問題が原因で発生し、非常に短時間です。 障害の解決には数時間と数日かかる場合があるのに対し、停止は分の時間枠の方が多い場合があります。</p>
+
+
+  <p>現時点では、両方のサービスで、障害から自動的に復旧する個別の監視プロセスが必要です。 つまり、名前空間を監視するために小さなアプリケーションを作成する必要があります。たとえば、1 ~ 10 分ごとに接続します。 接続が繰り返し失敗した場合、アプリケーションはフェールオーバーをトリガーできます。 また&#39;、複数の独立した監視プロセスを持つ可能性があるという価値があります。 詳細については、以下の記事を参照してください。</p>
+
+
+  <p>ディザスター リカバリーを設定するには、独立したリージョン (米国中北部と米国中南部など) で 2 つの名前空間を選択し、プライマリとセカンダリの名前空間を定義してから、その間にペアを作成します。 障害が発生した場合は、フェールオーバーをトリガーします。</p>
+
+
+  <ul>
+      <li>コード サンプルなど、<strong>REST APIのService Bus</strong>詳細&nbsp;については、<a href="https://docs.microsoft.com/azure/service-bus-messaging/service-bus-outages-disasters">documentation にアクセスしてください</a>。</li>
+      <li>コード サンプルなど、<strong>REST APIのEvent Hubs</strong>については&nbsp;、<a href="https://docs.microsoft.com/azure/event-hubs/event-hubs-geo-dr">documentation にアクセスしてください</a>。</li>
+      <li>障害と障害 <strong>の違いに</strong>&nbsp;関する重要な情報は、ドキュメントでも確認 <a href="https://docs.microsoft.com/azure/service-bus-messaging/service-bus-outages-disasters">できます</a>。</li>
+  </ul>
+
+
+  <p>フィードバックがある場合は、お知らせください。</p>

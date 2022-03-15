@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 32e5c2f04f9c88db785a678d5671cc95bd3e87df
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896538"
+Slug: azure-premium-block-blob-storage-is-now-generally-available
+Title: Azure プレミアム ブロック BLOB Storage一般提供
+Summary: 企業がクラウド導入を加速し、パフォーマンスに依存するクラウドネイティブ アプリケーションをますますデプロイする中で、Azure プレミアム Blob Storage の一般提供をお知らせします。
+Content: >-
+  <p>企業がクラウド導入を加速し、パフォーマンスに依存するクラウドネイティブ アプリケーションをますますデプロイする中で、Azure プレミアム Blob Storage の一般提供をお知らせします。 プレミアム Blob Storage は、ブロック BLOB および追加 BLOB 用の Azure Blob Storage の新しいパフォーマンス レベルであり、既存のホット、クール、アーカイブのアクセス層を満足させます。<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers" target="_blank"></a> プレミアム BLOB Storage は、非常に高速な応答時間や高いトランザクション レートを必要とするワークロードに最適です。たとえば、IoT、テレメトリ、AI、対話型のビデオ編集、Web コンテンツ、オンライン トランザクションなどのループ内の人間とのシナリオなどです。</p>
+
+
+  <p>プレミアム Blob Storage では、ストレージの待機時間が短く、一貫性が高く、さまざまなオブジェクト サイズにわたる読み取り操作と書き込み操作の両方に対して低く一貫性のあるストレージ応答時間が提供され、特に小さな BLOB サイズの処理に優れた機能を備えています。 アプリケーションをストレージ アカウントと同じ Azure リージョン内のコンピューティング インスタンスにデプロイして、エンドツーエンドで低遅延を実現する必要があります。 パフォーマンスの詳細については、「ブロック BLOB プレミアム&ldquo;ブロック Storage新しいレベル<a href="https://azure.microsoft.com/en-us/blog/premium-block-blob-storage-a-new-level-of-performance/" target="_blank">のパフォーマンス」を参照してください</a>。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22d15540-af76-4a5e-9040-4eb14b0e0da2.png"><img alt="image" border="0" height="288" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/20d316a2-6579-4d54-95a8-8028b98d6815.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="441"></a></p>
+
+
+  <p align="center"><em>図 1 - プレミアム BLOB の待機時間の比較Storage</em></p>
+
+
+  <p>プレミアム BLOB Storage は Locally-Redundant Storage (LRS) で使用できます。High-Throughput ブロック BLOB (HTBB) が付属しています。これは、256 KB を超えるブロック BLOB を取り込むときに非常に高く、瞬時に書き込むスループットを提供します。</p>
+
+
+  <h2>価格とリージョンの可用性</h2>
+
+
+  <p>プレミアム Blob Storageストレージ コストは高くなりますが、通常のホット層に格納されているデータと比較してトランザクション コストは低くなります。 これにより、コスト効率が向上し、トランザクション レートが高いワークロードではコストが低くなります。 詳細については、 <a href="https://azure.microsoft.com/en-us/pricing/details/storage/blobs/" target="_blank">価格に関する</a> ページを参照してください。</p>
+
+
+  <p>プレミアム BLOB Storage は、米国東部、米国東部 2、米国中部、米国西部、米国西部 2、北ヨーロッパ、西ヨーロッパ、東日本、オーストラリア東部、韓国中部、東南アジアのリージョンで最初に使用できます。リージョンが多い場合。 Azure グローバル インフラストラクチャ ページを <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=storage&amp;regions=all" target="_blank">使用して、</a> リージョンの可用性を最新の情報にしてください。</p>
+
+
+  <h2>プラットフォームの相互運用性</h2>
+
+
+  <p>現時点では、プレミアムに格納されているデータを、ホット、クール、アーカイブのアクセス層に階層化することはできません。 今後、オブジェクトの階層化のサポートに取り組む予定です。 データを移動するには、この API をサポートする新しい <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/put-block-from-url" target="_blank">PutBlockFromURL</a> <a href="https://github.com/seguler/PutBlockFromURL_sample/blob/master/PutBlockFromURL/Program.cs" target="_blank">API (サンプル</a> コード) または <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10" target="_blank">AzCopy v10</a> を使用して、BLOB を同期的にコピーできます。 PutBlockFromURL は、データ サーバー側を同期的にコピーします。これは、すべてのデータ移動がデータ サーバー内で行Azure Storage。</p>
+
+
+  <p>さらに、<a href="https://docs.microsoft.com/en-us/rest/api/storageservices/about-storage-analytics-logging" target="_blank">Storage Analytics ログ</a>、<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website" target="_blank">静的 Web</a> サイト、ライフサイクル管理 (プレビュー<a href="https://azure.microsoft.com/en-us/blog/azure-blob-storage-lifecycle-management-public-preview/" target="_blank">)</a> は、現在、Blob プレミアム ではStorage。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>プレミアム Blob Storage の使用を開始するには、サブスクリプションにブロック BLOB ストレージ アカウント<a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-create-account-block-blob" target="_blank"></a>をプロビジョニングし、既存の <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/blob-service-rest-api" target="_blank">BLOB サービス REST API</a> や <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy" target="_blank">AzCopy</a> や Azure Storage Explorer などの既存のツールを使用してコンテナーと BLOB の作成<a href="https://azure.microsoft.com/en-us/features/storage-explorer/" target="_blank">を開始</a>します。</p>
+
+
+  <p>低く一貫した待機時間で Azure プレミアム Blob Storage <a href="mailto:premiumblobfeedback@microsoft.com">premiumblobfeedback@microsoft.com</a>を配信し、 でフィードバックをお待ちしております。 Blob Storageについては、製品ページを<a href="https://azure.microsoft.com/en-us/services/storage/blobs/" target="_blank">参照してください</a>。</p>

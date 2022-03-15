@@ -1,0 +1,120 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dfef5d53bcb2ca6e371d80b007c454e48a43ad91
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896343"
+Slug: video-summarization-on-azure-media-analytics
+Title: ビデオの概要Azure Media Analytics
+Summary: Azure Media Video Thumbnails短い一連のクリップまたはビデオの "ハイライト" を作成できます。
+Content: >-
+  <p><i><strong>メモ：</strong> 次のブログ記事では、 のコンポーネントについて説明Azure Media Analytics。詳細を確認し、開始する方法については、Azure Media Analytics の入門ブログ <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-media-analytics" target="_blank">記事を参照してください</a>。</i></p>
+
+
+  <p><span style="line-height: 1; font-size: 1.23em; font-weight: normal;">Video Thumbnails</span></p>
+
+
+  <p>このページでビデオを検索Bing?&nbsp;ビデオ結果ページの&ndash;&ldquo;&rdquo;最大の機能の 1 つは、結果にマウス ポインターを合わせると、サムネイルの代わる短い概要ビデオが再生されます。</p>
+
+
+  <p>Azure Video Thumbnails Media Processor &ldquo;&rdquo; を使用すると、ビデオの短い一連のクリップやハイライトを次のように作成できます。&nbsp;&nbsp;これらのモーション サムネイルを使用して、短い 5 秒のビデオ プレビューを作成し、前に説明したようにポータルでビデオのサムネイルにマウス ポインターを合わせるとユーザーを表示したり、長い講演のためにサブクリップを 5 分生成したりすることもできます。ビデオ サムネイル メディア プロセッサのパラメーターを調整することで、強力なショット検出と連結テクノロジを使用して、わかりやすいサブクリップをアルゴリズムで生成できます。&nbsp;モーション サムネイル メディア プロセッサで実行できる操作の例を次に示します。</p>
+
+
+  <h3>元のビデオとモーションサムネイルの結果</h3>
+
+
+  <p><iframe align="center" allowfullscreen="" frameborder="no" height="280" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=https%3A%2F%2Fnimbuscdn-nimbuspm.streaming.mediaservices.windows.net%2Faed33834-ec2d-4788-88b5-a4505b3d032c%2FMicrosoft%27s%20HoloLens%20Live%20Demonstration.ism%2Fmanifest&amp;autoplay=false" width="500"></iframe></p>
+
+
+  <p><iframe align="center" allowfullscreen="" frameborder="no" height="280" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=http%3A%2F%2Fnimbuscdn-nimbuspm.streaming.mediaservices.windows.net%2Ff5c91052-4232-41d4-b531-062e07b6a9ae%2FHololens%2520Demo_VideoThumbnails_MotionThumbnail.mp4&amp;format=video%2Fmp4&amp;autoplay=false" width="500"></iframe></p>
+
+
+  <p style="font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">現在、パブリック プレビュー用の Azure Video Thumbnail Media Processor を、期間限定で無料<strong style="font-size: 13px;"></strong>でお知らせする準備ができました。</p>
+
+
+  <p>上記のビデオは、既定の設定と最も単純な JSON 構成で処理されました。</p>
+
+
+  <pre class="prettyprint">
+
+  {&quot;version&quot;:&quot;1.0&quot;}
+
+  </pre>
+
+
+  <p>既定値が最適でない&rsquo;場合は、構成プリセットを準備することで、いくつかの異なるハンドルを使用できます。 この無料パブリック プレビュー リリースでは、次の&nbsp;パラメーターを調整できます。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="562">
+      <tbody>
+          <tr>
+              <td valign="top" width="137">outputAudio</td>
+              <td valign="top" width="423">True または False。 は、結果のビデオにオーディオが含まれるかどうかを指定します。&nbsp; 既定値は True です。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="137">fadeInFadeOut</td>
+              <td valign="top" width="423">True または False。 は、個別のモーション サムネイル間でフェード遷移を使用するかどうかを指定します。&nbsp; 既定値は True です。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="137">maxMotionThumbnailDurationInSecs</td>
+              <td valign="top" width="423">整数。 は、結果のビデオ全体がどのくらいの期間になるのか指定します。&nbsp; 既定値は、元のビデオの再生時間によって異なります。</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>関連&rsquo;付けられた構成プリセットと共に、10 秒の強調表示の例を次に示します。</p>
+
+
+  <pre class="prettyprint">
+
+  {
+      &ldquo;version&rdquo;: &ldquo;1.0&rdquo;,
+      &ldquo;options&rdquo;: {
+          &ldquo;outputAudio&rdquo;: &ldquo;true&rdquo;,
+          &ldquo;maxMotionThumbnailDurationInSecs&rdquo;: &ldquo;30&rdquo;,
+          &ldquo;fadeInFadeOut&rdquo;: &ldquo;false&rdquo;
+      }
+  }
+
+  </pre>
+
+
+  <p><iframe align="center" allowfullscreen="" frameborder="no" height="280" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=http%3A%2F%2Fnimbuscdn-nimbuspm.streaming.mediaservices.windows.net%2Fd06f24dc-bc81-488e-a8d0-348b7dc41b56%2FHololens%2520Demo_VideoThumbnails_MotionThumbnail.mp4&amp;format=video%2Fmp4&amp;autoplay=false" width="500"></iframe></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>Azure Video Thumbnails の使用を開始するには、次の Media Analytics 2 つの部分を含<a href="https://azure.microsoft.com/en-us/blog/introducing-azure-media-analytics" target="_blank"></a>む Media Analyticsの入門ブログ記事のサンプル プロジェクトを使用します。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="400">
+      <tbody>
+          <tr>
+              <td valign="top" width="200">タスクの構成</td>
+              <td valign="top" width="200">
+              <pre class="prettyprint">
+  {
+      &#39;version&#39;: &#39;1.0&#39;,
+      &#39;options&#39;: {
+          &#39;outputAudio&#39;: &#39;true&#39;,
+          &#39;maxMotionThumbnailDurationInSecs&#39;: &#39;10&#39;,
+          &#39;fadeInFadeOut&#39;: &#39;true&#39;
+      }
+  }</pre>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="200">メディア プロセッサ名</td>
+              <td valign="top" width="200">&ldquo;Azure Media Video Thumbnails&rdquo;</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>詳細については、次のAzure Media Analytics。 入門ブログ <a href="https://azure.microsoft.com/en-us/blog/introduce-azure-media-analytics" target="_blank">の投稿をご覧ください</a>。</p>
+
+
+  <p>ビデオ サムネイルに関する質問やコメントはありますか? までお問い合わせください <a href="mailto:amsanalytics@microsoft.com" target="_blank">amsanalytics@microsoft.com</a>。</p>

@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ebb106b956fa132271afc3f9b05cf92967652f89
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896427"
+Slug: new-deploy-to-azure-extension-for-visual-studio-code
+Title: 新しい Deploy to Azure extension for Visual Studio Code
+Summary: 'DevOps 手法を採用する組織およびチームは、高品質のコードを配信する機能の向上と、リリースサイクルの高速化によって一貫して改善されています。また、最終的には、内部と外部のどちらであるかにかかわらず、顧客の満足度を高めることができます。 '
+Content: >-
+  <p>DevOps 手法を採用する組織およびチームは、高品質なコードを配信する機能の向上と、リリースサイクルの高速化によって一貫して改善されています。また、内部でも外部でも &rsquo; 、お客様にとっては高いレベルの満足度を実現します。 継続的インテグレーションと継続的デリバリー (CI/CD) は、DevOps の柱の1つであり、アプリケーションを自動的にビルド、テスト、展開することができますが、完全な CI/cd パイプラインを設定することは複雑なタスクになる可能性があります。</p>
+
+
+  <p>現時点で &rsquo; は、 <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>用<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-deploy-azure.azure-deploy" target="_blank">にデプロイの Azure</a>拡張機能の起動を共有し直しています。 この新しい拡張機能により、Visual Studio Code で作業している開発者は、エディターを離れずに、継続的な方法でアプリをシームレスに作成、ビルド、デプロイできます。</p>
+
+
+  <h2>Azure 拡張機能へのデプロイ</h2>
+
+
+  <p>Deploy to Azure extension は、 <a href="https://github.com/features/actions" target="_blank">GitHub アクション</a>と<a href="https://azure.com/pipelines" target="_blank">Azure Pipelines</a>の両方で動作します。 開発者は、Azure を使用してアプリを構築してクラウドにデプロイする処理を行う CI/CD パイプライン定義を自動生成することで、開発者に役立ちます。 deploy to Azure extension を使用して、ローカルシステムに存在するアプリケーションコード、または Azure Repos または GitHub に配置できます。 今後、スコープを他の Git リポジトリに拡張する予定です。</p>
+
+
+  <p>この拡張機能を使用して、すべてのコードプッシュに CI/CD パイプラインを設定できます。 これにより、自動生成され、完全にカスタマイズ可能な CI/CD パイプラインが提供されます。このパイプラインは、GitHub アクションまたは Azure Pipelines のいずれかに対して書式設定された yaml ファイルで定義されています。 YAML ファイルには、ビルドタスクとリリースタスクがあらかじめ設定されています。これらのタスクは、開発者が必要に応じて編集できます。</p>
+
+
+  <p>また、このワークフローでは、関連する Azure 関連の構成、およびリポジトリ関連の構成と共に Azure Pipelines と GitHub を設定しています。システムの組み込みについて心配する必要はありません。</p>
+
+
+  <h2>インストールと使用状況</h2>
+
+
+  <p>Deploy to Azure extension は、 <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-deploy-azure.azure-deploy" target="_blank">Visual Studio Code Marketplace</a>から無料でダウンロードできます。 インストールが完了したら、 <strong>コマンドパレット</strong> (Ctrl + p または Cmd + p) &gt; から Azure へのデプロイ: パイプラインの構成を行うことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be3aff2e-c588-436e-8767-a8496b922013.gif"><img alt="Deploy to Azure animated  visualizatoin " border="0" height="338" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8fd83624-c140-4bcc-9bbb-b48b7cfd44cf.gif" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="600"></a></p>
+
+
+  <p>パイプライン作成ワークフローを実行すると、拡張機能によってアプリケーション &rsquo; のコードが検査され、プロジェクト用に最適化されたパイプラインが生成されます。</p>
+
+
+  <p>この最初のリリースでは、Visual Studio Code の [Azure へのデプロイ] 拡張機能によって、Node.js ベースのアプリを Azure App Service または Azure Functions アプリにデプロイするパイプラインの生成と、Azure Kubernetes Service へのコンテナー化されたアプリケーション (dockerfile) の作成がサポートされています。</p>
+
+
+  <p>&rsquo;他の言語のワークフローを作成するためのサポートの追加、Python、およびその他の Azure リソースに取り組んでいます。 さらに、他の Git リポジトリプロバイダーのサポートをロールアウトします。現在提供されている GitHub と Azure Repos に加えて、 &rsquo; BitBucket やその他の場所でのソースコードのサポートに取り組んでいます。</p>
+
+
+  <p>また、他の Git リポジトリプロバイダーのサポートをロールアウトします。現在提供されている GitHub と Azure Repos に加えて、 &rsquo; BitBucket やその他の場所でのソースコードのサポートに取り組んでいます。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-deploy-azure.azure-deploy" target="_blank">拡張機能をインストール</a>すると、すぐに作業を開始できます。 次に、CI/CD パイプラインをアプリに追加し、継続的にクラウドにデプロイします。</p>
+
+
+  <p>この拡張機能についてご意見、ご感想をお寄せください。また、お客様がワークフローにどのように役立つか、およびエクスペリエンスを向上させるためにできることをお知らせください。 GitHub の拡張機能 &rsquo; の<a href="https://github.com/Microsoft/vscode-deploy-azure" target="_blank">プロジェクトページ</a>で、microsoft に接続できます。</p>

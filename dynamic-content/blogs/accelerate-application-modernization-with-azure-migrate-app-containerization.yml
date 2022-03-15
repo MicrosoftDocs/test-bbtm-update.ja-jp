@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4ea45a3f8e91b3d2d2c228e80e79f1668e53ba04
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890998"
+Slug: accelerate-application-modernization-with-azure-migrate-app-containerization
+Title: 'Azure Migrate を使用してアプリケーションのモダン化を加速する: アプリ コンテナー化'
+Summary: 'クラウド中心のビジネス変革をコンシューマライゼーションにして、よりアジャイルで運用効率を高める組織にとって、アプリケーションの最新化は、これらの目標を実現するために非常に役立ちます。 このブログでは、アプリケーションを Azure に移行するときに、Azure Migrate: App コンテナー化 tool を使用してアプリケーションの最新化を促進する方法について説明します。'
+Content: >-
+  <p>クラウド中心のビジネス変革をコンシューマライゼーションにして、よりアジャイルで運用効率を高める組織にとって、アプリケーションの最新化は、これらの目標を実現するために非常に役立ちます。 このブログでは、アプリケーションを Azure に移行するときに、 <a href="https://aka.ms/AzureMigrate/Containerize" target="_blank">Azure Migrate: &nbsp; App コンテナー化</a> tool を使用してアプリケーションの最新化を促進する方法について説明します。</p>
+
+
+  <p>Azure では、サービスとしてのインフラストラクチャ (IaaS)、サービスとしてのプラットフォーム (PaaS)、サービスとしてのコンテナー (CaaS)、サーバーレスといったさまざまなホストオプションから柔軟に選択することができます。 Azure App Service や Azure Kubernetes Service (AKS) などの azure サービスは、アプリケーション開発者が最も重要なビジネス上の問題の解決に専念するのに役立ちます。 組み込みのインフラストラクチャメンテナンス、セキュリティ修正プログラム、およびスケーリングを使用する Azure App Service は、web ベースのアプリケーションを実行するための専用のプラットフォームです。 Azure App Service は、最も一般的なアプリケーションフレームワークをネイティブでサポートしています。また、カスタム Windows または Linux コンテナーを使用して、コンテナー化されたアプリケーションを実行することもできます。 AKS は、インフラストラクチャをより細かく制御する必要がある場合に、コンテナー化されたアプリケーションを実行するための最適な選択肢です。</p>
+
+
+  <p>コンテナーは、最新のアプリケーションを構築および管理するために非常によく使用されています。 アプリケーションをコンテナーとしてデプロイすると、アプリケーションの所有者と IT の意思決定者は、環境全体で一貫性のある、信頼性の高い、反復可能なデプロイを実現できます。 さらに、問題をより明確に分離することにより、インフラストラクチャ使用率の向上と管理プラクティスの標準化も含まれます。 マイクロサービスアーキテクチャを使用するように設計された分散アプリケーションだけでなく、重要な変更を加えずに再プラットフォームする他のアプリケーションでも、コンテナーをアプリケーションの展開の単位として使用することが増えています。 再 platforming は、多くの場合、アプリケーションの最新化を着手する前の最初の手順です。 多くの場合、アプリケーションを完全に再設計またはリファクタリングする必要がない場合や、アプリケーションのリファクタリングが必要でない場合は、多くの場合、コンテナーを再プラットフォームすることをお勧めします。</p>
+
+
+  <p>今年前半の Microsoft Ignite では、アプリを簡単にコンテナー化して AKS に移行できるようにするために、Azure Migrate: App コンテナー化ツールのプレビューを発表しました。 お &rsquo; 送りしたフィードバックに基づいて、プレビューに対する複数の機能強化が発表されました。</p>
+
+
+  <h2>Azure Migrate を使用したアプリケーションの再パッケージ化: App コンテナー化</h2>
+
+
+  <p>App コンテナー化 tool は、ポイントアンドコンテナー化アプローチを提供して、アプリケーションの実行状態を使用して、最小限のコード変更を加えることなく、アプリケーションをコンテナーとして再パッケージ化します。 現在、このツールは、Apache Tomcat で実行されているコンテナー化 ASP.NET アプリケーションと Java web アプリケーションをサポートしています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f55ca690-0a99-48ce-a3aa-902a037280f8.jpg"><img alt="Modernization capabilities of Azure Migrate: App Containerization" border="0" height="570" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d42a92ec-759a-42fc-9849-1eb8e681b2c0.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Migrate の最新化機能: アプリコンテナー化" width="1085"></a></p>
+
+
+  <p><em><strong>図 1:</strong> Azure Migrate の最新化機能: アプリコンテナー化</em></p>
+
+
+  <p>このツールを使用すると、次のことができます。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li>スタンドアロンアプリコンテナー化ユーティリティを使用してアプリケーションとその構成を検出するには、アプリケーションサーバーにリモート接続します。</li>
+      <li>アプリケーションの構成と依存関係 (データベース接続文字列など) をパラメーター化して、一貫性のある繰り返し可能なデプロイを実現します。</li>
+      <li>外部化静的コンテンツとアプリケーションの状態を永続ストレージに移動することによって、ファイルシステムに保存します。</li>
+      <li>Azure Container Registry タスクを使用して、コンテナーイメージをビルドして発行します。</li>
+      <li>2日の操作のために、Dockerfiles、container images、Kubernetes リソース定義ファイルなどのツールで生成されたアーティファクトをカスタマイズして再利用し、継続的インテグレーションと継続的デリバリー (CI/CD) パイプラインに直接統合します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/48df2ab2-59a5-4704-a342-44a17a98ac18.jpg"><img alt="Downloadable and reusable artifacts for Day 2 operations" border="0" height="683" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5119ffd3-a1ef-491b-aa33-6f6634e64aec.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="2日目の操作のためにダウンロードして再利用可能なアーティファクト" width="1024"></a></p>
+
+
+  <p><em><strong>図 2:</strong> 2日目の操作のためにダウンロードして再利用可能なアーティファクト</em></p>
+
+
+  <h2>アプリケーションの展開と管理に関する新しい拡張機能</h2>
+
+
+  <p>ツールの最新リリースでは、次のことが可能になりました。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li>コンテナー化されたアプリケーションを Azure App Service コンテナーまたは AKS に配置します。</li>
+      <li>Azure Key Vault を使用して、証明書やパラメーター化された構成などのアプリケーションシークレットを管理します。 また、Kubernetes シークレットを使用するか、アプリケーション設定を Azure App Service してシークレットを管理することもできます。</li>
+      <li>Java アプリのアプリケーション監視を Azure アプリケーションインサイトと自動的に統合します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb50f974-fd06-42cb-aa2b-e4dec0cb5fb8.jpg"><img alt="Automatically enable application monitoring with Azure Application Insights" border="0" height="683" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9af1309-2cfa-49d7-8739-7e87a5fce2ce.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure アプリケーションインサイトを使用したアプリケーションの監視を自動的に有効にする" width="1024"></a></p>
+
+
+  <p><em><strong>図 3:</strong>Azure アプリケーションインサイトを使用したアプリケーションの監視を自動的に有効にする</em></p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>これらの機能強化により&#39;、コンテナー化されていないアプリケーションをコンテナー化し、Azure に移行しやすくなりました。 Azure Migrate: App コンテナー化 tool は、アプリケーションを再プラットフォーム化し、Azure を使用して最新化を促進するテンプレート化プロセスを提供します。 今すぐ試してみてください。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li><a href="https://aka.ms/migrate/containerization/aspnet" target="_blank">ASP.NET アプリケーションのコンテナー化と AKS への移行</a></li>
+      <li><a href="https://aka.ms/migrate/containerization/java" target="_blank">Java web アプリケーションをコンテナー化して AKS に移行する</a></li>
+      <li><a href="https://aka.ms/migrate/containerization/aspnet/appservice" target="_blank">ASP.NET アプリケーションのコンテナー化と Azure App Service への移行</a></li>
+      <li><a href="https://aka.ms/migrate/containerization/java/appservice" target="_blank">Azure App Service に Java web アプリケーションをコンテナー化して移行する</a></li>
+  </ul>
+
+
+  <p>&rsquo;ご意見をお寄せください。 <a href="https://aka.ms/appcontainerization/survey" target="_blank">このフォームを使用</a>して、ご意見をお聞かせください。</p>

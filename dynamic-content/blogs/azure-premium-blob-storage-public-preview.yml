@@ -1,0 +1,147 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 32c1fadb89cdd2657707902a4d8ba1454232ccc3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896541"
+Slug: azure-premium-blob-storage-public-preview
+Title: Azure プレミアム Blob Storage パブリック プレビュー
+Summary: 本日は、Azure プレミアム Blob Storage のパブリック プレビューをお知らせします。 プレミアム ブロック BLOB は、Azure Blob Storage の新しいパフォーマンス レベルであり、既存のホット層、クール 層、アーカイブ 層を改善します。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">2019 年 3 月 25 日に、Azure プレミアム ブロック BLOB Storage一般提供されました。 詳細については、ブログ記事&ldquo;「<a href="https://azure.microsoft.com/en-us/blog/azure-premium-block-blob-storage-is-now-generally-available/">Azure プレミアム Block Blob Storage一般提供中」を参照してください</a>。&rdquo;</div>
+
+
+  <p>本日は、Azure プレミアム Blob Storage のパブリック プレビューをお知らせします。 プレミアム Blob Storage は、Azure Blob Storage の新しいパフォーマンス レベルであり、既存のホット層、クール層、アーカイブ層を<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers">満足させます</a>。 プレミアム BLOB Storage は、トランザクション レートが高いワークロードや、IoT、テレメトリ、AI、対話型ビデオ編集、Web コンテンツ、オンライン トランザクションなどのループ内の人間とのシナリオなど、非常に高速なアクセス時間を必要とするワークロードに最適です。</p>
+
+
+  <p>このテストでは、平均と 99 番目の両方の割合のサーバー待機時間がホット アクセス層よりも大幅に短く、さまざまなオブジェクト サイズにわたる読み取りと書き込みの両方に対して、より高速で一貫性のある応答時間を提供します。 アプリケーションをストレージ アカウントと同じ Azure リージョン内のコンピューティング インスタンスにデプロイして、エンドツーエンドの待機時間を短くする必要があります。 詳細については、「Blob プレミアム &ldquo;<a href="https://azure.microsoft.com/en-us/blog/premium-block-blob-storage-a-new-level-of-performance/">Storage- 新しいレベルのパフォーマンス」を参照してください</a>。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/555fe18d-e5a6-4cf7-a889-3acbc0dd1438.png"><img alt="Graph of Latency comparison of Premium and Standard Blob Storage" border="0" height="288" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/586f1a48-f73c-41db-88af-1fab22a20fc9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="450"></a></p>
+
+
+  <p align="center"><em>図 1 - プレミアム BLOB の待機時間の比較Storage</em></p>
+
+
+  <p>プレミアム BLOB Storage は、一部のリージョンで Locally-Redundant Storage (LRS)、Zone-Redundant Storage (ZRS) で使用できます。また、256 KB を超えるブロック BLOB を取り込む際に非常に高く瞬時に書き込むスループットを提供する High-Throughput ブロック BLOB (HTBB) が付属しています。</p>
+
+
+  <p>ブロック BLOB と追加 BLOB は、ブロック BLOB プレミアム格納Storage。 プレミアム BLOB Storage <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers">&lsquo;&rsquo;</a> を使用するには、サブスクリプションに新しいブロック BLOB ストレージ アカウントをプロビジョニングし (詳細については以下を参照)、既存の BLOB <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/blob-service-rest-api">サービス REST API</a> や <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy">AzCopy</a> や Azure Storage Explorer などの既存のツールを使用してコンテナーと BLOB の作成<a href="https://azure.microsoft.com/en-us/features/storage-explorer/">を開始</a>します。</p>
+
+
+  <h2>価格とリージョンの可用性</h2>
+
+
+  <p>プレミアム Blob Storageストレージ コストは高くなりますが、通常のホット層に格納されているデータと比較してトランザクション コストは低くなります。 これにより、コスト効率が高く、トランザクション レートが非常に高いワークロードではコストが低くなります。 詳細については、 <a href="https://azure.microsoft.com/en-us/pricing/details/storage/blobs/">価格に関するページ</a>&nbsp;と <a href="https://azure.microsoft.com/en-us/blog/reducing-overall-storage-costs-with-azure-premium-blob-storage/" target="_blank">このブログの</a>&nbsp;投稿を参照してください。</p>
+
+
+  <p>プレミアム Blob Storage パブリック プレビューは、米国東部、米国東部 2、米国中部、米国西部、米国西部 2、北&nbsp;ヨーロッパ、西ヨーロッパ、東日本、オーストラリア東部、韓国中部、東南アジアのリージョンで利用できます。</p>
+
+
+  <h2>オブジェクトの階層化</h2>
+
+
+  <p>現時点では、プレミアム格納されているデータは、ホット、クール、アーカイブのアクセス層に階層化することはできません。 今後、オブジェクトの階層化のサポートに取り組む予定です。 データを移動するには、この API をサポートする新しい <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/put-block-from-url">PutBlockFromURL</a> <a href="https://github.com/seguler/PutBlockFromURL_sample/blob/master/PutBlockFromURL/Program.cs">API (サンプル</a> コード) または <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10">AzCopy v10</a> を使用して、BLOB を同期的にコピーできます。 PutBlockFromURL は、データ サーバー側を同期的にコピーします。つまり、呼び出しが完了するとデータのコピーが完了し、すべてのデータ移動が Azure Storage 内で行います。&nbsp;</p>
+
+
+  <h2>ストレージ アカウントを作成する方法 (Azure portal)</h2>
+
+
+  <p>Azure Portal を使用してブロック BLOB ストレージ アカウントを作成するには、[ストレージ アカウント&lsquo;&rsquo;の作成] ブレードに移動し、次の情報を入力します。</p>
+
+
+  <ul>
+      <li>[ <strong>場所]</strong> で、サポートされているリージョンのいずれかを選択します</li>
+      <li>[パフォーマンス<strong>] で</strong> 、次のプレミアム</li>
+      <li>[<strong>アカウントの種類] で</strong>、[ブロック BLOB Storage (プレビュー) を選択します。</li>
+  </ul>
+
+
+  <p>次に例を示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3293135e-4d48-4182-93de-ff820248a433.png"><img alt="Screenshot of creating a storage account" border="0" height="682" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb3fbcfa-78e5-4562-ba8d-90daa35aa062.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>アカウントを作成したら、SAS toke の生成、メトリックの確認など、プレミアム Blob Storage アカウントを管理できます。</p>
+
+
+  <h2>ストレージ アカウントを作成する方法 (PowerShell)</h2>
+
+
+  <p>ブロック BLOB アカウントを作成するには、まず PowerShell AzureRm をインストールする必要があります。Storage プレビュー モジュール。</p>
+
+
+  <p>手順 1: 最新バージョンの PowerShellGet がインストールされていることを確認します。</p>
+
+
+  <pre>
+
+  Install-Module PowerShellGet &ndash;Repository PSGallery &ndash;Force</pre>
+
+
+  <p>手順 2: 新&nbsp;しい PowerShell コンソールを開き、AzureRm.Storage モジュールをインストールします。</p>
+
+
+  <pre>
+
+  Install-Module Az.Storage &ndash;Repository PSGallery -RequiredVersion 1.1.1-preview &ndash;AllowPrerelease &ndash;AllowClobber &ndash;Force</pre>
+
+
+  <p>手順 3: 新しい PowerShell コンソールを開き、Azure アカウントでログインします。</p>
+
+
+  <pre>
+
+  Connect-AzAccount</pre>
+
+
+  <p>PowerShell プレビュー モジュールが配置された後は、ブロック BLOB ストレージ アカウントを作成できます。</p>
+
+
+  <pre>
+
+  New-AzStorageAccount -ResourceGroupName &lt;resource group&gt; -Name &lt;accountname&gt; -Location &lt;region&gt; -Kind &quot;BlockBlobStorage&quot; -SkuName &quot;Premium_LRS&quot;</pre>
+
+
+  <h2>ストレージ アカウントを作成する方法 (Azure CLI)</h2>
+
+
+  <p>ブロック BLOB アカウントを作成するには、最初に仮想マシンをインストール <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI</a> があります。 2.0.46 以降</p>
+
+
+  <p>手順 1: サブスクリプションにログインする</p>
+
+
+  <pre>
+
+  az login</pre>
+
+
+  <p>手順 2: storage-preview 拡張機能を追加する</p>
+
+
+  <pre>
+
+  az extension add -n storage-preview</pre>
+
+
+  <p>手順 3: ストレージ&nbsp; アカウントを作成する</p>
+
+
+  <pre>
+
+  az storage account create --location &lt;location&gt; --name &lt;accountname&gt; --resource-group &lt;resource-group&gt; --kind &quot;BlockBlobStorage&quot; --sku &quot;Premium_LRS&quot;</pre>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>フィードバックをお寄せください <a href="mailto:premiumblobfeedback@microsoft.com">premiumblobfeedback@microsoft.com</a>。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>プレミアム Blob Storage を使用して低く一貫した待機時間で Azure Blob Storage を提供し、フィードバックをお待ちしております。 Blob Storageについては、製品ページを<a href="https://azure.microsoft.com/en-us/services/storage/blobs/">参照してください</a>。 また、より多くの更新プログラムについては <a href="https://www.twitter.com/ClausJor">、自由に Twitter</a> に従ってください。</p>

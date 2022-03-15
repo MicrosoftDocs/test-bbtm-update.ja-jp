@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 84ae79b70d974be88be39e820a452e5d2be54118
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895994"
+Slug: elasticsearch-on-azure-guidance
+Title: Azure での Elasticsearch の実行に関するガイダンス
+Summary: Microsoft Patterns & プラクティスグループでは、Elasticsearch の実装に関するガイダンスを提供し、お客様が直面している多くの課題とその対処方法について説明しています。
+Content: >-
+  <p><a href="https://www.elastic.co/products/elasticsearch" target="_blank">Elasticsearch</a> は、スケーラブルなオープンソースの検索エンジンとデータベースで、クラウドベースのシステムを構築する開発者の間で人気が高まっています。 適切に構成されていれば、大量のデータを非常に高速に取り込みして効率的にクエリを実行することができます。</p>
+
+
+  <p>Elasticsearch クラスターを構築して Azure にデプロイすること &rsquo; は、合理的に簡単です。 Windows または Linux vm のセットを作成してから、適切な Elasticsearch パッケージをダウンロードして各 vm にインストールすることができます。 または、Azure portal で使用できる <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/elasticsearch" target="_blank">ARM テンプレート</a> を発行して、プロセスの多くを自動化しました。</p>
+
+
+  <p>Elasticsearch は高度な構成が可能ですが &rsquo; 、多くのシステムでは、パフォーマンスが低下するオプションが選択されています。 その理由の1つは、最適なスループットと応答性の高いシステムを実現するために、次のような多くの要因を考慮する必要があることです。</p>
+
+
+  <ul>
+      <li>クラスタートポロジ (クライアントノード、マスターノード、データノード)</li>
+      <li>各インデックスの構造 (指定するシャードとレプリカの数)</li>
+      <li>仮想ハードウェア (ディスクの容量と速度、メモリの容量、Cpu の数)</li>
+      <li>各クラスターでのリソースの割り当て (ディスクレイアウト、Java 仮想マシンメモリ使用量、Elasticsearch キューとスレッド、i/o バッファー)</li>
+  </ul>
+
+
+  <p>実行中のワークロードの性質もシステムのパフォーマンスに大きな影響を与えるため、これらの項目を分離して考慮することはできません。 データインジェスト用に最適化されたインストールは、クエリに対して適切に調整されない場合もあれば、その逆の場合もあります。 そのため、システムでサポートする必要のあるさまざまな操作の要件を調整する必要があります。 これらの理由から、多数のテストを実行し、結果を分析するために、一連の構成の作業にかなりの時間を費やしました。</p>
+
+
+  <p>目的は、独自の要件を満たすように Elasticsearch クラスターを設計および構築する方法と、パフォーマンスをテストして調整する方法を示すことでした。 このガイドは、Azure の <a href="https://azure.microsoft.com/en-us/documentation/articles/guidance-elasticsearch/" target="_blank">ドキュメント</a>で利用できるようになりました。 ここでは、一連のドキュメントを紹介しました。</p>
+
+
+  <ul>
+      <li>Elasticsearch に関する一般的なガイダンス。使用可能な構成オプションと、Azure で実行されているクラスターに適用する方法について説明します。</li>
+      <li>高レベルのデータインジェスト操作をサポートする必要がある Elasticsearch クラスターのデプロイ、構成、およびテストに関する具体的なガイダンス</li>
+      <li>混合ワークロードやクエリ集中型システムをサポートする必要がある Elasticsearch システムのガイダンスと考慮事項</li>
+  </ul>
+
+
+  <p><a href="https://jmeter.apache.org/" target="_blank">Apache JMeter</a>を使用してパフォーマンステストを実施し、Java を使用して記述された JUnit テストを組み込みました。 その後、パフォーマンスデータを一連の CSV ファイルとしてキャプチャし、Excel 使用して結果をグラフ化および分析します。 また、 <a href="https://www.elastic.co/products/marvel" target="_blank">Elasticsearch Marvel</a> を使用して、テストの実行中にシステムを監視しました。</p>
+
+
+  <p>独自のセットアップでこれらのタスクを繰り返すように&#39;する場合は、独自の JMeter テスト環境を作成し、Elasticsearch からパフォーマンス情報を収集する方法と、JMeter テストを実行するためのスクリプトを提供する方法を <a href="https://azure.microsoft.com/en-us/documentation/articles/guidance-elasticsearch/" target="_blank">説明して</a> います。</p>

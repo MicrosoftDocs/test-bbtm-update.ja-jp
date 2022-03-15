@@ -1,0 +1,52 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 99a053a002585cdcf2a123c35bf6c039784e966a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896599"
+Slug: azure-container-registry-preview-of-customer-managed-keys
+Title: 'Azure Container Registry: カスタマー マネージド キーのプレビュー'
+Summary: Azure Container Registryチームは、保存データ暗号化のためのカスタマー マネージド キー (CMK) のプレビューを共有しています。
+Content: >-
+  <p>このAzure Container Registryチームは、保存データ暗号化のためのカスタマー マネージド キーのプレビューを共有しています。 Azure Container Registryキーを使用して保存データ <a href="https://docs.microsoft.com/azure/security/fundamentals/encryption-atrest#data-encryption-models" target="_blank">を既に暗号化しています</a>。 カスタマー マネージド キーを導入&nbsp;すると、既定の暗号化を追加の暗号化レイヤーで補完できます。このレイヤーでは、ユーザーが作成および管理 <a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">する</a>キーを使用Azure Key Vault。 この追加の暗号化は、会社の規制やコンプライアンス&rsquo;のニーズを満たすのに役立ちます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5c3bcdf-52d4-4d05-bc15-b59680a545c7.png" style="font-size: 13.008px;"><img alt="Figure 1: Create Container Registry with customer-managed keys encryption enabled" border="0" height="1130" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f44a8e60-0a0b-4d5e-9107-edf2056e81e6.png" style="border-color: currentcolor; border-image: none 100% / 1 / 0 stretch; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="" width="1387"></a></p>
+
+
+  <p>Azure Container Registry暗号化は、 と統合してサポート <a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">Azure Key Vault</a>。 独自の暗号化キーを作成して Key Vault に格納するか、Azure Key Vault <a href="https://docs.microsoft.com/en-us/cli/azure/keyvault?view=azure-cli-latest" target="_blank">API</a> を使用して暗号化キーを生成できます。 Azure Key Vault を使用してキー使用法を監査することもできます。</p>
+
+
+  <p>プレビュー期間中は、カスタマー マネージド キーを有効にできるのは、プレミアム SKU で新しいレジストリを作成している間のみです。 既存のレジストリで機能を有効または無効にする機能は、今後のリリースで使用できます。</p>
+
+
+  <p>このリリースでは、カスタマー マネージド キーが有効なレジストリで次のシナリオを試しに行えます。</p>
+
+
+  <ol>
+      <li>暗号化キーをローテーションするには、Azure portal Azure コマンド ライン インターフェイス (CLI) を使用します。</li>
+      <li>geo レプリケートされたレジストリとVirtual Network統合がサポートされています。</li>
+      <li>組み込みのアプリケーション を使用して、レジストリの暗号化を適用Azure Policy。</li>
+  </ol>
+
+
+  <p>この機能は、Azure Portal または Azure Portal のAzure CLI。 詳細については、ドキュメントを参照 <a href="https://aka.ms/acr/cmk" target="_blank">してください</a>。</p>
+
+
+  <h2>可用性とフィードバック</h2>
+
+
+  <p>現在Azure portalのカスタマー マネージド キーのAzure Container Registry CLI エクスペリエンスはプレビューの中です。 常に、既存の機能と製品ロードマップのアイデアに関するフィードバックをお寄せください。</p>
+
+
+  <p><a href="https://aka.ms/acr/roadmap" target="_blank">ロードマップ</a>: 計画された作業を可視化します。</p>
+
+
+  <p><a href="https://aka.ms/acr/uservoice" target="_blank">UserVoice</a>: 既存の要求に投票するか、新しい要求を作成します。</p>
+
+
+  <p><a href="https://aka.ms/acr/issues" target="_blank">問題</a>: 既存のバグや問題を表示したり、新しいバグや問題をログに記録したりします。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/container-registry/" target="_blank">ACR ドキュメント</a>: チュートリアルAzure Container Registryドキュメントを参照してください。</p>

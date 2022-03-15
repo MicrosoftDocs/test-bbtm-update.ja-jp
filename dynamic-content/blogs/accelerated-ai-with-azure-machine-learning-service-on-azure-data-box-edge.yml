@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e1e0d435055c9239cabddf4bb3cec40e0c045b9b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896564"
+Slug: accelerated-ai-with-azure-machine-learning-service-on-azure-data-box-edge
+Title: Azure Data Box Edge での Azure Machine Learning サービスを使用した AI の高速化
+Summary: '現在発表されている Azure Data Box Edge の一般公開に加えて、Data Box Edge で Azure Machine Learning ハードウェア高速化モデルのプレビューが発表されます。 '
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ecff20db-356d-4ef1-a5c2-390e9de7f18b.png"><img alt="FPGA acceleration at the edge" border="0" height="625" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d729155-a005-4089-a19e-989b3f30be97.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="エッジでの FPGA アクセラレーション" width="2000"></a></p>
+
+
+  <p><a href="https://aka.ms/AnnouncingDataBoxEdgeGA" target="_blank">現在発表</a>されている<a href="https://docs.microsoft.com/en-us/azure/databox-online/data-box-edge-overview" target="_blank">Azure Data Box Edge</a>の一般提供に加えて、Data Box Edge での Brainwave Project によって Azure Machine Learning ハードウェアアクセラレータモデル &nbsp; のプレビューが発表されます。 現実世界のアプリケーションでは、世界 &rsquo; のデータの大部分がエッジで使用されます。 たとえば、工場、小売店、または病院から収集された画像とビデオは、製造欠陥分析、在庫切れの検出、診断に使用されます。 Data Box Edge のデータに機械学習モデルを適用すると、重要なビジネス上の意思決定のためのリアルタイムの洞察と迅速な対応が可能になり、待機時間が短縮され、帯域幅のコストが削減されます。</p>
+
+
+  <p>Azure Machine Learning サービスは、既に一般公開されている、エンドツーエンド、エンタープライズレベル、準拠しているデータサイエンスプラットフォームです。 Azure Machine Learning サービスを使用すると、データ科学者は機械学習モデルの構築、トレーニング、およびデプロイを簡略化および高速化できます。 これらのすべての機能には、PyTorch、scikit-learn などの最新のオープンソースフレームワークを使用して、お気に入りの Python 環境からアクセスします。 これらのモデルは、現在 Cpu と Gpu で実行できますが、このプレビューでは、Data Box Edge のプログラム可能なゲート配列 (FPGA) に展開されます。</p>
+
+
+  <h2>このプレビューの内容</h2>
+
+
+  <p>このプレビューでは、イメージ分類シナリオに対してコンテナー化 sorflow モデルをトレーニングし、Docker コンテナーでモデルを、Azure IoT Hub を使用して Data Box Edge デバイスにコンテナーをデプロイできるようにすることで、サービスを Azure Machine Learning 強化しています。 現在のところ、ResNet 50、ResNet 152、デ Senet-121、および VGG-16 がサポートされています。 このモデルは、すべての Data Box Edge に含まれる Intel Arria 10 FPGA の ONNX ランタイムによって高速化されます。</p>
+
+
+  <h2>なぜこれが重要なのでしょうか。</h2>
+
+
+  <p>長年にわたり、AI は日々の生活と業界で infused されてきました。 スマートホームアシスタントは、このような内容を理解しています。また、ソーシャルメディアサービスは、アップロードした画像内のをタグ付け &rsquo; することができます。 すべてではない場合、ほとんどの場合、ディープニューラルネットワーク (DNNs) が使用されます。これは、画像、音声、テキストなどの非構造化データを処理する高度なアルゴリズムです。 DNNs も計算に負荷がかかります。 たとえば、一般的な DNN である ResNet 50 を使用して1つのイメージを分析するには、約80億の計算が必要です。</p>
+
+
+  <p>現在、DNNs を実行するハードウェアオプションは多数あり、Cpu と Gpu で最も一般的です。 Azure Machine Learning サービスを使用すると、お客様は、Microsoft Research (この高速な<a href="https://www.fastcompany.com/90305091/this-is-microsofts-ai-pipeline-from-research-to-reality" target="_blank">会社の記事</a>で取り上げています) に由来する最先端のイノベーションを利用して、reconfigurable というハードウェア上で dnns を実行できます。 <a href="https://azure.microsoft.com/en-us/blog/onnx-runtime-for-inferencing-machine-learning-models-now-in-preview/" target="_blank">Azure Machine Learning サービスに</a>この機能と ONNX ランタイムを統合することで、モデルの待機時間が大幅に改善されています。</p>
+
+
+  <h2>まとめる</h2>
+
+
+  <p>Azure Machine Learning サービスは、高速 AI モデルの機能を Data Box Edge に直接もたらします。 ここでは、開発のさまざまな段階でカメラが製品を動いする製造アセンブリラインシナリオの例を見てみましょう &rsquo; 。</p>
+
+
+  <p>画像は工場内の Data Box Edge に送信されます。ここでは、トレーニング済みで、コンテナー化され、Azure Machine Learning サービスを使用して FPGA にデプロイされた AI モデルを使用できます。 Data Box Edge は Azure IoT Hub に登録されているため、配置するモデルを制御できます。 これで、製造の欠陥を検出するために、ほぼリアルタイムで受信した画像を処理するために必要なすべてのものが完成しました。 これにより、マシンとアセンブリのラインマネージャーは、製品に関する時間に依存した意思決定を行い、製品の品質を向上させ、ダウンストリームの生産コストを削減できます。</p>
+
+
+  <h2>プレビューに参加する</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">Azure Machine Learning サービス</a>は既に一般公開されています。 コンテナー化のハードウェア高速化 AI モデルのプレビューに参加するには、 <a href="https://aka.ms/AccelerateAI" target="_blank">要求フォームに入力</a> し、 <a href="https://aka.ms/aml-forum-service" target="_blank">フォーラムでサポートを受ける</a>ことができます。</p>

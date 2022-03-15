@@ -1,0 +1,340 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 534f505325791320a1be2fec3bf833373c963fd1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891142"
+Slug: azure-data-factory-update-new-data-stores
+Title: Azure Data Factory の更新–新しいデータストア
+Summary: 最新のサービス更新と Data Management Gateway リリースでは、新しいデータストアに接続し、新しい機能を活用して Azure Data Factory でデータを移動することができます。
+Content: >-
+  最新のサービス更新と <a href="https://www.microsoft.com/en-us/download/details.aspx?id=39717">Data Management Gateway</a> リリースでは、新しいデータストアに接続し、次のような新しい機能を活用して、Azure Data Factory でデータを移動することができます。
+
+  <ul>
+      <li>オンプレミスのファイルシステムから Azure Blob へのコピー</li>
+      <li>オンプレミスの Oracle Database から Azure Blob へのコピー</li>
+      <li>テキストファイルのエンコードを指定する</li>
+      <li>SQL Sink にコピーするための追加パラメーターを使用してストアドプロシージャを呼び出す</li>
+  </ul>
+
+  詳細については、以下のセクションを参照してください。
+
+
+  <!--more-->
+
+  <h2>オンプレミスのファイルシステムから Azure Blob へのファイルのコピー</h2>
+
+  Azure Data Factory は、オンプレミスのファイルシステム、Windows および Linux ネットワーク共有または Windows ローカルホストから、Data Factory パイプラインを使用して Azure Blob へのファイルのコピーを可能にする新しい機能をリリースしました。
+
+
+  まず、次の例を見てみましょう。
+
+  <ul>
+      <li>ホスト: \\ contoso</li>
+      <li>フォルダー: marketingcampaign \\ regionaldata \\ {slice}。ファイルは {slice} という名前のフォルダーにパーティション分割されます。たとえば、2014121112 (年の2014、月12日、日の11時、時間の12時間) などです。</li>
+  </ul>
+
+  ホストは、Windows または Samba が構成された Linux のいずれかになります。 Data Management Gateway は、ホストに接続できる Windows マシンにインストールする必要があります。
+
+
+  次に、Azure Data Factory を利用して、スライスに含まれるファイルを Azure Blob にコピーしてみましょう。
+
+
+  まず、オンプレミスのファイルシステムのリンクされたサービスを定義します。
+
+  <pre>{
+      "name": "FolderDataStore",
+      "properties": {
+          "type": "OnPremisesFileSystemLinkedService",
+          "host": "\\\\contoso",
+          "userId": "username",
+          "password": "password",
+          "gatewayName": "ContosoGateway"
+      }
+  }
+
+  </pre>
+
+  JSON で必要とされるホスト名の "\" 文字は必ずエスケープしてください。
+
+
+  次の JSON スクリプトは、前に定義したオンプレミスのファイルシステムを参照する入力テーブルを定義します。
+
+  <pre>{
+      "name": "OnPremFileSource",
+      "properties": {
+          "location": {
+              "type": "OnPremisesFileSystemLocation",
+              "folderPath": "marketingcampaign\\regionaldata\\{Slice}",
+              "partitionedBy": [
+                  { "name": "Slice", "value": { "type": "DateTime", "date": "SliceStart", "format": "yyyyMMddHH" } }
+              ],
+              "linkedServiceName": "FolderDataStore"
+          },
+          "availability": {
+              "waitOnExternal": { },
+              "frequency": "Hour",
+              "interval": 24
+          }
+      }
+  }
+
+  </pre>
+
+  ここでは、スライスを定義するために partitonedBy プロパティを使用します。 ホスト名に "\" 文字をエスケープしてください。また、folderPath に先頭に "\" を追加しないでください。
+
+
+  これで、ファイルシステム内のファイルを Azure Blob にレプリケートするコピーアクティビティを含むパイプラインを簡単に作成できるようになりました。 コンテンツは、解析や変換を行わずにバイナリとしてコピーされます。
+
+  <pre>{
+      "name": "CopyFileToBlobPipeline",
+      "properties": {
+          "activities": [
+              {
+                  "name": "Ingress",
+                  "inputs": [ { "name": "OnPremFileSource" } ],
+                  "outputs": [ { "name": "AzureBlobDest" } ],
+                  "type": "CopyActivity",
+                  "transformation": {
+                      "source": {
+                          "type": "FileSystemSource"
+                      },
+                      "sink": {
+                          "type": "BlobSink"
+                      }
+                  },
+                  "policy": {
+                      "concurrency": 4,
+                      "timeout": "00:05:00"
+                  }
+              }
+          ]
+      }
+  }
+
+  </pre>
+
+  同時実行を利用して、ファイルのスライスを並行してコピーできることに注意してください。 これは、以前に発生したスライスを移動する場合に便利です。
+
+
+  注意: 異なるユーザーアカウントで UNC パスを使用して同じホストを使用して同時にコピーアクティビティを実行すると、"同じユーザーが複数のユーザー名を使用しているサーバーまたは共有リソースへの複数の接続は許可されていません" というエラーが発生する可能性があります。 これは、セキュリティ上の理由から OS の制限です。 異なるゲートウェイを使用してコピーアクティビティをスケジュールするか、ホスト内にゲートウェイをインストールし、UNC パスではなく "localhost" または "local" を使用してください。
+
+
+  パーティションに加えて、より多くのコピーシナリオが有効になります。
+
+
+  <strong>例 1:</strong> 特定のフォルダーにあるすべてのファイルをコピーする
+
+  <pre>{
+      "name": "OnPremFileSource",
+      "properties": {
+          "location": {
+              "type": "OnPremisesFileSystemLocation",
+              "folderPath": "marketingcampaign\\regionaldata\\na",
+              "linkedServiceName": "FolderDataStore"
+          },
+          ...
+      }
+  }
+
+  </pre>
+
+  <strong>例 2:</strong> 特定のフォルダーにあるすべての CSV ファイルをコピーする
+
+  <pre>{
+      "name": "OnPremFileSource",
+      "properties": {
+          "location": {
+              "type": "OnPremisesFileSystemLocation",
+              "folderPath": "marketingcampaign\\regionaldata\\na",
+              "fileFilter": "*.csv",
+              "linkedServiceName": "FolderDataStore"
+          },
+          ...
+      }
+  }
+
+  </pre>
+
+  <strong>例 3:</strong> 特定のファイルをコピーする
+
+  <pre>{
+      "name": "OnPremFileSource",
+      "properties": {
+          "location": {
+              "type": "OnPremisesFileSystemLocation",
+              "folderPath": "marketingcampaign\\regionaldata\\na",
+              "fileFilter": "201501.csv",
+              "linkedServiceName": "FolderDataStore"
+          },
+          ...
+      }
+  }
+
+  </pre>
+
+  詳細については、 <a href="https://msdn.microsoft.com/en-us/library/azure/dn930836.aspx">オンプレミスのファイルシステムのリンク</a>されたサービスを確認してください。
+
+  <h2>オンプレミスの Oracle Database から Azure Blob へのコピー</h2>
+
+  Azure Data Factory は、データ処理のために、オンプレミスの Oracle データベースから Azure Blob へのファイルのコピーを有効にする新しい機能をリリースしました。
+
+
+  まず、oracle のリンクされたサービスを定義します。詳細な接続文字列の形式については、 <a href="https://docs.oracle.com/cd/B28359_01/win.111/b28375/featConnecting.htm">oracle Connect 記述子</a>を参照してください。
+
+  <pre>{
+      "name": "LinkedServiceOracle",
+      "properties": {
+          "type": "OnPremisesOracleLinkedService",
+          "ConnectionString": "data source=ds;User Id=uid;Password=pwd;",
+          "gatewayName": "SomeGateway"
+      }
+  }
+
+  </pre>
+
+  次に、オンプレミスの Oracle テーブルを参照する入力テーブルを定義できます。
+
+  <pre>{
+      "name": "TableOracle",
+      "properties": {
+          "location": {
+              "type": "OnPremisesOracleTableLocation",
+              "tableName": "LOG",
+              "linkedServiceName": "LinkedServiceOracle"
+          },
+          "availability": {
+              "frequency": "Day",
+              "interval": "1",
+              "waitOnExternal": {}
+          },
+          "policy": {}
+      }
+  }
+
+  </pre>
+
+  これで、Oracle リーダークエリでマクロを使用して、タイムスライスに基づいてレコードをコピーするコピーアクティビティを作成し、Azure Blob に簡単にコピーすることができます。 同時実行数を指定して、修飾されたコピーアクティビティを並行して実行できることに注意してください。
+
+  <pre>{
+      "name": "PipelineCopyOracleToBlob",
+      "properties": {
+          "activities": [
+              {
+                  "name": "CopyActivity",
+                  "description": "copy slices of oracle records to azure blob",
+                  "type": "CopyActivity",
+                  "inputs": [ { "name": "TableOracle" } ],
+                  "outputs": [ { "name": "TableAzureBlob" } ],
+                  "transformation": {
+                      "source": {
+                          "type": "OracleSource",
+                          "oracleReaderQuery": "$$Text.Format('select * from LOG where \"Timestamp\" &gt;= to_date(\\'{0:yyyy-MM-dd}\\', \\'YYYY-MM-DD\\') AND \"Timestamp\" &lt; to_date(\\'{1:yyyy-MM-dd}\\', \\'YYYY-MM-DD\\')', SliceStart, SliceEnd)"
+                      },
+                      "sink": {
+                          "type": "BlobSink"
+                      }
+                  },
+                  "policy": {
+                      "concurrency": 3,
+                      "timeout": "00:05:00"
+                  }
+              }
+          ],
+          "start": "2015-03-01T00:00:00Z",
+          "end": "2015-03-15T00:00:00Z",
+          "isPaused": false
+      }
+  }</pre>
+
+  <h2>テキストファイルのエンコードを指定する</h2>
+
+  UTF-8 エンコードは非常によく使われていますが、多くの場合、Azure Blob の時間テキストファイルは、履歴の理由により、他のエンコードに従います。 新しく導入された Encoding.encodingname では、ユーザーは TextFormat 型のテーブルに対してコードページ名でエンコードを指定できるようになりました (例: "gb2312"、"windows-1255")。 値を省略した場合でも、BOM が別の Unicode エンコードを示す場合を除き、コネクタは通常どおり UTF-8 にフォールバックします。 サポートされているエンコード名については、こちらの <a href="https://msdn.microsoft.com/en-us/library/system.text.encoding(v=vs.110).aspx">リンク</a> を参照してください。
+
+
+  テキストファイルのエンコードを gb2312 に設定する例を次に示します。
+
+  <pre>"location": {
+      "type": "AzureBlobLocation",
+      "folderPath": "encode",
+      "format": {
+          "type": "TextFormat",
+          "columnDelimiter": ",",
+          "encodingName": "gb2312"
+      },
+      "linkedServiceName": "LinkedServiceAzureBlob"
+  }
+
+  </pre>
+
+  <h2>SQL Sink にコピーするための追加パラメーターを使用してストアドプロシージャを呼び出す</h2>
+
+  SQL Server または Azure SQL Database にデータをコピーするときに、ユーザーが指定したストアドプロシージャを構成し、追加のパラメーターを使用して呼び出すことができます。
+
+
+  <strong>例</strong>
+
+
+  出力テーブルの JSON を次のように定義します (例として Azure SQL Database テーブルを取得します)。
+
+  <pre>{
+      "name": "MyAzureSQLTable",
+      "properties": {
+          "location": {
+              "type": "AzureSqlTableLocation",
+              "tableName": "Marketing",
+              "linkedServiceName": "AzureSqlLinkedService"
+          },
+          "availability": {
+              "frequency": "Hour",
+              "interval": 1
+          }
+      }
+  }
+
+  </pre>
+
+  次のように、コピー アクティビティ JSON の SqlSink セクションを定義します。 データの挿入中にストアド プロシージャを呼び出すには、SqlWriterStoredProcedureName と SqlWriterTableType の両方のプロパティが必要です。
+
+  <pre>"sink": {
+      "type": "SqlSink",
+      "SqlWriterTableType": "MarketingType",
+      "SqlWriterStoredProcedureName": "spOverwriteMarketing",
+      "storedProcedureParameters": {
+          "stringData": {
+              "value": "str1"
+          }
+      }
+  }
+
+  </pre>
+
+  データベース内で、SqlWriterStoredProcedureName と同じ名前のストアド プロシージャを定義します。 これによって指定したソースの入力データが処理され、出力テーブルに挿入されます。 ストアド プロシージャのパラメーター名は、テーブル JSON ファイルで定義された tableName と同じにする必要があります。
+
+  <pre>CREATE PROCEDURE spOverwriteMarketing @Marketing [dbo].[MarketingType] READONLY, @stringData varchar(256)
+
+  AS
+
+  BEGIN
+      DELETE FROM [dbo].[Marketing] where ProfileID = @stringData
+      INSERT [dbo].[Marketing](ProfileID, State)
+      SELECT * FROM @Marketing
+  END
+
+  </pre>
+
+  データベースで、SqlWriterTableType と同じ名前のテーブル型を定義します。 テーブル型のスキーマは、入力データから返されるスキーマと同じにする必要があります。
+
+  <pre>CREATE TYPE [dbo].[MarketingType] AS TABLE(
+      [ProfileID] [varchar](256) NOT NULL,
+      [State] [varchar](256) NOT NULL
+  )
+
+  </pre>
+
+  &nbsp;
+
+  <h2>まとめ</h2>
+
+  Azure Data Factory 用にさらに多くのデータストアを追加しています。 いくつかの名前がある場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory">Azure Data Factory ユーザーの声</a>を通じてフィードバックしてください。 さん:-) をリッスンしています

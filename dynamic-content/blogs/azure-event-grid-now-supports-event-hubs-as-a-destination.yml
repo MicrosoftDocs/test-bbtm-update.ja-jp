@@ -1,0 +1,71 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a3cd2d6d0d74366969b72aa22bd15ef8899f9452
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891128"
+Slug: azure-event-grid-now-supports-event-hubs-as-a-destination
+Title: Azure Event GridとしてEvent Hubsがサポートされる
+Summary: Azure Event Grid、イベントをイベント ハブに送信できます。 これにより、Azure 内でストリーム処理ツールや他のサービスを使用できるだけでなく、すべてのイベントのログを保持し、いつでも再生できます。
+Content: >-
+  <p>Azure Event Gridは、Azure 以降のイベント バックプレーンとして 2017 年 8 月に導入されました。 これは、私たちの目標の多く、およびサーバーレス クラウド コンピューティングのビジョンの多くを支えています。 Azure Event Gridの主要な概念の 1 つは、クラウドを広範にリアクティブにし、リアクティブなフレームワークとモデルに慣れた概念を導入する方法です。 これを行う際に、イベントAzure Event Grid通知するプッシュ ベースのシステムを作成しました。 このプッシュの概念はリアクティブ アーキテクチャの中心ですが、Webhook を受信すると、特に大規模な課題が発生する場合があります。 このため、新しいサブスクリプション エンドポイントの種類Event Hubs、新しいサブスクリプション エンドポイントの種類として新しいAzure Event Grid。</p>
+
+
+  <p>現在、この機能は CLI を介して使用できます。これには、--endpoint-type パラメーターを使用し、既定の webhook ではなく eventhub を指定します。 このオプションを使用する場合は、イベントAzure Resource Managerするイベント ハブのエンドポイント パスとしてエンドポイントを指定します。 既にイベント ハブがある場合は、このリソース パスを取得し、ポータルでイベント ハブに移動できます。 URL からパスをコピーするか、次に示す CLI コマンドを使用してリソースを一覧表示することもできます。</p>
+
+
+  <p>以下の変数を設定して、作業を容易にします。</p>
+
+
+  <pre>
+
+  eventHub=&lt;your Event Hub name&gt;
+
+  eventHubNamespace=&lt;your Event Hubs namespace here&gt;
+
+  resourceGroup=&lt;your resource group name&gt;</pre>
+
+
+  <p style="border-image: none;">Event Hub 名前空間のリソース パスを取得し、変数に格納します。</p>
+
+
+  <pre style="border-image: none;">
+
+  eventHubResource=$(az resource list --resource-group $resourceGroup --resource-type Microsoft.EventHub/namespaces | jq -r &quot;.[0] | select(.name==\&quot;$eventHubNamespace\&quot;) | .id&quot;)</pre>
+
+
+  <p>次に、エンドポイントがイベント ハブであるイベント サブスクリプションを作成します。</p>
+
+
+  <pre>
+
+  az eventgrid resource event-subscription create --endpoint $eventHubResource/eventHubs/$eventHub --name myehsub --resource-group $resourceGroup--resource-type storageAccounts --provider-namespace Microsoft.Storage --resource-name mystorageaccount  --endpoint-type eventhub</pre>
+
+
+  <p>出力には、イベント サブスクリプション リソースの JSON が表示されます。</p>
+
+
+  <p>この時点で、&#39;ロールをロックする&#39;準備ができました。 このストレージ アカウントで BLOB を作成または削除すると、イベントがイベント ハブに配信されます。 詳細とこのデータを確認するには、「概要 でイベント プロセッサ ホストを使用してメッセージを受信する .NET Standard」および「 <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-dotnet-standard-getstarted-receive-eph"><u><em>Java</em></u></a> を使用して Azure Event Hubs からイベントを受信する <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-java-get-started-receive-eph"><u><em>」を参照</em></u></a>してください。</p>
+
+
+  <p>また、他の CLI パラメーターを使用して、このイベント サブスクリプションのプレフィックスフィルターとサフィックス フィルターを作成することもできます。 BLOB を作成するためのイベントのみを受信する場合は、次のパラメーターを追加します。</p>
+
+
+  <pre>
+
+  --included-event-types Microsoft.Storage.BlobCreated</pre>
+
+
+  <p>また、ファイルの通知のみを受け取る場合は.xmlパラメーターを追加できます。</p>
+
+
+  <pre>
+
+  --subject-ends-with .xml</pre>
+
+
+  <p>イベント ハブに接続文字列を&#39;する必要がなかったのに気付いた可能性があります。 これはすべて Azure エコシステムに含まれるので、&#39;Azure CLI に再ログインすると、リソース マネージャーはイベント ハブ接続文字列を取得する機能を RBAC に与え、その後、サービス間認証を行うのに使用します。そのため、接続文字列を指定する必要はありません。</p>
+
+
+  <p>Happy Messaging!</p>

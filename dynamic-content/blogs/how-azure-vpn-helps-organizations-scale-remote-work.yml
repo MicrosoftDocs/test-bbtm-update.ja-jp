@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 681779c2b3f4ae408f176ac67ace18446b742cf3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895935"
+Slug: how-azure-vpn-helps-organizations-scale-remote-work
+Title: Azure VPN を使用してリモート作業を拡張する方法
+Summary: リモート作業への移行は、世界中の pandemic の大きな影響の1つであり、世界中の組織から、安全とコミュニティの従業員によるリモートでの作業を可能にする方法を模索しています。
+Content: >-
+  <p>私たちは、世界中の pandemic に過剰ていた数週間にわたって、どこにいても、どのような影響を与えていたかについて確信を &rsquo; 持てません。 リモート作業への移行は、世界中の pandemic の大きな影響の1つであり、世界中の組織から、安全とコミュニティの従業員によるリモートでの作業を可能にする方法を模索しています。 このシフトでは、従業員が大規模に接続された状態を維持するために、 &rsquo; 企業が直面する一般的なインフラストラクチャの課題に対処します。</p>
+
+
+  <h2>セキュリティで保護されたリモートアクセスを拡張する企業の一般的な課題</h2>
+
+
+  <p>リモートアクセスの設定中に発生する大きな課題の1つは、オンプレミスのデータセンターや Azure のその他の機密情報に機密情報を持つ医療機関や政府機関など、オンプレミスまたは Azure に存在する可能性がある、キーの内部リソースへのアクセスをワーカー/従業員に提供することです。</p>
+
+
+  <p>また、世界中の企業が直面するもう1つの課題は、既存の VPN セットアップを迅速に拡張する方法です。通常は、組織 &rsquo; の従業員のごく一部を対象としています。 Microsoft 社内でも、<a href="https://www.microsoft.com/itshowcase/blog/running-on-vpn-how-microsoft-is-keeping-its-remote-workforce-connected/" target="_blank">グローバル pandemic 中にスタッフとコミュニティの保護に取り組んでいる間 &rsquo; 、 &rsquo; 50000 以上の従業員スパイクに対する一般的なリモートアクセスを 128000</a>人の従業員に提供してきました。</p>
+
+
+  <h2>Azure VPN がセキュリティで保護された、大規模なリモート作業にどのように役立つか</h2>
+
+
+  <p>Azure ネットワークは、リソースの使用率の急激な変化に耐えられるように設計されています。また、ピーク時の使用率が大幅に向上します。 Azure ポイント対サイト (P2S) VPN Gateway ソリューションはクラウドベースであり、ユーザーの自宅からの要求の増加に対応するために、迅速にプロビジョニングすることができます。 簡単にスケールアップでき、簡単にオフにすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5df2f8fb-79ed-4a8b-aab6-27d85d1ec06f.png"><img alt="Remote work using Azure VPN Gateway." border="0" height="637" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32e8ecde-a0d0-4330-81c3-3c93e90774c7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure VPN Gateway を使用したリモート作業。" width="1024"></a></p>
+
+
+  <h2>Azure VPN Gateway の使用を開始するためのヒント</h2>
+
+
+  <p>私たち &rsquo; が経験してきたお客様と、当社の企業との長年にわたる取り組みに関するベストプラクティス &rsquo; に基づいて、社内で Azure VPN Gateway の使用を開始する際に役立つヒントをご紹介します。</p>
+
+
+  <ul>
+      <li>オンプレミスまたは Azure のリソースにアクセスする必要があるシナリオでは、Azure で VPN Gateway を構築し、既存の VPN ソリューションを Azure に接続することができます。 これにより、オンプレミスへの単一障害点が排除され、ほぼ無限のスケールが可能になります。 Azure VPN Gateway を設定して既存のセットアップと統合する方法を理解するには、 <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/work-remotely-support" target="_blank">azure VPN Gateway を使用したリモート作業</a> に関するページを参照してください。</li>
+      <li>VPN で許可する前に、Azure Active Directory (Azure AD)、証明書ベースの認証、または RADIUS 認証を使用して、ユーザーを認証し、デバイスの状態を検証します。 詳細については<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-tenant" target="_blank">、「P2S openvpn プロトコル接続用の Azure AD テナントの作成</a>」を参照してください。</li>
+      <li>分割トンネリング VPN トラフィックをお勧めします。 これにより、ネットワークトラフィックは、Office 365 や Windows 仮想デスクトップ &mdash; などのパブリックリソース &mdash; に直接アクセスして、インターネットトラフィックが企業オフィスに戻る必要がなくなり、企業のインターネットリンクやオンプレミス VPN インフラストラクチャの全体的な負荷と帯域幅が削減されます。</li>
+      <li>スケールをサポートするためにオンプレミスと Azure 間の接続を向上させるには、ローカルの通信プロバイダーと連携して、インターネットへの接続を一時的に増やします。 これにより、office またはデータセンターから最大 10 Gbps までの接続を Microsoft に拡張できます。</li>
+      <li>使用可能なすべてのセキュリティ更新プログラムを VPN デバイスとファイアウォールデバイスに適用します。 Azure VPN gateway の修正プログラムと更新プログラムは、Microsoft によって管理されています。 オンプレミスのデバイスについては、デバイスベンダーのガイダンスに従ってください。 この<a href="https://www.microsoft.com/security/blog/2020/04/01/microsoft-works-with-healthcare-organizations-to-protect-from-popular-ransomware-during-covid-19-crisis-heres-what-to-do/" target="_blank">ブログの投稿</a>では、ヒントをまとめまし &rsquo; た。</li>
+  </ul>
+
+
+  <h2>ファースト ステップ</h2>
+
+
+  <p>現在 P2S トンネルを使用していない場合は、次のドキュメントを参照してシナリオを評価し、<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/work-remotely-support" target="_blank">指示に従って AZURE VPN サービスの使用を開始</a>してください。 &rsquo;</p>

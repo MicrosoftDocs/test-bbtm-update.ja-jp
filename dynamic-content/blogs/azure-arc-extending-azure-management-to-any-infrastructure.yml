@@ -1,0 +1,114 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8de72f8ca4bcd15011027f553e000a3879ee05af
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894576"
+Slug: azure-arc-extending-azure-management-to-any-infrastructure
+Title: 'Azure Arc: あらゆるインフラストラクチャへの Azure 管理の拡張'
+Summary: 多くのお客様がご利用の場合は、オンプレミスのデータセンター、複数のクラウド環境、およびエッジでアプリケーションを組み合わせて実行しています。
+Content: >-
+  <p>多くのお客様がお客様の場合は、オンプレミスのデータセンターでクラウドとエッジの両方のアプリケーションを組み合わせて実行します。 私たちは、お客様のニーズに合わせてハイブリッドイノベーションを実現するために、過去数年間の旅を進めてきました。 Azure Monitor や Azure Backup など、個々の接続された管理サービスに投資しています。 また、Azure Stack Hub を介して一貫したプラットフォームを提供し、Azure で行われた投資を切断された環境で使用できるようにしました。</p>
+
+
+  <p>多くの企業では、複数のデータセンター、クラウド、およびエッジの場所に分散されたリソースの増加に直面しています。 お客様は、中央の場所から、どこにいても IT リソースに関するポリシーのインベントリ、整理、適用を行うクラウドネイティブコントロールプレーンを探していることをお客様に伝えています。</p>
+
+
+  <p>今週の Microsoft Ignite では、ハイブリッドテクノロジを使用してもう1つの重要な手順を実行&#39;ます。 Azure Arc は、Azure の制御プレーンをオンプレミス、マルチクラウド環境、およびエッジにまで拡張する一連のテクノロジを発表しています。 azure Arc を使用すると、お客様は、Windows および Linux サーバー、Kubernetes クラスター、azure data services をどこでも管理するための、一元化された統合型のセルフサービスアプローチを利用できます。 また、azure Arc を利用すると、オンプレミス、マルチクラウド、およびエッジ全体で、DevOps や azure セキュリティなどのクラウドプラクティスの導入が拡張されます。 Azure Arc では、管理のためにコントロールプレーンを拡張するだけでなく、 <a href="https://azure.microsoft.com/services/azure-arc/hybrid-data-services/" target="_blank">azure data services をどこ</a>でも実行できます。</p>
+
+
+  <h2>環境全体で Azure の管理を拡張</h2>
+
+
+  <p>Azure Resource Manager を使用したお客様によって、1日に数百の Azure リソースが整理、管理、および保護されます。 Azure Resource Manager は、Azure Cloud Shell、Azure portal、API、ロールベースのアクセス制御 (RBAC)、およびすべての Azure リソースの Azure Policy を使用して、信頼性の高いデプロイ、管理、ガバナンス機能を提供する、Azure の制御プレーンです。</p>
+
+
+  <p>azure Arc の重要な側面は、azure を超えて<a href="https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview" target="_blank">Azure Resource Manager</a>を拡張することです。これにより、お客様は、Windows および Linux サーバー、Kubernetes クラスター、Azure data services をオンプレミス、マルチクラウド、エッジにわたって大規模に管理するための一元化された統合アプローチを利用 &rsquo; できるようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6673cca7-4ea2-43be-af88-11ffec6a6659.png"><img alt="Azure Resource Manager and Azure Arc graphic" border="0" height="230" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/813f7f92-ad42-44e5-9202-ae54b9dcfe09.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Resource Manager と Azure Arc グラフィック" width="625"></a></p>
+
+
+  <p align="center"><em>Azure Arc は、オンプレミス、マルチクラウド、エッジで Azure の管理を拡張します</em></p>
+
+
+  <h3>Azure Arc を使用した環境間での制御</h3>
+
+
+  <p>上記の Azure Arc のシナリオを説明するために、&#39;を使用して、データセンター、プライベート、パブリッククラウドにデプロイされた sprawling サーバーベースの IT システムと Kubernetes クラスターを持つ大規模な財務組織を見てみましょう。 この拡散によって、環境全体の可視性が向上し、コンプライアンス要件を管理、制御、および満たすことが困難になります。</p>
+
+
+  <p>Azure Arc では、サーバーと Kubernetes クラスターを管理して、次の利点を得ることができます。</p>
+
+
+  <ul>
+   <li>Azure portal と API の統合ビューを使用した Windows および Linux サーバー、Kubernetes クラスター、Azure サービスの資産編成とインベントリ</li>
+   <li>Azure Policy を通じた顧客リソースのユニバーサルガバナンス</li>
+   <li>システムとさまざまな種類のリソースにわたる、ロールベースのアクセス制御 (RBAC) の標準化</li>
+   <li>アプリケーション所有者がコンプライアンス要件を満たすためにアプリケーションを適用および監査できるようにする</li>
+   <li>個々のアプリケーション、サーバー、またはクラスターに対して、大規模で対応を測定して修復する機能</li>
+  </ul>
+
+
+  <h2>オンプレミスでのクラウドプラクティスの採用</h2>
+
+
+  <p>azure は、すべての azure リソースにクラウド DevOps とクラウドネイティブの構成管理を大規模に提供します。 このようなクラウドプラクティスは、新しいクラウドネイティブアプリケーションを作成するためのリソースへの迅速かつプログラムによるアクセスを必要とする開発者向けに最適化されています。 Azure Arc は、オンプレミス、マルチクラウド、およびエッジ環境で、これらの機能をインフラストラクチャに拡張します。 開発者は任意のツールを使用して、コンテナー化されたアプリを構築できます。 IT チームは、構成をコードとして使用して、オンプレミス、マルチクラウド、エッジで GitOps ベースの構成管理を使用して、アプリのデプロイと構成を行い、統一を保つことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f499829-5fb6-43ed-90be-1bd4f26e9171.png"><img alt="Screenshot of OnPrem Configuration management" border="0" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc835d10-70e7-4f89-a752-5fc5463c1f54.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="オンプレミス構成管理のスクリーンショット" width="624"></a></p>
+
+
+  <p align="center"><em>大規模な構成管理などのクラウドプラクティスを採用</em></p>
+
+
+  <h3>大規模な複数の場所へのデプロイと管理</h3>
+
+
+  <p>上記の Azure Arc のシナリオを説明するために、Kubernetes クラスターで実行されているコンテナーにストア内のすべてのアプリケーションを移動する数百の店舗を含む小売店を見てみ&#39;ましょう。 これらは、コンテナー化されたアプリケーションを複数の場所で一様にデプロイ、構成、および管理するための課題に直面しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31332626-91c7-4402-80e8-7d279e5a970c.png"><img align="right" alt="Image of Azure Resource Manager and Azure Arc text with globe" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35c4ace0-1f08-42c6-8ee8-be279664cec1.png" style="border: 0px currentcolor; border-image: none; float: right; display: inline; background-image: none;" title="Azure Arc で世界 " width="173"> </a> 中の Azure Resource Manager と azure arc テキストの画像を使用すると、IT および開発チームは既存のストアでアプリを管理でき、エラーが発生しやすいタスクと手続き型のタスクを自動化することで、新しい場所をすばやく活用できます。 さらに、次のような利点があります。</p>
+
+
+  <ul>
+   <li>Azure サブスクリプション、リソースグループ、タグに基づく大規模な構成とデプロイ</li>
+   <li>1つまたは複数のクラスターにコードとして構成をデプロイするための GitOps ベースのモデル</li>
+   <li>アプリケーションのデプロイと大規模な更新</li>
+   <li>新しいアプリケーションと構成をロールアウトするときの、ソース管理ベースの安全な展開方法</li>
+   <li>開発者が使い慣れたツールを自由に使用できる</li>
+  </ul>
+
+
+  <h2>どこにでも Azure security を実装</h2>
+
+
+  <p>企業に対するセキュリティとコンプライアンスの重要性を把握しているため、クラウドセキュリティにおける業界のリーダーシップを、オンプレミス、マルチクラウド、エッジを Azure の弧にします。Azure Arc を構築して、RBAC、監査アクション用の Azure アクティビティログ、セキュリティで保護された委任管理のための azure Lighthouse、および Azure Policy によるセキュリティポリシーの適用を実現する azure の機能を提供しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6f5e557-0922-4873-9b45-facd68216894.png"><img alt="Screenshot of RBAC check access" border="0" height="359" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a7c16dc-f88f-42ad-b65b-9c1c61d9acca.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="RBAC チェックアクセスのスクリーンショット" width="604"></a></p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>Microsoft Ignite の Azure Arc で、さらに多くの更新プログラムを共有します。 Azure Arc の詳細については、「 <a href="https://azure.microsoft.com/services/azure-arc/" target="_blank">Azure arc」ページ</a>を参照してください。</p>
+
+
+  <p>今週に Ignite をお持ちの場合&#39;は、次のセッションにご参加ください。詳細については、こちらをご覧ください。<br>
+
+  BRK 2208 Azure Arc on 火曜、11月05日 11:45 am<br>
+
+  BRK 3327 Azure Arc: 管理とガバナンスを水曜日、11月に 1:00 PM に拡張</p>
+
+
+  <p>オンプレミス、マルチクラウド、およびエッジで Windows と Linux サーバーの管理をプレビューすることで、すぐに始めることができます。 <a href="https://docs.microsoft.com/azure/azure-arc/servers/overview" target="_blank">プレビューに参加</a>して、Azure Arc を使用するどこでも Windows および Linux サーバーの管理を開始しましょう。</p>
+
+
+  <p>Azure Arc によって有効になっている任意の場所の Azure data services と、Azure Arc による Kubernetes クラスターの管理の<a href="https://aka.ms/Azure-Arc" target="_blank">詳細については、サインアップ</a>してください。</p>
+
+
+  <hr>
+
+  <p><em>Microsoft.目的を持つ在庫。</em></p>

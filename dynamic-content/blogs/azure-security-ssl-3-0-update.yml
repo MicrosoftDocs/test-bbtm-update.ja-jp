@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a9627a18c6679dd9d35ffa75ba112941d2ab9e55
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895595"
+Slug: azure-security-ssl-3-0-update
+Title: Azure セキュリティ SSL 3.0 更新プログラム
+Summary: 10月の終わりに、Azure は2014年12月1日から SSL 3.0 のサポートを無効にすることを発表しました。 本日、今後の変更についてお客様に更新プログラムと追加情報を提供しています。
+Content: >-
+  10月の終わりに、SSL 3.0 における業界全体の脆弱性 (プードルと呼ばれます) に応じて、2014年12月1日からの SSL 3.0 のサポートの無効化が開始されることを <a href="https://azure.microsoft.com/blog/2014/10/29/protecting-against-the-ssl-3-0-vulnerability/">発表しまし</a> た。 本日、今後の変更についてお客様に更新プログラムと追加情報を提供しています。
+
+
+  &nbsp;
+
+  <h2>完成したサービス</h2>
+
+  <h3>リモート プロファイル</h3>
+
+  SSL 3.0 は、Azure Websites 全体で無効になっています。 これにより、顧客の構成を変更する必要がなくなります。
+
+  <h3>その他のサービス</h3>
+
+  Azure エンジニアリングチームは、次のサービスで SSL 3.0 のサポートを無効にしています。
+
+  <ul>
+      <li>Azure portal</li>
+      <li>Azure プレビューポータル</li>
+      <li>Azure Service Bus</li>
+  </ul>
+
+  &nbsp;
+
+  <h2>保留中のサービス</h2>
+
+  <h3>Azure クラウドサービス (Web ロールと Worker ロール)</h3>
+
+  2015年1月のゲスト OS リリースでは、SSL 3.0 が既定で無効になっています。 このイメージは、2015年1月13日以降、ゲスト OS の自動更新が構成されているお客様へのデプロイを開始します。 SSL 3.0 を有効にするお客様は、スタートアップタスクを使用してこれを行うことができます。
+
+
+  &nbsp;
+
+  <h2>Azure Virtual Machines</h2>
+
+  <h3>Windows Server</h3>
+
+  Azure Infrastructure as a Service (IaaS) イメージは standard Windows Server を利用します。つまり、新しいデプロイでは、SSL 3.0 が既定で引き続き有効になります。 新規または既存の IaaS デプロイで SSL 3.0 を無効にする場合は、 <a href="https://technet.microsoft.com/en-us/library/security/3009008.aspx">セキュリティアドバイザリ 3009008</a>のガイダンスに従ってください。
+
+
+  &nbsp;
+
+  <h2>Linux</h2>
+
+  SSL 3.0 を無効化または非推奨にする計画の詳細については、Linux ディストリビューションの発行元を参照してください。
+
+  <h3>その他の Azure サービス</h3>
+
+  残りの Azure サービスでは、今後数か月の間、SSL 3.0 のサポートが無効になります。

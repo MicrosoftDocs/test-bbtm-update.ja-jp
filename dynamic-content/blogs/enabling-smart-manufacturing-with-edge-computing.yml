@@ -1,0 +1,120 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6686331f821ae01ca3f49c783b146fa1e75f734b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896815"
+Slug: enabling-smart-manufacturing-with-edge-computing
+Title: Edge コンピューティングを使用したスマート製造の有効化
+Summary: スマート製造は、工場の設備が工場のフロアで何が起こっているかに基づいて自律的な意思決定を行える未来を想定しています。
+Content: >-
+  <p>スマート製造は、工場の設備が&rsquo;工場のフロアで何が起こっているかに基づいて自律的な意思決定を行える未来を想定しています。 企業は、設計、製造、サプライ チェーン、運用など、製造プロセスのすべての手順を簡単に統合できます。 これにより、競争の激しい市場に参加する際の柔軟性とリアクティブ性が向上します。 このビジョンを実現するには、IoT、AI/機械学習、Edge Computing などの関連テクノロジを組み合わせて使用する必要があります。 この記事では、Edge Computing を紹介し、スマート製造を有効にする上でのその役割について説明します。</p>
+
+
+  <h2>Edge Computing とは</h2>
+
+
+  <p>簡単に言えば、Edge Computing は、クラウドで実行されるコードを取得し、ローカル デバイスまたは近くのデバイスで実行する方法です。 ゲートウェイ デバイスや、デバイスの横に座っている PC の場合と同様です。</p>
+
+
+  <p>Edge Computing を理解するには、IoT ソリューションを一般的に 3 つのコンポーネントと考えるのに役立ちます。</p>
+
+
+  <ul>
+   <li><strong>センサー</strong> データを生成する IoT デバイスなど。</li>
+   <li><strong>インサイト</strong>データから抽出する必要があります。</li>
+   <li><strong>これらの</strong> 分析情報に基づいて実行するアクションは、何らかの価値を提供します。</li>
+  </ul>
+
+
+  <p>Edge Computing では、分析情報 <strong>と</strong> アクションの <strong>コンポーネントをクラウド</strong> からデバイスに移動します。 つまり、データの分析情報の処理と抽出に使用されるコードの一部を取り込み、デバイスに応答して何らかのアクションを実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3aa8bb3b-6f7e-4410-a6e6-7b75da40e214.png"><img alt="image" border="0" height="165" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d1f1fb0a-067e-4e9b-95f0-24386dd6b781.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="384"></a></p>
+
+
+  <p align="center"><em>Edge コンピューティング モデル</em></p>
+
+
+  <p>処理とアクションをさらに進め、クラウドにデータを送信することもできますが、待ち時間、コンピューティング機能、またはデータのプライバシー要件に基づいてワークロードのバランスをより効率的に行うオプションが用意されています。 特に、エッジに移行できる 1 つは、機械学習と AI アルゴリズムです。 これを行う場合は、インテリジェントエッジがある <strong>という言い方をします</strong>。</p>
+
+
+  <h2>Edge Computing が役に立つのは、いつですか?</h2>
+
+
+  <p>エッジ コンピューティングは、製造でよく見つかる次の状況で役立ちます。</p>
+
+
+  <ul>
+   <li>迅速な意思決定のためにリアルタイムの分析 <strong>情報</strong> が必要なミッション クリティカルなシナリオ。 基本的に、電子がクラウドとバックに十分に速く移動できない場合は、必要なことを行います。 赤い光に近づく自律走行車について考え直してください。 メッセージを&rsquo;クラウドにルーティングし、コマンドが戻るのを待つ 2 回目の遅延は発生します。 車が赤色の光を見た場合は、閉じたループで分析を実行し、すぐに停止する必要があります。 これらの分析情報は、デバイス上で実行されている機械学習モデルによって提供され、予測分析、異常検出、画像認識、分類を実行する傾向がますます高まっています。</li>
+   <li>クラウド接続が安定 <strong>していない、または経済的ではないリモート サイト</strong>。 たとえば、リモートの石油フィールドは、衛星接続を介して 1 日に 2 回だけクラウドにデータを送信します。</li>
+   <li>コンプライアンスと <strong>データの保存場所が重要な地域</strong>。 ソブリンまたは組織の境界内で、機密データをローカルで前処理できます。</li>
+   <li>帯域幅コストを削減するために、デバイスとクラウドの間でテラバイト単位の生データを転送 <strong>しないようにします</strong>。 ローカルでデータのクリーニングと集計を実行できます。</li>
+  </ul>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92331430-9cfd-483f-98ad-c2ab80d323d3.png"><img alt="image" border="0" height="216" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d2475ba1-240b-4672-a538-f3e7793ac7bc.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="384"></a><br>
+
+  <em>リモートの石油フィールドは、Edge Computing の主な候補です</em></p>
+
+
+  <h2>Edge Computing とプライベート クラウドの比較</h2>
+
+
+  <p>プライベート クラウドは、基本的にクラウドのモデルです。IT サービスは、組織の専用の使用のためにプライベート インフラストラクチャを使用してプロビジョニングされます。 プライベート クラウドは、待ち時間、接続性、規制要件 (パブリック クラウドから環境を分離する必要がある場合など) を克服するためにオンプレミスにデプロイする必要があるクラウド アプリケーションまたはアプリケーション コンポーネントがある場合に最適です。</p>
+
+
+  <p>一方、Edge Computing は、デバイスで計算を実行し、必要に応じてクラウドと通信する方法です。 現在、これらのデバイスが通信するクラウドは、パブリック クラウドまたはプライベート クラウドになります。 デバイスは本当&rsquo;に気にしません。</p>
+
+
+  <p>エッジ クラウドとプライベート クラウドは、同じ環境で動作できます。 良い例は、乗客サービスとナビゲーション アプリがプライベート クラウド上で実行され、エンジンのメンテナンスがエッジで実行される船です。</p>
+
+
+  <p>ここで、より興味深いものに、ハイブリッド クラウドを実行するオプションも用意されています。 これは、プライベートとパブリックの組み合わせです。 実際、多くの企業がクラウド環境をこの方法で実行しています。これは、両方の世界を最高の環境に提供するからです。 パブリック クラウドのスケールのスケーラビリティと経済性を備えた、プライベート クラウドの待機時間とプライバシー。 そのため、ご想像のように、ハイブリッド クラウド環境を実行しているシナリオと、パブリック クラウドで実行されているもの、プライベート クラウドで実行されているものがあります。 さらに、IoT デバイスでは Edge Computing が実行され、デバイス上で実行されているものと、クラウド上で実行されているものがあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4db5774-ff78-49c8-8085-0165ed8e7700.png"><img alt="image" border="0" height="148" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0692ec35-6908-4459-a0f1-c54956b8e8fb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="384"></a></p>
+
+
+  <p align="center"><em>ハイブリッド クラウドとエッジ コンピューティングのシナリオ</em></p>
+
+
+  <h2>Edge コンピューティングでスマート製造を実現する方法</h2>
+
+
+  <p>スマート<strong> ファクトリの</strong> スマートな部分は、自律性に関する部分です。 &rsquo;一部の資産または機器が、人間の介入を必要とせずに工場のフロアで何が起こっているのかに基づいて決定を行う能力。これらは、一部の工場管理システムで必ずしも事前にプログラミングされていない決定です。 スマート製造の目的は、よりプログラムによるデータ主導のアプローチを利用して、新しい高品質の商品をより迅速に開発することです。 Edge Computing を使用すると、工場の現場にあるマシンが分析情報を抽出し、ほぼリアルタイムでアクションを作成する、この自律性を実現できます。 AI/機械学習アルゴリズムを自分の電子工学で実行します。それは、自分の脳を持っている場合とほとんど同じ方法です。</p>
+
+
+  <p>この例では、何らかのタスクを実行しているロボットが 2 台あるとします。 ロボットは、ロボットからのセンサー データをリッスンする機械学習モデルを実行しているエッジ デバイスに接続され、そのミッションは差し迫った故障を予測することです。</p>
+
+
+  <p><img alt="EdgeComputing" border="0" height="169" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4ededca-939e-4c09-b1ba-8e9cc1cbc206.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="EdgeComputing" width="240"></p>
+
+
+  <p>機械学習モデルによって、ロボットの 1 つが故障する可能性が判断されると、アクションがトリガーされます。 これらのアクションには、問題が発生しているロボットを供給するラインの停止や速度低下、クラウド内のプロセスをトリガーして、一部の業務アプリケーションでサービス要求を作成する処理が含まれる場合があります。</p>
+
+
+  <h2>Edge Computing を有効にするために Azure では何が提供されますか?</h2>
+
+
+  <p>Edge Computing を有効にするために Azure が提供するサービスは、Edge Azure IoT呼び出されます。 IoT Edge は、次の 3 つのコンポーネントで構成されます。</p>
+
+
+  <ul>
+   <li>Azure IoT Edge モジュールは、Azure サービス、サードパーティ サービス、または独自のコードを実行するコンテナーです。 IoT Edge デバイスにデプロイされ、そのデバイス上のローカルで実行されます。</li>
+   <li>Azure IoT Edge ランタイムは、各デバイスIoT Edge実行され、各デバイスにデプロイされたモジュールを管理します。 興味深い事実は、このランタイムは開発者コミュニティにオープン ソースで提供され、変更や追加を行えるという点です。</li>
+   <li>クラウドベースのインターフェイス: IoT Edge デバイスをリモートから監視して管理します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62bfc783-92cb-4f49-999d-8507f130a914.png"><img alt="image" border="0" height="114" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d36662e-e911-4b39-a7a7-fb6699500bc0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="384"></a></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>新しいテクノロジと同様に、リスクを許容可能なレベルに制限しながら、その価値をすばやく証明するために小規模から始めるのが推奨されます。 解決したいビジネス上の問題を選択してください。<strong>&ldquo;「Edge Computing が役に立つ場合」を参照してください。&rdquo;</strong>上記のセクションでアイデアを得て、作業するチームを設定します。</p>
+
+
+  <p>クイック スタートや <a href="https://aka.ms/Vxm4q6" target="_blank">チュートリアルなど</a>IoT Edgeの詳細については、以下をご覧ください。</p>

@@ -1,0 +1,53 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8f013d45943333edb01b5ff4a962e6c20ab34b5b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896819"
+Slug: documentdb-portal-updates-improved-collections-management-and-new-metrics-page
+Title: 'Azure Portal での DocumentDB の更新: 新しいメトリックブレードと改良されたコレクションの管理'
+Summary: 最近、Azure DocumentDB ポータルエクスペリエンスにいくつかの更新プログラムをリリースしました。 新しい統合メトリックエクスペリエンスが追加されました。これには、可用性、スループット、整合性、待機時間の新しいメトリックが含まれています。これにより、DocumentDB が SLA をどのように達成しているかを追跡できます。 また、左側のナビゲーションバーにすべてのコレクション操作とエクスペリエンスを提示し、過剰な水平スクロールを排除することで、コレクション管理を合理化しました。
+Content: >-
+  <p>最近、 <a href="https://azure.microsoft.com/en-us/services/documentdb/">Azure DocumentDB</a> ポータルエクスペリエンスにいくつかの更新プログラムをリリースしました。 新しい可用性、スループット、整合性、待機時間のメトリックを含む &nbsp; 新しいメトリックエクスペリエンスが新たに追加されました。これを使用すると、DocumentDB が SLA&#39;にどのように対応しているかを追跡できます。 また、すべてのコレクションの操作とエクスペリエンスを左側のナビゲーションバーに表示することによってコレクションの管理を効率化し、過剰な水平スクロールを排除しました。</p>
+
+
+  <h3>新しいメトリックブレードと SLA メトリック</h3>
+
+
+  <p>Azure DocumentDB は、グローバル分散型の管理された NoSQL データベースで、可用性、スループット、 &lt; &nbsp; 10 ミリ秒読み取り待機時間 &lt; 、および15ms の書き込み待機時間を99パーセンタイルで 99.99% &nbsp; 保証し、100% の一貫性を保証します。 &nbsp;このような保証に対して、サービスがどのように実行されているかを把握しておくことが重要であると考えています。 また、複数のウィンドウを参照しなくても、すべてのメトリック情報をすぐに使用できるようにするための重要なことを聞きました。 このフィードバックに応じて、サービスのパフォーマンスと SLA を反映するために新しいメトリックをいくつか追加しました。さらに、DocumentDB コレクションの新しいメトリックエクスペリエンスが新しく導入されました。 [コレクション] の下にある [メトリック] ノードをクリックすると、DocumentDB によって各コレクションに対して次のようなすべてのメトリックが提供されます。</p>
+
+
+  <ul>
+   <li>実際の収集の可用性と SLA</li>
+   <li>状態コード別にグループ化された要求レート</li>
+   <li>要求ユニット/秒で測定される消費済みスループット容量と、容量を超える要求の割合</li>
+   <li>コレクションが配置されているリージョンでの待機時間の監視</li>
+   <li>整合性の保証を満たしている要求の割合</li>
+   <li>消費量と容量 Storage</li>
+  </ul>
+
+
+  <p>また、拡大または縮小のジェスチャを使用して、個々のグラフの標準的なメトリックエクスペリエンスに移動することもできます。</p>
+
+
+  <p style="font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24cd8ac9-8418-4c3e-a454-0f99382ef667.png" style="font-size: 13px;"><img alt="portal-docdb-metrics" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9152194-e045-452b-a395-c360046f3304.png" style="font-size: 13px; display: inline;" title="ポータル-docdb-メトリック" width="600"></a></p>
+
+
+  <h3>コレクション管理の合理化</h3>
+
+
+  <p>DocumentDB はデータをコレクションに格納し、ほとんどの時間は DocumentDB を操作するためにコレクションの操作に費やされます。 このポータルを変更すると、ポータルでコレクションを front と center にまとめ、ポータルでの作業時に使用した過度の水平方向のスクロールを排除します。</p>
+
+
+  <ul>
+   <li>[概要] ブレードで、コレクションへのワンクリックアクセスと、[コレクション &quot; の追加] コマンドが提供されるように &quot; なりました。</li>
+   <li>すべてのコレクション管理エクスペリエンスとツールが左側のナビゲーションメニューに表示されるようになりました。</li>
+   <li>この更新により、Azure portal で DocumentDB を操作するときに、水平スクロールが不要になりました。</li>
+  </ul>
+
+
+  <p><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbadbb06-834b-4647-b79d-f93f0a5cacb4.png"><img alt="portal-docdb-collections-pivot" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/13668fa7-51dd-4782-a026-d202d4caccf1.png" style="display: inline;" title="ポータル-docdb-コレクション-ピボット" width="600"></a></strong></p>
+
+
+  <p>これらの新機能により、Azure portal の時間がより効率的になり、お客様にとって最も重要な監視情報 &rsquo; が提供されることを願っています。 いつものように、microsoft がどのように実行しているのか、また、 <a href="https://feedback.azure.com/forums/263030-documentdb">Uservoice</a>、 &nbsp; Stackoverflow #azure、Twitter @documentdb の順に進むために&#39;d のような改善点をお知らせください。</p>

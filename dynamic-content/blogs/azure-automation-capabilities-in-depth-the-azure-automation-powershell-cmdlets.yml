@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fcaaa835470822d84fcede3c8f0fb8c7c3dd1404
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891190"
+Slug: azure-automation-capabilities-in-depth-the-azure-automation-powershell-cmdlets
+Title: 'Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット'
+Summary: 今では、Azure Portal を使用して、アプリのすべての機能を試Azure Automationを試す機会が得たでしょう。 ここで、コマンド ラインから、これらすべてのことを簡単かつプログラム的に実行できると思います。 Azure Automation を完全にヘッドレスで使用する場合でも、一括 Runbook のインポートなど、いくつかの重要なアクションのスクリプトを作成する場合でも、Azure Automation コマンドレットを使用できます。
+Content: >-
+  <h2>はじめに</h2>
+
+  これで、Runbook の作成と資産の作成、ジョブの手動とスケジュールでの開始、統合モジュールのインポート、ジョブ出力の表示など、Azure Portal を通じて Azure Automation のすべてのすばらしい機能を試す機会が得たでしょう。 ここで、コマンド ラインから、これらすべてのことを簡単かつプログラム的<b></b>に実行できると思います。 Azure Automation を完全にヘッドレスで使用する場合でも、一括 Runbook のインポートなど、いくつかの重要なアクションのスクリプトを作成する場合でも、Azure Automation コマンドレットを使用できます。
+
+  <h2>はじめにコマンドレットをAzure Automationする</h2>
+
+  Azure には、Microsoft Web Platform Installer を使用<a href="https://azure.microsoft.com/en-us/documentation/articles/install-configure-powershell/"></a>してインストールできる PowerShell モジュールが用意されています。このモジュールでは、Azure Automation を含むすべての Azure サービスを管理できます。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/oaas-ps-cmdlets-1.png" alt="Azure Automation Capabilities in Depth: The Azure Automation PowerShell Cmdlets" width="610" height="232" border="0" />
+
+
+  &nbsp;
+
+
+  現在Azure PowerShellモジュールには、Azure Automation ポータルから実行できる多くのアクションのスクリプトを実行できる 20 の Azure Automation コマンドレットがAzure Automationされています。 これはほんの始まりにすぎない。 一Azure Automation、PowerShell を使用してアプリケーションを完全に制御できるコマンドレットが約 40 Azure Automation予想されます。 また、これらのコマンドレットは Azure PowerShell モジュールの一部であり、Azure Automation で使用するために Azure PowerShell モジュールを提供しています。このため、Runbook 内で追加の作業を行う必要はありません。Azure Automation を初めて使用する場合は、これらのコマンドレットを使用できます。
+
+
+  Azure PowerShell モジュールで提供される優れたコマンドレット機能を確認するには、Azure モジュールがインストールされているホストで PowerShell コンソールを開き、次のコマンドを入力します。
+
+  <pre class="prettyprint">PS C:\&gt; Get-Command -Module Azure -Name *Automation*</pre>
+
+  これにより、すべてのコマンドレットのデータAzure Automationされます。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/oaas-ps-cmdlets-2.png" alt="Azure Automation Capabilities in Depth: The Azure Automation PowerShell Cmdlets" width="610" height="351" border="0" />
+
+
+  &nbsp;
+
+
+  特定の Automation コマンドレットを使用する方法の詳細を取得するには、次のコマンドを入力します。
+
+  <pre class="prettyprint">PS C:\&gt; Get-Help Some-Command</pre>
+
+  ただし、"Some-Command" は、Azure Automationするコマンドレットに置き換えてお使いください。 必要に応じて、"–Detailed" または "–Full" を追加して、コマンドレットに関するより大きな情報セットを取得できます。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/oaas-ps-cmdlets-3.png" alt="Azure Automation Capabilities in Depth: The Azure Automation PowerShell Cmdlets" width="610" height="458" border="0" />
+
+
+  &nbsp;
+
+
+  PowerShell コンソールよりも web ブラウザーでコマンドレットについて学習する場合は、「Azure Automation コマンドレット リファレンス」を参照することもできます。
+
+  <h2>Azure Automation コマンドレットの動作</h2>
+
+  他の Azure コマンドレットと同様に、Azure コマンドレットを実行するには、まず Azure サブスクリプションへの接続を設定する必要があります。 ローカル証明書ストアにインストールされている管理証明書を使用するか、Azure 資格情報を使用して Azure に対して認証できます。 Set-AzureSubscription、Import-AzurePublishedSettingsFile、Add-AzureAccount、Select-AzureSubscription の組み合わせを使用して、Azure への接続を設定します。 Azure に接続する方法の詳細については、次のコマンドレットをAzure PowerShell<a href="https://azure.microsoft.com/en-us/documentation/articles/install-configure-powershell/#Connect">覧ください</a>。 Azure への接続を設定したら、資格情報やエンドポイントなどを指定することなく、Azure コマンドレットを使用できます。これはすべて、最初の接続設定から転送されます。 ただし、 <i>AutomationAccountName</i> パラメーターを使用して、各操作Azure Automationアカウントの名前を指定する必要があります。
+
+  <h2>コマンドレットの実行</h2>
+
+  次に示すのは、Azure Automation コマンドレットを実行する例です。コマンドレットによって提供される出力の種類は次のようになります。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/imaacmdage007.png" alt="Azure Automation Capabilities in Depth: The Azure Automation PowerShell Cmdlets" width="610" height="571" border="0" />
+
+
+  &nbsp;
+
+
+  コマンドレットを使用すると、同じ Automation アカウントに対して継続的に操作している場合、AutomationAccountName パラメーターを各コマンドレットに継続的に渡すのが面倒な場合があります。 幸いなことに、このパラメーターを各 Azure Automation コマンドレットに渡す簡単な方法があります。毎回書き出す必要はありません。スプラッティングです。 <a href="https://technet.microsoft.com/en-us/library/jj672955.aspx">スプラッティングを</a> 使用すると、一連のパラメーターをハッシュテーブルとして定義し、そのパラメーターのセットを任意のコマンドレットに渡すことができます。 以下から、Automation アカウント名のパラメーターと値を次のコマンドレットに非常に簡単に追加Azure Automationできます。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/imaacmdage009.png" alt="Azure Automation Capabilities in Depth: The Azure Automation PowerShell Cmdlets" width="610" height="591" border="0" />
+
+  <h2></h2>
+
+  <h2>次のAzure Automationコマンドレットを使用Azure Automation</h2>
+
+  Azure PowerShell モジュールに関するもう 1 つの興味深い情報は、Azure Automation のアウトボックス統合モジュールとして含まれている点です。つまり、追加の作業を行う必要がない Runbook で Automation コマンドレットを直接使用できます。 たとえば、別の Azure Automation Runbook を新しいジョブとして非同期的に開始し、そのジョブに情報を出力する Azure Automation Runbook を次に示します。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation機能の詳細: PowerShell Azure Automationコマンドレット" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/oaas-ps-cmdlets-4.png" alt="Azure Automation Capabilities in Depth: The Azure Automation PowerShell Cmdlets" width="610" height="581" border="0" />
+
+
+  &nbsp;
+
+
+  Runbook から Runbook を開始する方法の詳細については、Chris Sanders のブログ投稿を参照 <a href="https://azure.microsoft.com/blog/2014/08/12/azure-automation-runbook-input-output-and-nested-runbooks/">してください</a>。 Azure Automation コマンドレットの使用に依存する Azure Automation Runbook のもう 1 つのクールな例については、Visual Studio Online と Azure Automation の統合に関する Gary Keong のブログ投稿を参照して Runbook ソース管理を有効にしてください。<a href="https://azure.microsoft.com/blog/2014/07/24/azure-automation-integrating-runbook-source-control-using-visual-studio-online/"></a>
+
+  <h2>まとめ</h2>
+
+  これで、Azure Automation PowerShell コマンドレットを使用して実現できるすばらしいすべてのことを理解し、コマンドレット自体がどのように機能するのかを理解できます。 これらのコマンドレットを使用Azure Automationを使用してクラウドおよびビジネス プロセスを自動化できるだけでなく、Automation 自体を自動化することもできます。 このAzure Automationチームは、作成する Runbook とスクリプトの種類を確認して、Azure Automation と Azure PowerShell モジュールが提供する機能を利用できます。
+
+
+  次のAzure Automation?このサービスについては、こちらを <a href="https://aka.ms/Q2p1ap" target="_blank">確認し</a>、Twitter のAzure Automation <a href="https://twitter.com/AzureAutomation" target="_blank">に従ってください</a>。
+
+
+  個人的に連絡を取りたい場合は、 ブログで連絡 <a href="https://jodoglevy.com" target="_blank">するか、</a> Twitter でフォロー <a href="https://twitter.com/jodoglevy" target="_blank">してください</a>。

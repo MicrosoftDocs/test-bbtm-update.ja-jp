@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f55bc1b4278f7920ac668ce03f4114302e44468c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891040"
+Slug: a-hybrid-approach-to-kubernetes
+Title: Kubernetes のハイブリッドアプローチ
+Summary: 今週、Kubecon のすべての人をご確認ください。 私たちは、お客様が Kubernetes についてどのように考えているかを理解し、それを簡単にするためにできることを理解しています。
+Content: >-
+  <p>今週、Kubecon に全員が見られるようになりまし &rsquo; た。 私たち &rsquo; は、お客様が Kubernetes をどのよう &rsquo; に検討しているかを理解し、それを簡単にするためにできることを理解しています。 Azure Stack、は、アプリケーションを開発するための新しいハイブリッド機能を提供します。 Azure と同じようにアプリケーションを設計、開発、および保守し、任意の Azure クラウドにデプロイすることができます。 アプリケーション &rsquo; の場所は、デザインの制約ではなく、構成パラメーターになります。</p>
+
+
+  <p>では、どのようにしてコンテナーを正確に操作 Azure Stack ますか。 コンテナーとハイブリッドクラウドを連携させることで、多くの問題を解決できるようになります。 NodeJS、Python、Ruby など、さまざまな言語を使用して、コンテナー内に一連のアプリを作成できます。 また、Visual Studio Code など、利用可能な幅広いツールを活用することもできます。 ユーザー &rsquo; の要件を満たす環境を組み合わせて、コンテナーまたはコンテナーのセットをデプロイできます。 たとえば、機密データを Azure Stack にローカルに保持し、グローバル Azure で Azure Cognitive Services などの現在の機能にアクセスすることができます。 または、開発者がグローバル Azure でアプリを開発し、海底で完全に切断される Azure Stack のプライベートクラウドにコンテナー化されたアプリをデプロイすることもできます。 可能性は無限です。</p>
+
+
+  <p>Azure Stack を使用すると、グローバルな Azure の場合とほぼ同じように、コンテナーをオンプレミスで実行できます。 データの重心、データ主権、またはその他のビジネスニーズに応じて、コンテナーに最適な場所を選択できます。 コンテナーを使用すると、オンプレミスで実行されているホストから Azure サービスを使用できます。また、セキュリティで保護されたインフラストラクチャ、統合されたロールベースのアクセス制御、シームレスな DevOps ツールを利用できるため、複数の Azure クラウドを対象とする1つのパイプラインを作成できます。 コンテナーとサポートサービスは、企業ネットワークと統合された安全なインフラストラクチャでホストされます。</p>
+
+
+  <p>テンプレートは Azure Container Service エンジンによって生成されるため、Azure Stack プレビューで利用できる <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-solution-template-kubernetes-cluster-add" target="_blank">Kubernetes Marketplace 項目</a> は Azure と整合しています。結果として得られるクラスターは、AKS と同じコンテナーを実行します。 また、クラウドネイティブファンデーションに準拠しています。</p>
+
+
+  <p>また、開発者は Azure Stack で <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/openshift-azure-stack" target="_blank">Open Shift Container Platform</a> を使用することもできます。 オープンシフトでは、Azure、Azure Stack、ベアメタル、Windows、RHEL の一貫したコンテナーエクスペリエンスが提供されます。 オープンシフト <a href="https://azure.microsoft.com/en-us/blog/red-hat-openshift-and-microsoft-azure-stack-together-for-hybrid-enterprise-solutions/" target="_blank">は、9月に発表</a>された Microsoft と Red Hat developer framework および partner エコシステムをまとめたものです。</p>
+
+
+  <p>Azure、Azure Stack、Azure ソブリンクラウド全体でコンテナーを使用する場合は、アプリケーションアーキテクチャがコンテナーよりも多くなる可能性があることも考慮する必要があります。 アプリケーションは、特定のバージョンが異なる多くのリソースに依存している可能性があります。 これを簡単に管理できるように、最近、 <a href="https://cloudblogs.microsoft.com/opensource/2018/12/04/announcing-cnab-cloud-agnostic-format-packaging-running-distributed-applications/" target="_blank">クラウドネイティブアプリケーションバンドル</a>を発表しました。これは、Docker と密接に連携して作成され、HashiCorp、Bitnami などで幅広くサポートされている、新しいオープンソースのパッケージ形式仕様です。 クラウドネイティブアプリケーションバンドルを使用すると、1つのインストール可能なファイルを使用して分散アプリケーションを管理し、さまざまな環境でアプリケーションリソースを確実にプロビジョニングし、複数のツールを使用しなくてもアプリケーションのライフサイクルを簡単に管理できます。</p>
+
+
+  <p>今週は KubeCon があります。出席している場合は、エキスポ Hall の Kubernetes と Azure Stack が動作しています。 この投稿に記載されているテクノロジの優れたデモを表示するには、ブース #P18 を削除してください。</p>
+
+
+  <p>この投稿の情報が役に立つことを願っています。 ハイブリッドアプリケーションの開発に関する新しいトピックを引き続きご利用いただけます。また、 <a href="https://twitter.com/rlfmendes" target="_blank">Twitter</a>にもぜひご連絡ください。</p>
+
+
+  <p>ハイブリッドアプリケーション開発の詳細については、このシリーズの前の記事「 &quot; <a href="https://azure.microsoft.com/en-us/blog/what-you-need-to-know-when-writing-hybrid-applications/" target="_blank">ハイブリッドアプリケーションを作成するときに知っ</a>ておくべきこと」を参照してください。&quot;</p>

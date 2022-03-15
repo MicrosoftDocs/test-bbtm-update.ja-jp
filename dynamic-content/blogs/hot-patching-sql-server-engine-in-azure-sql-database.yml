@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a982741a64583737b92534dc88129670a581c400
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896762"
+Slug: hot-patching-sql-server-engine-in-azure-sql-database
+Title: Azure SQL Database のホット SQL Server エンジンへの修正プログラムの適用
+Summary: クラウド データベース サービスの世界では、データに中断なくアクセスするよりも、顧客にとって重要なものは少なからずあります。 オンライン ゲームや金融サービスなど、トランザクションレートが高い業界では、中断が最小でもエンド ユーザーのエクスペリエンスに影響を与える可能性があります。
+Content: >-
+  <p>クラウド データベース サービスの世界では、データに中断なくアクセスするよりも、顧客にとって重要なものは少なからずあります。 オンライン ゲームや金融サービスなど、トランザクションレートが高い業界では、中断が最小でもエンド ユーザー エクスペリエンスに影響を与える&rsquo;可能性があります。 Azure SQL Database常に最新バージョンの SQL エンジンを使用していますが、この常に最新の状態を維持するには、データベースを 1 秒間オフラインにできるサービスを定期的に更新する必要があります。 このため、エンジニアリング チームは、ワークロードの中断を減らす革新的なテクノロジの改善に継続的に取り組み続けます。</p>
+
+
+  <p>今日&rsquo;の投稿では、Visual C++ コンパイラ チームと協力して、ワークロードに影響を与えることなく、SQL Server エンジンに修正プログラムを適用する方法について説明しています。<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95afd15f-e32b-4a73-9a14-a430b7e0fde0.png"><img alt="A diagram showing the details of how hot patching works." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ae6ad19-6dca-456e-b6dd-21137cacc933.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none; width: 900px; height: 556px;" title="740 ブログ"></a></p>
+
+
+  <p style="text-align: center;"><em>図 1 &ndash; これは、ホット パッチ適用の内容です。低レベル&rsquo;の詳細に関心がある場合は、技術ブログ <a href="https://techcommunity.microsoft.com/t5/Azure-SQL-Database/Hot-Patching-SQL-Server-Engine-in-Azure-SQL-Database/ba-p/849700" target="_blank">の投稿を参照してください</a>。</em></p>
+
+
+  <h2>課題</h2>
+
+
+  <p>Azure SQL Database で実行している SQL エンジンは、お客様が独自のサーバーで実行するエンジンの最新バージョンです。ただし、管理と更新は除いて行います。 アプリケーションまたはSQL Serverインフラストラクチャ (<a href="https://azure.microsoft.com/en-us/services/service-fabric/" target="_blank">つまり、Azure Service Fabric</a> またはオペレーティング システム) を更新するには、プロセスを停止SQL Serverがあります。 そのプロセスでプライマリ データベース レプリカがホストされている場合は、レプリカを別のマシンに移動し、フェールオーバーを必要とします。</p>
+
+
+  <p>フェールオーバー中、データベースは 1 秒間オフラインで、99.995% の SLA を満たしている可能性があります。 ただし、プライマリ レプリカのフェールオーバーは、インフライト クエリとトランザクションを中止するためにワークロードに影響します。 このような状況に対処するために、データベースの回復を復旧可能なインデックス (<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-accelerated-database-recovery" target="_blank"></a>再<a href="https://docs.microsoft.com/en-us/sql/relational-databases/indexes/guidelines-for-online-index-operations?view=sql-server-2017" target="_blank">)</a> ビルドや高速復旧などの機能を構築しましたが、実行中のすべての操作が自動的に再送信できるという機能ではありません。 アップグレードのために中止された複雑なクエリまたはトランザクションを再起動すると、コストがかかる場合があります。 そのため、フェールオーバーは簡単ですが、回避する必要があります。</p>
+
+
+  <p>SQL Server全体の Azure プラットフォームは、プラットフォームの可用性と信頼性に多大なエンジニアリング作業を投資しています。 データベースSQL、すべての<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-high-availability" target="_blank">データベースの複数の</a>レプリカがあります。 アップグレード中に、ホット スタンバイをすぐに引き継ぐのが確実に可能になります。</p>
+
+
+  <p>フェールオーバー&rsquo;の数を最小限に抑えるために、より広範な Azure チームService Fabricチームと密接に取り組み合いました。 最初にアップグレードのためにデータベースをフェールオーバーする場合、スタック内のすべてのコンポーネント (OS、Service Fabric、および SQL Server) に更新プログラムを同時に適用します。 Azure リージョンのコア営業時間中のデプロイを回避する自動&rsquo;スケジューリングがあります。 フェールオーバーの直前に、アクティブなトランザクションをドレインして中止を回避します。 データベース ワークロード パターンを利用して、ワークロードに最適な時点でフェールオーバーを実行します。</p>
+
+
+  <p>それでも、&rsquo;SQL エンジン&rsquo;を新しいバージョンに更新するには、プロセスを再起動し、データベースのプライマリ レプリカを少なくとも 1 回フェールオーバーする必要があるという事実から離れる必要があります。 それとも、</p>
+
+
+  <h2>ホット パッチ適用と結果</h2>
+
+
+  <p><a href="https://en.wikipedia.org/wiki/Patch_(computing)#Hot_patching" target="_blank">ホット パッチ適用では</a> 、プロセスを再起動せずに実行中のプロセスのメモリ内コードを変更します。 この例では、エンジンで C++ コードを変更する機能をSQLを再起動せずに実行sqlservr.exe。 再起動しないの&rsquo;で、プライマリ レプリカ&rsquo;をフェールオーバーしてワークロードを中断しません。 修正プログラム&#39;アクティビティを一時停止SQL Serverする必要すらしません。 ホット パッチ適用は、もちろん、パッチ ペイロード以外のユーザー ワークロードによって確認されません。</p>
+
+
+  <p>ホット パッチ適用では、従来のアップグレードが置き換わるのではなく、アップグレードを &ndash; 再開すると、それらを補完します。 現在、ホット パッチ適用には、主要な新機能が導入された場合など、多数の変更がある場合に適しない制限があります。 ただし、小規模で対象を絞った変更に最適です。 一般的なバグ修正の 80% SQL修正プログラムはホット パッチ可能です。 ホット パッチ適用の利点は次のとおりです。</p>
+
+
+  <ul>
+   <li><strong>ワークロードの中断を減らします</strong>&nbsp;- 再起動なしは、データベースのフェールオーバーとワークロードへの影響を意味しません。</li>
+   <li><strong>バグ修正の高速化</strong>&nbsp;- 以前は、バグ修正の緊急性と、それをデプロイしたお客様のワークロードへの影響を確認しました。 ワークロードへの影響により、バグ修正が世界中のロールアウトにとって十分に重要ではないと考えられる場合があります。 ホット パッチを適用すると、世界中にバグ修正プログラムを今すぐデプロイできます。</li>
+   <li><strong>より早く利用可能な機能</strong>&nbsp;- 1 日に数回実行され、すべての新機能を徹底的にテストする 500,000 以上の機能テストでも、新しい機能が顧客に提供された後に問題が発生する場合があります。 このような場合は、機能を無効にするか、次回のスケジュールされた完全アップグレードまでライブに遅延する必要があります。 ホット パッチを適用すると、問題を修正し、機能をより早く使用できます。</li>
+  </ul>
+
+
+  <p>2018 年に初めてのホット パッチを実稼働環境で行いました。 それ以降、毎月何百万ものサーバーに対してSQL修正プログラムが適用されています。 ホット パッチ適用では、SQL Database速度が 50% 増加すると同時に、可用性が向上します。</p>
+
+
+  <h2>ホット パッチ適用のしくみ</h2>
+
+
+  <p>技術的に関心がある場合は、テクニカル <a href="https://techcommunity.microsoft.com/t5/Azure-SQL-Database/Hot-Patching-SQL-Server-Engine-in-Azure-SQL-Database/ba-p/849700" target="_blank"></a> ブログの投稿を参照して、ホット パッチの適用のしくみの詳細な説明を参照してください。 セクション 3 で読み始める。</p>
+
+
+  <h2>単語の終了と次のステップ</h2>
+
+
+  <p>この機能を使用して、ツールの改善と制限の削除に取り組み、より多くの変更を迅速なターンアラウンドでホット パッチ可能にしています。 現在のところ、ホット パッチ適用は Azure SQL Database でしか使用できませんが、いつかは新しいSQL Server。 ご興味がある場合は <a href="mailto:SQLDBArchitects@microsoft.com" target="_blank">SQLDBArchitects@microsoft.com</a> 、 を通じてお知らせください。</p>
+
+
+  <p>以下にコメントや質問を残してください。または、弊社が取り組むクール テクノロジの詳細な範囲を確認する場合は、上記の電子メールでお問い合わせください。</p>

@@ -1,0 +1,130 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c004b9dfb67611d158f6737f4657dd2db7f4faa7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894860"
+Slug: azure-powershell-1-3-0-gallery-improvements
+Title: Azure PowerShell 1.3.0 – PowerShell ギャラリーの機能強化
+Summary: リリース 1.3.0 では、アプリケーションのインストール エクスペリエンスPowerShell ギャラリー大幅に向上しています。 AzureRM を使用して AzureRM モジュールInstall-Moduleインストールします。 新しいコマンドレットをダウンロードしてインストールするために追加のコマンドレットを実行Azure Resource Managerなくなりました。
+Content: >-
+  <p>Azure PowerShellは、Azure (ARM) と Azure Service Management (RDFE) を使用して Azure 内の資産を管理するための Azure Resource Manager一連の PowerShell コマンドレットです。 コマンドレットは、Microsoft Web Platform Installer リポジトリの <a href="https://github.com/Azure/azure-powershell/releases" target="_blank">MSI</a> インストーラーから直接インストールするか、Azure PowerShell GitHub からインストール<a href="https://www.powershellgallery.com/" target="_blank">PowerShell ギャラリー</a>。<a href="https://aka.ms/webpi-azps" target="_blank"></a> リリース 1.3.0 では、アプリケーションのインストール エクスペリエンスPowerShell ギャラリー大幅に向上しています。</p>
+
+
+  <h2>AzureRM &ndash; コマンドレットを使用した簡単で高速なAzure Resource Managerする</h2>
+
+
+  <p><a href="https://www.powershellgallery.com/packages/AzureRM" target="_blank">AzureRM モジュールは、</a>AZURE 資産を管理するために必要なすべてのコマンドレットを、ARM Azure Resource Manager収集します。 すべての Azure Resource Manager&nbsp; コマンドレットをダウンロードしてインストールするには、管理者特権の Windows PowerShell または Windows PowerShell Integrated Scripting Environment (ISE) プロンプトを開き、PowerShell ギャラリー コマンドレットを使用して <strong>AzureRM</strong> モジュール<a href="https://www.powershellgallery.com/GettingStarted?section=Get%20Started" target="_blank">を</a>インストールします。</p>
+
+
+  <blockquote>
+
+  <p>新しいコマンドレットをダウンロードしてインストールするために追加のコマンドレットを実行Azure Resource Managerなくなりました。</p>
+
+  </blockquote>
+
+
+  <p>最初に、管理者特権Windows PowerShellまたはWindows PowerShellスクリプト環境プロンプトを開きます。</p>
+
+
+  <p><img alt="Open Elevated Windows PowerShell Prompt" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/db26f7ed-0c44-40bb-9fca-66e43f853e8f.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="管理者特権プロンプトWindows PowerShell開く" width="226"></p>
+
+
+  <p>次に、 <strong>Install-Module コマンドを実行</strong> して、すべてのコマンドレットをダウンロードAzure Resource Managerします。</p>
+
+
+  <pre class="prettyprint">
+
+  PS C:\&gt; Install-Module AzureRM</pre>
+
+
+  <p>PSGallery リポジトリを信頼されたリポジトリとしてまだ設定していない場合は、次のようなプロンプトが表示される場合があります。</p>
+
+
+  <pre class="prettyprint">
+
+  Untrusted repository
+
+  You are installing the modules from an untrusted repository. If you trust this repository, change its
+
+  InstallationPolicy value by running the Set-PSRepository cmdlet. Are you sure you want to install the modules from
+
+  &#39;PSGallery&#39;?
+
+  [Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is &quot;N&quot;): Y
+
+  </pre>
+
+
+  <p>「Y」と入力し、Enter キーを押して、AzureRM モジュールとすべてのコマンド Azure Resource Managerダウンロードします。 コマンドレットをすぐに使用できます。</p>
+
+
+  <pre class="prettyprint">
+
+  PS C:\&gt; Login-AzureRmAccount</pre>
+
+
+  <h2>レガシ コマンドレットのサポート</h2>
+
+
+  <p>Azure モジュールでは、従来の Azure Portal を使用してそれらの資産を対話形式で管理できるのと同様に、サービス管理 (RDFE) API を使用してレガシ Azure 資産を管理するためのすべてのコマンドレットが収集されます。 以前と同様に、すべての Service Management コマンドレットをインストールするには、管理者特権の Windows PowerShell または Windows PowerShell Integrated Scripting Environment (ISE) プロンプトを開き、PowerShell ギャラリー コマンドレットを使用して <strong>Azure</strong> モジュール<a href="https://www.powershellgallery.com/GettingStarted?section=Get%20Started" target="_blank">を</a>インストールします。</p>
+
+
+  <p>最初に、管理者特権Windows PowerShellまたはWindows PowerShellスクリプト環境プロンプトを開きます。</p>
+
+
+  <p><img alt="Open Elevated Windows PowerShell Prompt" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2288723b-7c02-41ac-896e-92a1c8d3cdad.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="管理者特権プロンプトWindows PowerShell開く" width="226"></p>
+
+
+  <p>次に、 <strong>Install-Module コマンドを実行</strong> して、すべての Azure Service Management コマンドレットをダウンロードしてインストールします。</p>
+
+
+  <pre class="prettyprint">
+
+  PS C:\&gt; Install-Module Azure</pre>
+
+
+  <p>PSGallery リポジトリを信頼されたリポジトリとしてまだ設定していない場合は、次のようなプロンプトが表示される場合があります。</p>
+
+
+  <pre class="prettyprint">
+
+  Untrusted repository
+
+  You are installing the modules from an untrusted repository. If you trust this repository, change its
+
+  InstallationPolicy value by running the Set-PSRepository cmdlet. Are you sure you want to install the modules from
+
+  &#39;PSGallery&#39;?
+
+  [Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is &quot;N&quot;): Y
+
+  </pre>
+
+
+  <p>「Y」と入力し、Enter キーを押して、AzureRM モジュールとすべてのコマンド Azure Resource Managerダウンロードします。 コマンドレットをすぐに使用できます。</p>
+
+
+  <pre class="prettyprint">
+
+  PS C:\&gt; Add-AzureAccount</pre>
+
+
+  <h2>PowerShell 3 および PowerShell 4 ユーザーのモジュール管理の変更</h2>
+
+
+  <p>AzureRM モジュールでは、新しいモジュール マニフェスト形式を使用して、参照する各モジュールAzure Resource Managerバージョン範囲を指定します。 この変更は、Windows PowerShell 3 および Windows PowerShell 4 の明示的なモジュール管理コマンドレットと互換性がありません。 つまり、AzureRM モジュールは、Azure を使用して Windows PowerShell <strong>3 または Windows PowerShell 4&nbsp; プロンプトに明示的Import-Moduleすることはできません。</strong></p>
+
+
+  <p>ただし、モジュールは <strong>PSModulePath</strong> に自動的にダウンロードされるので、AzureRM モジュールを明示的にインポートする必要があります。 インストール直後にコマンドレットを実行できます。</p>
+
+
+  <blockquote>
+
+  <p>注: Azure Resource Manager コマンドレットを Microsoft Web Platform Installer から、または Azure PowerShell GitHub リポジトリの MSI インストーラーから直接インストールした<a href="https://aka.ms/webpi-azps" target="_blank"></a>場合、この変更<a href="https://github.com/Azure/azure-powershell/releases" target="_blank">はAzure PowerShell GitHubされません</a>。</p>
+
+  </blockquote>
+
+
+  <p>新しい AzureRM モジュールで <strong>Import-Module</strong> コマンドレットと <strong>Remove-Module</strong> コマンドレットを使用する場合は、5 から Windows Management Framework<a href="https://www.microsoft.com/en-us/download/details.aspx?id=50395" target="_blank">があります</a>。</p>

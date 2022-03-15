@@ -1,0 +1,136 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 012616766441cdd1fec0d6a20e2e933cf6c0e95c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891177"
+Slug: azure-automation-monitoring-and-troubleshooting-your-runbook-jobs-2
+Title: 'Azure Automation: Runbook ジョブの監視とトラブルシューティング'
+Summary: Runbook Azure Automation毎日実行する場合は、Automation ジョブがどのように機能しているのか知る必要があります。 予期しない問題が発生した場合は、問題をすばやくトラブルシューティングし、自動化をオンラインに戻す必要があります。 この投稿では、その方法を示します。
+Content: >-
+  <h2>はじめに</h2>
+
+  Microsoft Azure 環境の管理とメンテナンスを自動化する精通した顧客は、<a href="https://azure.microsoft.com/en-us/services/automation/">もちろん、Azure</a> の新しい Automation サービスに精通しています。 Azure Automation サービスを使用すると、クラウド サービスを稼働状態に保つ時間、手動、反復的、複雑なタスクを自動化し、時間、コスト、エラーを削減するために他のシステムと統合することができます。 Azure Automation、クラウド オーケストレーションを実行する Runbook (PowerShell ワークフロー) を作成および管理するための完全なソリューションが提供されます。
+
+
+  Runbook と関連するモジュールと資産の作成を開始し、それらを毎日使用し始めるには、オペレーターがシステム内のリソース (Runbook の実行状況、現在の状態、実行方法、節約しているコスト) を確認する必要があります。 簡単に言えば、すべての自動化がどのように実行されているのか知る必要があります。 予期しない問題が発生した場合は、問題をすばやくトラブルシューティングしてデバッグし、自動化をオンラインに戻す必要があります。
+
+
+  Azure Automation、ここで役立ちます。 Automation には、Runbook の状態の監視と Runbook ジョブのトラブルシューティングの両方の機能が提供されます。 この投稿では、これらの機能のツアーをお読みAzure Automation。
+
+
+  &nbsp;
+
+  <h2>Automation Dashboard</h2>
+
+  Azure Portal を初めて開き、Automation サービスに移動し、Automation アカウントを選択すると、すべての Automation ダッシュボードが表示されます。
+
+
+  <strong><img style="padding-left: 0px; padding-right: 0px; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="598" height="610" border="0" /></strong>
+
+
+  このダッシュボードには、システムについて通知する 4 つの重要なセクションがあります。
+
+  <ol>
+   <li>ダッシュボードの上部には、選択した期間 <b></b> (過去 1 時間から過去 30 日間まで) の各 Runbook ジョブの状態を示すグラフがあります。 このグラフでは、現在実行されているジョブの数、完了したジョブの数をすばやく確認できます。最も重要なのは、注意が必要なジョブ (中断または失敗したジョブ) を確認できます。 グラフの上部には、考えられる各ジョブの状態を表すアイコンの行があります。 これらのアイコンをクリックすると、特定のステータス行のオンとオフを切り替え、特定の関心のあるジョブの状態に集中できます。</li>
+   <li>グラフの下に使用状況の <b>概要があります</b>。 このセクションでは、ジョブの実行時間、Runbook の数、モジュール のサイズについて、クォータに対する現在の使用量を識別します。 これは、Azure Automation (プレビュー後) の支払いを開始する前に、システムの使用量を測定するために使用できます。または、既に支払いを行っている場合は、アップグレードされたプランに移行する前にサービスを使用できる量を測定できます。</li>
+   <li>使用セクションの下に<b>ジョブ テーブル</b><b>があります</b>。 このテーブルには、過去 30 日間に開始された各ジョブのエントリと、Runbook (ワークフロー) の名前、ジョブが最後に更新された時刻、およびジョブの現在の状態が表示されます。 そのため、注意が必要な最近の Runbook ジョブがある場合は、このテーブルを使用して正確なジョブをすばやく特定し、ドリルダウンしてトラブルシューティングを行います。</li>
+   <li>使用状況の概要とジョブ テーブルの右側に、概要 <b>セクション</b> があります。 このセクションには、Runbook、モジュール、アセットの数など、Automation アカウントに関する有用な静的な情報が含まれています。 また、作成状態にある Runbook の数も示します。</li>
+  </ol>
+
+  &nbsp;
+
+
+  上のグラフは問題ありませんが、ダッシュボードに移動して、次のように表示するとします。
+
+
+  <strong><img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="610" height="272" border="0" /></strong>
+
+
+  それは良いことではありません。 上記のように、中断された Runbook ジョブ (スクリーンショットの薄い青) が多数用意されています。また、この期間にこのような中断された動作は今まで一度も行われたことがない状態です。 Automation ジョブは完了すると予想されます (Runbook の作成者が中断する予定がない限り)、これは問題であり、問題のトラブルシューティングを行う必要があります。
+
+
+  ジョブ テーブルを見て、同じ Runbook Update-AzureVM が実行されるごとに中断されているのに気付くでしょう。
+
+
+  <strong><img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="610" height="418" border="0" /></strong>
+
+
+  この時点で、ジョブ テーブルの [ジョブの最終更新] リンクのいずれかをクリックし、ジョブの詳細に直接ドリルできます。ただし、この場合はジョブが中断を開始した時点を確認する必要があります。そのため、ジョブ テーブルで Update-AzureVM<b> </b>Runbook 名をクリックし、その Runbook のダッシュボードに移動して、その Runbook の実行の履歴ビューを取得します。
+
+
+  &nbsp;
+
+  <h2>Runbook Dashboard</h2>
+
+  <b>Runbook ダッシュボードは</b>、Automation ダッシュボードと非常<b></b>に似ています。グラフ、ジョブ テーブル、概要セクションがあります。 ただし、Runbook ダッシュボードの情報の範囲は、完全に 1 つの Runbook に設定されます。
+
+
+  <strong><img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="610" height="395" border="0" /></strong>
+
+
+  概要 <b>セクションでは</b> 、この Runbook が最後に発行された時刻と公開したユーザー、およびこの Runbook が今月実行したジョブ実行時間などのその他の情報を確認できます。 また、オーサリングの状態を確認できます。現在編集中か、それとも完了して発行されていますか。 また、Runbook が任意のスケジュールで実行するように構成されていることを確認できます。
+
+
+  この Runbook が過去 3 回中断された理由を把握しようとしているため、詳細な情報が必要です。そのため、ジョブ テーブルで、各ジョブの [ジョブの最終更新<b></b>時刻] をクリックして、関連付けられているジョブの概要<b></b>に移動します。<b></b>
+
+
+  &nbsp;
+
+  <h2>ジョブの概要</h2>
+
+  [ジョブの概要] に、特定のジョブの概要が表示されます。 Runbook の名前と現在のジョブの状態に加えて、ジョブを開始したユーザー、開始した時間、最後に更新された時点 (この場合は中断された時点) を確認できます。 また、Runbook への入力パラメーターの名前と値、および Runbook からの出力または例外を確認することもできます。
+
+
+  <strong><img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="471" height="610" border="0" /></strong>
+
+
+  これは役に立ちますが、問題の最下位に戻るのに十分な情報が提供されているのではありません。 Runbook の一部の変数は null と表示されますが、なぜそれが発生したのでしょうか。 確認するには、[履歴] タブをクリックして<b></b>、Runbook の実行の各ステップに関する詳細情報を表示します。
+
+
+  &nbsp;
+
+  <h2>ジョブ履歴</h2>
+
+  実行される PowerShell ワークフローごとに、ワークフロー エンジンは有用な情報を含む複数のストリームを出力します。 これらのストリームは、進行状況、出力、警告、エラー、詳細ストリームです。 既定では、Azure Automation Progress ストリームと Verbose ストリームはジョブごとに格納されません (特に Progress ストリームの場合、データ ストレージが大きくなる可能性があります)。ただし、デバッグとトラブルシューティングにこの情報が必要な場合は、Runbook の構成ページでこれらのストリームのログ記録を有効にできます。
+
+
+  ジョブ <b>の</b> [履歴] ページには、レコードの作成時刻順に並べ替え、格納されたストリーム レコードの一覧が含まれます。 そのため、このページを使用すると、すばやくドリルダウンし、Runbook の各ステップで実行された結果を確認できます。 Automation ではこの情報を格納して取得できます。このため、トラブルシューティングを念頭に置いて Runbook を作成する必要があります。Runbook のジョブが中断されている場合は、後で根本原因を見つけやすくなります。
+
+
+  <strong><img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="610" height="280" border="0" /></strong>
+
+
+  上からご覧のように、ジョブ履歴ではエラーが発生しているようです。Runbook は、修正プログラムを適用することを意図した Azure 仮想マシンにリモートでアクセスできなかったようです。
+
+
+  さらに詳細な情報が必要な場合は、任意のストリーム レコードの詳細を表示するか、このジョブのソース コードを表示して、PowerShell ワークフロー コードで発生している可能性がある問題を思い出して問題を引き起こします。 このジョブの実行後に Runbook が変更された場合でも、この特定のジョブで使用されるソース コードが表示されます。
+
+
+  <img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="480" height="426" border="0" />
+
+
+  精通した Automation ユーザーとして、中断された各ジョブの履歴に<b></b>アクセスし、生成されたエラーの詳細を表示しました。 上から、Runbook が修正プログラムを適用しようとしていた Azure 仮想マシンに対する認証エラーが原因で、このエラーが発生したという詳細が表示されます。 コードのクイック ビューから、Update-AzureVM Runbook が VM にリモート接続するために使用する資格情報として "joeAzureVMCred" Automation 資格情報資産を使用しているのを確認できます。
+
+
+  <strong><img style="margin: 0px auto; padding-left: 0px; padding-right: 0px; float: none; padding-top: 0px; border: 0px;" title="Azure Automation: Runbook ジョブの監視とトラブルシューティング" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8.png" alt="Azure Automation: Monitoring and Troubleshooting Your Runbook Jobs" width="610" height="424" border="0" /></strong>
+
+
+  その後、この仮想マシンのパスワードが最近変更されたことを思い出してください。 これで、問題が何かを理解しました。 修正は簡単です。joeAzureVMCred 資格情報資産を編集し、パスワードを正しい値に更新します。
+
+
+  この修正プログラムを設定すると、中断された各ジョブを再開し、最後のチェックポイント (今後のブログ記事のチェックポイント処理の詳細) から開始し、実行していた作業を完了します。 バックアップして実行しています。
+
+
+  &nbsp;
+
+  <h2>まとめ</h2>
+
+  このAzure Automation、Azure クラウド環境を完全に自動化するためのツールが提供されています。 新しい Runbook の作成から、ジョブの実行、問題の監視とトラブルシューティングまで、自動化エクスペリエンス全体を制御できます。
+
+
+  次のAzure Automation?このサービスについては、こちらを <a href="https://aka.ms/Q2p1ap" target="_blank">確認し</a>、Twitter のAzure Automation <a href="https://twitter.com/AzureAutomation" target="_blank">に従ってください</a>。
+
+
+  個人的に連絡を取りたい場合は、 ブログで連絡 <a href="https://jodoglevy.com" target="_blank">するか、</a> Twitter でフォロー <a href="https://twitter.com/jodoglevy" target="_blank">してください</a>。

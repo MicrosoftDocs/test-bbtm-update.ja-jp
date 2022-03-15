@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 80134f756a54f02e838c9a2de3bfae3046393dce
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895892"
+Slug: introducing-health-integrated-rollouts-to-azure-deployment-manager
+Title: Azure Deployment Manager への正常性統合されたロールアウトの導入
+Summary: 安全で信頼性の高いデプロイを実行して、高可用性を確保し、Azure Deployment Manager での healthCheck による回帰によって発生するサービスのダウンタイムを大幅に短縮します。
+Content: >-
+  <p>Ignite 2018 では、 <a href="https://aka.ms/admblog" target="_blank">Azure Deployment Manager</a>を公開しています。これにより、初めてプレビューで Azure Resource Manager リソースの段階的なロールアウトを実行できます。 サービスの正常性を監視するには、リージョンのロールアウトによって、またはリージョン内の複数のフェーズの一部として、統合された正常性チェックをこれらのリージョンと組み合わせることができます。 &rsquo;Azure Deployment Manager プレビューで正常性統合機能を利用できるようになったことをお知らせします。 これらの正常性統合されたロールアウトは、許容できない信号が検出された場合に、デプロイが自動的に停止し、トラブルシューティングを行い、影響のスケールを減らすことができることを意味します。 このツールセットは、安全で信頼性の高い展開を実行するために、数百の Microsoft サービスによって内部的に使用されています。これにより、高可用性が確保され、更新の回帰によるサービスのダウンタイムが大幅に短縮されます。</p>
+
+
+  <p>Azure Deployment Manager では、運用前環境へのデプロイの手順を自動化し、長期にわたってサービスの正常性を検証してから、他の環境に段階的に移行し、必要な正常性チェックを実行します。&nbsp;</p>
+
+
+  <p>この機能は、次の場合に適しています。</p>
+
+
+  <ul style="margin-left: 40px;">
+   <li style="margin-bottom:4px;">複数のリージョンにサービスをデプロイする &rsquo;&nbsp;</li>
+   <li style="margin-bottom:4px;">さまざまな構成を再テストする &rsquo;</li>
+   <li style="margin-bottom:4px;">何らかの種類の正常性監視サービスを既に使用しています</li>
+  </ul>
+
+
+  <h2>サービスの正常性の確認</h2>
+
+
+  <p>正常性監視プロバイダーは、サービスの正常性の問題を監視し、アラートを通知するためのいくつかのメカニズムを提供します。 <a href="https://azure.microsoft.com/services/monitor/" target="_blank">Azure Monitor</a> は、特定のしきい値を超えたときにアラートを発生させる、このような種類のオファリングの一例です。 しきい値の中には、サービスの正常性に関する問題を示しているものがあります。 たとえば、新しい更新プログラムをサービスに展開し、メモリと CPU 使用率が予想されるレベルを超えて急上昇している場合 &rsquo; 、Azure Monitor とそのような正常性監視プロバイダーによって問題が通知されるため、是正措置を取ることができます。</p>
+
+
+  <p>これらの正常性プロバイダーは、通常、サービス &rsquo; のモニターの状態をプログラムで調べることができるように REST api を提供します。 REST Api は、単純な健全/異常シグナル (通常は HTTP 応答コードによって決定される)、または受信した信号に関する詳細情報を返します。</p>
+
+
+  <p>Azure Deployment Manager の新しい healthCheck 手順では、正常なサービスを示す HTTP コードを宣言できます。また、複雑な REST の結果については、一致する場合に正常な応答を示す正規表現を指定することもできます。 これをさらに簡単に使用できるようにするために、Azure Deployment Manager チームは、上位の正常性監視プロバイダーと密接に連携してこれらの HTTP コードと正規表現を事前に作成しています。そのため、これらのプロバイダーのいずれかを使用する &rsquo; と、healthCheck 手順のこの部分をコピーして貼り付けることができます。&nbsp;</p>
+
+
+  <p>Azure Deployment Manager の正常性チェックを設定するプロセスは簡単です。</p>
+
+
+  <ol style="margin-left: 40px;">
+   <li style="margin-bottom:4px;">任意のヘルスサービスプロバイダーを使用してヘルスモニターを作成します。</li>
+   <li style="margin-bottom:4px;">Azure Deployment Manager ロールアウトの一環として 1 つまたは複数の healthCheck 手順を作成します。</li>
+   <li style="margin-bottom:4px;">healthCheck 手順に次の情報を入力します。 <ul>
+    <li style="margin-bottom:4px;">正常性モニターの REST API の URI (ヘルスサービスプロバイダーによって定義)</li>
+    <li style="margin-bottom:4px;">認証情報 (API キースタイル認証のみが現在サポートされています)</li>
+    <li style="margin-bottom:4px;">正常な応答を定義する HTTP 状態コードまたは正規表現</li>
+   </ul>
+   </li>
+   <li style="margin-bottom:4px;">Azure Deployment Manager ロールアウト中、適切なタイミングで healthCheck 手順を呼び出します。</li>
+  </ol>
+
+
+  <h2>正常性チェックのフェーズ</h2>
+
+
+  <p>この時点で、Azure Deployment Manager は、サービスの正常性を照会する方法と、ロールアウト内のどのフェーズに対してクエリを実行するかを把握しています。 しかしながら、Azure Deployment Manager では、このようなチェックのタイミングを詳細に設定することもできます。 healthCheck ステップは、構成可能な期間を含む単純な3フェーズプロセスで実行されます。これは、Azure 自体を構成する最大の Microsoft サービスの正常性監視のニーズをサポートするのに十分な機能を備えています。</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1a030fcb-1e6d-48f6-9bde-2dee79c184a4.png"><img alt="Phases of a health check" border="0" height="278" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b9dca2a-d785-4e75-8b08-c18582091ebe.png" style="width:80%; border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="正常性チェックのフェーズ" width="1370"></a></p>
+
+
+  <p><strong>Wait</strong></p>
+
+
+  <ul style="margin-left: 40px;width:80%">
+   <li style="margin-bottom:4px;">デプロイ操作が完了すると、更新プログラムが安定した状態になっていないため、サービスの正常性を確認するのは理にかなっていない可能性があります。 サービスが正常性の監視プロバイダーによって集計される正常性信号の生成を開始するのに時間がかかります。また、新しいデータに基づいて Vm を初めて起動したり、再起動したり、再構成したりすることができます。 この tumultuous プロセスでは、正常な状態と異常な状態の間でサービスの正常性が不安定になる可能性があります。</li>
+   <li style="margin-bottom:4px;">待機フェーズでは、正常性チェックプロセスを開始する前に、デプロイされたリソースが焼き付けるになるまで、サービスの正常性は監視されません。</li>
+  </ul>
+
+
+  <p><strong>Elastic</strong></p>
+
+
+  <ul style="margin-left: 40px; width:80%;">
+   <li style="margin-bottom:4px;">リソースが安定して焼き付けるになるまでにかかる時間を把握することはほとんどありません。エラスティックフェーズでは、リソースが不安定になる可能性がある時間と、正常な安定した状態を維持するために必要な時間の間に、柔軟な時間を確保できます。</li>
+   <li style="margin-bottom:4px;">エラスティックフェーズが開始されると、Azure Deployment Manager はサービス正常性について提供された REST エンドポイントを定期的にポーリングします。 Azure Deployment Manager preview ではポーリング間隔は3分に設定されていますが、今後は構成可能になります。</li>
+   <li style="margin-bottom:4px;">ヘルスモニターが、サービスが異常であることを示す信号を返した場合、これらのシグナルは無視され、エラスティックフェーズが維持され、ポーリングが続行されます。</li>
+   <li style="margin-bottom:4px;">サービスが正常であることを示す信号と共に正常性モニターが戻ってくると、直後に Elastic フェーズは終了となり、HealthyState フェーズが開始されます。</li>
+   <li style="margin-bottom:4px;">このため、エラスティックフェーズに対して指定された期間は、正常な応答が必須と見なされる前にサービス正常性のポーリングに費やされる最長 &nbsp; 時間です &nbsp; 。</li>
+  </ul>
+
+
+  <p><strong>HealthyState</strong></p>
+
+
+  <ul style="margin-left:40px; width:80%;">
+   <li style="margin-bottom:4px;">HealthyState フェーズの間、Elastic フェーズと同じ間隔でサービスの正常性が継続的にポーリングされます。</li>
+   <li style="margin-bottom:4px;">サービスには、指定されている継続時間の間ずっと、正常性監視プロバイダーからの正常性信号を維持することが求められます。</li>
+   <li style="margin-bottom:4px;">ある時点で異常応答が検出された場合、Azure Deployment Manager によってロールアウト全体が中止となり、異常サービス信号を含む REST 応答が返されます。</li>
+   <li style="margin-bottom:4px;">HealthyState フェーズの期間が終了すると、healthCheck は完了し、次の手順に進みます。</li>
+  </ul>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure Deployment Manager の使用を開始するには、次のいくつかのリソースを使用します。</p>
+
+
+  <ul style="margin-left: 40px;">
+   <li style="margin-bottom:4px;">Azure Deployment Manager で <a href="https://docs.microsoft.com/azure/azure-resource-manager/deployment-manager-overview" target="_blank">安全なデプロイの方法</a> を有効にします。</li>
+   <li style="margin-bottom:4px;"><a href="https://docs.microsoft.com/azure/azure-resource-manager/deployment-manager-tutorial" target="_blank">Resource Manager テンプレートで Azure Deployment Manager を使用</a>する方法について説明します。</li>
+   <li style="margin-bottom:4px;">ご意見およびご提案がある場合は、 <a href="https://aka.ms/admfeedback" target="_blank">皆様からのご意見をお待ちしており &rsquo; </a>ます。</li>
+  </ul>

@@ -1,0 +1,119 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 44a2f890c9d735b19409149496cdc50c2b4f7f55
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896131"
+Slug: azurebuildingblocks
+Title: Azure の構成要素の発表
+Summary: Azure ビルディングブロックプロジェクトは、Azure リソースのデプロイを簡略化するために設計されたコマンドラインツールと一連の Azure Resource Manager テンプレートです。 ユーザーは、簡略化されたパラメーターのセットを作成して Azure リソースの設定を指定します。また、コマンドラインツールは、これらのパラメーターをベストプラクティスの既定値とマージして、Azure Resource Manager テンプレートと共に配置できる一連の最終的なパラメーターファイルを生成します。
+Content: >-
+  <p>Azure の <a href="https://github.com/mspnp/template-building-blocks/wiki">構成要素</a>、azure リソースのデプロイを簡略化するために設計された一連のツールと Azure Resource Manager テンプレートのリリースを発表します。 Azure Resource Manager テンプレートは非常に強力ですが、同時に作成して管理するのは非常に複雑な場合があります。 Azure の構成要素を使用すると、テンプレートを作成する必要が&#39;ます。 デプロイするリソースのパラメーター設定だけ &nbsp; を指定 &nbsp; する必要があります。 これらのパラメーター設定は、ベストプラクティスの既定値とマージされ、azbb コマンドラインツールを使用してデプロイされます。</p>
+
+
+  <p>現在、Azure の構成ブロックでは次のリソースがサポートされています。</p>
+
+
+  <ul>
+      <li>仮想ネットワーク (ゲートウェイとピアリングを含む)</li>
+      <li>ネットワーク セキュリティ グループ</li>
+      <li>ユーザー定義のルート</li>
+      <li>Windows VM と Linux VM</li>
+      <li>VM 拡張機能</li>
+      <li>内部ロードバランサーと外部ロードバランサー</li>
+      <li>Application Gateway</li>
+  </ul>
+
+
+  <h2>コードとしてのインフラストラクチャ</h2>
+
+
+  <p>Azure の構成要素を使用すると、簡単な宣言型の方法で配置を管理できます。 パラメーターファイルは、アプリケーション&#39;s コードとサイドバイサイドで配置できます。 Azure ビルディングブロックコマンドラインツールは、デプロイパイプラインに統合できます。</p>
+
+
+  <h2>リソースのデプロイの簡素化</h2>
+
+
+  <p>たとえば、次のように、同じ Vm を3つデプロイします。&nbsp;</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&quot;型 &quot; : &quot; VirtualMachine &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&quot;設定 &quot; : {</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;vmcount &quot; : 3、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;ostype &quot; : &quot; windows &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;nameprefix &quot; : &quot; test &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;adminpassword &quot; : &quot; &lt; パスワード &gt; &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;nic &quot; : [{ &quot; サブネット名 &quot; : &quot; web &quot; }]、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;virtualNetwork &quot; : { &quot; name &quot; : &quot; ra-vnet &quot; }</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">}</p>
+
+
+  <p>Azure ビルディングブロックコマンドラインツールは、Vm を Azure にデプロイするときに、次のベストプラクティスの既定値をマージします。</p>
+
+
+  <ul>
+      <li>すべての Vm で診断を有効にします。</li>
+      <li>可用性セットに Vm をデプロイします。</li>
+      <li>すべての VM ディスクが管理されます。</li>
+      <li>オペレーティングシステムは、最新の Windows Server 2016 イメージ (または Linux 用の最新の Ubuntu 16.04 イメージ) です。</li>
+      <li>VM ごとに作成されたパブリック IP。</li>
+  </ul>
+
+
+  <p>Vm をスケールセットに配置することは、さらに1つのパラメーターを指定するだけで簡単に行うことが &nbsp; できます。</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&quot;型 &quot; : &quot; VirtualMachine &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&quot;設定 &quot; : {</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;vmcount &quot; : 3、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;ostype &quot; : &quot; windows &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;nameprefix &quot; : &quot; test &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;adminpassword &quot; : &quot; &lt; パスワード &gt; &quot; 、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;nic &quot; : [{ &quot; サブネット名 &quot; : &quot; web &quot; }]、</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;virtualNetwork &quot; : { &quot; name &quot; : &quot; ra-vnet &quot; },</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">&nbsp;&nbsp;&nbsp;&quot;scalesetsettings &quot; :{}</p>
+
+
+  <p style="background: rgb(246, 248, 250); margin: 0px;">}</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>作業を開始するには、Github で <a href="https://github.com/mspnp/template-building-blocks">Azure ビルディングブロックリポジトリを複製 </a>し、 <a href="https://github.com/mspnp/template-building-blocks/wiki/Install-Azure-Building-Blocks">azure ビルディングブロックコマンドラインツールをインストール</a>します。 <a href="https://github.com/mspnp/template-building-blocks/wiki/Install-Azure-Building-Blocks-in-Azure-Cloud-Shell">Azure Cloud Shell にをインストール &nbsp; </a>することもできます。 &nbsp;<a href="https://github.com/mspnp/template-building-blocks/wiki/create-a-template-building-blocks-parameter-file">独自のパラメーターファイルを作成</a>する方法について説明し、<a href="https://github.com/mspnp/template-building-blocks/wiki/About-the-Azure-Building-Block-Tutorials">チュートリアル</a>を実行して、より大規模で複雑なアーキテクチャを作成する方法について説明します。 チュートリアルは現在作成中ですが、さらに多くの情報が追加されていることを確認し続けます。</p>
+
+
+  <p>ここで、いくつかのものを Azure にデプロイしましょう。</p>

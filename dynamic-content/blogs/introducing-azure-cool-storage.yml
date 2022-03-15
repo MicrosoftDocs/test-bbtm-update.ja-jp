@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4fc3707c05172dae36fc4f78008f53a2bb55aeae
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891590"
+Slug: introducing-azure-cool-storage
+Title: Azure クール BLOB サービスのStorage
+Summary: Azure Storageは、同じ高い耐久性を維持しながら、低いストレージ コストで、長い期間、アクセス頻度の低いオブジェクト データを格納する機能を顧客に提供Azure Storage。
+Content: >-
+  <p>クラウド内のデータは指数関数的なペースで増加し、このデータを格納するコストを管理する方法に取り組み続けています。 ストレージ コストを管理する重要な側面は、アクセスの頻度、保有期間などの属性に基づいてデータを階層化することです。顧客データの一般的なレベルはクール データであり、アクセス頻度は低いですが、ホット データと同様の待機時間とパフォーマンスが必要です。</p>
+
+
+  <p>本日は、クール BLOB の一般提供と、クール オブジェクト データStorage低コストストレージをお知<strong>らせ</strong>&ndash;します。 クール ストレージの使用例としては、バックアップ、メディア コンテンツ、科学データ、コンプライアンス、アーカイブ データがあります。 一般に、めったにアクセスされないデータはすべて、クール ストレージの最適な候補となります。</p>
+
+
+  <p>新しい Blob Storage アカウントを使用すると、ホット アクセス層とクール <strong></strong> アクセス層<strong></strong>の中から選択して、そのアクセス パターンに基づいてオブジェクト データを格納できます。 BLOB ストレージ アカウントの機能は次のとおりです。</p>
+
+
+  <ul>
+      <li><strong>コスト効率</strong>: アクセス頻度の低いデータをクール アクセス層に低いストレージ コスト (一部のリージョンでは GB あたり 0.01 ドル) で格納し、アクセスコストを低くしてホット アクセス層のアクセス頻度の高いデータを格納できます。 リージョンの価格の詳細については、「リージョンの価格<a href="https://azure.microsoft.com/pricing/details/storage/" target="_blank">」をAzure Storageしてください</a>。</li>
+      <li><strong>互換性</strong>: 既存の Blob Storage オファリングと互換性のある 100% API として BLOB ストレージ アカウントを設計しました。これにより、既存のアプリケーションで新しいストレージ アカウントをシームレスに使用できます。</li>
+      <li><strong>パフォーマンス</strong>: どちらのアクセス層のデータも、待機時間とスループットの点で同様のパフォーマンス プロファイルを持ちます。</li>
+      <li><strong>可用性</strong>: ホット アクセス層では 99.9% の高可用性が保証されるのに対し、クール アクセス層では 99% の可用性が若干低くなります。 <a href="https://azure.microsoft.com/documentation/articles/storage-redundancy/" target="_blank">RA-GRS</a> 冗長オプションを使用すると、ホット アクセス層では 99.99%、クール アクセス層では 99.9% という読み取り SLA が高くなります。</li>
+      <li><strong>耐久性</strong>: どちらのアクセス層も、Azure Storage と現在使用しているのと同じデータ レプリケーション オプションから期待されるのと同じ高い耐久性を提供します。</li>
+      <li><strong>スケーラビリティとセキュリティ</strong>: BLOB ストレージ アカウントは、既存のオファリングと同じスケーラビリティとセキュリティ機能を提供します。</li>
+      <li><strong>グローバル展開:</strong> BLOB ストレージ アカウントは、現在、ほとんどの Azure リージョンで使用できます。リージョンが近日追加される予定です。 利用可能なリージョンの更新された一覧については、Azure サービスのリージョンに関 <a href="https://azure.microsoft.com/regions/#services" target="_blank">するページを参照</a> してください。</li>
+  </ul>
+
+
+  <p>Azure Portal、PowerShell、CLI を使用して BLOB ストレージ アカウントを管理するほか、Microsoft Azure Storage Explorer を使用して<a href="https://storageexplorer.com/" target="_blank"></a>ストレージ アカウント内のデータを管理することもできます。 Azure Storage Explorer は Microsoft&nbsp; のクロスプラットフォーム デスクトップ アプリケーションです。これにより、複数の方法 (アカウント名とキーを使用したサインイン、SAS 接続文字列を使用したサインイン) でストレージ アカウントに接続し、BLOB コンテナー、キュー、テーブルの内容を簡単に管理するためのアクションを公開できます。 &nbsp;&nbsp;&nbsp;Storage Explorerを使用すると、Blob ストレージ アカウント内の BLOB とコンテナーを表示および管理できます。ストレージ アカウント間のコピーも含まれます。</p>
+
+
+  <p>この機能の使用を開始する方法の詳細については、使用の開始 <a href="https://azure.microsoft.com/documentation/articles/storage-blob-storage-tiers/" target="_blank">に関するドキュメントを参照してください</a>。</p>
+
+
+  <p>多くのユーザーは、Azure Storageインフラストラクチャの一部としてパートナー ソリューションを介してデータを使用しています。 クール ストレージのサポートに関する一部のパートナーからの更新プログラムを次に示します。</p>
+
+
+  <ul>
+      <li><a href="https://www.commvault.com/solutions/by-function/data-protection-backup-and-recovery" target="_blank">Commvault</a>: Commvaults&rsquo; Windows/Azure Centric &quot;Commvault Integrated Solutions Portfolio ソフトウェア&quot; ソリューションを使用すると、エンタープライズ データ管理のための単一のソリューションを実現できます。 Commvault&#39;の Azure への移行を検討しているお客様にとって、Commvault&#39;のネイティブ サポートは重要な利点であり、Commvault は Microsoft との統合と互換性の取り組みを継続し、17 年以上存在する企業間の密接な関係を築いてきました。 <strong>この新しいクール Storage オファリングにより、Microsoft は Azure オファリングを大幅に強化し、このサービスが Commvault と Microsoft の両方にとって新しい機会の重要なドライバーになる可能性を期待しています。</strong></li>
+      <li><a href="https://www.veritas.com/product/backup-and-recovery.html" target="_blank">Veritas</a>: 市場リーダー Veritas NetBackup&trade;&nbsp; は、管理とパフォーマンスの両方で、グローバルな規模でエンタープライズ データを保護します。任意の場所にある任意のストレージ デバイス上の任意のワークロードに対応します。NetBackup の実証済みのグローバルエンタープライズ機能は、任意の使用事例に対応するスケーラブルなクラウド対応ソリューションを使用して、オンプレミスとオフプレインストールのデータ保護に集中します。&nbsp;Veritas は、Microsoft による Azure クール ストレージの発表と一緒に、<strong>NetBackup 8.0 Beta で統合された Azure Cloud Connector</strong> のベータ版の提供を発表しています。これにより、お客様は、エンタープライズ ハイブリッド クラウド データ保護戦略の主要なコンポーネントとして Azure Storage を活用することで、使いやすさ、管理容易性、パフォーマンスをテストして体験できます。 <a href="https://vxbeta.veritas.com/callout/?callid=16CE61EBE5594901922E953736847127" target="_blank">ここをクリックして</a> NetBackup 8.0 Beta 登録に移動し、Web サイトをダウンロードします。</li>
+      <li><a href="https://www.softnas.com/wp/products/softnas-cloud-for-azure/" target="_blank">SoftNAS</a>: SoftNAS は&trade;&reg; 間もなく Azure クール ストレージをサポートする予定です。 Soft NAS Cloud&reg; NAS のお客様は、NFS、CFS/SMB、iSCSI などの標準ファイル プロトコルを必要とするアプリケーションとワークロード用の、事実上底のない記憶域プールを取得します。 2016 年夏には、お客様は、ストレージ コストを増加する経済的な代替手段として <strong>、Azure クール ストレージで SoftNAS Cloud NAS を利用できます</strong>。 Soft NAS は、重複排除、圧縮、ディレクトリ統合、暗号化、スナップショット作成など、エンタープライズ クラスの NAS 機能を提供しながら、アプリケーションを変更せずにクラウドを移動するのに役立ちます。 SoftNAS StorageCenter&trade; コンソールを使用すると、ホット (ブロックベース) からクール (BLOB オブジェクトベース) までの最適なファイル ストレージの場所を選択し、データ ライフサイクル全体でコンテンツを移動して、適切な場所にコンテンツを移動できます。&nbsp;</li>
+      <li><a href="https://www.cohesity.com/" target="_blank">Cohesity</a>: Cohesity&rsquo; は、エンタープライズ データ用の世界で初めてのハイパーコンバージド ストレージ システムを提供します。&nbsp;Cohesity は、セカンダリ ストレージの断片化された非効率的なアイランドを、オンプレミスとパブリック クラウドの両方で実行できる無限に拡張可能で無制限のストレージ プラットフォームに統合します。&nbsp;最新の Web 規模の分散システム テクノロジを使用して設計された Cohesity は、統合されたすぐにアクセス可能な記憶域プールを作成することで、既存のバックアップ、ファイル共有、オブジェクト、開発/&nbsp;テスト ストレージ サイロを大幅に簡素化します。Cohesity プラットフォームは、長期的なデータ保持とアーカイブ、アクセス頻度の低いデータのクラウドへの階層化、ディザスター リカバリーを提供するレプリケーションの 3 つの主な使用例について、<strong>Azure クール&nbsp;</strong> ストレージとシームレスに相互運用します。 Azure クール ストレージは、Cohesitys ポリシーベースの管理ポータルを使用して、Cohesity&rsquo; プラットフォームで実行されている任意のデータ保護ワークロードに簡単に登録して割り当てることができます。</li>
+      <li><a href="https://www.cloudberrylab.com/microsoft-azure-system-state-backup-bare-metal-recovery.aspx" target="_blank">CloudBerry Lab</a>: CloudBerry Backup for Microsoft Azureは、クラウド ストレージへのデータ バックアップを自動化Microsoft Azure設計されています。 データがコンピューターから出る前に、ユーザーが制御するパスワードを使用してデータを圧縮および暗号化できます。 その後、スケジュールまたはリアルタイムでクラウドに安全に転送します。 CloudBerry Backup には、ファイル システムとイメージベースのバックアップ、SQL Server と MS Exchange のサポート、柔軟なリテンション ポリシー、増分バックアップも用意されています。 <strong>CloudBerry Backup では、バックアップ データを格納するための Azure Blob Storage アカウントがサポートされます</strong>。</li>
+  </ul>
+
+
+  <p>クール ストレージと統合されているパートナーの一覧は、今後数か月で増加し続ける予定です。</p>
+
+
+  <p>ご意見やご提案をお待ちしております。</p>
+
+
+  <p>よろしくお願いします。</p>
+
+
+  <p>Azure Storage チーム。</p>

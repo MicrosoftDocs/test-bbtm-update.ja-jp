@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7eb88f0355314b95d1d20afbc0f6988e66c1b98c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896134"
+Slug: azure-zone-redundant-storage-in-public-preview
+Title: Azure ゾーン冗長Storageパブリック プレビュー
+Summary: Azure Zone Redundant Storage (ZRS) のパブリック プレビューをお知らせします。 ZRS では、データの 3 つのレプリカを異なるに格納することで、高可用性アプリケーションの開発が大幅に簡素化されます。
+Content: >-
+  <p>Azure Zone Redundant Storage (ZRS) のパブリック プレビューをお知らせします。 ZRS を使用すると、データの 3 つのレプリカを異なる Availability Zones に格納することで、高可用性アプリケーションの開発が大幅に簡素化され、これらの <a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank">Availability Zones</a> 全体でデータの挿入<em></em>と更新が同期的に実行されます。 これにより、データの 1 つのデータが使用できない場合や回復できない場合でも、データの読み取りAvailability Zones書き込みを続行できます。 ZRS は、Azure Availability Zones上に構築され、1 つのリージョン内のデータセンターの障害分離グループを通じて障害に対する回復性を提供します。</p>
+
+
+  <p>ゾーン冗長Storageリージョンの可用性が重要でダウンタイムが許容されないアプリケーションでは考慮する必要があります。また、読み取りアクセスと書き込みアクセスの両方が必要な場合は、必ず考慮する必要があります。</p>
+
+
+  <p>ZRS パブリック プレビューのリリースにより、Azure では、リージョン内高可用性のための ZRS、低コストの単一リージョンの永続ストレージ用のローカル冗長ストレージ (LRS)、読み取りアクセス geo 冗長ストレージ (RAGRS) を備えたディザスター リカバリー シナリオ向け geo 冗長ストレージ (GRS) など、ストレージニーズに対する魅力的な一連の耐久性オプションが提供されます。</p>
+
+
+  <p>ZRS プレビューは、最初は次のリージョンで利用できます。詳細については、以下を参照してください。 ZRS プレビューが有効になっているリージョンの <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#zone-redundant-storage">最新の</a> 一覧については、ドキュメントを確認してください。</p>
+
+
+  <ul>
+   <li>米国東部 2</li>
+   <li>米国中部</li>
+   <li>フランス中部</li>
+  </ul>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>上記のプレビュー リージョンでは、Azure CLI、Azure PowerShell、Azure Portal、Azure Resource Manager、Azure Storage Management SDK など、さまざまな方法で ZRS ストレージ アカウントを作成できます。</p>
+
+
+  <p>Azure Portal で ZRS アカウントを作成するには、次のプロパティを設定します。 ZRS には汎用 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-options#general-purpose-v2" target="_blank">v2 アカウントの種類が必要です</a> 。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fce60636-f1a3-4b22-86ce-11f5f6730575.png"><img alt="ZRSAccountForBlog" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc075ca8-2e92-4eb3-a826-44f45fae10b6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ZRSAccountForBlog" width="266"></a></p>
+
+
+  <p>Azure CLI を使用して ZRS アカウントを作成するには、最新の Azure CLI を<a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank"></a>インストールし、コンソールで次のコマンドを実行します。</p>
+
+
+  <p>az storage account create -n &lt;accountname&gt; -g &lt;resourcegroup&gt; -l &lt;region --sku Standard_ZRS&gt; --kind StorageV2</p>
+
+
+  <p>次のコマンドを使用して ZRS アカウントAzure PowerShell、最初に最新の Azure PowerShell コマンドレットをインストールします。</p>
+
+
+  <ol>
+   <li><a href="https://www.powershellgallery.com/packages/AzureRM.Storage/4.1.0" target="_blank">AzureRM.Storage バージョン 4.1.0 をインストールする</a></li>
+   <li><a href="https://www.powershellgallery.com/packages/AzureRM.Resources/5.1.1" target="_blank">AzureRM.Resources バージョン 5.1.1 をインストールする</a></li>
+  </ol>
+
+
+  <p>上記を正常に完了したら、PowerShell コンソールで次のコマンドレットを実行します。</p>
+
+
+  <p>New-AzureRmStorageAccount -Name &lt;accountname&gt; -Location &lt;region&gt; -ResourceGroupName &lt;resourcegroup -SkuName Standard_ZRS&gt; -Kind StorageV2</p>
+
+
+  <p>ストレージ アカウント内のデータの読み取りおよび書き込みを行う既存の API に変更はありません。そのため、既存のコードとツールは、ZRS アカウントを指した場合でも引き続き機能します。 開始方法の <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json#zone-redundant-storage">詳細については、ZRS</a> のドキュメントを参照してください。</p>
+
+
+  <p>プレビューの価格については、ZRS (プレビュー) の価格に<a href="https://azure.microsoft.com/en-us/pricing/details/storage/blobs" target="_blank"></a>関する BLOB、<a href="https://azure.microsoft.com/en-us/pricing/details/storage/files/" target="_blank">ファイル</a>、<a href="https://azure.microsoft.com/en-us/pricing/details/storage/queues/" target="_blank">キュー</a>、テーブル<a href="https://azure.microsoft.com/en-us/pricing/details/storage/tables/" target="_blank"></a>の価格に関するページを参照してください。</p>
+
+
+  <h2>他のアカウントの種類からの移行</h2>
+
+
+  <p>ZRS が一般提供された後、このオプションは、このオプションをサポートするリージョンの既存の ZRS オプションを置き換Azure Availability Zones。 すぐに有効になります。既存の ZRS オファリングは ZRS クラシックに名前が変更され、コード変更を必要とせずに引き続きアクセスできます。 ZRS クラシック アカウントは、そのリージョンで一般提供されている場合に、ZRS への簡単な移行パスを提供します。 LRS、GRS、RA-GRS アカウントからの移行など、移行の詳細については、ドキュメントと <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#zone-redundant-storage">FAQ を参照</a> してください。</p>
+
+
+  <p>ご質問がある場合、またはサポートが必要な場合は、お知らせください。 プレビューへの参加とフィードバックをお待ちしております。</p>

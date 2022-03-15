@@ -1,0 +1,210 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4ba2761e1b10a4ee62017c8379840ce0748cc6a1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896518"
+Slug: azure-solutions-for-financial-services-regulatory-boundaries
+Title: 金融サービスの規則の境界に対する Azure ソリューション
+Summary: Microsoft Azure は、大規模な金融サービス企業向けに、急速に選ばれたパブリッククラウドになりつつあります。
+Content: >-
+  <p><a href="https://azure.com/" target="_blank">Microsoft Azure</a>は、大規模な金融サービス企業向けに、急速に選ばれたパブリッククラウドになりつつあります。 グローバルな金融サービス機関 (GFIs) が、オンプレミスのアプリケーション環境の拡張や置換を行うために Azure を選択している最大の理由は次のとおりです。</p>
+
+
+  <ul>
+   <li>Azure クラウドが提供する高レベルのセキュリティ。</li>
+   <li>例外的な制御企業は、サブスクリプション内でコンプライアンスとセキュリティを超えることができます。</li>
+   <li>Azure がデータガバナンスと保護のために持つ多くの機能。</li>
+   <li>Azure クラウドが準拠しているグローバルな規制標準の長い一覧。 詳細については、 <a href="https://www.microsoft.com/en-us/trust-center/compliance/compliance-overview" target="_blank">Microsoft セキュリティセンター</a> を参照してください。</li>
+  </ul>
+
+
+  <h2>グローバルに規制を持つ Azure ソリューションの要件</h2>
+
+
+  <p>Azure は、企業がリージョン間のデータフローを制御し、そのデータを管理できるユーザーを制御するために構築されています。 ソリューションについて話を進める前に、要件を定義する必要があります。</p>
+
+
+  <h3>グローバル規則の例</h3>
+
+
+  <p>多くの政府機関と coalitions は、データの格納方法、格納場所、および管理方法に関する法律と規制を策定しました。 これらのシナリオについて、より厳格でよく知られている例を次に示します。</p>
+
+
+  <ul>
+   <li>
+   <h4>欧州連合 (EU)</h4>
+   </li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><a href="https://gdpr-info.eu/" target="_blank">一般データ保護規則</a> (GDPR) は、EU に住んでいる個人の個人情報の収集と処理に関するガイドラインを設定する有効なフレームワークです。</p>
+
+
+  <ul>
+   <li>
+   <h4>ドイツ</h4>
+   </li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><a href="https://www.gtlaw.com/en/insights/2017/7/new-german-federal-data-protection-act-officially-published" target="_blank">連邦データ保護 Act</a> は、従業員データを処理するための条件と、データ主体によって利用されている権限に関する制限事項を扱う法です。</p>
+
+
+  <p style="margin-left: 40px;">データのローカライズと管理に関する法律は、ドイツの市民について収集されたデータを適切に保護および暗号化し、ドイツの政治境界内 &rsquo; の物理デバイスにのみ保存し、ドイツの市民だけが管理できるようにするという法律です。</p>
+
+
+  <ul>
+   <li>
+   <h4>中国</h4>
+   </li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><a href="https://assets.kpmg/content/dam/kpmg/cn/pdf/en/2017/02/overview-of-cybersecurity-law.pdf" target="_blank">サイバーセキュリティ法律</a> (CSL) は、データのローカライズ、インフラストラクチャ、および管理に関連する一連の法律です。</p>
+
+
+  <ul>
+   <li>
+   <h4>カナダ</h4>
+   </li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><a href="https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/" target="_blank">カナダの Personal Information Protection と電子ドキュメントの Act</a> (pipeda) は、カナダをまたいで消費者データを保護し、誤用や開示を防止します。</p>
+
+
+  <h3>アーキテクチャと設計の要件</h3>
+
+
+  <p>前述の規制要件を超えて、これらのシナリオに固有の技術的な要件があります。 クラウドアプリケーションとインフラストラクチャの設計者は、国際法や規制に違反することなく、ビジネス機能を提供するソリューションを開発する機会を提供します。 考慮する必要がある要件の一部を次に示します。</p>
+
+
+  <h4>グローバリゼーション</h4>
+
+
+  <p>グローバル化されたビジネスモデルを使用すると、毎日、複数の金融市場にアクセスできます。 これらの市場は、運用、言語、文化、そしてもちろん、規制において異なります。 これらの違いにかかわらず、クラウドに配置されたサービスは、管理性とカスタマーエクスペリエンスを確保するために、これらの市場間で一貫性を保つように設計する必要があります。</p>
+
+
+  <h4>サービスとデータ管理</h4>
+
+
+  <p>ドイツと中国は、市民がデータとそのデータが置かれているインフラストラクチャを管理することのみを許可する国の代表的な例です。</p>
+
+
+  <h4>データのローカライズ</h4>
+
+
+  <p>多くの国では、少なくとも一部の国に対するデータソブリンが、物理的に境界内に留まる必要があります。 規制対象データを国外に転送することはできません。規制要件を満たしていないデータを国に転送することはできません。</p>
+
+
+  <h4>[信頼性]</h4>
+
+
+  <p>上記の要件の多くにより、高可用性、データレプリケーション、およびディザスターリカバリーの設計が少し複雑になります。 たとえば、データは、国または地域の標準および法律と一致する場所にのみレプリケートする必要があります。 同様に、DR シナリオがトリガーされた場合は、DR サイトで実行されているアプリケーションが、情報にアクセスするために有効または標準の境界を越えていないことを確認する必要があります。</p>
+
+
+  <h4>認証</h4>
+
+
+  <p>特定の承認されたユーザーだけがリソースにアクセスできるようにするには、ロールと id ベースのアクセス制御をサポートするための適切な認証が必要です。</p>
+
+
+  <h2>Azure ソリューション</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/50d1b8ba-400a-4ab3-a49d-2664f2489296.gif"><img alt="A graphic showing Azure's solution to these global regulations." border="0" height="733" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8da66b61-2b6c-4571-8dcf-92128d360995.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="これらのグローバルな規制に対する Azure のソリューションを示す図。" width="1024"></a></p>
+
+
+  <h3>セキュリティ コンポーネント</h3>
+
+
+  <h4>Azure Active Directory (Azure AD)</h4>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/active-directory/" target="_blank">Azure Active Directory</a> (Azure AD) は Active Directory のクラウドベースバージョンであるため、クラウドの柔軟性、スケーラビリティ、およびパフォーマンスを活用しながら、お客様が使用していた AD 機能を維持します。 これらの機能の1つとして、管理可能なサブドメインを作成し、その国または地域に関連する id のみを含めることができます。 Azure AD には、企業間関係 (B2B) と企業間関係 (B2C) を区別するための機能も用意されています。 この違いにより、お客様が自分のデータと管理アクセスにアクセスすることを明確にすることができます。&nbsp;&nbsp;</p>
+
+
+  <h4>Azure Sentinel</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sentinel/" target="_blank">Azure Sentinel</a> は、スケーラブルなクラウドネイティブ、セキュリティ情報イベント管理 (SIEM)、およびセキュリティオーケストレーション自動応答 (非常) ソリューションです。 Azure Sentinel は、高度なセキュリティ分析と脅威インテリジェンスを企業全体で実現し、アラートの検出、脅威の可視性、予防的な捜索、および脅威への対応のための 1 つのソリューションを提供します。</p>
+
+
+  <h4>Azure Key Vault </h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/key-vault/key-vault-overview" target="_blank">Azure Key Vault</a> は、クラウド アプリケーションやサービスで使われる暗号化キーとシークレットをセキュリティで保護するために役立ちます。 Key Vault は、キー管理プロセスを合理化し、データにアクセスして暗号化するキーの制御を維持できます。 開発者は、開発やテスト用のキーを数分で作成し、それらを実稼働キーに移行できます。 セキュリティ管理者は、必要に応じて、キーに権限を付与する (取り消す) ことができます。</p>
+
+
+  <h4>ロール ベースのアクセス制御</h4>
+
+
+  <p>クラウド リソースに対するアクセスの管理は、クラウドが使用している組織にとって重要な機能です。 <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/overview" target="_blank">ロールベースのアクセス制御</a> (RBAC) を使用すると、Azure リソースへのアクセス権を持つユーザー、それらのリソースで実行できること、およびアクセス権を持つ領域を管理できます。 RBAC は <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">Azure Resource Manager</a>   上に構築された承認システムで、Azure リソースのきめ細かなアクセス管理を提供します。</p>
+
+
+  <h4>Azure Security Center</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-intro" target="_blank">Azure Security Center</a> は、データセンターのセキュリティ体制を強化する統合されたインフラストラクチャセキュリティ管理システムです。 また、クラウド内のハイブリッドワークロード全体に対して高度な脅威保護も提供します。 Azure で&#39;再利用するかどうかにかかわらず、オンプレミスにも適用されます。</p>
+
+
+  <h3>ガバナンス コンポーネント</h3>
+
+
+  <h4>Azure Blueprint</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/governance/blueprints/" target="_blank">Azure ブループリント</a> は、リソースのプロビジョニング、ロールベースのアクセス制御、ポリシーなど、コンポーザブルアーティ Azure Resource Manager ファクトを使用して、クラウド環境を反復可能な方法でデプロイおよび更新するのに役立ちます。 ブループリントを使用して、特定の場所または地域に対して特定のポリシーまたはコントロールをデプロイできます。 サンプルのブループリントは<a href="https://github.com/azure/azure-blueprints" target="_blank">、GitHub リポジトリに</a>あります。</p>
+
+
+  <h4>Azure Policy</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview" target="_blank">Azure Policy</a> は、ポリシーの作成、割り当て、管理に使用する Azure のサービスです。 これらのポリシーは、リソースにさまざまなルールと効果を適用して、それらのリソースが会社の標準とサービス レベル アグリーメントに準拠した状態に保たれるようにします。 たとえば、特定のロールのみがリソースグループにアクセスできるようにポリシーを設定できます。 別の例として、特定のリソースグループで許可される特定のサイズのリソースのみを設定するポリシーを設定しています。 新しいリソースがグループに追加されると、そのエンティティにポリシーが自動的に適用されます。 サンプル Azure Policy の構成は<a href="https://github.com/Azure/azure-policy" target="_blank">、GitHub リポジトリに</a>あります。</p>
+
+
+  <h4>Azure 仮想データセンタープログラム (VDC)</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/architecture/vdc/" target="_blank">Azure 仮想データセンタープログラム (VDC)</a>は、複数のアプリケーションとワークロード環境にわたって展開と制御を標準化するために設計された、アーキタイプのメソッドのコレクションです。 VDC は、Azure Policy や Azure ブループリントなど、他の複数の Azure 製品を利用しています。 VDC サンプルは<a href="https://github.com/Azure/vdc" target="_blank">、GitHub リポジトリに</a>あります。</p>
+
+
+  <h3>インフラストラクチャコンポーネント</h3>
+
+
+  <h4>Azure Site Recovery (ASR)</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/site-recovery/site-recovery-overview" target="_blank">Azure Site Recovery (ASR)</a> は、azure リージョン間、またはオンプレミス環境と azure 間で、データレプリケーションとディザスターリカバリーサービスを提供します。 ASR は、国/地域内外の Azure リージョン間でレプリケートおよびフェールオーバーするように簡単に構成できます。</p>
+
+
+  <h4>高可用性</h4>
+
+
+  <p>仮想マシン (サービスとしてのインフラストラクチャ IaaS) の高可用性は、Azure クラウド内で複数の方法で実現できます。 Azure には、2つのネイティブメソッドフェールオーバーが用意されています。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/rest/api/compute/availabilitysets" target="_blank">Azure 可用性セット</a>(AS) は、同じ Azure データセンター内の障害ドメインと更新ドメインにデプロイされる仮想マシンのグループです。 可用性セットにより、ネットワークスイッチやサーバーラックの電源装置などの単一障害点によってアプリケーションが影響を受けないようにすることができます。 Azure 可用性セットは、99.95% のサービスレベルアグリーメント (SLA) を提供します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank">可用性ゾーン</a>(AZ) は、障害ドメインと更新ドメインにわたって仮想マシンがデプロイされるという、可用性セットに似ています。 違いは、AZs では、同じリージョン内の複数の Azure データセンターに Vm を分散させることで、高レベルの可用性 (SLA 99.99%) が提供されることです。</li>
+  </ul>
+
+
+  <p>サービスとしてのプラットフォーム (PaaS) では、高可用性がサービスに組み込まれており、上の IaaS サービスとしてで構成する必要はありません。</p>
+
+
+  <h4>保存データの暗号化</h4>
+
+
+  <p>保存<a href="https://docs.microsoft.com/en-us/azure/security/azure-security-encryption-atrest" target="_blank">データの暗号化</a>は、一般的なセキュリティ要件です。 Azure では、組織は、リスクやカスタム キー管理ソリューションのコストなしで、保存データを暗号化できます。 組織は、Azure が保存時の暗号化を完全に管理できるようにするオプションを備えています。 さらに、組織には、暗号化または暗号化キーを厳密に管理するさまざまなオプションが提供されています。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>上記の機能は、Azure &rsquo; の業界トップレベルの <a href="https://azure.microsoft.com/en-us/global-infrastructure/regions/" target="_blank">リージョン範囲</a> と広範な <a href="https://azure.microsoft.com/en-us/global-infrastructure/global-network/" target="_blank">グローバルネットワーク</a>で利用できます。 グローバルな規制遵守、データ保護、データのプライバシー、セキュリティに対する Microsoft &rsquo; のコミットメントは、複雑なミッションクリティカルなワークロードをクラウドに移行するため、Azure が GFSIs をサポートするために一意に配置されるようにします。</p>
+
+
+  <p>Azure への準拠の詳細については、 <a href="https://www.microsoft.com/en-us/trust-center/compliance/compliance-overview" target="_blank">Microsoft セキュリティセンターのコンプライアンスの概要</a>に関するページを参照してください。</p>

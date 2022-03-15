@@ -1,0 +1,161 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2f8f5732e195e3ccba0b4ea553722e00113418a9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891780"
+Slug: azure-load-balancer-to-become-more-efficient
+Title: より効率的になる Azure Load Balancer
+Summary: Azure では最近、高度で効率的な Load Balancer プラットフォームが導入されました。 このプラットフォームでは、新しい Standard Load Balancer を使用して、顧客のワークロードに対してまったく新しい機能セットを追加します。 新しい Load Balancer プラットフォームによってもたらされる重要な機能の1つは、単純で予測可能で効率的な送信ポート割り当てアルゴリズムです。
+Content: >-
+  <p>Azure では最近、高度で効率的な Load Balancer プラットフォームが導入されました。 このプラットフォームでは、新しい <a href="https://aka.ms/lbpreview" target="_blank">Standard Load Balancer</a>を使用して、顧客のワークロードに対してまったく新しい機能セットを追加します。 新しい Load Balancer プラットフォームによってもたらされる重要な機能の1つは、単純で予測可能で効率的な送信ポート割り当てアルゴリズムです。</p>
+
+
+  <p>既に Standard Load Balancer と統合されていますが、Azure の残りの部分にはこの利点があります。</p>
+
+
+  <h2>Load Balancer とソース NAT</h2>
+
+
+  <p>Azure デプロイでは、顧客 &rsquo; のデプロイモデルと使用されているリソースに応じて、<a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections#scenarios" target="_blank">送信接続に 3</a>つ以上のシナリオを使用します。 Azure では、送信元ネットワークアドレス変換 (SNAT) を使用して、これらのシナリオを有効にします。 複数のプライベート IP アドレスまたはロールが同じパブリック IP を共有している場合 (パブリック ip アドレスが Load Balancer に割り当てられているか、スタンドアロン Vm のパブリック IP アドレスが自動的に割り当てられている場合)、Azure はポートマスカレード SNAT (PAT) を使用して、パブリック ip アドレスの一時ポートを使用してプライベート IP アドレスをパブリック インスタンスレベルのパブリック IP アドレス (ILPIP) が割り当てられている場合、PAT は適用されません。</p>
+
+
+  <p>複数のインスタンスがパブリック IP アドレスを共有している場合、Azure Load Balancer VIP の背後にある各インスタンスには、PAT (SNAT ポート) に使用される固定数の一時的なポートが事前に割り当てられています。これは、送信フローをマスカレードするために使用します。 インスタンスごとの事前に割り当てられているポートの数は、バックエンドプールのサイズによって決まります。詳細については、「新しい SNAT アルゴリズム」を参照してください。</p>
+
+
+  <h2>SNAT アルゴリズムが変更されるのはなぜですか。</h2>
+
+
+  <p>Azure の既存のデプロイでは、基本的に動的になるように設計された SNAT ポート割り当てのバージョンを利用できます。 このバージョンでは、送信ポートのインスタンスごとに160ポートが割り当てられ、その後、 <strong>オンデマンドモデル</strong> に従います。 バックエンドインスタンスは、これらのポートを使用して接続を開始し、既定の構成で4分間のアイドル時間が経過すると、これらのポートを解放して再利用できるようにします。 また、割り当てられた SNAT ポートを複数の同時送信接続が使用している場合は、要求されたインスタンスには、要求の可用性とレートに応じて、追加の少数のポートが割り当てられます。</p>
+
+
+  <p>このモデルは、分散モデルを使用したサービスや、一様な送信フローの作成、または複数の異なる外部エンドポイントでフローを確立する必要があるサービスに適しています。 ただし、いくつかの外部の宛先と同時に複数のフローを必要とするサービスでは、最初のポート割り当てが短時間で使い果たされ、断続的な接続エラーが発生します。 サービスによって得られるポート &rsquo; の数と、それら &rsquo; の接続が開始されるまでの時間を正確に予測することは非常に困難です。 オンデマンドモデルでは、ポートが均等に分散されていません。 その結果、プール内の一部のインスタンスに対して SNAT ポートの割り当てが保留状態になります。 上記の課題は、新しいアルゴリズムによって解決されます。</p>
+
+
+  <h2>新しい SNAT アルゴリズム</h2>
+
+
+  <p>新しい Azure Load Balancer プラットフォームでは、より堅牢でシンプルで予測可能なポート割り当てアルゴリズムが導入されています。 このモデルでは、使用可能なすべてのポートが事前に割り当てられ、プールサイズに応じて、Load Balancer のバックエンドプール間で均等に分散されます。 各 IP 構成は、事前に決められた数のポートを取得します。 サービスでは、バックエンドプールインスタンス間での接続の分散について意思決定を行い、リソースを効率的に使用することができます。 この変更により、お客様はサービスをより適切に設計できるようになり、スケーリングの制限が軽減されます。</p>
+
+
+  <p>次の表は、バックエンドプールのサイズに基づいて割り当てられた SNAT ポートの数を示しています。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top" width="306">
+              <p style="text-align: center;"><strong>プールサイズ</strong></p>
+              </td>
+              <td valign="top" width="348">
+              <p style="text-align: center;"><strong>IP 構成あたりの事前割り当て済み SNAT ポート</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="312">
+              <p style="text-align: center;">1 &ndash; 50</p>
+              </td>
+              <td valign="top" width="354">
+              <p style="text-align: center;">1024</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="318">
+              <p style="text-align: center;">51 &ndash; 100</p>
+              </td>
+              <td valign="top" width="360">
+              <p style="text-align: center;">512</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="324">
+              <p style="text-align: center;">101 &ndash; 200</p>
+              </td>
+              <td valign="top" width="366">
+              <p style="text-align: center;">256</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="330">
+              <p style="text-align: center;">201 &ndash; 400</p>
+              </td>
+              <td valign="top" width="372">
+              <p style="text-align: center;">128</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="336">
+              <p style="text-align: center;">401 &ndash; 800</p>
+              </td>
+              <td valign="top" width="378">
+              <p style="text-align: center;">64</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="342">
+              <p style="text-align: center;">801 &ndash; 1000</p>
+              </td>
+              <td valign="top" width="384">
+              <p style="text-align: center;">32</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>割り当ての詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections#snat" target="_blank">Azure での送信接続につい</a>て」の「ポートマスカレード SNAT (PAT) の事前割り当て」セクションを参照してください。</p>
+
+
+  <h2>移行</h2>
+
+
+  <p>Azure 全体でこの新しい割り当てアルゴリズムを採用する予定です。これにより、お客様にとっても、プラットフォームの SNAT 割り当ての管理が容易になります。 新しい SNAT ポート割り当てアルゴリズムへの既存のデプロイの移行は、2018年の夏を対象としています。</p>
+
+
+  <p>これにより、古いアルゴリズムが完全に置き換えられます。 より詳細なスケジュールが今後発表される予定です。</p>
+
+
+  <h2>どのような種類の SNAT 割り当てを取得しますか。</h2>
+
+
+  <p>Azure にデプロイされているお客様にとって、これにより、サービスと共に表示されるポート割り当ての種類を確認することができます。 次のようなシナリオに分類してみましょう &rsquo; 。</p>
+
+
+  <h3>新しいデプロイ</h3>
+
+
+  <p>Azure 内のすべての新しいデプロイは、上記で説明した新しいポート割り当てモデルをサブスクライブします。 これは、 <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview" target="_blank">Basic sku Load Balancer</a>ベースのデプロイと、すべてのクラシッククラウドサービスのデプロイに基づいて、 <a href="https://aka.ms/lbpreview" target="_blank">Standard sku Load Balancer</a>の両方に適用されます。</p>
+
+
+  <p>さらに、既存のデプロイがあり、これらのサービスを移行または再展開する場合、新しいインスタンスはすべて新しいポート割り当てアルゴリズムを使用してプロビジョニングされます。</p>
+
+
+  <h3>既存のデプロイ</h3>
+
+
+  <p>既存のすべてのデプロイで、以前の SNAT ポート割り当てスキームが引き続き使用されます。 ただし、既存のデプロイも新しいアルゴリズムに移行されます。これにより、既存のデプロイのエクスペリエンスが変更され、すべての場所で一貫性が保たれます。</p>
+
+
+  <h2>サービスはどのように影響しますか。</h2>
+
+
+  <p>SNAT ポートの割り当ては、前に説明したように、Azure インスタンスの送信接続において重要な役割を果たします。 これまでのサービスでは、ポートのオンデマンド割り当てを利用してきました。これは、わずかな160ポートから開始する場合がありますが、一部のインスタンスでは非常に多くのポート割り当てが数十に及ぶ可能性がありますが、プールまたは可用性セット内の他のインスタンスでは少数の数値しか消費されません。 通常、大量のポートまたはポートの割り当て率が高いと、断続的なエラーが発生します。</p>
+
+
+  <p>ただし、新しい割り当てモデルでは、各 IP 構成に固定された数の SNAT ポートが割り当てられます。これは、送信フロー用に選択されます。 使用可能なポートが使い果たされると、割り当てを行うことができなくなります。 これは、個々のインスタンスから非常に多くの同時 SNAT 接続を開始するサービスに影響を与える可能性があります。 サービスがこのカテゴリに分類されている場合は、サービスの設計を再検討し、考えられる軽減策を探す必要があります。 「<a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections" target="_blank">送信接続につい</a>て」の記事の<a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections#snatexhaust" target="_blank">「Snat ポートの枯渇の管理」セクション</a>では、snat ポート管理手法が向上しています。</p>
+
+
+  <p>新しいモデルでは、スケールアップする場合、インスタンスごとに割り当てられる SNAT ポートの数は、現在のプールサイズよりもインスタンス数が増加すると半分になります。 また、既存の接続をリセットし、再配布用にいくつかのポートを解放することで、サービスに影響を与える可能性もあります。</p>
+
+
+  <h2>ここでは何をすればよいですか。</h2>
+
+
+  <p>「SNAT ポートの枯渇の管理」で説明されているシナリオとパターンを確認して理解し、信頼性と拡張性に優れたシナリオを設計する方法について説明します。</p>
+
+
+  <h2>この移行から例外を取得操作方法には</h2>
+
+
+  <p>ポート割り当てアルゴリズムは、プラットフォームレベルの変更です。 顧客には例外は付与されません。 ただし、Azure で重要な運用ワークロードを実行していて、軽減策をより安全に実装するか、またはサービスロジックを変更する前に重大な期間待機する必要があることを理解しています。 デプロイ情報を使用して、このようなシナリオで Azure のサポートにご連絡ください。サービスを中断しないように、お客様 &rsquo; と協力してください。</p>

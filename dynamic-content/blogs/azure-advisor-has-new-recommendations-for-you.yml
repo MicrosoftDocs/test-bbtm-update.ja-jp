@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b8ba0ed16b93ce01f33f6a7f3367cbef353181d9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896552"
+Slug: azure-advisor-has-new-recommendations-for-you
+Title: Azure Advisor に新しい推奨事項があります
+Summary: Azure Advisor は、Azure のベストプラクティスをカスタマイズした無料のガイドです。 Azure の使用状況と構成を分析し、高可用性と,... セキュリティを実現するためにリソースを最適化することができます。
+Content: >-
+  <p><a href="https://aka.ms/advisor-acom" target="_blank">Azure Advisor</a> は、Azure のベストプラクティスをカスタマイズした無料のガイドです。 Azure の使用状況と構成を分析し、リソースの高可用性、セキュリティ、パフォーマンス、コストを最適化するのに役立ちます。 新しい推奨事項と統合のバンドルを継続的に追加して、Azure をさらに活用できるようにしまし &rsquo; た。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/71b740b7-89b6-45b1-bb7b-4ee94f99f444.png"><img alt="blog-image-1 (1)" border="0" height="1130" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60dd2108-de89-4321-9ee6-8af3d8dbb607.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ブログ-画像-1 (1)" width="1903"></a></p>
+
+
+  <h3>SQL Data Warehouse テーブルのテーブル統計を作成または更新します。</h3>
+
+
+  <p>最適なクエリパフォーマンスを確保するには、<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-tables-statistics" target="_blank">テーブル統計</a>が重要です。 <a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/" target="_blank">SQL Data Warehouse</a>クエリオプティマイザーでは、最新の統計を使用してクエリ結果のカーディナリティまたは行数を推定します。これにより、パフォーマンスを向上させるために高品質のクエリプランが生成されます。</p>
+
+
+  <p>Advisor には、SQL Data Warehouse クエリのパフォーマンスを向上させるための推奨事項が用意されています。 テーブル統計が古くなっているか欠落しているテーブルを特定し、それらを作成または更新することをお勧めします。</p>
+
+
+  <h3>SQL Data Warehouse テーブルでのデータ傾斜の削除</h3>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/apsblog/2018/01/19/performance-evaluate-data-skew/" target="_blank">データスキュー</a> は、あるディストリビューションに他のディストリビューションよりも多くのデータがある場合に発生し、ワークロードの実行時に不要なデータ移動やリソースのボトルネックが発生する可能性があるため、パフォーマンスが低下します。 Advisor は、15% を超える分布データスキューを検出し、データを再配布し、テーブルのディストリビューションキーの選択を再利用することをお勧めします。</p>
+
+
+  <h3>Azure Storage blob の論理削除を有効にする</h3>
+
+
+  <p>削除された Azure Storage blob が完全に削除されるのではなく、論理的に削除された状態に移行するように、ストレージアカウントで<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-soft-delete" target="_blank">論理的な削除</a>を有効にします。 データを上書きした場合、上書きされたデータの状態を保存するために、論理的に削除されたスナップショットが生成されます。 これにより、不注意で削除や上書きを行った場合に、回復できるようになります。 Advisor は、論理的な削除が有効になっていない Azure Storage アカウント &rsquo; を特定し、有効にすることを提案するようになりました。</p>
+
+
+  <h3>Azure Storage アカウントを Azure Resource Manager に移行する</h3>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">Azure Resource Manager</a> (ARM) は、Azure リソースを管理するための最新の方法で、テンプレートのデプロイ、追加のセキュリティオプション、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction" target="_blank">Azure Storage</a> &rsquo; の最新機能を使用するために GPv2 アカウントにアップグレードする機能を備えています。 Azure では、クラシックデプロイモデルを使用しているスタンドアロンの Storage アカウントを特定し、ARM デプロイモデルへの移行をお勧めします。</p>
+
+
+  <h3>Office 365 に Microsoft ピアリングを使用して、お客様向けに追加の Azure ExpressRoute 回線を作成します</h3>
+
+
+  <p><a href="https://www.microsoft.com/peering" target="_blank">Office 365 に Microsoft ピアリング</a>を使用しているお客様は、単一障害点を回避するために、異なる場所に少なくとも2つの<a href="https://azure.microsoft.com/en-us/services/expressroute/" target="_blank">ExpressRoute</a>回線を用意する必要があります。 Advisor は、ExpressRoute 回線が1つだけある場合を識別し、別の ExpressRoute 回線を作成することをお勧めします。</p>
+
+
+  <h2>Azure Advisor が Azure Virtual Machines (Vm) エクスペリエンスに統合されるようになりました</h2>
+
+
+  <p>VM リソースを表示しているときに、そのリソースに関連する Azure Advisor 推奨事項がある場合は、通知が表示されます。 使用しているアドバイザーの推奨事項の数とその推奨事項の説明を示す青色の通知が、エクスペリエンスの最上部に表示されます。 通知をクリックすると、完全な Advisor エクスペリエンスが表示され、そのリソースのすべての推奨事項を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ee9b32e-b9bb-4a8b-b9e3-ba90953652eb.png"><img alt="blog-image-2" border="0" height="1130" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31ef3e00-d53e-4bac-927d-c5621a6dfb55.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ブログ-画像-2" width="1900"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a8218d6-bb7d-4542-b6ca-ce6ed570edaa.png"><img alt="blog-image-3" border="0" height="1128" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c39200dd-1b83-4e2e-b76b-e1922034f20f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ブログ-画像-3" width="1897"></a></p>
+
+
+  <h2>Azure Advisor の推奨事項については、Azure Cost Management を参照してください。</h2>
+
+
+  <p>Azure Advisor の推奨事項は、Enterprise Agreement (EA) 登録のパブリックプレビュー段階にある新しい Azure Cost Management エクスペリエンスに統合されるようになりました。 左側のメニューで Advisor の推奨事項をクリックすると、Advisor が [cost] \ (コスト \) タブに表示されます。 Advisor と Azure Cost Management では、コストに関する推奨事項を1か所で作成できます。 これにより、Azure Cost Management からのものであるか、Azure Advisor から直接コストに関する推奨事項を確認するかにかかわらず、同じエクスペリエンスが得られます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63dde8f2-e58f-4747-8840-fec4bebccb6b.png"><img alt="blog-image-4" border="0" height="1131" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1dff58c7-8fa1-4dba-a328-5563c2371a00.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ブログ-画像-4" width="1901"></a></p>
+
+
+  <h2>Azure Advisor の推奨事項を確認する</h2>
+
+
+  <p><a href="https://aka.ms/advisor-acom" target="_blank">Azure Advisor</a>の詳細を確認し、現在の Azure portal で<a href="https://aka.ms/azureadvisor" target="_blank">Advisor の推奨事項を確認</a>して、高可用性、セキュリティ、パフォーマンス、コストについて Azure リソースの最適化を開始しましょう。 概要については、 <a href="https://aka.ms/advisor-docs" target="_blank">Advisor のドキュメント</a>を参照してください。</p>

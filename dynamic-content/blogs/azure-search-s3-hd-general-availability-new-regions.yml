@@ -1,0 +1,117 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 08302f250f6deaba583652138afbbf8426b93d1f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891743"
+Slug: azure-search-s3-hd-general-availability-new-regions
+Title: Azure Search S3、S3 高密度、新しいリージョンの一般提供
+Summary: Azure Search は、S3 および S3 HD 価格レベルの一般提供と、2つの新しいリージョンでの可用性を発表します。
+Content: >-
+  <p style="margin: 0px 0px 11px;">現在、S3 レベルのサービスの一般提供が発表されています。 Azure Search の S3 レベルは、大量のドキュメントや大量のトラフィックを処理するように設計されています。 同じ価格で、同じ高パフォーマンスの Cpu と SSD ストレージによって支えられている S3 レベルには、S3 と S3 高密度 (HD) の2つの構成があります。</p>
+
+
+  <h2 style="margin: 0px 0px 11px;">S3</h2>
+
+
+  <p style="margin: 0px 0px 11px;">Azure Search の standard S3 レベルは、ドキュメントの数が多いお客様に適しており、1秒あたり数百のクエリを処理できます。 各パーティションで1億2000万のドキュメント (または 200 GB) をサポートしている場合は、1つの検索サービスで最大14億個のドキュメント (または 2.4 TB) を検索しながら、高いクエリボリュームの待機時間を短縮することができます。</p>
+
+
+  <h2 style="margin: 0px 0px 11px;">S3 高密度</h2>
+
+
+  <p style="margin: 0px 0px 11px;">S3 HD レベルは、1つの検索サービスで比較的小さいインデックスを多数サポートするアプリケーションを構築する Isv および SaaS プロバイダーを対象としています。 実際、Microsoft Dynamics 365 は Azure Search &rsquo; s S3 HD レベルを使用して、何千ものオンラインの顧客に検索エクスペリエンスを提供してきました。</p>
+
+
+  <blockquote>
+
+  <p style="margin: 0px 0px 11px;">&ldquo;Dynamics 365 (オンライン) では、Azure Search を活用することによって、将来の検索イノベーションの準備中を大幅に進めました。 高レベルのパフォーマンスと機能を提供する S3 HD SKU を使用すると、数千の Dynamics 365 ユーザーの Azure Search を簡単かつコスト効率よく管理できます。&rdquo;</p>
+
+
+  <p style="margin: 0px 0px 11px;">- Mike Carter, プリンシパルプログラムマネージャー, Dynamics 365</p>
+
+  </blockquote>
+
+
+  <p style="margin: 0px 0px 11px;">1つの S3 HD サービスでは、最大3000のインデックスを作成できます。それぞれが100万のドキュメントをサポートしているため、多数の低コストのインデックスを持つ多数の小規模なアプリケーションをサポートするための魅力的なオプションとなります。 マルチテナントアプリケーションの詳細については <a href="https://aka.ms/azss3multitenancy">、Azure Search を</a>参照してください。</p>
+
+
+  <table align="center" border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+      <thead>
+          <tr>
+              <th scope="row">&nbsp;</th>
+              <th scope="col">Free</th>
+              <th scope="col">Basic</th>
+              <th scope="col">Standard S1</th>
+              <th scope="col">Standard S2</th>
+              <th scope="col">Standard S3</th>
+              <th scope="col">Standard S3 HD</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <th scope="row"><a href="https://aka.ms/azuresearchsla">SLA</a></th>
+              <td>いいえ</td>
+              <td>はい</td>
+              <td>はい</td>
+              <td>はい</td>
+              <td>はい</td>
+              <td>はい</td>
+          </tr>
+          <tr>
+              <th scope="row">ストレージ</th>
+              <td>50 MB</td>
+              <td>2GB</td>
+              <td>25 GB/partition</td>
+              <td>100 GB/パーティション</td>
+              <td>200 GB/partition</td>
+              <td>200 GB/partition (最大 600 GB/サービス)</td>
+          </tr>
+          <tr>
+              <th scope="row">最大インデックス数</th>
+              <td>3</td>
+              <td>5</td>
+              <td>50</td>
+              <td>200</td>
+              <td>200</td>
+              <td>1000/パーティション (最大 3000/サービス)</td>
+          </tr>
+          <tr>
+              <th scope="row">ホストされたドキュメント</th>
+              <td>10000</td>
+              <td>100 万</td>
+              <td>1,000 万/パーティション (最大180万/サービス)</td>
+              <td>60万/パーティション (最大720万/サービス)</td>
+              <td>120万/パーティション (最大1.4 億/サービス)</td>
+              <td>100万/インデックス (最大200万/パーティション)</td>
+          </tr>
+          <tr>
+              <th scope="row">スケールアウトの制限</th>
+              <td>N/A</td>
+              <td>最大3つのレプリカ/サービス</td>
+              <td>最大36ユニット/サービス</td>
+              <td>最大36ユニット/サービス</td>
+              <td>最大36ユニット/サービス</td>
+              <td>最大12個のレプリカ/サービスと3つのパーティション/サービス</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>S3 HD では現在、インデクサーはサポートされていません。 価格情報については、 <a href="https://aka.ms/azspricing">こちら</a>を参照してください。</p>
+
+
+  <h2>新しいリージョン: カナダ中部と米国中西部</h2>
+
+
+  <p>真にグローバルに存在することにより、Azure Search は、待機時間を最小限に抑えながら世界中のアプリケーションを処理できるようになります。 カナダ中部と米国中西部で利用できるようになった Azure Search は、米国東部、米国西部、米国中北部、米国中南部、米国中西部、北ヨーロッパ、西ヨーロッパ、東アジア、東南アジア、日本西部、ブラジル南部、オーストラリア東部、インド中部、カナダ中部の各リージョンでプロビジョニングできます。</p>
+
+
+  <h2>お試しください。</h2>
+
+
+  <p>これらの新しい Azure Search レベルと価格の詳細については、<a href="https://aka.ms/azspricing">価格</a>に関するページを参照するか &nbsp; 、<a href="https://aka.ms/createazuresearch">独自の検索サービスを作成</a>してください。</p>
+
+
+  <p><a href="https://aka.ms/whatisazsearch">Azure Search</a>と<a href="https://aka.ms/azsearchdocs">ドキュメント</a>の表示の詳細については、こちらを参照してください。</p>

@@ -1,0 +1,95 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b99aedd06aad7c4fb713fd49b27fe6058dfe597e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891843"
+Slug: azure-active-directory-integration-for-smb-access-now-in-public-preview
+Title: Azure Active Directory SMB アクセスAzure Filesパブリック プレビュー中の認証
+Summary: 'Domain Services (AAD DS) を活用した Azure AD SMB アクセスAzure Files AAD統合のプレビューをお知らせします。 '
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><strong>2019 年 8 月 9</strong> 日に更新: Azure Active Directory Domain Services Authentication for Azure Files一般提供されました。 詳細については、ブログ記事「&quot;Better <a href="https://azure.microsoft.com/en-us/blog/better-security-with-enhanced-access-control-experience-in-azure-files/" target="_blank">security with enhanced access control experience in Azure Files」を参照</a>してください。&quot;</div>
+
+
+  <p>Azure Active Directory <a href="https://docs.microsoft.com/azure/active-directory-domain-services/active-directory-ds-overview" target="_blank">Domain Services (AAD DS)</a> を利用した Azure Files Azure AD SMB アクセスに対する Azure Files 認証のプレビューをお知らせします。 Azure Files はクラウドで、業界標準の SMB プロトコルを介してアクセスできる、フル マネージドのファイル共有を提供します。 AAD との統合により、AAD DS ドメインに参加している VM から資格情報を使用して AAD Azure ファイル共有AAD SMB Windowsできます。 さらに、Azure Files共有内のすべてのフォルダーとファイルに対する Microsoft ファイル システム <a href="https://docs.microsoft.com/en-us/windows/desktop/secauthz/access-control-lists" target="_blank">NTFS ACL</a> の保持、継承、および実行がサポートされています。</p>
+
+
+  <p>この機能を使用すると、最も使い慣れた従来の ID ベースの共有アクセス エクスペリエンスを拡張して、Azure Files。 リフト アンド シフトのシナリオでは、オンプレミスの AD を AAD に同期し、ACL を含む既存のファイルを Azure Files に移行し、組織がビジネスに影響を与えずに同じ資格情報を持つファイル共有にアクセスできます。</p>
+
+
+  <p>その他に、共有、フォルダー、およびファイル レベルに詳細なアクセス許可の割り当てを適用することで、アクセス制御のストーリーを強化しました。 プロジェクト コラボレーションAzure Filesストレージ ソリューションとして使用できます。フォルダーまたはファイル レベルの ACL を利用して、組織の機密データを&rsquo;保護できます。</p>
+
+
+  <p>以前は、Azure ファイル共有にファイルをインポートすると、ACL ではなくデータだけが保持されました。 クラウド バックアップとしてAzure Filesを使用した場合、既存のファイル共有をクラウド バックアップから復元すると、すべてのアクセス割り当てが失Azure Files。 これで、Azure Filesデータと共に ACL を保持し、一貫性のあるストレージ エクスペリエンスを提供できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85589820-7fb9-44c5-a5f0-490cd29117ea.png"><img alt="image" border="0" height="259" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b72a7525-9583-46ee-847f-36cf78e53ffa.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="536"></a></p>
+
+
+  <p>このプレビューで導入された主な機能を次に示します。</p>
+
+
+  <ul>
+   <li>ロール ベースのアクセス許可 (RBAC) を使用した共有Access Control割り当てをサポートします。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p>従来のファイル共有Windowsスキーマと同様に、承認されたユーザーに Azure ファイル共有にアクセスするための共有レベルのアクセス許可を付与できます。</p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>NTFS フォルダーとファイル レベルのアクセス許可を強制します。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p>Azure Files、ルート ディレクトリを含む、フォルダーとファイル レベルに対する標準 NTFS ファイルのアクセス許可が適用されます。 <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/icacls" target="_blank">icacls</a> または <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-acl?view=powershell-6" target="_blank">Powershell</a> コマンド ツールを使用して、マウントされたファイル共有に対するアクセス許可を設定または変更できます。</p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>引き続きスーパー ユーザー エクスペリエンスのストレージ アカウント キーをサポートします。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-windows" target="_blank">ストレージ アカウント キーを使用した Azure ファイル共有のマウント</a> は、スーパー ユーザー シナリオで引き続きサポートされます。 共有、フォルダー、またはファイル レベルで構成されているアクセス制御の制限を超える可能性があります。</p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>データのインポート用に NTFS ACL を保持し、Azure Files。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p>SMB を使用してデータをインポートするための NTFS ACL をAzure Filesサポートしています。 robocopy コマンドを使用するだけで、ディレクトリ/ファイルに <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy" target="_blank">ACL をコピーできます</a>。</p>
+
+  </blockquote>
+
+
+  <ul>
+
+  </ul>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>認証の利点の詳細については、Azure Files AAD<a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-active-directory-overview" target="_blank">手順</a>のガイダンスに<a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-active-directory-enable" target="_blank">従って開始</a>してください。 選択したAzure Files AADの 2 つのリージョンで、統合パブリック プレビュー<a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-faq#security-authentication-and-access-control" target="_blank">をサポートしています</a>。 また、プレビュー機能の <a href="https://azure.microsoft.com/en-us/services/preview/">使用に関する一般的</a> な情報については、Azure プレビューのガイドラインを参照してください。</p>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>この機能に関するご意見をお待ちしております。メールをお送りください <a href="mailto:AzureFiles@microsoft.com">AzureFiles@microsoft.com</a>。</p>

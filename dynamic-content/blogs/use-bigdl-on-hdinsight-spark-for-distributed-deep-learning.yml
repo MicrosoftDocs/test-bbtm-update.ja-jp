@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 85321758ef3ce61973c44a3b78da26291693c65a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896393"
+Slug: use-bigdl-on-hdinsight-spark-for-distributed-deep-learning
+Title: HDInsight Spark で BigDL を使用して分散ディープ ラーニング
+Summary: 深層学習は、医療、輸送、製造など、あらゆる分野に影響を与えています。 企業は、画像分類、音声認識、物体認識、機械翻訳などの困難な問題を解決するための手段として深層学習を取り入れるようになっています。 このブログ記事では、Microsoft の Azure HDInsight Platform で Intel の BigDL Deep ラーニング Spark モジュールを有効にする方法について説明します。
+Content: >-
+  <p>ディープ ラーニングは、医療、輸送、製造など、すべてのものに影響を与えます。 企業は、画像分類、音声認識、物体認識、機械<a href="https://blogs.microsoft.com/next/2015/12/10/microsoft-researchers-win-imagenet-computer-vision-challenge/"></a>翻訳など、<a href="https://googleresearch.blogspot.jp/2015/08/the-neural-networks-behind-google-voice.html"></a>難しい問題を解決するためにディープ ラーニングに取りかかっています。 このブログ記事では、Intels&rsquo; BigDL チームと Azure HDInsight チームが共同作業を行い、Azure HDInsight で BigDL を使用するための基本的な手順を提供しています。&nbsp;&nbsp;</p>
+
+
+  <h2>Intels&rsquo; BigDL ライブラリとは</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a72de289-ce6a-4382-a066-e5a33ab466bc.png"><img alt="clip_image002_thumb1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a72de289-ce6a-4382-a066-e5a33ab466bc.png" style="border-width: 0px; background-image: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; width: 531px; height: 185px;" title="clip_image002_thumb1 In 2016 では、Intel は BigDL 分散 Deep ラーニング プロジェクトをオープンソース コミュニティ <a href="https://github.com/intel-analytics/BigDL">BigDL Github にリリースしました</a>。"></a> Spark にネイティブに統合され、一般的なニューラル ネット トポロジをサポートし、他のオープンソースのディープ ラーニング フレームワークと機能パリティを実現します。 また、BigDL には、ユーザーが独自のアプリケーションに合わせて新しいトポロジを作成できる、100 を超える基本的なニューラル ネットワークの構成要素も用意されています。 そのため、Intels&rsquo; BigDL を使用すると、ユーザーは既存の Spark インフラストラクチャを活用して、ニューラル ネットワーク機能を活用するために個別のフレームワークを立ち上げなくても、Deep ラーニング アプリケーションを有効にできます。</p>
+
+
+  <p>BigDL は Spark の不可欠な部分です。ユーザーは分散計算を明示的に管理する必要があります。 コンピューティング ノードの数&ldquo;&rdquo;、コア数、バッチ サイズなどの高度な制御ハンドルを提供する一方で、BigDL アプリケーションでは、実行中のノード通信とリソース管理に安定した Spark インフラストラクチャを利用します。 BigDL アプリケーションは Python または Scala で記述し、アルゴリズムの最適化と Intels&rsquo; Math Kernel Library (MKL) との密接な統合の両方を利用して高いパフォーマンスを実現できます。 詳細については <a href="https://software.intel.com/en-us/articles/bigdl-distributed-deep-learning-on-apache-spark">、Intels&rsquo; BigDL ポータル</a> を参照してください。&nbsp;&nbsp;</p>
+
+
+  <h2>Azure HDInsight</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/hdinsight/">Azure HDInsight</a> は、99.9% の SLA によってサポートされる Spark、Hive、MapReduce、HBase、Storm、Kafka、R Server 向けに最適化されたオープン ソース分析クラスターを提供する唯一のフル マネージド クラウド Hadoop オファリングです。 それ以外に、HDInsight は<a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-launches-isv-partner-program-at-wpc/">、ISV</a> などのサードパーティの<sup></sup>ビッグ データ アプリケーションと、BigDL などのカスタム アプリケーション用のオープン プラットフォームです。&nbsp;&nbsp;</p>
+
+
+  <p>このブログの投稿を通じて、BigDL チームと Azure HDInsight チームは、BigDL を使用してアプリケーションを使用する方法について大Apache Spark for Azure HDInsight。 BigDL を使用してデータを分析する詳細な手順については、MNIST データセットブログ <a href="https://blogs.msdn.microsoft.com/azuredatalake/2017/03/17/how-to-use-bigdl-on-apache-spark-for-azure-hdinsight/">記事を参照してください</a>。&nbsp;&nbsp;</p>
+
+
+  <h2>BigDL を使用して作業を行Apache Spark for Azure HDInsight</h2>
+
+
+  <p>BigDL は、ビルドと統合が非常に簡単です。 次の 2 つの主要な手順があります。</p>
+
+
+  <ul>
+   <li>BigDL ソース コードを取得し、それをビルドして必要な jar ファイルを取得する</li>
+   <li>Scala Jupyter Notebook BigDL アプリケーションを作成するには、次のコマンドを使用します&nbsp;</li>
+  </ul>
+
+
+  <h3 align="left">手順 1: BigDL ライブラリをビルドする</h3>
+
+
+  <p>最初の手順では、BigDL ライブラリをビルドし、必要な jar ファイルを取得します。 クラスター のヘッド <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-linux-use-ssh-windows">ノードに ssh で</a>接続し、BigDL ドキュメントのビルド手順 <a href="https://github.com/intel-analytics/BigDL/wiki/Build-Page">に従ってください</a>。 BigDL をビルドするには、headnode に maven をインストールし、jar ファイル (dist/lib/bigdl-0.1.0-SNAPSHOT-jar-with-dependencies.jar) を HDInsight クラスターの既定のストレージ アカウントに置く必要があります。 詳細については、エンジニアリング <a href="https://blogs.msdn.microsoft.com/azuredatalake/2017/03/17/how-to-use-bigdl-on-apache-spark-for-azure-hdinsight/">ブログ</a> を参照してください。&nbsp;&nbsp;</p>
+
+
+  <h3>手順 2: Jupyter Notebookを使用して最初のアプリケーションを作成する</h3>
+
+
+  <p>HDInsight クラスターには、Spark ジョブJupyter Notebookノートブックのような優れたエクスペリエンスを提供する、さまざまな機能が付属しています。 Azure Spark for Apache HDInsight Jupyter Notebook BigDL を実行しているアプリケーションのスナップショットを次に示します。 LeNet モデルを使用して一般的な MNIST データセット トレーニングを実装する詳細なステップ バイ ステップの例については、<a href="https://blogs.msdn.microsoft.com/azuredatalake/2017/03/17/how-to-use-bigdl-on-apache-spark-for-azure-hdinsight/">この Microsofts&rsquo;</a> エンジニアリングブログの投稿を参照してください。 HDInsight で Jupyter Notebook を使用する方法の詳細については、ドキュメントを参照 <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-jupyter-notebook-kernels">してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98348043-9300-4947-bf6a-e23ee8424cec.jpg"><img alt="clip_image002_thumb1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eb620044-49db-4d46-9ab1-2ec3234afe39.png" style="border-width: 0px; background-image: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; width: 619px; height: 277px;" title="clip_image002_thumb1"></a></p>
+
+
+  <h2>BigDL ワークフローと主要コンポーネント</h2>
+
+
+  <p>BigDL がディープ ラーニング モデルをトレーニングする方法の一般的なワークフローを次に示Apache Spark。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d29d73c1-729d-4a60-b8d3-519ff2b71d89.jpg"><img alt="clip_image0025_thumb1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5ff2ae2-987d-4813-8551-e9fedefc59ff.png" style="border-width: 0px; background-image: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; width: 616px; height: 235px;" title=""></a>clip_image0025_thumb1図に示すように、BigDL ジョブは標準の Spark ジョブです。 分散トレーニング プロセスでは、BigDL は Executor で Spark タスクを起動します (各タスクは Intel MKL を利用してトレーニング プロセスを高速化します)。</p>
+
+
+  <p>BigDL プログラムは で始<code>import com.intel.analytics.bigdl._</code> <strong><i></i></strong><i> </i><code><b><i>Engine, </i></b></code>まり、Executor ノードの数と各 Executor 上の物理コアの数を含む を初期化します。</p>
+
+
+  <p>プログラムが Spark で実行されている場合、Engine.init() は適切な構成が設定された SparkConf を返します。この構成を使用して SparkContext を作成できます。 この特定のケースでは、Jupyter Notebook によって既定の Spark&rsquo; コンテキストが自動的に設定されます。そのため、上記の構成を行う必要はないので、サンプル Jupyter Notebook で説明する他のいくつかの Spark 関連の構成を構成する <a href="https://github.com/hdinsight/BigDLonHDInsight/blob/master/BigDLonHDInsight.ipynb">必要</a>があります。&nbsp;&nbsp;</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>このブログ記事では、Apache Spark for Azure HDInsight で BigDL 環境を設定するための基本的な手順を示しました。また、bigDL &ldquo; を使用して MNIST データセット を分析するためのより詳細な手順については、Apache Spark for Azure HDInsight で <a href="https://blogs.msdn.microsoft.com/azuredatalake/2017/03/17/how-to-use-bigdl-on-apache-spark-for-azure-hdinsight/">BigDL</a>&rdquo; を使用する方法に関するブログ記事を参照してください。BigDL Spark ライブラリを利用することで、ユーザーは、基になるコンピューティング クラスターの構成について詳しく知らなくても、使い慣れた Spark インフラストラクチャ内でスケーラブルな分散 Deep ラーニング アプリケーションを簡単に記述できます。 BigDL と Azure HDInsightチームは、環境内で BigDL を有効にするために密接にApache Spark for Azure HDInsightしています。</p>
+
+
+  <p>HDInsight に関するフィードバックがある場合は、 に電子メールをお送りください <a>hdifeedback@microsoft.com</a>。 BigDL に関する質問がある場合は、 <a href="https://groups.google.com/forum/#!forum/bigdl-user-group">BigDL Google Group で質問をすることができます</a>。</p>
+
+
+  <h2>リソース</h2>
+
+
+  <ul>
+   <li>詳細については <a href="https://docs.microsoft.com/en-us/azure/hdinsight/">、Azure HDInsight</a></li>
+   <li><a href="https://software.intel.com/ai">Intel の重要なインテリジェンス ソフトウェアとハードウェア</a></li>
+   <li><a href="https://software.intel.com/en-us/videos/bigdl-distributed-deep-learning-on-apache-spark">BigDL 入門ビデオ</a></li>
+  </ul>

@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f6402a95e3b6c14356c227e5074d8f7245df4608
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896882"
+Slug: announcing-transparent-data-encryption-tde-with-customer-managed-keys-for-managed-instance
+Title: Managed Instance 用のユーザーが管理するキーを使用した Transparent Data Encryption (tde)
+Summary: Microsoft Azure SQL Database Managed Instance の Bring Your Own Key (byok) サポートにより、Transparent Data Encryption (tde) のパブリックプレビューが発表されます。 マネージド Azure SQL Database...
+Content: >-
+  <p>Microsoft <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-managed-instance" target="_blank">Azure SQL Database Managed Instance</a>の Bring Your Own Key (byok) サポートにより、Transparent Data Encryption (tde) のパブリックプレビューが発表されます。 Azure SQL Database Managed Instance は SQL Database の新しいデプロイオプションで、オンプレミスの SQL Server の優れた機能と、完全に管理されたインテリジェントなリレーショナルデータベースサービスの運用上および財務上の利点を組み合わせたものです。&nbsp;</p>
+
+
+  <p>2018年4月以降、1つのデータベースとエラスティックプールでは、BYOK サポートによる TDE の一般提供が開始されました。 これは、保存データを保護することを検討している企業のお客様によって最も頻繁に要求される機能の1つであり、特定のキー管理コントロールの実装を必要とする規制やコンプライアンスの義務を満たすことができます。 既定では、すべての新しい Azure SQL データベース、単一のデータベース、プール、およびマネージインスタンスで有効になっている、サービス管理キーを使用した tde のサポートが提供されます。</p>
+
+
+  <p>BYOK サポートによる TDE では <a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">Azure Key Vault</a>が使用されます。これにより、FIPS 140-2 Level 2 の検証済みハードウェアセキュリティモジュール (hsm) によって保護された RSA 暗号化キー用の高可用性およびスケーラブルな安全ストレージが提供されます。 Azure Key Vault は、キー管理プロセスを合理化し、ユーザーがキーアクセスの管理や監査など、暗号化キーを完全に制御できるようにします。</p>
+
+
+  <p>お客様は、RSA キーを生成して Azure Key Vault にインポートし、そのマネージインスタンスの byok サポートで Azure SQL Database tde と共に使用することができます。 Azure SQL Database は、対称データベース暗号化キー (dek) を使用して、データベース、ログファイル、およびバックアップに格納されているデータの暗号化と暗号化解除を完全に透過的な方法で処理します。これは、Azure Key Vault に格納されている tde プロテクターと呼ばれる顧客管理キーを使用して保護されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1de78771-dbea-43e1-95d6-f8f024abb81e.png"><img alt="Access control transition from Azure SQL Database to Azure Key Vault flow chart" border="0" height="320" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0d17b570-574c-4f2e-9637-29a861adf2c8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure SQL Database から Azure Key Vault フローチャートへのアクセス制御の切り替え" width="815"></a></p>
+
+
+  <p>お客様は、特定のセキュリティ要件や業界固有のコンプライアンスの義務に応じて、Azure Key Vault で TDE プロテクターをローテーションすることができます。 tde プロテクターがローテーションされると、Azure SQL Database は新しいキーバージョンを数分以内に検出し、データベースに格納されているデータの暗号化に使用された dek を再暗号化します。 これによって実際のデータが再暗号化されることはなく、ユーザーに対して他の操作は必要ありません。</p>
+
+
+  <p>また、Azure Key Vault に格納されているマネージインスタンス &rsquo; TDE プロテクターへのアクセスを取り消すことによって、暗号化されたマネージインスタンスへのアクセスを取り消すこともできます。 Azure Key Vault に格納されているキーへのアクセスを取り消すには、いくつかの方法があります。 詳細については、 <a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.keyvault/?view=azurermps-4.0.0" target="_blank">Azure Key Vault PowerShell</a> と <a href="https://docs.microsoft.com/en-us/cli/azure/keyvault" target="_blank">Azure Key Vault CLI</a> のドキュメントを参照してください。 Azure Key Vault でアクセスを取り消すと、Azure SQL Database マネージインスタンスから tde プロテクターにアクセスできなくなると、すべてのデータベースへのアクセスが実質的にブロックされます。</p>
+
+
+  <p>Azure SQL Database では、誤って削除されないように tde プロテクターを保護するために、Azure Key Vault で<a href="https://docs.microsoft.com/en-us/azure/key-vault/key-vault-ovw-soft-deletehttps:/docs.microsoft.com/en-us/azure/key-vauhttps:/docs.microsoft.com/en-us/azure/key-vault/key-vault-ovw-soft-deletelt/key-vault-ovw-soft-delete" target="_blank">論理的な削除</a>が有効になっている必要があります。</p>
+
+
+  <p>今すぐ開始するには、Azure portal にアクセスし、 <a href="https://docs.microsoft.com/en-us/rest/api/sql/managedinstancekeys" target="_blank">Managed Instance の REST API</a>を確認し、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-powershell-samples" target="_blank">PowerShell ドキュメントを使用するためのハウツーガイド</a> を参照してください。 ベストプラクティスを含む機能の詳細と構成チェックリストの確認については、 <a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql" target="_blank">Azure SQL Transparent Data Encryption: Bring Your Own Key サポート</a>に関するドキュメント &ldquo; を参照してください。&rdquo;</p>

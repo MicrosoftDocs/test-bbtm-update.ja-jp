@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 40fb3933a407ca7716b3ceafec0a6b38b94f4fb0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891495"
+Slug: managed-disks-migration-portal
+Title: Managed Disks移行が Azure Portal で利用可能に
+Summary: アンマネージド ディスクを持つ VM を Azure portal でManaged Disksする機能をお知らせします。 PowerShell または CLI スクリプトをManaged Disks、シングル クリックでアプリケーションに移行できます。
+Content: >-
+  <p>アンマネージド ディスクを持つ VM を Azure portal でManaged Disksする機能をお知らせします。 PowerShell または CLI スクリプトをManaged Disks、シングル クリックでアプリケーションに移行できます。</p>
+
+
+  <p>お客様は、このサービスを使用する利点をManaged Disks。 多くのお客様は、Managed Disksを既に採用しています。 &rsquo;Managed Disks の使用を開始していない場合は、すべての機能を簡単にまとめ、この機能を使用する動機Managed Disks。</p>
+
+
+  <ul>
+   <li>ストレージ アカウントの制限を気にせずにアプリケーションをスケーリングします。</li>
+   <li>アラインされた障害ドメインを使用して、コンピューティング リソースとストレージ リソース全体で高可用性を実現します。</li>
+   <li>インスタンスVM Scale Sets最大 1,000 のインスタンスを作成します。</li>
+   <li>ディスク、スナップショット、イメージを第一級のリソースとしてアーキテクチャに統合します。</li>
+   <li>Azure Role Based Access Control (RBAC) を使用してディスク、スナップショット、およびイメージをセキュリティで保護する</li>
+  </ul>
+
+
+  <p>アプリケーションの利点の詳細については、「Azure Managed Disksの概要 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">」をManaged Disksしてください</a>。</p>
+
+
+  <h2>Azure portal Managed Disksへの移行</h2>
+
+
+  <p>Azure Portal での移行は、非常にシンプルなエクスペリエンスです。 この&rsquo;プロセスについて説明します。</p>
+
+
+  <p>アンマネージド ディスクの VM を使用している場合は、VM の概要ブレードに情報バナーが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0859e490-0268-4d97-b016-ed6a2c51c55b.png"><img alt="vm1" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/245ae916-0a1c-4979-818a-532b1e05b857.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="vm1" width="700"></a></p>
+
+
+  <p>バナーをクリックすると、移行ブレードが起動します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/50689e77-54dc-4a2f-b9ba-64f672f59a2e.png"><img alt="vm2" border="0" height="408" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d10cb042-3c98-45b8-95fa-9add884071ff.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="vm2" width="700"></a></p>
+
+
+  <p><strong>VM が</strong>可用性セット内にある場合は、移行ブレードで最初に可用性セットを移行するように求めるメッセージが表示されます。</p>
+
+
+  <p>移行が開始されると、次のスクリーンショットに示すように、移行の状態を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e6f7ad01-80c2-49d4-8ec5-3bf97aea8194.png"><img alt="vm3a" border="0" height="409" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/034e312b-2755-42ae-bdc2-7d19475fffdd.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="vm3a" width="704"></a></p>
+
+
+  <p>リソース グループ ビューに戻って、追加のディスク リソースが <strong>表示</strong> されます。 VM&rsquo; に接続されている OS &amp; データ ディスクごとに 1 つのディスクが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d6a7f42-35ea-4f9c-b2c4-5a3d0823b04c.png"><img alt="vm4" border="0" height="295" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dcacad3c-9148-4012-b015-36608fa4da73.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="vm4" width="700"></a></p>
+
+
+  <p>サイドバーの [ <strong>ディスク] 項目 </strong>をクリックして、VM のディスクに関する追加情報を表示することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e4d0b1a-202b-4311-a305-261367e2e457.png"><img alt="vm5" border="0" height="295" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd9aa0d0-24d8-4b43-8a6b-9e053570154e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="vm5" width="700"></a></p>
+
+
+  <h2>アプリケーションへの移行のManaged Disks</h2>
+
+
+  <p>アプリケーションへの&rsquo;移行を自動化する場合はManaged Disksの手順を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/convert-unmanaged-to-managed-disks" target="_blank">PowerShell</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/convert-unmanaged-to-managed-disks" target="_blank">CLI</a></li>
+  </ul>

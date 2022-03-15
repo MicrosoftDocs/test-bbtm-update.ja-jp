@@ -1,0 +1,219 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 39c340db78b2afc4672343c87f072f45fa3e63df
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891454"
+Slug: networking-infrastructure-setup-for-microsoft-azure-as-a-disaster-recovery-site
+Title: ディザスター リカバリー サイトMicrosoft Azureネットワーク インフラストラクチャのセットアップ
+Summary: この投稿では、例を利用して必要なネットワーク インフラストラクチャを設定する方法と、オンプレミスと Azure でネットワークを設定する方法を学習し、テスト フェールオーバーと計画されたフェールオーバーを実行する方法について説明します。
+Content: >-
+  <h1 align="center"></h1>
+
+  Azure Site Recovery (ASR) では、仮想マシンのディザスター リカバリー サイトとして Microsoft Azure を使用できます。 Azure Site Recovery" href="https://aka.ms/e2a_networking_brad" target="_blank"></a>  Azure Site Recovery ASR の詳細については、Azure へのディザスター リカバリーのプレビューを使用した Azure へのディザスター リカバリーのプレビューの発表について、Brad Anderson <a title="のブログを参照してください。
+
+
+  管理者は、アプリケーションへのディザスター リカバリー機能の追加を考えている場合、最小限のダウンタイムでフェールオーバー後にユーザーがアプリケーションにアクセスできるネットワーク インフラストラクチャを考え、計画する必要があります。 この投稿では、例を利用して、必要なネットワーク インフラストラクチャを設定する方法について説明します。 まず、アプリケーションの説明から始め、オンプレミスと Azure でネットワークを設定し、テスト フェールオーバーと計画フェールオーバーを実行する方法について説明します。
+
+
+  &nbsp;
+
+  <h1>1.アプリケーション</h1>
+
+  この例では、バックエンドとしてアプリケーションを使用している 2 層の IIS SQL Serverを使用します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/app.jpg"><img class="size-full wp-image-183741 aligncenter" alt="app" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/app.jpg" width="583" height="307" /></a>
+
+
+  &nbsp;
+
+
+  上の図では、Active Directory のセットアップを行う Contoso という組織があります。 バックエンドとしてアプリケーションを使用する 2 層の IIS SQL Serverがあります。 SQL Server Windows 認証を使用して認証され、すべての仮想マシンがドメイン contoso.com 組織のオンプレミス内に座っているユーザーとモバイル従業員の両方がアプリケーションにアクセスします。 組織のオンプレミスにいない従業員は、VPN を使用して組織のネットワークに接続します。
+
+
+  &nbsp;
+
+  <h1>2.オンプレミス ネットワーク</h1>
+
+  VMM 2012 R2 サーバー contoso.com のオンプレミス インフラストラクチャは、2012 年 2 月に管理されます。 Application Network という名前の VLAN ベースの論理ネットワークが VMM サーバーに作成されています。 Application VM Network という名前の VM ネットワークは、この論理ネットワークを使用して作成されます。 アプリケーション内のすべての仮想マシンは静的 IP を使用するため、静的 IP プールも論理ネットワークに対して定義されます。 注: 仮想マシンが DHCP を使用するように構成されている場合、静的 IP プールは必要ありません。
+
+
+  <b>論理ネットワーク</b> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2.jpg"><img class="size-medium wp-image-181854 aligncenter" alt="2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-636x70.jpg" width="636" height="70" /></a> <b></b>
+
+
+  <b>VM ネットワーク</b> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/3.jpg"><img class="size-medium wp-image-181864 aligncenter" alt="3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3-636x60.jpg" width="636" height="60" /></a>3 つの仮想マシンすべてで、SQL バックエンドと IIS フロントエンドであるドメイン コントローラーが、上の手順で説明した VM ネットワークに追加されます。 各仮想マシンに提供される静的 IP を次に示します。
+
+  <ul>
+   <li>Active Directory と DNS – 192.168.0.3</li>
+   <li>SQL バックエンド – 192.168.0.21</li>
+   <li>IIS フロントエンド – 192.168.0.22</li>
+  </ul>
+
+  &nbsp;
+
+  <h1>3. Azure ネットワーク</h1>
+
+  Azure 仮想ネットワークの基本Virtual Networkについては、Azure の概要に関するページを参照してください。 AzureNetwork Virtual Networkという名前の Azure リソースは、azureNetwork Microsoft Azure。 このネットワークの作成中に、オンプレミスの DNS サーバーの IP が DNS サーバー IP (この場合は 192.168.0.3) として指定されます。 このネットワークでは、ポイント対サイト接続とサイト間接続も有効になります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/4.jpg"><img class="size-medium wp-image-181874 aligncenter" alt="4" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4-572x369.jpg" width="572" height="369" /></a>
+
+
+  AzureNetwork には 10.0.0.0 ~ 10.0.0.255 のアドレス範囲を使用します
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/5.jpg"><img class="alignnone size-medium wp-image-181884" alt="5" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5-636x272.jpg" width="636" height="272" /></a>
+
+
+  2 つの主要なポイントに対して、オンプレミスのアドレス範囲とは異なるアドレス範囲を使用する点に注意してください。
+
+  <ul>
+   <li>オンプレミス ネットワークとのサイト間接続を確立したいと思っています。 S2S ゲートウェイは、ネットワークの両側で同じ IP 範囲を使用できない</li>
+   <li>オンプレミスで実行されているアプリケーションが複数ある場合は、完全なサブネットではなく、一部のアプリケーションのみをフェールオーバーする機能が必要です</li>
+  </ul>
+
+  &nbsp;
+
+
+  <b>注</b>: 上記の 2 つの要件が満たされていない場合は、オンプレミスのアドレス範囲とまったく同じアドレス範囲を定義できます。
+
+
+  &nbsp;
+
+  <h1>4.サイト間接続と AD レプリケーションの設定</h1>
+
+  ネットワーク受信 Azure は、アプリケーションが一方のサイトから別のサイトにシームレスに移動できるよう、オンプレミス ネットワークの拡張機能にすすむ必要があります。 Azure では、Azure で作成された仮想ネットワークへのサイト間接続を追加できます。 サイト間接続は、サイトの作成時または後の時点で追加できます。 ここでは、 <a title="" href="https://aka.ms/e2a_networking_s2s" target="_blank">Azure 仮想ネットワークにサイト間接続を追加するためのステップ バイ ステップ ガイドです。サイト間接続を Azure</a>  仮想ネットワークに追加する手順ガイドを作成する際に使用します。後でサイト間接続を追加する場合も、同様の手順に従います。
+
+
+  2 つのサイト間の接続がセットアップされた後、Azure に Active Directory と DNS サーバーを作成できます。 これは、Azure で実行されているアプリケーションが、名前の参照と認証要求ごとにオンプレミスの AD と DNS に移動する必要がなさそうにするようにします。 Azure で Active Directory を作成するには、次の手順に従います。
+
+  <ol>
+   <li>Active Directory サイトとサービスを使用して、AzureSite 用に別のサイトオンプレミスの Active Directoryを作成する必要があります</li>
+   <li>手順 3 で作成したネットワーク上に IaaS VM を作成する</li>
+   <li>サーバーサーバー マネージャーを使用して、Active Directory Domain Services DNS サーバーの役割をインストールする</li>
+   <li>サーバーをドメイン コントローラーに昇格する場合は、オンプレミス のドメイン コントローラーの名前を指定 contoso.com。 IaaS 仮想マシンは、手順 3 で説明した手順 3 のように、オンプレミスの DNS サーバーの IP アドレスを DNS として contoso.com を解決できる必要があります。</li>
+   <li>この Active Directory を AzureSite という名前の Active Directory サイトに追加します (作成している場合)</li>
+  </ol>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6.jpg"><img class="alignnone size-full wp-image-181894" alt="6" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6.jpg" width="551" height="181" /></a>
+
+
+  Azure で DNS サーバーが実行されたので、今後作成される IaaS 仮想マシンにはこれを使用する方が良いです。 これを行うには、AzureNetwork に移動し、上記の手順で作成した仮想マシンの IP を指定するように DNS サーバー IP を変更します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/7.jpg"><img class="alignnone size-medium wp-image-181904" alt="7" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7-636x298.jpg" width="636" height="298" /></a> <b> </b>
+
+
+  <b>AD レプリケーションの頻度:</b> DNS レコードのレプリケーションの頻度は、Active Directory サイトとサービスを使用して変更できます。 このドキュメントに従って、 <a title="Active Directory サイト間のレプリケーションをスケジュールする Active Directory" href="https://aka.ms/e2a_networking_adrep" target="_blank"> サイト間のレプリケーションをスケジュールできます</a>
+
+
+  <b>Active Directory と DNS を Azure にレプリケートする必要がありますか? </b> 完全なサイト障害を計画している場合は、Active Directory を Azure にレプリケートする必要があります。 ただし、一度に一部のアプリケーションの計画フェールオーバーのみを実行し、アプリケーションが Active Directory および DNS との通信に関してあまりおしゃべりではない場合は、Active Directory と DNS を Azure にレプリケートしない選択を行う必要があります。 このような場合は、Azure で作成するネットワーク内のオンプレミス DNS サーバーの IP を指定できます。
+
+
+  &nbsp;
+
+  <h1>5.ポイント対サイト接続の設定</h1>
+
+  アプリケーションが Azure にフェールオーバーされた後も、モバイル従業員がアクセス可能な状態を維持する必要があります。 これを実現するには、AzureNetwork へのポイント対サイト接続を作成する必要があります。 このドキュメントでは、Azure 仮想ネットワークへのポイント対サイト VPN を設定するステップ バイ ステップ ガイドを提供します。 この設定が完了すると、次の図のようになります。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/8.jpg"><img class="size-medium wp-image-181974 aligncenter" alt="8" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8-423x369.jpg" width="423" height="369" /></a>
+
+  <h1></h1>
+
+  <h1>6.テスト ネットワークの作成</h1>
+
+  Azure Site Recoveryは、実稼働ワークロードに影響を与えることなくテスト フェールオーバーを実行する機能を提供します。 この手順では、別の Azure 仮想ネットワークが必要です。 別のネットワークを作成し、手順 3 で作成したネットワークで使用されているのと同じ IP 範囲を使用します。 このネットワークを AzureTestNetwork と呼び出しましょう。 サイト間接続を追加し、ネットワーク内のサイト接続をポイントしないでください。
+
+
+  &nbsp;
+
+  <h1>7.設定Azure Site Recovery</h1>
+
+  インフラストラクチャのセットアップが完了したら、ASR で次の手順を完了する必要があります。
+
+  <ol>
+   <li>クラウドの構成</li>
+   <li>"アプリケーション VM ネットワーク" を AzureNetwork にマップする</li>
+   <li>保護を有効にする
+  <ol>
+   <li>Active Directory – AD を Azure にレプリケートするために AD レプリケーションを使用しますが、テスト フェールオーバー中は AD のインスタンスが必要です。 そのため、ASR を使用して AD でも保護を有効にしています。 テスト フェールオーバーでの AD の使い方については、このブログの「セクション 9」で後で説明します</li>
+   <li>IIS フロントエンド</li>
+   <li>SQL バックエンド</li>
+  </ol>
+
+  </li>
+
+  </ol>
+
+  この投稿では、<a title="これらの手順の詳細については、ASR の開始ガイドASR の使用開始ガイドと ASR" href="https://aka.ms/e2a_networking_depguide" target="_blank"></a> <a title="デプロイ ガイドASR" href="https://aka.ms/e2a_networking_tutorial" target="_blank"></a> デプロイ ガイドで詳しく説明されています。 この設定が完了すると、図は次の図のようになります。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/9.jpg"><img class="size-medium wp-image-181984 aligncenter" alt="9" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9-430x369.jpg" width="430" height="369" /></a>
+
+  <h1></h1>
+
+  <h1>8.復旧計画の作成</h1>
+
+  復旧計画を作成するには、IIS フロントエンドとバックエンドの 2 SQLを追加します。 次に、もう 1 つのグループを追加し、仮想マシン IIS フロントエンドを Group2 に移動して、復旧計画をカスタマイズします。 IIS フロントエンド VM がSQL前にバックエンド VM をフェールオーバーして、IIS アプリケーションが正常に起動できる必要があります。 復旧計画は次のように表示されます。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/10.jpg"><img class="alignnone size-medium wp-image-181814" alt="10" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10-636x291.jpg" width="636" height="291" /></a>
+
+  <h1>9.テスト フェールオーバーまたは DR ドリルの実行</h1>
+
+  組織は、ディザスター リカバリーのセットアップの準備状況とコンプライアンスのニーズを確認するために、定期的な頻度でテスト フェールオーバーまたは DR 訓練を実行する必要があります。 ASR には、実稼働ワークロードに影響を与えることなくテスト フェールオーバーを実行する機能が備えています。 テスト フェールオーバーまたは DR 訓練を行う場合は、手順 6 でテスト ネットワークを使用します。 以下の手順に従って、DR ドリルを実行します。
+
+  <ol>
+   <li>ASR で AD 仮想マシンに移動し、AzureTestNetwork でテスト フェールオーバーを実行する</li>
+   <li>AzureTestNetwork で AD 用に IaaS 仮想マシンが作成された後、この仮想マシンに提供されている IP を確認します</li>
+   <li>IP が AzureTestNetwork の DNS に与えられた IP と同じではない場合は、AD VM が取得した IP に DNS IP を変更します。 Azure は、仮想ネットワークで定義<sup>されている IP 範囲</sup> の 4 番目の IP から IP の提供を開始します。 ネットワークに追加された IP 範囲が 10.0.0.0 ~ 10.0.0.255 の場合、このネットワークに作成された最初の VM は IP 10.0.0.4 を取得します。 AD は DR ドリルで最初にフェールオーバーされるマシンです。この VM が取得する IP を予測し、必要に応じて AzureTestNetwork の DNS IP として追加できます</li>
+   <li>手順 8 で作成した復旧計画に移動し、AzureTestNetwork でテスト フェールオーバーを実行します。 仮想マシンが Azure でフェールオーバーして起動すると、AzureTestNetwork でフェールオーバーされた DNS に自身が登録されます。 この後、AzureTestNetwork で実行されている AD-DNS VM は、復旧計画の 2 つの仮想マシンの更新された IP を持つ必要があります。 仮想マシンが静的 IP を使用している場合でも、この IP は仮想マシンのオンプレミス IP とは異なる可能性があります。</li>
+   <li>AzureTestNetwork で IaaS 仮想マシンを作成する</li>
+   <li>IIS アプリケーションには、次を使用してこの IaaS VM からアクセスできる必要があります https://iisfrontend/</li>
+   <li>テストが完了したら、ASR 内のテスト フェールオーバーの完了を ジョブ ビューマークできます。 これにより、AzureTestNetwork で作成された仮想マシンが削除されます</li>
+  </ol>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/11.jpg"><img class="size-medium wp-image-181994 aligncenter" alt="11" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11-442x369.jpg" width="442" height="369" /></a>
+
+
+  &nbsp;
+
+  <h1>10.計画フェールオーバーの実行</h1>
+
+  アプリケーションの計画フェールオーバーを実行するには、手順 8 で作成した復旧計画に進み、計画されたフェールオーバーを実行する必要があります。 計画されたフェールオーバーが完了し、仮想マシンが Azure で起動したら、Azure を実行している DNS で IP を更新します。 新しい IP は、手順 4 で設定したレプリケーションの頻度に基づいて、オンプレミスで実行されている DNS に反映されます。 [Active Directory サイトとサービス] に移動し、NTDS 設定までドメイン コントローラーのいずれかのサイトを展開することで、DNS レコードのオンデマンド レプリケーションを実行することもできます。 NTDS 設定を右クリックすると、選択したドメイン コントローラーに対して、または選択したドメイン コントローラーからレプリケートするオプションが表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/12.jpg"><img class="size-medium wp-image-181834 aligncenter" alt="12" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/12-636x338.jpg" width="636" height="338" /></a>
+
+
+  DNS レコードがレプリケートされ、DNS レコードの Time-To-Live (TTL) の有効期限が切れたら、オンプレミスのクライアントまたは P2S VPN を使用して AzureNetwork に接続されているクライアントからアプリケーションにアクセスできる必要があります。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/13.jpg"><img class="size-medium wp-image-182004 aligncenter" alt="13" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/13-389x369.jpg" width="389" height="369" /></a>
+
+
+  &nbsp;
+
+
+  &nbsp;
+
+
+  この投稿では、2 層の IIS ベースの Web アプリケーションにディザスター リカバリーを設定する方法を確認しました。このアプリケーションでは、バックエンドとして SQL Serverを使用します。 DR ドリルまたは計画フェールオーバーを実行するためにドメイン コントローラーと DNS を設定する方法について説明しました。 さらに、Azure 仮想ネットワークを使用してサイト間接続とポイント対サイト接続を設定し、フェールオーバー後でもエンド ユーザーがアプリケーションにシームレスにアクセスする方法について説明しました。
+
+
+  さらに質問がある場合<a title="は、MSDN" href="https://aka.ms/e2a_networking_forum" target="_blank"></a> の Azure Site Recovery フォーラムAzure Site Recoveryフォーラムにアクセスして、追加情報を確認し、他のお客様と連絡を取り合います。
+
+
+  また、追加 <a title="" href="https://aka.ms/e2a_networking_productinfo" target="_blank"><a title="</a>の製品情報を確認して、追加の製品情報を確認し、無料の Azure 試用版にサインアップして、Azure Site Recovery を使用して無料の Azure" href="https://aka.ms/e2a_networking_trial" target="_blank"></a> 試用版の試用を開始Microsoft Azure確認できます。

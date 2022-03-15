@@ -1,0 +1,119 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9850b46acb14398b197e236999e6ee1e4352c6c5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891160"
+Slug: azure-data-factory-february-new-features-update
+Title: Azure Data Factory 2 月の新機能の更新
+Summary: Azure Data Factoryを使用すると、さまざまな形式の多様な場所から Azure にデータを取り込み、大量のデータを基に高度な分析と予測モデリングを行います。 あります。。。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/data-factory/">Azure Data Factory</a> を使用すると、さまざまな形式の多様な場所から <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-introduction#data-movement-activities">Azure</a> にデータを取り込み、大量のデータを基に高度な分析と予測モデリングを行います。 お客様からのフィードバックに耳を傾け、より多くのデータ取り込みと変換のシナリオをサポートするために、新機能と修正プログラムを継続的に導入する努力を続けています。 新しい年に移行して、ユーザーが新しい機能の詳細を簡単に追跡し、それらを使用できるよう、月次機能の概要に関するブログ シリーズを開始します。</p>
+
+
+  <p>2 月の更新プログラムのAzure Data Factory一覧を次に示します。 このブログ記事では、それらを 1 つ 1 つ確認します。</p>
+
+
+  <ul>
+   <li>パフォーマンスが強化された データ管理 Gateway にバンドルされた新しい Oracle ドライバー</li>
+   <li>Azure Data Lake Store のサービス プリンシパル認証Data Lake Store</li>
+   <li>テーブルへの読み込み時のテーブル スキーマの自動SQL Data Warehouse</li>
+   <li>Zip 圧縮/圧縮解除のサポート</li>
+   <li>JSON ファイル内の配列からデータを抽出するサポート</li>
+   <li>クラウド コピーの実行場所を明示的に指定する機能</li>
+   <li>新しい Web サービスAzure Resource Manager Machine Learning更新をサポートする</li>
+  </ul>
+
+
+  <h2>パフォーマンスが強化された データ管理 Gateway にバンドルされた新しい Oracle ドライバー</h2>
+
+
+  <p><strong>導入：</strong> 以前は、データ管理 Gateway ユーザーを使用して Oracle データ ソースに接続するには、Oracle プロバイダーを個別にインストールする必要が生じていたので、異なる問題が発生しました。 現在、データ管理 Gateway バージョン 2.7 更新プログラムでは、Oracle 用の新しい Microsoft ドライバーがインストールされます。そのため、個別の Oracle ドライバーのインストールは必要ありません。 新しいバンドルされたドライバー プロバイダーでは、読み込みスループットが向上し、一部のお客様は 5 倍から 8 倍のパフォーマンスの向上を観察しています。 詳細については <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-onprem-oracle-connector#supported-versions-and-installation">、Oracle コネクタのドキュメント ページ</a> を参照してください。</p>
+
+
+  <p><strong>構成：</strong> データ管理 ゲートウェイでは、更新プログラムが定期的にチェックされます。 そのバージョンは、次に示すように [ヘルプ] ページから確認できます。 v2.7 より前のバージョンを実行している場合は、ダウンロード センターから直接更新プログラムを <a href="https://www.microsoft.com/en-us/download/details.aspx?id=39717">取得できます</a>。 ゲートウェイ データ管理 2.7 では、Oracle がソースとして使用されている場合、コピー ウィザードで新しいドライバーが自動的に使用されます。 Oracle のリンクされたサービス <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-onprem-oracle-connector#oracle-linked-service-properties">のプロパティの詳細を確認してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/709df846-4d73-4d89-869e-d9e6a612d9b5.png"><img alt="gatewayversion" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3750a099-a98a-4c31-bfbb-7954fdbc6fe2.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="gatewayversion" width="610"></a></p>
+
+
+  <h2>Azure Data Lake Store のサービス プリンシパル認証Data Lake Store</h2>
+
+
+  <p><strong>導入：</strong> 既存のユーザー資格情報認証に加えて、azure Azure Data Factoryにアクセスするためのサービス プリンシパルがサポートData Lake Store。 前のユーザー資格情報認証モードで使用されたトークンは、12 時間から 90 日後に期限切れになる可能性があります。そのため、スケジュールされたパイプラインでは、定期的に手動またはプログラムでトークンを再認証する必要があります。 Azure Data Lake Store から移動するデータのトークンの有効期限の詳細については、<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-datalake-connector#azure-data-lake-store-linked-service-properties">Azure Data Factory。</a> サービス プリンシパル認証では、キーの有効期限のしきい値がはるかに長くなるので、今後、特にスケジュールされたパイプラインに対してこのメカニズムを使用する必要があります。 Azure Data Lake Store サービス プリンシパル <a href="https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-authenticate-using-active-directory">の詳細を確認してください</a>。</p>
+
+
+  <p><strong>構成：</strong> コピー ウィザードに、次に示すように、サービス プリンシパルが既定値の新しい [認証の種類] オプションが表示されます。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/198bc2ff-2aba-4ad5-8a45-8d187a71e007.png"><img alt="serviceprincipal" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea19b100-a39e-4f79-b4ba-35a8c2b6564b.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="serviceprincipal" width="570"></a></p>
+
+
+  <h2>テーブルへの読み込み時のテーブル スキーマの自動SQL Data Warehouse</h2>
+
+
+  <p><strong>導入：</strong>コピー ウィザードを使用してオンプレミスの SQL Server または Azure SQL Database から Azure SQL Data Warehouse にデータをコピーするときに、コピー先の SQL Data Warehouse にテーブルが存在しない場合、Azure Data Factory はソースからスキーマを使用してコピー先テーブルを自動的に作成できます。</p>
+
+
+  <p><strong>構成：</strong> コピー ウィザードの [テーブル&rsquo; マッピング] ページで、既存のシンク テーブルにマップしたり、ソース テーブル スキーマを使用して新しいシンク テーブルを作成したりすることができます。 ソース ストアとコピー先ストアの間の非互換性を修正するために必要な場合は、適切なデータ型変換が発生する可能性があります。 次の 2 番目の図に示すように、[スキーマ マッピング] ページで、互換性の問題の可能性についてユーザーに警告が表示されます。 テーブルの自動作成 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-sql-data-warehouse-connector#auto-table-creation">に関する詳細を確認してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa8543c6-8a55-4860-bef9-9c45859969ed.png"><img alt="autotablecreation1" border="0" height="286" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95a98387-8aa0-42ec-a050-f56d2b31a846.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="autotablecreation1" width="610"></a></p>
+
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b18b00f-1bd7-4b9d-8dcd-710114f785af.png"><img alt="autotablecreation2" border="0" height="228" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31158b13-9b91-4f24-9755-5e146070cc00.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="autotablecreation2" width="610"></a></p>
+
+
+  <h2>Zip 圧縮/圧縮解除のサポート</h2>
+
+
+  <p><strong>導入：</strong> 現在Azure Data Factoryコピー アクティビティでは、既存の GZip、BZip2、Deflate 圧縮のサポートに加えて、ZipDeflate 圧縮の種類を使用してファイルを解凍/zip 圧縮できます。 これは、Azure BLOB、Azure Data Lake Store、Amazon S3、FTP/s、ファイル システム、HDFS など、すべてのファイル ベースのストアに適用されます。</p>
+
+
+  <p><strong>構成：</strong> このオプションは、次に示すように[コピー ウィザード] ページで確認できます。 詳細については、対応する <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-blob-connector#specifying-compression">各コネクタ トピックの「圧縮</a> の指定」セクションを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45f4aee1-a38b-44c5-b8c5-28e0638ef4ac.png"><img alt="zip" border="0" height="298" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c8502d9-52b8-4aa8-8993-942dd281c616.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="Zip" width="610"></a></p>
+
+
+  <h2>JSON ファイル内の配列からデータを抽出する</h2>
+
+
+  <p><strong>導入： </strong>コピー アクティビティでは、JSON ファイル内の配列の解析がサポートされます。 これは、配列全体を文字列に変換するかスキップできるフィードバックに対処するために使用されます。 これで、配列からデータを抽出したり、ルート オブジェクトの下のデータを使用して配列内のオブジェクトをクロス適用したりできます。</p>
+
+
+  <p><strong>構成：</strong> コピー ウィザードには、次に示すように JSON 配列を解析する方法を選択するオプションが表示されます。 この例では、orderlines 配列&ldquo;の要素は prod 列と &ldquo;price 列として&ldquo;&rdquo;解析&rdquo;されます。&rdquo; 構成と例の詳細については、各ファイル ベースのデータ ストア トピックの <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-blob-connector#specifying-jsonformat">「JSON</a> 形式の指定」セクションを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b82e8df-55c1-4cc5-87f8-6b01acfed815.png"><img alt="json" border="0" height="393" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/494efcb4-5f84-42f7-b0d9-1a98c0c9d25a.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="Json" width="610"></a></p>
+
+
+  <h2>クラウド コピーの実行場所を明示的に指定する機能</h2>
+
+
+  <p><strong>導入：</strong> クラウド データ ストア間でデータをコピーする場合、Azure Data Factory は既定でシンク データ ストアのリージョンを検出し、コピーを実行するために地理的に最も近いサービスを選択します。 &rsquo;リージョンが検出できない場合、またはコピー アクティビティを実行するサービスに、そのリージョンで使用できるデプロイが存在しない場合は、[実行場所] オプションを明示的に設定して、コピーの実行に使用するサービスのリージョンを指定できます。 グローバルに利用可能な <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-data-movement-activities#a-nameglobalaglobally-available-data-movement">データ移動の詳細については、以下を参照してください</a>。</p>
+
+
+  <p><em><strong>メモ：</strong> データは、コピー中に、そのリージョンを経由して転送されます。</em></p>
+
+
+  <p><strong>構成：</strong> 上記のケースに該当する場合は、コピー ウィザードで [概要] ページの [実行場所] オプションを求めるメッセージが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/006dcb45-a1cb-442e-9440-195d1342ef7f.png"><img alt="executionlocation" border="0" height="378" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5e8081c-ea19-453a-a8c2-8f9b1d62aa17.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="executionlocation" width="610"></a></p>
+
+
+  <h2>新しい Web サービスAzure Resource Manager Machine Learning更新をサポートする</h2>
+
+
+  <p><strong>導入： </strong>Machine Learning 更新リソース アクティビティを使用すると、<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-ml-update-resource-activity"></a>スコア付け精度のために Machine Learning モデルの再トレーニングを運用化する方法として、Azure Machine Learning スコアリング サービス<a href="https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-retrain-machine-learning-model"></a>を更新できます。 従来の Web サービスのサポートに加えて、Azure Data Factory サービス プリンシパルを使用して、Azure Resource ManagerベースAzure Machine Learning Web サービスをサポートできます。</p>
+
+
+  <p><strong>構成：</strong>リンクAzure Machine Learningサービス JSON でサービス プリンシパルがサポートされるので、新しい Web サービス エンドポイントにアクセスできます。 スコアリング Web サービス <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-ml-update-resource-activity#scoring-web-service-is-azure-resource-manager-web-service">の詳細については、Web サービスAzure Resource Managerを参照してください</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>上記は、2 月に導入された新機能です。 フィードバックや質問が多い場合は、 フォーラムまたはフィードバック サイトで<a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=AzureDataFactory">Azure Data Factoryご</a><a href="https://feedback.azure.com/forums/270578-data-factory"></a>&rsquo;意見をお聞かせください。</p>

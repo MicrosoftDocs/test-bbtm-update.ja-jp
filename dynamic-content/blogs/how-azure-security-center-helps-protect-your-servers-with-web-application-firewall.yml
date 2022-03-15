@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ce10f31dd9dd6919be98cfa9327b0fc2bda005e6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896758"
+Slug: how-azure-security-center-helps-protect-your-servers-with-web-application-firewall
+Title: アプリケーションAzure Security Centerを使用してサーバーを保護する方法Web Application Firewall
+Summary: 敵対者には、サイバー攻撃のマウントに使用できる多数のツールがインターネット上に用意されています。 これらのツールの多くは、エンタープライズ IT リソースへのアクセスと制御を可能にしています。 その間、次の,...
+Content: >-
+  <p>敵対者には、サイバー攻撃のマウントに使用できる多数のツールがインターネット上に用意されています。 これらのツールの多くは、エンタープライズ IT リソースへのアクセスと制御を可能にしています。 その間、セキュリティプロフェッショナルは、防御を行う必要がある IT リソースに組み込みの脆弱性を常に認識しているとは限されません。 Azure Security Center (ASC) は、このギャップを埋めるのに役立ちます。</p>
+
+
+  <p>このブログ記事は、Azure Security Center (ASC) を使用して Azure ベースのリソースを検出し、特に SQL インジェクション攻撃から保護することに関心を持つ IT およびセキュリティの専門家向けです。 この投稿の目的は、1) この既知のコード挿入がどのように行われるかについて説明し、2) ASC が IT リソースをセキュリティで保護するためにこの攻撃を検出して解決する方法を示しています。&nbsp;</p>
+
+
+  <h2>ツールを使用するとSQL挿入が簡単になります</h2>
+
+
+  <p>サーバーとアプリケーションは、サイバー犯罪の簡単なターゲットです。 データ 駆動型アプリケーションを攻撃するよく知られている方法の 1 つは、データインジェクションSQLです。 SQL挿入は、悪意のあるコードが実行のために挿入され、意図しないデータベース アクセスにつながる攻撃手法です。 攻撃者が悪意のあるインジェクションに使用できる一般的なツールは sqlmap です。 sqlmap を使用すると、データベースに対して脆弱なSQLを簡単に検出し、その内容を公開できます。 攻撃者は、データベースとそのテーブルを認証して検出し、ユーザーとハッシュされたパスワードをダンプするために、適切な要求ヘッダーを提供する必要があります。 攻撃者がこのデータを取得したら、次の手順は、公開されたハッシュ (sqlmap ツールのもう 1 つの組み込み機能) でブルート フォース分析を使用して、次に示すプレーンテキスト ユーザー資格情報を取得することです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/404df6cd-b642-4b43-a5dd-5f9e2e2dba96.png"><img alt="Plaintext user credentials" border="0" height="255" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9319e029-d814-4544-be4a-2497f750712d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="プレーンテキスト ユーザーの資格情報" width="612"></a></p>
+
+
+  <h2>データを使用してリスクを特定Azure Security Center</h2>
+
+
+  <p>Azure Security Center (ASC) は、無料サブスクリプションと試用版サブスクリプションを含め、Azure のすべてのサブスクリプション レベルで利用できます。これは、HTTP エンドポイントを使用して接続されている IT 資産を識別するのに役立ちます。 さらに、ASC では、Web Application Firewall (WAF) リソースのデプロイを自動化して非準拠リソースを保護しながら、検出された悪意のある SQL インジェクションの試行を指摘することができます。 検出の一覧は、セキュリティ修復が必要な保護されていない Web サーバーを示しています。 ASC は、Azure サブスクリプション全体で仮想マシンをスキャンし、危険なリソースに該当する場合は Web アプリケーション ファイアウォールを追加するように推奨事項を作成します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85177103-f5ef-4cb7-b381-75273348db3d.png"><img alt="Power BI 1" border="0" height="282" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5515170-fd9c-4200-a8b2-dbce90db76cb.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="Power BI 1" width="318"></a><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85daa2ec-883e-419e-a80d-663b065e9505.png"><img alt="Power BI 2" border="0" height="281" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e6ac7457-691a-4520-bc53-56236b2c5c3c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="Power BI 2" width="427"></a></p>
+
+
+  <p>その後、ASC では、パートナーまたはファースト パーティ ソリューション用にWeb Application Firewallをデプロイおよび構成するプロセスに関するガイダンスが提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7cd5d53-b4f8-4740-a638-5f50472196a4.png"><img alt="Create a new Web Application Firewall solution" border="0" height="350" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa4c385c-d1de-413e-9356-3b7c1f47bfc5.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="新しいソリューションをWeb Application Firewallする" width="494"></a></p>
+
+
+  <p>ネットワーク経由での IP トラフィックのトンネリングに関するWeb Application Firewallガイダンスも提供されます。 このプロセスにより、脆弱な Web アプリケーションに保護レイヤーが追加されます。</p>
+
+
+  <p>Azure Security Centerを使用&rsquo;すると、リソースに追加されたので、保護と検出に関する可視性が提供Web Application Firewall。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3734844c-628d-4dbe-a054-62af2362866d.png"><img alt="Security alerts" border="0" height="356" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/359942e2-55c0-45ab-a81b-d1f4b4c6ba05.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="セキュリティ アラート" width="494"></a></p>
+
+
+  <h2>防止を使用してアクションを修復する</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-customize-waf-rules-portal" target="_blank">WAF を防止モードに</a> 構成すると、sqlmap&rsquo; ツールは、アクセスすべきではないデータベースやテーブルにアクセスできません。 したがって、sqlmap は、バックエンドで実行されているデータベースの種類を列挙するのさえ防ぐだけで、データベースを走査してコンテンツを検索することもできます。 防止モードでは、WAF は疑わしいアクティビティを防止します。 ASC はこれを検出し、ブロックされているアクティビティについて報告します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e1f5b2f-0ad5-4d40-a1b0-f4c112ce1c50.png"><img alt="Prevention mode" border="0" height="554" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/902cadf5-8e24-48b7-a9a1-f8ea3e57b477.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="防止モード" width="476"></a></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>sqlmap などの攻撃ツールは安価で簡単に使用できます。 アプリケーション&ldquo;がアプリケーションの挿入&rdquo;に対して脆弱でなSQLです。 これらの攻撃からリソースを検出して保護するための可視性と制御を確保することが重要です。 ASC を使用すると、IT およびセキュリティの専門家は、クラウドベースのリソースをスキャンして危険なエンドポイントを検出できます。 ASC による推奨事項に従って検出と保護を実現し、組織が情報セキュリティ コンプライアンスの標準を満たすのに役立つ場合があります。 ASC は Azure のすべてのサブスクリプション レベルで利用できます。Standard レベルの ASC では、より深いレベルの分析情報、アクション、脅威保護にアクセスできます。 企業で詳細なレベルのクラウド セキュリティが必要な場合は、 <a href="https://azure.microsoft.com/en-us/free/" target="_blank">Azure Standard</a> の無料試用版をアクティブ化して、ASC がビジネスを支援する方法を確認します。</p>
+
+
+  <p>このブログ投稿では、より詳細なステップバイステップのプレイブックを紹介しています。 詳細については、「 <em><a href="https://gallery.technet.microsoft.com/ASC-Playbook-Protect-38bd47ff" target="_blank">ASC プレイブック: Web アプリ ファイアウォールを使用してサーバーを保護する」を参照してください</a></em>。</p>
+
+
+  <p>ご質問があるでしょうか。 メールでお問い合わせください <a href="mailto:AskCESec@microsoft.com" target="_blank">AskCESec@microsoft.com</a>。</p>
+
+
+  <p>- ヘイデン @hhainsworth</p>

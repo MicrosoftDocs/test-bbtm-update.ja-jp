@@ -1,0 +1,119 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4d609b824e4b50117128b3c86109b231c2db294c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895525"
+Slug: hdinsight-metastore-migration-tool-open-source-release-now-available
+Title: HDInsight Metastore Migration Tool オープン ソース リリースが利用可能に
+Summary: "Hive メタストアに一括編集を適用するために使用できるオープンソース スクリプトである Microsoft Azure HDInsight Metastore Migration Tool (HMMT) のリリースをお知りください。 \n"
+Content: >-
+  <p>Hive メタストアに一括編集を適用するために使用できるオープンソース スクリプトである Microsoft Azure HDInsight Metastore Migration Tool (HMMT) のリリースをお知りください。</p>
+
+
+  <p>HDInsight Metastore Migration Tool は、Azure HDInsight でのデータ移行に関連する課題に対する低待機時間のインストールなしソリューションです。 Hive データの移行を行う必要がある理由は多数ある。 Azure ストレージ アカウントで安全な転送を有効にすることで、データの保護が必要な場合があります。 HDInsight 3.6 から 4.0 へのアップグレードの一環として、Hive テーブルを WASB から Azure Data Lake Storage (ADLS) Gen2 に移行する場合があります。 または、データベース、テーブル、およびユーザー定義関数 (UDF) の場所を整理して、一元的な構造に従う必要がある場合があります。 HMMT では、これらの移行シナリオや他の多くのシナリオでは、手動による介入は不要になります。</p>
+
+
+  <p>HMMT は、迅速で安全で制御可能な環境で Hive メタデータ移行シナリオを処理します。 このブログ記事は、3 つのセクションに分かれています。 まず、Hive メタストアと Hive ストレージ パターンに関して、HMMT の背景について概説します。 2 番目のセクションでは、HMMT の設計について説明し、初期セットアップ手順について説明します。 最後に、いくつかのサンプル移行について説明し、その使用方法と価値のデモンストレーションとして HMMT を使用して解決します。</p>
+
+
+  <h2>背景</h2>
+
+
+  <h3>Hive メタストア</h3>
+
+
+  <p>Hive メタストアは、テーブルSQL、ユーザー定義関数のストレージの場所など、Hive メタデータ用の新しいデータベースです。 HDInsight クラスターが作成されると、Hive メタストアが自動的にプロビジョニングされます。 または、既存のデータベースSQLを使用して、複数のクラスター間でメタデータを保持することもできます。 既存のSQLは、外部メタストアと呼ばれます。 HMMT は、時間の長い時間と複数のクラスター間でメタデータの移行を保持するために、外部メタストアに対して使用することを目的としています。</p>
+
+
+  <h3>Hive ストレージの一様リソース識別子</h3>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2acd576b-a84b-4b6f-8820-464ad7d9a67a.png"><img alt="Hive storage URIs sample" border="0" height="152" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6da71d8-780b-4f3c-83cc-ef90acc8c692.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Hive ストレージ URI のサンプル" width="930"></a></p>
+
+
+  <p>クラスターで使用できる Hive テーブル、データベース、または UDF ごとに、Hive&rsquo; メタストアでは、その成果物の場所のレコードが外部ストレージに保持されます。 成果物の場所は、WINDOWS AZURE STORAGE BLOB または Azure Data Lake Storage に保持されます。 各場所は、成果物が格納されているアカウントの種類、アカウント、コンテナー、およびサブコンテナーのパスを記述する、Azure Storage Uniform Resource Identifier (URI) として表されます。 上の図は、Hive テーブル URI を表すスキーマを示しています。 同じスキーマ パターンが Hive データベースと UDF に適用されます。&nbsp;</p>
+
+
+  <p>table1 に対して Hive クエリが実行されるとします。 Hive はまず、Hive メタストアにある対応するストレージ エントリからテーブルの内容の読み取りを試みます。 Hive では、テーブルの保存場所を表示および更新するための&rsquo;コマンドがサポートされています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b8f7a63e-05ce-4dd2-94d8-2061c68d0a3b.png"><img alt="Example command for displaying and updating a table’s storage location" border="0" height="55" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1fb5b2b4-2466-474c-b8b9-f581cdfc110d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="テーブルのストレージの場所を表示および更新するためのコマンドの例" width="497"></a></p>
+
+
+  <p>テーブルのストレージの場所を変更するには、関心のあるテーブルに対応する <em>更新</em> コマンドを実行する必要があります。 複数のテーブルの場所を変更する場合は、複数の <em>更新</em> コマンドを実行する必要があります。 ストレージの場所は手動で更新する必要があります。メタストアに対する小売変更は、エラーが発生しやすく、時間のかかるタスクになる可能性があります。 テーブル以外の成果物に関する場所の更新ストーリーは、さらに好ましいものではありません。データベースまたは UDF の場所を Hive 内から変更することはできません。 そのため、HMMT を一般にリリースする背後にある動機は、Hive アーティファクトのストレージの場所を更新する簡単な方法を提供するためです。 HMMT は Hive メタストアを直接変更します。これは、Hive アーティファクトを大規模に変更する最も高速な (かつ唯一の) 方法です。</p>
+
+
+  <h2>HMMT のしくみ</h2>
+
+
+  <p>HMMT では、入力パラメーターに基SQL Hive メタストアを直接更新する一連のコマンドが生成されます。 入力パラメーターに一致するストレージ URI だけがスクリプトの影響を受ける。 このツールでは、Hive ストレージ アカウント、アカウントの種類、コンテナー、およびサブコンテナー パスの任意の組み合わせを変更できます。 HMMT は HDInsight 3.6 以降で排他的にサポートされています。</p>
+
+
+  <p>MICROSOFT HDInsight GitHub ページから直接ダウンロードして<a href="https://github.com/hdinsight/MetastoreMigrationTools" target="_blank">、HMMT の使用を開始します</a>。 HMMT にはインストールは必要ない。 スクリプト自体が、Hive メタストア ディレクトリにホワイトリストに登録されている IP アドレスから実行SQL Server。 HMMT は、サポートされているクエリ UNIXインストールされている任意のコマンド ラインから実行できます。 スクリプトは、必ずしも HDInsight クラスター内から実行する必要があるとは限りません。 最初にサポートされているクライアントは Beeline と SqlCmd です。 Beeline はサポートされています。HMMT は任意の HDInsight クラスター ヘッドノードから直接実行できます。</p>
+
+
+  <p><strong>免責 事項：</strong> HMMT は Hive メタストアの内容を直接変更します。このスクリプトは慎重に使用してください。 スクリプトを実行すると、実行の潜在的な影響を説明するために、メタストアの移行後の内容がコンソール出力として表示されます。 指定した移行パラメーターを有効にするには、 &ldquo;<strong>フラグ liverun を</strong>&rdquo; HMMT コマンドに渡す必要があります。 このツールは、既定でドライ ランとして起動します。 さらに、HMMT を使用しない場合でも、Hive メタストアのバックアップを保持強く推奨します。 Hive メタストア バックアップの詳細については、このブログの最後を参照してください。</p>
+
+
+  <h2>使用例</h2>
+
+
+  <p>HMMT では、Hive メタデータの移行と編成に関連するさまざまな使用事例がサポートされています。 HMMT の利点は、Hive メタストアがデータ移行の結果を反映するようにツールが簡単に提供されるという利点です。 HMMT は、今後のデータ移行を予測して、一連の成果物に対して実行される場合があります。 このセクションでは、2 つの例を使用して HMMT の使用方法と値を示します。 1 つの例では、セキュリティで保護されたストレージ転送に関連するテーブルの移行について説明し、もう 1 つは Hive UDF JAR メタデータを移行するプロセスについて説明します。</p>
+
+
+  <h3>例 1: 安全な転送を有効にする</h3>
+
+
+  <p>Hive テーブルが多数の異なるストレージ アカウントに格納され、最近、これらのアカウントの選択で安全な転送を有効にしたとします。 セキュリティで保護された転送を有効にしても Hive メタストアは自動的に更新されないので、ストレージ URI を変更して変更を反映する必要があります (<em>たとえば、WASB</em> から <em><strong>WASBS</strong></em> へ)。 IP がホワイトリストに登録され、サポートされているクライアントがインストールされている場合、HMMT は一致するすべての URI を次のコマンドで更新します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e88d7f8f-dd12-43ef-9121-f510450f73da.png"><img alt="Command for updating all matching URIs with HMMT" border="0" height="228" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3daf30b5-f69c-4f08-a788-df010710cadf.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="HMMT で一致するすべての URI を更新するためのコマンド" width="258"></a></p>
+
+
+  <ul>
+   <li>スクリプトに渡される最初の 4 つの引数は、メタストアSQLサーバー、データベース、および資格情報に対応します。</li>
+   <li>次の 4 つの引数は、検索 &lsquo;するソース&rsquo; 属性に対応しています。 この場合、スクリプトは WASB アカウント Acc1、Acc2、Acc3 に影響します。 コンテナーまたはサブコンテナー パスに対するフィルター処理はありません。 HMMT では、ストレージ移行オプションとして WASB、WASBS、ABFS、ABFSS、ADL がサポートされています。</li>
+   <li>ターゲット フラグは、変更する Hive メタストア内のテーブルを表します。 テーブル SDS には Hive テーブルの場所が格納されます。 その他のテーブル オプションには、HIVE データベース用の DBS、Hive UDF FUNC_RU、Hive テーブルの偏りSKEWED_COL_VALUE_LOC_MAPストアに対するデータ の追加があります。</li>
+   <li>クエリ クライアント フラグは、使用するクエリ コマンド ライン ツールに対応します。 この場合、選択するクライアントは Apache Beeline です。</li>
+  </ul>
+
+
+  <p>残りのフラグは、影響を受ける &lsquo;URI の&rsquo; 宛先属性に対応します。 この場合、ソース オプションで指定された照合 URI はすべて、アカウントの種類が WASBS に移動されます。 宛先フラグごとに最大 1 つのエントリが許可されます。 これらのフラグの値は、移行後の URI パターンを形成するためにマージされます。</p>
+
+
+  <p>このサンプル スクリプト コマンドは、WASB &ldquo;アカウントに対応するテーブル URI のみを選択します。ここで、アカウント名は Acc1&ldquo;&rdquo;、Acc2&rdquo;&ldquo;、または Acc3 です。&rdquo;コンテナーとパスのオプションはワイルドカードとして残されます。つまり、これら 3 つのアカウントの下のすべてのテーブルの URI が調整されます。 スクリプトによって行われた調整は、ストレージの種類を WASBS に設定することで行います。 テーブル URI の他の側面には影響はありません。</p>
+
+
+  <h3>例 2: UDF JAR 組織</h3>
+
+
+  <p>この例では、時間の流れで多数の UDF を Hive に読み込んだとします。 UDF は JAR ファイルに実装され、JAR が導入されたクラスターに応じて、さまざまなアカウント コンテナーに格納される場合があります。 その結果、テーブル FUNC_RUさまざまなアカウント コンテナーとパスに対して多数のエントリが作成されます。 UDF JARs の場所を <em>クリーンアップ </em>する場合は、次のコマンドを使用します。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c97f01c-2654-4403-83d7-b498fc3032ff.png"><img alt="Command to clean up the directory of UDF JARs" border="0" height="247" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7cbccd60-70d3-48c4-a39d-a4242165edf8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="UDF JARs のディレクトリをクリーンアップするコマンド" width="320"></a></p>
+
+
+  <p>このコマンドは、任意のコンテナーとサブコンテナー パスの WASB &ldquo;ストレージ アカウント Acc1&rdquo; 内のテーブル FUNC_RU に排他的に見つかる UDF JAR URI を取得します。 スクリプトが完了すると、Hive メタストアに、そのアカウントのすべての JAR がコンテナー jarstoragecontainer の /jarfiles/ <em>ディレクトリ</em>&ldquo;に見つかると表示されます。&quot;</p>
+
+
+  <h2>フィードバックと投稿</h2>
+
+
+  <p>フィードバックをお寄せください。 機能に関するご要望、ご提案、お問い合わせについては、 にお問い合わせください <a href="mailto:askhdinsight@microsoft.com">askhdinsight@microsoft.com</a>。 また、HDInsight GitHub リポジトリを介して、HMMT 自体に対する機能の質問とソース コードの投稿をお勧めしています。</p>
+
+
+  <h3>その他のリソース</h3>
+
+
+  <ul>
+   <li><a href="https://github.com/hdinsight/MetastoreMigrationTools" target="_blank">HMMT GitHub リポジトリ</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-external-metadata-stores" target="_blank">Hive 外部メタストア</a></li>
+   <li><a href="https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients" target="_blank">Beeline の使用状況</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-2017" target="_blank">Microsoft SqlCmd</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-firewall-configure" target="_blank">Azure SQL Server ホワイトリスト登録</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/" target="_blank">Azure HDInsight</a></li>
+   <li><a href="https://github.com/hdinsight" target="_blank">HDInsight on GitHub</a></li>
+   <li><a href="https://social.msdn.microsoft.com/forums/azure/en-us/home?forum=hdinsight" target="_blank">MSDN フォーラム</a></li>
+   <li><a href="https://stackoverflow.com/questions/tagged/hdinsight" target="_blank">Stack Overflow</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-automated-backups" target="_blank">SQL Databaseバックアップの手順</a></li>
+   <li><a href="https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/hdinsight/hadoop/apache-hadoop-hive-java-udf.md" target="_blank">HIVE UDF のガイド</a></li>
+  </ul>

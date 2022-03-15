@@ -1,0 +1,108 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 462d28c7fcef7a89286323a6425eb6fd6552540f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896447"
+Slug: linux-and-windows-networking-performance-enhancements-accelerated-networking
+Title: Linux とWindowsネットワーク パフォーマンスの強化|高速ネットワーク
+Summary: Microsoft Azure Linux (Ubuntu、Red Hat、CentOS) と Windows Virtual Machines のすべてのディストリビューション (...
+Content: >-
+  <p>Microsoft Azure、すべての仮想マシン (VM) サイズに対する Linux (Ubuntu、Red Hat、CentOS) と Windows の最新のディストリビューションをサポートする一連のパフォーマンスの最適化を発表し、最大 25 Gbps のネットワーク スループットを提供します。 25 Gbps 帯域幅は、現在、パブリック クラウド内の VM 間で最も速く公開される速度です。</p>
+
+
+  <p>これらの最適化は、Azure コンピューティング フリート全体にデプロイされ、最新の Linux オペレーティング システムが Azure Marketplace に公開されています。 その他の一般的な Linux オペレーティング システムでは、通常の更新プログラムを通じてこれらの最適化を組み込む予定です。</p>
+
+
+  <p>お客様がハイ パフォーマンス ソリューションを設計するために、Azure では、VM&nbsp; の予想されるネットワーク パフォーマンスも Web サイトに公開されています。 これにより、お客様は最適なパフォーマンスを維持しながら、ソリューションのコストを削減しやすくなります。 詳細については <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes" target="_blank">、VM サイズあたりの予想されるネットワーク パフォーマンスに関</a> するページを参照してください。</p>
+
+
+  <p>現在の例では、&#39;パフォーマンス メトリックの例を次に示します。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="999">
+      <tbody>
+          <tr>
+              <td valign="top" width="124">
+              <p style="text-align: center"><strong>VM のサイズ</strong></p>
+              </td>
+              <td style="text-align: center" valign="top" width="124"><strong>vCPU</strong></td>
+              <td style="text-align: center" valign="top" width="124"><strong>メモリ: GB</strong></td>
+              <td style="text-align: center" valign="top" width="124"><strong>ローカル SSD: GB</strong></td>
+              <td style="text-align: center" valign="top" width="124"><strong>最大データ ディスク数</strong></td>
+              <td style="text-align: center" valign="top" width="124"><strong>キャッシュされたディスクとローカル ディスクの最大スループット: IOPS/MBps (キャッシュ サイズ (GB)</strong></td>
+              <td style="text-align: center" valign="top" width="124"><strong>キャッシュが無効な場合の最大ディスク スループット: IOPS/MBps</strong></td>
+              <td style="text-align: center" valign="top" width="124"><strong>最大 NIC/予想されるネットワーク パフォーマンス: Mbps</strong></td>
+          </tr>
+          <tr>
+              <td style="text-align: center" valign="top" width="124">Standard_M64ms</td>
+              <td style="text-align: center" valign="top" width="124">64</td>
+              <td style="text-align: center" valign="top" width="124">1792</td>
+              <td style="text-align: center" valign="top" width="124">2048</td>
+              <td style="text-align: center" valign="top" width="124">32</td>
+              <td style="text-align: center" valign="top" width="124">80,000 / 800 (6348)</td>
+              <td style="text-align: center" valign="top" width="124">40,000/1,000</td>
+              <td style="text-align: center" valign="top" width="124">8/1,6000</td>
+          </tr>
+          <tr>
+              <td valign="top" width="124">
+              <p style="text-align: center">Standard_GS5</p>
+              </td>
+              <td style="text-align: center" valign="top" width="124">32</td>
+              <td style="text-align: center" valign="top" width="124">448</td>
+              <td style="text-align: center" valign="top" width="124">896</td>
+              <td style="text-align: center" valign="top" width="124">64</td>
+              <td style="text-align: center" valign="top" width="124">160,000/1,600 (4,224)</td>
+              <td style="text-align: center" valign="top" width="124">80,000/2,000</td>
+              <td style="text-align: center" valign="top" width="124">8/20,000</td>
+          </tr>
+          <tr>
+              <td valign="top" width="124">
+              <p style="text-align: center">Standard_<br>
+  DS15_v2</p>
+              </td>
+              <td style="text-align: center" valign="top" width="124">20</td>
+              <td style="text-align: center" valign="top" width="124">140</td>
+              <td style="text-align: center" valign="top" width="124">280</td>
+              <td style="text-align: center" valign="top" width="124">40</td>
+              <td style="text-align: center" valign="top" width="124">80,000/640 (720)</td>
+              <td style="text-align: center" valign="top" width="124">64,000/960</td>
+              <td style="text-align: center" valign="top" width="124">8/20,000</td>
+          </tr>
+          <tr>
+              <td valign="top" width="124">
+              <p style="text-align: center">Standard_ 128<br>
+  M128s</p>
+              </td>
+              <td style="text-align: center" valign="top" width="124">128</td>
+              <td style="text-align: center" valign="top" width="124">2048</td>
+              <td style="text-align: center" valign="top" width="124">4096</td>
+              <td style="text-align: center" valign="top" width="124">64</td>
+              <td style="text-align: center" valign="top" width="124">160,000 / 1,600 (12,696)</td>
+              <td style="text-align: center" valign="top" width="124">80,000/2,000</td>
+              <td style="text-align: center" valign="top" width="124">8/2,5000</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>高速ネットワーク (AN) を使用して VM&rsquo; のパフォーマンスを最大化する - 8 つ以上のコア仮想マシンで広く利用できる</h2>
+
+
+  <p>また、Linux 向けパブリック プレビューが拡張された Windows 用 Accelerated Networking (AN) の一般提供 (GA) をお知らせします。</p>
+
+
+  <p>AN は、AZURE を介して&nbsp; 非常に短い待ち時間とジッター ネットワーク のパフォーマンスを提供&#39;<a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/network/overview-of-single-root-i-o-virtualization--sr-iov-" target="_blank">SR-IOV</a> などのインハウス プログラミング 可能なハードウェアとテクノロジを提供します。 また、SDN スタックの多くをハードウェアに移動することで、エンド ユーザー アプリケーションによってコンピューティング サイクルが回収され、VM の負荷が少なされます。</p>
+
+
+  <p>ANS&rsquo; のパフォーマンス上の利点の例として、現在の実稼働環境で増え続ける Azure SQL サービスは、いくつかのベンチマークで 70% の大幅な改善を達成しています。 これは、待ち時間が重要なワークロードをクラウドで実行する場合の実際のパフォーマンス上の利点を明確に示しています。</p>
+
+
+  <p>AN for Linux はパブリック プレビューを継続し、Azure Marketplace (Ubuntu、Red Hat、CentOS、SLES) で公開されている最新のオペレーティング システムでサポートされています。 このプレビューは、数週間の間に、より多くのリージョンに急速に拡大しています。 FreeBSD などの追加のオペレーティング システムは、近日更新プログラムでサポートされる予定です。</p>
+
+
+  <p>Azure&#39;の AN Linux パブリック プレビューにサインアップして参加する方法については、高速ネットワークの概要とデプロイの手順に<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-vm-accelerated-networking" target="_blank"></a>関するページを参照してください。また、高速ネットワーク サービス更新プログラムに関する現在の制限事項の一覧を<a href="https://azure.microsoft.com/en-us/updates/accelerated-networking-in-preview/" target="_blank"></a>参照してください。</p>
+
+
+  <p>予想されるネットワーク パフォーマンスは、すべての宛先のすべての NIC で VM サイズごとに割り当てられる最大集計帯域幅です。 上限は保証されませんが、特定のアプリケーションに対して適切な VM サイズを選択するガイダンスを提供することを目的としています。 実際のネットワーク パフォーマンスは、TCP 接続の数、ネットワークの輻輳、アプリケーション ワークロード、ネットワーク設定など、さまざまな要因によって異なる場合があります。 ネットワーク スループットの最適化の詳細については、「<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-optimize-network-bandwidth" target="_blank">Optimizing Network Throughput for Linux and Windows」を参照してください</a>。 Linux または仮想マシンでネットワーク パフォーマンスをWindows、Azure で推奨される特定のバージョンを選択する必要がある場合があります。 同等の結果を生成するには、「 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-bandwidth-testing" target="_blank">How to Reliably Test for Virtual Machine Network Performance」を参照してください</a>。</p>

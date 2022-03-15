@@ -1,0 +1,82 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e274d68e737d2e608ac3a740b516bc4a7459fec7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891153"
+Slug: azure-data-factory-march-new-features-update
+Title: 3月の新機能の更新 Azure Data Factory
+Summary: 3月の新機能更新サポートデータの読み込み SAP HANA からのデータの読み込みと SAP DW は、Data Lake Store から Azure SQL Data Warehouse への直接読み込みのデータの読み込みを PolyBase Spark アクティビティを介して行うことができます。高度なデータ変換を行うために、データの変換に使用できる最大のクラウドデータ移動単位を増やすことで、データ移動が可能になります。 Azure Data Factory
+Content: >-
+  <p>こんにちは、こんにちは。 3月に、Azure Data Factory に多くの優れた新機能が追加されました。これには、SAP HANA からのデータの読み込み、SAP Business Warehouse (BW) と SFTP、Data Lake Store から SQL Data Warehouse への直接読み込みのパフォーマンスの向上、英国の最初のリージョンのデータ移動サポート (英国南部)、豊富なデータ変換のための新しい Spark アクティビティなどがあります。 詳細情報の共有を待つことができ &rsquo; ます。次に、3月の新機能 Azure Data Factory の完全な一覧を示します。</p>
+
+
+  <ul>
+   <li>SAP HANA と SAP DW からのデータ読み込みのサポート</li>
+   <li>SFTP からのデータの読み込みをサポートする</li>
+   <li>PolyBase による Data Lake Store から Azure SQL Data Warehouse への直接読み込みのパフォーマンスの向上</li>
+   <li>リッチデータ変換のための Spark アクティビティ</li>
+   <li>クラウドデータ移動単位の最大許容値</li>
+   <li>英国データセンターがデータ移動に使用できるようになりました</li>
+  </ul>
+
+
+  <h2>SAP HANA と SAP Business Warehouse からのデータの読み込みをサポートする</h2>
+
+
+  <p>SAP は、世界中で最も広く使用されているエンタープライズソフトウェアの1つです。 Microsoft は、お客様が既存の SAP システムを Azure と統合してビジネスの洞察を解除できるように支援することが重要であること &rsquo; をご紹介します。 azure Blob、Azure Data Lake、azure SQL DW などの<strong>高度な分析とレポートを行うために、SAP HANA と SAP Business Warehouse (BW) からさまざまな Azure データストアへのデータの読み込み</strong>を有効にしたことをお知らせします。</p>
+
+
+  <ul>
+   <li><strong>SAP HANA コネクタ</strong>は、SQL クエリを使用して、HANA 情報モデル (分析ビューや計算ビューなど) および行テーブルと列テーブルからデータをコピーすることをサポートしています。 接続を確立するには、 <a href="https://www.microsoft.com/en-us/download/details.aspx?id=39717">最新の Data Management Gateway</a> (バージョン 2.8) と SAP HANA ODBC ドライバーをインストールする必要があります。 詳細については <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sap-hana-connector#supported-versions-and-installation">SAP HANA サポートされているバージョンとインストール</a> に関する説明を参照してください。</li>
+   <li><strong>SAP BW コネクタ</strong>は、MDX クエリを使用して、SAP Business Warehouse バージョン 6.x Infocube および querycubes (BEx クエリを含む) からのデータのコピーをサポートしています。 接続を確立するには、 <a href="https://www.microsoft.com/en-us/download/details.aspx?id=39717">最新の Data Management Gateway</a> (バージョン 2.8) と SAP NetWeaver ライブラリをインストールする必要があります。 詳細については <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sap-business-warehouse-connector#supported-versions-and-installation">SAP BW サポートされているバージョンとインストール</a> に関する説明を参照してください。</li>
+  </ul>
+
+
+  <p><img alt="SAP HAHA and SAP BW connectors in Copy Wizard" border="0" height="511" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ed0aa0b3-b357-4149-86f8-d99f92bdcc81.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="コピーウィザードでの SAP HAHA と SAP BW コネクタ" width="610"></p>
+
+
+  <p>SAP HANA と SAP BW に接続する方法の詳細については、「 <a href="https://azure.microsoft.com/en-us/blog/azure-data-factory-offer-sap-hana-and-business-warehouse-data-integration/">Azure Data Factory SAP HANA とビジネスウェアハウスのデータ統合</a>」を参照してください。</p>
+
+
+  <h2>SFTP からのデータの読み込みをサポートする</h2>
+
+
+  <p>Azure Data Factory を使用して、 <strong>SFTP サーバーから azure またはオンプレミスの環境</strong>(azure Blob/Azure Data Lake/azure SQL DW など) のさまざまなデータストアにデータをコピーできるようになりました。完全なサポートマトリックスについては、「<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-data-movement-activities#supported-data-stores-and-formats">サポートされるデータストアと形式</a>」を参照してください。 コピーアクティビティは、直感的なコピーウィザード (下図のスクリーンショット) または JSON スクリプトを使用して作成できます。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sftp-connector">SFTP コネクタのドキュメント</a> を参照してください。</p>
+
+
+  <p><img alt="SFTP connector in Copy Wizard" border="0" height="511" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63e773b6-95a7-48b3-8a82-8dbcef2e23e0.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="コピーウィザードでの SFTP コネクタ" width="610"></p>
+
+
+  <h2>PolyBase 経由で Data Lake Store から Azure SQL Data Warehouse への直接データ読み込みのパフォーマンスが向上</h2>
+
+
+  <p>Data Factory コピーアクティビティで<strong>、PolyBase を使用して Data Lake Store から Azure SQL Data Warehouse にデータを直接読み込むことが</strong>サポートされるようになりました。 コピーウィザードを使用すると、既定で PolyBase が有効になり、ソースファイルの互換性が自動的にチェックされます。 PolyBase がアクティビティの実行の詳細で使用されているかどうかを監視できます。</p>
+
+
+  <p>Data Lake Store から Azure SQL Data Warehouse にデータをコピーするために polybase またはステージングコピー、polybase を使用していない場合は、ソースデータ形式を確認し、パイプラインを更新して polybase を有効にし、パフォーマンス向上のためにステージング設定を削除することをお勧めします。 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-azure-sql-data-warehouse-connector#use-polybase-to-load-data-into-azure-sql-data-warehouse">PolyBase を使用</a>してデータを Azure Data Factory Azure SQL Data Warehouse に読み込む」を参照してください。これにより、 <a href="https://blogs.msdn.microsoft.com/azuredatalake/2017/04/08/azure-data-factory-makes-it-even-easier-and-convenient-to-uncover-insights-from-data-when-using-data-lake-store-with-sql-data-warehouse/">SQL Data Warehouse で Data Lake Store を使用したときにデータから洞察を得ることがさらに簡単かつ便利になり</a>ます。</p>
+
+
+  <h2>リッチデータ変換のための Spark アクティビティ</h2>
+
+
+  <p>Apache Spark for Azure HDInsight は、メモリ内のコンピューティングエンジンに基づいて構築されています。これにより、ビッグデータに対するクエリのパフォーマンスが向上します。 Azure Data Factory では <strong>、独自の HDInsight クラスターに対する Spark アクティビティが</strong>サポートされるようになりました。 ユーザーは Azure Data Factory の Spark アクティビティを使用して Spark ジョブの実行を運用化できるようになりました。</p>
+
+
+  <p>Spark ジョブには jar パッケージ (java CLASSPATH に配置) や python ファイル (python パスに配置) など、複数の依存関係がある場合があるため、Spark スクリプトファイル用に事前に定義されたフォルダー構造に従う必要があります。 Spark アクティビティの JSON スクリプトの詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-spark">Azure Data Factory パイプラインから spark プログラムを呼び出す</a>」を参照してください。</p>
+
+
+  <h2>クラウドデータ移動単位の最大許容値</h2>
+
+
+  <p>クラウドデータ移動単位 (DMU) は、クラウドからクラウドへのコピーを支援するために使用されるコピー実行プログラムの powerfulness を反映しています。 blob storage/Data Lake Store/Amazon S3/cloud FTP/cloud SFTP から blob storage/Data Lake Store/Azure SQL Database に大きなボリュームを持つ複数のファイルをコピーするには、通常はより高いスループットが得られます。 <b>これで、大きなコピーの実行に対して最大32の DMUs を指定できるようになりました。</b> 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-copy-activity-performance#cloud-data-movement-units">クラウドデータ移動単位</a> 」と「 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-copy-activity-performance#parallel-copy">並列コピー</a>」を参照してください。</p>
+
+
+  <h2>英国データセンターがデータ移動に使用できるようになりました</h2>
+
+
+  <p>Azure Data Factory データ移動サービスは、既存の<b>16 のデータセンターに加え、英国でも</b>使用できるようになりました。 これにより、Data Factory を利用して、クラウドおよびオンプレミスのデータソースから、 &nbsp; 英国にあるサポートされているさまざまな Azure データストアにデータをコピーできます。 グローバルに利用可能なデータ移動と、<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-data-movement-activities#a-nameglobalaglobally-available-data-movement">グローバルに利用可能な</a>データ移動によってどのように機能するかについて詳しくは、英国 &nbsp; のブログ記事<a href="https://azure.microsoft.com/en-us/blog/azure-data-factory-s-data-movement-is-now-available-in-the-uk/">で Azure Data Factory &rsquo; のデータ移動</a>に関するページをご覧ください。</p>
+
+
+  <p>上記の新機能は、3月に導入されました。 フィードバックまたは質問がある場合は、 <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=AzureDataFactory" ms.cmpgrp="body" ms.cmpnm="Azure Data Factory forum" ms.cmptyp="link" ms.interactiontype="1" ms.pgarea="content" ms.title="">Azure Data Factory フォーラム</a>や<a href="https://feedback.azure.com/forums/270578-data-factory" ms.cmpgrp="body" ms.cmpnm="feedback site" ms.cmptyp="link" ms.interactiontype="1" ms.pgarea="content" ms.title="">フィードバックサイト</a>でお客様のご意見をお聞かせください。お客様からのご意見をお待ちしており &rsquo; ます。</p>

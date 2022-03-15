@@ -1,0 +1,176 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dd67913fecb8341084b4fe5279efa728e1a9e0a3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891478"
+Slug: migrating-big-data-workloads-to-azure-hdinsight
+Title: ビッグデータワークロードの Azure HDInsight への移行
+Summary: ビッグデータワークロードをクラウドに移行することはお客様にとって重要な優先事項となります。 Azure HDInsight は、このような作業をシンプルでコスト効率よく行うために取り組んでいます。 オンプレミスまたは別のクラウドプラットフォームから HDInsight にデータを移行するときに、信頼性の高いアプリケーションパフォーマンスを実現するための複雑さを軽減することを目的とした、解消を持つ HDInsight パートナー。
+Content: >-
+  <p>ビッグデータワークロードをクラウドに移行することはお客様にとって重要な優先事項となります。 Azure HDInsight は、このような作業をシンプルでコスト効率よく行うために取り組んでいます。 オンプレミスまたは別のクラウドプラットフォームから HDInsight にデータを移行するときに、信頼性の高いアプリケーションパフォーマンスを実現するための複雑さを軽減することを目的とした、 <a href="https://unraveldata.com/">解消</a> を持つ HDInsight パートナー。 解消 &rsquo; s Application Performance Management (APM) プラットフォームは、統合された可視性と運用インテリジェンスを提供するサービスのホストを提供し、移行プロセスを HDInsight に計画して最適化します。</p>
+
+
+  <ul>
+   <li>現在のビッグデータのランドスケープとプラットフォームを特定して、ベースラインのパフォーマンスと使用状況を把握します。</li>
+   <li>高度な AI および予測分析を使用して、パフォーマンス、スループットを向上させ、アプリケーション、データ、および処理コストを削減します。</li>
+   <li>クラスターノードのサイズを自動的に設定し、ビッグデータのワークロードに最適なスループットの構成を調整します。</li>
+   <li>ホット、ウォーム、コールドデータ用に、HDInsight でストレージの選択肢を検索、レベル、最適化します。</li>
+  </ul>
+
+
+  <p>前の <a href="https://azure.microsoft.com/en-us/blog/transitioning-big-data-workloads-to-the-cloud-best-practices-from-unravel-data/">ブログ</a> では、クラウドがビッグデータに最適である理由を説明し、クラウドへの移行の概要をフェーズ別に示しました。 このコラムでは、そのライフサイクルの各段階を検証し、計画、移行、運用、および最適化の各フェーズについて説明します。 このブログ投稿では、計画フェーズに焦点を当てています。</p>
+
+
+  <h2>フェーズ 1: 計画</h2>
+
+
+  <p>計画段階では、現在の環境を理解し、移行する優先度の高いアプリケーションを特定し、パフォーマンスベースラインを設定して、オンプレミスクラスターと Azure HDInsight クラスターを測定および比較できるようにする必要があります。 これにより、計画段階で回答する必要がある次の質問が発生します。</p>
+
+
+  <h3>オンプレミスの環境</h3>
+
+
+  <ul>
+   <li>現在のオンプレミスクラスターはどのようなものですか。また、どのように動作するのでしょうか。</li>
+   <li>現在使用しているディスク、コンピューティング、メモリの量を確認できます。</li>
+   <li>Who 使用していますか? また、どのアプリを実行していますか?</li>
+   <li>クラウドへの移行に最適なワークロードはどれですか。</li>
+   <li>どのビッグデータサービス (Spark、Hadoop、Kafka など) がインストールされていますか。</li>
+   <li>どのデータセットを移行する必要がありますか。</li>
+  </ul>
+
+
+  <h3>Azure HDInsight 環境</h3>
+
+
+  <ul>
+   <li>HDInsight リソースの要件は何ですか?</li>
+   <li>オンプレミスのリソース要件を HDInsight にマップするにはどうすればよいですか?</li>
+   <li>HDInsight で必要とされるストレージの種類と、ストレージ要件はどのような時間で進化しますか。</li>
+   <li>HDInsight に移行した後 &rsquo; 、現在の sla またはより優れた sla を満たすことはできますか?</li>
+   <li>手動によるスケーリングまたは自動スケールの HDInsight クラスターと、どのような VM サイズを使用する必要がありますか。</li>
+  </ul>
+
+
+  <h2>基準となるオンプレミスのパフォーマンスとリソース使用率</h2>
+
+
+  <p>ビッグデータパイプラインを物理データセンターから仮想データセンターに効率的に移行するには、オンプレミスのワークロード、使用パターン、リソース消費、依存関係、および他の要因のホストのダイナミクスを理解する必要があります。</p>
+
+
+  <h3>解消は、数分でオンプレミスのクラスター検出レポートを作成します</h3>
+
+
+  <p>解消は、メモリの合計、ディスク、ホストの数、使用されているコアの数など、オンプレミスクラスターの詳細なレポートを提供します。 このクラスター検出レポートでは、クラスタートポロジ、実行中のサービス、オペレーティングシステムのバージョンなどに関する洞察も提供されます。 リソース使用量ヒートマップを使用して、Azure の固有のニーズを特定することができます。</p>
+
+
+  <p align="center">&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8e47b2f-63df-42f7-9d5c-98dbac4e5b27.png"><img alt="An image showing Unravel's on-premises cluster discovery reports." border="0" height="470" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d21f3b7c-e0ac-4e33-a2a1-900c658b0b26.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="解消のオンプレミスクラスター検出レポートを示す画像。" width="1024"></a><br>
+
+  <em>解消オンプレミスクラスター検出レポート</em></p>
+
+
+  <h2>クラスターワークロード分析とデータ分析から、アプリの使用状況に関する重要な洞察を得る</h2>
+
+
+  <p>解消は、アプリケーションのワークロードの季節性をユーザー、部署、アプリケーションの種類別に強調表示し、Azure リソースの最適な使用を調整し、最大限に活用できるようにします。 この種のレポートは、Azure の支出に対する ROI を最大化するために、HDInsight クラスター設計の選択肢 (サイズ、スケール、ストレージ、スケーラビリティオプションなど) において非常に役立ちます。</p>
+
+
+  <p>また、解消は、オンプレミスクラスター内のテーブルとパーティションの使用パターンに関する特定のメトリックを確認することによって、クラウドでのストレージの最適な戦略に対する意思決定を可能にするデータ洞察も提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f07b849-da64-410f-82eb-d5906c3651da.png"><img alt="An image showing some of the tables available in Unravel." border="0" height="357" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11219703-5a6a-47b5-8408-8e1e5f8775d1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="オンプレミスのクラスター検出レポートを解消する方法を示すイメージ。" width="1024"></a></p>
+
+
+  <p>また、未使用またはコールドデータを識別することもできます。 特定されたら、それに応じて、クラウド内のデータに適したレイアウトを決定し、Azure の予算を最大限に活用することができます。 この情報に基づいて、 <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-compare-storage-options">HDInsight ストレージオプション</a>間でデータセットを最も効果的に配布できます。 たとえば、最新のデータをディスクに格納したり、 <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction">Azure Data Lake Storage Gen 2</a> (ホット) の高パフォーマンスのオブジェクトストレージに格納したり、比較的低パフォーマンスの<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction">Azure Blob storage</a> (コールド) で最も使用されていないデータを使用したりすることができます。</p>
+
+
+  <h2>データ移行</h2>
+
+
+  <h4>オンプレミスのデータを Azure に移行する</h4>
+
+
+  <p>オンプレミスから Azure にデータを移行するには、主に2つのオプションがあります。 <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-on-premises-migration-best-practices-data-migration?toc=%2Fen-us%2Fazure%2Fhdinsight%2Fhadoop%2FTOC.json&amp;bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json">プロセスとデータ移行のベストプラクティスの詳細については、こちらを参照</a>してください。</p>
+
+
+  <ol>
+   <li>TLS を使用してネットワーク経由でデータを転送する <ul>
+    <li><strong>インターネット経由。</strong> 通常のインターネット接続を介して Azure storage にデータを転送します。</li>
+    <li><a href="https://docs.microsoft.com/en-us/azure/expressroute/"><strong>Expressroute</strong></a>。 Microsoft のデータセンターとオンプレミスのインフラストラクチャまたはコロケーション施設との間にプライベート接続を作成します。</li>
+    <li><a href="https://azure.microsoft.com/en-us/services/databox/edge/"><strong>オンラインデータ転送を Data Box</strong></a>します。 Data Box は、サイトと Azure の間のデータを管理するためのネットワークストレージゲートウェイとして機能します。</li>
+   </ul>
+   </li>
+   <li>データをオフラインで発送する <ul>
+    <li><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-import-export-service"><strong>Import/Export サービス</strong></a>。 物理ディスクを Azure に送信すると、アップロードされます。</li>
+    <li><a href="https://azure.microsoft.com/en-us/services/databox/data/"><strong>オフラインデータ転送を Data Box</strong></a>します。 このオプションを使用すると、ネットワーク転送 &rsquo; がオプションでない場合に大量のデータを Azure に転送できます。</li>
+   </ul>
+   </li>
+  </ol>
+
+
+  <p>移行するワークロードを特定し &rsquo; たら、計画をもう少し複雑にして、適切な APM ツールを使用して rest を取得する必要があります。 クラウドですべてを正しく動作させるには、現在オンプレミスに存在するワークロードの依存関係をマップする必要があります。 これらのワークロードは多くの異なる複雑なコンポーネントに依存しているため、手動で行うと、この作業が困難になることがあります。 これらの依存関係のマッピングが正しくないことは、クラウドでのビッグデータアプリケーションの重要な原因の1つです。</p>
+
+
+  <p>解消プラットフォームでは、ワークロードに関係するすべてのビッグデータスタックコンポーネントの包括的で迅速な情報が提供されます。 たとえば、ストリーミングアプリで Kafka、HBase、Spark、およびストームが使用されていることがわかります。また、各コンポーネント &rsquo; の関係が相互に詳細に示され、アプリがこれらの各テクノロジにどれだけ依存しているかも定量化されます。 ワークロードが Spark ではるかに多くのものを使用していることがわかっていれば、クラウドでの Spark リソースのプロビジョニングを回避し、嵐をオーバープロビジョニングすることができます。</p>
+
+
+  <h2>リソース管理と容量計画</h2>
+
+
+  <p>組織は、クラウド上でワークロードを効率的に実行するために必要なディスク、コンピューティング、メモリなどのリソースを決定する際にも同様の課題を抱えています。 オンプレミスクラスターのリソースの使用状況メトリックを判断し、それらを消費しているサービスを特定すること &rsquo; は困難です。 解消には、各ビッグデータワークロードで消費されるリソースに関する定量的なメトリックを正確に示すレポートが用意されています。 リソースが過剰にプロビジョニングされ、無駄になっている場合、気付かないうちに多くの組織がアプリケーションを再構成して効率を最大化し、コストを最適化するための推奨事項を提供します。 これらのリソース設定は、Azure に変換されます。</p>
+
+
+  <p>クラウド導入は継続的で反復的なプロセスであるため、お客様は、ビジネスニーズの変化に応じて、リソースのニーズが年々進化する方法を検討することをお勧めします。 解消では、前の傾向に基づいて予測分析を活用して、クラウドのリソース要件を最大6か月間について判断します。</p>
+
+
+  <p>たとえば、不正行為の検出などのワークロードでは、複数のデータセットが使用されます。これには、ATM トランザクションデータ、顧客アカウントデータ、請求先データ、政府の不正データなどが含まれます。 Azure では、一部のアプリは、適切に機能するために特定のデータセットを Azure に残しておく必要がありますが、他のデータセットは問題なくオンプレミスに残すことができます。 アプリの依存関係のマッピング &rsquo; と同様に、アプリが正常に実行するために必要なデータセットを判断するのは困難です。 その他の考慮事項は、データのサイズに加えて、セキュリティ、データガバナンスの法律 (一部の機密データは、特定の管轄区域のプライベートデータセンターに残す必要があります) です。 解消 &rsquo; のリソース管理とキャパシティプランニングレポートに基づいて、お客様のビジネス要件に合わせて、HDInsight ストレージオプションとオンプレミスのデータ配置を効率的に管理できます。</p>
+
+
+  <h3>キャパシティプランニングとチャージバック</h3>
+
+
+  <p>解消は、Azure への移行に関するいくつかの謎や推測を削除できる、追加の可視性と予測機能を提供します。 解消は、オンプレミスまたは Azure HDInsight の両方のビッグデータワークロードを分析し、ユーザー、部署、アプリケーションの種類、キュー、またはその他の顧客が定義したタグによるチャージバックレポートを提供できます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b8c2eb5b-6993-4e8c-b713-a38c4ade6e12.png"><img alt="An image showing different Unravel chargeback reporting formats. By user, application, department, et al." border="0" height="711" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/777bca30-9d4f-4643-9813-1c1dbfae2765.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="さまざまな解消チャージバックレポート形式を示す画像。 User、application、department、et al。" width="1024"></a></p>
+
+
+  <p align="center"><em>解消ユーザー、アプリケーション、部署別のチャージバックレポートを作成します。</em></p>
+
+
+  <h2>クラスターのサイズ設定とインスタンスのマッピング</h2>
+
+
+  <p>計画フェーズの最後の部分として、ワークロードの種類に合わせて、スケール、 <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-capacity-planning#choose-the-vm-size-and-type">VM サイズ</a>、Azure HDInsight クラスターの種類を決定する必要があります。 これは、特定のワークロードのビジネスユースケースと優先度によって異なります。 たとえば、厳格な SLA を常に満たす必要がある推奨エンジンでは、必要なコンピューティングリソースを常に備えて、コストを最適化するために、リーン期間中にスケールダウンすることもできるように、自動スケールの HDInsight クラスターが必要になる場合があります。 逆に、予測可能なバッチ処理アプリなどのリソース要件で修正されたワークロードがある場合は、手動スケーリングの HDInsight クラスターをデプロイし、サイズを適切な VM サイズで最適に調整して、コストを抑えることができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/pricing/details/hdinsight/">HDINSIGHT VM インスタンス</a>の選択は、移行の成功に解消が重要であるため、ビッグデータのワークロードの季節性を推測し、最適なサーバーインスタンスのサイズの推奨事項を数時間または数日ではなく数分で提供できます。</p>
+
+
+  <h3>解消インスタンスのワークロード別のマッピング</h3>
+
+
+  <p>&nbsp;Microsoft が提供する<a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-component-versioning#default-node-configuration-and-virtual-machine-sizes-for-clusters">HDInsight クラスターの既定の仮想マシンサイズ</a>を指定すると、解消は、3つの異なる移行戦略に基づいて、データワークロードに適した<a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-capacity-planning">仮想マシンのサイズ</a>を選択するための追加のインテリジェンスを提供します。</p>
+
+
+  <ol>
+   <li><strong>リフトアンドシフト-</strong> オンプレミスのクラスターに200コア、20テラバイトのストレージ、500 GB のメモリ解消がある場合、Azure VM 環境へのマッピングが終了します。この戦略により、Azure HDInsight のデプロイ全体で、現在のオンプレミス環境と同じ (またはそれ以上) のリソースが使用できるようになります。 これは、ワークロードを移行するために HDInsight をプロビジョニングする場合に関連するリスクを最小限に抑えるために機能します。</li>
+   <li><strong>コスト削減-</strong> これにより、既存のオンプレミスの各ホストを、実際のリソース使用量と一致する HDInsight 上の最適な <a href="https://azure.microsoft.com/en-us/pricing/details/hdinsight/">Azure 仮想マシン</a> に1対1でマッピングできます。 これにより、VM &rsquo; の発行された仕様とホストの実際の使用状況を照合することで、ホストごとに最も近いコストが最適化されます。 オンプレミスのホストが過小使用である場合、この方法は常にリフト アンド シフトよりも低コストになります。</li>
+   <li><strong>ワークロードの適合 - </strong>Unravel によって収集されたアプリケーション ランタイム データを使用し、100% の SLA コンプライアンスを提供するために Azure リソースを柔軟にプロビジョニングできます。 また、次に示す 90% のコンプライアンスなど、より低い値を少し柔軟に選択できます。 ワークロードの適合構成の柔軟性により、Azure での適切な価格とパフォーマンスのトレードオフが可能になります。</li>
+  </ol>
+
+
+  <p align="center">&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5be41e21-caeb-4160-a368-d80899215407.png"><em><img alt="An image showing Unravel's flexibility around SLA compliance and capacity/cost  planning." border="0" height="664" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/942c13e9-2451-4e5e-b6ec-ee48eb1df41d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SLA コンプライアンスと容量/コスト計画に関する Unravel の柔軟性を示す画像。" width="1024"></em></a><br>
+
+  <em>Unravel を使用すると、Azure クラスターの容量計画における SLA コンプライアンスに関する柔軟性を実現し、各パーセントで平均時間次コストを計算できます。</em></p>
+
+
+  <h2 align="left">まとめ</h2>
+
+
+  <p>計画フェーズは、HDInsight へのワークロードの移行に向けた重要な第一歩です。 多くの組織では、重要な計画プロセス中に Unravel APM によって提供されるような効果的な定量的および定性的なガイダンスが不足し、ワークロードの実行とコストの最適化の領域でダウンストリームの課題に直面する可能性があります。 &rsquo;堅牢な APM プラットフォームを解き明かすと、ワークロードの依存関係のマッピング、リソースの使用状況の予測、移動するデータセットに関する決定を導くツールを提供することで、この計画フェーズの複雑さをナビゲートするのに役立ちます。これにより、移行プロセスをより効率的に、データ駆動型にし、最終的に成功することができます。</p>
+
+
+  <p>今後のブログでは、&rsquo;HDInsight への移行について説明します。</p>

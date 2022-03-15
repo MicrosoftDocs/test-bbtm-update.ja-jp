@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 054b488bb753a6f91a158deb174f13f5189ad217
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896857"
+Slug: build-go-apps-for-azure-with-the-go-sdk-now-generally-available
+Title: Azure 向けのビルドゴーアプリをゴー SDK で一般公開
+Summary: Azure 用アプリを開発者が利用できるようにするために、Azure SDK for Go が一般公開されていることをお知らせいたします。 SDK では、データソースへの接続をサポートしています。
+Content: >-
+  <p>&rsquo; <a href="https://github.com/Azure/azure-sdk-for-go" target="_blank">Azure SDK for Go</a>が一般公開され、Azure 用アプリを開発者が利用できるようになったことをお知らせします。 SDK は、Cosmos DB と Azure Storage を含むデータソースへの接続、プログラムによる Azure リソースのデプロイ、ユーザーの認証など、さまざまな機能をサポートしています。 SDK の更新プログラムと共に、microsoft のドキュメントでも<a href="https://docs.microsoft.com/go/azure/" target="_blank">Azure のデベロッパーセンター</a>を利用できるようにしています。</p>
+
+
+  <p>現在 &rsquo; の発表では、開いているクラウドを構築するためのコミットメントを再び強化し、お客様が希望するツールを使用して顧客を迅速にイノベーションできるようにするオープンソーステクノロジをサポートしています。</p>
+
+
+  <p>なぜでしょうか。 現在&#39;s のデジタル変換された世界では、開発者とソフトウェアの効率がプロジェクトの成功に大きな影響を与えています。 Microsoft Azure のようなクラウドプラットフォームでは、開発者に代わってインフラストラクチャとプラットフォームを管理することで効率性が向上します。 また、クリアな構文、最新の標準ライブラリ、ネイティブコンパイル、信頼性の高い同時実行プリミティブを使用して、開発者とソフトウェアの効率を向上させることもできます。 Azure &rsquo; s のサポートを拡張することで、お客様が両方のユーザーに同時にアクセスできるようにすることを願っています。</p>
+
+
+  <p align="center">&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b8e54402-7a7d-4eca-b8b1-c875cf751032.png"><img alt="Go" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dafee519-b05f-4706-a0d7-529833ab4cbd.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="Go" width="240"></a><br>
+
+  <em>イメージクレジット: </em><a href="https://twitter.com/ashleymcnamara" target="_blank"><em>@ashleymcnamara</em></a></p>
+
+
+  <h2>Azure SDK for Go</h2>
+
+
+  <p>開発者は、Azure SDK for Go を使用して、クラウドアプリをより迅速に構築できます。 たとえば、SDK では次のことが可能です。</p>
+
+
+  <ul>
+      <li>Azure Blob Storage、オブジェクトストレージサービスと対話します。</li>
+      <li>Cosmos DB、azure DB for PostgreSQL などの azure データベースサービスに Connect します。</li>
+      <li>Azure Active Directory id と Key Vault シークレットを使用して、ユーザーとその他のサービスを認証します。</li>
+      <li>Virtual Machines、仮想ネットワーク、Storage アカウントなどの Azure リソースに加え、Cosmos DB や PostgreSQL などのデータベースをプロビジョニングし、管理します。</li>
+      <li>Azure 認知サービスを使用してデータを分析します。</li>
+  </ul>
+
+
+  <p>いくつかの一般的なクラウド管理プロジェクトは、既に SDK を使用して Azure と統合しています。これには、Kubernetes、Terraform、 <a href="https://github.com/Azure/open-service-broker-azure" target="_blank">Open Service Broker For azure</a>などが含まれます。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;HashiCorp Terraform では、基になる Azure インフラストラクチャをプロビジョニングするために Azure の Azure の開始 SDK を多用しています。 過去2年間に Microsoft と密接に提携して、SDK の修正と改善、および Terraform の新しい Azure 機能をサポートするための最新の機能を利用できるようにしました。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="right">- Hashicorp の気流、同盟の副社長、</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;Azure の移行 SDK は Azure Container Service (AKS) の重要なコンポーネントであり、ロードバランサー、ネットワークセキュリティグループ、Managed Disks を含む Azure リソースとの統合を可能にします。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="right">-Jason、Program Manager、Microsoft Azure Container Service</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>概要については、「 <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples" target="_blank">azure のサンプル</a>とテスト用のサンプル」および「azure の使用」<a href="https://docs.microsoft.com/go/azure/" target="_blank">デベロッパーセンター</a>に記載されている、新しく公開されたドキュメントとチュートリアルの GitHub リポジトリを参照してください。 SDK の完全な API ドキュメントについては、 <a href="https://godoc.org/github.com/Azure/azure-sdk-for-go" target="_blank">Godoc</a>を参照してください。</p>
+
+
+  <p>コメントやフィードバックは、以下のように、または GitHub の<a href="https://github.com/Azure/azure-sdk-for-go/issues" target="_blank">SDK issue tracker</a>で共有してください。</p>
+
+
+  <p>Azure では、クラウド向けのゴーアプリを効率的に構築するために役立つその他のツールやサービスも提供しています。</p>
+
+
+  <ul>
+      <li>コンテナー化されたアプリを <a href="https://azure.microsoft.com/en-us/services/container-service/" target="_blank">Azure Container Service</a> (AKS) またはコンテナー用の Web Apps を使用して、管理対象の Kubernetes クラスターにデプロイします。</li>
+      <li><a href="https://github.com/Microsoft/ApplicationInsights-Go" target="_blank">Application Insights</a>を使用して、運用環境でアプリを監視します。</li>
+  </ul>
+
+
+  <p>&rsquo;Azure サブスクリプションをまだお持ちでない場合は、<a href="https://azure.microsoft.com/en-us/free/" target="_blank">無料試用版</a>の使用を開始できます。また、azure クレジットに $200 を提供し、人気のあるサービスを1年間無料でご利用いただけます。</p>
+
+
+  <p>最後に、 &rsquo; Linux 用の無料のオープンソースの Visual Studio Code エディター、Windows および Linux 用のオープンソースの<a href="https://code.visualstudio.com/" target="_blank"></a>エディターを確認してください。<a href="https://marketplace.visualstudio.com/items?itemName=lukehoban.Go" target="_blank">ゴーアプリをビルドしてデバッグする拡張機能</a>が付属しています。</p>

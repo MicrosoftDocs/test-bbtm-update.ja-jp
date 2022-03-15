@@ -1,0 +1,109 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 637616905daab022b25bd2c3458c9c82eaf857d1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891088"
+Slug: democratizing-smart-city-solutions-with-azure-iot-central
+Title: Azure IoT 中部を使用したスマート都市ソリューションのデモ
+Summary: 都市は、接続されているデバイスとセンサーからのデータをキャプチャして分析することによってインフラストラクチャを管理するためにモノのインターネット (IoT) を使用しています。これにより、事業の効率と結果を向上させ、都市政府の機能や業務を完全に再検討し、変革を行うことができます。
+Content: >-
+  <p>最新の都市は、モノのインターネット (IoT) を採用している最も動的なランドスケープの1つです。 Urprosperous が増加するにつれて、市のリーダーは、都市の安全性、アクセス性、維持性、およびを向上させることができます。</p>
+
+
+  <p>これらの重要な目標をすべて基にして、基盤が実行されています。インフラストラクチャを使用します。 海上、電気、道路、交通の光源であるかどうかにかかわらず、都市は、接続されているデバイスやセンサーからのデータをキャプチャして分析することで、モノのインターネット (IoT) を使用してインフラストラクチャを管理します。 これにより、市区町村マネージャーはリアルタイムに洞察を得て、運用効率と結果を向上させ、都市政府の機能と運用を完全に再考し、変革します。</p>
+
+
+  <p>マイクロソフトとそのサービスおよびハードウェアプロバイダーのエコシステムは、世界中の都市やコミュニティと緊密に連携しており、政府リーダーが直面している最も差し迫った問題に対処しています。 たとえば、トラフィックの輻輳は、ほとんどの都市の領域で増加し続け、既存の物理インフラストラクチャの負荷が増大します。 新たな世界では、新しい物理インフラストラクチャを完全に構築する必要があります。 また、一般の安全性とセキュリティに関する懸念事項も増えてい<i>ます。 </i>都市の操作のための IoT ベースのソリューションへの投資は、これらの問題に対処するために加速しており、スマートなストリート照明、スマートな無駄、スマートパーキングなどのアプリケーションによって向上してい<b>ます。 </b>また、都市は、水やエネルギーなど、グローバルに使用されていないリソースの管理を最適化するための IoT の利点を実感しています。 Amidst この投資が増加しています。世界&#39;の世界の早期の結果が得られます。 一部の市区町村では、LED ベースのスマート streetlights を利用した場合のエネルギー節約に約60% の割合が見られましたが、他の人は1日あたり1人あたりに25-80 リットルの水を節約できました。 一部の領域でのトラフィックフローの最適化は、1日に通勤者 shave 15-30 分をサポートしています。これにより、排出量が10-15% 削減され、スマートな廃棄管理による運用コストの66パーセントが削減されます。</p>
+
+
+  <p>IoT ソリューションを採用する利点についての合意が高まっていても、概念実証の範囲を超えてスケーリングすることは困難です。 今日のほとんどのスマート都市ソリューションは、オーダーメイドパイロットで構成されています。これは、既に非常に複雑なマーケットランドスケープにおいて、コストの増加、複雑さ、特化された技術的な人材の欠如によって、スケールや繰り返しができないためです。 今年の前半では、政府組織を含め、世界中の企業の意思決定者を3000に評価しています。これは、83% は、一般に、公共の安全性とインフラストラクチャおよび施設の管理において、IoT &ldquo; の重要性 &rdquo; を成功に考慮します。 同時に、多くの意思決定者は、ソリューションを安全、確実、かつ低価格で拡張する方法について、永続的な知識不足についての懸念を示しています。これは、実稼働レベルの IoT プロジェクトの平均成熟度が非常に低い (完全な <a href="https://azure.microsoft.com/en-us/iot/signals/" target="_blank">IoT シグナルレポート</a>を読み取る) 理由です。 IoT ソリューションビルダーがエンタープライズレベルの IoT システムの設計の複雑さに対処するために、学習は、iot ソリューションビルダーがシステムを設計する際に適切な質問をし、適切なテクノロジプラットフォームを選択できるようにするために、成功した<a href="https://azure.microsoft.com/en-us/resources/8-attributes-of-successful-iot-solutions/" target="_blank">iot ソリューション &rdquo; の8つの属性であるホワイトペーパー &ldquo; </a>に公開しました。</p>
+
+
+  <h2>Azure IoT 中部でのスマート都市 IoT ソリューションの構築</h2>
+
+
+  <p>iot ソリューションビルダーが自信を持ってプロジェクトの規模を調整できるように、microsoft では、エンタープライズレベルのソリューションを設計、展開、および管理するための iot アプリプラットフォームである<a href="https://azure.microsoft.com/en-us/services/iot-central/" target="_blank">Azure IoT</a>の更新を最近発表しました。 IoT Central は、ソリューションを構築およびカスタマイズするための完全に管理されたプラットフォームを提供します。ソリューションビルダーは、セキュリティ、ディザスターリカバリー、高可用性など、成功した IoT システムの各属性を使用してサポートするように設計されています。 セットアップ、管理、および操作の複雑さとオーバーヘッドを削減することにより、IoT Central は、業界全体にわたる IoT ソリューションビルダーの障壁を軽減し、小売、医療、エネルギーから政府までのあらゆる業界における革新的なソリューションの作成を迅速化します。 最近の <a href="https://azure.microsoft.com/en-us/blog/azure-iot-central-democratizing-iot-for-all-solution-builders/" target="_blank">IoT Central ブログ</a> では、さまざまな業界にわたるソリューションビルダーの更新プログラムと例の完全な一覧をご確認ください。</p>
+
+
+  <p>私たちは、iot のすべてについて、iot ソリューションの作成をすぐに開始できるように、一連の<a href="https://docs.microsoft.com/en-us/azure/iot-central/government/overview-iot-central-government" target="_blank">Azure IoT 中央政府アプリテンプレート</a>をリリースしました。これにより、ソリューションビルダーは、組み込みのアクセス許可を持つユーザーインターフェイス、構成可能なダッシュボード、および拡張 api を使用して、iot ソリューションの構築をすぐに開始できます。 ソリューションビルダーは、統合されたフィールドサービス、Azure ML services、またはその他のサードパーティサービスを対象とした<a href="https://docs.microsoft.com/en-us/azure/iot-central/government/how-to-configure-connected-field-services" target="_blank">Dynamics 365</a>などのソリューションを、基幹業務アプリケーションにブランド化し、カスタマイズし、簡単に接続することができます。</p>
+
+
+  <p>開発者は、現在、無料およびアクセスのスターターリソース (サンプルのオペレータダッシュボード、シミュレートされたデバイス、事前構成済みのルール、アラートなど) のいずれかの政府アプリテンプレートを使用して、可能なことを調べることができます。 &rsquo;また、<a href="https://docs.microsoft.com/azure/iot-central/government/" target="_blank">ドキュメント</a>、チュートリアル、および操作方法 &rsquo; に関するソリューションのカスタマイズと拡張に関するガイダンスも提供しています。 最終的には、完成したソリューションを直接または <a href="https://appsource.microsoft.com/en-US/" target="_blank">Microsoft AppSource</a>を使用して顧客に販売できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc3cb30c-5732-47fb-ab7f-c28a8d8f246b.png"><img alt="IoT Central Government App templates" border="0" height="501" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea711ac5-cd67-49ca-9362-9080885ad23b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="IoT Central Government アプリテンプレート" width="1024"></a></p>
+
+
+  <h2>現在利用可能な政府アプリテンプレート:</h2>
+
+
+  <p><b>接続された無駄の管理</b><b>: </b>都市のガベージコンテナーにデプロイされたセンサーは、ごみ箱がいっぱいになったことを通知し、廃棄物コレクションルートを最適化できます。 さらに、スマート無駄アプリケーションの高度な機能には、分析を使用してビン汚染を検出することが含まれます。</p>
+
+
+  <p><b>水品質の監視</b>: 従来の水品質の監視は、手作業のサンプリング手法と現場の実験分析に依存しています。これは、時間とコストの両方を要します。 水質をリモートでリアルタイムにモニタリングすることで、市民に影響が及ぶ前に水質の問題を管理できます。</p>
+
+
+  <p><b>水消費の監視</b>: 従来の水消費の追跡では<b> </b>、さまざまなサイト間で手動で水上メーターを読み取っています。 より多くの都市が、従来のメーターを高度なスマートメーターに置き換えることにより、消費量のリモート監視に加え、ウォーターフローを管理するためのバルブのリモート制御が可能になります。 個々の世帯に戻る情報と洞察を組み合わせた水消費の監視により、認識が向上し、水の消費が減少します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e72fe752-4f05-43b8-aa1f-4dd3f511993f.png"><img alt="Water Consumption Monitoring Blog screenshot" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/51ff5b2d-aa3c-481b-aaa8-65f99a7cd95e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="水消費の監視に関するブログのスクリーンショット" width="938"></a></p>
+
+
+  <p><b>スマート streetlights</b>、<b>航空品質の監視</b>、<b>スマートパーキング</b>などのスマートカードのシナリオに対応するために、時間の経過と共にソリューションビルダー向けのアプリテンプレートが増えていることが予想されます。</p>
+
+
+  <h2>Azure IoT 中部を使用した革新的なスマート都市ソリューションパートナー</h2>
+
+
+  <p>定評のある研究組織から公共の公益事業に至るまで、ソリューションビルダーは Azure IoT 中部を活用して公的機関のサービスを変革しています。</p>
+
+
+  <h2>スマートウォーターインフラストラクチャ</h2>
+
+
+  <p>オランダ語ベースの会社である <a href="https://www.oasen.nl/" target="_blank"><b>oasen</b></a><b>は、</b> 東南 Holland 地域の市政にわたって毎年75万の高品質の水を持つ480億リットルを提供しています。 Oasen は、Microsoft と OrangeNXT によって、水の構造をデジタル変換するようになります。 Azure IoT 中部を使用することで、この会社は、高度な分散ネットワークのリモート管理を通じて、拡張性と柔軟性を高め、運用に対するイノベーションを向上させることができます。 oasen は、Azure digital ツインと Azure IoT Central を利用して、複数のデータソース (スマートウォーターメーターから抽出されたデータとパイプラインのスマートバルブを含む) を接続し、水グリッドの真のデジタルツインを作成します。</p>
+
+
+  <p>バルブをリモートで制御および監視することにより、Oasen はグリッドセクション (ステップテスト) を自動的にテストして、グリッドの品質を大幅に向上させることができるようになりました。さらに、バースト水の mains を予測し、破損のリスクが最も高く、修復が必要なパイプラインを評価できます。 これらのスマートウォーター shutters とスマートメーターの実装により、手動作業が大幅に削減されます。 さらに、スマートグリッドソリューションを使用すると、リークが検出され、破損が防止され、水品質の危険が軽減される場合に、ディストリビューションネットワークのセクションを自動でシャットダウンできます。</p>
+
+
+  <h2>水質のモニタリング</h2>
+
+
+  <p>その他のソリューションビルダーには、水品質管理のためのソリューションが組み込まれています。 世界的な正常性組織によれば、世界中の約4分の1人が feces とともに水汚染をしています。これにより、世界中の人口の50% が2025によって水の範囲でライブに投影されます (汚染されまたはその他の不足している水のソースに近接)。 液体センサーネットワークからの高品質なデータが、数百メートルの範囲内で大幅に変動し、パブリックの正常性に影響を与える可能性のある、水のレベルを追跡する必要はありませんでした。 Nanoelectronics とデジタルテクノロジを専門としている大手国際研究および開発企業である<a href="https://www.imec-int.com/en/home" target="_blank"><b>Imec</b></a>は、リアルタイムでの水の品質を監視するために、1 substrates の低価格センサーから水センサーデバイスを開発しました。</p>
+
+
+  <p>Testbed は、パートナーと協力して、ベルギーの Flanders リージョンにインストールされている約2500のセンサーについて、このソリューションを試験的に実行します。 センサーは、水の salinity をリアルタイムで検出することにより、時間の経過と共に水の品質の変動を追跡できるようにします。 imec &rsquo; s の水品質監視ソリューションは Azure IoT 中部に構築されており、都市全体でソリューションを設計、テスト、および拡張するために必要な柔軟性の高い基盤を提供しています。</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;IoT Central は、私たちのような革新的な R &amp; D 組織に適した、高速で使いやすいプラットフォームです。これは、水品質センサーの大規模なきめ細かなネットワークを可能にし、収集されたデータを使用して、水の品質の可視性を向上させ、水の品質を向上させることができるようにすることを意味します。 &rdquo;&mdash;Marcel は Zevenの Gen, プログラムマネージャー, Imec</em></p>
+
+
+  <h2>スマートストリート照明</h2>
+
+
+  <p>スマートストリート照明ソリューションは、LED の変換と組み合わせることによって、都市の効率が大幅に向上し、通常は65% を超えて運用を節約できるようになりました。 <strong><a href="https://www.telensa.com/">Telensa</a></strong> は、接続された streetlight ソリューションにおいて世界中のリーダーであり、世界中の400都市で170万の電柱を管理しています。 Telensa 地球は、個々のライトを専用ネットワークおよび中央管理アプリケーションに接続するワイヤレスノードで構成される、エンドツーエンドのスマートストリート照明システムです。 システムは、都市がエネルギーとメンテナンスのコストを削減しながら、自動エラー報告によってメンテナンスの効率を向上させながら、航空品質や交通量の監視などのために他のスマート市センサーの streetlight をハブに変えるのに役立ちます。 2つの都市が同じではないため、Telensa は都市 IQ ソリューションを開発しました。これにより、都市は、接続されている郵便にサードパーティ製のセンサーを追加したり、市区町村部門で洞察を得たり、すぐに使用できる高度なリアルタイムの視覚エフェクトを提供したりできます。 telensa は、現在のシステムと適合し、今後の方向性のために準備できるように、Azure IoT 中部で都市の IQ ソリューションを構築しました。 デバイス管理と接続機能を IoT Central に移行し、 &nbsp; その他の意味のあるアプリと制御するアプリを Azure データファブリックに追加するコストを劇的に削減することで、Telensa はスマート都市の機能の強化と顧客の価値の向上に専念できます。</p>
+
+
+  <h2>スマートな都市のドットの接続</h2>
+
+
+  <p>インテリジェントなクラウドとインテリジェントなエッジを最大限に活用するソリューションを使用して、クラウド、IoT、人工知能 (AI) が大幅に変革を実現し、都市をより確実かつ確実に維持できるようにする方法について説明します。 Azure IoT は、成長を続ける多様なパートナーのセットを使用して結果を加速し続けています。これにより、現実的なコンテキスト、<a href="https://azure.microsoft.com/en-us/blog/azure-iot-drives-next-wave-innovation-in-infrastructure-and-energy/" target="_blank">将来のスマートグリッド</a>、都市を持つ<a href="https://azure.microsoft.com/en-us/blog/harnessing-the-power-of-the-location-of-things-with-azure-maps/" target="_blank">モビリティと空間インテリジェンス</a>を<a href="https://azure.microsoft.com/en-us/blog/accelerating-smart-building-solutions-with-cloud-ai-and-iot/" target="_blank">提供する、空間的に対応するソリューション</a>からスマート都市に関連するソリューションを作成できます。 さらに、よりインテリジェントで接続された都市を構築して、人々や組織がより多くのことを達成できるようにすることができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/iot-central/" target="_blank">Azure IoT 中部</a>で今すぐ開始しましょう。</p>
+
+
+  <h4>スマート市エキスポ World 議会</h4>
+
+
+  <p>Microsoft は、スマート都市のテクノロジとパートナーをデジタル変革のために都市に接続するための、議会の業界トップレベルのイベントであるスマート都市エキスポ World にあります。 <a href="https://www.microsoft.com/en-us/enterprise/microsoft-citynext-at-smart-city-expo-world-congress-2019?activetab=pillars%3aprimaryr7" target="_blank">SCEWC 2019</a>でのカンファレンスのプレゼンスの詳細については、「Gran Via、ホール P2、B223」を参照してください。 また、次のセッションでお客様にご連絡いたします。</p>
+
+
+  <ul>
+      <li>議会 |解決策: Government &ndash; 水曜日<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fagenda.smartcityexpo.com%2Factividades%2Fkeys-to-achieving-digital-transformation-in-government&amp;data=02%7C01%7Cmiriamb%40microsoft.com%7C9d6c1f60c1d648b2626008d75ef9fad9%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637082300073539656&amp;sdata=NqpJevItX1lwGkUUN%2FMf9QGgoGDJEO7PwcrzudeIQfs%3D&amp;reserved=0" target="_blank">のデジタル変革を実現するための鍵</a>です。11月20日午前10:30 に、</li>
+      <li>Microsoft のブース 33-ラーニング Hub:<a href="https://download.microsoft.com/download/2/1/a/21a3ee5a-366e-4724-bb8a-712c80ff6506/SCEWC_2019_Agenda.pdf">スマート streetlights からスマートなトラフィック</a> &ndash; の水曜日、15:00 PM の11月20日までの都市を話す</li>
+      <li>Microsoft ブース 33 &ndash; ラーニング Hub:<a href="https://download.microsoft.com/download/2/1/a/21a3ee5a-366e-4724-bb8a-712c80ff6506/SCEWC_2019_Agenda.pdf">スマート都市 AI</a> &ndash; 火曜日のモビリティインサイト (12:00<sup></sup> PM)</li>
+  </ul>

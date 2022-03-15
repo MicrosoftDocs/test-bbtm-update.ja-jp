@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1aad1cc69d98e585e527fa417f4402c7a757f44c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891819"
+Slug: azure-cosmos-db-reference-solution-visualizing-real-time-data-analysis-with-change-feed
+Title: 'Azure #CosmosDB リファレンス ソリューション: 変更フィードを使用したリアルタイム データ分析の視覚化'
+Summary: Cosmos DB Explorer のインターンは、Azure Cosmos DB 変更フィード機能 (+Azure Functions、Azure Event Hubs、Azure Stream Analytics、Power BI) を利用する参照ソリューションをリリースする予定です。
+Content: >-
+  <p><em>このブログ記事は、 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fdevki98%2F&amp;data=02%7C01%7C%7Cb8c16f6cbe904f31db2008d5fe3aa37d%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636694450153668257&amp;sdata=YGv7AeSx4X%2ByDqZ0ZJ5lCjOqEfFGkJGXr4LjJKSMTmw%3D&amp;reserved=0" target="_blank">Devki Trivedi</a>、 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fserena-davis-b21629120%2F&amp;data=02%7C01%7C%7Cb8c16f6cbe904f31db2008d5fe3aa37d%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636694450153668257&amp;sdata=aJiwhyB%2BFjC9Pd4XwEQrN37c7erUQWXnI350oi1xv4w%3D&amp;reserved=0" target="_blank">Serena Davis</a>、 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fpascalhabineza%2F&amp;data=02%7C01%7C%7Cb8c16f6cbe904f31db2008d5fe3aa37d%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636694450153668257&amp;sdata=d7LYms1rCSajXfgU2wS1P4Hb5Fi%2FIR%2B%2BDRpxGPCzMP0%3D&amp;reserved=0" target="_blank">Pascal Habineza</a> によって共同執筆されました。</em></p>
+
+
+  <p><em>Cosmos DB Explorer のインターンは、Azure Cosmos DB 変更フィード機能 <a href="https://aka.ms/cosmosdbchangefeedlab" target="_blank"></a> (+ Azure Functions、Azure Event Hubs、Azure Stream Analytics、Power BI) を利用する参照ソリューションをリリースする予定です。このソリューションでは、Cosmos DB へのデータのアップロードから変更フィード トリガーの実装、Power BI での意味のある方法でのそのデータの視覚化まで、パイプライン全体をユーザーにガイドするハンズオン ラボが備わります。</em></p>
+
+
+  <p>この参照ソリューションを使用すると、企業は次の機能を利用できます。</p>
+
+
+  <ul>
+   <li>売上とサイトのアクティビティをリアルタイム <strong>で追跡する</strong>&nbsp;</li>
+   <li>データを操作して、 <strong>役</strong> に立つメトリックのみを表示する</li>
+   <li>処理するデータの特定のタイム ウィンドウを選択する</li>
+  </ul>
+
+
+  <p>Cosmos DB 変更フィードは、変更されたレコードまたは挿入されたレコードの継続的な増分フィードを DB から取得するための自動メカニズムCosmosします。 最も一般的な使用例には、次のようなものがあります。</p>
+
+
+  <ol>
+   <li>イベント 駆動型アーキテクチャ内でのマイクロサービスと関数のトリガー</li>
+   <li>セカンダリ データ ストアへのデータのレプリケート</li>
+   <li>リアルタイムのデータ処理</li>
+  </ol>
+
+
+  <p>このリファレンス ソリューションでは、特に e コマース企業のニーズに合わせて、リアルタイムのデータ処理に焦点を当てて、 たとえば、eコマース企業は現在、購入した最も人気のある製品を追跡している場合がありますが、一般的に表示され、顧客のカートに追加されているが購入されていない製品を特定することで、広告と価格戦略を改善することができます。 ビジネスでは、時間単位、日単位、週単位の収益を知りたい場合があります。 このようなメトリックは、ビジネスが広告、在庫投資、ユーザー エクスペリエンス戦略を開発するのに役立ちます。 このソリューションを使用すると、企業はニーズに合わせてこれらのメトリックをカスタマイズし、変更フィードを使用してリアルタイムで監視できます。<br>&nbsp;&nbsp; <br>
+
+  このリファレンス ソリューションでは、対話機能に関する上記のアクティビティをモデル化し、Azure リソースをデプロイするプロセスについて説明します。 eコマースのコンテキスト内でのリアルタイムのデータ処理に焦点を当てながら、多くの異なるドメインに引き続き適用できます。<br>&nbsp;&nbsp; <br>
+
+  このソリューションのデプロイの結果は、リアルタイムで更新される次の図に <strong>示すダッシュボードです</strong>。 ユーザーは、ダッシュボードの要件に合ってカスタマイズ可能なメトリックを使用して、ビジネス パフォーマンスを分析できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b727c02-4b9d-482e-bab8-4ea0f9e1e99d.png"><img width="636" height="353" title="イメージ" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/128ac750-8a5b-4ef7-8c9a-42a149832c82.png" border="0"></a>&nbsp;<br>
+
+  次のパイプラインは、データ生成からリアルタイムのデータ視覚化まで、Power BI を使用して買い物客のデータを処理する方法を示Microsoft Azure。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2938c725-230d-4cdf-9f8a-c0e2eeefecd2.png"><img width="656" height="89" title="image" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19921f64-5c97-4c7b-81c8-608eb2a192e1.png" border="0"></a> オンラインの買い物客によってデータが作成されると、データが処理され、COSMOSされます。 これらのデータ イベントは、将来使用するために格納されます。 これが発生すると、変更フィードの引き継ぎが開始されます。 相互作用のすべてのインスタンスについて、新しいイベントが作成され、Cosmos DB にプッシュされると、変更フィードによってそのイベントがレコードに追加されます。 変更フィードによってイベントが追加されるたびに、Azure 関数がトリガーされます。 関数は、挿入された各ドキュメントを反復処理し、Event Hub クライアントを介して Azure Event Hub に送信します。 次にAzure Stream Analyticsイベント ハブからデータを照会し、結果をユーザーの視覚化のためにデータ に送信することで、意味のあるメトリックPower BIを作成します。</p>
+
+
+  <p>Cosmos DB 変更フィードを使用した <a href="https://www.youtube.com/watch?v=AYOiMkvxlzo" target="_blank">Real-Time データ</a>分析の視覚化に関するページを参照し、変更<a href="https://aka.ms/cosmosdbchangefeedlab"></a>フィード ラボを確認して、ビジネスがリアルタイムでデータから分析情報を得られるメトリックを抽出するアプリケーションを構築する方法を学習します。</p><p><a href="https://aka.ms/cosmosdbchangefeedsolution" target="_blank"><img width="480" height="360" title="clip_image001" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" alt="clip_image001" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ed5ed13-b341-4b4e-9db1-29ea498f5253.jpg" border="0"></a></p>
+
+
+  <p>考え。 フィードバックをお送 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8K_JtWBhupCpepG-HuzNVlUOUdNU0E5VUNRMlpNU1pNTzRCVE1VNE0wOS4u">りください</a>。</p>

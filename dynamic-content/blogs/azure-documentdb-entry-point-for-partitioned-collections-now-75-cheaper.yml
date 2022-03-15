@@ -1,0 +1,117 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a042cb02d2a04cdfa75fc7f26ae9b3d14d2d8785
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891816"
+Slug: azure-documentdb-entry-point-for-partitioned-collections-now-75-cheaper
+Title: 'Azure DocumentDB: パーティション分割コレクションのエントリ ポイントが 75% 安い'
+Summary: 本日は、パーティション分割されたコレクションのエントリ ポイントが以前よりも 75% 低いという発表をお知らせします。 最小で 10,100 RU/秒をプロビジョニングする代わりに、パーティション分割された をプロビジョニングできます。
+Content: >-
+  <p><strong>2017 年 5 月 10 日現在、</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は、Microsoft&rsquo; のグローバル分散マルチモデル データベースです。Azure Cosmos DB は、その中核となるグローバル分散と水平スケールで、最初から構築されました。ユーザーがどこにいてもデータを透過的にスケーリングしてレプリケートすることで、任意の数の Azure リージョンにターンキーグローバル分散が提供されます。スループットとストレージを世界規模で弾力的にスケーリングし、必要なスループットとストレージに対してだけ料金を支払います。Azure Cosmos DB では、世界中の任意の場所で 99&mdash; 番目の割合で 1 桁ミリ秒の待機時間が保証され、パフォーマンスを微調整する複数の定義済みの整合性モデルが提供され、業界をリードするサービス レベル アグリーメント (SLA) によってサポートされるマルチホーム機能を使用して高可用性が保証されます。&nbsp;</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は、スキーマに依存せず、スキーマとインデックスの管理に対処する必要なく、すべてのデータのインデックスを自動的に作成します。また&rsquo;、ドキュメント、キー値、グラフ、および列ファミリのデータ モデルをネイティブにサポートするマルチモデルです。Azure Cosmos DB では、DocumentDB SQL (ドキュメント)、MongoDB (ドキュメント)、Azure Table Storage (キー値)、Gremlin (グラフ) がネイティブにサポートされているので、選択した API を使用してデータにアクセスできます。</strong></p>
+
+
+  <hr>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e6f99028-842c-4bcf-b932-7f228828056b.png"><img alt="DocDBprice1" border="0" height="135" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/41e6ba73-a6e4-490c-a04e-4c4d8bfa5606.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="DocDBprice1" width="145"></a></p>
+
+
+  <p>本日は、パーティション分割されたコレクションのエントリ ポイントが以前よりも 75% 低いという発表をお知らせします。 最小で 10,100 RU/秒をプロビジョニングする代わりに、パーティション分割コレクションを 2,500 RU/秒でプロビジョニングし、100 RU/秒の増分でスケーリングできます。パーティション分割コレクションを使用すると、ストレージの使用量に制限を加え、プロビジョニングを 2,500 RU/秒から数百万 RU/秒まで動的にスケーリングできます。</p>
+
+
+  <h2>DocumentDB 課金モデル</h2>
+
+
+  <p>現在の <a href="https://azure.microsoft.com/services/documentdb/">Azure DocumentDB</a> 課金モデルでは、 <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-performance-levels">提供される S1、S2、S3</a> のパフォーマンス レベルよりもはるかに細分性、弾力性、スケールが提供されます。 1,200 RU/秒が必要な場合に、スループット プロビジョニングを 1,000 RU/秒から 2,500 RU/秒にジャンプする必要がなくなりました。私たちの目標は、プロビジョニングされた容量の使用率を最適化する完全な柔軟性を持つ必要があります。</p>
+
+
+  <p>Azure DocumentDB の課金モデルは非常に単純です。</p>
+
+
+  <ul>
+   <li>プロビジョニングされた容量に対して、 <a href="https://docs.microsoft.com/azure/documentdb/documentdb-request-units">100 要求</a>ユニット/秒 (RU/秒) 単位で支払います。 100 RU/秒のプロビジョニング容量ごとに、1 時間ごとに料金が請求されます。</li>
+   <li>使用するストレージに対して定額料金を支払います。</li>
+   <li>DocumentDB のエントリ ポイントは、1 つのパーティションで 400 RU/秒です。 開発/テスト環境で無料で使用する場合は、 <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nosql-local-emulator">DocumentDB エミュレーターを使用することをお勧めします</a>。</li>
+  </ul>
+
+
+  <h2>単一パーティションまたはパーティション分割コレクション</h2>
+
+
+  <p>ストレージが 10 GB を下回る必要がある場合、またはスループットが 10K RU/秒を超えないようにする必要がある場合は、1 つのパーティションから開始できます。後で、移行ツールを使用して、パーティション分割されたコレクションにいつでも変更できます。 単一パーティションコレクションからパーティション コレクションへの移行の詳細については、「単一パーティションコレクションからパーティション分割コレクションへの移行 <a href="https://aka.ms/docdb-move-to-partitions">」を参照してください</a>。</p>
+
+
+  <p>ただし、大量のボリュームまたはパフォーマンスのニーズが予想される場合は、パーティション分割されたコレクションから始める必要があります。 次の表に、単一パーティションコレクションとパーティション 分割コレクションの概要を示します。</p>
+
+
+  <table border="0" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="bottom" width="234">
+     <p>パフォーマンスの種類</p>
+     </td>
+     <td valign="bottom" width="489">
+     <p>詳細</p>
+     </td>
+     <td valign="bottom" width="26%">
+     <p>スループット</p>
+     </td>
+     <td valign="bottom" width="23%">
+     <p>Storage</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="234">
+     <p>単一パーティション</p>
+     </td>
+     <td valign="top" width="489">
+     <p>ユーザーがスループットを 100 RU/秒単位で設定する</p>
+     </td>
+     <td valign="top" width="26%">
+     <p>400 - 10,000 RU/秒</p>
+     </td>
+     <td valign="top" width="23%">
+     <p>10 GB</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="234">
+     <p>パーティション分割コレクション</p>
+     </td>
+     <td valign="top" width="489">
+     <p>ユーザーがスループットを 100 RU/秒単位で設定する</p>
+     </td>
+     <td valign="top" width="26%">
+     <p>2,500 RU/秒 &ndash; 無制限</p>
+     </td>
+     <td valign="top" width="23%">
+     <p>無制限</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>パーティション分割されたコレクションに対してプロビジョニングされたスループットを減らす</h2>
+
+
+  <p>パーティション分割&rsquo;されたコレクションが既にあるが、10,100 RU/秒のスループットが不要な場合は、Azure portal または SDK を使用してプロビジョニングを削減できます。 プロビジョニング レベルを 2,500 RU/秒に調整する例を次に示します。</p>
+
+
+  <h3>Azure portal を使用</h3>
+
+
+  <p>DocumentDB アカウントで 、[スケール] をクリックし、コレクションを選択して、スループットの値を調整します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f857f25-d906-4c81-b3f1-30df4a9eeb1a.png"><img alt="clip_image004" border="0" height="278" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ee0a007-f255-4186-b6af-d29705afe3a4.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="clip_image004" width="1106"></a></p>
+
+
+  <p>DocumentDB でパーティション分割されたコレクションや地球規模に関するその他の質問がある場合は、Stack Overflow の開発者フォーラムでお問 <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">い合わせください</a>。 また、Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

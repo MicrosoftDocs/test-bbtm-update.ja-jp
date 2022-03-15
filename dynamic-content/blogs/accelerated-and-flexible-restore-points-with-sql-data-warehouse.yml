@@ -1,0 +1,53 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e4edbc11a218a255e8f6e1da0e9c5c5ee21243d1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896561"
+Slug: accelerated-and-flexible-restore-points-with-sql-data-warehouse
+Title: SQL Data Warehouse を使用した高速で柔軟な復元ポイント
+Summary: SQL Data Warehouse (SQL DW) が高速なデータ復旧のための高速で柔軟な復元ポイントをリリースしたことを発表しました。 SQL DW は、エンタープライズ向けの完全に管理された安全な分析プラットフォームであり、ペタバイト単位のデータに対して複雑なクエリを迅速に実行するために最適化されています。
+Content: >-
+  <p>SQL Data Warehouse (SQL DW) が高速なデータ復旧のための高速で柔軟な復元ポイントをリリースしたことを発表しました。 SQL DW は、エンタープライズ向けの完全に管理された安全な分析プラットフォームであり、ペタバイト単位のデータに対して複雑なクエリを迅速に実行するために最適化されています。</p>
+
+
+  <p>データウェアハウスを迅速に復元する機能を利用すると、偶発的な破損、削除、ディザスターリカバリーからのデータ保護を実現できます。 ここでは、コンプライアンス要件と、データウェアハウスの複数のテストおよび開発環境で、この領域により厳格な機能が適用されるシナリオについて説明しました。 初めてのデータの保護と復旧を引き続き提供するために、Azure Portal 内にシームレスに統合される次の重要な改善点をリリースしました。</p>
+
+
+  <h2>リージョンやサーバーの垣根を越えた復元で、さらに細かい粒度を実現</h2>
+
+
+  <p>24時間ごとに実行される geo 冗長バックアップを選択するのではなく、任意の復元ポイントを使用して複数のリージョンとサーバーを復元できるようになりました。 リージョン間およびサーバーの復元は、ユーザー定義または自動復元ポイントの両方でサポートされており、追加のデータ保護の粒度をさらに細かくすることができます。 利用できる復元ポイントが増えることで、リージョンをまたいで復元する際にデータ ウェアハウスの論理的整合性が保たれることへの安心感が得られます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ac23972-9ec0-4502-ab10-7b6bc1a3d947.png"><img alt="flexiblerestorepoints_0" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62f890ef-1bef-4e1c-beae-ff1d3cae7e41.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="flexiblerestorepoints_0" width="1615"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c63bd0e-9c52-414d-b4be-d3bd3774ee08.png"><img alt="flexiblerestorepoints_1" border="0" height="821" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ddf145d7-aa08-4069-95c0-1774721fec99.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="flexiblerestorepoints_1" width="1121"></a></p>
+
+
+  <h2>拡張復元ポイントを使用した高速復元</h2>
+
+
+  <p>現在のスナップショットプロセスが最適化されているため、復元ポイントの作成にかかる時間が短縮されます。 低いパフォーマンスレベル (DWU) では、このパフォーマンスの向上により、復元ポイントを少なくとも2倍に作成するためにかかる時間が短縮されています。</p>
+
+
+  <h2>カスタム復元構成</h2>
+
+
+  <p>Azure portal を通じてデータウェアハウスを復元する場合、Azure portal で復元するときにパフォーマンスレベル (DWU) を変更できるだけでなく、アップグレードされた Gen2 データウェアハウスに復元することもできます。 これにより、 <a href="https://docs.microsoft.com/azure/sql-data-warehouse/upgrade-to-latest-generation" target="_blank">Gen1 データウェアハウスをアップグレード</a>する前に、並列評価を行うことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4c410c7-8515-409c-a983-0976792b8628.png"><img alt="flexiblerestorepoints_2" border="0" height="543" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/816896fd-5ebc-4f17-9b48-d1ea16c12762.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="flexiblerestorepoints_2" width="1243"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+      <li>SQL DW を使用したデータの回復の詳細については、<a href="https://docs.microsoft.com/powershell/module/azurerm.sql/new-azurermsqldatabaserestorepoint?view=azurermps-6.2.0" target="_blank">オンラインドキュメント</a>を参照してください。</li>
+      <li>機能に関する要望については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse" target="_blank">UserVoice</a>にご投票ください。</li>
+      <li>今すぐ開始するための<a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal" target="_blank">Azure SQL Data Warehouse を作成</a>します。</li>
+      <li>最新の Azure SQL Data Warehouse ニュースや機能については、Twitter <a href="https://twitter.com/AzureSQLDW" target="_blank">@AzureSQLDW</a> の後で最新情報を入手してください。</li>
+  </ul>

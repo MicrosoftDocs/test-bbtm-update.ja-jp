@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d90c459a97a24a7940e8042de6a7e86230fb27f3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896698"
+Slug: meet-the-microsoft-azure-iot-on-serverless-hackathon-winners
+Title: サーバーレス ハッカソンMicrosoft Azure IoT を満たす
+Summary: サーバーレス ハッカソンで Azure IoTを実行し始め、その中から多くのクールなソリューションが出てくることを知っていました。 予測できなかったのは、技術的なレベルだけでなく、特にこれらのソリューションが解決するように設計された問題に関して、彼らに示された高いレベルの創造性でした。
+Content: >-
+  <p>サーバーレス ハッカ<a href="https://azurehacks.devpost.com/" target="_blank">ソンで</a> Azure IoTを実行し始め、その中から多くのクールなソリューションが出てくることを知っていました。 予測できなかったの&rsquo;は、技術的なレベルだけでなく、特にこれらのソリューションが解決するように設計された問題に関して、彼らに示された高レベルのクリエイティビティでした。 IoT (モノのインターネット) ソリューションについて考える場合は、センサーからの情報の読み取りと従来のデータ処理について、既定で考える可能性があります。 しかし、世界中の開発者は、安全性とセキュリティの向上から汚染やリサイクルなどのグローバルな問題の支援まで、非常に役立つソリューションを世界中から発表しました。</p>
+
+
+  <p>30 を超える各プロジェクトは、毎日の問題を解決するためのクリエイティブなソリューションでした。 これらのすべては、テクノロジを通じて私たちの生活を改善する方法の優良な例ですが、3 人の勝者と人気のある選択の受取人を強調したいと考えています。</p>
+
+
+  <p>Microsoft Azure の力を活用して世界をより良い場所にするための革新的で強力なプロジェクトを構築して、勝者に心よりおめでとうございます。 おめでとうございます。</p>
+
+
+  <h2>1 位クリーン &ndash; <a href="https://devpost.com/software/clean-water-ai" target="_blank">ウォーター AI</a></h2>
+
+
+  <p>Clean Water AI は、汚染された水の影響を受ける人々の問題を解決するために役立つ、水の中の危険な土壌や有害なパーティクルを分類して検出する IoT デバイスです。 ソリューションを導入するニューラル ネットワーク モデルをトレーニングするデータ サイエンス仮想マシンから、Clean Water AI チームは Azure でモデルトレーニングを行い、エッジにデプロイしました。 待ち時間とリアルタイムの結果を向上させるために、デバイス自体に対してすべてのインフェレンシングが直接実行されています。</p>
+
+
+  <p>処理後、データは入力サンプルになります。これは、ニューラル ネットワーク モデルを使用してデバイス自体によって撮影された画像の形式でした。 次に、このデータは Azure IoTハブにプッシュされ、このデータをクラウド ソリューションに取り込むのに使用されます。 Azure Functions IoT Hub を介して新しいデータ ポイントが送信されるたびトリガーされ、その後、このデータが取得され、処理され、ストレージ用の Azure SQL に再びプッシュされます。 次に、Azure マップこの保存データを取得し、適切な場所に表示して、近くのユーザーに水質について警告します。</p>
+
+
+  <p>詳細については、ステップ バイ ステップの <a href="https://www.hackster.io/clean-water-ai/clean-water-ai-e40806" target="_blank">構築プロセスに関するページを参照してください</a>。</p>
+
+
+  <h2>2 位 &ndash; <a href="https://devpost.com/software/bsmart-smart-diabetes-management-system" target="_blank">bSmart Diabetes Management System</a></h2>
+
+
+  <p>bSmart Diabetes Management System&rsquo; は、1 型糖尿病と診断された後、著者の女性から着生されました。 この巧妙なソリューションは、次の 2 時間以内に予想される糖尿病レベルを予測するために、ポンプポンプと連続する糖尿病モニター (CGM) の両方のデータを統合します。 これらの予測の値に応じて、システムは、適切な処理をリアルタイムで提案する自動メッセージも、治療者に送信します。</p>
+
+
+  <h3>それはどのように機能しますか?</h3>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a3d9c4df-1184-4ff3-9600-f9df10c90c50.jpg"><img alt="bSmart Diabetes Management System" border="0" height="368" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/274f6790-47e6-465b-adea-5b1b2cdf8057.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="bSmart Diabetes Management System" width="695"></a></p>
+
+
+  <p>ポンプと CGM の両方のデータは、Android アプリケーションを介して MongoDB に格納されます。 Azure IoT Hub を使用して IoT デバイスからクラウド ソリューションにデータをプッシュするカスタム Python スクリプトを使用すると、すべての読み取りによって、データを取得して Azure SQL に格納する Azure Functions の実行がトリガーされます。 その後、10 分ごとに、別の Azure 関数がデータベースに格納されているデータを読み取り、将来の糖尿病レベルを予測しています。 &rsquo;これらのレベルが適切な範囲内にない場合は、Azure Queue Storage を介してこのデータをルーティングすることで別の関数がトリガーされ、この関数は Twilio を介して推奨されるアクションを含むテキスト メッセージを送信します。</p>
+
+
+  <p>このプロジェクトの新しいGitHub<a href="https://github.com/Abeemmanuel/bSmart" target="_blank">を</a>試してみてください。</p>
+
+
+  <h2>3 <a href="https://devpost.com/software/recycle-io-ek4pxz" target="_blank">位 Recycle.io</a> &ndash;</h2>
+
+
+  <p>Recycle.io は、センサー、カメラ、機械学習、クラウド テクノロジを使用して、リサイクルできない、非有機的な廃棄物違反をリアルタイムで検出して処理し、機関に分析を提供します。 これらの違反は、リサイクルできない項目または非有機的な項目がそれぞれリサイクル可能なごみ箱または有機ごみ箱にスローされた場合に発生します。このプロジェクトでは、米国の廃棄物収集機関によって使用されるリソースの量を減らすことを目的とした革新的な IoT システムが導入されています。</p>
+
+
+  <p>Azure IoTに接続されているデバイス上の Edge モジュールは、ごみ箱がスローされた場合に検出します。また、カメラはビンの内容の画像をキャプチャします。 それでも、デバイスでは、カスタマイズされた Computer Vision モデルによって画像が分析され、見つかった項目を含む一覧が返されます。これは、指定された検査リストと比較されます。 この一覧は、Azure Service Bus を組み合わせて、Azure Functionsデバイスにプッシュすることで、管理者が更新できます。</p>
+
+
+  <p>ごみ箱にごみ箱が見つかった場合、画像は BLOB ストレージにアップロードされ、イベントの詳細が IoT Hub を介してプッシュされます。これは、データを処理して Azure SQL に格納する Azure 関数をトリガーします。 Web アプリケーションでは、UI のすべてのビンの詳細が表示されます。また、Azure Functionsを使用して、表示されるデータベースからデータを取得します。</p>
+
+
+  <p>このプロジェクトのアーキテクチャと作成の詳細については、このプロジェクトのGitHub<a href="https://github.com/MSAzureHackathon/recycle.io" target="_blank">してください</a>。</p>
+
+
+  <h2>気を散ら&ndash;<a href="https://devpost.com/software/texting-and-driving" target="_blank">した運転を妨げている一般的な選択</a></h2>
+
+
+  <p>コンペティションの一環として一般投票によって与えられ、気が散らされた運転の防止は、ユーザーが運転中にメッセージング アプリケーションやソーシャル ネットワークなどの特定のアプリケーションを使用しないように設計されたソリューションです。 このソリューションでは、電話 GPS を使用して、ユーザーが車両内を移動しているかどうかを判断し、電話の背面に設置されたセンサーを背面に取り付け、車内の位置を判断します。 ドライバーの&rsquo;位置は、機械学習モデルと電話に配置された指の数によって決定されます。</p>
+
+
+  <p>アプリケーションは 10 秒ごとに写真を撮影し、電話で引き続き TensorFlow モデルで実行します。 精度が十分ではない場合、またはシステムが 10 枚を超える画像を撮影した場合、アプリケーションでは Azure IoT Hub を使用して、これらの画像を処理のためにクラウド ソリューションに取り込む必要があります。 アップロードされた各画像は、クラウドで 2 番目の TensorFlow モデルを実行する Azure 関数をトリガーし、視覚化のために格納された推定結果を使用して別の関数をトリガーします。</p>
+
+
+  <p>このクール なプロジェクトのコードは、そのGitHub<a href="https://github.com/egibert/TextAndDrive" target="_blank">参照します</a>。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>これで、優れたアイデアと優れたクラウド サービスを使用して実現できるすべてのことを確認できたので、独自のプロジェクトを開始する準備ができました。 開始に役立つ可能性があるリソースを次に示します。</p>
+
+
+  <ul>
+   <li>無料試用版<a href="https://azure.microsoft.com/free/serverless/" target="_blank">を開始Microsoft Azure</a>、12 か月間の無料サービスにアクセスできます。</li>
+   <li><a href="https://azure.microsoft.com/resources/azure-serverless-computing-cookbook/" target="_blank">Azure Serverless Comupting Cookbook</a> を使用したサーバーレス アプリケーションの開発の詳細について説明します。</li>
+   <li>これらのウェビナーを見て、<a href="https://aka.ms/serverless-api-nodejs" target="_blank">Node.js</a> を使用してサーバーレス API を構築し、Azure Functions で <a href="https://aka.ms/ml-functions-python-webinar" target="_blank">Python</a> を使用して Machine Learning ワークロードを加速する方法について説明します。</li>
+  </ul>

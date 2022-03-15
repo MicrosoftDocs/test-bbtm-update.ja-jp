@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cd289ec39d2a752198ceb69edbc56ad5bae9081a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895455"
+Slug: maximize-throughput-with-repartitioning-in-azure-stream-analytics
+Title: Azure Stream Analytics での再分割によるスループットの最大化
+Summary: 'お客様は、移動中のデータのストリームを簡単に分析できるようにするために Azure Stream Analytics を歓迎します。実行中のパイプラインは、5分以内に設定できます。 完全に並列化できないシナリオで高パフォーマンスを達成しようとすると、スループットの最適化は常に問題になります。 '
+Content: >-
+  <p>お客様は、移動中のデータのストリームを簡単に分析できるようにするために Azure Stream Analytics を歓迎します。実行中のパイプラインは、5分以内に設定できます。 スループットの最適化は、完全に並列化できない&#39;シナリオで高パフォーマンスを実現するために、常に問題になります。 これは、入力ストリームのパーティションキーを制御&#39;、または後でマージする必要がある複数のパーティションに対してソース &ldquo; sprays &rdquo; 入力を制御しない場合に発生します。 Azure Stream Analytics SQL の新しい拡張機能を使用して、データの再シャッフル時にストリームのパーティション数を指定できるようになりました。 この新しい機能により、パフォーマンスのロックが解除され、このようなシナリオでスループットを最大化することができます。</p>
+
+
+  <p>Azure Stream Analytics SQL の新しい拡張機能には、 <strong>PARTITION BY</strong>ステートメントを使用して再シャッフルを実行するときにストリームのパーティション数を指定<strong><a href="https://docs.microsoft.com/en-us/stream-analytics-query/into-azure-stream-analytics#into-shard-count" target="_blank">できるようにするキーワードが</a></strong>含まれています。 この新しいキーワードとそれが提供する機能は、上記のシナリオで高パフォーマンスのスループットを実現するための重要な機能であり、シャッフル後のデータストリームをより適切に制御できるようにします。 Azure Stream Analytics の新機能の詳細については、 <a href="https://azure.microsoft.com/en-us/blog/eight-new-features-in-azure-stream-analytics/" target="_blank">Azure Stream Analytics の8つの新機能</a>に関する &rsquo; ページを参照 &ldquo; してください。&rdquo;</p>
+
+
+  <h2>再分割とは何ですか。</h2>
+
+
+  <p>Event Hubs ケースの PartitionId のように、自然入力スキームに従ってシャード化されていないストリームでデータを処理する場合は、再分割または再シャッフルが必要です。 これは、イベントジェネレーターのルーティングを制御しない場合や、リソースの制約によりフローをスケールアウトする必要がある場合に &rsquo; 発生する可能性があります。 再分割した後は、各シャードを他の各シャードとは別に処理し、シャード間の同期を追加せずに処理を進めることができます。 これにより、ストリーミングパイプラインを直線的にスケールアウトできます。</p>
+
+
+  <p>新しく導入されたキーワードを PARTITION BY ステートメントの後に使用することで、ストリームを分割するパーティションの数を指定できます。これには、パーティション数を示す厳密に正の整数を指定します。 例については、以下を参照してください。</p>
+
+
+  <pre>
+
+  SELECT * INTO [output] FROM [input] PARTITION BY DeviceID INTO 10</pre>
+
+
+  <p>上記のクエリは、自然にパーティション分割されているかどうかに関係なく、入力から読み取りを行い、DeviceID ディメンションに従ってストリーム10倍をパーティション分割し、データを出力にフラッシュします。 ディメンション値 (DeviceID) のハッシュは、どのサブストリームを受け入れるかを決定するために使用されます。 出力がパーティション分割された書き込みをサポートし、10個のパーティションがある場合、または任意の数のパーティションを処理できる場合、データはパーティション分割されたストリームごとに個別にフラッシュされます。</p>
+
+
+  <p>再パーティション分割を使用したデータフローの図を以下に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/702bed3a-68a4-40bd-9ca2-d16b05567a5d.png"><img alt="Diagram of the data flow with the repartition in place " border="0" height="404" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a129541a-72f8-4ca2-96ca-2735decb6b48.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="再パーティション分割を使用したデータフローの図 " width="640"></a></p>
+
+
+  <h2>再分割を使用する理由と方法</h2>
+
+
+  <p>パーティション分割を使用して、処理の多くの部分を最適化します。 データが入力時に正しくパーティション分割されていない場合でも、切り離されたサブセットに対してデータを個別に、または同時に処理します。 パーティション分割構成は、パーティションキーが変わらない限り維持されます。</p>
+
+
+  <p>ジョブのリソース使用率を調べて、必要なパーティションの正確な数を確認します。 Azure Stream Analytics のスケールの単位である <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-streaming-unit-consumption" target="_blank">ストリーミングユニット</a> (SU) の数を調整して、ジョブで使用できる物理リソースの数がパーティション分割されたフローに適合するようにする必要があります。 一般に、6つの SUs は各パーティションに割り当てるのに適した数です。 ジョブに割り当てられているリソースが不足している場合、ジョブの恩恵を受けるのは、再パーティション分割だけです。</p>
+
+
+  <p>2つのデータストリームを明示的に結合する場合、これらのストリームは同じパーティションキーとパーティション数を持つ必要があります。再パーティション分割 結果は、同じパーティション スキームを持つストリームです。 例については、以下を参照してください。</p>
+
+
+  <pre>
+
+  <strong>WITH </strong>step1 AS (<strong><em>SELECT</em></strong> * <strong><em>FROM</em></strong> [input1] <strong><em>PARTITION BY</em></strong> DeviceID <strong><em>INTO</em></strong> 10<strong><em>),</em></strong>
+       step2 AS (<strong><em>SELECT</em></strong> * <strong><em>FROM</em></strong> [input2] <strong><em>PARTITION BY</em></strong> DeviceID <strong><em>INTO</em></strong> 10<strong><em>)</em></strong>
+
+  <strong><em>SELECT</em></strong> * <strong><em>INTO</em></strong> [output] <strong><em>FROM </em></strong>step1 <strong><em>PARTITION BY</em></strong> DeviceID <strong>UNION </strong>step2 <strong><em>PARTITION BY</em></strong> DeviceID</pre>
+
+
+  <p>一致しない数のパーティションまたはパーティションキーを指定すると、ジョブの作成時にコンパイルエラーが発生します。</p>
+
+
+  <p>パーティション分割されたストリームを出力に書き込むときは、出力スキームがキーとカウントによってストリームスキームと一致する場合に最適です。そのため、各サブストリームを他のサブストリームと切り離してフラッシュできます。 または、ストリームをマージして、フラッシュする前に別のスキームによって再度再パーティション分割される可能性があります。 これにより、リソース使用率だけでなく、処理の一般的な待機時間が追加されるため、回避する必要があります。</p>
+
+
+  <p>SQL 出力のユースケースでは、最適なパーティション数を照合してスループットを最大化するために、明示的な再分割を使用します。 SQL は8つのライターで最適に機能するため、フラッシュする前にフローを8に再分割するか、さらに上流の場所に分割すると、ジョブ &rsquo; のパフォーマンスが向上する可能性があります。 詳細については、ドキュメント &ldquo; を参照して<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-sql-output-perf" target="_blank">Azure Stream Analytics Azure SQL Database に出力</a>してください。&rdquo;</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-introduction" target="_blank">Azure Stream Analytics の概要</a> と、 <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-parallelization" target="_blank">Azure Stream Analytics でクエリの並列</a>処理を活用する方法については、ドキュメントを参照してください。</p>
+
+
+  <p>質問がある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-stream-analytics" target="_blank">Stack Overflow</a>で会話に参加してください。</p>

@@ -1,0 +1,143 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5a50308904a3fcd5c364c6095791094685f95759
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896089"
+Slug: build-ai-you-can-trust-with-responsible-ml
+Title: 責任 ML で信頼できるビルド AI
+Summary: AI デプロイは、これらのソリューションの透明性、アカウンタビリティ、および公平性における顧客の信頼の欠如によって、ますます影響を受けています。 Microsoft は、AI と機械学習 (ML) の進歩に取り組んでいます。これは、まず、人材を導入する原則と、これを実践するためのツールによって推進されています。
+Content: >-
+  <p>AI は、業界やアプリケーションの重要な勢いに達したときに、AI を安全かつ確実に <a href="https://blogs.microsoft.com/ai/azure-responsible-machine-learning/" target="_blank">使用</a>できるようにするために不可欠となります。 AI デプロイは、これらのソリューションの透明性、アカウンタビリティ、および公平性における顧客の信頼の欠如によって、ますます影響を受けています。 Microsoft は、AI と機械学習 (ML) の進歩に取り組んでいます。これは、まず、人材を導入する原則と、これを実践するためのツールによって推進されています。</p>
+
+
+  <p><a href="https://www.microsoft.com/en-us/research/blog/research-collection-responsible-ai/" target="_blank">Aether 委員会とその作業グループ</a>との共同作業において、microsoft は責任を持つ AI の最新の調査を Azure にもたらしています。 <a href="https://azure.microsoft.com/en-us/services/machine-learning/" target="_blank">Azure Machine Learning</a>とオープンソースツールキットの新しい<a href="https://azure.microsoft.com/en-us/services/machine-learning/responsibleML" target="_blank">責任 ML</a>機能が、データ科学者や開発者による ML モデルの<b><i>理解</i></b>、ユーザーとデータの<b><i>保護</i></b>、およびエンドツーエンドの ML プロセスの<b><i>制御</i></b>にどのように役立つかを見てみましょう &rsquo; 。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/644ab4e9-abc2-4d5e-8550-82e77ce3dfa8.jpg"><img alt="Responsible ML capabilities in Azure Machine Learning help developers and data scientists to understand (with interpretability and fairness), protect (with differential privacy and confidential ML) and control (with audit trail and datasheets) the end-to-end ML process." border="0" height="468" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a4710a1-d3bb-42ba-bb8f-8603ebab4033.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="開発者やデータ科学者が、エンドツーエンドの ML プロセスについて理解するために、Azure Machine Learning の ML 機能 (解釈能力と公平性を含む)、保護 (プライバシーと機密 ML の相違点)、および制御 (監査証跡とデータシートを使用) について説明します。" width="626"></a></p>
+
+
+  <h2>理解</h2>
+
+
+  <p>ML は日々のビジネスプロセスに深く統合されているため、透明性は重要です。 Azure Machine Learning を使用すると、モデルの動作を理解できるだけでなく、公平性を評価して軽減することができます。</p>
+
+
+  <h3>モデルの動作を解釈して説明する</h3>
+
+
+  <p><a href="https://github.com/interpretml/interpret" target="_blank">解釈 ml</a>ツールキットを使用した<a href="https://docs.microsoft.com/azure/machine-learning/how-to-machine-learning-interpretability" target="_blank">Azure Machine Learning</a>のモデルの解釈能力の機能により、開発者およびデータ科学者はモデルの動作を理解し、ビジネス上の関係者や顧客にモデルの説明を提供できます。</p>
+
+
+  <p>モデル解釈機能を使用して次のことを行います。</p>
+
+
+  <ul>
+      <li>正確な ML モデルを作成します。</li>
+      <li>トレーニングフェーズと推論フェーズの両方で、ディープニューラルネットワークなど、さまざまなモデルの動作を理解します。</li>
+      <li>What-if 分析を実行して、機能の値が変更された場合のモデル予測への影響を判断します。</li>
+  </ul>
+
+
+  <p style="text-align: center;"><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.microsoft.com/en-us/videoplayer/embed/RE4wHT2" width="560"></iframe></p>
+
+
+  <p style="text-align: center;"><em>&quot;Azure Machine Learning は、AI を確実に構築し、顧客との信頼を構築するのに役立ちます。Microsoft では、microsoft のロイヤルティプログラムの不正行為の検出作業における解釈能力の機能を使用して、モデルをより適切に理解し、不正行為の可能性を特定し、誤った結果が発生する可能性を低減することができます。 &quot; &nbsp; </em></p>
+
+
+  <p align="center">&mdash;Daniel Engberg、データ分析の先頭、人工知能、スカンジナビア航空</p>
+
+
+  <h3>モデルの不公平性を評価して軽減する</h3>
+
+
+  <p>現在、AI システムを構築する際の課題は、公平性に優先順位を付けることができないことです。 <a href="https://docs.microsoft.com/azure/machine-learning/concept-fairness-ml" target="_blank">Azure Machine Learning</a>と共に<a href="https://github.com/fairlearn/fairlearn" target="_blank">Fairlearn</a>を使用すると、開発者やデータ科学者は特殊なアルゴリズムを活用して、すべてのユーザーに fairer の結果を得ることができます。</p>
+
+
+  <p>次の場合に公平性機能を使用します。</p>
+
+
+  <ul>
+      <li>モデルのトレーニングとデプロイの両方でモデルの公平性を評価します。</li>
+      <li>モデルのパフォーマンスを最適化しながら、公平性を軽減します。</li>
+      <li>対話型の視覚化を使用して、公平性を軽減する推奨モデルのセットを比較します。</li>
+  </ul>
+
+
+  <p style="text-align: center;"><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.microsoft.com/en-us/videoplayer/embed/RE4wz7o" width="560"></iframe></p>
+
+
+  <p style="text-align: center;"><em> &ldquo; Azure Machine Learning とその Fairlearn 機能は、お客様の信頼できる AI ソリューションのデプロイを支援する高度な公平性と explainability を提供しながら、利害関係者の自信と規制遵守を実現します。 &rdquo; &nbsp; </em> &mdash;Alex Mo・スカイ、カナダパートナーとアドバイザリデータ、分析、AI リーダー</p>
+
+
+  <h2>保護</h2>
+
+
+  <p>医療患者や国勢調査データなどの機密情報が含まれているシナリオでは、ML がますます使用されています。 改訂機能やデータのマスクなど、現在のプラクティスは、ML を制限することができます。 この問題に対処するために、機密性の高いプライバシーと機密機械学習の手法を使用して、組織がデータのプライバシーと機密性を維持しながらソリューションを構築できるようにすることができます。</p>
+
+
+  <h3>差分プライバシーによりデータの漏えいを防ぐ</h3>
+
+
+  <p>新しい<a href="https://aka.ms/diffprivacyrepo" target="_blank">差分プライバシーツールキット</a>を<a href="https://docs.microsoft.com/azure/machine-learning/concept-differential-privacy" target="_blank">Azure Machine Learning</a>と共に使用することで、データサイエンスチームはプライバシーを維持し、個人 &rsquo; データの再識別を防止するための ML ソリューションを構築できます。 これらの差分プライバシー手法は、Harvard &rsquo; s 協会での IQSS (定量的社会サイエンス) と教育機関向けの研究者との共同作業によって開発されています。</p>
+
+
+  <p>差分プライバシーは、次の方法で機微なデータを保護します。</p>
+
+
+  <ul>
+      <li>データに統計的なノイズを挿入することで、機密性の高い情報が漏えいしないようにします。</li>
+      <li>個々のクエリによって使用される情報の予算を追跡し、必要に応じてさらにクエリを制限することで、露出のリスクを管理します。</li>
+  </ul>
+
+
+  <h3>機密機械学習を使用してデータを保護する</h3>
+
+
+  <p>組織は、データのプライバシーに加えて、すべての ML 資産のセキュリティと機密性を確保することを検討しています。</p>
+
+
+  <p>セキュリティで保護されたモデルのトレーニングと配置を可能にするために、Azure Machine Learning には、強力なデータセットとネットワーク保護機能が用意されています。 これには、Azure 仮想ネットワークのサポート、ML ワークスペースに接続するためのプライベートリンク、専用のコンピューティングホスト、および転送中および保存中の暗号化のためのユーザー管理キーが含まれます。</p>
+
+
+  <p>このセキュリティで保護された基盤を構築することにより、Azure Machine Learning は、データを表示できなくても、セキュリティで保護された環境で機密データに対して Microsoft のデータサイエンスチームがモデルを作成できるようになります。 このプロセスでは、すべての ML 資産が機密情報に保持されます。 このアプローチは、オープンソースの ML フレームワークおよびさまざまなハードウェアオプションと完全に互換性があります。 今年の後半で、このような機密機械学習機能をすべての開発者とデータ科学者に提供します。</p>
+
+
+  <h2>Control</h2>
+
+
+  <p>ML 開発プロセスは、確実に作成するために、反復可能で信頼性が高く、利害関係者に責任を持つ必要があります。 Azure Machine Learning により、意思決定者、監査者、および ML ライフサイクル内のすべてのユーザーが、責任を持つプロセスをサポートできるようになります。</p>
+
+
+  <h3>監査証跡を使用した ML 資産の追跡</h3>
+
+
+  <p>Azure Machine Learning には、自動的に系列を追跡し、ML アセットの監査証跡を維持する機能があります。 実行履歴、トレーニング環境、データとモデルの説明 &mdash; などの詳細情報 &mdash; はすべて中央レジストリにキャプチャされるため、組織はさまざまな監査要件を満たすことができます。</p>
+
+
+  <h3>モデルのデータシートを使用したアカウンタビリティの向上</h3>
+
+
+  <p>データシートは、動機、使用目的、その他などの ML 情報を文書化するための標準化された方法を提供します。 Microsoft では、データ科学者、監査者、意思決定者に透明性を提供するために、データ <a href="https://www.microsoft.com/en-us/research/publication/datasheets-for-datasets/" target="_blank">シートを調査</a>しています。 また、業界、研究機関、政府機関における AI とリーダー<a href="https://www.partnershiponai.org/" target="_blank">のパートナーシップ</a>を扱っており、推奨されるプラクティスと、 <a href="https://www.partnershiponai.org/about-ml/" target="_blank">ML について</a>のプロセスを開発しています。 Azure Machine Learning の<a href="https://github.com/microsoft/MLOps/blob/master/pytorch_with_datasheet/model_with_datasheet.ipynb" target="_blank">カスタムタグ</a>機能を使用して、今日のデータシートを実装し、時間の経過と共に追加の機能をリリースすることができます。</p>
+
+
+  <h3>イノベーションを確実に始める</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning/" target="_blank">Azure Machine Learning</a>と<a href="https://www.microsoft.com/en-us/ai/responsible-ai-resources?activetab=pivot1%3aprimaryr4" target="_blank">オープンソースツール</a>の新機能に加えて、AI を担当するための<a href="https://www.microsoft.com/en-us/ai/responsible-ai?activetab=pivot1%3aprimaryr6" target="_blank">原則も開発</a>しました。 新しい責任 ML イノベーションとリソースは、開発者とデータ科学者がより信頼性の高い、fairer で信頼できる ML を構築できるように設計されています。 今すぐ参加して、ML 担当者との協力を開始しましょう。</p>
+
+
+  <h3>その他の技術情報</h3>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/services/machine-learning/responsibleML" target="_blank">責任 ML</a>については、こちらを参照してください。</li>
+      <li><a href="https://azure.microsoft.com/trial/get-started-machine-learning/" target="_blank">Azure Machine Learning の無料試用版</a>の使用を開始します。</li>
+      <li><a href="https://aka.ms/aml-docs" target="_blank">Azure Machine Learning</a>の詳細を確認し、<a href="https://azure.microsoft.com/en-us/services/machine-learning/#documentation" target="_blank">クイックスタートガイドとチュートリアルに従っ</a>てください。</li>
+  </ul>
+
+
+  <hr>
+
+  <p><em>以前のバージョンのこのストーリーでは、差分プライバシーツールキットがホワイトリストとして参照されていました。</em></p>

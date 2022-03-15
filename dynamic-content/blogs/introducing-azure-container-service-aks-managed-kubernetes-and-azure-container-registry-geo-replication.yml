@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c50602153b9025a5df5e83ed8d588c17c17b7c04
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891592"
+Slug: introducing-azure-container-service-aks-managed-kubernetes-and-azure-container-registry-geo-replication
+Title: AKS (managed Kubernetes) と Azure Container Registry の機能強化の概要
+Summary: 現在、新しい managed Kubernetes Service である Azure Container Service (AKS) のプレビューが発表されています。 Azure での現在の Kubernetes サポートをご利用いただけるようになりました...
+Content: >-
+  <p>現時点では、新しい managed Kubernetes Service の <a href="https://azure.microsoft.com/en-us/services/container-service/">AKS (Azure Container Service) </a>のプレビューを発表いたします。 現在、ACS として知られている Azure Container Service の現在の Kubernetes サポートについては、過去6か月間に300% を超えています。 AKS のプレビューでは、お客様の Kubernetes 環境の管理と運用をさらに容易にすることができるようになりました。これは、移植性を犠牲にする必要がありません。 この新しいサービスには、Azure でホストされるコントロールプレーン、自動アップグレード、自己復旧、簡単なスケーリング、開発者とクラスターの両方の操作の簡単なユーザーエクスペリエンスが搭載されています。 AKS により、お客様は、複雑さや運用上のオーバーヘッドを発生させることなく、オープンソースの Kubernetes を利用できます。</p>
+
+
+  <p>次のデモでは、新しい AKS クラスターをプロビジョニングし、クラスターを Kubernetes 1.7.7 から1.8.1 にアップグレードし、クラスターを3ノードから10ノードに拡張するのが簡単であることに注意してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2de2a288-9bba-499e-8468-6f172833ca69.gif"><img alt="aks" border="0" height="792" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aaba8533-1c2b-41fc-807b-b6966c6b7271.gif" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="aks" width="1179"></a></p>
+
+
+  <p><strong>使い始めるために、AKS は無料です。</strong> お客様のビジネスに価値を追加した Vm に対してのみ料金が請求されます。 管理インフラストラクチャの時間単位の料金を請求する他のクラウドプロバイダーとは異なり、AKS を使用すると、Kubernetes クラスターを管理するために何も支払うことはありません。 結局のところ、クラウドは、使用した分だけ料金を支払う必要があります。 AKS が適切な理由についてのビデオをご覧になり、今すぐ <a href="https://azure.microsoft.com/en-us/services/container-service/" target="_blank">無料で AKS をお試しください</a> 。&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Azure-Friday/Container-Orchestration-Simplified-with-Managed-Kubernetes-in-Azure-Container-Service-AKS/player" width="960"></iframe></p>
+
+
+  <p>複数のコンテナー orchestrators サポートされている2015以降、Azure Container Service が利用可能になりましたが、これらの新機能と革新的な価格は Kubernetes に焦点を合わせています。これは、コンテナーオーケストレーションのオープンソース標準として登場しています。 Kubernetes 固有のコミュニティの関与とその移植性により、標準化が理想的な orchestrator になります。 これは、マイクロソフトにとって驚くべきことではありません。 Kubernetes の共同作成者である Brendan は、Azure &rsquo; のコンテナーの取り組みにつながるようになりました。 今年、Microsoft が買収したのは、Kubernetes イノベーションの中心にある企業です。 これまで、Microsoft では、Kubernetes を開発者にとって使いやすくするために、Kubernetes の <a href="https://www.theregister.co.uk/2017/09/29/kubernetes_next_version/" target="_blank">アップストリーム</a> や、 <a href="https://sweetcode.io/kubernetes-dummies-kubernetes-cluster/" target="_blank">Draft</a> などの革新的なソフトウェアの開発に貢献しています。 &nbsp; この deepening が Kubernetes に焦点を当てた場合は、マネージ Kubernetes サービスを AKS と呼びます。</p>
+
+
+  <p>たとえば、Azure CLI を使用して新しい Kubernetes クラスターを簡単に作成する方法を次に示します。</p>
+
+
+  <pre>
+
+  az aks create &ndash;n myCluster &ndash;g myResourceGroup</pre>
+
+
+  <p>また、Docker Enterprise、Mesosphere DC/OS ( <a href="https://www.docker.com/customers/metlife-transforms-customer-experience-legacy-and-microservices-mashup" target="_blank">MetLife</a> 、 <a href="https://customers.microsoft.com/en-us/story/esri" target="_blank">ESRI</a>など) などの他の orchestrator デプロイについても引き続き関心があります。 &nbsp;その結果、一般的なオープンソースのコンテナーソリューションを簡単に作成できるように、Azure の既存の ACS デプロイエンジンが引き続きサポートされるようになります。 Microsoft では、両社のお客様のニーズに対応するために、Azure Marketplace でのエンタープライズプランの統合を強化するために、 <a href="https://azure.microsoft.com/en-us/services/container-service/docker" target="_blank">Docker</a> と <a href="https://azure.microsoft.com/en-us/services/container-service/mesosphere" target="_blank">Mesosphere</a> の使用を継続しています。 Azure Marketplace では、ACS と同じ簡単なデプロイが提供されていますが、エンタープライズエディションには簡単なインプレースアップグレードが追加されています。これは、付加価値のある商用機能と24時間365日体制のサポートを提供します。</p>
+
+
+  <p>AKS の発表に加えて、 &rsquo; 現在、管理対象 sku &nbsp; <a href="https://azure.microsoft.com/en-us/services/container-registry/" target="_blank">Azure Container Registry</a> (ACR) の &nbsp; 一般提供が開始されています。 ACR は、3つの新しいサイズを通じてニーズに合わせて拡張できるプライベートレジストリを提供します。 Azure のグローバルフットプリント全体にスケールを提供するために、 &rsquo; ACR の geo レプリケーションのプレビューも発表します。 お客様は、マップをクリックすることで、任意の数のリージョンにわたってレプリケートされた単一のレジストリを管理できるようになりました。 ACR へのコンテナーイメージのプッシュ/プルは、最も近いレジストリにルーティングされます。 ACR geo レプリケーションにより、顧客はグローバルデプロイを1つのエンティティとして管理できます。 Geo レプリケーションは、グローバルな規模で運用されているお客様にとってパートナーの機能の1つであり、グローバルなフットプリントが大幅に小さくなっている競合他社から Azure を分離します。 Geo レプリケーションを活用し、イメージが到着したときにリージョンをデプロイする方法を示すビデオを表示します。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Container-Registry-Geo-Replication/player" width="960"></iframe></p>
+
+
+  <p>これは、Azure とお客様にとって絶好の瞬間です。 新しい managed Kubernetes サービスを構築しているお客様とパートナーの両方についてご紹介します。</p>

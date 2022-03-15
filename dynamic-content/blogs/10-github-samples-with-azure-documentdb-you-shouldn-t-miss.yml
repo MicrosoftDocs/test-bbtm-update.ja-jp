@@ -1,0 +1,184 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4a72f771bf06564ed065560953ed4d266494b5d2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896583"
+Slug: 10-github-samples-with-azure-documentdb-you-shouldn-t-miss
+Title: Azure DocumentDB を使用した 10 GitHub のサンプルにご協力ください。
+Summary: Azure DocumentDB は、最新のアプリケーション向けに構築された、完全に管理された、マルチモデルの、スケーラブルでクエリ可能な、スキーマフリーの NoSQL データベースサービスです。モバイル、web、IoT、ボット、AI など。最近、GitHub に進みました...
+Content: >-
+  <p><strong>2017年5月10日のうち、</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は、Microsoft &rsquo; がグローバルに分散したマルチモデルデータベースです。Azure Cosmos DB は、グローバルな分散と水平方向のスケールを中心として一から構築されました。任意の数の Azure リージョンでのターンキーグローバル分散を提供します。ユーザーがどこにいても、透過的にデータのスケーリングとレプリケーションを行うことができます。スループットとストレージを世界規模で弾力的にスケーリングし、必要なスループットとストレージに対してのみ料金を支払うことができます。Azure Cosmos DB では、世界中のどこでも99パーセンタイルで1桁のミリ秒の待機時間を保証し、複数の明確に定義された整合性モデルを使用してパフォーマンスを微調整し、業界トップレベルのサービスレベルアグリーメント (sla) によってサポートされるマルチホーム機能 &mdash; によって高可用性を保証します。&nbsp;</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は完全にスキーマに依存しません。スキーマとインデックスの管理に対処する必要がなく、すべてのデータのインデックスが自動的に作成されます。また、マルチモデルで、ドキュメント、キー値、グラフ、列ファミリの各データモデルも、ネイティブにサポートされて &rsquo; います。Azure Cosmos DB では、DocumentDB SQL (ドキュメント)、MongoDB (ドキュメント)、Azure Table Storage (キー値)、およびグリーン mlin (グラフ) がすべてネイティブにサポートされているため、お好きな api を使用してデータにアクセスできます。</strong></p>
+
+
+  <hr>
+
+  <p><a href="https://azure.microsoft.com/en-us/services/documentdb/">Azure DocumentDB</a>は、最新のアプリケーション向けに構築された、完全に管理された、マルチモデルの、スケーラブルでクエリ可能な、スキーマフリーの NoSQL データベースサービスです。モバイル、Web、IoT、ボット、AI など。最近、私は GitHub を使用しましたが、さまざまな役に立つ資料と、ステップバイステップのチュートリアルと例へのリンクがあります。 次に示すのは、地球規模の NoSQL によってサポートされるアプリの構築を開始しているすべてのユーザーが知る必要がある上位10です。 他にもたくさんあります。 では、このすばらしい新しい NoSQL のデータベースサービスについて説明します。</p>
+
+
+  <p><img alt="" height="487" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0451fcb0-60cc-4b19-9ff7-6e271fff4b5c.png" width="865"></p>
+
+
+  <h2>1. <a href="https://github.com/Azure/azure-documentdb-dotnet">azure/azure-documentdb-dotnet</a></h2>
+
+
+  <p>この<a href="https://github.com/Azure/azure-documentdb-dotnet">リポジトリ</a>には、 <a href="https://azure.microsoft.com/en-us/resources/samples/">Azure DOCUMENTDB と .net SDK</a>に関連する<a href="https://github.com/Azure/azure-documentdb-dotnet/tree/master/samples"><strong>サンプル</strong></a>とユーティリティ、およびそれらの使用方法が記載されています。 このサンプルでは、.net SDK のすべてのメソッドと操作を使用する方法を示します。 <strong>searchabletodo</strong>はサンプル ASP.NET mvc web アプリケーションであり、DocumentDB を使用して ASP.NET mvc web アプリケーションを構築し、 <a href="https://azure.microsoft.com/en-us/services/search/">Azure Search</a>でさらに強化する方法を示しています。 このリポジトリにあるもう1つの優れた例は、xamarin<a href="https://azure.microsoft.com/en-us/blog/announcing-azure-documentdb-sdk-for-xamarin/"><strong>モバイルアプリ</strong></a>用に DocumentDB の組み込み承認エンジンを使用してユーザーごとのデータパターンを実装する方法を示す<a href="https://github.com/Azure/azure-documentdb-dotnet/tree/2fe1fad6a1a7f684d7253190640ecb301828b35f/samples/xamarin/UserItems"><strong>xamarin サンプル</strong></a>です。 これは、ユーザーが Facebook 認証を使用してログインし、to do 項目を管理できる、単純なマルチユーザー ToDo リストアプリです。 このサンプルを使用して実行した後は、Xamarin を使用して、DocumentDB 上で IoS または Android アプリを構築できます。</p>
+
+
+  <p><img alt="" height="434" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/705ab951-ae53-4cc6-8641-f77434a08b3e.png" width="772"></p>
+
+
+  <p>このサンプルでは、クライアント SDK を使用してサービスと対話するための最適な方法について説明します。 具体的には:</p>
+
+
+  <ul>
+      <li><strong>Collectionmanagement</strong> &ndash;DocumentCollection リソースに対する CRUD 操作を示します。</li>
+      <li><strong>Databasemanagent</strong> &ndash; データベースリソースに対する CRUD 操作を示します。</li>
+      <li><strong>Documentmanagement</strong> &ndash; ドキュメントリソースに対する CRUD 操作を示します。</li>
+      <li><strong>Indexmanagement</strong> &ndash; コレクションのインデックス作成ポリシーをカスタマイズする方法のサンプルを示します。</li>
+      <li><strong>パーティション分割</strong> &ndash; .NET SDK を使用した一般的なパーティション分割シナリオ用のサンプルが含まれています。</li>
+      <li><strong>クエリ</strong> &ndash; &nbsp;LINQ と SQL を使用してクエリを実行する方法について説明します。</li>
+      <li><strong>ServerSideScripts</strong> &ndash; ストアドプロシージャ、トリガー、およびユーザー定義関数を作成および実行する方法について説明します。</li>
+      <li><strong>Usermanagement</strong> &ndash; ユーザーおよびアクセス許可リソースに対する CRUD 操作を示します。</li>
+      <li><strong>空間</strong> &ndash; GeoJSON と DocumentDB の地理空間機能を使用する方法について説明します。</li>
+  </ul>
+
+
+  <p>これらのサンプルを確認した後、Azure の NoSQL サービスと対話するさまざまな Api を使用する方法と方法を理解しておく必要があります。</p>
+
+
+  <h2>2. <a href="https://github.com/mingaliu/DocumentDBStudio">mingaliu/DocumentDBStudio</a></h2>
+
+
+  <p><img alt="" height="438" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45042989-9d82-446f-9874-d77ee4731e36.png" width="779"></p>
+
+
+  <p>この<a href="https://github.com/mingaliu/DocumentDBStudio">リポジトリ</a><a href="https://github.com/mingaliu/DocumentDBStudio"><strong>には、documentdb</strong></a>サービス用のクライアント管理ビューアー/エクスプローラーが含まれてい  - <strong> </strong> &nbsp; ます。 現在サポートしているもの:</p>
+
+
+  <ol>
+      <li>Documentdb リソースを簡単に参照できるので、DocumentDB リソースモデルをすぐに習得できます。</li>
+      <li>すべての DocumentDB リソースとリソースフィードに対して、作成、読み取り、更新、削除 (CRUD)、およびクエリ操作を実行します。</li>
+      <li>SQL または UDF クエリのサポート。 Javascript ストアドプロシージャまたはトリガーは、DocumentDBStudio から直接実行できます。</li>
+      <li>すべての要求操作のヘッダー (クォータ、使用状況、RG 料金など) の検査。 また、TCP、HTTPDirect、ゲートウェイの3つの接続モードもサポートしています。</li>
+      <li>さまざまな RequestOptions (pre/post トリガー、sessionToken、整合性モデルなど)、FeedOptions (ページングの場合は enableScanforQuery など)、IndexingPolicy (indexingMode、indexingType、indexingPath など) のサポート。</li>
+      <li>PrettyPrint 出力 JSON です。</li>
+      <li>JSON ファイルを一括インポートします。</li>
+  </ol>
+
+
+  <p>これは、DocumentDB の natives &rdquo; に適した &ldquo; IDE &rdquo; にすぎ &ldquo; ません。 お試しください。</p>
+
+
+  <h2>3. <a href="https://github.com/Azure/azure-documentdb-node">azure/azure-documentdb-ノード</a></h2>
+
+
+  <p>この <a href="https://github.com/Azure/azure-documentdb-node">リポジトリ</a> は、さまざまな種類のツールとアプリケーションの開発に適したオープンソースのクロスプラットフォーム JavaScript ランタイム環境 Node.js を使用して Azure DocumentDB と簡単に対話できるようにする <a href="https://azure.microsoft.com/en-us/develop/nodejs/">Node.js</a> モジュールを提供します。 Node.js は、多くの入力/出力操作だけでなく、リアルタイムの Web アプリケーション (リアルタイム通信プログラムやブラウザーゲームなど) でも、Web アプリケーションのスループットとスケーラビリティを最適化することを目的としています。 DocumentDB サービスと組み合わせて使用すると、アプリの構築において非常に強力な組み合わせと機敏性が得られ、すぐにスケールアップできます。</p>
+
+
+  <p><img alt="" height="390" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85123496-b3f7-427b-b7d1-c6bbab7ff775.png" width="693"></p>
+
+
+  <p>Node.js を使用して開発し、documentdb と組み合わせる場合は、 <a href="https://azure.microsoft.com/en-us/develop/nodejs/">Node.js デベロッパーセンター</a>と Microsoft Azure documentdb Node.js SDK のドキュメントを参照してください。 また、この <a href="https://www.youtube.com/watch?v=UAE7h9PCZjA">YouTube ビデオ</a>もご覧ください。 リポジトリ内の<a href="https://github.com/Azure/azure-documentdb-node/tree/master/samples">サンプル</a>は、 <a href="https://www.visualstudio.com/vs/node-js/">Visual Studio 用のNode.js ツール</a>を使用して構築されており、それに応じて .njsproj ファイルをインクルードしています。 ただし、これらのサンプルを実行する Visual Studio は必要ありません。 必要に応じて nsjprof ファイルを無視し、 <a href="https://code.visualstudio.com/">Visual Studio Code</a>などのエディターで選択したり、sublime などのテキストエディターで app.js を開いたりするだけです。 選択できるのは、</p>
+
+
+  <h2>4. <a href="https://github.com/Azure/azure-documentdb-datamigrationtool">azure/azure-documentdb-datamigrationtool</a></h2>
+
+
+  <p>このリポジトリには、さまざまなソースから DocumentDB にデータをインポートするためのオープンソースソリューションである <a href="https://github.com/Azure/azure-documentdb-datamigrationtool">Documentdb データ移行ツール</a> - が含まれており、簡単でわかりやすくなっています。 移行ツールは、次のソースからのデータの移行をサポートしています。</p>
+
+
+  <ul>
+      <li>Azure テーブル</li>
+      <li>JSON ファイル</li>
+      <li>MongoDB</li>
+      <li>SQL Server</li>
+      <li>CSV ファイル</li>
+      <li>RavenDB</li>
+      <li>Amazon DynamoDB</li>
+      <li>hbase</li>
+      <li>DocumentDB コレクション</li>
+  </ul>
+
+
+  <p>このインポート ツールにはグラフィカル ユーザー インターフェイス (dtui.exe) が搭載されていますが、コマンド ライン (dt.exe) から実行することもできます。 さらに、UI でインポートを設定した後で関連コマンドを出力するオプションもあります。 インポート時に階層リレーションシップ (サブドキュメント) を作成できるように、表形式のソースデータ (SQL Server ファイルや CSV ファイルなど) を変換することができます。 データソースオプションの詳細、各ソースからインポートするサンプルコマンドライン、ターゲットオプション、およびインポート結果の表示については、こちらをご覧ください。</p>
+
+
+  <p><img alt="" height="511" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a1545530-a301-444f-9d74-b8f90adde912.png" width="908"></p>
+
+
+  <h2>5. <a aria-label="GitHub repo featuring Python sample solutions" href="https://github.com/Azure/azure-documentdb-python">azure/azure-documentdb-python</a></h2>
+
+
+  <p>この <a aria-label="GitHub repo featuring Python sample solutions" href="https://github.com/Azure/azure-cosmos-python">リポジトリ</a> には、Azure DocumentDB での一般的な操作を示す Python サンプルソリューションが含まれています。 Azure DocumentDB を使用して、Azure でホストされている Python web アプリケーションからデータを格納したり、データにアクセスしたりする方法について説明します。 Python と Azure websites を使用する前に経験があることを前提としています。 <img alt="" height="438" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cbb22141-c222-48a0-b557-a6f2424a6300.png" width="779"> さらに詳しく学習するもう1つの優れたチュートリアルは、 <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-python-application">documentdb を使用した Python Flask Web アプリケーション開発</a>です。ここでは、documentdb に対して python を使用したポーリングに投票するための簡単な投票アプリケーションを作成します。</p>
+
+
+  <h2>6. <a href="https://github.com/Azure/azure-documentdb-node-q">azure/azure-documentdb-ノード-q</a></h2>
+
+
+  <p>このリポジトリには、DocumentDB Node.js Q promise ラッパーがあります。 &rsquo;Q の約束について何も知らない場合は、「q を使用した Javascript の約束」を参照してください。リポジトリプロジェクトは、Q &rdquo; promise を使用した Hello world サンプルコードを &ldquo; 提供します。これにより、Azure DocumentDB との対話が非常に簡単になります。 ここでは、DocumentDB が JSON と JavaScript に対して深いコミットメントを使用して構築されていることを確認します。 この JavaScript の &ldquo; 現代的な SQL &rdquo; は、アプリケーション開発者が、型システムの不一致やオブジェクトリレーショナルマッピングテクノロジの複雑さから解放されます。 このリポジトリのサンプルは、JavaScript SDK を使用して <a href="https://azure.microsoft.com/services/documentdb">Azure DocumentDB</a> サービスと対話する際に役立ちます。<img alt="" height="472" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89986f4b-802f-4821-992d-61fc949741a7.png" width="838"></p>
+
+
+  <h2>7. <a href="https://github.com/Azure/azure-documentdb-js-server">azure/azure-documentdb-サーバー</a></h2>
+
+
+  <p>このリポジトリにアクセスする前に、まずこの <a href="https://channel9.msdn.com/Blogs/Azure/Azure-Demo-A-Quick-Intro-to-Azure-DocumentDBs-Server-Side-Javascript">ビデオ</a> をご覧ください。 Azure DocumentDB&#39;s サーバー側プログラミングモデルについて簡単に説明します。 DocumentDB &rsquo; の統合された javascript のトランザクション実行により、開発者はストアドプロシージャ、トリガー、ユーザー定義関数 (udf) を javascript でネイティブに記述する方法について学習します。 これにより、開発者はアプリケーションロジックを記述して、データベースストレージパーティションに直接配布して実行できます。</p>
+
+
+  <p><img alt="" height="455" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e52b9ba-67f5-4135-bdd1-a758d8382852.png" width="809"></p>
+
+
+  <h2>8. <a href="https://github.com/Azure/azure-documentdb-java">azure/azure-documentdb-java</a></h2>
+
+
+  <p>このプロジェクトには、Azure DocumentDB との対話を容易にする、Java のクライアントライブラリが用意されています。 このリポジトリには、DocumentDB を使用した Java コードサンプルが多数用意されています。 慣れていれば、いくつかの手順で <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-java-application">DocumentDB を使用して Java web アプリケーション全体</a> を構築できます。 ドキュメントについては、Microsoft Azure <a href="https://azure.microsoft.com/en-us/develop/java/">Java デベロッパーセンター</a>と javadoc を参照してください。</p>
+
+
+  <p><img alt="" height="444" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a22dea56-5dfd-404d-98e0-5898cdd2ce56.png" width="789"></p>
+
+
+  <h2>9. azure/azure-documentdb-hadoop</h2>
+
+
+  <p>このリポジトリには、DocumentDB を Hadoop MapReduce、Hive、Pig ジョブの入力ソースまたは出力シンクとして機能させるための、Microsoft Azure Java のクライアントライブラリが用意されています。 このチュートリアルでは、DocumentDB&#39;s Hadoop コネクタを使用して Azure HDInsight で Apache Hive、Apache Pig、および Apache Hadoop MR ジョブを実行する方法について説明します。 documentdb&#39;s Hadoop コネクタを使用すると、documentdb は Hive、Pig、および MapReduce ジョブのソースとシンクの両方として機能することができます。 このチュートリアルでは、Hadoop ジョブのデータソースと変換先の両方として DocumentDB を使用し、その方法を示します。 まず、次のビデオを視聴することをお勧めします。ここでは、DocumentDB と HDInsight を使用して Hive ジョブを実行します。</p>
+
+
+  <p>Hive、Pig、および MapReduce ジョブ。 <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-run-hadoop-with-hdinsight">このチュートリアル</a> では、Hadoop ジョブのデータソースと変換先の両方として DocumentDB を使用し、その方法を示します。 まず、次の <a href="https://sec.ch9.ms/ch9/86a2/50ac21ec-dd12-4739-9c42-702a447886a2/documentdbhadoopconnector_mid.mp4">ビデオ</a>を視聴することをお勧めします。ここでは、DocumentDB と HDInsight を使用して Hive ジョブを実行します。</p>
+
+
+  <p><img alt="" height="442" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f738f278-3d36-4fb7-9258-02ab8606f7b3.png" width="786"></p>
+
+
+  <h2>10. <a href="https://github.com/Azure-Samples/documentdb-node-todo-app">Azure-サンプル/documentdb-ノード-todo-アプリ</a></h2>
+
+
+  <p>最後に、 <a href="https://github.com/Azure-Samples/documentdb-node-todo-app">このリポジトリ</a> には、完全なアプリケーションのソースコードが含まれています。 このサンプルでは、Microsoft Azure DocumentDB サービスを使用して、Azure Websites でホストされている Node.js Express アプリケーションからデータを格納したり、データにアクセスしたりする方法を示します。</p>
+
+
+  <p><img alt="" height="413" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31e55f3e-7d7d-4b1c-a1fc-bb5ad27a0f42.png" width="799"></p>
+
+
+  <p>このアプリケーションを完全にエンドツーエンドで作成する方法については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-nodejs-application/">Azure ドキュメントページの完全なチュートリアル</a>を参照してください。 このサンプルに含まれているコードは、Azure DocumentDB に接続し、 <a href="https://www.npmjs.com/package/documentdb">documentdb npm パッケージ</a>を使用して documentdb と対話する方法を示す単純な Node.js Express アプリケーションを使用することを目的としています。 スケーラブルなエンタープライズレベルの web アプリケーションを構築する方法についてのベストプラクティスのセットではありませんが、これ &rsquo; はすばらしいスタートです。</p>
+
+
+  <p><a href="https://twitter.com/rimmanehme">@rimmanehme</a></p>
+
+
+  <p>P.S. &rsquo;NoSQL &rdquo; という言葉 &ldquo; を聞いたことがない場合は、最初はすべて &ndash; wow です。 ブログの最後で、引き続き注意を払っています。 &rsquo;すばらしいですね。 次に、DocumentDB について学習し、その動作を確認するための簡単な方法は、次の3つの手順に従います。</p>
+
+
+  <ol>
+      <li><a href="https://azure.microsoft.com/documentation/videos/what-is-azure-documentdb/">DocumentDB とは</a>2 分をご覧ください。ビデオでは、DocumentDB を使用する利点について説明します。</li>
+      <li><a href="https://azure.microsoft.com/documentation/videos/create-documentdb-on-azure/">Azure での DocumentDB の作成に関する 3 分間のビデオ</a>を視聴します。このビデオでは、Azure Portal を使用して DocumentDB の使用を開始する方法が紹介されています。</li>
+      <li><a href="https://www.documentdb.com/sql/demo">クエリのプレイ グラウンド</a>にアクセスします。このページでは、DocumentDB で利用できる豊富なクエリ機能について理解するためのさまざまな手順を確認できます。 次に [サンドボックス] タブに移動して、独自のカスタム SQL クエリを実行し、DocumentDB を試してみます。</li>
+  </ol>
+
+
+  <p><img alt="" height="475" role="presentation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e03710e7-e59f-49e6-ac64-db2566d5e4f5.png" width="845"></p>

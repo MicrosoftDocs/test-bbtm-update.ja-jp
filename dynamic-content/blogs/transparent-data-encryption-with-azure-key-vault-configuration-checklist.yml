@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f7075573cc67aa9ab3d8ee3ae9ef86f4e793b8f8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891391"
+Slug: transparent-data-encryption-with-azure-key-vault-configuration-checklist
+Title: 'プレビュー: Azure Key Vault 構成のチェックリストを使用して Transparent Data Encryption を SQL Database'
+Summary: Azure SQL Database とデータウェアハウスは、データベース、ログファイル、バックアップなど、ディスクに書き込まれたすべてのデータに対して Transparent Data Encryption (tde) を提供することで、保存時の暗号化を提供します。
+Content: >-
+  <p>Azure SQL Database とデータウェアハウスは、データベース、ログファイル、バックアップなど、ディスクに書き込まれたすべてのデータに対して Transparent Data Encryption (tde) を提供することで、保存時の暗号化を提供します。 これにより、ハードウェアへの不正アクセスが発生した場合にデータが保護されます。 TDE は、データベース暗号化キー (DEK) を暗号化するために使用される TDE プロテクターを提供します。このプロテクターは、データの暗号化に使用されます。 TDE プロテクターは、既定では完全に透過的な方法でサービスによって管理され、90日おきにローテーションされ、バックアップへのアクセスのためアーカイブで保持されます。 必要に応じて、より多くの制御が必要な場合は、TDE プロテクターの管理をお客様が想定できます。 これには、顧客が所有する Azure Key Vault に TDE プロテクターを格納する必要があります。 このオプションを選択した場合は、すべての TDE の影響を完全に理解し、継続的なキー管理について慎重に計画することが重要です。</p>
+
+
+  <h2>顧客が管理するキーと Azure Key Vault の統合による TDE の概要:</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e027e31d-57fc-45ed-bb74-b34a7e013c56.png"><img width="624" height="247" title="絵" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f55a7b0e-5bed-4989-8e90-53c5d2d68317.png" border="0"></a></p>
+
+
+  <p>このシナリオでは、お客様は Azure Key Vault を維持し Azure Key Vault SQL Database、すべての tde プロテクターへのアクセスを管理して、データベースまたはバックアップを開いたり復元したり、tde プロテクターへのデータベースアクセスを必要とする他のすべての操作を有効にしたりする必要があります。 次のチェックリストは、Azure Key Vault ですべてのキー管理に関連する職務を体系的に計画するのに役立ちます。 また、Azure Key Vault で顧客が管理するキーを使用して TDE を構成するために従う必要がある、セットアップに関する最も重要な考慮事項と構成要件についても説明します。</p>
+
+
+  <h2>一般的なガイドライン:</h2>
+
+
+  <ul>
+   <li>Azure Key Vault と Azure SQL Database が必ず同じテナントに属するようにします。 キー コンテナーとサーバーのテナント間の対話はサポートされていません。</li>
+   <li>必要なリソースにどのサブスクリプションを使用するかを決定します。 後でサブスクリプション間でサーバーを移動するには、Byok で TDE の新しいセットアップを行う必要があります。</li>
+   <li>BYOK 対応 TDE を構成するときは、ラップ/ラップ解除操作の繰り返しによってキー コンテナーにかかる負荷を考慮することが重要です。 たとえば、論理サーバーに関連付けられているすべてのデータベースで同じ TDE 保護機能が使用されるため、そのサーバーのフェールオーバーが発生すると、サーバー内のデータベースと同じ数のキー操作がコンテナーに対してトリガーされます。 これまでの実績から、また<a href="https://docs.microsoft.com/en-us/azure/key-vault/key-vault-service-limits" target="_blank">キー コンテナー サービスの制限</a>に記されている内容から、コンテナー内の TDE プロテクターへのアクセスに対して常に高い可用性を保証するには、1 つのサブスクリプションの 1 つの Azure Key Vault に関連付けるデータベースの数を、Standard データベースで最大 500 個、Premium データベースで最大 200 個にすることをお勧めします。</li>
+   <li>推奨: TDE 保護機能のコピーをオンプレミスに保持します。 これには、ローカルに TDE プロテクターを作成するための HSM デバイスと、TDE プロテクターのローカルコピーを格納するためのキーエスクローシステムが必要です。</li>
+  </ul>
+
+
+  <h2>Azure Key Vault を構成するためのガイドライン:</h2>
+
+
+  <ul>
+   <li>誤ったキーまたはキーコンテナーの削除シナリオが発生した場合にデータ損失から保護するには、 <a href="https://docs.microsoft.com/azure/key-vault/key-vault-ovw-soft-delete" target="_blank">論理的な削除</a> が有効になっている (必須の) キーコンテナーを使用します。</li><ul><li>
+  論理削除のリソースは、復旧や消去が行われない限り、90 日間保持されます。<br>
+   </li><li>復旧と消去アクションには、キー コンテナーのアクセス ポリシーに関連付けられた独自のアクセス許可があります。</li></ul>
+   <li>Azure Active Directory (Azure AD) id を使用して、SQL サーバーに key vault へのアクセス権を付与します。 ポータル UI を使用すると、Azure AD id が自動的に作成され、key vault のアクセス許可がサーバーに付与されます。 PowerShell を使用して、これらの手順を個別に正しい順序で完了し、確認する必要があります。 PowerShell を使用するときの詳細な手順については、<a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql-configure" target="_blank">BYOK 対応 TDE の構成</a>に関する記事をご覧ください。 注: Azure AD id が誤って削除された場合、または key vault のアクセスポリシーを使用してサーバーのアクセス許可が取り消された場合、サーバーはキーコンテナーへのアクセスを失います。</li>
+   <li>すべての暗号化キーの Azure Key Vault で監査とレポートを有効にする: Key Vault は、他のセキュリティ情報およびイベント管理 (SIEM) ツールに簡単に挿入できるログを提供します。 Operations Management Suite (OMS) <a href="https://docs.microsoft.com/azure/log-analytics/log-analytics-azure-key-vault" target="_blank">Log Analytics</a> は、既に統合されているサービスの一例です。</li>
+   <li>暗号化されたデータベースの高可用性を確保するには、異なるリージョンに2つの Azure Key vault を持つ1つの論理サーバーを構成します。</li>
+   <li>1つの SQL データベースの高可用性を実現するには、次の2つのキーコンテナーを構成することを検討してください。</li></ul><p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3d3eede2-dbe4-4512-87fa-9c665fefd15c.png"><img width="527" height="401" title="絵" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e7a26d6-a358-41c5-952d-5469da6c9436.png" border="0"></a></p><ul>
+   <li>Backup-AzureKeyVaultKey コマンドレットを使用して暗号化された形式でキーを取得し、Restore-AzureKeyVaultKey コマンドレットを使用して、2番目のリージョンでキーコンテナーを指定します。</li>
+   <li>Geo レプリケートされたデータベースの場合、次の AKV 構成が必要です。
+  </li></ul><p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7287e61e-3689-492f-9b3f-64ff6e4925c4.png"><img width="826" height="454" title="geo_DR_new_config" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="geo_DR_new_config" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/257d2815-2bed-4fd8-9d42-14b67cea1264.png" border="0"></a></p><ul>
+    <ul><li>リージョン内にキー コンテナーがあるプライマリ データベースが 1 つと、リージョン内にキー コンテナーがあるセカンダリ データベースが 1 つ。</li></ul>
+    <ul><li>1つのセカンダリが必要です。最大4つのセカンダリがサポートされています。</li></ul>
+    <ul><li>セカンダリのセカンダリ (チェーン) はサポートされていません。</li></ul>
+   </ul><p>
+   </p><ul>
+   <li>注: サーバー id を割り当てるときは、最初にセカンダリの id を割り当て、プライマリを2番目にします。</li></ul><h2>Azure Key Vault に格納されている TDE プロテクター (非対称キー) を構成するためのガイドラインを次に示します。</h2>
+
+  <ul>
+   <li>ローカル HSM デバイス上で暗号化キーをローカルに作成します。 Azure Key Vault に格納できるように、非対称の RSA 2048 キーであることを確認します。 現在 Azure SQL Database では、大きなキーサイズはサポートされていません。</li>
+   <li>キー エスクロー システムにキーをエスクローします。 </li>
+   <li>暗号化キー ファイル (.pfx、.byok、または .backup) を Azure Key Vault にインポートします。
+   <ul>
+    <li>(注: テストの目的では、Azure Key Vault でキーを作成することはできますが、秘密キーが key Vault から出ることはないため、このキーをエスクローすることはできません。 実稼働データの暗号化に使用されるキーは常にエスクローである必要があります。キーが失われた (キーコンテナーの誤った削除、有効期限など) と、データが永久に失われます。</li>
+   </ul>
+   </li>
+   <li>有効期限のないキーを使用し、既に使用されているキーに有効期限を設定しない: キーの有効期限が切れると、暗号化されたデータベースは TDE プロテクターにアクセスできなくなり、24時間以内に削除されます。</li>
+   <li>キーが有効であり、"取得"、"キーのラップ"、"キーのラップ解除" の各操作を実行するためのアクセス許可があることを確認します。</li>
+   <li>Azure Key Vault のキーを初めて使用する前に、Azure Key Vault キーのバックアップを作成します。 Backup-AzureKeyVaultKey コマンドの詳細については、<a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.keyvault/backup-azurekeyvaultkey?view=azurermps-5.1.1" target="_blank">こちら</a>をご覧ください。</li>
+   <li>キーに変更を加えるたびに (ACL の追加、タグの追加、キー属性の追加など) 新しいバックアップを作成します。</li>
+   <li>キーをローテーションするときに、キーコンテナー内の以前のバージョンのキーを保持するため、データベースは引き続き元のキーで暗号化されている仮想ログファイルにアクセスできます。 また、データベースに対して TDE プロテクターが変更されても、最新の TDE プロテクターを使用するようにデータベースの古いバックアップが更新されることはありません。 キーの交換を実行するには、<a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql-key-rotation" target="_blank">PowerShell を使用した Transparent Data Encryption 保護機能の交換</a>に関する記事の手順に従います。</li>
+   <li>サービス管理キーに戻したら、以前に使用したすべてのキーを Azure Key Vault に保持します。 これにより、Azure Key Vault に格納されている TDE プロテクターを使用してデータベースのバックアップを復元できます。 サービスで管理されているキーを使用しているときに、必要なすべてのバックアップが作成されるまでは、TDE プロテクターを Azure Key Vault に保持する必要があります。 </li>
+   <li><a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.keyvault/backup-azurekeyvaultkey?view=azurermps-5.1.1" target="_blank">Backup-AzureKeyVaultKey</a> を使用して、これらのキーの回復可能なバックアップ コピーを作成します。</li>
+   <li>セキュリティ インシデントの発生時に、データ損失のリスクを伴わずに、侵害された可能性のあるキーを削除するには、<a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql-remove-tde-protector" target="_blank">侵害された可能性のあるキーの削除</a>に関する記事の手順に従ってください。</li>
+  </ul>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>上記のチェックリストでは、Azure Key Vault で顧客が管理するキーを使用して Azure SQL Database tde を設定する前に、慎重に検討して計画しておく必要がある要件を示します。 更新されたバージョンの概要では、 <a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql" target="_blank">Azure Key Vault セットアップの推奨事項と</a> Azure Key Vault に格納されている tde プロテクターを管理するための推奨事項を共有しています。</p>

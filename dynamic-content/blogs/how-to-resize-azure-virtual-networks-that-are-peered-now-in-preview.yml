@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7fc1874ffc85d6155284eace34dc35b72a56781c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895934"
+Slug: how-to-resize-azure-virtual-networks-that-are-peered-now-in-preview
+Title: ピアリングされた Azure 仮想ネットワークのサイズを変更する方法 - 現在プレビュー中
+Summary: Azure の仮想ネットワークには、仮想ネットワークにピアリングがない場合にのみ、アドレス空間の変更が許可されているという長い制約がありました。 嬉しく思いはこの制限が解除されることを発表し、お客様はダウンタイムなしで仮想ネットワークのサイズを自由に変更できます。
+Content: >-
+  <p>お客様は、Azure でアプリケーションを採用してスケーリングするため、クラウド内のネットワークを絶えず拡大したり、サイズを変更したりする必要があります。 Azure の<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview" target="_blank">仮想ネットワーク</a>には、仮想ネットワークに<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview" target="_blank">ピアリング</a>がない場合にのみ、アドレス空間の変更が許可される長期間の制約がありました。 現在、この制限が解除されていることが発表されており、お客様はダウンタイムなしで仮想ネットワークのサイズを自由に変更できます。 この機能を使用すると、仮想ネットワーク上のアドレスプレフィックスを追加または削除する前に、仮想ネットワーク上の既存のピアリングを削除する必要はありません。</p>
+
+
+  <h2>ピアリングされる仮想ネットワークのアドレス空間の追加または削除に関する詳細</h2>
+
+
+  <p>同じリージョン内またはリージョン間で別の仮想ネットワークとピアリングされた仮想ネットワークのアドレス空間を更新 (追加または削除) できます。 仮想ネットワークのアドレス空間の更新は、仮想ネットワークがサブスクリプション間で別の仮想ネットワークとピアリングされている場合にも機能します。 注: AD テナント間でピアリングを持つ仮想ネットワークは現在サポートされていません。 この機能では、仮想ネットワークの virtualNetworkPeerings オブジェクトに2つの新しいプロパティが導入されています。この機能では、仮想ネットワークの virtualNetworkPeerings オブジェクトに2つの新しいプロパティが導入されています。</p>
+
+
+  <ul>
+      <li><strong>remoteVirtualNetworkAddressSpace:</strong> ピアリングされた仮想ネットワークの最新のアドレス空間が含まれます。 このアドレスは、 <strong>remoteAddressSpace</strong> プロパティに含まれているピアリングされたアドレスと同じか、または同じでない可能性があります。</li>
+      <li><strong>peeringSyncLevel:</strong><strong>RemoteVirtualNetworkAddressSpace</strong>プロパティに含まれているアドレスが、実際に仮想ネットワークとピアリングされているアドレスと同じであるかどうかを示します。</li>
+  </ul>
+
+
+  <p>仮想ネットワークのアドレス空間 (1) が更新された場合、この仮想ネットワーク (1) に対するリモート仮想ネットワーク上の対応するピアリングリンクは、新しいアドレス空間と同期する必要があります。 2つの仮想ネットワーク間のピアリングリンクの状態は、ピアリングリンクのどの側が新しいアドレス空間と同期する必要があるかを示します。</p>
+
+
+  <ul>
+      <li><strong>LocalNotInSync:</strong> 1つ目の仮想ネットワークのアドレス空間 (1) を更新すると、2番目の仮想ネットワーク (2) から1つ目の仮想ネットワーク (1) へのリンクのピアリングの状態は LocalNotInSync になります。 この段階では、ピアリングは仮想ネットワークの古いアドレス空間でアクティブになっていますが、新しいアドレス空間はリモート仮想ネットワークとピアリングされていません。</li>
+      <li><strong>RemoteNotInSync:</strong> 最初の仮想ネットワーク (1) のアドレス空間を更新すると、1つ目の仮想ネットワークから2番目の仮想ネットワーク (2) へのリンクのピアリングの状態は RemoteNotInSync になります。 仮想ネットワーク (2) から仮想ネットワーク (1) へのピアリングリンクに対する同期操作では、ピアリング間でアドレス空間が同期されます。</li>
+  </ul>
+
+
+  <p><strong>注:</strong> ピアリングから ASM への仮想ネットワークを持つ ARM 内の仮想ネットワークのアドレス変更が有効になっています。ただし、ASM 仮想ネットワークは、ARM 仮想ネットワークの新しいアドレス空間では更新されません。</p>
+
+
+  <p>この機能は現在プレビュー段階であり、すべての運用環境の Azure リージョンでサポートされています。</p>
+
+
+  <h2>今すぐ始めましょう</h2>
+
+
+  <p>ピアリングされた仮想ネットワークのアドレス空間の更新は、2つの簡単な手順で行うことができます。 REST Api だけでなく、ポータルと PowerShell クライアントでもサポートされています。</p>
+
+
+  <ol>
+      <li>他の仮想ネットワークとのアクティブなピアリング接続がある仮想ネットワークに新しいアドレスを追加します。
+      <ul>
+          <li>PowerShell でこれを行うには、 <a href="https://docs.microsoft.com/en-us/powershell/module/az.network/set-azvirtualnetwork" target="_blank">AzVirtualNetwork のドキュメント</a>を参照してください。</li>
+          <li>この操作を行うには、Azure portal を参照してください。 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/manage-virtual-network#add-or-remove-an-address-range" target="_blank">アドレス範囲のドキュメント</a>を参照してください。</li>
+      </ul>
+      </li>
+      <li>ピアリングされた各リモート仮想ネットワークから、アドレスが変更されたこの仮想ネットワーク (1) への同期 &rdquo; を &ldquo; 実行します。 この操作は、新しく追加されたアドレスプレフィックスを知るために、リモートピアリングされた VNet ごとに必要です。</li>
+  </ol>
+
+
+  <p>この操作を Azure portal で行うには、アドレスの更新が行われた仮想ネットワークの [ピアリング] タブに移動します。 [ピアリングの状態 &ldquo; ] が [<strong>リモート同期が必要</strong> &rdquo; ] であるすべてのピアリングを選択し、[同期] ボタンをクリックします。 これにより、すべてのリモートピアリングされた仮想ネットワークが、この仮想ネットワークの更新されたアドレス空間 (1) を学習できるようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1cf64fcd-ce56-4fed-b683-d42b602054ed.png"><img alt="Hub 1 peerings tab in the Azure Portal showing virtual network" border="0" height="587" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4f658ef-bec4-40cb-a02c-2f3d9242fd86.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ハブ1ピアリングタブ" width="1670"></a></p>
+
+
+  <p>また、リモート仮想ネットワークの [ピアリング] タブにアクセスして、ピアリングされた各仮想ネットワークのピアリングリンクで個別に同期を実行することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0637aca4-5486-4cc1-b962-5b51d2b0a755.png"><img alt="Spoke 1 peerings tab in the Azure Portal showing virtual network" border="0" height="559" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8f6c0f71-a0f0-4389-b7f5-fcaf96dd2c9a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スポーク1ピアリングタブ" width="1668"></a></p>
+
+
+  <p>PowerShell でこれを行うには、リモート仮想ネットワークからアドレスが変更された仮想ネットワーク (1) への各ピアリングリンクで、コマンドレット: <a href="https://docs.microsoft.com/en-us/powershell/module/az.network/sync-azvirtualnetworkpeering?view=azps-6.2.0" target="_blank">AzVirtualNetworkPeering</a> を使用します。</p>
+
+
+  <p>この機能はプレビュー段階ですが、この機能を使用するには、次の機能フラグを使用してサブスクリプションを登録する必要があります: <strong>Microsoft. Network/AllowUpdateAddressSpaceInPeeredVnets</strong> 。 この機能が一般公開されている場合、このフラグは非推奨となります。</p>
+
+
+  <p>別の仮想ネットワークとピアリングされている Azure Virtual Network に新しいアドレスプレフィックスを追加する方法については、このビデオをご覧ください。 Azure portal を<a href="https://youtu.be/NdkOxgzv6OA" target="_blank">ご</a>利用ください。</p>
+
+
+  <h2>次のよう &rsquo; にします。</h2>
+
+
+  <p>今後数週間にわたってユーザーエクスペリエンスが徐々に改善されるようになりました。 これらには、アドレス空間の変更が行われたときに複数のピアを同期 &rdquo; するため &ldquo; の Azure portal のシングルクリック (一括) オプションに加え、警告やエラーメッセージが改善されています。 さらに、Azure Active Directory テナント間でピアリングされた仮想ネットワークのサポートも徐々に展開されます。</p>
+
+
+  <p>常に、継続的な改善を行っていますので、ぜひ &rsquo; フィードバックをお寄せください。</p>

@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ff07cf33db9884ec0ecd551cf70090a5801fffb7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891146"
+Slug: azure-data-factory-offer-sap-hana-and-business-warehouse-data-integration
+Title: Azure Data Factory による SAP HANA と Business Warehouse データの統合
+Summary: 現時点では、高度な分析とレポートのために、SAP HANA と SAP Business Warehouse (BW) からさまざまな Azure データストアへのデータの読み込みを新たに有効に Azure Data Factory ことを発表しています。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/data-factory/">Azure Data Factory</a> は、データの移動と変換を調整および自動化するクラウドベースのデータ統合サービスです。このサービスでは、オンプレミスとクラウド内の <a href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-data-movement-activities/#supported-data-stores-and-formats">25 以上のデータストア</a> から簡単にデータをコピーし、効率的に実行することができます。 今日は、azure Blob、Azure Data Lake、azure SQL DW など<b>の高度な分析とレポートを行うため</b>に、 <b>SAP HANA と SAP Business Warehouse (BW) から</b><b>さまざまな Azure データストアへ</b>のデータの読み込みを新たに有効に Azure Data Factory ことを発表しています。</p>
+
+
+  <h2>新機能 &rsquo;</h2>
+
+
+  <p>SAP は、世界で最も広く使用されているエンタープライズソフトウェアの1つです。 Microsoft は、お客様が既存の SAP システムを Azure と統合してビジネスの洞察のブロックを解除できるようにすることが重要であること &rsquo; をご紹介します。 SAP データ統合サポートは、SAP HANA と SAP BW で開始 Azure Data Factory ます。これは、企業のお客様が使用する SAP スタックで最も人気のあるものです。</p>
+
+
+  <p>このリリースでは、既存の SAP BW SAP HANA から Azure にデータを簡単に取り込むことができます。そのため、Azure &rsquo; s ファーストクラスの情報管理サービス、ビッグデータストア、高度な分析ツール、インテリジェンスツールキットを利用してインテリジェントなアクションにデータを変換することで、独自のインテリジェントソリューションを構築できます。 具体的には次のとおりです。</p>
+
+
+  <ul>
+   <li><b>SAP HANA コネクタ</b>は、SQL クエリを使用して、HANA 情報モデル (分析ビューや計算ビューなど) および行テーブルと列テーブルからデータをコピーすることをサポートしています。 接続を確立するには、最新の Data Management Gateway (バージョン 2.8) と SAP HANA ODBC ドライバーをインストールする必要があります。 詳細については <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sap-hana-connector#supported-versions-and-installation">SAP HANA サポートされているバージョンとインストール</a> に関する説明を参照してください。</li>
+   <li><b>SAP BW コネクタ</b>は、MDX クエリを使用して、SAP Business Warehouse バージョン 6.x Infocube および querycubes (BEx クエリを含む) からのデータのコピーをサポートしています。 接続を確立するには、最新の Data Management Gateway (バージョン 2.8) と SAP NetWeaver ライブラリをインストールする必要があります。 詳細については <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sap-business-warehouse-connector#supported-versions-and-installation">SAP BW サポートされているバージョンとインストール</a> に関する説明を参照してください。</li>
+  </ul>
+
+
+  <ul>
+
+  </ul>
+
+
+  <h2>次の内容 &rsquo;</h2>
+
+
+  <p>SAP HANA と SAP BW のサポート以外にも、お客様が使用している SAP stack の他のサービスと統合を検討してください。 <a href="https://feedback.azure.com/forums/270578-data-factory/suggestions/10203972-integrating-with-sap-using-azure-data-factory">Azure フィードバックサイト</a>で投票とコメントをお寄せください。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>新しい機能を試すには、Azure portal から Data Factory をプロビジョニングします (使用していない場合 &rsquo; )。その後、[データコピー] をクリックして、 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-copy-wizard">直感的なコピーウィザード</a> を起動し、構成を確認します。 ソースデータストアギャラリーでは、次のように SAP HANA と SAP BW を見つけることができます。</p>
+
+
+  <p><img alt="Data Factory source data store gallery" border="0" height="882" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f05eeaa-d6ac-4c5e-a594-40ed51a18c91.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Data Factory ソースデータストアギャラリー" width="1220"></p>
+
+
+  <h3><b>SAP HANA</b></h3>
+
+
+  <p>ギャラリーから SAP HANA を選択した後、Data Management Gateway 名、HANA サーバー、ユーザー名、およびパスワードの接続情報を指定します。&nbsp; <img alt="SAP HANA connection settings" border="0" height="605" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/252177e3-d210-41ef-8ff5-b2d9e5ed5c61.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="接続設定の SAP HANA" width="379"></p>
+
+
+  <p>次に、ナビゲーターとクエリエディターを含むページが表示されます。 メジャーとディメンションを参照して選択すると、基本 SQL クエリが選択内容に従ってクエリエディターに自動的に生成され、それを確認してカスタマイズすることができます。 [クエリの検証] をクリックして、プレビューデータとスキーマを確認します。&nbsp; <img alt="SAP HANA navigation and custom query" border="0" height="782" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf5db490-5f47-4231-8989-0f39735da0fc.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SAP HANA ナビゲーションとカスタムクエリ" width="1054"></p>
+
+
+  <h3><b>SAP BW</b></h3>
+
+
+  <p>ギャラリーから SAP BW を選択した後、Data Management Gateway 名、BW サーバー、システム番号、クライアント ID、ユーザー名、およびパスワードの接続情報を指定します。&nbsp; <img alt="SAP BW connection settings" border="0" height="591" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2b9dd361-13ab-4e63-af38-dcb104da8921.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="接続設定の SAP BW" width="330"></p>
+
+
+  <p>次に、ナビゲーターとクエリエディターを含むページが表示されます。 メジャーとディメンションを参照して選択すると、基になる MDX クエリが選択に応じてクエリエディターで自動的に生成され、そのクエリを確認して、カスタマイズすることができます。 [クエリの検証] をクリックして、プレビューデータとスキーマを確認します。</p>
+
+
+  <p><img alt="SAP BW navigation and custom query" border="0" height="782" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95fe8fd7-8485-40f9-849d-9c2cfecdc06c.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SAP BW ナビゲーションとカスタムクエリ" width="1057"></p>
+
+
+  <p>SAP ソースの設定が完了したら、ウィザードに従って続行し、変換先を構成します。</p>
+
+
+  <h2>リファレンス</h2>
+
+
+  <ul>
+   <li>詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-introduction">Azure Data Factory の概要</a>」と<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-data-movement-activities">「コピーアクティビティを使用</a>したデータの移動」を参照してください Azure Data Factory</li>
+   <li>コネクタの詳細については、それぞれ <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sap-hana-connector">SAP HANA サポート</a> と <a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-sap-business-warehouse-connector">SAP Business Warehouse のサポート</a> を参照してください。</li>
+  </ul>

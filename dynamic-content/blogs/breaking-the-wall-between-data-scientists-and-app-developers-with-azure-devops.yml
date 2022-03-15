@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9a1a26f92f98b0523922c82294e2679a1471c2b8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896870"
+Slug: breaking-the-wall-between-data-scientists-and-app-developers-with-azure-devops
+Title: データ サイエンティストとアプリ開発者の間の壁をAzure DevOps
+Summary: データ サイエンティストとして、お気に入りの Python ノートブックまたは統合された開発環境 (IDE) (vsCode) で機械学習モデルの開発とトレーニングを行Visual Studio Codeしています。
+Content: >-
+  <p>データ サイエンティストとして、お気に入りの Python ノートブックまたは統合された開発環境 (IDE) (vsCode) で機械学習モデルの開発とトレーニングを行Visual Studio Codeしています。 次に、結果のモデルを、より大きなアプリケーションに統合してデプロイするアプリ開発者に渡します。 多くの場合、バグやパフォーマンスの問題は、アプリケーションが既にデプロイされるまで検出されません。 根本原因を特定して修正するために、アプリ開発者とデータ サイエンティストの間で生じる摩擦は、遅く、不満を感じ、コストのかかるプロセスになる可能性があります。</p>
+
+
+  <p>AI はビジネスに不可欠なアプリケーションに組み込むので、AI を利用したアプリケーションをより効率的に構築してデプロイするために、アプリ開発者の同僚と密接に共同作業する必要がますます明らかになります。 データ サイエンティストは、データ サイエンスのライフサイクル <strong></strong>、つまりデータの取り込みと準備、モデルの開発、デプロイに重点を置いて取り上ろしています。 また、モデルの再トレーニングと再デプロイを定期的に行い、新しくラベル付けされたデータ、データドリフト、ユーザー フィードバック、またはモデル入力の変更に合わせて調整することにも関心があります。</p>
+
+
+  <p>アプリ開発者は、モデル<strong></strong>&ndash;が含む大規模なビジネス アプリケーションの構築、保守、継続的な更新に重点を置きます。 どちらの当事者も、エンドツーエンドのパフォーマンス、品質、信頼性の目標を達成するために、ビジネス アプリケーションとモデルをうまく機能させる動機を持っています。</p>
+
+
+  <p>必要なのは、データ サイエンスとアプリケーションのライフサイクルをより効果的にブリッジする方法です。 ここで、Azure Machine LearningとAzure DevOpsが表示されます。 これらのプラットフォーム機能を組み合わせて使用すると、データ サイエンティストとアプリ開発者は、既に使い慣れたツールや言語を引き続き使用しながら、より効率的に共同作業を行えます。</p>
+
+
+  <p>データ インジェスト&ldquo;&rdquo;、準備、機械学習の実験など、モデルの (再)トレーニングのためのデータ サイエンス ライフサイクルまたは内部ループは、Azure Machine Learning パイプラインを使用して自動化できます。 同様に、&ldquo;&rdquo;モデルと大規模なビジネス アプリケーションの単体テストや統合テストを含む、アプリケーションのライフサイクルまたは外部ループも、Azure DevOps パイプラインを使用して自動化できます。 つまり、データ サイエンス プロセスは、&rsquo;エンタープライズ アプリケーションの継続的インテグレーション (CI) および継続的デリバリー (CD) パイプラインの一部になります。 アプリのデプロイに予期しない遅延がある場合や、アプリが実稼働環境にデプロイされた後にバグが検出された場合に指し示す操作は不要です。&nbsp;</p>
+
+
+  <h2>Azure DevOps: データ サイエンスとアプリ開発サイクルの統合</h2>
+
+
+  <p>次&rsquo;の図を見て、データ サイエンス サイクルとアプリ開発サイクルの間のこの統合がどのように実現されるのかについて説明します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f886577e-cf7f-46d9-8c51-6ce446d8b086.png"><img alt="Diagram displaying the integration between the data science cycle and the app development cycle." border="0" height="601" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a88fcf0a-65d5-41d7-939a-3884495701d1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure DevOps CI/CD パイプラインの図" width="960"></a></p>
+
+
+  <p>最初の前提は、企業のデータ サイエンティストとアプリ開発者の両方が Git をコード リポジトリとして使用することです。 データ サイエンティストとして、トレーニング コードに加えたすべての変更により、Azure DevOps CI/CD パイプラインがトリガーされ、単体テスト、トレーニング、統合テスト、コード配置プッシュなど、複数のステップが調整および実行されます。 同様に、アプリ開発者またはアプリケーションまたはインフェレンシング コードに対して行ったすべての変更によって、統合テストがトリガーされ、その後にコードデプロイ プッシュがトリガーされます。 また、データ レイクに特定のトリガーを設定して、モデルの再トレーニングとコード配置の両方の手順を実行できます。 モデルもモデル ストアに登録されます。これにより、デプロイされたモデルを生成した正確な実験実行を参照できます。</p>
+
+
+  <p>このアプローチを使用すると、データ サイエンティストはモデルトレーニングを完全に制御できます。 お気に入りの Python 環境でモデルの作成とトレーニングを続けできます。 新しい ETL/ELT 実行を実行して、モデルを再トレーニングするためにデータを更新する場合を決定します。 同様に、データ ラングリング、特徴抽出、実験の各手順 (コンピューティング先、フレームワーク、アルゴリズムなど) の詳細を含む Azure Machine Learning パイプライン定義を引き続き所有します。 同時に、アプリ開発者は、コミットした変更が、アプリケーション全体に必要なユニット、統合テスト、および人間の承認の手順を通過すると知って、快適にスリープ状態にできます。</p>
+
+
+  <p>間もなくリリースされる Data Prep Services (上の図の左下のボックス) により、データ ドリフトのしきい値を設定し、モデルの再トレーニングを自動化することもできます。&nbsp;</p>
+
+
+  <p>その後のブログ記事では、CI/CD に関連する次のようなトピックについて詳しく説明します。</p>
+
+
+  <ol>
+   <li>コンピューティング コストを管理するためのベスト プラクティスと、Azure DevOpsのMachine Learning</li>
+   <li>データ準備サービスを使用したAzure Machine Learningの管理</li>
+   <li>デプロイされたモデルの制御されたロールアウトと A/B テストのベスト プラクティス</li>
+  </ol>
+
+
+  <h2>詳細情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/index?view=azure-devops" target="_blank">Azure CI/CD パイプラインのドキュメント</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-create-your-first-pipeline" target="_blank">Azure Machine Learning Pipeline のドキュメント</a></li>
+   <li>サービスの詳細については<a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">、Azure Machine Learningしてください</a>。</li>
+   <li>概要サービス<a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/" target="_blank">の試用版Azure Machine Learningします</a>。</li>
+  </ul>

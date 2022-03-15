@@ -1,0 +1,90 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 86485772597595a98a17d91cb2353a717dc9a3dc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891030"
+Slug: a-new-planned-maintenance-experience-for-your-virtual-machines
+Title: 仮想マシンの新しい計画メンテナンス エクスペリエンス
+Summary: Azure での新しい計画メンテナンス エクスペリエンスの提供を発表し、より多くの制御、より良いコミュニケーション、可視性を提供します。&nbsp; 最も計画的な一方...
+Content: >-
+  <p>Azure&rsquo; での新しい計画メンテナンス エクスペリエンスの提供<a href="https://azure.microsoft.com/en-us/resources/videos/azure-friday-virtual-machine-planned-maintenance-rafalovich/"></a>を発表し、より多くの制御、より良いコミュニケーション、可視性を提供します。 ほとんどの計画メンテナンスはメモリ保持メンテナンスを使用して仮想マシンに影響を与えることなく実行されます。一部のメンテナンスでは、信頼性、パフォーマンス、セキュリティを向上させるために再起動が必要です。</p>
+
+
+  <h2>新機能&rsquo;</h2>
+
+
+  <ul>
+   <li>
+   <p><strong>より詳細な制御:</strong> これで、事前に伝達された時間内にスケジュールに基して VM の再デプロイを事前に開始し、最も便利なときに計画メンテナンスを実行するオプションが用意されました。</p>
+   </li>
+  </ul>
+
+
+  <ul>
+   <li>
+   <p><strong>より良いコミュニケーション:</strong> ログ ベースのアラートを作成できるAzure Monitorエクスペリエンスに計画 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-activity-log-alerts">メンテナンスを追加しました</a>。 <a href="https://azure.microsoft.com/en-us/resources/videos/azure-monitor-notifications/">Azure Monitor</a> 通知を使用すると、複数の電子メール受信者をメンテナンス アラートに追加し、SMS メッセージを受信し、サード パーティのソフトウェアと統合する Webhook を構成して、今後のメンテナンスについて警告することができます。</p>
+   </li>
+   <li>
+   <p><strong>可視性の向上:</strong> 最近、Azure portal Azure Service Healthを導入しました。このポータルでは、VM レベルで計画メンテナンス情報を提供します。 さらに、VM のScheduled Eventsを<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/scheduled-events"></a>介して、今後の計画メンテナンスを含む情報を提供するREST APIを導入しました。 この機能は、メンテナンスの準備の一環として使用できます。 最後に、PowerShell と CLI を使用して、今後のメンテナンス情報を表示できます。</p>
+   </li>
+  </ul>
+
+
+  <p><img alt="dashboard" border="0" height="559" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4c5217d-9a3f-40f6-99fa-28160a9c4609.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="ダッシュボード" width="1007"></p>
+
+
+  <h2>プロアクティブな再デプロイを検討する必要がある理由</h2>
+
+
+  <p>通信期間中、お客様は仮想マシンのメンテナンスを開始できます。 このウィンドウを利用しない場合は、スケジュールされたメンテナンス期間中に仮想マシンが自動的に再起動されます (表示されます)。 メンテナンスを開始すると、VM が既に更新されたホストに再デプロイされます。 その間、ローカル (一時) ドライブのコンテンツは失われます。</p>
+
+
+  <p>クラウド サービス、可用性セット、または仮想マシン スケール セットで実行されているネイティブ クラウド アプリケーションは、特定の時点で 1 つの更新ドメインだけが影響を受け、計画メンテナンスに対する回復性があります。</p>
+
+
+  <p>次の場合は、プロアクティブ再デプロイを使用できます。</p>
+
+
+  <ul>
+   <li>アプリケーションは 1 つの仮想マシンで実行され、時間外にメンテナンスを適用する必要があります。</li>
+   <li>SLA の一部としてメンテナンスの時間を調整する必要があります。</li>
+   <li>可用性セット内でも、各 VM の再起動の間隔を 30 分以上にする必要がある場合</li>
+   <li>メンテナンスを迅速に完了するために、アプリケーション全体 (複数の層、複数の更新ドメイン) を削除する必要があります。</li>
+  </ul>
+
+
+  <p><img alt="clip_image001" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf55d084-5f29-47e0-9ed1-974b07914f1f.png" style="background-image: none; float: none; display: inline; border-image: none" title="clip_image001" width="345"></p>
+
+
+  <h2>次に何をすべきか</h2>
+
+
+  <p>Azure での次の計画メンテナンスの前:</p>
+
+
+  <ul>
+   <li>
+   <p>仮想マシンと Linux で VM を事前に再デプロイする<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/maintenance-notifications">方法Windows</a>理解<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/Linux/maintenance-notifications">します</a>。</p>
+   </li>
+   <li>
+   <p>アラートと通知<a href="https://azure.microsoft.com/en-us/resources/videos/azure-monitor-notifications/">を Azure Monitor</a><a href="https://azure.microsoft.com/en-us/services/monitor/">。</a></p>
+   </li>
+   <li>
+   <p>仮想マシンScheduled Events Linux VM <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/scheduled-events">のWindows</a><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/scheduled-events">を設定</a>します。</p>
+   </li>
+  </ul>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li>
+   <p>計画 <a href="https://azure.microsoft.com/en-us/resources/videos/azure-friday-virtual-machine-planned-maintenance-rafalovich/">メンテナンスに関する Azure Friday</a> <a href="https://azure.microsoft.com/en-us/resources/videos/azure-friday-virtual-machine-planned-maintenance-rafalovich/">をご覧ください</a>。</p>
+   </li>
+   <li>
+   <p>計画 <a href="https://channel9.msdn.com/Shows/Tuesdays-With-Corey/Tuesdays-with-Corey-go-TEST-Scheduled-Maintenance">メンテナンスの火曜日と Corey を見る</a>。</p>
+   </li>
+  </ul>

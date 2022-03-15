@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e6d274f12d42a2606bec45904bd7c109e2fc5497
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895975"
+Slug: extract-management-insights-from-sql-data-warehouse-with-sql-operations-studio
+Title: Operations Studio を使用してSQL Data WarehouseからSQL分析情報を抽出する
+Summary: SQL Operations Studio を Azure SQL Data Warehouse (SQL DW) と利用して、データ ウェアハウスに対する分析情報を示す豊富なカスタマイズ可能なダッシュボード ウィジェットを作成できます。
+Content: >-
+  <p><a href="https://docs.microsoft.com/sql/sql-operations-studio/what-is" target="_blank">SQL Operations Studio</a> を Azure SQL Data Warehouse (SQL DW) と利用して、データ ウェアハウスに洞察を提供する豊富なカスタマイズ可能なダッシュボード ウィジェットを作成できます。 これにより、データウェアハウスの管理とチューニングに関する主要なシナリオに対応できるようになり、データを最適化して一貫したパフォーマンスを提供できるようになります。 以前は、開発者は複雑な DMV クエリを手動で継続的に実行して、データ ウェアハウスから分析情報を抽出する必要があります。 これにより、DW を使用した開発とチューニングのベスト プラクティスに従った場合に、SQL<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-best-practices" target="_blank">されます</a>。 SQL Operations Studio を使用すると、カスタマイズされた分析情報ウィジェットをクエリ ツール内に直接埋め込み、データ ウェアハウスに関する問題をシームレスに監視およびトラブルシューティングできます。</p>
+
+
+  <p>次のウィジェットは、一般的なデータ ウェアハウスの分析情報のために、SQL <a href="https://github.com/Microsoft/sql-data-warehouse-samples/tree/master/samples/sqlops/MonitoringScripts" target="_blank"></a> Operations Studio 内で提供されている T-SQL SQL 監視スクリプトを使用して生成できます。</p>
+
+
+  <h2>[Data Skew](データ スキュー)</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute#how-to-tell-if-your-distribution-column-is-a-good-choice" target="_blank">ディストリビューション間のデータ スキューを検出して</a> 、クエリのパフォーマンスの問題を特定してトラブルシューティングします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74bdcb85-0f1b-4f41-881f-df52fefc9ab8.png"><img alt="Data_Skew" border="0" height="561" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b21c0239-7e07-4956-a234-3a28cc071ed5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Data_Skew" width="1555"></a></p>
+
+
+  <h2>列ストアの正常性と統計</h2>
+
+
+  <p>ビューを活用して、<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-memory-optimizations-for-columnstore-compression" target="_blank">列ストア行グループの品質</a>を最大化<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-statistics" target="_blank"></a>し、最適なクエリ パフォーマンスのためにテーブルの統計が最新の情報に更新されるのを確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45d6cafc-2920-4628-896d-edded0f0dee4.png"><img alt="Columnstore Health and Statistics" border="0" height="949" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf654092-fde0-4e0c-bba0-b0bdfb42c6d5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="列ストアの正常性と統計" width="1150"></a></p>
+
+
+  <h2>ユーザー アクティビティ</h2>
+
+
+  <p>アクティブなセッション クエリ、キューに入ったクエリ、読み込み、バックアップを使用して、ワークロード パターンを特定して理解します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d3964eb1-d451-44c9-a6b1-37134633df9a.png"><img alt="User Activity" border="0" height="675" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/25a0bb51-ff49-4566-8247-15055d123393.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ユーザー アクティビティ" width="1559"></a></p>
+
+
+  <h2>リソースのボトルネック</h2>
+
+
+  <p>メモリや TempDB などの適切なリソースが割り当てられている必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38266b48-fbdd-4a84-8e9c-6af2bab54e20.png"><img alt="Resource Bottlenecks" border="0" height="857" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0173f744-bf07-40c5-add6-cf0dc6a52482.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リソースのボトルネック" width="1578"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>T-SQL <a href="https://docs.microsoft.com/en-us/sql/sql-operations-studio/tutorial-build-custom-insight-sql-server" target="_blank">スクリプト</a>を使用して DW 用に記述できる、数え切れないほどのカスタム分析情報ウィジェットSQLがあります。 スクリプトをダウンロードしてサンプル <a href="https://github.com/Microsoft/sql-data-warehouse-samples/tree/master/samples/sqlops/MonitoringScripts" target="_blank">Github SQL Data Warehouse投稿</a>し、最新バージョンの <a href="https://docs.microsoft.com/en-us/sql/sql-operations-studio/download" target="_blank">SQL Operations Studio</a> をインストールして作業を開始します。</p>

@@ -1,0 +1,130 @@
+### YamlMime:Yaml
+ms.openlocfilehash: adeb72b04a71c1b0a8bdeea9d879be2fb594ca77
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896093"
+Slug: build-and-certify-your-powerapps-flow-logic-apps-and-connector
+Title: PowerApps、Flow & Logic Apps Connector をビルドして認定する
+Summary: アプリケーションまたはサービスの所有者として、アプリが Microsoft Flow、Logic Apps、PowerApps を使用できるコネクタを開発できると発表いたします。 これにより、顧客はビジネス プロセスを簡単に自動化し、独自のコードなしビジネス アプリを作成できます。
+Content: >-
+  <p>アプリケーションまたはサービスの所有者として、アプリが Microsoft Flow、Logic Apps、PowerApps を使用できるコネクタを開発できると発表いたします。 これにより、顧客はビジネス プロセスを簡単に自動化し、独自のコードなしビジネス アプリを作成できます。</p>
+
+
+  <p><strong>API コネクタ</strong>は、基になるサービスが Microsoft Flow、<a href="https://powerapps.microsoft.com/">PowerApps</a>、Logic Apps と接続できる、REST API を中心とする Open API (Swagger<a href="https://flow.microsoft.com/"></a>) ベースのラッパー<a href="https://azure.microsoft.com/services/logic-apps/">です</a>。 それは、ユーザーが自分のアカウントを接続し、作成済みの<strong>トリガー</strong>と<strong>アクション</strong>のセットを活用して、アプリとワークフローを作成する方法を提供します。</p>
+
+
+  <p>拡大を続けるコネクタ ファミリの一部 (現在 <a href="https://flow.microsoft.com/en-us/services/">は 125</a> 以上) を使用することで、ユーザーに幅広いビジネスおよび生産性のシナリオを実現できます。 この投稿では、コネクタで実行できる機能、コネクタを構築する理由、および開始する方法の概要について説明します。</p>
+
+
+  <h2>コネクタで実行できる操作</h2>
+
+
+  <p>1 つのコネクタを開発することで、3 つの異なる Microsoft &ndash; 製品 Flow、PowerApps、Logic Apps。</p>
+
+
+  <h3>フロー</h3>
+
+
+  <h3><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/flow-overview.png" style="font-size: 13px; height: 190px; width: 348px; float: none; margin-left: auto; display: block; margin-right: auto"></h3>
+
+
+  <p>顧客Flowを使用して、タスクを自動化し、他のソーシャル アプリケーションやビジネス アプリケーションと組み合わせてワークフローを構築できます。 考えられるワークフローは、次に示すさまざまな可能性にまたがっています。</p>
+
+
+  <ul>
+   <li>電子メール、テキスト、プッシュ通知を送信する</li>
+   <li>データ ソース間でファイルをコピーする</li>
+   <li>ビジネス データを自動的に収集および整理する</li>
+   <li>承認を効率化し、インスタント アラートを送信する</li>
+  </ul>
+
+
+  <h3>Logic Apps</h3>
+
+
+  <p style="font-size: 13px; font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-weight: normal; font-style: normal"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/logic-apps-overview.png" style="font-size: 13px; height: 196px; width: 352px; float: none; margin-left: auto; display: block; margin-right: auto"></p>
+
+
+  <p>Logic Appsは、ワークフロー エンジンの機能をFlow。 これにより、プロ開発者は Azure でワークフローを視覚的またはプログラムで構成できます。 Logic Apps のコネクタを使用すると、お客様は EAI、Business to Business (B2B) および Business to Consumer (B2C) のシナリオを自動化しながら、ソース管理、テスト、サポート、運用の利点を得る可能性があります。</p>
+
+
+  <h3>PowerApps</h3>
+
+
+  <p>PowerApps を使用すると、ユーザーはクリックとコードを使用して、クラウドに接続されたクロスプラットフォームのビジネス アプリを構築できます。<br>
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/power-apps-overview.png" style="font-size: 13px; height: 186px; width: 250px; float: none; margin-left: auto; display: block; margin-right: auto"></p>
+
+
+  <p>PowerApps を使用すると、顧客は複数のクラウド ソースに対してデータの読み取りおよび書き込みを行う、一行のビジネス シナリオ用のシンプルなアプリを構築できます。 このようなアプリの例としては、アンケート フォーム、タイムシート、経費レポートなどがあります。ユーザーは、組織内で使用するために、これらのアプリを安全に発行して Web またはモバイルに共有できます。</p>
+
+
+  <h2>コネクタを構築する必要な理由</h2>
+
+
+  <p>上で説明したように、コネクタを構築すると、PowerApps を使用したアプリの機能拡張と、アプリの統合とFlowとLogic Apps。 同じコネクタを使用することで、サービスと既存の API の使用が促進されます。その際、追加の開発は伴いません。</p>
+
+
+  <h3>使用の促進</h3>
+
+
+  <p>アプリを拡大するコネクタ ファミリと統合する定義済みのタスク固有のテンプレートを公開することで、サービスのリーチ、検出可能性、使用状況を向上します。</p>
+
+
+  <p style="font-size: 13px; font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-weight: normal; font-style: normal"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/templates.png" style="font-size: 13px; height: 296px; width: 600px; float: none; margin-left: auto; display: block; margin-right: auto"></p>
+
+
+  <p>コネクタFlow PowerApps ギャラリーを使用すると、ユーザー<a href="https://flow.microsoft.com/en-us/services/"></a>が簡単に<a href="https://flow.microsoft.com/en-us/templates/"></a>開始できます。 <a href="https://flow.microsoft.com/en-us/documentation/embed-flow-dev/">アプリ内</a>にFlowを埋め込むと、ユーザーはアプリケーション内から構築済みのテンプレートを利用できます。</p>
+
+
+  <h3>API の利用者を増やす</h3>
+
+
+  <p>パワー ユーザーが、コードを記述せずに、API を使ってソリューションを拡張できるようにします。 ビジネス ユーザーはクリックするだけで、次のようなさまざまなソリューションを作成して、組織または個人で共有できます。</p>
+
+
+  <p style="font-size: 13px; font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-weight: normal; font-style: normal"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/apps.png" style="font-size: 13px; height: 297px; width: 600px; float: none; margin-left: auto; display: block; margin-right: auto"></p>
+
+
+  <h2>ファースト ステップ</h2>
+
+
+  <p>API コネクタをビルドして送信するには、アプリが次の条件に適合している必要があります。</p>
+
+
+  <ul>
+   <li>ビジネス ユーザー シナリオは、Flow、PowerApps、Logic Apps</li>
+   <li>安定した REST API で公開されるサービスであること</li>
+  </ul>
+
+
+  <h3>カスタム コネクタを構築する</h3>
+
+
+  <p>API コネクタを構築する最初の手順は、Flow または PowerApps <strong></strong> 内で完全に機能するカスタム コネクタを構築します。 API コネクタは、PowerApps およびカスタム コネクタのすべてのユーザーに表示されるカスタム コネクタにFlow。</p>
+
+
+  <p>コネクタを構築するための一般的なプロセスには、次の複数の手順が含まれます。</p>
+
+
+  <p style="font-size: 13px; font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-weight: normal; font-style: normal"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dev-steps.png" style="font-size: 13px; height: 141px; width: 550px; float: none; margin-left: auto; display: block; margin-right: auto"></p>
+
+
+  <p><a href="https://flow.microsoft.com/en-us/documentation/api-connector-dev/">カスタム コネクタの</a> 開発方法の詳細を確認してください。</p>
+
+
+  <h3>認定を受けるために提出する</h3>
+
+
+  <p>Microsoft は、サードパーティの認定プロセスの一環として、発行前にコネクタを確認します。 このプロセスにより、コネクタの機能が検証され、技術的およびコンテンツのコンプライアンスとシナリオの適合が確認されます。</p>
+
+
+  <p>アプリケーションが Azure 上に構築されている場合、Office 365 Enterprise Plans のすべてのユーザーは、アプリのコネクタにすぐにアクセスできます。</p>
+
+
+  <p><a href="https://flow.microsoft.com/en-us/documentation/api-connector-submission/">発行用</a> のカスタム コネクタを送信するプロセスの詳細を確認します。</p>
+
+
+  <p>SaaS オファリングのコネクタを構築するには、今 <a href="https://go.microsoft.com/fwlink/?linkid=848754">すぐサインアップしてください</a>。 Azure を使用して <a href="https://go.microsoft.com/fwlink/?linkid=848938&amp;clcid=0x409">SaaS ビジネスを拡大する方法の詳細を確認します</a>。</p>

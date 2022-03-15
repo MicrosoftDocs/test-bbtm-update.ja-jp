@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7c2450a32efa3c1cd8dff1c242c1faefef78fd7d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896566"
+Slug: accelerate-your-cloud-adoption-with-the-start-small-and-expand-landing-zone
+Title: '小規模から始め、ランディング ゾーンを拡大してクラウド導入を加速する '
+Summary: Tailwind Traders は、IT 戦略の一環として Azure を採用する小売企業です。 IT チームは、オンプレミスでのインフラストラクチャのデプロイに精通し、現在、Azure 内でワークロードを実行するために必要なことを調査しています。
+Content: >-
+  <p><em>この投稿は、&nbsp;&nbsp;Azure のシニア クラウド アボケイトである Thomas Maurer 氏によって執筆されました</em></p>
+
+
+  <p>Tailwind <sup>Traders1</sup>&nbsp; は、IT 戦略の一環として Azure を採用する小売企業です。 IT チームは、オンプレミスでのインフラストラクチャのデプロイに精通し、現在、Azure 内でワークロードを実行するために必要なことを調査しています。 このブログ記事では、Tailwind Traders&rsquo; が Azure 上でワークロードを実行する場合に、 <a href="https://docs.microsoft.com/azure/cloud-adoption-framework/?WT.mc_id=modinfra-10032-salean" target="_blank">クラウド導入フレームワーク と</a> Azure ランディング ゾーンを使用する方法 <a href="https://docs.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/?WT.mc_id=modinfra-10032-salean" target="_blank">について説明します</a>。</p>
+
+
+  <h2>小規模から始めて拡張する</h2>
+
+
+  <p>Tailwind Traders&nbsp; は、調査を続け、Azure <a href="https://channel9.msdn.com/Shows/Azure-Enablement/Start-small-and-expand-Azure-landing-zones-approach--Landing-zones-Ep3--Cloud-Adoption-Framework?WT.mc_id=modinfra-10032-salean" target="_blank"></a><a href="https://channel9.msdn.com/Shows/Azure-Enablement/Create-an-enterprise-scale-architecture-in-Azure--Landing-zones-Ep4--Cloud-Adoption-Framework?WT.mc_id=modinfra-10032-salean" target="_blank"></a>&nbsp;ランディング ゾーンを調査し、使用可能なオプション (小規模から開始、拡張、エンタープライズ規模、パートナーランディング ゾーン) について<a href="https://docs.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/partner-landing-zone?WT.mc_id=modinfra-10032-salean" target="_blank">理解しました</a>。</p>
+
+
+  <p>Tailwind Traders はクラウド導入の取り組みを始めたばかりで、この取り組みについて学び、成長することを探しているので、小規模から始めてランディング ゾーンを拡大することを決定しました。 Tailwind Traders が長年学習してきたことの 1 つは、IT は常に変化し続け、変化に関連する多くの利点とイノベーションがあるという点です。 彼らは、体験が成熟すると、要件とニーズが変化する可能性があります。また、クラウド プロバイダーが新しい機能や製品をその範囲に追加すると、新しい機会が生じる可能性があります。 Tailwind Traders は、これがいくつかの理由で追求するランディング ゾーンだと決定しました。 Tailwind Traders は、小規模な開始ランディング ゾーンと拡張ランディング ゾーンを使用して、セキュリティ、ガバナンス、コンプライアンス ポリシーを時間の中で構築する低リスクのペースでクラウド導入を開始できます。 また、<a href="https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/operating-model/compare#operating-model-comparison" target="_blank"></a>&nbsp;すべての決定がまとめて行われたり、IT&rsquo; 部門内の個々のチームが自己十分でなかったりする場合に、小規模な開始とランディング ゾーンの拡大に適した一元的な運用モデルを運用します。</p>
+
+
+  <h2>ランディング ゾーンのデプロイ</h2>
+
+
+  <p>小規模で大規模なランディング ゾーンの開始により、デプロイに関する考慮事項と機能は非常に似ていますが、主な違いもあります。</p>
+
+
+  <p>小規模から開始して展開すると、 <a href="https://docs.microsoft.com/azure/azure-resource-manager/templates/overview" target="_blank">Azure Resource Manager (ARM)</a> テンプレートと <a href="https://docs.microsoft.com/azure/governance/policy/overview" target="_blank">Azure Policy</a> を使用して、Azure Blueprints を使用してサブスクリプションの CI/CD パイプラインを作成できます。</p>
+
+
+  <p>&nbsp;参照実装にエンタープライズ規模が含まれている場合、GitHub および Azure DevOps で 管理グループ、Azure Policy、およびサブスクリプション リソースを作成する CI/CD パイプラインの例があります。</p>
+
+
+  <p>&nbsp;組織のような Tailwind Traders&rsquo; がクラウド導入の取り組みから始め始め、以前は<a href="https://docs.microsoft.com/dotnet/architecture/cloud-native/infrastructure-as-code" target="_blank">コードとしてのインフラストラクチャ</a> (IaC)、DevOps、または CI/CD のデプロイ手法を調べた経験がなかった場合、考え方を変更し、この新しいスキルセットを学習しようとするのは難しい場合があります。 キー&nbsp;デシオン ポイントに&nbsp;追い付いた人もいて、クラウド導入体験プロジェクトが停止する可能性があります。 小規模から開始し、自動化オプションを拡張すると、チームはプラットフォームとその機能を理解し、スキルセットと信頼度が高まるにつれて、IaC、DevOps、CI/CD パイプラインのオプションを確認し始める可能性があります。</p>
+
+
+  <h2>ランディング ゾーンの拡張と改善</h2>
+
+
+  <p>ランディング ゾーンの選択肢は、組織が改善と拡張を行う場合です。&nbsp;Tailwind Traders とその小規模で拡張的なアプローチを開始する場合、将来は <a href="https://docs.microsoft.com/azure/cloud-adoption-framework/ready/enterprise-scale/design-guidelines" target="_blank">、設計</a> を改善し、考慮する必要がある領域を理解するのに役立つ クラウド導入フレームワーク エンタープライズ規模の設計ガイドライン内で、設計の 8 つの領域を検討し始める必要があります。</p>
+
+
+  <p>エンタープライズ規模の長期的な自己満足とオペレーショナル エクセレンスを開始した組織は、ランディング ゾーン アプローチに組み込されています。 エンタープライズ規模でクラウド導入の取り組みを進め、自然に拡張とベスト プラクティスのルートを導きます。</p>
+
+
+  <p>すべてのプロジェクトの鍵は、使用可能なオプションを調査し、事実に基づいて決定を行い、その調査と結果に従って実装する方法です。 Tailwind Traders は&nbsp;、小規模から始めてランディング ゾーンを拡大し、組織と IT 部門を前進して、クラウド導入の取り組みから始める必要があります。</p>
+
+
+  <h2>概要今日</h2>
+
+
+  <p>今後のブログ記事では、Tailwind Traders とそのクラウド導入の取り組みについて説明します。ただし、クラウド導入フレームワーク&nbsp; の詳細と、クラウド導入の取り組み加速に役立つ方法を学習したい場合は、<a href="https://channel9.msdn.com/Shows/Azure-Enablement" target="_blank">Azure Enablement Show</a> を開始するのに最適な場所です。 さらに、詳細 <a href="https://docs.microsoft.com/azure/cloud-adoption-framework/?WT.mc_id=modinfra-10032-salean" target="_blank">についてはクラウド導入フレームワーク</a> <a href="https://docs.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/?WT.mc_id=modinfra-10032-salean" target="_blank">Azure ランディング ゾーンに関する</a> ドキュメントを参照してください。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>Tailwind Traders のクラウド導入シリーズに関する追加のブログ記事を参照してください。&nbsp;</p>
+
+
+  <ul>
+      <li>クラウド導入体験のランディング <a href="https://azure.microsoft.com/en-us/blog/choose-the-landing-zone-for-your-cloud-adoption-journey/" target="_blank">ゾーンを選択する</a></li>
+      <li>エンタープライズ規模のランディング ゾーン <a href="https://azure.microsoft.com/en-us/blog/scale-cloud-adoption-with-modular-designs-for-enterprisescale-landing-zones/" target="_blank">向けモジュール設計によるクラウド導入のスケーリング</a></li>
+      <li>エンタープライズ規模 <a href="https://azure.microsoft.com/en-us/blog/deploy-key-design-principles-with-enterprise-scale-architecture/" target="_blank">のアーキテクチャを使用して主要な設計原則をデプロイする</a></li>
+      <li>エンタープライズ <a href="https://azure.microsoft.com/en-us/blog/leverage-enterprisescale-reference-implementations-for-your-cloud-adoption/" target="_blank">規模の参照実装をクラウド導入</a> に活用する</li>
+  </ul>
+
+
+  <hr>
+
+  <p><sup>1</sup>Tailwind Traders は、企業が実際のシナリオでクラウド サービスを活用する方法を説明するために、このブログ記事内で参照クラウド導入フレームワーク架空の会社です。</p>

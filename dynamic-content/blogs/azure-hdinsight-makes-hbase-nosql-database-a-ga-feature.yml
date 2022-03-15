@@ -1,0 +1,40 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 33a8e1d93fcdf28c472abc880a54d39d11d8d248
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891794"
+Slug: azure-hdinsight-makes-hbase-nosql-database-a-ga-feature
+Title: Azure HDInsight では、HBase (NoSQL database) が GA 機能になります
+Summary: 6月6日に、Microsoft は Azure HDInsight のプレビュー機能として HBase を発表しました。 8月21日に、HBase の一般提供が発表されました (Azure DocumentDB と Search のプレビューを含む)。 Apache HBase は、Apache Hadoop エコシステムの分散データベースプロジェクトで、単票形式の NoSQL ("非構造化照会言語") です。
+Content: >-
+  6月6日に、Microsoft は Azure HDInsight の <a href="https://azure.microsoft.com/blog/2014/06/06/azure-hdinsight-previewing-hbase-clusters-as-a-nosql-database-on-azure-blobs/">プレビュー機能として HBase を発表</a> しました。 8月21日に、 <a href="https://blogs.technet.com/b/dataplatforminsider/archive/2014/08/21/azure-previews-fully-managed-nosql-database-and-search-services.aspx">HBase の一般提供が発表されました (Azure DocumentDB と Search のプレビューを含む)。</a> Apache HBase は、Apache Hadoop エコシステムの分散データベースプロジェクトで、単票形式の NoSQL ("非構造化照会言語") です。
+
+
+  HBase は、Hadoop エコシステムにトランザクション機能を追加することで、Azure Blob 内の大規模なデータセットに対するレコードの更新と参照を高速で実行できるようにします。 分散データベースとして、HBase は、負荷とパフォーマンスの需要が増加するように設計されています。 したがって、HBase は何百万から数十億のデータ行にトランザクションを実行する場合に最適です (GA では、HBase は Azure Blob で最大 500 Tb をサポートします)。 ただし、HBase は、オプティマイザー、セカンダリインデックス、高度なクエリ言語などの機能がないため、standard RDBMS のすべてのシナリオを置き換えるために作成されていません。
+
+
+  HBase の使用には、次のような標準的な例があります。
+
+  <ul>
+      <li><b>モノのインターネット</b> – HBase は、デバイス、センサー、機器/機械、およびソーシャルメディアから取得した何百万ものリアルタイムイベントのストレージとして使用できます。 HDInsight を使用した Hadoop は、Azure Blob に格納されたデータに対して一括分析を実行できます。</li>
+      <li><b>Web ログ</b> – HBase を使用して、web ログとクリックストリームデータを保存してインデックスを作成します。 その後、HDInsight を使用した Hadoop は、このデータに対して batch 分析を実行できます。</li>
+      <li><b>ソーシャルセンチメント</b> – HBase を使用して、ソーシャルセンチメント fire ホース (例: Twitter) からデータを書き込んで格納します。</li>
+  </ul>
+
+  HBase の詳細については、HDInsight のドキュメントとファーストステップガイドを参照してください。
+
+  <ul>
+      <li>HBase の概要: <a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hbase-overview">https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hbase-overview</a></li>
+      <li>HBase の概要: <a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hbase-get-started">https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hbase-get-started</a></li>
+      <li>HBase を使用したリアルタイムソーシャルセンチメント分析: <a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hbase-analyze-twitter-sentiment">https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hbase-analyze-twitter-sentiment</a></li>
+      <li>その他の HDInsight ドキュメントについては、以下を参照してください。 <a href="https://azure.microsoft.com/en-us/documentation/services/hdinsight/">https://azure.microsoft.com/en-us/documentation/services/hdinsight/</a></li>
+  </ul>
+
+  Hadoop と HDInsight の詳細については、次のリソースを参照してください。
+
+  <ul>
+      <li>Azure HDInsight (Hadoop) についての詳細情報 <a href="https://azure.microsoft.com/en-us/services/hdinsight/">https://azure.microsoft.com/en-us/services/hdinsight/</a></li>
+      <li>HDInsight Channel 9 ビデオシリーズの概要に関する記事をご覧ください。 <a href="https://channel9.msdn.com/Series/Getting-started-with-Windows-Azure-HDInsight-Service">https://channel9.msdn.com/Series/Getting-started-with-Windows-Azure-HDInsight-Service</a></li>
+  </ul>

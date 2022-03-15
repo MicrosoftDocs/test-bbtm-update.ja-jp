@@ -1,0 +1,128 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 21dbe05b2c876b7f2aad5957662393e2fc151a42
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895512"
+Slug: iot-hub-dotnet-autoscale
+Title: 予測可能な IoT クラウドを使用して IoT ソリューションを管理および自動スケールする
+Summary: 選択した上限に達する前に、特定のしきい値に達したときに、より大きな容量に自動的にスケールアップするように IoT Hub するのは便利ではありませんか。  この時点では IoT Hub、この機能はサービスに組み込まれていませんが、特定のメッセージのしきい値に達したときに、IoT Hub を監視し、自動的にスケーリングするためのサンプルソリューションを公開しました。
+Content: >-
+  <p>企業は引き続き IoT プロジェクトを完全にロールアウトするため、ソリューションのさまざまなコンポーネントを管理することが、運用の重要な部分になります。 Azure IoT ハブの柔軟性により、顧客は小規模に開始でき、デバイス展開の曲線に沿って必要な IoT Hub 容量の分だけを支払うことにより、IoT ソリューションのコストを予測しやすくなります。</p>
+
+
+  <p>ただし、IoT ソリューションでのデバイスとメッセージの増加率が不規則になると、操作のための固有の課題が増える可能性があります。 特定の日にデバイスから取り込まれたされたメッセージの数が、選択した IoT Hub 容量の上限を超えた場合、IoT Hub は、IoT Hub がスケールアップされるまで、または時間が次の日 (UTC 時刻) にロールオーバーされるまで、メッセージの拒否を開始します。 &rsquo;この制限に達する前に、メッセージのしきい値が満たされたときに、より大きな容量に自動的にスケールアップするように IoT Hub するのはよいでしょうか。</p>
+
+
+  <p>この時点では IoT Hub、この機能はサービスに組み込まれていませんが、特定のメッセージのしきい値に達したときに、IoT Hub を監視し、自動的にスケーリングするためのサンプルソリューションを公開しました。 &nbsp;<a href="https://github.com/Azure-Samples/iot-hub-dotnet-autoscale">Azure サンプルサイト</a>で公開されているサンプルでは、 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-overview" target="_blank">azure Durable Functions</a> Framework と<a href="https://www.nuget.org/packages/Microsoft.Azure.Management.IotHub/" target="_blank">IoT Hub Management Client</a>を利用して、IoT Hub メッセージクォータの消費量を継続的に監視し、必要に応じて IoT Hub 容量をプログラムによってスケールアップします。</p>
+
+
+  <h2>Azure Durable Functions</h2>
+
+
+  <p>IoT Hub スケーリングソリューションを調整するために、Azure Durable Functions framework の <a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-singletons" target="_blank">単一 Orchestrator</a> パターンを活用します。 このパターンの主な利点は、特定の IoT Hub に対してスケーリングソリューションのインスタンスを一度に1つだけ実行できるようにすることです。 これにより、スケーリング関数の複数のインスタンスが同時に実行される可能性がある競合状態について心配する必要がなくなります。 このパターンは、実際には、ソリューションを運用する3つの関数で構成されています。</p>
+
+
+  <ul>
+      <li><strong>IotHubScaleInit</strong> - この関数は、通常のタイマーで (既定では1時間に1回) 実行されます。 この関数は、Orchestrator 関数のインスタンスが実行されているかどうかを確認し、存在しない場合は開始します。</li>
+      <li><strong>IotHubScaleOrchestrator</strong> - この関数は、ソリューションの Orchestrator を実装します。 このパターンの役割は、ワーカー関数の実行を管理すること &rsquo; です。</li>
+      <li><strong>IotHubScaleWorker</strong> - これは、IoTHub をスケーリングする必要があるかどうかを確認するアクションを実行する関数であり、その場合はスケーリングする必要があります。</li>
+  </ul>
+
+
+  <p>まず、ときどき (サンプルでは1時間に1回) 実行されるタイマー開始 <b>IoTHubScaleInit</b> 関数を確認し、orchestrator のインスタンスが既に実行されているかどうかを確認し、存在しない場合は開始します。 IoTHubScaleInit 関数から関連するコードを次に示します。簡潔にするためにコードをいくつか削除しました。</p>
+
+
+  <pre class="prettyprint">
+
+  const string IotHubScaleOrchestratorInstanceId = &quot;iothubscaleorchestrator_1&quot;;
+
+
+  var existingInstance = await starter.GetStatusAsync(IotHubScaleOrchestratorInstanceId);
+
+
+  if (existingInstance == null)
+
+  {
+      await starter.StartNewAsync(IotHubScaleOrchestratorName,IotHubScaleOrchestratorInstanceId, input: null);
+  }</pre>
+
+
+  <p>この関数のキーは、定数の <em>インスタンス ID</em>です。 既定では、orchestrator を起動すると、システムによって一意のインスタンス ID が生成されます。 この例では、ID を指定することにより、そのインスタンスが既に GetStatusAsync 関数で実行されているかどうかを確認できます。</p>
+
+
+  <p>IotHubScaleOrchestrator 関数は、名前が示すように、ソリューションの実行を調整します。 &nbsp;実行中のエラーから回復します。また、次の実行時に待機しているときにコードの退避を許可します。 しかし、最も重要なのは、既存のスケール関数が終了した後に、スケーリング関数の別のインスタンスが開始されるようにすることです。 &nbsp;これは、特定の時間に複数のインスタンスを実行しないようにするための重要な部分です。 この関数の主な部分は次のとおりです。</p>
+
+
+  <pre class="prettyprint">
+
+  await context.CallActivityAsync(IotHubScaleWorkerName);
+
+
+  DateTime wakeupTime = context.CurrentUtcDateTime.Add(TimeSpan.FromMinutes(JobFrequencyMinutes));
+
+  await context.CreateTimer(wakeupTime, CancellationToken.None);
+
+
+  context.ContinueAsNew(null);
+
+
+  </pre>
+
+
+  <p>を呼び出し <em>て、関数</em>を待機した後、Durable Functions フレームワークを使用してタイマーを作成します。 コンテキストオブジェクトの続行 Easnew メソッドは、このインスタンスを終了するようにフレームワークに指示し、タイマーの有効期限が切れると、別のインスタンスを起動するようにスケジュールします。 フレームワークは、残りの処理を行います。</p>
+
+
+  <p>ソリューションの残りの部分は IotHubScaleWorker 関数であり、IoT Hub の使用状況の状態を確認する実際の作業を実行し、必要に応じてスケーリングします。</p>
+
+
+  <h2>IoT Hub 管理クライアント</h2>
+
+
+  <p>IoT Hub 管理クライアントを使用すると、IoT hub の構成の作成、削除、管理など、IoT Hub サービスの制御プレーンと対話できます。 ワーカー関数内では、クライアントは、IoT Hub サービスと対話するすべての処理を行います。</p>
+
+
+  <p>たとえば、コードの次の2つのスニペットは、IoT Hub の現在の構成の詳細を取得します。これは、現在の SKU (S1、S2、または S3) と現在のユニット数です。 2行目は、ハブの現在の操作メトリックを取得します。 主な1つは TotalMessages メトリックで、IoT Hub がその日を取り込まれたしたメッセージの現在の数を示します。</p>
+
+
+  <pre class="prettyprint">
+
+  IotHubDescription desc = client.IotHubResource.Get(ResourceGroupName, IotHubName);
+
+  IPage&lt;iothubquotametricinfo&gt; mi = client.IotHubResource.GetQuotaMetrics(ResourceGroupName, IotHubName);
+
+  </pre>
+
+
+  <p>この情報を取得したら、サンプルに含まれているいくつかのヘルパー関数を使用します。現在のメッセージ数を SKU/ユニットの組み合わせに対して定義されたしきい値と比較することによって、IoT Hub を拡張する必要がある場合は、 スケールする必要がある場合は、上記で取得した IoTHubDescription オブジェクト内の SKU と単位を更新し、CreateOrUpdate 管理関数を利用して IoT Hub の構成を更新するだけです。 これにより、既存のデバイスやクライアントを中断することなく、IoT Hub のスケールアップが実行されます。</p>
+
+
+  <pre class="prettyprint">
+
+  desc.Sku.Name = newSkuName;
+
+  desc.Sku.Capacity = newSkuUnits;
+
+  client.IotHubResource.CreateOrUpdate(ResourceGroupName, IotHubName, desc);
+
+  </pre>
+
+
+  <h2>スケールダウン</h2>
+
+
+  <p>ほとんどの IoT プロジェクトの軌道が増加しており、わかりやすくするために、このサンプルでは IoT hub のスケールアップについて重点的に説明しています。 ただし、以前のメッセージボリュームが削除されたときのコストを削減するために、IoT Hub を自動的にスケールダウンする必要があるという有効なシナリオがあります。 サンプル <a href="https://github.com/Azure-Samples/iot-hub-dotnet-autoscale" target="_blank">ドキュメント</a>では、必要に応じて IoT hub をスケールダウンするためのソリューションを変更するための提案をいくつか提供しています。</p>
+
+
+  <p><em><strong><a href="https://github.com/Azure-Samples/iot-hub-dotnet-autoscale" target="_blank">サンプル</a>に試してみてください。さらに、平板で運用タスクが1つ少なくなっていることがわかります。</strong></em></p>
+
+
+  <h2>サンプルに関する注意事項</h2>
+
+
+  <ul>
+      <li>このサンプルは、IoT Hub の Standard レベルでのみ機能します。 IoT Hub &rsquo; の Free レベルはスケールできないため &rsquo; 、適用されません。 IoT Hub の Free レベルから Standard レベルに直接変換することはできないことにも注意してください。</li>
+      <li>このサンプルでは、スケーリングアルゴリズムの1つの簡単な実装を示していますが、提供されているソースコードを使用すると、独自のスケーリングのニーズに合わせてカスタマイズできます。</li>
+      <li>IoT の予算のために、各ユニットの増加によって大きな容量とコストの両方が増えるため、S3 などの上位のサービスレベルに応じて、IoT Hub を自動的にスケーリングすることを検討する必要があります。</li>
+  </ul>

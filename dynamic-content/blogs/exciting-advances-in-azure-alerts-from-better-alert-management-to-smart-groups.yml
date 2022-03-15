@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8bb93ebc4afc7f51d5e46d7019cca9f87c715eae
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895983"
+Slug: exciting-advances-in-azure-alerts-from-better-alert-management-to-smart-groups
+Title: より優れたアラート管理からスマートグループまで、Azure アラートのすばらしい進歩
+Summary: 現在、Azure Monitor の3つの新機能のプレビューを発表しています。これにより、ログ、メトリック、またはアクティビティログアラートに関するアラートを大規模に列挙したり、サブスクリプション間でアラートをフィルター処理したり、アラートの状態を管理したり、アラートインスタンス固有の詳細を調べたり、関連するアラートを自動的にグループ化するスマートグループ
+Content: >-
+  <p>現在、Azure Monitor の3つの新機能のプレビューを発表しています。これにより、ログ、メトリック、またはアクティビティログアラートに関するアラートを大規模に列挙したり、サブスクリプション間でアラートをフィルター処理したり、アラートの状態を管理したり、アラートインスタンス固有の詳細を調べたり、関連するアラートを自動的にグループ化するスマートグループ これらの機能は、今年の前半で発表された <a href="https://azure.microsoft.com/en-us/blog/the-next-generation-of-azure-alerts-has-arrived/" target="_blank">統合アラートの構成エクスペリエンス</a> を強化し続けます。 皆様からのご意見をお寄せください。</p>
+
+
+  <p>新しい <strong>アラート列挙エクスペリエンスと API</strong> により、Azure デプロイ全体でアラートを監視できます。 複数のサブスクリプションにわたるアラートは、重要度、シグナルの種類、リソースの種類などに対してクエリを実行し、ピボットすることができます。これにより、パフォーマンスが向上し、簡単にドリルダウンできるエクスペリエンスが可能になります。 新しい列挙エクスペリエンスでは、関連するディメンションに対する複数選択のフィルター処理もサポートされています。たとえば、一連のリソースグループまたは特定のリソースの種類でアラートを検索できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9e3460f-0336-430e-99d3-23a762353f11.png"><img alt="Alert enumeration experience and API" border="0" height="670" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85f73618-6ed2-43bb-9f6c-aed6fcc03546.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アラート列挙のエクスペリエンスと API" width="1920"></a></p>
+
+
+  <p><strong>アラート状態管理</strong> を使用すると、アラートの状態を変更して、環境内の問題の現在の状況を反映することができます。 現在、3つのアラートの状態が [新規]、[確認済み]、および [終了] になって &ndash; います。</p>
+
+
+  <p>アラートの状態は、監視の状態とは別のものであり、問題を検出した基になる監視サービスによって更新されます。 監視条件では、2つの値 &ndash; がサポートされ、解決されます。</p>
+
+
+  <p>監視条件とアラート状態の変更の履歴、およびターゲットリソース uri、アラートルール、モニターの状態、ログアラートのクエリへのリンクなどのイベントの詳細が、トリアージと監査に役立つアラートのペイロードにキャプチャされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc703fa9-3361-4a61-bd6f-ffc9f5c412c8.png"><img alt="Alert state management" border="0" height="839" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d0f0fa55-cdec-42bf-ac5c-e78f04ee88bf.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アラートの状態の管理" width="1919"></a></p>
+
+
+  <p><strong>スマートグループ</strong> は、多数の関連するアラートをカプセル化してアラートのノイズを軽減し、イベントを迅速に軽減するのに役立つ、システムによって生成されるアラートです。 これらのスマートグループは、監視サービス (例: LA またはプラットフォーム) から発生したアラート間の類似性とコロケーションパターンを検索する機械学習アルゴリズムを使用して自動的に作成されます。 スマートグループには、ユーザー定義の状態や履歴など、個々のアラートと同じプロパティがあります。 オペレーターの場合、スマートグループは少数のグループのみに焦点を当てることによって、分析するアラートの数を大幅に減らします。 たとえば、サブスクリプション内の複数の仮想マシン上の CPU 使用率が同時に急上昇し、多数のアラートが発生した場合、過去にこのようなアラートが発生したことがあると、これらのアラートは 1 つのスマート グループにグループ化され、考えられる一般的な根本原因が提示されます。 このテクノロジは、優れた結果が得られたハイパースケールの Azure サービスに対する広範なテストを経てきました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a78dea0-9a97-497b-b6cc-ef115fb121bd.png"><img alt="Smart groups image 1" border="0" height="122" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3e34243-1c1d-418f-8e6d-2d49e5ab24b0.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スマートグループイメージ1" width="1369"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af41bf50-3a8d-4c95-995c-dfe9629479ea.png"><img alt="Smart groups image 2" border="0" height="837" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19774d5c-d9b2-4eaa-b105-86ecec7a87ed.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スマートグループイメージ2" width="1918"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f68e6c02-de14-4ac4-9c76-0ba4b89a3645.png"><img alt="Smart groups image 3" border="0" height="838" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a50f11d9-4685-43ad-a4cd-9d381bfc9d4f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スマートグループの画像3" width="1920"></a></p>
+
+
+  <p>これらの機能の詳細と、 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-unified-alerts" target="_blank">これらの魅力的な新機能をプレビューでオンボードする方法</a>について説明します。</p>

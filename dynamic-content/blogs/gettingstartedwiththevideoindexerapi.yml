@@ -1,0 +1,275 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 421b860aabcf446b636e885c27c3df6857ff3d8a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896777"
+Slug: gettingstartedwiththevideoindexerapi
+Title: Video Indexer API の使用
+Summary: これは、Video Indexer API の使用を開始し、ビデオでキーワードと内訳を検索する方法に関するチュートリアルです。
+Content: >-
+  <p>BUILD 2017 で今月初め、 <a href="https://azure.microsoft.com/en-us/services/cognitive-services/video-indexer/">Microsoft</a> Video Indexer の一部として、Cognitive Services。 Video Indexerデジタルコンテンツとオーディオ コンテンツをお持ちのお客様は、メタデータを自動的に抽出し、それを使用してインテリジェントな革新的なアプリケーションを構築できます。 プレビュー期間中は、Video Indexerに<a href="https://vi.microsoft.com/" title="https://vi.microsoft.com/https://vi.microsoft.com/"></a>すばやくサインアップし、無料でサービスを試用できます。</p>
+
+
+  <p>開発者は、ポータルを使用する上で、Video Indexer API を使用してカスタム アプリをVideo Indexerできます。 このブログでは、Video Indexer API&rsquo; を使用して、アカウント内のすべてのビデオでキーワード、フレーズ、または検出された人物名に対して検索を行う例と、サンプル ビデオについて説明し、検索結果のいずれかのビデオから詳細な分析情報を取得します。</p>
+
+
+  <h2>Video Indexer API へのアクセス</h2>
+
+
+  <p><a href="https://videobreakdown.portal.azure-api.net/">Video Indexer API の使用を開始するには</a>、Microsoft、Google、またはアカウントを使用してサインインAzure Active Directoryがあります。 お好みのアカウントでサインインすると、Video Indexer API の無料プレビューをサブスクライブできます。 次の手順では、アクセスに登録するプロセスについて説明します。</p>
+
+
+  <p>API をサブスクライブするには、[製品] タブに移動 <strong>し</strong> 、[無料プレビュー] <strong>をクリックします</strong>。 次のページで、<strong>[サブスクライブ]</strong> をクリックします。 これで、API にアクセスできる必要があります。 アクセスできない場合は、 にお問い合わせください <a href="mailto:visupport@microsoft.com">visupport@microsoft.com</a>。</p>
+
+
+  <p>アクセス権を取得した後、[製品] タブに<strong></strong>戻り、Video Indexer<strong> API - Production リンクに移動</strong>できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a42e797b-2fed-4cd4-ba68-198fd2e796b4.png"><img alt="How to Subscribe to the Video Indexer API" border="0" height="376" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c695fc1-4762-47db-b6d7-641f423d2f40.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Video Indexer API をサブスクライブする方法" width="612"></a>&nbsp;</p>
+
+
+  <p>これで、API ドキュメントのVideo Indexerが表示されます。 ページの左側に、いくつかのアクション オプションの一覧が表示されます。 各アクション ページには、省略可能なパラメーターと必要なパラメーターなど、その要求に関する情報が含まれています。 これらのテストは、[試してみる] をクリックし <strong>、適切な</strong>パラメーターを設定して、[送信] をクリックすることでテスト <strong>できます</strong>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/855c914e-d917-43e3-b3ce-14fcca81ee29.png"><img alt="Video Indexer API Page" border="0" height="432" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5d1c806-dda5-4ae2-bf68-b7b0810d611d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Video Indexer API ページ" width="612"></a>&nbsp;</p>
+
+
+  <p>Postman のような外部ツールを使用して API をテストするには、Video Indexer API - Production Swagger .json ファイルをダウンロードする必要があります。 これを行うには、ページの上部にある <strong>[API</strong> 定義のダウンロード] ボタンを選択し、[ <strong>API </strong>を開く] を選択して Swagger .json ファイルを取得します。 次のセクションで使用するコンピューター上のローカルにファイルを保存します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3bc9eea0-902e-4870-9c49-b710ac3ed14b.png"><img alt="Download API definition button on Video Indexer API page" border="0" height="433" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/93d162d7-1571-4725-80cf-1d1b6f453e14.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="[API 定義のダウンロード] ボタン (Video Indexer API ページ)" width="612"></a></p>
+
+
+  <p>ここでは、Postman を使用して API をテストする方法を示します。 この手順を実行するには、 <a href="https://www.getpostman.com/">Postman をこちらからダウンロードしてインストールします</a>。 Postman を起動し、左上 <strong>にある [インポート</strong> ] をクリックします。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/664fd261-c554-4c36-bfab-2eb6a13d4515.png"><img alt="Postman with Import button circled" border="0" height="383" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a31cd066-28a4-4fe7-aaf9-c0ab73b06124.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="[インポート] ボタンが丸い Postman" width="612"></a>&nbsp;</p>
+
+
+  <p>以前にダウンロードしてローカルに保存した Video Indexer API - Production Swagger .json ファイルに移動して選択します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1946f859-a8ac-4865-a0d1-ff51827838f8.png"><img alt="Postman with import window open" border="0" height="384" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37e91cf1-2d14-4e02-bf68-93fd71c3f85d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="インポート ウィンドウが開いている Postman" width="612"></a>&nbsp;</p>
+
+
+  <p>[コレクション] に API アクションが表示されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/316889f2-f9f9-41dd-afe1-4c4aa6752d9e.png"><img alt="Postman with Video Indexer API opened" border="0" height="373" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31030108-719f-4501-a7ee-4c9f4ccd84b1.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="API が開Video Indexer Postman" width="612"></a>&nbsp;</p>
+
+
+  <p>任意のアクションへの呼び出しを送信するには、サブスクリプションに固有のキーが必要です。 これは、API の [実稼働] ページに<strong>戻Video Indexer[&ndash;</strong>試してみる] を<strong>クリックすることで確認できます</strong>。 次のページに移動したら、下にスクロールして [ <strong>ヘッダー</strong> ] セクションに移動し、 <strong>Ocp-Apim-Subscription-Key</strong> と表示されている場所を見つけることができます。 目のアイコンをクリックすると、キーを確認できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/25e53ad0-b74a-46f1-845d-d300438fb0db.png"><img alt="Subscription key" border="0" height="158" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c383bb49-beb0-43db-89e0-a5bcb2e40ade.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="サブスクリプション キー" width="482"></a>&nbsp;</p>
+
+
+  <p>Postman に両方が必要なので、キーの名前 (Ocp-Apim-Subscription-Key) とキー自体の両方をコピーします。</p>
+
+
+  <h2>ビデオ間での検索呼び出しの実行</h2>
+
+
+  <p>Postman に戻り、テストするアクション呼び出しに移動します。この場合は、検索から始め、API との一般的なユーザー操作になります。 特に、アカウント&rsquo;内のすべてのパブリック ビデオに対するキーワードの検索とサンプル ビデオが表示されます。 検索は、要求 URL を含む HTTP GET 呼び出しです <strong>https://videobreakdown.azure-api.net/Breakdowns/Api/Partner/Breakdowns/Search</strong></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ccea8e06-5798-42d7-ad96-04a9fc4467eb.png"><img alt="Search call on Postman" border="0" height="380" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3e0692c0-b8b6-4b4b-aa3f-f6f001d96413.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Postman で呼び出しを検索する" width="612"></a>&nbsp;</p>
+
+
+  <p>[ <strong>ヘッダー] に</strong> 移動し、 <strong>キーの名前</strong> (Ocp-Apim-Subscription-Key) を入力します。ここで、key とキー自体は value と表示 <strong>されます</strong>。 キーと値を使用して Postman にヘッダー プリセットを設定すると、毎回入力する必要がなされます。 時間を節約し、設定が簡単なので、必ず行う価値があります。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/392ba929-bde7-4ff1-817d-907f771488d6.png"><img alt="Search call with subscription key filled out" border="0" height="392" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f3654e9-25e6-4d92-bddc-89d7036bf8b8.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="サブスクリプション キーが入力された検索呼び出し" width="612"></a>&nbsp;</p>
+
+
+  <p>アクションのパラメーターを設定するには、[パラメーター] <strong>をクリック </strong>し、設定するパラメーターの値を設定します。 変更されていないパラメーターを削除するには、パラメーターの右隅にマウス ポインターを移動し、 <strong>x</strong> を選択します。</p>
+
+
+  <p>この検索例では、言語を&rsquo;英語&ldquo;&rdquo;に設定し、searchInPublicAccount を true に設定&ldquo;しています&rdquo;。 また、変更していないすべてのパラメーターをクリアしています。 クエリの場合は、ビデオ全体で検索する単語を入力します。 この場合、キーワード&rsquo; Azure を検索 &ldquo;します&rdquo;。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0205a050-ddb5-46b6-8a3c-1955fde179af.png"><img alt="14" border="0" height="392" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a70c4a6-dd5a-4b28-97c1-ead30fcf4ced.png" style="display: inline; background-image: none;" title="14" width="612"></a></p>
+
+
+  <p>[送信] <strong>を</strong>選択すると、検索結果を含む JSON 応答が表示されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c150331d-0072-4a83-9c5b-c75ce3009a28.png"><img alt="JSON response of the search" border="0" height="383" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67bb5baa-0b21-48ec-a1d5-ffc33f596e06.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="検索の JSON 応答" width="612"></a>&nbsp;</p>
+
+
+  <p>検索の JSON 応答には、クエリ用語を<strong></strong>含むビデオと、結果として得られる各ビデオの関連する時間範囲を返す結果セクションが含まれている。 セクションは、各要素が結果のビデオであり、その基本的な情報、ソーシャルな好き、ビューの数、および開始時間を含む検索の一致である配列です。</p>
+
+
+  <p>検索の JSON 応答で期待される内容の一部の概要を次に示します。</p>
+
+
+  <p><strong>検索の JSON 応答 </strong></p>
+
+
+  <ul>
+   <li style="list-style-type: square;">結果 (配列の &ndash; 各要素には次の情報があります) <ul>
+    <li style="list-style-type: circle;">基本的なビデオとユーザー情報 <ul>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">accountId</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">id</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">name</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">description</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">userName</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">createTime</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">privacyMode</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">state</li>
+    </ul>
+    </li>
+    <li style="list-style-type: circle;">social <ul>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">"いいね!" を付ける</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">views</li>
+    </ul>
+    </li>
+    <li style="list-style-type: circle;">searchMatches (各要素の &ndash; 配列には次の情報があります) <ul>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">startTime</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">型 (一致がオーディオ ベースのトランスクリプトか OCR かをユーザーに伝える)</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">text</li>
+    </ul>
+    </li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>また、アカウント内のいくつかの独自のビデオをアップロードして処理することで、これをテストする必要があります。 ログインしている場合は <a href="https://www.videoindexer.ai/">Video Indexer Preview</a> サイトでこれを行います。または、Postman&nbsp; の Video Indexer API から アップロード HTTP POST 呼び出しを使用することもできます。検索要求の場合は、searchInPublicAccount &ldquo;を false に設定&rdquo;して、アカウント上のビデオのみを検索します。 ビデオの設定に基づいて、&ldquo;&rdquo;&ldquo;&rdquo;ビデオとプライバシーに関連するキーワードにクエリを [パブリック] または [プライベート] に設定します。</p>
+
+
+  <p>次に、検索の結果を取得し、ビデオの拡張された分析情報を取得する方法について説明します。</p>
+
+
+  <h2>ビデオでの内訳呼び出しの実行</h2>
+
+
+  <p>検索の最初の結果の ID を取得します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2b91c9fa-f6f8-4916-835f-fbcff650caa7.png"><img alt="JSON response of the search" border="0" height="383" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a56726c4-603b-40cc-8b38-8f4cc1b68a24.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="検索の JSON 応答" width="612"></a>&nbsp;</p>
+
+
+  <p>次に、内訳アクションに移動します。 内訳は、要求 URL を含む HTTP GET 呼び出しです <strong>https://videobreakdown.azure-api.net/Breakdowns/Api/Partner/Breakdowns/:id</strong></p>
+
+
+  <p>サブスクリプション キー名とキーを再度入力する必要があります。 キーを使用してプリセットを設定している場合は、それを選択する必要があります。</p>
+
+
+  <p>[ <strong>Params] ボタンを</strong> クリックし、id パラメーターの検索結果の ID を入力します。 内訳の言語を英語に設定し、[ &ldquo;送信&rdquo; ] を <strong>クリックします</strong>。</p>
+
+
+  <p>これで、内訳要求の JSON 応答が表示されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6c99886-7ed4-4d68-a953-ebccef00c82d.png"><img alt="15" border="0" height="387" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c733de5-06ed-401e-9e60-32e6f6682e32.png" style="display: inline; background-image: none;" title="15" width="612"></a></p>
+
+
+  <p>内訳の JSON 応答には、<strong>summarizedInsights、breakdowns</strong>、social という 3 つのセクションに加えて、ビデオとそれをアップロードしたアカウントに関する<strong></strong>一般的な情報が含<strong>まれている</strong>。</p>
+
+
+  <p><strong>summarizedInsights</strong> セクションには、ビデオ内の個別の顔、トピック、オーディオ効果に関する集計された情報と、それぞれの出現時間範囲が保持されます。 さらに、 セクションでは、&nbsp; ビデオ全体の肯定的、否定的、および中立的なセンチメントに関する情報と、それぞれの時間範囲について説明します。</p>
+
+
+  <p>詳細セクションは、 <strong>summarizedInsights のより広範なバージョンとして機能します</strong>。 ここでは、トランスクリプト ブロック、オーディオ効果のカテゴリ、およびコンテンツのモデレーションを可能にする情報を確認できます。 また <strong>、詳細については </strong>、ビデオのトピック、顔、音声参加者に関するセクションを参照してください。</p>
+
+
+  <p>内訳<strong>内の trasncriptBlocks</strong> セクションは、ビデオのタイムラインとして機能します。<strong> </strong> 各タイム ブロックの行、OCRs、顔などに関する情報が表示されます。&nbsp; ソーシャル <strong>セクションには</strong> 、好きなビューとビューの数に関するデータが表示されます。</p>
+
+
+  <p>次に示すのは、内訳に対する JSON 応答で期待される内容の一部の概要です。</p>
+
+
+  <p><strong>内訳の JSON 応答 </strong></p>
+
+
+  <ul>
+   <li style="list-style-type: square;">基本的なビデオとユーザー情報 <ul>
+    <li style="list-style-type: circle;">このセクションには、ビデオの名前、所有者、ID などに関する広範な情報が含まれています。</li>
+   </ul>
+   </li>
+   <li style="list-style-type: square;">summarizedInsights <ul>
+    <li style="line-height: 75%; list-style-type: circle;">faces</li>
+    <li style="line-height: 75%; list-style-type: circle;">topics</li>
+    <li style="line-height: 75%; list-style-type: circle;">sentiments</li>
+    <li style="line-height: 75%; list-style-type: circle;">オーディオ効果</li>
+   </ul>
+   </li>
+   <li style="list-style-type: square;">breakdowns <ul>
+    <li style="list-style-type: circle;">ビデオに関する一般的な情報 <ul>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">accountID</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">id</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">state</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">processingProgress</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">Externalurl</li>
+    </ul>
+    </li>
+    <li style="list-style-type: circle;">insights <ul>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">trancsriptBlocks</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">topics</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">faces</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">contentModeration</li>
+     <li style="line-height: 75%; list-style-type: disc; list-style-position: inside;">audioEffectsCategories</li>
+    </ul>
+    </li>
+   </ul>
+   </li>
+   <li style="list-style-type: square;">social <ul>
+    <li style="line-height: 75%; list-style-type: circle;">"いいね!" を付ける</li>
+    <li style="line-height: 75%; list-style-type: circle;">views</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>内訳の JSON 応答の詳細については、こちらを参照 <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/video-indexer/video-indexer-output-json">してください</a>。</p>
+
+
+  <p>データを取得し、ビデオに関するより多くの分析情報を得て、さらにイノベーションを起こす機会を得られるのに十分です。 独自のコンテンツを使用して、さらにいくつかの例を試してみてください。</p>
+
+
+  <p>詳細については、次のドキュメントを <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/video-indexer/video-indexer-overview">Video Indexerしてください</a>。 Twitter でフォローして <a href="https://twitter.com/Video_Indexer">@Video_Indexer</a> 、最新のニュースを受け取Video Indexer。</p>
+
+
+  <p>ご質問がある場合、またはヘルプが必要な場合は、 までお問い合わせください <a href="mailto:visupport@microsoft.com">visupport@microsoft.com</a>。</p>

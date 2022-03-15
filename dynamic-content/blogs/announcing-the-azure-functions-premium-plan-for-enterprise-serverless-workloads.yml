@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2c4a92486d3ce57a46a23814dc61c4f97880edc6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896901"
+Slug: announcing-the-azure-functions-premium-plan-for-enterprise-serverless-workloads
+Title: エンタープライズサーバーレスワークロードの Azure Functions プレミアムプランの発表
+Summary: 私たちは、Azure Functions プレミアムプランのプレビューを発表しました。最新の関数であるモデルをホストしています。 このプランでは、イベントベースのスケールを損なうことなく、要求されたスケールと接続の長いオプションのスイートを有効にします。
+Content: >-
+  <p>私たちは、Azure Functions プレミアムプランのプレビューを発表しました。最新の関数であるモデルをホストしています。 このプランでは、イベントベースのスケールを損なうことなく、要求されたスケールと接続の長いオプションのスイートを有効にします。 プレミアムプランを使用すると、事前設定された med-v インスタンスを使用して、アイドル状態になった後の遅延なしでアプリを実行できます。また、vnet に接続し、負荷に応じて自動的にスケーリングすることができます。</p>
+
+
+  <p>プライベートプレビューに参加したすべてのユーザーに感謝します。 <a href="https://www.symantec.com/">Symantec Corporation</a>と<a href="https://volparasolutions.com/">volpara のソリューション</a>は、プレミアムプランの新機能を活用できるように、ごく一部の企業にすぎません。</p>
+
+
+  <p>既存の動的スケーリングプラン (従量課金プラン) でプレミアムプランがどのように改善されるかについては、以下を参照してください。 <a href="https://acomblogimages.blob.core.windows.net/media/Default/Open-Live-Writer/Uncompromised-serverless-scale-for-enter_BEFE/20190403-pp1-SKUComparison_thumb.png"><img alt="SKU Comparison table including the Consumption plan and the Premium plan in preview." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/20190403-pp1-SKUComparison_2.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none; width: 698px;" title="SKU の比較"></a></p>
+
+
+  <h2>高度なスケールコントロールによるカスタマイズされたデプロイ</h2>
+
+
+  <p>プレミアムプランで<strong>インスタンスサイズ</strong>を指定できるようになりました。 最大4つの <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dv2-series" target="_blank">D シリーズ</a> コアと 14 GB のメモリを選択できます。 これらのインスタンスは、従量課金プランを使用する関数で使用できる <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#av2-series" target="_blank">A シリーズ</a> のインスタンスよりもはるかに強力であり、個々の呼び出しで CPU やメモリを大量に消費するワークロードを実行することができます。</p>
+
+
+  <h3>使用可能なインスタンスサイズ</h3>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62e6de49-e7f4-42e7-87be-0d5c2f4a996b.png"><img alt="Instance size graphic displaying details for EP1, EP2, and EP3." border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8ed0bf3-8489-4dcb-967c-60b75023e36d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="スケールレベル" width="703"></a></p>
+
+
+  <p>プレミアムプランでは、<strong>最大インスタンス</strong>も指定できるようになりました。 これは、非常に要求された機能の1つであり、プレミアムプランの最大スケールアウトを制限できます。 最大スケールアウトを制限すると、ダウンストリームリソースが機能によって過負荷になるのを防ぐことができます。また、月ごとに最大の請求額を予測することができます。</p>
+
+
+  <p>プレミアムプランで<strong>最小インスタンス</strong>を指定すると、予測される需要に応じて事前にアプリケーションをスケールアップすることができます。 電子メールキャンペーン、売上、または任意の時間のゲートイベントが疑われる場合、事前に準備された med-v インスタンスを補充するよりも、アプリのスケールが速くなります。 最小インスタンス数を増やして、容量を事前に読み込むことができます。</p>
+
+
+  <p><a href="https://aka.ms/premium-plan-sample" target="_blank">スケジュールに基づいて、従量課金制プランとプレミアムプランの間で</a>任意の関数を実行する永続関数のサンプルを作成しました。これ &rsquo; により、最適なコストを最適化することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6183a34a-a1da-44e9-ad7a-756219d2fab1.png"><img alt="Durable Function that moves any function between the Consumption and Premium plan with pre-warmed instances on a schedule." border="0" height="348" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f391939-718c-4de3-93d0-ba205fa70494.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="スライダー" width="640"></a></p>
+
+
+  <h2>VNET への関数の Connect</h2>
+
+
+  <p>プレミアムプランを使用すると、動的スケーリング関数で VNET に接続し、プライベートネットワーク内のリソースに安全にアクセスできます。 この機能は、以前は App Service プランまたは App Service Environment で関数を実行することによってのみ使用でき、プレミアムプランを使用して動的スケーリングモデルで使用できるようになりました。 <a href="https://aka.ms/fxpremiumnetworking" target="_blank">VNET 統合</a>の詳細については、こちらをご覧ください。</p>
+
+
+  <h2>事前に準備した med-v インスタンスを使用すると、コールドスタートを避けることができます。</h2>
+
+
+  <p>Functions プレミアム plan では、サーバーレスアプリケーションを初めて呼び出すときの遅延を解決するソリューションを提供しています。 この遅延は一般に &rsquo; コールドスタートと呼ばれ、サーバーレスの開発者の間で最も一般的な問題の1つです。 コールドスタートの詳細とその発生理由の詳細については、ブログの投稿「<a href="https://azure.microsoft.com/en-us/blog/understanding-serverless-cold-start/?ref=msdn" target="_blank">サーバーレスコールドスタートについ</a>て」 &ldquo; を参照してください。&rdquo;</p>
+
+
+  <p>プレミアム計画では、コードを実行する準備が整っている状態で保持されている<strong>事前設定済みの med-v インスタンス</strong>の数を指定する機能を提供します。 アプリケーションの規模を変更する必要がある場合は、まずコールドスタートなしの事前設定された med-v インスタンスを使用します。 アプリは、事前に準備された med-v インスタンスのバッファーを補充するために、別のインスタンスをバックグラウンドで事前に事前に準備しています。 このモデルを使用すると、アイドル状態のアプリへの最初の要求、および各スケールポイントでの実行に遅延が発生しないようにすることができます。</p>
+
+
+  <p>現在、サイトごとに1つの事前設定された med-v インスタンスのみが許可されていますが、次の週では、これを最大数まで増やすことが想定されています。</p>
+
+
+  <p>事前に準備された med-v インスタンスのプールを継続的にスケールインすることは、既存の回避策以外の中核となる利点の1つです。 現在、従量課金プランでは、多くの開発者がコールドスタートを実装 &ldquo; &rdquo; することで、アプリケーションに常に ping を実行してウォーム状態を維持するようにしています。 これは最初の要求に対して機能しますが、ping が実行されると、アプリケーション &rsquo; を実行するためにプルされた新しいインスタンスがコードをすぐに実行できるようになるため、そのスケールアウト時にコールドスタートが発生します。 バッファーとして準備した &rsquo; 事前登録済みの med-v インスタンスの数は常に保持されます。そのため &rsquo; 、インスタンスのウォームアップよりも速度が低下して &rsquo; いる限り、コールドスタートの遅延が表示されることはありません。</p>
+
+
+  <h2>試してみてください。</h2>
+
+
+  <p>Azure Functions プレミアムプランは、現在プレビューでご利用いただけます。 &rsquo;詳細については、次を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/funcpremiumpreview" target="_blank">プレミアムプランの使用を開始する方法を</a>ご確認ください。</li>
+   <li><a href="https://aka.ms/premium-plan-sample" target="_blank">従量課金プランとプレミアムプランの間で関数を切り替える方法について</a>説明します。</li>
+   <li>まだお持ちでない場合は &rsquo; 、 <a href="https://azure.microsoft.com/free/serverless" target="_blank">Azure 無料アカウント</a>にサインアップし、Azure Functions プレミアムプランをお試しください。</li>
+   <li>コミュニティでトラブルシューティングを行い、 <a href="https://github.com/Azure/azure-functions/issues?q=is%3Aopen+is%3Aissue+label%3Apremium-plan" target="_blank">GitHub リポジトリ</a>で発生した問題をすべてファイルにまとめます。</li>
+   <li>プレミアムプランとその他のエンタープライズサーバーレス機能の詳細については、次の図を参照してください。</li>
+  </ul>
+
+
+  <p style="text-align: center;"><a href="https://youtu.be/37fvRO9DhnQ" target="_blank"><img alt="Hybrid enterprise serverless video thumbnail" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a946ba27-0869-4770-a3df-bd19a593d119.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ハイブリッドエンタープライズサーバーレスビデオサムネイル" width="640"></a></p>

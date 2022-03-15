@@ -1,0 +1,92 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0867e7375154e8bb39545902776d436d87becbae
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896833"
+Slug: deploying-apache-airflow-in-azure-to-build-and-run-data-pipelines
+Title: Azure に Apache Apache のエアフローをデプロイしてデータ パイプラインをビルドして実行する
+Summary: 'Apache Apache Apache は、ワークフローの作成、スケジュール設定、監視に使用されるオープン ソース プラットフォームです。 エアフローは、演算子、ジョブを作成するためのプログラミング可能なインターフェイス、スケーラブルな分散アーキテクチャ、豊富な追跡および監視機能を含む拡張可能なフレームワークを提供することで、cron ユーティリティの制限の一部を克服します。 '
+Content: >-
+  <p><a href="https://airflow.readthedocs.io/en/latest/project.html" target="_blank">Apache Apache Apache</a> は、ワークフローの作成、スケジュール設定、監視に使用されるオープン ソース プラットフォームです。 エアフローは、演算子、ジョブを作成するためのプログラミング可能なインターフェイス、スケーラブルな分散アーキテクチャ、豊富な追跡および監視機能を含む拡張可能なフレームワークを提供することで、cron ユーティリティの制限の一部を克服します。 2015 年に Apache Foundation に追加された後、エアフローは、<a href="https://blog.socialcops.com/technology/data-science/apache-airflow-disease-outbreaks-india/" target="_blank">ETL</a> パイプラインとワークフローの設計と調整を行うコミュニティによってML<a href="https://engineering.siftscience.com/sift-trains-thousands-models-using-apache-airflow/" target="_blank">されています</a>。 エアフローでは、ワークフローは有向非アクティビティ Graph (DAG) として定義され、定義されたタスクがタスク間の依存関係を管理する 1 つ以上の実行を保証します。</p>
+
+
+  <p>エアフロー アーキテクチャの簡略化されたバージョンを次に示します。 これは、UI を提供する Web サーバー、MySQL/PostgreSQL データベースにすることができるリレーショナル メタデータ ストア、DAG ファイルを格納する永続ボリューム、スケジューラ、およびワーカー プロセスで構成されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8eeb4b31-1bfd-42ce-b94e-bd030af97825.png"><img alt="Airflow architecture diagram" border="0" height="380" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ba8a473d-3f75-4735-8cf2-7f2cf54e7177.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="エアフロー アーキテクチャ " width="640"></a></p>
+
+
+  <p>上記のアーキテクチャは、次の 4 つの実行モードで実行するために実装できます。</p>
+
+
+  <ul>
+   <li><strong>シーケンシャル Executor </strong>&ndash; このモードは、開発/テストまたはデモの目的で役立ちます。 操作をシリアル化し、一度に 1 つのタスクのみを実行できます。</li>
+   <li><strong>Local Executor</strong> &ndash; このモードは並列化をサポートし、小規模から中規模のワークロードに適しています。 スケールアウト&rsquo;はサポートされていません。</li>
+   <li><strong>Celery Executor</strong> &ndash; これは、実稼働環境のデプロイに推奨されるモードであり、ワーカーの数をスケールアウトする方法の 1 つです。 これを機能するには、調整のために RabbitMQ または Redis ブローカーである追加のセルリー バックエンドが必要です。</li>
+   <li><strong>Dask Executor</strong> &ndash; このモードでは、 <a href="https://distributed.readthedocs.io/en/latest/" target="_blank">Dask.distributed</a> ライブラリを利用してスケールアウトすることもできます。これにより、ユーザーは分散クラスターでタスクを実行できます。</li>
+  </ul>
+
+
+  <p>上記のアーキテクチャは、次に示すように、Azure VM または Azure のマネージド サービスを使用して実装できます。 実稼働環境のデプロイでは、組み込みの高可用性とエラスティック スケーリング機能を備え、マネージド サービスを活用することをお勧めします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62085883-f4dd-4094-994b-b8a0fd0e5745.png"><img alt="Image 2" border="0" height="389" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/520bae1c-a084-4e9e-8fc5-1ce6041538f8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="画像 2" width="514"></a></p>
+
+
+  <p><a href="https://hub.docker.com/r/puckel/docker-airflow/" target="_blank">Puckel&#39;の Docker</a> イメージには、パブリック DockerHub レジストリへの自動ビルドとリリースを備えた Apache のエアフローの最新ビルドが含まれている必要があります。 Azure App Service for Linux はパブリック DockerHub レジストリと統合され、継続的デプロイを使用して Linux コンテナー上でエアフロー <a href="https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-ci-cd" target="_blank">Web アプリを実行できます</a>。 Azure App Service docker <a href="https://review.docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-faq#multi-container-with-docker-compose-and-kubernetes" target="_blank">compose</a> と Kubernetes を使用した複数コンテナーのデプロイも許可されます。このデプロイは、セルリー実行モードに役立ちます。</p>
+
+
+  <p>Azure クイック スタート テンプレートを<a href="https://github.com/savjani/azure-quickstart-templates/tree/master/101-webapp-linux-airflow-postgresql" target="_blank"></a>開発しました。このテンプレートを使用すると、Azure App Service と Azure Database for PostgreSQL のインスタンスをメタデータ ストアとして使用して、Azure にエアフロー インスタンスをすばやくデプロイして作成できます。</p>
+
+
+  <p><a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsavjani%2Fazure-quickstart-templates%2Fmaster%2F101-webapp-linux-airflow-postgresql%2Fazuredeploy.json" target="_blank"><img alt="Deploy to Azure icon" border="0" height="34" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee647314-4cec-4f96-be74-f6df77631bd8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure へのデプロイ アイコン" width="161"></a></p>
+
+
+  <p>クイック スタート テンプレートは、次の図に示すように、 <a href="https://hub.docker.com/r/puckel/docker-airflow/" target="_blank">puckel/docker-airflow</a> から最新の Docker コンテナー イメージを自動的にダウンロードしてデプロイし、Azure Database for PostgreSQL サーバーでデータベースを初期化します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/387ad1c8-1bfe-4251-9a7b-8479c6e16f6b.jpg"><img alt="2018-11-25_18-28-28" border="0" height="771" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d2d5a783-4116-46b0-9c94-1a247bf4df8e.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="2018-11-25_18-28-28" width="1676"></a></p>
+
+
+  <p>次 <a href="https://airflow.readthedocs.io/en/latest/howto/set-config.html#setting-configuration-options" target="_blank">の図に示</a> すように、エアフロー docker イメージの環境変数は、次の図に示すように、Azure App Serviceアプリケーション設定を使用して設定できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d52e331-91ae-431b-bbaf-be4e3d448c86.jpg"><img alt="2018-11-25_18-41-54" border="0" height="726" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/552c0eaa-b035-44af-9ac5-7755c59464cc.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="2018-11-25_18-41-54" width="1662"></a></p>
+
+
+  <p>デプロイで使用される環境変数は次のとおりです。</p>
+
+
+  <ul>
+   <li><strong></strong> &ndash; AIRFLOW__CORE__SQL_ALCHEMY_CONNWeb アプリがアプリに接続するための接続文字列をAzure Database for PostgreSQL。</li>
+   <li><strong></strong> &ndash; AIRFLOW__CORE__LOAD_EXAMPLESデプロイ中に DAG の例を読み込むには、 を true に設定します。</li>
+  </ul>
+
+
+  <p>アプリケーション設定 <strong>WEBSITES_ENABLE_APP_SERVICE_STORAGE</strong> true に設定されています。これは、スケジューラおよびワーカー コンテナー イメージからアクセスできる DAG ファイルの永続的なストレージとして使用できます。</p>
+
+
+  <p>デプロイ後、次の図に示すように、ポート 8080 の Web サーバー UI を参照して DAG の例を確認および監視できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0492e391-95fe-4b00-b3d1-101add2c6b63.jpg"><img alt="2018-11-25_18-48-04" border="0" height="839" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/12ee025b-6f27-4b7b-8d18-81f7505817c3.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="2018-11-25_18-48-04" width="1895"></a></p>
+
+
+  <p>これで、エアフロー オペレーターを活用して、ETL および機械学習ワークフローのデータ パイプラインを調整および設計する準備ができました。&nbsp;&nbsp;</p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <ul>
+   <li>上記のテンプレートは、テストと概念実証の調査のために、順次実行モードで Azure 上で Apache のエアフローをすばやく実行してデプロイする場合に便利なクイック スタート ソリューションを提供します。 ただし、このテンプレートはエンタープライズの実稼働デプロイ用に設計されていないので、Celery Executor モードで実行するには、Azure アプリ サービスとコンテナーデプロイに関する知識が必要です。 ここでは Bitnami と提携し、お客様向け Azure でのエアフローの運用グレードのデプロイを簡略化しました。 Bitnamis&rsquo; 多層エアフロー テンプレートの詳細については、最新のブログ記事 <a href="https://azure.microsoft.com/en-us/blog/bitnami-apache-airflow-multi-tier-now-available-in-azure-marketplace" target="_blank">を参照してください</a>。</li>
+   <li>楽しい課題をお探しの場合は、Helm チャート、Azure Database for PostgreSQL、RabbitMQ を使用して、Azure Kubernetes Services で celery Executor を使用して <a href="https://github.com/mumoshu/kube-airflow" target="_blank">kube-airflow</a> イメージをデプロイできます。 お客様が開発した場合は、このブログにリンクしてください。</li>
+  </ul>
+
+
+  <h2>謝辞</h2>
+
+
+  <p>投稿に対する投稿に対する MarkBolz と Jim Toland の貢献に感謝します。</p>

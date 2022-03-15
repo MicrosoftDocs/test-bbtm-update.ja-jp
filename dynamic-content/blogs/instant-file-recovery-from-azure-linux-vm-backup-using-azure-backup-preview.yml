@@ -1,0 +1,161 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ca5606c93603c5a8c33a7d2b28fdb6d41be8942f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895914"
+Slug: instant-file-recovery-from-azure-linux-vm-backup-using-azure-backup-preview
+Title: Azure Backup – プレビューを使用した Azure Linux VM バックアップからのインスタント ファイルの回復
+Summary: Azure Backup を使用して Azure Linux VM をバックアップする場合は、追加のコストやインフラストラクチャを使用して VM バックアップからすぐにファイルを復元できます。 Azure Linux VM をまだバックアップしていない場合は、VM ブレードから直接バックアップを開始できます。
+Content: >-
+  <p>先に、<a href="https://azure.microsoft.com/blog/instant-file-recovery-from-cloud-backups-using-azure-backup/">Azure Windows VM バックアップ</a>からのファイルの瞬時復旧を発表しました。これにより<strong></strong>、追加のコストやインフラストラクチャを使用して Azure Recovery Services コンテナーからすぐにファイルを<em><strong>復元できます</strong></em>。 本日は、プレビューで Azure Linux VM のバックアップに対して同じ機能をお知らせします。 この機能を初Azure Backup、 <a href="https://azure.microsoft.com/blog/backup-directly-from-vm-blade/" target="_blank">Azure IaaS VM</a> ブレードから直接バッキングを開始し、この機能の使用を開始できます。</p>
+
+
+  <h2>価値提案:</h2>
+
+
+  <ul>
+   <li><strong>ファイルの即時復旧 &ndash; </strong>これで、Azure VM のクラウド バックアップからファイルを即座に回復できます。 誤ってファイル&rsquo;を削除した場合でも、単にバックアップを検証する場合でも、インスタント リストアによってデータを回復する時間が大幅に短縮されます。</li>
+   <li><strong>アプリケーション ファイルを復元せずにマウントする - </strong>iSCSI ベースのアプローチでは、アプリケーション ファイルを復元することなく、クラウドの復旧ポイントからアプリケーション インスタンスに直接開く/ <i>マウントできます</i>。 たとえば、mongoDB を実行している Azure Linux VM のバックアップの場合は、クラウド復旧ポイントから BSON データ ダンプをマウントし、バックアップをすばやく検証したり、データ ダンプ全体をダウンロードすることなく、テーブルなどの個々の項目を取得することができます。</li>
+  </ul>
+
+
+  <h3>Azure Linux VM バックアップからファイルを即座に回復する方法について説明します。</h3>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bad6c4b9-26d2-425c-a877-4ec81cd777d1.jpg"><img alt="ILR" border="0" height="139" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2336a1f8-e8e5-4275-9218-9e6232bf9c44.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="ILR" width="386"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="allowfullscreen" frameborder="0" height="500" src="https://channel9.msdn.com/Series/Azure-Backup/Instant-recovery-of-files-from-Azure-VM-backups-Linux/player" width="900"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3><strong>基本的な要件</strong></h3>
+
+
+  <p>ダウンロードした復旧スクリプトは、次の要件を満たすマシンで実行できます。</p>
+
+
+  <ul>
+   <li>スクリプトが実行されているマシン (復旧 <strong>マシン) の</strong> OS は、バックアップされた Linux VM に存在するファイルの基になるファイル システムをサポート/認識する必要があります。</li>
+   <li>復旧マシンの OS がバックアップされた VM と互換性があり、バージョンが次の表に示す通りである必要があります <table border="1" cellpadding="2" cellspacing="0" width="388">
+    <tbody>
+     <tr>
+      <td valign="top" width="152"><strong>Linux OS</strong></td>
+      <td valign="top" width="234"><strong>[バージョン]</strong></td>
+     </tr>
+     <tr>
+      <td valign="top" width="152">Ubuntu</td>
+      <td valign="top" width="234">12.04 以降</td>
+     </tr>
+     <tr>
+      <td valign="top" width="152">CentOS</td>
+      <td valign="top" width="234">6.5 以降</td>
+     </tr>
+     <tr>
+      <td valign="top" width="152">RHEL</td>
+      <td valign="top" width="234">6.7 以降</td>
+     </tr>
+     <tr>
+      <td valign="top" width="152">Debian</td>
+      <td valign="top" width="234">7 以降</td>
+     </tr>
+     <tr>
+      <td valign="top" width="152">Oracle Linux</td>
+      <td valign="top" width="234">6.4 以降</td>
+     </tr>
+    </tbody>
+   </table>
+   </li>
+   <li>このスクリプトでは、python コンポーネントと bash コンポーネントを実行し、復旧ポイントへの安全な接続を提供する必要があります。
+   <table border="1" cellpadding="2" cellspacing="0" width="369">
+    <tbody>
+     <tr>
+      <td valign="top" width="160"><strong>コンポーネント</strong></td>
+      <td valign="top" width="207"><strong>Version</strong></td>
+     </tr>
+     <tr>
+      <td valign="top" width="160">Python</td>
+      <td valign="top" width="207">2.6.6 以降</td>
+     </tr>
+     <tr>
+      <td valign="top" width="160">Bash</td>
+      <td valign="top" width="207">4 以降</td>
+     </tr>
+    </tbody>
+   </table>
+   </li>
+   <li>ルート レベルのアクセス権を持つユーザーだけが、スクリプトによってマウントされたパスを表示できます。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>詳細な構成</h3>
+
+
+  <h4>LVM/ソフトウェア RAID アレイからのファイルの回復:</h4>
+
+
+  <p>バックアップされた Linux VM&nbsp; で LVM/RAID アレイを使用している場合、ディスクの競合により、同じ仮想マシンでスクリプトを実行することはできません。 上記の基本的な要件を満たす他の復旧マシンでスクリプトを実行すると、次の出力に示すように、スクリプトによって関連するディスクがアタッチされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a263ba6-eaaf-4051-a024-296b50f7c6a9.png"><img alt="linux-LVMOutput" border="0" height="225" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28e715c9-5f60-4911-83f1-a7cb702da241.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="linux-LVMOutput" width="659"></a></p>
+
+
+  <p>LVM/RAID Array パーティションを表示およびオンラインにするには、ユーザーが次の追加コマンドを実行する必要があります。</p>
+
+
+  <p><strong>LVM パーティションの場合:</strong></p>
+
+
+  <p>スクリプト出力で上&nbsp; -&nbsp;&gt;に示した $ pvs &lt;ボリューム名 この物理ボリュームの下のすべてのボリューム グループが一覧表示されます</p>
+
+
+  <p>$ lvdisplay volume-group-name&rsquo; from the previous commands result&gt;&nbsp;&nbsp; - これは、ボリューム グループ内のすべての論理ボリューム、名前、およびそれらのパスを一覧表示します&lt;</p>
+
+
+  <p>$ mount &lt;LV path&gt; &lt;/mountpath&gt; -&nbsp; 論理ボリュームを、選択したパスにマウントします。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>RAID アレイの場合:</strong></p>
+
+
+  <p>$ mdadm 詳細&ndash;&ndash;スキャン - このマシン内のすべての RAID ディスクに関する詳細が表示されます。 バックアップされた VM の関連する RAID ディスクは、その名前 (&lt;バックアップされた VM の /dev/mdm/RAID アレイ&lt;名) で表示されます&gt;。</p>
+
+
+  <p>RAID ディスクに物理ボリュームがある場合は、ディスクを直接マウントして、そのディスク内のすべてのボリュームを表示します。</p>
+
+
+  <p>$ mount [RAID Disk Path] [/mounthpath]</p>
+
+
+  <p>RAID ディスクを使用して LVM を構成し、その上に LVM を構成した場合は、上記の LVM に対して定義されているプロセスを再使用し、ボリューム名を入力として指定します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>関連リンクと追加コンテンツ</h3>
+
+
+  <ul>
+   <li>この機能の詳細については、以下をご覧ください。 Linux の復元 <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-restore-files-from-vm">Azure Backupを確認する</a></li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">フォーラムに</a> 連絡してください</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+   <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください</li>
+   <li>新しい <a href="https://azure.microsoft.com/en-us/services/backup/">Azure Backup</a>、無料の <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">Azure 試用版サブスクリプションにサインアップしてください</a>&nbsp;</li>
+  </ul>

@@ -1,0 +1,18 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 175407f25ab8fab9d64f83ddcc8df0b2576feaf5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891611"
+Slug: information-on-microsoft-azure-and-heartbleed
+Title: Microsoft Azureと Heartbleed に関する情報
+Summary: OpenSSL の Heartbleed 脆弱性 (CVE-2014-0160) は最近、大きな注目を集めています。 検出された問題は OpenSSL に固有ですが、多くのお客様は疑問に思っています。
+Content: >-
+  OpenSSL の Heartbleed 脆弱性 (<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0160">CVE-2014-0160</a>) は最近、大きな注目を集めています。 検出された問題は OpenSSL に固有の問題ですが、多くのお客様は、これが Microsoft のオファリング (特に Microsoft Azure) に影響するかどうか疑問に思っています。 Microsoft アカウントと Microsoft Azure、ほとんどの Microsoft サービスは、OpenSSL の脆弱性の影響を受けずにいました。 Windowsの SSL/TLS の実装も影響を受け取りでした。
+
+
+  Microsoft Azure Web サイト、Microsoft Azure Pack Web サイト、Microsoft Azure Web ロールでは、OpenSSL を使用して SSL 接続を終了しません。Windowsには、Secure <strong>Channel</strong> (a.k.a. SChannel。これは、Heartbleed の脆弱性の影響を受けにくいです。
+
+
+  OpenSSL は、暗号化機能を提供するための Linux 上の一般的なライブラリです。 Azure Virtual Machines または OpenSSL を使用するソフトウェアで Linux イメージを実行しているお客様は、脆弱である可能性があります。脆弱な可能性があるすべてのお客様は、ソフトウェア配布プロバイダーのガイダンスに従う必要があります。 詳細と是正措置のガイダンスについては、米国証明書の情報を参照 <a href="https://www.kb.cert.org/vuls/id/720951">してください</a>。

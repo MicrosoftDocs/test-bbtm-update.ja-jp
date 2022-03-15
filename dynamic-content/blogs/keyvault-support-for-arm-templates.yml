@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1a6c42fb39466fdf018c1f56adb936fe3dbfb043
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895482"
+Slug: keyvault-support-for-arm-templates
+Title: ARM テンプレートでの Key Vault のサポート
+Summary: ARM テンプレートから Azure KeyVault 内のシークレットを参照する方法について説明します。
+Content: >-
+  <p>Azure Resource Manager テンプレートを使用して、インフラストラクチャをコードまたは継続的なデプロイのワークフローとして管理する&#39;、Azure にテンプレートをデプロイするためのシークレットストア &quot; とツールの間で &quot; 、シークレットをマーシャリングする必要がありまし&#39;た。 このようなことは珍しくありませんが、これらのシークレットをパラメーターファイルに格納して、ソース管理にチェックインします。これは、 &hellip; シークレットを管理するためのベストプラクティスではありません。</p>
+
+
+  <p>Azure Resource Manager テンプレートでは、 <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-manager-keyvault-parameter/">Azure KeyVault でシークレットへの参照を</a> 提供できます。また、2.9 azure SDK では、VS で使用できるツールを使用して、シークレットを保存するのと同じように簡単にすることができます。 この作業を行うために必要な手順はいくつかありますが &rsquo; 、このリリースでは簡単に行うことができました。</p>
+
+
+  <ol>
+   <li>展開時に使用するシークレットの Key Vault を作成する</li>
+   <li>資格情報コンテナーにシークレットを格納する</li>
+   <li>Key Vault のプロパティを設定して、展開時に Azure Resource Manager がシークレットを取得できるようにする</li>
+   <li>Key Vault 内の secureStrings を参照する展開テンプレートを作成する</li>
+  </ol>
+
+
+  <p>また、デプロイを実行するユーザーには、資格情報コンテナー内のシークレットに対する読み取りアクセス許可が必要です。 そのため、サービスプリンシパルを使用して自動化されたワークフローにデプロイする&#39;、そのサービスプリンシパルは使用するシークレットにアクセスする必要があります。</p>
+
+
+  <p>ここでは、Visual Studio を使用して Key Vault のシークレットを使用するためのテンプレートを作成する方法の簡単なチュートリアルを&#39;します。</p>
+
+
+  <p>最初に、デプロイする Azure リソースグループプロジェクトが必要です。 <a href="https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-resource-groups-deployment-projects-create-deploy/">この記事</a>の概要を読み始める前に作成した&#39;t を使用していない場合は、こちらを参照してください。 この例では、仮想マシンスケールセットに基づいてプロジェクトを作成し、仮想マシンの管理者パスワードとして KeyVault を使用してい&#39;ます。</p>
+
+
+  <p>プロジェクトをデプロイする準備ができたら、プロジェクトノードを右クリックして、新しいデプロイを開始します。</p>
+
+
+  <p><img alt="Resource Group Deployment Dialog" border="0" height="411" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f78e21bd-c5c3-4b25-89e8-748dda8050f8.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リソースグループのデプロイダイアログ" width="480"></p>
+
+
+  <p>ここで、[パラメーター &hellip; の編集] ボタンをクリックして、テンプレートで使用可能なパラメーターを確認します。</p>
+
+
+  <p><img alt="Edit Parameters dialog" border="0" height="305" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0d7bd28b-1f6c-46f3-be26-21ff884167fc.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="パラメーターの編集ダイアログ" width="610"></p>
+
+
+  <p>パスワード以外のすべてのパラメーターが既に入力されて&#39;。 値を入力するのではなく、KeyVault ボタンを使用して KeyVault からシークレットを選択する&#39;ます。 ここから、いくつかのことに気付くかもしれません。&hellip;</p>
+
+
+  <p>最初に、サブスクリプションに Key vault が&#39;ない場合は、そのキーコンテナーを作成する <a href="https://gist.github.com/bmoore-msft/710284c0bd791a688e21">スクリプト</a> があります。 現時点では、Azure ポータルを使用してキーコンテナーを作成することはできないため、スクリプトを作成することができます。 スクリプトを使用すると、実行されている&#39;を *正確* に確認できるだけでなく、他のワークフローでも変更して再利用できます。 テンプレートを優先する場合は、 <a href="https://github.com/rjmax/ArmExamples/tree/master/keyvaultexamples">テンプレート</a>を使用してコンテナー (およびシークレット) を作成することもできます。</p>
+
+
+  <p><img alt="Select KeyVault Secret dialog" border="0" height="257" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/293b21d0-709f-41c6-b940-adcbb27e8911.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="[KeyVault シークレットの選択] ダイアログ" width="480"></p>
+
+
+  <p>サブスクリプションに既に Key vault がある場合は、テンプレートのデプロイ中にコンテナーが使用できるようにならないことがあります。 これは、 &quot; 上記のスクリプトで使用した enabledfortemplatedeployment &quot; プロパティです。</p>
+
+
+  <p><img alt="KeyVault not enabled" border="0" height="257" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78c000d7-ff80-423f-a9f3-539d8af07829.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="KeyVault が有効になっていません" width="610"></p>
+
+
+  <p>この資格情報コンテナーを選択した場合、そのためのアクセス許可がある場合は、Visual Studio によってプロパティが設定されます。 このプロパティは、デプロイのために選択したものだけでなく、コンテナー全体とその中のすべてのシークレットに対して行われることに注意してください。</p>
+
+
+  <p>コンテナーを選択したら、コンテナー内の任意のシークレットを選択するか、新しいものを作成することができ&#39;ます。</p>
+
+
+  <p><img alt="KeyVault Secret Selection" border="0" height="326" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8e1477ae-a2ea-4e20-b996-c560858527e0.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="KeyVault シークレットの選択" width="610"></p>
+
+
+  <p>ここで、[パラメーターの編集]&#39;ダイアログに戻り、シークレット値のウォーターマークが表示されます。これにより、パラメーターファイル内のリテラル値ではなく、シークレットへの参照を使用して&#39;再利用できることがわかります。</p>
+
+
+  <p><img alt="KeyVault Edit Parameters watermark" border="0" height="305" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6063b8c0-b716-4647-a98e-d96e87b90d85.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="KeyVault のパラメーター編集のウォーターマーク" width="610"></p>
+
+
+  <p>JSON での参照方法を確認するには、パラメーターファイルを開き、変更された&#39;を確認します。</p>
+
+
+  <p><img alt="KeyVault JSON" border="0" height="316" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9a97a6e9-385b-4a11-800b-27a7d8b073d7.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="KeyVault JSON" width="720"></p>
+
+
+  <p>また、テンプレート自体に変更が加えられていないことに注意してください。これを行うには、パラメーターファイルのみを使用します。 そのため、異なるパラメーターファイルを使用するだけで、ワークフローのさまざまな段階で異なる参照を使用してコンテナーを変更できます。 また、各開発者は、独自のリソースグループまたは異なるシークレットを持つ環境を持つことができます。</p>
+
+
+  <p>&rsquo;それだけです。 いつでもフィードバックがある場合は、お知らせください。</p>

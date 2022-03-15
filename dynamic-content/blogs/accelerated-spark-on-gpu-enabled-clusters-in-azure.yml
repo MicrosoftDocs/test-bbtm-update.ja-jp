@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 056e2f5f748c6c852890f3603c75a84bc2bd2af7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896559"
+Slug: accelerated-spark-on-gpu-enabled-clusters-in-azure
+Title: Azure の GPU 対応クラスターでの高速 Spark
+Summary: AZTK を使用すると、Azure Batch のインフラストラクチャ上にオンデマンドの GPU 対応 Spark クラスターをプロビジョニングして、高パフォーマンスの GPU コードを作成し、Spark クラスター全体に分散することができます。
+Content: >-
+  <p>GPU 対応クラスターで Spark を実行する機能は、ビッグデータとハイパフォーマンスコンピューティング (HPC) テクノロジの固有の収束を示しています。 この数年で、世界中のすべての企業が AI とその他の HPC ワークフローをビジネスに統合するため、GPU 市場の爆発を&#39;ました。 これは、数値計算やニューラルネットワークで Gpu を使用するように設計されたフレームワークであり、AI の上昇と Gpu の需要の証に躍り出しています。 同時に、ビッグデータと強力なデータ処理エンジンが必要になることは、数百の企業がペタバイトの範囲内のデータ収集を開始するということではありません。</p>
+
+
+  <p>Spark などのビッグデータエンジンが搭載された Gpu などの高性能ハードウェアのインフラストラクチャを提供することにより、データ科学者やデータエンジニアは、実現が困難な多くのシナリオを実現できます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-gpu" target="_blank">最新の gpu sku</a>の最近のリリースと共に、 <a href="https://github.com/Azure/aztk/" target="_blank">Azure Distributed Data Engineering Toolkit (aztk)</a>を使用して、gpu 対応クラスターでの Spark の実行をサポートするようになりました。これを共有することを&#39;ます。 1つのコマンドで AZTK を使用すると、Azure Batch&#39;s インフラストラクチャの上にオンデマンドの GPU 対応 Spark クラスターをプロビジョニングすることができ、通常は単一ノードのみの高パフォーマンスの実装を行うことができ、Spark クラスター全体に分散できます。</p>
+
+
+  <p>今回のリリースでは、AZTK 向けに GPU 対応の追加の Docker イメージをいくつか作成しました。これには、Anaconda、Jupyter、PySpark にパッケージ化された python イメージ、Tidyverse、RStudio-Server および SparklyR にパッケージ化された R イメージなどが含まれます。</p>
+
+
+  <ul>
+      <li><a href="https://hub.docker.com/r/aztk/gpu/" target="_blank">Aztk/gpu: spark 2.2.0</a></li>
+      <li><a href="https://hub.docker.com/r/aztk/python/" target="_blank">Aztk/python: spark 2.2.0-python 3.6.2-gpu</a></li>
+      <li><a href="https://hub.docker.com/r/aztk/r-base">aztk/r-base: spark 2.1.0-r 3.4.1-gpu</a></li>
+  </ul>
+
+
+  <p>これらのイメージは <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank">NVIDIA Docker エンジン</a> を使用して、docker イメージにホスト&#39;s gpu へのアクセスを提供します。 AZTK は完全にコンテナー化された方法で Spark を実行するため、ユーザーは独自の GPU Docker イメージを特定のニーズに合わせてカスタマイズできます。 ただし、GPU が有効なクラスターで Spark を実行するだけのユーザーにとっては、Docker について心配する必要はありません。 AZTK は適切なイメージを自動的にプルし、gpu がホストコンピューターで検出された場合は GPU アクセスを提供します。</p>
+
+
+  <p>ここで&#39;s では、4ノードの GPU 対応 Spark クラスターを作成する方法の例を示します (合計224GB、1 GPU = 1 1/2 K80 カード、および 24 vCPUs)。 AZTK:</p>
+
+
+  <pre class="prettyprint">
+
+  $ aztk spark cluster create --id my_gpu_cluster --size 4 --vm-size standard_nc6</pre>
+
+
+  <p>AZTK は、Standard NC6 Vm に NVIDIA&#39;s Tesla K80s が付属していることを認識しているため、クラスターのプロビジョニング時に、AZTK によって GPU 対応の Docker イメージの1つが自動的に選択されます。 または、--docker-リポジトリフラグを設定して、使用するイメージを手動で指定することもできます。</p>
+
+
+  <p>また、gpu を使用して Numba と Cpu を使用する <a href="https://github.com/Azure/aztk/blob/master/node_scripts/jupyter-samples/GPU%2Bvs%2BCPU%2Busing%2BNumba.ipynb" target="_blank">単純な PySpark ジョブを比較</a> して、Gpu で Spark ジョブを実行したときに得られるパフォーマンスの向上を強調するサンプルも提供します。</p>
+
+
+  <p>Tensoflow/CTNK のような AI ワークフローに対して、分散などの AI ワークフローに Spark を使用する場合でも、コンピューティングの負荷が大きい Spark ジョブを高速化するためだけに使用する場合でも、この HPC とビッグデータテクノロジのこのような固有の収束を活用する計画についてご連絡ください。</p>
+
+
+  <p>これらの機能を使用してお客様のフィードバックをお待ちしております。 フィードバックについては、までご連絡 <a href="mailto:askaztk@microsoft.com">askaztk@microsoft.com</a> ください。または、 <a href="https://www.github.com/Azure/aztk" target="_blank">Github リポジトリ</a>に投稿してください。</p>
+
+
+  <h3>関連情報</h3>
+
+
+  <ul>
+      <li><a href="https://www.github.com/azure/aztk" target="_blank">Azure 分散データエンジニアリング Toolkit (aztk)</a>をダウンロードして開始する</li>
+      <li><a href="https://www.github.com/Azure/thunderbolt/issues" target="_blank">Github から</a>自由に問題を送信してください</li>
+  </ul>
+
+
+  <h3>その他の技術情報</h3>
+
+
+  <ul>
+      <li>Azure 分散データエンジニアリングによって使用される、基になる Azure サービスである<a href="https://www.github.com/Azure/thunderbolt/issues" target="_blank">Azure Batch</a>を参照してください Toolkit</li>
+      <li><a href="https://azure.microsoft.com/en-us/solutions/high-performance-computing" target="_blank">Azure でのより汎用的な HPC</a></li>
+  </ul>

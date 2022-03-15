@@ -1,0 +1,155 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5056afd8fbfec1cdfbc7a2bc7f595e7a7cb8d358
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896894"
+Slug: announcing-the-azure-sdk-2-8-for-net
+Title: Azure SDK 2.8 for .NET の発表
+Summary: 本日、Visual Studio 2013 と Visual Studio 2015 の Azure SDK 2.8 を発表します。 この投稿では、更新プログラムの概要と、新しいツールによる Azure 開発エクスペリエンスの向上について説明します。
+Content: >-
+  <p>本日、 &rsquo; Visual Studio 2013 と Visual Studio 2015 に対して Azure SDK 2.8 を発表します。 この投稿では、更新プログラムの概要と、新しいツールによる Azure 開発エクスペリエンスの向上について説明します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/downloads/">.NET 用 Azure SDK 2.8</a><br>
+
+  [VS 2015 | のダウンロードVS 2013]</p>
+
+
+  <ul>
+   <li><b>Azure Resource Manager：</b>新しいリソースプロバイダーとテンプレート言語関数の IntelliSense サポートを強化することで、Visual Studio でのデプロイテンプレートの作成が容易になりました。 Visual Studio のテンプレートによって使用される新しい関数では、プラットフォームの機能を活用して、リソースに簡単に名前を指定することで、デプロイの失敗を削減できます。</li>
+   <li><b>Application Insights に Azure 診断データを送信する:</b>重要なログトレースとメトリックを Application Insights に直接送信するように Azure 診断を構成できるようになりました。 Application Insights の検索と視覚化の機能を使用すると、問題 &rsquo; の根本原因を簡単に特定できます。</li>
+   <li><b>docker の新しいサポート</b>: Windows コンテナーのサポートを追加 Visual Studio ための docker ツールのプレビューを引き続きサポートしています。</li>
+   <li><b>Mobile Apps テンプレートの更新:</b> 新しい OWIN startup クラスの導入により、アプリの起動をより適切に制御できます。</li>
+   <li><b>Microsoft Azure Storage Explorer プレビューの発表</b>: 非 Windows コンピューターでの Storage blob の管理に関心がある場合は、 &rsquo;Azure Storage Explorer を使用して、ストレージツールの重要なリビジョンを発表します。</li>
+   <li><b>azure Service Fabric tools:</b> <a href="https://aka.ms/sf4devs">azure Service Fabric ツールは、現在 Visual Studio 2015 で利用できます。</a> Visual Studio &ndash; 監視の新しいツールを使用して azure Service Fabric プロジェクトを作成、デバッグ、デプロイ、アップグレードし、新しい Service Fabric Explorer を使用してローカルおよびリモートの azure Service Fabric クラスターを探索し、管理します。</li>
+   <li><b>Azure HDInsight Tools for Visual Studio:</b>新しい更新プログラムを使用すると、HiveServer2 経由でクラスターで Hive クエリを実行し、ほぼオーバーヘッドを発生させずに、ジョブログをリアルタイムで確認できます。 また、新しい Hive タスク実行ビューを使用すると、ジョブをより深く掘り下げ、詳細を確認し、潜在的な問題を特定することができます。</li>
+   <li><b>Azure Data Factory ツール:</b>Azure Data Factory ツールは<a href="https://azure.microsoft.com/en-us/blog/azure-data-factory-visual-studio-extension-for-authoring-pipelines/">Visual Studio 2015 でも使用できる</a>ようになりました。これにより Azure Data Factory 作成エクスペリエンスが簡略化され、オンボードとデプロイの課題が除去されます。</li>
+  </ul>
+
+
+  <h1>Azure Resource Manager の更新プログラム</h1>
+
+
+  <p>IntelliSense サポートの改善により、テンプレートの作成とデバッグが簡単になりました。新しいリソースプロバイダーと、Azure Resource Manager テンプレート言語の最新の <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-functions/">テンプレート言語式</a> を簡単に使用できるようになりました。 Visual Studio はスキーマをキャッシュしますが、待機せずに新しいスキーマを更新する場合は、テンプレートのドキュメントウィンドウを右クリックし、[スキーマの再読み込み] (Ctrl + Shift + J) を選択します。</p>
+
+
+  <p><img alt="clip_image001" border="0" height="235" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/882b980f-4e4d-4761-9714-adbf9b0eac92.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image001" width="610"></p>
+
+
+  <p>サンプルテンプレートは、初期デプロイ中のエラーの削減を目的とした新しいプラットフォーム機能を使用するように更新されました。 たとえば、新しい <i>uniqueString ()</i> 関数を使用してリソース名を自動的に作成できるようになりました。これにより、すべてのデプロイのリソースグループ内のリソースに対して一貫したハッシュが生成されます。 これにより、グローバルに一意のリソース名 (競合、regex の要件) の名前付けエラーが減少し、これらのリソースのパラメーター値を指定する必要がなくなり、デプロイが簡単になります。</p>
+
+
+  <p>Azure Resource Manager テンプレートの展開に使用される PowerShell スクリプトが更新され、Web Platform Installer または PowerShell ギャラリーを使用してインストールできる新しい Azure PowerShell コマンドレット (バージョン1.0 以降) で動作するようになりました。 注: SDK のインストールによって自動的にインストールされます。 これらの変更により、スクリプトの簡略化と、モジュールの使用を要求するための基本的な PowerShell コンストラクトの使用が可能になります。 さらに、複数のデプロイを同じリソースグループに保存できるようになりました。これを使用して、デプロイの履歴を提供できます。</p>
+
+
+  <h1>Azure Diagnostics のデータを Application Insights に送信する</h1>
+
+
+  <p>開発者から寄せられる主な課題の1つは、運用環境でライブ Azure アプリケーションの診断とトラブルシューティングを行う方法です。 &nbsp; 特に、アプリケーションの問題やシステム情報 (起動エラーや役割のリサイクルなど) に関連する問題のトラブルシューティングは困難です。 エラーに関するゲスト OS レベルの情報は、Azure 診断拡張機能が収集してストレージに転送できる Windows イベントログを通じて入手できます。 しかし、テーブルストレージに1回でも、問題の原因と考えられる正確なエラーログを特定するのは困難です。</p>
+
+
+  <p>Application Insights に Azure 診断データを送信することにより、アプリケーションの Application Insights SDK から得られるメトリックとログに加えて、アプリケーションの問題のコンテキストですべての関連データを1か所にまとめたシステムとインフラストラクチャの Azure 診断データを取得できるようになりました。 詳細については、<a href="https://aka.ms/azurediagnosticsappinsights">こちら</a>を参照してください。</p>
+
+
+  <h1>Microsoft Azure Storage Explorer プレビューの発表</h1>
+
+
+  <p>私たち &rsquo; は、Azure SDK ツールセットを丸める必要がある開発者からの要求とフィードバックの主要なソースである Azure Storage Explorer (プレビュー) &ndash; を使用して、ストレージツールの重要なリビジョンを発表しました。 &nbsp; Storage Explorer は、ストレージを使用するアプリケーションの構築と、ストレージを使用するアプリケーションの診断をサポートする、無料のスタンドアロンツールです。 &nbsp;アプリケーションを構築する開発者にとって、このツールを使用すると、Microsoft アカウント、組織アカウント (2FA を含む)、または直接ストレージアカウント名とキー &ndash; を使用してサインインし、すべてのサブスクリプションのすべてのアカウントを参照するだけで、ストレージアカウント &ndash; に簡単に接続できます。</p>
+
+
+  <p>この時点で、コンテナーをすばやく作成したり、ファイルの内容をコンテナーにアップロードしたり、ファイルをダウンロードしたり、プロパティとメタデータを設定したり、アクセスを制御するための SAS キーを作成して取得したりすることもできます。 アプリケーションを診断する開発者にとっては、コンテナーと個々の blob をすばやく検索し、コンテンツ自体から blob のメタデータとプロパティまでさまざまなことを調べることができます。これにより、アプリケーション/スクリプトと、を使用するストレージとの間の問題を絞り込むことができます。 このツールは軽量でスタンドアロンなので、簡単な操作やトラブルシューティングを行うために、さまざまな環境にコピーできます。 大規模なサブスクリプションを操作し、大量のコンテンツを処理することに注目してきたので、エクスプローラーが要求の増加に対応できるようになります。</p>
+
+
+  <p>この Storage Explorer には、いくつかの注目すべき機能があります。 まず、新しい ARM ベースのサブスクリプションとストレージアカウント、および従来のアカウントが完全にサポートされているため、Azure のすべてのストレージアカウントにフルアクセスできます。 次に、すべての形式のサインインを有効にします。これにより、接続が速くなります。 また、場合によっては、Windows と Mac に対して軽量なスタンドアロンバージョンを提供して、このツールを使用できる場所の数を増やします。 現在このプレビューでは、ストレージ内の Blob service に焦点を当てており、Blob に関する機能センターの大部分が表示されます。 テーブルとキューの作成と削除のサポートは最小限に抑えられていますが、サポートは近日中にこのプレビューからフィードバックが保留される予定です。</p>
+
+
+  <p>今すぐ<a href="https://storageexplorer.com/">storageexplorer.com</a>から Windows と Mac 用の Azure Storage Explorer (プレビュー) をダウンロードし、気に入った機能を使用していると思われることをお知らせください。</p>
+
+
+  <p><img alt="clip_image002" border="0" height="427" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6dbdb93e-c672-4dfa-b3a2-adc12c6734a7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image002" width="610"></p>
+
+
+  <h1>Docker の新しいサポート</h1>
+
+
+  <p>Windows 2016 Nano コンテナーが近日対応予定で Windows 2016 コンテナーのサポートを追加 Visual Studio ための Docker ツールのプレビューは引き続きサポートされます。 また、最近、 <a href="https://aka.ms/yodocker">yo docker</a>をリリースしまし &rsquo; た。さらに、スクリプトベースのツーリングコンテナー化 ASP.NET、Node.js、および<a href="https://golang.org/">ゴー</a>に関するフィードバックをお寄せください。</p>
+
+
+  <p><img alt="clip_image003" border="0" height="215" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28172442-4261-4875-947b-139131236ae6.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image003" width="360"></p>
+
+
+  <h1>Azure Mobile Apps の機能強化</h1>
+
+
+  <p>App Service Mobile Apps のプロジェクトテンプレートが更新され、OWIN startup クラスが含まれるようになりました。 これ<a href="https://www.nuget.org/packages/Microsoft.Azure.Mobile.Server/">は、0.2.575 パッケージ</a> &ndash; NuGet のバージョンで導入された重大な変更を反映しています。これは、開発者がスタートアップを完全に制御できるようになったためです。 これらの変更の詳細については、SDK バージョンの <a href="https://azure.microsoft.com/en-us/blog/azure-mobile-apps-september-2015-update/">リリースノート</a> を参照してください。 このテンプレートは、OWIN 自己ホストを使用するようにも移動されました。</p>
+
+
+  <h1>Azure Service Fabric ツール</h1>
+
+
+  <p>Azure Service Fabric と Visual Studio を使用してマイクロサービスの構築を開始する場合は、現在<a href="https://aka.ms/sf4devs">Microsoft Azure Service Fabric SDK Preview</a>をダウンロードできます。 これには、 <a href="https://aka.ms/sf4devs">Azure Service Fabric のランタイムと SDK に加え</a>て、Service Fabric を簡単に開始する Visual Studio ツールが含まれます。 これらのツールを使用すると、さまざまなサービステンプレートを使用して、新しい Service Fabric アプリケーションを作成できます。 これにより、新しい Service Fabric アプリケーションを簡単にデバッグ、配置、バージョン、およびアップグレードできます。</p>
+
+
+  <p>アプリケーションを初めて実行すると、ローカルクラスターが作成されます。ローカルクラスターを使用してローカルでデバッグすることができます。 Cloud Explorer を使用して、ローカルまたはリモートクラスター内のアプリケーションとノードを表示したり、新しい Service Fabric Explorer を起動したりすることができます。 Service Fabric Explorer は、Service Fabric のデプロイとアップグレードを監視するための最新の web ベースのツールです。 また、これを使用して、すべての service fabric ノード、アプリケーション、サービス、パーティション、およびレプリカの詳細を調べることもできます。 Service Fabric Explorer を使用すると、アプリケーションの削除やノードの無効化など、クラスターのさまざまなアイテムに対してアクションを実行できます。</p>
+
+
+  <p><img alt="clip_image004" border="0" height="356" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/99f48dde-d670-45bb-b69e-09202e05e4a1.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image004" width="610"></p>
+
+
+  <p>Azure Service Fabric ツールには診断イベントビューアーが含まれています。これは、アプリケーションを起動するときに、Service Fabric ランタイムによって生成された ETW イベント、組み込みのプログラミングモデル、およびアプリケーションコードを Visual Studio に直接ストリームします。 これにより、プロバイダーを生成するプロバイダーに関係なく、マイクロサービスに影響を与える可能性のあるすべてのイベントが1つのビューで表示されます。</p>
+
+
+  <p><img alt="clip_image005" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4d23425-0cbe-4f64-ac53-93b6b8fbafb6.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image005" width="610"></p>
+
+
+  <p>最後に、azure リソースグループプロジェクトを使用して、指定された JSON テンプレートを使用して、azure でホストされている Service Fabric クラスターを作成できます。 このテンプレートは、ニーズに合わせて変更できます。</p>
+
+
+  <p>Azure Data Factory ツール</p>
+
+
+  <p>Data Factory ツールは Visual Studio 2015 でも使用できるようになりました。 私たちの目標は、Azure Data Factory 作成エクスペリエンスを簡略化し、オンボードとデプロイの課題を取り除くことです。 Azure Data Factory ツールを使用すると、新しいユーザーと高度なユーザーの両方の生産性と効率を向上させ、エクスペリエンスと豊富なツールを活用できます。 このリリースでは、リッチ Visual Studio インターフェイスを使用して、データパイプラインを対話的に作成してデプロイできます。 これらのツールの詳細については、<a href="https://azure.microsoft.com/en-us/blog/azure-data-factory-visual-studio-extension-for-authoring-pipelines/">Azure Data Factory のブログ投稿</a> を参照してください。</p>
+
+
+  <h1>Visual Studio 用 Azure HDInsight ツール</h1>
+
+
+  <p>HDInsight チームは、Visual Studio を使用して HDInsight 開発者向けのいくつかの更新プログラムをリリースしました。 このセクションでは、HDInsight 開発者向けに加えられた Visual Studio の機能強化について詳しく説明します。</p>
+
+
+  <h1>HiveServer2 による Hive 実行の高速化</h1>
+
+
+  <p>現時点では、Visual Studio 公開する HDInsight ツールの情報は非常に限られており、長い時間がかかります。 たとえば、Hive ジョブを送信した後は、送信された Hive ジョブの詳細が表示されることなく、進行状況 &rdquo; を &ldquo; 確認できます。 また、既存の送信メカニズムでは、追加の送信オーバーヘッドが発生するため、ジョブは WebHCat (Tem) を介して送信されるため、非常に簡単なエラーを見つけるために少なくとも1分かかることになります。 この問題を解決するために、この機能が導入されました。 HiveServer2 を通じてクラスター内で Hive ジョブを直接実行できます。オーバーヘッドはほとんどありませんが、クエリの Windows 実行中に完全な情報が得られます。その際には、Visual Studio 用の HDInsight ツールで提供される優れたエクスペリエンスを活用し、 タスクの詳細を確認してください。</p>
+
+
+  <p>[注: この機能は、HDInsight クラスター3.2 以降でのみ機能します。]</p>
+
+
+  <p><img alt="clip_image006" border="0" height="381" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35ce7660-99ef-4c71-a59c-ccbb73b46912.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image006" width="610"></p>
+
+
+  <h1>Hive on Tez ジョブのタスク実行ビュー</h1>
+
+
+  <p>&rsquo;現時点では、Hive ジョブ &rsquo; の構造化および視覚化された情報を取得する方法はありません。ジョブの詳細な洞察を得ることは困難です。 Hive のタスク実行ビューは、ユーザーがジョブの詳細情報を取得できるようにするために開発されています。また、ジョブのパフォーマンスに関する問題がある場合は、ジョブの詳細を確認することもできます。</p>
+
+
+  <p>基本的には、視覚化された情報に基づいてジョブまたはシステムアーキテクチャの構成を調整できるように、各タスクの動作と各タスクに関する詳細情報 (データの読み取り/書き込み、スケジュール、開始時刻、終了時刻など) をユーザーが確認するのに役立ちます。</p>
+
+
+  <p><img alt="clip_image007" border="0" height="381" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09093372-03c2-4578-8791-918272342ee7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image007" width="610"></p>
+
+
+  <h1>まとめ</h1>
+
+
+  <p>&rsquo;まだ Azure アカウントを持っていない場合は、<a href="https://azure.microsoft.com/en-us/pricing/free-trial/">無料試用版</a>にサインアップして、今までに示したすべての機能の使用を開始できます。 その後、 <a href="https://azure.microsoft.com/en-us/get-started/">Azure デベロッパーセンター</a> にアクセスして、それを使用してアプリを構築する方法について学習します。 Visual Studio IDE の [<a href="https://go.microsoft.com/fwlink/?linkid=517102&amp;clcid=0x409">気に入った</a>機能の報告] を使用して、Connect、UserVoice による提案、迅速な考えやアイデアを通じて、バグを送信してください。</p>
+
+
+  <h3>謝辞</h3>
+
+
+  <p>このブログ投稿は、複数の担当者の共同作業です。 Jason Shaver、Matthew Henderson、Vijay Paruchuri に感謝します。</p>

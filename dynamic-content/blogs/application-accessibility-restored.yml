@@ -1,0 +1,11 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f99ab28e5003c3a4fefea84f2836335842537c90
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891852"
+Slug: application-accessibility-restored
+Title: アプリケーションのアクセシビリティを復元しました
+Summary: '現在 Windows Azure で実行されているいくつかのアプリケーションが一定期間到達できませんでした。 &nbsp;最初の発生は、現在 1: 15pm PDT (4 月2日) に行われていましたが、チームが影響を復元しました...'
+Content: '<p>現在 Windows Azure で実行されているいくつかのアプリケーションが一定期間到達できませんでした。 &nbsp;最初の問題は、現在 1: 15pm PDT (4 月2日) に実行され、チームは影響を受けるアプリケーションを1日に1回復元し、すべてのアプリケーションに午前9時の PDT からアクセスできるようになり &nbsp; ました。ストレージサービスは影響を受けませんでした。 &nbsp;<a href="https://social.msdn.microsoft.com/Forums/en-US/windowsazure/threads" mce_href="https://social.msdn.microsoft.com/Forums/en-US/windowsazure/threads">Windows Azure フォーラム</a>では、<a href="https://social.msdn.microsoft.com/Forums/en-US/windowsazure/thread/4dd48387-59f0-4b54-9264-d14ada9ad7b8" mce_href="https://social.msdn.microsoft.com/Forums/en-US/windowsazure/thread/4dd48387-59f0-4b54-9264-d14ada9ad7b8">このスレッド</a>の午後にわたって通信しています。</p>  <h3>どうしたのですか。</h3>  <p>ファブリックコントローラーの役割の1つは、クラウド内のサーバーとアプリケーションの正常性と状態を監視し、アプリケーションに異常が生じた場合に自動的に機能を復元することです。 &nbsp;これを行うには、サーバーと定期的に通信して、状態を要求します。 &nbsp;これで、多数のサーバーがファブリックコントローラーへの応答を停止しました。 &nbsp;ファブリックコントローラーは、これらのサーバーを正常に誤動作としてマークし、トラフィックのルーティングを停止し、影響を受けるアプリケーションインスタンスの新しいサーバーへの移行を開始しました。 &nbsp;ファブリックコントローラーのバグにより、これらのインスタンスは、そのように設計されたとおりにすばやく移動できませんでした。 &nbsp; &nbsp;影響を受けるサーバー上のすべてのインスタンスを含むアプリケーションは、この期間内に到達できなくなりました。</p>  <h3>今後どのような処理を行うのでしょうか。</h3>  <p>ここで説明した特定のバグを修正するだけでなく、ファブリックコントローラーの検出と応答のアルゴリズムを改善するための継続的な作業を続けています。これには、アプリケーションの正常性の詳細なビューがファブリックコントローラーに与えられます。</p>  <p>ここでは、3月13日の誤動作の根底にある原因が非常に異なっていましたが、ファブリックコントローラーでの検出と対応に関しても同じ改善点が適用されています。</p>'

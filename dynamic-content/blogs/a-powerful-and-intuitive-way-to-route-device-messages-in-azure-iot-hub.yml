@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bffc1502876aee52e1f0febfaeb858655d9d59e5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891028"
+Slug: a-powerful-and-intuitive-way-to-route-device-messages-in-azure-iot-hub
+Title: Azure IoT Hub でデバイス メッセージをルーティングするための強力で直感的な方法
+Summary: 'Azure IoT Hub メッセージ ルーティングは、IoT ソリューションの開発を簡素化し、お使いのデバイスからクラウド サービスに、自動化された信頼性の高いスケーラブルな方法でメッセージを送信できるようにします。 '
+Content: >-
+  <p><a href="https://azure.microsoft.com/services/iot-hub/" target="_blank">Azure IoT Hub メッセージ</a> ルーティングを使用すると、IoT ソリューションの開発が簡素化され、自動化されたスケーラブルで信頼性の高い方法でデバイスからクラウド サービスにメッセージを送信できます。 ルーティング クエリを使用して、カスタマイズされたフィルターを適用し、最も関連性の高いデータのみをサービスに接続するエンドポイントに送信することもできます。</p>
+
+
+  <p>メッセージ ルーティングの新機能を発表します。これにより、デバイス ツインのタグとプロパティに対してクエリを実行できるだけでなく、以前は使用可能だったメッセージのプロパティとメッセージ本文に対してクエリを実行できます。 さらに、メッセージ ルーティングの新Azure portalエクスペリエンスにより、ルートとエンドポイント間のナビゲーションが簡単に行え、エクスペリエンスが向上します。</p>
+
+
+  <p>IoT ソリューションには、急速に膨大になる可能性がある大量のデバイス テレメトリ データを送信する必要があります。 IoT Hub の新しいメッセージ ルーティング機能により、デバイスからのメッセージの自動ルートをより強力かつ簡単に設定し、高度なフィルター処理を実装し、大量のデータをリアルタイムで送信できます。 たとえば、コネクテッド ファクトリ ソリューションを開発している場合、エネルギーや冷却装置などのさまざまなデバイスの種類に基づいてデータを異なるサービスに送信し、使用率と故障率を計算します。 デバイス ツインのタグとプロパティを使用して、デバイスの種類を識別し、異なるエンドポイントへのカスタマイズされたルートを作成できます。 これは、最も関連性の高いデータのみを送信し、次のサービスでフィルター処理と後処理を減らすのに役立ちます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messages-d2c" target="_blank">IoT Hub</a> ルーティングを使用すると、お客様は、デバイス テレメトリ メッセージ、デバイス ライフサイクル イベント、デバイス ツインの変更を Azure Blob Storage、Event Hubs、Service Bus キュー、および Service Bus トピックに送信できます。 IoT Hubプロトコル <a href="https://aka.ms/IoTHubMessage" target="_blank">間の相互</a> 運用性を確保するために、すべてのデバイスからクラウドへのメッセージングに共通の形式を定義します。 システム プロパティは、すべてのユーザーに追加され、メッセージの内容を識別します。 ユーザーは、メッセージにアプリケーション プロパティを選択的に追加できます。</p>
+
+
+  <p>その動作を次に示します。</p>
+
+
+  <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Routing-Messages-in-Azure-IoT-Hub-based-on-Device-Twin/player?format=ny" width="960"></iframe></p>
+
+
+  <p>メッセージ システム のプロパティに対するクエリの先頭に 記号を付けする必要 &ldquo;$&rdquo; があります。 アプリケーション プロパティに対するクエリには、シンボルを含めずに名前でアクセス &ldquo;$&rdquo; されます。 メッセージ本文に対するクエリの先頭には、次の名前を付$body&ldquo;&rdquo;。 同様に、デバイス ツインに対するクエリには、前にプレフィックスを付け、&ldquo;&rdquo;$twin。 クエリ式では、ツイン タグまたはプロパティ参照を本文参照、メッセージ システム プロパティ、およびメッセージ アプリケーション プロパティ参照と組み合わせて使用できます。 メッセージ本文が JSON ではない場合でも、メッセージ ルーティングはメッセージをルーティングできますが、クエリはメッセージ プロパティとデバイス ツインに制限されます。 クエリのサンプルを表示し、詳細については、ルーティング クエリ構文 <a href="https://aka.ms/RoutingQuerySyntax/" target="_blank">に関するページを参照してください</a>。</p>
+
+
+  <p>この機能は、現在のリージョンIoT Hubで使用できます。 この機能を試し、ビジネス向けにより合理化された IoT ソリューションを構築していけ、楽しみに思います。 このチュートリアル <a href="https://docs.microsoft.com/azure/iot-hub/tutorial-routing" target="_blank">を試して開始してください</a>。</p>
+
+
+  <p>プレビューに関するエクスペリエンスの詳細を確認し、フィードバックをお寄せください。 メッセージ ルーティングにIoT Hub他の機能はありますか? 引き続き、User Voice フォーラムのAzure IoT<a href="https://feedback.azure.com/forums/321918-azure-iot/" target="_blank">を送信してください</a>。</p>

@@ -1,0 +1,103 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2f46ec3bcc6cc9762a961f1f00719c8e903ffe12
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894624"
+Slug: azure-backup-recovery-services-vault-ga
+Title: Recovery Services コンテナーの一般提供– ARM Vm の Azure Backup サポート
+Summary: Azure Backup Recovery Services vault は、Resource Manager Vm のバックアップをサポートしており、現在一般公開されています。
+Content: >-
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">現時点では、バックアップとディザスターリカバリーのニーズをクラウドでネイティブに管理するための<a href="https://azure.microsoft.com/en-in/documentation/articles/resource-group-overview/" style="font-size: 13px;" target="_blank">Azure Resource Manager</a> &nbsp; リソースである Recovery Services コンテナー &nbsp; の一般提供が発表されています。 Recovery Services 資格情報コンテナーは、新しい Azure portal の統合コンテナーであり、バックアップコンテナーと Site Recovery コンテナーに代わるものです。 この発表には、ARM vm バックアップの一般提供開始、v2 vm バックアップの一般公開、<a href="https://partnercenter.microsoft.com/en-us/partner/home" style="font-size: 13px;" target="_blank">クラウドソリューションプロバイダー</a> &nbsp; サブスクリプションの &nbsp; サポート、Premium Storage vm のパブリックプレビュー、オンプレミスのバックアップ機能 &nbsp; など &nbsp; 、<a href="https://aka.ms/azurebackup_landingpage" style="font-size: 13px;" target="_blank">Azure Backup</a> &nbsp; の便利な機能セットが付属してい Windows サーバー、SCDPM、<a href="https://portal.azure.com" style="font-size: 13px;" target="_blank">新しい Azure portal</a>の Recovery Services コンテナー &nbsp; に Azure Backup Server ます。</p>
+
+
+  <h2 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">価値の提案</h2>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">Azure Backup &rsquo; s &nbsp; <a href="https://blogs.technet.microsoft.com/systemcenter/2016/05/04/a-tour-of-operations-management-suite-backup/" style="font-size: 13px;">クラウドファーストバックアップ戦略</a> &nbsp; では、次のことが実現されます。</p>
+
+
+  <ul style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">
+   <li style="font-size: 13px;">vm をシャットダウンすることなく、Linux azure vm の Windows Azure vm とファイルシステム整合性バックアップのアプリケーション整合性バックアップ。</li>
+   <li style="font-size: 13px;">制限カラム Recovery Services vault を使用して、バックアップのための記憶域管理の複雑さを排除します。</li>
+   <li style="font-size: 13px;">クラウドおよびクラウドへの効率的で信頼性の高いバックアップ。</li>
+   <li style="font-size: 13px;">バックアップインフラストラクチャのメンテナンスがありません。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="Backup to the cloud and in the cloud" border="0" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9fcce9db-b01b-4c78-9c8c-a7e305e52798.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Recovery Services コンテナー-Azure Backup" width="360"></p>
+
+
+  <h2 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">機能</h2>
+
+
+  <h4 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">Resource Manager Vm のサポート</h4>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">Azure Backup GA &rsquo; を数か月前にし<a href="https://azure.microsoft.com/en-us/blog/general-availability-of-backup-for-azure-iaas-vms/" style="font-size: 13px;" target="_blank">ているクラシック vm</a> &nbsp; のバックアップサポートに &nbsp; 加えて、Recovery Services vault は Azure Resource Manager vm のバックアップもサポートしています。 このサポートには、従来の Vm のバックアップと同じ特典のセットが付属しています。</p>
+
+
+  <h4 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">Premium Storage vm のパブリックプレビュー</h4>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">Azure Premium Storage は、i/o 集中型のワークロードに高パフォーマンスで低待機時間のストレージを提供します。 Premium Storage で実行されている vm の Azure Backup サポートにより、これらの vm を誤った削除や VM 破損のシナリオから保護できます。</p>
+
+
+  <h4 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">Recovery Services コンテナーに対する PowerShell のサポート</h4>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">Azure vm のバックアップエクスペリエンスを自動化するだけでなく、Recovery Services コンテナー用の PowerShell コマンドレットを使用すると Azure Backup、Windows サーバー、Windows クライアント、System Center Data Protection Manager、クラウドへの Azure Backup Server などのオンプレミスの資産のバックアップを自動化して管理することができます。</p>
+
+
+  <h4 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">新しい Azure portal でのエクスペリエンスの簡素化</h4>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">単純に、Recovery Services コンテナーの設計目標は、新しい<a href="https://portal.azure.com" style="font-size: 13px;" target="_blank">Azure portal</a>と共 &nbsp; にインラインで<a href="https://portal.azure.com" style="font-size: 13px;">作成 &nbsp; </a>されます。 一連の Vm のバックアップを有効にすることが、3段階のガイド付きウィザードになりました。 バックアップされた VM は、次の2つの簡単な手順を使用して、特定の時点に復元することもできます (Azure Backup 業界標準の GFS スキーマを使用した長期保存をサポートします)。</p>
+
+
+  <h4 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">クラウドソリューションパートナーサブスクリプションのサポート</h4>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">Azure では、CSP プログラムを使用してパートナーに説得力のある価値提案を提供しています。 新しい Azure portal で Recovery Services コンテナーを作成するための ARM リソースモデルを使用して、CSP サブスクリプションでのバックアップをサポートできるようになりました。 パートナーは、1つのソリューションを使用して、クラウド内の IaaS vm とオンプレミスのデータを保護できます。オンプレミスで実行されている Windows サーバー/クライアントおよびアプリケーションからのファイルとフォルダーを含みます。</p>
+
+
+  <h2 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">作業の開始</h2>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;"><a href="https://azure.microsoft.com/en-in/documentation/articles/backup-azure-vms-first-look-arm/" style="font-size: 13px;" target="_blank">Azure vm のバックアップ</a>を開始 &nbsp; するには、次の3つの手順に従います。</p>
+
+
+  <ul>
+   <li style="font-size: 13px;">Recovery Services コンテナーを作成する。</li>
+   <li style="font-size: 13px;">バックアップ保護ポリシー (スケジュールとバックアップコピーを保持する期間) を指定します。</li>
+   <li style="font-size: 13px;">バックアップする仮想マシンを指定してください。</li>
+  </ul>
+
+
+  <p style="font-size: 13px;">&nbsp;</p>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">また、以下の優れたビデオもご覧ください Azure Backup&gt;&nbsp;</p>
+
+
+  <p style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="" autostart="0" frameborder="0" height="315" src="https://channel9.msdn.com/Shows/Tuesdays-With-Corey/Tuesdays-with-Corey-Azure-VM-Backup-and-Oh-Canada-eh/player#time=0h1m18s:paused" width="560"></iframe></p>
+
+
+  <h2 style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-style: normal;">関連リンクとその他のコンテンツ</h2>
+
+
+  <ul style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">
+   <li style="font-size: 13px;">詳細については、<a href="https://azure.microsoft.com/en-us/services/backup/" style="font-size: 13px;" target="_blank">Azure Backup</a>を参照して &nbsp; ください。</li>
+   <li style="font-size: 13px;">詳細を表示しますか? <a href="https://azure.microsoft.com/en-us/documentation/services/backup/" style="font-size: 13px;" target="_blank">Azure Backup のドキュメント</a>をご覧 &nbsp; ください。</li>
+   <li style="font-size: 13px;"><a href="https://azure.microsoft.com/en-us/pricing/free-trial/" style="font-size: 13px;" target="_blank">無料の Azure 試用版サブスクリプション</a>にサインアップして &nbsp; ください。</li>
+   <li style="font-size: 13px;">ヘルプが必要ですか? サポートについては、<a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup" style="font-size: 13px;" target="_blank">Azure Backup フォーラム</a> &nbsp; に &nbsp; お届けします。</li>
+   <li style="font-size: 13px;">新しいアイデアを投稿し、既存のアイデアに投票することで、<a href="https://feedback.azure.com/forums/258995-azure-backup" style="font-size: 13px;" target="_blank">Azure Backup</a> &nbsp; を改善する &nbsp; 方法についてご意見をお寄せください。</li>
+   <li style="font-size: 13px;">最新のニュースと更新については、Twitter &nbsp; <a href="https://twitter.com/azurebackup" style="font-size: 13px;" target="_blank">@AzureBackup</a> &nbsp; でフォローしてください。</li>
+  </ul>

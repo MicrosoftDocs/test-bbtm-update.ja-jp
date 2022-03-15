@@ -1,0 +1,284 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 296a46022ce403c254ef0b5d7ee6114437bd70d4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895577"
+Slug: azures-getting-bigger-faster-and-more-open
+Title: Azure は、より大きく、より速く、開いている
+Summary: 数時間前、Scott Guthrie と Satya Nadella は、クラウド コンピューティングに関する Microsoft の戦略について説明し、Microsoft Azure に対するいくつかの重要なテクノロジとパートナーシップの更新を発表しました。
+Content: >-
+  数時間前、Scott Guthrie と Satya Nadella は、クラウド コンピューティングに関する Microsoft の戦略について語り、 <a href="https://news.microsoft.com/2014/10/20/CloudDayPR/"></a> Microsoft Azure に対する重要なテクノロジとパートナーシップの更新について発表しました。
+
+  <ul>
+   <li>パブリック クラウドで最大の VM サイズを提供する G シリーズ</li>
+   <li>プレミアム Storage高パフォーマンスストレージ ディスク</li>
+   <li>スタートアップ企業Azure Marketplace企業顧客とのより良い接続を実現するための新しいソリューション</li>
+   <li>CoreOS および Cloudera との業界のパートナー関係</li>
+   <li>The Microsoft Cloud Platform System</li>
+  </ul>
+
+  &nbsp;
+
+
+  これは、Docker を Server と Azure <a href="https://azure.microsoft.com/blog/2014/10/15/new-windows-server-containers-and-azure-support-for-docker/"></a> にデプロイするために、Windows発表の前に行われます。
+
+  <h3><strong>G シリーズ VM のサイズ</strong></h3>
+
+  G シリーズと呼ばれる新しい一連の仮想マシン サイズを発表しました。これは、最も要求の厳しいアプリケーションに対して特別なパフォーマンスを提供します。 G シリーズは、パブリック クラウド内の現在の VM サイズよりも多くのメモリとローカルソリッド ステート ドライブ (SSD) ストレージを提供します。 最大の G シリーズでは、448 GB の RAM と 6.5 TB のローカル SSD ストレージが提供されます。 この大規模なメモリとローカル SSD ストレージと共に、G シリーズは、<a href="https://www.intel.com/content/www/us/en/processors/xeon/xeon-e5-solutions.html">最新の Intel® Xeon® プロセッサ E5 v3</a> ファミリを使用して、並ぶもののない計算パフォーマンスを提供します。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="139">
+
+  <p style="text-align: center;"><b><i>VM サイズ</i></b></p>
+
+  </td>
+
+  <td valign="top" width="113">
+
+  <p style="text-align: center;"><b>コア</b></p>
+
+  </td>
+
+  <td valign="top" width="198">
+
+  <p style="text-align: center;"><b>RAM (GB 単位)</b></p>
+
+  </td>
+
+  <td valign="top" width="270">
+
+  <p style="text-align: center;"><b>ローカル SSD Storage (GB 単位)</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="139">
+
+  <p style="text-align: center;"><i>Standard_G1</i></p>
+
+  </td>
+
+  <td valign="top" width="113">
+
+  <p style="text-align: center;">2</p>
+
+  </td>
+
+  <td valign="top" width="198">
+
+  <p style="text-align: center;">28</p>
+
+  </td>
+
+  <td valign="top" width="270">
+
+  <p style="text-align: center;">406</p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="139">
+
+  <p style="text-align: center;"><i>Standard_G2</i></p>
+
+  </td>
+
+  <td valign="top" width="113">
+
+  <p style="text-align: center;">4</p>
+
+  </td>
+
+  <td valign="top" width="198">
+
+  <p style="text-align: center;">56</p>
+
+  </td>
+
+  <td valign="top" width="270">
+
+  <p style="text-align: center;">812</p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="139">
+
+  <p style="text-align: center;"><i>Standard_G3</i></p>
+
+  </td>
+
+  <td valign="top" width="113">
+
+  <p style="text-align: center;">8</p>
+
+  </td>
+
+  <td valign="top" width="198">
+
+  <p style="text-align: center;">112</p>
+
+  </td>
+
+  <td valign="top" width="270">
+
+  <p style="text-align: center;">1,630</p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="139">
+
+  <p style="text-align: center;"><i>Standard_G4</i></p>
+
+  </td>
+
+  <td valign="top" width="113">
+
+  <p style="text-align: center;">16</p>
+
+  </td>
+
+  <td valign="top" width="198">
+
+  <p style="text-align: center;">224</p>
+
+  </td>
+
+  <td valign="top" width="270">
+
+  <p style="text-align: center;">3,250</p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="139">
+
+  <p style="text-align: center;"><i>Standard_G5</i></p>
+
+  </td>
+
+  <td valign="top" width="113">
+
+  <p style="text-align: center;">32</p>
+
+  </td>
+
+  <td valign="top" width="198">
+
+  <p style="text-align: center;">448</p>
+
+  </td>
+
+  <td valign="top" width="270">
+
+  <p style="text-align: center;">6,500</p>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  G シリーズは今年の後半に一般提供される予定です。 これらの新しいサイズに関心がある場合は、次の短いアンケートに従って <a href="https://aka.ms/gseriesdemand">関心を示してください</a>。
+
+  <h3><strong>Premium Storage</strong></h3>
+
+  Azure プレミアム Storageは、I/O 集中型のワークロードをサポートするように設計された、新しい種類の SSD ベースのストレージです。 このプレミアム Storage、永続ディスクをプロビジョニングし、要件を満たすサイズとパフォーマンス特性を構成できます。 その後、複数の永続ディスクを VM に接続し、それらをスストライプし、VM あたり最大 32 TB のストレージをアプリケーションに配信できます。読み取り操作の待機時間は 1 ミリ秒未満で VM あたり 50,000 IOPS を超えます。
+
+
+  プレミアム Storage と G シリーズ VM を使用すると、Azure は、SQL Server、Dynamics AX、Dynamics CRM、Exchange Server、MySQL、Oracle Database など、要求の厳しいエンタープライズ アプリケーションをクラウドに真にリフトアンドシフトする機能を提供します。
+
+  <h3><strong>Azure Marketplace企業のお客様とスタートアップ企業やパートナーをつながって</strong></h3>
+
+  また、パートナーと起動エコシステムの豊富さと強みを世界中の Azure エンタープライズのお客様に結び付け、アプリケーションとサービスのエクスペリエンスである Azure Marketplace も発表しました。 わずか数クリックで、必要なソリューションをすばやく検出し、購入し、Azure に直接デプロイできます。 CoreOS と Cloudera が Marketplace に追加されたと発表しました。詳細は以下のとおりです。
+
+  <blockquote>
+
+  <h3>CoreOS</h3>
+
+  新しい Marketplace で発表されたパートナーの 1 つが <a href="https://coreos.com/">CoreOS です</a>。 この最新の最小限の Linux ディストリビューションでは、コンテナーの実行、クラスターの管理、サーバーのシームレスな更新を簡単に行える方法が提供されます。これは、ウェアハウス規模のコンピューティングを可能にするすべてのコンポーネントです。 CoreOS が Azure の認定を受け、Azure の仮想マシン イメージとして使用できるAzure Marketplace。
+
+
+  現在、Azure では 5 分の 1 Virtual Machines Linux が実行されています。 CoreOS は、Linux ベースの VM オプションの拡張リストに追加され、お客様のために最も広範なエコシステム (Windows と Linux) を構築する約束を果たします。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/20/CoreOS-Image-v1.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="CoreOS イメージ v1" alt="CoreOS Image v1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CoreOS-Image-v1_thumb.png" width="891" height="398" border="0" /></a>
+
+  <h3>Cloudera</h3>
+
+  Cloudera は、エンタープライズ分析とデータ管理のリーダーです。 本日の発表では、Cloudera の最高戦略責任者である Mike Olsen Co-Founder が、Microsoft Power BI に接続された Azure への Cloudera Enterprise デプロイを示しました。 Azure Marketplace でのこの統合されたアプリケーションデプロイ のサポートにより、完全な Cloudera Enterprise ソリューションを数分で作成できます。</blockquote>
+
+  現在の Azure 収益の 40% は、スタートアップ企業と ISV による収益です。 このサービスのリリースAzure Marketplace、Microsoft エンタープライズカスタマー ベースと、Azure クラウド上の ISV および起動パートナーの数の増加に接続します。 パートナーにとっての機会に加えて、企業が環境やニーズに合ったソリューションを展開するための選択肢が多く提供されます。 これはすべてのユーザーに最適です。
+
+
+  今月後半には、Azure エコシステムをさらに拡大する、Azure Marketplaceで利用可能な追加のパートナーとソリューションを発表します。
+
+  <h3><strong>Dell を搭載したクラウド プラットフォーム システム</strong></h3>
+
+  最後に、Scott は、クラウド プラットフォーム システム (CPS) と呼ばれるハイブリッド テクノロジの大幅な進歩を発表しました。 CPS は Azure 整合性の "クラウドインボックス" であり、パブリック クラウドでの Azure の実行から学び、Microsoft のハードウェアと Microsoft のソフトウェアを含む事前に統合されたソリューションに組み込み、お客様とパートナーがデータセンターで Azure の多くの利点を利用できます。
+
+
+  クラウド プラットフォーム システムの詳細については、こちらを参照 <a href="https://blogs.technet.com/b/windowsserver/archive/2014/10/20/unveiling-the-microsoft-cloud-platform-system-powered-by-dell.aspx">してください</a>。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/20/Cloudplat-v3.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Cloudplat v3" alt="Cloudplat v3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Cloudplat-v3_thumb.png" width="764" height="421" border="0" /></a>
+
+  <h3><strong>Docker</strong></h3>
+
+  先<a href="https://azure.microsoft.com/blog/2014/10/15/new-windows-server-containers-and-azure-support-for-docker/">週発表された通</a>り、Microsoft は、Windows Server の次のリリースの一環としてコンテナー機能を提供する予定です。 Docker を使用して分散マルチコンテナー アプリケーションを作成する開発者や組織は、Linux または Windows Server を使用して、開発者がユーザーとツールの成長する Docker エコシステムに接続できます。
+
+
+  今後数日間で、Azure 管理ポータルで直接 Linux VM に Docker エンジンをデプロイするサポート <a href="https://portal.azure.com/">がリリースされます</a>。 6 月に戻り、DockerCon で、Microsoft Open Technologies (MS Open Tech) は、Azure 拡張機能モデルを使用して Linux VM 上の Docker エンジンのセットアップとデプロイを簡略化したと発表しました。 Azure 管理ポータルに直接統合された Docker エンジンに対するこの拡張機能のサポートを拡張し、Azure の Linux VM に Docker をデプロイするファーストクラスのエクスペリエンスを提供しています。 この統合は、今月後半にリリースされる予定です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/20/NewResource.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="NewResource" alt="NewResource" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/NewResource_thumb.png" width="1222" height="515" border="0" /></a>
+
+
+  最後に、MS Open Tech は、新しい Docker ホスト機能に Azure サポートを提供する最近の貢献を行いました。この機能は、次のバージョンの <a href="https://github.com/bfirsh/docker/tree/host-management">Docker</a> の一部として利用できます。 Docker ツールの次のウェーブで密接に共同作業を行うのを楽しみに思います。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/20/CreatingAzureVM.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="作成AzureVM" alt="CreatingAzureVM" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreatingAzureVM_thumb.png" width="1097" height="531" border="0" /></a>
+
+  <h3><strong>Azure のお客様とパートナー</strong></h3>
+
+  話の中で、<a href="https://azure.microsoft.com/en-us/case-studies/accuweather-web/">Scott は Accuweather</a>、<a href="https://www.microsoft.com/casestudies/Case_Study_Detail.aspx?CaseStudyID=710000004265">Scott 北米、</a><a href="https://www.microsoft.com/casestudies/Windows-Server-2012-R2/Lufthansa-Systems-AG/Lufthansa-Systems-Uses-Hybrid-Cloud-to-Trim-IT-Delivery-to-Hours-and-Reduce-Costs/710000003533">Lufthansa Systems</a> のような顧客が Azure プラットフォームを使用してビジネスを前進している方法を共有しました。 世界で最大の独立系の法律およびコンサルティング企業の 1 つである <a href="https://www.microsoft.com/casestudies/Case_Study_Detail.aspx?casestudyid=710000001018">Milliman</a> は、大規模な法律および財務分析に Azure のハイパースケール機能を使用しています。 過去 12 か月間にクラウド顧客を 2 倍にし、4,500 万時間を超えるコンピューティング時間を設定しました。 最初の American Financial では、Azure Enterprise 上の Datastax Virtual Machines を使用して、何十億もの記録されたプロパティ レコードを格納し、ユーザーが関連する詳細を検索できます。 Datastax は、全米のロールアウトでファースト アメリカ財務を支援し、業界で最も多くの不動産資産ドキュメントを格納する計画を立て中です。 また、Scott は、Microsoft の新しいストレージ パートナーである Panzura について話しました。このパートナーは、Active Directory と Panzura のテクノロジを使用して世界中のエンジニアが簡単にアクセスできる一方で、世界の最大のエネルギー企業の 1 つが Seismic データを格納するのを支援しています。 Azure は、北米、Milliman から Lufthansa Systems まで、現在のテクノロジに重点を置くビジネス環境で企業の競争力を維持するために役立っています。
+
+
+  大規模なメモリ、より大きなディスク、より多くのパートナー、19 のデータセンター リージョン、ハイブリッド クラウドの最新のクラウド プラットフォーム システムなど、クラウドのイノベーションとグローバルなリーチが非常に多いので、Azure が昨年から 198% 増加したのは驚きではありません。
+
+
+  試してみてください。ご自分の考えをお知らせください。
+
+
+  Jason
+
+
+  Azure Virtual Machinesを開始するには、こちらをクリック <a href="https://azure.microsoft.com/en-us/trial/free-trial-virtual-machines/">して無料試用版を開始してください</a>。

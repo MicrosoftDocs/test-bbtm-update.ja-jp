@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0353149cc5d8aef912cee1f5f8f8baeec3072f4d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895915"
+Slug: improving-azure-virtual-machines-resiliency-with-project-tardigrade
+Title: Project tardigrade で Azure Virtual Machines の回復性を向上させる
+Summary: コードネーム Project tardigrade では、この取り組みによって、インスピレーションを8脚の微細な creature から描画します。これは、水とも呼ばれています。 強制終了することは事実上不可能ですが、tardigrades は極端な条件にさらすことができますが、それでも引き続き管理して、継続することができます。
+Content: >-
+  <p>&quot;私たちの目標は、組織が Azure でワークロードを確実に実行できるようにすることです。 ここでは、ビジネスの生産性を向上させるだけでなく、シームレスなカスタマーエクスペリエンスを提供するために、Azure プラットフォームの進化を継続的に促進することに投資しています。 先月は、信頼されている一連のクラウドサービスを提供するための取り組みの一環として、この領域の改善を続けるために進行中の <a href="https://azure.microsoft.com/en-us/blog/advancing-microsoft-azure-reliability/" target="_blank">複数のイニシアチブを強調するブログ</a> 記事を公開しました。 現在、突然のプラットフォーム障害が発生した場合でも、当社のサービスの高可用性を向上させる、プラットフォームの回復力イニシアチブの Project &ndash; について説明しました。 次の投稿は、Pujitha Desiraju と Anupama Vedapuri によって、このような取り組みを進めているコンピューティングプラットフォームの基礎チームからのものでした。 &rdquo; Mark Russinovich、CTO、Azure</p>
+
+
+  <hr>
+
+  <p><em>この投稿は、Mukhtar Ahmed、シニアソフトウェアエンジニアによって共同作成されました。Pujitha Desiraju、Program Manager II;Jim Cavalaris、主要ソフトウェアエンジニアJagtiani、プリンシパルソフトウェアエンジニアリングマネージャー、Anupama Vedapuri、プリンシパルプログラムマネージャー</em></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>コードネーム Project tardigrade では、この取り組みによって、インスピレーションを8脚の微細な creature から描画します。これは、水とも呼ばれています。 強制終了することは事実上不可能ですが、tardigrades は <a href="https://www.wired.com/story/a-crashed-israeli-lunar-lander-spilled-tardigrades-on-the-moon/" target="_blank">極端な条件</a>にさらすことができますが、それでも引き続き管理して、継続することができます。 これは、回復性を考慮してサーバーをエミュレートすることを想定したものであり、そのため、tardigrade Project 名前です。 このプロジェクトは、広範囲にわたるさまざまな条件において存続しているものと同様に &rsquo; 、ハードウェアからソフトウェアまでのプラットフォームの複数の層にわたって回復性と自己復旧メカニズムを構築します。すべて、仮想マシン (vm) を可能な限り保護するためのビューがあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/612e9e17-c9a8-4a87-b975-ee34b40e435c.jpg"><img alt="An image of a tardigrade." border="0" height="288" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81f4b74d-5fd3-4b54-ace7-a49788cdba1c.jpg" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="Tardigrade のイメージ。" width="359"></a></p>
+
+
+  <h2>それはどのように機能しますか?</h2>
+
+
+  <p>Project tardigrade は、広範なプラットフォーム回復性イニシアチブです。これには、予期しないホストの動作によって vm が影響を受けないようにするために、さまざまな軽減方法が採用されています。 これには、ワークロードへの影響を防ぐために、コンポーネントを自己回復し、潜在的な障害から迅速に復旧できるようにする機能が含まれます。 非常に重要なホスト障害が発生した場合でも、このような自然なイベントから Vm を保持して保護し、ワークロードをシームレスに実行できるようにすることが優先されます。</p>
+
+
+  <p>次の例では、顧客によって開始された VM 操作がホストサーバー上のエラーのために失敗した一般的なイベントについて、以下に示します。 失敗した VM 操作を正常に実行するために、サーバー上の他の Vm に影響する可能性のある問題を事前に回避するために、Tardigrade の復旧サービスに通知し、フェールオーバー操作の実行を開始します。</p>
+
+
+  <h3>次のフェーズでは、Tardigrade の復旧ワークフローについて簡単に説明します。</h3>
+
+
+  <h4>フェーズ 1:</h4>
+
+
+  <p style="margin-left: 40px;">この手順は、お客様の Vm の実行には影響しません。 ホストで実行されているすべてのサービスをリサイクルするだけです。 まれに、障害が発生したサービスが正常に再起動しない場合は、フェーズ2に進みます。</p>
+
+
+  <h4>フェーズ 2:</h4>
+
+
+  <p style="margin-left: 40px;">診断サービスはホスト上で実行され、関連するすべてのログ/ダンプを体系的に収集し、フェーズ1で失敗の原因を十分に診断できるようにします。 この包括的な分析により、問題の根本原因を解決し、今後再発生 &rsquo; するのを &lsquo; 防ぐことができます。</p>
+
+
+  <h4>フェーズ 3: </h4>
+
+
+  <p style="margin-left: 40px;">大まかに言えば、ホストの問題を軽減するために、お客様への影響を最小限に抑えて、OS を正常な状態にリセットします。 このフェーズでは、各 VM の状態が RAM に保持されます。その後、OS が正常な状態にリセットされます。 OS は迅速にリセットされますが、サーバーでホストされているすべての Vm でアプリケーションを実行すると、CPU が一時的に停止している間、短 &lsquo; &rsquo; 時間で動作が停止します。 このエクスペリエンスは、ネットワーク接続が一時的に失われるのに似ていますが、再試行ロジックによって迅速に再開されます。 OS が正常にリセットされると、Vm は保存された状態を消費し、通常のアクティビティを再開して、VM の再起動を回避します。</p>
+
+
+  <p>上記の原則により、ホスト内の1つのコンポーネントの障害がシステム全体に影響を与えないようにし、顧客の Vm が予期しないホスト障害に対する影響をより大きくすることを保証します。 これにより、重要なエラー (カーネルレベルのエラーやファームウェアの問題など) の最も極端な形式から迅速に回復しながら、必要な仮想マシンの状態を維持することもできます。</p>
+
+
+  <h2>今後の予定</h2>
+
+
+  <p>現在、前述の Tardigrade の復旧ワークフローを使用して、Azure にあるソフトウェアホストの障害の可能性を検出し、迅速に復旧します。 並行して、技術的な機能を継続的に推進し、さまざまなホスト障害シナリオに拡張して、この回復力イニシアチブによって対処できます。</p>
+
+
+  <p>また、machine learning の最新のイノベーションを調査して、Project tardigrade のプロアクティブ機能を活用しています。 たとえば、機械学習を活用して、より多くの種類のホスト障害をできるだけ早く予測することを計画しています。 たとえば、そのワークロードに影響する可能性がある、ホストのリソース使用率が異常であることを検出します。 また、機械学習を活用して、適切な修復操作 (Tardigrade の回復手順、 <a href="https://azure.microsoft.com/en-us/blog/improving-azure-virtual-machine-resiliency-with-predictive-ml-and-live-migration/" target="_blank">ライブマイグレーション</a>など) を推奨し、fleetwide 回復オプションを最適化します。</p>
+
+
+  <p>お客様がビジネスに不可欠なワークロードを Microsoft Azure cloud platform に継続的に移行するため、マイクロソフトは継続的に学習して改善し、計画外の障害からの中断に関する顧客の期待に継続的に対応できるようにします。 信頼性は、コンプライアンス、セキュリティ、プライバシー、透明性と共に、信頼できるクラウドコミットメントの中核となる理念です。 これらのすべての分野において、お客様の信頼が獲得されていることがわかっているので、適切な操作を行うだけでなく、適切な作業を行ってください。 Project tardigrade によって実行されるプラットフォームの回復性は、基になるホストの問題が vm に影響を与えないようにすることで、vm の可用性を既に強化しています。</p>
+
+
+  <p>今後も、このプロジェクトとその他の機能強化についてさらに詳しく説明します。また、お客様の組織の生産性向上のためにプラットフォームの信頼性を継続的に改善する方法 &rsquo; について、できるだけ透過的にしてください。</p>

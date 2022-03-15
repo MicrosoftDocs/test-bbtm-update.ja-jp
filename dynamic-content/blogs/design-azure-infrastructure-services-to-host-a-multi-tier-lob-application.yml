@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2ff6521db6bc190dd78b616557ae23310ffc1a8f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896826"
+Slug: design-azure-infrastructure-services-to-host-a-multi-tier-lob-application
+Title: 多層 LOB アプリケーションをホストするように Azure インフラストラクチャサービスを設計する
+Summary: 設計手法を使用して、Azure インフラストラクチャサービスのネットワーク、ストレージ、コンピューティングの各要素に対して、仮想マシン上で実行されている多層基幹業務アプリケーションを調整します。
+Content: >-
+  <p>複数層の基幹業務 (LOB) アプリケーションを Azure の仮想マシンとしてデプロイするのは、次のような組み合わせです。</p>
+
+
+  <ul>
+   <li>
+   <p>ご存知のように、お客様のローカルデータセンターでサーバーとアプリケーション全体を構成する方法について説明します。</p>
+   </li>
+   <li>
+   <p>Azure インフラストラクチャサービスのネットワーク、ストレージ、コンピューティングの各要素に合わせてアプリケーションを調整および設計する方法について、まだ理解していない可能性があります。</p>
+   </li>
+  </ul>
+
+
+  <p>まだ知られていないものについては、次のような設計手法に従うことができます。</p>
+
+
+  <ol>
+   <li>リソース グループ</li>
+   <li>接続</li>
+   <li>記憶域</li>
+   <li>ID</li>
+   <li>セキュリティ</li>
+   <li>仮想マシン</li>
+  </ol>
+
+
+  <p>この設計方法を理解し、独自の LOB アプリケーションで使用する方法については &nbsp; 、「<a href="https://techcommunity.microsoft.com/t5/CAAB-Cloud-Adoption-Advisory/EXTRA-November-2016-Webinar/m-p/30058#M41"><u>Azure IaaS における lob アプリケーションの設計と構築」ビデオと</u></a>、「Cloud 導入諮問委員会 (caab)」の11月の2016ウェビナーのスライドデッキ &nbsp; を参照してください。</p>
+
+
+  <p><img height="456" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3b1d1b54-6fc0-4a0e-9d22-d86db6da9b94.png" style="width: 532px; height: 287px;" width="816"></p>
+
+
+  <p>ウェビナービデオには次のセクションがあります。</p>
+
+
+  <ul>
+   <li>定義と前提 (3:12 から開始)</li>
+   <li>デザインプロセス (8:05 から開始)</li>
+   <li>設計の例 (38:50 から開始)</li>
+   <li>Azure PowerShell を使用したビルド (50:30 から開始)</li>
+  </ul>
+
+
+  <p><a href="https://docs.microsoft.com/azure/guidance/guidance-architecture"><u>Azure のパターンとプラクティス</u></a> &nbsp; に関する推奨事項とベストプラクティスを含む &nbsp; デザインプロセスの結果は、仮想マシンとその azure インフラストラクチャ固有の設定の表になります。 次に例を示します。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7024566-bc1b-4a90-ae7b-a43849589a6f.png"></p>
+
+
+  <p>テーブルエントリを決定すると、 &rsquo; 要素を簡単に構築し、すべての Azure インフラストラクチャ設定を適切に取得できます。 たとえば、テーブルと PowerShell コマンドブロックを使用して、仮想ネットワークとそのサブネットを作成する方法を次に示します。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b46beb2-d0db-42a4-b272-3af217f43ff1.png"></p>
+
+
+  <p>また、テーブルと PowerShell コマンドブロックを使用して仮想マシンを作成する方法についても説明します。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a710c04-5a79-40a4-96c3-78ca4bf21d0e.png"></p>
+
+
+  <p><a href="https://onedrive.live.com/download.aspx?cid=6b7cf2bd5f47f487&amp;id=documents&amp;resid=6B7CF2BD5F47F487%212825&amp;authkey=AFRK6VNhGGpbLaI"><u>スライドデッキ</u></a>には、ウェビナーでは説明されていなかった次の付録があります。</p>
+
+
+  <ul>
+   <li><strong>PowerShell コマンドブロック</strong> &nbsp; &nbsp;各スライドは、Azure インフラストラクチャサービスの要素を構築するための、空白の Azure PowerShell コマンドのセットです。</li>
+   <li><strong>名前付け規則</strong> &nbsp; &nbsp; を設計するAzure インフラストラクチャ要素に名前を指定する方法を決定するためのヒント。</li>
+  </ul>
+
+
+  <p>この設計手法は、Azure インフラストラクチャサービスでホストされる LOB アプリケーションを迅速かつ適切にデプロイするために使用します。</p>
+
+
+  <p>&nbsp;</p>

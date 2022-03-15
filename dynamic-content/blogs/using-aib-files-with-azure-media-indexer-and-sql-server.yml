@@ -1,0 +1,198 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e2ad55c8aaaadbaee00ef735106ee9fc44e38581
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896375"
+Slug: using-aib-files-with-azure-media-indexer-and-sql-server
+Title: AIB ファイルを Azure Media Indexer および SQL Server で使用する
+Summary: 最後の投稿では、主に XML ベースのファイルに焦点を合わせた、プロセッサの基本的な使用方法と出力ファイルの概要について説明しています。 この記事の目的は、インデックス作成ジョブによって作成された強力なオーディオインデックス blob (AIB) ファイルを使用することです。
+Content: >-
+  <h2>はじめに</h2>
+
+  <a href="https://msdn.microsoft.com/en-us/library/azure/dn783455.aspx">Azure Media Indexer</a> は、マルチメディアファイルから意味のあるメタデータを抽出する強力なメディアプロセッサです。最後の <a href="https://azure.microsoft.com/blog/2014/09/10/introducing-azure-media-indexer/">投稿</a>では、主に XML ベースのファイルに焦点を合わせた、プロセッサの基本的な使用方法と出力ファイルの概要について説明しています。
+
+
+  この記事の目的は、インデックス作成ジョブによって作成された強力なオーディオインデックス blob (AIB) ファイルを使用することです。
+
+  <h2>オーディオインデックス Blob</h2>
+
+  AIB ファイルは、マルチメディアファイルの lattice に構造化されたテキストインデックスです。
+
+
+  大まかに言えば、TTML/サーミ出力ファイルの対象となるシナリオと比較すると、次のようなことが考えられます。
+
+  <ul>
+   <li><strong>Less 誤否定</strong> 多重を使用すると、個々の単語の信頼度が低い場合に、(サブ) 句と ' AND ' 一致を検索できます。ただし、それらの単語を組み合わせてクエリを実行すると、それでも正しいことを推測できます。 多重は、認識エンジンによっても考慮された代替認識候補を表しますが、トップスコアの候補になることはありませんでした。</li>
+   <li><strong>誤検知が少ない</strong> 多重は、単語の一致ごとに信頼スコアも提供します。 これは、信頼度の低い一致を抑制するために使用できます。</li>
+   <li><strong>タイムスタンプ</strong> 多重は、テキストとは異なり、読み上げられた単語の開始時刻を保持します。これは、ナビゲーションに便利です。</li>
+  </ul>
+
+  &nbsp;
+
+
+  AIB の技術的背景に関するこの情報と詳細については、 <a href="https://research.microsoft.com/en-us/projects/mavis/technicalinfo.aspx">こちら</a>の Microsoft Research web サイトを参照してください。
+
+
+  現在、aib ファイルは、カスタム<a href="">インデクサー SQL IFilter アドオン</a>のある合わせでのみ使用できます。
+
+
+  &nbsp;
+
+  <h2>SQL Server 仮想マシンのセットアップ</h2>
+
+  IFilter を使用するには、SQL Server (2008 以降) がインストールされている Windows サーバーコンピューターが必要です。さいわい、Azure VM ギャラリーには SQL Server プリセットがあり、これをうまく機能させることができるようになっています。
+
+
+  最初に、 <a href="https://manage.windowsazure.com/">Azure 管理ポータル</a>に移動し、画面の左下隅にある [新規] を選択します。このチュートリアルでは、次に示すように、ギャラリーで SQL Server 2012 SP1 Web イメージを使用します。
+
+  <blockquote>注: 仮想マシン用に作成したログイン資格情報を忘れないでください。</blockquote>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/06/2-1.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2-1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-1_thumb.png" alt="2-1" width="644" height="271" border="0" /></a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/06/2-2.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2-2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-2_thumb.png" alt="2-2" width="644" height="410" border="0" /></a>
+
+
+  &nbsp;
+
+
+  次に、ポータルの [Connect] ボタンを使用して新しく作成したマシンにリモートデスクトップを作成し、aib ファイルを処理するための SQL Server インスタンスの構成を開始します。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/06/2-3.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2 ～ 3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-3_thumb.png" alt="2-3" width="644" height="33" border="0" /></a>
+
+
+  &nbsp;
+
+  <h3>SQL Server の構成</h3>
+
+  新しくプロビジョニングされた仮想マシンで Internet Explorer を開き、に移動し <a href="https://aka.ms/indexersql. ">ます。 </a>
+
+  <blockquote>注: 次に示すように、"許可" リストに web サイトを追加することが必要になる場合があります。</blockquote>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/16/2-4.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2-4" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-4_thumb.png" alt="2-4" width="409" height="367" border="0" /></a><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/16/2-5.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2-5" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-5_thumb.png" alt="2-5" width="398" height="354" border="0" /></a>
+
+
+  &nbsp;
+
+
+  カスタム<a href="">インデクサー SQL IFilter アドオン</a>を仮想マシンにダウンロードしたら、アーカイブからすべてのファイルを抽出し、セットアップスクリプト (32 ビットマシンの場合は setup32.msi、64ビットマシンの場合は setup64.msi) を実行して、必要なすべての実行可能ファイル、dll、ドキュメント、サンプルコードをインストール用に選択したディレクトリにコピーします。
+
+
+  次に、オーディオ検索用に新しいデータベースを作成する必要があります。
+
+  <ul>
+   <li>SQL Server Management Studio を開き、完全な管理者特権を持つユーザーとしてサーバーにログインします。</li>
+   <li>AudioSearch データベースを作成する
+  <ul>
+   <li>オブジェクトエクスプローラーでデータベースを右クリックし、[新しいデータベース] を選択します。</li>
+   <li>[データベース名] フィールドに「AudioSearch」と入力します。</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/16/2-6.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2-6" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-6_thumb.png" alt="2-6" width="644" height="460" border="0" /></a>
+
+  <ul>
+   <li>データベースに対してインデックス作成が有効になっていることを確認 Full-Text
+  <ul>
+   <li>オブジェクトエクスプローラーで Audiosearch データベースを右クリックし、[プロパティ] を選択します。</li>
+   <li>[ページの選択] ツリーの [ファイル] ノードをクリックして、[ファイル] プロパティページを開きます。</li>
+   <li>[フルテキストインデックスを使用する] がオンになっていることを確認します。</li>
+  </ul>
+
+  </li>
+   <li>"Files" テーブルとフルテキストインデックスを作成する
+  <ul>
+   <li>[InstallDir] > から、SQL スクリプトを開きます。
+  <ul>
+   <li>既定の [InstallDir] は "C:\Program files \ Azure Media Services Indexer SDK \ Indexer_SQL_AddOn" です。</li>
+  </ul>
+
+  </li>
+   <li>上部のコマンドバーの [データベース] ボックスの一覧で正しいデータベースが選択されていることを確認します (たとえば、master の場合は、[AudioSearch] に変更します)。</li>
+   <li>スクリプトを実行します。</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/16/2-7.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2-7" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-7_thumb.png" alt="2-7" width="644" height="463" border="0" /></a>
+
+
+  これで、[ファイル] テーブルが作成され、AIB 列のオーディオフルテキストインデックス用に構成されました。フルテキストインデックスは、ファイルテーブルに新しいレコードが挿入されるたびに自動的に更新されます。
+
+
+  &nbsp;
+
+  <h3>データベースを試す</h3>
+
+  環境がすべて設定されたので、最後に aib ファイルを使用してフルテキスト検索を SQL Server できます。[InstallDir] \data に移動すると、ビデオファイルと AIB ファイル (それぞれ sample_video sample_video) が表示されます。ビデオファイルでインデックス作成ジョブを実行する方法については、このブログ記事では <a href="https://azure.microsoft.com/blog/2014/09/10/introducing-azure-media-indexer/">説明しません。また</a>、その方法を覚えていない場合は、前のブログ記事をご覧ください。(必要に応じて、最後のブログ投稿のビデオを再利用し、結果を比較してください)。
+
+
+  最後の手順では、Files テーブルを作成しました。ここで、sqlcmd コマンドラインユーティリティを使用して、このサンプルの AIB ファイルを Files テーブルに挿入できます。
+
+  <pre class="prettyprint">sqlcmd -d AudioSearch -Q "insert into files (Title, Description, Duration,
+
+  FilePath,Ext,AIB) values ('Bill Gates: Windows and the Cloud', 'Interview with
+
+  Bill Gates on Channel9 about his transition out of Microsoft and his views on
+
+  cloud computing.', 79, '[InstallDir]\data\sample_video.wmv','.aib',(select *
+
+  from openrowset(bulk '[InstallDir]\data\sample_video.wmv.aib', SINGLE_BLOB) as
+
+  X) )"</pre>
+
+  &nbsp;
+
+
+  次に、SQL Server Management Studio を使用して、SQL Server によって aib のインデックスが適切に作成されていることを確認します。
+
+  <ol>
+   <li>SQL Server Management Studio を開き、完全な管理者特権を持つユーザーとしてサーバーにログインします。</li>
+   <li>コマンドバーの [新しいクエリ] を選択し、メッセージが表示されたら、同じサーバーに接続します。</li>
+   <li>次の SQL クエリを実行します。
+  <pre class="prettyprint">select filepath from files where contains(AIB,'spoken:cloud')</pre>
+
+  結果テーブルには、filepath を含む1行が表示されます。
+
+  <pre class="prettyprint"> [InstallDir]\data\sample_video.wmv</pre>
+
+  </li>
+   <li>ここで、次のクエリを実行して、0の結果が返されることを確認します。
+  <pre class="prettyprint">select filepath from files where contains(AIB,'spoken:washington')</pre>
+
+  </li>
+
+  </ol>
+
+  予想される結果が得られたら、インデクサー SQL Server IFilter を使用して、ビデオファイルにインデックスを作成しました。
+
+
+  いつでも、に関するご質問やご意見 <a href="mailto:indexer@microsoft.com">indexer@microsoft.com</a> をお寄せください。
+
+
+  このブログ投稿が作成されてから、インデクサーが更新されました。 バージョン 1.1.6.7 <a title=" リリースノートについては、こちら </a> のリリースノートをご覧ください Azure Media Indexer 1.1.6.7 " href="https://azure.microsoft.com/blog/2014/12/03/azure-media-indexer-version-1-1-6-7-release-notes/"> 。
+
+
+  &nbsp;
+
+  <h3></h3>

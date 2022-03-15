@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3b8e820229cd20ffbf20f64e2585953f44baad04
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896592"
+Slug: azure-container-registry-private-link-support-preview-for-virtual-networks
+Title: Azure Container Registry Private Linkネットワークのプレビューのサポート
+Summary: Azure Container Registry、Azure ネットワーク内のリソースAzure Private Linkトラフィックを制限する手段である、プレビュー サポートについて発表します。
+Content: >-
+  <p>Azure Container Registry、Azure ネットワーク内のリソース <a href="https://azure.microsoft.com/en-us/services/private-link/" target="_blank">Azure Private Linkネットワーク トラフィック</a>を制限する手段である、プレビュー サポートを発表します。</p>
+
+
+  <p>このPrivate Link、レジストリ エンドポイントにはプライベート IP アドレスが割り当て、顧客が定義した仮想ネットワーク内でトラフィックをルーティングします。 プライベート ネットワーク のサポートは、お客様から最も高い質問の 1 つであり、お客様は、厳しく制御されたネットワークのイングレスとエグレスの恩恵を受けながら、レジストリの Azure 管理の恩恵を受けながら利用できます。<br>
+
+  &nbsp;&nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bea46741-51f1-4131-a3ae-7e6bed40abe1.png"><img alt="Architecture diagram of Azure Container Registry connecting to a Virtual Network through Private Link" border="0" height="485" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0947861b-59ab-4b70-9986-14565a9521cf.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1203"></a></p>
+
+
+  <p>プライベート リンクは、近日公開予定の幅広い Azure リソースで利用できます。プライベート仮想ネットワークのセキュリティを備え、幅広いコンテナー ワークロードが可能になります。</p>
+
+
+  <h2>プライベート エンドポイントとパブリック エンドポイント</h2>
+
+
+  <p>Private Linkプライベート エンドポイントをプライベート IPS 経由で使用できます。 上記の場合、contoso.azurecr.io レジストリのプライベート IP は 10.0.0.6 で、 <strong>contoso-aks-eastus-vnet</strong> のリソースでのみ使用できます。 これにより、この VNet 内のリソースが安全に通信できます。 その他のリソースは、VNet 内のリソースにのみ制限できます。</p>
+
+
+  <p>同時に、contoso.azurecr.io レジストリのパブリック エンドポイントは、開発チームに対して引き続きパブリックである可能性があります。 今後のリリースでは、Azure Container Registry (ACR) Private Link はパブリック エンドポイントの無効化をサポートし、プライベート リンクの下に構成されているプライベート エンドポイントへのアクセスのみを制限します。</p>
+
+
+  <h2>テナント間の手動承認のサポート</h2>
+
+
+  <p>Azure コンテナー レジストリが 1 つのテナント内にある 2 つの Azure テナント間にプライベート リンクを確立する必要があるお客様は、コンテナー ホストが他のテナントにある間、 <a href="https://docs.microsoft.com/azure/private-link/manage-private-endpoint" target="_blank">Private Link 手動</a> 承認ワークフローを使用できます。 このワークフローにより、レジストリを含む多くの Azure Azure Machine Learningレジストリと安全に対話できます。 異なるサブスクリプションとテナントで作業している開発チームは、プライベート リンクの手動承認を利用してアクセス権を付与する場合があります。</p>
+
+
+  <h2>サービス エンドポイントとプライベート リンク</h2>
+
+
+  <p>ACR サービス エンドポイント のプレビュー サポート <a href="https://azure.microsoft.com/blog/azure-container-registry-virtual-network-and-firewall-rules-preview-support/" target="_blank">は、2019 年 3 月にリリースされました</a>。 サービス エンドポイントは、IP タグ付けを介して Azure VNet からのアクセスを提供します。 サービス エンドポイントへのすべてのトラフィックは、ルーティングを介した Azure バックボーン ネットワークに制限されます。 パブリック エンドポイントは引き続き存在します。ただし、ファイアウォール規則はパブリック アクセスを制限します。 Private Link機能では、プライベート エンドポイント (IP アドレス) を指定することで、さらに一歩進みます。 プライベート リンクのセキュリティが強化され、サービス エンドポイントの機能のスーパーセットが提供されるので、プライベート リンクのサポートはサービス Azure Container Registryに置き換わります。 サービス エンドポイントとサービス Private Linkは現在プレビュー中ですが、近Private Link一般提供される予定です。 サービス エンドポイントのお客様には、ACR の機能を評価Private Link勧めしています。</p>
+
+
+  <h2>プレビューのサポートと制限事項</h2>
+
+
+  <p>プレビュー期間中、プライベート リンクのサポートは、geo レプリケートされていないレジストリ <a href="https://aka.ms/acr/geo-replication" target="_blank">に限定されます</a>。 フィードバックを評価し、geo レプリケーションのサポートが完了すると、この機能は一般提供に移行します。</p>
+
+
+  <p>プライベート&rsquo; ネットワークを必要とするお客様にも、実稼働サポートが必要であるという話を聞いたことがあります。 そのため、すべてのサポートリクエストは標準サポート チャネルを通じて受け入れらされます。</p>
+
+
+  <h2>リージョンのサポートと価格</h2>
+
+
+  <p><a href="https://aka.ms/acr/privatelink" target="_blank">Azure Container Registry Private Link</a> は、 <a href="https://azure.microsoft.com/global-infrastructure/services/?products=container-registry&amp;regions=all" target="_blank">Premium レベルを通じて 28 のリージョン</a> で利用できます。</p>
+
+
+  <p>その他のリンク:</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/acr" target="_blank">Azure Container Registry</a> の詳細を学びます。</li>
+      <li><a href="https://aka.ms/acr/pricing" target="_blank">Azure Container Registry価格。</a></li>
+      <li>アプリケーション<a href="https://aka.ms/acr/privatelink" target="_blank"> Azure Private Link</a> を構成Azure Container Registry。</li>
+  </ul>
