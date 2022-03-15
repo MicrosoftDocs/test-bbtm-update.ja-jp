@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 28d9eb7589fb81788850c71e3c38bd46d7d0593f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888883"
+Slug: windows-server-system-state-backup-azure-ga
+Title: Windowsを使用して Azure にシステム状態バックアップをAzure Backup一般提供
+Summary: Azure サーバー システム状態バックアップの一般提供 (GA) Windowsエージェントを使用して Azure にAzure Backupします。 このリリースでは、Azure Backup は Windows Server 2016 でホストされている Windows ファイル サーバー、Active Directory、IIS Web サーバーを保護するための完全な実稼働サポートを備え、Windows Server 2008 R2 に戻っています。
+Content: >-
+  <p>Azure サーバー システム状態バックアップの一般提供 (GA) Windowsエージェントを使用して Azure にAzure Backupします。 今年<a href="https://azure.microsoft.com/blog/windows-server-system-state-backup-azure/">の初めに</a>、Windows エージェントを使用して、サーバー システム状態を Azure にAzure Backupオフサイトをプレビューしました。 これは、Azure に直接ファイルAzure Backup&rsquo;バックアップする既存の機能をエージェントに追加 <a href="https://docs.microsoft.com/azure/backup/backup-configure-vault">する重要な追加でした</a>。 この GA リリースでは、Azure Backup エージェントは、Windows Server 2016 でホストされている Windows ファイル サーバー、Active Directory、IIS Web サーバーを保護するための完全な実稼働サポートを備え、Windows Server 2008 R2 に戻っています。 Windows Server System State を Azure にバックアップすると、Windows サーバーを保護し、IT 障害が発生した場合に Azure から動的 OS とアプリケーション構成を復旧できる、シンプルで安全でコスト効率の高い方法が提供されます。</p>
+
+
+  <h2>新機能</h2>
+
+
+  <ul>
+   <li><strong>システム状態の柔軟なバックアップ スケジュールと保持ポリシー</strong><br>
+  これで、Azure Backup エージェント コンソールから直接、希望の時刻にシステム状態の毎日のバックアップを構成できます。 また、日単位、週単位、および月単位のシステム状態バックアップの保有期間範囲を設定することもできます。 これらのオプションを使用すると、データの管理を制御できます。</li>
+   <li><strong>PowerShell を使用した大規模な自動化</strong><br>
+  大規模なサーバー ファイルと構成の保護を自動化できるよう、システム状態の構成、バックアップ、および回復にWindows PowerShell を完全にサポートします。</li>
+
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e041587-1129-4943-aa83-45c55454ab2f.png"><img alt="Windows-Server-System-State-Backup-Azure-Backup" border="0" height="557" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6685e067-86aa-4f7b-a355-59f4c63dc186.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Windows-Server-System-State-Backup-Azure-Backup" width="990"></a></p>
+
+
+  <h2>システム状態バックアップとシステム状態バックアップのAzure Backup</h2>
+
+
+  <ul>
+   <li><strong>Active Directory、File-Servers、IIS Web サーバーの包括的な保護</strong><br>
+  システム状態は Active Directory を完全にカプセル化します。Active Directory は、あらゆる組織で最も重要なデータベースであり、対象となるドメイン コントローラーの回復を可能にします。 さらに、ファイル サーバーと IIS Web サーバーメタベースの重要なクラスター情報は、システム状態に完全Windows含まれています。</li>
+   <li><strong>Azure での一元管理 </strong><br>
+  バックアップが完了すると、Windows サーバー全体のシステム状態バックアップに関連する情報はすべて、Azure portal で使用できます。 バックアップが <a href="https://azure.microsoft.com/en-us/blog/alerting-and-monitoring-for-azure-backup/">失敗したという</a> 通知を受け取り、修正手順を実行Azure portalから直接通知を構成することもできます。 Microsoft Power BI を使用<a href="https://azure.microsoft.com/blog/azure-backup-reports/">してレポートを生成することもできます</a>。</li>
+   <li><strong>Windows Server 用のコスト効率とセキュリティ保護されたオフサイト ストレージ</strong><br>
+  <a href="https://azure.microsoft.com/en-in/pricing/details/backup/">Azure Backup は</a>、Azure の azure ストレージとして使用する場合、Windows Server System State を Azure に直接バックアップすることで、オンプレミスのインフラストラクチャを排除します。 Azure Backupアクセスできるキーを使用して、ソースでバックアップを暗号化することもできます。 さらに、システム <a href="https://azure.microsoft.com/en-us/blog/azure-backup-security-feature/">に組</a> み込Azure Backup強化されたセキュリティ機能により、ランサムウェア、破損、削除からシステム状態の重要なバックアップを確実に保護できます。</li>
+   <li><strong>無料の復元</strong><br>
+  このAzure Backup、エグレス料金なしで Azure からシステム状態ファイルを復元できます。</li>
+
+  </ul>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Series/Azure-Backup/Windows-Server-System-State-with-Azure-Backup-is-now-GA/player" width="960"></iframe></p>
+
+
+  <p>次の 4 つの簡単な手順に従って、Windows サーバーの保護を開始Azure Backup。</p>
+
+
+  <ol>
+   <li>Azure Recovery Services コンテナーをコンテナーに作成Azure portal</li>
+   <li>Azure Portal からオンプレミスの <a href="https://aka.ms/azurebackup_agent">Azure Backup サーバーに最新</a>バージョンの Windows エージェントをダウンロードする</li>
+   <li>エージェントをインストールして Azure の Recovery Services コンテナーに登録する</li>
+   <li>サーバー システムWindows他のファイルとフォルダーの保護を Azure に直接開始します。</li>
+  </ol>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li>新しい <a href="https://azure.microsoft.com/services/backup/">Azure Backup</a>、無料の <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">Azure 試用版サブスクリプションにサインアップしてください</a></li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">フォーラムに連絡</a> するか、ドキュメントを <a href="https://docs.microsoft.com/azure/backup/">参照Azure Backupしてください</a></li>
+   <li>新しいアイデアを貢献し <a href="https://feedback.azure.com/forums/258995-azure-backup">、既存のアイデアAzure Backup</a> 投票することで、より良い方法を教えて</li>
+   <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/MSHybridCloud">@MSHybridCloud</a> でフォローしてください</li>
+   <li>Connect Azure <a href="https://aka.ms/fi8s4m">Tech</a> Community</li>
+  </ul>

@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a3904fee8af03289ae4147f06c86b674406465bb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893302"
+Slug: announcing-general-availability-of-apache-hadoop-3-0-on-azure-hdinsight
+Title: Apache Hadoop 3.0 on Azure HDInsight の一般提供を発表
+Summary: '本日は、Apache Hadoop 3.0 の一般提供を発表Azure HDInsight。 cloudera とのパートナーシップにより、Microsoft Azure は、最も人気のあるオープン ソース分析プロジェクトで最新のイノベーションの利点を顧客に提供する最初のクラウド プロバイダーであり、優れたスケーラビリティ、柔軟性、セキュリティを備えています。 '
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f8ab5d5-7d81-4174-abec-aa6bd80ff57f.png"><img align="left" alt="image" border="0" height="89" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/83a7344f-289d-4e39-b87b-59119bc43c18.png" style="margin: 0px 14px 0px 0px; border: 0px currentcolor; border-image: none; float: left; display: inline; background-image: none;" title="imageToday" width="89"></a> は、&rsquo;Apache Hadoop 3.0 の一般提供を発表Azure HDInsight。 cloudera とのパートナーシップにより、Microsoft Azure は、最も人気のあるオープン ソース分析プロジェクトで最新のイノベーションの利点を顧客に提供する最初のクラウド プロバイダーであり、優れたスケーラビリティ、柔軟性、セキュリティを備えています。 Azure HDInsight の Apache Hadoop 3.0 の一般提供により、パフォーマンスとセキュリティをさらに向上し、ビッグ データ分析アプリケーションの豊富なエコシステムのサポートを強化する多くの主要な機能強化を備え、既存の機能を基に構築しています。</p>
+
+
+  <h2>Apache Hadoop 3.0 とスーパーチャージされたパフォーマンスをクラウドに導入する</h2>
+
+
+  <p>Apache Hadoop 3.0 は、Hive、Spark、HBase などの主要な Apache フレームワーク全体で、オープン ソース コミュニティによって提供された 5 年以上にわたる主要なアップグレードを表します。 Hadoop 3.0 の新機能により、パフォーマンス、スケーラビリティ、可用性が大幅に向上し、総保有コストが削減され、価値への時間が短縮されます。</p>
+
+
+  <ul>
+   <li><strong>Apache Hive 3.0</strong> &ndash;ACID トランザクションを既定でオンにし、パフォーマンスをいくつかの改善により、この最新バージョンの Hive &ldquo;&rdquo; を使用すると、開発者は大規模なデータ レイクで従来のデータベース アプリケーションを構築できます。 これは、GDPR/プライバシーに準拠したビッグ データ アプリケーションを構築する必要がある企業にとって特に重要です。</li>
+   <li><strong>Hive Warehouse ConnectorのApache Spark</strong> &ndash; 新しいHive Warehouse Connector、Spark と Hive の世界が近づいています。 新しいコネクタは、メタストア レイヤーからクエリ エンジン レイヤーに統合を移動します。 これにより、述語のプッシュダウンなどの機能により、より高く信頼性の高いパフォーマンスが実現されます。</li>
+   <li><strong>Apache HBase 2.0 および Apache Phoenix 5.0</strong> &ndash; Apache HBase 2.0 および Apache Phoenix 5.0 では、パフォーマンス、安定性、統合の機能強化が多数導入されています。 HBase 2.0 では、メモリ内圧縮を使用して memstore 内のデータを定期的に再編成すると、リモート クラウド ストレージからデータがフラッシュまたは読み取りが頻繁に行き過ぎず、パフォーマンスが向上します。 Phoenix 5.0 では、クラスターに対して実行されているクエリに関する情報をキャプチャする新しいシステム テーブルを導入することで、クエリ ログを使用したクエリの可視性が向上します。</li>
+   <li><strong>Spark IO キャッシュ</strong> &ndash; IO Cache は、ジョブのパフォーマンスをAzure HDInsightするデータ キャッシュ サービスApache Sparkです。 IO キャッシュは <a href="https://tez.apache.org/" target="_blank">Apache TEZ</a> や <a href="https://hive.apache.org/" target="_blank">Apache Hive</a> のワークロードでも機能し、<a href="https://spark.apache.org/" target="_blank">Apache Spark</a> のクラスター上で実行できます。</li>
+  </ul>
+
+
+  <h2>エンタープライズ レベルのセキュリティの強化</h2>
+
+
+  <p>Enterpriseレベルのセキュリティとコンプライアンスは、クラウドに機密データを格納または処理するビッグ データ アプリケーションを構築しているすべてのお客様にとって重要な要件です。</p>
+
+
+  <ul>
+   <li><strong>Enterprise セキュリティ パッケージ (ESP) での Apache HBase のサポート</strong> &ndash;HBase の ESP サポートの一般提供により、ユーザーは企業ドメインの資格情報を使用して HDInsight HBase クラスターに対して認証を行い、豊富できめ細かいアクセス ポリシー (Apache Ranger で作成および管理) が適用されます。</li>
+   <li><strong>Bring Your Own Key (BYOK) によるサポートApache Kafka</strong> &ndash; お客様は、独自の暗号化キーを Azure Key Vault に取り込み、それらを使用して Azure Managed DisksメッセージをApache Kafkaできます。 これにより、データのセキュリティを高いレベルで制御できます。</li>
+  </ul>
+
+
+  <h2>豊富な開発者ツール</h2>
+
+
+  <p>Azure HDInsightは、さまざまな統合された開発環境 (IDE) 拡張機能、ノートブック、SDK を使用した豊富な開発エクスペリエンスを提供します。</p>
+
+
+  <ul>
+   <li><strong>SDK の一般提供</strong> &ndash;<a href="https://docs.microsoft.com/dotnet/api/overview/azure/hdinsight" target="_blank">.NET</a>、<a href="https://docs.microsoft.com/python/api/overview/azure/hdinsight" target="_blank">Python</a>、<a href="https://docs.microsoft.com/java/api/overview/azure/hdinsight" target="_blank">Java</a> 用の HDInsight SDK を使用すると、開発者は選択した言語を使用してクラスターを簡単に管理できます。</li>
+   <li><strong>VSCode</strong> &ndash;<a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-for-vscode" target="_blank">HDInsight VSCode</a> 拡張機能を使用すると、開発者は Hive バッチ ジョブ、対話型 Hive クエリ、PySpark スクリプトを HDInsight 4.0 クラスターに送信できます。</li>
+   <li><strong>IntelliJ</strong> &ndash;<a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-intellij-tool-plugin" target="_blank">Azure Toolkit for IntelliJ</a> を使用すると、Scala と Java の開発者は、組み込みのテンプレートを使用して Spark、Scala、Java プロジェクトをプログラムできます。 開発者は、ローカル実行、ローカル デバッグ、対話型セッションのオープンを簡単に実行し、IntelliJ 統合開発環境から直接、Scala/Java プロジェクトを HDInsight 4.0 Spark クラスターに送信できます。</li>
+  </ul>
+
+
+  <h2>広範なアプリケーション エコシステム</h2>
+
+
+  <p>Azure HDInsight Azure Marketplace で利用できるさまざまな一般的なビッグ データ アプリケーションを<a href="https://azure.microsoft.com/en-us/services/hdinsight/partner-ecosystem/" target="_blank"><strong></strong></a>備え、対話型分析からアプリケーションの移行までをカバーする、鮮やかなアプリケーション エコシステムをサポートしています。 次のようなアプリケーションをサポートできます。</p>
+
+
+  <ul>
+   <li><a href="https://www.starburstdata.com/presto-azure/" target="_blank"><strong>Starburst (Presto)</strong></a> &ndash;Presto は、組織内の任意の場所でデータを分析SQL、オープン ソースで高速でスケーラブルな分散クエリ エンジンです。 ストレージとコンピューティングを分離するように設計された Presto では、Azure Blob Storage、Azure Data Lake Storage、SQL、NoSQL データベース、その他のデータ ソースのデータに対して簡単にクエリを実行できます。 詳細については、「 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/starburst.starburst-presto?tab=Overview" target="_blank">Starburst Presto on Azure Marketplace」を参照してください</a>。</li>
+   <li><a href="https://kyligence.io/partners/microsoft/" target="_blank"><strong>Kyligence</strong></a> &ndash; Kyligence は、Apache Kylin を搭載したビッグ データ用のエンタープライズ オンライン分析処理 (OLAP) エンジンです。 Kyligence を使用すると、Azure でセルフサービスで対話型のビジネス分析を行い、数兆個のレコードに対する 1 秒以下のクエリ待機時間を実現し、既存の Hadoop システムと BI システムをシームレスに統合できます。 詳細については、このページで <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/kyligence.kyligence?tab=Overview" target="_blank">「Kyligence」を参照Azure Marketplace</a>。</li>
+   <li><a href="https://www.wandisco.com/partners/ms-azure" target="_blank"><strong>WANDisco</strong></a> &ndash; WANDisco Fusion は、中断のないデータ移行、Spark および Hadoop デプロイの簡単でシームレスな拡張機能、および短期または長期のハイブリッド データ操作を保証することで、クラウドへの移行をリスクから解放します。 詳細については、 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/wandisco.fusion-hdi-app?tab=Overview" target="_blank">WANDisco に関するページを参照Azure Marketplace</a>。</li>
+   <li><a href="https://unraveldata.com/unravel-data-collaborates-microsoft-azure-boost-performance-reliability-big-data-workloads-cloud/" target="_blank"><strong>データを解き明かす</strong></a> &ndash; Unravel を使用すると、データ スタック全体の統一されたビューが提供され、チューニング、トラブルシューティング、パフォーマンス向上のためのアクション可能な推奨事項と自動化が提供されます。 Unravel Data アプリでは、Azure Resource Managerを使用して、顧客は Unravel を新規または既存の HDInsight クラスターに 1 回のクリックで接続できます。 詳細については、「 <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/unravel-data.unravel-app" target="_blank">Unravel on Azure Marketplace」をご覧ください</a>。</li>
+   <li><a href="https://microsoft-my.sharepoint.com/personal/andow_microsoft_com/Documents/HDInsight/Waterline" target="_blank"><strong>Waterline データ</strong></a> &ndash; Waterline Data Catalog HDInsight を使用すると、お客様は、Azure のグローバル規模でデータを簡単に検出、整理、管理できます。 詳細については、「 <a href="https://azuremarketplace.microsoft.com/en-/marketplace/apps/waterline_data.waterline_data?tab=Overview" target="_blank">Waterline on Azure Marketplace」をご覧ください</a>。</li>
+  </ul>
+
+
+  <h2>今すぐ使ってみる</h2>
+
+
+  <p>お客様のユーザーや顧客にどのようなイノベーションをもたらすかについて、お待ちしております。Azure HDInsight。 開発者ガイド<a href="https://azure.microsoft.com/en-us/blog/get-up-to-speed-with-azure-hdinsight-the-comprehensive-guide/" target="_blank">を読み</a>、クイック <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hadoop/apache-hadoop-linux-tutorial-get-started" target="_blank"></a> スタート ガイドに従って、オープン ソース分析パイプラインを Azure HDInsight に実装する方法の詳細を確認してください。 Twitter Azure HDInsight (#AzureHDInsight) でフォローすることで、近い将来に公開される最新のニュースと#AzureHDInsight。 質問とフィードバックについては、 にお問い合わせください AskHDInsight@microsoft.com。</p>
+
+
+  <h2>概要Azure HDInsight</h2>
+
+
+  <p>Azure HDInsightは、Apache Hadoop、Spark、Kafka などの一般的な Apache オープン ソース フレームワークを簡単に実行できる、オープン ソース分析用のエンタープライズ対応サービスです。 このサービスは、米国とドイツの 30 のパブリック リージョンAzure Governmentクラウドで利用できます。 Azure HDInsight、ETL、ストリーミング、対話型クエリなど、幅広いセクターや使用事例に対してミッション クリティカルなアプリケーションを提供します。</p>
+
+
+  <p>&nbsp;</p>

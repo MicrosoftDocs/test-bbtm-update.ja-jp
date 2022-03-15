@@ -1,0 +1,351 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 03b65121d631e17bc335b9e3413ae3d24edaae1f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889651"
+Slug: visual-studio-team-services-december-2017
+Title: 2017 年 12 月Visual Studio Team Servicesダイジェスト
+Summary: この投稿シリーズは、Visual Studio Team Services の最新の更新プログラムとニュースを提供し、Azure ユーザーが 3 週間ごとにリリースされる新機能を最新の状態に保つ優れた方法です。 Visual Studio Team Servicesは、Azure DevOps効率的な継続的インテグレーションとリリース パイプラインを作成するための最適なツールを提供します。
+Content: >-
+  <p>今月は、多くのことをカバーしています。 前回の投稿以降、3&rsquo; つの機能スプリントが出荷されました。11 月には、Connect<a href="https://www.microsoft.com/en-us/connectevent">();</a> イベントが非常に成功しました。 詳細&rsquo;を確認します。</p>
+
+
+  <h2>Connect();</h2>
+
+
+  <p>Connect(); カンファレンスでは、Visual Studio Team Services (VSTS) や他の製品ファミリVisual Studio開発者ツールが強調表示されています。 これは、ソフトウェア開発と DevOps に関するニュースとトレーニングに関する完全なイベントであり、ライブ ストリームを見逃した場合は、DevOps と Visual Studio Team Services (VSTS) セッションはすべてオンデマンドで監視できます。<a href="https://blogs.msdn.microsoft.com/devops/2017/11/22/devops-and-vsts-videos-from-connect-2017/"></a>&rsquo;</p>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/bharry/">Brian Azure DevOps&rsquo;</a> の一般セッションでは、Azure DevOps の状態について説明し、<a href="https://www.gvfs.io/">GVFS</a> の範囲を拡大するための GitHub とのパートナーシップである、新しい簡単にセットアップできる <a href="https://arstechnica.com/gadgets/2017/11/microsoft-and-github-team-up-to-take-git-virtual-file-system-to-macos-linux/"></a> <a href="https://blogs.msdn.microsoft.com/devops/2017/11/15/azure-devops-project/">Azure DevOps プロジェクト</a>、<a href="https://www.visualstudio.com/en-us/news/releasenotes/tfs2018-relnotes">TFS 2018</a> の可用性、ホストされている <a href="https://blogs.msdn.microsoft.com/devops/2017/11/16/cloud-hosted-mac-agents-for-ci-cd-pipelines/">Mac</a> ビルド エージェント (Linux および Windows に加えて) など、いくつかのお知らせが含まれていました VSTS の他にも多くの場合があります。 <a href="https://blogs.msdn.microsoft.com/bharry/2017/11/15/connect-announcements/">Connect() に関する Brians&rsquo;</a> のブログ投稿を読み、概要のお知らせを読み、彼のプレゼンテーション<a href="https://channel9.msdn.com/Events/Connect/2017/G103">のビデオを見ることができます</a>。</p>
+
+
+  <h2>Microsoft での DevOps</h2>
+
+
+  <p>最近、VS Team Services を大規模に導入して運用する方法DevOps広範なプレゼンテーションを行いました。 トピックには、計画、アーキテクチャ、テスト、ライブ サイトなど、Microsoft のDevOps<a href="https://www.visualstudio.com/learn/devops-at-microsoft/">が含まれます</a>。 また、最近、VS Live で講演を行いました。 「Microsoft <a href="https://blogs.msdn.microsoft.com/buckh/2017/11/22/vsts-lessons-learned-doing-devops-at-microsoft-at-scale/">at Scale でDevOpsを学んだ」に関するカンファレンス</a>。 &rsquo;1 時間で、機能フラグを使用して露出を制御し、サーキット ブレーカーを使用した回復性の向上、ライブ サイトの管理と根本原因の追及、テストを高速で信頼性の高いものに変換する方法について学習した主な教訓について説明しました。 さらに詳しい情報が必要な場合は、<a href="https://blogs.msdn.microsoft.com/devops/2017/10/09/devops-with-azure-and-vsts-videos-from-ignite-2017/">Ignite 2017</a> DevOpsのプレゼンテーションをご覧ください。</p>
+
+
+  <h2>Azure DevOps プロジェクト</h2>
+
+
+  <p>新しい<a href="https://blogs.msdn.microsoft.com/devops/2017/11/15/azure-devops-project/">Azure DevOps Project</a>により、Azure での使用を簡単に開始できます。 いくつかの簡単な手順で、選択した Azure サービスでアプリを起動するのに役立ちます。 DevOps Project、アプリの開発、デプロイ、監視に必要なすべてを設定します。</p>
+
+
+  <p>DevOps Projectを作成すると、Azure リソースがプロビジョニングされ、Git コード リポジトリ、Application インサイト 統合、および Azure にデプロイするように設定された継続的デリバリー パイプラインが付属します。 [DevOps Project] ダッシュボードを使用すると、コードのコミット、ビルド、デプロイを 1 つのビューから監視Azure portal。</p>
+
+
+  <p>サービスの主な利点DevOps Project。</p>
+
+
+  <ul>
+   <li>数分で新しいアプリと完全なDevOpsパイプラインを起動して実行する</li>
+   <li>.NET、Java、PHP、Node、Python など、幅広い一般的なフレームワークのサポート</li>
+   <li>新しく開始するか、アプリから独自のアプリケーションをGitHub</li>
+   <li>組み込みのアプリケーション インサイト分析とアクション可能な分析情報の統合</li>
+   <li>クラウドを使用したクラウドを利用した CI/CD Visual Studio Team Services (VSTS)</li>
+  </ul>
+
+
+  <p>DevOpsプロジェクトは VSTS を利用し、アプリケーションの開発とデプロイを開始できます。 詳細については <a href="https://docs.microsoft.com/en-us/vsts/deploy-azure/">、Azure へのデプロイに関するドキュメント</a> を参照してください。</p>
+
+
+  <p><img alt="Azure DevOps Project" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_azuredevopsproject.gif"></p>
+
+
+  <h2>パブリック プレビューでのコードとしての構成 (YAML) ビルド</h2>
+
+
+  <p>VSTS&rsquo; で CI ビルドを定義すると、基本的な選択肢が得られるのは、Web ベースのインターフェイスを使用するか、YAML ビルドでコードとして CI プロセスを構成する方法です。 YAML ビルド定義は、コードとしての構成 <em>の利点を提供します</em>。</p>
+
+
+  <p>なぜ気にする必要がありますか? アプリの変更ではなく、ビルド プロセスの変更によって、ビルドの障害や予期しない結果が発生した場合はありますか?</p>
+
+
+  <p>YAML ビルド定義は、コードと同じ分岐構造に従います。 そのため、pull requests とブランチ ビルド ポリシーのコード レビューを使用して、変更の検証を行います。 この方法を使用すると、この種の問題を簡単に特定して修正 (または回避) できます。これは、変更がコード ベースの残りの部分とバージョン管理に含まれるためです。</p>
+
+
+  <p>YAML ビルドに関する彼の視点については、<a href="https://blogs.msdn.microsoft.com/devops/2017/11/15/pipeline-as-code-yaml-preview/">Chris Pattersons&rsquo;</a> のブログ投稿を参照してください。この機能のしくみに関する決定を行う方法も含めて説明されています。</p>
+
+
+  <p><em><strong>注: この機能を使用するには、プロファイル</strong></em><a href="https://docs.microsoft.com/en-us/vsts/collaborate/preview-features"><em><strong></strong></em></a>とアカウントの両方で [Yaml 定義のビルド] プレビュー機能<em><strong>を有効にする必要があります。</strong></em></p>
+
+
+  <p>今すぐお試しください。 . <strong>vsts-ci.yml</strong> という名前の新しいファイルを VSTS の Git リポジトリのルートに追加します。 次に、これを ファイルに置き換します。</p>
+
+
+  <p><code>queue: Hosted VS2017<br>
+
+  steps:<br>
+
+  - script: echo hello world </code></p>
+
+
+  <p>変更をコミットすると、ビルド定義が自動的に作成され、キューに登録されます。 hello world を超える準備 &ldquo;はできましたか&rdquo;?</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/actions/build-yaml-get-started">概要 YAML を使用してコードで CI ビルドを構成する方法</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/actions/build-yaml">YAML ビルドを使用する方法</a></li>
+  </ul>
+
+
+  <h2>パブリック プレビューでの CI/CD パイプライン用のホストされた Mac エージェント</h2>
+
+
+  <p>VSTS では、クラウドでホストされる CI/CD エージェントが macOS 上で実行されています。 これにより、クラウド (iOS、macOS、tvOS、watchOS など) で Apple アプリを構築およびリリースできます。独自の専用 Mac ハードウェアを提供して保守する必要がなくなります。 VSTS では、Linux、macOS、および 3 つのオペレーティング システムで実行されているホスト型 CI/CD &ndash; エージェントが提供Windows。 詳細については、「ホステッド エージェント」 <a href="https://docs.microsoft.com/en-us/vsts/build-release/concepts/agents/hosted">を参照してください</a>。</p>
+
+
+  <p>ホストされている macOS エージェントを使用するには、ビルドまたはリリース パイプラインとして [Hosted <strong>macOS Preview</strong> ]を選択します。</p>
+
+
+  <p><img alt="Hosted Mac" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_22.png"></p>
+
+
+  <h2>エージェントレスビルド タスク</h2>
+
+
+  <p>ビルド プロセスは、実行するタスクによって定義されます。 これまで、これらすべてのタスクは、提供されているホストされたエージェントまたは独自のプライベート エージェント上で実行されています。 エージェントが不要な一般的なタスクがあります。 たとえば、アプリケーションを呼び出す場合REST APIビルドを一時停止する場合などです。</p>
+
+
+  <p>エージェント&rsquo;レスのビルド タスクをカタログに追加しました。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/tasks/utility/delay">[遅延]</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/tasks/utility/http-rest-api">REST API の呼び出し</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/tasks/utility/publish-to-azure-service-bus">Azure Service Bus への公開</a></li>
+  </ul>
+
+
+  <p>エージェントレス フェーズをビルド定義に追加し、これらのタスクのいずれかを追加して VSTS で実行できます。</p>
+
+
+  <p>独自のエージェントレス タスクを拡張して追加することもできますが、いくつかの制限があります。</p>
+
+
+  <ul>
+   <li>エージェントレス タスクではスクリプトを実行できません。</li>
+   <li>定義済みの実行ハンドラー (HTTP エンドポイントを呼び出す HttpRequest ハンドラー) または ServiceBus ハンドラーのいずれかを選択して、Azure サービス バスにメッセージを投稿する必要があります。</li>
+  </ul>
+
+
+  <p>このようなタスクを作成する方法の例については、 <a href="https://github.com/Microsoft/vsts-tasks/tree/master/Tasks/InvokeRestApi">InvokeRestAPI</a> タスクと <a href="https://github.com/Microsoft/vsts-tasks/tree/master/Tasks/PublishToAzureServiceBus">PublishToAzureServiceBus タスクに関するページを参照</a> してください。</p>
+
+
+  <h2>パブリック プレビューのリリース ゲート</h2>
+
+
+  <p>継続的監視は、DevOps パイプラインの重要な部分です。 あるリリースのアプリが展開後、正常であることを確認することは、展開プロセスの成功と同じくらい重要です。 企業は、稼働中のアプリが正常であることを自動検出し、顧客が報告する出来事を追跡記録するさまざまなツールを導入します。 これまでは、リリースを奨励する前に、全システムのアプリの正常性を承認者が手動で監視する必要がありました。 しかし、リリース管理では、継続的な監視をリリース パイプラインに統合できるようになりました。 この統合を利用すると、システムではアプリの正常性を伝えるあらゆる信号が繰り返し問い合わされ、すべてが同時に合格した時点でリリースが再開されます。</p>
+
+
+  <p><em><strong>注: この機能を使用するには、プロファイル</strong></em>でリリース プレビュー機能の承認ゲートを<a href="https://docs.microsoft.com/en-us/vsts/collaborate/preview-features"><em><strong>有効</strong></em></a><em><strong>にする必要があります。</strong></em></p>
+
+
+  <p>最初に、リリース定義で展開前ゲートまたは展開後ゲートを定義します。 各ゲートでは、アプリの監視システムに対応する 1 つまたは複数の正常性信号を監視できます。 組み込みのゲートは、 &ldquo;Azure Monitor (Application Insight) のアラートと作業項目&rdquo; に &ldquo;使用できます&rdquo;。 Azure の機能から提供される柔軟性を利用し、他のシステムと統合できます。</p>
+
+
+  <p><img alt="Gated releases" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_27.png"></p>
+
+
+  <p>実行時に、<strong>リリース</strong>はすべてのゲートからサンプルを集め、それぞれから正常性信号を集めます。 同じ間隔ですべてのゲートから集めた信号が合格するまで、各間隔でサンプリングが繰り返されます。</p>
+
+
+  <p><img alt="Sampling interval" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_28.png"></p>
+
+
+  <p>新しい展開の場合、十分な情報が利用できないため、監視システムからの最初のサンプルは正確ではないことがあります。 [評価&ldquo;前に遅延&rdquo;] オプションを<strong></strong>選択すると、すべてのサンプルが成功した場合でも、この期間中はリリースが進行しなくります。</p>
+
+
+  <p>ゲートのサンプリングの間、エージェントまたはパイプラインは使用されません。 詳細については、<a href="https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/release/approvals/gates">リリース ゲートに関する文書</a>を参照してください。</p>
+
+
+  <h2>成果物ソースとしての Docker Hub または Azure Container Registry</h2>
+
+
+  <p>この機能を使用すると、Docker Hub レジストリまたは Azure Container Registry (ACR) に格納されているイメージ内のアプリに対する更新プログラムのリリースを自動的に作成できます。 ACR の geo レプリケーション機能を利用してリージョンごとに新しい変更をロールアウトする、運用環境のみのイメージが含まれるコンテナー レジストリから環境 (運用など) に展開するなどの補完シナリオに向けた最初の一歩がこれです。</p>
+
+
+  <p>リリース定義の成果物Docker Hubエクスペリエンスを追加する方法で、クラスまたは ACR <strong>+</strong> をファースト クラスの成果物として構成できます。</p>
+
+
+  <p><img alt="Dockerhub artifact source" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_25.png"></p>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h2>シンボル サーバーとして VSTS を使用する</h2>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/devops/2017/11/15/vsts-is-now-a-symbol-server/">VSTS シンボル サーバーを</a> 使用すると、シンボルをホストし、組織と共有できます。 シンボルは、実行可能ファイル (特に C や C++ のようなネイティブ言語で記述された実行可能ファイル) をデバッグしやすくする追加情報を提供します。 詳細については <a href="https://docs.microsoft.com/en-us/vsts/build-release/symbols/">、デバッグ用のシンボルの発行に関するドキュメント</a> を参照してください。</p>
+
+
+  <p><strong><em>注: この機能を使用するには、アカウントでシンボル サーバープレビュー機能 </em></strong><a href="https://docs.microsoft.com/en-us/vsts/collaborate/preview-features"><strong><em>を有効</em></strong></a><strong><em> にする必要があります。</em></strong></p>
+
+
+  <p><img alt="Symbol server task" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_32.png"></p>
+
+
+  <h2>NuGet.org からフィードにパッケージを保存する</h2>
+
+
+  <p>NuGet.org をアップストリーム ソースとして使用できるようになりました。これにより、VSTS フィードを介して NuGet.org のパッケージを使用できます。 詳細については、 <a href="https://blogs.msdn.microsoft.com/devops/?p=37276">お知らせのブログ記事</a> を参照してください。</p>
+
+
+  <p><img alt="NuGet upstream source" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_17.png"></p>
+
+
+  <h2>プランのフィルター処理</h2>
+
+
+  <p><a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-plans"><strong>Delivery Plans</strong></a> (デリバリー計画) 拡張機能で Microsoft の一般的なフィルタリング コンポーネントが使用されるようになりました。作業項目と<strong>ボード</strong>に対して、Microsoft のグリッド フィルタリングと同じ操作性が与えられます。 このフィルタリング コントロールによって使い勝手が良くなり、チームの全員に一貫性のあるインターフェイスが与えられます。</p>
+
+
+  <p><img alt="Filtering on Plans" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/125_03.png"></p>
+
+
+  <h2>pull requests Azure Active Directoryの統合の改善</h2>
+
+
+  <p>pull request Azure ADレビュー担当者としてグループを追加すると、はるかに簡単になりました。 以前は、レビュー AADグループを追加する前に、そのグループに VSTS への明示的なアクセスを許可する必要がありました。</p>
+
+
+  <p>これで、AADグループをレビュー担当者として PRs に追加できます。電子メール通知と投票ロールアップの両方が、追加の構成なしで期待した通り動作します。</p>
+
+
+  <h2>pull request ポリシーのパス フィルター</h2>
+
+
+  <p>多くの場合、1 つのリポジトリには、&rsquo;ビルドと実行テストを検証するために複数の継続的インテグレーション (CI) パイプラインによってビルドされたコードが含まれます。 この統合ビルド ポリシーがパス フィルター対応となり、PR ごとに要求し、自動的にトリガーできる複数の PR ビルドを簡単に構成できるようになりました。 必要なビルドごとにパスを指定し、必要に応じて、トリガーと要件のオプションを設定します。</p>
+
+
+  <p><img alt="Path filters for PR policies" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_06.png"></p>
+
+
+  <p>ビルドに加え、状態のポリシーでも、パス フィルター オプションが利用できるようになりました。 それによって、カスタム ポリシーやサードパーティ ポリシーで特定のパスにポリシー強制を構成できるようになりました。</p>
+
+
+  <h2>pull request のメンション</h2>
+
+
+  <p>PR コメントと作業項目ディスカッションで pull requests をメンションできるようになりました。 PR のメンションは、作業項目のメンションに似ていますが、ハッシュ マーク <code>#</code> の代わりに感嘆符 <code>!</code> が使用されます。</p>
+
+
+  <p>PR <code>!</code>&rsquo;をメンションする場合は、常に を入力します。また、最近の PR の一覧から PR を選択する対話型エクスペリエンスが表示されます。 キーワードを入力して候補一覧を絞り込んだり、メンションする PR の ID を入力したりします。 PR がメンションされたら、ID と完全タイトルと共にインラインでレンダリングされます。また、PR 詳細ページにリンクされます。</p>
+
+
+  <p><img alt="Mention a pull request" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/125_05.png"></p>
+
+
+  <h2>TFS Database Import Service一般提供</h2>
+
+
+  <p>サービス&rsquo;の <a href="https://blogs.msdn.microsoft.com/devops/2017/11/20/it-has-never-been-a-better-time-to-migrate-from-tfs-to-vsts/">一般提供を</a> 発表TFS Database Import Service。 Import Service を使用すると、お客様はオンプレミスの Team Foundation Server (TFS) からクラウドでホストされている SaaS サービス Visual Studio Team Services (VSTS) に移行できます。</p>
+
+
+  <p>お客様は、移行をオンボードして開始するために、Microsoft からの承認を必要としなくなりました。 詳細については、こちらを参照 <a href="https://aka.ms/tfsimport">してください</a>。</p>
+
+
+  <h2>パブリック プレビューの VSTS CLI</h2>
+
+
+  <p>VSTS CLI は、<a href="https://blogs.msdn.microsoft.com/devops/2017/11/15/introducing-the-new-cli-for-vsts/"></a>Windows、Linux、Mac から VSTS および TFS プロジェクトを操作および管理するための新しいコマンド ライン インターフェイスです。 この新しいオープン ソース CLI を使用すると、コマンド プロンプトまたはターミナルを使って、pull request、作業項目、ビルドなどについて作業できます。 新しい CLI を使用して、Bash、PowerShell、またはお気に入りのスクリプト言語で記述されたスクリプトを使用して、VSTS または TFS との対話を自動化することもできます。</p>
+
+
+  <p>VSTS CLI で実行できる操作の一部を次に示します。</p>
+
+
+  <ul>
+   <li>ビルドをキューに配置する</li>
+   <li>ビルドの詳細を表示する</li>
+   <li>pull request を作成する</li>
+   <li>レビューアーをレビューに追加pull request</li>
+   <li>新しいプロジェクトまたは Git リポジトリを作成する</li>
+   <li>作業項目を更新する</li>
+  </ul>
+
+
+  <p>詳細については、 <a href="https://aka.ms/vsts-cli">VSTS CLI のドキュメントを参照してください</a>。ソースを表示するには、 <a href="https://aka.ms/vsts-cli-source">vsts-cli のレポポにアクセスします</a>。</p>
+
+
+  <h2>複数のブランチでコードを検索する</h2>
+
+
+  <p>コード検索では、複数ブランチのインデックス作成のサポートが有効になっています。 これにより、既定のブランチ以外のブランチで検索できます。 検索用にインデックスが作成されたリポジトリごとに、さらに 5 つのブランチを作成できます。 管理者Project、バージョン管理の設定ページから追加のブランチ<strong>を</strong>構成できます。</p>
+
+
+  <p><img alt="New multi-branch configuration experience" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/124_09.png"></p>
+
+
+  <h2>Wiki Search</h2>
+
+
+  <p>チームが VSTS の複数のプロジェクトにわたって Wiki ページでドキュメントを作成する時間が長くなると、関連するコンテンツの検索がますます困難になります。 コラボレーションを最大化するには、すべてのプロジェクトでコンテンツを簡単に検出する機能が必要です。 これで、 <a href="https://blogs.msdn.microsoft.com/devops/2017/12/01/announcing-public-preview-of-wiki-search/">Wiki Search を使用して</a> 、VSTS アカウント内のすべてのプロジェクトのタイトルまたはページ コンテンツで関連する Wiki ページをすばやく検索できます。</p>
+
+
+  <p><strong><em>注: この機能を使用するには、コードの新しいエクスペリエンスが必要です&amp;プロファイルで有効になっている作業項目の検索</em></strong><a href="https://docs.microsoft.com/en-us/vsts/collaborate/preview-features"><strong><em>と</em></strong></a>新<strong><em>しい Wiki 検索プレビュー機能。</em></strong></p>
+
+
+  <p><img alt="Wiki Search" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/126_12.png"></p>
+
+
+  <h2>月の拡張: SenseAdapt by RippleRock</h2>
+
+
+  <p>この <a href="https://marketplace.visualstudio.com/items?itemName=ripplerock.senseadaptvsts#overview">拡張機能は</a> 、アジャイル チームがアカウントを追加構成することなく、アクション可能な分析情報グラフをすばやくシームレスに作成するためのツールセットを提供します。 SenseAdapt でサポートされている上位のシナリオの一部を次に示します。</p>
+
+
+  <ul>
+   <li>プロジェクトの完了日を予測し、よりシンプルでアクション可能な視覚化で利害関係者を引き付け</li>
+   <li>チームに、自分の仕事を行う状況認識を与える。 作業とその周囲のシステムを簡単に視覚化して、集中と改善を支援する</li>
+   <li>ガバナンスを有効にして、成果に影響を与えるオプションを確認しながら、目標の分析情報に基付ける意思決定を行う</li>
+   <li>アジャイルの原則を埋め込み、より多くの価値を提供します。透明性、視覚化、頻繁なデータ ベースのフィードバック ループ</li>
+   <li>ほとんどの SAFe プロジェクト メトリックを使用した明確で単純な監視</li>
+  </ul>
+
+
+  <p><img alt="" height="321" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/burnupanimated.gif" width="571"></p>
+
+
+  <p>チームは、追加の構成なしで作成に数分かかる 12&rsquo; の視覚化を活用し、チームの異なる役割と目標に基づいて作成できます。 こちらからインストールできます。</p>
+
+
+  <p><img alt="" height="234" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/charts.png" width="533"></p>
+
+
+  <h2>作業項目拡張機能の作成</h2>
+
+
+  <p>拡張機能と言&rsquo;&rsquo;えば、作業項目用に独自の拡張機能を作成したい場合は、作業項目フォーム拡張機能の作成に関するこの包括的なブログ記事<a href="https://blogs.msdn.microsoft.com/devops/2017/11/13/creating-work-item-form-extensions-in-visual-studio-team-services/">をお楽しみください</a>。 このプロセスを詳しく説明&rsquo;し、拡張機能をビルドするために必要なことを正確に理解するのに役立ちます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/form.png"></p>
+
+
+  <h2>香港の VSTS</h2>
+
+
+  <p>2014 年に、VSTS (VSTS) をグローバル サービスVisual Studio Team Servicesを設定しました。 これは、世界中のお客様に、ローカル データ主権の要件に対する高いパフォーマンスとコンプライアンスを提供する取り組みによって推進されています。 2014 年から 2016 年の間に、ヨーロッパ、オーストラリア、<a href="https://blogs.msdn.microsoft.com/bharry/2014/10/27/visual-studio-online-is-in-europe/"></a>インド、<a href="https://blogs.msdn.microsoft.com/bharry/2015/05/10/vs-online-hosted-in-australia/"></a>ブラジルで VSTS インスタンス<a href="https://blogs.msdn.microsoft.com/bharry/2016/04/26/team-services-in-india/">を</a>発表<a href="https://blogs.msdn.microsoft.com/bharry/2016/06/06/visual-studio-team-services-is-available-in-brazil/">しました</a>。 2 か月前に、カナダで新しい VSTS インスタンスを発表 <a href="https://blogs.msdn.microsoft.com/devops/2017/09/18/visual-studio-team-services-is-in-canada/">しました</a>。 その途中で、これらの地域で作成された多数のアカウントを処理するために、米国 で 4 つの追加インスタンスとヨーロッパの別の追加インスタンスを立ち上げしました。</p>
+
+
+  <p>本日は、香港 (Azures&rsquo; 東アジア リージョン) で最新の VSTS インスタンスを利用東アジアしています。</p>
+
+
+  <p>新しいアカウントを作成すると、リージョンが最も近いリージョンに既定で設定されます。 香港に近いお客様は、東アジアが既定で選択されているのに気付くでしょう。 常に、リストから別の &ndash; リージョンを選択して、すべてのユーザーが開いている東アジア選択をオーバーライドできます。 既存の Visual Studio Team Services アカウントを持ち、新しい 東アジア リージョンに移動する場合は、サポートにお問い合<a href="https://www.visualstudio.com/support/support-overview-vs">わせください</a>。</p>
+
+
+  <p>重要なリージョンに VSTS インスタンスがまだない場合は、 <a href="https://visualstudio.uservoice.com/forums/330519-team-services">UserVoice でお知らせください</a>。 また、VSTS のグローバルなプレゼンスを高め続ける中で、追加のお知らせについては、ここでご覧ください。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>いつものように、&rsquo;ここには私がカバーできる以上の多くがあります。 Id&rsquo; では、10 月 <a href="https://docs.microsoft.com/en-us/vsts/release-notes/2017/oct-06-vsts">6</a> 日、 <a href="https://docs.microsoft.com/en-us/vsts/release-notes/2017/oct-30-vsts">10 月 30</a> 日、 <a href="https://docs.microsoft.com/en-us/vsts/release-notes/2017/nov-28-vsts">11 月 28</a> 日のスプリントデプロイの完全なリリース ノートをお読みください。 VSTS の最新のプラン<a href="https://blogs.msdn.microsoft.com/devops/">DevOps</a>に関するブログを必ずサブスクライブしてください。</p>
+
+
+  <p>コーディングをお楽しみください!</p>
+
+
+  <p><a href="https://twitter.com/tfsbuck">@tfsbuck</a></p>

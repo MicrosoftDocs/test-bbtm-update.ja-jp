@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e189fdef872ba125d2375eb1d41ed8274488af67
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889796"
+Slug: get-new-insights-into-your-azure-cosmos-db-partition-heatmaps-azure-monitor-oms-and-audit-log
+Title: 'Azure #CosmosDB、OMS などについての分析情報を得る'
+Summary: 現在、プロビジョニングされたスループットを最大化するのに役立ついくつかのメトリックと、メトリックと Azure Monitor の統合、および OMS と統合されたデータ操作の診断ログのプレビューを発表します。
+Content: >-
+  <p>透明性は、クラウド サービスの重要な機能です。 Azure Cosmos DB は、可用性、スループット、一貫性、および 10ms の待機時間に対して 99.99% &lt;の SLA を提供する唯一のクラウド サービスであり、この保証に対する実行方法に関するメトリックを透過的に示します。 この 1 年間、Azure の DB ワークロードの監視とトラブルシューティングに役立つ多くの投資Cosmosしました。 本日&#39;最近追加したメトリックと、メトリックと Azure Monitor、OMS、診断ログのプレビューの統合について発表します。</p>
+
+
+  <h2>エラスティック スケール、パーティション キーヒートマップ、ホット &quot;&quot; パーティション</h2>
+
+
+  <p>Azure Cosmos DB では、無限のエラスティック スケールが提供されます。 必要な VM&#39;インスタンスの数などについては、お客様に問い合&#39;質問は行われ" は表示されます。代わりに、必要なスループットを求めるだけで、データの増加に応じてコレクションを透過的かつ弾力的にスケーリングします。 エラスティック スケールを有効にするには、使用するパーティション キーを確認します。</p>
+
+
+  <p>後者は非常に重要な情報です。 お客様には、パーティション キーの値空間に均等に分散されたデータを持つパーティション キーを選択すると、プロビジョニングされたスループット全体を確実に&#39;活用できます。 ただし、すべてのレコードに同じパーティション キー値が含まれます。設定を忘れた場合、値が null の場合、プロビジョニングされたスループットの 1/N 分の 1 だけが取得されます。ここで、N はコレクション用に作成された物理パーティションの現在の数です。 そのため、10 の物理パーティションを持つコレクションに対して 10000 RU/s をプロビジョニングした場合、パーティション キーを適切に選択しなかった場合は、要求に使用できるプロビジョニングスループットが 1000 RU/s に制限される可能性があります。</p>
+
+
+  <p>パーティション キーの選択が良いかどうかは、どのようにして確認できますか? これは、3 つの簡単な手順で理解するのに役立ちます。</p>
+
+
+  <ol>
+   <li>操作が調整されるのを確認します。 [スループット] タブ &quot;の [容量を超える要求&quot; ] グラフを確認します。</li>
+   <li>パーティションあたりの最大 RU/秒の消費メトリックを確認して、消費されたスループットが、物理パーティション ( &quot;パーティション キー範囲) でプロビジョニングされたスループットを超えているか確認&quot; します。</li>
+   <li>各パーティションの&quot;&quot;最大消費スループットのグラフで、パーティションあたりの最大消費スループットがプロビジョニングを超えた時間を選択して、その時点で使用されたスループットのパーティションごとの分布を調査します。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/468936fc-7a4e-43e7-bfd7-4a2ce4eefa6b.png"><img alt="metrics_numbered" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1868b887-155a-4b5c-bcb9-469a6d0732c2.png" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="metrics_numbered"></a><br>
+
+  パーティション間&rsquo;のデータ分散を確認すると役に立つ場合があります。 このグラフは、[ストレージ] タブで確認できます。個々のパーティション キー範囲をクリックして、その範囲内の主要なパーティション キーを確認できます。 さらにキーを選択し、[開く &ldquo;] をクリックデータ エクスプローラー&rdquo; 対応するデータを表示できます。</p>
+
+
+  <p style="margin: 0in; font-family: calibri; font-size: 11pt; font-style: normal; font-weight: normal;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/484f82a1-6022-4f13-9578-4655e29255f7.png" style="font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal; text-decoration-line: underline;"><img alt="image" border="0" height="217" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7519501-90cc-4915-939b-4c4d2b9eaae0.png" style="font-size: 13px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="512"></a></p>
+
+
+  <p>このトピックの簡単な Azure Friday ビデオを次に示します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="288" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Cosmos-DB-Get-the-Most-Out-of-Provisioned-Throughput/player" width="512"></iframe></p>
+
+
+  <p>新しいメトリックの使用の詳細については、「Azure Cosmos DB でのメトリックを使用した監視<a href="https://docs.microsoft.com/azure/cosmos-db/use-metrics" target="_blank">とデバッグ」を参照してください</a>。</p>
+
+
+  <h2>データベース監査と OMS 統合</h2>
+
+
+  <p>データ プレーン操作の診断ログを発表して、Azure Cosmos DB コレクションにアクセスしたユーザーといつアクセスしたのかの完全な監査を取得できます。 [診断Azure portal左側のナビゲーション バーの [診断ログ] メニューに移動し、Azure Cosmos DB アカウントを選択して、診断ログをオンします。 これらのログを Azure Storage アカウントにエクスポートしたり、イベント ハブにストリーミングしたり、Log Analytics と Operations Management Suite に送信したりすることもできます。 診断ログを有効にする手順については、「Azure Cosmos <a href="https://docs.microsoft.com/azure/cosmos-db/logging" target="_blank">DB 診断ログ」を参照してください</a>。</p>
+
+
+  <p style="margin: 0in; font-family: calibri; font-size: 11pt;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2bb038c4-fac3-4395-9899-f1a42b9fe842.png" style="font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal; text-decoration-line: underline;"><img alt="enable_audit_logs" border="0" height="249" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/838c7b4a-9ff3-415e-b734-ff81b36433f5.png" style="font-size: 13px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="enable_audit_logs" width="516"></a></p>
+
+
+  <h2>Azure Monitor</h2>
+
+
+  <p>また、本日、AZURE API を使用した Azure Cosmos DB メトリックのサブセットAzure Monitor発表しました。 これで、Grafana のようなツールを使用してメトリックにアクセスできます。Operations Management Suite の統合は近日公開予定です。</p>
+
+
+  <p style="margin: 0in; font-family: calibri; font-size: 11pt;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86584753-2693-445f-9979-d2af505ecf13.png" style="font-family: tahoma, &quot;Helvetica Neue&quot;, arial, helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal; text-decoration-line: underline;"><img alt="graphana_azuremonitor" border="0" height="261" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7789a5aa-d860-40bc-9ca2-834c892b9167.png" style="font-size: 13px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="graphana_azuremonitor" width="526"></a></p>
+
+
+  <h2>Azure Cosmos DB でプレイし、ご自分の考えをお知らせください</h2>
+
+
+  <p>Azure Cosmos DB は、将来のデータベースです。 これは&rsquo;、非常にスケーラブルなデータベースの世界で次の大きな問題と考えています。 これにより、世界中のユーザーの近くでデータを使用できます。 これは、選択した API とデータ モデルを使用して、地球規模のアプリを簡単に構築するための、グローバルに分散されたマルチモデル データベース サービスです。 今すぐ <a href="https://azure.microsoft.com/en-us/try/cosmosdb/" target="_blank">Azure Cosmos DB を</a>無料で試用できます。サブスクリプションやクレジット カードは必要ありません。</p>
+
+
+  <p>サポートが必要な場合、またはご質問やフィードバックがある場合は、開発者フォーラム (Stack Overflow) にお問 <a href="https://stackoverflow.com/questions/tagged/azure-cosmosdb" target="_blank">い合わせください</a>。 CosmosDB または を使用して Twitter でフォロー Cosmos最新の Azure Cosmos DB <a href="https://twitter.com/search?q=%23cosmosDB&amp;src=typd" target="_blank">#</a>のニュースと機能に関する最新情報を確認してください<a href="https://twitter.com/AzureCosmosDB" target="_blank">@AzureCosmosDB</a>。</p>
+
+
+  <p>-Azure Cosmos DB の友人</p>

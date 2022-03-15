@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 68081edc55f0ba25160ba359ac7d354ee32574f9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889529"
+Slug: connecting-global-azure-bootcampers-with-a-cosmic-chat-app
+Title: 宇宙 chat アプリを使用してグローバル Azure Bootcampers を接続する
+Summary: 毎年、グローバルな Azure ブートキャンプが、Microsoft Azure について学習するために集中しているクラウド愛好家を集めています。 今年、このブートキャンプは世界中の300の場所に2019年4月27日に開催されます。世界中のコミュニティは、ワークショップ、ラボ、および対話に関する開発者や IT プロフェッショナルに歓迎します。
+Content: >-
+  <p>毎年、<a href="https://global.azurebootcamp.net/" target="_blank">グローバルな Azure ブートキャンプ</a>が、Microsoft Azure について学習するために集中しているクラウド愛好家を集めています。 今年、このブートキャンプは世界中の300の場所に2019年4月27日に開催されます。世界中のコミュニティは、ワークショップ、ラボ、および対話に関する開発者や IT プロフェッショナルに歓迎します。</p>
+
+
+  <p>このイベントに同時に参加するには、世界中に数万の Azure Bootcampers があります。 ここでは、 <a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">Azure Cosmos DB</a>によって電源が入っているチャットアプリを参加者にあいさつさせることで、ブートキャンプに少し &ldquo; 宇宙タッチ &rdquo; を追加することにしました。 &rsquo; チャットアプリは、2019年4月27日に、各ブートキャンプの場所に表示されるリンクに従って提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa9069ed-a63f-402b-a3af-182eea29be6a.png"><img alt="Azure Cosmos DB chat bot" border="0" height="372" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2a1ce746-5f70-4c7a-a470-bfec2c163395.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Cosmos DB チャットボット" width="474"></a></p>
+
+
+  <h2>グローバルイベントのグローバルデータベース</h2>
+
+
+  <p>考えてみると、この結婚は理にかなっています。 地球規模のブートキャンプ、グローバルに分散されたデータベースと比較して &rsquo; グローバルなイベントを提供するよりも優れたテクノロジは何でしょうか。</p>
+
+
+  <p>最初から、 <strong>優れたユーザーエクスペリエンス</strong>の目的でこのプロジェクトに取り組んでいます。 チャットアプリの場合、これはメッセージの取り込みと配信の待機時間が短いことを意味します。 これを実現するために、世界中の複数の Azure リージョンに web チャットをデプロイし、 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/distribute-data-globally" target="_blank">Cosmos データベースが配置され</a>ている最も近いリージョンにユーザー &rsquo; の要求をルーティング<a href="https://azure.microsoft.com/en-us/services/traffic-manager/" target="_blank">Azure Traffic Manager</a>ことで、コンピューティングとユーザーの近くにデータを格納します。 これで、各対象リージョンに新しいメッセージをレプリケート Azure Cosmos DB ことができるので、ほぼリアルタイムのメッセージ配信パフォーマンスが得られるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/84e98126-ac66-4511-9ee8-67d8990646d0.png"><img alt="Map displaying Azure Cosmos DB regions" border="0" height="341" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/06313b59-5cf3-45d4-8148-f0670776b8c4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Cosmos DB 領域を表示するマップ" width="561"></a></p>
+
+
+  <p>インジェストの待機時間を最小限に抑えるために、Cosmos データベースを<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-multi-master" target="_blank">マルチマスターモード</a>でデプロイするように構成しました。これにより、データベースが配置されている任意のリージョンにデータを書き込むことができます。</p>
+
+
+  <h2>パブリケーションシステムとしての Azure Cosmos DB change feed</h2>
+
+
+  <p>チャットアプリで新しいメッセージをリアルタイムで表示することが予想されるため、これらのメッセージをクライアントにプッシュする必要があります。低速でコストのかかるポーリングメカニズムは必要ありません。 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed" target="_blank">Azure Cosmos DB &rsquo; change feed</a>を使用して、受信された新しいメッセージをサブスクライブし、 <a href="https://azure.microsoft.com/en-us/services/signalr-service/" target="_blank">Azure SignalR サービス</a>を介して各クライアントに配信しました。</p>
+
+
+  <p>また、個々のリージョンで change feed をローカルに使用して、配信の待機時間をさらに短縮することを選択しました。これにより、1つのディスパッチポイントが、グローバルに分散されていて、マルチマスターになる利点を効果的に減らすことができるようになりました。</p>
+
+
+  <p>ここで &rsquo; は、Azure サービスの遊び方とその相互作用を示す概略図を示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86c4bed7-d213-4a38-9eff-0468a1bd6c76.png"><img alt="Diagram showing the Azure services used to create the chat bot and how they interact" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6b2ad7a7-2867-4f14-b366-6bbceacdbcad.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="チャットボットの作成に使用された Azure サービスと、それらの対話方法を示す図" width="459"></a></p>
+
+
+  <h2>地球規模、バッテリ付属</h2>
+
+
+  <p>このような分散アプリを構築するにはどうすればよいでしょうか。 Azure Cosmos DB は、必要なすべてのロケット科学を処理するので、まったく意味がありません。 グローバルデータ分散に関係するすべての複雑さは、実際には開発者にとっ &rsquo; て非表示になっているため、残されているのは簡単な概念です。</p>
+
+
+  <ul>
+   <li>に最も近いリージョン &rsquo; にメッセージを記述します。</li>
+   <li>変更フィードを通じてメッセージを受信します。</li>
+  </ul>
+
+
+  <p>これらの概念は簡単に実装でき、チャットアプリを稼働させるために必要な開発時間は1日にすぎません。</p>
+
+
+  <h2>自動モデレーションによるフレンドリな状態の維持</h2>
+
+
+  <p>チャットアプリはだれでも使用できるようになったため、グローバルな Azure ブートキャンプの先走りになる可能性がある不適切なメッセージを必ず除外しておく必要がありました。 これを実現するために、コンテンツ検証サービスを使用して、 <a href="https://azure.microsoft.com/en-us/services/cognitive-services/content-moderator/" target="_blank">Azure Cognitive Services の Content Moderator api</a> を電源に入れ、各受信メッセージをスキャンしています。 このターンキーソリューションを使用すると、潜在的な問題や個人を特定できる情報の存在を検出し、関連するメッセージを即座にブロックして、すべてのユーザーに対して肯定的で安全なエクスペリエンスを確保することができます。</p>
+
+
+  <h2>リアルタイムのグローバルワークロード用のデータベース</h2>
+
+
+  <p>メッセージの取り込みと配信の両方で最も短い待機時間を確保することで、Azure Cosmos DB &rsquo; s<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/distribute-data-globally" target="_blank">グローバルフットプリント</a>、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-multi-master" target="_blank">マルチマスター機能</a>、 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed" target="_blank">change feed API</a>を組み合わせることにより、世界中のどこでも、チャットアプリを使用するすべてのユーザーに最適なエクスペリエンスを実現できます。</p>
+
+
+  <p>Azure Cosmos DB &rsquo; の固有の特性が、次のデータの課題を解決するのにどのように役立つかを知りたいと思いますか。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">Azure Cosmos DB の web サイト</a>に移動し、サービスの詳細を確認してください。</li>
+   <li>Twitter <a href="https://twitter.com/AzureCosmosDB/" target="_blank">@AzureCosmosDB</a> でフォローします。</li>
+   <li>StackOverflow で、タグ <a href="https://stackoverflow.com/questions/tagged/azure-cosmosdb" target="_blank">[cosmosdb]</a>を使用して質問してください。</li>
+   <li>Azure Cosmos DB &rsquo; s<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator" target="_blank">ローカルエミュレーター</a>を使用して今すぐ開始するか<a href="https://azure.microsoft.com/en-us/try/cosmosdb/" target="_blank">、サービスをお試しください</a>。</li>
+  </ul>

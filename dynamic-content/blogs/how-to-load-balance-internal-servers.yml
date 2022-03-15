@@ -1,0 +1,98 @@
+### YamlMime:Yaml
+ms.openlocfilehash: beb436c97e39040424b81ff1fe63b0248b405046
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889782"
+Slug: how-to-load-balance-internal-servers
+Title: 内部サーバーを Load-Balance する方法
+Summary: >-
+  エディターのメモ: このブログ記事は、Windows Azure のカスタマーアドバイザリチームの Chris Clayton、program manager によって作成されています。
+
+
+  2009以降、Windows Azure で作業しています。 この期間中に...
+Content: >-
+  <strong>エディターのメモ: </strong>このブログ記事は、Windows Azure カスタマーアドバイザリチームの<a href="https://social.technet.microsoft.com/profile/chris%20clayton%20(azurecat)/?ws=usercard-inline" target="_blank">Chris Clayton</a>、program manager によって作成されています。
+
+
+  2009以降、Windows Azure で作業しています。 この期間中、大規模で小規模な組織で多くのお客様のソリューションを設計する機会がありました。 ソリューションが拡張されると、多くの場合、内部サーバーの負荷を分散する必要があります。 この記事の時点で Windows Azure には、負荷分散に対処するための組み込みのソリューションはありません。 ただし、パブリックエンドポイントに対するアクセス制御リスト (acl) の導入により、Azure のサービスおよびコンポーネントでサポートされている標準 Windows 使用してこれを実現できます。
+
+
+  この例では、ASP.NET Web API を使用して公開される内部サービスのファサードとして機能する、仮想マシン上で実行されているインターネットインフォメーションサービス (IIS) サーバーのペアを負荷分散します。 各 IIS サーバーで共有される負荷分散されたパブリックエンドポイントを作成することにより、すべてのパブリックエンドポイントが経由でアクセスされる Windows Azure の標準ロードバランサーを使用して、それらの間でクエリの負荷を分散することができます。
+
+
+  インターネット上のすべてのユーザーがサービスにアクセスできることを懸念していました。 しかし、エンドポイントに ACL を適用することで、自分のクラウドサービスのみにアクセスを制限することができます。 次の図に示すように、ACL は制限を追加して、クラウドサービス内からのクエリのみが負荷分散されたエンドポイントにアクセスできるようにします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/8304.a.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-134181" alt="8304.a.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8304.a.jpg-550x0-520x369.jpg" width="520" height="369" /></a>
+
+
+  これはすばらしいことです。 非常に簡単でした。 私は自分の決定の影響を検討していました。ここでは、私が行った長所と短所について説明します。
+
+
+  <strong>長所</strong>
+
+  <ul>
+   <li>パートナーソリューションを探す必要がなく、負荷分散された ASP.NET Web API 層を実現しました。</li>
+   <li>私は Microsoft がサポートしているサービスと機能を使用していました。これにより、サポートされている構成を使用して、必要な操作を行うことができました。</li>
+   <li>製品チームでソリューションについて説明しました。現在、この機能はサポートされていないため、現時点ではサポートされている実装であると同意しています。</li>
+  </ul>
+
+  <strong>マイナス</strong>
+
+  <ul>
+   <li>現在、Windows Azure のクラウドサービスで作成できるパブリックポートの数は25で、そのうちの1つとしてカウントされます。</li>
+   <li>1つのクラウドサービスからのすべての通信は、同じパブリック IP アドレスから取得されます。 これは、すべてのクライアントが TCP によって課されるのと同じ 64 K 接続制限を共有することを意味します。 この制限は、同じ発信元ポートと送信元 IP アドレスから同じ宛先ポートと宛先 IP アドレスへの接続に適用されます。</li>
+   <li>Acl はサービスとしてのインフラストラクチャ (IaaS) ソリューションとしてのみサポートされます。これにより、サービスとしてのプラットフォーム (PaaS) ソリューションがなくなります。</li>
+  </ul>
+
+  <strong>軽減策</strong>
+
+
+  欠点があるソリューションと同様に、通常はクリエイティブな方法で軽減できます。 最初の2つの欠点については、クラウドサービスに適用される制限 (パブリックポートの最大数、クラウドサービスごとの単一 IP アドレスなど) から派生したものです。 仮想マシンを複数のクラウドサービスに分散させることができることに気付きました。 仮想ネットワークを使用することによって、それらを分割し、通信機能を維持することができます。 ただし、そのためには、ACL に追加の IP アドレスを構成する必要があります。
+
+
+  <strong>ステップバイステップソリューション</strong>
+
+
+  ここでは、2つの仮想マシンに負荷分散ソリューションを設定する方法について説明します。
+
+
+  IIS 用に完全に構成された2つの仮想マシンから始めて、Windows PowerShell を使用して、それぞれに ACL が割り当てられた負荷分散エンドポイントを作成しました。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7485.b.png-550x0.png"><img class="alignnone size-full wp-image-134171" alt="7485.b.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7485.b.png-550x0.png" width="550" height="131" /></a>
+
+
+  仮想マシンが含まれているクラウドサービスの [ダッシュボード] ビューに移動すると、許可する必要があるパブリック IP アドレスをすばやく見つけることができます。 マイダッシュボードの次の図に示すように、クラウドサービスの IP アドレスは137.135.81.135 です。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7115.c.png-550x0.png"><img class="alignnone size-full wp-image-134161" alt="7115.c.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7115.c.png-550x0.png" width="550" height="367" /></a>
+
+
+  Windows PowerShell を開き、次のコマンドを実行します。これらのコマンドは、Windows Azure モジュールのコマンドレットを利用しています。 これらのコマンドは、ポート80でリッスンし、クラウドサービスの IP アドレス (137.135.81.135) へのアクセスを制限する ACL が設定されている各仮想マシンに新しいエンドポイントを作成します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2086.d.JPG-550x0.jpg"><img class="alignnone size-full wp-image-134151" alt="2086.d.JPG-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2086.d.JPG-550x0.jpg" width="550" height="278" /></a>
+
+
+  ロードバランサーが動作していることをテストするには、既定の IIS ページを変更し、仮想マシンの名前を示すテキストを表示します。 クラウドサービスの外部から仮想マシンにアクセスしようとしています。 十分であることを確認してください。 Acl はジョブを実行しています。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1385.e.png-550x0.png"><img class="alignnone size-full wp-image-134141" alt="1385.e.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1385.e.png-550x0.png" width="550" height="324" /></a>
+
+
+  リモートデスクトップを使用してクラウドサービス内の仮想マシンに接続し、同じテストを試みます。 この時点で、仮想マシンの名前が web サイトに表示されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5852.f.png-550x0.png"><img class="alignnone size-full wp-image-134131" alt="5852.f.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5852.f.png-550x0.png" width="550" height="356" /></a>
+
+
+  ページが常に更新され、ロードバランサーが要求を処理するときに仮想マシンの名前が変更されていることがわかります。
+
+
+  Windows Azure 内で利用できる既存のサポートされているサービスを構成することにより、内部 IaaS 仮想マシンを負荷分散する機能を作成しました。 このソリューションにはいくつかの注意事項があります (この投稿で前述したとおり)。しかし、私の意見では、多くの状況で非常に許容されます。
+
+
+  ご意見をお待ちしております。 Chris Clayton にメールで連絡してください。

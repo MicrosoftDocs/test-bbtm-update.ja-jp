@@ -1,0 +1,259 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6b56422cf8a02cf304d0cb3bae13d69c0659c456
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889848"
+Slug: custom-login-scopes-single-sign-on-new-asp-net-web-api-updates-to-the-azure-mobile-services-net-backend
+Title: カスタム ログイン スコープ、シングル サインオン、新しい ASP.NET Web API – Azure Mobile Services .NET バックエンドの更新
+Summary: ソーシャル ログイン プロバイダーのカスタム認証スコープ、ストア アプリケーションのシングル サインオン、最新の ASP.NET Web API への依存関係の更新、Azure Mobile Services .NET バックエンドの最新リリースでのその他の更新。
+Content: >-
+  Azure Mobile Services の .NET バックエンドに対する次のような多くの更新プログラムをリリースしました。
+
+  <ul>
+   <li>認証プロバイダーからのカスタム スコープ</li>
+   <li>Windows Store アプリケーションのシングル サインオンのサポート</li>
+   <li>Web API 5.2 への依存関係の更新</li>
+  </ul>
+
+  Azure Mobile Services .NET を初Mobile Services場合は、この大<a href="https://azure.microsoft.com/blog/2014/07/11/azure-mobile-services-why-should-asp-net-developers-care/"></a>きな概要を確認してください。<a href="https://azure.microsoft.com/mobile/"></a>一般的な Azure Mobile Servicesの詳細については、こちらを参照してください。
+
+  <h2>更新プログラムの取得</h2>
+
+  同様に、パッケージ エクスプローラーからプロジェクトの最新の更新NuGet取得できます。 ソリューション エクスプローラーでプロジェクト ノードまたはプロジェクト内の参照ノードを右クリックし、[パッケージの管理] オプションNuGet選択します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/02/001-ManageNuGetPackages.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="001-ManageNuGetPackages" alt="001-ManageNuGetPackages" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/001-ManageNuGetPackages_thumb.png" width="344" height="327" border="0" /></a>
+
+
+  [NuGet] ダイアログで、左側の [更新プログラム] オプションを選択し、検索ボックスに「mobileservices」と入力します。 最新バージョン (1.0.402) のモバイル サービス関連パッケージが表示されます。 パッケージを選択し、[更新] ボタンをクリックします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/02/002-UpdateNuGetPackages.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="002-UpdateNuGetPackages" alt="002-UpdateNuGetPackages" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/002-UpdateNuGetPackages_thumb.png" width="610" height="189" border="0" /></a>
+
+
+  注意: 現時点では更新できない依存関係がいくつかあるので、[すべて更新] ボタンを使用しない必要があります。 モバイル サービス関連のパッケージのみを更新すると、正常に機能する依存関係が自動的に更新されます。
+
+  <h2>ソーシャル認証プロバイダーのカスタム スコープ</h2>
+
+  これは長い間の機能要求でした。これは、バックエンドのnode.js <a href="https://blogs.msdn.com/b/carlosfigueira/archive/2013/12/12/expanded-login-scopes-in-azure-mobile-services.aspx">されています</a>。 .NET バックエンドにログインするときに、認証プロバイダーと通信するトークンをサーバーに要求できます。 既定では、トークンはユーザーに関する基本的な情報のみを許可します。 .NET バックエンドでは、サーバーで受け取ったアクセス トークンを使用して認証プロバイダーから詳細情報を取得できるよう、追加のログイン スコープを要求することもできます。 バックエンドの node.js同様に、この機能は Facebook、Google、Microsoft アカウントで使用できます。 node.js バックエンドと同様に、ログイン スコープはアプリ設定を使用して定義できます。この設定は、ポータルの [構成] タブ (MS_FacebookScope、<strong>MS_GoogleScope</strong>、<strong>MS_MicrosoftScope (それぞれ</strong> Facebook、Google、Microsoft アカウントの場合) で設定できます。 <strong></strong>
+
+
+  使用されているスコープの例を見てみしましょう。 上記の <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-dotnet-backend-windows-store-dotnet-get-started-users/">2 つのプロバイダー</a> (Facebook と Microsoft) で認証を行う .NET モバイル サービスを設定しました。 また、プロバイダーと話し合って、ログインしているユーザーに関する情報を取得するコントローラーも追加します。
+
+  <pre class="prettyprint">    public class UserInfoController : ApiController
+      {
+          public ApiServices Services { get; set; }
+
+          [AuthorizeLevel(AuthorizationLevel.User)]
+          public async Task&lt;JObject&gt; GetUserInfo()
+          {
+              ServiceUser user = this.User as ServiceUser;
+              if (user == null)
+              {
+                  throw new InvalidOperationException("This can only be called by authenticated clients");
+              }
+
+              var identities = await user.GetIdentitiesAsync();
+              var result = new JObject();
+              var fb = identities.OfType&lt;FacebookCredentials&gt;().FirstOrDefault();
+              if (fb != null)
+              {
+                  var accessToken = fb.AccessToken;
+                  result.Add("facebook", await GetProviderInfo("https://graph.facebook.com/me?access_token=" + accessToken));
+              }
+
+              var ms = identities.OfType&lt;MicrosoftAccountCredentials&gt;().FirstOrDefault();
+              if (ms != null)
+              {
+                  var accessToken = ms.AccessToken;
+                  result.Add("microsoft", await GetProviderInfo("https://apis.live.net/v5.0/me/?method=GET&amp;access_token=" + accessToken));
+              }
+
+              return result;
+          }
+
+          private async Task&lt;JToken&gt; GetProviderInfo(string url)
+          {
+              var c = new HttpClient();
+              var resp = await c.GetAsync(url);
+              resp.EnsureSuccessStatusCode();
+              return JToken.Parse(await resp.Content.ReadAsStringAsync());
+          }
+      }</pre>
+  その後、認証を行い、そのユーザーに関する情報を取得するアプリケーションを作成できます。 この例では、上記の各認証プロバイダーのボタンを含む単純なアプリを使用します。
+
+  <pre class="prettyprint">    public sealed partial class MainPage : Page
+      {
+           public static MobileServiceClient MobileService = new MobileServiceClient(
+                "https://blog20141002.azure-mobile.net/",
+                "yourapplicationkeyshouldbehere00"
+          );
+
+          public MainPage()
+          {
+              this.InitializeComponent();
+          }
+
+          private async void btnFacebook_Click(object sender, RoutedEventArgs e)
+          {
+              await LoginAndGetUserInfo(MobileServiceAuthenticationProvider.Facebook);
+          }
+
+          private async void btnMicrosoft_Click(object sender, RoutedEventArgs e)
+          {
+              await LoginAndGetUserInfo(MobileServiceAuthenticationProvider.MicrosoftAccount);
+          }
+
+          private async Task LoginAndGetUserInfo(MobileServiceAuthenticationProvider provider)
+          {
+              try
+              {
+                  var user = await MobileService.LoginAsync(provider);
+                  Debug("Logged in as {0}", user.UserId);
+                  var userInfo = await MobileService.InvokeApiAsync("userInfo", HttpMethod.Get, null);
+                  Debug("User info: {0}", userInfo);
+                  MobileService.Logout();
+                  Debug("Logged out");
+                  Debug("");
+              }
+              catch (Exception ex)
+              {
+                  Debug("Error: {0}", ex);
+              }
+          }
+
+          private void Debug(string text, params object[] args)
+          {
+              if (args != null &amp;&amp; args.Length &gt; 0) text = string.Format(text, args);
+              this.txtDebug.Text = this.txtDebug.Text + text + Environment.NewLine;
+          }
+      }</pre>
+  アプリを実行し、3 つのプロバイダーのそれぞれにログインすると、ユーザーに関する基本的な情報が取得されます。 たとえば、資格情報を使用すると次のようになります。
+
+  <pre class="prettyprint">Logged in as Facebook:xxxxxxxxxxxxx9805
+
+  User info: {
+    "facebook": {
+      "id": "xxxxxxxxxxxxx9805",
+      "first_name": "Carlos",
+      "gender": "male",
+      "last_name": "Figueira",
+      "link": "https://www.facebook.com/app_scoped_user_id/xxxxxxxxxxxxx9805/",
+      "locale": "en_US",
+      "name": "Carlos Figueira",
+      "timezone": -7,
+      "updated_time": "2013-12-12T04:09:57Z",
+      "verified": true
+    }
+  }
+
+  Logged out
+
+
+  Logged in as MicrosoftAccount:xxxxxxxxxxxxd789
+
+  User info: {
+    "microsoft": {
+      "id": "xxxxxxxxxxxxd789",
+      "name": "Carlos Figueira",
+      "first_name": "Carlos",
+      "last_name": "Figueira",
+      "link": "https://profile.live.com/",
+      "gender": null,
+      "locale": "en_US",
+      "updated_time": "2014-09-30T09:38:42Z"
+    }
+  }
+
+  Logged out</pre>
+
+  これは基本的な情報ですが、アプリケーションでユーザーの電子メールなどの情報も必要な場合、サービス ログインによって付与されたアクセス トークンにはアクセス権が付与されません。 ただし、ログイン中に追加のスコープを要求する場合は、 <strong>MS_FacebookScope</strong> と <strong>MS_MicrosoftScope</strong> アプリの設定を設定することで、必要な追加情報が表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/02/003-AppSettingsWithScopes.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="003-AppSettingsWithScopes" alt="003-AppSettingsWithScopes" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/003-AppSettingsWithScopes_thumb.png" width="610" height="107" border="0" /></a>
+
+
+  また、クライアント アプリを再度実行すると、新しく要求された情報が取得されます (ユーザーがアプリケーションに追加情報へのアクセスを許可した後)。
+
+  <pre class="prettyprint">Logged in as Facebook:xxxxxxxxxxxxx9805
+
+  User info: {
+    "facebook": {
+      "id": "xxxxxxxxxxxxx9805",
+      "birthday": "xx/yy/zzzz",
+      "email": "xxxxxxxxxxxxxxxxxxx@hotmail.com",
+      "first_name": "Carlos",
+      "gender": "male",
+      "last_name": "Figueira",
+      "link": "https://www.facebook.com/app_scoped_user_id/xxxxxxxxxxxxx9805/",
+      "locale": "en_US",
+      "name": "Carlos Figueira",
+      "timezone": -7,
+      "updated_time": "2013-12-12T04:09:57Z",
+      "verified": true
+    }
+  }
+
+  Logged out
+
+
+  Logged in as MicrosoftAccount:xxxxxxxxxxxxd789
+
+  User info: {
+    "microsoft": {
+      "id": "xxxxxxxxxxxxd789",
+      "name": "Carlos Figueira",
+      "first_name": "Carlos",
+      "last_name": "Figueira",
+      "link": "https://profile.live.com/",
+      "gender": null,
+      "emails": {
+        "preferred": "xxxxxxxxxxxxxxxxxxx@hotmail.com",
+        "account": "xxxxxxxxxxxxxxxxxxx@hotmail.com",
+        "personal": null,
+        "business": null
+      },
+      "locale": "en_US",
+      "updated_time": "2014-09-30T09:38:42Z"
+    }
+  }
+
+  Logged out</pre>
+
+  追加のスコープの要求に関する最後の注意点の 1 つ: 優れた一般的なルールとして、ユーザーに必要な最小限の情報のみを要求します。 多くのユーザーは、使用するアプリに多くの情報を提供するのを好きではないので、ログイン時に求め過ぎたため、アプリの使用をあきらめるだけかもしれません。
+
+  <h2>シングル Sign-On ストア アプリケーションWindowsサポート</h2>
+
+  Windows Store <code>LoginAsync</code> <code>MobileServiceClient</code> アプリケーションでモバイル サービス SDK を使用する場合、認証プロバイダーを渡す際にアプリが メソッドを呼び出すたび認証ウィンドウが表示され、ユーザーは資格情報を入力し、認証ページの [サインイン] ボタンをクリックする必要があります。ただし、ユーザーがプロバイダーのログイン ページ (Windows) で [記憶する] ボタンを選択した場合でも、 資格情報をキャッシュして入力する必要が生じなかった可能性がありますが、ユーザーは引き続きボタンをクリックしてログインする必要があります)。 これは、既定では、認証セッションの Cookie は保持されないので、プロバイダー ページが再び表示された場合、ユーザーを識別するための以前の認証の Cookie が存在しないのでです。 <a href="https://msdn.microsoft.com/en-us/library/dn268373.aspx">LoginAsync</a> <code>LoginAsync</code> に対するオーバーロードがあります。これは、クライアントが認証セッションで Cookie をキャッシュする必要があるという追加のフラグを受け取り、次回が呼び出された場合、認証ダイアログが短時間だけ表示され、自動的に閉じ、ユーザー エクスペリエンスが向上します。
+
+
+  前のセクションで示したクライアントでは、追加のオーバーロードを使用し、 の 2 番目のパラメーターに <strong>true </strong>を渡す必要があります <code>LoginAsync</code>。
+
+  <pre class="prettyprint">    private async Task LoginAndGetUserInfo(MobileServiceAuthenticationProvider provider)
+      {
+          try
+          {
+              var user = await MobileService.LoginAsync(provider, true);
+              Debug("Logged in as {0}", user.UserId);
+              var userInfo = await MobileService.InvokeApiAsync("userInfo", HttpMethod.Get, null);
+              Debug("User info: {0}", userInfo);
+              MobileService.Logout();
+              Debug("Logged out");
+              Debug("");
+          }
+          catch (Exception ex)
+          {
+              Debug("Error: {0}", ex);
+          }
+      }</pre>
+  まだ行っていない場合は、サーバー側でも 1 つの変更を行う必要があります。 このシナリオを有効にするには、そのアプリケーションのパッケージ SID (アプリ識別子の 1 つ) をサービスに格納する必要があるという理由で、アプリケーションを Windows Store 内のアプリに関連付けられている必要があります。 パッケージ SID を取得するには、<a href="https://dev.windows.com/dashboard">Windows ストア</a> ダッシュボードでアプリを作成します。その値をチュートリアルで見つけて、Microsoft 認証用のアプリ パッケージを登録する方法<a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-how-to-register-store-app-package-microsoft-authentication/">を確認できます</a>。 アプリで Microsoft 認証を使用しない場合 (Facebook や Twitter を使用する場合など)、クライアント ID/シークレットをコピーする必要はないが、ポータルの [id] タブにある <strong>Microsoft</strong> アカウント設定でパッケージ SID をコピーする必要があります。  <strong></strong>
+
+  <h2>ASP.NET Web API 2.2 のサポート</h2>
+
+  この更新プログラムでは、.NET バックエンドで ASP.NET Web API 2.2 (または <a href="https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Owin/">Microsoft.AspNet.WebApi.Owin</a> パッケージのバージョン 5.2.x) がNuGetされました。 これで、属性ルーティングの機能強化や OData v4 など、そのリリースのすべての新機能とバグ修正を利用できます。 変更の完全な一覧は、「<a href="https://www.asp.net/web-api/overview/releases/whats-new-in-aspnet-web-api-22">What's New in ASP.NET Web API 2.2」を参照してください</a>。
+
+  <h2>まとめ</h2>
+
+  これで完了です。 これらの機能が役に立ちます。 通常どおり、この投稿のコメントとして、Twitter <a href="https://twitter.com/azuremobile">@AzureMobile</a> または MSDN フォーラムでフィードバック <a href="https://social.msdn.microsoft.com/Forums/windowsazure/en-US/home?forum=azuremobile">をお送りください</a>。

@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2d5414cd35e80c21efc6473a52c6e3b64de7cbdd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890822"
+Slug: documentdb-api-for-mongodb-now-generally-available
+Title: 'DocumentDB: MongoDB 用 API が一般提供される'
+Summary: 本日、DocumentDB の MongoDB 用 API が一般提供されるお知らせを行います。 MongoDB 用 API を使用すると、開発者は、マネージド サービスの快適さと MongoDB SDK とツールの使い慣れにより、DocumentDB データベース エンジンの機能を体験できます。
+Content: >-
+  <p><strong>2017 年 5 月 10 日現在、</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は、Microsoft&rsquo; のグローバル分散マルチモデル データベースです。Azure Cosmos DB は、その中核となるグローバル分散と水平スケールで、最初から構築されました。ユーザーがどこにいてもデータを透過的にスケーリングしてレプリケートすることで、任意の数の Azure リージョンにターンキーグローバル分散が提供されます。スループットとストレージを世界規模で弾力的にスケーリングし、必要なスループットとストレージに対してだけ料金を支払います。Azure Cosmos DB では、世界中の任意の場所で 99&mdash; 番目の割合で 1 桁ミリ秒の待機時間が保証され、パフォーマンスを微調整する複数の定義済みの整合性モデルが提供され、業界をリードするサービス レベル アグリーメント (SLA) によってサポートされるマルチホーム機能を使用して高可用性が保証されます。&nbsp;</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は、スキーマに依存せず、スキーマとインデックスの管理に対処する必要なく、すべてのデータのインデックスを自動的に作成します。また&rsquo;、ドキュメント、キー値、グラフ、および列ファミリのデータ モデルをネイティブにサポートするマルチモデルです。Azure Cosmos DB では、DocumentDB SQL (ドキュメント)、MongoDB (ドキュメント)、Azure Table Storage (キー値)、Gremlin (グラフ) がネイティブにサポートされているので、選択した API を使用してデータにアクセスできます。</strong></p>
+
+
+  <hr>
+
+  <p>本日、DocumentDB: MongoDB 用 API が一般提供されています。 MongoDB 用 API を使用すると、開発者は、マネージド サービスの快適さと MongoDB SDK とツールの使い慣れにより、DocumentDB データベース エンジンの機能を体験できます。 一般提供の発表に合わせ、サービスの可用性、スケーラビリティ、使いやすさを向上する一組の新機能が導入されています。</p>
+
+
+  <h3>MongoDB 用 API とは</h3>
+
+
+  <p>DocumentDB: MongoDB 用 API は、MongoDB 開発者が使い慣れた SDK、ツール チェーン、ライブラリを使用して DocumentDB に対して開発できる DocumentDB のフレーバーです。 MongoDB の開発者は、自動インデックス作成、サーバー管理なし、無限スケール、サービス レベル アグリーメント (SLA) によるエンタープライズ レベルの可用性、エンタープライズ レベルのカスタマー サポートなど、DocumentDB の利点を利用できます。</p>
+
+
+  <h3>新機能&rsquo;</h3>
+
+
+  <p>プレビューから一般提供まで、いくつかの重要なマイルストーンに到達しました。 多くの主要な機能リリースを導入できます。</p>
+
+
+  <ul>
+   <li>シャード化コレクション</li>
+   <li>グローバル データベース</li>
+   <li>読み取り専用キー</li>
+   <li>その他のポータル メトリック</li>
+  </ul>
+
+
+  <p><strong>シャード化コレクション</strong> &ndash; シャード キーを指定すると、MongoDB 用 API によって複数のパーティション間でデータが自動的に分散され、ストレージとスループットの両方がスケールアウトされます。 シャード化コレクションは、アプリケーションが大量のデータを取り込む場合や、スループットが高く、待ち時間の短い日付へのアクセスを必要とするアプリケーションに最適なオプションです。 シャード 化されたコレクションは、次の操作で数秒でスケーリングAzure portal。 ストレージとスループットの両方について、ほぼ無限の量にスケーリングできます。</p>
+
+
+  <p><strong>グローバル データベース</strong> &ndash; MongoDB 用 API を使用すると、複数のリージョンにデータをレプリケートして高可用性を実現できます。 &rsquo;Azure 30 以上のデータセンター間でデータをレプリケートするには、データ センターから数回クリックAzure portal。 グローバル データベースは、世界中で、またはディザスター リカバリー (DR) シナリオに備えて、待ち時間の短い要求を配信する場合に最適なオプションです。 グローバル データベースでは、完全ユーザー制御のための手動フェールオーバーとポリシー駆動フェールオーバーの両方がサポートされています。</p>
+
+
+  <p><strong>読み取り専用キー</strong> &ndash; MongoDB 用 API では読み取り専用キーがサポートされ、MongoDB データベースの API に対する読み取り操作だけが許可されます。</p>
+
+
+  <p><strong>ポータルのメトリック</strong> &ndash; データベースの可視性を向上させるために、データベースにメトリックが追加されたことをお知らせAzure portal。 MongoDB データベースのすべての API について、要求数、要求料金、および<em></em>エラーが発生した要求に関する<em>メトリックを提供します</em>。 ポータルのメトリックを補完するために、<a href="https://aka.ms/getlastrequeststatistics">GetLastRequestStatistics</a>&rsquo; というカスタム コマンドも追加されました。これにより、コマンド要求の料金をプログラムで決定できます。</p>
+
+
+  <p><img alt="api-for-mongodb-metrics" border="0" height="761" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a1e423a-b2db-440b-96b4-ec302f514786.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="api-for-mongodb-metrics" width="1026"></p>
+
+
+  <h3>次&rsquo;は何ですか?</h3>
+
+
+  <p>一般提供は、DocumentDB 用 API for MongoDB に格納されているすべての機能と機能強化の始まりにすぎない。 近い将来、一意&nbsp; のインデックスのサポートと、いくつかの主要なパフォーマンス向上がリリースされる予定です。 ご期待ください。</p>
+
+
+  <p>MongoDBs の API の&rsquo;一般提供に加えて、プレビューの <a href="https://aka.ms/hdinsight-api-for-mongodb-dharma-blog">Spark コネクタを発表します</a>。 詳細については <a href="https://github.com/Azure/azure-documentdb-spark/">、Github リポジトリ</a> を参照してください。</p>
+
+
+  <p>これらの新機能をご利用ください。 引き続き、次に表示する情報に関するフィードバックをお寄せください。 無料試用版にサインアップし、MongoDB アカウント用の API を作成して<a href="https://azure.microsoft.com/pricing/free-trial/"></a>、DocumentDB: <a href="https://azure.microsoft.com/documentation/articles/documentdb-create-account">MongoDB 用 API を今すぐお試しください</a>。</p>
+
+
+  <p>Twitter でフォローして、最新の Azure DocumentDB のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

@@ -1,0 +1,34 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 374018c0298a30b65e092c77fcba4216e7721ad6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893347"
+Slug: update-your-documentdb-indexing-policies-online
+Title: DocumentDB インデックス作成ポリシーをオンラインで更新する
+Summary: DocumentDB でオンライン インデックス変換がサポートされる。 このリリースでは、DocumentDB コレクションのインデックス作成ポリシー構成を作成および変更できます。 インデックス変換はオンラインまたはインサイトで適用されます。そのため、インデックス作成の進行中も引き続き読み取り、書き込み、クエリを実行できます。
+Content: >-
+  <p>Azure DocumentDB 内には、JSON と JavaScript 用に構築された、スキーマに依存しない書き込み専用のデータベース エンジンがあります。 DocumentDB では、開発者がドキュメントのインデックスを作成するためにスキーマインデックスやセカンダリ インデックスを提供する必要は一切不要です。 これにより、DocumentDB を使用して、アプリケーション データ モデルを迅速に定義、反復処理、クエリできます。 既定では、ドキュメントをコレクションに追加すると、DocumentDB は、クライアントへの書き込みを確認する前に、ドキュメントのすべてのプロパティのインデックスを同期的に自動的に作成します。 ドキュメントをコレクションに更新すると、DocumentDBs&rsquo; データベース エンジンはドキュメントをツリーに変換し、(レプリカの書き込みクォーラムで) ツリーのパスのインデックス作成、重複の削除、レプリケート、永続化を効率的に行います。 ドキュメントをツリーとして扱い、ツリー構造のインデックスを効率的に作成することで、DocumentDB はスキーマに依存し続け、セカンダリ インデックスを必要と "しない" 状態になります。</p>
+
+
+  <h2>インデックスをカスタマイズする</h2>
+
+
+  <p>すべての DocumentDB コレクションには、インデックスストレージ&ldquo;&rdquo;のオーバーヘッド、書き込みとクエリのスループット、クエリの整合性など、インデックス管理の側面を制御するインデックス作成ポリシーが関連付けされています。 DocumentDB コレクションに関連付けられたインデックス作成ポリシーでは、&nbsp;&nbsp;一貫性のあるクエリの提供に加えて、すべてのドキュメントのすべてのプロパティのインデックスが自動的に作成されます。 既定のインデックス作成ポリシーでは、インデックス ストレージのオーバーヘッドと書き込み/クエリ スループットの最適なバランスが取り、一貫性のあるクエリを提供しますが、インデックスのストレージ オーバーヘッド間のより細かいトレードオフを行う場合は、インデックス作成ポリシーを更新することで、コレクションに関連付けられているインデックスをさらにカスタマイズできます。</p>
+
+
+  <h2>オンラインおよびイン Place インデックス変換</h2>
+
+
+  <p>以前は、インデックス作成ポリシーはコレクションの作成時にのみ設定できます。 本日は、オンライン インデックス変換機能のリリースにより、既存のコレクションでインデックス作成ポリシーを変更できます。<strong> </strong> インデックス作成ポリシーの変更に起因するインデックス変換は、可用性のために<em></em>オンラインで実行され、ストレージの<em>効率を向上</em>させます。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/index-150.png"><img alt="index 150" class="alignnone  wp-image-325592" height="468" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/index-150-548x369.png" width="695"></a> コレクションのインデックス作成ポリシーを変更すると、DocumentDB は古いポリシーから新しいポリシーへのインデックス変換を実行します。 この変換は非同期<strong>およびオンラインで</strong><strong>実行され</strong>、変換の進行中もコレクションを書き込みで使用できます。 インデックス ポリシーが更新された後にコレクションに書き込まれたドキュメントは、古いインデックスが引き続き新しいインデックスに変換されている間も、クエリに使用できます。 インデックス変換は、in-place ( <strong><em>in-place </em></strong>) で実行するように設計されています。そのため、インデックス作成ポリシーの変更時に追加のディスク領域が必要または使用されません。 コレクションのプロビジョニング済みスループットは変換中に完全に使用できます。つまり、アプリのパフォーマンスは影響を受けられません。 &rsquo;.NET SDK を使用する場合は、新しい <strong>ReplaceDocumentCollectionAsync</strong> メソッドを使用してインデックス作成ポリシーを変更できます。 次に、<strong>ReadDocumentCollectionAsync</strong> 呼び出しから <strong>IndexTransformationProgress</strong> 応答プロパティを使用して、インデックス変換の進行状況の割合を追跡できます。 その他の SDK と REST APIは、インデックス作成ポリシーの変更を行い、進行中のインデックス変換の進行状況を追跡する同等のプロパティとメソッドをサポートしています。 DocumentDB コレクションに対してインデックス作成ポリシーを変更するのはどのような場合でしょうか。 最も一般的な使用例を次に示します。</p>
+
+
+  <ul>
+   <li>Order <a href="https://azure.microsoft.com/blog/2015/07/07/order-query-results-with-azure-documentdb/">By</a> のような現在の DocumentDB コレクションと、新しく導入された文字列範囲インデックスの種類を必要とする文字列範囲クエリで新しいインデックス作成機能を使用する場合。</li>
+   <li>書き込みのスループットと、インデックスを作成するプロパティを選択して時間の経とうに変更したり、個々のプロパティのインデックスの有効桁数を変更したりして、使用される記憶域スペースを減らす場合。</li>
+   <li>遅延インデックス作成モードを使用して一括データをインポートして書き込みを高速化し、通常の操作で一貫性のあるインデックス作成に切り替える場合。</li>
+  </ul>
+
+
+  <p>概要、<a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Nuget または</a>他のサポートされているプラットフォーム (Node.js、Java、Python、または JavaScript<a href="https://msdn.microsoft.com/en-us/library/azure/dn781482.aspx">) の</a> 1 つから .NET SDK のバージョン 1.3.0 をダウンロードすることで、DocumentDBs&rsquo; の最新のクエリ機能とインデックス ポリシー オプションの一部を使用できます。 また、インデックス ポリシー <a href="https://github.com/Azure/azure-documentdb-net/tree/master/samples/code-samples/IndexManagement">を作成および</a> 変更するためのコード サンプルを含む Github プロジェクトも作成しました。 ヘルプが必要&nbsp;な場合や質問がある場合は、スタック オーバーフローに関する開発者フォーラムにお問い合わせください。または、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。<a href="https://stackoverflow.com/questions/tagged/azure-documentdb"></a> DocumentDB の最新のニュースと機能を最新の情報に更新するには、Twitter でフォローしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

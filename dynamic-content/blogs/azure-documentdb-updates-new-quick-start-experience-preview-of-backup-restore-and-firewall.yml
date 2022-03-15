@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ab14e15e0e27716bfd3d93774fda13bf1f87db47
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889992"
+Slug: azure-documentdb-updates-new-quick-start-experience-preview-of-backup-restore-and-firewall
+Title: 'Azure DocumentDB の更新: クイック スタート エクスペリエンス、バックアップと復元、ファイアウォールのサポート'
+Summary: この数週間、DocumentDB チームは、DocumentDB の開発者エクスペリエンスと機能に対する多くの機能強化をリリースしました。 DocumentDB で動作するアプリを数秒で起動して実行できる新しいクイック スタート エクスペリエンスが追加されました。 バックアップ/復元と受信ファイアウォール機能のプレビューを開始しただけでなく、地理空間の種類のサポートの拡張など、ランタイムの機能強化が多数リリースされました。
+Content: >-
+  <p>この数週間、&nbsp;<a href="https://azure.microsoft.com/en-us/services/documentdb/">AzureDocumentDB&nbsp;</a> のエクスペリエンスと機能に対する多くの機能強化がリリースされました。 DocumentDB で動作するアプリを数秒で起動して実行できる新しいクイック スタート エクスペリエンスが追加されました。 バックアップ/復元と受信ファイアウォール機能のプレビューを開始しただけでなく、地理空間の種類のサポートの拡張など、ランタイムの機能強化が多数リリースされました。</p>
+
+
+  <h2>クイック スタート</h2>
+
+
+  <p>すべてのサービスの重要な特性の 1 つは、動作するアプリを起動して実行するのにかかる時間です。 新しく作成した DocumentDB アカウントに接続された、カスタマイズされたすぐに実行できるサンプル アプリを数秒で提供する新しいクイック スタート エクスペリエンスをリリースしました。 新しい DocumentDB アカウントを作成し、既存のアカウントのクイック スタート メニュー項目をクリックして試します。</p>
+
+
+  <p><a href="file:///C:/Users/kirillg/AppData/Local/Temp/WindowsLiveWriter1286139640/supfiles21F8C1DF/image[17].png"><img alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c698a19-7f24-4bc0-8264-4fdd997d729f.png" style="border: 1px solid currentColor; border-image: none; width: 632px; height: 502px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ"></a></p>
+
+
+  <p>MongoDB API がサポートされているアカウントの場合、すべての主要なプラットフォームに便利なコード スニペットが追加されました。使用する接続文字列など、開始するために必要なすべての構成が含まれます。</p>
+
+
+  <p><a href="file:///C:/Users/kirillg/AppData/Local/Temp/WindowsLiveWriter1286139640/supfiles21F8C1DF/image[8].png"><img alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/378f5ef3-9f42-43a3-9365-3c7ab0faad55.png" style="border: 1px solid currentColor; border-image: none; width: 631px; height: 544px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ"></a></p>
+
+
+  <h2>バックアップと復元</h2>
+
+
+  <p>DocumentDB は<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-distribute-data-globally/"><u></u></a>&ndash;、高可用性とグローバル分散をコアとして構築されています。これにより、ポリシー駆動型フェールオーバーと透過的なマルチホーム API と共に、複数の Azure リージョン間でスループットをスケーリングできます。 <a href="https://azure.microsoft.com/en-us/support/legal/sla/documentdb/v1_0/"><u>99.99 可用性 SLA</u></a> を提供するデータベース システムとして、DocumentDB のすべての書き込みは、ローカル データ センター内のレプリカのクォーラムによって引き続きコミットされ、DocumentDB アカウントに関連付けられているすべてのリージョンにレプリケートされます。</p>
+
+
+  <p>また、DocumentDB では、すべてのデータのバックアップも定期的に自動的に実行されます。 バックアップは、データベース操作のパフォーマンスにも可用性にも影響を与えずに取得されます。 すべてのバックアップは別の&nbsp;ストレージ サービスに個別に格納され、リージョンの災害に対する回復性のためにさらにグローバルにレプリケートされます。 お客様は、Azure サポート&nbsp;に問&nbsp;い合わせ、バックアップからデータベースとコレクションの復元を要求できます。 すべてのエンティティに対して DocumentDB によって実行される GRS Azure Storage定期的なバックアップの図を次に示します。</p>
+
+
+  <p><img alt="Periodic full backups of all DocumentDB entities in GRS Azure Storage" height="298" src="" width="610"></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-online-backup-and-restore/">DocumentDB のバックアップと復元の詳細を確認してください</a>。</p>
+
+
+  <h2>ファイアウォールのサポート</h2>
+
+
+  <p>一般的な顧客の要求により、DocumentDB API と MongoDB API の両方に対して、DocumentDB での IP フィルタリングとファイアウォール規則のサポートが最近提供されました。 お客様は、個々の IP アドレスと IP アドレス範囲の指定された一覧からのトラフィックのみを許可する DocumentDB アカウントを構成できます。 この構成が適用されると、この許可リスト外のマシンから送信された要求はすべて、DocumentDB によってブロックされます。 以下の図は、IP ベースのアクセス制御における接続処理フローを表したものです。</p>
+
+
+  <p><img alt="Diagram showing the connection process for IP-based access control" height="343" src="" width="610"></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-firewall-support/">DocumentDB ファイアウォールのサポートの詳細を確認してください</a>。</p>
+
+
+  <h2>拡張された地理空間のサポート</h2>
+
+
+  <p>最近のサービス更新では、Azure DocumentDB で Point オブジェクトに加え、Polygon オブジェクトと LineString オブジェクトの地理空間インデックス作成とクエリがサポートされます。 DocumentDB は、ドキュメント内に Polygon オブジェクトと LineString オブジェクトを含む GeoJSON フラグメントを自動的に検出し、効率的な空間近接クエリのためにインデックスを作成できます。</p>
+
+
+  <p>Polygon オブジェクトと LineString &quot;&quot; オブジェクトの空間クエリは、IoT、テレマティックス、ゲーム、モバイル アプリケーションの geo フェンスを検出するために一般的に使用されます。 コレクションごとにインデックス作成ポリシーを変更することで、空間インデックス作成を有効または無効にできます。 <a href="https://azure.microsoft.com/documentation/articles/documentdb-geospatial/">DocumentDB での地理空間データの操作に関する詳細を参照してください</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>この新しい機能は、DocumentDB 上にソリューションを構築する場合に役立ちます。 いつものように、<a href="https://feedback.azure.com/forums/263030-documentdb" target="_blank"><u>UserVoice</u></a>&nbsp;、StackOverflow <a href="https://stackoverflow.com/questions/tagged/azure-documentdb" target="_blank"><u>#azure-documentdb</u></a>、または Twitter&#39;を通じて、私たちの取り組み方法と改善点をお知らせします<a href="https://twitter.com/documentdb" target="_blank"><u>@DocumentDB</u></a>。</p>

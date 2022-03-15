@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: db65a3aa1903b9d96ff04316493bb020e57aeb0e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889925"
+Slug: azure-sql-database-vnet-service-endpoints-now-in-public-preview
+Title: Azure SQL Database とデータウェアハウスの VNET サービスエンドポイントのパブリックプレビュー
+Summary: Azure SQL Database VNET サービスエンドポイントは、米国中西部、west 米国、東 US1 の各リージョンでパブリックプレビューになっていることを発表しています。 この機能を使用すると、次のことができます。
+Content: >-
+  <p>Azure SQL Database と Azure SQL Data Warehouse VNET サービスエンドポイントが、すべての Azure パブリッククラウドリージョンでパブリックプレビューになったことをお知らせします。</p>
+
+
+  <p>この機能を使用すると、VNET 内の特定のサブネットまたはサブネットのセットに対してのみ、SQLDB への接続を分離することができます。 azure SQL データベースのパブリックエンドポイントに接続する場合でも、トラフィックは azure のバックボーンネットワーク内にとどまります。 このダイレクトルートは、インターネットトラフィックをオンプレミスに戻すために、強制トンネリングルートより優先されます。 また、ロールを分離するために、ネットワーク管理者、データベース管理者、またはこれら2つの間でロールを分割する機能、またはカスタム RBAC ロールを使用して新しいエンティティを作成する機能のいずれかを、役割の分離によって提供します。 アーキテクチャの詳細については、次の図を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8fb0647-c49e-49a0-9637-afbc3338096e.png"><img alt="SQL Database VNET Service Endpoints" border="0" height="765" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7b4d807-1aa4-4bbb-8b6b-0e3b466e2252.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="VNET サービスエンドポイントの SQL Database" width="1024"></a></p>
+
+
+  <h2>制限事項</h2>
+
+
+  <ol>
+   <li>各 SQL Server は、最大128の Virtual Network ベースの acl を持つことができます。</li>
+   <li>ARM Vnet にのみ適用されます</li>
+  </ol>
+
+
+  <p>は、プライベートピアリング Express Route (Azure SQLDB へのパブリックルートの公開がサポートされています)、サイト間 (S2S) VPN、またはピアリングされた Vnet によって、オンプレミスには拡張されません。</p>
+
+
+  <h2>考慮事項</h2>
+
+
+  <p>このプレビューの時点では、ネットワークセキュリティグループ (nsgs) をインターネットに開いて Azure SQL Database トラフィックを許可する必要があります。 今後、NSGs は、PaaS サービスの IP 範囲に対してのみ開くことができます。 Azure SQL Database の IP タグは、CY17 のロードマップにあります。</p>
+
+
+  <p>VNET サービスエンドポイントでは、VNet&#39;s サブネット内のリソースの発信元 IP アドレスは、Azure SQL Database へのトラフィックについて、パブリック IPV4 アドレスから VNet&#39;s プライベートアドレスへと切り替わります。 このスイッチでは、データベースサービスに対して開いているすべての TCP 接続を閉じることができます。 サービスエンドポイントがオンまたはオフになっているときは、重要なタスクが実行されないようにしてください。</p>
+
+
+  <p>Azure SQL Database へのトラフィックがネットワーク仮想アプライアンス (nva) によって検査される場合は、指定された vnet で Azure SQL Database が発信されるサブネットではなく、nva サブネットに対して VNET サービスエンドポイントをオンにすることをお勧めします。</p>
+
+
+  <p>サービスエンドポイントが有効になると、サブネットは、そのサブネット内のすべての Vm に順番に適用されます。 この呼び出しは、サービスエンドポイントがすべての Vm に正常に適用された場合にのみコミットされます。 Vnet/サブネットのサービスエンドポイントが正常に適用された後にのみ、VNET/サブネットに指定された ACL をサーバーに対して使用できます。 そのため、サーバーに ACL が設定されるまで、サービスエンドポイント呼び出しの発行後にダウンタイムが発生する可能性があります。</p>
+
+
+  <p>詳細については<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-vnet-service-endpoint-rule-overview" target="_blank">、VNet サービスエンドポイントと Azure SQL Database のルールに関する</a>ページをご覧ください。</p>

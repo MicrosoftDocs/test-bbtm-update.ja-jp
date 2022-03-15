@@ -1,0 +1,71 @@
+### YamlMime:Yaml
+ms.openlocfilehash: faeb266aa09e899bc02d2ce51cab51c6bfe1b13f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893562"
+Slug: azure-service-fabric-announcing-reliable-services-on-linux-and-rhel-support
+Title: Azure Service Fabric – Linux および RHEL Reliable Servicesのサポートに関する発表
+Summary: 多くのお客様は、Azure Service Fabricを使用して、常にスケーラブルなマイクロサービス アプリケーションを構築して運用しています。 最近、MIT ライセンスを使用Service Fabricソース化されたデータを増やしています。...
+Content: >-
+  <p>多くのお客様は、Azure Service Fabricを使用して、常にスケーラブルなマイクロサービス アプリケーションを構築して運用しています。 最近、<a href="https://blogs.msdn.microsoft.com/azureservicefabric/2018/03/14/service-fabric-is-going-open-source/" target="_blank">お客様</a>が製品の開発と方向性に参加する機会を増やService Fabric MIT ライセンスを持つオープン ソースのサービスを提供しています。 本日は、ランタイム v6.2 Service Fabric SDK とツールの更新プログラムのリリースをお知らせします。</p>
+
+
+  <p>このリリースには以下が含まれます。</p>
+
+
+  <ul>
+      <li>Linux 上の Java および .NET Core Reliable Servicesおよび Actors の一般提供</li>
+      <li>Red Hat クラスターのパブリック Enterpriseプレビュー</li>
+      <li>コンテナーのサポートの強化</li>
+      <li>監視機能とバックアップ/復元機能の強化</li>
+  </ul>
+
+
+  <p>更新プログラムは今後数日間、すべてのリージョンで利用できます。詳細については、リリース ノートを <a href="https://aka.ms/servicefabric62relnotes" target="_blank">参照してください</a>。&nbsp;</p>
+
+
+  <h2>Reliable Servicesと linux Reliable Actorsの一般提供</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-reliable-services-introduction" target="_blank">Reliable Services</a> <a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-reliable-actors-introduction" target="_blank">Reliable Actors は</a> 、開発者が新しいアプリケーション用のステートレスでステートフルなマイクロサービスを構築したり、既存のアプリケーションに新しいマイクロサービスを追加したりするのに役立つプログラミング モデルです。 これで、好みの言語を使用して、.NET Core 2.0 と Linux 上の Java 8 SDK を使用して Service Fabric API で Reliable Services と Actors をビルドできます。 </p>
+
+
+  <p>この機能の詳細については、Java クイック スタート <a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-quickstart-java-reliable-services" target="_blank">と</a> <a href="https://github.com/Azure-Samples/service-fabric-dotnet-core-getting-started" target="_blank">.NET Core サンプルを参照してください</a>。</p>
+
+
+  <h2>パブリック プレビュー Enterprise Red Hat クラスター</h2>
+
+
+  <p>Red Hat Service Fabric Linux (RHEL) で実行されている Azure Enterprise クラスターは、現在パブリック プレビュー中です。 Azure portal または CLI を使用して、以前は Windows および Ubuntu プラットフォームでのみ使用できる機能である RHEL に Service Fabric クラスターを作成してデプロイできます。</p>
+
+
+  <p>アプリケーション<a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-get-started-linux" target="_blank">開発用に Red Hat Enterprise Linux</a> マシンをセットアップするService Fabric説明します。</p>
+
+
+  <h2>コンテナーのサポートの強化</h2>
+
+
+  <p>コンテナー ベースのアプリとサービスを Service Fabric で簡単にデプロイして実行&#39;機能を追加しました。&nbsp;</p>
+
+
+  <ul>
+      <li>定義した<a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-resource-manager-autoscaling" target="_blank">リソース消費メトリック</a>に基づいて、Service Fabricクラスター内のサービスとコンテナー インスタンスを自動スケーリングできます。 Service Fabricサービスの負荷を監視し、動的にスケールインまたはスケールアウトします。たとえば、定義された増分によってサービスを自動的にスケーリングするメモリしきい値を設定できます。</li>
+      <li>v6.1 リリースのコンテナー ログ ビューを基に、Service Fabric Explorer (SFX) によりわかりやすいエラー メッセージが表示され、イメージを検索できない、イメージを起動できないなどのコンテナーの問題をすばやく特定して解決できます。&nbsp;</li>
+      <li>Docker API を使用したクエリのサポートにより、コンテナーに関するより多くの分析情報が提供されます。&nbsp;</li>
+      <li>Docker デーモンを起動するときに使用Service Fabricパラメーターを指定します。&nbsp;</li>
+      <li>2017 Visual Studio 3.1 (プレビュー) では、コンテナー ツールとデバッグのサポートが追加され、Service Fabricも利用できます。&nbsp;</li>
+  </ul>
+
+
+  <p>Azure Service Fabric でのコンテナーのサポートの詳細については、Service Fabric <a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-containers-overview" target="_blank">コンテナーに関するドキュメントを参照してください</a>。</p>
+
+
+  <h2>監視、バックアップ、復元の機能強化</h2>
+
+
+  <p>Application インサイト SDK for Service Fabricパブリック プレビューでの<a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-reliable-services-communication-remoting#how-to-use-remoting-v2-stack" target="_blank">リモート処理 V2</a> がサポートされます。 より<a href="https://aka.ms/sfevents" target="_blank">Service Fabricイベント</a>は、重要なクラスター操作を追跡するために運用チャネルを介して利用することもできます。 さらに、 <a href="https://aka.ms/sfeventstore" target="_blank">EventStore</a> API のパブリック プレビューを通じて、クラスターに直接クエリを実行してクラスター内の変更を監視できます。 EventStore API を使用して、テスト クラスターまたはステージング クラスター内のワークロードを監視したり、運用クラスターのオンデマンド診断を行う場合に使用できます。 最後に、<a href="https://docs.microsoft.com/azure/service-fabric/service-fabric-backuprestoreservice-quickstart-azurecluster" target="_blank">Windows</a> のバックアップと復元サービスのパブリック プレビューにより、Reliable Stateful または Reliable Actor サービスのデータを簡単にバックアップおよび復元できます。</p>
+
+
+  <p>このリリースでプラットフォームに対して行われた包括的な一連の機能強化の詳細については、<a href="https://aka.ms/servicefabric62relnotes" target="_blank">Azure Service Fabric 6.2 のリリース ノートを参照してください</a>。</p>

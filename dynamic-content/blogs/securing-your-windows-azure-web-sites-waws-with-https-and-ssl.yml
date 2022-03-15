@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bc486c6ac2383834c21e1c80a79bc911d83dc6d0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892616"
+Slug: securing-your-windows-azure-web-sites-waws-with-https-and-ssl
+Title: HTTPS と SSL を使用して Windows Azure websites (waws) をセキュリティで保護する
+Summary: Id の盗難やさまざまな形式のサイバー犯罪を迅速に向上させることにより、セキュリティで保護されたソケットレイヤーを持つ web サイトのセキュリティ、または短い SSL をより一般的にすることができます。 ...
+Content: >-
+  Id の盗難やさまざまな形式のサイバー犯罪を迅速に向上させることにより、セキュリティで保護されたソケットレイヤーを持つ web サイトのセキュリティ、または短い SSL をより一般的にすることができます。 Windows Azure websites (waws) で web サイトをホストしている場合は、HTTPS を使用するように設定することをお勧めします。このガイドでは、その方法について説明します。
+
+
+  このための最初の手順では、デジタル証明書を取得しています...そうです。 そうではありません。 最初の手順では、実際に独自のカスタムドメインを使用するか、Azure の既定のドメイン <strong>Azurewebsites.net</strong>を使用してサイトを実行するかを決定します。 これ<sup>が1つ</sup>の手順となるのは、実際には Windows Azure websites が ssl 上で実行するように事前に構成されているためです。独自のドメインが不要な場合は、すぐに ssl を使用できます。 必要な作業は、単に参照するだけです。 ブラウザーで、プレフィックスを <strong>HTTP://</strong> から <strong>HTTPS://</strong> に変更し、voila に変更します。 サイトが応答し、セキュリティで保護された接続を使用できるようになります。 ただし、使用されるワイルドカード証明書はすべての Azure Websites に共通であるため、これを使用して機密性の高いコンテンツやアプリケーションをセキュリティで保護することはお勧めしません。
+
+
+  SSL を使用して独自のドメインを使用する場合は、をセットアップするといくつかの追加の手順が必要になります。 何らかの措置を講じる前に、カスタムドメインの SSL は <strong>Standard</strong> レベルのサイトでのみサポートされることに注意することが重要です。 サイトが <strong>Free</strong> レベルまたは <strong>Shared</strong> レベルで最新の場合は、 <strong>Standard</strong>に切り替える必要があります。これにより、追加のコストが発生します。 <a href="https://azure.microsoft.com/en-us/pricing/details/web-sites/" target="_blank">料金ガイド</a>または<a href="https://azure.microsoft.com/en-us/pricing/calculator/" target="_blank">Azure 計算ツール</a>を参照して、予想されるコストを確認してください。
+
+
+  ドメインを選択し、それを使用するようにサイトを設定したら、次の手順では、ドメインに一致するデジタル証明書を取得します。 証明書を購入する場合、次の3つの選択肢があります。
+
+  <ol>
+   <li>Web サイトの URL と一致する単純な証明書を購入します。 これは最もコストのかからないオプションです。たとえば、次のような店舗では、1年あたり $8 のようになります。 <a href="https://www.thesslshop.com/" target="_blank">https://www.thesslshop.com</a></li>
+   <li>SAN (サブジェクト代替名) 証明書を購入する。 これらは、同じドメインの複数の URL に一致する証明書であり、複数の web サイトを持つ企業向けの経済的なソリューションです。 複数の証明書を購入するのではなく、1つの URL に対して複数の証明書を購入する代わりに、複数の証明書を対象とした証明書を1つ購入します。</li>
+   <li>ワイルドカード証明書を購入する。 これは、ドメイン内の任意のサブドメインに一致する証明書であり、最も負荷の高い種類であっても、多数のサイトを所有している企業にとって最も経済的なサウンドオプションです。 たとえば、会社が30個の web サイトを使用している場合、ワイルドカード証明書に対して $79 を支払うことは、30個の証明書に対して $240 を支払うよりもはるかにコストが高くなります。</li>
+  </ol>
+
+  証明書を実際に購入するには、プロバイダーを選択し、特定のプロセスを実行して、証明書を PFX ファイルの形式で生成する必要があります。 この <a href="/b/windowsazure/archive/2013/12/05/obtaining-a-certificate-for-use-with-windows-azure-web-sites-waws.aspx" target="_blank"><strong>記事</strong></a>では、このプロセスについて説明しました。
+
+
+  証明書を取得したら、SSL を有効にするのは非常に簡単です。 手順は次のようになります。
+
+  <h4>ステージ 1: サイトを Standard に切り替えます。</h4>
+
+  スイッチを作成する前に、構成した使用 <a href="https://azure.microsoft.com/en-us/pricing/spending-limits/" target="_blank">制限を削除</a> することを検討してください。 これは要件ではありませんが、通常、使用制限が設定されている商用サイトの実行は行われません。これは、制限に達すると、サイトが次の請求サイクルまでオフラインになるためです。 サイトを <strong>Standard</strong> に切り替える手順は次のとおりです。
+
+  <ol>
+   <li>Microsoft Azure 管理ポータルにログインします。</li>
+   <li>Web サイトをクリックします。</li>
+   <li>[ <strong>スケール</strong> ] タブに切り替えます。</li>
+   <li>[ <strong>全般</strong>] の [ <strong>標準</strong> ] ボタンをクリックして、サイトを [標準] に切り替えます。
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2570.WAWS1_.png-550x0.png"><img class="alignnone size-full wp-image-133541" alt="2570.WAWS1.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2570.WAWS1_.png-550x0.png" width="550" height="165" /></a></li>
+   <li><strong>[保存]</strong></li>
+  </ol>
+
+  <h4>ステージ2– SSL を構成する</h4>
+
+  SSL を構成するには、証明書をアップロードし、サイトにバインドします。 手順は次のとおりです。
+
+  <ol>
+   <li>Microsoft Azure 管理ポータルにログインします。</li>
+   <li>Web サイトをクリックします。</li>
+   <li>[ <strong>構成</strong> ] タブに切り替えます。</li>
+   <li>[<strong>証明</strong>書] セクションで、[証明書のアップロード] をクリックし <strong> ます。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5556.WAWS2_.png-550x0.png"><img class="alignnone size-full wp-image-133531" alt="5556.WAWS2.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5556.WAWS2_.png-550x0.png" width="550" height="108" /></a>
+  </strong></li>
+   <li>証明書<strong>pfx</strong>ファイルをアップロードし、パスワードを指定します (証明書を pfx にエクスポートするときに作成したもの)</li>
+   <li>[SSL バインド] で、ドロップダウンからカスタムドメインを選択します。 カスタムドメインをまだ構成していない場合は、 <a href="https://azure.microsoft.com/en-us/develop/net/common-tasks/custom-dns-web-site/" target="_blank">ここをクリックして詳細を確認して</a>ください。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8863.WAWS3_.png-550x0.png"><img class="alignnone size-full wp-image-133521" alt="8863.WAWS3.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8863.WAWS3_.png-550x0.png" width="550" height="90" /></a></li>
+   <li>ドロップダウンから関連する証明書を選択します (現在は1つですが、今後は</li>
+   <li>3つの<sup>rd</sup> ドロップダウンでは、 <a href="/b/kaushal/archive/2012/09/04/server-name-indication-sni-in-iis-8-windows-server-2012.aspx" target="_blank"><strong>SNI</strong></a>を有効または無効にすることができます。 通常、SNI を使用することをお勧めしますが、古いブラウザー (Windows XP 以前) でサイトにアクセスすることが予想される場合は、[ <strong>IP ベースの SSL</strong>] を選択します。 <a href="https://azure.microsoft.com/en-us/pricing/details/web-sites/#service-ssl" target="_blank">SSL の価格</a>を確認すると、SNI の使用も経済的に魅力的であることがわかります。</li>
+   <li><strong>[保存]</strong></li>
+  </ol>
+
+  運が良ければ、完了したので、サイトは HTTPS に送信された要求に応答するようになります。
+
+  <h4>問題が発生した場合</h4>
+
+  発生する可能性のある最も一般的な問題は、証明書を Azure にアップロードできないことです。 前 <a title=" の「Azure Websites " href="https://azure.microsoft.com/blog/2013/12/05/obtaining-a-certificate-for-use-with-windows-azure-web-sites-waws/" target="_blank"> で使用する証明書を取得する」の<strong>ブログ投稿</strong> </a> では、証明書を取得する方法を説明しました。これは、証明書プロバイダーから取得したファイルではなく、エクスポートされた pfx 証明書である必要があることを通知するための適切なタイミングです (pfx ファイルでもあります)。 この理由は、証明書を web サイトに割り当てるために、証明書に関連付けられている秘密キーが Azure に割り当てられている必要があるためです。 証明書の生成プロセスは、自分のコンピューターで開始され、秘密キーを作成すると、証明書プロバイダーによって照合されます。 プロバイダーから返されるファイルは、要求を最初に発行したのと同じコンピューターにインポートする必要があり、"完全な" 証明書を作成します。 プロバイダーによって指定されたファイルをアップロードしようとすると、Azure に秘密キーが与えられず、証明書が無効になります。
+
+
+  もう1つのバリエーションとして、証明書を PFX にエクスポートするのが正しくありません。 エクスポートには秘密キーが含まれている必要があります (そのため、そのプロセスの一部としてパスワードを指定する必要があります)。インポートの実行時にそのチェックボックスをオンにしていない場合は機能しません。
+
+
+  証明書を使用する場合のもう1つの一般的な質問は、ユーザーがサイトを参照しようとしたときに、何らかのセキュリティ警告が表示されているブラウザーに関連しています。 これは、ブラウザーが証明書を認識しておらず、さまざまなブラウザーが異なる方法で対応できるように設計されている場合に発生します。 警告が表示される場合もあれば、サイトを完全にブロックする場合もあります。 エラーの最も一般的な原因は、URL が一致していないことです。 特定の URL に対して証明書が発行され、実際の URL が完全に一致しない場合...これは、潜在的なセキュリティリスクです。 1つのスペルミスがあると、その日を無駄にする可能性があるので、追跡しておくことが重要です。
+
+
+  ブラウザーでのセキュリティの警告に関する一般的な問題の1つは、信頼されていない証明書です。 証明書は通常、商用プロバイダーによって発行および販売され、すべての最新のオペレーティングシステムは、すべての主要な商用プロバイダーのルート証明書を使用して事前構成されています。 ただし、プライベート証明機関 (プライベート組織や自社の会社が所有する CA サーバーなど) から証明書を発行した場合は、信頼されず、エラーが発生します。 Azure Websites では、プライベート証明書の使用はサポートされていません。そのため、証明書を購入せずに SSL を使用する場合は、代わりに自己署名を使用することもできます。
+
+
+  前述のように、主要な商用プロバイダーはすべて既定でサポートされていますが、場合によっては、信頼チェーンで中間証明書を使用するプロバイダーが実行されることがあります。 証明書のパスは2つの部分に分割されている場合があるため、証明書を発行するルート CA ではなく、プロバイダーのルートによって信頼されている下位レベルの "中間" サーバーによって発行されます。 このような場合、証明書によってクライアントブラウザーで警告が発行される可能性があります。これは、発行元の <strong>中間</strong> 証明書を証明書と共にアップロードする必要があることを意味します。 証明書を PFX にエクスポートすると、チェーン全体が含まれるようになり、このオプションは既定で有効になります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/3482.WAWS4_.png-550x0.png"><img class="alignnone size-medium wp-image-133511" alt="3482.WAWS4.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3482.WAWS4_.png-550x0-363x369.png" width="363" height="369" /></a>
+
+
+  ただし、これをオフにした場合、または証明書のパスを含まない別の方法でエクスポートした場合、一部のプロバイダーで問題が発生する可能性があります。 そうでない場合は、エクスポートをもう一度実行し、このオプションが選択されていることを確認することをお勧めします。

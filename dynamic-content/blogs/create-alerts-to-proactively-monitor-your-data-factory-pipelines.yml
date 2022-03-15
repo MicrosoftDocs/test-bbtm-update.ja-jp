@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: baf709d06454cd6569c63d516838c4dc5d944375
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889513"
+Slug: create-alerts-to-proactively-monitor-your-data-factory-pipelines
+Title: データ ファクトリ パイプラインを事前に監視するためのアラートを作成する
+Summary: データ統合は複雑で、組織はハイブリッドデータ環境でデータとビジネスプロセスを組み合わせることができます。 データのボリューム、種類、および速度の増加により、問題の監視と対応に遅れが生じます。
+Content: >-
+  <p>データ統合は複雑で、組織はハイブリッドデータ環境でデータとビジネスプロセスを組み合わせることができます。 データのボリューム、種類、および速度の増加により、問題の監視と対応に遅れが生じます。 組織は、データ統合アクティビティのエラーと、それが他の下流プロセスに与える影響を軽減する必要があります。 データ統合プロジェクトを手動で監視する方法は、非効率的で、時間がかかります。 その結果、組織は、データ統合プロジェクトを監視および管理し、システム全体に影響を与える前に非効率性を除去して問題を発見するように自動化されたプロセスを必要としています。 組織は、データ統合イベント (成功/失敗) に関するアラートを作成し、 <a href="https://docs.microsoft.com/en-us/azure/data-factory/" target="_blank">Azure Data Factory</a>で事前に監視することにより、運用上の生産性を向上できるようになりました。</p>
+
+
+  <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="315" scrolling="no" src="https://channel9.msdn.com/Shows/Azure-Friday/Monitor-your-Azure-Data-Factory-pipelines-proactively-with-alerts/player?format=ny" width="560"></iframe></p>
+
+
+  <p>まず、データファクトリの [ <strong>監視</strong> ] タブに移動し、[ <strong>アラート &amp; メトリック</strong>] を選択して、[ <strong>新しいアラートルール</strong>] を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/863386d8-6761-4be0-a54d-f0f6e51ad959.png"><img alt="Creating new alert rule in Azure Data Factory " border="0" height="1558" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/182298b7-6ca9-429f-aef7-46cec73c1eef.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Data Factory のアラートルール " width="2992"></a></p>
+
+
+  <p>警告を表示するターゲットデータファクトリのメトリックを選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ad0b395-98a6-4f44-94d4-2a479840dcf5.png"><img alt="Selecting the target data factory metric " border="0" height="1753" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/048a96e1-90fc-4d7b-a162-ba5676dbd196.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Data Factory メトリックの選択" width="2989"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44a04aff-5f1b-448f-9de6-1035bb8914cd.png"><img alt="Select one Data Factory Metric to set up the alert condition" border="0" height="1675" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2fb66727-f40f-4179-a801-618d2cfaf331.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アラートの条件" width="2988"></a></p>
+
+
+  <p>次に、アラートロジックを構成します。 発生したアラートのアクティビティ名、パイプライン名、アクティビティの種類、エラーの種類などのさまざまなフィルターを指定できます。 また、アラートのロジック条件と評価基準を指定することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d2d4576-c9ae-4d9f-9000-76f0650df25b.png"><img alt="Configure the alert logic in Azure Data Factory" border="0" height="1751" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86b8d6ce-e2bc-434a-adda-41ee34e61802.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アラートロジックの構成" width="2982"></a></p>
+
+
+  <p>最後に、警告を表示する方法を構成します。 電子メール、SMS、音声、およびプッシュ通知などのさまざまなメカニズムがサポートされています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3e70a80-a2a3-4d07-84aa-13696a07a3ec.png"><img alt="Configuring alert notifications in Azure Data Factory" border="0" height="1749" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c2ff2f0-4e18-485d-bfe9-5c4eca896bf6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アラートの構成" width="2981"></a></p>
+
+
+  <p>アラートを作成すると、データ統合プロジェクトを24/7 監視し、データが破損したり下流プロセスに影響を与えたりする前に、問題が通知されるようにすることができます。 これにより、組織はより機敏で、データ統合プロセス全体の信頼性を高めることができます。 最終的には、組織の全体的な生産性が向上し、Sla を確実に実現できます。 <a href="https://docs.microsoft.com/en-us/azure/data-factory/monitor-visually#alerts" target="_blank">アラートの作成の詳細については Azure Data Factory を参照してください。</a></p>
+
+
+  <p>私たちの目標は、Data Factory ツールの使いやすさを向上させるために、機能を追加し続けることです。 Azure Data Factory を使用して、簡単かつ迅速に<a href="https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal">パイプラインの構築を開始しましょう</a>。 機能に関する要望がある場合、またはフィードバックを提供する場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory">Azure Data Factory フォーラム</a>にアクセスしてください。</p>

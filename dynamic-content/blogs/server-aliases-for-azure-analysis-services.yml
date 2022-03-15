@@ -1,0 +1,68 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 734cebcea5e77292ab4ab89337105481ca929e48
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892562"
+Slug: server-aliases-for-azure-analysis-services
+Title: Azure Analysis Services のサーバーエイリアス
+Summary: Azure Analysis Services のサーバーエイリアスを使用すると、Azure portal で公開されているサーバー名ではなく、別名サーバー名に接続できます。 これは、次のシナリオで使用できます。
+Content: >-
+  <p>Azure Analysis Services のサーバーエイリアスを使用すると、Azure portal で公開されているサーバー名ではなく、別名サーバー名に接続できます。 これは、次のシナリオで使用できます。</p>
+
+
+  <ul>
+   <li>ユーザーに影響を与えずに、サーバー間の移行モデルを実行できます。</li>
+   <li>覚えやすいサーバー名を提供します。</li>
+   <li>1 日のうちの時間帯ごとに異なるサーバーにユーザーを転送できます。</li>
+   <li>さまざまな地域のユーザーを、地理的に近い場所にある Analysis Services のインスタンス (たとえば、 <a href="https://azure.microsoft.com/en-us/services/traffic-manager/">Azure Traffic Manager</a>を使用) に誘導します。</li>
+  </ul>
+
+
+  <p>有効な Azure Analysis Services サーバー名を返す HTTP エンドポイントでは、 <b>link://</b> 形式を使用してこの機能を提供できます。</p>
+
+
+  <p>たとえば、次の URL は Azure 分析サーバー名を返します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cb6ca9f5-b91b-4151-8d24-7e49a61a3949.png"><img alt="01 URL" border="0" height="208" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35cff6e7-678e-44c2-9bce-cb35270f15dd.png" style="border: 0px currentcolor; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="01 URL" width="987"></a></p>
+
+
+  <p>ユーザーは、 <b>link://</b>形式を使用して Power BI Desktop (他のクライアントツールに加えて) からサーバーに接続できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e282a3e-dd91-42d4-be7e-0473753ac6f6.png"><img alt="02 PBI Desktop" border="0" height="494" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa630e0b-3ab0-423c-9245-fb30ec82f865.png" style="border: 0px currentcolor; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="02 PBI Desktop" width="1400"></a></p>
+
+
+  <p>HTTP エンドポイントを作成するには、さまざまな方法を使用できます。 たとえば、実際のサーバー名を含む Azure Blob Storage 内のファイルへの参照を使用できます。</p>
+
+
+  <p>この場合、ASP.NET Web Forms アプリケーションは Visual Studio 2017 で作成されています。 既定の .aspx ページからマスターページ参照とユーザーコントロールが削除されました。 Default.aspx の内容は、次のページディレクティブにすぎません。</p>
+
+
+  <p class="MsoNormal" style="margin: 0in 0in 12pt; line-height: normal; mso-layout-grid-align: none;">&lt;% @ Page Title = &quot; ホームページ &quot; 言語 = &quot; C# &quot; AutoEventWireup = &quot; true &quot; CodeBehind = &quot; default.aspx。 cs &quot; 継承 = &quot; FriendlyRedirect._Default&quot; %&gt;</p>
+
+
+  <p class="MsoNormal" style="margin: 0in 0in 8pt; line-height: 12pt;">Default.aspx.cs の Page_Load イベントによって、Response.Write() メソッドを使用して、Azure Analysis Services サーバー名が返されます。</p>
+
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none;">protected void Page_Load (オブジェクトセンダー、EventArgs e)</p>
+
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none;">{</p>
+
+
+  <p class="MsoNormal" style="margin: 0in 0in 0pt; line-height: normal; mso-layout-grid-align: none;">&nbsp;&nbsp;&nbsp; これ。応答。書き込み ( &quot; asazure://southcentralus.asazure.windows.net/XXX &quot; );</p>
+
+
+  <p class="MsoNormal" style="margin: 0in 0in 12pt; line-height: normal; mso-layout-grid-align: none;">}</p>
+
+
+  <p>Web サイトは、Visual Studio の発行機能を使用して Azure に直接デプロイされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4dd4698-7f18-4484-a44a-3bca4b584215.png"><img alt="03 Publish" border="0" height="1115" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c38c63f-b78a-43bf-bbfd-c028f9293d31.png" style="border: 0px currentcolor; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="03発行" width="1410"></a></p>
+
+
+  <p>これで終わりです。 これは非常にシンプルで便利な機能であること &rsquo; を願っています。</p>

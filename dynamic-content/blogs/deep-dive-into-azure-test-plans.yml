@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2443b5a36cc8a53f783ad6b2cdb92cba3a964e51
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889842"
+Slug: deep-dive-into-azure-test-plans
+Title: Azure Test Plans の詳細
+Summary: 'Azure Test Plans、今月の Azure DevOps で開始されたサービスは、探索、計画的な手動、およびユーザー受け入れテスト用のブラウザーベースのテスト管理ソリューションを提供します。 '
+Content: >-
+  <p>Azure Test Plans、今月の<a href="https://azure.microsoft.com/en-us/blog/introducing-azure-devops/" target="_blank">Azure DevOps</a>で開始されたサービスは、探索、計画的な手動、およびユーザー受け入れテスト用のブラウザーベースのテスト管理ソリューションを提供します。 Azure Test Plans では、探索的テストのためのブラウザー拡張機能と利害関係者からのフィードバックの収集も提供されます。</p>
+
+
+  <p>手動テストと探索的テストは、自動テストに重点を置いた DevOps と同時に、製品/サービスの品質を評価するための重要な手法です。 最新のソフトウェア開発プロセスでは、チーム内の全員が、品質 (開発者、テスト担当者、管理者、製品所有者、ユーザーエクスペリエンスの支持者など) に貢献したり、所有したりすることができます。 Azure Test Plans は、これらのすべてのニーズに対応します。 詳しく見てみましょう。</p>
+
+
+  <p>注: CI/CD ワークフローの一部として自動テストを行う場合は、 <a href="https://azure.microsoft.com/en-us/services/devops/pipelines/" target="_blank">Azure Pipelines</a>を利用することを検討してください。 任意のプラットフォームとクラウドに継続的なビルド、テスト、デプロイを行うためのメカニズムを提供します。</p>
+
+
+  <h2>テストは DevOps およびアジャイルチームにとって不可欠です</h2>
+
+
+  <p>一般的な方法は、 <a href="https://azure.microsoft.com/en-us/blog/deep-dive-into-azure-boards/" target="_blank">Azure Boards</a>のようにかんばんボードで管理されているユーザーストーリー、機能、またはシナリオに基づいてテストを行うことです。 Azure Test Plans を使用すると、チームはかんばんボード内から手動テストを直接活用できます。 これにより、テストと欠陥はテスト対象の要件とビルドに自動的にリンクされるため、 <strong>エンドツーエンドの追跡</strong> 可能性が提供されます。また、要件の品質を追跡するのにも役立ちます。</p>
+
+
+  <p>かんばんボードのカードから直接、テストケースを追加、表示、および操作し、カードから直接ステータスを監視します。 開発者とテスト担当者は、この機能を使用してチーム内の品質を最大限に高めることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a4cc009b-a1a8-42c8-bcc6-ada145f372bc.png"><img alt="Testing in Kanban board" border="0" height="329" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d207163d-0c8b-4667-b4cf-dd9e4857afbd.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="かんばんボードでのテスト" width="963"></a></p>
+
+
+  <h2>品質は探索的テストによるチームのスポーツです</h2>
+
+
+  <p>探索的テストは、同時学習、テスト設計、テストの実行として説明されているソフトウェアテストの手法です。 これは、テーマ/ツアーによってまだスクリプト化が解除されているため、計画されたテストを補完します。 開発者、テスト担当者、管理者、製品所有者、ユーザーエクスペリエンスの支持者などのすべてのチームメンバーが、探索的テストを利用できるようになるため、品質は共有されます。 このしくみの<a href="https://channel9.msdn.com/Series/Test-Tools-in-Visual-Studio/IntroducingTestFeedbackextension" target="_blank">短いビデオをご覧</a>ください。</p>
+
+
+  <p><a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-exploratorytesting-web#qna" target="_blank">テスト &amp; フィードバック</a>拡張機能により、Azure Test Plans の探索的テスト手法が有効になります。 これにより、問題の発見に時間を費やすことができ、時間を短縮することができます。 拡張機能の使用は簡単です。</p>
+
+
+  <ul>
+   <li><strong>豊富な診断データ</strong>と共に、結果をキャプチャします。 これには、コメント、注釈付きのスクリーンショット、および結果を説明し、問題を強調表示するオーディオ/ビデオ記録が含まれます。 バックグラウンドでは、拡張機能によって、イメージアクションログ、ページ読み込みデータ、ブラウザーに関するシステム情報、オペレーティングシステムなどの追加情報がキャプチャされます。この情報は、後で問題のデバッグや再現に役立ちます。</li>
+   <li>拡張機能内からバグ、タスク、テスト ケースなどの作業項目を作成します。 得られた情報は、自動的に登録された作業項目の一部になり、エンドツーエンドの追跡可能性に役立ちます。</li>
+   <li>結果を共有することで、チームとの共同作業を行います。 セッション レポートをエクスポートするか、Azure Test Plans に接続して、完全に統合されたエクスペリエンスを実現します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b44ff36b-ec78-4ecb-a12a-83aadb06da38.png"><img alt="Exploratory testing session in progress" border="0" height="430" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df07351e-21c4-42cd-aa51-3d4d6ad5a044.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="探索的テストセッションが進行中です" width="485"></a></p>
+
+
+  <p>この拡張機能は、マーケティング、販売チーム、その他の開発チームの外部に存在する可能性がある利害関係者からのフィードバックを要請するのにも役立ちます。 ユーザーストーリーや機能に関するフィードバックは、これらの利害関係者から要求できます。 その後、利害関係者は、評価やコメントの送信だけでなく、バグやタスクを直接ファイルに送るだけでなく、フィードバック要求に応答できます。 詳細については、こちらの <a href="https://docs.microsoft.com/en-us/vsts/test/request-stakeholder-feedback?view=vsts" target="_blank">ドキュメント</a>を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d776e158-6b7b-4478-b508-ec724482b6e1.png"><img alt="Feedback requests on a Stakeholder" border="0" height="427" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cac6b487-83ca-4647-893d-4ecdcd123b29.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="利害関係者に対するフィードバック要求" width="486"></a></p>
+
+
+  <h2>大規模なチームのための計画的な手動テスト</h2>
+
+
+  <p>かんばんボード内からのテストは、テストのニーズがシンプルであることが必要です。 ただし、テスト計画のスコープ内のすべてのテスト作業の作成と追跡、複数の構成でのテスト、複数のテスト担当者へのテストの配布、テスト計画に対する進行状況の追跡など、より複雑なニーズを持つ大規模なチームの場合は、完全なテスト管理 Azure Test Plans ソリューションが必要であり、この果たし必要はありません。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fcca76b6-47d3-44e3-9ecc-57f87784bcd9.png"><img alt="Planned manual testing" border="0" height="561" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e44b5d3b-1865-49aa-889c-bc563e4c904a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="計画的な手動テスト" width="1188"></a></p>
+
+
+  <p>Azure Test Plans での計画的な手動テストを使用すると、テストをテスト計画とテストスイートに整理できます。 テストスイートは、 <strong>動的</strong> (要件ベースのスイートとクエリベースのスイート) にすることができます。これは、開発中の関連する要件の品質を理解するのに役立ちます。または、回帰テストに対応するために <strong>静的</strong> です。 テストは、<strong> Excel のようなグリッドビュー</strong>や、利用可能なその他の方法を使用して作成できます。 テスト担当者は、ランナーを使用してアプリに割り当てられたテストを実行し、アプリをテストします。 ランナーは、ブラウザーまたはデスクトップ上のクライアントとして実行できます。これにより、 <strong>任意のプラットフォームでテストしたり、任意のアプリをテスト</strong>したりできます。 実行中は、後で問題をデバッグまたは再現するのに役立つ豊富な診断データが収集されます。 プロセス中に提出されたバグには、キャプチャされた診断データが自動的に含まれます。</p>
+
+
+  <p align="center"><img alt="Test execution with rich data capture" border="0" height="585" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/105db94c-296d-46b8-8040-6d4a0ec7df13.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リッチデータキャプチャによるテストの実行" width="592"></p>
+
+
+  <p>全体的な進行状況と結果を追跡するには、軽量のグラフを活用します。これは、簡単に監視できるように、ダッシュボードにピン留めすることができます。 <a href="https://channel9.msdn.com/Events/Microsoft-Azure/Azure-DevOps-Launch-2018/A104" target="_blank">Azure Test Plans での計画</a>された手動テストを示すビデオをご覧ください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1654e71f-d530-45b6-af37-c34414542231.png"><img alt="Charts to help track progress and outcomes" border="0" height="921" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f8dc7ef6-f5b6-4db3-8e2a-59287cb2718b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="進行状況と結果を追跡するためのグラフ" width="1472"></a></p>
+
+
+  <p align="left">この投稿では、<a href="https://azure.microsoft.com/en-us/services/devops/test-plans/" target="_blank">無料で</a>詳細を確認し、ソフトウェアの品質を最大限に高めるために、Azure Test Plans 何ができるかを簡単に確認できる &ndash; ようにすることをお勧めします。 調査とテストを楽しんでください。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>もっと詳しい説明が必要でしょうか。 Azure Test Plans については、ドキュメント化された<a href="https://docs.microsoft.com/en-us/azure/devops/test/index-tp" target="_blank">ベストプラクティス、ビデオ、およびその他の学習資料</a>を参照してください。</p>

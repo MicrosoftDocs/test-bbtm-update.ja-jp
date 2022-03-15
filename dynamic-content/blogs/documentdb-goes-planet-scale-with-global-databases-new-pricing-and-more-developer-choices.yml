@@ -1,0 +1,73 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 549edec83439632864a1fa516b31b2916858112f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890820"
+Slug: documentdb-goes-planet-scale-with-global-databases-new-pricing-and-more-developer-choices
+Title: DocumentDB は世界規模のデータベース、新しい価格設定、および開発者向けの選択肢を備えています。
+Summary: クラウドアプリケーションを開発することで、世界中に広がる新しい市場や顧客に企業が参入できるようになります。
+Content: >-
+  <p><strong>Azure DocumentDB データベースのグローバル分散が一般公開されました。詳細については、ドキュメントの記事「<em><a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-distribute-data-globally/">DocumentDB を使用してデータ</a></em>を &nbsp; グローバルに配布する」を参照してください。 &nbsp;</strong></p>
+
+
+  <p>クラウドアプリケーションを開発することで、世界中に広がる新しい市場や顧客に企業が参入できるようになります。 アプリケーションのリーチは、IT インフラストラクチャを構築するビジネス &rsquo; 機能によって制約されることはなく、グローバルにスケーリングするアプリケーションを迅速に開発できるようになります。 これらのアプリケーションはどこからでもアクセスできる必要があるだけでなく、顧客のロイヤリティを獲得するためには、応答性と高可用性を実現する必要があります。</p>
+
+
+  <p>開発者にとって、グローバルなリーチには新しい課題があります。 地理的に分散したアプリケーションを開発するときに適切なトレードオフを行うために、負荷は教義に配置されています。 完全に管理されたマルチテナントの分散データベースの現在のセットでは、グローバルに分散したデータのパフォーマンス、可用性、整合性を明確にすることができません。 ほとんどの場合、開発者は、stark の強力な一貫性または最終的な整合性を選択した場合に直面します。 直感的なプログラミングモデルを使用するか、待機時間を短くし、可用性を高めることが強制されます。</p>
+
+
+  <p>本日、 <a href="https://azure.microsoft.com/services/documentdb/" target="_blank">Azure DocumentDB</a>のグローバルデータベースを紹介します。 グローバルデータベースを使用すると、複数の Azure リージョンにデータをレプリケートして、明確な可用性 Sla を提供しながら、明確に定義されたデータ <a href="https://azure.microsoft.com/documentation/articles/documentdb-consistency-levels/" target="_blank">整合性 </a>で低待機時間のアクセスを実現できます。 グローバルデータベースは、世界中に分散されたデバイスにサービスを提供する IoT システムや、高度にパーソナライズされたエクスペリエンスを提供するインターネット規模の web アプリケーションなど、地球規模のアプリケーションのニーズを満たすように設計されています。</p>
+
+
+  <p>グローバルデータベースに加えて、今週のビルドカンファレンスでは、開発者が DocumentDB でスケーラブルなアプリケーションを簡単に作成できるように、いくつかのサービス更新も発表しました。 新しい価格設定とコレクションのスケーリングオプションを使用すると、データベースコレクションのデータ量とスループットレベルを大きくすることができます。 また、既存の NoSQL Api とツールチェーンを使用してアプリケーションがシームレスに通信できるように、DocumentDB を拡張しました。 MongoDB ワイヤプロトコルのネイティブサポートの導入により、既存の MongoDB ドライバーを使用して、DocumentDB によって管理されるデータに簡単かつ透過的にアクセスできるようになりました。</p>
+
+
+  <h2>グローバルデータベース</h2>
+
+
+  <p>DocumentDB グローバルデータベースを使用すると、複数のリージョンにデータをレプリケートして、グローバルに利用できる高可用性アプリケーションを提供できます。 これらの複数リージョンのデータベースは、クラウドアプリケーションを継続的に運用するための一貫性を保証し、シームレスなフェールオーバー機能を備えています。</p>
+
+
+  <p><img alt="docdb-planetscale" border="0" height="358" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6eed1fe-063b-4153-b6b5-951b41bd3ba0.jpg" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="docdb-plan etscale" width="610"></p>
+
+
+  <p>DocumentDB の発表以来、低待機時間と可用性のメリットを維持しながら、予測可能なプログラミングモデルを使用して、一貫性の弱い形式を選択できるようになりました。 セッションの一貫性は、読み取りと書き込みの保証を提供します。ソーシャル、ゲーム、リテールなど、多くのユーザー中心のアプリケーションに最適な選択肢となります。 境界 staleness は、コラボレーションや通信などのグローバルな合計順序を必要とするアプリケーションに適した選択肢です。</p>
+
+
+  <p>グローバルデータベースを使用すると、アプリケーションで使用するために地理的に分散されたデータにより、一貫性のある整合性の利点がさらに関連します。 グローバルデータベースは、世界規模で高可用性アプリケーションを提供する方法を大幅に簡素化します。 グローバルデータベースは、選択できる複数の一貫性レベルを提供するだけでなく、ポリシー駆動型の透過的なフェールオーバーメカニズムも備えており、障害が発生した場合でも引き続き利用できます。 DocumentDB グローバルデータベースをプレビューで使用できるようになりました。詳細については、 <a href="https://aka.ms/globaldb" target="_blank">サインアップページ</a> を参照してください。</p>
+
+
+  <h2>価格とスケールのオプションが更新されました</h2>
+
+
+  <p>新しい <a href="https://azure.microsoft.com/en-us/pricing/details/documentdb/" target="_blank">価格</a> オプションでは、予約済みのスループットとデータベースストレージを個別に購入できるようになりました。 これにより、インデックス付きストレージは1時間ごとに保存されたギガバイト数に基づいて課金され、スループットは時間単位で予約されたレベルに基づいて課金されます。 アプリケーションのニーズに合わせて、より細かい単位でスループットを設定できるようになりました。 既存のお客様については、現在の価格プランを維持するか、新しいモデルに切り替えて、現在の収集スループットを高めることを選択できます。</p>
+
+
+  <p>また、より大きなデータボリュームを格納し、1つの DocumentDB コレクションでより多くの要求を処理できるようにすることも興奮しています。 新しいパーティション分割コレクションでは、大量のデータを大量に取り込むアプリケーションや、高スループット、低待機時間のデータアクセスを必要とするアプリケーションに、優れたオプションが提供されます。 <a href="https://azure.microsoft.com/documentation/articles/documentdb-partition-data/" target="_blank">パーティション分割</a>されたコレクションでは、1つの DocumentDB コレクションで1日に10億件の要求を処理できるようになりました。</p>
+
+
+  <blockquote>
+
+  <p>&quot;新しいパーティション分割コレクション機能では、高度なインデックス作成機能を使用して DocumentDB をはるかに活用できました。この新機能 &rsquo; により、リリースに対して計画されたお客様の機能に大きな一歩の変更が加えられました。 &quot; -John Madden、チーフ技術者、Schneider 電気</p>
+
+  </blockquote>
+
+
+  <h2>MongoDB のプロトコル サポート</h2>
+
+
+  <p>アプリケーションは、コミュニティでサポートされている既存の Apache MongoDB Api とドライバーを使用して、DocumentDB と簡単かつ透過的に通信できるようになりました。 開発者は、既存の MongoDB ツールチェーンとスキルを使用して、DocumentDB を活用するアプリケーションを構築することができます。 自動インデックス作成、トランザクション、グローバル分散データベースなど、DocumentDB &rsquo; の固有の機能を活用できます。</p>
+
+
+  <p>DocumentDB では、MongoDB ワイヤプロトコルの新しいサポートを使用して、Azure での解析アプリケーションの実行を有効にします。 Azure サービスでサポートされているエンドツーエンドの完全管理型クラウド <a href="https://azure.microsoft.com/blog/announcing-the-publication-of-parse-server-with-azure-managed-services/" target="_blank">ソリューション</a> を、お客様に解析できるようになりました。 MongoDB の DocumentDB プロトコルサポートは現在 <a href="https://azure.microsoft.com/documentation/articles/documentdb-protocol-mongodb/" target="_blank">プレビュー</a>段階です。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>これらの新機能をご利用いただき、幸いです。 次に表示する内容についてのフィードバックを引き続き提供してください。 今すぐ、 <a href="https://azure.microsoft.com/pricing/free-trial/" target="_blank">無料試用版</a> にサインアップして <a href="https://azure.microsoft.com/documentation/articles/documentdb-create-account" target="_blank">documentdb アカウント</a>を作成し、documentdb をお試しください。</p>
+
+
+  <p>最新の DocumentDB のニュースと機能については、Twitter <a href="https://twitter.com/DocumentDB" target="_blank">@DocumentDB</a> でフォローして最新情報を入手してください。</p>

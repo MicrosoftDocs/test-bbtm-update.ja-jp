@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c7cb18adb57d4f749f0ea15d79ac2149994f69b4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892484"
+Slug: simple-azure-websites-deployment
+Title: '単純な Azure Websites: デプロイ'
+Summary: >
+  Azure の Web サイトへのデプロイ方法として、git を使用することをお勧めします。これは、最初から使用していた機能であるためです (Kudu として知られています)。 ただし、場合によっては、最小限の面倒でローカルコンピューターから多数のファイルをデプロイする必要があり、git を使用することは過剰です。 これらのシナリオでは、WebDeploy (msdeploy.exe ともいいます) が真価を持っています。
+Content: >-
+  Azure の Web サイトへのデプロイ方法として、 <b>git</b>を使用することをお勧めします。これは、最初から使用していた機能であるためです ( <a href="https://github.com/projectkudu/kudu">Kudu</a>として知られています)。
+
+
+  ただし、場合によっては、最小限の面倒でローカルコンピューターから多数のファイルをデプロイする必要があり、git を使用することは過剰です。 これらのシナリオでは、 <b>WebDeploy</b> ( <b>msdeploy.exe</b>ともいいます) が真価を持っています。
+
+
+  WebDeploy での課題は、コマンドラインからを使用することが、を使用することです。 (Azure Websites ダッシュボードから) 発行プロファイルをダウンロードした後、そこから一連のチャンクを抽出する必要があります。 これらのチャンクから、次のコマンドラインを組み合わせることができます。これにより、Azure Web サイトにローカルフォルダーがデプロイされます。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="779">msdeploy.exe-verb: sync-source: contentPath = "C:\ foldertodeploy"-dest: contentPath = ' MyAzureSite '、ComputerName = " https://waws-prod-blu-001.publish.azurewebsites.windows.net:443/msdeploy.axd?site=MyAzureSite "、UserName = ' $myazuresite '、Password = ' fgsghfgskhBigUglyPasswordjfghkjsdhgfkj '、AuthType = ' Basic '</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  非常に mouthful ですね。 まぁ。。。 <b></b>
+
+
+  <b>Wawsdeploy にデプロイする</b>
+
+
+  これを簡単にするために、簡単なツールを作成しました。 Azure portal から発行プロファイルをダウンロードする必要がありますが、次の単純なコマンドを実行するだけです。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="779">WAWSDeploy C:\ foldertodeploy MyAzureSite. .Publishsettings</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  基本的には、ファイルがどこにあるかをツールに伝え、プロファイルから移動する必要がある場所を学習します。 このツールは、zip ファイルのコンテンツから直接配置することもできます。たとえば、
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="779">WAWSDeploy c:\MyFiles.zip MyAzureSite .Publishsettings</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  ツールを入手するには、 <a href="https://github.com/davidebbo/WAWSDeploy">ソース</a>から自分でビルドするか、 <a href="https://chocolatey.org/packages/WAWSDeploy">Chocolatey</a>から取得します。
+
+
+  ランダムなメモ:
+
+  <ul>
+      <li>このツールは、ビルドステップを必要としない単純なサイト (ASP.NET MVC ではない) に最適です。</li>
+      <li>私にとっては、マイクロソフトが公式にサポートしていない、またはマイクロソフトがスポンサーにしていない楽しいツールです。</li>
+      <li>WebDeploy は Windows でのみ機能するので、wawsdeploy にも同じ制限があります。</li>
+  </ul>
+
+  Kudu と Azure Websites 向けの開発の詳細については、 <a href="https://blog.davidebbo.com">ブログ</a> を参照してください。

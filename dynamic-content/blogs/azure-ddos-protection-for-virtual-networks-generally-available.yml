@@ -1,0 +1,152 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e044aa6dcf8f3a615385a63ed9ebaf7ba710cd84
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893188"
+Slug: azure-ddos-protection-for-virtual-networks-generally-available
+Title: Azure DDoS Protectionネットワークの一般提供
+Summary: 本日は、すべてのパブリック クラウド リージョンで Azure DDoS Protection Standard サービスの一般提供をお知らせします。 このサービスは、Azure Virtual Networks...
+Content: >-
+  <p><em>このブログの投稿は、JR Mayberry、プリンシパル PM マネージャー、Azure ネットワーク。</em></p>
+
+
+  <p>本日は、すべてのパブリック クラウド リージョンで <strong>Azure DDoS Protection Standard</strong> サービスの一般提供をお <strong>知らせします</strong>。 このサービスは Azure Virtual Networks (VNet) と統合され、DDoS 攻撃の影響に対する Azure リソースの保護と防御を提供します。</p>
+
+
+  <p>分散型サービス拒否 (DDoS) 攻撃は、リソース (帯域幅、メモリなど) を使い果たしてサービスを中断することを目的としています。 DDoS 攻撃は、お客様がアプリケーションをクラウドに移行する場合の可用性とセキュリティに関する最も高い懸念事項の 1 つです。 DDoS 攻撃の背後には強要とハクティビズムが一般的な動機としてあり、比較的簡単で安価に開始できるため、発生の種類、規模、頻度は一貫して増加しています。</p>
+
+
+  <p>これらの懸念は、ドキュメント化された DDoS 増幅攻撃の数が、2017 年第 4 四半期に 357% を超えたのに対し、 <a href="https://www.nexusguard.com/threat-report-q4-2017" target="_blank">Nexusguard</a> のデータによると 2016 年と比較して正当化されます。 さらに、すべての攻撃の 56% 以上が複数のベクターの組み合わせを悪用しています。 2018 年 2 月、 <a href="https://www.wired.com/story/github-ddos-memcached/" target="_blank">Github</a> は Memcached のリフレクション攻撃によって攻撃され、これまでに記録された最大の DDoS 攻撃である 1.35 テラビットの攻撃トラフィックが生成されました。</p>
+
+
+  <p>ネットワーク攻撃の種類と洗練が増えるにしたがって、Azure では、Azure 上のアプリケーションのセキュリティと可用性を引き続き保護するソリューションを顧客に提供する取り組みです。 クラウドでのセキュリティと可用性は共同責任です。 Azure では、お客様がビジネス目標を達成するアプリケーション設計を採用して適用するためのプラットフォーム レベルの機能と設計のベスト プラクティスが提供されます。</p>
+
+
+  <h2>Azure DDoS Protection サービス オファリング</h2>
+
+
+  <p>Azure には、ネットワーク攻撃からの保護を提供する 2 つの DDoS サービス オファリング (レイヤー 3 と 4) DDoS Protection Basic と DDoS Protection Standard があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c66cb59-0c5a-4fba-b580-1f3a58cdfced.jpg"><img alt="DDos Basic vs Standard Comparison table_v02" border="0" height="508" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7bb8a20c-27d5-4d62-b8fe-1ccf523bad2d.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DDos Basic と Standard の比較table_v02" width="1154"></a></p>
+
+
+  <h2>Azure DDoS Protection Basic サービス</h2>
+
+
+  <p>基本的な保護は、既定で Azure プラットフォームに統合され、追加コストはかからされません。 Azures&rsquo; のグローバルにデプロイされたネットワークのフル スケールと容量により、常時接続トラフィックの監視とリアルタイムの軽減によって、一般的なネットワーク層攻撃に対する防御が提供されます。 Basic を有効にするには、ユーザー構成やアプリケーションのDDoS Protectionはありません。 Basic Protection では、最も一般的で頻繁に発生するレイヤー 7 DNS クエリフラッドや、ゾーンをターゲットとするボリューム攻撃Azure DNS防ぎます。 また、このサービスには、Microsoft&rsquo; のエンタープライズ およびコンシューマー サービスを大規模な攻撃から保護する実績もあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67095905-575d-4e51-a09e-f1f92c56d4fa.png"><img alt="ddosglobe" border="0" height="648" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9ce4dd3-26ef-4d8b-826c-0f2a47ce9a19.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ddosglobe" width="1233"></a></p>
+
+
+  <h2>Azure DDoS Protection <em>Standard</em> サービス</h2>
+
+
+  <p><strong>Azure DDoS Protection Standard では</strong> 、仮想ネットワークにデプロイされたアプリケーションとリソースに対して強化された DDoS 軽減機能が提供されます。 保護は新規または既存の仮想ネットワークで簡単に有効にできます。アプリケーションやリソースの変更は必要ではありません。 DDoS Protection Standard では、専用の監視と機械学習を利用して、仮想ネットワーク トラフィック プロファイルに合った DDoS 保護ポリシーを構成します。 攻撃テレメトリは、アプリケーションAzure Monitor攻撃を受けたときにアラートを有効にすることで利用できます。 統合レイヤー 7 アプリケーション保護は、WAF を使用Application Gatewayできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ffda08f7-6355-4e05-9629-32e84db1239e.png"><img alt="Azure DDoS Protection Standard Service" border="0" height="247" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cdeb3ede-49e5-4296-adc0-b61ceff040ec.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure DDoS Protection Standard サービス" width="917"></a></p>
+
+
+  <h2>Azure DDoS Protection Standard サービス機能</h2>
+
+
+  <h3>ネイティブ プラットフォームの統合とターンキー保護</h3>
+
+
+  <p>DDoS Protection Standard は Azure プラットフォームにネイティブに統合され、仮想ネットワークで DDoS Protection プランを作成して DDoS Standard を有効にするときに、Azure portal と PowerShell を使用した構成が含まれます。 簡略化されたプロビジョニングにより、追加のアプリケーション変更を必要とされ、仮想ネットワーク内のすべてのリソースがすぐに保護されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5655fa3c-a611-4264-a11d-5d9e4d3b3070.png"><img alt="Test Protection Plan" border="0" height="475" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75c26cc7-6c5b-43d1-a7cc-112229d35c0b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="テスト保護計画" width="1300"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f9f6d19a-c083-4bf6-9112-23f2469ac195.png"><img alt="Create virtual network" border="0" height="707" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f163353-e527-497e-895a-87e5fecfb00c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想ネットワークを作成する" width="1239"></a></p>
+
+
+  <h3>常時監視とアダプティブ チューニング</h3>
+
+
+  <p>Standard DDoS Protection有効にすると、アプリケーションのトラフィック パターンが継続的に監視され、攻撃のインジケーターが監視されます。 DDoS Protectionとリソースの構成を理解し、仮想ネットワークDDoS Protectionポリシーをカスタマイズします。 機械学習アルゴリズムは、トラフィック パターンが時間の変化に応じて保護ポリシーを設定および調整します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e76fe92-3db7-4b12-a3da-73022bc30f9f.png"><img alt="Always-on monitoring" border="0" height="503" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/69f28916-435d-4ad5-ac83-dbfa9d70b01b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="常時監視" width="1237"></a></p>
+
+
+  <h3>L7 保護と Application Gateway</h3>
+
+
+  <p>Azure DDoS Protectionと組み合わせてサービスを使用 <a href="https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-web-application-firewall-overview" target="_blank">Application Gateway Web Application Firewall</a> 、一DDoS Protection Web の脆弱性と攻撃に対するセキュリティを提供します。</p>
+
+
+  <ul>
+   <li>要求レート制限</li>
+   <li>HTTP プロトコル違反</li>
+   <li>HTTP プロトコルの異常</li>
+   <li>SQL インジェクション</li>
+   <li>クロス サイト スクリプティング</li>
+  </ul>
+
+
+  <h4>DDoS Protectionファイアウォール VNet で Standard が有効になっている</h4>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24dbba7b-29aa-4468-91b8-4dcb433a86e9.png"><img alt="DDoS Protection Standard" border="0" height="557" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/609a6130-6da7-4d25-a6a7-93d9691070f6.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DDoS Protection Standard" width="1063"></a></p>
+
+
+  <p>サポートされているシナリオの詳細については、「Azure DDoS Protection <a href="https://aka.ms/ddosbest" target="_blank">Standard - Best Practices &amp; Reference Design」ドキュメントを参照してください</a>。</p>
+
+
+  <h3>DDoS 保護のテレメトリ、監視、アラート</h3>
+
+
+  <p>豊富なテレメトリは、DDoS 攻撃の間に、詳細なメトリックを含む Azure Monitor を通じて公開されます。 DDoS Protection によって公開される Azure Monitor の任意のメトリックに対して、アラートを構成することができます。 ログ記録は、Splunk (Azure Event Hubs)、OMS Log Analytics、Azure Storage と統合して、Azure Monitor Diagnostics インターフェイスを使用して高度な分析を行います。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5ee8a6f6-19a2-4ec9-bdc3-5850c997bf07.png"><img alt="Metric chart" border="0" height="555" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd38a18b-d20f-4756-a2d0-d250d9b693e8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="メトリック グラフ" width="1259"></a></p>
+
+
+  <p>詳細については、次のドキュメントを使用した <a href="https://docs.microsoft.com/en-us/azure/virtual-network/ddos-protection-manage-portal" target="_blank">Azure DDoS Protection Standard の管理Azure portal参照してください</a>。</p>
+
+
+  <h3>SLA の保証とコスト保護</h3>
+
+
+  <p>DDoS Protection Standard サービスは 99.99% の SLA でカバーされ、コスト保護では、文書化された攻撃中にスケールアウトするリソース クレジットが提供されます。 詳細については、Azure SLA に関する <a href="https://azure.microsoft.com/en-us/support/legal/sla/" target="_blank">ページを参照してください</a>。</p>
+
+
+  <h2>保護の計画</h2>
+
+
+  <p>DDoS 攻撃の計画と準備は、実際の攻撃中のアプリケーションの可用性と対応を理解する上で重要です。 組織は、十分に確認された DDoS インシデント管理対応計画も確立する必要があります。</p>
+
+
+  <p>この計画を支援するために、エンド to エンド<a href="https://aka.ms/ddosbest" target="_blank">の DDoS Protection - &amp;</a> ベスト プラクティス リファレンス アーキテクチャ ガイドを公開し、Azure で DDoS 攻撃に対する回復性のためのアプリケーションを設計しながら、すべてのお客様にこれらのプラクティスを適用するように促しています。</p>
+
+
+  <p><a href="https://www.ixiacom.com/products/breakingpoint-cloud" target="_blank">また、BreakingPoint Cloud</a> と提携して、Azure のお客様が攻撃をシミュレートするために、DDoS Protection対応パブリック エンドポイントに対してトラフィック負荷を生成するためのツールを提供しています。 <a href="https://www.ixiacom.com/products/breakingpoint-cloud" target="_blank">BreakPoint Cloud</a> のシミュレーションでは、以下のことが可能です。</p>
+
+
+  <ul>
+   <li>Microsoft Azure DDoS Protection が Azure リソースを DDoS 攻撃から保護する方法を検証します</li>
+   <li>DDoS 攻撃を受けているときにインシデント レスポンス プロセスを最適化します</li>
+   <li>DDoS コンプライアンスを文書化します</li>
+   <li>ネットワーク セキュリティ チームのトレーニングを行います</li>
+  </ul>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" scrolling="no" src="https://www.youtube.com/embed/qfDb_S5rc9Q?ecver=1" width="560"></iframe></p>
+
+
+  <p>サービスの詳細については、サービスに関するドキュメント <a href="https://aka.ms/ddosprotectiondocs" target="_blank">Azure DDoS Protection確認してください</a>。</p>
+
+
+  <p>フォーラム、<a href="https://stackoverflow.com/tags/azure-ddos/info" target="_blank">StackOverFlow</a>、<a href="https://feedback.azure.com/forums/905032-azure-ddos-protection" target="_blank">UserVoice</a> などの通常のチャネルを通じて、<a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=azureddosprotection" target="_blank"></a>フィードバック、質問、コメントをお寄せください。</p>

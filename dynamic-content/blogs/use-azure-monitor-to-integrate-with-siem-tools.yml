@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7d342a97cce5ccc4b37689438015a991a5b24363
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890641"
+Slug: use-azure-monitor-to-integrate-with-siem-tools
+Title: Azure Monitor を使用して SIEM ツールと統合する
+Summary: Azure Monitor の導入から 2 年間、すべての Azure サービスの 1 つのログ パイプラインに統合する点で大きな進歩を遂してきました。 Azure Resource Manager や Azure Security Center を含む上位の Azure サービスの大部分は、Azure Monitor にオンボードされ、関連するセキュリティ ログを生成しています。
+Content: >-
+  <p>Azure Monitor の導入から 2 年間、すべての Azure サービスの 1 つのログ パイプラインに統合する点で大きな進歩を遂してきました。 Azure Resource Manager や Azure Security Center を含む上位の Azure サービスの大部分は、Azure Monitor にオンボードされ、関連するセキュリティ ログ <a href="https://docs.microsoft.com/en-us/azure/security/azure-log-audit">を生成しています</a>。</p>
+
+
+  <p>また、1 つのイベント ハブへのデータのルーティングやリソースごとの複数の診断設定の有効化など、セキュリティ情報およびイベント管理 <a href="https://azure.microsoft.com/en-us/blog/azure-monitor-send-monitoring-data-to-an-event-hub/"></a> (SIEM) ツールとの統合プロセスを<a href="https://azure.microsoft.com/en-us/blog/azure-monitor-multiple-diagnostic-settings/"></a>簡略化する主要な機能も提供しました。また、大規模な Azure 環境間でのログ ルーティングのセットアップと管理を容易にする作業も提供しています。</p>
+
+
+  <p>その間、最も多くの SIEM パートナーと提携して、これらのツールにデータを取り込むコネクタAzure Monitor構築しています。 これらのコネクタは、Azure Monitor によって Azure Event Hubs にルーティングされたデータを使用します。これは、ログ データを外部アプリケーションに配信するためのシンプルでスケーラブルで管理可能なアプローチであり、今後は Azure と SIEM ツールを統合するための Microsoft が推奨するアプローチです。 <a href="https://aka.ms/azmoneventhub">これらの SIEM ツールにデータを送信するように Azure 環境を設定する方法の詳細を確認してください</a>。</p>
+
+
+  <p>また、これらの同じ SIEM と統合するために Azure Log Integration ツール (AzLog) を使用しているお客様も引き続きサポートしています。 AzLog は当初、お客様がさまざまな Azure サービスからのログの統合、変換、SIEM ツールへの転送の複雑なプロセスを移動するのに役立つように、リリースされました。 この時点では、Azure Monitor は存在しませんでした。また、Azure サービスが顧客にログ データを公開する方法 (ストレージ アカウントにダンプされたデータ、API を公開するその他のデータなど) に関する標準化はほとんど行ってきなかったのです。</p>
+
+
+  <p>それ以降、長い道のりが経ち、本日、Azure Log Integration ツールに追加される機能が追加され、サポート終了は 2019 年 6 月 1 日に行われる予定です。 Azure と一般的な SIEM ツールを統合するための推奨事項を以下に示します。</p>
+
+
+  <h2>統合に関する推奨事項</h2>
+
+
+  <p>次の表は、使用している SIEM ツールと現在の統合状態に基づいて行う必要がある操作を示しています。 以下に示すのは、AzLog によって正式にサポートされた SIEM ツールのみです。</p>
+
+
+  <table border="1" cellspacing="0" cellpadding="2">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>SIEM ツール</strong></td>
+              <td valign="top"><strong>現在、ログ インテグレーターを使用している</strong></td>
+              <td valign="top"><strong>現在、SIEM 統合オプションを調査している</strong></td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>Splunk</strong></td>
+              <td valign="top"><a href="https://splunkbase.splunk.com/app/3534/">Splunk のAzure Monitor Add-Onを開始します</a>。</td>
+              <td valign="top"><a href="https://splunkbase.splunk.com/app/3534/">Splunk Azure Monitor Add-Onを使用します</a>。</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>IBM QRadar</strong></td>
+              <td valign="top">IBM サポート Web サイトからMicrosoft Azure DSM と Microsoft Azure Event Hub Protocol への移行<a href="https://www.ibm.com/support">を開始します</a>。 Azure との統合の詳細については、<a href="https://www.ibm.com/support/knowledgecenter/SS42VS_DSM/c_dsm_guide_microsoft_azure_overview.html?cp=SS42VS_7.3.0">こちら</a>を参照してください。</td>
+              <td valign="top">IBM サポート Microsoft Azure提供されている Microsoft Azure DSM とイベント ハブ プロトコル<a href="https://www.ibm.com/support">を使用します</a>。 Azure との <a href="https://www.ibm.com/support/knowledgecenter/SS42VS_DSM/c_dsm_guide_microsoft_azure_overview.html?cp=SS42VS_7.3.0">統合の詳細については、以下を参照してください</a>。</td>
+          </tr>
+          <tr>
+              <td valign="top"><strong>ArcSight</strong></td>
+              <td valign="top">Azure ログ統合ツールでは、ArcSight の既存の JSON コネクタを使用して ArcSight と統合する目的で、Azure ログのコレクションが JSON ファイルに提供されました。JSON から CEF へのマッピングは、他の種類の Azure ログではなく、Azure アクティビティ ログでのみ使用できます。 ArcSight チームは現在、新しい包括的なソリューションに取り組み、2018 年 10 月の期間に対象範囲が制限された最初のリリースを計画しています。 詳細については、ArcSight にお問い合わせください。 Azure Log Integration ツールを既に使用している場合は、使用可能な場合は、Azure 用 ArcSight コネクタの使用を計画する必要があります。</td>
+              <td valign="top">&nbsp;</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>AzLog ツールではサポートされていませんが、 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-partners">ELK スタックや SumoLogic</a> など、Azure Monitor イベント ハブ統合を提供する他のパートナーの一部を確認することをお勧めします。</p>
+
+
+  <h2>統合ロードマップ</h2>
+
+
+  <p>現在、Azure Monitor の SIEM 統合機能では、Azure Log Integration ツールで実行できるすべてのことが行えるわけではありません。 以下に、Azure Log Integration で実現できることと、Azure Monitor で実現できることの間の既知のギャップに対処するためのロードマップを示します。</p>
+
+
+  <ul>
+      <li><strong>Azure Active Directory ログ</strong> – Azure Active Directory ログは、Azure Monitor でまだ使用できない AzLog と直接統合された唯一のログの種類です。 2018 年 7 月Azure Active Directory、Azure Monitorログのパブリック プレビューが開始される予定です。</li>
+      <li><strong>Azure VM ログを統合する</strong> – AzLog には、Azure VM ゲスト オペレーティング システム ログ (Windows セキュリティ イベントなど) を選択した SIEM と統合するオプションが用意されていました。 Azure Monitor には、OS ログをイベント ハブにルーティングできる Linux および Windows で使用可能なエージェントがありますが、SIEM とのエンドツーエンド統合は重要です。 2018 年の終わりまでに OS ログをイベント ハブにルーティングするサポートの強化を暫定的に提供する予定であり、パートナーと協力して、これらのログを使用するコネクタの計画を策定しています。 ここでの推奨事項は、SIEM によって提供される VM ログ エージェントまたはログ 転送ツールを使用する方法です。</li>
+      <li><strong>エンドツーエンドのセットアップ</strong> – AzLog には、ログ ソースのエンドツーエンドのセットアップを自動化するスクリプトが用意されています。 Azure Monitor により診断設定の作成をスクリプト化する機能が提供されますが、Azure Policy チームと提携して、すべてのソースからログ データがルーティングされることを保証する Resource Manager ポリシーを介してシームレスな有効化を実現しています。 今後 2 か月間にこれらのシナリオをサポートする組み込みポリシーが表示され始め、2018 年後半までにカスタム ポリシーがサポートされる予定です。</li>
+      <li><strong>他の SIEM ツールとの統合</strong> – AzLog には、JSON 形式で標準化された Azure ログをディスクにプッシュするための汎用的な機能が用意されていました。 AzLog によって他の SIEM ツールは公式にサポートされていませんでしたが、これにより、LogRhythm などのツールにログ データを簡単に取り込むことができました。 これらのツールで AzLog を使用するお客様のための推奨事項は、そのツールのプロデューサーと連携して、Azure Monitor Event Hubs 統合を提供することです。</li>
+  </ul>
+
+
+  <p>Azure 環境のセキュリティは、Azure プラットフォームの設計方法と、そのプラットフォーム上で独自の資産をセキュリティで保護するために提供する機能の両方の観点から、Azure チームでは常に最優先事項となっています。 SIEM の統合を Azure Monitor に移行することは、大規模に Azure 上でアプリケーションを確実にセキュリティで保護できるようにする第一歩です。 ご質問やご不明な点がある場合は、 にお問い合わせください AZSIEMTeam@microsoft.com。</p>

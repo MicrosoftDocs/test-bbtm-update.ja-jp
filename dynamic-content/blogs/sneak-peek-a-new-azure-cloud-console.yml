@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 30a90b6a20f72048f896ca6ddfe87f6c87b36552
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892400"
+Slug: sneak-peek-a-new-azure-cloud-console
+Title: 'ヒント: 新しい Azure Cloud Console'
+Summary: 'Microsoft では、コマンドラインツールがインストールされていないデバイスでも、グラフィカルおよびコマンドラインツールを使用して、ユーザーがアプリケーションを Azure で構築できる統合ワークフローを構築しました。 '
+Content: >-
+  <p>ここでは、コンテナーとその revolutionizing がクラウドネイティブコンピューティングの約束を真に実現する方法について情熱を持っています。 しかし、Azure での revolutionizing コンテナーコンピューティングについては、 &rsquo; ユーザーインターフェイスについても同様に情熱を持っています。 &nbsp;結局、便利なインターフェイスからアクセスでき &rsquo; ない場合、クラウドコンピューティングは役に立ちません。 &nbsp;&rsquo; &rsquo; では、これらの熱意を新しいクラウドコンソールでまとめて、Azure portal について説明します。</p>
+
+
+  <p>従来のクラウドユーザーインターフェイスは、web ベースのグラフィカルインターフェイスまたはコマンドラインターミナルインターフェイスに分割されています。 これらのインターフェイスはそれぞれユーティリティを提供し、さまざまなユーザーがさまざまなタスクに対して異なるインターフェイスを好みます。 ただし、ほとんどの Azure ユーザーは、両方のインターフェイスを使用して Azure 上のアプリケーションを管理します。 &nbsp;Visual Studio や Visual Studio Code のような統合開発環境の前にコードを開発する場合と同様に、これらのインターフェイスを切り替えるには、ユーザーを遅くして目標を達成するのが困難な、アプリケーション間の切り替えが必要になります。 &nbsp; 場合によっては (タブレットやその他のモバイルデバイスなど)、ターミナルインターフェイスが使用できない場合があり、ユーザーはデバイスを切り替える必要があります。</p>
+
+
+  <p>これらのニーズに対応するために、統合されたワークフローを構築しました。これにより、コマンドライン&#39;ツールがインストールされていないデバイスでも、グラフィカルおよびコマンドラインツールを使用して Azure でアプリケーションをビルドできるようになりました。 現在、この新しい cloud shell のエクスペリエンスについては、Azure portal に追加することを&#39;しています。 次のビデオからわかるように、シェルはポータルに統合されているため、ユーザーは簡単にコマンドラインエクスペリエンスを使用しながら、グラフィカル web インターフェイスでクラウドリソースを同時に表示できます。</p>
+
+
+  <h3>Azure Cloud Console を使用した VM のデプロイ</h3>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://channel9.msdn.com/Blogs/Azure-Linux-Team/Using-Azure-Cloud-Console-to-deploy-a-VM/player" width="560"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>GIT での Azure Cloud Console の使用</h3>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://channel9.msdn.com/Blogs/Azure-Linux-Team/Using-Azure-Cloud-Console-with-GIT/player" width="560"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>このエクスペリエンスの主な機能は次のとおりです。</p>
+
+
+  <ul>
+      <li>既存の web ログインからコマンドラインツールへの自動認証</li>
+      <li>すべての Azure コマンドラインツール、および関連するコマンドラインユーティリティがプレインストールされています</li>
+      <li>クラウドシェルセッション全体でコード、構成、およびアクティビティを保持する、パーソナル化された永続的なワークスペース。</li>
+  </ul>
+
+
+  <p>1回のクリックで、既存の Azure 資格情報で事前構成されたターミナルコマンドラインツールにドロップします。 &nbsp; このターミナルは、Azure コマンドラインツールだけでなく、期待される標準エディターやツールにも完全に機能するエクスペリエンスです。 &nbsp; さらに、cloud shell によってコンテキストが保持されます。 ファイルをディスクに保存すると、Azure &rsquo; のクラウドに保存されるので、別のデバイスやネットワークを使用している場合でも、次の cloud shell セッションで中断した箇所から再開できます。</p>
+
+
+  <p>では、クラウドコンソールはどのようにコンテナーに関連していますか。 シェル自体は、新しいセッションを開始するたびにクリーンで一貫性のあるインターフェイスを提供するコンテナーとしてパッケージ化されます。 &nbsp; もちろん、これは Azure 2.0 コマンドラインツール用に既にビルドされているコンテナーに基づいて&#39;ます。 現在のコンピューターでは、次のものを使用できます。</p>
+
+
+  <pre class="prettyprint">
+
+  $ docker run -v ${HOME}:/root -it azuresdk/azure-cli-python:latest</pre>
+
+
+  <p>今後数か月にわたって一般提供が開始されたときに、この新しいコンソールエクスペリエンスについてテストし、フィードバックを提供する hardy くらくらをいくつかご&#39;紹介します。 関心がある場合は、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7e1BxBe77BKjoaBtSzldH1UMFYwTTFMVlhHU0cwN0k4VVFCNEMwU0pHQi4u">サインアップ</a> して、&#39;にお任せください。</p>
+
+
+  <p>コンテナーが Azure でどのように revolutionizing されているかについて、非常に興奮しています。また、コンテナーテクノロジを使用して、Azure クラウド上でアプリケーションを開発するための新しい統合インターフェイスを提供する方法については特に興奮しています。&#39;</p>

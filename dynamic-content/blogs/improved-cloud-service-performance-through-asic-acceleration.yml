@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cafef961b972922e1f7eb32066f99edf053a671b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892991"
+Slug: improved-cloud-service-performance-through-asic-acceleration
+Title: ASIC アクセラレーションによるクラウドサービスのパフォーマンスの向上
+Summary: 新たな変換機能を提供するには、私たちが私たちのサプライヤーに向けていたコンピテンシーに対して開発する必要がますます高まっています。 過去数年間に Azure パブリッククラウドサービスを構築する経験があります。
+Content: >-
+  <p>新たな変換機能を提供するには、私たちが私たちのサプライヤーに向けていたコンピテンシー &rsquo; に対して開発する必要がますます高まっています。 過去数年間に Azure パブリッククラウドサービスを構築する経験があります。私たち &rsquo; は現在、独自のサーバーインフラストラクチャを開発し、フィールドプログラミング可能なゲート配列 (FPGAs) などの革新的なシリコンテクノロジに投資して、長年前に前例したワークロード &mdash; を加速させてきました。</p>
+
+
+  <p>Open Compute Project 2019 カンファレンスで Project Zipline を公開します。 Project Zipline は、新しい最先端の圧縮および暗号化パイプラインと、ハードウェアで実装するために使用される register transfer language (RTL) のオープンソースへの貢献によって構成されています。 Azure&#39;s の劇的な成長により、最適化されたデータ処理とストレージシステムのニーズが急速に増加しています。 Zipline では、現在利用可能な他のソリューションよりも高い圧縮率と高いスループットを実現し、待機時間を短縮することで、セキュリティを侵害することなく圧縮できます。</p>
+
+
+  <p>現時点では、Zipline &mdash; &nbsp; <strong>Project Corsica</strong>を Project するための関連テクノロジについて発表します。 Corsica は2年以上、Zipline テクノロジの ASIC 実装です。 これは、Microsoft が Broadcom と協力して開発した特殊な目的の ASIC で、圧縮、暗号化、およびデータ認証において Zipline &rsquo; s の初回のパフォーマンスを実現します。</p>
+
+
+  <h2>データストレージと暗号化の内部イノベーション</h2>
+
+
+  <p>データの需要が急増し、業界 &rsquo; のストレージ容量とデータ管理機能が過負荷になっています。 同時に、セキュリティとプライバシーの問題が増加し、大規模な暗号化が非常に重要な要素になりました。</p>
+
+
+  <p>数年前に、データの増加とストレージの将来のニーズに合わせて、クラウドにおけるスケールの課題について見てきました。 人工知能がビジネスプロセス、顧客契約、自律インフラストラクチャを推進するデジタル化された世界では、これまでにないほど多くの情報を作成して保存する必要があります。</p>
+
+
+  <p>Project Corsica を入力します。これは、データストレージ機能への革新的なとなる可能性があり、これまでにデプロイした唯一のテクノロジ &rsquo; として使用できます。 基本的に、データはデジタル変革の中核であり、顧客のエクスペリエンスを向上させ、製品やサービスを区別するために企業によって活用されています。</p>
+
+
+  <p>Project Corsica は、特に Azure &rsquo; のデータストレージニーズとサービス品質の保証を考慮して設計されています。 Corsica は、圧縮と暗号化を CPU から切り離して、これらの機能用に構築された &rsquo; 専用のハードウェアアクセラレータに移行することで、データ処理のボトルネックを解消するのに役立ちます。</p>
+
+
+  <p>Corsica &rsquo; s パフォーマンスは素晴らしいです。 クラウドプラットフォームによって次のことが可能になります。</p>
+
+
+  <ul>
+   <li>SSD 転送速度でデータストリームを圧縮および暗号化し、 <strong>非常に短い待機時間を実現</strong>します。</li>
+   <li>複数の Zipline パイプラインを組み合わせて、100 Gbps のデータスループットを実現し、 <strong>システムのボトルネックを軽減</strong>します。</li>
+   <li>圧縮を使用して暗号化を実行すると、システムに影響を与えない、 <strong>広く使用</strong>されている暗号化を実現できます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bae6965d-2c1e-4f3d-94ad-4e3d326f49e3.png"><img alt="A comparison of disk writing with Corsica vs CPU." border="0" height="502" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc09f3a3-dc43-43a1-8327-40d1ea7b4f0c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Corsica vs CPU を使用したディスク書き込みの比較。" width="896"></a></p>
+
+
+  <p>Corsica によって使用される Zipline 圧縮アルゴリズムでは、クラウドデータセットの他のアルゴリズムよりもはるかに優れた結果が得られます。圧縮比が20% 以上、一般的に使用される Zlib 64 KB モデルと比較してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a36f053-2359-432f-8728-7e5800aabb6a.png"><img alt="A look at compression rates of cloud data from application services, IoT text files, and system logs" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af1606f9-246e-4499-b4bc-cf4272e5782a.png" style="border-image: none 100% / 1 / 0 stretch; margin-right: auto; margin-left: auto; display: block; background-image: none; border-width: 0px; border-style: solid; width: 715px; height: 294px;" title="アプリケーションサービス、IoT テキストファイル、システムログからのクラウドデータの圧縮率を確認する"></a></p>
+
+
+  <p>Corsica は、大規模なデータセットに最適化された最先端の圧縮テクノロジです。 RTL のリリースにより、ハードウェアベンダーは、この参照設計を使用して、アルゴリズム &rsquo; の圧縮、コスト、および電力の利点を活用するチップを作成することができます。 Open Compute Project (OCP) エコシステムで Corsica を利用できます。これにより、今後の共同作成者は、Azure とお客様を含むエコシステム全体をさらに活用できるようになります。</p>
+
+
+  <h2>Project Zipline のパートナーとエコシステム</h2>
+
+
+  <p>クラウドの記憶域スペースのリーダーとして&#39;、私は&#39;作成したすべての投資とイノベーションを&#39;して OCP を通じて共有できるようになり、お客様により優れたソリューションを提供できるようになりました。 次の業界コラボレーターは、Corsica を Zipline しているテクノロジのサポート Project を表しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ae9e6558-f386-44bd-bacc-e5909a5130bf.png"><img alt="A list of companies who support Project Zipline and Corsica." border="0" height="546" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e192e327-908d-4625-96c7-0c561bf31d69.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Project Zipline と Corsica をサポートする企業の一覧。" width="1389"></a></p>
+
+
+  <p>お客様が特典をご確認いただくことができるように、業界の OCP とコラボレーションをさらにご紹介します。</p>
+
+
+  <p>これらのリンクを使用して、<a href="https://azure.microsoft.com/global-infrastructure/hardware-innovation/" target="_blank">オープンソースのハードウェア開発</a>、または Microsoft&#39;s <a href="https://github.com/opencomputeproject/Project-Zipline" target="_blank">Project Zipline による GitHub の投稿</a>について詳しく知ることができます。</p>

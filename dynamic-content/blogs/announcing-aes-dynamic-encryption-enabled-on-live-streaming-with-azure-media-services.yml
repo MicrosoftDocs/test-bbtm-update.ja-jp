@@ -1,0 +1,99 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b2bff55a916a1e73aec89844ff4bfc962d7850b1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893319"
+Slug: announcing-aes-dynamic-encryption-enabled-on-live-streaming-with-azure-media-services
+Title: AES 暗号化Azure Media Servicesライブ ストリーミングの開始を発表
+Summary: " AES 動的暗号化がライブ ストリームで動作しているお知らせを大変うれしく思います。"
+Content: >-
+  AES 動的暗号化がライブ ストリーム用の Azure Media Services利用可能になAzure Media Servicesお知らせします。 Azure Media Services を使用すると、AES 動的暗号化を構成し、Http-live-streaming (HLS)、Smooth Streaming、MPEG-DASH など、サポートされているストリーミング プロトコルを使用して暗号化されたライブ ストリームを配信できます。
+
+
+  大きなレベルでは、その動作を次に示します。
+
+  <ol>
+   <li>暗号化する資産に AES キー、キー承認ポリシー、およびコンテンツ配信ポリシーを設定します。キーの承認に提供するオプションの 1 つはトークン認証です。使用する場合、キーを要求するクライアントは、キーを発行するために、最初に有効なトークンを指定する必要があります。</li>
+   <li>前述のように、動的暗号化は既存のダイナミック パッケージ機能とチェーンできます。そのため、1 つの MP4 セットから、複数の形式と暗号化の種類の組み合わせを生成できます。たとえば、AES で暗号化された HLSv3 と AES で暗号化された MPEG-DASH を生成できます。</li>
+   <li>また、マニフェスト内の暗号化ヘッダーを認識し、キー要求を自動的に送信するサポートを組み込む <a href="https://azure.microsoft.com/blog/2014/10/27/microsoft-adaptive-streaming-plugin-for-osmf-update/">OSMF</a> フラッシュ プレーヤー プラグインも出荷しました。これにより、デスクトップ ブラウザーで AES で暗号化されたSmooth Streaming再生できます。 また、AES で暗号化された HLS が、iOS と Android に組み込みのネイティブ HLS 再生で動作する方法も検証しました。</li>
+   <li>ライブ イベントが終わった後、対応する資産が VOD に移行した後も、AES で暗号化された状態が続きます。</li>
+  </ol>
+
+  &nbsp;
+
+
+  ライブ ストリーミング機能を使用した AES 動的暗号化については、次の図を参照してください。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/13/LiveWithAES.png"><img title="LiveWithAES" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/LiveWithAES_thumb.png" alt="LiveWithAES" width="862" height="448" /></a>
+
+
+  このサービスの QA の一部&amp;を次に示します。
+
+  <ul>
+   <li><strong>AES Azure Media Services配信サービスは提供されますか?</strong></li>
+  </ul>
+
+  はいAzure Media Servicesプラットフォーム機能の<a href="https://azure.microsoft.com/blog/2014/09/10/announcing-public-availability-of-azure-media-services-content-protection-services/">一部として AES</a> キー サービスが提供されます。
+
+
+  &nbsp;
+
+  <ul>
+   <li><strong>ライブ ストリーミングの AES 動的暗号化に追加料金はありますか?</strong></li>
+  </ul>
+
+  いいえ。ただし、AES キー配信サービスも使用する場合は、料金がかかります。プレビュー期間  <a href="https://azure.microsoft.com/en-us/pricing/details/media-services/#content-protection">に配信された 100 キーあたり $.05</a>、およびサービスが GA に移行するときに配信される 100 キーあたり 0.1 ドルが課金されます。 一方、この機能を使用するには、ストリーミング ユニットが必要です。ライブ ストリーミングのセットアップには既に存在する可能性があります。これは、1 か月あたり 139 ドルで課金され、日単位で日単位で課金されます。
+
+
+  &nbsp;
+
+  <ul>
+   <li><strong>AES キー サービスにトークン認証を使用する場合、独自のトークン発行者サービスを構築する必要がありますか?</strong></li>
+  </ul>
+
+  はい。AES キー配信サービスのトークン認証を構成できます。 現在、SWT(単純な Web トークン) がサポートされています。 承認されたユーザーに有効なトークンを発行するには、独自のトークン発行者サービスを構築する必要があります。 もちろん、ACS (Access Control Service) などのトークン発行者サービスを利用できます。 キー サービスを使用して AES を構成する方法を示すMedia Services<a href="https://mingfeiy.com/acs-with-key-services">を次に示します</a>。
+
+
+  &nbsp;
+
+  <ul>
+   <li><strong>ライブ ストリームに PlayReady 保護を提供していますか?</strong></li>
+  </ul>
+
+  はい。他のブログ「 」を参照してくださいhttps://azure.microsoft.com/blog/2014/12/22/announcing-azure-media-services-live-streaming-with-playready-encryption-capability/。
+
+
+  &nbsp;
+
+  <ul>
+   <li><strong>AES 動的暗号化ライブ ストリームを再生するために使用できるプレーヤーの種類は何ですか?</strong></li>
+  </ul>
+
+  デスクトップ: <a href="https://azure.microsoft.com/blog/2014/10/27/microsoft-adaptive-streaming-plugin-for-osmf-update/">AES で暗号化されたアプリケーションを再生する OSMF フラッシュ プラグインSmooth Streaming</a>
+
+
+  IOS: IOS SDK では、AES で暗号化された HLS 再生がネイティブでサポートされています。キーにトークン認証を構成する場合は、トークンを挿入する必要があります
+
+
+  Android: Android SDK、AES で暗号化された HLS 再生もネイティブにサポートされます
+
+
+  Windows 8/Windows 8.1 ストア アプリ: AES で暗号化されたアプリを再生するサンプル コードをSmooth Streaming
+
+
+  &nbsp;
+
+  <ul>
+   <li><strong>ライブ ストリームを使用して AES 動的暗号化を構成する方法</strong></li>
+  </ul>
+
+  これは Azure Portal を使用して構成できます。また、ライブ資産REST API AES 暗号化を設定できる .NET SDK も含まれています。 これを行う方法に関するチュートリアルを次に示します。このチュートリアルでは、 を使用してライブ ストリームの <a href="https://mingfeiy.com/configure-aes-encryption-live-streaming-using-azure-media-services">AES 暗号化を構成Azure Media Services</a>。
+
+
+  &nbsp;
+
+
+  ご不明な点がある場合は、 にお問い合わせください <a href="mailto:yanmf@microsoft.com">yanmf@microsoft.com</a>。 さらに詳しい説明が必要です。

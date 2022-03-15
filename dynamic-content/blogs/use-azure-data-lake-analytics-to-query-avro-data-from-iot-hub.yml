@@ -1,0 +1,27 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 94785e90d34b4fae9d466453f6ab473b7ed1483a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890650"
+Slug: use-azure-data-lake-analytics-to-query-avro-data-from-iot-hub
+Title: Azure Data Lake Analytics を使用して IoT Hub から AVRO データを照会する
+Summary: 最近、Azure IoT Hub のルーティング機能から生成された blob データを読み取る方法をお客様にたずねました。 この顧客に完全な回答を提供するには、次のビデオでお客様と共有できるように、ステップバイステップガイドをまとめました。
+Content: >-
+  <p>最近、Azure IoT Hub のルーティング機能から生成された blob データを読み取る方法をお客様にたずねました。 この顧客に完全な回答を提供するには、次のビデオでお客様と共有できるように、ステップバイステップガイドをまとめました。</p>
+
+
+  <p>モノのインターネットアプリケーションの一般的なパターンの1つはコールドパス &rdquo; と呼ば &ldquo; れ、後で処理するために、IoT デバイスによって生成されるすべてのデータをクラウドに格納することで構成されます。 このような実装を簡単にするために、Azure IoT Hub は、デバイスから直接クラウドストレージサービスに送信されるメッセージの<a href="https://azure.microsoft.com/en-us/blog/iot-hub-message-routing-now-with-routing-on-message-body/" target="_blank">ルーティングをサポート</a>しています。 また IoT Hub では、両方のプロパティに基づいて単純なルールを適用できます。また、メッセージ本文は、選択したさまざまなカスタムエンドポイントにメッセージをルーティングできます。 IoT Hub は、メッセージ本文とメッセージプロパティの両方を含む AVRO 形式で blob コンテンツを書き込みます。 データとメッセージの保存に優れているため、AVRO はデータのクエリと処理には困難な場合があります。 このデータを処理するための推奨される解決策を次に示します。</p>
+
+
+  <p>ビッグデータパターンの多くは、カスタムファイル形式で非リレーショナルデータファイルを処理するために使用できます。 コストと展開の簡略化に重点を置いて、Azure Data Lake Analytics (ADLA) は、クエリ &rdquo; ごとのビッグデータパターンの &ldquo; 1 つです。 ADLA &rsquo; では、仮想マシン、データベース、ネットワーク、ストレージアカウントを設定する必要はありません。 U-SQL、のクエリ言語、および AVRO &ldquo; <a href="https://github.com/Azure/usql/tree/master/Examples/AvroExamples" target="_blank">エクストラクター</a> &rdquo; を使用すると、IoT Hub データを解析、変換、クエリできます。</p>
+
+
+  <p>次のビデオでは、Azure IoT Hub から標準ファイル形式にデータを変換、照会、およびエクスポートするプロセスについて説明します。 このプロセスは、他のリポジトリまたはリレーショナルストアにデータを配置するように調整することもできます。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Using-Azure-Data-Lake-to-analyze-IoT-Data/player" width="960"></iframe></p>
+
+
+  <p>詳細な手順については、こちらの <a href="https://aka.ms/adla-query-avro-from-iothub-route">ドキュメント</a>を参照してください。</p>

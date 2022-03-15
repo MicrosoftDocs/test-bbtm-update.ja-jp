@@ -1,0 +1,164 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 38ce5f2c0b17baa1c4baf0ca16467d3188da8da5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893218"
+Slug: automatic-performance-monitoring-in-azure-sql-data-warehouse-with-query-store
+Title: Azure SQL Data Warehouse での自動パフォーマンス監視 (プレビュー)
+Summary: Azure SQL Data Warehouse は、パフォーマンスデータの監視と管理のためのクエリストアをサポートするようになりました。
+Content: >-
+  <p>データウェアハウスのパフォーマンスの監視と管理は、データ資産全体の正常性にとって重要です。 データ速度とクエリ速度の向上により、使用頻度、リソース消費、または回帰に関するクエリメトリックの追跡は、データから有意義な洞察を効率的に作成する能力に影響を与えます。</p>
+
+
+  <p>効率を上げるために、Gen1 と Gen2 の両方のプランの<a href="https://aka.ms/sqldw" target="_blank">Azure SQL Data Warehouse</a>の<a href="https://docs.microsoft.com/sql/relational-databases/performance/monitoring-performance-by-using-the-query-store" target="_blank">クエリストア</a>のプレビューを公開することに注目 &rsquo; しています。 クエリ ストアは、クエリ パフォーマンスのトラブルシューティングを支援するように設計されています。クエリ、クエリ プラン、ランタイム統計、およびクエリ履歴を追跡することにより、お客様のデータ ウェアハウスのアクティビティとパフォーマンスを監視できるようにします。 クエリ ストアは、内部ストアと動的管理ビュー (DMV) のセットであり、以下のことを行えます。</p>
+
+
+  <ul>
+   <li>リソースを消費する上位のクエリを特定し、調整します。</li>
+   <li>アドホックワークロードを識別し、改善します。</li>
+   <li>統計、インデックス、またはシステムサイズ (DWU 設定) の変更によって、クエリのパフォーマンスとプランへの影響を評価します。</li>
+   <li>実行されたすべてのクエリの完全なクエリテキストを参照してください。</li>
+  </ul>
+
+
+  <p>クエリストアには、実行プラン情報を保持するためのプランストア、実行統計情報を保持するためのランタイム統計ストア、待機統計情報を保持するための待機統計ストアの3つの実際のストアが含まれています。 これらのストアは SQL Data Warehouse によって自動的に管理され、過去7日間の無制限の数のクエリを追加料金なしで提供します。</p>
+
+
+  <h2>クエリ ストアの有効化</h2>
+
+
+  <p>クエリストアの有効化は、 <a href="https://docs.microsoft.com/sql/t-sql/statements/alter-database-transact-sql-set-options?view=sql-server-2017" target="_blank">ALTER database</a>の SQL t-sql ステートメントを実行するのと同じように簡単です。</p>
+
+
+  <pre>
+
+  <code>ALTER DATABASE [Database Name] SET QUERY_STORE = ON;</code>
+
+  </pre>
+
+
+  <p><strong>注</strong>: を指定 <code>OFF</code> してコマンドを実行すると、 <code>ALTER DATABASE</code> クエリストアを無効にすることができます。</p>
+
+
+  <h2>クエリのフルテキストの検索</h2>
+
+
+  <p>クエリストアでは、 <a href="https://docs.microsoft.com/sql/relational-databases/system-catalog-views/sys-query-store-query-transact-sql" target="_blank">sys.query_store_query</a> と <a href="https://docs.microsoft.com/sql/relational-databases/system-catalog-views/sys-query-store-query-text-transact-sql" target="_blank">sys.query_store_query_text</a> dmv を使用して、過去7日間に実行されたクエリのフルテキストを取得できます。</p>
+
+
+  <pre>
+
+  <code>SELECT
+   q.query_id
+   , t.query_sql_text
+  FROM
+   sys.query_store_query q
+   JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id;</code></pre>
+
+  <p>結果には、実行されているクエリの query_id とテキストが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/81940945-5172-40f3-bcd6-05371e9bc57b.png"><img alt="query_text" border="0" height="98" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19bec1f8-8589-492b-a895-b43ad9c804f6.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="query_text" width="450"></a></p>
+
+
+  <h2>上位の実行中のクエリを検索する</h2>
+
+
+  <p>有効にすると、クエリストアはすべてのクエリ実行を追跡します。 ビジー状態のデータウェアハウスでは、実行数ごとの上位のクエリを確認することができます。 クエリストアビューを使用すると、最も頻繁に実行される10個のコマンドのクエリ実行回数を取得できます。</p>
+
+
+  <pre>
+
+  <code>SELECT TOP 10
+        q.query_id                    [query_id]
+        , t.query_sql_text            [command]
+        , SUM(rs.count_executions)    [execution_count]
+  FROM
+        sys.query_store_query q
+        JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id
+        JOIN sys.query_store_plan p ON p.query_id = q.query_id
+        JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id
+  GROUP BY
+
+  </code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>q.query_id
+        , t.query_sql_text
+  ORDER BY
+        3 DESC;</code></pre>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74d42be7-66e1-42b8-9fd9-ff0ad6531eb8.png"><img alt="Results" border="0" height="99" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/43370fff-8b42-4335-af4c-819db0a2f294.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="生じ" width="505"></a></p>
+
+
+  <h2>クエリの実行時間の検索</h2>
+
+
+  <p>またクエリストアは、実行時に高い分散を使用してクエリに集中できるようにするためのランタイムクエリ統計も収集します。 Sys.query_store_plan と sys.query_store_runtime_stats Dmv を使用すると、次のことを収集できます。</p>
+
+
+  <pre>
+
+  <code>SELECT
+        q.query_id               [query_id]
+        , t.query_sql_text       [command]
+        , rs.avg_duration        [avg_duration]
+        , rs.min_duration        [min_duration]
+        , rs.max_duration        [max_duration]
+   FROM
+        sys.query_store_query q
+        JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id
+        JOIN sys.query_store_plan p ON p.query_id = q.query_id
+        JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id
+  WHERE
+        q.query_id = 10
+        AND rs.avg_duration &gt; 0;</code></pre>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5fa9c87-2d64-4e11-981a-7881b9386d0e.png"><img alt="Results after execution" border="0" height="110" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f2e46c5f-2bdb-4157-8cce-bfab9f48fee6.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="実行後の結果" width="561"></a></p>
+
+
+  <h2>実行中の分散が最も多いクエリの検索</h2>
+
+
+  <pre>
+
+  <code>WITH RawData AS
+
+  (
+      SELECT
+          q.query_id               [query_id]
+          , t.query_sql_text       [command]
+          , rs.avg_duration        [avg_duration]
+          , rs.min_duration        [min_duration]
+          , rs.max_duration        [max_duration]
+          , (((rs.max_duration * 1.0)/ (rs.min_duration * 1.0)) - 1) * 100&nbsp;&nbsp; [variance_pct]
+      FROM
+          sys.query_store_query q
+          JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id
+          JOIN sys.query_store_plan p ON p.query_id = q.query_id
+          JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id
+      WHERE
+          rs.min_duration &gt; 0
+  )
+
+  SELECT
+      *
+  FROM
+      RawData
+  ORDER BY
+      variance_pct DESC</code></pre>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/82503acb-cea9-4477-9cda-f51dbba0bf87.png"><img alt="Results with the highest variance in execution" border="0" height="83" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0631b55-739d-4864-9669-2e2e40678564.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="実行中の分散が最も多い結果" width="599"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>クエリストアは、すべての Azure リージョンで追加料金なしで利用できます。 Azure SQL Data Warehouse は、引き続きセキュリティ、コンプライアンス、プライバシー、および監査の領域をリードします。 詳細については、ホワイトペーパー「 &ldquo; <a href="https://aka.ms/gdprsqlwhitepaper" target="_blank">プライバシーを強化するためのガイド」、microsoft SQL プラットフォーム</a> &rdquo; 、 <a href="https://www.microsoft.com/en-us/trustcenter" target="_blank">microsoft セキュリティセンター</a>、またはドキュメント「 &ldquo; <a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security" target="_blank">SQL Data Warehouse でのデータベースのセキュリティ保護</a>」を参照してください。&rdquo;</p>
+
+
+  <ul>
+   <li>Azure SQL Data Warehouse のクエリストア &nbsp; の詳細については、「 &ldquo; <a href="https://docs.microsoft.com/en-us/sql/relational-databases/performance/monitoring-performance-by-using-the-query-store?view=sql-server-2017" target="_blank">クエリストア</a> &rdquo; を使用したパフォーマンスの監視」および「 <a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-query-store-query-transact-sql?view=sql-server-2017" target="_blank">sys.query_store_query</a>などのクエリストア dmv」を参照してください。</li>
+   <li>機能に関する要望については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse" target="_blank">UserVoice</a>にご投票ください。</li>
+   <li>今すぐ開始するには、 <a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal" target="_blank">Azure SQL Data Warehouse を作成</a>します。</li>
+   <li>最新の Azure SQL Data Warehouse ニュースや機能を最新の状態に維持するには、Twitter <a href="https://twitter.com/AzureSQLDW" target="_blank">@AzureSQLDW</a> でフォローしてください。</li>
+  </ul>

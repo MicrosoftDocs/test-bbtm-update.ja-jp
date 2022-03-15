@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1d0d89089321670e63b3c13299b9e39a77ff0c5d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890366"
+Slug: modernize-index-maintenance-with-resumable-online-index-rebuild
+Title: 再開可能なオンラインインデックス再構築によるインデックスメンテナンスの最新化
+Summary: ご存じのように、インデックスは、データベースのパフォーマンスを最適化するための最も強力なツールの1つです。 行の挿入、更新、および削除を行うと、インデックスの断片化が増し、効率が低下します。 このため、Dba はインデックスの再構築操作を定期的に実行します。
+Content: >-
+  <p>ご存じのように、インデックスは、データベースのパフォーマンスを最適化するための最も強力なツールの1つです。 行の挿入、更新、および削除を行うと、インデックスの断片化が増し、効率が低下します。 このため、Dba はインデックスの再構築操作を定期的に実行します。</p>
+
+
+  <p>データベースのサイズが増加するにつれて、インデックスの再構築に非常に長い時間がかかることがあります。 アプリケーションが常に利用可能でパフォーマンスが向上し、これが問題になる可能性があります。 ビジー状態のワークロードを使用する大規模 OLTP 環境では、大規模なインデックス再構築操作を実行するには短時間で非常に短いメンテナンスウィンドウを使用することがよくあります。&nbsp;&nbsp;</p>
+
+
+  <h3>再構築操作を制限されたメンテナンス期間に収める</h3>
+
+
+  <p>ROIR (再開可能なオンラインインデックス再構築) では、定義された長さのメンテナンス期間中にのみ、再構築を実行するように構成できます。 以前は、インデックス操作の実行時間がメンテナンス期間より長くなった場合、DBA はインデックス操作を中止してから、後でもう一度実行する必要がありました。 インデックス操作の実行に必要なメンテナンス期間よりも定期的に時間がかかる場合、この問題を回避する方法はありませんでした。 ROIR では、ユーザーはメンテナンス期間に応じて再構築の最長期間を定義するだけで済みます。</p>
+
+
+  <pre class="prettyprint">
+
+  ALTER INDEX [ix_CustomerIDs]
+
+  ON [ContosoSales].[ConstosoTransactionData]
+
+  REBUILD
+
+  WITH (ONLINE = ON, RESUMABLE = ON, MAX_DURATION = 30 MINUTES);
+
+  GO</pre>
+
+
+  <h3>インデックスの再構築を一時停止して、優先度の高い別のタスクのリソースを解放する</h3>
+
+
+  <p>予期しない優先度の高いタスクが発生し、リソースの追加が必要になることがあります。 ROIR を使用すると、再構築操作をいつでも一時停止して、他の優先度の高いタスクの実行を許可することができます。 一時停止機能を使用して、最長期間を定義しなかった場合 &rsquo; に、メンテナンス期間の終了時にインデックス操作を一時停止することもできます。</p>
+
+
+  <pre class="prettyprint">
+
+  ALTER INDEX ix_CustomerIDs ON [ContosoSales].[ConstosoTransactionData] PAUSE
+
+  </pre>
+
+
+  <h3>失敗後にインデックスの再構築を再開する</h3>
+
+
+  <p>インデックスの再構築エラーは、データベースのフェールオーバーやディスク領域の不足など、いくつかの理由で予期せず発生することがあります。 インデックス操作が数時間実行された後に失敗した場合、どれだけの時間が浪費されるかを検討してください。 ROIR を使用すると、障害が発生した場所からインデックスの再構築を再開することができます。 エラーが発生すると、インデックスが一時停止状態になります。&nbsp;</p>
+
+
+  <pre class="prettyprint">
+
+  ALTER INDEX ix_CustomerIDs ON [ContosoSales].[ConstosoTransactionData] RESUME</pre>
+
+
+  <h3>大きなログ領域を使用せずに大きなインデックスの再構築を実行する</h3>
+
+
+  <p>実行時間の長いインデックス操作では、他のメンテナンス操作をブロックできます。 ROIR では、大量のログ領域を使用せずに大きなインデックスの再構築を実行できます。 ROIR &nbsp; は、ログの増加 &nbsp; とログ不足エラーを最小限に抑えます。</p>
+
+
+  <p>元のインデックスと新しいインデックスの両方にディスク領域が必要であり、DML 操作中に更新する必要があるため、インデックスを一時停止状態にするとパフォーマンスが低下することに注意してください。 また、いずれかのインデックスが一時停止状態にある場合は、テーブルでスキーマ変更を行うこともできません。</p>
+
+
+  <div>最後に、インデックスの再構築の最新化メンテナンスの拡張として、 <a href="https://cloudblogs.microsoft.com/sqlserver/2018/05/08/database-scoped-default-online-options-is-in-preview-for-azure-sql-db/">データベーススコープインデックスの既定のオンラインおよび再開</a>可能なオプションと呼ばれる、最近リリースされたパブリックプレビュー機能を参照することを希望しています。</div>
+
+
+  <div>&nbsp;</div>
+
+
+  <div>この機能を使用すると、個別のステートメントごとにこれらのオプションを定義するのではなく、オンラインおよび再開可能なインデックス再構築操作の既定の動作を設定できます。</div>
+
+
+  <h3>ROIR の詳細については、次のドキュメントを参照してください。</h3>
+
+
+  <ul>
+      <li><a href="https://msdn.microsoft.com/library/ms190981(SQL.130).aspx" target="_blank">オンライン インデックス操作のガイドライン</a></li>
+      <li><a href="https://msdn.microsoft.com/library/ms188388(SQL.130).aspx" target="_blank">ALTER INDEX (Transact-SQL)</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-index-resumable-operations" target="_blank">sys.index_resumable_operations</a></li>
+  </ul>
+
+
+  <p>Azure ブログを監視して、この領域に追加された優れた機能をご確認ください。</p>

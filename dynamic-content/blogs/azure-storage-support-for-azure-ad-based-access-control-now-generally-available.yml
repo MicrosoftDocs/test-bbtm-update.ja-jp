@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 39fd99fb3f67889137e6779ced07194c8f3ac6fc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894026"
+Slug: azure-storage-support-for-azure-ad-based-access-control-now-generally-available
+Title: Azure Active Directory ベースのアクセス制御の Azure Storage によるサポートの一般提供
+Summary: Azure Storage blob およびキューに対する Azure AD ベースのアクセス制御の一般提供を発表します。  企業では、Azure のロールベースのアクセス制御 (RBAC) を使用して Azure AD のユーザーとサービス id に特定のデータアクセス許可を付与できるようになりました。
+Content: >-
+  <p>Azure Storage blob およびキューに対する<a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad" target="_blank">Azure Active Directory (AD) ベースのアクセス制御</a>の一般提供を予定しています。 企業では、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad-rbac" target="_blank">Azure &rsquo; のロールベースのアクセス制御 (RBAC)</a>を使用して、Azure AD テナントからのユーザーとサービス id に特定のデータアクセス許可を付与できるようになりました。 &nbsp;管理者は、 <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/storage-analytics-log-format" target="_blank">Storage Analytics ログ</a>を使用して、個々のユーザーとサービスのデータへのアクセスを追跡できます。 Storage アカウントは、多くのユーザーが強力なストレージアカウントのアクセスキーにアクセスする必要を排除することで、セキュリティを強化するように構成できます。</p>
+
+
+  <p>Azure AD を利用してユーザーとサービスを認証することにより、企業は、2要素認証、条件付きアクセス、identity protection などの機能を含む<a href="https://docs.microsoft.com/en-us/azure/active-directory/" target="_blank">Azure AD 提供さ</a>れているすべての機能を利用できます。 Azure AD <a href="https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-configure" target="_blank">Privileged Identity Management (PIM)</a>を使用して、ロール &ldquo; をジャストインタイム &rdquo; で割り当て、管理者アクセスのセキュリティリスクを軽減することもできます。</p>
+
+
+  <p>さらに、開発者は、 <a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview" target="_blank">Azure リソースの管理対象 id</a>を使用して、アプリケーションシークレットを管理することなく、<a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad-msi" target="_blank">セキュリティで保護された Azure Storage アプリケーション</a>をデプロイすることができます。</p>
+
+
+  <p>Azure AD 認証を新しい Azure Data Lake Storage Gen 2 機能と組み合わせると、ユーザーは<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control#access-control-lists-on-files-and-directories" target="_blank">POSIX 形式のアクセス許可とアクセス制御リスト</a>(ACL &rsquo; s) を使用して、ファイルとフォルダーの詳細なアクセス制御を利用することもできます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/overview" target="_blank">Azure リソースの RBAC</a> を使用すると、サブスクリプション、リソースグループ、またはストレージアカウントや blob コンテナーなどの個々のリソースにわたるさまざまなリソースセットへのアクセスを許可できます。 ロールの割り当ては、Azure portal または Azure PowerShell、Azure CLI、Azure Resource Manager のテンプレートなどのツールを使用して行うことができます。</p>
+
+
+  <p><img alt="Assign a role to a user" height="448" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/storageportalroleassignment.jpg" style="border-width: 1px; border-style: solid; margin: 10px auto; width: 800px; height: 560px; float: none; display: block;" width="640"></p>
+
+
+  <p>Azure AD 認証は、Azure portal、Azure CLI、Azure PowerShell、Azure Storage Explorer、azcopy などの標準 Azure Storage ツールから使用できます。</p>
+
+
+  <p><img alt="Browse Azure Storage blobs using the Azure portal" height="170" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/storageportalblobbrowse.jpg" style="border-width: 1px; border-style: solid; margin: 10px auto; width: 799px; height: 212px; float: none; display: block;" width="640"></p>
+
+
+  <pre>
+
+  $ az login
+
+  Note, we have launched a browser for you to login. For old experience with device code, use &quot;az login --use-device-code&quot;
+
+  You have logged in. Now let us find all the subscriptions to which you have access...
+
+  [
+    {
+      &quot;cloudName&quot;: &quot;AzureCloud&quot;,
+      &quot;id&quot;: &quot;XXXXXXXX-YYYY-ZZZZ-AAAA-BBBBBBBBBBBB&quot;,
+      &quot;isDefault&quot;: true,
+      &quot;name&quot;: &quot;My Subscription&quot;,
+      &quot;state&quot;: &quot;Enabled&quot;,
+      &quot;tenantId&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;,
+      &quot;user&quot;: {
+        &quot;name&quot;: &quot;cbrooks@microsoft.com&quot;,
+        &quot;type&quot;: &quot;user&quot;
+      }
+    }
+  ]
+
+  $ export AZURE_STORAGE_AUTH_MODE=&quot;login&quot;
+
+  $ az storage blob list --account-name mysalesdata --container-name mycontainer --query [].name
+
+  [
+    &quot;salesdata.csv&quot;
+  ]</pre>
+
+
+  <p>ユーザーにデータへのアクセスを許可したり、ストレージアカウントのアクセスキーへのアクセスを制限したりするには、Azure AD を使用することをお勧めします。 一般的なパターンでは、ユーザーに対して、ユーザー &quot; &quot; に対して、ポータル &quot; でのストレージアカウントの可視性を付与し、blob データへの読み取りアクセス権を付与するために、Storage blob データリーダー &quot; の役割を付与します。 blob を作成または変更する必要があるユーザーには、 &quot; 代わりに Storage blob データ共同作成者 &quot; ロールを付与することができます。</p>
+
+
+  <p>開発者は、azure でアプリケーションを認証するために azure<a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview" target="_blank">リソースの管理対象 id</a>を評価したり、azure の外部で実行されるアプリの<a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal" target="_blank">サービスプリンシパルを Azure AD</a>したりすることをお勧めします。</p>
+
+
+  <p>Azure Storage の Azure AD アクセス制御は、すべての Azure クラウド環境で運用環境で使用できるようになりました。</p>

@@ -1,0 +1,550 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a2962e4a1d7cf1fa3b02e64e9c89884e6273482b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889807"
+Slug: excluding-disks-from-replication-in-azure-site-recovery
+Title: ASR を使用した Hyper-v Vm の除外ディスクサポートの発表
+Summary: Azure Site Recovery (ASR) のお客様にとっては、レプリケーションの帯域幅を最適化するために、またはそのようなディスクで使用されるターゲット側のリソースを最適化するために、レプリケーションからディスクを除外する機能を使用することがよくあります。
+Content: >-
+  <p><a href="https://aka.ms/azure-siterecovery">Azure Site Recovery (ASR)</a>のお客様にとっては、レプリケーションの帯域幅を最適化するために、またはそのようなディスクで使用されるターゲット側のリソースを最適化するために、レプリケーションからディスクを除外する機能を使用することがよくあります。 ASR&#39;s VMware から Azure へのシナリオには、今年の前半からこの機能がありました。 現時点では、ASR&#39;s Hyper-v から Azure へのシナリオにもこの機能が利用できることが発表されています。</p>
+
+
+  <h1>顧客がレプリケーションからディスクを除外するのはなぜですか。</h1>
+
+
+  <p>レプリケーションからディスクを除外する必要性は、多くの場合、次の理由から生じます。</p>
+
+
+  <ol>
+   <li>除外されたディスク上のデータ頻繁が重要ではないか &rsquo; 、レプリケートする必要がない (または/と)</li>
+   <li>このチャーンをレプリケートしないことで、Storage とネットワークリソースを保存できます</li>
+  </ol>
+
+
+  <p>重要な &rdquo;&#39;&ldquo; のデータについては、&#39;してみましょう。 レプリケートされたデータの重要性は、フェールオーバー時の有用性によって決まります。 また、レプリケートされていないデータは、フェールオーバー時に必要ではありません。 このデータが存在しない場合、回復ポイントの目標 (RPO) に影響を与えることはありません。</p>
+
+
+  <h1>一般的なシナリオ</h1>
+
+
+  <p>データチャーンの特定の例がいくつかあります。これは、ページファイルの書き込み、Microsoft SQL server の tempdb の書き込みなど、簡単に特定でき、除外 &ndash; に適しています。ワークロードとストレージサブシステムに応じて、ページファイルで大量の変化を登録できます。 ただし、このデータをプライマリサイトから Azure にレプリケートすると、リソースが大量に消費され、まったく意味がなくなります。 したがって 1 つの仮想ディスクに OS とページ ファイルの両方を含む VM のレプリケーションは、次の方法で最適化することができます。</p>
+
+
+  <ol>
+   <li>1つの仮想ディスクを2つの仮想ディスク &ndash; に分割します。1つは OS、もう1つはページファイルです。</li>
+   <li>ページ ファイル用のディスクをレプリケーションから除外します。</li>
+  </ol>
+
+
+  <p>同様に、Microsoft SQL Server で tempdb ファイルとシステム データベース ファイルを同じディスクに格納している場合は、次の方法で最適化することができます。</p>
+
+
+  <ol>
+   <li>システム データベースと tempdb を 2 つの異なるディスクに格納します。</li>
+   <li>tempdb ディスクをレプリケーションから除外します。</li>
+  </ol>
+
+
+  <h1>レプリケーションからディスクを除外する方法</h1>
+
+
+  <p>通常のレプリケーションの有効化ワークフローに従って、ASR ポータルから VM を保護します。 [レプリケーションを有効にする] の4番目の手順では、[レプリケートするディスク] という名前の新しい列があり、レプリケーションからディスクを除外します。 既定では、すべてのディスクがレプリケーションの対象として選択されています。 レプリケーションから除外する VHD を選択解除し、レプリケーションを有効にする手順を実行します。 詳細については、 <a href="https://aka.ms/asr-vmm-to-azure#step-6-enable-replication">hyper-v から azure (vmm を使用)</a> または <a href="https://aka.ms/asr-hyperv-to-azure#step-6-enable-replication">hyper-v から azure (vmm なし)</a> に関するドキュメントを参照してください。 <a href="https://aka.ms/asr_hyperv_video2">このビデオを表示して、機能の動作を確認</a>することもできます。</p>
+
+
+  <h3><u><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e91486d-0431-4a53-8f84-1ced8c0895db.jpg"><img alt="EnableReplication-Properties-Configure-Exclude disk" border="0" height="303" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e837544-7786-4b00-a8fa-644ae867d4f9.jpg" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="EnableReplication-構成-ディスクの除外" width="548"></a></u></h3>
+
+
+  <h2>SQL Server の tempdb 用ディスクの除外</h2>
+
+
+  <p>&#39;は、除外できる tempdb を持つ SQL Server 仮想マシンの hyper-v から Azure へのシナリオを考えてみましょう。</p>
+
+
+  <p>Hyper-v VM の名前: SalesDB</p>
+
+
+  <p>ソース Hyper-v VM 上のディスク:</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="881">
+   <tbody>
+    <tr>
+     <td valign="top" width="190"><strong>VHD 名 </strong></td>
+     <td valign="top" width="106"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="75"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="508"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="190">DB-Disk0-OS</td>
+     <td valign="top" width="106">DISK0</td>
+     <td valign="top" width="75">C:\</td>
+     <td valign="top" width="508">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="190">DB-Disk1</td>
+     <td valign="top" width="106">Disk1</td>
+     <td valign="top" width="75">D:\</td>
+     <td valign="top" width="508">SQL システム データベースとユーザー データベース 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="190">DB-Disk2 (保護対象から除外するディスク)</td>
+     <td valign="top" width="106">Disk2</td>
+     <td valign="top" width="75">E:\</td>
+     <td valign="top" width="508">一時ファイル</td>
+    </tr>
+    <tr>
+     <td valign="top" width="190">DB-Disk3 (保護対象から除外するディスク)</td>
+     <td valign="top" width="106">Disk3</td>
+     <td valign="top" width="75">F:\</td>
+     <td valign="top" width="508">SQL tempdb データベース (F:\MSSQL\Data \)  -- &gt; フォルダーパス (フェールオーバーの前にフォルダーパスをメモします)</td>
+    </tr>
+    <tr>
+     <td valign="top" width="190">DB-Disk4</td>
+     <td valign="top" width="106">Disk4</td>
+     <td valign="top" width="75">G:\</td>
+     <td valign="top" width="508">ユーザー データベース 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>VM の2つのディスクのデータチャーンは本質的に一時的なものであるため、SalesDB VM の保護中に、レプリケーションから Disk2 と Disk3 を除外します。 ASR はこれらのディスクをレプリケートしません。フェールオーバー時に、これらのディスクは Azure のフェールオーバー VM に存在しません</p>
+
+
+  <p>フェールオーバー後、Azure VM には次のディスクが存在します。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="714">
+   <tbody>
+    <tr>
+     <td valign="top" width="133"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="133"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="446"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">DISK0</td>
+     <td valign="top" width="133">C:\</td>
+     <td valign="top" width="446">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">Disk1</td>
+     <td valign="top" width="133">E:\</td>
+     <td valign="top" width="446">一時記憶域 (このディスクは Azure によって追加され、利用可能な最初のドライブ文字が割り当てられます)</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">Disk2</td>
+     <td valign="top" width="133">D:\</td>
+     <td valign="top" width="446">SQL システム データベースとユーザー データベース 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">Disk3</td>
+     <td valign="top" width="133">G:\</td>
+     <td valign="top" width="446">ユーザー データベース 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>Disk2 と Disk3 は SalesDB VM から除外されたため、利用可能な最初のドライブ文字は E: となります。 一時的な記憶域のボリュームには、Azure によって E: が割り当てられます。 レプリケート対象のディスクについては、いずれもドライブ文字は変化しません。</p>
+
+
+  <p>SQL の tempdb ディスクとして使用されていた Disk3 (tempdb フォルダーのパスは F:\MSSQL\Data\) はレプリケーションから除外され、フェールオーバー VM では利用できません。 その結果、SQL サービスは停止状態となります。SQL サービスには F:\MSSQL\Data パスが必要であるためです。</p>
+
+
+  <p>このパスは 2 とおりの方法で作成できます。</p>
+
+
+  <ol>
+   <li>新しいディスクを追加し、tempdb フォルダーのパスを割り当てます。</li>
+   <li>既にある一時記憶域ディスクを tempdb フォルダー パスに使用します。</li>
+  </ol>
+
+
+  <h3>新しいディスクを追加する場合</h3>
+
+
+  <ol>
+   <li>フェールオーバーの前に、SQL の tempdb.mdf と tempdb.ldf のパスをメモします。</li>
+   <li>Azure Portal から、フェールオーバー VM に新しいディスクを追加します。レプリケーション元の SQL tempdb ディスク (Disk3) と同じかそれ以上のサイズを確保してください。</li>
+   <li>Azure VM にログインします。 ディスクの管理 (diskmgmt.msc) コンソールから、新しく追加したディスクを初期化してフォーマットします。</li>
+   <li>SQL tempdb ディスクに使用されていたものと同じドライブ文字を割り当てます (F:)。</li>
+   <li>F: ボリューム (F:\MSSQL\Data) に tempdb フォルダーを作成します。</li>
+   <li>サービス コンソールから SQL サービスを開始します。</li>
+  </ol>
+
+
+  <h3>既存の一時記憶域ディスクを SQL tempdb フォルダー パスに使用する場合</h3>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. コマンドラインコンソールを開きます。 &nbsp; &nbsp; &nbsp;</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. &nbsp; &nbsp; &nbsp; コマンドラインコンソールから回復モードで SQL サーバーを実行する</p>
+
+
+  <pre>
+
+  Net start MSSQLSERVER /f / T3608</pre>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 次の sqlcmd を実行して、tempdb パスを新しいパスに変更します。 &nbsp; &nbsp;</p>
+
+
+  <pre>
+
+  sqlcmd -A -S &lt;SQL server instance name&gt;
+
+
+  sqlcmd -A -S SalesDB
+
+
+  USE master;
+
+
+  GO
+
+
+  ALTER DATABASE tempdb
+
+
+  MODIFY FILE (NAME = tempdev, FILENAME = &#39;E:\MSSQL\tempdata\tempdb.mdf&#39;);
+
+
+  GO
+
+
+  ALTER DATABASE tempdb
+
+
+  MODIFY FILE (NAME = templog, FILENAME = &#39;E:\MSSQL\tempdata\templog.ldf&#39;);
+
+
+  GO</pre>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. &nbsp; &nbsp; Microsoft SQL server サービスを停止します。</p>
+
+
+  <pre>
+
+  Net stop MSSQLSERVER</pre>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. &nbsp; &nbsp; Microsoft SQL server サービスを開始します。</p>
+
+
+  <pre>
+
+  Net start SSQLSERVER</pre>
+
+
+  <p>一時記憶域ディスクについては、次の Azure ガイドラインを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://blogs.technet.microsoft.com/dataplatforminsider/2014/09/25/using-ssds-in-azure-vms-to-store-sql-server-tempdb-and-buffer-pool-extensions/">Azure VM で SSD を使用した SQL Server TempDB とバッファー プール拡張機能の保存</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-sql-performance/">Azure Virtual Machines における SQL Server のパフォーマンスに関するベスト プラクティス</a></li>
+  </ul>
+
+
+  <h2>Azure からオンプレミスへのフェールバック</h2>
+
+
+  <p>次に、Azure からオンプレミスの Hyper-v ホストにフェールオーバーするときに、どのディスクがレプリケートされるかを&#39;に理解します。 Azure で手動で作成したディスクはレプリケートされません。 たとえば、3 つのディスクをフェールオーバーし、Azure VM に直接 2 つのディスクを作成した場合、フェールオーバーされた 3 つのディスクだけがフェールバックされます。 フェールバックで手動で作成されたディスク、またはオンプレミスから Azure への再保護に、手動で作成したディスクを含める&#39;できます。 また、一時記憶域ディスクもオンプレミスにはレプリケートされません。</p>
+
+
+  <h4>OLR へのフェールバック</h4>
+
+
+  <p>元の場所へのフェールバックが実行されると、フェールバック VM のディスク構成は元の VM ディスク構成と同じままになります。 つまり Hyper-V サイトから Azure へのレプリケーションで除外されたディスクが、フェールバック VM では利用できるようになります。</p>
+
+
+  <p>上の例では、Azure VM のディスク構成は次のようになります。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="714">
+   <tbody>
+    <tr>
+     <td valign="top" width="133"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="133"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="446"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">DISK0</td>
+     <td valign="top" width="133">C:\</td>
+     <td valign="top" width="446">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">Disk1</td>
+     <td valign="top" width="133">E:\</td>
+     <td valign="top" width="446">一時記憶域 (このディスクは Azure によって追加され、利用可能な最初のドライブ文字が割り当てられます)</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">Disk2</td>
+     <td valign="top" width="133">D:\</td>
+     <td valign="top" width="446">SQL システム データベースとユーザー データベース 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">Disk3</td>
+     <td valign="top" width="133">G:\</td>
+     <td valign="top" width="446">ユーザー データベース 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>Azure からオンプレミスの Hyper-v に対して計画されたフェールオーバーを実行した後、Hyper-v VM (元の場所のレプリケーション) のディスクは次のようになります。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="881">
+   <tbody>
+    <tr>
+     <td valign="top" width="125"><strong>VHD 名 </strong></td>
+     <td valign="top" width="129"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="116"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="509"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk0-OS</td>
+     <td valign="top" width="129">DISK0</td>
+     <td valign="top" width="116">C:\</td>
+     <td valign="top" width="509">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk1</td>
+     <td valign="top" width="129">Disk1</td>
+     <td valign="top" width="116">D:\</td>
+     <td valign="top" width="509">SQL システム データベースとユーザー データベース 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk2 (除外されたディスク)</td>
+     <td valign="top" width="129">Disk2</td>
+     <td valign="top" width="116">E:\</td>
+     <td valign="top" width="509">一時ファイル</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk3<br>
+  (除外されたディスク)</td>
+     <td valign="top" width="129">Disk3</td>
+     <td valign="top" width="116">F:\</td>
+     <td valign="top" width="509">SQL tempdb データベース (フォルダーのパスは F:\MSSQL\Data\)</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk4</td>
+     <td valign="top" width="129">Disk4</td>
+     <td valign="top" width="116">G:\</td>
+     <td valign="top" width="509">ユーザー データベース 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>ページング ファイルのディスクを除外する</h2>
+
+
+  <p>&#39;は、除外可能なページファイルディスクがある仮想マシンの Hyper-v から Azure へのシナリオを考えてみましょう。</p>
+
+
+  <p>次の 2 つのケースがあります。</p>
+
+
+  <h3>Case1: ページファイルは D: ドライブに構成されています</h3>
+
+
+  <p>Hyper-v VM ディスク構成:</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="674">
+   <tbody>
+    <tr>
+     <td valign="top" width="164"><strong>VHD 名 </strong></td>
+     <td valign="top" width="117"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="96"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="295"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="164">DB-Disk0-OS</td>
+     <td valign="top" width="117">DISK0</td>
+     <td valign="top" width="96">C:\</td>
+     <td valign="top" width="295">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="164">DB-Disk1<br>
+  (保護対象外のディスクは除外されます)</td>
+     <td valign="top" width="117">Disk1</td>
+     <td valign="top" width="96">D:\</td>
+     <td valign="top" width="295">pagefile.sys</td>
+    </tr>
+    <tr>
+     <td valign="top" width="164">DB-Disk2</td>
+     <td valign="top" width="117">Disk2</td>
+     <td valign="top" width="96">E:\</td>
+     <td valign="top" width="295">ユーザー データ 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="164">DB-Disk3</td>
+     <td valign="top" width="117">Disk3</td>
+     <td valign="top" width="96">F:\</td>
+     <td valign="top" width="295">ユーザー データ 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>Hyper-v VM のページファイルの設定:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/214de022-91a0-44b0-9744-71c0960c81cf.png"><img alt="image" border="0" height="421" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05ca2441-3faf-49c2-b44b-fd039ff8171a.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="絵" width="318"></a></p>
+
+
+  <p>Hyper-v から Azure に VM をフェールオーバーした後、Azure VM のディスクは次のようになります。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="881">
+   <tbody>
+    <tr>
+     <td valign="top" width="125"><strong>VHD 名 </strong></td>
+     <td valign="top" width="129"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="116"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="509"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk0-OS</td>
+     <td valign="top" width="129">DISK0</td>
+     <td valign="top" width="116">C:\</td>
+     <td valign="top" width="509">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk1</td>
+     <td valign="top" width="129">Disk1</td>
+     <td valign="top" width="116">D:\</td>
+     <td valign="top" width="509">一時ストレージ &ndash; &gt; pagefile.sys</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk2</td>
+     <td valign="top" width="129">Disk2</td>
+     <td valign="top" width="116">E:\</td>
+     <td valign="top" width="509">ユーザー データ 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk3</td>
+     <td valign="top" width="129">Disk3</td>
+     <td valign="top" width="116">F:\</td>
+     <td valign="top" width="509">ユーザー データ 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>Disk1 以降 (D:)が除外されました。D: は使用可能な一覧の最初のドライブ文字です。Azure は D: letter を一時ストレージ ボリュームに割り当てします。&nbsp; D: は Azure VM で使用できるので、VM のページファイル設定は変わりません。</p>
+
+
+  <p>Azure VM におけるページ ファイルの設定:</p>
+
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24c6890a-f6bd-479c-b50f-5eb4061820b0.png"><img alt="image" border="0" height="423" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92f32a88-cf3c-40b7-97d3-34c69722cf49.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="332"></a></p>
+
+
+  <h3>Case2: ページファイル ファイルは、他のドライブ (D: ドライブ以外) で構成されます</h3>
+
+
+  <p>Hyper-V VM ディスクの構成:</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="674">
+   <tbody>
+    <tr>
+     <td valign="top" width="177"><strong>VHD 名 </strong></td>
+     <td valign="top" width="123"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="89"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="283"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="177">DB-Disk0-OS</td>
+     <td valign="top" width="123">DISK0</td>
+     <td valign="top" width="89">C:\</td>
+     <td valign="top" width="283">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="177">DB-Disk1 (保護対象から除外するディスク)</td>
+     <td valign="top" width="123">Disk1</td>
+     <td valign="top" width="89">G:\</td>
+     <td valign="top" width="283">pagefile.sys</td>
+    </tr>
+    <tr>
+     <td valign="top" width="177">DB-Disk2</td>
+     <td valign="top" width="123">Disk2</td>
+     <td valign="top" width="89">E:\</td>
+     <td valign="top" width="283">ユーザー データ 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="177">DB-Disk3</td>
+     <td valign="top" width="123">Disk3</td>
+     <td valign="top" width="89">F:\</td>
+     <td valign="top" width="283">ユーザー データ 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>Hyper-V VM のページファイル設定:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/24fab651-e163-4d93-abaf-dc9dac085288.png"><img alt="image" border="0" height="414" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4d4ebd5-7999-4199-a763-b8514bec1119.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="328"></a></p>
+
+
+  <p>Hyper-V から Azure に VM をフェールオーバーした後、Azure VM 上のディスクは次の処理を行います。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="881">
+   <tbody>
+    <tr>
+     <td valign="top" width="125"><strong>VHD 名 </strong></td>
+     <td valign="top" width="129"><strong>ゲスト OS ディスク# </strong></td>
+     <td valign="top" width="116"><strong>ドライブ文字 </strong></td>
+     <td valign="top" width="509"><strong>ディスクに格納されているデータの種類</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk0-OS</td>
+     <td valign="top" width="129">DISK0</td>
+     <td valign="top" width="116">C:\</td>
+     <td valign="top" width="509">OS ディスク</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk1</td>
+     <td valign="top" width="129">Disk1</td>
+     <td valign="top" width="116">D:\</td>
+     <td valign="top" width="509">一時ストレージ &ndash;&gt; pagefile.sys</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk2</td>
+     <td valign="top" width="129">Disk2</td>
+     <td valign="top" width="116">E:\</td>
+     <td valign="top" width="509">ユーザー データ 1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="125">DB-Disk3</td>
+     <td valign="top" width="129">Disk3</td>
+     <td valign="top" width="116">F:\</td>
+     <td valign="top" width="509">ユーザー データ 2</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>利用可能な最初のドライブ文字は D: であるため、一時記憶域ボリュームには Azure によって D: が割り当てられます。 レプリケート対象のディスクについては、いずれもドライブ文字は変化しません。 G: のディスクは利用できないため、ページ ファイルには C: ドライブが使用されます。</p>
+
+
+  <p>Azure VM におけるページ ファイルの設定:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0bfeb8c-5659-41cc-bc99-5214e55587a4.png"><img alt="image" border="0" height="393" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d1a90ca4-2fba-4762-a935-3db395616d65.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="311"></a></p>
+
+
+  <p>追加の<a href="https://aka.ms/asr-hub-asr-landing">製品情報を確認し、</a>ワークロードのレプリケートを開始して、現在Microsoft AzureをAzure Site Recoveryできます。 レプリケートする新しい物理サーバーまたは仮想マシンごとに、Site Recovery の強力なレプリケーション機能を 31 日間無料で使用できます。 <a href="https://aka.ms/asr-hub-asr-forums">MSDN の Azure Site Recovery</a> フォーラムにアクセスして追加情報を確認したり、他の顧客と対話したり、<a href="https://aka.ms/asr_vmware_to_azure_enhanced_uservoice">ASR User Voice</a> を使用して、次に有効にしたい機能をお知らせします。</p>
+
+
+  <p>Azure Site Recovery Microsoft Operations Management Suite の一部として、ワークロードの実行場所 (Azure、AWS、Windows Server、Linux、VMware、OpenStack) に関係なく、コスト効率の高い、1 つのクラウド IT 管理ソリューションを使用して、ワークロードを制御および管理できます。 既存System Center顧客は、現在の投資を活用することで、Microsoft Operations Management Suiteアドオンを利用して、より多くのことを行える状態にできます。 既存のすべての顧客に便利なステップアップ価格で、OMS が提供する新しいサービスSystem Center取得します。 必要な IT 管理サービスにのみアクセスして、迅速にボードに乗り込み、すぐに価値を得て、使用する機能に対してだけ料金を支払うのも可能です。</p>

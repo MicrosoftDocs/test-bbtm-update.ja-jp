@@ -1,0 +1,76 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0b5f10f7fd02e41e698a181a2a8cbceceacb7575
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893532"
+Slug: confirming-dynamic-ip-address-restrictions-in-windows-azure-web-sites
+Title: Azure Web サイトでの動的 IP アドレスWindowsの構成
+Summary: Azure Web サイトの最新Windowsアップグレードにより、IIS8 の動的 IP 制限モジュールが有効になっています。開発者は、動的 IP 制限機能 (または DIPR を短い手として) を有効にして構成できます。
+Content: >-
+  Azure Web サイトの最新Windowsアップグレードにより、IIS8 の動的 IP 制限モジュールが有効になっています。開発者は、Web サイトの動的 IP 制限機能 (または DIPR を短い手で) を有効にして構成できます。
+
+
+  IIS8 機能の概要については、次のページを参照してください。
+
+
+  <a href="https://www.iis.net/learn/get-started/whats-new-in-iis-8/iis-80-dynamic-ip-address-restrictions" target="_blank">https://www.iis.net/learn/get-started/whats-new-in-iis-8/iis-80-dynamic-ip-address-restrictions</a>
+
+
+  DIPR 機能は、開発者に対して次の 2 つの主な保護を提供します。
+
+  <ul>
+   <li>同時要求の数に基づく IP アドレスのブロック</li>
+   <li>一期間の要求数に基づく IP アドレスのブロック</li>
+  </ul>
+
+  開発者はさらに、ブロックされた要求で返送されるエラー HTTP 状態コードの種類など、DIPR の動作を構成できます。
+
+
+  Azure Web サイトでは、開発者は Web サイトのルート フォルダーにある web.config ファイルに追加された構成セクションを使用して DIPR を構成します。
+
+
+  同時要求の数に基づいて接続をブロックする場合 (つまり、アクティブな要求がある時点で現在実行されている場合)、次の構成スニペットを Web サイトの web.config ファイルに追加します。
+
+
+  <a href="" target="_blank"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4111.Screen-Shot-2013_2D00_08_2D00_27-at-11.30.04-AM.png" border="0" /></a>
+
+
+  <em>denyByConcurrentRequests</em> 要素で enabled 属性を <strong>true</strong> に設定すると、同時要求の最大数が <em>maxConcurrentRequests</em> 属性で設定された値 (上の例では 10 に設定) を超えると、IIS は IP アドレスからの要求のブロックを自動的に開始します。<em></em>
+
+
+  または、特定の時間内に行われた要求の総数に基づいて接続をブロックする場合は、次の構成スニペットを使用できます。
+
+
+  <a href="" target="_blank"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5488.Screen-Shot-2013_2D00_08_2D00_27-at-11.35.38-AM.png" border="0" /></a>
+
+
+  上の例では、<em>denyByRequestRate</em> 要素で enabled 属性を <strong>true</strong> に設定すると、<em>requestIntervalInMilliseconds</em> (2000 ミリ秒に設定) によって定義された期間内に観察された要求の総数が IP アドレスからの要求をブロックする必要があります。<em></em> 例の) が <em>maxRequests</em> 属性で設定された値を超えている (この例では 10 に設定されています)。そのため、2 秒間に 10 を超える要求を行うクライアントはブロックされます。
+
+
+  最後に、開発者は両方のブロック メカニズムを同時に有効にすることもできます。次のスニペットは、DIPR に対して、同時要求が 10 件を超える場合、または 5 秒間に合計 20 件を超える要求を行ったクライアントをブロックします。
+
+
+  <a href="" target="_blank"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7317.Screen-Shot-2013_2D00_08_2D00_27-at-11.36.21-AM.png" border="0" /></a>
+
+
+  DIPR が IP アドレスをブロックした後、アドレスは現在のウィンドウの最後までブロックされたままです。その後、IP アドレスはもう一度 Web サイトに要求できます。たとえば、 <em>requestIntervalInMilliseconds </em>が 5000 (5 秒) に設定され、IP アドレスが 2 秒のマークでブロックされている場合、アドレスはさらに 3 秒間ブロックされたままになります。これは、現在の期間の残りの時間です。
+
+
+  開発者は、<em>dynamicIpSecurity </em>要素自体に <em>denyAction</em> 属性を構成することで、クライアントがブロックされた場合に返されるエラーをカスタマイズできます。 denyAction に使用できる <em>値は次</em> のとおりです。
+
+  <ul>
+   <li>AbortRequest (HTTP 状態コード 0 を返します)</li>
+   <li>未承認 (HTTP 状態コード 401 を返します)</li>
+   <li>禁止 (HTTP 状態コード 403 を返します)。これが既定の設定です。</li>
+   <li>NotFound (HTTP 状態コード 404 を返します)</li>
+  </ul>
+
+  たとえば、既定値 (Forbidden 403) ではなく 404 状態コードを送信する場合は、次の構成を使用できます。
+
+
+  <a href="" target="_blank"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6765.Screen-Shot-2013_2D00_08_2D00_27-at-11.36.58-AM.png" border="0" /></a>
+
+
+  考え出される質問の 1 つは、Azure Web サイトで実行するときに DIPR に表示される IP アドレスです。Azure で実行Windows、Web アプリケーションがさまざまなロード バランサーの背後に配置されています。これは、Web サイトに提示されるクライアント IP アドレスが、インターネット上の実際のクライアントではなくアップストリーム ロード バランサーのアドレスである可能性があります。ただし、Azure Web サイトでは、必要な変換が自動的に処理され、DIPR モジュールによって "表示される" クライアント IP アドレスが、HTTP 要求を行うインターネット クライアントの実際の IP アドレスになります。

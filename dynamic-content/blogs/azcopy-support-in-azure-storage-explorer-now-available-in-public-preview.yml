@@ -1,0 +1,90 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7edd06898790ba6924d33e21b6972146d9bf1c18
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893624"
+Slug: azcopy-support-in-azure-storage-explorer-now-available-in-public-preview
+Title: Azure Storage Explorer での azcopy のサポートがパブリックプレビューで利用できるようになりました
+Summary: AzCopy のパブリックプレビューを Azure Storage Explorer で共有します。 AzCopy は、ストレージアカウントとの間でパフォーマンスの高いデータ転送を提供する一般的なコマンドラインユーティリティです。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10" target="_blank">Azcopy</a>のパブリックプレビューを Azure Storage Explorer で共有します。 AzCopy は、ストレージアカウントとの間でパフォーマンスの高いデータ転送を提供する一般的なコマンドラインユーティリティです。 新しいバージョンの AzCopy では、スケーラブルな設計によってパフォーマンスと信頼性が向上しています。同時実行性は、マシン &rsquo; の論理コアの数に応じてスケールアップされます。 また、ツール &rsquo; の回復性も、繰り返し再試行することによって改善されています。</p>
+
+
+  <p>Azure Storage Explorer には、さまざまなストレージタスク用の UI インターフェイスが用意されています。また、azcopy を転送エンジンとして使用して、Azure Storage のファイル転送に最高のスループットを提供できるようになりました。 この機能は現在、Azure Storage Explorer のプレビューとして提供されています。</p>
+
+
+  <h2>Blob のアップロードとダウンロードのために AzCopy を有効にする</h2>
+
+
+  <p>データ転送のパフォーマンスが非常に重要であることが、多くのお客様から寄せられています。 &rsquo;正直に言うと、ファイルが Azure に転送されるまで待機するよりも、すべての処理をより適切に行うことができます。 ここで、azcopy を Azure Storage Explorer に使用すると、すべての時間が返されます。</p>
+
+
+  <p>AzCopy preview では、blob の操作が以前よりも高速になります。 このオプションを有効にするには、[<strong>プレビュー </strong>] メニューの [拡張された<strong>blob アップロードに azcopy を使用</strong>する] を選択し、をダウンロードします。</p>
+
+
+  <p>Azure Files および batch blob の削除のサポートに取り組んでいます。 <a href="https://github.com/Microsoft/AzureStorageExplorer" target="_blank">GitHub リポジトリ</a>でサポートされていることをお知らせします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af0c47dd-df67-4bf0-9446-2998818c33e3.png"><img alt="Enable AzCopy in Azure Storage Explorer " border="0" height="118" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19130cba-ed73-4e48-8f34-22cbbecb616e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Storage Explorer で AzCopy を有効にする " width="505"></a></p>
+
+
+  <p align="center"><em>図 1: Azure Storage Explorer で AzCopy を有効にする </em></p>
+
+
+  <h2>どれくらい速くなるでしょうか。</h2>
+
+
+  <p>この環境での簡単なテストでは、Azure Storage Explorer で AzCopy を使用してファイルをアップロードすることで、大幅な改善が見られました。 時間は、コンピューターごとに異なる場合があることに注意してください。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top">&nbsp;</td>
+     <td valign="top"><strong>Storage Explorer </strong></td>
+     <td valign="top"><strong>Storage Explorer w/AzCopyV10</strong></td>
+     <td valign="top"><strong>改善</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">10K 100 KB ファイル</td>
+     <td valign="top">1時間36分</td>
+     <td valign="top">59秒</td>
+     <td valign="top">98.9%</td>
+    </tr>
+    <tr>
+     <td valign="top">100 MB</td>
+     <td valign="top">5分12秒</td>
+     <td valign="top">1分35秒</td>
+     <td valign="top">69.5%</td>
+    </tr>
+    <tr>
+     <td valign="top">1 10 GB ファイル</td>
+     <td valign="top">3分41秒</td>
+     <td valign="top">1分40秒</td>
+     <td valign="top">54.7%</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p align="center"><em>図 2: ブログのアップロードとダウンロードのために AzCopy as 転送エンジンを使用した場合のパフォーマンスの向上</em></p>
+
+
+  <p align="left"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79d0bb99-df5e-4094-aadb-a84a6a6afa3c.gif"><img alt="AzCopy uploads and downloads blobs efficiently 1 x 10GB files" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d0c02a9-8b60-4311-b54d-31b26e0e380d.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AzCopy は blob を効率的に1つの 10 GB のファイルにアップロードしてダウンロードします" width="782"></a></em></p>
+
+
+  <p align="center"><em>図 3: AzCopy が blob を効率的にアップロード/ダウンロードする (1 x 10 GB のファイル)</em></p>
+
+
+  <p align="left"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61f8f760-67cc-423d-a28a-073cc78c4836.gif"><img alt="AzCopy uploads and downloads blobs efficiently 10,000 x 10KB files" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a96e8525-a584-4a81-b2c9-eb1d90063b55.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AzCopy は blob を効率的に 1万 x 10 KB ファイルにアップロードしてダウンロードします。" width="782"></a></em></p>
+
+
+  <p align="center"><em>図 4: AzCopy が blob を効率的にアップロード/ダウンロードする (1万 x 10 KB files)</em></p>
+
+
+  <h2>次のステップ</h2>
+
+
+  <p>現在 Azure Storage Explorer で azcopy プレビュー機能を試すことをお勧めします。お客様からのフィードバックをお待ちしております。 問題を特定した場合、または機能に関するご提案が必要な場合は、 <a href="https://github.com/Microsoft/AzureStorageExplorer" target="_blank">GitHub リポジトリ</a>で問題を報告してください。</p>

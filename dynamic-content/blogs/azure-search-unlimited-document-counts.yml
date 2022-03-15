@@ -1,0 +1,106 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cfd0f543db3f8580b552f988fbf069e4194681c1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889590"
+Slug: azure-search-unlimited-document-counts
+Title: 'Azure Search Serviceアップグレード: 新しいハードウェア、無制限のドキュメント数など!'
+Summary: 2017 年後半から、新しい有料 Azure Search サービスはすべて、一部のリージョンで新しいより強力な基になるハードウェアを使用し始めました。 アップグレードされた検索サービスでは、パフォーマンスが大幅に向上し、ドキュメント数の制限が削除され、追加コストはかからなくなっています。
+Content: >-
+  <p>現在、Azure Search のすべての有料サービス レベルで、新しくプロビジョニングされたサービスすべてへのパフォーマンスのアップグレードをお知らせします。 まったく同じ価格で、これらのアップグレードされた Azure Search サービスは、Azure Search をサポートした以前のハードウェア構成のコンピューティング機能の約 2 倍です。 さらに、Standard レベルのサービスは、以前に使用した HDD ストレージと比較して、SSD ストレージを使用し始めました。</p>
+
+
+  <h2>これは Azure Search にとって何を意味しますか?</h2>
+
+
+  <p>これらのサービスのアップグレードにより、Basic および Standard の価格レベルからドキュメント数の制限が削除されました。 つまり、新しく作成 <a href="https://aka.ms/azsearchlimits" target="_blank">された</a> Azure Search サービスではストレージの制限だけが適用されます。 シナリオのワークロードによっては、&rsquo;これらのアップグレードされたサービスは、インデックス作成とクエリのパフォーマンスを同じ正確な価格ポイントで高速化するメリットを得る場合もあります。</p>
+
+
+  <p>Basic レベルでは、インデックス数の 5 から 15 への増加がサポートされます。 また、Basic レベルでは、Azure Search でサービスあたり最大 15 のデータ ソースとインデクサー <a href="https://aka.ms/azsearchindexers" target="_blank">を</a> サポートできます。 Standard 3 High Density 価格レベル (マルチテナント シナリオに最適<a href="https://aka.ms/azss3multitenancy" target="_blank"></a>) では、パーティションの制限ごとに 2 億件のドキュメントを削除し、インデックスごとの制限のみを適用しました。<a href="https://aka.ms/azsearchlimits" target="_blank"></a></p>
+
+
+  <h2>無制限のドキュメント数</h2>
+
+
+  <p>これらのアップグレードにより、Azure Search では、新しく割り当て済み Basic サービスと Standard サービスに対してドキュメント数の制限を適用できなくなりました。 ただし、ストレージの制限は引き続き適用され、テストとベンチマークによって、新しいハードウェアに対していくつかの実際の制限が明らかです。</p>
+
+
+  <table>
+      <tbody>
+          <tr>
+              <td rowspan="2" width="208">
+              <p>&nbsp;</p>
+              </td>
+              <td colspan="2" width="416">
+              <p>パーティションあたりの実用的なドキュメント数</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="208">
+              <p>パーティションごとに小さなドキュメント (&lt;10 フィールド &lt;、1 KB)</p>
+              </td>
+              <td width="208">
+              <p>パーティションごとに大きなドキュメント (50 フィールド、50 KB)</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="208">
+              <p>Standard 1</p>
+              </td>
+              <td width="208">
+              <p>約 2,500 万ドキュメント</p>
+              </td>
+              <td width="208">
+              <p>約 100 万ドキュメント</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="208">
+              <p>Standard 2</p>
+              </td>
+              <td width="208">
+              <p>約 1 億件のドキュメント</p>
+              </td>
+              <td width="208">
+              <p>約 400 万ドキュメント</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="208">
+              <p>Standard 3</p>
+              </td>
+              <td width="208">
+              <p>約 2 億件のドキュメント</p>
+              </td>
+              <td width="208">
+              <p>約 800 万ドキュメント</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>特定のストレージの使用は、フィールドの数、フィールド内のコンテンツのサイズ、インデックス スキーマで定義されている特定の検索属性など、いくつかの要因に依存します。</p>
+
+
+  <h2>サポートされているリージョン</h2>
+
+
+  <p>新しいハードウェア構成と制限の緩和は、Azure Search が提供されているほとんどのリージョンで利用できます。 現在、アップグレードされたハードウェアは、ブラジル南部、カナダ中部、インド中部、米国東部、米国中北部、北ヨーロッパ、米国中南部、東南アジア、英国南部、西ヨーロッパ、米国西部のリージョンで利用できます。</p>
+
+
+  <p>Azure Search は、2017 年後半からこれらのリージョンで新しく作成されたサービスにアップグレードされたハードウェアの使用を開始しました。 現在、既存のサービスはアップグレードされた制限に従ってはありません。 既存のサービスに適用される制限の詳細については、Azure portal を使用して、サービスの概要ページで制限&#39;を表示します。</p>
+
+
+  <p>次のリージョンでは、引き続き Azure Search の古いハードウェア構成が使用され、以前の制限が適用 <a href="https://aka.ms/azsearchlimits">されます:オーストラリア</a>東部、東アジア、西日本、米国中西部。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>新しいハードウェアと制限Search Service Azure Search Serviceを作成するには、サポートされているリージョンの 1 つで Basic レベルまたは Standard レベルの Azure Search Service をプロビジョニングします。 新しく作成されたサービスでは、アップグレードされたハードウェアが自動的に使用されます。</p>
+
+
+  <p><a href="https://aka.ms/whatisazsearch" target="_blank">Azure Search とその機能の詳細については、ドキュメント</a>を参照<a href="https://aka.ms/azsearchdocs" target="_blank">してください</a>。 Azure Search のさまざまな <a href="https://aka.ms/azspricing" target="_blank">価格レベルについては</a> 、価格に関するページを参照してください。</p>

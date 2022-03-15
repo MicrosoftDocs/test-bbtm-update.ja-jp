@@ -1,0 +1,225 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a0299a81954bbba1d62dfdb89b1da503d844379c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893866"
+Slug: monitoring-environmental-conditions-near-underwater-datacenters-using-deep-learning
+Title: ディープラーニングを使用した水中データセンター付近の環境状態の監視
+Summary: Microsoft では、世界中の環境の課題を解決するために、クラウドと人工知能 (AI) ツールを、世界中の AI などのプログラムを使用して開発しています。
+Content: >-
+  <p><em>このブログ投稿は、Xiaoyong Zhu、Nile Wilson (microsoft AI CTO Office)、Ben Cutler (Project Natick)、Lucas Joppa (microsoft 最高環境責任者) によって共同で作成されています。</em></p>
+
+
+  <p>Microsoft では、世界中の環境の課題を解決するために、クラウドと人工知能 (AI) ツールを、世界中 <a href="https://www.microsoft.com/en-us/aiforearth/">の ai などの</a>プログラムを使用して開発しています。 また、これらの同じツールを使用して、 <a href="https://natick.research.microsoft.com/">Project Natick</a>と連携して行われる作業など、環境との独自の相互作用を理解します。</p>
+
+
+  <p><a href="https://natick.research.microsoft.com/">Project Natick</a>は、世界中に subsea データセンターをデプロイすることのメリットと課題を理解することを目指しています。水中データセンターは&#39;世界的にデプロイされており、これは持続性を重視して設計されています。 フェーズ2では、更新可能なエネルギーを利用して、北部に全規模のデータセンターモジュールをデプロイすることで、フェーズ1で達成された調査を拡張します。 Project Natick は AI を使用して、サーバーやその他の機器を監視して障害の兆候を確認し、環境とサーバーの長期間の相関関係を特定します。</p>
+
+
+  <p>Project Natick は標準的な土地データセンターのように動作するため、の内部のコンピューターは、他の Microsoft データセンターと同様に、機械学習で AI を他のアプリケーションに提供するために使用できます。 また、データセンターにどのような影響があるかを理解するための最初の手順として、AI を使用して周辺の水生の環境を監視しています。</p>
+
+
+  <p><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a953e59-b9a0-427b-b71b-df4ec0470f8c.png"><img alt="image" border="0" height="351" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6f634128-1775-4586-b4e9-fd6c7dfeda01.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p align="center"><em>図 1.Natick datacenter submergence を Project します。Scott Eklund/Red Box の画像で写真を撮影します。</em></p>
+
+
+  <h2>オブジェクト検出を使用した海上生活の監視</h2>
+
+
+  <p>Project Natick datacenter には、サーバーの状態と環境を監視するためのさまざまなセンサーが搭載されています。これには、ライブビデオストリームとして使用できる2つの水中カメラがあります ( <a href="https://natick.research.microsoft.com/#section-live">Project Natick ホームページ</a>のライブストリームを参照してください)。 これらのカメラを使用すると、データセンター外の2つの固定された場所から、リアルタイムで周囲の環境を監視することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5bd8de1-12d7-4362-885a-e1483406f0fa.png"><img alt="image" border="0" height="231" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad63f308-bed5-44ce-949b-b34a1f5e6543.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="574"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af416e0f-5a05-4a05-9711-5ade92ae2b31.gif"><img alt="Natick livestream" height="143" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9dcac1be-8755-4740-8fa9-310316d57d42.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="Natick ライブストリーム" width="214"></a></p>
+
+
+  <p align="center"><em>図 2.Project Natick datacenter のライブカメラフィード (ソース: <a href="https://natick.research.microsoft.com/">Project Natick ホームページ</a>)</em></p>
+
+
+  <p align="left">カメラに見られる海上生活をカウントしたいと考えています。 ビデオストリームの各フレームで海の生活を手動でカウントするには、かなりの労力が必要です。 この問題を解決するには、オブジェクト検出を活用して、海上生活の監視とカウントを自動化します。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2792ad9b-f8ce-4777-8bc1-3314145e36fe.png"><img alt="image" border="0" height="103" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cfe0dd19-f4eb-46f3-af9f-305856a8929e.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="509"></a></p>
+
+
+  <p align="center"><em>図 3.ライブカメラフィードから、左、光線などのさまざまな水生生活が見られます。中央、魚右、矢印 (ワーム)</em></p>
+
+
+  <p align="left">各フレームで、海の生物の数をカウントします。 これは、オブジェクト検出の問題としてモデル化されています。 オブジェクト検出では、分類のタスクをローカライズに結合し、カテゴリと、イメージで検出された各オブジェクトの境界ボックスを表す座標のセットの両方を出力します。 これを図4に示します。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bddd2529-6c88-451d-81d5-f3ef32f4c30d.png"><img alt="image" border="0" height="212" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ad926c0-b6aa-4070-bfd8-85e88803e6da.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="460"></a></p>
+
+
+  <p align="center"><em>図 4.コンピュータービジョンにおけるオブジェクト検出タスク。左、入力イメージ、右、オブジェクト検出と境界ボックス</em></p>
+
+
+  <h2>オブジェクト検出モデルを選択する方法</h2>
+
+
+  <p>この数年で、オブジェクト検出の多くの興味深い学習方法が登場しました。 <a href="https://arxiv.org/abs/1506.01497">高速 CNN</a>などのモデルでは、2段階の手順を使用して、まず、いくつかのオブジェクトを含む領域を提案し、次に提案された領域の分類を指定して、提示された境界ボックスを調整します。 ワンステージアプローチを使用すると、1 <a href="https://pjreddie.com/media/files/papers/YOLOv3.pdf">回のみ</a> (yolo) と <a href="https://arxiv.org/abs/1512.02325">ワンショット Multibox 探知器 </a>(SSD)、または <a href="https://arxiv.org/abs/1708.02002">RetinaNet</a> のようなクロスボックス検出機能 (SSD) を使用できます。また、焦点が失われた場合は、領域の提案ステージを検出してスキップするための一連の固定のボックスを検討します。</p>
+
+
+  <p>ビデオのリアルタイムオブジェクト検出を実現するには、速度と精度のバランスを取る必要があります。 ビデオストリームから、ビュー &mdash; 魚、矢印のワーム、および光線に含まれる、いくつかの種類の水生の生活があることがわかります。 Animal カテゴリの数に制限があるため、Cpu で実行できる比較的軽量なオブジェクト検出モデルを選択できます。</p>
+
+
+  <p>さまざまなディープラーニングモデルのアーキテクチャの速度と精度を比較することで、ネットワークアーキテクチャとして MobileNet で SSD を使用することを選択しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61051631-481f-4e0c-8575-f8d32f0824ed.png"><img alt="image" border="0" height="313" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7875297-9690-446f-8fc2-43f4b92956e9.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="507"></a></p>
+
+
+  <p align="center"><br>
+
+  <em>図 5.オブジェクトの検出方法 (精度と推定時間のトレードオフ)。マーカー図形はメタアーキテクチャを示し、色は特徴抽出を示します。各 (メタアーキテクチャ、機能エクストラクター) ペアは、入力サイズ、ストライドなどの変更により、このプロット上の複数のポイントに対応します。 (<a href="https://arxiv.org/pdf/1611.10012.pdf">ソース</a>)</em></p>
+
+
+  <h2>環境を監視するための AI 指向アーキテクチャ</h2>
+
+
+  <p>AI 指向アーキテクチャ (AOA) は、デジタル変革を促進するために AI を使用する企業向けのブループリントです。 AOA を使用すると、組織は、ビジネスソリューションを実現するために使用 &nbsp; できる AI ツール、サービス、およびインフラストラクチャのセットにビジネスソリューションをマップできます。 この例では、AI 指向アーキテクチャを使用して、環境監視用のディープラーニングソリューションを設計します。</p>
+
+
+  <p>図6は、水中データセンターの近くにある海の生活を監視する AI 指向アーキテクチャを示しています。 まず、OpenCV を使用して Azure Media Service からストリーミングビデオファイルを保存し、次に VoTT を使用してビデオフレームにラベルを付け、ラベル付きデータを Azure Blob Storage に配置します。 データセットがラベル付けされ Azure Blob Storage に配置されたら、Azure を使用してオブジェクト検出モデルのトレーニングを開始します。 モデルのトレーニングが完了したら、モデルを Natick データセンターに配置します。これにより、モデルは入力ストリームに対して直接推論を実行できます。 結果は PowerBI にポストされるか、直感的なデバッグのために UI に直接表示されます。 これらの各手順については、以下のセクションで説明します。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f77f5af4-90e3-4cd3-8535-0e22a142634f.png"><img alt="image" border="0" height="259" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/840782a2-95b9-4514-86a2-c4af38dc362c.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p align="center"><em>図 6.水中野生を検出するための AI 指向アーキテクチャ</em></p>
+
+
+  <p>環境監視ソリューションの主な要素は次のとおりです。</p>
+
+
+  <ul>
+   <li>データセット <ul>
+    <li>Visual オブジェクトのタグ付けツール (VoTT) を使用したデータのラベル付け</li>
+    <li>トレーニングおよび評価中に簡単にアクセスできるようにデータセットを格納するための Azure <a href="https://azure.microsoft.com/en-us/services/storage/blobs/">Blob Storage</a></li>
+   </ul>
+   </li>
+   <li>ツール <ul>
+    <li>"自動フローオブジェクト検出 API"</li>
+   </ul>
+   </li>
+   <li>Azure <ul>
+    <li>Azure GPU クラスター、または Project Natick Datacenter で使用可能な CPU クラスター</li>
+   </ul>
+   </li>
+   <li>開発ツールと展開ツール <ul>
+    <li>統合開発環境 (IDE: integrated development environment) でモデルを開発およびデバッグするための拡張機能である<a href="https://www.visualstudio.com/downloads/ai-tools-vs/">AI の Visual Studio Tools</a></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h3>オブジェクト検出のラベル付けデータ</h3>
+
+
+  <p>最初の手順では、ビデオファイルにラベルを付けます。 ビデオストリームは一般公開されています (<a href="https://aka.ms/azuremediaplayer?url=%2F%2Fnatickmediaservices.streaming.mediaservices.windows.net%2F57320b1f-7365-436c-8e4e-9bad1345e849%2Fa5f06021-0b1e-4af9-8071-89727c774501.ism%2Fmanifest">ここ</a> と <a href="https://aka.ms/azuremediaplayer?url=%2F%2Fnatickmediaservices.streaming.mediaservices.windows.net%2F436cbbc1-6c6f-40e1-a3b3-f65baa4ecdc9%2F41f19f22-1154-4661-8d54-5adaf375d43a.ism%2Fmanifest">ここ</a>では、OpenCV を使用してローカル mp4 ファイルに保存できます)。 ラベル付けプロセスを容易にするために、Microsoft が開発したオープンソースツール <a href="https://github.com/Microsoft/VoTT">VoTT</a> を使用して mp4 ビデオファイルにラベルを付けます。 VoTT は、ビデオ内のオブジェクトのラベル付け用に構築された一般的に使用されるツールです。</p>
+
+
+  <p>この問題については、魚と矢印のワームを監視するように範囲を限定しています。 2つのクラス (矢印のワームと魚) について、合計で200のイメージをラベル付けし、ラベルが付けられたデータを<a href="https://github.com/Microsoft/Project_Natick_Analysis">GitHub リポジトリ</a>で使用できるようにします。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1620d0b0-ad0d-46a8-a04f-4f35f87e88e8.png"><img alt="image" border="0" height="285" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f34486c3-f9b2-441a-91ee-f46e8b41271c.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="555"></a></p>
+
+
+  <p align="center"><em>図 7.ラベル付きファイルのサンプルイメージ</em></p>
+
+
+  <h2>Azure を使用したオブジェクト検出モデルのトレーニング</h2>
+
+
+  <p>ここでは、オブジェクトの検出を実行するために、「」を使用しています。 水中動物を認識するようにニューラルネットワークを簡単にトレーニングできるように、いくつかの組み込みのネットワークアーキテクチャを備えた、自動転送 <a href="https://github.com/tensorflow/models/tree/master/research/object_detection">フローオブジェクト検出 API</a> が用意されています。</p>
+
+
+  <p>データセットは小さいため (矢印のワームと魚の合計で200の画像)、問題は、ラベルが付けられたデータを制限し、オーバーフィットを回避するための十分なオブジェクト検出機能をトレーニングする方法です。 COCO weight から初期化された1000の手順のオブジェクト検出機能をトレーニングします。これには、反転、色の調整 (色合い、明るさ、コントラスト、鮮やかさなど)、境界ボックス jittering などの強力なデータ拡張機能が含まれています。これにより、ほとんどの条件下でモデルが適切に一般化されるようになります。</p>
+
+
+  <p>また、一般的4:1 に使用されているアンカー比 (2:1 など) に加えて、多くのアンカー比を使用して、ほとんどの動物を確実にキャプチャできるようにします。 これは、矢印の付いたワームをキャプチャする場合に特に便利です。</p>
+
+
+  <p>コードとオブジェクトの検出の構成は、この<a href="https://github.com/Microsoft/Project_Natick_Analysis">GitHub リポジトリ</a>で利用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bdfbcce8-5e02-4a29-8533-a17f04b3cb3b.png"><img alt="image" border="0" height="160" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7dd99e28-0151-4cfa-a8d5-c4d799acc60d.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="566"></a></p>
+
+
+  <p align="center"><em>図 8.水中 creature 検出機能のトレーニングの損失</em></p>
+
+
+  <h3>Project Natick datacenter へのモデルのデプロイ</h3>
+
+
+  <p>もう1つ質問されたのは、データセンターの野生 teeming を監視するために、モデルを Natick データセンターにデプロイできるかどうかということです。</p>
+
+
+  <p>Cpu を使用して入力ビデオを処理し、ローカルでテストして問題なく動作することを確認しました。 ただし、最新の AVX や FMA 組み込みのバイナリには、最新の Cpu を完全に活用するための最適化 (や FMA など) はありません。 Cpu をより効果的に使用するために、ソースコードから、Intel &rsquo; の <a href="https://software.intel.com/en-us/articles/intel-optimization-for-tensorflow-installation-guide">ドキュメント</a>に従って intel CPU のすべての最適化を有効にすることで、このバイナリを作成しました。 すべての最適化を使用すると、処理50速度を1秒あたり約2フレームから3フレーム/秒に増加させることができます。 ビルドコマンドは次のようになります。</p>
+
+
+  <pre>
+
+  bazel build --config=mkl -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mavx512f --copt=-mavx512pf --copt=-mavx512cd --copt=-mavx512er --copt=&quot;-DEIGEN_USE_VML&quot;
+
+
+  //tensorflow/tools/pip_package:build_pip_package</pre>
+
+
+  <h3>Power BI を使用したリアルタイムの環境監視</h3>
+
+
+  <p>環境科学者と水生の科学者は、水中データセンターの統計をより直感的に監視する方法を活用できます。これにより、Power BI による強力な視覚化を通じて、何が起こっているかについての洞察をすばやく得ることができます。</p>
+
+
+  <p>Power BI にはリアルタイムデータセットという概念があり、リアルタイムでストリーミングされたデータを受け入れたり、<a href="https://docs.microsoft.com/en-us/power-bi/service-real-time-streaming">ダッシュボードを更新</a>したりすることができます。 REST API を呼び出すと、数行のコードで Power BI ダッシュボードにデータを投稿できます。</p>
+
+
+  <pre>
+
+  # REST API endpoint, given to you when you create an API streaming dataset
+
+  # Will be of the format: <a href="https://api.powerbi.com/beta/">https://api.powerbi.com/beta/</a>&lt;tenant id&gt;/datasets/&lt; dataset id&gt;/rows?key=&lt;key id&gt;
+
+  REST_API_URL = &#39; *** Your Push API URL goes here *** &#39;
+
+  # ensure that timestamp string is formatted properly
+
+  now = datetime.strftime(datetime.now(), &quot;%Y-%m-%dT%H:%M:%S%Z&quot;)
+
+  # data that we&#39;re sending to Power BI REST API
+
+  data = &#39;[{{ &quot;timestamp&quot;: &quot;{0}&quot;, &quot;fish_count&quot;: &quot;{1}&quot;, &quot;arrow_worm_count&quot;: &quot;{2}&quot; }}]&#39;.format(now, fish_count, arrow_worm_count)
+
+  req = urllib2.Request(REST_API_URL, data)
+
+  response = urllib2.urlopen(req)</pre>
+
+
+  <p>動物はすぐに移動する可能性があるため、多数のフレームに対してデータを短時間でキャプチャしたり、Power BI ダッシュボードに送信したり、コンピューティングリソースを消費したりすることについて、慎重にバランスを取る必要があります。 このバランスを達成するために、分析されたデータ (たとえば、魚の数) を1秒あたり3回 Power BI にプッシュすることを選択しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/01a8b2d6-efd8-47fe-9b2e-695792e6364d.png"><img alt="image" border="0" height="174" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/024e3c5f-09bb-492a-b835-dc258a084494.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p align="center"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a922b56-ae94-4130-8a3c-a7f3b7c8c659.gif"><img alt="Natick Power BI dashboard" border="0" height="359" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d78b59fd-ab95-4b57-b32e-459931e00c0f.gif" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="Natick Power BI ダッシュボード" width="573"></a></em></p>
+
+
+  <p align="center"><em>図 9.ビデオフレームと一緒に実行されている Power BI ダッシュボード。Bottom: E2E の結果を表示する GIF</em></p>
+
+
+  <h2 align="left">まとめ</h2>
+
+
+  <p>環境への影響の監視は重要なトピックです。 AI を使用すると、このプロセスの拡張性と自動化を高めることができます。 この記事では、水中データセンターの近くで環境を監視するためのディープラーニングソリューションを開発した方法について説明しました。 このソリューションでは、データを取り込んで格納する方法を説明し、カメラに見られる海の生活を検出するために水中 animal 検出機能をトレーニングします。 その後、モデルはデータ センター内のマシンにデプロイされ、海洋の生活を監視します。 同時に、ビデオ ストリームを分析し、Power BI s ストリーミング API を&rsquo;活用して、時間の流れと生活を監視する方法も確認しました。</p>
+
+
+  <p>質問やコメントがある場合は、リポジトリにメッセージ<a href="https://github.com/Microsoft/Project_Natick_Analysis">GitHubしてください</a>。</p>

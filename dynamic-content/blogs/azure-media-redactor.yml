@@ -1,0 +1,294 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 28676558760629115b68b0ca2ea05f82e51dc69f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893598"
+Slug: azure-media-redactor
+Title: Azure Media Analytics の顔編集の発表
+Summary: マイクロソフトでは、一定期間の無料パブリックプレビューとして、自動的な顔編集の Azure Media Redactor のパブリックプレビューを発表しています。
+Content: >-
+  <p>Azure Media Redactor は Azure Media Analytics の一部であり、クラウドでのスケーラブルな校正機能を提供します。 このメディアプロセッサ (MP) は、選択された個人の顔をぼかすことで匿名化を実行します。これは、公共の安全やニュースメディアのシナリオでの使用に最適です。 [監視] と [パブリックスペース] では、本文のデジタルカメラを使用することがますます一般的になっています。これにより、情報の自由度でビデオを開示するように要求したり、パブリックレコードが機能したりするときに、これらの部門に大きな負担がかかります。 これらの要求に対応するには、未成年者または byスタンドの顔をぼかす必要があるため、時間とコストがかかります。</p>
+
+
+  <p>複数の顔を持つビデオでは、数分の映像を手動で消してしまうまでに数時間かかることがあります。 このサービスを使用すると、手動による校正処理を少数の単純な touchups に減らす手間が軽減されます。</p>
+
+
+  <h2>Azure Media Analytics</h2>
+
+
+  <p>Azure Media Analytics は、エンタープライズ規模、コンプライアンス、セキュリティ、グローバルな展開で提供される音声サービスと視覚サービスのコレクションです。 Azure によって提供されるその他の Media Analytics プロセッサについては、「ミラノ Gadas ブログの投稿」を参照してください <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-media-analytics">Azure Media Analytics</a>。</p>
+
+
+  <p>これらの機能には、次のプリセットを使用して api を使用するか、無料の Azure Media Services エクスプローラーツールを使用して、新しい Azure portal でアクセスできます。</p>
+
+
+  <p>墨消しは、期間限定で無料のパブリックプレビュー版になり、9月中旬から開始されるすべてのパブリックデータセンターに含まれるようになり<strong>ます。 </strong>中国および US Gov データセンターは GA リリースに含まれる予定です。</p>
+
+
+  <h2>顔編集</h2>
+
+
+  <p>顔編集は、ビデオのフレームごとに顔を検出し、その顔オブジェクトを時間軸の前後にわたって追跡することで、同一の人間を他の角度からも処理します。</p>
+
+
+  <p>校正は、コンピューターが解決するのに困難な問題でもあります。 通常は、誤検知や偽陽性がいくつか表示されます。特に、低負荷または高速移動がある困難なビデオでは、</p>
+
+
+  <p>自動校正の結果は100% ではない可能性があるため、完全な校正を実現するために最終出力を変更する方法を提供します。</p>
+
+
+  <p>完全自動モードに加えて、2つの pass ワークフローがあります。このワークフローでは、Id の一覧を使用して検出された顔を選択/選択解除できます。また、JSON 形式のメタデータファイルを使用して、任意のフレーム調整を行うことができます。 このワークフローは、1つのジョブで両方を実行する1つのパスの結合 &rsquo; モードに加えて、分析 &lsquo; &rsquo; モードと墨消し &rsquo; モードに &lsquo; 分割され &lsquo; ます。</p>
+
+
+  <h3>結合モード</h3>
+
+
+  <p>手作業なしで、自動的に修正された mp4 が生成されます。</p>
+
+
+  <p>メディアプロセッサ名: &ldquo; Azure Media Redactor&rdquo;</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="799">
+      <tbody>
+          <tr>
+              <td valign="top" width="129"><strong>段階</strong></td>
+              <td valign="top" width="175"><strong>[ファイル名]</strong></td>
+              <td valign="top" width="493"><strong>メモ</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力資産</td>
+              <td valign="top" width="175">foo.bar</td>
+              <td valign="top" width="493">WMV、MPV、MP4 形式のビデオ</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力 config</td>
+              <td valign="top" width="175">ジョブ構成プリセット</td>
+              <td valign="top" width="493">{&#39;バージョン&#39;: &#39;1.0&#39;、&#39;オプション&#39;: {&#39;Mode&#39;: &rsquo; 組み文字 &rsquo; }}</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">出力資産</td>
+              <td valign="top" width="175">foo_redacted.mp4</td>
+              <td valign="top" width="493">ぼかしが適用されたビデオ</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>入力例:</p>
+
+
+  <p><iframe align="center" autoplay="allowfullscreen" frameborder="no" height="420" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=http%3A%2F%2Freferencestream-samplestream.streaming.mediaservices.windows.net%2Fed99001d-72ee-4f91-9fc0-cd530d0adbbc%2FDancing.mp4&amp;format=video%2Fmp4&amp;autoplay=false" width="750"></iframe></p>
+
+
+  <p>出力例:</p>
+
+
+  <p><iframe align="center" allowfullscreen="" frameborder="no" height="420" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=http%3A%2F%2Freferencestream-samplestream.streaming.mediaservices.windows.net%2Fc6608001-e5da-429b-9ec8-d69d8f3bfc79%2Fdance_redacted.mp4&amp;format=video%2Fmp4&amp;autoplay=false" width="750"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>分析モード</h3>
+
+
+  <p>&ldquo;2 つのパスワークフローの分析 &rdquo; パスは、ビデオ入力を受け取り、顔の場所の JSON ファイルと、検出された各顔の jpg イメージを生成します。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="927">
+      <tbody>
+          <tr>
+              <td valign="top" width="129"><strong>段階</strong></td>
+              <td valign="top" width="478"><strong>[ファイル名]</strong></td>
+              <td valign="top" width="318"><strong>メモ</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力資産</td>
+              <td valign="top" width="478">foo.bar</td>
+              <td valign="top" width="318">WMV、MPV、MP4 形式のビデオ</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力 config</td>
+              <td valign="top" width="478">ジョブ構成プリセット</td>
+              <td valign="top" width="318">{&#39;バージョン&#39;: &#39;1.0&#39;、&#39;オプション&#39;: {&#39;Mode&#39;: &rsquo; analyze &rsquo; }}</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">出力資産</td>
+              <td valign="top" width="478">foo_annotations.json</td>
+              <td valign="top" width="318">JSON 形式での、顔の位置の注釈データです。 ユーザー編集によりぼかし枠を変更することができます。 以下のサンプルを参照してください。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">出力資産</td>
+              <td valign="top" width="478">foo_thumb%06d.jpg [foo_thumb000001.jpg, foo_thumb000002.jpg]</td>
+              <td valign="top" width="318">検出された顔それぞれをトリミングした jpg (数字は顔の labelId を示す)</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p><b>出力の例:</b></p>
+
+
+  <p><a href="https://referencestream-samplestream.streaming.mediaservices.windows.net/3ce00098-1f60-4b8f-a888-fda0cac0d92f/dance.json">完全ダウンロード</a></p>
+
+
+  <p>{<br>
+
+  &nbsp;&quot;バージョン &quot; : 1、<br>
+
+  &nbsp;&quot;タイムスケール &quot; :50、<br>
+
+  &nbsp;&quot;オフセット &quot; : 0、<br>
+
+  &nbsp;&quot;フレームレート &quot; : 25.0、<br>
+
+  &nbsp;&quot;幅 &quot; : 1280、<br>
+
+  &nbsp;&quot;高さ &quot; : 720、<br>
+
+  &nbsp;&quot;フラグメント &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;開始 &quot; : 0、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;期間 &quot; : 2、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;間隔 &quot; : 2、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;イベント &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;id &quot; : 1、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;x &quot; : 0.306415737、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;y &quot; : 0.03199235、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;幅 &quot; : 0.15357475、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;高さ &quot; : 0.322126418<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;id &quot; : 2、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;x &quot; : 0.5625317、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;y &quot; : 0.0868245438、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;幅 &quot; : 0.149155334、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;高さ &quot; : 0.355517566<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br>
+
+  &nbsp;&nbsp;&nbsp; },</p>
+
+
+  <p>&hellip; 切れ</p>
+
+
+  <h3>編集モード</h3>
+
+
+  <p>ワークフローの 2 番目のパスでは、単一の資産に結合する必要のある大量の入力を受け取ります。</p>
+
+
+  <p>これには、ぼかす対象となる Id の一覧、元のビデオ、JSON の注釈が含まれます。 このモードでは、注釈を使用して入力ビデオにぼかし効果を適用します。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="1166">
+      <tbody>
+          <tr>
+              <td valign="top" width="129"><strong>段階</strong></td>
+              <td valign="top" width="350"><strong>[ファイル名]</strong></td>
+              <td valign="top" width="685"><strong>メモ</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力資産</td>
+              <td valign="top" width="350">foo.bar</td>
+              <td valign="top" width="685">WMV、MPV、MP4 形式のビデオ 手順 1 と同じビデオです。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力資産</td>
+              <td valign="top" width="350">foo_annotations.json</td>
+              <td valign="top" width="685">フェーズ 1 からの注釈メタデータ ファイルで、変更可能です。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力資産</td>
+              <td valign="top" width="350">foo_IDList.txt (Optional)</td>
+              <td valign="top" width="685">行で区切られた、編集する顔 ID の新しい一覧です (オプション)。 空白のままにすると、すべての面がぼやけて表示されます。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">入力 config</td>
+              <td valign="top" width="350">ジョブ構成プリセット</td>
+              <td valign="top" width="685">{&#39;バージョン&#39;: &#39;1.0&#39;、&#39;オプション&#39;: {&#39;Mode&#39;: &rsquo; 墨消し &rsquo; }}</td>
+          </tr>
+          <tr>
+              <td valign="top" width="129">出力資産</td>
+              <td valign="top" width="350">foo_redacted.mp4</td>
+              <td valign="top" width="685">注釈に基づいてぼかし効果を適用したビデオ</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <h3>出力例</h3>
+
+
+  <p>これは 1 つの ID を選択した場合の IDList からの出力です。</p>
+
+
+  <p><iframe align="center" allowfullscreen="" frameborder="no" height="420" name="azuremediaplayer" scrolling="no" src="//aka.ms/ampembed?url=http%3A%2F%2Freferencestream-samplestream.streaming.mediaservices.windows.net%2Fad6e24a2-4f9c-46ee-9fa7-bf05e20d19ac%2Fdance_redacted1.mp4&amp;format=video%2Fmp4&amp;autoplay=false" width="720"></iframe></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>注釈について</h3>
+
+
+  <p>Redaction MP は、高精度の顔位置検出と追跡を行い、ビデオ フレーム内で最大 64 個の人の顔を検出できます。 顔が正面を向いているときに最善の結果が得られ、横顔や小さい顔 (24 x 24 ピクセル以下) のときは精度が低下することがあります。</p>
+
+
+  <p>検出および追跡された面は、顔の位置を示す座標 &nbsp; と共に返されます。また、その個人の追跡を示す顔 ID 番号も返されます。 顔 ID 番号は、前向きの顔が失われたりフレーム内で重なったりするとリセットされる場合があり、同じ顔に複数の ID が割り当てられる可能性があります。</p>
+
+
+  <p>各属性の詳細については、<a href="https://azure.microsoft.com/en-us/blog/face-and-emotion-detection/">顔検出のブログ</a>を参照してください。</p>
+
+
+  <h3>作業の開始</h3>
+
+
+  <p>このサービスを使用するには、azure サブスクリプション内に Media Services アカウントを作成し、 <a href="https://azure.microsoft.com/en-us/develop/media-services/">REST API/sdk</a>を使用するか、 &nbsp; <a href="https://aka.ms/amse">Azure Media Services エクスプローラー</a> (v 3.44.0.0 以降) を使用するだけです。</p>
+
+
+  <p>サンプルコードについては、<a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-face-and-emotion-detection/">ドキュメントページ</a>でサンプルコードを確認し、プリセットを上記のコードに置き換え、Azure Media Redactor &rdquo; メディアプロセッサ名 &ldquo; を使用してください。</p>
+
+
+  <h3>お問い合わせ</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/topics/media-services-2/">Azure Media Services ブログ</a>で、顔検出メディアプロセッサと Media Analytics イニシアチブの詳細についてご紹介します。</p>
+
+
+  <p>フィードバックと機能に関する要望は、 <a href="https://feedback.azure.com/forums/169396-azure-media-services/category/146181-media-analytics">UserVoice ページ</a>に送信してください。</p>
+
+
+  <p>Media Analytics 製品のいずれかについて不明な点がある場合は、に <a href="mailto:toamsanalytics@microsoft.com">amsanalytics@microsoft.com</a> 電子メールをお送りください。</p>

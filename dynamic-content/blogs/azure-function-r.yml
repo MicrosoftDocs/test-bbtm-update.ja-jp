@@ -1,0 +1,43 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a8525fefb3b910b966e46047a96794455a35fd58
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893613"
+Slug: azure-function-r
+Title: Azure 関数で R スクリプトを使用してサーバーレスに移行する
+Summary: 'サーバーレスはすべての rage で、R を使用してアクションを開始できます。 Azure functions では、さまざまな言語をサポートしています (C#、F #、js、batch、PowerShell、Python、php、一覧は拡大しています)。 ただし、R はネイティブではサポートされていません。 次のブログでは、R サイト拡張機能を使用して Azure 関数で R スクリプトを実行する方法について説明します。'
+Content: >-
+  <p><em>この投稿で説明されている手法は試験段階であり、公式にはサポートされていません。サポートされている手法の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/supported-languages" target="_blank">Azure Functions で公式にサポートされている言語の一覧</a>を参照してください。</em></p>
+
+
+  <p>サーバーレスはすべての rage で、R を使用してアクションを開始できます。 <a href="https://azure.microsoft.com/en-us/services/functions/">Azure</a> functions では、さまざまな言語をサポートしています (C#、F #、js、Batch、PowerShell、Python、php、一覧は拡大しています)。 ただし、R はネイティブではサポートされていません。 次のブログでは、 <a href="https://www.siteextensions.net/packages/R-3.3.3x64/">r サイト拡張機能</a>を使用して Azure 関数で r スクリプトを実行する方法について説明します。</p>
+
+
+  <p>さまざまなトリガーが用意されているため、Azure Functions はいくつかのシナリオで使用できます。</p>
+
+
+  <ul>
+      <li>タイマートリガーは、スケジュールに基づいて関数を実行します。</li>
+      <li>Http トリガー。 HTTP 呼び出しの後に関数を実行します。</li>
+      <li>Azure Queue Storage、Service Bus、Blob Storage は、新しいオブジェクトまたはメッセージが受信されたときに関数をトリガーします。</li>
+  </ul>
+
+
+  <p>Azure 関数で R スクリプトを実行する理由</p>
+
+
+  <p>一般的なユースケースでは、cron で現在スケジュールされている R ジョブを置き換えます。たとえば、 Azure 関数を使用すると、R スクリプトを定期的にトリガーするタイマートリガーを設定できます。 エラー発生時にアラートを受け取り、ログにアクセスしたり、ブラウザーから直接スクリプトを編集したりできる、完全に管理されたソリューションを利用できます。 従量課金プランを選択した場合は、コスト効率が高く、 <a href="https://azure.microsoft.com/en-us/pricing/details/functions/">使用量と基になるストレージのみ</a>が課金されます。 (従量課金プランでは、100万回の呼び出しに無料で許可されています)。</p>
+
+
+  <p>次のチュートリアルでは、R と Azure Functions のみを使用して、次の5日間の気温予測の ggplot を投稿する twitter bot を作成する手順について説明します。</p>
+
+
+  <p><strong><a href="https://github.com/thdeltei/azure-function-r">Azure 関数での R スクリプトの実行に関するチュートリアル</a></strong></p>
+
+
+  <p style="margin-top: 0.25em; box-sizing: border-box;"><a href="https://github.com/thdeltei/azure-function-r"><input alt="Twitter Temperature Bot" src="https://github.com/thdeltei/azure-function-r/raw/master/media/00_tweet.PNG" style="width: 400px; height: 378px;" type="image"></a></p>
+
+
+  <p style="margin-top: 0.25em; box-sizing: border-box;">今すぐお試しください。ご想像よりも簡単です。 フィードバックをお寄せください。ご意見をお聞かせください。</p>

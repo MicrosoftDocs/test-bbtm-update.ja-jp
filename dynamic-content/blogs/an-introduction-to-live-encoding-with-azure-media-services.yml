@@ -1,0 +1,151 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c588691311e5084703cb4fc5ddd6a2cbd8f1b070
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893660"
+Slug: an-introduction-to-live-encoding-with-azure-media-services
+Title: Live Encodingの概要Azure Media Services
+Summary: このブログでは、この機能の概要を説明Live Encoding、次の機能が追加Azure Media Services。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><strong>2019 </strong>年 4 月 19 日に更新: Azure Media Services 2015 年のブログ投稿から進化しています。 サービスの現在の機能&ldquo;については、Azure Media Services <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-streaming-overview">v3</a>&rdquo; &ldquo; でのライブ ストリーミングとライブ イベントとライブ出力に関するドキュメント<a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-events-outputs-concept">を参照してください</a>。&rdquo;特に、サポートされている形式、コーデック、および入力プロトコルに関する以下のセクションが更新されています。</div>
+
+
+  <p>Azure Media Services でのライブ ストリーミングのリリース以降、あなたは、ブロードキャスト担当者が何百万もの顧客にライブ イベントを配信するために何度も何度も使用したのと同じ、すぐにスケーラブルで常に利用可能なストリーミング ソリューションにアクセスできます。 &rsquo; Azure <a href="https://azure.microsoft.com/blog/2014/09/10/getting-started-with-live-streaming-using-the-azure-management-portal/" target="_blank">管理ポータル</a> または <a href="https://azure.microsoft.com/blog/2014/11/04/getting-started-with-live-streaming-using-the-media-services-sdk-2/" target="_blank">.NET SDK</a> を使用してライブ イベントを管理する方法、およびライブ フィードを生成する方法については、同僚のブログを<a href="https://azure.microsoft.com/blog/2014/09/18/azure-media-services-rtmp-support-and-live-encoders/" target="_blank">参照してください</a>。&nbsp;ただし、以前は、ライブ ストリーミングを使用するには、オンプレミスエンコーダーを使用してアダプティブ ビットレート のビデオ ストリームを生成し、クラウドにプッシュする必要があります。 Live Encoding のプレビュー リリースでは、代わりに単一ビットレートのライブ フィードを Azure Media Services に送信し、アダプティブ ビットレート ストリームにエンコードし、MPEG-DASH、Microsoft Smooth Streaming、Apple HLS、または Adobe HDS 形式で配信するさまざまなクライアントに配信することができます。 このブログでは、この機能の概要を説明Live Encoding機能を追加して、次の機能をAzure Media Services。</p>
+
+
+  <ul>
+   <li>アダプティブ ビットレート ストリームへのシングル ビットレート ライブ フィードのライブ エンコード</li>
+   <li>RTP プロトコル (MPEG トランスポート プロトコル)、RTMP、および ストリーム を使用してライブ フィードを取り込Smooth Streaming</li>
+   <li>スレートの挿入を制御できるだけでなく、クライアントへの広告の挿入をシグナルに送信する機能</li>
+   <li>ライブ フィードのサムネイル プレビューを取得する機能</li>
+  </ul>
+
+
+  <h2>何をLive Encoding?</h2>
+
+
+  <p>ライブ イベントをストリーミング&nbsp; する場合、目標は、顧客が持つ可能性のあるすべてのデバイスに、さまざまなネットワーク条件下で高品質のビデオを配信する方法です。 品質とネットワークの条件の問題には、アダプティブ ビットレート ストリーミングという <a href="https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming" target="_blank">解決策があります</a>。 また、複数のデバイス (とその機能) の問題に対する解決策は、ダイナミック パッケージなどの再パッケージ化 <a href="https://go.microsoft.com/fwlink/?linkid=276874" target="_blank">システムです</a>。 アダプティブ ビットレート ストリーミングは、ビデオをさまざまな解像度とビットレートで複数のビデオ ストリームにエンコードし、同期を維持することで機能します。 また、ライブ イベントの場合は、受信ビデオをリアルタイムで処理することで、待機時間を管理可能な数値に維持する必要があります。 このリアルタイムビデオ圧縮はLive Encodingで、多くのコンピューティング サイクルが必要です。 ライブ イベントをストリーミングするために、高速 CPU (GPU アクセラレーションなど) を備えたハードウェア ボックスを確認します。 さらに、複数の (6 から 10)&nbsp; のビデオ ストリームを生成しています。つまり、これらのストリームを CDN に取得するために多くの帯域幅も必要です。この帯域幅を使用して、顧客にイベントを配信できます。 インフラストラクチャのコストは、このような&hellip;インフラストラクチャのLive EncodingにAzure Media Servicesクラウド ベースのワークフローである場合に、コストを追加し始める必要があります。 この機能では、1 つの (高品質の) ビデオ フィードを Azure データ センターに送信する必要があります。サービスは、コンピューティング集中型の処理を処理してアダプティブ ビットレート ストリームにエンコードします。 つまり、リモートの場所からライブ イベントを実行できます (優れた高速 WiFi またはモバイル ネットワークに対する支払いのみ)、カメラに組み込まれるエンコーダー、またはより低い電力を必要とする (無料でも) 低コストのエンコーダー。 サービスはすぐにスケーラブルです。つまり、使用した分だけ支払うイベント スケジュールの急増に対処できます。</p>
+
+
+  <h2>操作方法を使用Live Encoding?</h2>
+
+
+  <p>次の手順に従Live Encodingライブ イベントを配信するイベントを設定できます。</p>
+
+
+  <ol>
+   <li>入力ライブ フィードに使用するプロトコルを決定します (下記のセクションを参照)。</li>
+   <li>API または Azure 管理ポータル を使用してライブ チャネルを作成し、ライブ エンコードのニーズを満たす設定を選択します</li>
+   <li>単一 (高品質) のビデオ フィードで送信するオンプレミス エンコーダーを設定する</li>
+   <li>Azure 管理ポータル を使用して、出力ストリームをプレビューします。</li>
+   <li>イベントを管理する <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-manage-channels-overview/" target="_blank">プログラムを作成する</a></li>
+  </ol>
+
+
+  <p>注: API の詳細と構成手順については、今後のブログ記事を参照してください。</p>
+
+
+  <h2>サポートされている形式とコーデック</h2>
+
+
+  <p>このアプリケーションでサポートされる入力プロトコルLive Encoding RTMP、RTP (MPEG TS)、および Smooth Streaming。 ビデオが MPEG-2 (最大 422 プロファイル) または H.264 (最大 422 プロファイル) でエンコードされ、オーディオが AAC-LC (最大 7.1 チャネル)、Dolby&reg; Digital/AC-3 (最大 7.1 チャネル) または MPEG Audio (Layer II および III、最大ステレオ) でエンコードされているライブ フィードで送信できます。 Live Encoder では、4:2:2 から 4:2:0 へのサブサンプリングとインターレースのデインターレース、オーディオ チャネルダウンミックス、オーディオ リサンプリング、オーディオダイナミック レンジ圧縮がサポートされています。 出力では、ライブ エンコーダーはビデオを H.264 (最大 4:2:0 プログレッシブ) にエンコードし、オーディオをステレオまたはモノラル チャネル AAC (LC、HE v1、HE v2 プロファイル) にエンコードできます。 Live Encoder では、入力ビデオ フィードに存在する場合、EIA/CEA-708 クローズド キャプションのパススルーもサポートされます。 シグナルアドバタイズの場合、Live Encoder は API&nbsp; 呼び出しによる入力をサポートします。または、in-bandSCTE-35&nbsp; SpliceInsert コマンドと TimeSignal コマンドが RTP の場合は入力をサポートします。 出力では、サービスは HLS プレイリスト タグ (SCTE-67)、Smooth Streaming スパース トラック (SCTE-35)、HDS CueInfo 要素を出力できます。</p>
+
+
+  <h2>取り込みプロトコルの選択</h2>
+
+
+  <p>入力ライブ フィードは、次のいずれかを使用してチャネルに送信できます。</p>
+
+
+  <ol>
+   <li>RTMP: Prosumer シナリオでは最も一般的です。入力フィードは、開いているインターネットを通して近くの Azure&nbsp; データ センターに送信できます。カメラに組み込みのエンコーダーを使用するか、Telestream Wirecast、Flash Media Live Encoder、Tricaster などのツールを使用します。</li>
+   <li>RTP: Elemental Technologies、Ericsson、Ateme&nbsp;、Envivio などのベンダーのオンプレミスライブ エンコーダーを使用して、プロのブロードキャストに対応しています。&nbsp;入力ストリームは、通常、&nbsp;IT 部門と組み合わせて設定され、Microsoft Azure ExpressRoute などのプライベート/専用ネットワークを<a href="https://azure.microsoft.com/en-us/services/expressroute/">使用して設定されます</a>。</li>
+   <li>Smooth Streaming HTTP:&nbsp;&nbsp; 通常、Elemental Technologies、Ericsson、Ateme、&nbsp;Envivio などのベンダーのオンプレミスライブ エンコーダーで使用されます。通常は、開いているインターネットを使用して、近くの Azure データ センターに入力ストリームを送信できます。</li>
+  </ol>
+
+
+  <h2>RTMP の使用に関する注意事項</h2>
+
+
+  <p>RTMP を使用してチャネルにライブ フィードを送信する場合は、次の制約が適用されます。</p>
+
+
+  <ol>
+   <li>最大 1080p30 の解像度で H.264 でエンコードされたビデオと、AAC-LC でエンコードされたステレオ オーディオ</li>
+   <li>オーディオ サンプリング レートは 44.1 kHz である必要があります</li>
+   <li>クローズ GOP と CBR モードのエンコードを推奨</li>
+   <li>使用可能な帯域幅は、ビデオとオーディオの合計ビットレートを超える必要があります</li>
+  </ol>
+
+
+  <h2>RTP の使用に関する注意事項</h2>
+
+
+  <p>RTP を使用してライブ ストリームで送信する予定の場合は、ネットワーク接続から次のことを期待する必要があります。</p>
+
+
+  <ol>
+   <li>高スループット (入力ストリームのビットレートの最大 1.5 倍)。 高い帯域幅は、一年中ではなく、高プロファイル イベント中にのみ必要になる可能性があります。このため、ネットワークの選択により、コストを削減するために帯域幅コミットメントを簡単に変更できる必要があります</li>
+   <li>traceroute によって報告される約 10 から 15 ホップの低待機時間 (150ms 以下)</li>
+   <li>QoS と利用可能性に&nbsp;関する SLA</li>
+  </ol>
+
+
+  <p>次に、推奨される 2 つの方法について説明します。 選択したオプションに関係なく、階層 1 ネットワーク プロバイダーを使用する必要があります。 階層 1 のネットワーク プロバイダーの一覧は、こちらを参照 <a href="https://en.wikipedia.org/wiki/Tier_1_network">してください</a>。</p>
+
+
+  <h2>パブリック インターネットおよび Border GatewayProtocol&nbsp; (BGP) ピアリングを使用した&nbsp; RTP</h2>
+
+
+  <p>RTP はパブリック インターネットを使用して使用し、BGP ピアリングはネットワークMicrosoft Azureできます。 この場合、インターネット容量 (高速 IP (HSIP) とも呼ばれる) は、1 つ以上のネットワーク プロバイダーによって提供されます。 ビデオ データはパブリック インターネットを&rsquo;経由し、ネットワーク プロバイダーのインターネット IP エッジとネットワーク間のクロスMicrosoft Azureを同じ場所に接続する必要があります。 このコロケーションは、ネットワーク プロバイダーと Microsoft に依存し、 <a href="https://www.peeringdb.com/" target="_blank">PeeringDB から見つけることができます</a>。 ネットワーク プロバイダーは、業界標準の SLA を使用して Azure へのインターネット配信サービスを担当します。 これは、現在の <a href="https://news.microsoft.com/2014/02/06/nbc-olympics-production-of-the-2014-olympic-winter-games-to-utilize-microsoft-for-live-and-on-demand-streaming/">NBC Sports/Sochi い</a>びきソリューションで使用したアプローチであり、多くの場合、ネットワーク コストが削減されます。</p>
+
+
+  <h2>プライベート/専用ネットワーク上の RTP</h2>
+
+
+  <p>専用プライベート ネットワークを使用した (ビデオ固有のデータではなく) 一般的なデータ転送用に設計されたネットワーク ソリューションを使用できます。 多くの場合、このオプションは、ネットワーク プロバイダーのマネージド サービス パッケージを介して提供されます。 必要なのは、パッケージで提供されるサービスのサブセットに過ちない場合があります。 このようなマネージド サービスの利点は、エンドツーエンドの配信が提供され、強化された SLA で管理されるという利点です。 このカテゴリには、次の 2 種類のサービスがあります。</p>
+
+
+  <ol>
+   <li>Microsoft <a href="https://azure.microsoft.com/en-us/services/expressroute/">Azure ExpressRoute</a> サービス プロバイダー (NSP) または Exchange プロバイダー (Azure ExpressRoute + Level 3 Cloud Connect Solutions&nbsp;、Azure ExpressRoute <a href="https://www.equinix.com/services/interconnection-connectivity/cloud-exchange/">+ Equinix Cloud</a> Exchange</li>
+   <li>レベル <a href="https://www.level3.com/en/products/vyvx-solutions/">3 VYVX</a> ソリューションなど、ネットワーク プロバイダーによって提供されるマネージド ビデオ サービス</li>
+  </ol>
+
+
+  <p>&nbsp; RTP を使用してライブ フィードを送信する場合、使用される一般的な転送中のエンコード/コンテナーとプロトコルは次のとおりです。</p>
+
+
+  <ul>
+   <li>エンコード: H264/AAC</li>
+   <li>コンテナー形式: MPEG-2 TS</li>
+   <li>ネットワーク プロトコル &ndash; アプリケーションレイヤー: RTP ユニキャスト</li>
+   <li>ネットワーク プロトコル &ndash; トランスポート層: UDP</li>
+  </ul>
+
+
+  <h2>スレートとシグナルアドバタイズの使用</h2>
+
+
+  <p>Live Encoding が有効なチャネルがある場合、パイプライン内のコンポーネントでビデオを処理し、操作することができます。 このサービスでは、チャネルがスレートや広告信号を送信アダプティブ ビットレート ストリームに挿入できます。 スレートは静止画像で、(コマーシャルの時間など) 特定のケースで入力ライブ フィードに被せるために使用できます。 広告シグナル &ndash; は、名前が示すように、送信ストリームに埋め込む時間同期シグナルです。これは、適切な時刻に広告に切り替えるなどの特別なアクションをビデオ プレーヤーに実行するように伝えます。 このために使用する SCTE-35 信号メカニズムの概要については、こちらの<a href="https://codesequoia.wordpress.com/2014/02/24/understanding-scte-35/" target="_blank">ブログ</a>をご覧ください。 ライブ イベントで実装できる一般的なシナリオを次に示します (サンプル コードと API の詳細は、今後のブログ記事で確認できます)。</p>
+
+
+  <ol>
+   <li>イベントが開始される前に、ビューアーに PRE-EVENT イメージを取得する</li>
+   <li>イベントの終了後にビューアーに POST-EVENT イメージを取得する</li>
+   <li>イベント中に問題が発生した場合に、ビューアーに ERROR-EVENT イメージを取得します (例: 球場の停電)</li>
+   <li>AD-BREAK イメージを送信して、商用のブレーク中にライブ イベント フィードを非表示にする</li>
+  </ol>
+
+
+  <h2>ライブ フィードの縮小表示プレビューを取得する</h2>
+
+
+  <p>Live Encoding が有効な場合は、ライブ フィードがチャネルに到達するとそのプレビューを取得できます。 これは、ライブ フィードがチャネルに実際に到達しているかどうかを確認するための重要なツールとなります。 API を使用してサムネイルにアクセスできます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>このブログでは、このブログの機能Live Encoding紹介Azure Media Services。 &nbsp;今後数日で、Azure 管理ポータル&nbsp; touse Live Encoding&nbsp; の使用、入力ライブ フィードを生成するためのオンプレミス エンコーダーの構成、スレートと広告の制御方法などのトピックに関する投稿が多数投稿される予定です。 この機能についてご質問がある場合は、 <a href="mailto:AMSLiveD@microsoft.com">AMSLiveD@microsoft.com</a></p>

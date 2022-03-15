@@ -1,0 +1,98 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dc7b9f162609d210e7673c0e2444c62672c130c4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893422"
+Slug: microsoft-open-sources-trill-to-deliver-insights-on-a-trillion-events-a-day
+Title: 1 日に数兆個のイベントに関する分析情報を提供する Microsoft オープン ソース Trill
+Summary: 今日の生産性の高い環境では、1 ミリ秒ごとに大量のデータを処理する作業が一般的なビジネス要件になりつきました。 そのため、"1 日に 1 兆件のイベント" という名前の内部 Microsoft プロジェクトが、オープンソースで Trill として利用できます。
+Content: >-
+  <p>今日の&rsquo;高速環境では、ミリ秒ごとに大量のデータを処理できるという一般的なビジネス要件が増えています。 1 日あたり 1 兆件のイベントを処理する Trill &ldquo;&rdquo; と呼ばれる内部の Microsoft プロジェクトが、この増加傾向に対処するためにオープン ソース化されたと発表しました。</p>
+
+
+  <p>開発者が Trill を好む理由のほんの一部を次に示します。</p>
+
+
+  <ul>
+      <li>単一ノード エンジン ライブラリとして、任意の .NET アプリケーション、サービス、またはプラットフォームで Trill を簡単に使用し、クエリの処理を開始できます。</li>
+      <li>テンポラル クエリ言語を使用すると、ユーザーは、リアルタイムまたはオフラインのデータ セットに対して複雑なクエリを表現できます。</li>
+      <li>目的の使用&rsquo;シナリオ全体で高いパフォーマンスを実現すると、ユーザーは驚くべき速度と低待機時間で結果を得ることができます。 たとえば、フィルターはメモリ帯域幅で動作し、1 秒あたり数十億のイベントを高速化しますが、グループ化された集計は 1 秒あたり 10 から 1 億のイベントで動作します。</li>
+  </ul>
+
+
+  <h2>豊富な履歴</h2>
+
+
+  <p>Trill は 2012 年に Microsoft Research の研究プロジェクトとして開始され、それ以降、 <a href="https://www.microsoft.com/en-us/research/publication/trill-a-high-performance-incremental-query-processor-for-diverse-analytics/" target="_blank">VLDB</a> や <a href="https://www.microsoft.com/en-us/research/publication/trill-engineering-library-diverse-analytics/" target="_blank">IEEE データ</a> エンジニアリング情報などの研究論文で広く説明されています。 Trills&rsquo; 言語の根源は、開発者が複雑なイベント処理アプリケーションを開発してデプロイできる強力なプラットフォームである Microsofts&rsquo; 以前のサービス StreamInsight にあります。 どちらのシステムも、時間コンポーネント <a href="https://www.microsoft.com/en-us/research/publication/temporal-analytics-on-big-data-for-web-advertising-2/" target="_blank">を使用して</a> リレーショナル モデルを拡張する拡張クエリと <a href="https://www.microsoft.com/en-us/research/publication/consistent-streaming-through-time-a-vision-for-event-stream-processing/" target="_blank">データ モデルに</a> 基づいて作成されます。</p>
+
+
+  <p>Trill より前のシステムではこれらの利点のサブセットしか達成されませんが、Trill は 1 つのパッケージでこれらすべての利点を提供します。 Trill は、ユーザーが許容する待機時間に基づいてデータの小さなバッチでイベントを処理する手法とアルゴリズムを組み込んだ最初のストリーミング エンジンでした。 また、これらのバッチを列形式で整理する最初のエンジンで、クエリを以前よりもはるかに効率的に実行できます。 ユーザーの場合、Trill の操作は .NET ライブラリの操作と同じなので、.NET 環境から離れる必要はありません。 ユーザーは、 <a href="https://dotnet.github.io/orleans/" target="_blank">ス</a> トリアンや Microsofts SCOPE データ処理インフラストラクチャのストリーミング バージョンなど、さまざまな分散処理インフラストラクチャに <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fadvertise.bingads.microsoft.com%2Fen-us%2Fblog%2Fpost%2Fjanuary-2015%2Fnow-available-in-bing-ads-campaign-performance-data-in-under-an-hour&amp;data=02%7C01%7CJames.Terwilliger%40microsoft.com%7Cdefb0258053841cc862a08d65a6d2acb%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636795822261318597&amp;sdata=u8fWOOTrxqLsCyxPtgURd8F9CUUjrNs8XK6QcEgoAd4%3D&amp;reserved=0" target="_blank">Trill&rsquo; を埋め込む可能性があります</a>。</p>
+
+
+  <p>Trill は、リアルタイムデータセットとオフライン データセットに対して同様に動作し、範囲をまたぐ最高のパフォーマンスを実現します。 これにより、すべての分析に対して 1 つのツールが必要なユーザーに最適なエンジンになります。 Trills&rsquo; 言語の非常に表現力に優れたユーザーは、豊富なウィンドウ仕様に対して高度な時間指向分析を実行できるだけでなく、ストリーミング データセットに対する複雑なパターンを探すのも可能です。</p>
+
+
+  <p>Microsoft 全体での立ち上げと初期デプロイの後、Trill プロジェクトは Microsoft Research から Azure Data 製品チームに移り、Microsoft 内で最大のミッション クリティカルなストリーミング パイプラインの一部の重要なコンポーネントになりました。</p>
+
+
+  <h2>ミッション クリティカルなストリーミング パイプラインの電力を供給する</h2>
+
+
+  <p>Trill は内部アプリケーションと外部サービスを機能し、何千人もの開発者にリーチします。 多くの強力なストリーミング サービスは、次を含む Trill を既に利用しています。</p>
+
+
+  <h3>Financial Fabric</h3>
+
+
+  <p><em>&ldquo;Trill を使用すると、Financial Fabric &amp;&rdquo;</em> &ndash; は、ストリーミング投資データに対してリアルタイムのポートフォリオ リスク分析を提供できます。これにより、ボリュームとベロシティのデータセットに対する財務分析を資金マネージャーに提供する方法が根本的に変更されます。Financial Fabric の最高技術責任者である Paul A. Paulpe、Ph.D.</p>
+
+
+  <h3>Bing 広告</h3>
+
+
+  <p>Trill を使用すると、24 時間以上の結果を得る従来の処理と比較して、数分以内にペタバイト単位で大規模なデータを処理できます<em>。&ldquo;ビューで Trill を区別する主な機能は、複雑なイベント処理を実行する機能、追跡とデバッグのためのクリーンな API、およびテンポラル セマンティクスを使用してストリーム処理パイプラインを継続的に実行する機能です。Trill を使用しない場合、特に特定のビッグ データ処理のニーズに対する追加の複雑な要件により、大規模なストリーミングを受け入れるのに苦労していたでしょう。&rdquo;</em>&ndash; RajeshPal、プリンシパル プログラム マネージャー、Bing</p>
+
+
+  <p><em>&ldquo;Trill は、広告用のストリーム処理システムの中心となるBing。強力で一貫性のあるデータ モデルと表現力のあるクエリ言語によって、複雑なビジネス シナリオを簡単に構築して実行できます。さらに&rsquo;、Trill はパフォーマンスのための設計であり、数百の演算子を含むクエリでも、非常に大量のデータを簡単に処理し、テラバイト単位の状態に対して動作することができるため、Trill &ldquo;&rdquo;&rdquo;</em> &ndash; は 1 日あたり数兆件のイベントの名前に対応しています。DanielMusgrave、ソフトウェア エンジニア、Bing</p>
+
+
+  <h3>Azure Stream Analytics</h3>
+
+
+  <p>Azure Stream Analyticsノード上の処理エンジンとして Trill を使用することで、10 か月以内にコードの最初の行からパブリック プレビュー<em>に移動しました。&ldquo;ライブラリ フォーム ファクターは、分散処理フレームワークおよび入出力アダプターと便利に統合されます。このSQLコンパイラは、SQL式に対するクエリをコンパイルするだけで、テンポラル セマンティクスの制限を処理します。これは、使用する美しいプログラミング モデルであり、高パフォーマンスのエンジンです。近い将来、すべてのお客様が表現力を活用できるよう、ユーザー定義の演算子モデルを通じて Trills&rsquo; プログラミング モデルを公開する予定です。&rdquo;</em> &ndash;Zchen Chen、Azure Data のプリンシパル グループ エンジニアリング マネージャー。</p>
+
+
+  <h3>ハロー</h3>
+
+
+  <p><em>&ldquo;Trill は、2013 年にサービスに導入された日から、データ処理パイプラインに組み込まれておりました。その影響は、Halo のゲームをプレイするために棒を選んだすべてのプレーヤーによって感じらされています。データ密度の高いゲーム テレメトリは、パイプラインを通過し、サービス内の Trill エンジンに流れます。異常で興味深いエクスペリエンスの発見から、悪い動作に対するフロントエンド防御の提供まで、Trill はデータ処理パイプラインで引き続き不変です。&rdquo;</em>&ndash; Mike Malyuk、Halo、シニア ソフトウェア エンジニア</p>
+
+
+  <p>Exchange、Azure ネットワーク、テレメトリ分析など、大規模なストリーミングを有効にする Trill の例は他にも多数Windows。</p>
+
+
+  <h2>オープン ソーシング Trill</h2>
+
+
+  <p>現在、開発者コミュニティで利用できる Trill と同等の情報はないと考えています。 特に、オープン ソーシングの Trill では、IEnumerable と IObservable を使用できるのと同じ方法で、すべてのお客様に IStreamable 抽象化の機能を提供したいと考えています。 Trill と IStreamable が、現在および将来のオープン ソース オファリングのストリーミングまたはテンポラル処理の強力な基盤を提供できると期待しています。</p>
+
+
+  <p>また、Trill の将来の開発にコミュニティが参加する機会も多数用意されています。 まず、Trill&rsquo; の機能拡張ポイントの 1 つは、ユーザーがカスタム集計を記述できる点です。 Trills&rsquo; 内部集計は、ユーザー定義の集計と同じフレームワークで実装されます。 すべての集計では、同じ基になる高パフォーマンス アーキテクチャが使用され、特別なケースはありません。 Trill にはさまざまな集計が既に存在しますが、特に財務などの垂直方向に追加できる数え切れないほどの集計があります。</p>
+
+
+  <p>Trill の上に構築されたいくつかの研究プロジェクトも存在し、コードは存在しますが、まだ製品対応の形式ではありません。 作業リストの上部にある 3 つのプロジェクトには、次のものがあります。</p>
+
+
+  <ul>
+      <li><a href="https://dl.acm.org/citation.cfm?doid=3035918.3035935" target="_blank">R 以上で</a> 通常見られる機能とパフォーマンスを備えたデジタル信号処理。</li>
+      <li>ユーザーが複数のレベルの <a href="https://ieeexplore.ieee.org/document/8509288" target="_blank">待機時間を</a> 指定できるように、順序が異なるデータを処理する機能が向上しました。</li>
+      <li>最近オープンソース化された FASTER フレームワークを使用してオペレーター <a href="https://www.microsoft.com/en-us/research/blog/microsoft-unveils-faster-key-value-store-large-state-management/" target="_blank">の状態を管理できます</a>。</li>
+  </ul>
+
+
+  <h2>Trill へようこそ。</h2>
+
+
+  <p>Trill を皆と共有できるのは非常に楽しみです。 Trills API、Microsoft 内での Trill&rsquo; の使用方法、および詳細な技術的な詳細に関するブログ投稿をお待ちしています。 その間に、GitHub リポジトリで <a href="https://github.com/Microsoft/trill" target="_blank">Trill</a> のソースとドキュメントを見つけ、Trill を使ってご自分の考えをお聞かわせください。</p>

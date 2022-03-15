@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 85e0dd4f7b49fc6abef85d5dc29e080390900f40
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893167"
+Slug: azure-stream-analytics-tools-for-visual-studio
+Title: Visual Studio 用の Azure Stream Analytics ツール
+Summary: Visual Studio 用の Azure Stream Analytics (ASA) ツールのパブリックプレビューについてお知らせします。 これらのツールは、Azure Stream Analytics の統合されたエクスペリエンスを提供するように設計されています。
+Content: >-
+  <p>Visual Studio 用の Azure Stream Analytics ツールのパブリックプレビューバージョンを試してみることはできましたか? それ以外の場合は、このブログの投稿に目を通して、Visual Studio の Stream Analytics 開発エクスペリエンスについて理解してください。 これらのツールは、Visual Studio で Azure Stream Analytics 開発ワークフローの統合されたエクスペリエンスを提供するように設計されています。 これにより、クエリロジックをすばやく作成し、Stream Analytics ジョブのテスト、デバッグ、診断を簡単に行うことができます。</p>
+
+
+  <p>これらのツールを使用すると、クラス最高のクエリ作成エクスペリエンスだけでなく、 <strong>IntelliSense (コード補完用)</strong>、 <strong>構文の強調表示</strong>、および <strong>エラーマーカー機能</strong>も利用できます。 開発者のイテレーションを高速化するために、代表的なサンプルデータを使用してローカルの開発用コンピューターでクエリをテストできます。 Azure Stream Analytics サービスとのシームレスな統合により、ジョブの送信、ライブジョブメトリックの監視、簡単な作業を行うことができます。また、数回クリックするだけで、既存のジョブをプロジェクトにエクスポートできます。 これよりも、Visual Studio ソース管理の統合機能を利用して、ジョブの構成とクエリを管理することができます。</p>
+
+
+  <h2>Visual Studio Project を使用して Stream Analytics ジョブを管理する</h2>
+
+
+  <p>新しいジョブを作成するには、組み込みの Stream Analytics テンプレートから新しいプロジェクトを作成するだけです。 ジョブの入力と出力は JSON ファイルに格納され、ジョブクエリは [script.asaql] ファイルに保存されます。 プロジェクト内の [入力および出力 JSON ファイル] をダブルクリックすると、設定 UI がポータル UI と非常によく似ていることがわかります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60a65c10-1f8c-495c-acc0-a4260e394910.png"><img alt="VS1" border="0" height="346" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33f19324-f714-4324-a32b-02a715d2c121.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS1" width="500"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc0126db-bed8-49f8-9b7d-968d5a1b2ea5.png"><img alt="VS2" border="0" height="429" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d27bf93e-b91e-4129-b837-e05d406c4f9e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS2" width="395"></a></p>
+
+
+  <h2>Visual Studio ツールを使用して Stream Analytics クエリを作成する</h2>
+
+
+  <p>[Script.asaql] ファイルをダブルクリックすると、クエリエディター、IntelliSense (コード補完)、構文の強調表示、およびエラーマーカーが開き、作成作業が非常に効率的になります。 また、ローカル入力ファイルが指定され、正しく定義されている場合、またはライブ入力ソースからデータをサンプリングしたことがある場合は、開発者が入力名を入力したときに、クエリエディターによって入力ソースの列名が要求されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5bc0d656-7754-428c-88fa-465b733c3ed3.png"><img alt="VS3" border="0" height="191" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/177b517f-e33b-4968-8983-fe1d80637bdf.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS3" width="917"></a></p>
+
+
+  <h2>サンプルデータを使用したローカルでのテスト</h2>
+
+
+  <p>クエリの作成が完了すると、ローカルのサンプルデータを入力として指定することにより、ローカルコンピューターですばやくテストを行うことができます。 これにより、開発イテレーションが高速化されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f977e40-8e24-4077-b5a5-4f3c0b3a856a.png"><img alt="VS4" border="0" height="490" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30e3ff58-c7bd-4024-ab57-5efbfca28db7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS4" width="555"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/23793cfe-5513-4f37-90fe-bd2e1d22a18c.png"><img alt="VS5" border="0" height="256" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9685c6f6-ea0a-4329-98b9-b05355685c10.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS5" width="554"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5376e6a6-cdcb-4c6c-a94c-c252bbfa394d.png"><img alt="VS6" border="0" height="101" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/528d0308-68c7-4398-9b9c-26829eba5d76.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS6" width="551"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef73b301-3028-47f4-92da-e4f323c1b7ec.png"><img alt="VS7" border="0" height="286" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a45ed2bf-694f-4ce4-a19c-aea98e595fbf.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS7" width="549"></a></p>
+
+
+  <h2>ライブジョブのメトリックを表示する</h2>
+
+
+  <p>クエリテストの結果を検証したら、[Azure &rdquo; に送信] をクリックし &ldquo; て、azure サブスクリプションにストリーミングジョブを作成します。 ジョブを作成すると、ジョブビュー内でジョブを開始および監視できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aeca6601-c7b9-4761-9f25-235793ce0eac.png"><img alt="VS8" border="0" height="109" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3dde6b9f-a293-4151-8df4-6c1549e07b68.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS8" width="545"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fe12d001-abb3-4469-bffa-5e6409813b01.png"><img alt="VS9" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd951d34-bb6f-415d-ab30-ada2278dfc25.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS9" width="546"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a1ffa70d-4cf9-4e57-9443-cb390aabc61d.png"><img alt="VS10" border="0" height="390" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9ac8829a-b983-4983-8c6d-3ab52a3648a9.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS10 " width="405"> </a> <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/555af397-4f8a-4710-9bc0-913b003644ec.png"><img alt="VS11" border="0" height="693" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9f30a49f-a90c-4303-bcd3-cc6509a4fe13.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS11 " width="404"> </a> <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d51ae9f-9f7a-42bb-b893-8797083145db.png"><img alt="VS12" border="0" height="374" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5eadcdd-8a66-4e71-950f-3748551cdf38.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS12" width="408"></a></p>
+
+
+  <h2>サーバーエクスプローラーでのジョブの表示と更新</h2>
+
+
+  <p>サーバーエクスプローラーでサブスクリプションのすべての Stream Analytics ジョブを参照したり、ジョブノードを展開してジョブの状態とメトリックを表示したりできます。 必要に応じて、ジョブクエリやジョブ構成を直接更新したり、既存のジョブをプロジェクトにエクスポートしたりできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a041319-ef2d-4d25-8cda-de992a745436.png"><img alt="VS13" border="0" height="691" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1b32fb33-8e84-4405-82b5-aa90427db792.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="VS13" width="395"></a></p>
+
+
+  <h2>開始するには?</h2>
+
+
+  <p>最初に Visual Studio (2015、Visual Studio 2013 update 4、または Visual Studio 2012) をインストールし、 <a href="https://www.microsoft.com/web/downloads/platform.aspx">Web platform installer</a>を使用して Microsoft Azure SDK for .NET バージョン2.7.1 以降をインストールする必要があります。 次に、 <a href="https://aka.ms/asatoolsvs">ダウンロードセンター</a>から最新の ASA ツールを入手します。</p>
+
+
+  <p>詳細については、「<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-tools-for-visual-studio">チュートリアル: Azure Stream Analytics ツールを使用</a>した Visual Studio」を参照してください。</p>

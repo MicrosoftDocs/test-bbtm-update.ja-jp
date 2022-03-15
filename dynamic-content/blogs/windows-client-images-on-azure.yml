@@ -1,0 +1,219 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f99cb17bb357f8695f381d250c1ba2811e2bc066
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890603"
+Slug: windows-client-images-on-azure
+Title: Windows MSDN サブスクライバー用のクライアント イメージ
+Summary: このブログ記事では、Azure のクライアント イメージに基づいて仮想Windows作成する方法について説明します。 また、これらのイメージに対するライセンスへの影響もいくつか説明します。
+Content: >-
+  過去数か月間、お客様から多くのフィードバックを受け取り、Windowsクライアント イメージを有効Microsoft Azure。 一部のお客様は、ソフトウェア ターゲットのオペレーティング システムでソフトウェアを開発してテストする必要があります。 また、多くのお客様は、このような種類のアプリケーションに対してオンプレミスの開発/テスト環境を維持する代わりに、クライアントの OS で実行されているレガシ アプリの開発/テスト環境を迅速に起動する機能を必要としました。
+
+
+  そのフィードバックの結果、および価値がある MSDN サブスクライバーの開発/テスト エクスペリエンスを向上させる継続的な取り組みの一環として、Windows 7 Enterprise および Windows 8.1 Enterprise 基本イメージを Visual Studio 開発者イメージ、<a href="https://blogs.msdn.com/b/biztalk_server_team_blog/archive/2014/05/27/biztalk-server-2013-developer-edition-is-now-available-in-microsoft-azure-for-msdn-subscribers.aspx">BizTalk Developer</a> <a href="https://community.dynamics.com/gp/b/gpteamblog/archive/2014/03/24/microsoft-dynamics-gp-2013-image-available-in-the-azure-gallery.aspx">イメージ、およびのコレクションに追加しました。Microsoft Azure の Microsoft Dynamics GP</a> イメージ。
+
+
+  このブログ記事では、Windows クライアント イメージから仮想マシンを作成するためのさまざまなオプションについて説明し、いくつかの制限事項について説明し、MSDN サブスクライバーのライセンスへの影響について説明します。
+
+
+  仮想マシンを作成するには、実際には 3 つの方法があります。Microsoft Azure 管理ポータル、Visual Studio PowerShell を使用します。
+
+
+  ポータルのアプローチから始めしましょう。 Windows クライアント イメージをプロビジョニングする手順は、アクティブな MSDN サブスクリプションに関連付けられている Microsoft アカウント でサインインし、MSDN Azure 特典を使用して設定した Azure サブスクリプションを使用する必要がある点を除いて、他の仮想マシンを作成する手順と異なっているのが分かっています。 MSDN Azure の特典を有効にする方法の詳細については、こちらを参照 <a href="https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-b/">してください。</a>
+
+
+  まず、ポータルから仮想マシンを作成する方法を見てみしましょう。 最初の手順は、MSDN Azure 特典を使用して設定した Azure サブスクリプションを使用することを確認します。 サインインしたら、[New-Compute-Virtual&gt;&gt; Machine-From Gallery]をクリックして新しい仮想マシンを&gt;作成できます。 これにより、Azure 仮想マシン ギャラリーにアクセスできます。 MSDN イメージの一覧を取得する最も簡単な方法は、次に示すように、MSDN の小さなフィルター処理チェック ボックスをオンにしてください。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="Windows Azure イメージ ギャラリーのクライアント イメージの作成" alt="Windows Client images in Azure image gallery" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_1.jpg" width="614" height="375" border="0" />
+
+
+  次に、仮想マシンの作成ウィザードに従い、仮想マシンの名前、階層、サイズ (推奨されるサイズを事前に選択しています)、ユーザー名、パスワードなど、必要な追加情報を入力する必要があります。 ここで入力したユーザーは、コンピューターへのリモート デスクトップ接続を含むサーバーの管理に使用される管理アカウントを参照します。 後で、RDP に使用するMicrosoft アカウントを追加する方法について説明します。 次の図は、仮想マシンの作成ウィザードの最初の手順を示しています
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="クライアント VM Windows作成手順 1" alt="Create Windows Client VM Step 1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_2.jpg" width="614" height="375" border="0" />
+
+
+  2 番目の手順では、クラウド サービスの DNS 名、使用するサブスクリプション、仮想マシンをプロビジョニングするリージョン/アフィニティ グループまたは Virtual Network、ストレージ アカウント、および仮想マシンを可用性セットに追加するかどうかに関する情報を入力する必要があります。 注: 仮想マシンで仮想ネットワークを使用する場合は、仮想マシンの作成時に仮想ネットワークを指定する必要があります。 詳細については、<a href="https://go.microsoft.com/fwlink/p/?linkid=294063&amp;clcid=0x409">Azure Virtual Network の概要</a>に関するページを参照してください。 次の手順では、VM にエンドポイントを追加し、次に示すように内部ポート番号と外部ポート番号を指定できます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="クライアント VM Windows作成手順 2" alt="Create Windows Client VM Step 2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_3.jpg" width="614" height="393" border="0" />
+
+
+  最後の手順では、VM で Puppet や Chef などの拡張機能とマルウェア対策を有効にできます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="クライアント VM Windows作成手順 3" alt="Create Windows Client VM Step 3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_4.jpg" width="614" height="393" border="0" />
+
+
+  [OK] をクリックすると、仮想マシンがプロビジョニングされます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="ポータルでの仮想マシンのプロビジョニング状態" alt="Virtual machine provisioning status in the Portal" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_5.jpg" width="614" height="551" border="0" />
+
+
+  マシンがプロビジョニングされた後は、リモート デスクトップを使用して VM に接続できます。 リモート デスクトップ アカウントは、仮想マシン作成ウィザードの最初のページで入力したアカウントです。
+
+
+  クライアント イメージに関してよく寄せられる質問Windows前に、他の作成オプションを簡単に確認することもできます。
+
+
+  このVisual Studio、MSDN Windows クライアント イメージに基づいて、サーバー エクスプローラー から直接、または新しい Web アプリケーションの File/New エクスペリエンスで仮想マシンを作成できます。 ポータルと同様に、MSDN Azure 特典を使用して設定された Azure サブスクリプションを使用している必要があります。 Azure にサインインするには、次に示すように、Microsoft Azureアイコンサーバー エクスプローラークリックします。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="Connectで Azure にVisual Studio サーバー エクスプローラー" alt="Connect to Azure in Visual Studio Server Explorer" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ServerExplorerConnect.jpg" width="183" height="484" border="0" />
+
+
+  これにより、資格情報を入力できるサインイン ダイアログが表示されます。 サインインしたら、[仮想マシン] ノードをサーバー エクスプローラークリックし、[仮想マシンの作成] を選択します。 これにより、仮想マシンの完全な作成エクスペリエンスがVisual Studio。 次の図に示すように MSDN カテゴリを選択し、クライアント イメージWindows選択できます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="仮想マシンを Visual Studio サーバー エクスプローラー" alt="Create Virtual Machine from Visual Studio Server Explorer" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_7.jpg" width="614" height="435" border="0" />
+
+
+  残りの手順は、ポータルのエクスペリエンスとほぼ同じです。
+
+
+  新しい Web アプリケーションの作成エクスペリエンスの一部として、Visual Studio仮想マシンを作成するもう 1 つの方法があります。 File-New-Project-Web-ASP.NET&gt;&gt;&gt;&gt; Application によって、新しいプロジェクト の新しい ASP.NET 表示されます。 Update 2 Visual Studio 2013、Azure のターゲット環境として Web サイトまたは仮想マシンを作成する機能が追加されました。 この選択は、ダイアログの [Windows Azure] セクションで行います。 [仮想マシン] を選択した場合は、次に示すように、[仮想マシンの作成] ダイアログMicrosoft Azureポップアップ表示されます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="新しい Web アプリケーションから仮想マシンを作成する" alt="Create Virtual Machine from New Web Application" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateVMMSDN_8.jpg" width="614" height="326" border="0" />
+
+
+  この作成オプションは、 の作成オプションとは若干異サーバー エクスプローラー。 これを [簡易作成] オプションと見なします。 この名前が示すように、開発者は、ユーザー入力や構成をあまり必要とせずに、Azure で開発/テスト VM を迅速にスピンすることを意図しています。 その結果、サブスクリプション、クラウド サービスの DNS 名、イメージ、サイズ、ユーザー名、パスワード、場所などの基本的なユーザー入力だけが必要になります。 クイック作成で指摘する点の 1 つは、IIS を有効にし、既定でWeb 配置含まれる点です。 これは拡張機能に基 <a href="https://azure.microsoft.com/blog/2014/04/11/vm-agent-and-extensions-part-1/">づいて</a> おり、Web 開発者が追加の構成を必要とせずに Web サーバー環境をすばやく起動することを意図しています。
+
+
+  <b>重要な注意: </b>このWeb 配置では、クライアント VM へのリモート Web Windowsを一から有効にできない。 リモート Web パブリッシングを有効にするには、 の "IIS 展開ハンドラー" と "リモート エージェント サービス" 機能をインストールする必要Web 配置。 それらをインストールするには、"プログラムと機能" を開き、Microsoft Web 配置 3.5 の [変更] を選択します。
+
+
+  仮想マシンをプロビジョニングしたら、サーバー エクスプローラー の仮想マシンのコンテキスト メニューにある "リモート デスクトップを使用して Connect" 機能を使用して VM に接続できます。
+
+
+  他の Azure 仮想マシンと同様に、Windowsクライアント仮想マシンを作成する最後のオプションは、Windows PowerShell。 次のスクリプトでは、新しいイメージに基づいて新しい仮想Windows 8.1 Enterpriseします。
+
+  <pre class="prettyprint"># Sign in azure account
+
+  Add-AzureAccount
+
+
+  # Select MSDN subscription if the account has multiple subscriptions
+
+  $subscriptionName = "Windows Azure MSDN - Visual Studio Ultimate"
+
+  Select-AzureSubscription $subscriptionName
+
+
+  # Find the latest Windows 8 images
+
+  $imageFamlyName = "Windows 8.1 Enterprise (x64)"
+
+  $win8image = Get-AzureVMImage | ? {$_.ImageFamily -eq $imageFamlyName} | Sort PublishedDate -Descending | Select-Object -First 1
+
+
+  # Create a new storage account
+
+  $location = "West US"
+
+  $storageAccountName = "MyWindows8Svc"
+
+  New-AzureStorageAccount -StorageAccountName $storageAccountName -Location $location -Verbose
+
+  Set-AzureSubscription -SubscriptionName $subscriptionName -CurrentStorageAccountName $storageAccountName
+
+
+  # Create a new cloud service
+
+  $serviceName = "MyStorageAccount"
+
+  New-AzureService -ServiceName $serviceName -Location $location -Verbose
+
+
+  # Create a Windows 8 VM
+
+  $vmName = "MyWindows8VM"
+
+  $credential = Get-Credential -Message "Enter username and password for the virtual machine administrator"
+
+  $username = $credential.UserName
+
+  $password = $credential.GetNetworkCredential().Password
+
+  New-AzureQuickVM -Windows -ServiceName $serviceName -name $vmName -ImageName $win8image.ImageName -AdminUsername $username -Password $password -WaitForBoot -Verbose</pre>
+
+  Azure で Windows クライアント イメージを作成するさまざまな方法を見てきたので、Windows 開発の観点とライセンスの観点の両方から、このイメージを使用して何が可能か疑問に思うでしょう。
+
+
+  これらの画像に関する最も一般的な質問を収集し、提供された回答が、開いている質問に役立つ場合があります
+
+
+  <b>これらの VM をストアの開発にWindowsできますか?</b>
+
+
+  はい Windows Store 開発に VM を使用できます。ただし、プロビジョニングに使用されるアカウントが組み込みの管理者として設定されている場合は、administrators グループの一部である新しいローカル ドメイン アカウントを作成する必要があります。
+
+
+  <b>これらの VM を開発に使用Windows Phoneできますか?</b>
+
+
+  現時点では、これらの VM Windows Phone開発はサポートされていません。
+
+
+  <b>TechEd で発表されているマルチデバイス開発 (Cordova) にこれらの VM を使用できますか?</b>
+
+
+  これは可能ですが、使用するサードパーティ製ソフトウェアのライセンス条項に常に<sup>従う必要</sup> があります。
+
+
+  <b>操作方法を使用Microsoft アカウント VM にリモート デスクトップ接続しますか?</b>
+
+
+  1. 既定のビルドイン管理者アカウントを使用してマシンにリモート接続します。 リモート デスクトップ接続を変更してすべてのクライアントを許可する (強調表示オプションをオフにする)
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="リモート デスクトップ用の Microsoft アカウントを追加する" alt="Add Microsoft Account for Remote Desktop" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SystemProperties.jpg" width="330" height="364" border="0" />
+
+
+  2. rdp ファイルをダウンロードし、メモ帳で編集します。 prompt <b>for credentials:i:1</b> を <b>enablecredsspsupport:i:0 に置き換える</b>
+
+
+  &nbsp;
+
+
+  <b>これを利用できる MSDN のレベルは何ですか?</b>
+
+
+  次のレベルのすべてのアクティブな MSDN サブスクライバーは、<a href="https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits/">MSDN Azure</a> 特典サブスクリプションまたは <a href="https://azure.microsoft.com/en-us/offers/ms-azr-0023p/">MSDN Dev and Test Pay-As-You-Go</a> サブスクリプションを設定し、開発とテストのために Windows クライアント VM を実行できます。
+
+
+  ·Visual Studio Ultimate MSDN を使用する
+
+
+  ·Visual Studio Premium MSDN を使用する
+
+
+  ·MSDN Platforms
+
+
+  ·Visual Studio Test Professional MSDN を使用する
+
+
+  ·Visual Studio Professional MSDN を使用する
+
+
+  <b>これらの VM を実稼働ワークロードに使用できますか?</b>
+
+
+  いいえ。これらのイメージと、MSDN Azure サブスクリプションで提供されるすべてのサービスは、開発とテストのみを目的とします。
+
+
+  <b>MSDN Azure 特典サブスクリプション以外の Azure サブスクリプションでこれらの VM を使用できますか?</b>
+
+
+  いいえ、できません。
+
+
+  <b>VM に何をインストールできますか?</b>
+
+
+  MSDN サブスクリプションに含まれている任意のソフトウェアをインストールできます。 たとえば、MSDN サブスクライバー Visual Studio Premiumを使用して、開発Visual Studio PremiumテストOffice VM にアプリケーションをインストールできます。

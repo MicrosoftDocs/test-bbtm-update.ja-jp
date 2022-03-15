@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1656dfbb355ba7d86f785ce4e1f5ba3b56d19d32
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893897"
+Slug: microsoft-avro-library
+Title: Microsoft Avro ライブラリのリリースの発表
+Summary: 本日、Microsoft Avro ライブラリのリリースを発表します。 このリリースは、Microsoft の複数のチームの共同作業の結果です。 このリリースでは、完全でパフォーマンスの高い .NET が提供されます。
+Content: >-
+  本日、Microsoft Avro ライブラリのリリースを発表します。 このリリースは、Microsoft の複数のチームの共同作業の結果です。 このリリースでは、Avro シリアル化形式の完全でパフォーマンスの高い .NET 実装が、Azure HDInsightオープン ソース コミュニティに提供されます。
+
+  <h4>このリリースをダウンロードする</h4>
+
+  Avro ライブラリは、ギャラリーからNuGetできます。 このVisual Studio、次の構文を使用して、NuGet ギャラリーまたは NuGet パッケージ マネージャーパッケージをインストールまたは更新できます。
+
+  <p align="left">Install-Package <a href="https://www.nuget.org/packages/Microsoft.Hadoop.Avro/">Microsoft.Hadoop.Avro</a></p>
+
+  ソース コードは、CodePlex の Apache 2.0 ライセンスで <a href="https://hadoopsdk.codeplex.com/">使用できます</a>。
+
+  <h4>Apache Avro</h4>
+
+  Apache Avro は、Thrift やプロトコル バッファーと同様のコンパクトなバイナリ データシリアル化形式を提供します。 Hadoop のような分散処理環境に適した追加機能があります。 Avro ライブラリは、.NET 環境用の Apache Avro データシリアル化仕様を実装します。
+
+  <h4>サポートされている機能</h4>
+
+  Avro ライブラリは、メモリ内の式ツリーを構築することで、任意の型構造をシリアル化します。 このメモリ内式ツリーは、特殊化されたシリアライザーのネイティブ パフォーマンスを提供する IL コードにコンパイルされます。
+
+
+  ライブラリでは、次のモードがサポートされています。
+
+  <ul>
+   <li><strong>リフレクション モード</strong>。 シリアライザーの IL コードは、パフォーマンスを最大限に高め、.NET 型のスキーマに基づいて構築されています。</li>
+   <li><strong>汎用レコード モード</strong>。 データの JSON スキーマを実行時に指定して、任意のスキーマで動的データを処理する機能を提供できます。</li>
+   <li><strong>コンテナー モード</strong>。 ライブラリでは、埋め込みスキーマを使用してポータブル ファイルを生成できます。 ファイル形式は Avro コンテナー ファイルの仕様と互換性があり、プラットフォーム間で使用できます。</li>
+  </ul>
+
+  <div>
+
+  <pre>Code Sample This is a serialization/deserialization sample using the Avro Library.</pre>
+
+  <pre><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1758/8507.blog-post.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1758/8507.blog-post.png" border="0"></a></pre>
+
+  <h4>リファレンス</h4>
+
+  詳細とサンプルについては、次のドキュメントを参照してください。
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-dotnet-avro-serialization/">Microsoft Avro ライブラリの概要</a></li>
+   <li><a href="https://msdn.microsoft.com/en-US/library/azure/dn469975.aspx">Microsoft Avro ライブラリ リファレンス ドキュメント</a></li>
+  </ul>
+
+  </div>

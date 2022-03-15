@@ -1,0 +1,157 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 07ca94ce4eac8b53112f73c07fed56ea8fac8167
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889611"
+Slug: agile-sap-development-with-sap-cloud-platform-on-azure
+Title: Azure でのアジャイル SAP SAP Cloud Platformを使用した開発
+Summary: SAP Cloud Platform SCP (サービスとしてのプラットフォーム) オファリングは、プレビューから Azure での一般提供に移行しています。 現在、ヨーロッパ西部リージョンの Azure で Cloud Foundry ベースの SAP Cloud Platform (SCP) が実行されています。
+Content: >-
+  <p><em>このブログの投稿は、Azure CAT のプリンシパル ソフトウェア エンジニアである、Software Szpuszta が共同作成しました</em></p>
+
+
+  <p>最近、Azure でSAP Cloud Platformベータから一般提供に移行する予定だと発表しました。 SAP Cloud Platform (SAP CP) は、SAP のサービスとしてのマルチクラウド プラットフォーム オファリングであり、現在は Azure 西ヨーロッパで実稼働環境で使用できます。</p>
+
+
+  <p>Azure 上の SAP CP を使用すると、SAP 開発のニーズに合わせて Azure で利用できる選択肢が拡張されます。&nbsp; SAP CP は、SAP によって運用されるフル マネージドのサービスとしてのプラットフォームを提供し、Azure 上で初めてのマルチテナントおよびフル マネージド Cloud Foundry PaaS です。 Sap CP を Azure で実行すると、お客様は次の処理を実行できます。</p>
+
+
+  <ul>
+   <li>Azure 上で幅広い認定 <a href="https://azure.com/sap" target="_blank">SAP HANAオファリングを活用します</a>。 </li>
+   <li><a href="https://osba.sh/" target="_blank">Meta Azure</a> Azure-Nativeを使用して、EventHubs、AzureSQL Database、Azure CosmosDB、Azure ServiceBus などの Service Broker。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-sap-hana-cloud-platform-tutorial" target="_blank">Azure Active Directory と統合</a>して、ユーザーのシングル サインオンを有効SAP Cloud Platform</li>
+  </ul>
+
+
+  <h2>SAP Cloud Platform Azure で使用する – 使用の開始</h2>
+
+
+  <p>Azure で SAP CP の使用を開始するには、 <a href="https://cloudplatform.sap.com/index.html" target="_blank">SAP CP アカウントにログインします</a>。 [Cloud Foundry] を選択し、[ヨーロッパ (オランダ) Azure リージョン] を選択します。 これにより、SAP CP 環境内に組織とスペースCloud Foundryされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5518ab3f-1e92-44f8-b15f-d387386d2dee.png"><img width="638" height="584" title="image_1_regions" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="image_1_regions" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea1f825a-5a9a-44c6-b218-a37ba965b1d4.png" border="0"></a></p>
+
+
+  <h2>アプリケーションとサービスのデプロイ</h2>
+
+
+  <p>開発者は、SAP CP のパイロットまたは CLOUD FOUNDRY CLI を使用して、アプリケーションとサービスをデプロイおよび管理できます。</p>
+
+
+  <p>SAP CP のパイロットは、デプロイされたアプリケーションを参照および監視するための便利な方法を提供します。 開発者は、Cockpit を使用して、サービス マーケットプレースで SAP によって有効にされたインフラストラクチャ サービスのカタログを参照できます。 これらのサービスでは、インフラストラクチャVirtual Machines Azure Azure Availability Zonesを利用し、高可用性を実現します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf5f61f9-c4cb-4dec-b818-2c818148bf24.png"><img width="1875" height="1215" title="image_2_marketplace" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="image_2_marketplace" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1cb9517b-5d6a-4293-b46c-bdd69de11f46.png" border="0"></a></p>
+
+
+  <h2>Cloud Foundry CLI の使用</h2>
+
+
+  <p>SAP CP は SAP インフラストラクチャCloud Foundry PaaS ベースのアプリケーションです。SAP CP 環境は、他のアプリケーション環境と同様にCloud Foundryできます。 HANA などの SAP 固有のサービスの場合、SAP は、SAP 固有のサービスを簡単に使用するために、Cloud Foundry CLI 用の <a href="https://tools.hana.ondemand.com/#cloud" target="_blank">HANA MTA</a> プラグインなどのプラグインを提供します。</p>
+
+
+  <p>SAP CP では、リージョンごとに異なる API エンドポイントが使用されます。 CF CLI を使用して Azure 西ヨーロッパにデプロイされた SAP CP ランドスケープにアクセスするには、次の API エンドポイントを使用します。</p>
+
+
+  <pre>cf api <a href="https://api.cf.eu20.hana.ondemand.com">https://api.cf.eu20.hana.ondemand.com</a>
+
+  cf login</pre>
+
+
+  <p>すべての CLI/API Cloud Foundry使用して、アプリのプッシュ、マーケットプレースの探索などできます。</p>
+
+
+  <h2>Meta Azure サービスを使用して Azure Platform Services に接続Service Broker</h2>
+
+
+  <p><a href="https://github.com/Azure/meta-azure-service-broker" target="_blank">Meta Azure Service Broker (MASB) を使用すると</a> 、Azure Platform Services を Cloud Foundry から直接プロビジョニングできます。 MASB GitHubページには、サービス ブローカーをインストール<a href="https://github.com/Azure/meta-azure-service-broker/blob/master/docs/how-admin-deploy-the-broker.md" target="_blank">する</a>手順が示Cloud Foundry。 Open Service Broker を使用 <a href="https://osba.sh/" target="_blank">することもできます</a>。これは現在プレビュー中ですが、最終的には生産的な環境で MASB を置き換えます。</p>
+
+
+  <p>MASB をインストールすると、Azure サービスは Service Marketplace で使用できます。 CLI または SAP CP Cloud Foundryを使用して、利用可能なサービスを参照できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa923e1f-7f57-40b1-aa21-65c1c4e35bd4.png"><img width="1500" height="435" title="image_3_cfmarketplacev3" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="image_3_cfmarketplacev3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8cbd7ace-4c8f-4062-bc5e-592f2d321f5d.png" border="0"></a></p>
+
+
+  <p>上記は、SAP によって有効になっているサービスに加えて、有効になっているすべての Azure サービスを示しています。 これで、MASB for Azure によって公開されるサービスの使用を開始できます。 Marketplace の Azure Platform サービスへの接続は、Service Brokers Cloud Foundry標準のパターンに従います。 サービスを作成し、サービス ブローカー API と CLI を使用して 1 つ以上のアプリケーションにCloud Foundryバインドします。</p>
+
+
+  <p><a href="https://github.com/Azure/meta-azure-service-broker" target="_blank">MASB</a> サービスの各サービスに対して指定するパラメーター GitHub。 例として Azure CosmosDB を作成しましょう。 次の構成を使用します。</p>
+
+
+  <pre>{
+     "resourceGroup": "Tests.SAPCPMetaServiceBroker",
+     "cosmosDbAccountName": "samplecosmosaccount",
+     "cosmosDbName": "samplecosmosdatabase",
+     "location": "westeurope",
+     "kind": "DocumentDB"
+  }</pre>
+
+
+  <p>CloudFoundry CLI コマンドを使用して新しいサービスを作成し、Cloud Foundryを認識します。</p>
+
+
+  <pre>&gt;cf create-service azure-cosmosdb-xxxxxxx-xxxx-xxxx-xxxx-45337ac75764 standard samplecosmosdb -c C:\Temp\params.json
+
+
+  Creating service instance samplecosmosdb in org xxxxxxxtrial_trial / space dev as xxx@live.com...
+
+  OK
+
+
+  Create in progress. Use 'cf services' or 'cf service samplecosmosdb' to check operation status.
+
+
+  Attention: The plan `standard` of service `azure-cosmosdb- xxxxxxx-xxxx-xxxx-xxxx-45337ac75764` is not free.  The instance `samplecosmosdb` will incur a cost.  Contact your administrator if you think this is in error.
+
+
+  &gt; cf service samplecosmosdb
+
+
+  Showing info of service samplecosmosdb in org xxxxxxxtrial_trial / space dev as  xxx@live.com...
+
+
+  name:            samplecosmosdb
+
+  service:         azure-cosmosdb-xxxxxxx-xxxx-xxxx-xxxx-45337ac75764
+
+  bound apps:
+
+  tags:
+
+  plan:            standard
+
+  description:     Azure CosmosDb Service (dev)
+
+  documentation:
+
+  dashboard:
+
+
+  Showing status of last operation from service samplecosmosdb...
+
+
+  status:    create succeeded
+
+  message:   Created the cosmosDb
+
+  started:   2018-06-20T14:39:23Z
+
+  updated:   2018-06-20T14:44:33Z</pre>
+
+
+  <p>CosmosDB インスタンスは、次の場所の [サービス インスタンス] タブにも表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b03c4a77-727d-4476-b0b8-78f4e655ad72.png"><img width="1746" height="456" title="Image_4_CosmosDBSucceed" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="Image_4_CosmosDBSucceed" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c64f9146-7d74-43ef-8c5b-18f5f8b43cdf.png" border="0"></a></p>
+
+
+  <p>最後に、cf bind-service コマンドを使用して、デプロイした任意のアプリケーションにサービスをバインドできます。 その後、Meta Azure サービスの各サービスのドキュメントに示されている環境変数を使用して構成パラメーターが公開Service Broker GitHub。 上記のすべての手順は、同様に、SAP Cloud Platformを使用して実行できます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure リージョンは、新しいアプリケーションを使用した SAP 開発ですぐに使用できる予定SAP Cloud Platform。&nbsp; Open <a href="https://github.com/Azure/open-service-broker-azure" target="_blank">Service Broker</a> for Azure でさらに多くのサービスが点灯するほど、Meta Azure Service Broker の代わりに使用されます。 より多くのリージョンと、より多くの Azure サービスに接続する機能が、SAP クラウド開発要件を効果的に丸め出す必要があります。</p>

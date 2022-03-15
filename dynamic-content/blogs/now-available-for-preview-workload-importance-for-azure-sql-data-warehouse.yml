@@ -1,0 +1,61 @@
+### YamlMime:Yaml
+ms.openlocfilehash: be57f42032d904471532393cb5079e0316cc1205
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892818"
+Slug: now-available-for-preview-workload-importance-for-azure-sql-data-warehouse
+Title: 'プレビューで使用できるようになりました: Azure SQL Data Warehouse のワークロードの重要度'
+Summary: Azure SQL Data Warehouse は、あらゆる規模の企業向けの高速で柔軟かつ安全な分析プラットフォームです。 現在、お客様がリソースをより効率的に管理できるようにするために、Gen2 プラットフォームにおけるワークロードの重要度のプレビューを利用できることが発表されています。
+Content: >-
+  <p>Azure SQL Data Warehouse は、あらゆる規模の企業向けの高速で柔軟かつ安全な分析プラットフォームです。 現在、お客様がリソースをより効率的に管理できるようにするために、Gen2 プラットフォームにおけるワークロードの重要度のプレビューを利用できることが発表されています。 ワークロード重要度を利用すれば、データ エンジニアは重要度で要求を分類できます。 重要度の高い要求は、Sla を満たすために役立つリソースへのアクセスを高速化することが保証されます。</p>
+
+
+  <p>&ldquo;&rdquo;多くの場合、オペレーティングデータウェアハウジングソリューションに関しては、多くの場合、多くの場合はモットーです。 コンピューティングリソースを簡単にスケールアップできることにより、データエンジニアは柔軟性を高めることができます。 ただし、予算に負荷がかかっていて、スケールダウンが必要な場合は、問題が発生する可能性があります。 &nbsp; ワークロードの重要度により、ビジネス価値の高い作業により、リソースの多い共有環境における Sla を満たすことができます。</p>
+
+
+  <p>ワークロードの重要度の例を次に示します。 CEO &rsquo; の要求が最後に送信され、重要度の高いものが分類されました。 CEO &rsquo; の要求は重要度が高いため、アナリストが要求する前にリソースへのアクセスが許可されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95f35271-4cd9-4b2e-8a10-fb66f898d541.gif"><img alt="AnimatedRequestQueueV2-half" height="350" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbee0698-36d0-4d0b-ab86-95a692057e26.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="AnimatedRequestQueueV2-半分" width="500"></a></p>
+
+
+  <h2>まず、重要度の要求を分類しています</h2>
+
+
+  <p>要求の分類は、新しい <a href="https://docs.microsoft.com/sql/t-sql/statements/create-workload-classifier-transact-sql">ワークロード分類子</a> 構文を使用して行われます。 次に示すのは、ExecutiveReports ロールのログインを重要度に <code>ABOVE_NORMAL</code> 、AdhocUsers ロールを重要度に <code>BELOW_NORMAL</code> マップする例です。 この構成を使用すると、ExecutiveReports ロールのメンバーは、AdhocUsers ロールのメンバーの前にリソースにアクセスできるため、クエリがすぐに完了します。</p>
+
+
+  <pre>
+
+  CREATE WORKLOAD CLASSIFIER ExecReportsClassifier
+     WITH (WORKLOAD_GROUP = &#39;mediumrc&#39;
+          ,MEMBERNAME     = &#39;ExecutiveReports&#39;
+          ,IMPORTANCE     =  above_normal);
+
+  CREATE WORKLOAD CLASSIFIER AdhocClassifier
+      WITH (WORKLOAD_GROUP = &#39;smallrc&#39;
+           ,MEMBERNAME     = &#39;AdhocUsers&#39;
+           ,IMPORTANCE     =  below_normal);</pre>
+
+  <p>ワークロードの重要度の詳細については、ドキュメントの <a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-workload-classification">分類</a> と <a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-workload-importance">重要度</a> の概要に関するトピックを参照してください。 <a href="https://docs.microsoft.com/sql/t-sql/statements/create-workload-classifier-transact-sql">CREATE WORKLOAD CLASSIFIER</a> のドキュメントも参照してください。</p>
+
+
+  <p>下の動画でワークロード重要度が実際に使われている様子をご覧ください。</p>
+
+
+  <ul>
+   <li><a href="https://www.youtube.com/watch?v=QcCRBAhoXpM&amp;index=8&amp;list=PLLasX02E8BPClOvjNV9bXk3LUuf3nQiS2">ワークロードの重要度の概念</a></li>
+   <li><a href="https://www.youtube.com/watch?v=_2rLMljOjw8&amp;index=7&amp;list=PLLasX02E8BPClOvjNV9bXk3LUuf3nQiS2">ワークロードの重要度のシナリオ</a></li>
+  </ul>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>今すぐ開始するには、 <a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal">Azure SQL Data Warehouse を作成</a>します。</li>
+   <li>機能に関する要望については、 <a href="https://aka.ms/sql-dw-feedback">UserVoice</a>にご投票ください。</li>
+   <li>最新の Azure SQL Data Warehouse ニュースや機能を最新の状態に維持するには、Twitter <a href="https://twitter.com/AzureSQLDW">@AzureSQLDW</a> でフォローしてください。</li>
+  </ul>

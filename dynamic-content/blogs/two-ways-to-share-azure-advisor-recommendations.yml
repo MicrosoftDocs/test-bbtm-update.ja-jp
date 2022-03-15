@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 04a362a24cfe9fe82fe5bddcbc0a2886b6b438ed
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888970"
+Slug: two-ways-to-share-azure-advisor-recommendations
+Title: Azure Advisor 推奨事項を共有する2つの方法
+Summary: IT 組織がほとんど同じであれば、多くの異なるユーザーがさまざまなチームで作業する可能性があります。 クラウドワークロードの最適化など、一般的な IT タスクに関しては、いくつかのリソース所有者と対話するか、正式なレビュープロセスを完了することが必要になる場合があります。
+Content: >-
+  <p>IT 組織がほとんど同じであれば、多くの異なるユーザーがさまざまなチームで作業する可能性があります。 クラウドワークロードの最適化など、一般的な IT タスクに関しては、いくつかのリソース所有者と対話するか、正式なレビュープロセスを完了することが必要になる場合があります。</p>
+
+
+  <p>&rsquo;このような<a href="https://aka.ms/advisor-acom" target="_blank">Azure Advisor</a>理由から、Azure を最大限に活用するのに役立つベストプラクティスに従うことができるように、チーム内の他のユーザーとの提案を簡単に共有できるようにしまし &rsquo; た。 Advisor は無料の Azure サービスであり、使用状況と構成に基づいてパーソナライズされた推奨事項を提供することで、Azure リソースの高可用性、セキュリティ、パフォーマンス、コストを最適化するのに役立ちます。</p>
+
+
+  <p>アドバイザーのベストプラクティスに関する推奨事項をチームと共有するには、次の2つの方法があります。</p>
+
+
+  <h2>1. Advisor 推奨事項の PDF または CSV をエクスポートする</h2>
+
+
+  <p>Advisor の推奨事項を共有する最も簡単な方法は、advisor の <a href="https://www.youtube.com/watch?v=MC7hp-eTvYw" target="_blank">推奨レポート</a> を Azure portal の advisor UI で PDF または CSV としてエクスポートすることです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22c84605-4b8c-4417-9a3e-3bcbc35418cf.png"><img alt="Screenshot of exporting PDF or CSV throgh the Advisor UI in the Azure portal" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/efcaf80b-8ed2-4e0d-b9a3-fecc039e3a93.png" style="border: 0px currentcolor; width:80%; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure portal の Advisor UI を使用した PDF または CSV のエクスポートのスクリーンショット"></a></p>
+
+
+  <p>このレポートには、カテゴリ、サブスクリプション、および潜在的なビジネスへの影響別に、Advisor の推奨事項の概要が表示されます。 これにより、リソースの所有者は、高可用性、セキュリティ、パフォーマンス、およびコストを実現するために、リソース所有者がアクションを実行し、リソースを最適化できるように、他のチームと簡単に共有できるようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/563b63cb-26d7-4cd3-8e9c-6c1179ea566e.png"><img alt="Screenshot displaying a summary of the Advisor recommendations by category, subscription, and potential business impact" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/072f3190-5a29-4042-aba1-2ad4554b1663.png" style="border: 0px currentcolor; width:80%; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="カテゴリ、サブスクリプション、およびビジネスへの影響の可能性のある Advisor の推奨事項の概要を表示するスクリーンショット" width="2232"></a></p>
+
+
+  <p>推奨事項のサブセットの特定のビューを提供する場合は、UI フィルターを使用するか、特定のカテゴリと推奨事項にドリルダウンすることができます。 推奨レポートには、生成時に画面に表示されるもののみが含まれます。これは、最も重要な最適化に集中するのに役立ちます。</p>
+
+
+  <h2>2. Advisor API を使用して、チケット発行システムまたはダッシュボードと統合する</h2>
+
+
+  <p>Advisor の推奨事項を組織内の他のユーザーと共有するもう1つの方法は、 <a href="https://www.youtube.com/watch?v=hAxrdmOAB8s" target="_blank">advisor REST API</a>を使用することです。 この API を使用すると、Advisor を組織 &rsquo; のチケット発行システムに接続して、修復作業を割り当てたり、チームがレビューや行動を行うための社内の作業用ダッシュボードを設定したり、advisor &rsquo; の推奨データを任意の方法で利用したりすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a3dc52bd-ddb0-4cfe-abd7-cd7bf6cdf9c4.png"><img alt="Diagram showing one way to use Azure Advisor REST API with ticketing application" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cb5dd245-ed7e-4f5f-95a8-c1baddbc8f1a.png" style="border: 0px currentcolor; width:80%; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="チケット発行アプリケーションで Azure Advisor REST API を使用する1つの方法を示す図"></a></p>
+
+
+  <p>上のビジュアルは、チケットアプリケーションで Advisor API を使用して、アドバイザーの推奨事項をチームと共有する1つの方法を示しています。 いくつかのセットアップが必要ですが、このシナリオが完了したら、プログラムを使用して推奨事項の修復を開始できます。これにより、リソースを最適化する時間が短縮されます。</p>
+
+
+  <p>このより高度なアプローチは、大規模な組織、多数の Azure サブスクリプションを管理している組織、多数の推奨事項を生成しているリソース、およびデプロイの規模に合わせて非常に高度な IT プラクティスを実施している組織に最適です。</p>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/en-us/rest/api/advisor/" target="_blank">ADVISOR API のドキュメント</a> を参照してください。</p>
+
+
+  <h2>Advisor の使用を開始する</h2>
+
+
+  <p><a href="https://aka.ms/azureadvisor" target="_blank">Azure portal の Advisor</a>にアクセスして、推奨事項の確認、共有、および修復を開始します。 詳細なガイダンスについては、 <a href="https://aka.ms/azureadvisordocs" target="_blank">ドキュメント</a>を参照してください。 <a href="https://aka.ms/advisorfeedback" target="_blank">Azure Advisor フィードバックフォーラム</a>にアイデアを提出することで、Advisor の提案がある場合はお知らせください。</p>

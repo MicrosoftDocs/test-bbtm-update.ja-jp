@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ee14fa374e75db714f39f0f14bd32b76f96bb401
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892464"
+Slug: simplified-restore-experience-for-azure-virtual-machines
+Title: Azure Virtual Machines の復元エクスペリエンスが簡略化されました
+Summary: Azure Backup では、ARM テンプレートと管理ディスクの機能を活用して、Azure Virtual Machines の復元エクスペリエンスが向上しました。 新しい復元エクスペリエンスでは、管理ディスクと仮想マシン (VM) テンプレートが直接作成されます。
+Content: >-
+  <p>Azure Backup では、 <a href="https://azure.microsoft.com/en-in/blog/azure-backup-restore-template/" target="_blank">ARM テンプレート</a> と <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">azure Managed Disks</a>の機能を活用して、azure Virtual Machines の復元エクスペリエンスが向上しました。 新しい復元エクスペリエンスでは、管理ディスクと仮想マシン (VM) テンプレートが直接作成されます。 これにより、スクリプトまたは PowerShell コマンドを実行してを変換および構成する手動プロセスが不要になります。VHD ファイルを実行し、復元操作を完了します。 復元がトリガーされた後、手動による操作はゼロであり、IaaS Vm を復元するためのシングルクリック操作になります。</p>
+
+
+  <p>管理ディスク ARM テンプレートは、ディスクの復元操作中に、お客様 &rsquo; のストレージアカウントに自動的に作成されます。このテンプレートは、復元操作の一部として、または後で VM を作成するためにデプロイできます。 テンプレート内のパラメーターを編集して、復元された VM をカスタマイズすることもできます。必要に応じて、VM の作成プロセスを柔軟に行うことができます。&nbsp;</p>
+
+
+  <p>前述の機能強化に加えて、復元されたディスクの名前付け規則は、復元操作中にディスクに関連付けられている仮想マシンを識別しやすくなりました。 名前付け規則は、ユーザーが選択した復元パスに従って慎重に選択します。つまり &ldquo; 、新規 &rdquo; ディスクと &ldquo; 復元ディスク &rdquo; を作成します。</p>
+
+
+  <h2>新規作成</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/51bd3d7a-a20b-44cd-b224-2d727c4b946a.png"><img alt="Restor configuration" border="0" height="594" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e73bb83b-4906-4393-bec6-154cae0dc8d5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Restor configuration" width="625"></a></p>
+
+
+  <p>[ &ldquo; 新しい &rdquo; フローの作成] を使用して vm を復元するときに、ターゲット VM 名の前に管理ディスクのプレフィックスとして、次の形式で復元の日付と時刻を指定します。</p>
+
+
+  <h4>OS ディスク名</h4>
+
+
+  <pre>
+
+  &lt;targetVMName&gt;-osdisk-&lt;yyyymmdd-hhmmss&gt;</pre>
+
+
+  <h4>データ ディスク名</h4>
+
+
+  <pre>
+
+  &lt;targetVMName&gt;-datadisk-&lt;dno&gt;-&lt;yyyymmdd-hhmmss&gt;</pre>
+
+
+  <pre>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/000137d5-c070-45a6-b6f2-5c593350d2fc.png"><img alt="gegMD" border="0" height="776" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/934f52b2-14c7-4b0b-8897-fee17e29ad38.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="gegMD" width="1251"></a></pre>
+
+
+  <h2>ディスクを復元する</h2>
+
+
+  <p>ディスクとして VM を復元しているときに、ソース VM 名の前にディスクのプレフィックスが付けられ、次の形式で復元の日付と時刻が示されます。</p>
+
+
+  <h4>OS ディスク名</h4>
+
+
+  <pre>
+
+  &lt;SourceVMName&gt;-osdisk-&lt;yyyymmdd-hhmmss&gt;</pre>
+
+
+  <h4>データ ディスク名</h4>
+
+
+  <pre>
+
+  &lt;SourceVMName&gt;-datadisk-&lt;dno&gt;-&lt;yyyymmdd-hhmmss&gt;</pre>
+
+
+  <pre>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31909476-39cf-43e3-a4c1-1f6155b097b3.png"><img alt="gegRG" border="0" height="632" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d60331f-d031-4afd-8018-e0acae7fb699.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="gegRG" width="1213"></a></pre>
+
+
+  <h2>関連リンクとその他のコンテンツ</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms" target="_blank">AZURE VM の復元</a>の詳細については、こちらをご覧ください。</li>
+   <li>Azure Backup の <a href="https://azure.microsoft.com/services/backup/" target="_blank">ドキュメント</a>をご覧ください。</li>
+   <li>ヘルプが必要ですか? サポートについては、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup" target="_blank">Azure Backup フォーラム</a> にお届けします。</li>
+   <li>新しいアイデアを投稿し、既存のアイデアに投票することで、 <a href="https://feedback.azure.com/forums/258995-azure-backup" target="_blank">Azure Backup を改善</a> する方法についてご意見をお寄せください。</li>
+  </ul>
+
+
+  <p>最新のニュースと更新については、Twitter <a href="https://twitter.com/azurebackup" target="_blank">@AzureBackup</a> でフォローしてください。</p>

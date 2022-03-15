@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a333ac65a8e3064ffe509e7ed4ca2acd90683264
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892761"
+Slug: san-replication-based-enterprise-grade-disaster-recovery-with-asr-and-system-center
+Title: ASR と System Center を使用した Enterprise グレードのディザスターリカバリーに基づく SAN レプリケーション
+Summary: 'ASR の幅広いレプリケーション機能を備えた、Storage Array-Based レプリケーションの追加について発表します。 Storage エリアネットワーク (SAN) アレイのスナップショットとレプリケーション機能を活用して、オンプレミスのプライベートクラウドでの高パフォーマンスの同期および非同期レプリケーションを可能にする企業は、ASR を使用したエンドツーエンドのディザスターリカバリーを調整できるようになりました System Center '
+Content: >-
+  今年の<a href="https://aka.ms/san_blog_landingpage">Azure Site Recovery</a>の進行状況に従っている場合、私たちの優先順位は、ディザスターリカバリー (DR) ソリューションを<em><strong>すべてのユーザー</strong></em>が利用できるよう<strong>にし、 <em></em></strong><em><strong>どこ</strong></em>からでも利用できるようになったことを思い出しています。 最初に、10月に<a href="https://aka.ms/san_blog_drtoazure">dr サイトとして Microsoft Azure を有効</a>にするためのサポートと共に、今年の1月に hyper-v レプリカに基づくオンプレミスプライベートクラウド間で調整された DR の一般提供を発表しました。 独自のセカンダリサイトの管理に費やされた貴重な CAPEX と OPEX を保存しようとしている cio は、Microsoft Azure を利用して、ディザスターリカバリーのための理想的な移行先にすることができるようになりました。 <a href="https://aka.ms/san_blog_inmageacquisition">Inmage システムの買収</a>と、 <a href="https://aka.ms/san_blog_inmage_asr">ASR 内のレプリケーションテクノロジとしての inmage</a>scout の統合により、VMware および物理環境のサポートが強化され、ディザスターリカバリーのための統合されたエンドツーエンドソリューションを構築するための目標が促進ています。
+
+
+  現時点では、ASR の広範なレプリケーション機能が <strong>追加</strong> されています。 Storage エリアネットワーク (SAN) アレイのスナップショットとレプリケーション機能を活用して、<strong>オンプレミスのプライベートクラウド間で</strong>高パフォーマンスの同期および非同期レプリケーションを可能にする企業は、<strong>エンドツーエンドのストレージアレイベースのレプリケーションと</strong>、ASR を使用したディザスターリカバリーを調整できるようになりました。System Center Virtual Machine Manager (SCVMM)。 TechEd 欧州2014で新機能のプレビューが正式に発表されており、今後数週間の間、この機能は ASR で利用できるようになります。 Microsoft のストレージパートナー (EMC、NetApp、HP 3PAR、Hitachi) は、それぞれの製品ラインに対して更新された SMI-S プロバイダーの可用性も発表し、その結果、ハードウェアと ASR および SCVMM との標準ベースの統合が可能になります。 その他のさまざまなストレージパートナーは、SMI-S プロバイダーのアップグレードの最終段階にあります。ハードウェアのサポートは近い将来に利用可能になります。
+
+
+  EMC は SMI-S プロバイダーを更新しました。これにより、ASR と VMM は、VNX や VNX Symmetrix リモートデータ機能 (SRDF) などの EMC のストレージアレイのレプリケーション機能を利用できるようになります。 EMC VMAX の SRDF は、複雑なアプリケーション環境が一貫性テクノロジを使用して全体として保護されていることを確認しながら、RPO と RTO の目標が満たされていることをお客様に提供します。 新しい VMAX3 ソフトウェアアーキテクチャでは、レプリケーションワークロードの並列化にマルチコアおよびマルチスレッドテクノロジを利用して、より効果的に CPU 電源を使用することができます。
+
+
+  netapp は、netapp fa Storage (クラスター化された Data ONTAP 8.2) の<a href="https://aka.ms/san_blog_netappblog">smi-s プロバイダーを更新しました</a>。 ASR とそのスナップミラーを組み合わせて使用することにより、NetApp のお客様は、仮想化されたビジネスクリティカルなワークロード (データベースや電子メールなど) を、簡単にデプロイできるディザスターリカバリーで保護できます。 ASR SAN レプリケーションに SnapMirror を使用しているお客様は、これらのワークロードのディザスター protection が拡張されていることを認識して、エンタープライズアプリケーションのワークロードを Hyper-v 上で自信を持って実行できます。
+
+
+  &nbsp;
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SAN_DR_ORCHESTRATION_thumb.jpg"><img class="aligncenter size-full wp-image-212244" style="width: 649px;height: 588px" alt="SAN_DR_ORCHESTRATION_thumb.jpg" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SAN_DR_ORCHESTRATION_thumb.jpg" width="614" height="576" /></a>
+
+
+  Microsoft Azure System Center Virtual Machine Manager の世界クラスの資産の上に構築された新しいストレージアレイベースのレプリケーションおよびディザスターリカバリー機能には、豊富な機能が用意されています。
+
+  <ul>
+   <li><strong> <sup><span style="font-size: medium;color: #008000">新しい</span></sup>標準ベース (smi-s) Storage、SCVMM での検出、プロビジョニング、およびレプリケーションの管理</strong>により、完全な統合が実現され、エンタープライズストレージパートナーが提供するレプリケーション機能を活用できます。 SCVMM はコンソール内に包括的な SAN 管理機能を提供します。</li>
+   <li>ASR と VMM を使用した<strong> <sup><span style="font-size: medium;color: #008000">新しい</span></sup>エンドツーエンドのディザスターリカバリーとオーケストレーション</strong>により <strong> </strong> 、すべてのターゲットオブジェクト (ストレージとコンピューティングの両方) の作成と管理が自動化され、回復が確実に動作するようになります。</li>
+   <li><strong> <sup><span style="font-size: medium;color: #008000">新しい</span></sup>同期および非同期レプリケーション</strong>のサポート。これは、お客様が最小限の RPO と RTO を達成できるように最適化されています。 記憶域ハードウェアでサポートされている機能は、自動的に ASR 内で使用可能になります。</li>
+   <li><strong> <sup><span style="font-size: medium;color: #008000">新しい</span></sup>マルチ VM 一貫性とレプリケーショングループ</strong>を使用すると、複数の lun と Virtual Machines を同時に保護できるため、アプリケーション層が一貫して同時にフェールオーバーする必要があるアプリケーションのサポートが拡張されます。</li>
+   <li>共有 VHDX または iSCSI ターゲットによって提供される共有記憶域に依存する<strong>ゲストクラスターの<sup><span style="font-size: medium;color: #008000">新しい</span></sup>サポート</strong>。 この重要な新機能により、共有ストレージに依存する SQL Server、SharePoint、SAP などのアプリケーションのディザスターリカバリーとフェールオーバーが可能になります。</li>
+   <li><strong>ASR 復旧計画</strong> は、DR 計画の1回のクリックで堅牢でシンプルなオーケストレーションを提供します。 ASR 復旧計画は、スタンドアロン Virtual Machines ではなく、複数のレプリケーショングループを含むように設計できるようになりました。</li>
+   <li>レプリケーショングループを保護するよう<b>に</b>設定すると、アプリケーションが必要な保護ポリシーで構成されるようになります。 プライマリサイトと DR サイト間でオンプレミスのネットワークをマップできるようにすることで、アプリケーションはフェールオーバー後に再開して接続することが保証されます。</li>
+   <li>テストフェールオーバー、計画されたフェールオーバー (データ損失なし、計画外のフェールオーバー、フェールバック) によって DR ドリルの完全なサポートを有効にする<b>セルフサービスのディザスターリカバリー</b>モデル。すべての dr アクションは正確で、一貫性があり、目標復旧時間 (RTO) の目標を達成できるように設計されています。</li>
+   <li><b>信頼性の高い復旧による監査とコンプライアンスレポートを使用 </b>すると、お客様のコンプライアンスニーズを満たすリスクのない、非運用環境に影響する、頻繁に発生する、信頼性の高い DR テストを確実に行うことができます。 サービスを使用して実行されるすべてのアクティビティをエクスポートできる組み込みのレポート関数を使用すると、監査の要件を満たすこともできます。</li>
+  </ul>
+
+  &nbsp;
+
+
+  お客様の IT 環境 (Windows または Linux、hyper-v、VMware、またはその<em><strong>他の物理</strong></em>または仮想化) のレプリケーションと復旧を保護し、調整する機能により、Azure Site Recovery は多くの組織のディザスターリカバリー計画において重要な役割を果たすことを迅速に想定しています。 モバイルファースト、クラウドファーストの世界において、生産性とプラットフォームの企業として、Microsoft はお客様のビジネス継続性の課題を解決し、プライベート、パートナー、パブリッククラウド間でシームレスに動作するハイブリッドクラウドソリューションを実現することを約束しています。
+
+
+  asr を採用した Enterprise および SME のお客様は、既にオンプレミスのプライベートクラウド全体で仮想マシンを一貫してレプリケート、保護、およびフェールオーバーする機能、または Microsoft Azure に直接アクセスできるという利点があります。 asr は、お客様が回復ポイントの目標 (RPO) を達成し、回復時間の目標 (RTO) を プライマリデータセンターに影響を及ぼします。
+
+
+  Azure Site Recovery と Azure Backup は、Microsoft Enterprise Agreement を通じて購入できる、便利で経済的なプロモーションプランでも利用できるようになりました。Azure Backup &amp; Site Recovery 年間サブスクリプションプランの各ユニットでは、Site Recovery を使用した Azure への単一インスタンスの保護、および Azure Backup を使用した最大 100 gb のデータの保護について説明しています。詳細については、Microsoft の販売店またはマイクロソフトの担当者にお問い合わせください。
+
+
+  詳細については、 <a href="https://aka.ms/asr_blog_forum">MSDN の Azure Site Recovery フォーラム</a> にアクセスして、他のお客様と協力してください。
+
+
+  <a href="https://aka.ms/san_blog_landingpage">Azure Site Recovery</a>の使用は簡単です。<a href="https://aka.ms/san_blog_azuretrial">無料の Microsoft Azure 試用版にサインアップ</a>するだけで十分です。 Azure Site Recovery を使用した Storage アレイレプリケーションベースのディザスターリカバリーは、プレビュー期間中は無料で利用できます。
+
+
+  &nbsp;

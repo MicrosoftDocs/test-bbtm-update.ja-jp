@@ -1,0 +1,177 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d5b19a17ec719c8817e26f620853fd39b92e0f50
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893991"
+Slug: database-migration-service-and-tool-updates-ignite-2018
+Title: Azure Database Migration Service とツールの更新プログラム– Ignite 2018
+Summary: 7月中旬、Azure Database Migration Service (DMS) とデータ移行ツールに対して行われた、魅力的な更新プログラムと追加情報を記録しました。
+Content: >-
+  <p>7月中旬、 <a href="https://aka.ms/get-dms" target="_blank">Azure Database Migration Service</a> (DMS) とデータ移行ツールに対して行われた、<a href="https://blogs.msdn.microsoft.com/datamigration/2018/07/16/latest-updates-to-the-azure-database-migration-service-and-database-migration-tools/" target="_blank">魅力的な更新プログラム</a>と追加情報を記録しました。 この時間が経過すると、データベース移行サービスの使用量が増加していることがわかります。 2018年8月に、15000データベースを移行することができました。2018年1月以降、Azure への107000以外のデータベースの移行を支援しています。 また、お客様のフィードバックに対処し、データベース移行サービスとツールの価値を高めるための機能を継続的に提供しています。 次に、最新の更新プログラムに関する情報を示します。</p>
+
+
+  <h2>Azure Database Migration Service (DMS)</h2>
+
+
+  <p>Azure DMS は、複数のデータベースソースから Azure データプラットフォームへのシームレスな移行を最小限のダウンタイムで実現できるように設計された、完全に管理されたサービスです。 最近の月には、次の改善点が追加されました。</p>
+
+
+  <ul>
+      <li><strong>オンライン (最小限のダウンタイム) 移行</strong>。 Azure DMS preview サポートを使用して、次のオンライン移行を行うことができるようになりました。
+
+      <ul>
+          <li>オンプレミスまたは仮想マシン上で実行されているデータベースを SQL Server して、Managed Instance を Azure SQL Database および Azure SQL Database します。</li>
+          <li>オンプレミスまたは仮想マシン上で実行されている MySQL データベースを Azure Database for MySQL します。</li>
+          <li>オンプレミスまたは仮想マシン上で実行されている PostgreSQL データベースを Azure Database for PostgreSQL します。</li>
+      </ul>
+      </li>
+      <li><strong>SKU の変更と追加</strong>。 Azure Database Migration Service の基本1と2の仮想コア Sku が General Purpose 1 と2の仮想コアに名前変更され、General Purpose 4 の仮想コア SKU が追加されました。 さらに、ビジネスクリティカルなワークロードを移行するための新しい Business Critical 4 仮想コア SKU も利用できます。</li>
+      <li><strong>Project の保存とアクティビティの実行</strong>: Azure DMS では、移行プロジェクトを作成し、1つのワークフローで特定の移行アクティビティを実行する機能がサポートされるようになりました。 これにより、お客様はより多くのクリックで移行を実行できるため、移行プロセスがより効率的になります。</li>
+      <li><strong>既存のバックアップファイルを使用した移行</strong>: azure DMS は、SQL Server から azure SQL DB Managed Instance への移行に既存の SQL Server バックアップファイルの使用をサポートするようになりました。</li>
+  </ul>
+
+
+  <h2>Data Migration Assistant (DMA)</h2>
+
+
+  <p>DMA を使用すると、互換性の問題を検出して最新のデータプラットフォームにアップグレードすることができます。また、ソースとターゲットのデータベース環境の間で機能を向上させることができるため、新しいバージョンの SQL Database のデータベース機能に影響を与える可能性があります。 これにより、スキーマとデータだけでなく、移行元サーバーから対象サーバーにログインすることもできます。</p>
+
+
+  <p>最近、DMA v4.0 と version 4.1 がリリースされました。</p>
+
+
+  <h2>Version 4.1 の新&#39;</h2>
+
+
+  <p>バージョン4.1 では、オンプレミスの SQL Server データベースを Azure SQL Database Managed Instance に移行するためのプレビュー評価のサポートが提供されます。 お客様は、DMA を使用してオンプレミスの SQL Server を評価したり、提供された PowerShell スクリプトを使用してデータベーススキーマに関するメタデータを収集したり、Azure SQL Database Managed Instance への移行に影響する部分的にサポートされる機能やサポートされていない機能を使用したり、移行後に問題を解決するための詳細な</p>
+
+
+  <h2>Version 4.0 の新機能&#39;</h2>
+
+
+  <p>バージョン4.0 には、Azure SQL Database sku の推奨事項が導入されています。これにより、ユーザーは、ソースデータベースをホストしているコンピューターから収集されたパフォーマンスカウンターに基づいて、推奨される最小 Azure SQL Database sku を特定できます。 この機能では、価格レベル、コンピューティングレベル、最大データサイズに関連する推奨事項に加え、月あたりの推定コストも提供します。 また、すべてのデータベースを Azure に一括してプロビジョニングする機能も提供されます。</p>
+
+
+  <p>現在、この機能は、コマンドラインインターフェイス (CLI) を介してのみ使用できます。 この機能を DMA ユーザーインターフェイス経由でサポートすることは、今年の後半に予定されています。</p>
+
+
+  <h2>SQL Server Migration Assistant (SSMA)</h2>
+
+
+  <p>ssma for Oracle、MySQL、SAP ASE (以前の SAP Sybase ASE)、DB2、および Access を使用すると、ユーザーはデータベーススキーマを Microsoft SQL Server スキーマに変換し、スキーマをアップロードして、ターゲット SQL Server にデータを移行することができます。</p>
+
+
+  <p>最近、SSMA v 7.9 と v1.0 がリリースされました。</p>
+
+
+  <h2>バージョン7.10 の新&#39;</h2>
+
+
+  <p>バージョン7.10 では、次の更新が導入されています。</p>
+
+
+  <ul>
+      <li>SSMA 7.10 の各フレーバーは、グローバル要件の変化に合わせて追加のセキュリティとプライバシー保護を提供するように設計された修正によって強化されています。</li>
+      <li>SSMA 7.10 for Oracle には、階層クエリに関連する変換の改善が含まれています。</li>
+      <li>SSMA 7.10 for DB2 には、begin end ブロックを変換するための修正プログラムが含まれています。</li>
+      <li>SSMA 7.10 for MySQL には、関数名と引数リスト間のスペース変換の修正が含まれています。</li>
+  </ul>
+
+
+  <h2>&#39;の新機能をご確認ください。</h2>
+
+
+  <p>バージョン7.9 では、次のようなさまざまな更新が提供します。</p>
+
+
+  <ul>
+      <li>SSMA の各フレーバーは、品質と自動換算率を向上させる対象の修正によって強化されています。 このリリースで実装された変更には、次のようなものがあります。 <ul>
+          <li>空間データ型を MySQL から Azure SQL Database に移行するための部分的なサポート。</li>
+          <li>Oracle から SQL Server への Continue &quot; ステートメントの移行 &quot; のサポート。</li>
+          <li>ssma コマンドラインでのサポートにより、データ型のマッピングと Project の基本設定を変更できます。</li>
+      </ul>
+      </li>
+      <li>ssma 7.9 for Oracle、MySQL、SAP ASE、DB2 には、SQL Server Integration Services (SSIS) を使用してデータを移行するオプションも用意されています。 スキーマを変換した後は、右クリックのコンテキストメニューオプション [ <strong>ssis パッケージとして保存</strong>] を使用して ssis パッケージを作成できます。</li>
+      <li>ssma の [Azure SQL Database 接続] ダイアログも、完全修飾サーバー名を指定するように変更されています。 以前のバージョンの ssma では、プロジェクト設定内で Azure SQL Database プレフィックスを明示的に記述する必要がありました。</li>
+  </ul>
+
+
+  <h2>Database Experimentation Assistant (DEA)</h2>
+
+
+  <p>dea は、特定のワークロードの対象となるバージョンの SQL Server を評価するのに役立つ SQL Server アップグレードの a/B テストソリューションです。 SQL Server 2005 以降から SQL Server の新しいバージョンにアップグレードしたお客様は、提供されている分析メトリックを使用して、正常なアップグレードと移行のエクスペリエンスを実現するために、より高い確実性で構築できます。</p>
+
+
+  <p>最近、DEA 2.6 がリリースされました。</p>
+
+
+  <h2>バージョン2.6 の新機能&#39;</h2>
+
+
+  <p>DEA の2.6 リリースでは、次の点が改善されています。</p>
+
+
+  <ul>
+      <li>自動化されたセットアップによって、運用データベースのワークロードをキャプチャして再生します。</li>
+      <li>サーバー側のトレースと <strong>xevent</strong>のサポート。</li>
+      <li>古いインスタンスと新しいインスタンスの両方を使用して収集された <strong>トレースや xevent に対して統計分析</strong> を実行します。</li>
+      <li>豊富なユーザーエクスペリエンスで、分析レポートを通じてデータを視覚化します。</li>
+      <li>キャプチャと再生の両方に<strong>SQL 認証</strong>を使用します。</li>
+      <li>既にサポートされている SQL Server 分散再生に加えて、単純なワークロードのための組み込みの再生ツール。</li>
+      <li>R と R の相互運用機能の依存関係を削除します。</li>
+      <li><strong>Azure SQL Database、Azure SQL Managed Instance</strong>、 <strong>SQL Server on Linux</strong>へのワークロードをキャプチャして再生します。</li>
+      <li>レポートの機能強化: <ul>
+          <li>アップグレード/移行ブロッカーを簡単に見つけることができる新しいエラーの分類グラフ。</li>
+          <li>エラー id 別にグループ化された新しいエラー円グラフ。エラーの根本原因を簡単に特定できます。</li>
+      </ul>
+      </li>
+      <li>バグの修正とその他のパフォーマンスの向上。</li>
+  </ul>
+
+
+  <h2>Azure Database Migration Guide (DMG) (英語)</h2>
+
+
+  <p><a href="https://aka.ms/datamigration" target="_blank">Azure Database Migration Guide</a>は、データ資産を最新化するためのステップバイステップガイダンスを提供するワンストップショップです。 最近では、お客様が移行シナリオを定義するためにソースとターゲットのペアを簡単に選択できるようにする新しい直感的な UX を発表しました。 また、評価と移行に役立つ複数の専門パートナーをオンボードしています。</p>
+
+
+  <h2>データベース移行ツールおよびサービスに関するその他のリソース</h2>
+
+
+  <p>現在、これらのツールまたはサービスのいずれかを使用している場合は、次のリンクが役に立つことがあります。</p>
+
+
+  <ul>
+      <li>Azure Database Migration Service <ul>
+          <li><a href="https://aka.ms/get-dms" target="_blank">サービス情報</a></li>
+          <li><a href="https://aka.ms/dms" target="_blank">ドキュメント</a></li>
+          <li><a href="https://feedback.azure.com/forums/906100-azure-database-migration-service" target="_blank">フィードバック フォーラム</a></li>
+          <li>サインアップすると、今後の移行シナリオの <a href="https://aka.ms/dms-preview" target="_blank">プレビューに参加</a> できます。</li>
+          <li>Azure の <a href="https://azure.microsoft.com/free/" target="_blank">無料アカウント</a> にサインアップします。</li>
+      </ul>
+      </li>
+      <li>Data Migration Assistant <ul>
+          <li><a href="https://aka.ms/dma" target="_blank">ドキュメント</a></li>
+          <li><a href="mailto:datamigrationteam@microsoft.com?subject=DMA%20Feedback">フィードバック</a></li>
+      </ul>
+      </li>
+      <li>SQL Server Migration Assistant <ul>
+          <li><a href="https://aka.ms/ssma" target="_blank">ドキュメント</a></li>
+          <li><a href="mailto:datamigrationteam@microsoft.com?subject=SSMA%20Feedback">フィードバック</a></li>
+      </ul>
+      </li>
+      <li>Database Experimentation Assistant <ul>
+          <li><a href="https://aka.ms/dea-tool" target="_blank">ドキュメント</a></li>
+          <li><a href="mailto:datamigrationteam@microsoft.com?subject=DEA%20Feedback">フィードバック</a></li>
+      </ul>
+      </li>
+      <li><a href="https://datamigration.microsoft.com/" target="_blank">Azure データベース移行ガイド</a></li>
+  </ul>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>移行ツールとサービスで利用できる最新の機能についてご紹介します。 ドキュメントの各記事の下部にあるフィードバックリンクを使用するか、<a href="mailto:datamigrationteam@microsoft.com">データ移行チーム</a>に直接連絡して、ユーザーの声で印象を共有してください: <a href="https://feedback.azure.com/forums/906100-azure-database-migration-service" target="_blank">Azure Database Migration Service</a>。 また、最新のニュースと発表については、Twitter <a href="https://twitter.com/Data_Migrations" target="_blank">@Data_Migrations</a> <a href="https://twitter.com/search?q=%23msdatamigration&amp;src=typd" target="_blank"> # の msdatamigration</a>を参照してください。</p>

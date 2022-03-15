@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 984caae7a4944676df5d3d4a49fc0666c7653a51
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888905"
+Slug: vstsdashboardchartwidget
+Title: 'アプリケーションインサイト: VSTS ダッシュボード グラフ ウィジェットが利用可能に'
+Summary: VSTS ダッシュボード用の Application インサイト グラフ ウィジェットをリリースしました。
+Content: >-
+  <p>はい、正しく読みました。 VSTS ダッシュボード用の Application インサイト グラフ ウィジェットをリリースしました。</p>
+
+
+  <p>問題&#39;、先に進んで、長い時間が来ていると言っても問題ないでしょう。 前のメトリック ウィジェットから&nbsp;のすべてのファンが、これがほぼ全員が望むものだったと非常に明確に聞いたことがあります。 しかし、かなり長い間、ユーザー ベースが本当に望み、必要としていた他の優先順位の高いものがありました (製品を一般提供に持ち込み、Usage Analytics 機能領域全体を開発することなど、ほとんど知りません)。 良いニュースは、この機能セットに対するすべての質問を忘れたことがないので、&#39;ここで行う必要があります。</p>
+
+
+  <h2>操作方法ウィジェットを取得しますか?</h2>
+
+
+  <p>以前のメトリック ウィジェットが既にインストールされている場合は&#39;する必要はありません。 新しいグラフ ウィジェットを既に使用できる必要があります。 最初から&#39;する<a href="https://marketplace.visualstudio.com/items?itemName=ms-appinsights.ApplicationInsightsWidgets" target="_blank" title="">場合は、インサイト Marketplace からアプリ インサイト メトリック ウィジェットApplication インサイト </a>Visual Studio ウィジェットをダウンロードできます。</p>
+
+
+  <h2>新しいウィジェットの動作</h2>
+
+
+  <p>VSTS ダッシュボードの編集ボタンをクリックし、[追加] <em>(+) ボタンをクリック</em> します。 以前&#39;使用可能な Application インサイト メトリック ウィジェットや新しいグラフ ウィジェットなど、使用可能なタイルの一覧が表示されます。</p>
+
+
+  <p><img alt="Add a new chart widget" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/widget%20selection%20menu.png" style="border: 1px solid currentColor; border-image: none; width: 350px; height: 471px;"></p>
+
+
+  <p>ウィジェットがダッシュボードに追加された後、構成を開き、applicationID&nbsp;&nbsp; とAPI キーを指定して、ウィジェットで追跡するメトリックと、時間の範囲や粒度などの詳細を選択します。 完了&#39;、次&#39;のようなグラフが表示されます。</p>
+
+
+  <p><img alt="Application Insights VSTS dashboard chart widget" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/chart%20widget.png" style="width: 329px; height: 161px;"></p>
+
+
+  <p>それが&#39;です。 返すデータの種類に応じて、線グラフ (既定値)、領域グラフ、または棒グラフから選択できます。 グラフもサイズ変更可能であり、サイズが増えるほど詳細が追加されます。 そのため、小さな概要グラフや、タイムスタンプ付き軸ラベルを含む詳細な大きなグラフを取得できます。 任意のデータ ポイントにカーソルを合わせると、詳細なデータを表示するヒントをいつでも取得できます。</p>
+
+
+  <p>現在のグラフ ウィジェットでは、メトリック ウィジェットの場合と同じ方法でしきい値警告が表示されない。 これは、しきい値がいつ超えたのか判断する方法について議論が行われ、この最初のイテレーションに目的があります。 たとえば、(上の&#39;図のように) 平均要求の実行時間を表示する場合、そのしきい値を超える平均の値がある場合は重大/警告条件を表示するか、平均値自体が制限を超えた場合は重大/警告条件を表示しますか? 現在制限を超&#39;場合、またはグラフの時間範囲内の値が条件を満たす場合にのみ、条件をトリガーしますか? 可能性はメトリック ウィジェットよりもはるかに複雑なので、混乱を避けるためにこの機能はまだ追加されていません。 この機能に関する具体的なフィードバックがある場合は、お知らせください。 お客様の入力を常に歓迎します。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>前に説明したように、ユーザー ベースの大部分に意味のある論理パラメーターを確立できると思う限り、このウィジェットにしきい値機能を追加する方法を検討します。 さらに、複数のユーザーがこれを役に立つと述べたように、Application Analytics (クエリベース) ウィジェットを引き続き確認しています。 これらの機能が重要な場合は、これらの機能を使い上げしてください。</p>
+
+
+  <p>もう少しの便利な DevOps 機能が近日公開予定です。 お読みいただきありがとうございました。</p>
+
+
+  <p>Grez</p>
+
+
+  <p>_______________</p>
+
+
+  <p>[Application インサイト UserVoice] ページで、新機能または改善された機能に関する<a href="https://visualstudio.uservoice.com/forums/357324-application-insights">アイデアを共有してください</a>。 ご質問がある場合は、<a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/home?forum=ApplicationInsights">Application インサイト フォーラムをご覧ください</a>。</p>

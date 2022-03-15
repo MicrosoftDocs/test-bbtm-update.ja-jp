@@ -1,0 +1,221 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1daa2b4acb47dc987ae05f021c5d66fdd3dfec83
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893207"
+Slug: automating-azure-analysis-services-processing-with-azure-functions
+Title: Azure Functions を使用した Azure Analysis Services 処理の自動化
+Summary: この記事では、Azure Functions を設定して Azure Analysis Services テーブルを処理する方法の簡単な例を紹介します。  Azure functions を使用すると、...
+Content: >-
+  <p>この記事では、 &rsquo; Azure Functions を設定して Azure Analysis Services テーブルを処理する方法の簡単な例を紹介します。</p>
+
+
+  <p>Azure functions は、クラウドで小さなコードを実行する場合に最適です。 Azure Functions の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview">Azure Functions の概要</a> と <a href="https://azure.microsoft.com/en-us/pricing/details/functions/">Azure Functions 価格</a>に関するページを参照してください。</p>
+
+
+  <h2>Azure 関数を作成する</h2>
+
+
+  <p>開始するには、まず Azure 関数を作成する必要があります。</p>
+
+
+  <p>1. ポータルにアクセスして、新しい <a href="https://ms.portal.azure.com/#create/Microsoft.FunctionApp">Function App</a>を作成します。</p>
+
+
+  <p>2. 新しい関数アプリの一意の <strong>名前</strong> を入力し、 <b>リソースグループ</b> と <b>場所</b>を選択します。 <b>ホスティングプラン</b>の場合は<b>App Service plan</b>を使用します。</p>
+
+
+  <p><b>注</b>: Analysis Services テーブルとモデルの処理期間が異なる場合は、 <b>Basic</b> または <b>Standard</b> App Service プランを使用して、 <b>Always On</b> 設定が有効になっていることを確認してください。そうしないと、処理に時間がかかると関数がタイムアウトする可能性があります。</p>
+
+
+  <p>[<strong>作成</strong>] をクリックし<strong>て Function App をデプロイ</strong>します。</p>
+
+
+  <p>3. [ <strong>クイックスタート</strong> ] タブで、[ <strong>タイマー</strong> と <strong>C#</strong>] をクリックし、[ <strong>この関数を作成する</strong>] をクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9a16009-559f-403e-a13c-c9efe708f311.jpg"><img alt="clip_image002" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36354f96-de09-4a5e-b371-baee4aea39da.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image002" width="903"></a></p>
+
+
+  <h2>タイマー設定の構成</h2>
+
+
+  <p>&rsquo;新しい関数を作成したので、いくつかの設定を構成する必要があります。 まず、で &rsquo; スケジュールを構成します。</p>
+
+
+  <p>1.<b>統合</b> &gt; <b>タイマー</b> &gt; S chedule にアクセスし<b>ます。</b></p>
+
+
+  <p>既定のスケジュールでは、5分ごとに CRON 式が使用されます。</p>
+
+
+  <p>これを必要な設定に変更します。 次の例では、式を使用して、毎日午前3時に関数をトリガーしています。 [ <b>ドキュメント</b> ] をクリックすると、CRON 式の説明といくつかの例が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d39ca596-4ae1-4908-8c41-059c093e4fb2.jpg"><img alt="clip_image004" border="0" height="522" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c626e25d-a9de-478a-ad8a-9dd582bb6797.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image004" width="1217"></a></p>
+
+
+  <p>2. [ <b>保存</b>] をクリックします。</p>
+
+
+  <h2>アプリケーション設定の構成</h2>
+
+
+  <p>コードの記述を開始する前に、アプリケーションを構成する必要があります。</p>
+
+
+  <p><b>大事な：</b> コンピューターに最新のデータプロバイダーがインストールされていることを確認します。 詳細情報を入手してダウンロードするには、「 <a href="https://docs.microsoft.com/en-us/azure/analysis-services/analysis-services-data-providers">Azure Analysis Services に接続するためのデータプロバイダー</a>」を参照してください。</p>
+
+
+  <p>プロバイダーをインストールした後、 &rsquo; 次の手順でこれらの2つのファイルが必要になります。</p>
+
+
+  <p>C:\Program の SQL Server\130\SDK\Assemblies\Microsoft.AnalysisServices.Core.dll<br>
+
+  C:\Program の SQL Server\130\SDK\Assemblies\Microsoft.AnalysisServices.Tabular.dll</p>
+
+
+  <p>1.新しい Azure 関数で、[ <b>Function app の設定</b> &gt; ] [ <b>Kudu] に</b>アクセスし、デバッグコンソールを開きます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f08a2c1f-c50c-49e0-80db-572d8d781650.jpg"><img alt="clip_image006" border="0" height="934" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4db8fab-f36d-4064-af22-5b132e1bd08a.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image006" width="1019"></a></p>
+
+
+  <p>2.<b>D:\home\site\wwwroot\yourfunctionname</b>の関数に移動し、 <b>bin</b>という名前のフォルダーを作成します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ee40482-f1ca-4b62-a14f-c571401f372e.jpg"><img alt="clip_image008" border="0" height="898" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/789ff825-67e1-4508-8d3a-f3051c4c735f.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image008" width="1232"></a></p>
+
+
+  <p>3. 新しく作成した bin フォルダーに移動し、プレビューポイントで指定されている2つのファイルをドロップします。 次のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b8373b7-163e-42b1-8b80-448f05e78da7.jpg"><img alt="clip_image010" border="0" height="847" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e775177b-49f5-448e-a7e4-6fbc5e2514a6.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image010" width="1263"></a></p>
+
+
+  <p>4. ブラウザーを最新の状態に更新します。 [ <b>開発</b> &gt; ] <b>ビン</b>に2つのファイルが表示されます (ファイル構造が表示されない場合 &rsquo; は、[ <b>ファイルの表示</b>] をクリックします)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e453271-68c6-4b91-8d25-c239d334ba7e.jpg"><img alt="clip_image012" border="0" height="756" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1a9a02d8-b7b3-4440-9550-e458ac90911f.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image012" width="1278"></a></p>
+
+
+  <p>5. コードを記述する前に、接続文字列を作成する必要があります。 [ <b>Function app の設定</b>] で、[ <b>アプリケーション設定の構成</b>] をクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0b58146-6d4f-4082-8c92-ca877b70e89a.jpg"><img alt="clip_image014" border="0" height="879" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a7c9ab8-2eee-476f-b7d0-a207ca5ff07c.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image014" width="1335"></a></p>
+
+
+  <p>6.<b>アプリケーション設定</b>ビューの最後までスクロールし、[<b>接続文字列</b>] セクションに移動して、<b>カスタム</b>接続文字列を作成します。</p>
+
+
+  <p>Provider = MSOLAP; Data Source = asazure://region.asazure.windows.net/servername;Initial Catalog = dbname;ユーザー ID = user@domain.com ;パスワード = pw</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/def1522f-19b7-4391-9ef3-7255c42d6c5c.jpg"><img alt="clip_image016" border="0" height="435" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/db7b0c26-43d2-4e97-ab0b-2c36c0cf6e9d.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image016" width="1393"></a></p>
+
+
+  <h3>コードの追加</h3>
+
+
+  <p>関数 &rsquo; の構成設定がインプレースになったので、コードを入力できます。 &rsquo;アップロードした dll を参照する必要がありますが、他の .net コードと同じように見えます。</p>
+
+
+  <p><b>注:</b> この例では、テーブルまたはモデルを処理するために、コメント化された行をいくつか追加しました。</p>
+
+
+  <p>#r &quot;Microsoft.AnalysisServices.Tabular.DLL&quot;</p>
+
+
+  <p>#r &quot;Microsoft.AnalysisServices.Core.DLL&quot;</p>
+
+
+  <p>#r &quot; System. 構成&quot;</p>
+
+
+  <p>using System;</p>
+
+
+  <p>System. Configuration; の使用</p>
+
+
+  <p>Microsoft.analysisservices.sharepoint.integration.dll を使用しています。</p>
+
+
+  <p>public static void Run (TimerInfo myTimer、TraceWriter log)</p>
+
+
+  <p>{</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp; 出力.Info ($ &quot; C# タイマートリガー関数が開始されました: {DateTime. Now} &quot; );&nbsp;&nbsp;</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp; やり直し</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Microsoft.analysisservices.sharepoint.integration.dll ()。サーバー asSrv = new Microsoft.analysisservices.sharepoint.integration.dll () という形式です。</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var connStr = ConfigurationManager. ConnectionStrings [ &quot; AzureASConnString &quot; ]。文字列</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;asSrv。Connect (connstr);</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; データベース db = asSrv. Databases [ &quot; AWInternetSales2 &quot; ];</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; モデル m = db。型</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db-9.モデルの RequestRefresh (RefreshType. Full); &nbsp; &nbsp; &nbsp; &nbsp;更新のためにモデルをマークします</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. RequestRefresh (RefreshType. Full); &nbsp; &nbsp; &nbsp; &nbsp;更新のためにモデルをマークします</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. Tables [ &quot; Date &quot; ]。RequestRefresh (RefreshType. Full); &nbsp; &nbsp; &nbsp; &nbsp;更新用に1つのテーブルのみをマークする</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db-9.Model. SaveChanges (); &nbsp; &nbsp; &nbsp; &nbsp;更新を実行するコミット &nbsp;</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asSrv。 Disconnect ();</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; catch (例外 e)</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 出力.情報 ($ &quot; C# タイマートリガー関数の例外: {e. ToString ()} &quot; );</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+
+
+  <p>&nbsp;&nbsp;&nbsp; 出力.Info ($ &quot; C# タイマートリガー関数が終了しました: {DateTime. Now} &quot; );&nbsp;</p>
+
+
+  <p>}</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>[ <b>保存</b> ] をクリックして変更を保存し、[ <b>実行</b> ] をクリックしてコードをテストします。 &rsquo;[出力] ウィンドウが表示され、ログ情報と例外を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/830e82f2-c9c3-4c1a-bf6f-391617ba3bec.jpg"><img alt="clip_image002[6]" border="0" height="1157" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7362b1d1-3d4b-4513-a6c0-737c1a5e0138.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="clip_image002 [6]" width="1577"></a></p>
+
+
+  <p>詳細については <a href="https://docs.microsoft.com/en-us/azure/analysis-services/">Azure Analysis Services</a> と <a href="https://docs.microsoft.com/en-us/azure/azure-functions/">Azure Functions</a>を参照してください。</p>

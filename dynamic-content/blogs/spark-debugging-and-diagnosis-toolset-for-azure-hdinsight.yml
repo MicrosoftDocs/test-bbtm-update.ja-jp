@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a13e010129a57ae3a90d4f55138190a91bb97e60
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892353"
+Slug: spark-debugging-and-diagnosis-toolset-for-azure-hdinsight
+Title: Spark Debugging and Diagnosis Toolset for Azure HDInsight
+Summary: 大規模な分散ビッグ データ セットのデバッグと診断は、ハードで時間のかかるプロセスです。
+Content: >-
+  <p>大規模な分散ビッグ データ セットのデバッグと診断は、ハードで時間のかかるプロセスです。 ビッグ データ クエリとパイプラインのデバッグは、企業にとってより重要になり、多くの Executors でのデバッグ、複雑なデータ フローの問題の修正、データ パターンの診断、クラスター リソースに関する問題のデバッグが含まれます。 エンタープライズ対応の Spark ジョブ管理機能がない場合、エンタープライズ開発者がワークフローのパフォーマンスを共同でトラブルシューティング、診断、最適化する機能が制限されます。</p>
+
+
+  <p>Microsoft は現在、何百万ものビッグ データ ジョブを実行およびデバッグする 10 年の経験をオープン ソースのオープン ソースの世界にApache Spark。 本日、Spark 2.3 を実行しているクラスター向け <b>HDInsight 用 Spark 診断 </b>ツールセットのパブリック プレビューをお知らせします。 以前にリリースされた [ジョブ] タブと [データ] タブに加えて、既定の Spark 履歴サーバーのユーザー エクスペリエンスに一連<b>の診断機能Graph</b><b>追加しています</b>。 新しい診断機能を使用すると、低並列化の特定、データ スキュー分析の検出と実行、ステージ データ分散に関する分析情報の取得、Executor の割り当てと使用状況の表示を行うのに便利です。</p>
+
+
+  <h2>データと時間のずれの検出と分析</h2>
+
+
+  <p>開発の生産性は、企業のテクノロジ チームを成功させる鍵です。 このAzure HDInsight開発者ツールセットにより、Spark を使用するビッグ データ開発者に業界をリードする開発プラクティスが提供されます。 ジョブ スキュー分析では、組み込みのルールとユーザー定義ルールを使用して、Executors とタスク間でデータ入力と実行時間を分析および比較することで、データと時間のずれを識別します。 スキューを自動的に検出し、診断結果を要約し、通常のタスクと偏ったタスク間のタスク分布を表示することで、生産性が向上します。</p>
+
+
+  <p align="justify"><br>
+
+  <br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56b61c7c-8b30-4e30-a331-9bbe5e7c6fa5.png"><img alt="image" border="0" height="450" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f2d0c1e3-e7b9-4e20-ae25-c055e5a03505.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="650"></a>&nbsp;&nbsp;&nbsp;</p>
+
+
+  <h2>実行プログラムの使用状況の分析</h2>
+
+
+  <p>企業は、特に分析する必要があるデータの量が急増している場合に、実稼働 Spark ジョブのパフォーマンスを最大化しながらコストを管理する必要があります。 Executor Usage Analysis ツールは、Spark ジョブ Executor の割り当てと使用率&rsquo; を視覚化します。 グラフには、割り当てられた Executors、実行中の Executors、アイドル状態の Executors の動的な変更が、ジョブの実行時間と共に表示されます。 Executor の使用状況グラフは、Spark ジョブ リソースの使用状況を理解するための使いやすいリファレンスとして機能します。そのため、構成を更新し、パフォーマンスまたはコストを最適化できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da7a55ec-6f75-4683-8468-da8912965351.png"><img alt="image" border="0" height="276" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b59db7c0-e5f3-4500-9e41-abbcf3a45c32.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="650"></a></p>
+
+
+  <h2>Spark のデバッグと診断ツールセットの概要</h2>
+
+
+  <p>これらの機能は、HDInsight Spark 履歴サーバーに組み込みされています。</p>
+
+
+  <ul>
+   <li>アプリケーションからアクセス <a href="https://portal.azure.com/">Azure portal。</a> Spark クラスターを開き、[クイック リンク] から [クラスター ダッシュボード] をクリックし、[Spark History Server] をクリックします。</li>
+   <li>URL でアクセスし、Spark History Server を開きます。</li>
+  </ul>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>ご意見やフィードバックをお待ちしております。 機能の要求、質問、または提案がある場合は、 でメモをお送りください <a href="mailto:hdivstool@microsoft.com" style="background-color: transparent; border-bottom-color: rgb(95, 151, 175); border-bottom-style: none; border-bottom-width: 0px; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: rgb(95, 151, 175); border-left-style: none; border-left-width: 0px; border-right-color: rgb(95, 151, 175); border-right-style: none; border-right-width: 0px; border-top-color: rgb(95, 151, 175); border-top-style: none; border-top-width: 0px; color: rgb(95, 151, 175); font-family: Tahoma,&amp;quot;Helvetica Neue&amp;quot;,Arial,Helvetica,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; orphans: 2; outline-color: invert; outline-style: none; outline-width: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; text-align: left; text-decoration: underline; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">hdivstool@microsoft.com</a>。 バグの送信については、テンプレートを使用して新しいチケットを開きます。</p>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+   <li>
+   <p><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-azure-spark-history-server">拡張 Spark History Server を使用して Spark アプリケーションを監視する</a></p>
+   </li>
+   <li>
+   <p><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-azure-spark-history-server#faq">拡張 Spark History Server の使用に関する FAQ</a></p>
+
+   <ul>
+    <li>
+    <p><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-azure-spark-history-server#1-revert-to-community-version">Spark UI コミュニティ バージョンに戻す</a></p>
+    </li>
+    <li>
+    <p><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-azure-spark-history-server#3-upgrade-jar-file-for-hotfix-scenario">Spark UI の修正プログラムを適用する</a></p>
+    </li>
+    <li>
+    <p><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-azure-spark-history-server#2-upload-history-server-event">サーバー ログを使用した Spark History Server エラーのトラブルシューティング</a></p>
+    </li>
+   </ul>
+   </li>
+   <li>
+   <p><a href="https://channel9.msdn.com/Series/AzureDataLake/Debug-HDInsight-Spark-Applications-with-Azure-Toolkit-for-IntelliJ">Azure Toolkit for IntelliJ を使用して HDInsight クラスターで Spark アプリケーションをリモートでデバッグする</a></p>
+   </li>
+  </ul>

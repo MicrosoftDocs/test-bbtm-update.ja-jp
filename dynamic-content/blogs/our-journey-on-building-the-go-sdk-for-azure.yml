@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 93c022497b6a96af7867dfa49e7e0d16152c136c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893367"
+Slug: our-journey-on-building-the-go-sdk-for-azure
+Title: Go SDK for Azure を構築する方法
+Summary: 'この数か月間、Azure Go SDK への新しい機能の追加に忙しく取り組み、今後はパブリック プレビューに向けて進む予定です。  '
+Content: >-
+  <p>この数か月間、Azure Go SDK&#39;新しい機能の追加に忙しくなっていたので、&#39;年にパブリック プレビューに向けて進む予定です。</p>
+
+
+  <p>お客様が最新の変更に従った<a href="https://github.com/Azure/azure-sdk-for-go"></a>場合、GitHub SDK に対して行われた一般的な機能強化のいくつかに気付いたと思います</p>
+
+
+  <h3>モデルのフラット化</h3>
+
+
+  <p>前回のリリースでは、モデルのフラット化を多くの API に追加しました (つまり、リソースの代わりに「Resource.Sku.Family」と入力できます)。Properties.Sku.Family)。 より読み取り可能なコードを作成します。</p>
+
+
+  <h3>パラメーターの検証中のエラー メッセージの向上</h3>
+
+
+  <p>パラメーターの検証中に、要求を送信する前に JSON を修正するために必要な情報を含むエラーを SDK が返すのを有効にしました。コーディングの間違いを特定/修正しやすくなります。</p>
+
+
+  <p>たとえば、ユーザーがリソース グループを作成し、その操作で場所が必要なシナリオを考えます。 ユーザーは要求に含めるのを忘れた。</p>
+
+
+  <p>以前のバージョンの SDK では、Azure 内で操作が失敗し、ユーザーは次のエラーを受け取る</p>
+
+
+  <pre class="prettyprint">
+
+  resources.GroupsClient#CreateOrUpdate: Failure responding to request: StatusCode=400 -- Original Error: autorest/azure: Service returned an error. Status=400 Code=&quot;LocationRequired&quot; Message=&quot;The location property is required for this definition.&quot; </pre>
+
+
+  <p class="prettyprint">最新バージョンの SDK では、ユーザーは</p>
+
+
+  <pre class="prettyprint">
+
+  resources.GroupsClient#CreateOrUpdate: Invalid input: autorest/validation: validation failed: parameter=parameters.Location constraint=Null value=(*string)(nil) details: value can not be null; required parameter </pre>
+
+
+  <p class="prettyprint">&nbsp;</p>
+
+
+  <p>また、ファイルとディレクトリの操作のサポートを追加し、コンテナーで ACL を取得/設定し、Storage Emulator などのさまざまなストレージ BLOB およびキュー操作を操作することで、SDK のデータ プレーンのカバレッジと機能を改善しました。</p>
+
+
+  <p>SDK に追加された修正と改善の一部は、Microsoft チームの外部の開発者によって提供されています。フィードバックや pull request を送信して下さったすべてのユーザーに、心からの感謝と感謝の意を表します。 データ プレーンでの API カバレッジの向上、より優れたドキュメント、リリース ノート、サンプルに関するご要望をメモし、今後のリリースに取り入れ中です。</p>
+
+
+  <h3>互換性に影響する変更</h3>
+
+
+  <p>今後のリリースと言えば、多くの API 変更は、実際には追加的である必要がある一方で、導入する変更の一部は既存のクライアントを壊します。 最近の例は <a href="https://github.com/Azure/autorest/issues/1559">問題 1559</a> でした。これは、パラメーターの検証を追加した場合に発生しました。近い将来、一部のメソッドとパラメーターが追加/削除され、パラメーターの順序が変更され、さらに多くの API でモデルのフラット化を検討している間に構造体が変更される可能性があります。 これは、Go SDK で &#39;beta&#39; ラベルを保持する理由の一部であり、提案された変更ごとに、既存の機能を壊さない代替手段を慎重に調べ中です。</p>
+
+
+  <p>&rsquo;Go SDK を引き続き使用し、フィードバックをお送り下さる皆さん、事前に感謝いたします。プラットフォーム上の開発者に最適なエクスペリエンスの構築に取り組み、&#39;sdk がパブリック プレビューと GA (一般提供) のより成熟したステージに向かっている間、変更が開発サイクルに与える影響を最小限に抑えたい必要があります。</p>
+
+
+  <p>このブログを&rsquo;使用して、進行状況と潜在的な重要な変更を常に更新し続け、新しいマイルストーンに向かっている間、お客様にヘッドアップを提供します。<br>
+
+  SDK を改善する方法に関する提案はありますか? お&rsquo;客様からのお話をお聞かしいのが気に入っています。 pr を送信 <a href="https://github.com/Azure/azure-sdk-for-go/pulls">するか</a> 、 <a href="https://github.com/Azure/azure-sdk-for-go/issues">問題を送信し</a>、話し&rsquo;合います。</p>

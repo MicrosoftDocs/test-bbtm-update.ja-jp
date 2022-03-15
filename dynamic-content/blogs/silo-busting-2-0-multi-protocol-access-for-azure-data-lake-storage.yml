@@ -1,0 +1,151 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 84abd14e16e2695dd5397b915f0e858992981b4b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892487"
+Slug: silo-busting-2-0-multi-protocol-access-for-azure-data-lake-storage
+Title: サイロバスト 2.0 - Azure Data Lake Storage 用のマルチプロトコル アクセス
+Summary: クラウド データ レイクは、ビッグ データ分析の基礎問題を解決し、従来は別々のデータ サイロに格納されているデータに対して、セキュリティで保護されたスケーラブルなストレージを提供します。 データ レイクは、最初からデータ バリアを打破し、ビッグ データ分析の取り組みを開始するように設計されています。
+Content: >-
+  <p>クラウド データ レイクは、&mdash;従来は別々のデータ サイロに格納されているデータに対して、セキュリティで保護されたスケーラブルなストレージを提供するビッグ データ分析の基礎問題を解決します。 データ レイクは、最初からデータ バリアを打破し、ビッグ データ分析の取り組みを開始するように設計されています。 しかし、最終的&ldquo;なサイ&rdquo;&mdash;&mdash;ロのブスターブフロンティアが残り、データ レイクに住むすべてのデータ構造化、半構造化、および非構造化に対して複数のデータ アクセス方法を有効にしました。</p>
+
+
+  <p>共有データ セットに複数のデータ アクセス ポイントを提供すると、ツールとデータ アプリケーションが最も自然な方法でデータを操作できます。 さらに、これにより、データ レイクは、さまざまなエコシステム用に構築されたツールとフレームワークの恩恵を受けることができます。 たとえば、オブジェクト ストレージ API を介してデータを取り込み、Hadoop 分散ファイル システム (HDFS) API を使用してデータを処理してから、オブジェクト ストレージ API を使用して変換されたデータをデータ ウェアハウスに取り込む場合があります。</p>
+
+
+  <h2>すべてのシナリオに対する単一のストレージ ソリューション</h2>
+
+
+  <p>Azure Data Lake Storage のマルチプロトコル アクセスのプレビューをお知<strong>らせStorage。 </strong><a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank">Azure Data Lake Storage</a>は、同じデータへのマルチプロトコル アクセスを提供する分析用の独自のクラウド ストレージ ソリューションです。<strong> </strong><a href="https://docs.microsoft.com/en-us/rest/api/storageservices/blob-service-rest-api" target="_blank">Azure Blob Storage API </a>と <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/data-lake-storage-gen2" target="_blank">Azure Data Lake Storage API</a> を介した同じデータへのマルチプロトコル アクセスを使用すると、Blob Storage 上に構築された階層型名前空間対応ストレージ アカウントである Data Lake Storage アカウントで既存のオブジェクト <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-namespace" target="_blank"></a>ストレージ機能を利用できます。 これにより、さまざまな種類のデータをクラウド データ レイクに柔軟に入れ、使用事例の進化に合わせてデータを最大限に活用できます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c77621e-f68c-46b1-b43e-d5831dc72cd1.png"><img alt="image" border="0" height="345" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1728633d-6a46-41b4-946c-4fc41e2623e1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ" width="640"></a></p>
+
+
+  <p align="center"><em>単一ストレージ ソリューション</em></p>
+
+
+  <h2>拡張された機能セット、エコシステム、アプリケーション</h2>
+
+
+  <p>アクセス層やライフサイクル管理ポリシーなどの既存の BLOB 機能が、Data Lake アカウントのアカウントStorageされました。 BLOB データを分析に使用することができるので、これはパラダイムシフトです。 さらに、Azure Stream Analytics、IoT Hub、Azure Event Hubs キャプチャ、Azure Data Box、Azure Search などのサービスは、Data Lake Storage とシームレスに統合されます。 クラウドへのオンプレミスの移行のような重要なシナリオでは、PB サイズのデータセットを Data Lake Storageに簡単にData Box。</p>
+
+
+  <p>また、Data Lake Storage のマルチプロトコル アクセスにより、パートナー エコシステムは Data Lake Storage で既存の Blob Storage コネクタを使用できます。&nbsp;エコシステム パートナーが言っていることは次のとおりです。</p>
+
+
+  <p><em>&ldquo;Azure Data Lake Storageのマルチプロトコル アクセスは、お客様のゲーム 変更者です。Informatica は Azure Data Lake Storage ネイティブ サポートに取り組み、マルチプロトコル アクセスは、お客様が分析とデータ レイクの最新化イニシアチブを最小限の中断で加速するのに役立ちます。&rdquo;</em></p>
+
+
+  <p style="text-align: right;">- Ronen Schwartz、Informatica、Data Integration、Big Data、Cloud のシニア バイス プレジデント兼ジェネラル マネージャー</p>
+
+
+  <p>Data Lake Storage に格納されているデータにアクセスするために、既存のアプリケーションを更新する必要Storage。 さらに、分析アプリケーションとオブジェクト ストレージ アプリケーションの両方の機能を活用して、データを最も効果的に使用できます。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c8708e7-6ba8-4379-991d-74f4c6e7f3fd.png"><img alt="Graph displaying multi-protocol access that enables storage features, Azure ecosystem, partner ecosystem, and custom applications.  " border="0" height="502" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9da4fe75-b272-4f6a-9de8-71410dbce1a7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="マルチプロトコル アクセス " width="481"></a></p>
+
+
+  <p align="center"><em>マルチプロトコル アクセスにより、機能とエコシステムが可能</em></p>
+
+
+  <h2>複数の API エンドポイント&mdash;Same データ、共有機能</h2>
+
+
+  <p>この機能は、複数のプロトコルをサポートするだけでなく、複数のストレージ パラダイムをサポートするわけではないため、クラウド分析サービスでは前例がありません。 これで、クラウド内のストレージにこの強力な機能が導入されます。 Blob Storage API を使用する既存のツールとアプリケーションには、変更を行わずにこれらの利点があります。 Azure Data Lake Storage API または Blob Storage API を使用してデータにアクセスするかどうかに関係なく、ディレクトリおよびファイル レベルのアクセス制御リスト (ACL) が一貫して適用されます。&nbsp;&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d512617-3785-49a1-b3f2-99a6b60b62a8.png"><img alt="Both the Blob storage API and Azure Data Lake Storage API go through the Hierarchical Namespace, which is built on top of Blob storage." border="0" height="814" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ae392a70-785d-4464-bf2b-39db2f8a751b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="階層ファイル システム" width="1725"></a></p>
+
+
+  <p align="center"><em>Azure Data Lake Storage のマルチプロトコル アクセス</em></p>
+
+
+  <h2>Data Lake Storage で機能と拡張エコシステムを利用Storage</h2>
+
+
+  <p>Data Lake Storage のマルチプロトコル アクセスにより、Data Lake Storage と Blob Storage の最適な機能が 1 つの包括的なパッケージにまとめらされます。 これにより、Data Lake Storage の多くの BLOB ストレージ機能とエコシステムのサポートが可能になります。</p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top"><strong>機能</strong></td>
+     <td valign="top"><strong>詳細情報</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">アクセス層</td>
+     <td valign="top">クール層とアーカイブ層は、Data Lake Storage で使用できます。 詳細については、Azure Blob Storage の&ldquo;ホット、クール、アーカイブのアクセス層に関<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers" target="_blank">するドキュメントを参照してください</a>。&rdquo;</td>
+    </tr>
+    <tr>
+     <td valign="top">ライフサイクル管理ポリシー</td>
+     <td valign="top">Data Lake Storage で、ポリシーを階層に設定したり、データを削除Storage。 詳細については、ドキュメント「 &ldquo;<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-lifecycle-management-concepts" target="_blank">Azure Blob Storage ライフサイクルの管理」を参照してください</a>。&rdquo;</td>
+    </tr>
+    <tr>
+     <td valign="top">診断ログ</td>
+     <td valign="top">Blob Storage API と Azure Data Lake Storage API のログは、v1.0 と v2.0 の形式で使用できます。 詳細については、分析ログに関するドキュメント&quot;<a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics-logging" target="_blank">Azure Storage参照してください</a>。&quot;</td>
+    </tr>
+    <tr>
+     <td valign="top">SDK</td>
+     <td valign="top">既存の BLOB SDK を Data Lake Storage で使用できます。 詳細については、次のドキュメントを参照してください。 <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-dotnet" target="_blank">.NET 用 Azure Blob Storage クライアント ライブラリ</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-java-v10" target="_blank">Java 用 Azure Blob Storage クライアント ライブラリ</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python" target="_blank">Python 用 Azure Blob Storage クライアント ライブラリ</a></li>
+     </ul>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">PowerShell</td>
+     <td valign="top">Data Lake のデータ プレーン操作用の PowerShell を使用Storage。 詳細については、次のクイック <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-powershell" target="_blank">スタートAzure PowerShellしてください</a>。</td>
+    </tr>
+    <tr>
+     <td valign="top">CLI</td>
+     <td valign="top">Azure CLIデータ プレーン操作のデータ を Data Lake Storage で使用できます。 詳細については、次のクイック <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-cli" target="_blank">スタートAzure CLIしてください</a>。</td>
+    </tr>
+    <tr>
+     <td valign="top">Azure Event Grid 経由の通知</td>
+     <td valign="top">これで、BLOB 通知は、次のEvent Grid。 詳細については、BLOB ストレージ イベントへの対応&ldquo;<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-event-overview" target="_blank">に関するドキュメントを参照してください</a>。&rdquo;Azure Data Lake Storage Gen2 通知は現在<a href="https://azure.microsoft.com/en-us/blog/event-driven-analytics-with-azure-data-lake-storage-gen2/" target="_blank">使用できます</a>。</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top"><strong>エコシステム パートナー</strong></td>
+     <td valign="top"><strong>詳細情報</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">Azure Stream Analytics</td>
+     <td valign="top"><a href="https://azure.microsoft.com/en-us/blog/new-capabilities-in-stream-analytics-reduce-development-time-for-big-data-apps/" target="_blank">Azure Stream Analytics</a>読み取りだけでなく、Data Lake データへの書き込みもStorage。</td>
+    </tr>
+    <tr>
+     <td valign="top">Azure Event Hubs のキャプチャ</td>
+     <td valign="top">次に<a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-capture-overview" target="_blank">、Azure Event Hubs内</a>のキャプチャ機能を使用して、Data Lake Storageをその宛先の 1 つとして選択できます。</td>
+    </tr>
+    <tr>
+     <td valign="top">IoT Hub</td>
+     <td valign="top"><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-d2c" target="_blank">IoT Hubルーティングにより</a>、Azure Data Lake Storage Gen 2 へのルーティングが許可されます。</td>
+    </tr>
+    <tr>
+     <td valign="top">Azure Search</td>
+     <td valign="top"><a href="https://docs.microsoft.com/en-us/azure/search/search-blob-storage-integration" target="_blank">Azure Search</a> を使用して、Data Lake のコンテンツに機械学習モデルのインデックスStorage適用できます。</td>
+    </tr>
+    <tr>
+     <td valign="top">Azure Data Box</td>
+     <td valign="top">オンプレミスから Data Lake Storage に大量のデータを取り込Data Box。</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>このすばらしい機能を使用して、より多くの BLOB ストレージ機能を有効にしてください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>これらの新機能はすべて、現在、これらのドキュメントに記載されているリージョンで <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-multi-protocol-access#region-availability" target="_blank">利用できます</a>。 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR2EUNXd_ZNJCq_eDwZGaF5VURjFLTDRGS0Q4VVZCRFY5MUVaTVJDTkROMi4u" target="_blank">今すぐ</a> プレビューにサインアップしてください。 詳細については、Azure Data Lake Storage のマルチプロトコル アクセスに関する<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-multi-protocol-access?toc=%2fazure%2fstorage%2fblobs%2ftoc.json" target="_blank">ドキュメントを参照してください</a>。</p>

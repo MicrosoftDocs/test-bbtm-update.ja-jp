@@ -1,0 +1,67 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2d480e0e4045fcaf58372e9bb4018beaf6ad64c0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893257"
+Slug: app-service-adding-multi-container-capabilities-and-linux-support-for-app-service-environment
+Title: 'App Service: App Service Environment への複数コンテナー機能と Linux サポートの追加'
+Summary: 最後の9月に、Linux での Azure App Service の一般提供が発表され、開発者はコードまたは Docker 形式のコンテナーをこの高生産性プラットフォームで実行できるようになりました。
+Content: >-
+  <p>最後に、 <a href="https://azure.microsoft.com/en-us/blog/general-availability-of-app-service-on-linux-and-web-app-for-containers/" target="_blank">linux での Azure App Service の一般</a>公開を発表しました。これにより、開発者は、linux でコードまたは Docker 形式のコンテナーをこの高生産性プラットフォームで実行できるようになります。 現時点では、マルチコンテナーサポート、Linux support for App Service Environment (ASE)、およびシンプルな診断、デバッグ、認証、および承認のパブリックプレビューについてお知らせします。</p>
+
+
+  <p>長年にわたり <a href="https://azure.microsoft.com/en-us/services/app-service/" target="_blank">Azure App Service</a> 、開発者は、基盤となる web サーバーやオペレーティングシステムを維持しなくても、アプリケーションの構築、デプロイ、およびスケーリングを迅速に行うことができました。 これらの新しい投資により、より多くのアプリパターンとデプロイの選択肢がサポートされるようになりました。&nbsp;</p>
+
+
+  <h2>複数コンテナーのサポート</h2>
+
+
+  <p>Web apps は、vacuum には存在しません。 通常はフロントエンド、Api との対話、またはキャッシュサービスの使用があります。 移植性、分離性、機敏性を高めるために、各コンポーネントを1つのコンテナー化として管理することを選択できます。 &nbsp; 複数コンテナーのサポートを App Service で使用して、 <a href="https://aka.ms/appservicemulticontainerdocs" target="_blank">複数の Docker 形式のコンテナー</a> で構成される web アプリを1つの仮想マシン (VM) ホストにデプロイできるようになりました。 この VM ホストは、動的または手動で水平方向にスケールアウトすることも、必要に応じてより強力なハードウェアにスケールアップすることもできます。 その後、組み込みの CI/CD、自動スケール、インテリジェント診断などの強力な機能を App Service &rsquo; 活用しながら、コンテナーのオーケストレーションやホスティングインフラストラクチャを気にせずに、この複合をアトミックな単位として運用することができます。&nbsp;</p>
+
+
+  <p>ショッピングカート web アプリを作成する例として、キャッシュサービス、バックエンド支払い API、監視サービス、フロントエンド注文アプリをそれぞれのコンテナーから構成できます。 各コンテナーは、 &ldquo; 懸念事項 &rdquo; の設計パターンを分離することによって個別に管理でき、さまざまなアプリケーションやチームが開発を速度するために再利用できます。 さらに、複数のコンテナーの複合を1つのホスト VM で実行することによって、ハードウェアの使用率が最適化されます。 バックエンド Api とキャッシュサービスを同じ単位で使用することで、サービスの検出を処理することなく、処理の待機時間を短縮し、ユーザー情報の状態を保持することができます。 データのニーズに応じて、スケールとパフォーマンスを最適化するために、サービスとしてのデータベース ( <a href="https://azure.microsoft.com/en-us/services/mysql/" target="_blank">Azure Database for MySQL</a>など) を個別に使用することをお勧めします。&nbsp;</p>
+
+
+  <p>ここで &rsquo; は、ショッピングカート web アプリの複数コンテナーアーキテクチャの例を示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af6cbd38-326f-4227-9583-2f6264ae5069.png"><img alt="Docker Compose" border="0" height="417" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7561b029-78cc-4308-b46e-f47231ac8459.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Docker Compose" width="640"></a></p>
+
+
+  <p>複数コンテナー web アプリを Azure App Service にデプロイするのは簡単です。 Docker Compose ファイルまたは Kubernetes ポッド定義を使用して web アプリを記述し、構成ファイルをアップロードするか、Azure portal で構成ファイルを指す url をコピーして貼り付けます。 App Service は、レジストリからのコンテナーのプル、インスタンスのインスタンス化、およびそれらの間の通信の構成を行います。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38633709-dc02-4379-a3de-0f11125b845f.png"><img alt="multi container" border="0" height="856" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/967b004c-16f2-4fd0-88a8-d7c01ebd4702.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="複数のコンテナー" width="1504"></a></p>
+
+
+  <h2>App Service Environment の Linux サポートがパブリックプレビューに</h2>
+
+
+  <p>Linux on App Service Environment では、独自のコンテナーまたは Linux ベースのコードを使用して、Azure 仮想ネットワーク (VNet) に web アプリケーションをデプロイできます。 Windows と Linux の両方の web アプリケーションを1つの ASE にデプロイし、同じ VNet を共有できます。 内部ロードバランサーを使用する ASE に web アプリをデプロイして、外部エンドポイントを使用して ASE をデプロイするか、VNet にプライベートアドレスをデプロイして、インターネットからアクセス可能なエンドポイントを取得することができます。 ASE にデプロイされたアプリは、分離プランで利用できます。この場合、ASE あたり最大 100 Dv2 の Vm をスケールアップし、対応のニーズを満たすネットワークの分離を実現できます。</p>
+
+
+  <p>開始するには、こちらの <a href="https://docs.microsoft.com/en-us/azure/app-service/environment/create-external-ase" target="_blank">クイックスタート</a>を参照してください。&nbsp;</p>
+
+
+  <h2>強化された App Service 診断</h2>
+
+
+  <p>昨年、 <a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-azure-app-service-diagnostics/" target="_blank">App Service 診断機能</a>が導入されました。ガイド付きインテリジェントトラブルシューティングエクスペリエンスが提供され、アプリの問題を診断して解決するための適切な方向を示すことができます。 このツールは、Windows web アプリだけでなく、Linux、App Service Environment、Azure Functions で実行されている web apps でも利用できるようになりました。 プラットフォームとアプリケーションの問題を特定するだけでなく、App Service 診断エクスペリエンス内の Application Insights を使用してコードレベルの洞察を得ることができます。</p>
+
+
+  <h2>簡単なデバッグ、認証、および承認</h2>
+
+
+  <p>Azure でのアプリの構築とデバッグをさらに簡単にする次の一連のイノベーションをお楽しみください。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/remotedebugginglinux" target="_blank">リモートデバッグ</a>(パブリックプレビュー): Visual Studio Code または Azure CLI を使用して Linux 上の App Service で実行されている Node.JS アプリケーションをリモートデバッグして、問題をより迅速に解決できるようになりました。</li>
+   <li><a href="https://aka.ms/remotedebugginglinux" target="_blank">お好みの ssh クライアント</a>をパブリックプレビューでご利用いただけます。 KUDU web SSH クライアントに加えて、Putty やその他の ssh クライアントを独自のコンソールまたはシェルプログラムから使用できるようになりました。 SFTP プロトコルもサポートしており、任意の SFTP クライアントを使用できます。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/app-service/app-service-authentication-overview" target="_blank">より簡単な認証と承認</a>: Linux での App Service のパブリックプレビューでは、サイトでユーザーを承認し、Azure Active Directory、Facebook、Google、Twitter、Microsoft アカウント id を使用してサイトコンテンツへのアクセスを制限できるようになりました。</li>
+  </ul>
+
+
+  <p>App Service で革新を維持しているため、開発者はこれを使いやすくすることもできます。 現在、新しい Azure サブスクリプションについては、最初の月 (722 時間) で、 <a href="https://azure.microsoft.com/en-us/pricing/details/app-service/" target="_blank">B1</a> Linux の使用量が無料で表示されることが発表されています。 これは2018年6月1日から有効になります。 このプランを使用して新しい機能を試すことをお勧めします。 <a href="https://stackoverflow.com/questions/tagged/azure-web-app-service" target="_blank">フォーラム</a>でご意見をお聞かせください。&nbsp;</p>

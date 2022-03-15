@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e51aaf76e868e7f452c4b7f5f13a23cae91d8f7e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892968"
+Slug: introduction-to-remote-debugging-on-azure-web-sites-part-3-multi-instance-environment-and-git
+Title: Azure Web サイトでのリモート デバッグの概要 パート 3 - マルチインスタンス環境と GIT
+Summary: Azure Web サイトのリモート デバッグに関するこのシリーズの前の 2 つのブログ記事では、VS を Azure に接続する方法を確認し、その動作を確認しました。 この 3 つ目と最後の部分で...
+Content: >-
+  Azure Web サイトのリモート デバッグに関するこのシリーズの前の 2 つのブログ記事では、VS を Azure に接続する方法を確認し、その動作を確認しました。 このシリーズ<sup>の第 3</sup>  回と最後の部分では、さらに高度なシナリオについて説明します。 複数のインスタンスを持ち、特定のインスタンスをデバッグする場合は、サーバー側インフラストラクチャによってこれがサポートされます。 まず、複数のインスタンスで少し背景を作成してから、必要なインスタンスを指定する方法を示します。
+
+
+  複数のインスタンスには、サイト ビジター セッションがインスタンスにローカライズされるという固有の問題があります。そのため、"ビジターのベトネス" という言い方が必要です。サイトビジターが初めて Web サイトにアクセスすると、インスタンスが (ランダムまたは負荷またはカスタムに基づいて) 選択されますが、同じインスタンスに対してサブ <em>シーケンス</em> <em>callsmustgo</em>  が選択されます。これは、Cookie を使用して行われます。クライアント (ブラウザー) が Azure でホストされている Web サイトに初めてアクセスすると、Cookie がクライアントにダウンロードされます。Web サイトへの後続の呼び出しは、Cookie で定義されているインスタンスに転送されます。
+
+  <h4>インスタンスの定義</h4>
+
+  インスタンス定義は、 <em>keyARRaffinity を持つクッキーを使用して行われます</em>。値 <em>は各インスタンス</em> にランダムに割り当て、一意です。Azure SDK の現在のリリースでは、インスタンスの指定はまだサポートされていません。ただし、手動メソッドを使用してデバッグするインスタンスを指定できます。  <em>「</em>Azure <em>Web サイトVisual Studio リモート デバッガー接続する (Azure Web サイト)」を参照してください</em><em>。</em>
+
+
+  ユーザー名を指定し、次を追加する場合: ポンド/ハッシュ "#" と ARR アフィニティ クッキーの最初の数文字。デバッガーは 'begins with' 一致を使用して一致します。そのため、5 文字で十分です。たとえば、  <em>ユーザー jaime_eの場合は jaime_e#55f03</em>  <em></em> 、 jaime_e  <em>55f03</em> で始まる ARR クッキーを指定します。
+
+
+  <em>ヒント: (Windows 資格情報管理システムを使用する) Visual Studio に資格情報を保存した場合は、"コントロール パネル\User Accounts and Family Safety\資格情報マネージャー" に移動して資格情報を削除し、VS を再起動することで、これらの資格情報をクリアできます。</em>
+
+  <h4>インスタンス値の検索</h4>
+
+  インスタンスの <em>ARRaffinity</em>  を読み取るには、クライアントに格納されているクッキーを見つけて読み取る方法が必要です。クライアントがブラウザーの場合、ほとんどのブラウザーには、Cookie を管理および表示するためのツールを含む開発者モードが含まれます (多くの場合)。たとえば <a href="https://msdn.microsoft.com/en-us/library/dd565626(v=vs.85).aspx#cacheMenu">Internet Explorer</a>コンソールに <a href="https://developers.google.com/chrome-developer-tools/docs/resources">アクセス</a> するキーは、 <em>"F12" です。 </em>クライアントと Cookie の管理方法によっては、 <em>ARRaffinity</em>  値を読み取る方法が異なる場合があります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1808/1362.Jaime-Espinosa_2D00_-FIGURE-12_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1808/1362.Jaime-Espinosa_2D00_-FIGURE-12_2E00_.PNG" border="0"></a>
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1808/0447.Jaime-Espinosa_2D00_-FIGURE-13_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1808/0447.Jaime-Espinosa_2D00_-FIGURE-13_2E00_.PNG" border="0"></a>
+
+  <h4>Azure Web サイトでの GIT デプロイでのリモート デバッガーの使用</h4>
+
+  GIT にデプロイされたソース コードでリモート デバッグを使用すると、Azure Web サイトで既定で有効になります。GIT を使用してデプロイされたソース コードは、サーバー側でコンパイルされます。 シンボル ファイル (pdb) は常に生成されますが、既定では、コードはデバッグではなく、パフォーマンスを最適化してコンパイルされます。
+
+
+  リモート デバッグの使用を有効にするには、デバッグ構成を使用してソース コード (再コンパイルをトリガーする) を再デプロイするか、"マイ コードのみ" デバッグを無効にする方法の 2 つがあります。
+
+
+  次のいずれかの方法を使用して、デバッグ用に最適化を行うコンパイラに明示的に指定する必要があります。
+
+  <h4>デバッグ用にコンパイラを構成する</h4>
+
+  GIT でデプロイされたソース コードがコンパイルされると、ソース キーで見つけたコンパイラ フラグSCM_BUILD_ARGSされます。
+
+  <h4>ポータルを使用したフラグの追加</h4>
+
+  Web サイト <strong>の [構成]</strong>  タブAzure portal、アプリの設定というセクションがあります。ここで、コードのコンパイル時に使用するキーと値のペアを追加できます。Key= SCM_BUILD_ARGS、Value= -p:Configuration=Debug
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1808/3288.Jaime-Espinosa_2D002900_-FIGURE-14_2E00_.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1808/3288.Jaime-Espinosa_2D002900_-FIGURE-14_2E00_.png" border="0"></a>
+
+  <h4>msbuild コマンドへのフラグの追加</h4>
+
+  また、your.deployment ファイルでコンパイル フラグ <a href="https://github.com/projectkudu/kudu/wiki/Customizing-deployments">を指定できます</a>。 これは、設定をリポジトリの一部にしたい場合に便利です。既定のコマンド ラインの前の部分はオーバーライドされます。
+
+
+  SCM_BUILD_ARGS=-p:Configuration=Debug
+
+  <h4>リモート デバッグの開始</h4>
+
+  この時点から、通常と同じ方法でリモート デバッグを使用します。クライアントではなくサーバーに pdb ファイルが存在する場合にリモート デバッグを特に有効にするように、Azure Web サイトの MSVSMON のバージョンに変更が加えらた。これは自動的に行われるので、他に何もする必要はありません。ブログ「Azure Web  <em>サイトVisual Studio リモート デバッガー接続</em>する」<em>は、開始</em>するために必要な手順を示しています。
+
+
+  Azure Web サイトでの GIT の詳細については、 <a href="https://github.com/projectkudu/kudu/wiki">Kudupage のGitHub Project参照</a> してください。
+
+  <h4>まとめ</h4>
+
+  この一連のブログ記事では、複数の飛び地からのリモート デバッグに関するトピックを調べ、このテクノロジを使用して生活を楽にするためのいくつかのツールと分析情報を提供しました。 当然ながら、デバッグの技術ははるかに広範なトピックであり、この情報が、より堅牢で安定したアプリケーションに役立つ可能性を期待しています。
+
+
+  このシリーズの第 1 部を読むには、ここをクリックしてください。
+
+
+  このシリーズの第 2 部を読むには、ここをクリックしてください

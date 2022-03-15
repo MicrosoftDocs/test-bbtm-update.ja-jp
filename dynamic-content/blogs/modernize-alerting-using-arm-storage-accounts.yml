@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 233430d28865e68bdd3bc4e88ff21affa56834fc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890368"
+Slug: modernize-alerting-using-arm-storage-accounts
+Title: Azure Resource Manager ストレージアカウントを使用したアラートの最新化
+Summary: 'Azure Monitor のクラシックアラートは、6月にリリースされます。 ストレージアカウントに定義されているクラシックアラートルールを移行することをお勧めします (特に、新しいアラートプラットフォームでアラート機能を維持する場合)。 '
+Content: >-
+  <p>Azure Monitor のクラシックアラートは、6月にリリースされます。 ストレージアカウントに定義されているクラシックアラートルールを移行することをお勧めします (特に、新しいアラートプラットフォームでアラート機能を維持する場合)。 クラシックストレージアカウントでクラシックアラートルールが構成されている場合は、アラートルールを移行する前に、アカウントを Azure Resource Manager (ARM) ストレージアカウントにアップグレードする必要があります。</p>
+
+
+  <p>新しい Azure Monitor サービスと従来のアラートの提供終了の詳細については、「 <a href="https://azure.microsoft.com/en-us/updates/classic-alerting-monitoring-retirement/" target="_blank">2019 年6月に廃止する Azure Monitor のクラシックアラート</a>」を &ldquo; 参照してください。&rdquo;</p>
+
+
+  <h2>従来のアラートルールの特定</h2>
+
+
+  <p>移行を開始する前に、すべてのクラシックアラートルールを見つける必要があります。 次のスクリーンショットは、Azure portal でクラシックアラートルールを識別する方法を示しています。 各リソースを個別に確認することなく、すべてのクラシックアラートルールを検索できるように、サブスクリプションでフィルター処理することができます。</p>
+
+
+  <p><img alt="Check classic alert rules" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/find_classic_alert_rules.png" style="width: 800px; height: 419px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <h2>従来のストレージアカウントを ARM に移行する</h2>
+
+
+  <p>新しいアラートでは、従来のストレージアカウントはサポートされません。 ARM ストレージアカウントのみがサポートされます。 従来のストレージアカウントでクラシックアラートルールを構成した場合は、ARM ストレージアカウントに移行する必要があります。 &nbsp;アカウントの種類 &quot; の情報を確認 &quot; するには、Azure Portal の [Storage account] \ (アカウント \) ページにアクセスします。 s &quot; Storage (クラシック) &quot;&#39;場合、ストレージアカウントはクラシックストレージアカウントです。</p>
+
+
+  <p>ARM &quot; への移行を使用 &quot; して、クラシックストレージアカウントの [ストレージ] メニューを使用して移行することができます。 次のスクリーンショットは、この例を示しています。 アカウントの移行を実行する方法の詳細については、<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/migration-classic-resource-manager-overview" target="_blank">プラットフォームでサポートされている、プラットフォームでサポートされている、クラシックから Azure Resource Manager へのリソースの移行</a>に関するドキュメントを &ldquo; 参照してください。&rdquo;</p>
+
+
+  <p><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/migrate_to_arm.png" style="width: 800px; height: 482px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <h2>新しい警告プラットフォームでアラートルールを再作成する</h2>
+
+
+  <p>ストレージアカウントを ARM に移行したら、アラートルールを再作成する必要があります。 新しいアラートプラットフォームでは、新しいストレージメトリックを使用した ARM ストレージアカウントに対するアラートがサポートされています。 新しいストレージメトリック定義の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-metrics-in-azure-monitor">Azure Monitor の Azure Storage メトリック</a>」を &ldquo; 参照してください。 &rdquo;[ストレージ] ブレードのメニューには、新しいアラートプラットフォームの [アラート &quot; ] という名前が付け &quot; られています。</p>
+
+
+  <p>ストレージアカウントの新しいアラートとしてアラートルールを再作成する前に、クラシックメトリックと新しいメトリックの違いと、それらがどのようにマップされるかを理解しておく必要があります。 詳細なマッピングについては、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-metrics-migration">Azure Storage メトリックの移行</a>」を &ldquo; 参照してください。&rdquo;</p>
+
+
+  <p>次のスクリーンショットは、利用可能な容量に基づいて &ldquo; アラートを作成する方法を示しています。&rdquo;</p>
+
+
+  <p><img alt="Create alert rule on UsedCapacity" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/create_alert_rule_usedcapacity.png" style="width: 800px; height: 496px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>メトリックによっては、ディメンションの値の種類が異なる場合があります。 たとえば、トランザクションメトリックには responsetype &rdquo; という名前 &ldquo; のディメンションがあり、値はさまざまな種類のエラーと成功を表します。 アラートを作成して、ServerBusyError や &ldquo; cliento &rdquo; &rdquo; など &ldquo; の特定のエラーについて、responsetype &rdquo; を使用 &ldquo; してトランザクションを監視できます。</p>
+
+
+  <p>次のスクリーンショットは、clientoruncommand エラーを含む &ldquo; トランザクションに基づいて警告を作成する方法を示しています。&rdquo;</p>
+
+
+  <p><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/create_alert_rule_transaction_clientothererror.png" style="width: 800px; height: 479px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>ディメンション値の一覧では、既定ではサポートされているすべての値が表示され&#39;。 実際の要求によってトリガーされた値のみが表示されます。 発生していない条件を監視する場合は、アラートの作成時にカスタムディメンション値を追加できます。 たとえば、ストレージアカウントへの匿名要求をまだ行っていない場合でも、アラートを事前に設定して、今後の要求からそのようなアクティビティを監視できます。</p>
+
+
+  <p>次のスクリーンショットは、今後の匿名トランザクションを監視するためにカスタムディメンション値を追加する方法を示しています。</p>
+
+
+  <p><img alt="Add dimension value for alert" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/create_alert_rule_transaction_adddimensionvalue.png" style="width: 800px; height: 479px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>最初に新しいアラートルールを作成し、意図したとおりに動作することを確認してから、従来のアラートを削除することをお勧めします。</p>
+
+
+  <p>Azure Monitor は、アラートやその他の監視機能を備えた、統合された監視サービスです。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/" target="_blank">Azure Monitor のドキュメント</a>を参照して &ldquo; ください。&rdquo;</p>

@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ebccd671ea214810dc188cc675699f521c0b2c9c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893501"
+Slug: go-serverless-for-your-iot-needs
+Title: IoT のニーズに合わせてサーバーレスに移行する
+Summary: クラウドで IoT ソリューションを構築している場合は、デバイスにフォーカスがある可能性があります。 では、デバイスのネットワークからのデータを処理することができます。
+Content: >-
+  <p>クラウドで IoT ソリューションを構築している場合は、デバイスにフォーカスがある可能性があります。 デバイスのネットワークから取得されたデータをリアルタイムで処理し、データを分析して洞察を得たり、特別な状況についてのアラートを受け取ったり、デバイス自体を管理したりすることができます。 興味深いのは、クラウドでのインフラストラクチャの設定と管理です。これにより、上記のことが可能になります。 ここで、 <a href="https://azure.com/serverless" target="_blank">サーバーレス</a> が提供されています。</p>
+
+
+  <p>Azure Functions のようなサーバーレステクノロジは、インフラストラクチャの管理の負担を解消し、IoT を利用したビジネスロジックに専念できるようにします。 IoT プロジェクトでは、通常、トラフィックが変動します。つまり、ピーク時の負荷 &rsquo; に対応するためにインフラストラクチャを累積すると、最適な方法ではありません。 サーバーレスを採用すると、コストを低く抑えながら、ソリューションを動的に拡張できます。</p>
+
+
+  <p>このビデオでは、デバイスからデータを受信し、machine learning を使用してリアルタイムで変換し、デバイスに返送する、サーバーレスアーキテクチャの優れたアプリケーションについて説明します。 これは、 <a href="https://microsoft.github.io/azure-iot-developer-kit/docs/projects/devkit-translator/" target="_blank">devkit 翻訳ツール</a>IoT プロジェクトに基づいています。</p>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" scrolling="no" src="https://www.youtube.com/embed/j7QTOgQErJg" width="560"></iframe></p>
+
+
+  <p>ここでは、 <a href="https://azure.microsoft.com/en-us/services/iot-hub/" target="_blank">Azure IoT hub</a>、 <a href="https://azure.microsoft.com/en-us/services/event-grid/" target="_blank">Azure Event Grid</a>、 <a href="https://azure.microsoft.com/en-us/services/functions/" target="_blank">Azure Functions</a>の組み合わせによって IoT のニーズに potent ソリューションを提供するいくつかのシナリオについて説明します。</p>
+
+
+  <h2>受信デバイスデータをリアルタイムで処理する</h2>
+
+
+  <p>ほとんどの IoT デバイスは、取り込まれたして処理する必要があるデータを生成します。&nbsp;</p>
+
+
+  <ul>
+      <li>このデータは、後で分析するために視覚化またはアーカイブする前に、いくつかのカスタム処理を実行する必要がある通常のテレメトリデータである可能性があります。 この場合、 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin" target="_blank">IoT Hub の組み込みの Azure Event Hubs エンドポイント</a>から<a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-hubs" target="_blank">サーバーレス関数をトリガー</a>することは、カスタム処理パーツに最適なソリューションです。</li>
+      <li>特別な条件のアラートを使用することもできます。これは、若干異なる (および緊急の) カスタム処理で対処する必要があります。 この場合、Azure Service Bus キューなどの<a href="https://azure.microsoft.com/en-us/blog/how-to-use-azure-functions-with-iot-hub-message-routing/" target="_blank">IoT Hub のメッセージルーティング機能を使用して</a>サーバーレス関数をトリガーするのは、完全なソリューションです。</li>
+  </ul>
+
+
+  <h2>クラウドからデバイスへのメッセージの送信</h2>
+
+
+  <p>クラウドアプリケーションから IoT デバイスにメッセージを送信することも、一般的なシナリオです。 IoT hub は API を通じてこれを容易にし、任意のアプリケーションから簡単に使用 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-csharp-csharp-c2d" target="_blank">でき</a> ます。 このようなデータは通常、ワークフローの一部として送信されるため、サーバーレス関数は、この特定の部分を実行するためのコード (デバイスからのメッセージの送出) を実行するための高速で簡単でスケーラブルな機構を提供します。このメカニズムは、このコードを実行する場所を気にせずに実行します。</p>
+
+
+  <h2>IoT ソリューションの管理と自動スケール</h2>
+
+
+  <p>サーバーレスバックエンドによって、ソリューションのデータ処理部分の大規模な問題が解消されますが、IoT Hub 自体の容量を適切にスケーリングして、サーバーレスバックエンドに実際に流れるトラフィック量を管理する必要があります。 ここでは、Azure Functions の <a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-overview" target="_blank">Durable Functions</a> 機能を使用して、iot <a href="https://azure.microsoft.com/en-us/blog/iot-hub-dotnet-autoscale/" target="_blank">ハブを監視およびスケーリングするサーバーレスの方法</a> を提供できます。これにより、iot プロジェクト全体を効果的に自動スケールできます。</p>
+
+
+  <p>さらに、Azure Event Grid と Azure IoT ハブを使用して、関数または Logic Apps を使用したサーバーレス方式で、追加や削除などの<a href="https://docs.microsoft.com/en-us/azure/event-grid/publish-iot-hub-events-to-logic-apps" target="_blank">デバイスの更新に応答</a>することもできます。</p>
+
+
+  <h2>IoT Edge でのカスタム処理</h2>
+
+
+  <p>ビジネスでは、IoT ソリューションからの待機時間の短い出力が要求されることが増えています。 <a href="https://azure.microsoft.com/en-us/services/iot-edge/" target="_blank">Azure IoT Edge</a>のようなソリューションでは、お客様はクラウドテクノロジの機能を自分のデバイスに転送できます。 クラウドと通信しなくても、デバイス自体でいくつかのカスタム処理を実行する必要があるシナリオが複数あります。 <a href="https://blogs.msdn.microsoft.com/appserviceteam/2017/11/15/azure-functions-on-iot-edge/" target="_blank">IoT Edge の Azure Functions</a> は、独自のデバイスで Azure Functions の生産的なプログラミングモデルを利用するための強力なメカニズムを提供します。 これにより、クラウドアプリケーションとエッジアプリケーションでのアーキテクチャの一貫性が確保されます。</p>
+
+
+  <p>ここでは、Azure がサーバーレステクノロジを使用して IoT アプリケーションを構築する方法の例をいくつか紹介します。 Azure Functions の使いやすさと低コストの性質により、他の多くの IoT シナリオを試すための実用的な選択肢となります。 ここでは、ビルドする対象について説明します。&nbsp;</p>
+
+
+  <h2>リソース</h2>
+
+
+  <ul>
+      <li>無料の <a href="https://azure.microsoft.com/en-us/free/" target="_blank">Azure アカウント</a>を使用して今すぐ作業を開始しましょう。</li>
+      <li>サーバーレステクノロジを使用して、2018年2月13日に IoT またはその他のイベントドリブンソリューションを構築する方法についてのライブウェビナーに<a href="https://info.microsoft.com/ww-landing-build-event-driven-apps-with-serverless-live.html" target="_blank">今すぐご登録</a>ください。</li>
+      <li>無料の電子ブック <a href="https://azure.microsoft.com/en-us/resources/azure-serverless-computing-cookbook/" target="_blank">Azure サーバーレスコンピューティングクックブック</a>をダウンロードします。</li>
+  </ul>

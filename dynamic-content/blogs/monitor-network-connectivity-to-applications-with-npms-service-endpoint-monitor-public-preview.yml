@@ -1,0 +1,99 @@
+### YamlMime:Yaml
+ms.openlocfilehash: edf9d2c6dd20aac4c4454e109ed79debf173bd25
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893878"
+Slug: monitor-network-connectivity-to-applications-with-npms-service-endpoint-monitor-public-preview
+Title: NPM のサービス エンドポイント モニターを使用してアプリケーションへのネットワーク接続を監視する - パブリック プレビュー
+Summary: Network Performance Monitor (NPM) では、内部でホストされている & クラウド アプリケーションのパフォーマンスの監視と視覚化をエンドツーエンドのネットワーク パフォーマンスと統合するサービス エンドポイント モニターが導入されています。
+Content: >-
+  <p>クラウドでアプリケーションをホストする企業が増え、SaaS および PaaS アプリケーションに依存してサービスを提供する企業が増えているので、複数の外部アプリケーションとその間のネットワークに依存する企業が増えています。 従来のネットワーク監視ツールはサイロで動作し、エンドツーエンドの可視性を提供しません。 そのため、アプリケーションの実行速度が遅い場合、ネットワーク、サービス プロバイダー、またはアプリケーションの問題の原因かどうかを特定することは困難になります。 <a href="https://aka.ms/npmintroduction" target="_blank">Network Performance Monitor</a> (NPM) &amp; では、内部でホストされるクラウド アプリケーションのパフォーマンスの監視と視覚化をエンドツーエンドのネットワーク パフォーマンスと統合するサービス エンドポイント モニターが導入されています。 ネットワーク内のキー ポイントからアプリケーションに HTTP、HTTPS、TCP、ICMP ベースのテストを作成して、問題がネットワークまたはアプリケーションの原因であるかどうかを迅速に特定できます。 ネットワーク トポロジ マップを &amp; 使用すると、損失と待機時間が長いリンクとインターフェイスを見つけ、外部の内部的なネットワーク セグメントを特定するのに役立つ可能性があります。</p>
+
+
+  <p>NPMs サービス エンドポイント モニターの機能の&rsquo;一部を以下に示します。</p>
+
+
+  <h2>アプリケーションへのエンドツーエンド接続を監視する</h2>
+
+
+  <p>Service Endpoint Monitor は、リソース (ブランチ オフィス、データセンター、オフィス サイト、クラウド インフラストラクチャ) と使用するアプリケーション (Web サイト、SaaS、PaaS、Azure サービス、ファイル サーバー、SQL など) の間の合計応答時間、ネットワーク待機時間、パケット損失を監視します。NPM エージェントを企業境界内の見える場所にインストールすることで、ユーザーがアプリケーションにアクセスする場所からパフォーマンスを可視化できます。 どのブランチ オフィスからの応答時間、損失、待機時間がしきい値を超えた場合でも、事前に通知を受け取るアラートを設定できます。 パフォーマンス データのほぼリアルタイムの値と過去の傾向を表示できるだけでなく、ネットワーク状態レコーダーを使用して<a href="https://aka.ms/NPMNetworkStateRecorder" target="_blank"></a>時間を戻して特定のネットワーク状態を表示し、一時的な問題を調査することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7868c5ee-26b3-4a10-b280-473e67d6a6a9.png"><img alt="image" border="0" height="283" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ef41433-e101-40a6-84cb-6153ca50c0d9.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="618"></a></p>
+
+
+  <h2>アプリケーションの配信とネットワーク パフォーマンスの関連付け</h2>
+
+
+  <p>機能は、応答時間とネットワーク待機時間の傾向の両方を同じグラフにプロットします。 これにより、アプリケーションの応答時間とネットワーク待機時間を簡単に関連付けて、パフォーマンスの低下がネットワークまたはアプリケーションの原因であるかどうかを判断できます。</p>
+
+
+  <p>次のスニペットは、このようなシナリオの 1 つを示しています。 グラフには、アプリケーションの応答時間の急増が示されているのに対し、ネットワーク待機時間は一貫しています。 これは、パフォーマンスの低下が見られたときにネットワークが安定した状態だったことを示しています。したがって、問題はアプリケーションの最後の問題が原因です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc208995-cdf6-4b12-a17e-77ae3f7f6934.png"><img alt="image" border="0" height="297" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/72877d91-0bb7-41e7-901e-5c532fd3dadb.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>次の図の例は、アプリケーション応答時間の急増に伴うネットワーク待機時間の対応するスパイクを伴う別のシナリオを示しています。 これは、応答時間の増加がネットワーク待機時間の増加に起因するため、パフォーマンスの低下は基になるネットワークによることを示唆しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0abd329-8444-436c-ac73-6b3161f416c5.png"><img alt="image" border="0" height="242" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/de71558b-cb6b-4edb-b0cb-9049f6c91c1a.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>ネットワークを&rsquo;問題領域として確立したら、ネットワーク トポロジ ビューを使用して、問題のあるネットワーク セグメントを特定できます。</p>
+
+
+  <h2>面倒なネットワーク インターフェイスとリンクを特定する</h2>
+
+
+  <p>NPMs&rsquo; <a href="https://aka.ms/NPMTopologyMap" target="_blank">対話型トポロジ ビューでは、</a> ノードからアプリケーションへのエンドツーエンドのネットワーク可視性が提供されます。 企業のオンプレミスとアプリケーション エンドポイントの間のすべてのパスとインターフェイスを表示できるだけでなく、各インターフェイスによって発生する待機時間を表示して、ネットワーク セグメントの問題を特定するのに役立ちます。 次の図の例は、待機時間の大部分が強調表示されたネットワーク インターフェイスが理由である、このようなシナリオの 1 つを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b9382a74-b9e6-44a0-9386-6330b25e6dbc.png"><img alt="image" border="0" height="235" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27521f09-17b8-4692-91ea-28c717eedd2d.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>次の図の例は、1 つのビューペインで複数のノードから <a href="https://www.msn.com/" target="_blank">www.msn.com</a> にネットワーク トポロジを取得し、赤色の不健康なパスを識別できる別のシナリオを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95f9da2f-fab7-488e-8b06-cdd6ed590d2d.png"><img alt="image" border="0" height="473" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b617f6a-11e9-4958-8c41-b0f0042400b5.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>Office 365 などの外部サービスを使用している場合、いくつかの中間ホップが企業ネットワークの外部に表示されます。 フィルターのスライダー コントロールを使用して中間ホップを非表示にすることで、トポロジ マップを簡略化できます。 また、問題のあるパスのみを表示する方法を選択できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4da95fb9-2376-4253-9867-b6a3949e5c75.png"><img alt="image" border="0" height="215" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d9e2e61-c4c0-4a94-aedc-2a8540dd4923.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="379"></a></p>
+
+
+  <h2>Microsoft Office 365 および Microsoft Dynamics 365 の組み込みテスト</h2>
+
+
+  <p>NPM には、事前構成なしで Microsofts&rsquo; Office 365 および Dynamics 365 サービスへの接続を監視する組み込みのテストが用意されています。&nbsp;組み込みのテストでは、監視に関心がある Office 365 サービスと Dynamics 365 サービスのみを選択する必要がある、簡単な 1 クリックセットアップ エクスペリエンスが提供されます。 この機能では、これらのサービスに関連付けられているエンドポイントの一覧が保持されます。この機能では、各サービスに関連付けられているさまざまなエンドポイントを入力する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/18866143-f6a1-4f4f-b004-54a74acf9b68.png"><img alt="image" border="0" height="371" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/47a49bd3-c43f-428c-ae08-73eb7e6c5625.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <h2>カスタム クエリとビューを作成する</h2>
+
+
+  <p>NPMS&rsquo; UI を介してグラフィカルに公開されるデータはすべて、 <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-log-search-new" target="_blank">Log Analytics 検索でもネイティブに使用できます</a>。 リポジトリ内のデータの対話型分析、さまざまなソースからのデータのコアレート、カスタム アラートの作成、カスタム ビューの作成、Excel、PowerBI、または共有可能なリンクへのデータのエクスポートを実行できます。</p>
+
+
+  <h2>作業を開始する</h2>
+
+
+  <p>NPM でサービス エンドポイント モニターを設定する方法の詳細な手順と <a href="https://aka.ms/applicationconnectivitymonitorguide" target="_blank">、NPM</a> の他の機能の詳細 <a href="https://aka.ms/NPMcapabilities" target="_blank">を確認できます</a>。</p>
+
+
+  <h2>フィードバックをお送りください</h2>
+
+
+  <p>フィードバックを提供するには、いくつかの異なるルートがあります。</p>
+
+
+  <ul>
+   <li><strong>UserVoice:</strong> UserVoice ページにNetwork Performance Monitor新しいアイデア <a href="https://feedback.azure.com/forums/267889-log-analytics/category/188146-network-monitoring" target="_blank">を投稿してください</a>。</li>
+   <li><strong>コーホートに参加します。</strong> 新&rsquo;しい顧客がコーホートに参加して新機能に早期にアクセスし、今後の NPM の改善に役立つことに常に関心を持っています。 コーホートへの参加に関心がある場合は、この <a href="https://aka.ms/npmcohort" target="_blank">クイックアンケートに記入してください</a>。</li>
+  </ul>

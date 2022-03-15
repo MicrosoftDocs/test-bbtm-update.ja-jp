@@ -1,0 +1,109 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9366e0e88d9404c8a1a89805e0956b1b245f397b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892511"
+Slug: sharepoint-server-2013-dev-test-environments
+Title: SharePoint Server 2013 の開発/テスト環境
+Summary: SharePoint Server 2013 の開発/テストまたは概念実証環境を短時間で構築できます。
+Content: >-
+  SharePoint Server 2013 の開発/テストまたは概念実証環境が必要ですか。 次の4つのオプションを確認してください。
+
+  <ul>
+   <li>インターネットに接続するファームの基本構成 (3 台のサーバー)</li>
+   <li>インターネットに接続するファームの高可用性構成 (9 台のサーバー)</li>
+   <li>SharePoint 3 層構成でイントラネットファームをエミュレートする (5 台のサーバー)</li>
+   <li>ハイブリッドクラウド (6 台のサーバー) でのイントラネットファームの SharePoint</li>
+  </ul>
+
+  <h2>インターネットに接続するファームの基本構成</h2>
+
+  インターネットに接続された基本的なファームを次に示します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/08/TCP80.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="TCP80" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/TCP80_thumb.jpg" alt="TCP80" width="698" height="406" border="0" /></a>
+
+
+  &nbsp;
+
+
+  この構成は、クラウド専用の Azure 仮想ネットワークを使用するインターネットに接続されたテストファームとして使用します。 このファームは、サイト間 VPN 接続経由で組織のネットワークに接続されることはありません。
+
+
+  これは、次の2つの方法で展開できます。
+
+  <ul>
+   <li>Azure Resource Manager デプロイの場合は、 <a href="https://azure.microsoft.com/documentation/templates/sharepoint-three-vm/">3 つの VM SharePoint デプロイ</a>リソースマネージャーテンプレートを作成します。</li>
+   <li>azure サービス管理デプロイの場合は、 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-sharepoint-farm-azure-preview/">azure プレビューポータルで SharePoint サーバーファーム</a>を使用します。</li>
+  </ul>
+
+  どちらの場合も、構成設定をごくわずかに指定し、テンプレートまたはプレビューポータルでコンピューターとファームの構成を自動的に実行します。
+
+
+  新しい Azure Resource Manager の詳細については、「 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-azurerm-versus-azuresm/">Azure Compute、Network &amp; Storage Providers</a> 」を参照してください Azure Resource Manager
+
+  <h2>インターネットに接続されたファームの高可用性構成</h2>
+
+  インターネットに接続された高可用性のファームを次に示します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/08/Web1.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Web1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Web1_thumb.jpg" alt="Web1" width="1029" height="500" border="0" /></a>
+
+
+  &nbsp;
+
+
+  上記の基本的な構成と同様に、この構成は、クラウド専用の Azure 仮想ネットワークを使用したインターネットに接続されたテストファーム用です。 このファームは、サイト間 VPN 接続経由で組織のネットワークに接続されることはありません。
+
+  <ul>
+   <li>Azure Resource Manager デプロイの場合は、<a href="https://azure.microsoft.com/documentation/templates/sharepoint-server-farm-ha/">新しい HA SharePoint ファーム</a>リソースマネージャーテンプレートを作成します。</li>
+   <li>azure サービス管理デプロイの場合は、 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-sharepoint-farm-azure-preview/">azure プレビューポータルで SharePoint サーバーファーム</a>を使用します。</li>
+  </ul>
+
+  これらの方法を使用すると、構成時間を節約できますが、9台のサーバーと19個のコアをサポートする Azure サブスクリプションが必要になります。
+
+  <h2>SharePoint 3 層構成でイントラネットファームをエミュレートする</h2>
+
+  Azure Test Lab Guide (tlg)<a href="https://download.microsoft.com/download/B/C/C/BCCE7D96-65AA-48E6-9549-02A3768D0ED4/AzureSP2013ThreeTierFarm.docx">の SharePoint 3 層ファーム</a>では、クライアントコンピューターを使用して、簡単な3層ファームを構築します。 これは、オンプレミスのコンピューターまたは仮想マシンを使用して SharePoint のテストラボを構築するための、Azure ベースの方法です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/08/Cloud-Service.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="クラウド サービス" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Cloud-Service_thumb.jpg" alt="Cloud Service" width="637" height="387" border="0" /></a>
+
+
+  &nbsp;
+
+
+  この構成は、クラウド専用の Azure 仮想ネットワークを使用するイントラネットテストファームとして使用します。 組織のイントラネットからではなく、CLIENT1 コンピューターを基準としたイントラネットファームをエミュレートします。 前に説明した SharePoint サーバーファームの構成とは異なり、SharePoint ファームのリソースへのインターネットアクセスはありません。
+
+
+  この構成の利点は、既存の一連の SharePoint tlgs を使用して、アクセス許可、認証、プロファイルの同期、ソーシャルネットワークを構成できることです。 詳細については、「 <a href="https://social.technet.microsoft.com/wiki/contents/articles/24064.sharepoint-server-2013-test-lab-in-azure.aspx">Azure の SharePoint Server 2013 のテストラボ</a>」を参照してください。
+
+  <h2>ハイブリッド クラウドでの SharePoint イントラネット ファーム</h2>
+
+  <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-networks-setup-sharepoint-hybrid-cloud-testing/">ハイブリッドクラウドに SharePoint イントラネットファーム</a>を使用すると、ドメインコントローラーとクライアントコンピューターを含む簡素化されたオンプレミスの組織ネットワークを使用して、シンプルな2層ファームを構築できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/08/DC1.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="DC1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DC1_thumb.jpg" alt="DC1" width="779" height="418" border="0" /></a>
+
+
+  この構成は、クロスプレミス Azure 仮想ネットワークを使用するイントラネットテストファームとして使用します。 これは、簡略化されたオンプレミスネットワーク上の CLIENT1 コンピューターに対して、イントラネットファームをエミュレートします。 SharePoint ファームへのインターネットアクセスはありません。
+
+
+  この構成の利点は、サイト間 VPN 接続を含めることと、インターネット上の場所を基準として、エミュレートされたイントラネット SharePoint ファームのパフォーマンスと管理を行う機能を利用できることです。
+
+
+  これは、シミュレートされた <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-networks-setup-simulated-hybrid-cloud-environment-testing/">ハイブリッドクラウド</a>を使用して構築することもできます。 以下に結果を示します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/08/Hybrid.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ハイブリッド" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Hybrid_thumb.jpg" alt="Hybrid" width="932" height="645" border="0" /></a>
+
+
+  &nbsp;
+
+
+  他の SharePoint Server 2013 の開発/テスト構成が表示されるようにするには、このブログの投稿または上にリンクされている記事の disqus コメントにコメントを付けてください。
+
+
+  よろしくお願いいたします。

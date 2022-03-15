@@ -1,0 +1,497 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9e4512152e5362f3ea7cb0acae6373c6abc51ea6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893609"
+Slug: azure-hc-series-virtual-machines-crosses-20000-cores-for-hpc-workloads
+Title: HPC ワークロード向けの Azure HC シリーズ Virtual Machines クロス2万コア
+Summary: Azure HC シリーズ Virtual Machines が米国西部2と米国東部のリージョンで一般公開されました。 HC シリーズの仮想マシン (Vm) は、大規模なコンピューティング集中型 HPC アプリケーション向けに最適化されています。 このクラスのワークロードの場合、HC シリーズの Vm は、Azure またはパブリッククラウド上の他の場所で開始された、最もパフォーマンスが高くスケーラブルで、価格の高いパフォーマンスを備えています。
+Content: >-
+  <h2>新しい HPC ターゲットクラウド仮想マシン</h2>
+
+
+  <p>Azure HC シリーズ Virtual Machines が米国西部2と米国東部のリージョンで一般公開されました。 HC シリーズの仮想マシン (Vm) は、大規模なコンピューティング集中型 HPC アプリケーション向けに最適化されています。 このクラスのワークロードの場合、HC シリーズの Vm は、Azure またはパブリッククラウド上の他の場所で開始された、最もパフォーマンスが高くスケーラブルで、価格の高いパフォーマンスを備えています。</p>
+
+
+  <p>Intel &reg; Xeon &reg; スケーラブルプロセッサであるコードネーム Skylake では、HC シリーズは512命令を使用して最大3.5 テラフロップ (倍精度) を提供し、メモリ帯域幅が 190 GB/秒、Intel &reg; PARALLEL Studio XE HPC ソフトウェアの豊富なサポート、および sr-iov ベースの 100 GB/秒 AVX を提供します。 1つの <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview" target="_blank">VM スケールセット</a>では、1つの分散メモリワークロードで最大13200の物理 CPU コアと 100 TB を超えるメモリを利用できます。</p>
+
+
+  <p>HC は、緊密に結合されたワークロードの cray クラスのスケールとパフォーマンスをパブリッククラウドに提供するために Azure &rsquo; のコミットメントを拡張し、お客様ごとに価格を設定します。 現在、Azure がクラウド HPC のスケーラビリティの新しいマイルストーンを再び実現したということは、さいわいです。</p>
+
+
+  <h2>最先端の HPC テクノロジ</h2>
+
+
+  <p>HC シリーズの Vm は、intel xeon のスケーラブルな第1世代ファミリから &reg; 最速の AVX、AVX2、AVX-512 のクロック周波数を提供する intel &reg; xeon &reg; プラチナ8168プロセッサを搭載しています。 これにより、AVX に最適化されたアプリケーションを利用する場合に、パフォーマンスの向上を実現できます。</p>
+
+
+  <p>HC シリーズの Vm では、44のハイパースレッド以外の CPU コアと 352 GB の RAM を公開しています。これには、2.7 GHz の baseclock、3.4 GHz のすべてのコアの Turbo 速度、および 3.7 GHz のシングルコアターボ速度が使用されます。 HC vm では、700 GB のローカル NVMe SSD も機能し、新しい<a href="https://azure.microsoft.com/en-us/blog/larger-more-powerful-managed-disks-for-azure-virtual-machines/" target="_blank">Azure P60/P70/P80 プレミアムディスク</a>を含む最大4つの Managed Disks をサポートしています。</p>
+
+
+  <p>HC シリーズの Vm の主要な機能は、Mellanox の 100 Gb/秒 InfiniBand です。 HC シリーズの Vm では、sr-iov を使用して Mellanox の専用のバックエンド NIC を公開しています。つまり、お客様は、ベアメタルコンテキストで同じ <a href="https://www.openfabrics.org/" target="_blank">OFED</a> ドライバースタック &rsquo; を使用できます。 HC シリーズの Vm では、MPI の待機時間が1.7 マイクロ秒に短縮され、整合性、帯域幅、およびメッセージレートがベアメタル InfiniBand デプロイと共に提供されます。 コンテキストの場合、これは、パブリッククラウド上の他の場所で検出されたネットワーク待機時間を16x するための8x です。</p>
+
+
+  <h2>2万コアを超える分子 dynamics</h2>
+
+
+  <p>Azure HPC チームは、広く使用されている多くの HPC アプリケーションを、お客様のさまざまなニーズに合わせてアプリケーションしています。 アプリケーションの一般的なクラスの1つは、分子の物理的および化学プロパティをシミュレートするアプリケーションです。これは分子 dynamics と呼ばれます。 HC シリーズの Vm がどの程度拡張できるかを確認するために、 <a href="https://www.cp2k.org/" target="_blank">CP2K</a>を使用してアプリケーションしています。 いくつかの理由で CP2K を選択しました。 1つは、研究機関と業界の両方で幅広く使用されて &rsquo; います。 実際、CP2K は、欧州で展開されたスーパーデバイスの受け入れテストを推進するために、ユニファイド欧州アプリケーションベンチマークスイートの一部として PRACE によって使用される13のアプリケーションの1つです。 別の方法として、CP2K は 512 AVX から得られるメリットをもたらします。そのため、最新のハードウェアとソフトウェアの機能が連携している場合に可能なことをお勧めします。 テストしたとおりに CP2K をインストールして実行するには <a href="https://xconfigure.readthedocs.io/en/latest/cp2k/" target="_blank">、こちらの公式 CP2K ドキュメント</a>の手順に従ってください。</p>
+
+
+  <p>このスケーリング演習の結果は次のようになります。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30da397d-f225-4015-bd58-9c15d1f62105.png"><img alt="H20-DFT-LS test case results" border="0" height="477" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59d74e43-14b9-47eb-9c75-48407194c933.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="H20-LS テストケースの結果" width="763"></a></p>
+
+
+  <p align="center"><em>図 1: H20 のケース</em></p>
+
+
+  <table align="center" border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;"><b>Nodes</b></p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;"><b>ランク/ノード</b></p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;"><b>スレッド/ランク</b></p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;"><b>ケース/日</b></p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;"><b>ソリューションまでの時間</b></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">5</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">101</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">852.715</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">16</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">210</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">410.224</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">32</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">5</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">390</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">221.202</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">64</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">5</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">714</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">121.192</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">108</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">1028</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">84.723</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">128</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">5</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">1289</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">67.876</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">192</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">12</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">3</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">1515</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">57.827</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">256</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">3756</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">23.789</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">288</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">2</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">22</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">3927</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">22.009</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="bottom" width="98">
+     <p style="text-align: center;">392</p>
+     </td>
+     <td valign="bottom" width="125">
+     <p style="text-align: center;">2</p>
+     </td>
+     <td valign="bottom" width="146">
+     <p style="text-align: center;">22</p>
+     </td>
+     <td valign="bottom" width="107">
+     <p style="text-align: center;">4114</p>
+     </td>
+     <td valign="bottom" width="155">
+     <p style="text-align: center;">21.818</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>H20 ベンチマーク (図 1) の場合、HC シリーズの Vm は、DFT と2048の2つの水分子を使用した単一ポイントのエネルギー計算で、392 Vm と17248コアに正常にスケーリングされています。 ほとんどの印象的では、最大レベルのスケールと8台の Vm のベースラインとの比較により、HC vm は、VM リソースのサイズが4倍に増加した場合に比べて、1日あたりのスループットが 40.7 x 向上しました。 ここでは、288の Vm では、大規模なスケーリングで最適な価格パフォーマンスが提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/caa83e24-4c28-4a02-846f-3950e12d353e.png"><img alt="LiHFX test case results" border="0" height="427" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/561ae32f-51a7-46dc-bfde-393d04435682.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="LiHFX テストケースの結果" width="766"></a></p>
+
+
+  <p style="text-align: center;"><em>図 2: LiHFX ケース</em></p>
+
+
+  <table align="center" border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;"><strong>Nodes</strong></p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;"><strong>ランク/ノード</strong></p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;"><strong>スレッド/ランク</strong></p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;"><strong>ケース/日</strong></p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;"><strong>ソリューションまでの時間</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">24</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">6</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">7</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">55</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">1556.201</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">36</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">86</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">1002.111</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">44</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">219</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">394.847</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">64</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">5</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">294</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">293.091</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">108</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">482</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">179.469</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">112</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">7</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">6</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">482</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">179.344</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">128</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">8</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">5</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">530</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">163.095</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">176</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">685</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">126.899</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">256</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">960</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">90.14</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">324</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">4</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">11</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">1016</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">85.871</p>
+     </td>
+    </tr>
+    <tr>
+     <td style="width: 132px; height: 21px;">
+     <p style="text-align: center;">512</p>
+     </td>
+     <td nowrap="nowrap" style="width: 132px; height: 21px;">
+     <p style="text-align: center;">2</p>
+     </td>
+     <td nowrap="nowrap" style="width: 127px; height: 21px;">
+     <p style="text-align: center;">22</p>
+     </td>
+     <td nowrap="nowrap" style="width: 114px; height: 21px;">
+     <p style="text-align: center;">1440</p>
+     </td>
+     <td nowrap="nowrap" style="width: 122px; height: 21px;">
+     <p style="text-align: center;">60.176</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>LiHFX ベンチマークでは、216 atom リチウム水素 crystal with 432 原子をシミュレートし、HC シリーズの Vm が 512 Vm と22528コアに正常にスケーリングされていることをシミュレートする、単一ポイントのエネルギー計算です。 &nbsp;繰り返しになりますが、コンピューティング投資に対する利益は大きくなります。 トップエンドスケールと24台の Vm のベースラインとの比較により、HC Vm では、 &nbsp; vm リソースの 21.3 x 増加に対して、1日あたりのスループットが 26.2 x 向上しました。</p>
+
+
+  <h2>Azure での HPC 顧客の排除</h2>
+
+
+  <p>HC シリーズの Vm の固有の機能とコストパフォーマンスは、高パフォーマンスのコンピューティングに依存し、研究と生産性を新しい高さに推進する科学者やエンジニアにとって大きなメリットです。 航空宇宙、自動車、防衛、金融サービス、大量機器、製造、石油およびガス、公的機関の教育、政府の研究に関連する組織は、HC シリーズの Vm を使用して、HPC アプリケーションのパフォーマンスを向上させ、より迅速な洞察を提供できるようになりました。</p>
+
+
+  <div><em>&ldquo;Intel アーキテクチャを搭載した Azure HC シリーズは、大規模な洞察を得るために必要な高需要のワークロードとアプリケーションのパフォーマンスをお客様に提供します。Microsoft とのコラボレーションにより、クラウドのリーダーシップが forefront にもたらされ、業界全体にわたるデータを多用するコンピューティングジョブに必要なパフォーマンスの効率と容量が示されます。&rdquo;</em></div>
+
+
+  <div>&nbsp;</div>
+
+
+  <div>-Intel &rsquo; s データセンターグループの極端なコンピューティング組織の VP &amp; GM である Trish Damkroger</div>
+
+
+  <div>&nbsp;</div>
+
+
+  <h2>現在利用可能</h2>
+
+
+  <p>Azure Virtual Machine HC シリーズは現在、米国西部2および米国東部でご利用いただけます。追加のリージョンは近日中にロールアウトされています。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/azure/architecture/topics/high-performance-computing/" target="_blank">ハイパフォーマンスコンピューティング (HPC) の詳細については、「Azure」を</a>参照してください。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp;<a href="https://azure.microsoft.com/en-us/services/virtual-machines/" target="_blank">Azure Virtual Machines</a>について説明します。</p>

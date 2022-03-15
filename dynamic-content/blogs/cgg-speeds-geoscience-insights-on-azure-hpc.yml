@@ -1,0 +1,134 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b66026b61eb407d47bc89a880427f587bb04febd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894451"
+Slug: cgg-speeds-geoscience-insights-on-azure-hpc
+Title: CGG を使用すると、Azure HPC で geoscience の分析情報を高速化できます
+Summary: 地質学のリーダーである CGG は、85 年以上にわたり地球のサブサーフェスをイメージングしてきました。 その製品とソリューションは、クライアントが自然なリソースを見つけるのに役立ちます。
+Content: >-
+  <p>地質学のリーダーである CGG&rsquo; は、85 年以上にわたり地球のサブサーフェスをイメージングしてきました。 その製品とソリューションは、クライアントが自然なリソースを見つけるのに役立ちます。 顧客がクラウドで必要な高解像度の水層モデルの作成を高速化できるかどうかを尋ねると、CGG は Azure ハイ パフォーマンス コンピューティング (HPC) に移行しました。</p>
+
+
+  <p>CGG は、石油ガス業界で認め付けされたイメージングの専門家のチームです。 そのサブサーフェスイメージング センターは国際的に認められ、研究者は、業界に対する優れた技術的貢献により、国際的な評価を受けています。 CGG は、地震の反転の初期のイノベーション者であり、地震調査の反射データを石油とガスのタンク内の岩石の特性の定量的な説明に変換する手法でした。 このデータから、3D グリッド内の岩石の種類の分類を示す次の図のように、高度に詳細なモデルを作成できます。これは、型破りな岩石の間隔です。 これらの画像は、石油とガスの探査で非常に重要です。 正確なモデルは、地理科学者がリスクを軽減し、最適なウェルをドリルし、生産をより良く予測するのに役立ちます。</p>
+
+
+  <p>課題は、表面の下で可能な限り最高の外観を取得することです。 特殊なソフトウェアはコンピューティング集中型であり、複雑なモデルのレンダリングには数時間または数日かかる場合があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1b333252-ac26-400e-ba5c-528570be7bd8.jpg"><img alt="Image displaying seismic model" border="0" height="353" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b02dfbbf-6bfe-4f49-b6e3-6f3901b0abb2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="地震モデルを表示する画像" width="1024"></a></p>
+
+
+  <p align="center"><em>図 1。CGGs&rsquo; Jason RockMod を使用した高度な地震モデル。</em></p>
+
+
+  <p align="left"><em><em>Azure にはコンピューティングの弾力性が用意されています。これにより、クライアントは Jason RockMod を使用して、詳細な水層モデルに対して複数の高解像度の岩石プロパティの実現を迅速に生成できます。&rdquo;</em></em></p>
+
+
+  <p align="right"><em><i><em>- JoeQuot、CGG GeoSoftware、Strategic Marketing Manager</em></i></em></p>
+
+
+  <h2>課題: クラウドで証明する</h2>
+
+
+  <p>東南アジアの石油ガス会社は、CGG と一緒に、彼らの国際チームに対して地層技術をデプロイするための最適な方法を見つけ出す必要がありました。 また、お客様は、クラウドを利用してデータセンターのハードウェア コストを節約できるのか疑問に思いました。そこでは、既に最先端の CGG 地理科学ソフトウェア ソリューションを実行しています。 &rsquo;&rsquo;クラウドの弾力性とオンデマンドスケーラビリティの理論は、石油探査での使用に慣れ親しんだが、アプリケーションがオンプレミスと同様にクラウドでうまく機能するかどうかは知らなかった。</p>
+
+
+  <p>急速に変化する業界では、パフォーマンスの向上は、より迅速な意思決定、迅速な探索、開発のタイムラインに影響を与えるので、会社は CGG にデモを提供する必要がありました。 地科学の専門家である CGG は、可能な限り最適な方法でソフトウェアを表示したいと考えています。 AzureCAT (Tony Wu が率いる) の顧客アドバイザーに連絡して、クラウド容量が会社の分析情報をより迅速に得る方法を示す概念実証を作成しました。</p>
+
+
+  <h3>デモ 1: CGG Jason RockMod</h3>
+
+
+  <p><a href="https://www.cgg.com/en/What-We-Do/GeoSoftware/Solutions/Jason" target="_blank">CGG Jason</a> <a href="https://www.cgg.com/en/What-We-Do/GeoSoftware/Seismic-Reservoir-Characterization/RockMod" target="_blank">RockMod</a> は、地震の反転に対する地質学的アプローチを使用して、従来の地層構造ソリューションの制限を克服します。 結果は正確な水源モデルなので、地理科学者はそれらを使用して、フィールドの埋め込み、流れ流れパターン、将来の生産を予測できます。</p>
+
+
+  <p>この会社は、クラウドでの RockMod シミュレーションのスケールをよりよく理解したいと考えました。また、独自のワークステーションでシミュレーションを実行する場合と比較して、クラウドで実際のメリットが得たかどうか疑問に思いました。</p>
+
+
+  <p>CGG と AzureCAT の技術チームは、RockMod をビッグ コンピューティング ワークロードと見なしました。 この種類のアーキテクチャでは、シミュレーションなどの計算負荷の高い操作は、複数のコンピューター (10 から 1,000) の CPU に分割されます。 一般的なパターンは、仮想マシンのクラスターを管理し、HPC ジョブをスケジュールおよび監視するパターンです。 この自作アプローチにより、会社は Azure 仮想マシン スケール セットに独自のクラスター環境を設定できます。 VM インスタンスの数は、需要ごとに、または定義されたスケジュールで自動的にスケーリングできます。</p>
+
+
+  <p>RockMod は、実現と呼ばれる複数の同等のシミュレーション出力のファミリを作成します。 お客様の概念実証テストでは、CGG は Azure 上の Microsoft Windows仮想マシンで RockMod を実行しました。 これは、仮想マシン スケール セット内の複数の Linux ベースの HPC ノード間で複数の実現をスケジュールおよび配布するためのマスター ノードとして機能しました。 スケール セットは、最大 1,000 の VM インスタンスまたは 300 のカスタム VM イメージをサポートし、複数の実現に十分なスケールを超えるサイズをサポートします。</p>
+
+
+  <p>HPC タスクによって実現が生成され、速度は CPU コアの数またはプロセッサ速度を超える非ハイパースレッドによって異なります。 AzureCAT では、アプリケーションのパフォーマンスに最適な選択肢として、ハイパースレッド以外のコアが推奨されています。 ストレージの観点から見ると、実現は特に必要ではありません。 テスト中、ストレージ IO レートは 1 秒あたり数百メガバイト (MB/秒) まで増加しました。 これらの考慮事項に基づいて、CGG は、コアあたり 16 コアと 7 GB の高速ネットワークを備えたコスト効率の高い DS14V2 仮想マシンを選択しました。</p>
+
+
+  <p><em>&ldquo;Azure は、HPC とストレージのパフォーマンスと価格の理想的なブレンドを提供し、クラウド上で当社の高品質の保存水層テクノロジを正常に実証するために必要なテクニカル サポートを提供しました。これは技術的な成功であり、大規模な商用デプロイへの道を開きます。&rdquo;</em></p>
+
+
+  <p align="right"><em>- JoeQuot、CGG GeoSoftware、Strategic Marketing Manager</em></p>
+
+
+  <p align="center"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f785665f-9feb-4805-b246-ec88ddf12ee6.png"><img alt="Diagram image of the Azure architecture of CGG Jason RockMod" border="0" height="459" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6f592de-febf-4a02-8da3-631f6c3c7a9d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="CGG Jason RockMod の Azure アーキテクチャの図" width="779"></a></em></p>
+
+
+  <p align="center"><em>図 2。CGG Jason RockMod の Azure アーキテクチャ。</em></p>
+
+
+  <h2>ベンチマークと利点</h2>
+
+
+  <p>一般的なプロジェクトのサイズは約 15 GB で、300 万を超える地震データ トレースが含まれています。 一部の企業のワークステーションでは、1 日または 2 日以内に 1 つの実現を実現できますが、目標はクラウドのスケーラビリティを利用して 30&rsquo; の実現を実行することでした。 最初の小規模なテストでは、1 つの HPC ノードで 1 つの実現が実行されました。完了には 12 時間かかり、 これはターゲット範囲内であり、CGG チームは大規模に実行された場合に何が起こるかを確認する必要がありました。</p>
+
+
+  <p>ジョブの線形スケーラビリティをテストするために、最初に 8 つのノードで 8 つの実現を実行しました。 結果は小規模なテスト実行とほぼ同じでした。 1 つのノード式に対する 1 つの実現が機能しているように見えました。 比較のために、8 ノードだけで 30 個の実現を実行しました。 それはうまく&rsquo;いきなかったので、テストは 4 倍近く遅くなりました。</p>
+
+
+  <p>最後のテストでは、30 ノードで 30 件の実現を実行し、1 つのノードに対して 1 つの実現を実行しました。 結果は小規模なテストに似ていて、ジョブはわずか 12 時間で完了しました。 このシナリオは、一貫性のある結果を検証するために何度かテストされました。 テストは成功しました。</p>
+
+
+  <h3>デモ 2: CGG InsightEarth</h3>
+
+
+  <p>調査と開発の取り組みでは、3D の解釈と視覚化を促進するソフトウェア スイート <a href="https://www.cgg.com/en/What-We-Do/GeoSoftware/Solutions/InsightEarth" target="_blank">である CGG InsightEarth</a> も使用しました。</p>
+
+
+  <p>この会社の解釈チームは、いくつかの InsightEarth アプリケーションを使用して、目の前の預金、欠陥と欠陥、およびソルト体を見つけ出しました。これらのすべてが解釈するのが難しい場合があります。 Azure 上の InsightEarth スイートのパフォーマンスをオンプレミスのワークステーションと比較するように CGG に求め、 通常、プロジェクトのサイズは 15 GB で、300 万を超える地震データ トレースが含まれています。</p>
+
+
+  <p>InsightEarth は、強力なメモリ集中型アプリケーションです。 最高のパフォーマンスを得るには、GPU ベースのコンピューターでアプリケーションを実行し、GPU から最高のパフォーマンスを得る必要があります。効率的なメモリ アクセスが重要です。 Azure でこの要件を満たすために、CGG と AzureCAT のエンジニアチームは、使用可能な GPU 最適化された特殊な VM サイズを確認しました。 Azure NV シリーズの仮想マシンは、コンピューティング集中型の視覚化とシミュレーションに適した Intel Broadwell CPU を備える NVIDIA Tesla M60 GPU と NVIDIA GRID テクノロジを搭載しています。</p>
+
+
+  <p>GRID ライセンスを使用すると、1 人のユーザーに対して NV インスタンスを仮想ワークステーションとして使用したり、InsightEarth を実行している VM に 25 人のユーザーが同時にアクセスしたりすることができます。 この会社は、2 つ目のモデルの共同作業の利点を必要としました。 物理ワークステーションとは異なり、クラウドベースの GPU 仮想ワークステーションでは、すべてのデータがクラウドに含まれており、前処理または解釈手順を実行した後に、すべてのユーザーがデータを表示できます。 これによりワークフローが効率化され、そのタスクのデータをオンプレミスに戻す必要がなくなります。</p>
+
+
+  <p>初期パフォーマンス テストでは、Azure 上の NV24 VM で InsightEarth が実行されました。 ストレージ IO 需要は中程度で、レートは約 100 MB/秒でした。 ただし、VM&rsquo; のメモリ サイズがボトルネックであることが証明されました。 メモリから読み込み可能&rsquo;なデータの量は制限され、パフォーマンスはオンプレミスで使用されるより強力な GPU セットアップほど良くなかった。</p>
+
+
+  <p>次に、チームは ND シリーズ VM を使用して同様のテストを実行しました。 この種類は、モデルのトレーニングに膨大なデータ量が使用される AI およびディープ ラーニング ワークロードに優れたパフォーマンスを提供するように特に設計されています。 ND24 サイズの VM を選択し、メモリの量を 2 倍にし、新しい NVIDIA Tesla P40 GPU を選択しました。 今回は、NV24 よりも結果が大幅に向上しました。</p>
+
+
+  <p>インフラストラクチャの観点からは、Azure に高パフォーマンスのアプリケーションをデプロイする際にもストレージが重要です。 チームは、ソリューション全体で使用される Windows Linux VM の両方をサポートする一種のストレージである SoftNAS を実装しました。 SoftNAS は、これらのシミュレーションと解釈のワークロードに対する下位から中距離のストレージ IO 要求にも適しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b92736e5-8f46-4997-b1d6-755d44a77e3b.png"><img alt="CGG2" border="0" height="456" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c302d407-3698-4027-a180-cc79512967de.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="CGG2" width="767"></a></p>
+
+
+  <p align="center"><em>図 3。Azure Architecture for InsightEarth</em></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>GPU とメモリ最適化 VM は、Jason Rockmod と InsightEarth の両方に必要なパフォーマンスを提供しました。 さらに、Azure では、複数の実現を並行して実行するために必要なスケールを提供しました。 さらに、両方のソフトウェア ソリューションに GPU をデプロイし、CGG エンジニアに標準的なフロントエンドを提供しました。 また、 <a href="https://www.citrix.com/products/citrix-cloud/" target="_blank">Citrix Cloud</a> に基づく使いやすいポータルを使用して Azure リソースへのアクセスを設定します。これは Azure でも実行されます。</p>
+
+
+  <p>CGGs&rsquo; の顧客である石油ガス会社は、その結果に満足しています。 ベンチマーク テストの結果に基づいて、石油ガス会社は、現在のすべての CGG アプリケーション ワークロードを Azure に移行することを決定しました。 クラウドの&rsquo;弾力性と Azure&rsquo; の使用ごとの支払いモデルは、説得力のある組み合わせでした。 Azure ソリューションが実行されただけでなく、オンプレミスのコンピューティング能力で実現できる限られたスケーラビリティと比較して、コスト効率が向上したことが証明されました。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top"><strong>会社：</strong></td>
+     <td valign="top"><a href="https://www.cgg.com/en" target="_blank">CGG</a></td>
+    </tr>
+    <tr>
+     <td valign="top"><strong>Microsoft Azure CAT Technical Lead:</strong></td>
+     <td valign="top">Tony Wu</td>
+    </tr>
+   </tbody>
+  </table>

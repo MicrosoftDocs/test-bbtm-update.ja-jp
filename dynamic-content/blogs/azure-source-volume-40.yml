@@ -1,0 +1,252 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 21df5e1fa71e13a45d8e49b55ce02eac4f9f21dd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889561"
+Slug: azure-source-volume-40
+Title: Azure. ソース-ボリューム40
+Summary: 現在のところ、プレビュー版、一般公開版、ニュース & 更新プログラムなど、Azure で起こっていることをご確認ください。
+Content: >-
+  <h2>ハイライト</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/new-azure-innovation-advances-customer-success-for-the-cloud-and-ai-powered-future/">新しい Azure イノベーションは、クラウドと AI</a>を利用した将来 - の顧客の成功を促進しますこの週のラスベガス (パートナーと Microsoft が、お客様のデジタル変革と成功を促進するために接続、学習、および共同作業を行う) の準備として、Jason Zander (経営陣、Microsoft Azure) は、組織が独自のデジタル変革をナビゲートし、クラウドと AI の重要な基礎を構築するのに役立つ、新しいオファリングとテクノロジを クラウドからエッジまで、インテリジェントな技術に投資している企業やパートナーからの勢いを示しています。 この roundup の投稿では、Azure Data Box Disk、Azure Virtual WAN、Azure Firewall、Azure SQL Data Warehouse のパフォーマンス、Windows Server の顧客向けのプラン、SQL Server 2008/2008 R2、Azure Stack など、以下に示すニュース項目の概要を説明しています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-new-offers-and-capabilities-that-make-azure-the-best-place-for-all-your-apps-data-and-infrastructure/">すべてのアプリ、データ、およびインフラストラクチャにとって Azure を最適な場所にするための新しいプランと機能の発表</a> -Windows Server と SQL Server 2008/2008 R2 は、それぞれ年1月2020日と2019年7月にサポート終了間近に近づいています。 ジュリアホワイト (副社長、Microsoft Azure) では、無料の Windows Server を使用して azure に移行する方法について説明し、これらのサーバーを azure に移動することで、2008の拡張されたセキュリティ更新プログラムを3年間追加 SQL Server ます。 さらに、Windows Server または SQL Server のいずれかのバージョンを実行しているお客様の場合、Azure ハイブリッド特典は、azure での Windows サーバーまたは SQL Server の実行を最大55% 節約することで、他のクラウドと同様に azure のコストを節約することができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-new-options-for-sql-server-2008-and-windows-server-2008-end-of-support/">SQL Server 2008 および Windows Server 2008 のサポート終了に関する新しいオプションの発表</a>部門 Numoto (Corporate 副社長、Cloud + Enterprise) では、これらの製品のサポート終了と、2008のサポートリソースセンターの詳細について詳しく説明しています。 - アクティブなソフトウェアアシュアランスまたはサブスクリプションのライセンスをお持ちのお客様は、SQL Server または Windows Server の最新バージョンのライセンスコストの75% を毎年ご購入いただくことができます。また、これらのサーバーを Azure に移行することで、さらに3年間、2008の拡張 Windows されたセキュリティ更新プログラムを SQL Server することもできます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-sets-new-performance-benchmarks-with-sql-data-warehouse/">Azure は、新しいパフォーマンスベンチマークを SQL Data Warehouse</a> - に設定しますRaghu ramakrishnan (最高技術責任者、Azure データ) は、以前と比べて少なくとも2倍のクエリパフォーマンスを提供することで、クラウドデータウェアハウジングの新しいパフォーマンスベンチマークが Azure SQL Data Warehouse によって設定されていることを発表しました。 Gigaom Research は最近、明確に認められた業界標準の tpc ベンチマーク &trade; H (TPC-h) から派生したワークロードを使用して、Azure SQL Data Warehouse と Amazon Redshift の間でベンチマークテストを実行しました。 Gigaom research によれば、Azure SQL Data Warehouse は、Amazon Redshift より少なくとも67% 高速に 30 TB のワークロードを実行していました。 また Azure SQL Data Warehouse を使用すると、組織全体でデータにアクセスできるようになります。 複数のユーザーが同じデータベースに対してクエリを実行し、他の要求によってブロックされないようにするために、128の同時クエリをサポートするようにサービスを強化しました。 これに対して、Amazon Redshift は、組織内でのデータアクセスを制限して、同時実行クエリの最大数を50に制限しています。</p>
+
+
+  <p align="center"><img alt="Vertical bar chart comparing query run time in  for 30 TB data on Amazon Redshift and Azure SQL DW" height="359" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eb3b908a-464d-4847-b384-9f296083a737.png" title="30 TB のデータのクエリ実行時間" width="500"></p>
+
+
+  <h2>現在プレビュー中</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/welcome-our-newest-family-member-data-box-disk/">最新のファミリメンバーをようこそ-Data Box Disk</a> - Azure Data Box Disk は、Azure へのオフラインデータ転送に対して、シンプルで安全な SSD ディスクベースのサービスを提供します。 データ転送要件を持っていても、より堅牢なデータ転送オファリングを必要とするオンサイト技術の専門知識がないお客様は、Data Box Disk サービスを使用して、ディスクを USB または SATA 経由でコンピューターに接続し、ドラッグアンドドロップまたは Robocopy コマンドを使用してデータ転送を行うだけで、40 TB の AES 128 ビット暗号化データ 無料の Data Box Disk プレビューは、EU および US でご利用いただけます。 &nbsp;Azure Data Box、<strong> </strong>現在プレビューの段階で、ヨーロッパと英国のプレビューが拡張されています。&nbsp;</p>
+
+
+  <p align="center"><img alt="Image of two Azure Data Box Disks" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0f6c831-af5f-4c4f-abf6-4d7266d4d8cd.png" title="Azure Data Box ディスク"></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-public-preview-of-azure-virtual-wan-and-azure-firewall/">Azure VIRTUAL WAN および Azure Firewall</a> - のパブリックプレビューの発表ミッションクリティカルなサービスを実現するために、セキュリティで保護され、高パフォーマンスで信頼性の高いグローバルネットワークをクラウドに構築する方法について説明します。 Azure Virtual WAN は、最適化された自動ブランチ接続を提供するネットワークサービスであり、これを使用すると、ブランチを相互にシームレスに接続し、最新のインターネットを使用して Azure にシームレスに接続することで、Azure に簡単に接続できるようになります。 Azure Firewall は、Azure Virtual Network リソースを保護するクラウドネイティブのネットワークセキュリティサービスです。 これは、組み込みの高可用性とクラウドによる無制限のスケーラビリティを備えた、完全にステートフルなサービスとしてのファイアウォールです。 お客様は、アプリケーションとネットワーク接続ポリシーを一元的に作成、適用、およびログに記録できます。また、サブスクリプションと仮想ネットワークの完全修飾ドメイン名 (Fqdn)、IP アドレス、ポート、プロトコルにまたがることができます。</p>
+
+
+  <p>AKS - <a href="https://azure.microsoft.com/en-us/blog/introducing-dev-spaces-for-aks/">の Dev Spaces の導入</a>Gabe Monroy (PM の潜在顧客、コンテナー、Microsoft Azure) は、Azure Kubernetes Services (AKS) 用の Dev Spaces のパブリックプレビューを発表します。これは、Kubernetes 用のアプリケーションを簡単にビルドおよびデバッグするための方法です。 Dev スペースは Azure でのみ使用できますが、スキャフォールディングはオープンソースのドラフトプロジェクトに基づいて構築されます。これにより、Kubernetes クラスターでの内部ループエクスペリエンスが実現します。 コードの変更を迅速に反復処理する方法、コンテナーをリモートでデバッグする方法、および新しいアプリケーションを簡単にブートストラップする方法について説明します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-netapp-files-now-in-public-preview/">Azure NetApp Files 現在パブリックプレビュー</a> - になっていますAndrew Chen (Principal PM Manager) は、Azure NetApp Files のパブリックプレビューを発表します。これは、NetApp&#39;最先端の ONTAP テクノロジを利用する Azure ネイティブサービスです。これは、企業によって、パフォーマンス、スケーラビリティ、データ管理、セキュリティ、およびハイブリッド機能の要件を満たすために長時間信頼されています。 NetApp を使用すると、企業はファイルベースのワークロードをクラウドに展開する際の課題を克服できます。 プレビュー期間中は、Azure NetApp Files Azure NetApp Files は米国東部で利用可能になり、まもなく米国西部2で提供される予定です。プレビュー期間中は、料金が削減されます。</p>
+
+
+  <h3>プレビューでも</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/azure-sql-data-warehouse-extension-for-sql-operations-studio/">パブリックプレビュー: SQL Operations Studio の Azure SQL Data Warehouse 拡張機能</a></li>
+  </ul>
+
+
+  <h2>一般提供開始</h2>
+
+
+  <p>Azure アプリケーションインサイト - <a href="https://azure.microsoft.com/en-us/blog/general-availability-of-user-behavior-analytics-tools-in-azure-application-insights/">でのユーザー動作分析ツールの一般提供</a>Microsoft ビルド2017で導入された Application Insights 用のユーザー動作分析ツールが一般公開されました。 ユーザー、セッション、イベント、およびその他のユーザー動作分析ツールは、Azure portal の各 Application Insights リソースの一部です。 この投稿では、昨年のリリース以降、&#39;の新機能について説明します。</p>
+
+
+  <p align="center"><img alt="Screenshot of a sample User Flows diagram in Azure Application Insights" height="359" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df7fc0e3-c41b-4732-9164-c384bfab162c.png" title="Azure アプリケーションインサイト User Flows サンプル図" width="640"></p>
+
+
+  <p>Azure Stream Analytics - Power BI Embedded<a href="https://azure.microsoft.com/en-us/blog/power-bi-embedded-dashboards-with-azure-stream-analytics/">のダッシュボードを Power BI Embedded と</a>、isv や開発者が魅力的なビジュアル、レポート、ダッシュボードをアプリにすばやく追加できるようになります。 Azure Stream Analytics で Power BI を使用すると、Power BI Embedded ダッシュボードのユーザーは、毎日使用するアプリのコンテキスト内で、ストリーミングデータからの洞察を簡単に視覚化できます。 Power BI Embedded では、ユーザーは、組織&#39;s web apps にリアルタイムダッシュボードを直接埋め込むこともできます。</p>
+
+
+  <h3>一般公開</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/power-bi-embedded-azure-stream-analytics/">Azure Stream Analytics を使用したダッシュボードの Power BI Embedded</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/general-availability-azure-devops-projects/">一般提供: Azure DevOps プロジェクト</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/microsoft-hosted-linux-and-macos-agents-ga-vsts-sprint-137-update/">一般提供: VSTS スプリント137更新プログラムで、Microsoft がホストする Linux および macOS エージェント</a></li>
+  </ul>
+
+
+  <h2>The Azure Podcast</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" valign="middle" width="300">
+     <p>
+     <audio controls="" src="https://azpodcast.blob.core.windows.net/episodes/Episode237.mp3">HTML5 オーディオはサポートされていません</audio>
+     </p>
+     </td>
+     <td>
+     <p><strong> <a href="https://azpodcast.azurewebsites.net/post/Episode-237-DevOps-with-AKS">Azure ポッドキャスト: エピソード 237-DevOps と AKS</a> </strong> -私たちは、Microsoft の2人の同僚と、Daniel selman が Kubernetes コンサルタントで Razi rais、誰が DevOps とブロックチェーンを焦点しています。 ここでは、開発者がアプリケーションを AKS にパッケージ化してデプロイし、実行時に監視する方法について説明します。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>新機能と更新</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/route-matrix-isochrones-ip-lookup-and-more-added-to-azure-maps/">ルートマトリックス、等時線、IP 参照などが Azure Maps に追加されました</a> -Chris Pendleton (プリンシパル PM マネージャー、Azure Maps) は、モビリティ、IoT、およびエンタープライズソリューション向けのミッションクリティカルな大規模なアプリを構築するための、Azure Maps のいくつかの新機能を発表します。たとえば、等時線 (またはルート範囲) を使用して、ユーザーが時間に基づいて到達できる単一ポイントからの距離を決定します。 batch ジオコーディングが有効になります。 ジオコーディングの一括住所を投稿したり、単一の要求で事業所を検索したりする顧客。batch routing service を使用すると、顧客は、オリジンと宛先のリストを batch route service に投稿して、それぞれのオリジンと宛先の間の推定時間と距離を返すことができます。新しいマップ canvasses (衛星画像を含む)新しいマップコントロールモジュール;管理区域 (郡など) などの領域機能のポリゴンを返します。また、IP アドレスをマップする機能もあります。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-now-supports-apache-spark-2-3/">Azure HDInsight で Apache Spark 2.3</a> - がサポートされるようになりましたApache Spark 2.3.0 は、管理されたビッグデータサービス Azure HDInsight で運用環境で使用できるようになりました。 バグの修正 (このリリースでは1400のチケットが修正されました) から新しい実験的な機能まで、Apache Spark 2.3.0 は、その統合されたデータプラットフォームのすべての領域に改善とポーランドをもたらします。 格言 Lukiyanov (Sr-iov マネージャー、Azure HDInsight) では、このリリースの詳細について説明しています。このリリースには、データエンジニア、データ科学者、ビジネスアナリスト、開発者など、すべてのユーザーに関する情報が含まれています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/kafka-1-0-on-hdinsight-lights-up-real-time-analytics-scenarios/">HDInsight 上の Kafka 1.0 がリアルタイム分析シナリオ</a> - を実現Dh重複除去 v Goel (PM、Azure ビッグデータ) は、べき等プロデューサーを含む HDInsight 上の Apache Kafka 1.0 のリリースを対象としています。これ &rsquo; により、マルチトピックと複数パーティションのアトミック書き込みのトランザクション、正確に1回のセマンティクス、レコードヘッダーのサポートが実現します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-azure-expert-msps/">Azure エキスパート MSPs</a> - の発表Corey (Corporate バイスプレジデント、Azure) は、Azure エキスパート管理サービスプロバイダー (MSP) プログラムの最近の発表を拡大しています。これにより、Azure MSPs を最大限に活用して、自身 &mdash; と顧客の利益を促進することができます。 これらの専門家のパートナーは、データセンターのリフトアンドシフト、クラウドでの新しいアプリケーションの作成、およびその間のすべてを対象とした、現実的なスキルとスキルを実証しています。 Azure Expert MSPs は、独立したサードパーティの監査担当者によって厳格な監査を完了します。この監査担当者は、過去12か月間に配信された Azure マネージサービスプロジェクトに対して複数の顧客参照を提供する必要があります。</p>
+
+
+  <p>Azure Database for PostgreSQL - <a href="https://azure.microsoft.com/en-us/blog/latest-updates-to-azure-database-for-postgresql/">の最新の更新</a>Sudhakar Sannakkayala (General Manager、Azure Data) は、今年の3月に一般公開されている Azure Database for PostgreSQL の更新を提供します。これは、パブリックプレビューの仮想ネットワークサービスエンドポイントを含みます。大規模なデータベース (最大 4 TB) と IOPS (最大 6000 IOPS) のサポートGeo 冗長バックアップと回復のための geo リストアが GA になりました。PostgreSQL 10.3 のサポートが GA になりました。Azure Database Migration Service (DMS) プレビューを使用した移行のサポートメモリ最適化された価格レベルが GA になりました。また、リージョンの可用性は、世界中の28の国/地域に増えました。</p>
+
+
+  <p>Azure Database for MySQL - <a href="https://azure.microsoft.com/en-us/blog/latest-updates-to-azure-database-for-mysql/">の最新の更新</a>Sudhakar Sannakkayala (General Manager、Azure Data) は、前述の Azure Database for PostgreSQL 用の機能のほとんどを使用して Azure Database for MySQL に同様の更新を提供しますが、オンプレミス、仮想マシン、または Azure 外部のデータベースサービスから Azure Database for MySQL にデータを同期するデータインレプリケーションを追加します。 ご想像どおり、Azure Database for MySQL の更新プログラムには、PostgreSQL 10.3 のサポートは含まれていません。</p>
+
+
+  <p>2018 - <a href="https://blogs.msdn.microsoft.com/appserviceteam/2018/07/12/php-minor-version-xdebug-update-for-august-2018/">年8月の PHP マイナーバージョン + Xdebug Update</a>2018年8月に、Azure App Service の PHP スタックが、利用可能な最新バージョン (7.1.19 および 7.2.7) に更新されます。 さらに、PHP 7.1 と7.2 のサポートを含む Xdebug バイナリも更新します。 Xdebug のパスも変更されています。 詳細については、App Service チームからのこちらの投稿を参照してください。</p>
+
+
+  <h3>その他のニュースと更新</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/azure-functions-runtime-x-preview-breaking-change-for-httptrigger-for-java/">Java 用 HttpTrigger の Azure Functions Runtime x プレビュー &mdash; の重大な変更</a></li>
+  </ul>
+
+
+  <h2>Azure Friday</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-SignalR-Service/player" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-SignalR-Service">Azure 金曜日 |エピソード 450-azure SignalR service</a> </strong> - Xiaokai は、azure SignalR service について説明するために Scott マンを参加させます。 独自の SignalR サーバーを設定しなくても、リアルタイム web アプリケーションの構築を簡単に開始できるようになります。</p>
+     </td>
+    </tr>
+    <tr>
+     <td align="center" width="300">
+     <p><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Reserved-VM-Instances-RIs/player" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Reserved-VM-Instances-RIs">Azure 金曜日 |エピソード 451-Azure Reserved VM Instances (RIs)</a> </strong> - yashesvi Sharma は、Scott マン selman を結合して、Windows および Linux 仮想マシン (vm) で1年間または3年間の料金と比較して、最大72% のコストを大幅に削減する方法について説明します。 Azure RIs から得られたコストの節約と Azure ハイブリッド特典の追加値を組み合わせると、さらに多くのことを節約できます。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>技術的なコンテンツ</h2>
+
+
+  <p>Azure SQL Data Warehouse - <a href="https://azure.microsoft.com/en-us/blog/lightning-fast-query-performance-with-azure-sql-data-warehouse/">による高速クエリパフォーマンス</a>すべての分散データベースシステムの中核となるのは、別のキーでパーティション分割された2つ以上のテーブルを配置して最終的な結果セットまたは中間結果セットを作成する必要があることです。 データ移動とは、クエリの実行中に分散テーブルの一部が別のノードに移動される操作です。 この操作は、ターゲット ノードでデータを使用できない場合 (テーブル間でディストリビューション キーが共有されない場合が最も多い) に必要です。 最も一般的なデータ移動操作はシャッフルです。 tomas tシャッフル (パートナーアーキテクト、Azure データ) は Azure SQL Data Warehouse (SQL DW) の内部にあるため、クエリのパフォーマンスを大幅に向上させるために、速度がどのように改善されたかを確認できます。</p>
+
+
+  <h2>イベント</h2>
+
+
+  <p>Microsoft の 2018 - <a href="https://azure.microsoft.com/en-us/blog/enabling-partner-success-at-microsoft-inspire-2018/">でパートナーの成功を有効にする</a>Microsoft では、2018年7月16日にラスベガスで開始されます。 Charlotte Yarkoni (Corporate バイスプレジデント、成長 + エコシステム) は、クラウドマーケットプレース、Azure Marketplace、および AppSource の機能を継続的に拡張して、あらゆる種類のパートナーが検出、評価、および最終的にそのオファリングを顧客ベースで購入およびデプロイできるようにする方法を説明します。 次の年には、Microsoft &rsquo; の履歴で初めて、microsoft の製品とサービスと共に、パートナーソリューション、アプリケーション、およびコンサルティングおよび管理されたサービスプランを製品カタログに配置します。 今月は、Azure Marketplace を通じて、3つの垂直方向の領域にわたるマルチパートナー統合ソリューションのセットをリリースしました。たとえば、Zero2Hero (Bardess、Cloudera、Trifacta、Qlik) を搭載したカスタマー360や、高速コマース (Publicis. Sap Ient、Data x、Acquia) などがあります。 また、<a href="https://www.microsoftpartnercommunity.com/t5/Cloud-AI/ct-p/cloud_ai">クラウド + AI パートナー Community</a>の発売を発表し、パートナーが必要な情報にアクセスするための主要なオンラインの場所として機能します。</p>
+
+
+  <p align="center"><img alt="Screenshot of Cloud+AI Partner Community website" height="186" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a573490-e3e3-47bd-9c66-96f0a000eb73.png" title="クラウド + AI パートナー Community web サイト" width="640"></p>
+
+
+  <p><a href="https://info.microsoft.com/ww-landing-connecting-building-protecting-your-network.html">Azure ウェビナーシリーズ: ネットワーク</a> - の接続、構築、保護このウェビナーでは、水曜日、2018年7月18日 (10:00 AM-11:00 AM 太平洋標準時) にご参加ください。クラウド中心のネットワークの将来に向けた Microsoft のビジョン、アプリケーションランドスケープの変化する境界を対象とする2つの新しいサービス、パートナーとお客様がネットワークとセキュリティをクラウドベースのモデルにどのように適応させている</p>
+
+
+  <p>Azure - <a href="https://azure.microsoft.com/en-us/blog/streaming-analytics-use-cases-with-spark-on-azure/">上の Spark を使用したストリーミング分析のユースケース</a>ストリーミング分析のユースケースに Apache Spark オンデマンドウェビナーで参加して、リアルタイムでデータから洞察を得る方法を学習してください。 IoT Analytics とクリックストリーム Analytics の2つの Spark Streaming ユースケースシナリオについて説明しています。</p>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/azureservicefabric/2018/07/12/service-fabric-community-qa-26th-edition/">Service Fabric Community Q &amp; a 26 日 Edition</a> - では、Service Fabric チームは26日の毎月のコミュニティ q&a &amp; を開催します。これは、太平洋標準時10:00 年7月19日に開催されます。 常に、RSVP の必要はありません。 木曜日の午前10:00 にアクセス https://aka.ms/sfcommunityqa して &rsquo; ください。</p>
+
+
+  <h2>お客様とパートナー</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-iot-central-available-for-partners-to-manage-and-extend-customer-solutions/">パートナーがお客様のソリューションを管理および拡張するために使用できる Azure IoT 中部</a> -Sunil Tahilramani (シニア製品マネージャー、Azure IoT) は、パートナーが Azure CSP サブスクリプションで使用できるようになった Azure IoT のような顧客ソリューションの再販、管理、拡張を容易にするさまざまな機能を提供しています。また、接続されたフィールドサービスを含む強力なワークフローや新しいシナリオを実現し、より深い Power BI 洞察を得るためにデータを IoT Central から ソリューションテンプレート。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/consulting-offers-in-azure-marketplace-arrive-in-canada/">Azure Marketplace のコンサルティングプランがカナダ</a> - に到着Azure の新しいスキルを習得したり、機密性の高いワークロードを移行するための固有のパラメーターを処理したり、ビジネス上の意思決定を推進するための大きな影響を与える視覚的ストーリーテリングを作成したりするために、Azure Marketplace ではこれまでにないほど簡単にアクセスできるようになりました。 Azure Marketplace のパートナーは、クラウドを適切にサイズ変更して最適化するために、自信を持って作業を開始するのに役立ちます。 Microsoft では、5月のお客様向けにコンサルティングサービスプランを Azure Marketplace に追加しました。 コンサルティングサービスプランもカナダで利用できるようになりました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/how-microsoft-azure-stack-means-transformation-and-opportunities-for-partners/">Microsoft Azure Stack がパートナー</a> - の変革と機会を意味する方法Talal Alqinawi (シニアディレクター、Azure Marketing) は、お客様が企業やコミュニティに価値を提供するために、リモートで、しばしば切断された環境で Azure Stack を使用している、すばらしいシナリオを防ぐためにパートナーエコシステムがどのように役立つかを説明します。 パートナーとしてのロールが、Azure Stack のお客様の取り組みにおける1つまたはすべてのフェーズについて説明します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-marketplace-new-offers-june-1-15/">Azure Marketplace の新機能は6月 1 &ndash; </a> - 日に提供Azure Marketplace は、Azure で実行するために認定および最適化されたすべてのソフトウェア &ndash; のお客様を対象としています。 多数の主要なソフトウェアプロバイダーからアプリケーション &amp; サービスを検索、試用、購入、プロビジョニングします。 6月の前半では、Microsoft Azure の outsystems、softnas Cloud Enterprise、Windows Server 2019 Datacenter Preview など、21の新しいプランを公開しました。</p>
+
+
+  <h3>その他のお客様とパートナー</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/lenovo-xclarity-integrator-for-azure-log-analytics/">Azure Log Analytics の Lenovo XClarity インテグレーター</a></li>
+  </ul>
+
+
+  <h2>IoT のショー</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Dynamics-Connected-Field-Service-for-IoT/player" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Dynamics-Connected-Field-Service-for-IoT">IoT Show |dynamics connected field service for IoT</a> </strong> - Kyle Young、dynamics チームのプリンシパル PM マネージャーは、Azure IoT hub と dynamics connected field サービス間の統合により、ワークフローを自動化し、IoT の世界を企業と橋渡しする方法を示しています。</p>
+     </td>
+    </tr>
+    <tr>
+     <td align="center" width="300">
+     <p><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Connecting-legacy-systems-to-modern-IoT-apps/player" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Connecting-legacy-systems-to-modern-IoT-apps">IoT Show |レガシシステムを最新の iot アプリ</a></strong> - に接続する iot アプリケーションを構築するには、多くの場合、既存のシステムとインフラストラクチャをクラウドに接続する必要があります。 Azure IoT チームの Segura である Chris は、Azure IoT Edge を使用して、従来のシステムをクラウドを搭載した最新の IoT アプリケーションにブリッジするためにどのようなことが必要であるかを示しています。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>開発者向けのスポットライト</h2>
+
+
+  <p><a href="https://aka.ms/lwia/containers-12">クイックスタート: Azure Dev Spaces で Kubernetes dev space を作成する (.Net Core および Visual Studio)</a> -このクイックスタートでは、Azure で管理された Kubernetes クラスターを使用して Azure Dev Spaces を設定する方法について説明します。 Visual Studio を使用し、クラスターで実行されているデバッグコードを使用して、コンテナー内のコードを繰り返し作成します。</p>
+
+
+  <p><a href="https://aka.ms/lwia/containers-14">クイックスタート: Azure Dev Spaces (Node.js と VS Code) を使用して Kubernetes dev space を作成する</a> -このクイックスタートでは、Azure で管理された Kubernetes クラスターを使用して Azure Dev Spaces を設定する方法について説明します。 VS Code を使用し、クラスターで実行されているデバッグコードを使用して、コンテナー内のコードを繰り返し作成します。</p>
+
+
+  <p>Azure Kubernetes サービス - <a href="https://aka.ms/lwia/containers-17">での SmartHotel360 マイクロサービス</a>任意のフレームワークで記述されたマイクロサービスを AKS にデプロイする方法を理解するために、SmartHotel360 バックエンドマイクロサービスのソースコードとデプロイプロセスを更新して、AKS 用に最適化しました。 詳細については、GitHub の AKS と Azure Dev Spaces デモを複製、フォーク、またはダウンロードしてください。</p>
+
+
+  <h2>クラウドの専門家-今週の Azure</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p><iframe allowfullscreen="" frameborder="0" src="https://www.youtube-nocookie.com/embed/CODE?rel=0" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong><a href="https://www.youtube.com/watch?v=CODE">クラウドの専門家 |</a></strong>この今週の azure では、この週の 2018 - 年7月13日に、azure では、変更できない Blob Storage のパブリックプレビュー、Application Insights でのユーザーの行動の一般公開について説明しています。また、サーバーレスアーキテクチャに新しい無料の電子ブックがあり &rsquo; ます。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>

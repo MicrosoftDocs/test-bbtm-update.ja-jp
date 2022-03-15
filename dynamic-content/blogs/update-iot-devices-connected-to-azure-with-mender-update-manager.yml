@@ -1,0 +1,33 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a34c7dcc3ce710be8ff3bec65e053190aca6cf0d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888923"
+Slug: update-iot-devices-connected-to-azure-with-mender-update-manager
+Title: Mender update manager を使用して Azure に接続された IoT デバイスを更新する
+Summary: >
+  多くの IoT ソリューションでは、数千のハードウェアエンドポイントを接続しています。セキュリティの問題を修正したり、機能をアップグレードすると、困難でコストのかかる作業になります。 デバイスを更新する機能は、すべての IoT ソリューションにとって重要です。これは、組織が修正プログラムを展開することによってセキュリティの脆弱性に迅速に対応できるようにするためです。
+Content: >-
+  <p>多くの IoT ソリューションでは、数千のハードウェアエンドポイントを接続しています。セキュリティの問題を修正したり、機能をアップグレードすると、困難でコストのかかる作業になります。 デバイスを更新する機能は、すべての IoT ソリューションにとって重要です。これは、組織が修正プログラムを展開することによってセキュリティの脆弱性に迅速に対応できるようにするためです。 <a href="https://azure.microsoft.com/en-us/services/iot-hub/" target="_blank">Azure IoT Hub</a>には多くの機能が用意されており、開発者はデバイス管理プロセスをソリューションに組み込むことができます。たとえば、デバイスの構成を同期するための<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-device-twins" target="_blank">デバイスツイン</a>や、デバイスを<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-automatic-device-management" target="_blank">自動的に管理</a>することにより、大規模なデバイスで構成の変更を展開できます。 これらの機能を使用して <a href="https://azure.microsoft.com/en-us/blog/azure-iot-automatic-device-management-helps-deploying-firmware-updates-at-scale/" target="_blank">IoT デバイスのファームウェアの更新を実装する</a>方法については、既に説明しています。</p>
+
+
+  <p>一部のお客様は、ターンキー IoT デバイス更新マネージャーが必要であることを伝えています。そのため、 <a href="https://mender.io/" target="_blank">mender</a> とのコラボレーションを共有して、Azure に接続された iot デバイスを mender オープンソース更新マネージャーを使用してリモートで更新および監視する方法を紹介します。 Mender は、完全なイメージの更新、および web ベースの管理 UI によって管理および監視される2つの A/B パーティション分割による、信頼性の高い無線 (OTA) 更新管理を提供します。 &nbsp; お客様は、Yocto でビルドされた Linux イメージを更新するために Mender を使用できます。 <a href="https://docs.microsoft.com/en-us/azure/iot-dps/" target="_blank">Azure IoT hub Device Provisioning Service</a>と統合することにより、IoT デバイス id 資格情報を mender と IoT Hub 間で共有できます。これは、カスタム割り当てポリシーと Azure 関数を使用して実現されます。 その結果、オペレーターは Azure IoT hub で構築されたソリューションを使用して IoT デバイスの状態と分析を監視し、デバイス id を共有するため、mender でそれらのデバイスに更新プログラムを割り当ててデプロイすることができます。</p>
+
+
+  <p>最近、Mender &rsquo; s CTO Eystein Stenberg は、そのしくみを示しています。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Over-the-air-software-updates-for-Azure-IoT-Hub-with-Menderio/player" width="960"></iframe></p>
+
+
+  <p>デバイスを更新してセキュリティで保護することはすべての IoT ソリューションにとって重要です。 Mender では、Azure のお客様に OTA 更新を実装するための優れた新しいオプションが提供されています。</p>
+
+
+  <h2>その他の技術情報</h2>
+
+
+  <p>&bull;&nbsp;&nbsp;&nbsp; IoT Hub Device Provisioning Service を Mender と統合する方法については、 <a href="https://aka.ms/azureiotmenderblog" target="_blank">Mender &rsquo; のブログ記事</a> をご覧ください。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-auto-device-config" target="_blank">自動デバイス管理の詳細については、IoT Hub を</a>参照してください。</p>

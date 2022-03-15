@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 77f03eaa4a3f28305808a65f97efd1700679f5a6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890334"
+Slug: new-enhanced-dns-features-in-azure-firewall-now-generally-available
+Title: Azure Firewall の新しい強化された DNS 機能-一般提供開始
+Summary: Azure Firewall のネットワークルール (HTTP/S および非 MSSQL プロトコル用) のカスタム DNS、DNS プロキシ、および FQDN フィルターが一般公開されました。 このブログでは、DNS プロキシとプライベートリンクを使用したユースケース例も共有します。Azure Firewall は、クラウドネイティブのサービスとしてのファイアウォール (fwaas) オファリングであり、DevOps アプローチを使用してすべてのトラフィックフローを一元的に管理し、ログに記録することができます。
+Content: >-
+  <p><em>この投稿は、Adam Stuart、テクニカルスペシャリスト、Azure ネットワークによって共同作成されました</em></p>
+
+
+  <p>Azure Firewall のネットワークルール (HTTP/S および非 MSSQL &nbsp; プロトコル用) のカスタム dns、dns プロキシ、および FQDN フィルターが一般公開されました。 このブログでは、DNS プロキシと <a href="https://docs.microsoft.com/en-us/azure/private-link/private-link-overview" target="_blank">プライベートリンク</a>を使用したユースケース例も共有します。&nbsp;</p>
+
+
+  <p>Azure Firewall は、クラウドネイティブのサービスとしてのファイアウォール (fwaas) オファリングであり、DevOps アプローチを使用してすべてのトラフィックフローを一元的に管理し、ログに記録することができます。 このサービスは、アプリケーション、NAT、およびネットワークレベルのフィルター処理 &nbsp; の両方をサポートしており、既知の悪意のある IP アドレスおよびドメインをフィルター処理するために、Microsoft 脅威インテリジェンスフィードと統合されています。 Azure Firewall は、組み込みの自動スケーリングによって高可用性を実現します。</p>
+
+
+  <h2>カスタム DNS サポートが一般公開されました</h2>
+
+
+  <p>2018年9月に起動されたため、Azure Firewall は、サービスが送信の依存関係を確実に解決できるように、Azure DNS を使用するようにハードコードされています。 カスタム DNS を使用すると、独自の DNS サーバーを使用するように Azure Firewall を構成し、ファイアウォールの送信依存関係が Azure DNS で解決された状態を維持することができます。 Azure Firewall とファイアウォール ポリシーの DNS 設定で、単一の DNS サーバーまたは複数のサーバーを構成することができます。</p>
+
+
+  <p>Azure Firewall は、 <a href="https://docs.microsoft.com/en-us/azure/dns/private-dns-overview" target="_blank">Azure プライベート DNS</a>を使用して名前を解決することもできます。 Azure Firewall が存在する Virtual Network は、Azure プライベートゾーンに<a href="https://docs.microsoft.com/en-us/azure/dns/private-dns-getstarted-portal#link-the-virtual-network" target="_blank">リンク</a>さ &nbsp; れている必要があります。</p>
+
+
+  <h2>DNS プロキシの一般提供が開始されました</h2>
+
+
+  <p>DNS プロキシを有効にすると、Azure Firewall は DNS クエリを処理し、仮想ネットワークから目的の DNS サーバーに転送できます。 この機能は非常に重要であり、ネットワーク ルールで信頼性の高い FQDN フィルタリングを行うために必要です。 Azure Firewall とファイアウォール ポリシーの設定で DNS プロキシを有効にすることができます。 DNS プロキシログの詳細については、 <a href="https://docs.microsoft.com/en-us/azure/firewall/logs-and-metrics" target="_blank">Azure Firewall ログとメトリックのドキュメント</a>を参照してください。</p>
+
+
+  <p>DNS プロキシの構成には、次の 3 つの手順が必要です。</p>
+
+
+  <ol>
+      <li>Azure Firewall の [DNS 設定] で DNS プロキシを有効にします。</li>
+      <li>必要に応じて、カスタム DNS サーバーを構成するか、指定された既定のものを使用します。</li>
+      <li>最後に、仮想ネットワークの DNS サーバーの設定で、Azure Firewall &rsquo; s プライベート IP アドレスをカスタム dns サーバーとして構成する必要があります。 これにより、DNS トラフィックが Azure Firewall に送信されるようになります。</li>
+  </ol>
+
+
+  <p>DNS プロキシは、TCP ポート53で要求をリッスンし、Azure DNS または指定されたカスタム DNS に転送します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8170918-450e-49df-b552-e2a1387f9225.png"><img alt="Custom DNS and DNS Proxy settings on Azure Firewall." border="0" height="439" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d944b156-02e4-4e7b-94d3-94e85d72d8c7.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Firewall でのカスタム DNS および DNS プロキシ設定" width="780"></a></p>
+
+
+  <p><em>図 1.Azure Firewall のカスタム DNS および DNS プロキシ設定。</em></p>
+
+
+  <h2>ネットワークルールの FQDN フィルターが一般公開されるようになりました</h2>
+
+
+  <p>Azure Firewall とファイアウォールポリシーの DNS 解決に基づいて、ネットワークルールで完全修飾ドメイン名 (Fqdn) を使用できるようになりました。 ルール コレクションで指定された FQDN は、ファイアウォールの DNS 設定に基づいて IP アドレスに変換されます。 この機能を使用すると、任意の TCP/UDP プロトコル (NTP、SSH、RDP など) を含む FQDN を使用して送信トラフィックをフィルター処理できます。 この機能は DNS の解決に基づいているため、DNS プロキシを有効にして、保護された仮想マシンとファイアウォールの名前解決が一貫していることを確認することを強くお勧めします。</p>
+
+
+  <p><em><strong>アプリケーションルール</strong>での FQDN フィルタリングと<strong>ネットワークルール</strong>の違いは何 &rsquo; ですか。&nbsp;</em></p>
+
+
+  <p>HTTP/S および MSSQL のアプリケーションルールでの FQDN フィルターは、アプリケーションレベルの透過プロキシに基づいています。 そのため、同じ IP アドレスに解決される 2 つの FQDN を区別できます。 これは、ネットワークルールでの FQDN フィルター処理ではありません。したがって、可能な限りアプリケーションルールを使用することをお勧めします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/63afc3ee-26e1-4af7-9c96-75f6d91725a5.png"><img alt="FQDN filtering in network rules." border="0" height="64" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ae523b5c-6a42-46c1-a376-fbb9cd2e641b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ネットワークルールでの FQDN フィルター処理" width="1024"></a></p>
+
+
+  <p><em>図 2.ネットワークルールでの FQDN のフィルタリング。</em></p>
+
+
+  <h2>Azure Firewall を DNS プロキシとして使用して、オンプレミスからプライベートエンドポイントへのアクセスを有効にする</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/private-link/private-link-overview" target="_blank">Azure プライベートリンク</a> を使用すると、プライベート <a href="https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview" target="_blank">エンドポイント</a>を使用して、プライベート接続を介して、ストレージアカウントやアプリサービスなどの Microsoft PaaS サービスに接続することができます。 プライベートエンドポイントは、Azure プライベートリンクによって機能する PaaS サービスにプライベートで安全に接続するネットワークインターフェイスです。 プライベートエンドポイントは、Virtual Network (VNet) のプライベート IP アドレスを使用 &nbsp; して、クラウド内のプライベートネットワーク内にサービスを効果的に配置します。 この方法 &nbsp; では、PaaS サービスのパブリック IP アドレスの公開とアクセシビリティを排除することで、セキュリティが強化されます。</p>
+
+
+  <p>Azure プライベートリンクの大きな利点の1つは、プライベートにアドレス指定されたハイブリッド接続 (たとえば、 <em>Azure ExpressRoute プライベートピアリング</em> やサイト間 <em>VPN</em>) で Microsoft PaaS サービスを使用できることです。 ただし、この利点には、プライベートエンドポイントにマップされる DNS レコードの自動ライフサイクル管理を活用するために、 <a href="https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-dns#on-premises-workloads-using-a-dns-forwarder" target="_blank">オンプレミスから Azure プライベート DNS への dns 要求を転送</a> するという課題もあります。</p>
+
+
+  <p>プライベートリンクを利用 &nbsp; する各 azure &nbsp; PaaS サービスには、azure プライベート DNS ゾーンにマップされ、格納される FQDN が付与 &nbsp; されます。 Azure DNS Private Zones に送信された要求は &nbsp; 、Azure 内から &nbsp; のみ到達可能な<a href="https://docs.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16" target="_blank">168.63.129.16</a> &nbsp; のプラットフォームアドレスに送られます。 そのため、DNS 要求がオンプレミス (Azure の外部) から送信された場合は、Virtual Network 内の &nbsp; サービスを介して dns 要求をプロキシする必要があります。</p>
+
+
+  <p>この一般的な可用性の発表により、 <strong>Azure Firewall &nbsp; dns プロキシ</strong> は、 <a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke" target="_blank">ハブアンドスポークモデル</a>に適用されるこの dns 転送要件を満たすためのオプションです。 これを行うには、 &nbsp; オンプレミスの DNS サーバーを構成して、要求を条件付きで Azure Firewall に &nbsp; 転送し、 <a href="https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-dns#azure-services-dns-zone-configuration" target="_blank">必要なゾーン名</a>を指定します。 プライベート DNS ゾーンが、Azure Firewall が存在する Virtual Network にリンクされていることを確認します。 参照に既定の Azure DNS を使用するように Azure Firewall を構成し Azure Firewall DNS 設定で DNS プロキシを有効にします。 &nbsp;DNS プロキシの詳細については、 <a href="https://docs.microsoft.com/en-us/azure/firewall/dns-settings" target="_blank">dns 設定のドキュメント</a>を参照してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>このブログ記事で説明されているすべての詳細については、 &nbsp; 以下を参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/" target="_blank">Azure Firewall のドキュメント</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/fqdn-filtering-network-rules" target="_blank">ネットワークルールでの FQDN フィルタリングの使用</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/dns-settings" target="_blank">Azure Firewall の DNS 設定</a></li>
+      <li><a href="https://github.com/adstuart/azure-privatelink-dns-azurefirewall" target="_blank">プライベートリンクを使用して DNS フォワーダーとして Azure Firewall を使用する</a></li>
+  </ul>
+
+
+  <p>Azure ネットワークセキュリティのデジタルイベントに<a href="https://info.microsoft.com/ww-landing-Network-Security-2020.html?ocid=AID3025106_QSG_487434" target="_blank">登録</a>して、Azure Firewall についての詳細を確認し、ネットワークをセキュリティで保護し、サイバーセキュリティ攻撃から保護するためにゼロの信頼アプローチを取る方法について説明します。</p>

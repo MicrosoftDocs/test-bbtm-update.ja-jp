@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c600e824b75b7027f8871a4f6f5bbef01f508bc3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893560"
+Slug: azure-service-fabric-at-microsoft-build-2018
+Title: Microsoft ビルド2018での Azure Service Fabric
+Summary: 2年前のビルド2016では一般に利用できるようになりましたが、その後、さまざまな業界で企業のお客様にとって大きな成長が見 Service Fabric られてきたので、次のようなメリットを得てきました.........
+Content: >-
+  <p>2年前のビルド2016で<a href="https://azure.microsoft.com/en-us/blog/azure-service-fabric-is-ga/">は、Service Fabric 一般に利用可能になりました</a>。その &rsquo; ため、さまざまな<a href="https://customers.microsoft.com/en-us/search?sq=service%20fabric&amp;ff=&amp;p=5&amp;so=story_publish_date%20desc">業界で企業のお客様</a>との間に大きな成長が見られました。これは、リフトアンド<a href="https://customers.microsoft.com/en-us/story/alaska-airlines-improves-services-in-the-cloud-using-containers-and-azure-service-fabric">シフトと</a>最新化、<a href="https://customers.microsoft.com/en-us/story/asos-retail-and-consumer-goods-azure">ビジネスクリティカルな SaaS</a>Service Fabric &rsquo; の構築、<a href="https://customers.microsoft.com/en-us/story/tencent-telecommunications-azure-service-fabric-windows-server-en">ゲームアプリ</a>の変換、書き込みの安全性<a href="https://customers.microsoft.com/en-us/story/societe-generale-complex-financial-simulation-platform-expands-on-azure-service-fabric-architecture">を実現する幅広い機能を活用</a>Azure でスケーラブルな<a href="https://customers.microsoft.com/en-us/story/honeywell-builds-microservices-based-thermostats-on-azure">IoT ソリューション</a>を作成できます。</p>
+
+
+  <p>現在、Service Fabric は、 <a href="https://azure.microsoft.com/en-us/services/cosmos-db/">Azure Cosmos DB</a>、 <a href="https://azure.microsoft.com/en-us/services/sql-database/">Azure SQL Database</a>、Skype for Business、100万個のアプリケーションをホストし、毎日何百万ものコアを実行するなど、多くの Azure と Microsoft サービスを利用しています。 ビジネスクリティカルなアプリケーションのプラットフォームです。 2か月前より前は、GitHub で完全にオープンな開発プロセスへの移行を開始するために、Service Fabric のコードベース全体を<a href="https://blogs.msdn.microsoft.com/azureservicefabric/2018/03/14/service-fabric-is-going-open-source/">オープンソースに</a>しました。</p>
+
+
+  <p>Microsoft ビルド2018では、今後のお知らせや最新情報をお送りしております。</p>
+
+
+  <h2>Service Fabric にサーバーレス機能を追加する</h2>
+
+
+  <p>以前は、製品のロードマップを共有し、Azure Service Fabric メッシュを実証しました。これは同じ信頼性、ミッションクリティカルなパフォーマンス、およびスケールのお客様に Service Fabric を提供しますが、クラスター管理と修正プログラムの適用のオーバーヘッドはありません。 Service Fabric メッシュは Windows と Linux の両方のコンテナーをサポートしているので、任意のプログラミング言語とフレームワークを使用して開発することができます。</p>
+
+
+  <p>既存のワークロードを最新化したり、高可用性のクラウドネイティブアプリケーションを作成したりすることができます。また、Service Fabric メッシュを使用すると、コンテナーで実行されているマイクロサービスをデプロイし、Visual Studio または Azure Portal/CLI から直接、要求量の多いワークロードのニーズに合わせて迅速にスケールできます。 また、エンボイを使用したマイクロサービス間のインテリジェントルーティングも提供します。</p>
+
+
+  <p>ここでは、アプリケーションを作成し、Service Fabric でローカルにテストおよびデバッグして、Service Fabric メッシュに発行することがいかに簡単であるかを示す画面キャプチャを示します。 vm、ストレージ、ネットワークはありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7ed4926-7404-44f9-a4d8-b5894885225c.gif"><img alt="SeaBreeze_VSTooling_05-04" border="0" height="529" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9cfd4421-423d-4dd8-9087-96e15310bc14.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SeaBreeze_VSTooling_05-04" width="835"></a><br>
+
+  <a href="https://aka.ms/sfmeshpreview">プライベートプレビュー</a>にサインアップすることができます。パブリックプレビュー版は、今後数週間にわたって予定されています。</p>
+
+
+  <h2>Service Fabric クラスターの機能強化</h2>
+
+
+  <p>Linux での .net Core および Java ランタイムの一般提供を提供する Service Fabric の<a href="https://azure.microsoft.com/en-us/blog/azure-service-fabric-announcing-reliable-services-on-linux-and-rhel-support/">6.2 リリース</a>を、Windows ベースのクラスターサービスを強化するためのオペレーティングシステムとしての RHEL のプレビューサポートを提供しています。</p>
+
+
+  <p>ここ &rsquo; では、Service Fabric (v2.0) の次の更新プログラムをリリースします。これにより、オンプレミスで実行される Azure の Service Fabric クラスターを使用してより詳細に制御できるように、Service Fabric 環境の選択を対象とした統合開発エクスペリエンスが提供され Service Fabric スタンドアロン、または Azure が Service Fabric メッシュを通じてインフラストラクチャとオーケストレーションを完全に管理できるようにします。 このリリースの Service Fabric には、シークレット管理や分離ネットワークなど、顧客が要求する機能も多数あります。</p>
+
+
+  <h2>Azure を介してオンプレミスのクラスターを管理する Service Fabric</h2>
+
+
+  <p>世界でハイブリッドの柔軟性が求められるため、Service Fabric はハイブリッドマイクロサービスプラットフォームを提供し、開発者がオンプレミスにデプロイするオプションを提供します。 Microsoft が &rsquo; 無料で <a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-support">サポート</a>しています。 ここでは、 &rsquo; どこでも実行されているスタンドアロンクラスターの作成と管理をさらに簡単にすることができました。</p>
+
+
+  <p>microsoft は、azure (ポータルと CLI) を使用した Service Fabric スタンドアロンクラスターの作成と管理を他の Service Fabric デプロイと共にサポートし、オンプレミス、Azure、または他のクラウドでのハイブリッドクラスターデプロイを可能にしています。 さらに、 &rsquo; Linux サポート (Ubuntu &amp; RHEL) を Service Fabric スタンドアロンオファリングに追加します。</p>
+
+
+  <h2>回復力のある IoT Edge Service Fabric</h2>
+
+
+  <p>Service Fabric のオンプレミスサポートを基にして、 &rsquo; Service Fabric サポートを IoT Edge デバイスに拡張する作業を進めています。 IoT edge デバイスにデプロイされた Service Fabric を使用して、ローカルクラスターを作成できます。 Service Fabric は、Azure IoT ハブを使用して管理できる、信頼性の高い IoT edge アプリケーションを実現します。この魅力的な機能のデモや、「Mark Russinovich &rsquo; s/Build session」 ( <a href="https://twitter.com/Azure/status/991780623894409220">Azure データセンターアーキテクチャ</a>の詳細) を参照できます。</p>
+
+
+  <h2>お会い</h2>
+
+
+  <p>お客様からのご意見をお待ちしており &rsquo; ます。 ビルドする場合は、エキスポ hall の Service Fabric ブースにアクセスするか、フィードバックを提供するか、設計に関する説明をお寄せください。または、すばらしいデモをご覧ください。 また、Service Fabric &rdquo; を<a href="https://developer.microsoft.com/en-us/events/build">検索</a> &ldquo; して、セッションストリームや記録を検索することもできます。 たとえば、次のことについて説明します。</p>
+
+
+  <ul>
+   <li>BRK2111 azure Service Fabric からの azure Server Fabric メッシュの詳細については、マイクロサービスの先読みに関する説明を参照してください。</li>
+   <li>Microsoft Azure によるアプリの最新化を通じて、最新化のシナリオを実現する方法については、「コンテナーを使用して Windows サーバーアプリケーションを最新化する」と「Windows コンテナーと Azure クラウドを使用して既存の .net アプリケーションを最新化する」を BRK2102</li>
+   <li>THR2034 Accenture を通じてお客様から直接 Service Fabric して構築できるもの: アプリケーションを最新化し、Service Fabric 上の Windows コンテナーで TCO を削減します。 THR2011 は、Honeywell がスマートサーモスタットアプリケーションを Service Fabric に移行し、THR2513 ASOS.com: クラウドの使用率を向上させるService Fabric。</li>
+  </ul>
+
+
+  <p><a href="https://github.com/Microsoft/service-fabric/">オープンソースプロジェクト</a>に参加し、Service Fabric メッシュの<a href="https://aka.ms/sfmeshpreview">プライベートプレビュー</a>にサインアップすることによって、マイクロサービスプラットフォームをお客様と共に再利用することをお勧めします。</p>

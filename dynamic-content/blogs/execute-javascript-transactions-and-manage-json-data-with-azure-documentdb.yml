@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e9af74735e414899649d08fc049323aa985ab009
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893972"
+Slug: execute-javascript-transactions-and-manage-json-data-with-azure-documentdb
+Title: Azure DocumentDB を使用して JavaScript トランザクションを実行し、JSON データを管理する
+Summary: DocumentDB チームは、ドキュメント エクスプローラーとスクリプト エクスプローラーの更新をドキュメント エクスプローラー内で発表Azure portal。
+Content: >-
+  <p>DocumentDB チームは、ドキュメント エクスプローラーとスクリプト エクスプローラーの更新をドキュメント エクスプローラー内で発表<a href="https://portal.azure.com" target="_blank">Azure portal。</a> ドキュメント エクスプローラーで JSON ドキュメントのフィルター処理がサポートされ、スクリプト エクスプローラーでストアド プロシージャの実行がサポートされます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/services/documentdb/" target="_blank">Azure DocumentDB</a> に慣れていない場合、DocumentDB は、迅速で反復的なアプリケーション開発のために設計された NoSQL JSON ドキュメント データベースです。 すべての DocumentDB ユーザーの開発者およびデータ管理エクスペリエンスを向上させるために継続的に取り組み、これらの新機能は、堅牢なポータル エクスペリエンスを提供するための手順です。</p>
+
+
+  <h2>ドキュメント エクスプローラー: ドキュメントをフィルター処理する</h2>
+
+
+  <p>DocumentDB では、JSON データがネイティブでサポートされ、自動的にインデックスが作成されます。 ドキュメント エクスプローラーでは <a href="https://portal.azure.com" target="_blank">Azure portal</a>、ユーザーは JSON データを自由に表示、編集、作成、および DocumentDB にアップロードできます。 フィルター処理のサポートにより、フィルタークエリによって返された特定のドキュメントを表示、編集、削除できます。</p>
+
+
+  <p>ドキュメント エクスプローラーには、 <a href="https://azure.microsoft.com/documentation/articles/documentdb-view-json-document-explorer/" target="_blank">データベース アカウント</a> 、データベース、またはコレクションのブレードからアクセスできます。 [ドキュメント エクスプローラー] ブレードの上部 <strong>にある [ </strong>フィルター] コマンドをクリックして、フィルター設定を設定します。 フィルター処理クエリは、DocumentDBs の標準のクエリ&rsquo;構文SQL準拠しています。 DocumentDB&rsquo; のクエリ言語の詳細については、「SQL クエリ」および「<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/" target="_blank">DocumentDB</a> の SQL 構文」または「SQL クエリ チート シート」<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/" target="_blank">を参照してください</a>。</p>
+
+
+  <p><img alt="DocumentExplorerPortal" border="0" height="486" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/23022d78-1cad-4279-8cbe-d7aa7ad1e679.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="DocumentExplorerPortal" width="610"></p>
+
+
+  <p>クエリのフィルター処理では、WHERE 句と ORDER BY 句の両方を受け入れる。どちらも省略可能なパラメーターです。 [フィルター] ボタンをクリックしてフィルターを有効<strong></strong>にすると、指定したフィルターを使用してドキュメントが自動的に更新されます。</p>
+
+
+  <p>ドキュメント エクスプローラーの使い方の詳細については、DocumentDB ドキュメント エクスプローラーを使用した JSON ドキュメントの表示、編集、作成、アップロードに関する記事 <a href="https://azure.microsoft.com/documentation/articles/documentdb-view-json-document-explorer/" target="_blank">を参照</a> してください。</p>
+
+
+  <h2>スクリプト エクスプローラー: ストアド プロシージャの実行</h2>
+
+
+  <p>同様に、DocumentDB では、ストアド プロシージャとトリガーを使用したアプリケーション定義 JavaScript のトランザクション処理がネイティブでサポートされています。 スクリプト エクスプローラー <a href="https://portal.azure.com" target="_blank">Azure portal</a>、ユーザーはストアド プロシージャでサーバー側 JavaScript を自由に表示、編集、実行できます。</p>
+
+
+  <p>スクリプト エクスプローラーには、 <a href="https://azure.microsoft.com/documentation/articles/documentdb-view-scripts/" target="_blank">データベース</a> アカウント、データベース、またはコレクションのブレードからアクセスできます。 [スクリプト エクスプローラー] ブレードでは、ブレードの上部にある [ストアド プロシージャの作成<strong></strong>] コマンドを使用して新しいストアド プロシージャを作成するか、既存のストアド プロシージャを開きます。 [実行の保存] コマンドをクリックしてストアド プロシージャ <strong>を &amp; 実行 </strong>できます。 ストアド プロシージャの引数は、スクリプト エディターの下にある <em>入力 </em>ウィンドウで指定します。 また、ストアド プロシージャの実行後、結果が結果ウィンドウに読み <em>込</em> まれます。</p>
+
+
+  <p><img alt="ScriptExplorerPortal" border="0" height="381" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/84d789b7-9e2f-415b-bfca-a2f184fff9ea.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="ScriptExplorerPortal" width="610"></p>
+
+
+  <p>ストアド プロシージャは、サーバー側でアプリケーション ロジックを直接実行できる強力なツールです。</p>
+
+
+  <p>スクリプト エクスプローラーを使用する方法の詳細については、「 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-view-scripts/" target="_blank">DocumentDB</a> スクリプト エクスプローラーを使用してストアド プロシージャ、トリガー、およびユーザー定義関数を作成して実行する」を参照してください。 さらに多くのサンプル ストアド プロシージャについては、このサンプル <a href="https://github.com/Azure/azure-documentdb-dotnet/tree/master/samples/code-samples/ServerSideScripts/JS" target="_blank">GitHubしてください</a>。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>これらの新機能を活用してください。 引き続き、次に表示する情報に関するフィードバックをお寄せください。 無料試用版にサインアップし、DocumentDB アカウントを<a href="https://azure.microsoft.com/pricing/free-trial/" target="_blank"></a>作成して、<a href="https://azure.microsoft.com/documentation/articles/documentdb-create-account" target="_blank">DocumentDB を今すぐ試してみてください</a>。</p>
+
+
+  <p>ヘルプが必要な場合、または質問がある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-documentdb" target="_blank">StackOverflow</a> の開発者フォーラムを通じてご連絡ください。または、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。</p>
+
+
+  <p>Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB" target="_blank">@DocumentDB</a>。</p>

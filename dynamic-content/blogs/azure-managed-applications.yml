@@ -1,0 +1,176 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8531a097545035ddc6a9541862219e209d32064e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893605"
+Slug: azure-managed-applications
+Title: Azure Managed Applications
+Summary: このページでは、パブリック プレビューのAzure Managed Applications発表Azure Marketplace。 Azure Managed Applicationsマネージド サービス プロバイダー (MSP) を有効にするエコシステムを提供,...
+Content: >-
+  <p>このページでは、パブリック プレビューのAzure Managed Applications発表Azure Marketplace。</p>
+
+
+  <p>Azure Managed Applicationsは、マネージド サービス プロバイダー (MSP)、独立系ソフトウェア ベンダー (ISV)、および企業の中央 IT チームが Azure Marketplace またはサービス カタログを通じてターンキー ソリューションを提供できるエコシステムを提供します。 お客様は、これらのマネージド&rsquo; アプリケーションをサブスクリプションにデプロイしますが、このサービスの主な利点として保守、更新、またはサービスを提供する必要はありません。 ベンダーは、これらのアプリケーションを管理およびサポートします。 つまり、お客様は、&rsquo;アプリケーション固有のドメインナレッジの構築に投資する必要が生じ、これらのアプリケーションにサービスを提供するために必要でした。 ユーザーは、アプリケーションのトラブルシューティングや問題の診断を気にすることなく、アプリケーションの更新プログラムを自動的に取得できます。</p>
+
+
+  <p>一方、マーケットプレースを通じてインフラストラクチャやソフトウェアを販売するだけでなく、Azure のお客様にサービスと運用サポートをアタッチする方法も提供するチャネルを作成します。 これにより、ベンダーは Azure&#39;の課金システムを使用して顧客に課金し、テンプレートを使用してデプロイされたアプリケーションのライフサイクルを管理できます。 これらは自己封じ込めであり、顧客に封印されています。ベンダーは、より高いサービス品質を提供できます。 Azure のこのようなエコシステムは、PaaS および SaaS ベンダーだけでなく、ソリューションをパッケージ化して再販売する企業の中心プラットフォーム チームやシステム インテグレーターにもメリットがあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d1df38a9-c94d-4c11-8b7c-86422371e1a4.png"><img alt="ApplianceOverview" border="0" height="186" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f8292d7-05cf-4578-b56f-33afb94eb3b9.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="ApplianceOverview" width="610"></a></p>
+
+
+  <p>Azure Managed Applicationsは 2 種類あります。 1 つは Service Catalog Managed Applications と呼び、もう 1 つはマネージド アプリケーションAzure Marketplace呼び出されます。</p>
+
+
+  <h2>サービス カタログ</h2>
+
+
+  <p>Service Catalog を使用すると、組織は Azure の承認済みソリューションのカタログを作成できます。 このようなソリューションのカタログを維持すると、企業の中央 IT チームは、組織に優れたソリューションを提供しながら、特定の組織の標準に確実に準拠できるので、特に役立ちます。 ＩＴ チームは、これらのアプリケーションを制御、更新、および管理できます。 組織の従業員は、IT 部門が推奨し、承認している数多くのアプリケーションを簡単に見つけることができます。 顧客には、自分で作成されたサービス カタログマネージド アプリケーション、または組織内の他のユーザーによって共有されているアプリケーションだけが表示されます。 発行元は、 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-publishing" target="_blank">これらのサービス カタログマネージド アプリケーションを作成するには、</a>次のAzure CLI。 お客様は、発行されたマネージド アプリケーションを現在のアプリケーションから使用Azure portalできます。 ただし、Service Catalog マネージド アプリケーションの発行のサポートは間もなくAzure portal予定です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/43da6756-b27b-49f0-833e-16fb5bd30cae.png"><img alt="ServiceCatalog_Create" border="0" height="332" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/03fc8b5d-9266-44b4-9e75-256bbfe4d6a8.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="ServiceCatalog_Create" width="610"></a></p>
+
+
+  <p>Service Catalog マネージド <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-overview" target="_blank">アプリケーションを発行および使用する方法の詳細を確認します</a>。</p>
+
+
+  <h2>Marketplace</h2>
+
+
+  <p>もう 1 つのオプションは、Azure Marketplaceマネージド アプリケーションです。 これらのアプリケーションは、マーケットプレースのマーケットプレースでAzure portal。 ベンダーによって公開された後は、組織の内部または外部の全員がこれらを使用できます。 これにより、MSP、ISV、およびシステム インテグレーター (SIS&rsquo;) が、すべての Azure 顧客にソリューションを提供できます。 顧客は、このような複雑なソリューションを活用する利点を得られるので、深い理解を得て、これらを維持するために投資する必要があります。 発行時に、発行元は、オファーをマネージド アプリケーションとして、またはアンマネージド同等のソリューション テンプレートとして使用できるオプションを取得します。</p>
+
+
+  <p>ベンダーは、マネージド アプリケーションを発行して、Azure Marketplace <a href="https://cloudpartner.azure.com/">を使用Cloud パートナー ポータル</a>。 マネージド アプリケーションを発行する主なコンポーネントには、プロビジョニングされるリソースを記述するテンプレート ファイルと、これらのリソースをプロビジョニングするために必要な入力をポータルに表示する方法を示す UI 定義ファイルが含まれます。 必要なファイルは .zip ファイルにパッケージ化され、発行元のポータルを通してアップロードされます。 SKU の種類プロパティ &ldquo;は、&rdquo; ソリューション テンプレートとマネージド アプリケーションを区別する点に注意してください。 発行ポータルの画像を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d9b3cb1-630d-4b37-adbf-fa378b62cac8.png"><img alt="newOffer_newSku" border="0" height="273" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d53ac4e-f5a5-4884-852f-5fcb2b3c4d4f.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="newOffer_newSku" width="610"></a></p>
+
+
+  <p>オファーが発行された後は、いくつかの前提条件のチェック、検証、その他のレビューが実行されます。 すべてのチェックに合格すると、オファーは公開され、パブリックに使用できます。 詳細を確認し、マーケットプレースマネージド アプリケーションを <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-overview">発行する方法の詳細な手順を確認します</a>。</p>
+
+
+  <p>オファーがライブ状態になAzure Marketplace、顧客はオファーのインスタンスを作成できます。</p>
+
+
+  <h2>[Authorizations]</h2>
+
+
+  <p>前述のように、ベンダーは、顧客によってプロビジョニングされたアプリケーションを管理します。 ベンダーがアプリケーションを正常に管理するには、ベンダーは、これらのリソースがプロビジョニングされる顧客サブスクリプション内のリソース グループに対する特定のアクセス許可を必要とします。 マネージド アプリケーションの発行時に、ベンダーは、リソース グループに対する特定のアクセス許可を持つ Azure AD ユーザー、ユーザー グループ、またはアプリケーションを示します。 ここで、マネージド アプリケーションに必要なリソースがデプロイされます。 付与されるアクセス許可は、通常、Azure RBAC 組み込 <a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-built-in-roles">みロールの 1 つになります</a>。</p>
+
+
+  <p>また、マネージド アプリケーションは顧客に対して自己封じ込めされ、封印されているという説明も上で説明しました。 つまり、リソースがプロビジョニングされるリソース グループは、顧客に &ldquo;対して&rdquo; ロックされます。 その結果、お客様は、このリソース グループ内のリソースを削除したり変更したりすることはできません。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>要約すると、2 種類のマネージド アプリケーションの主な違いを簡単に説明します。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="3128">
+   <tbody>
+    <tr>
+     <td valign="top">
+     <table border="0" cellpadding="2" cellspacing="0">
+      <tbody>
+       <tr>
+        <td valign="top">
+        <blockquote dir="ltr" style="margin-right: 0px">
+        <p>&nbsp;</p>
+        </blockquote>
+        </td>
+        <td valign="top">
+        <p align="left" dir="ltr" style="margin-right: 0px"><strong>サービス カタログ マネージド アプリケーション</strong></p>
+        </td>
+        <td valign="top">
+        <p align="left" dir="ltr" style="margin-right: 0px"><strong>Marketplace マネージド アプリケーション</strong></p>
+        </td>
+       </tr>
+       <tr>
+        <td valign="top">
+        <p align="left" dir="ltr" style="margin-right: 0px">発行ツール</p>
+        </td>
+        <td valign="top">
+        <ul>
+         <li>Azure CLI</li>
+         <li>Azure Portal (近日公開予定)</li>
+         <li>Azure PowerShell (近日公開予定)</li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+         <li>発行ポータル</li>
+        </ul>
+        </td>
+       </tr>
+       <tr>
+        <td valign="top">
+        <p dir="ltr">Artifacts必要</p>
+
+        <blockquote dir="ltr" style="margin-right: 0px">
+        <p>&nbsp;</p>
+        </blockquote>
+        </td>
+        <td valign="top">
+        <ul>
+         <li>mainTemplate.json</li>
+         <li>applianceMainTemplate.json</li>
+         <li>applianceCreateUIDefinition.json</li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+         <li>mainTemplate.json</li>
+         <li>applianceMainTemplate.json</li>
+         <li>applianceCreateUIDefinition.json</li>
+        </ul>
+        </td>
+       </tr>
+       <tr>
+        <td valign="top">
+        <p dir="ltr" style="margin-right: 0px">使用事例/利点</p>
+        </td>
+        <td valign="top">
+        <ul>
+         <li>
+         <div align="left">承認されたアプリ/サービスを組織内の開発者と事業単位に提供します。</div>
+         </li>
+         <li>
+         <div align="left">中央 IT は管理を提供します。</div>
+         </li>
+         <li>
+         <div align="left">ガバナンスを確保しながら、Azure 上のマネージド アプリケーションを取得します。</div>
+         </li>
+         <li>
+         <div align="left">Azure リソースの基になる複雑さからエンド ユーザーを抽象化します。</div>
+         </li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+         <li>ソリューションの専門知識と会社固有の IP を収益化できる。</li>
+         <li>マネージド アプリケーションと、チームでの特定の人材の雇用/構築を使用して、コスト/市場に出る時間のメリットを得る。</li>
+         <li>顧客に直接連絡し、独自の製品でイノベーションを推進する機能を備え、使用パターンを理解します。</li>
+         <li>ベンダーは、Azure 課金システムを使用して顧客に請求できます。</li>
+        </ul>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>その他の技術情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-author-marketplace">Marketplace マネージド アプリケーションを発行する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-publishing">サービス カタログマネージド アプリケーションを発行する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-application-createuidefinition-overview">マネージド アプリケーションの UIDefinition を作成する方法</a></li>
+   <li><a href="https://github.com/Azure/azure-managedapp-samples">マネージド アプリケーションのサンプル GitHubリポジトリ</a></li>
+  </ul>

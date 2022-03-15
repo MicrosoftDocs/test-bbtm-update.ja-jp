@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 53f95d3a18689310406a71b51da7a85a4dfabdf2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889831"
+Slug: don-t-build-your-cloud-home-on-shaky-foundations
+Title: お客様のクラウドホームを、もっとぶれのない基礎にしないでください
+Summary: 最初にドアとアラームシステムを取り付けることなく、最先端のエンターテインメントシステムの状態で構築している家を指定することはできません。 同様に、価値のあるものを追加することはお勧めできません。
+Content: >-
+  <p>最初にドアとアラームシステムを取り付けることなく、最先端のエンターテインメントシステムの状態で作成し &rsquo; た家を指定することはあり &rsquo; ません。 同様に、クラウドでビジネスを実行するために使用する貴重なアプリケーションやデータを配置することはお勧めできません。適切な基本セキュリティとガバナンス制御が適用されていることを確認する必要 &rsquo; はありません。</p>
+
+
+  <h2>優れた建物 &rsquo; は弱い基礎で構築されていない</h2>
+
+
+  <p>多くの組織は、クラウドホームをどのように表示するかに苦労しています。多くの場合、適切な計画を不安募りに移行することは無視されます。 PaaS、IaaS、SaaS を採用しているかどうかにかかわらず、適切に計画されたガバナンスとセキュリティの基礎は、保護および制御された環境を確保するうえで重要です。</p>
+
+
+  <h2>Azure でのガバナンスとセキュリティの基礎の構築</h2>
+
+
+  <p>ミッションクリティカルなワークロードまたはデータを読み込む前に、お客様の基本ガバナンスモデルが組織 &rsquo; の運用、セキュリティ、コンプライアンスの要件を考慮して、導入を遅くすることがないようにしてください。 クラウドリソースによって提供される機敏性を活用しながら、安心してビジネスクラウドのフットプリントを拡張できます。</p>
+
+
+  <p>Azure で構造化されたガバナンスモデルの基本コンポーネントを構築する際に考慮する必要がある、 <em><strong>設計上の主な考慮事項は 7</strong></em> つあります。</p>
+
+
+  <p><strong>1.</strong>&nbsp;<strong>アカウント/エンタープライズ契約:</strong> 部門、アカウント、サブスクリプションの区分化を可能にする、ガバナンスの基礎。</p>
+
+
+  <ul>
+   <li><strong>ベストプラクティス:</strong> O365 メールボックスまたはオンプレミスの監視対象のメールボックスを使用して、アカウントが O365 に同期されるようにします。これにより、Id およびアクセス管理ポリシーの一部として割り当てと取り消しが自動化されます。</li>
+  </ul>
+
+
+  <p><strong>2.</strong><strong>サブスクリプション:</strong>これは Azure の管理セキュリティ境界であり、すべてのリソースを含み、コア数とリソース数を含むいくつかの制限を定義します。</p>
+
+
+  <ul>
+   <li><strong>ベストプラクティス:</strong>組織階層を設計します。1つまたは複数のサブスクリプションは一度に1つの Azure AD にしか関連付けることができないことに注意してください。 お客様のニーズに応じて、課金、リソースへのアクセス、および複雑さに対する影響を理解することで、会社がどのように動作するかに基づいて計画を立てます。</li>
+   <li><em><strong>ヒント:</strong></em> サブスクリプションモデルはシンプルですが、必要に応じて拡張できる柔軟性があります。</li>
+  </ul>
+
+
+  <p><strong>3.</strong>&nbsp;<strong>名前付け標準:</strong> Cohesiveness は、複雑さを最小限に抑えながら、リソースを検索、管理、および保護するための鍵となります。 既存の標準を活用して、リソースに同様の命名規則を使用します。</p>
+
+
+  <ul>
+   <li><strong>ベストプラクティス:</strong> 意味のある命名基準を決定するのに役立つ <a href="https://docs.microsoft.com/en-us/azure/guidance/guidance-naming-conventions" target="_blank">パターンとプラクティスのガイダンス</a> を確認して採用し、Azure Resource Manager ポリシーを使用して適用することを検討してください。</li>
+  </ul>
+
+
+  <p><strong>4.</strong><strong>リソースポリシーとリソースロック:</strong>コストの超過、データの保存、または組織の停止を伴う偶発的な停止を軽減します。 たとえば、データをカナダの azure の場所に作成することを必要とする規制がワークロードに含まれている場合は、Azure カナダリージョン以外でコンピューティングリソースが作成されるのを防ぐポリシーを作成して、特定の種類のデータに必要なコンプライアンスポリシーに準拠していることを確認します。 開発テストリソースグループの予算準拠を確保するために、特定の種類の Vm だけを作成できることを確認します。 ラベル付けの場合は、作成時に運用環境のリソースに開発/テストリソースのタグを付けるようにタグ付けを強制するポリシーを作成します。</p>
+
+
+  <ul>
+   <li><strong><em>ヒント:</em></strong> リソースロックの使用を活用して、特定のキーリソースを簡単に削除でき &rsquo; ないようにします。</li>
+  </ul>
+
+
+  <p><strong>5.</strong><strong>最小限の特権アクセスモデルを実装します。</strong>アクセス許可は、リソースグループへのサブスクリプションと、それらのリソース (ストレージ、ネットワーク、Vm など) に継承されます。</p>
+
+
+  <ul>
+   <li><strong>ベストプラクティス:</strong> ニーズとタスクに基づいてアクセスを委任し、resourge グループレベルでアクセスを委任します。 たとえば、クラウドオペレーターは、サブスクリプションレベルではなく、管理対象のリソースグループの仮想マシン共同作成者ロールに追加できます。 セキュリティを強化するために、特権アカウントによるリソースへのアクセスにも <a href="https://docs.microsoft.com/en-us/azure/multi-factor-authentication/multi-factor-authentication-get-started-cloud" target="_blank">Multi-Factor Authentication</a> を適用します。</li>
+  </ul>
+
+
+  <p><strong>6.</strong><strong>Azure Security Center と Azure Advisor を実装します。</strong><a href="https://azure.microsoft.com/en-ca/services/advisor/" target="_blank">Azure Advisor</a>と<a href="https://azure.microsoft.com/en-us/services/security-center/" target="_blank">Azure Security Center</a>を有効にすることで、現在のセキュリティ体制を理解します。これにより、次のことが可能になります。</p>
+
+
+  <ul>
+   <li>ポリシーを適用して、セキュリティ標準に準拠していることを確認します。</li>
+   <li>Vm、ネットワーク、およびストレージ間で脆弱性を悪用する前に、脆弱性を見つけて修正します。</li>
+   <li>高可用性、セキュリティ、パフォーマンス、およびコストを実現するために、Azure リソースを最適化します。</li>
+   <li>パーソナライズされた推奨事項を簡単に実装できます。</li>
+  </ul>
+
+
+  <p><strong> 7. サブスクリプションコストの制御:</strong> &nbsp;サブスクリプション全体で<a href="https://azure.microsoft.com/en-us/services/cost-management/">azure cost management</a>を impolementing して、次のことを可能にすることで、azure サブスクリプションの費用を把握し、制御します。</p>
+
+
+  <ul style="font-weight: 400; font-style: normal; font-size: 13.008px; font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;">
+   <li style="font-size: 13.008px;">予期しない課金を防ぐ</li>
+   <li style="font-size: 13.008px;">コスト割り当てとチャージバックの制御</li>
+   <li style="font-size: 13.008px;">Azure の消費コストを最適化する</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>Azure ガバナンスの詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-subscription-governance" target="_blank">azure enterprise スキャフォールディング</a>を参照してください。 <a href="https://www.microsoft.com/en-ca/sites/microsoft-services/contact-us.aspx" target="_blank">Microsoft のサービス</a>に連絡して、スケーラブルで将来を見据えた Azure ガバナンスフレームワークの実装にどのように役立つかをご確認ください。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a79a934-62d7-421f-bd29-c8f7837ce90a.png"><img alt="Azure Goverance Foundations" border="0" height="961" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5974213-bcba-4920-ae57-2049f626432b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Goverance の基礎" width="1519"></a></p>

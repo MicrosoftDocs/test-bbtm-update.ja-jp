@@ -1,0 +1,52 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b6adff611d57f9dbaf3ddba76439da838b88f956
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893573"
+Slug: azure-search-is-now-generally-available
+Title: Azure Search が一般提供される
+Summary: Azure Search の一般提供が開始されたので、お知らせします。 Azure Search は、開発者が高度な検索エクスペリエンスを Web およびモバイル アプリケーションに組み込むのに役立つサービスとしての検索ソリューションです。
+Content: >-
+  Azure Search が一般提供 (GA) されたので、お知らせします。 Azure Search は、開発者が高度な検索エクスペリエンスを Web およびモバイル アプリケーションに組み込むのに役立つサービスとしての検索ソリューションです。 このリリースでは、多くの新機能が提供されています。 詳細については、この後の説明を参照してください。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/03/Azure-Search.png"><img class="  wp-image-259821 alignright" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Azure-Search-369x369.png" alt="Azure Search" width="267" height="267" /></a>
+
+
+  多くのお客様は、実稼働環境で Azure Search の使用を既に開始しています。 優れた例として、グローバル コンシューマー 電子製品やビデオ ゲーム小売業者 GameStop などの大企業にオムニチャネル プラットフォームを提供するサービスとしてのソフトウェア企業である XOMNI があります。 小売業者がコンシューマーとそのデバイスを引き付けるために設計された豊富なストア内およびモバイル エクスペリエンスを構築するために、ソリューションの一部として Azure Search を使用しています。 現在、XOMNI は、Azure Search を使用したプラットフォームの第 3 世代のグローバルな可用性を発表しています。
+
+  <blockquote>"ピーク時の買い物日に小売業者が経験する可能性のあるものに関するパフォーマンス要件をベースにしています。" たとえば、Tier-1 小売業者の要件には、1 秒あたり 60 件のクエリと 11 ギガバイトのデータが含まれます。 "しかし、最高のリソースをすべての時間で実行できるとは言えね。 DocumentDB と Azure Search を使用すると、需要の急増に対応するように動的にスケーリングし、消費した分だけ料金を支払います。"
+
+  XOMNI 最高技術責任者である Daron Yomdem</blockquote>
+
+  autoTRADER.ca、カナダで最大の使用車マーケットプレースでは、販売店向け新しい使用車の販売サイトで Azure Search を活用しています。これは、従来、トレードインまたは対人式の販売によって実現された、販売店が車両を購入するための新しい方法です。 これにより、販売店が車両を販売するための新しい方法と、販売業者と対話する新しい方法 autoTRADER.ca。 今月は、毎月 500 万人を超えるユーザーを含む autoTRADER.ca コンシューマー マーケットプレースを、Web とモバイルの両方で Azure Search に移行します。
+
+  <blockquote>"ユーザーがアクセスする方法オンライン サービス変更されました。 ユーザーの半分がモバイル デバイスを介してマーケットプレースにアクセスします。 モバイル アプリは 200 万回を超える回数ダウンロードされています。 これらのユーザーは、これまで以上に速く情報を必要とします。リアルタイム エクスペリエンスを期待しています。 Azure Search は、成長を先取りできるスケーラブルなソリューションを提供します。"
+
+  AutoTRADER.ca</blockquote>
+
+  この GA リリースでは、次を含む多くの新機能の概要も説明します。
+
+  <ul>
+   <li><strong>.NET SDK</strong>: Azure Search の操作をより使い慣れたエクスペリエンスにする .NET ソフトウェア開発キット (SDK)。 これは、単に "Azure Search" をNuGetして、Visual Studioから直接参照として追加できます。 ここでは、.NET SDK のチュートリアルを公開 <a href="https://go.microsoft.com/fwlink/p/?LinkId=528088">しました</a>。</li>
+   <li>多言語サポートの<strong>強化: この</strong>リリースでは、50 を超える言語に対する拡張多言語サポートが提供されます。これは、Microsoft Office と Bing で使用されるのと同じテクノロジを備え、自然言語処理 (NLP) の長い年月の経験を基に構築されています。 この NLP スタックは、サポートされている各言語間の固有の違いを深く理解するなど、言語を処理するための別の選択肢を提供します。</li>
+   <li><strong>インデク</strong>サー: 新しいインデクサーを使用して、Azure DocumentDB、Azure VM で実行されている SQL Server、Azure Search へのデータの読み込Azure SQL Databaseを簡単に行うことができます。 インデクサー インフラストラクチャには、データを取り込むデータ ストアとスケジュールされたデータ変更を Azure Search でポイントできるコードなしソリューションが提供されます。</li>
+   <li><strong>新しい API バージョン</strong>: このリリースでは、API バージョンの新しいセットも導入されています。
+  <ul>
+   <li><strong>2015-02-28</strong>: これは、このリリースで正式にサポートされている API です。 Lucene アナライザーなど、以前のプロトタイプ バージョン 2014-10-20-Preview の機能は、このバージョンに統合されています。 さらに、これは SLA を提供する唯一のバージョンです。</li>
+   <li><strong>2015-02-28-Preview</strong>: これは新しい "プロトタイプ" バージョンで、新しい試験的な機能を取り込む場所です。 このバージョンでは、多言語サポートの機能強化と、新しい "もっと似た" 機能を見つけるでしょう。 前のプロトタイプと同様に、機能は定期的にこのバージョン内で変更される可能性があります。 お客様にとって役に立つ証拠が見えるので、機能は引き続き次の正式にサポートされる API に移行します。 プレビュー API のドキュメントはこちら <a href="https://azure.microsoft.com/en-us/documentation/articles/search-api-2015-02-28-preview/">です</a>。</li>
+  </ul>
+
+  </li>
+
+  </ul>
+
+  &nbsp;
+
+
+  今後数週間の間に、これらの新機能を強調する詳細とサンプルを投稿します。 このリリースの詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/services/search/">Azure Search のドキュメント Web ページを参照してください</a>。 現在 Azure Search を利用している一部のお客様の詳細については、Azure <a href="https://go.microsoft.com/fwlink/?LinkID=528170">Search の Azure ケース スタディに関するページを参照してください</a>。
+
+
+  Azure Search をこの時点まで取得する方法は、楽しく教育的な体験でした。 試してみたすべての開発者に感謝し、フィードバックを提供し、プレビュー期間中に Azure Search を使用して信頼の投票を提供しました。 さらに多くのことを行う必要があります。そのため、引き続き迅速に移行し、フィードバック<a href="https://feedback.azure.com/forums/263029-azure-search"></a>に耳を傾け、検索を利用した優良なアプリケーションの構築に集中してください。
+
+
+  何が機能し、何が不足しているのかについてフィードバックをお寄せください。 ここにコメントを残し、ハッシュタグを使用して<a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=azuresearch"></a>フォーラムまたはツイートを使用して、お問い合#AzureSearch。

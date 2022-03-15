@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0af949b54b7889369ea4a1b45ee0416ef5992776
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893913"
+Slug: manage-your-azure-vm-backups-with-azure-cli-2-0-preview
+Title: Azure CLI 2.0 - Preview を使用して Azure VM のバックアップを管理する
+Summary: 2.0 を使用して、Azure CLI と Linux Azure VM のバックアップを簡単に管理Windowsお知らせします。 最も一般的な操作のスマートな既定値、タブ補完、パイプが可能な出力などの CLI 2.0 機能を利用して、VM のバックアップと復旧操作を簡単かつ迅速に管理します。
+Content: >-
+  <p>このたび、Azure CLI を使用して、Windows Azure VM のバックアップを簡単に管理できると発表Azure Backup。 このAzure Backup、Azure Windows VM と Linux VM、<a href="https://azure.microsoft.com/blog/backup-cloud-assets-on-azure-premium-storage-virtual-machines/" target="_blank">プレミアム</a> ストレージ上で実行されている VM、Managed Disks 上でアプリケーション整合性をバックアップできます。<a href="https://azure.microsoft.com/blog/azure-managed-disk-backup/" target="_blank"></a> CLI のサポートにより、最も一般的な操作のスマートな既定値、タブ補完、パイプが可能な出力などの CLI 機能を利用して、VM のバックアップ操作と復旧操作を簡単かつ迅速に管理できます。 <strong>Azure Backup 2.0 でのみAzure CLIサポートされ、現在プレビュー中です</strong>。</p>
+
+
+  <h2>CLI がどのように役立つのか</h2>
+
+
+  <ul>
+   <li><strong>クロスプラットフォーム のサポート:</strong> このAzure CLI、使用するプラットフォームに関係なく、どこからでも Azure VM バックアップの管理を開始します。</li>
+   <li><strong>大規模な管理:</strong> スクリプトやプログラムに CLI コマンドを含めて、大規模な操作を簡単に処理できます。</li>
+   <li><strong>オートメーション:</strong> <a href="https://docs.microsoft.com/cli/azure/query-azure-cli?view=azure-cli-latest" target="_blank">コマンド ライン ツールと組み合わせて</a>、コマンド出力に対してクエリを実行して、重要なトリガーを特定し、後続のアクションをプログラムします。 たとえば、バックアップの正常性情報をプログラムで取得し、正常性状態に基づいて後続の操作を開始できます。</li>
+  </ul>
+
+
+  <h2>サンプル事例:</h2>
+
+
+  <h3>VM でのバックアップの有効化:<strong> </strong></h3>
+
+
+  <p>既定のポリシーを使用して、以前に保護されていない VMto を Recovery Services コンテナー (同じ場所とリソース グループ内) で保護するには、次のコマンドを使用します。&nbsp;</p>
+
+
+  <pre>
+
+  az backup protection enable-for-vm \
+      --resource-group myResourceGroup \
+      --vault-name myRecoveryServicesVault \
+      --vm myVM \
+      --policy-name DefaultPolicy</pre>
+
+  <p>詳細については、このクイック スタート記事 <a href="https://docs.microsoft.com/azure/backup/quick-backup-vm-cli" target="_blank">を参照して</a> 、VM のバックアップを開始してください。</p>
+
+
+  <h3>復元: </h3>
+
+
+  <p>追加のインフラストラクチャを設定せずに、1 つのコマンドで VM バックアップからファイルを復元できます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/cli/azure/backup/recoverypoint?view=azure-cli-latest#az_backup_recoverypoint_list" target="_blank">az backup recoverypoint list コマンドを使用</a>して復旧ポイント名を取得し、次に</p>
+
+
+  <pre style="margin-top: 0in; margin-right: 0in; margin-bottom: 12pt;">
+
+  az backup restore files mount-rp \
+      --resource-group myResourceGroup \
+      --vault-name myRecoveryServicesVault \
+      --container-name myVM \
+      --item-name myVM \
+      --rp-name myRecoveryPointName</pre>
+
+  <p>これにより、復旧ポイントをマウントするスクリプトがダウンロードされます。 ファイルをコピーするコンピューターでスクリプトを実行します。</p>
+
+
+  <p>VM バックアップ <a href="https://docs.microsoft.com/en-us/azure/backup/tutorial-restore-disk" target="_blank">からディスクを復元し、</a> 復元されたディスクから VM を作成することもできます。</p>
+
+
+  <h3>管理:</h3>
+
+
+  <p>az backup item list コマンドを&rsquo; 使用して、 <a href="https://docs.microsoft.com/cli/azure/backup/item?view=azure-cli-latest#az_backup_item_list" target="_blank">バックアップ項目の正常性状態を表示</a> します。</p>
+
+
+  <p>次に、テーブル形式 (-o テーブル) の出力を含む <a href="https://docs.microsoft.com/cli/azure/backup/item?view=azure-cli-latest#az_backup_item_list" target="_blank">az backup item list</a> コマンドを入力し、コンテナー内のすべての項目について、バックアップの状態、正常性状態、およびバックアップエラーが発生した場合に実行する推奨されるアクションを表示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf05ebdd-7c01-45dc-ba7b-344847cd5ed7.png"><img alt="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/12ac9b65-8357-4e77-b4d2-49bdcc9cea48.png" style="border: 0px currentColor; border-image: none; width: 1491px; height: 135px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="イメージ"></a></p>
+
+
+  <p>JSON 出力 (-o json) では、バックアップ項目に関するより包括的な情報が提供され、コマンド ライン ツールを使用して関連する <a href="https://docs.microsoft.com/cli/azure/query-azure-cli?view=azure-cli-latest" target="_blank">詳細を抽出できます</a>。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p><a href="https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank">バックアップ CLI コマンドの使用Azure CLI 2.0</a> にインストールまたはアップグレードします。</p>
+
+
+  <p>&ldquo;「az backup -h」と&rdquo;入力して、バックアップ CLI コマンドに関連する詳細を取得し、Azure VM バックアップの管理を開始します</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li>Azure Backup CLI コマンドの <a href="https://docs.microsoft.com/cli/azure/backup?view=azure-cli-latest" target="_blank">リファレンス ドキュメント</a>。</li>
+   <li>新 <a href="https://azure.microsoft.com/services/backup/" target="_blank">しいAzure Backup</a>? 無料の Azure 試用版 <a href="https://azure.microsoft.com/pricing/free-trial/" target="_blank">サブスクリプションにサインアップします</a>。</li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup" target="_blank">フォーラムに</a> 連絡してください。</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup" target="_blank">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+   <li>最新のニュースと更新については、Twitter <a href="https://twitter.com/azurebackup" target="_blank">@AzureBackup</a> でフォローしてください。</li>
+  </ul>

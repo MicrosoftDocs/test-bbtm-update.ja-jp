@@ -1,0 +1,322 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cb36a9ce610992c5ac1a05de3f7bdb4c9e0aa955
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892385"
+Slug: softnas-cloud-on-azure-cloud-nas-storage-made-easy
+Title: Azure 上の® Soft NAS クラウド - Cloud NAS Storage簡単に
+Summary: このドキュメントで説明されている技術的な詳細の多くを説明するために大きく貢献した、SoftNAS の VP である Michael Richtberg 氏が共同執筆した今日の投稿です。
+Content: >-
+  <p><em>SoftNAS&rsquo; の VP である Michael Richtberg 氏が共同執筆した今日の投稿では、このドキュメントで説明されている技術的な詳細の多くを説明しました。</em></p>
+
+
+  <p>アプリケーションやデータを変更することなく、Azure クラウドでホストされるインフラストラクチャによって提供される無制限の柔軟性を利用できる場合は、どうしますか?&nbsp;ニーズの変化や需要の増加に応じて、独自の資本集中型データ センターをリキテクトする負担なしに、ビジネスに対応できる動きを検討しますか。&nbsp;1 つの組織では&hellip;実現できる可能性がない Microsoft Azure オンデマンド リソースの柔軟性とスケールを検討してください。これにより、世界中のどこでも事実上無制限の適応性を活用できます。</p>
+
+
+  <div align="center">
+
+  <table border="0" cellpadding="2" cellspacing="0" width="861">
+   <tbody>
+    <tr>
+     <td valign="top" width="159">&nbsp;</td>
+     <td valign="top" width="288">
+     <p><strong>従来の Storage アプライアンス</strong></p>
+     </td>
+     <td valign="top" width="412">
+     <p><strong>クラウドでホストされる仮想Storage アプライアンス</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="159">
+     <p align="left"><strong>購入条件</strong></p>
+     </td>
+     <td valign="top" width="288">
+     <p align="left">3 年から 5 年間の購入と埋め込み。</p>
+     </td>
+     <td valign="top" width="412">
+     <p align="left">使用容量に対して支払います。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="159">
+     <p align="left"><strong>Storage弾力性</strong></p>
+     </td>
+     <td valign="top" width="288">
+     <p align="left">容量の固定またはスケールアップのみ。</p>
+     </td>
+     <td valign="top" width="412">
+     <p align="left">柔軟な容量 &ndash; は、必要に応じてスケールアップまたはスケールダウンします。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="159">
+     <p align="left"><strong>デザイン ポイント</strong></p>
+     </td>
+     <td valign="top" width="288">
+     <p align="left">パフォーマンスまたは容量に合った個別の製品。</p>
+     </td>
+     <td valign="top" width="412">
+     <p align="left">パフォーマンスと容量のワークロードの柔軟な組み合わせ。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+  </div>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>IT 組織は、ビジネスに最適な選択肢を自由に選択する必要があります。 エンタープライズ ストレージ容量に対する需要は、増加率で増加し続けています。 アクセス要件に関係なく、より多くのデータを格納し、より多くのアプリケーションとユーザーを有効にするためのアクセスが不可欠です。 非常に簡単な消費、成長に対する支払い価格、および成長に対するアーキテクチャの制限がない場合、パブリック クラウドの消費モデルの魅力が高まっています。</p>
+
+
+  <p>SoftNAS Cloud&reg; は、通常 NFS、SMB/CIFS/SMB、iSCSI、Apple File Protocol (AFP) を必要とするアプリケーションの従来のオンプレミス ストレージ オプションを置き換えるソフトウェア専用のエンタープライズ ストレージ仮想アプライアンス ソリューションです。 Microsoft は SoftNAS と提携して、テラバイトから多数のペタバイトまでのストレージ容量を必要とするお客様に対して、Azure への簡単な移行を可能にしました。</p>
+
+
+  <h2>SoftNAS クラウドの動作</h2>
+
+
+  <p>SKU の一覧から選択し、それが到着するまで待つ従来のストレージとは異なり、Azure で実行されている SoftNAS Cloud の構成にかかる時間は 1 時間未満です。 Azure Portal を介して行われる基本的な手順は次の <a href="https://portal.azure.com/">4 つがあります</a>。</p>
+
+
+  <ul>
+   <li><strong>Virtual Storage アプライアンスの作成</strong> &ndash;Azure Search 関数は、SoftNAS クラウド &ldquo;イメージを検索し、仮想コントローラーのインスタンスの種類を選択&rdquo;する方法について説明します。 SoftNAS クラウド イメージを読み込むのに適したコンピューティング容量を選択するためのオプションが、ポータルのワークフローにすぐに表示されます。 Azure インスタンスの種類は、RAM やローカル SSD など、キャッシュ、ネットワーク、CPU など、さまざまな程度のパフォーマンスを可能にする重要な物理材料を提供します。 詳細&rsquo;については、 <a href="https://www.youtube.com/watch?v=7h_krhB5LSw&amp;list=PL-BYjDczh7nwOyeLUeB3_4kc1P6Lo_hpE&amp;index=3">ビデオ</a> をご覧ください。<br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00bf4086-a516-4838-8915-a2743698e065.jpg"><img alt="Virtual Storage Appliance" border="0" height="533" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e85ad031-41fe-48b8-925a-9e7a68bf60ac.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Virtual Storage Appliance" width="1024"></a></li>
+   <li><strong>アカウントをStorageする</strong> &ndash;Azure で使用できるストレージのパフォーマンスと容量の種類の柔軟なオプションを使用して、ユーザーは Azure ストレージ アカウントからプロビジョニングされた適切なメディアをアタッチできます。 オプションの範囲は、すべてのフラッシュからクール BLOB (オブジェクト) ストレージの種類までです。 Azure ブロック ストレージの使用 <a href="https://www.youtube.com/watch?v=McOwaTq8-00&amp;index=6&amp;list=PL-BYjDczh7nwOyeLUeB3_4kc1P6Lo_hpE">、または BLOB</a> (オブジェクト) ストレージの追加 <a href="https://www.youtube.com/watch?v=gQ8J9Fyfm-U&amp;index=5&amp;list=PL-BYjDczh7nwOyeLUeB3_4kc1P6Lo_hpE">に関する詳細を参照してください</a>。<br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d68620e5-85ac-4947-9f3e-2ca93894be10.png"><img alt="Attaching the storage account" border="0" height="233" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1418ec08-d785-4da2-ba6e-757acc0d0478.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ストレージ アカウントのアタッチ" width="345"></a></li>
+   <li><strong></strong> &ndash;高可用性SoftNAS Cloud では、Azure 可用性セットを使用して、仮想 IP アドレスを介してワークロードと通信する 2 つのインスタンスを有効にできます。 可用性セットのアーキテクチャにより、SoftNAS Cloud を実行している 2 つの仮想マシンが同じアフィニティ グループに含め "ない" ことを確認できます。 高可用性の設定の詳細については、このビデオを参照 <a href="https://www.youtube.com/watch?v=t7Hwg-1mLkw&amp;index=9&amp;list=PL-BYjDczh7nwOyeLUeB3_4kc1P6Lo_hpE">してください</a>。<br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fba3ff90-2567-4fb7-9b2a-c9f4af1fe28b.png"><img alt="High Availability" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6400e9ce-4657-4999-9d4e-5d821af16aff.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="高可用性" width="640"></a></li>
+   <li><strong>最後の手順</strong>: 構成を確認し、セットアップを購入して展開にプッシュします。 1 時間未満で、NAS ストレージ ソリューションが作成され、すぐに使用できます。 ボリュームの構成<br>
+  と LUN は、SoftNAS StorageCenter Web コンソールを介して&trade; 行われます。 ここでは&rsquo;、SoftNAS StorageCenter の概要と、プールとボリュームの構成に関する詳細<a href="https://www.youtube.com/watch?v=zwU3S3wYY0g&amp;index=8&amp;list=PL-BYjDczh7nwOyeLUeB3_4kc1P6Lo_hpE">について説明します</a>。<a href="https://www.youtube.com/watch?v=00AI2T7p_Bg&amp;list=PL-BYjDczh7nwOyeLUeB3_4kc1P6Lo_hpE&amp;index=4"></a></li>
+
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c7d87f4-451b-4b94-acd0-5fafb71f58ac.jpg"><img alt="SoftNAS StorageCenter web console" border="0" height="579" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/023b14e1-f28f-4d74-acd3-8050e5f28825.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SoftNAS StorageCenter Web" width="1024"></a> コンソール結果の構成では、ビジネス要件に合わせて時間の流れる調整が可能な標準ストレージ プロトコル インターフェイスを使用してワークロードにサービスを提供できる Azure インフラストラクチャが利用されます。 SoftNAS Cloud では、従来のストレージ システムでディスク ドライブが使用されるのと同様に、Azure ブロックまたはオブジェクト ストレージ アカウントが記憶域プールとして利用されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5f204ba-e53a-4028-9ec0-155bf9de091e.png"><img alt="SoftNAS and Azure Infrastructure" border="0" height="341" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0e05079b-7d42-45b5-a224-fa7c7c7a3455.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SoftNAS と Azure InfrastructureSoftNAS" width="727"></a> Cloud と Azure は、現在使用可能な 5 TB の制限を超えてネイティブの Azure ファイル サービスの容量を増やす最適な組み合わせを作成します。 SoftNAS Cloud はストレージ システムを作成するためのソフトウェアの唯一の手段なので、お客様は、さまざまなパフォーマンスの需要に対応するために、幅広い Azure コンピューティング インスタンスから柔軟に選択できます。 SoftNAS Cloud では、これらの組み合わせを利用して、従来のオンプレミス オプションを使用して取得することが困難または不可能な柔軟なコストとパフォーマンスのストレージ ソリューションを提供します。 将来の需要が不明な場合は、ニーズの変化に応じて容量を追加するだけです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/01d96c0b-6dfd-4aa0-ba30-2f23d37f2d2f.png"><img alt="Azure Options" border="0" height="318" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7fb8c5ef-4047-4cf0-9001-707614b89d8e.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure のオプション" width="640"></a></p>
+
+
+  <p>ストレージとアプリケーションをクラウドに移行することで、一歩後ろ向きに進む可能性があるでしょうか。 SoftNAS Cloud には、オンプレミスのネットワーク ストレージ ソリューションから期待されるエンタープライズ機能すべてが含まれています。 これには、次の高度な機能が含まれます。</p>
+
+
+  <div align="left">
+
+  <table align="center" border="0" cellpadding="2" cellspacing="0" width="716">
+   <tbody>
+    <tr>
+     <td width="203">
+     <p align="left"><strong>データ保護 </strong></p>
+     </td>
+     <td valign="top" width="511">
+     <ul>
+      <li>ダウンタイムなし保証の高可用性&trade;</li>
+      <li>書き込みファイル システムでのコピー</li>
+      <li>360&trade; 度保護のためのディスク上およびインフライト暗号化</li>
+      <li><a href="https://ter.li/uuq6hu">AD、AAD、LDAP の統合</a></li>
+     </ul>
+     </td>
+    </tr>
+    <tr>
+     <td width="205">
+     <p align="left"><strong>ライフサイクル管理</strong></p>
+     </td>
+     <td valign="top" width="509">
+     <ul>
+      <li>インスタンスの書き込み可能な複製のスナップショット作成</li>
+      <li>レプリケーション</li>
+     </ul>
+     </td>
+    </tr>
+    <tr>
+     <td width="207">
+     <p align="left"><strong>Data Efficiency Services </strong></p>
+     </td>
+     <td valign="top" width="508">
+     <ul>
+      <li>重複除去</li>
+      <li>圧縮<br>
+  &hellip; クラウド ストレージのコスト効率を向上させる両方</li>
+     </ul>
+     </td>
+    </tr>
+    <tr>
+     <td width="208">
+     <p align="left"><strong>柔軟性 </strong></p>
+     </td>
+     <td valign="top" width="507">
+     <ul>
+      <li>NFS、SMB、CIFS/SMB、AFP、iSCSI プロトコルハイブリッド、オンプレミス、または Azure クラウドでホスト</li>
+      <li>テラバイトからペタバイトにスケーリングする</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+  </div>
+
+
+  <h2>Azure で既にストレージが提供されている場合、SoftNAS クラウドが必要な理由</h2>
+
+
+  <p>実際、Azure にはさまざまなストレージ オプションが提供されますが、パブリック クラウドでホストされるインフラストラクチャに移行するために顧客が持っているすべてのニーズを満たすのに役立つとは言えない場合があります。 SoftNAS Cloud がこれらの Azure オファリングを補完する理由と方法を次に示します。</p>
+
+
+  <div align="center">
+
+  <table align="center" border="0" cellpadding="2" cellspacing="0" width="789">
+   <tbody>
+    <tr>
+     <td valign="top" width="133">
+     <p align="center"><strong>Azure Storage</strong> <strong></strong></p>
+     </td>
+     <td valign="top" width="236">
+     <p align="center"><strong>Azure の機能</strong></p>
+     </td>
+     <td valign="top" width="418">
+     <p align="center"><strong>Azure 上の SoftNAS Cloud</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">
+     <p align="left">ファイル サービス</p>
+     </td>
+     <td valign="top" width="236">
+     <ul>
+      <li>
+      <div align="left">CIFS/SMB 専用プロトコル</div>
+      </li>
+      <li>
+      <div align="left">AD 統合なし</div>
+      </li>
+      <li>
+      <div align="left">5 TB の制限</div>
+      </li>
+     </ul>
+     </td>
+     <td valign="top" width="418">
+     <p align="left">以下のオプションを使用して、SoftNAS Cloud は容量の制限を克服し、すべてのファイル プロトコルを追加し、完全な<br>
+     <a href="https://ter.li/uuq6hu">AD/AAD/LDAP ユーザー アクセス制御、</a>消費効率、およびフル機能のデータ サービス。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">
+     <p align="left">ページ BLOB<br>
+  プレミアム &amp;<br>
+
+  Standard Storage</p>
+     </td>
+     <td valign="top" width="236">
+     <ul>
+      <li>
+      <div align="left">SSD またはハード ディスク ベースのストレージ</div>
+      </li>
+      <li>
+      <div align="left">2 &ndash; つの 40 TB の容量のみをブロックする</div>
+      </li>
+     </ul>
+     </td>
+     <td valign="top" width="418">
+     <p align="left">ブロック ストレージを利用して NAS ファイル プロトコルを提示します。<br>
+  パフォーマンスを向上させ、データの効率を向上させます。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">
+     <p align="left">クール &amp; ホット ブロック BLOB Storage</p>
+     </td>
+     <td valign="top" width="236">
+     <ul>
+      <li>
+      <div align="left">オブジェクト ストレージのみ</div>
+      </li>
+      <li>
+      <div align="left">ストレージ アカウントあたり最大 500 TB</div>
+      </li>
+     </ul>
+     </td>
+     <td valign="top" width="418">
+     <p align="left">オブジェクト ストレージを利用して NAS ファイル プロトコルを提示し、複数のストレージ アカウントを集計して Azure 容量をペタバイトに拡張します。 パフォーマンスを向上させ、データの効率を向上させます。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+  </div>
+
+
+  <h2>理想的な使用事例</h2>
+
+
+  <p>Azure でホストされているソフトウェア ベースの仮想ストレージ アプライアンスの使用例は、多くのセグメントにまたがっています。 1 日の終わりには、すべてのコンピューティング リソースでストレージが必要であり、使用されます。 ファイル サイズが増える非構造化データの場合、理想的な用途の例を次に示します。</p>
+
+
+  <ul>
+   <li>アーカイブとレコードのリテンション期間</li>
+   <li>ユーザー ファイルの共有</li>
+   <li>ビデオ/メディア ストレージ</li>
+   <li>ユーザー ファイル ディレクトリ</li>
+   <li>ソース コード リポジトリ</li>
+   <li>医療記録</li>
+   <li>法的ドキュメント</li>
+   <li>エネルギー業界データ</li>
+   <li>ビッグ データ</li>
+   <li>Genomics</li>
+  </ul>
+
+
+  <p>VPN WAN 接続経由で接続された標準のマウント可能な NAS プロトコルを使用して、オンプレミスの容量を Azure に拡張するためのハイブリッドストレージも、一般的なユースケースです。 既存のデータセンターインフラストラクチャを使用して、Azure でホストされているストレージオプションを簡単に拡張できます。 SoftNAS クラウドは、オンプレミスからクラウドへのレプリケーションまたは拡張の機能を提供します。</p>
+
+
+  <h2>の使用を検討するタイミング</h2>
+
+
+  <p>要約すると、SoftNAS Cloud は、Azure を検討するときに、次のシナリオでお客様のニーズを満たすことができます。&nbsp;</p>
+
+
+  <ul>
+   <li>SoftNAS クラウドは、CIFS/SMB、NFS、AFP、iSCSI ストレージ向けの Azure のネイティブ機能を拡張します。&nbsp;</li>
+   <li>アプリケーションが大きなファイル容量 (最大ペタバイト) を必要とし、それらを Azure に移動するための簡単な方法が必要な場合に使用します。&nbsp;</li>
+   <li>従来のオンプレミスストレージからエラスティックパブリックモデルに移行する準備ができましたが &rsquo; 、データサービスの再エンジニアリングによる費用は不要です。</li>
+   <li>高パフォーマンスから容量指向のクール Blob まで、さまざまなロールをサービスできる柔軟なストレージモデルが必要です。</li>
+  </ul>
+
+
+  <h2>はじめに方法:</h2>
+
+
+  <p>Azure <a href="https://azure.microsoft.com/en-us/marketplace/partners/softnas/softnas-cloud/">Marketplace</a>では、Azure で Softnas Cloud を複数の方法で開始できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/767f4fbf-8e2a-4c53-acd2-54729fc828c7.png"><img alt="Get started with SotfNAS Cloud" border="0" height="309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e55b1514-7dec-447e-b403-7fc334174a6d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SotfNAS Cloud を使ってみる" width="849"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <ol>
+   <li><a href="https://ter.li/50prym"><strong>無料の Azure 体験</strong></a>版: Azure のテストドライブを使用して、10分以内に開始しましょう。 このオプションを使用すると、任意のものをインストールまたは構成しなくても、簡単にソフト Nas クラウドを試すことができます。 ソフト Nas クラウドインスタンスは自動的に読み込まれ、Azure ストレージアカウントに接続して、NFS、CIFS/SMB、および iSCSI を使用して複数の記憶域ボリューム/LUN を事前にプロビジョニングします。 <em><strong>クレジットカードも Azure サブスクリプションも必要ありませんが、テストドライブを入力した時点から1時間以内に環境を利用できます。</strong></em>&nbsp;&nbsp;</li>
+   <li><a href="https://ter.li/f96mk0"><strong>30 日間の無料試用版</strong></a>: &nbsp; <a href="https://ter.li/f96mk0">Azure サブスクリプションで Free-Trial softnas の30日間</a>を試すこともできます。 &nbsp; これにより、実稼働環境で実行されているかのように、SoftNAS Cloud をインストール、構成、および使用することができます。 これにより、製品を複数週にわたって調べることができます。ただし、 <strong>Azure サブスクリプションが必要になり</strong>ます。&nbsp;</li>
+   <li><a href="https://azure.microsoft.com/en-us/marketplace/partners/softnas/softnas-cloud/"><strong>購入</strong></a>: Azure Marketplace で Softnas Cloud を購入できます。 1 tb の容量の Express Edition を提供しています。これは、20 tb の容量の Standard Edition です。 最大ペタバイト規模の割引された展開は、SoftNAS 販売チームまたは承認された再販パートナーに連絡することによって取得した BYOL (ライセンス持ち込み) を通じて利用できます。</li>
+  </ol>
+
+
+  <p>次のリソースを使用して、その他の有用な情報を見つけることもできます。</p>
+
+
+  <ul>
+   <li><a href="https://www.softnas.com/wp/support/tutorial-how-to-videos/azure-tutorials/">SoftNAS ビデオチュートリアル</a></li>
+   <li><a href="https://www.softnas.com/docs/softnas/v3/html-reference-guide/index.html?utm_campaign=azure-launch&amp;utm_medium=azure-store&amp;utm_source=softnas&amp;utm_content=azure-store-links&amp;utm_term=user-reference-guide">ユーザー参照ガイド</a></li>
+   <li><a href="https://www.softnas.com/wp/support/?utm_campaign=azure-launch&amp;utm_medium=azure-store&amp;utm_source=softnas&amp;utm_content=azure-store-links&amp;utm_term=contact-support">SoftNAS サポートに問い合わせる</a></li>
+  </ul>
+
+
+  <p>また、 <a href="https://www.youtube.com/user/SoftNASLLC">YouTube チャネル</a>での Softnas Cloud の詳細についても学習できます。</p>

@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2c1a05c6c165ba065693604e56016b1407c369b8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890655"
+Slug: use-ai-to-streamline-healthcare-operations
+Title: AI を使用した医療業務の効率化
+Summary: 機械学習 (ML) と人工知能 (AI) の大きな影響は、it 部門が直面している多くの課題について、ヘルス組織が考える方法を変更することです。 実行可能な洞察に基づいてデータを把握したうえで意思決定を下すことは、患者の診断と結果から運用効率まで、医療の多くの側面を向上させることです。
+Content: >-
+  <p>機械学習 (ML) と人工知能 (AI) の大きな影響は、it 部門が直面している多くの課題について、ヘルス組織が考える方法を変更することです。 実行可能な洞察に基づいてデータを把握したうえで意思決定を下すことは、患者の診断と結果から運用効率まで、医療の多くの側面を向上させることです。</p>
+
+
+  <h2>データに基づいた意思決定</h2>
+
+
+  <p>医療機関は、関連するデータの詳細な洞察によって意思決定を行う際に、このようなソリューションの実装方法に特に注意する必要があります。 HIPAA や HITRUST のコンプライアンスなどの規制では、患者データへのアクセスを必要としないユーザー &rsquo; のために、セキュリティで保護されたプライベートおよび匿名化のデータを保持する必要があります。</p>
+
+
+  <p>さらに、IT スタッフは多くの場合、このようなソリューションを実装することはできません。 これは、 <a href="https://docs.microsoft.com/azure/security/blueprints/azure-health?WT.mc_id=streamline-acomblog-dastarr" target="_blank">Azure の医療 ai ブループリント</a>が作成され、Microsoft Azure Platform as a Service (PaaS) を使用して、医療機関向けの ai ソリューションをブートストラップするためのものです。 ブループリントのインストール後、組織は参照の実装から学習し、Azure サービスを使用して構築された完全なソリューションのコンポーネントについて理解を深めることができます。</p>
+
+
+  <h2>Azure の医療 AI のブループリント</h2>
+
+
+  <p>ブループリントは、PowerShell スクリプトを使用して Azure にインストールされ、Azure Machine Learning Studio (MLS) の実験をすぐに実行できる完全な環境を作成します。 実際には、非常に長い期間 (LOS) の実験が組み込まれています。</p>
+
+
+  <p>その他のデモスクリプトも利用できます。 10個の新しい患者を許可し、1つの患者を放電するためのスクリプトがあります。 これらのスクリプトの実行については、ブループリントのドキュメントを参照してください。</p>
+
+
+  <h2>運用プロセスのフロー</h2>
+
+
+  <p>ケアラインマネージャーは、Power BI ダッシュボードを使用してすぐに利用できる、新たに受け付けられた患者データを送信しますが、これは、machine learning の実験でも処理されます。 &rsquo;患者のデータは、患者登録システムに入力されます。 システムは、高速医療相互運用性リソース (FHIR) 形式のデータを使用して <a href="https://docs.microsoft.com/azure/azure-functions/functions-bindings-storage-blob?WT.mc_id=streamline-acomblog-dastarr" target="_blank">Azure 関数</a> を呼び出します。 MLS<strong>の azure 関数</strong>は、azure の SQL データベースにデータを格納し、患者 &rsquo; のロサンゼルスを予測するために使用される場所をします。 融資が参加しているか、施設から放電されると、別の azure 関数がそのデータを<a href="https://docs.microsoft.com/azure/sql-database/?WT.mc_id=streamline-acomblog-dastarr" target="_blank">azure SQL database</a>に書き込みます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2fcc9e0b-9311-48e6-b797-4c269d6f4bac.png"><img alt="image" border="0" height="415" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0243e302-11e1-4362-a9ee-b5ec5c35f1fc.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="絵" width="408"></a></p>
+
+
+  <p>監視やセキュリティなど、ソリューション全体には他にも多くのサービスがあります。 しかし、MLS は、LOS 実験のマジックが発生し、スタッフ数やプロジェクションベッド数などの運用上の意思決定を促進しています。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>ブループリントには多くのコンポーネントとサービスがあり、1つの LOS 実験で使用されるいくつかのテストを行いまし &rsquo; た。 より複雑なシナリオでは、より高度なアルゴリズムとモデルが使用されます。</p>
+
+
+  <h3>推奨される次の手順</h3>
+
+
+  <ol>
+   <li><a href="https://docs.microsoft.com/azure/security/blueprints/azure-health?WT.mc_id=streamline-acomblog-dastarr" target="_blank">Azure の医療 AI のブループリント</a>で、組織に適しているかどうか &rsquo; を確認します。 これは、データに基づいた意思決定を行うための組織 &rsquo; の変更に対する catalyst として機能する可能性があります。</li>
+   <li><a href="https://github.com/Azure/Health-Data-and-AI-Blueprint" target="_blank">GitHub のブループリント</a>で、スクリプト、インストール手順、およびその他の成果物をダウンロードします。</li>
+  </ol>

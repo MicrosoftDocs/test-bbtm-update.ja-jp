@@ -1,0 +1,301 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5ab88a47831e1e88f7d872f4cbfcb750e84bef97
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889550"
+Slug: azure-source-volume-68
+Title: Azure. ソース-ボリューム68
+Summary: '一般公開: Lsv2 シリーズの Azure Virtual Machines;一般提供: Azure SQL Data Warehouse のクエリストアネットワークと Azure IoT は、LoRaWAN デバイスに接続します。'
+Content: >-
+  <h2>プレビューでご利用いただけるようになりました</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/read-replicas-for-azure-database-for-postgresql-now-in-preview/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Database for PostgreSQL のレプリカをプレビューで読み取り</a></h3>
+
+
+  <p>読み取りレプリカを使用して、Azure Database for PostgreSQL の読み取り負荷の高いワークロードをスケールアウトします。これにより、1つの Azure Database for PostgreSQL マスターサーバーから、同じリージョン内の読み取りレプリカサーバーを最大 Azure Database for PostgreSQL 5 つまで継続的に非同期的にレプリケートできます。 レプリカサーバーは読み取り専用です。ただし、マスターのデータ変更からレプリケートされた書き込みは除きます。 レプリカサーバーへのレプリケーションを停止すると、読み取りと書き込みを受け入れるスタンドアロンサーバーになります。 レプリカは、通常のスタンドアロン Azure Database for PostgreSQL サーバーと似た方法で管理できる新しいサーバーです。 読み取りレプリカごとに、仮想コア内のプロビジョニング済みコンピューティングとプロビジョニング済みストレージ (GB/月) に対して課金されます。</p>
+
+
+  <p align="center"><img alt="Reference architecture for a BI reporting workload with read replicas" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39afb46f-ae0c-4e46-ae85-efaa1555ce9d.png" title="読み取りレプリカを使用した BI レポートワークロードのリファレンスアーキテクチャ"></p>
+
+
+  <p align="center"><strong>読み取りレプリカを使用した BI レポートワークロードのレポートワークロードのスケールアウト</strong></p>
+
+
+  <h2>一般提供開始</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-lsv2-series-azure-virtual-machines/?ocid=AID765057&amp;wt.mc_id=CFID0411">Lsv2 シリーズの Azure Virtual Machines の一般提供を発表</a></h3>
+
+
+  <p>ビッグデータアプリケーション、SQL と NoSQL のデータベース、データウェアハウジング、Lsv2 シリーズの Azure Virtual Machines (vm) を使用する大規模なトランザクションデータベースなど、高スループットと高 IOPS のワークロードを強化します。これは、2.55 ghz のすべてのコア機能を備えた AMD EPYCTM 7551 プロセッサで実行されます。 Lsv2 シリーズの Vm は、マルチスレッドを同時に使用する 8 ~ 80 vCPUs のさまざまな構成を提供します。 各 VM には、8 GiB のメモリと1つの 1.92 TB NVMe SSD M. 2 デバイス (8 vCPUs あたり) が搭載されています。これには、80vCPU L80s v2 で最大 19.2 TB (10 x 1.92 TB) を使用できます。 Lsv2 シリーズは、米国東部、米国東部2、西ヨーロッパ、Standard Edition アジアの各リージョンで開始されています。 これらの新しい Vm は、2月の米国西部2と4月の北ヨーロッパを含む、今後数か月の間に、より多くのリージョンで利用できるようにする予定です。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-query-store-for-azure-sql-data-warehouse/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure SQL Data Warehouse のクエリストアの一般提供を発表</a></h3>
+
+
+  <p>クエリストアを使用して、Azure SQL Data Warehouse クエリのパフォーマンスに関する洞察を得ることができます。 SQL Server のクエリ ストア機能を使用すると、クエリ プランの選択やパフォーマンスを把握できます。 これにより、クエリ プランの変更によって生じるパフォーマンスの違いがすばやくわかるようになり、パフォーマンス上のトラブルシューティングを簡略化できます。 クエリのストアは、自動的にクエリ、プラン、および実行時統計の履歴をキャプチャし、確認用に保持します。 データは時間枠で区分されるため、データベースの使用パターンを表示して、サーバー上でクエリ プランが変わった時点を確認することができます。 クエリストアは、すべての世代の SQL Data Warehouse のすべてのリージョンで、追加料金なしで利用できます。</p>
+
+
+  <h3>一般公開</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/globalvnetpeering-chinaga/?ocid=AID765057&amp;wt.mc_id=CFID0411">一般提供: Azure 中国クラウドでのグローバル VNet ピアリング</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/mariadb-server-move/?ocid=AID765057&amp;wt.mc_id=CFID0411">一般提供: MariaDB サーバーを新しいリソースグループとサブスクリプションに移動する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/azure-dns-flag-day/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure DNS: DNS フラグ日の準備</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/avere-vfxt-for-azure-new-arm-template-deployment-now-available/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure 用 Avere vFXT: 新しい ARM テンプレートのデプロイが利用可能になりました</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/whats-new-azure-vm-dr-january-2019/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Site Recovery: Azure VM のディザスターリカバリーの更新</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/schedules-feature-released-for-azure-lab-services-classroom-labs/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Lab Services のクラスルームラボ用にリリースされたスケジュール機能</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/tmtjan2019/?ocid=AID765057&amp;wt.mc_id=CFID0411">Microsoft Threat Modeling Tool の新しいリリース</a></li>
+  </ul>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <h2>新機能と更新</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/microsoft-joins-the-scikit-learn-consortium/?ocid=AID765057&amp;wt.mc_id=CFID0411">Microsoft は Scikit-learn コンソーシアムに参加しています</a></h3>
+
+
+  <p>Scikit-learn は、Python の最初のクラスであり、さまざまな企業や個人が使用している Python のオープンソースの機械学習ライブラリであり、不正行為の検出からプロセスの最適化まで多岐にわたります。 Microsoft は Scikit-learn コンソーシアムをプラチナスポンサーおよびリリースツールとして参加させ、Scikit-learn パイプラインの使用量を増やすことができるようにしました。 Scikit-learn を使用するためのサポートが提供されるようになりました。詳細については、「高パフォーマンス、クロスプラットフォーム ONNX ランタイム」を参照してください。 sklearn コンバーターは、Linux、Windows、または Mac で使用するために ML ONNX 標準形式に scikit-learn パイプラインを直接エクスポートします。 さらに、scikit-learn のサポートも提供されています。トレーニングデータと問題のシナリオに従って最適な scikit-learn パイプラインを自動的に生成する Azure Machine Learning のトレーニングに関するページを参照してください。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/asr-disaster-recovery-linux-vmware/?ocid=AID765057&amp;wt.mc_id=CFID0411">VMware 上の Linux のディザスターリカバリーのサポート</a></h3>
+
+
+  <p>ビジネスアプリケーションとワークロードを停止中に維持することで、ビジネスの継続性を確保します。 Azure Site Recovery は、VMware 上のすべての主要な Linux サーバーバージョンを含め、プライマリサイトからセカンダリロケーションへの、サポートされているマシンで実行されているすべてのワークロードのレプリケーションをサポートします。 Site Recovery サービスは、継続的に更新および改善されています。 過去6か月間、Red Hat Enterprise Linux (RHEL)、centos、Ubuntu、Debian、SUSE、Oracle などの複数のプロバイダーからの最新の OS バージョンのリリースのサポートを延長しています。</p>
+
+
+  <p align="center"><img alt="Simplified diagram showing VMWare to Azure replication architecture" height="344" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/arch-enhanced.png" title="VMWare から Azure へのレプリケーションアーキテクチャ" width="600"></p>
+
+
+  <p align="center"><strong>VMWare から Azure へのレプリケーションアーキテクチャ</strong></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-site-recovery-disaster-recovery-as-service-for-azure/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Site Recovery: azure によるサービスとしてのディザスターリカバリー (DRaaS) (azure)</a></h3>
+
+
+  <p>Azure Site Recovery を使用して Azure Vm のディザスターリカバリーを調整および管理します。 Azure は、IaaS 仮想マシン (Vm) で実行されるミッションクリティカルなワークロードに対してネイティブの高可用性と信頼性を提供します。 Azure Site Recovery によって提供されるディザスターリカバリーを使用して、保護を強化し、コンプライアンス要件を満たすことができます。 この投稿をご覧になり、ゾーンピン留めされた Azure Vm のサポートや Azure Disk Encryption 対応 Vm のディザスターリカバリーなど、過去数か月間のすべての新機能をご紹介します。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/adventure-awaits-azure-trivia-is-back/?ocid=AID765057&amp;wt.mc_id=CFID0411">Adventure 待機: Azure トリビアは元に戻ります。</a></h3>
+
+
+  <p>今年の Twitter で #AzureTrivia をお楽しみにしたことがあれば、それが戻って &rsquo; きました。 今年の&#39;は、問題の解決、拡大、adventure に誕生を #AzureTrivia しています。 選手は、新たなスキルを身に付けるだけでなく、新しい土地のロックを解除するために技術的な prowess をテストし、非常に優れた mystical &rsquo; のようなものを獲得するために、お客様の技術的な体験を受けます。 <a href="https://twitter.com/azure">@Azure</a>毎週月曜日の Twitter で、Azure 関連の新しい質問に取り組むことができます。 便利な FAQ や公式ルールへのリンクなど、詳細については、こちらの投稿を参照してください。</p>
+
+
+  <p align="center"><a href="https://azure.microsoft.com/en-us/blog/adventure-awaits-azure-trivia-is-back/?ocid=AID765057&amp;wt.mc_id=CFID0411"><img alt="#AzureTrivia adventure map" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85f7ed9a-0e95-4d8e-a19f-07d4086c8c98.png" title="#AzureTrivia を再生する-Twitter でフォロー @Azure する"></a></p>
+
+
+  <p align="center"><strong>#AzureTrivia を再生する-Twitter でフォロー @Azure する</strong></p>
+
+
+  <h3>追加の更新プログラム</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/updates/extend-alerts-from-oms-azure-gov-cloud/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Government cloud&#39;s OMS ポータルで作成されたアラートを Azure に拡張する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/updates/what-new-in-azure-log-analytics-january-2019/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Log Analytics &ndash; 2019 年1月の新機能&#39;</a>&nbsp;</li>
+   <li>開発時: <a href="https://azure.microsoft.com/en-us/updates/aks-pod-identity/?ocid=AID765057&amp;wt.mc_id=CFID0411">AKS ポッド id</a>、 <a href="https://azure.microsoft.com/en-us/updates/aks-cluster-auto-upgrade/?ocid=AID765057&amp;wt.mc_id=CFID0411">AKS クラスターの自動アップグレード</a>、 <a href="https://azure.microsoft.com/en-us/updates/node-auto-repair-support-for-aks/?ocid=AID765057&amp;wt.mc_id=CFID0411">AKS</a>、 <a href="https://azure.microsoft.com/en-us/updates/aks-private-cluster/?ocid=AID765057&amp;wt.mc_id=CFID0411">AKS プライベートクラスター</a>、 <a href="https://azure.microsoft.com/en-us/updates/availability-zones-az-support-for-aks/?ocid=AID765057&amp;wt.mc_id=CFID0411">Availability Zones (AZ)</a>での AKS のサポート、AKS <a href="https://azure.microsoft.com/en-us/updates/multiple-node-pools-for-your-aks-workloads/?ocid=AID765057&amp;wt.mc_id=CFID0411">ワークロード用の複数のノードプール</a>、Kubernetes <a href="https://azure.microsoft.com/en-us/updates/authorized-ip-ranges-for-kubernetes-api-server/?ocid=AID765057&amp;wt.mc_id=CFID0411">API サーバーの認証済み IP 範囲</a>、AKS <a href="https://azure.microsoft.com/en-us/updates/aks-pod-security-policy/?ocid=AID765057&amp;wt.mc_id=CFID0411">ポッドセキュリティポリシー</a>、 <a href="https://azure.microsoft.com/en-us/updates/aks-cluster-autoscaling/?ocid=AID765057&amp;wt.mc_id=CFID0411">AKS クラスター自動スケール</a>、AKS <a href="https://azure.microsoft.com/en-us/updates/aks-control-plane-audit-logs/?ocid=AID765057&amp;wt.mc_id=CFID0411">制御プレーン監査ログ</a>、および <a href="https://azure.microsoft.com/en-us/updates/aks-network-policy/?ocid=AID765057&amp;wt.mc_id=CFID0411">AKS ネットワークポリシー</a></li>
+  </ul>
+
+
+  <h2>技術コンテンツ</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/development-source-control-and-ci-cd-for-azure-stream-analytics-jobs/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Stream Analytics ジョブの開発、ソース管理、CI/CD</a></h3>
+
+
+  <p>Visual Studio ツールを Azure Pipelines と一緒に Stream Analytics と、Azure Stream Analytics ジョブの開発とソース管理、およびこれらのジョブをビルド、テスト、および複数の環境にデプロイするための自動化されたプロセスの設定に役立つ統合環境が提供されます。 この投稿では、jie Su は Stream Analytics Visual Studio ツール、Stream Analytics ci/cd NuGet パッケージ、Azure Pipelines を使用して、エンドツーエンドの開発と ci/cd プロセスをカバーしています。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-security-center-can-detect-emerging-vulnerabilities-in-linux/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Security Center で Linux の新たな脆弱性を検出可能</a></h3>
+
+
+  <p>最近、PolKit-Unix OS でシステム全体の特権を制御するコンポーネントである欠陥が検出されました。 この脆弱性により、特権のないアカウントにルートアクセス許可が付与される可能性があります。 このブログ投稿では、この脆弱性と、攻撃者が簡単に誤用を weaponize ことができる方法について説明します。 さらに、Azure Security Center によって脅威を検出し、軽減手順に関する推奨事項を提供する方法についても説明します。</p>
+
+
+  <p align="center"><img alt="Screenshot of an example security alert in Azure Security Center" height="319" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc29e0a5-e53d-4d39-9db8-4fbbaa68650d.png" title="Azure Security Center のセキュリティの警告の例" width="400"></p>
+
+
+  <p align="center"><strong>Azure Security Center のセキュリティの警告の例</strong></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/qna-maker-simplifies-knowledge-base-management-for-your-q-a-bot/?ocid=AID765057&amp;wt.mc_id=CFID0411">Q&a を使用すると、Q&a &amp; のナレッジベース管理が簡単に QnA Maker</a></h3>
+
+
+  <p>QnA Maker は、簡単に使用できる web ベースのサービスであり、FAQ ドキュメントや製品マニュアルなどの半構造化コンテンツから質問回答アプリケーションやチャットボットを簡単にパワーできます。 QnA Maker を使用すると、開発者は質問を作成、トレーニング、発行し、数分でボットに答えることができます。 QnA Maker の Active ラーニングを使用すると、質問の種類を特定して推奨し、ナレッジベースに追加することができます。 サポート技術情報の内容 &rsquo; は、ナレッジベースに対して提案を追加または編集しない限り、変更されています。</p>
+
+
+  <h3><a href="https://www.youtube.com/watch?v=eRGCsu7D21M">Azure Cosmos DB を使用した mongo DB のグローバルマルチリージョン読み取りと書き込みの構成</a></h3>
+
+
+  <p>Jay Gordon は、Azure クラウド全体でデータ&#39;s の一貫性レベルとレプリケーションを構成するための速度を示します。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=eRGCsu7D21M"><img alt="Thumbnail from Configuring Global Multi-region Reads and Writes for Mongo DB with Azure Cosmos DB" border="0" height="271" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7707a32d-00b9-4cd2-a7fa-b2fe5931c23d.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="YouTube での Azure Cosmos DB を使用した mongo DB のグローバルマルチリージョン読み取りと書き込みの構成を見る" width="480"></a></p>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <h3><a href="https://techcommunity.microsoft.com/t5/ITOps-Talk-Blog/Using-PowerShell-to-import-and-export-Azure-Blueprints/ba-p/324773?ocid=AID765057&amp;wt.mc_id=CFID0411">PowerShell を使用した Azure ブループリントのインポートとエクスポート</a></h3>
+
+
+  <p>Azure ブループリントのシリーズの2番目の部分では、Sonia Cuff が、Azure のブループリントとその成果物 (JSON およびインフラストラクチャをコードとして) をインポートおよびエクスポートするために PowerShell ギャラリーの新しいコマンドについて記述します。 また、この投稿では、ユースケース (マルチサブスクリプション、テストから実稼働、マルチテナント/マルチ組織) とコマンド構文について説明し、ドライブを公式リソースに記述しています。</p>
+
+
+  <h3><a href="https://medium.com/microsoftazure/build-pipelines-for-github-projects-59dd9229a758">GitHub プロジェクトのビルド Pipelines</a></h3>
+
+
+  <p>GitHub にプロジェクトがある場合は、そのプロジェクトを継続的にビルドして、まだコンパイル中であることを&#39;確認し、すべてのテストを成功させる&#39;ことができます。また、他のユーザーが最新バージョンを使用できるようにするプロジェクトのリリースを作成することもできます (手動でコンパイル/パッケージ化する必要はありません)。 そのためには、ビルドパイプラインが必要です。 この記事では、GitHub marketplace からのインストール、リポジトリの検索、最初のビルドの定義など、より複雑なビルドとプロジェクトのために Azure Pipelines&#39; GitHub 統合を使用する方法について&#39;説明します。</p>
+
+
+  <h2>Azure の表示</h2>
+
+
+  <h3><a href="https://azpodcast.azurewebsites.net/post/Episode-264-OnMSFTcom-migrating-to-Azure">エピソード 264-OnMSFT.com から Azure</a>  |  への移行<a href="https://azpodcast.azurewebsites.net/">Azure ポッドキャスト</a></h3>
+
+
+  <p>チームは、OnMSFT.com の Azure への移行を完了した後、OnMSFT.com の Kniskern を管理し、Azure のインプレッションを管理しています。</p>
+
+
+  <p align="center">
+
+  <audio controls="" src="https://azpodcast.blob.core.windows.net/episodes/Episode264.mp3">HTML5 オーディオはサポートされていません</audio>
+
+  </p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-is-the-new-mainframe?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure は新しいメインフレーム</a>  |  です<a href="https://channel9.msdn.com/Shows/Azure-Friday?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure 金曜日</a></h3>
+
+
+  <p>上田さんは、Azure に基づくメインフレーム参照アーキテクチャを使用して、メインフレーム資産をネイティブ Azure 環境にデプロイする方法を紹介します。 AI、Power BI、IoT、Machine Learning など、クラウド内の新しいメインフレームで利用可能なすべての Azure サービスを活用することができます。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-is-the-new-mainframe/player?format=ny" width="576"></iframe></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/AI-Show/A-Closer-Look-at-Intelligent-Retail?ocid=AID765057&amp;wt.mc_id=CFID0411">インテリジェント製品</a>  |  の詳細<a href="https://channel9.msdn.com/Shows/AI-Show?ocid=AID765057&amp;wt.mc_id=CFID0411">AI の表示</a></h3>
+
+
+  <p>Microsoft 全体のサービスを活用するこの楽しい小売例を使用して、魅力的な会話アプリケーションを構築する方法についてのアイデアを得ます。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/AI-Show/A-Closer-Look-at-Intelligent-Retail/player?format=ny" width="576"></iframe></p>
+
+
+  <h3>DevOps  |  <a href="https://channel9.msdn.com/Shows/5-Things?ocid=AID765057&amp;wt.mc_id=CFID0411">5 つ</a><a href="https://channel9.msdn.com/Shows/5-Things/Five-Things-About-JavaScript-in-DevOps?ocid=AID765057&amp;wt.mc_id=CFID0411">の JavaScript に関する5つの点</a></h3>
+
+
+  <p>ジェネレーター、Kirk、および ponies では、Azure DevOps 何を行う必要がありますか。 VB 6 癒えるの therapy はどこで入手できますか? &#39;t Angular、React、および vue の開発者が docker などの優れたロゴを持っているのはなぜですか。 Azure DevOps で任意のツールを使用して開発パイプラインを自動化するにはどうすればよいですか。 このすべてをレイアウトするために、3番のすばらしい Donovan ブラウンにします。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/5-Things/Five-Things-About-JavaScript-in-DevOps/player?format=ny" width="576"></iframe></p>
+
+
+  <h3><a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Whats-new-with-Windows-IoT-in-2019?ocid=AID765057&amp;wt.mc_id=CFID0411">Windows IoT in 2019 モノのインターネットの新機能 &rsquo; </a><a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show?ocid=AID765057&amp;wt.mc_id=CFID0411">を示し</a>ます。  | </h3>
+
+
+  <p>Microsoft Windows IoT が2019用に計画したことを確認してください。 iot ソリューションの基盤となる安全なスマートデバイスを簡単に構築するために Windows iot がどのように役立つかを早期に確認します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="324" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Whats-new-with-Windows-IoT-in-2019/player?format=ny" width="576"></iframe></p>
+
+
+  <h3>Azure  |  <a href="https://www.youtube.com/watch?v=rOiSRkxtTeU">で仮想マシンを作成する方法</a><a href="https://www.youtube.com/playlist?list=PLLasX02E8BPBKgXP4oflOL29TtqTzwhxR">Azure Portal シリーズ</a></h3>
+
+
+  <p>Azure には複数の仮想マシン構成オプションが用意されており、どのような方法で実行しようとしても、仮想マシンを正確に設定することができ&#39;ます。 このビデオでは、Azure Portal &ldquo; &rdquo; のシリーズで、基本的な仮想マシンを構成して、Azure portal で数分で接続する方法について説明します。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=rOiSRkxtTeU" title="https://www.youtube.com/watch?v=rOiSRkxtTeU"><img alt="Thumbnail from How to create a virtual machine in Azure | Azure Portal Series" border="0" height="268" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7b4c7a27-f707-44eb-94ba-c3ccb8f29172.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure で仮想マシンを作成する方法については、こちらをご覧ください。YouTube での Azure Portal シリーズ" width="480"></a></p>
+
+
+  <h3>Docker リポジトリ  |  <a href="https://www.youtube.com/watch?v=r_tGl4zF1ZQ">にコンテナーイメージをプッシュする方法</a><a href="https://www.youtube.com/playlist?list=PLLasX02E8BPCNCK8Thcxu-Y-XcBUbhFWC">Azure のヒントとテクニック</a></h3>
+
+
+  <p>このエディションの Azure ヒントと秘訣では、コンテナーイメージを Docker リポジトリにプッシュする方法について説明します。 Docker アカウントにサインアップした&#39;、簡単に Docker Hub にアクセスして、コンテナーをレジストリにプッシュすることができます。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=r_tGl4zF1ZQ" title="https://www.youtube.com/watch?v=r_tGl4zF1ZQ"><img alt="Thumbnail from How to push a container image to a Docker Repo | Azure Tips and Tricks" border="0" height="270" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6604b141-282c-4948-ac70-a37204d049d6.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Docker リポジトリにコンテナーイメージをプッシュする方法をご覧ください。YouTube での Azure ヒントと秘訣" width="480"></a></p>
+
+
+  <h3>Azure Government  |  の<a href="https://www.youtube.com/watch?v=tWVxeA7WZSQ">Azure Database for MySQL の概要</a><a href="https://www.youtube.com/playlist?list=PLLasX02E8BPA5IgCPjqWms5ne5h4briK7">Azure Government</a></h3>
+
+
+  <p>この Azure Government ビデオシリーズのエピソードでは、上田 Michelotti は、Azure Government エンジニアリングチームの Sachin Dubey と、Azure Government の Azure Database for MySQL について話しています。 MySQL は、最も人気のあるオープンソースのリレーショナルデータベースの1つですが、Enterprise のスケールで実行すると、他のデータベースと同じように課題が生じます。 完全に管理された PaaS オファリングにより、Azure Database for MySQL は基になる MySQL データベースを完全に統合します。開発者は、Azure の世界クラスのセキュリティ、スケーラビリティ、および信頼性を把握しています。 また、Azure Database for MySQL の利点についても説明し、Azure Government で Azure Database for MySQL を起動して実行するのがいかに簡単かを示します。</p>
+
+
+  <p align="center"><a href="https://www.youtube.com/watch?v=tWVxeA7WZSQ" title="https://www.youtube.com/watch?v=tWVxeA7WZSQ"><img alt="Thumbnail from Overview of Azure Database for MySQL in Azure Government | Azure Government" border="0" height="267" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/97bbff1d-81be-4e25-9248-7fb373b2da20.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Government での Azure Database for MySQL の概要については、こちらをご覧ください。YouTube での Azure Government" width="480"></a></p>
+
+
+  <h3>現在の Azure DevOps ニュース、ヒント、戦略のレビュー-エピソード 2 |Azure DevOps ポッドキャスト</h3>
+
+
+  <p>今週&#39;s エピソードでは、Jeffrey Palermo が、次を含む、現在の業界のニュースとヒントをレビューしています。A.I. の興味深いお知らせ Cortana に関する領域、Azure Pipelines での ServiceNow の変更管理、Azure Container Instances (ACI) の Azure DevOps エージェント、.net Core 3 と4.8、および Razor コンポーネントに関する記事をご覧ください。 また、展開に誤りがあるときに迅速に復旧するための10のヒントを提供しています。</p>
+
+
+  <p align="center">
+
+  <audio controls="" src="https://traffic.libsyn.com/preview/azuredevops/ADP_021.mp3">HTML5 オーディオはサポートされていません</audio>
+
+  </p>
+
+
+  <h2>イベント</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/the-things-network-and-azure-iot-connect-lorawan-devices/?ocid=AID765057&amp;wt.mc_id=CFID0411">LoRaWAN デバイスへのネットワークと Azure IoT 接続</a></h3>
+
+
+  <p>最後の1週間はアムステルダムに開催されています。 Microsoft と革新者は、デバイスを LoRaWAN に接続して、オープンソース Azure IoT プロジェクトの中央デバイスブリッジを使用して Azure IoT 中部に接続することによって、2000の開発者、、インテグレーターと提携しています。 LoRaWAN ソリューションを計画している場合、または既に開発している場合は、今すぐプロジェクトに参加して、コード、コメント、および提案を投稿してください。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/706ddf61-2881-487d-85ba-c6f05e4af3d7.png"><img alt="Screenshot of an IoT Central dashboard" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/706ddf61-2881-487d-85ba-c6f05e4af3d7.png" title="IoT Central ダッシュボード" width="500"></a></p>
+
+
+  <p align="center"><strong>IoT Central ダッシュボード</strong></p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/make-healthcare-more-intelligent-by-putting-iot-into-action/?ocid=AID765057&amp;wt.mc_id=CFID0411">IoT を動作させることにより、医療をよりインテリジェントにする</a></h3>
+
+
+  <p>これらの重要な課題に対処するには、IoT テクノロジを含むインテリジェントな医療を利用することが重要です。 インテリジェントで接続されたソリューションは、コストを削減し、患者の治療と健康を高め、clinician と患者の満足度を向上させます。 &rsquo;HIMSS への参加を計画している場合は、2019 &rsquo; 年2月11日に州オーランドに Iot の動作を登録し、iot とインテリジェントなソリューションが医療業界をどのように変革しているかを明らかにすること &rsquo; をお勧めします。 IoT in アクションは、豊富な Microsoft の顧客およびパートナーエコシステムでアイデアを共有し、接続を構築する絶好の機会です。</p>
+
+
+  <h2>顧客、パートナー、業界</h2>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/azure-marketplace-new-offers-volume-30/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Marketplace の新しいプラン &ndash; でのボリューム30</a></h3>
+
+
+  <p>Azure Marketplace は、Azure で実行するために認定および最適化されたすべてのソフトウェア &ndash; のお客様を対象としています。 多数の主要なソフトウェアプロバイダーからアプリケーション &amp; サービスを検索、試用、購入、プロビジョニングします。 また、Gold およびシルバー Microsoft Cloud コンピテンシーパートナーと接続して、Azure の導入を支援することもできます。 12月の後半では、46の新しいプランを公開しました。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/ansible-solution-now-available-in-the-azure-marketplace/?ocid=AID765057&amp;wt.mc_id=CFID0411">Azure Marketplace で利用できるようになったソリューション</a></h3>
+
+
+  <p>Azure Marketplace から入手可能なソリューションテンプレートを取得します。このテンプレートを使用すると、最小限の Azure 知識を持つベストプラクティスに従って、インスタンスを構成できます。 いくつかのユーザー入力と、Azure portal を通じたシンプルなシングルクリックデプロイでは、完全に構成されたインスタンスを数分でプロビジョニングできます。これにより、世界中のどこでも Azure サービスを使用できます。 このソリューションテンプレートは、Azure と連携するように構成されたツールと共に、CentOS 7.5 に基づく Linux VM にをインストールします。</p>
+
+
+  <h3><a href="https://azure.microsoft.com/en-us/blog/transitioning-big-data-workloads-to-the-cloud-best-practices-from-unravel-data/?ocid=AID765057&amp;wt.mc_id=CFID0411">ビッグデータワークロードのクラウドへの移行: 解消データのベストプラクティス</a></h3>
+
+
+  <p>この5部構成シリーズの最初のシリーズでは、Shivnath Babu、CTO、Co-Founder の解消データで、移行の計画における重要な考慮事項について説明しています。 解消 Data は、ビッグデータのワークロードを管理および最適化するための AI 駆動型のアプリケーションパフォーマンス管理 (APM) ソリューションです。 解消 Data は、アプリ、リソース、データ、およびユーザーの統合された完全なスタックビューを提供し、ユーザーがアプリのパフォーマンスと信頼性を基準にして管理し、コストと Sla を積極的に制御し、サポートのオーバーヘッドを最小限に抑えるために自動化を適用できるようにします。 今後の投稿では、ビッグデータのクラウド導入ライフサイクルの移行、運用、および最適化の各フェーズのベストプラクティスについて概説します。</p>
+
+
+  <hr>
+
+  <h3><a href="https://www.youtube.com/watch?v=tWDFhsIqa8I">クラウドの専門家-Azure 今週-2019</a>  |  2 月1日<a href="https://www.youtube.com/playlist?list=PLI1_CQcV71RmnrRBgJNlI1yY_WiOWIXov">クラウドの専門家-今週の Azure</a></h3>
+
+
+  <p>今週の Azure における今回の時間: Lars-erik は、規制上の制約への準拠を容易にする Azure Security Center について説明しています。また、現時点では、Azure API Management での OpenAPI Specification v3 のサポートは現在プレビューの段階にあります。また、クラウドの達人からのチームは、シドニーの Ignite ツアーになります。</p>
+
+
+  <p><a href="https://www.youtube.com/watch?v=tWDFhsIqa8I"><img alt="Thumbnail from A Cloud Guru - Azure This Week - 1 February 2019 | A Cloud Guru - Azure This Week" border="0" height="269" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/313cb893-da67-431a-8528-05848a7bfdde.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クラウドの専門家を見る-Azure 今週-1 2 月 2019 |クラウドの専門家-YouTube での今週の Azure" width="480"></a></p>

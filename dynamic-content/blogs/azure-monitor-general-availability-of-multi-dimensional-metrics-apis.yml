@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f9956520cbc30f8c9b3a495243675a442d05f4c1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893597"
+Slug: azure-monitor-general-availability-of-multi-dimensional-metrics-apis
+Title: Azure Monitor – 多次元メトリック API の一般提供
+Summary: 本日は、Microsoft の Azure 向け組み込みプラットフォーム監視サービスである Azure Monitor での多次元メトリックの GA をお知らせします。
+Content: >-
+  <p>昨年 9 月に、Microsoft&rsquo; 組み込みの Azure プラットフォーム監視サービスである <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-azure-monitor" target="_blank">Azure Monitor</a> での多次元メトリックのパブリック プレビューを発表しました。 本日、この機能をサポートする API の一般提供をお知らせします。 これで、ディメンションを通じて Azure メトリックを探索し、より深い分析情報を得られる状態にできます。 ディメンションは、メトリックをさらにセグメント化するために使用できる名前と値のペア (属性) です。 これらの追加の属性は、メトリックの探索をより意味のあるものにするのに役立ちます。 Azure Monitorメトリックの保有期間が 30 日から 93 日に増えたので、データに長くアクセスし、数か月にわたって意味のある比較を行えるのです。</p>
+
+
+  <p>次を使用して、メトリック (多次元など) にアクセスして探索できます。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/monitor/metricdefinitions/list" target="_blank">メトリック定義と</a><a href="https://docs.microsoft.com/en-us/rest/api/monitor/metrics/list" target="_blank">メトリック</a> REST API については、このサンプル チュートリアル<a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-rest-api-walkthrough#retrieve-metric-definitions-multi-dimensional-api" target="_blank">を参照してください</a>。</li>
+      <li><a href="https://portal.azure.com/" target="_blank">Azure Portal プレビュー</a> については、このサンプル チュートリアル <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts#how-do-i-create-a-new-chart" target="_blank">を参照してください</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/cli/azure/monitor/metrics?view=azure-cli-latest" target="_blank">Azure CLI</a> コマンド。</li>
+      <li><a href="https://github.com/azure/azure-libraries-for-net#download" target="_blank">.NET SDK では</a>、これらのサンプルを試 <a href="https://github.com/Azure-Samples/monitor-dotnet-query-metrics-activitylogs" target="_blank">してください</a>。</li>
+      <li><a href="https://github.com/azure/azure-libraries-for-java#download" target="_blank">Java SDK では</a>、これらのサンプルをお試 <a href="https://github.com/Azure-Samples/monitor-java-query-metrics-activitylogs" target="_blank">しください</a>。</li>
+      <li>Grafana では、これらの新しい <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitor-send-to-grafana">API を利用Azure Monitorプラグイン</a> (バージョン 0.1.0) も更新しました。 Grafana プラグインでは、Azure US Government、Azure Germany、Azure Chinaもサポートされています。</li>
+  </ul>
+
+
+  <p>今後数週間で、PowerShell で多次元メトリックのサポートも追加されます。</p>
+
+
+  <p>上記の方法を使用してメトリックにアクセスして探索する方法に加えて、最近、多次元メトリックに対する<a href="https://azure.microsoft.com/en-us/blog/the-next-generation-of-azure-alerts-has-arrived/" target="_blank"></a>アラートを作成できる次世代のメトリック アラートの一般提供も発表しました。</p>
+
+
+  <p>この更新プログラムの一環として、次の Azure サービスのメトリックの可用性も導入されています。</p>
+
+
+  <ul style="margin-left: 40px;">
+      <li>従来の Cloud Services</li>
+      <li>Azure Key Vault</li>
+      <li>DNS ゾーン数</li>
+      <li>HDInsights</li>
+      <li>Azure Container Instances (ACI)</li>
+      <li>PowerBI 専用容量</li>
+  </ul>
+
+
+  <p>この <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-supported-metrics" target="_blank">完全な一覧を使用して、Azure Monitor</a> 利用可能なリソースとメトリックを見つける。 メトリック クエリ API の <a href="https://azure.microsoft.com/en-us/pricing/details/monitor/" target="_blank">価格については、</a> 価格に関するページを参照することもできます。</p>

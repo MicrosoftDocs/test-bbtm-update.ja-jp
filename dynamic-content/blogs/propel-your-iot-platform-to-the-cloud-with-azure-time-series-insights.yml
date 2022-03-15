@@ -1,0 +1,96 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8b87a939ba33a6a864646465f897368639977347
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892765"
+Slug: propel-your-iot-platform-to-the-cloud-with-azure-time-series-insights
+Title: IoT プラットフォームをクラウドに Azure Time Series Insights しましょう。
+Summary: 本日、今年後半に提供される Azure Time Series Insights 2 つの主要な機能を発表します...
+Content: >-
+  <p>&rsquo;本日は、今年の後半で Azure Time Series Insights する2つの主要な機能を発表します。</p>
+
+
+  <ul>
+   <li>コスト効率に優れた長期的なストレージ。クラウドベースのソリューションで、デバイス/タグでピボットされた時系列データの傾向 &rsquo; を計算することができます。&nbsp;</li>
+   <li>デバイスメタデータとドメイン階層を使用して生の時系列データを contextualize するための時系列モデルによってサポートされる、デバイスベース (または、タグベース &rdquo; での、業界全体 &ldquo; に対応) のユーザーエクスペリエンス。</li>
+  </ul>
+
+
+  <p>さらに、Time Series Insights は、高度な機械学習や Spark や jupyter notebook などの分析ツールと統合され、新しい方法で時系列データの課題に取り組むのに役立ちます。 石油 &amp; ガス、パワー &amp; ユーティリティ、製造、建物の管理などの業界におけるデータ科学者とプロセスエンジニアは、ストレージ、データ分析、KPI トラッキングなどの重要なタスクの時系列データソリューションに依存しており &rsquo; 、Time Series Insights を使用してこれを行うことができます。&nbsp;</p>
+
+
+  <h2>タイムシリーズモデルとタグ中心のエクスペリエンス</h2>
+
+
+  <p>Time Series Insights &rsquo; 現在のユーザーインターフェイスは、データ科学者やアナリストにとって最適です。 ただし、プロセスエンジニアや資産オペレーターは、このエクスペリエンスが自然に使用されるとは限りません。 これに対処するために、Time Series Insights エクスプローラーにデバイスベースのユーザーエクスペリエンスを追加します。 この新しいインターフェイスと、エクスペリエンスを支えている基になるタイムシリーズモデルにより、ユーザーは、関心のある資産に関連するデバイスを直感的に見つけることができます。 階層と、生の時系列データを contextualize するデバイスベースのセマンティクスを有効にすることで、より高度で詳細な分析が可能になります。 つまり、監視対象 (つまり、デバイス/タグ) を検索して、Time Series Insights のユーザーエクスペリエンスや REST api を使用して調査することができます。&nbsp;</p>
+
+
+  <p>次の図は、Time Series Insights エクスプローラーで開発している豊富なタグベースエクスペリエンスの例を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/957db404-658f-4173-8700-55e8b7ed5c4f.png"><img alt="Time Series Insights" border="0" height="753" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/43f82d55-5a8c-4b16-b4f6-ac82d51fc8c9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Time Series Insights" width="1300"></a></p>
+
+
+  <h2>長期的な Storage</h2>
+
+
+  <p>組織がタイムシリーズソリューションを簡単に拡張できるように、Time Series Insights は、非常にスケーラブルでコスト効率の高いストレージ、アーカイブ、および Azure Storage の queryability とのシームレスな統合を提供します。 この追加のストレージレイヤーでは、コスト削減を最大化しながら、お客様がデータを処理できる強力な二重性作成されます。 現在、お客様が知り、使用している Time Series Insights というウォームレイヤーは、引き続き対話型の分析をサポートします。 コールドレイヤーを使用すると、これらの同じ顧客は、クラウド内の時系列データに対して1つの真実を持つことができるようになります。 ほとんどのお客様は、30 &ndash; 120 日のデータをウォームレイヤーに格納し、コールドレイヤーに 1 &ndash; 20 年を格納することを想定しています。これにより、両方の長所を最大限に活用できます。 コールドストレージは、すべてのデータを対象としたデバイス/タグ中心のクエリと組み合わせることで、顧客はクラウドのコスト面でのメリットを最大限に活用しながら、過去の時系列データのクエリと傾向の分析を実現できます。&nbsp;</p>
+
+
+  <p>次に、Time Series Insights &rsquo; のアーキテクチャとシナリオの概要を示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d73bf005-b218-45b8-afec-75d12271ba83.png"><img alt="TSI’s high level architecture and scenarios" border="0" height="491" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0cb3b1fa-1467-4f17-9a59-adca5fea9ab5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="TSI の高レベルアーキテクチャとシナリオ" width="959"></a></p>
+
+
+  <h2>リッチ e2e ソリューションを実現するためのコネクタ</h2>
+
+
+  <p>Time Series Insights は、デバイス/タグとタイムスタンプのプロパティに基づいて Apache Parquet ファイルにデータを格納するため、Azure Databricks などの強力なツールとの統合が最適化されます。 Azure Machine Learning Studio や jupyter notebook などの機械学習ツールとの統合が簡略化されているため、組織でモデルを構築して、将来のデバイスの状態を予測し、無駄なメンテナンスを避けることができます。 Time Series Insights を使用すると、Power BI、Microsoft Excel、およびその他のビジネスインテリジェンスレポートソフトウェアとの統合により、数秒で簡単に共同作業や洞察を共有できます。&nbsp;</p>
+
+
+  <h2>Microsoft のお客様</h2>
+
+
+  <p>&rsquo;Time Series Insights を使用して、この新しいインフラストラクチャとソリューションを定義し、構築するために、 <a href="https://www.transalta.com/" target="_blank">TransAlta</a>などのお客様と緊密に共同作業をしています。 次に示すのは、TransAlta &rsquo; の CTO からの引用と、Azure IoT と Time Series Insights ソリューションを採用することによって得られるビジネス上の利点を Enterprise アーキテクトです。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;Time Series Insights は IoT プラットフォームの基盤であり、より大きな AI と Machine Learning 戦略を実現するうえで非常に重要です。 現在発表されている2つの機能について、Microsoft TSI チームと緊密に提携しています。 タグ中心のユーザーエクスペリエンスによって、エンジニアリングから運用までのすべてのユーザーがデータからより多くの価値を得ることができると考えています。これは、以前のソリューションで組織としていないアクセスが簡単になるためです。 新しい長期的なストレージを Time Series Insights &rsquo; と、microsoft のオペレーションチームとの共同作業により、データサイエンスチームやエンジニアリングチームは、以前に非表示になっていた洞察を発見して迅速に処理することができます。 オンプレミスからクラウドベースのソリューションに移行する際に、Time Series Insights でプラットフォームを構築することで、ビジネスパートナーがクラウドテクノロジについての専門家になるのではなく、変化するエネルギー業界の需要を満たすことができるようになりました。&rdquo;&nbsp;</p>
+
+  </blockquote>
+
+
+  <p align="right">&ndash;Jason Killeleagh、Enterprise アーキテクト、TransAlta</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;エネルギー需要は毎年増加しているため、エネルギー効率と sustainably を実現するためのプレッシャーです。 TransAlta は、大規模な変革の中心にあります。これにより、グローバルな生成操作には、急速に変化するエネルギー市場におけるタイムリーな意思決定を可能にする適切なツールが用意されています。 Time Series Insights およびその他の Azure IoT サービスでは、従来のオンプレミスソリューションよりも動的かつ柔軟かつコスト効率の高い方法で、これらの課題に対処する機能をサポートしています。 Microsoft と Azure IoT チームは、エネルギー部門でデジタル変革を推進するのに役立つ戦略的パートナーとしてご利用いただけます。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="right">&ndash; Nipa Chakravarti、CTO、TransAlta&nbsp;</p>
+
+
+  <p>Time Series Insights は、組織のデータ &ndash;&#39;のグローバルビューを提供し、顧客が高度に分散した IoT データから洞察を収集して生成できるようにします。 Time Series Insights &rsquo; REST api は、デバイスやタグをまたいでクエリを実行できるため、Time Series Insights 上にドメイン固有のソリューションを構築して、数秒で複数のサイトからのデータストリーミングを表示し、廊下に格納されているサーバーを使用してデータをすばやく照会できます。 Time Series Insights &rsquo; api を基盤としたお客様向けの優れた例として、工業自動化リーダー <a href="https://new.abb.com/" target="_blank">abb</a>があります。 最近では、abb は、Time Series Insights &rsquo; の長期的なストレージを使用して高度な監視および分析ソリューションで顧客を支援する、マイニング、ES、およびロボットプラットフォームの焦点として Time Series Insights を採用しています。 次に示すのは、Time Series Insights の使用に関する製品の、abb &rsquo; のグループバイスプレジデントからの引用です。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;abb は、abb の機能 &trade; プラットフォーム内で Azure Time Series Insights を利用しており、このような顧客向けの革新的なソリューションを構築するのに役立ちます。たとえば、ロボットのための abb 機能 &trade; 接続済みサービス、マイニング用の abb &trade; 機能のリモート診断サービスなどです。 Time Series Insights 上に構築することを選択しました。これは、拡張性とパフォーマンスに優れた完全に管理されたプラットフォームが必要であるためです。 Time Series Insights を使用すると、お客様が問題を解決し、その資産をピーク時のパフォーマンスで継続的に実行できるようにする、豊富でインタラクティブな分析をソリューションに提供できます。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="right">&ndash; 小林 Parham、製品管理担当副社長、ABB 機能&trade;</p>
+
+
+  <p>現在発表されている機能により、Time Series Insights は短期間の資産監視および診断サービスから、お客様やパートナーが高度な拡張性を備えた iot ソリューションを構築するための最新のクラウド IoT プラットフォームに進化しています。&nbsp;</p>
+
+
+  <p>今週、Hannover ではありません。 Microsoft は、HMI (ブース #C40) のデジタル工場で、インテリジェントな製造の利点に焦点を当てることを予定しています。 私たち &rsquo; は、ソリューションショーショーを通じて世界 &rsquo; 有数の革新者を提供し、お客様が IoT ソリューションを構築できるようにする最新のテクノロジを利用できるようにします。 &rsquo;ここで停止し、詳細を確認してください。</p>

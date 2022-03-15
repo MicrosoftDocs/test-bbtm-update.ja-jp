@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 70a50e874ce9babadba72479025624a1cd169542
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893012"
+Slug: ilb-and-arm-support-for-ase
+Title: VNet のサポートLoad Balancer内部Resource Manager発表
+Summary: Azure App Serviceは、App Service Environment (ASE) を使用した内部ロード バランサー (ILB) の使用と、ASE を Resource Manager(V2) Azure Virtual Network にデプロイする機能のサポートをお知らせします。
+Content: >-
+  <p>Azure App Serviceは、App Service Environment (ASE) を使用した内部ロード バランサー (ILB) の使用と、ASE を Resource Manager(V2) Azure Virtual Network にデプロイする機能のサポートをお知らせします。</p>
+
+
+  <p>これらは、アプリケーションの最も要求の多い機能の 2 つAzure App Service。 Azure Resource Manager (VNet) にデプロイVirtual Network、お客様は ARM ベースの VNet 内のリソースを使用できます。 ILB サポートを使用すると、インターネットにアクセスできないアプリケーション (ビジネス アプリケーションなど) を Azure クラウドで安全にホストできます。</p>
+
+
+  <h2>AZURE VNet への ASE のResource Managerする</h2>
+
+
+  <p>仮想マシンで ASE を作成する場合Resource Manager VNet を事前に作成する必要があります。 ASE 作成フローにある Virtual Network の作成機能では、引き続きクラシック (V1) VNet だけが作成されます。そのため、ASE の作成を行う前に、Resource Manager VNet を作成する必要があります。 お使いの VNet Resource Manager既に作成されている場合は、ASE の作成時に必要な VNet を選択する簡単な問題です。</p>
+
+
+  <p>&nbsp;<img alt="ilbblog-v2vnetselection" border="0" height="430" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e403a591-9d4a-428b-95c4-a460d232a005.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="ilbblog-v2vnetselection" width="480"><br>
+
+  VNet の一覧で、クラシック VNet は場所の横に [クラシック] と表示されます。 VNet で ASE を作成する方法のResource Managerドキュメント記事を <a href="https://azure.microsoft.com/documentation/articles/app-service-web-how-to-create-an-app-service-environment/">参照してください</a>。</p>
+
+
+  <h2>ILB ASE と通常の ASE の違い</h2>
+
+
+  <p>通常の ASE では、ASE へのすべてのトラフィックは、インターネットからアクセス可能な VIP から送信されます。</p>
+
+
+  <p><img alt="image" border="0" height="217" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4493aedc-ac3c-4626-8b9c-aee59cd1fcea.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480">&nbsp;</p>
+
+
+  <p>その ASE 内のアプリのドメイン名は VIP を指し示すので、すべての要求と発行アクセスは VIP を経由します。 ネットワーク セキュリティ グループを使用すると、ASE へのアクセスをロックダウンし、ASE で WAF を使用することもできます。 しかし、アプリのドメイン名はAzure DNSパブリックです。 では、ASE で時間追跡アプリや請求書処理アプリをホストする場合の解決策は何でしょうか。 おそらく、その&rsquo;インターネットに可能な方法でアクセス可能にしたくはありません。 ここで、ILB ASE は本当に光を当て続け得るのです。</p>
+
+
+  <p>&nbsp;<img alt="image" border="0" height="196" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dbb0afad-1417-4927-b607-09f536331278.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480"></p>
+
+
+  <p>ILB を使用すると、エンドポイントは Azure VNet 内の IP 上に設定されます。 その上に、独自のサブドメインを所有します。 これは、サイトに対して独自の DNS と HTTPS&rsquo; を管理する必要があるが、インターネットではなく、すべて自分の管理下とネットワーク空間で行う必要があるという意味です。 厳しいセキュリティ要件がある場合は、ILB ASE で満たされている可能性が最も高い。</p>
+
+
+  <p>ASE でイントラネット アプリを安全にホストする上で、多層アプリケーションに ILB ASE を使用することもできます。 顧客がインターネットに分離された API 機能を必要とする顧客アプリケーションのニーズは多数ある。 このようなシナリオでは、インターネットを通過しない ILB ASE を呼び出す、インターネットにアクセスできる ASE&rsquo; を使用できます。</p>
+
+
+  <p><img alt="image" border="0" height="236" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/020174ca-aac5-42b7-bc39-3f678fb28a98.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="480">&nbsp;</p>
+
+
+  <h2>ILB ASE の作成</h2>
+
+
+  <p>ILB ASE を作成する前に、必要に応じて DNS を作成します。 ILB ASE の作成は、ASE を通常の状態にした場合と実質的に同じです。 唯一の違いは、VIP の種類を Internal に設定する点です。</p>
+
+
+  <p>VNET 構成に移動し、種類を [外部] から [内部] に変更します。 これを行う場合は、独自のサブドメインを指定する必要があります。 独自のサブドメインを管理している場合は、ILB ASE によって使用される SSL 証明書も処理する必要があります。 これは、ILB ASE の作成後にアップロードされます。 ILB ASE の作成と使用の詳細については、このドキュメントを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-environment-with-internal-load-balancer/">してください</a>。</p>

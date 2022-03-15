@@ -1,0 +1,139 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a8ce4c18976c3b9a09986dfbc70188a5ab5adf80
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893696"
+Slug: windows-azure-hdinsight-is-now-generally-available
+Title: Azure HDInsight の一般提供が開始されました Windows。
+Summary: 本日、Windows Azure の HDInsight サービスの一般提供を発表しました。 HDInsight は、Microsoft が提供する Hadoop ベースのサービスであり、100% の Apache Hadoop ソリューションを提供します...
+Content: >-
+  本日、Windows Azure の HDInsight サービスの一般提供を<span style="background-color: #ffffff;"><a href="https://blogs.technet.com/b/microsoft_blog/archive/2013/10/28/announcing-windows-azure-hdinsight-where-big-data-meets-the-cloud.aspx?WT.mc_id=Social_TW_OutgoingEvents_Mon%20Oct%2028%2015:18:29%20GMT%202013_28263151_SQLServer" target="_blank"><span style="background-color: #ffffff;">発表</span></a>しまし</span>た。 HDInsight は、100% の Apache Hadoop ソリューションをクラウドに提供する、Microsoft の Hadoop ベースのサービスです。
+
+
+  <strong>HDInsight には、次のような利点があります。</strong>
+
+  <ul>
+   <li><strong>使い慣れたツールを使用したインサイト:</strong>  HDInsight を使用すると、PowerPivot、Power View などの Microsoft BI ツールとの緊密な統合により、Hadoop を使用してデータに関する洞察を簡単に見つけることができます。HDInsight などの複数のソースのデータを Power Query とシームレスに結合します。Excel 2013 の3d マッピングツールである新しい Power Map でデータを簡単にマップできます。</li>
+  </ul>
+
+  <ul>
+   <li><strong>機敏性- </strong>HDInsight は、組織の変化するニーズに対応する機敏性を提供します。豊富な Powershell スクリプトを使用すると、数時間または数日ではなく、Hadoop クラスターを数分でデプロイおよびプロビジョニングできます。より大きなクラスターが必要な場合は、クラスターを削除するだけで、データを失うことなく、数分でより大きなクラスターを作成できます。</li>
+  </ul>
+
+  <ul>
+   <li><strong>Enterprise の準備ができている Hadoop:</strong>  HDInsight は、エンタープライズクラスのセキュリティと管理容易性を提供します。専用のセキュリティで保護されたノードのおかげで、HDInsight は Hadoop クラスターをセキュリティで保護するのに役立ちます。さらに、PowerShell スクリプトの広範なサポートにより、Hadoop クラスターの管理が容易になります。</li>
+  </ul>
+
+  <ul>
+   <li><strong>豊富な開発者エクスペリエンス:  </strong>HDInsight には、.NET、Java などの言語を選択して、強力なプログラミング機能が用意されています。.NET 開発者は、LINQ to Hive を使用して統合言語クエリの機能を最大限に活用できます。</li>
+  </ul>
+
+  <h4><strong>HDInsight でのはじめに</strong></h4>
+
+  Windows Azure 管理ポータルから An HDInsight クラスターを作成するには、[新規] ボタンをクリックし、[Data Services] メニューの [HDInsight] を選択します。 HDInsight クラスターを作成するには、クラスターの名前、クラスターのサイズ (データノードの数)、ログイン用のパスワードを指定します。
+
+
+  クラスターには少なくとも1つのストレージアカウントが関連付けられている必要があります。これは、そのクラスターの永続的なストレージメカニズムとなります。また、クラスターが作成されるリージョンは、選択したストレージアカウントと同じリージョンになります。 一般提供の時点で、ストレージアカウントは、米国西部、米国東部、または北ヨーロッパに存在し、HDInsight クラスターに関連付けられている必要があります。 [カスタム作成] オプションを使用して、追加のストレージアカウントをクラスターに関連付けることができます。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3404.1hd.png" border="0" /></a>
+
+
+  クラスターがデプロイされて構成されるまで数分かかりますが、準備が完了すると、追加のヘルプコンテンツへのリンクと、HDInsight を使用して最初の Hadoop ジョブを実行するサンプルコードが表示されます。
+
+
+  クラスターの HDInsight ページで [ダッシュボード] タブを選択すると、次の画面が表示されます。この画面には、コア数、ジョブ履歴、リンクされたストレージアカウントの使用量など、クラスターの現在の状態に関する基本的な情報が表示されます。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2185.2hd.png" border="0" /></a>
+
+
+  <strong>最初の Map Reduce ジョブを送信する</strong>
+
+
+  最初のジョブを送信する前に、HDInsight PowerShell コマンドレットを使用するように開発環境を準備する必要があります。 powershell コマンドレットをインストールして構成するには、Azure powershell と HDInsight powershell ツール Windows の2つの主要コンポーネントが必要です。 はじめに画面の手順1のリンクに従って、環境を設定します。
+
+
+  [はじめに] ページには、Hive ジョブまたは MapReduce ジョブを送信するためのサンプルコマンドを示す画面があります。最初に MapReduce ジョブを送信します。
+
+
+  次のコマンドを使用してサンプルを実行し、ジョブ定義を作成します。 ジョブ定義には、使用するマッパーとレジューサー、入力として使用するデータ、出力を格納する場所など、ジョブに関するすべての情報が含まれています。 この例では、クラスターに含まれているサンプル MapReduce プログラムとサンプルファイルを使用します。 結果を格納するために、samples ディレクトリに出力ディレクトリを作成します。
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$jarFile = "/example/jars/hadoop-examples.jar"</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$className = "wordcount"</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$statusDirectory = "/samples/wordcount/status"</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$outputDirectory = "/samples/wordcount/output"</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$inputDirectory = "/example/data/gutenberg"</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$wordCount = New-AzureHDInsightMapReduceJobDefinition-JarFile $jarFile-ClassName </span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$className-引数 $inputDirectory、$outputDirectory-StatusFolder $statusDirectory </span></p>
+
+  次のコマンドを実行して、サブスクリプション情報を取得し、MapReduce プログラムの実行を開始します。 MapReduce ジョブは通常、長時間実行されます。このため、非同期コマンドを使用してジョブの実行を開始する方法を示しています。
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$subscriptionId = (取得-AzureSubscription-Current)。サブスクリプション</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">$wordCountJob = $wordCount |Start-AzureHDInsightJob-クラスター HadoopIsAwesome-</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">サブスクリプションの $subscriptionId |Wait-AzureHDInsightJob-サブスクリプション $subscriptionId</span></p>
+
+  最後に、次のコマンドを実行して実行結果を取得し、PowerShell コマンドラインに表示します。
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">AzureHDInsightJobOutput-Subscription (Get-AzureSubscription-Current)。サブスクリプション</span></p>
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">クラスター bc-newhdstorage-JobId $wordCountJob – StandardError</span></p>
+
+  MapReduce ジョブの結果は、次に示すように、ジョブ自体の実行に関する情報です。 <em></em>
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1300.4hd.png" border="0" /></a>
+
+
+  ジョブの出力は、ストレージアカウントの <em>"/samples/wordcount/output"</em> ディレクトリに配置されました。 Azure Portal Windows でストレージビューアーを開き、このファイルに移動して、出力ファイルをダウンロードして表示します。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7206.5hd.png" border="0" /></a>
+
+
+  <strong>最初の Hive ジョブの送信</strong>
+
+
+  また、[はじめに] ページには、クラスターに接続して Hive ジョブを送信するためのサンプルコマンドがいくつか表示されます。 サンプルを確認するには、[ジョブの種類] セクションの [Hive] ボタンをクリックします。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8270.6hd.png" border="0" /></a>
+
+
+  このサンプルは、まず PowerShell でこのコマンドを実行してクラスターに接続することで実行します。
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">New-azurehdinsightcluster HadoopIsAwesome (Get AzureSubscription-Current) を使用します。サブスクリプション</span></p>
+
+  次に、このコマンドを実行して、HiveQL ステートメントをクラスターに送信します。 このステートメントでは、クラスターの作成時に既定で設定されるサンプルの Hive テーブルを使用します。
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">"Hivesampletable group by country, state order by records desc limit 5" のレコードとして [country, state, count (*)] を選択します。</span></p>
+
+  クエリは非常に単純な選択-groupby で、完了すると PowerShell コマンドラインに結果が表示されます。
+
+
+  <a href=""><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4478.7hd.png" border="0" /></a>
+
+
+  <strong>詳細情報</strong>
+
+
+  このブログでは、HDInsight クラスターを起動して実行し、データの分析を開始するのがいかに簡単かを説明しました。独自のデータセットをアップロードしたり、高度なジョブを実行したり、結果を分析したりするなど、多くのことを行うことができます。<strong> </strong>Hdinsight の使用方法の詳細については、hdinsight の <a href="https://go.microsoft.com/fwlink/?LinkID=285601" target="_blank">ドキュメント</a> ページを参照するか、次のリンクを使用してヘルプ記事に直接アクセスしてください。<strong></strong>
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=286602" target="_blank">HDInsight サービスでのはじめに</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=328984">HDInsight クラスターのプロビジョニング</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=328985" target="_blank">プログラムによる Hadoop ジョブの送信</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=328987" target="_blank">Power Query を使用して Azure HDInsight を Windows するための Excel の Connect</a></li>
+  </ul>
+
+  価格の詳細については、「HDInsight の <a href="https://go.microsoft.com/fwlink/?prd=12228" target="_blank">料金詳細</a> 」ページを参照してください。

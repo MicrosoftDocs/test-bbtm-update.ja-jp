@@ -1,0 +1,188 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3a7b0ddc7511113fcc4f44970009f9c77886898e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890428"
+Slug: general-availability-of-new-azure-disk-sizes-and-bursting
+Title: 新しい Azure ディスク サイズとバーストの一般提供
+Summary: '現在、プレミアム & Standard SSD の両方で 4、8、16 GiB を含む新しい Azure ディスク サイズの一般提供と、Azure プレミアム SSD ディスクでのバーストサポートを示しています。 '
+Content: >-
+  <p>現在、プレミアム と Standard SSD の両方で 4、8、16 GiB を含む新しい Azure ディスク サイズの一般提供と、Azure プレミアム SSD ディスクでのバーストサポートを示しています。</p>
+
+
+  <p>実稼働ワークロードに最適なパフォーマンスとコストバランスを提供するために、Azure SSD ディスクのポートフォリオを大幅に改善プレミアムしています。&nbsp;バーストでは、最小の <strong>プレミアム SSD ディスク (4 GiB) でも、1 秒あたり最大 3,500 の入出力操作 (IOPS) と 170 MiB/秒&nbsp;を実現</strong>できます。予測不可能な負荷とトラフィック パターンのスパイクが原因でディスク IOs でジッターが発生した場合は、Azure に移行し、バースト サポートを利用して全体的なパフォーマンスを向上させます。</p>
+
+
+  <p>クレジット ベースのシステムでディスク バーストを提供しています。 トラフィックがプロビジョニングされたターゲットを下回り、トラフィックがそれを超えたときにクレジットを消費すると、クレジットが蓄積されます。 OS ディスクは、スパイク トラフィックに対応するために仮想マシン <strong>(VM) </strong><strong>&nbsp;</strong>の起動またはデータ ディスクを加速するために最適に利用できます。 たとえば、SQL チェックポイントを実行したり、アプリケーションで IO フラッシュを発行してデータを保持したりした場合、接続されているディスクに対する書き込みの急激な増加が発生します。 ディスク バーストにより、予想される負荷の変化や予期しない変更に対応するヘッドルームが提供されます。</p>
+
+
+  <p>バースト対象ディスクのすべての新しい展開に対して、ユーザーの操作が不要な場合は、ディスク バーストが既定で有効になります。 既存の プレミアム SSD Managed Disks (512GiB/P20 以下) の場合、ディスクが再アタッチまたは VM&nbsp; が再起動されるたびに、ディスク バーストが有効にならず、ワークロードでディスクのパフォーマンスが向上する可能性があります。ディスク バーストのしくみの詳細については&nbsp;、SSD バーストに関する記事<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/disk-bursting" target="_blank">プレミアム参照してください</a>。</p>
+
+
+  <p>さらに、Standard SSD ディスクに導入された新しいディスク サイズは、クラウドで最もコスト効率の高い SSD オファリングを提供し、GiB あたりの最も低コストで一貫したディスク パフォーマンスを提供します。 また&#39;64GiB (E6) 未満のすべての Standard SSD ディスクのパフォーマンス目標を 500 IOPS に増やしました。 これは、オンプレミスまたはクラウドからの HDD ベースのディスク ストレージの理想的な置き換えです。 IO 集中型ではないが、ビジネス運用に安定した予測可能なパフォーマンスを必要とするビジネス アプリケーションである Web サーバーをホストする場合に最適です。</p>
+
+
+  <p>この投稿では、これらの&rsquo;新しいディスク機能の活用を開始して、現在 Azure で最も高いパフォーマンス、堅牢、コスト効率の高いソリューションを構築する方法について説明します。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>新しいマネージド ディスクは、Azure portal、<a href="https://docs.microsoft.com/azure/virtual-machines/windows/attach-disk-ps" target="_blank">Powershell</a>、またはコマンド ライン インターフェイス <a href="https://docs.microsoft.com/azure/virtual-machines/linux/add-disk" target="_blank">(CLI) を使用して作成</a>できます。<a href="https://docs.microsoft.com/azure/virtual-machines/windows/attach-managed-disk-portal" target="_blank"></a> バーストの対象となるディスク サイズと新しいディスク サイズの仕様は、次の表で確認できます。 プレミアム SSD ディスクの新しいディスク サイズとバーストのサポートはどちらも、Azure パブリック クラウドのすべてのリージョンで利用できます。ソブリン クラウドは近日サポートされる予定です。</p>
+
+
+  <h2>Azure プレミアム SSD Managed Disks</h2>
+
+
+  <p>新しく導入されたサイズを含むバースト対象ディスクを次に示します。 ディスク バーストは、&rsquo;512 GiB (P20 を超える) を超えるディスク サイズには適用されません。これらのサイズのプロビジョニングされたターゲットは、ほとんどのワークロードで十分です。&nbsp;ディスク サイズとパフォーマンスターゲットの詳細については&quot;、Azure で使用できるディスクの種類に関<a href="https://docs.microsoft.com/azure/virtual-machines/windows/disks-types#premium-ssd" target="_blank">する記事を参照</a>&quot;してください。</p>
+
+
+  <p>30 分</p>
+
+
+  <table border="1" cellpadding="4" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>バースト対応ディスク</strong></td>
+              <td valign="top"><strong>ディスク サイズ</strong></td>
+              <td valign="top"><strong>ディスクあたりのプロビジョニング済み IOPS</strong></td>
+              <td valign="top"><strong>ディスクあたりのプロビジョニング帯域幅</strong></td>
+              <td valign="top"><strong>ディスクあたりの最大バースト IOPS</strong></td>
+              <td valign="top"><strong>ディスクあたりの最大バースト帯域幅</strong></td>
+              <td valign="top"><strong>ピーク バースト レートでの最大バースト時間</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">P1New&mdash;</td>
+              <td valign="top">4 GiB</td>
+              <td valign="top">120</td>
+              <td valign="top">25 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">170 MiB/秒</td>
+              <td valign="top">30 分</td>
+          </tr>
+          <tr>
+              <td valign="top">P2New&mdash;</td>
+              <td valign="top">8 GiB</td>
+              <td valign="top">120</td>
+              <td valign="top">25 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">170 MiB/秒</td>
+              <td valign="top">30 分</td>
+          </tr>
+          <tr>
+              <td valign="top">P3New&mdash;</td>
+              <td valign="top">16 GiB</td>
+              <td valign="top">120</td>
+              <td valign="top">25 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">170 MiB/秒</td>
+              <td valign="top">
+              <p>30 分</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">P4</td>
+              <td valign="top">32 GiB</td>
+              <td valign="top">120</td>
+              <td valign="top">25 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">
+              <p>170 MiB/秒</p>
+              </td>
+              <td valign="top">
+              <p>30 分</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">P6</td>
+              <td valign="top">64 GiB</td>
+              <td valign="top">240</td>
+              <td valign="top">50 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">
+              <p>170 MiB/秒</p>
+              </td>
+              <td valign="top">30 分</td>
+          </tr>
+          <tr>
+              <td valign="top">P10</td>
+              <td valign="top">128 GiB</td>
+              <td valign="top">500</td>
+              <td valign="top">100 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">
+              <p>170 MiB/秒</p>
+              </td>
+              <td valign="top">30 分</td>
+          </tr>
+          <tr>
+              <td valign="top">P15</td>
+              <td valign="top">256 GiB</td>
+              <td valign="top">1,100</td>
+              <td valign="top">125 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">170/MiB/秒</td>
+              <td valign="top">30 分</td>
+          </tr>
+          <tr>
+              <td valign="top">P20</td>
+              <td valign="top">512 GiB</td>
+              <td valign="top">2,300</td>
+              <td valign="top">150 MiB/秒</td>
+              <td valign="top">3,500</td>
+              <td valign="top">
+              <p>170 MiB/秒</p>
+              </td>
+              <td valign="top">30 分</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>Standard SSD Managed Disks</h2>
+
+
+  <p>次に、Standard SSD Disks で導入された新しいディスク サイズを示します。 パフォーマンス ターゲットは、これらのサイズで実現できる最大 IOPS と帯域幅を定義します。&nbsp;ディスクプレミアムとは異Standard SSD、プロビジョニングされた IOPS と帯域幅は提供されません。&nbsp;パフォーマンスが重要なワークロードまたは単一インスタンスのデプロイの場合は、プレミアムすることをお勧めします。&nbsp; &nbsp;&nbsp;</p>
+
+
+  <table border="1" cellpadding="4" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top">&nbsp;</td>
+              <td valign="top"><strong>ディスク サイズ</strong></td>
+              <td valign="top"><strong>ディスクあたりの最大 IOPS</strong></td>
+              <td valign="top"><strong>ディスクあたりの最大帯域幅</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">E1New&mdash;</td>
+              <td valign="top">4 GiB</td>
+              <td valign="top">500</td>
+              <td valign="top">25 MiB/秒</td>
+          </tr>
+          <tr>
+              <td valign="top">E2New&mdash;</td>
+              <td valign="top">8 GiB</td>
+              <td valign="top">500</td>
+              <td valign="top">25 MiB/秒</td>
+          </tr>
+          <tr>
+              <td valign="top">E3New&mdash;</td>
+              <td valign="top">16 GiB</td>
+              <td valign="top">500</td>
+              <td valign="top">25 MiB/秒</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p><br>
+
+  サービス Web サイトにアクセスして<a href="https://azure.microsoft.com/services/storage/disks/" target="_blank">、Azure Disk Storageをご覧ください</a>。 価格については、Azure の価格に関する <a href="https://azure.microsoft.com/pricing/details/managed-disks/" target="_blank">ページManaged Disks覧ください</a>。&nbsp;</p>
+
+
+  <h2>お客様のフィードバック</h2>
+
+
+  <p>フィードバックをお待ちしております。ご意見をお寄わせ <a href="mailto:AzureDisks@microsoft.com">のうえ、こちら</a>&nbsp;にお問い合わせください。</p>

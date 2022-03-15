@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6945ddd001c25abb161d8da39a7637184bae29ac
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893776"
+Slug: vnet-service-endpoints-for-azure-sql-database-now-generally-available
+Title: vNet Service Endpoints for Azure SQL Database一般提供開始
+Summary: すべての Azure リージョンで、Virtual Network (VNet) サービス エンドポイントの一般提供をAzure SQL Databaseお知らせします。 この機能を使用すると、論理への接続を分離できます。
+Content: >-
+  <p><em>このブログ記事は、プリンシパル プログラム マネージャーの Anitha Adusumグループが共同Azure ネットワーク。</em></p>
+
+
+  <p>すべての Azure リージョンで、Virtual Network (VNet) サービス エンドポイントの一般提供をAzure SQL Databaseお知らせします。 この機能を使用すると、仮想ネットワーク内の特定のサブネットまたはサブネットのセットから論理サーバーへの接続を分離できます。 VNet からAzure SQL Databaseへのトラフィックは、常に Azure バックボーン ネットワーク内に残されます。 この直接ルートは、仮想アプライアンス経由またはオンプレミス経由のインターネット トラフィックを受け取る特定のルートより優先されます。</p>
+
+
+  <p>サービス エンドポイントを介した仮想ネットワーク アクセスに対する追加の課金はありません。 Azure SQL DB の現在の価格モデルは、現状と同様に適用されます。</p>
+
+
+  <p>SQL Data Warehouse (DW) の VNet サービス エンドポイントは、すべての Azure リージョンで引き続きパブリック プレビューです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5afd0f0-d79d-4bc4-9df6-56ff141415ec.png"><img alt="clip_image002" border="0" height="599" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a74f0821-bad3-41f9-81a6-4962e978f6e3.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image002" width="678"></a></p>
+
+
+  <h2>ファイアウォール規則と VNet サービス エンドポイントを一緒に使用できます</h2>
+
+
+  <p>VNet サービス エンドポイントを有効にしても、仮想マシンまたはデータベースにプロビジョニングしたファイアウォール規則SQL Serverオーバーライドされません。 どちらも引き続き適用できます。</p>
+
+
+  <p>VNet サービス エンドポイントは&rsquo;オンプレミスに拡張できません。 オンプレミスからのアクセスを許可するために、ファイアウォール規則を使用して、パブリック (NAT) の IPS への接続のみを制限できます。</p>
+
+
+  <p>VNet 保護を有効にするには、最初に VNet 内のSQLエンドポイントを有効にする必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0bae084c-14bd-48b9-bbee-5b7104731c05.png"><img alt="image" border="0" height="420" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b761f2d3-8d5e-465a-a98e-f5ad40208349.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>このSQL Server、1 つ以上の VNet に属する複数のサブネットへのアクセスを許可できます。 VNet 規則と組み合わせてファイアウォール規則を構成することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c1f1d48-365f-46e9-a6fe-2c8a2f807910.png"><img alt="image" border="0" height="458" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9a1ecbae-0fb1-4a2d-b24f-857af3ee843d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <h2>既存のファイアウォール規則を持つサーバーのサービス エンドポイントを有効にする</h2>
+
+
+  <p>サービス エンドポイントを有効にした状態でサーバーに接続すると、SQL 接続のソース IP が VNet のプライベート IP 空間に切り替わります。 現在、サーバーまたはデータベースのファイアウォール規則で特定の Azure パブリック IP が許可されている場合は、VNet ファイアウォール規則で指定することで、特定の VNet/サブネットを許可するまで接続が破損します。 接続を確保するために、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-vnet-service-endpoint-rule-overview#adding-a-vnet-firewall-rule-to-your-server-without-turning-on-vnet-service-endpoints" target="_blank">IgnoreMissingServiceEndpoint</a> フラグを使用してサービス エンドポイントを有効にする前に、VNet ファイアウォール規則を事前に指定できます。</p>
+
+
+  <h2>ASE のサポート</h2>
+
+
+  <p>GA の一環として、VNet にデプロイされた App Service Environment (ASE) サブネットのサービス エンドポイントがサポートされます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>開始するには、サービス エンドポイントと VNet サービス <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview" target="_blank">エンドポイントVirtual Network</a>の規則に関するドキュメント<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-vnet-service-endpoint-rule-overview" target="_blank">を参照Azure SQL Database</a>。</p>
+
+
+  <p>機能の詳細とシナリオについては、Microsoft Ignite セッション「Azure のアプリケーションのネットワーク <a href="https://myignite.microsoft.com/sessions/54922" target="_blank">セキュリティ」をご覧ください</a>。</p>

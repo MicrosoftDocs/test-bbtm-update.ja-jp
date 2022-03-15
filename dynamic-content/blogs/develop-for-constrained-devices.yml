@@ -1,0 +1,103 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ece028e3008f8c1309553944094b1fb6697e999b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890857"
+Slug: develop-for-constrained-devices
+Title: Hub C SDK Azure IoT小さなデバイスで動作します。
+Summary: Azure IoT Hub C SDK は ANSI C (C99) で記述されています。これにより、ディスクとメモリのフットプリントが小さいさまざまなプラットフォームに適しています。 少なくとも 64 KB の RAM を使用することをお勧めしますが、正確なメモリフットプリントは、使用されるプロトコル、開いている接続の数、および対象となるプラットフォームによって異なります。
+Content: >-
+  <p>Azure IoT Hub C SDK は ANSI C (C99) で記述されています。これにより、ディスクとメモリのフットプリントが小さいさまざまなプラットフォームに適しています。 少なくとも 64 KB の RAM を使用することをお勧めしますが、正確なメモリフットプリントは、使用されるプロトコル、開いている接続の数、および対象となるプラットフォームによって異なります。 このブログでは、C SDK を制約付きデバイス用に最適化する方法について説明します。</p>
+
+
+  <p>開発プロセスを加速するために、apt-get、NuGet MBED のパッケージとして C SDK をリリースします。 ただし、システムが ROM または RAM で制約されている場合は、SDK をローカルでビルドし、特定の機能を削除して C SDK のフットプリントを縮小することができます。 このブログでは <a href="https://cmake.org/">、cmake を使用</a> してデモを行います。 さらに、制約付きデバイスを操作するプログラミング モデルは異なります。 このブログでは、メモリ消費量を削減するためのいくつかのベスト プラクティスも説明します。 また、利用可能 <a href="https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-develop-for-constrained-devices">な制約付</a> きデバイスの開発方法に関する公式ドキュメントもあります。</p>
+
+
+  <h2>制約のあるデバイス向けの C SDK のビルド</h2>
+
+
+  <p>まず、このガイドに従って、ご利用の開発環境を準備する必要 <a href="https://github.com/Azure/azure-iot-sdk-c/blob/master/doc/devbox_setup.md">があります</a>。 cmake を使用してビルドする手順に進むときに、フラグを呼び出して特定の機能を削除できます。</p>
+
+
+  <p>TL;DR: 制約付きデバイス用にビルドする場合は、次の cmake コマンドの使用を検討してください。</p>
+
+
+  <pre class="”prettyprint”">
+
+  cmake -Duse_amqp=OFF -Duse_http=OFF -Dno_logging=OFF -Ddont_use_uploadtoblob=ON &lt;Path_to_cmake&gt;</pre>
+
+
+  <h3>余分なプロトコル ライブラリを削除する</h3>
+
+
+  <p>現在、SDK では、<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-protocols"></a>MQTT、MQTT over WebSocket、AMQP、AMQP over WebSocket、HTTPS の 5 つのプロトコルがサポートされています。 ほとんどのお客様は、クライアントで 1 から 2 つのプロトコルを実行するため、使用していないプロトコル ライブラリを SDK から削除できます。 シナリオに <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-protocols">適した</a> 通信プロトコルの選択に関する追加情報があります。 たとえば、MQTT は、制約のあるデバイスに適する場合が多い軽量なプロトコルです。 テストでは、AMQP の代わりに MQTT を使用すると、ROM の使用量を 50% 縮小し、RAM の使用量を 20% 削減できる* という結果が得られる点が判明しました。</p>
+
+
+  <p>AMQP ライブラリと HTTP ライブラリは、次の cmake コマンドを使用して削除することができます。</p>
+
+
+  <pre class="”prettyprint”">
+
+  cmake -Duse_amqp=OFF -Duse_http=OFF &lt;Path_to_cmake&gt;</pre>
+
+
+  <h3>SDK のログ機能を削除する</h3>
+
+
+  <p>C SDK では、デバッグに役立つように、全体にわたって詳細なログを提供します。 テストでは、ログ記録を無効にすると、ROM の使用量が 20% 減少する可能性がある* が見つかりました。 運用環境のデバイス用のログ機能は、次の cmake コマンドを使用して削除することができます。</p>
+
+
+  <pre class="”prettyprint”">
+
+  cmake -Dno_logging=OFF &lt;Path_to_cmake&gt;</pre>
+
+
+  <h3>BLOB へのアップロード機能を削除する</h3>
+
+
+  <p>SDK の組み込み機能を使用することにより、大きなファイルを Azure Storage にアップロードすることができます。 Azure IoT Hub は、関連付けられた Azure Storage アカウントへのディスパッチャーとして機能します。 この機能を使用することで、メディア ファイル、大きなテレメトリ バッチ、およびログを送信することができます。 ファイルをアップロードする方法の詳細 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-file-upload">については、IoT Hub</a>。 この機能は、アプリケーションで必要ない場合、次の cmake コマンドを使用して削除することができます。</p>
+
+
+  <pre class="”prettyprint”">
+
+  cmake -Ddont_use_uploadtoblob=ON &lt;Path_to_cmake&gt;</pre>
+
+
+  <h3>Linux 環境でのストリップの実行</h3>
+
+
+  <p>バイナリが Linux システム上で実行されている場合は、<a href="https://en.wikipedia.org/wiki/Strip_(Unix)">strip コマンド</a>を利用して、コンパイル後の最終的なアプリケーションのサイズを縮小することができます。</p>
+
+
+  <pre class="”prettyprint”">
+
+  strip -s &lt;Path_to_executable&gt;</pre>
+
+
+  <h2>制約のあるデバイス用のプログラミング モデル</h2>
+
+
+  <h3>シリアライザーの使用を回避する</h3>
+
+
+  <p>C SDK には、宣言型マッピング <a href="https://github.com/Azure/azure-iot-sdk-c/tree/master/serializer">テーブル</a> を使用してメソッドとデバイス ツインのプロパティを定義できる、オプションのシリアライザーがあります。 これは開発を簡略化するように設計されています。ただし、オーバーヘッドが追加されます。これは、制約付きデバイスには最適ではありません。 この場合は、プリミティブ クライアント API の使用を検討し、parson などの軽量パーサーを使用して json を <a href="https://github.com/kgabis/parson">解析します</a>。</p>
+
+
+  <h3>下位レイヤー (LL) _レイヤーを_ 使用する</h3>
+
+
+  <p>C SDK では 2 つのプログラミング モデルがサポートされています。 一方のセットには、下位レイヤーを意味する挿入辞 _LL_ を伴った API が含まれています。 この API のセットは軽量であり、ワーカー スレッドはスピンアップされません。 スケジュールを手動で制御する必要があります。 デバイス _LL_APIsの詳細については、このヘッダー ファイル <a href="https://github.com/Azure/azure-iot-sdk-c/blob/master/iothub_client/inc/iothub_device_client_ll.h">を参照してください</a>。 _LL_ インデックスを伴っていない、もう一方の API セットはコンビニエンス レイヤーと呼ばれています。この場合、ワーカー スレッドは自動的に起動します。 たとえば、デバイス クライアントの便利なレイヤー API は、このヘッダー <a href="https://github.com/Azure/azure-iot-sdk-c/blob/master/iothub_client/inc/iothub_device_client.h">ファイルにあります。</a> 余分な各スレッドによってシステム リソースの大部分が占有される可能性がある制約付きのデバイスの場合は、_LL_ API の使用を検討してください。</p>
+
+
+  <p>Azure IoT C SDK アーキテクチャの詳細について説明します。</p>
+
+
+  <ul>
+      <li><a href="https://github.com/Azure/azure-iot-sdk-c/">Azure IoT C SDK ソース コード</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-device-sdk-c-intro">Azure IoT device SDK for C の概要</a></li>
+  </ul>
+
+
+  <p>*ROM と RAM の消費量の削減は概算です。 正確な使用方法は、使用されるプロトコル、開いた接続の数、および対象となるプラットフォームによって異なります。</p>

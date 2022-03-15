@@ -1,0 +1,147 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ca2ac4649330732159c7deaabcde080e9374cc1d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894469"
+Slug: azure-stack-iaas-part-seven-2
+Title: Azure Stack IaaS – パート 8
+Summary: 頻繁に行う場合は、自動化する仮想化の日、クラウドとセルフサービスの前に、すべての承認、資格情報、仮想 LAN (VLAN)、論理ユニット番号 (LUN) などを取得するために時間がかかっています。
+Content: >-
+  <h2>頻繁に行う場合は、自動化します</h2>
+
+
+  <p>仮想化の時代には、クラウドとセルフサービスの前に、すべての承認、資格情報、仮想 LAN (VLAN)、論理ユニット番号 (LUN) などを取得するために時間がかかっています。時間がかかったので、実際の作成部分は簡単でした。 クラウドがセルフサービスと共に使用される場合、他のユーザーに頼らずに仮想マシン (VM) を作成する方が簡単だっただけでなく、VM が貴重なものか、使い捨て可能かという考え方が変わりました。 同時に、開発者は継続的デリバリーの世界に移行し、新しい機能の絶え間ないストリームでアプリを期待する顧客にサービスを提供しました。 これは、すべての実際のクラウドが自動化 API を提供し、VM や、VM が依存するインフラストラクチャを含む他のリソースをすばやく作成する理由です。 これは、多くの場合、コードとしての &ldquo;インフラストラクチャと呼ばれることが多い。&rdquo; Azures&rsquo; API は、ARM (Azure Resource Managerによって管理されます。 アプリケーションを設定Azure Stack ARM の独自のプライベート インスタンスを取得します。</p>
+
+
+  <p>このブログ記事では、クラウド IaaS ツールキットの自動化オプションについて説明します。</p>
+
+
+  <h2>Azure portal</h2>
+
+
+  <p>これを学ぶのに最適な場所は、ポータルを使用して VM のデプロイを最初に完了する場所です。 Azure Stack Azure と同じポータルが提供されます。 最後の確認ページが表示されたら、[テンプレートのダウンロード] <i>リンクをクリック</i> します。 これにより、前の画面で指定した VM のデプロイに使用されるテンプレートが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7679a6cf-a81d-44fa-8694-7b0c3b77d3b4.png"><img alt="Placeholder" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4065e897-9fc0-4071-9622-564327ad1fb5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>JSON 形式のテンプレートを &ndash; 確認すると、仮想マシン、ネットワーク、ストレージがどのように定義されているのか確認できます。 VM&rsquo; の OS プロファイルとハードウェア プロファイルが表示されます。 このテンプレートを使用して、この同じ VM をデプロイできます。 これは、継続的インテグレーションと&rsquo;継続的デリバリー (CI/CD) を使用して開発者を支援する場合に最適です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee9411ea-c360-49bb-b0a7-c4719acf49bd.png"><img alt="Placeholder" border="0" height="265" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37daceda-e0e2-4161-9798-fa0921a47a12.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>ARM テンプレートに関する 1 つの問題は、標準的な自動化ツールを使用する場合のような手続き型のスクリプトではありません。 このテンプレートは、リソースを 1 つのデプロイ トランザクションとして作成します。 ARM は目標の状態に戻ります。または、デプロイが失敗します。 失敗した場合は、エラー状態を修正し、デプロイを先に進めるか削除して、最初から開始することができます。 この方法では、&rsquo;指定した以外の何かを取得する必要があります。</p>
+
+
+  <p>テンプレートを保存したら、マーケットプレースの [テンプレート] 項目を使用して、ポータルTemplate deployment再デプロイできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/451d9526-daf7-4256-b8bf-10880f996c50.png"><img alt="Placeholder" border="0" height="305" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d73d186-9a1e-4b54-a043-f3c1652440c0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>詳細情報:<br>
+
+  <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview">Azure リソース マネージャーの概要</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-quickstart-create-templates-use-the-portal">クイック スタート: Azure Portal を使用してテンプレートを作成する</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-deploy-portal#deploy-resources-from-custom-template">カスタム テンプレートを使用してポータルにリソースをデプロイする</a></p>
+
+
+  <h2>Visual Studio と Visual Studio Code</h2>
+
+
+  <p>Visual Studio人にとって恐ろしいかもしれませんが、簡単なことをマスターできる場合は、チームが自動化の道を行く上で本当に役立ちます。 この記事で提供Visual Studio&rsquo;最も大きな点は、構文の観点から ARM JSON テンプレートを正しく作成したリアルタイム フィードバックです。 この情報&rsquo;は、このメモ帳。 概要 Azure リソース グループ プロジェクトを作成して、次の手順を実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9a505383-d7ad-4d12-885b-dda8ed927bac.png"><img alt="Placeholder" border="0" height="455" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/edf30d86-acab-4c78-a4a1-1af00dbc1f8b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>テンプレートの作成を開始する最適な方法は、クイックスタート テンプレートを使用する方法です。 Azure Stackには、使用できる多くのクイックスタート テンプレートがあります。 [Azure テンプレートの選択] で新しいプロジェクトを開始するときに、ドロップダウン Azure Stack [クイック スタート] を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2f4a3b5-c24b-499b-97da-560c70cc3c88.png"><img alt="Placeholder" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78f4c7b1-cb4d-436b-8bd3-44dfa86bcfed.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="635"></a></p>
+
+
+  <p>Visual Studio作成に役立つだけでなく、テンプレートをテンプレートに直接デプロイAzure Stack。 サインインすると、Visual Studio Azure と azure の両方のすべてのサブスクリプションがAzure Stackターゲットとして表示されます。 さまざまな環境を使用Azure Stack、デプロイ オプションが多数含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf1451bf-6bd0-49a8-bfc1-a80f5ba1448f.png"><img alt="Placeholder" border="0" height="263" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc8e4174-cf05-41da-91d1-a69d8a28b277.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="399"></a></p>
+
+
+  <p>これらのテンプレートを作成するもう 1 つの方法は、Visual Studio Code。 ARM テンプレートは JSON ファイルなので、JSON ファイルを処理するには軽量の優れたオーサリング ツールが必要です。 Visual Studio Code (VS Code) は最適なオプションです。</p>
+
+
+  <p>インストール後、VS Code Tools 拡張機能を追加Azure Resource Manager必要があります。 この拡張機能では、書式設定や色分けなどの機能を使用して変数、パラメーター、リソース ブロックを管理するのに役立つテンプレート作成を簡略化する多くの機能が追加されています。 次の図で確認してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c42d956-bd7e-4724-9aae-2da8a6c1d43a.png"><img alt="Placeholder" border="0" height="463" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/987b87e9-2c23-4862-b904-d4e9fb50cc1d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>詳細情報:<br>
+
+  <a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-install-visual-studio">インストールVisual StudioとConnectインストールAzure Stack</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-deploy-template-visual-studio">テンプレートを使用してテンプレートAzure StackデプロイVisual Studio</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/vs-azure-tools-resource-groups-deployment-projects-create-deploy">テンプレートを作成Visual Studio</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/how-to-create-template">テンプレートを作成するVisual Studio Code</a></p>
+
+
+  <h2>PowerShell と Azure コマンド ライン インターフェイス</h2>
+
+
+  <p>ポータルとポータルはVisual Studioテンプレートのデプロイ オプションです。 PowerShell と Azure コマンド ライン インターフェイス (CLI) は、他に 2 つのオプションです。 はAzure Stackのプライベート インスタンスAzure Resource Manager、一意のインスタンスに接続する必要があります。</p>
+
+
+  <p>PowerShell を使用Azure Stackに接続するには、Add-AzureRMEnvironment コマンドレットを使用して、環境の ARM エンドポイントを指定します。 Azure Stack 環境の設定方法に応じて、Azure Active Directory&rsquo; 資格情報または組織の Azure Directory (ADFS と呼ばれます) を使用して認証します。</p>
+
+
+  <p>Azure CLI Microsoft&#39;Azure リソースを管理するためのクロスプラットフォーム コマンドライン エクスペリエンスです。 Mac、Linux、および Windows で動作します。 Azure では、次のコマンドで CLI をCloud Shell。 IaaS テンプレートAzure CLI接続してデプロイAzure Stackを使用できます。 PowerShell と同様に、最初&rsquo;に一意の ARM エンドポイントAzure Stack接続する必要があります。 CLI の場合は、 <i>az cloud register コマンドを使用</i> します。 ARM テンプレートをデプロイするには、 <i>az group deployment create コマンドを使用</i> します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87bcd9fa-08ea-4ccc-ab50-d80bf65adc31.png"><img alt="Placeholder" border="0" height="345" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f8f19a7-af20-423e-97d0-892436403f2e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="640"></a></p>
+
+
+  <p>注: まだ、このCloud Shell実装Azure Stackされていません。 Cloud Shellブラウザー内で直接Azure CLIを実行できます。 これを確認する場合は、 <a href="https://feedback.azure.com/forums/598699-azure-cloud-shell/suggestions/37426429-we-need-azure-cloud-shell-available-for-both-admin">UserVoice</a> に投票Azure Cloud Shellしてください。</p>
+
+
+  <p>詳細情報:<br>
+
+  <a href="https://docs.microsoft.com/en-us/azure-stack/operator/azure-stack-powershell-install">Install PowerShell for Azure Stack</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-powershell-configure-user?view=azurestackps-1.7.1">PowerShell を使用して Azure Stack に接続する</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-deploy-template-powershell?view=azurestackps-1.7.1">PowerShell を使用Azure Stackにデプロイする</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-version-profiles-azurecli2">アプリケーションAzure CLIを使用Azure Stack</a><br>
+
+  <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-deploy-cli">テンプレートをAzure Resource ManagerテンプレートをデプロイAzure CLI</a></p>
+
+
+  <h2>クラウドは自動化用です</h2>
+
+
+  <p>Azure やクラウドのようなクラウドを使用するAzure Stack、ポータルの使用が少なかれ、自動化を使用する人が多い。 Azure には自動化オプションが含Azure Stackニーズに対応できます。 仮想化にさよならを言い、Automation ツールキットを使用して Cloud IaaS にこんにちはと言います。</p>
+
+
+  <h3>このブログ シリーズの</h3>
+
+
+  <p>このブログ シリーズの今後の投稿をお読みください。 過去および今後のトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/">Azure Stackは、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/">既に持っているものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/">自分のものを保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功を基に構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

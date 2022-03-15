@@ -1,0 +1,148 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 97bb46cb798d3d87f176b848be271a118c92b9f4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893484"
+Slug: how-do-teams-work-together-on-an-automated-machine-learning-project
+Title: 自動化された機械学習プロジェクトでチームがどのように一緒に作業しますか?
+Summary: 組織で機械学習プロジェクトを実行する場合、データ サイエンティスト、プロジェクト マネージャー、およびビジネス リードは、特定のビジネス目標を達成するために最適なモデルをデプロイするために、一緒に作業する必要があります。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a83e1a4-088f-4804-af1d-ad2a6e7de199.png"><img alt="How do teams work together on an automated machine learning project?" border="0" height="182" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2121316-f475-4c40-984e-682029400209.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="自動化された機械学習プロジェクトでチームがどのように一緒に作業しますか?" width="581"></a></p>
+
+
+  <p>組織で機械学習プロジェクトを実行する場合、データ サイエンティスト、プロジェクト マネージャー、およびビジネス リードは、特定のビジネス目標を達成するために最適なモデルをデプロイするために、一緒に作業する必要があります。 このステップの中心となる目標は、分析によって予測する必要がある、主要なビジネス変数を特定することです。 これらの変数はモデル ターゲットと呼ばれ、これらの変数に関連付けられているメトリックがプロジェクトの成功を評価するために使用されます。</p>
+
+
+  <p>GitHub で一般に公開されているこの使用例では、小売業の買い物店のデータ サイエンティスト、プロジェクト マネージャー、ビジネス リードが、自動化された<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml?WT.mc_id=acom-blog-lazzeri"></a>機械学習と <a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/automated-machine-learning/forecasting-orange-juice-sales/auto-ml-forecasting-orange-juice-sales.ipynb?WT.mc_id=acom-blog-lazzeri">Azure Machine Learning</a>&rsquo; サービスを<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/?WT.mc_id=acom-blog-lazzeri"></a>活用して製品の過剰在庫を削減する方法を確認します。 Azure Machine Learning service とは、機械学習モデルのトレーニング、デプロイ、自動化、管理を行うためのクラウド サービスであり、これらの操作のすべてをクラウドによって提供される幅広い規模で行うことができます。 Azure Machine Learning サービス内の自動機械学習は、定義済みのターゲット機能を使用してトレーニング データを取得し、アルゴリズムと特徴選択の組み合わせを反復処理して、トレーニング スコアに基づいてデータに最適なモデルを自動的に選択するプロセスです。</p>
+
+
+  <p>過剰在庫は、割引やプロモーションによって利益が減らされない限り、または店舗などの他のチャネルに送信され、販売が遅れるまで蓄積されない限り、現金に戻されないので、急速に資金の問題になります。 予想される回転レベルを持たない製品を事前に特定し、売上予測と一致する在庫カバーによる補充を制御すると、小売業者が投資の ROI を達成するのに役立つ重要な要因となります。 この&rsquo;問題の解決についてチームがどのように取り組み、自動化された機械学習によって会社全体の人工知能の民主化がどのように実現されるのかについて見てみしましょう。</p>
+
+
+  <h2>会社の適切なビジネス目標を特定する</h2>
+
+
+  <p>強い売上と利益は、適切な製品の組み合わせと在庫レベルを持つことによる結果です。 この理想的な組み合わせを実現するには、最新かつ正確な在庫情報が必要です。 手動プロセスには時間がかかるだけでなく、現在の正確な在庫情報の生成に遅延が発生するだけでなく、エラーの可能性も高くします。 これらの遅延やエラーは、在庫過剰、在庫過多、在庫切れによる収益の失われた原因となる可能性があります。</p>
+
+
+  <p>在庫過剰在庫は、貴重な倉庫スペースを取り、新しい在庫の購入に使用する必要がある現金を結び付け得る場合があります。 しかし、それをリキッド モードで販売すると、評判を下げ、他の現在の製品の売上を食い物にすることができるなど、独自の一連の問題が発生する可能性があります。</p>
+
+
+  <p>プロジェクト マネージャーは、データ サイエンティストとビジネス運用の間の橋渡しであり、社内および過去の売上の一部を使用して過剰在庫の問題を解決する可能性について話し合うビジネス リードに手を差し上げる。 プロジェクト マネージャーとビジネス リードは、ビジネス目標に関連する具体的な質問をして絞り込み、プロジェクトの目標を定義します。</p>
+
+
+  <p>このステージでは、以下に示す 2 つの主な課題に取り組みます。</p>
+
+
+  <ul>
+   <li><strong>目標を</strong>定義する: プロジェクト マネージャーとビジネス リードは、ビジネス上の問題を特定し、最も重要なのは、データ サイエンス手法がターゲットにできるビジネス目標を定義する質問を作成する必要があります。</li>
+   <li><strong>データ ソースの特定</strong>: プロジェクト マネージャーとデータ サイエンティストは、プロジェクトの目的を定義する質問に回答するのに役立つ関連データを見つける必要があります。</li>
+  </ul>
+
+
+  <h2>適切なデータとパイプラインを探す</h2>
+
+
+  <p>すべてはデータで始まります。 プロジェクト マネージャーとデータ サイエンティストは、ビジネス上の問題に対する回答の既知の例を含むデータ ソースを特定する必要があります。 次の種類のデータを探します。</p>
+
+
+  <ul>
+   <li>質問に関連するデータ。 ターゲットのメジャーと、ターゲットに関連する特徴はありますか?</li>
+   <li>モデル ターゲットと関心のある特徴を正確に測定するデータ。</li>
+  </ul>
+
+
+  <p>このステージでは、データ サイエンティストが対処する必要がある主なタスクが 3 つがあります。</p>
+
+
+  <ol>
+   <li>ターゲット分析環境にデータを取り込む</li>
+   <li>データを探索して、質問に答えるのにデータ品質が適切かどうかを判断する</li>
+   <li>新しいデータまたは定期的に更新されたデータをスコア付けするデータ パイプラインを設定する</li>
+  </ol>
+
+
+  <p>&rsquo;分析操作を実行できるソースの場所からターゲットの場所にデータを移動するプロセスを設定した後、データ サイエンティストは生データに取り組み、ターゲット変数との関係が理解されたクリーンで高品質のデータ セットを生成します。 機械学習モデルをトレーニングする前に、データ サイエンティストは、データの健全な理解を深め、データの概要と視覚化を作成して、データの品質を監査し、&#39;がモデリングの準備を整える前にデータを処理するために必要な情報を提供する必要があります。</p>
+
+
+  <p>最後に、データ サイエンティストは、定期的にデータを更新してスコア付けするデータ パイプラインのソリューション アーキテクチャの開発も担当します。</p>
+
+
+  <h2>自動化された機械学習を使用してオレンジオレンジの売上を予測する</h2>
+
+
+  <p>データ サイエンティストとプロジェクト マネージャーは<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml?WT.mc_id=acom-blog-lazzeri"></a>、自動化された機械学習を使用する理由として、自動化された機械学習を使用すると、データ サイエンスの専門知識がなくても、顧客が問題に対してエンドツーエンドの機械学習パイプラインを特定し、時間をはるかに少なく費やしながら、より高い精度を実現できます。 また、非常に多くの実験を実行し、その結果、実稼働可能なインテリジェント エクスペリエンスに向けた反復処理が高速化されます。</p>
+
+
+  <p>オレンジ&rsquo;オレンジの売上予測に自動化された機械学習を使用したプロセスによって、これらの利点がどのように提供されるのか見てみます。</p>
+
+
+  <p>ビジネス目標と、その目的を達成するために使用する必要がある内部データと履歴データの種類に同意した後、データ サイエンティストはワークスペースを作成します。 このワークスペースは、サービスのトップ レベルのリソースであり、データ サイエンティストに、作成する必要があるすべての成果物を一元的に処理する場所を提供します。 ワークスペースが AzureML サービスで作成されると、次の Azure リソースが自動的に追加されます (リージョン別に利用可能な場合)。</p>
+
+
+  <ul>
+   <li>Azure Container Registry</li>
+   <li>Azure Storage</li>
+   <li>Azure Application Insights</li>
+   <li>Azure Key Vault</li>
+  </ul>
+
+
+  <p>自動機械学習を実行するには、データ サイエンティストも実験を作成する必要 <em>があります</em>。 実験 <em>は</em> 、予測タスクを表すワークスペース内の名前付きオブジェクトであり、その出力はトレーニング済みのモデルであり、モデルの評価メトリックのセットです。</p>
+
+
+  <p>データ サイエンティストは、オレンジ色のオレンジ色の売上履歴データを読み込み、CSV ファイルをプレーンな pandas DataFrame に読み込む準備が整いました。 CSV の time 列は <i>WeekStarting</i> と呼ばれるので、datetime 型に特別に解析されます。</p>
+
+
+  <p>DataFrame の各行には、オレンジ色のオレンジ色のブランドの週単位の売上が 1 つの店舗に保持されます。 このデータには、販売価格、その週にオレンジ色のオレンジ色のブランドが店舗でアドバタイズされたかどうかを示すフラグ、店舗の場所に基づく顧客の人口統計情報も含まれます。 履歴上の理由から、データには販売数量の対数も含まれます。</p>
+
+
+  <p>これで、Quantity 列の時系列モデルが <i>作成</i> されます。 この&rsquo;データ セットは、Store と <i>Brand</i> の一意の組み合わせごとに 1 つ、多くの個別の<i>時系列で構成</i>されています。 個々の時系列を区別するために、値&mdash;が時系列間の境界を決定する列のグレインを定義します。</p>
+
+
+  <p>データをトレーニングとテスト セットに分割して後で予測評価を行った後、データ サイエンティストは予測タスクのモデリング ステップに取り組み始め、自動機械学習では時系列に固有の前処理と推定の手順を使用します。 自動機械学習では、次の前処理手順を実行します。</p>
+
+
+  <ul>
+   <li>時系列のサンプル頻度 (時間単位、日単位、週単位など) を検出し、存在しないタイム ポイントの新しいレコードを作成して系列を定期的に作成します。 通常の時系列には、頻度が定義され、連続した期間のすべてのサンプル ポイントに値が設定されます。</li>
+   <li>中央値の列値を使用して、前方入力列と特徴列を使用して、ターゲット内の欠損値を入力します。</li>
+   <li>グレインベースの機能を作成して、異なる系列間で固定効果を有効にする。</li>
+   <li>季節パターンの学習を支援する時間ベースの機能を作成します。</li>
+   <li>カテゴリ変数を数値にエンコードする。</li>
+  </ul>
+
+
+  <p><i>AutoMLConfig オブジェクト</i>は、自動機械学習トレーニング ジョブの設定とデータを定義します。 オレンジ色のオレンジ色の売上予測モデルのトレーニングに使用された自動機械学習構成パラメーターの概要を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d3bd3c5-84e7-486a-9195-d0eab8908a72.png"><img alt="Summary of automated machine learning configuration parameters." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/94a02826-9991-4cee-8486-0c17311dbc9b.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none; width: 607px; height: 582px;" title="自動機械学習構成パラメーターの概要。"></a></p>
+
+
+  <p>予測<a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/automated-machine-learning/forecasting-orange-juice-sales/auto-ml-forecasting-orange-juice-sales.ipynb?WT.mc_id=acom-blog-lazzeri">GitHub</a>詳細については、次のページを参照してください。 各イテレーションは実験内で実行され、自動化された機械学習のイテレーションからシリアル化されたパイプラインを格納し、検証データ セットで最高のパフォーマンスでパイプラインを取得します。</p>
+
+
+  <p>評価が実行された後、データ サイエンティスト、プロジェクト マネージャー、およびビジネス リードが再び会い、予測結果を確認します。 プロジェクト&rsquo; マネージャーとビジネス リードの仕事は&rsquo;、出力を意味し、それらの結果に基づいて実用的な手順を選択します。 ビジネス リードは、最適なモデルとパイプラインがビジネス目標を満たし、機械学習ソリューションが許容できる精度で質問に回答して、内部売上予測アプリケーションで使用するためにシステムを実稼働環境にデプロイする必要があります。</p>
+
+
+  <h2>Microsoft は自動化されたサービスに投資Machine Learning</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml?WT.mc_id=acom-blog-lazzeri">自動機械学習は、</a> Microsoft Research 部門のブレークスルーに基づいて行います。 このアプローチでは、コラボレーション フィルタリングとベイズ最適化のアイデアを組み合わせ、可能な機械学習パイプラインの膨大な領域をインテリジェントかつ効率的に検索します。 基本的&rsquo;には、機械学習パイプラインの推奨システムです。 ストリーミング サービスがユーザーに映画を推奨する方法と同様に、自動機械学習では、データ セット用の機械学習パイプラインが推奨されます。</p>
+
+
+  <p>現在&rsquo;は、サービスの一部として<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/?WT.mc_id=acom-blog-lazzeri">Azure Machine Learningされています</a>。 ここでご&rsquo;覧のように、自動<a href="https://azure.microsoft.com/en-us/blog/announcing-automated-ml-capability-in-azure-machine-learning/"></a>機械学習を使用すると、データ サイエンスの専門知識がなくても、顧客は問題に対してエンドツーエンドの機械学習パイプラインを特定し、精度を高めながら時間を節約できます。 また、より多くの実験を実行し、反復処理を高速化することもできます。 自動化された機械学習は組織にとってどのように役立ちますか? チームは、機械学習を使用してビジネス目標を達成するために、より密接に取り組むにはどうすれば良いでしょうか。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>リソース</h3>
+
+
+  <ul>
+   <li>サービスの詳細<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/?WT.mc_id=acom-blog-lazzeri">Azure Machine Learningする</a></li>
+   <li>自動機械学習の <a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml?WT.mc_id=acom-blog-lazzeri">詳細を学習する</a></li>
+   <li>概要サービス<a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/?WT.mc_id=acom-blog-lazzeri">の無料試用版Azure Machine Learning</a>する</li>
+  </ul>

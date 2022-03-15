@@ -1,0 +1,112 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6192cbb3a863278052a00e6efeb9fab632f326b6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893841"
+Slug: new-azure-blueprint-for-cis-benchmark
+Title: CIS ベンチマーク用の新しい Azure ブループリント
+Summary: Center for Internet Security (CIS) Microsoft Azure Foundations Benchmark という別の主要な業界標準にマップされる最新の Azure ブループリントをリリースしました。 これは、FedRAMP 中程度の Azure ブループリントの先週の発表に続き、規制コンプライアンスのための Azure ブループリントの成長リストに追加されます。これには、ISO 27001、NIST SP 800-53、PCI-DSS、UK OFFICIAL、UK NHS、IRS 1075 が含まれています。
+Content: >-
+  <p>Weve&rsquo; は、もう 1 つの主要な業界標準である Center for Internet Security (CIS) と Foundations Benchmark にマップする最新の <a href="https://aka.ms/cis-blueprint" target="_blank">Azure</a> ブループリントMicrosoft Azureしました。 これは、FedRAMP モデレート向け Azure ブループリントの最近の発表に続き、規制コンプライアンスのための Azure ブループリントの成長リストに追加されます。これには、ISO 27001、NIST SP 800-53、PCI-DSS、UK OFFICIAL、UK NHS、IRS 1075 が含まれています。</p>
+
+
+  <p><a href="https://aka.ms/getblueprints" target="_blank">Azure Blueprints</a> は、クラウド アーキテクトと中央情報テクノロジ グループが、組織&#39;の標準、パターン、要件を実装して遵守する一連の Azure リソースを定義できる無料のサービスです。 Azure Blueprintsチームは、組織のコンプライアンス要件内で新しい信頼できる環境を迅速に構築し、立ち上げすることができます。 お客様は、新しい CIS Microsoft Azure Foundations Benchmark ブループリントを、新しいサブスクリプションと既存の環境に適用できます。</p>
+
+
+  <p><a href="https://www.cisecurity.org/cis-benchmarks/" target="_blank">CIS</a> ベンチマークは、<a href="https://www.cisecurity.org/">CIS</a>&rdquo;&rdquo; によって開発されたシステムを安全に構成するための構成基準とベスト プラクティスです。これは、サイバー防御のベスト プラクティス ソリューションを識別、開発、検証、昇格、維持するミッションを持つ非営利団体です。グローバル コミュニティは、コンセンサスベースのプロセスで共同作業を行い、サイバー攻撃から IT システムとデータを保護するために、これらの国際的に認識されているセキュリティ標準を開発します。 何千もの企業によって使用される、セキュリティで保護されたベースライン システム構成を確立するための説明的なガイダンスを提供しています。 Microsoft の製品とサービスを使用してソリューションを開発するシステム管理者やアプリケーション管理者、セキュリティ スペシャリスト、その他のユーザーは、これらのベスト プラクティスを使用して、アプリケーションのセキュリティを評価し、改善することができます。</p>
+
+
+  <p>CIS Microsoft Azure Foundations Benchmark の各推奨事項は、組織がサイバー防御を改善するために開発された 20 の <a href="https://www.cisecurity.org/controls/" target="_blank">CIS</a> コントロールの 1 つ以上にマップされます。 ブループリントでは、顧客Azure Policy推奨事項に対するコンプライアンスを評価するのに役立つ定義を割り当てる必要があります。 <a href="https://www.cisecurity.org/benchmark/azure/" target="_blank">CIS Microsoft Azure Foundation Benchmark v1.1.0 の推奨事項の 9 つのセクションの</a>主な要素は次のとおりです。</p>
+
+
+  <h2>ID とアクセス管理 (1.0)</h2>
+
+
+  <ul>
+      <li>特権Azure Policyアカウントで多要素認証が有効になっていない&#39;監視に役立つAzure Active Directoryします。</li>
+      <li>非特権Azure Policyアカウントで多要素認証が有効になっていない&#39;を監視するのに役立つAzure Active Directoryします。</li>
+      <li>削除Azure Policyする必要があるゲスト アカウントとカスタム サブスクリプション ロールの監視に役立つ定義を割り当てます。</li>
+  </ul>
+
+
+  <h2>Security Center (2.0)</h2>
+
+
+  <ul>
+      <li>Standard Azure Policyが有効になっていないネットワークと仮想マシンの監視に役立つSecurity Center定義&#39;割り当てします。</li>
+      <li>仮想Azure Policyの監視と修復、エンドポイント保護の有効化、システム更新プログラムの仮想マシンへのインストールを確実に行うのに役立つ定義を割り当てる。</li>
+      <li>仮想マシン ディスクAzure Policyを確保するために役立つ仮想マシン定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>Storage アカウント (3.0)</h2>
+
+
+  <ul>
+      <li>セキュリティで保護Azure Policyを許可するストレージ アカウントを監視するのに役立つ新しい定義を割り当てる。</li>
+      <li>無制限のアクセスAzure Policyストレージ アカウントを監視するのに役立つ新しい定義を割り当てる。</li>
+      <li>信頼されたAzure Policyからのアクセスを許可しないストレージ アカウントを監視するのに&#39;定義を割り当Microsoft サービス。</li>
+  </ul>
+
+
+  <h2>Database Services (4.0)</h2>
+
+
+  <ul>
+      <li>SQL Server監査が有効になっているだけでなく、適切に構成され、ログが少なくとも 90 日間保持されていることを確認するのに役立つ Azure Policy 定義を割り当てる。</li>
+      <li>高度なデータ セキュリティAzure Policy適切に有効にするのに役立つ新しい定義を割り当てる。</li>
+      <li>暗号化と他Azure Policy設定用にサーバーが構成されていることをSQL定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>ログ記録と監視 (5.0)</h2>
+
+
+  <ul>
+      <li>ログ Azure Policy存在し、すべての Azure サブスクリプションに対して適切に構成され、アクティビティ ログが少なくとも 1 年間保持されていることを確認するのに役立つ定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>ネットワーク (6.0)</h2>
+
+
+  <ul>
+      <li>リソースがデプロイAzure Policyリージョンに対してNetwork Watcherを有効にするのに役立つ新しい定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>Virtual Machines (7.0)</h2>
+
+
+  <ul>
+      <li>仮想マシンAzure Policyディスク暗号化を有効にするのに役立つ仮想マシン定義を割り当てる。</li>
+      <li>承認された仮想Azure Policy拡張機能のみを確実にインストールするのに役立つ新しい定義を割り当てる。</li>
+      <li>システム更新Azure Policy仮想マシンでエンドポイント保護が有効になっている場合に役立つ定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>その他のセキュリティに関する考慮事項 (8.0)</h2>
+
+
+  <ul>
+      <li>誤ってAzure Policy場合にキー コンテナー オブジェクトを確実に回復可能にするのに役立つ新しい定義を割り当てる。</li>
+      <li>Kubernetes Azure Policyの管理アクセス許可にロールベースのアクセス制御が使用されるのを確認するのに役立つ新しい定義を割り当てる</li>
+  </ul>
+
+
+  <h2>AppService (9.0)</h2>
+
+
+  <ul>
+      <li>セキュリティで保護されたAzure Policyを使用して Web アプリケーションへのアクセスのみを確実に行うのに役立つ新しい定義を割り当てる。</li>
+      <li>WEB Azure Policy HTTPS のみを使用してアクセスし、最新バージョンの TLS 暗号化を使用し、有効な証明書を持つクライアントだけが到達可能にするのに役立つ定義を割り当てる。</li>
+      <li>.Net Framework Azure Policy Python、Java、HTTP の各バージョンが最新のバージョンである必要がある場合は、この定義を割り当てる必要があります。</li>
+  </ul>
+
+
+  <p>CIS ベンチマークへの準拠を実装する Azure のお客様は、この Azure Blueprint は、お客様が特定の構成に関する推奨事項への準拠を評価するのに役立つ場合があるが、CIS ベンチマークと CIS コントロールのすべての要件に完全に準拠していることを保証しない場合がある点に注意する必要があります。 さらに、推奨事項は 1 つ以上の Azure Policy 定義に関連付けられているほか、コンプライアンス標準には、現時点ではブループリント内の Azure Policy 定義によって対処されていない&#39;の推奨事項が含まれています。 そのため、コンプライアンスはAzure Policy全体のコンプライアンス状態の部分的なビューでのみ構成されます。&nbsp; お客様は最終的に、環境に適用されるコンプライアンス要件を満たす責任を負い、特定の情報がコンプライアンス のニーズを満たすのに役立つかどうかを判断する必要があります。</p>
+
+
+  <p>CIS Microsoft Azure Foundation Benchmark ブループリントの詳細については、<a href="https://aka.ms/cis-blueprint">ドキュメントを参照してください</a>。</p>

@@ -1,0 +1,92 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9cadd4c916e5958f9362000207aa04147454dd68
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893568"
+Slug: azure-service-bus-net-standard-client-ga
+Title: 'Azure Service Bus .NET Standard クライアントの一般提供 '
+Summary: Azure Service Bus .NET Standardクライアントは一般提供されています。 .NET Core と .NET Framework がサポートされています。 また、前の投稿で説明したように、クロスプラットフォーム アプリケーション開発用の Mono/Xamarin もサポートしています。 これは、さらに多くのことが始まるばかりです。
+Content: >-
+  <p>Azure Service Bus<a href="https://github.com/azure/azure-service-bus-dotnet">.NET Standardクライアントは</a>一般提供されています。 .NET Core と .NET Framework がサポートされています。 また、 <a href="https://blogs.msdn.microsoft.com/servicebus/2016/12/20/service-bus-net-standard-and-open-source/">前の投稿で説明したように</a> 、クロスプラットフォーム アプリケーション開発用の Mono/Xamarin もサポートしています。 これは、さらに多くのことが始まるばかりです。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-platforms-support">サポートされているプラットフォームの完全な一覧を次に示します</a>。 バージョン 1.3 .NET Standard使用されます。</p>
+
+
+  <h2>Service Bus .NET サンプル</h2>
+
+
+  <p>キュー、 <a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus">トピック、セッションのサンプル</a> が提供されています。時間の&#39;サンプルを追加する必要があります。</p>
+
+
+  <p>ここでは、次の一覧からサンプルまたは 2 つを試してください。</p>
+
+
+  <ul>
+      <li><a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus/BasicSendReceiveUsingQueueClient" target="_blank">QueueClient を使用してキューを送受信するService Busサンプル</a></li>
+      <li><a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus/BasicSendReceiveUsingTopicSubscriptionClient" target="_blank">トピックへの送信とサブスクリプションからの受信のサンプル</a></li>
+      <li><a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus/BasicSessionSendReceiveUsingQueueClient" target="_blank">セッション ベースのメッセージを送受信するサンプル。First In First Out (FIFO) の順序が必要な場合に最適です</a></li>
+      <li><a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus/SendReceiveUsingMessageSenderReceiver" target="_blank">MessageSender と MessageReceiver を使用して、Service Busキューを送受信するサンプル</a></li>
+      <li><a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus/SessionSendReceiveUsingSessionClient" target="_blank">SessionClient を使用してキュー間でセッション ベースのメッセージを送受信Service Busサンプル</a></li>
+      <li><a href="https://github.com/Azure/azure-service-bus/tree/master/samples/DotNet/GettingStarted/Microsoft.Azure.ServiceBus/TopicSubscriptionWithRuleOperationsSample" target="_blank">サブスクリプションのルールを構成および管理するためのサンプル</a></li>
+  </ul>
+
+
+  <h2>プラグイン</h2>
+
+
+  <p>次に示 <a href="https://github.com/Azure/azure-service-bus-dotnet-plugins">すメッセージ</a> ID プラグインなど、この新しいクライアントで使用できるプラグインも用意されています。 また、コミュニティ&nbsp;からプラグインの投稿が 1 つ <a href="https://blogs.msdn.microsoft.com/servicebus/2017/07/13/azure-service-bus-plugins/">提供されています</a>。</p>
+
+
+  <h3>Azure Service Bus 用のメッセージ ID プラグイン</h3>
+
+
+  <p>Azure Service Bus 用のメッセージ ID プラグインを使用すると、送信メッセージのメッセージ ID をカスタム ロジックを使用して設定できます。 これは、特定のシナリオにとって最も意味のある Message ID プロパティの値を設定することで、キューまたはトピックに送信される重複メッセージを確実に削除する場合に、重複除去をより詳細に制御する場合に非常に便利です。</p>
+
+
+  <h4>使用方法</h4>
+
+
+  <p>このプラグインを使用するには、次の設定が必要です。</p>
+
+
+  <ol>
+      <li>Azure サブスクリプション</li>
+      <li>Service Bus名前空間</li>
+  </ol>
+
+
+  <p>プラグインの使い方の簡単な例を次に示します。</p>
+
+
+  <pre style="padding: 16px; border-radius: 3px; text-transform: none; line-height: 1.45; text-indent: 0px; letter-spacing: normal; overflow: auto; font-family:; margin-top: 0px; margin-bottom: 0px; word-spacing: 0px; -ms-word-break: normal; -ms-word-wrap: normal; box-sizing: border-box; orphans: 2; widows: 2; font-stretch: normal; background-color: rgb(246, 248, 250); -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+
+  var messageIdPlugin = new MessageIdPlugin((msg) =&gt; Guid.NewGuid().ToString(&quot;N&quot;));
+
+
+  var queueClient = new QueueClient(&quot;{ServiceBusConnectionString}&quot;, &quot;{ServiceBusEntityName}&quot;);
+
+  queueClient.RegisterPlugin(messageIdPlugin);
+
+
+  var message = new Message(Encoding.UTF8.GetBytes(&quot;Message with GUID message ID&quot;));
+
+
+  await queueClient.SendAsync(message).ConfigureAwait(false);
+
+
+  // message.MessageId will be assigned a GUID in a 32 digit format w/o hyphens or braces</pre>
+
+
+  <h2>オープン ソース</h2>
+
+
+  <p>この.NET Standardクライアントはオープン ソースであり、 <a href="https://github.com/Azure/azure-service-bus-dotnet/blob/dev/.github/CONTRIBUTING.md">投稿したい</a> 場合は可能です。 バグのコード修正を送信し、新しい機能要求を送信し、その他のフィードバックをレポGitHub<a href="https://github.com/azure/azure-service-bus-dotnet">できます</a>。</p>
+
+
+  <p>ここに来て下さいというご支援をして下されたコミュニティ メンバーの皆さん、ありがとうございます。</p>
+
+
+  <p><strong>パッケージの詳細<a href="https://www.nuget.org/packages/Microsoft.Azure.ServiceBus/">についてはNuGetドキュメントを</a><a href="https://docs.microsoft.com/en-us/dotnet/api/overview/azure/service-bus?view=azure-dotnet">参照してください</a>。</strong></p>

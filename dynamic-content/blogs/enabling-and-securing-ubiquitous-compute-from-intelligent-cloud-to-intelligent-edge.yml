@@ -1,0 +1,217 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3feff799cd81ba2ea1d07990797bee8af5a0002c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889811"
+Slug: enabling-and-securing-ubiquitous-compute-from-intelligent-cloud-to-intelligent-edge
+Title: インテリジェントクラウドからインテリジェントなエッジまで、ユビキタスなコンピューティングを実現し、セキュリティで保護する
+Summary: 企業は、ミッションクリティカルなワークロードを実行するためにクラウドを採用しています。 オンプレミスとオフプレミスの接続されているデバイスの数、およびそれらが生成するデータは、新しいエンタープライズネットワークエッジアーキテクチャが必要になります。 これをインテリジェントなエッジと呼びます。データソースとユーザーに近いように計算し、待機時間を短縮します。
+Content: >-
+  <p>企業は、ミッションクリティカルなワークロードを実行するためにクラウドを採用しています。 オンプレミスとオフプレミスの接続されているデバイスの数、およびそれらが生成するデータは、新しいエンタープライズネットワークエッジアーキテクチャが必要になります。 データソースとユーザーに近いインテリジェントなエッジ &ndash; コンピューティングを呼び出して、待機時間を短縮します。 インテリジェントクラウドは、大規模なコンピューティング能力、ストレージ、さまざまなサービスを備えており、同様のプログラミングモデルを使用して、革新的なシナリオやユビキタスなコンピューティングを可能にするインテリジェントなエッジと連携して機能します。 ネットワークは、インテリジェントクラウドとインテリジェントなエッジとの統合に不可欠な機能です。</p>
+
+
+  <p>Azure のネットワークミッションは、ワークロードに最も安全で信頼性が高く、高性能のネットワークを提供し、インテリジェントなクラウドからインテリジェントなエッジに配信および管理することです。 お客様のサービスがクラウドに接続して拡張し、エッジを保護し、最適なパフォーマンスを実現し、洞察を得られる監視を提供できるように、革新を続けています。</p>
+
+
+  <h2>マイクロソフトのグローバル ネットワーク</h2>
+
+
+  <p>microsoft は、Azure、Dynamics 365、Microsoft 365、LinkedIn、Xbox、Bing を含むすべての Microsoft クラウドサービスを提供する、世界 &rsquo; 最大規模のワイドエリアネットワーク (WAN) の1つを実行します。 WAN は、クラウドサービスを実行しているすべての Microsoft データセンターを、エッジサイトを通じて、お客様とパートナーに接続します。 これらのエッジサイトは、世界中に戦略的に配置されています。 ここでは、インターネットトラフィックと ExpressRoute パートナーとのプライベート接続トラフィックについて、インターネットサービスプロバイダーとトラフィックを交換します。 また、azure のフロントドアと azure Content Delivery Network サービスをエッジサイトで使用して、Microsoft 365 などの独自のサービスのエクスペリエンスを向上させ、加速します。 世界的なカバレッジを実現するために、WAN には13万マイルを超える subsea、地上波、metro 光学ファイバーが搭載されており、ネットワークを最大限に活用するために、社内のソフトウェア定義ネットワーク (SDN) テクノロジを使用して Microsoft が完全に管理しています。 1 <a href="https://www.thousandeyes.com/resources/2018-public-cloud-performance-benchmark-report" target="_blank">千目</a> のような業界リーダーは、グローバルネットワークのパフォーマンスについて報告しています。また、2018の研究では、 <a href="https://www.lightreading.com/microsoft-beats-amazon-and-google-for-network-reliability---research/d/d-id/747402" target="_blank">最も堅牢で一貫性</a>のあるものとして検出されています。 優れたエクスペリエンスを提供するための基本原則の1つは、Microsoft ネットワーク上のトラフィックを可能な限り近くに配置し、可能な限り Microsoft &rsquo; のネットワークに保持することです。 Microsoft サービスとデータセンター間のすべてのトラフィックは、Microsoft &rsquo; のネットワークに完全にとどまり、インターネットを経由しません。</p>
+
+
+  <p align="center"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/188c4670-99d1-4ab6-929d-f71ee61e3393.png"><img alt="An image showing the core pillars of Azure Networking." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e1b20a6e-6ee7-49ad-a51b-4052efa37e38.png" title="Azure ネットワークの主要な柱を示すイメージ。"></a></em></p>
+
+
+  <p align="center"><em>図 1.Azure ネットワークのコア柱</em></p>
+
+
+  <h2>Connect と拡張</h2>
+
+
+  <p>インターネットエクスペリエンスを最大限に活用するために、データは、ユーザーまたはユーザーにできるだけ近い場所に Microsoft ネットワークを入力して終了する必要があります。 現在、160を超えるエッジサイトでは、サイトの数を増やすことが積極的に計画されています。詳細については、 <a href="https://azure.microsoft.com/blog/latency-is-the-new-currency-of-the-cloud-announcing-31-new-azure-edge-sites/" target="_blank">エッジサイトの拡張</a>に関するブログを参照してください。 また、ExpressRoute の対応サイトの数も増加しており、Azure ワークロードにプライベートに接続する柔軟性が高まります。</p>
+
+
+  <p>現在&#39;の高度に分散したアプリケーション環境では、すべての企業にとって最も重要なのは、データへのアクセスとデータの取り込みです。 多くの企業は、非常に予測が困難で困難な状況において、運用する必要があります。 たとえば、エネルギー、農家、マイニング、出荷は、多くの場合、リモート、部、またはネットワーク接続が不十分な他の分離された場所で動作します。 サテライト<a href="https://azure.microsoft.com/blog/satellite-connectivity-expands-reach-of-azure-expressroute-across-the-globe/" target="_blank">の ExpressRoute</a>の一般提供が開始され、サテライト接続を使用して Microsoft クラウドサービスにアクセスできるようになりました。 商用のサテライト constellations が広く利用できるようになったため、新しいソリューションアーキテクチャでは、Microsoft にアクセスするためのパフォーマンスが向上し、手頃な価格で提供されます。</p>
+
+
+  <p>ポイントツーポイント接続の業界暗号化標準である MACsec は、ExpressRoute Direct でプレビュー機能としてサポートされるようになりました。 ExpressRoute Direct のお客様は、セキュリティとコンプライアンスの要件を満たすために、ExpressRoute ルーターへの物理接続の間にデータの機密性と整合性を確保することができます。 ユーザーは Azure Key Vault を使用して、MACsec キーのライフサイクルを完全に所有し、管理します。</p>
+
+
+  <p>Metro ネットワークのコストを大幅に削減するために、光学テクノロジに投資してきました。 Expressroute パートナーを通じて提供されている ExpressRoute Local という新しい ExpressRoute 回線の種類を使用して、これらの節約を実現しています。 データセンターの近くにある ExpressRoute サイトを選択し、そのデータセンターのデータのみにアクセスする場合、送信価格は ExpressRoute のローカル回線の価格に含まれます。 同じ geo 内のリージョンへの接続については、expressroute Standard を使用して、世界中のどこからでも expressroute プレミアムを使用できます。</p>
+
+
+  <p>現在プレビュー中の Microsoft cloud 用の新しい<a href="https://docs.microsoft.com/azure/peering-service/" target="_blank">ピアリングサービス</a>により、インターネットプロバイダーやインターネット交換プロバイダーとのパートナーシップを通じて、エンタープライズ級のインターネット接続で Azure、Dynamics 365、および Microsoft 365 にアクセスできます。 また、ピアリングサービスは、インターネット待機時間のテレメトリ、ルートの監視、ハイジャックなど、リーク、およびその他の境界ゲートウェイプロトコルの誤りに対するアラートを提供します。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/668d7b10-816b-4e94-9c10-279eb95b4ead.png"><em><img alt="Peering logos - update 2 - MR" border="0" height="183" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1b4e2f30-1504-4842-bc83-76c228b35bfe.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ピアリングロゴ-update 2-MR" width="1024"></em></a></p>
+
+
+  <p align="center"><em>図 2.新しいピアリングサービスをサポートするパートナーを起動します。</em></p>
+
+
+  <p>Microsoft では、最大 10 Gbps の集計暗号化帯域幅、すべての VPN ゲートウェイ Sku での IKE v1、および構成の問題をデバッグするためのパケットキャプチャをサポートするように、VPN サービスを強化しています。 また、Azure Active Directory と多要素認証をサポートするために、ポイント対サイト VPN サービスも強化されています。 また、任意の場所から Vnet にアクセスするためにダウンロードして実行できる OpenVPN クライアントを利用することもできます。</p>
+
+
+  <p>Azure <a href="https://docs.microsoft.com/azure/virtual-wan/" target="_blank">VIRTUAL wan</a> は、主要な SD-WAN パートナーを使用して、azure 接続サービスを1つの運用インターフェイスに統合します。 Azure Virtual WAN では、Vnet、サイト、アプリケーション、ユーザーなど、グローバルに分散した一連のスポーク間にユビキタスな接続を提供することで、グローバルな転送ネットワークアーキテクチャを実現します。 非常に高度な拡張機能として、ハブからハブへの接続と任意の接続のプレビューがあります。 仮想 WAN ユーザーは、複数のハブに接続して完全なメッシュ接続を行うことにより、ネットワークアーキテクチャをさらに簡素化することができます。 さらに、ExpressRoute とポイント対サイトは、仮想 WAN で一般公開されています。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a924019f-7adb-48f3-9755-b8d7e4302b86.png"><em><img alt="An image showing Azure Virtual WAN full topology overview across customers sites and clients connecting to Azure." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6b91680-8308-41be-b5bc-14c6a8c94dc3.png" title=" Azure Virtual WAN の完全なトポロジの概要 Azure に接続しているお客様のサイトとクライアント全体"></em></a></p>
+
+
+  <p align="center"><em>図 3.Azure Virtual WAN の完全なトポロジの概要 Azure に接続しているお客様のサイトとクライアント全体</em></p>
+
+
+  <p>私たちは業界リーダーと密接に連携して、仮想 WAN のエコシステムサポートを拡大してきました。 現在、Cisco と Microsoft は、クラウドのネットワークを最新化することによってパートナーシップを結んでいることが発表されています。 世界中の大手パートナーの1人である cisco は、Microsoft と連携して、cisco SD-wan テクノロジを azure Virtual WAN と Office 365 の両方と統合して、azure と Office 365 へのシームレスで分散した、最適なブランチオフィス接続を実現しています。</p>
+
+
+  <p>さらに、 <a href="https://www.cloudgenix.com/microsoft-azure/" target="_blank">Cloudgenix</a>、 <a href="https://www.fortinet.com/azure-vwan" target="_blank">ForNuage</a> <a href="https://www.nuagenetworks.net/our-partners/nuage-networks-virtualized-cloud-interconnect-for-azure/" target="_blank">、および</a><a href="https://www.silver-peak.com/company/tech-partners/cloud/microsoft-azure" target="_blank">シルバーピーク</a>を含む他のパートナーは、仮想 WAN との統合を完了し、すぐに使用できるようになりました。</p>
+
+
+  <h2>IPv6</h2>
+
+
+  <p>デュアルスタック (IPv4 + IPv6) VNet は、今月の後半で一般公開される予定です。 クラウドの最初のとして、Azure では、お客様が独自の IPv6 プライベートスペースを VNet に持ち込むことができるため、変更をルーティングする必要がありません。 IPv6 を使用すると、お客様は、Azure ベースのアプリケーションを使用して、IPv4 の消耗を解決し、規制要件を満たし、拡張されたモバイルおよび IoT 市場に拡張することができます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc6d0976-5a7c-4899-b11b-24d2567d3f1c.png"><em><img alt="An image showing an architectural diagram of an Azure VNet routing with IPv6 between VMs, subnet and Load Balancer." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6d9b01c-36a9-45d0-9709-296df5ec6985.png" title="Vm、サブネット、および Load Balancer 間の IPv6 を使用した Azure VNet ルーティングのアーキテクチャ図"></em></a></p>
+
+
+  <p align="center"><em>図 4.Vm、サブネット、および Load Balancer 間の IPv6 を使用した Azure VNet ルーティングのアーキテクチャ図</em></p>
+
+
+  <h2>保護</h2>
+
+
+  <h3>ゼロ信頼ネットワークの実現</h3>
+
+
+  <p>クラウド アプリケーションとモバイル ワークフォースによって、セキュリティ境界が再定義されました。 この新しい境界 &rsquo; は、組織の物理的な場所によって定義されていません。これは、企業のリソースやサービスをホスト、保管、またはアクセスするすべてのアクセスポイントに拡張されるようになりました。</p>
+
+
+  <p>企業のファイアウォールの背後にあるすべての要素が安全であることを示すのではなく、 <a href="https://www.microsoft.com/security/zero-trust" target="_blank">ゼロ信頼モデル</a> は侵害を想定し、制御されていないネットワークから発生したかのように各要求を検証します。 要求の送信元またはアクセス先のリソースにかかわらず、信頼されていないことを示すゼロ信頼 &ldquo; は、常に信頼できるとは限りません。&rdquo;</p>
+
+
+  <p>Azure ネットワークサービスは、可視性を高め、悪意のあるアクターがネットワーク経由で奪取を移動できないようにするための重要な制御を提供します。 ネットワークをセグメント化する必要があります。これには、より深いソフトウェア定義マイクロセグメンテーション、リアルタイム脅威保護、エンドツーエンドの暗号化、監視、分析を採用する必要があります。</p>
+
+
+  <h3>すべての Azure リージョンに拡張される azure プライベートリンク &ndash;</h3>
+
+
+  <p>Azure <a href="https://azure.microsoft.com/services/private-link/" target="_blank">プライベートリンク</a> は、プライベート仮想ネットワークに azure サービスを提供します。 Storage、SQL Database、azure Synapse Analytics などのサポートされている azure サービスは、プライベート IP アドレスを介して使用できるため、パブリックインターネットにアクセス制御リスト (acl) を開くことはできません。 プライベートリンクを通過するトラフィックは、常に Microsoft のバックボーンネットワーク内にあり、パブリックインターネットには入りません。 サービスとしてのプラットフォーム (PaaS) リソースは、VPN または ExpressRoute のプライベートピアリングを介してオンプレミスからプライベートにアクセスすることもできます。これにより、Acl をシンプルに保つことができます。 本日以降、プライベートリンクはすべての Azure パブリックリージョンで利用できるようになります。</p>
+
+
+  <p align="center"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40bb7550-fee1-4904-8831-69036dcda262.png"><img alt="An image showing an architectural diagram of Private Link deployed cross-premises." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eaad747a-d5b9-467c-9282-d2ed52686ef2.png" title=" クロスプレミスでデプロイされたプライベートリンクのアーキテクチャ図"></a></em></p>
+
+
+  <p align="center"><em>図 5.クロスプレミスでデプロイされたプライベートリンクのアーキテクチャ図</em></p>
+
+
+  <p>Azure プライベートリンクを使用すると、組み込みのデータ流出保護を実装することで、データガバナンスとコンプライアンスを実現するための最初のクラウドとなります。 これにより、サービスフロントエンドではなく個々の PaaS インスタンスがプライベートエンドポイントとしてマップされるため、信頼されていないネットワーク内の悪意のあるユーザーがデータをセキュリティで保護されていないアカウントに抜き取ることができるように、信頼関係のないネットワーク内で悪意のあるアクターがデータを保護でき &rsquo; ない また、プライベートリンクを利用すると、Azure のサービスとしてのソフトウェア (SaaS) プロバイダーが、顧客に対して同じ機能を拡張することができます。 スノーフレークはプログラムを早期に導入したものであり、より多くのパートナーサービスをフォローしています。</p>
+
+
+  <p>Azure Firewall Manager は、クラウドベースのセキュリティ境界に対して、中央のセキュリティポリシーとルート管理を提供する新しいセキュリティ管理サービスです。 現在、Azure は、Azure Firewall およびファイアウォールマネージャーを使用してトラフィックガバナンス、ルーティング制御、およびサードパーティ統合セキュリティを提供する唯一のクラウドプロバイダーです。 グローバル管理者は、ハブとスポークのアーキテクチャを一元的に作成し、セキュリティまたはルーティングポリシーをセキュリティで保護された仮想ハブと呼ばれるハブに関連付けることができます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/34104637-41c5-4850-926f-fd7cd5eaa73d.png"><em><img alt="A diagram of Azure Firewall Manager deployed inside Secured Virtual WAN Hubs." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1a08b8b4-edb5-4c79-b391-c83fe3c007e3.png" title="セキュリティで保護された仮想 WAN ハブ内に展開された Azure Firewall マネージャーの図"></em></a></p>
+
+
+  <p align="center"><em>図 6.セキュリティで保護された仮想 WAN ハブ内に展開された Azure Firewall マネージャーの図</em></p>
+
+
+  <p>信頼されたセキュリティパートナーを利用することで、お客様のユーザーのインターネットアクセスを保護するために、業界トップレベルのサービスとしてのセキュリティ (SECaaS) オファリングを使用することができます。 <a href="https://www.zscaler.com/products/zscaler-internet-access" target="_blank">ZScaler</a>、 <a href="https://www.iboss.com/" target="_blank">iboss</a>、および<a href="https://www.checkpoint.com/" target="_blank">チェックポイント</a>(近日公開予定) とのパートナーシップを信頼されたセキュリティパートナーとして発表します。</p>
+
+
+  <h3>脅威インテリジェンスベースのフィルター処理が一般公開されるようになりました Azure Firewall</h3>
+
+
+  <p><a href="https://docs.microsoft.com/azure/firewall/threat-intel" target="_blank">脅威インテリジェンスベースのフィルター処理</a>を使用すると、既知の悪意のある IP アドレスとドメインとの間のトラフィックをほぼリアルタイムでアラートおよび拒否するように Azure ファイアウォールを構成できるようになりました。 IP アドレスとドメインは、Microsoft 脅威インテリジェンスフィードから供給されます。</p>
+
+
+  <p>また、 <a href="https://azure.microsoft.com/en-us/services/web-application-firewall/" target="_blank">web アプリケーションファイアウォール</a> (waf) を3つの新機能、waf ボット保護、waf per サイトポリシー、geo フィルタリングを使用して拡張しています。 Azure フロントドアの azure managed bot protection ルールセットは、さまざまなカテゴリのボットを検出し、それに応じてユーザーがアクションを設定できるようにします。 お客様は、ネットワークエッジで悪意のあるボットをブロックして、優れたボットをアプリケーションバックエンドに届けることができ、不明なボットをログに記録したり、別のサイトにリダイレクトしたりすることができます。 Azure managed bot protection ルールセットは、Azure アプリケーション Gateway v2 SKU でもプレビューとして提供されています。 Application Gateway を使用したサイト間の WAF ポリシーでは、1つの Application Gateway でホストされているさまざまな web アプリケーションに対して WAF ポリシーを指定できます。 これにより、きめ細かなセキュリティポリシーが可能になり、サイトごとに追加の展開を作成する必要がなくなります。 Azure アプリケーションゲートウェイでは、v2 SKU でプレビュー段階にある既存のカスタムルールを使用して geo フィルターを導入しています。 この機能を使用すると、既存の IP/IP 範囲ベースのカスタム規則を拡張して、国を照合基準として含め、必要に応じてアクションを実行することもできます。 これにより、特定の国からのトラフィックを制限したり、一連の国からのトラフィックのみを許可したりすることができます。</p>
+
+
+  <p>最近、サービスの一般提供を <a href="https://azure.microsoft.com/services/azure-bastion/" target="_blank">発表Azure Bastion</a>。 Azure Bastion サービスは Virtual Network に直接プロビジョニングされ、パブリック IP アドレスを必要とせずに、VNet 内のすべての仮想マシンへのシームレスなリモート デスクトップ (RDP) とセキュア シェル (SSH) アクセスが可能です。 シームレスな統合と、サブネット全体での ACL の簡単な 1 回のセットアップにより、後続の継続的管理が不要になります。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4beec5b0-99bd-4f87-91f8-9d5dcd34a4c5.png"><em><img alt="A diagram showing the Azure Bastion architecture showing SSL access to VNet resources through the Azure portal." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9377165f-b53f-4dff-b852-a81f2de86aeb.png" title="Azure Bastionを介した VNet リソースへの SSL アクセスを示すAzure portal"></em></a></p>
+
+
+  <p align="center"><em>図 7。Azure Bastionを介した VNet リソースへの SSL アクセスを示すAzure portal</em></p>
+
+
+  <h2>配信</h2>
+
+
+  <p>現在、新しい機能である Content Delivery Network ルール エンジンも発表します。これにより<a href="https://azure.microsoft.com/services/cdn/" target="_blank">、Azure Content Delivery Network</a> は顧客が http 要求の処理方法をカスタマイズできます。 ルール エンジンは、デバイス検出、HTTP プロトコル、ヘッダー値など、非常に強力な一致条件を有効にし、適切なアクションをトリガーします。 すべての http ルールはエンド ユーザーの近くのエッジ サイトで実行され、顧客のオリジンでのルールの実行に比べてパフォーマンスに大きなメリットがあります。</p>
+
+
+  <p>この <a href="https://aka.ms/appgwaks" target="_blank">Application Gatewayイング</a> レス コントローラーを使用Azure Application Gateway(AKS) のイングレスとしてAzure Kubernetes Service使用できます。イングレス コントローラーは、AKS クラスター内のポッドとして実行されます。 Kubernetes イングレス リソースを使用し、ゲートウェイが Kubernetes ポッドにトラフィックを負荷分散できる Azure Application Gateway 構成に変換します。 イングレス Application Gatewayを使用すると、お客様は、AKS クラスターと通信するために、インターネットにアクセスできる単一のエンドポイントを公開できます。 Application Gatewayプライベート アドレスを使用してポッドと直接やり取りするため、Kube-proxy によって発生する追加の DNAT が不要になります。これにより、ポッドへのより効率的でパフォーマンスの高いトラフィック ルーティングが提供されます。 Application Gatewayイングレス コントローラーでは、AKS クラスターへのアクセスをセキュリティで保護するための WAF 機能Application Gatewayを含む、すべての機能がサポートされています。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8fdf3aa-59b4-4f7e-a342-a1555066306c.png"><em><img alt="A diagram showing the App Gateway Ingress controller explained relative to AKS." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/910b68a2-0560-4f6a-88d7-a29c2b19c207.png" title="App Gatewayイングレス コントローラーについて説明されている AKS"></em></a></p>
+
+
+  <p align="center"><em>図 8。App Gatewayイングレス コントローラーについて説明されている AKS</em></p>
+
+
+  <p>Azure Key Vaultは、クラウド アプリやサービスで使用される暗号化キーや他のシークレットを保護するためのプラットフォーム管理サービスです。 Azure Application Gateway v2 では、HTTPS 対応リスナー<a href="https://docs.microsoft.com/azure/application-gateway/key-vault-certs" target="_blank"></a>にKey Vaultされた TLS 証明書の直接統合がサポートされます。 これにより、証明書管理プロセスとバックエンド Web アプリケーション管理を明確に分離することで、tls 証明書Application Gatewayセキュリティが向上します。 Application Gatewayトランスポート層セキュリティ (TLS) 証明書の新しいバージョンKey Vaultを数時間ごとにポーリングするため、証明書の自動更新が有効になります。</p>
+
+
+  <h2>Monitor</h2>
+
+
+  <p>Azure <a href="https://aka.ms/internet-analyzer" target="_blank">Internet Analyzer</a> は、プレビューで利用可能な新しいクライアント側測定サービスです。 Internet Analyzerインフラストラクチャの A/B テストと、顧客のパフォーマンス エクスペリエンスへの影響を&rsquo; 実現します。 &rsquo;オンプレミスから Azure にアプリとコンテンツを移行する場合でも、新しい Azure サービスを評価する場合でも、Internet Analyzer&rsquo; を使用すると、ユーザー データと Microsofts&rsquo; の豊富な分析から学習して、移行前に Azure でのネットワーク アーキテクチャをよりよく理解して最適化することができます。 Internet Analyzerは、クラウド移行、新規または追加の Azure リージョンへのデプロイ、または azure での新しいアプリケーションおよびコンテンツ配信プラットフォーム (Azure Front Door や Content Delivery Network など) のテストに関するパフォーマンス関連の質問に対処するように設計されています。</p>
+
+
+  <p><a href="https://aka.ms/AzMonNWInsight" target="_blank">Azure Monitor for Networks</a>&nbsp;サービスはプレビューで使用できます。 Azure Monitor for Networksを使用すると、お客様はネットワーク リソースの主要なメトリックと正常性を監視し、問題を検出し、トラブルシューティングのヘルプを受け取ります。 Azure Monitor for Networksオンであり、カスタム&rsquo; セットアップは必要ない。 &rsquo;Azure Monitor for Networks は、クラウドまたはハイブリッド ネットワークの監視とトラブルシューティングを行う場合でも、アラートの設定、リソース固有の診断の取得、リソース間の構造と機能の依存関係の視覚化に役立ちます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdf5f382-cf22-4cfa-94cd-8788fdd701c0.png"><em><img alt="A screenshot showing Azure Monitor and the App Gateway metrics and diagnostics." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/37fa5d1e-4195-42aa-94c6-ebaac7491cf3.gif" style="border: 0px currentcolor; border-image: none; width: 900px; height: 417px; display: inline; background-image: none;" title="メトリックと診断Azure Monitorを示す App Gateway のスクリーンショット"></em></a></p>
+
+
+  <p align="center"><em>図 9。メトリックと診断Azure Monitor for Networks示App Gatewayのスクリーンショット</em></p>
+
+
+  <h3>プレビューでのマルチアクセス Edge コンピューティング (MEC)</h3>
+
+
+  <p>マルチアクセス Edge コンピューティングでは、アプリケーション開発者が顧客のオンプレミスでクラウド コンピューティング機能を提供します。 この環境は、非常に短い待機時間と高帯域幅、およびプライベート LTE や 5G などの無線ネットワークへのリアルタイム アクセスが特徴です。 MEC の機能を Azure と統合することで、インテリジェント クラウドからエッジまで、コンピューティングとネットワークの機能を提供します。 スマート ファクトリや Mixed Reality などの新しい重要でイマーシブなシナリオでは、信頼性の高い低待機時間と高帯域幅接続をローカル コンピューティングと組み合わせる必要があります。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92adb998-4f40-4a4c-8f2e-e5926f422297.png"><em><img alt="An image of a concept draft of Multi-access and network edge compute with Azure." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/116dcfb1-0364-461a-a34a-e218c5e3a4bf.png" style="border: 0px currentcolor; border-image: none; width: 1000px; height: 425px; display: inline; background-image: none;" title="Azure でのマルチアクセスとネットワーク エッジ コンピューティングの概念ドラフト"></em></a></p>
+
+
+  <p align="center"><em>図 10。Azure でのマルチアクセスとネットワーク エッジ コンピューティングの概念ドラフト</em></p>
+
+
+  <p>これらのニーズに対応するために、お客様のオンプレミスにデプロイされた Azure Stack Edge&rsquo; に基づくマルチアクセス Edge コンピューティングのテクノロジ プレビューを導入し、可能な限り長い待機時間を実現します。 MEC の主な特性は次のとおりです。</p>
+
+
+  <ul>
+      <li>開発者が GitHub および Azure dev ops CI/CD&rsquo; ツールセットを使用して、顧客のオンプレミスでコンテナー ベースのアプリケーションを記述して実行できます。 一貫したプログラミング モデルを使用すると、Azure でアプリケーションを開発し、アプリケーションをアプリケーションにAzure Stack Edge。</li>
+      <li>Private Long-Term Evolution (LTE)、LTE ベースの市民ブロードバンド 無線サービス (CBRS)、今後の 5G テクノロジなどのワイヤレス テクノロジの統合。 MEC プラットフォームの一部として、モバイル仮想ネットワーク機能 (Evolved Packet Core)、デバイス統合、SIM 管理、無線アクセス ネットワークを提供するテクノロジイノベーションと提携しています。</li>
+      <li>MEC は Azure から管理されます。 プライベート モバイル ネットワークのデプロイと実行を簡略化するために、キュリングされた仮想ネットワーク機能 (VNF) イメージが Azure からダウンロードされます。 このプラットフォームでは、修正プログラムの適用、構成、監視など、VNFS のライフサイクル管理もサポートされています。</li>
+      <li>エンド エンド エンド ソリューションをネットワークにデプロイするマネージド サービス プロバイダーを含むパートナー エコシステム。</li>
+  </ul>
+
+
+  <p>初期の Technical Preview と MEC 統合のオプションに関心がある方は、 にお問い合わせください <a href="mailto:MEC-Networking@microsoft.com">MEC-Networking@microsoft.com</a>。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/490f9e49-2761-43e7-917b-33ef9a5efa59.png"><em><img alt="An image showing an overview of Azure Multi-edge Compute (MEC) partner ecosystem." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8769be0-c620-4918-9f12-f398bb04539c.png" style="border: 0px currentcolor; border-image: none; width: 1000px; height: 512px; display: inline; background-image: none;" title="Azure マルチエッジ コンピューティング (MEC) パートナー エコシステムの概要"></em></a></p>
+
+
+  <p align="center"><em>図 11。Azure マルチエッジ コンピューティング (MEC) パートナー エコシステムの概要</em></p>
+
+
+  <h2>楽しみ</h2>
+
+
+  <p>Azure への接続を支援し、ワークロードを保護し、優れたネットワーク エクスペリエンスを提供し、広範な監視を提供してデプロイと運用コストを簡素化し、顧客のサポートを改善します。 Microsoft Ignite では、お知らせの詳細を追加し、技術セッションを参照して詳細を <a href="https://myignite.techcommunity.microsoft.com/sessions?t=%257B%2522from%2522%253A%25222019-11-03T08%253A00%253A00-05%253A00%2522%252C%2522to%2522%253A%25222019-11-08T19%253A00%253A00-05%253A00%2522%257D&amp;q=networking&amp;s=%257B%2522name%2522%253A%2522translate.refine.label.sort.relevance%2522%252C%2522type%2522%253A0%257D" target="_blank">確認できます</a>。 引&rsquo;き続き革新的なネットワーク サービスとガイダンスを提供し、クラウドをフルに活用するのに役立ちます。 ネットワーク&rsquo; サービスによって有効にされた新しいシナリオについて学ぶことを楽しく思います。 いつものように、フィードバックをお寄せください。</p>
+
+
+  <hr>
+
+  <p><em>Azure。目的を持って発明する。</em></p>

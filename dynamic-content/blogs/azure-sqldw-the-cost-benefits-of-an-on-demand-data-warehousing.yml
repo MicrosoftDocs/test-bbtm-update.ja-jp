@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f7d1ddb8499f18d3a5c39bba6855c8111408384f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894487"
+Slug: azure-sqldw-the-cost-benefits-of-an-on-demand-data-warehousing
+Title: '#<a name="azure-sqldw-the-cost-benefits-of-an-on-demand-data-warehousing"></a>Azure #SQLDW、オンデマンド データ ウェアハウスのコスト上の利点'
+Summary: Azure SQL Data Warehouseは、お使SQLのバックボーンである Microsoft のクラウド分析プラットフォームEnterprise Data Warehouse。 このサービスは、お客様が弾力的に個別にスケーリング、コンピューティング、格納できるよう設計されています。 これは、EDW の最適化された調整されたパフォーマンスを実現するために、データ マートとキューブのハブとして機能します。
+Content: >-
+  <blockquote>
+
+  <p>以下に示す価格は、2017 年 12 月 18 日の米国東部 2 に基づきます。 価格の変更の更新については、価格<a href="https://azure.microsoft.com/pricing/details/analysis-services/">Azure Analysis Services</a><a href="https://azure.microsoft.com/pricing/details/sql-database/">、SQL Database</a>、および<a href="https://azure.microsoft.com/pricing/details/sql-data-warehouse/elasticity/">SQL Data Warehouseページを</a>参照してください。</p>
+
+  </blockquote>
+
+
+  <p><a href="https://azure.microsoft.com/services/sql-data-warehouse/">Azure SQL Data Warehouse</a>は、SQL&rsquo;のバックボーンである Microsofts Enterprise Data Warehouse。 このサービスは、お客様が弾力的に個別にスケーリング、コンピューティング、格納できるよう設計されています。 これは、EDW の最適化された調整されたパフォーマンスを実現するために、データ マートとキューブのハブとして機能します。 Azure SQL DW では、<a href="https://azure.microsoft.com/support/legal/sla/sql-data-warehouse/v1_0/">99.9%</a> の高可用性、PB スケール、コンプライアンス、高度なセキュリティ、アップストリームおよび<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security"></a>ダウンストリーム サービスへの緊密<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-overview-integrate"></a>な統合が保証され、ニーズに合ったデータ ウェアハウスを構築できます。 Azure SQL DW は唯一のデータ ウェアハウス サービスです。企業は、30 を超えるリージョンでグローバルな可用性を備え、あらゆる場所のデータから分析情報を得ることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eb9480ef-9fc8-40a1-a580-d38ad520c25a.png"><img alt="image" border="0" height="311" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/06a8c3b4-1dfc-4584-9b08-72b4a611a140.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="595"></a></p>
+
+
+  <p>これは、Azure でのハブ アンド スポーク データ ウェアハウス アーキテクチャの利点について詳しく説明した、このシリーズの最後のブログ記事です。 オンプレミスのハブ アンド スポーク アーキテクチャは、保守が難しく、コストが高かった。 クラウドでは、必要に応じてコンピューティング容量を必要に応じて動的に調整できるので、このようなアーキテクチャのコストははるかに低くなります。 Azure は、ニーズに合ったコスト最適化された高パフォーマンスのデータ ウェアハウスを作成できる唯一のプラットフォームです。 このブログ記事では、ハブアンドスポーク設計を活用してコストを最大 50% 節約しながら、分析ソリューションの全体的なパフォーマンスと分析情報の取得時間を増やす方法を確認できます。</p>
+
+
+  <p>データ プラットフォームMicrosoft Azure、ワークロードの分離、高度なセキュリティ、事実上無制限のコンカレンシーを使用して、必要なデータ ウェアハウス ソリューションを構築できます。 このすべては、オンデマンド のデータ ウェアハウスを構築するためにAzure Functions非常に低コストで実行できます。 Imagineソース システムから中央データ リポジトリを作成し、結合されたデータを複数の顧客 (ISV など)、サプライヤー (小売りなど)、または事業単位/部門にプッシュする会社です。 このケース スタディでは、この顧客は、作業期間中の午前 8 時から午後 8 時Data Warehouseに、そのサービスに対する強力なアクティビティを期待しています。 高いアクティビティ時間と低いアクティビティ時間の間のパフォーマンス比率は約 5 倍です。 圧縮後、キュSQLデータ ウェアハウスは 10 TB 大きく、ピーク時のニーズは 1,500 DWUs と予想されます。 ダッシュの乗車とレポートの場合、ソリューションはデータのAnalysis Services約 1% をキャッシュして、データを使用します。 DB エラスティック SQLまたは Azure Analysis Servicesにより、エンド ユーザー間のコンカレンシー、高度なセキュリティ、ワークロードの分離を追加できます。 SQL DB Elastic Poolは、Basic レベルで $0.60 から始まるデータベースあたりのコストで、幅広いパフォーマンスとコストを提供します。</p>
+
+
+  <p>次の図は、ハブ アンド スポーク モデルに移行するさまざまな利点を示しています。 Microsoft Azureは、独自のデータ ウェアハウスのニーズに合ったデータ ウェアハウスを構築する機能を提供する唯一のプラットフォームです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9dab1a2d-b53c-4e57-80c0-2599e2b426d2.png" target="_blank"><img alt="image" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ea5dd36-1be9-4d28-a51d-d733c6bee57a.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="759"></a></p>
+
+
+  <p style="text-align: center;"><em>図 1 - ハブ アンド スポーク アーキテクチャの利点</em></p>
+
+
+  <p>手順 1 では、これは従来のデータ ウェアハウスであり、データ ウェアハウスを構築Data Warehouse。 すべてのデータ ウェアハウスには固有の制限があります。この制限は、サービスに接続するユーザーの数が多い場合に発生します。 この例では、自動スケールと厳格なレベルのプロビジョニングを使用して、1 か月あたり 15,000 ドルを費やします。</p>
+
+
+  <p>手順 2 では、DW Azure Functions完全な弾力性を使用する方法SQLします。 その簡単な例では、時間トリガー関数を利用し、SQL DW をピーク時 (workdays 8AM-8PM) と残りの時間の 300 DW に設定します。 これは簡単な例ですが、パフォーマンス レベルについて深く理解し、自動スケーリングと自動一時停止/再時停止を追加して、データ ウェアハウスを自動スケールすることができます。 この例では、コストは 8,000 ドル/月に下がっています。</p>
+
+
+  <p>手順 3 は、DB またはデータベースを使用して DW をSQLできるカスタマイズのSQL例Azure Analysis Services。 拡張できないので、このような高レベルのカスタマイズを可能にするデータ ウェアハウスは他にはありません。 このモデルでは、データ ウェアハウスのコンカレンシーとパフォーマンスに事実上制限はありません。 実行できる操作の例を次に示します。</p>
+
+
+  <ul>
+   <li>事前集計クエリを使用したハイ パフォーマンスの対話型ダッシュ ボードとレポートの場合は、Azure Analysis Servicesが適切な選択肢です。</li>
+   <li>大規模な部門に高速で予測可能なパフォーマンスを提供しますか? SQL DB プレミアム Single Databaseは適切な選択肢です。</li>
+   <li>ISV の場合、無料のサブスクリプション レベルで対応する必要がある顧客が多数いますか?&nbsp;Basic SQL DB Elastic Pool、1 か月あたり $1 未満のデータベースあたりのコストに対応できます。</li>
+  </ul>
+
+
+  <p>データベースを使用<a href="https://github.com/Microsoft/sql-data-warehouse-samples/tree/master/arm-templates/sqlDwSpokeDbTemplate">SQL Data Warehouseハブ スポーク テンプレートにSQLします</a>。</p>
+
+
+  <p>次の例では、データ ウェアハウスのコストは、選択するレベルとサービスによって 10,000 ドル/月から 15.5,000 ドル/月まで異なります。 SQL DW からデータ マートまたはキャッシュ 層にパフォーマンスをオフロードすることで、DWU プロビジョニングを大幅に削減できます (同時実行性を向上させることができます)。 また、特定の時点でAzure Functionsのレベルの自動化を開始するために、アプリケーションを利用できます。 DW コンピューティング レベルのAzure Functions<a href="https://docs.microsoft.com/azure/sql-data-warehouse/manage-compute-with-azure-functions">を自動化SQL詳細を確認してください</a>。</p>
+
+
+  <p>手順 4 では、データ マートをキャッシュ用のデータ マートに接続することで、Azure Analysis Servicesを最適化できます。 この例では、コストは 16,000 ドルから 21.5,000 ドル/月であり、データ マートでパフォーマンスのニーズをオフロードするとさらに低くなります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27c73442-4203-410b-8295-49ee475c38c9.png"><img alt="image" border="0" height="286" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ee892fb-44cd-4f37-9300-0561cbbd1a44.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="578"></a></p>
+
+
+  <p style="text-align: center;"><em>図 2 - ハブアンドスポーク サービスを構築する利点のData Warehouse</em></p>
+
+
+  <p>まとめると、静的でモノリシックなデータ ウェアハウスから、1 か月あたり 28,000 ドルのコストがかかる静的なモノリシック データ ウェアハウスから、パフォーマンスを最適化し、50% のコスト削減の可能性がある数千人のユーザーがアクセスするエラスティック ハブ &amp; スポーク データ ウェアハウスに移動しました。 各サービスは、最適なデータ ウェアハウス エクスペリエンスを提供するために、引き続き互いに統合されます。</p>
+
+
+  <p>POC に関するサポートが必要な場合は、お問い合わせの詳細な情報要求を送信<a href="https://aka.ms/contactSQLDW">SQL Data Warehouse問い合わせください</a>。 Twitter でフォローして、最新の Azure SQL DW のニュースと機能に関する最新情報を確認してください<a href="https://twitter.com/AzureSQLDW">@AzureSQLDW</a>。 来週は、DW と DW の間のより深Azure Analysis ServicesをSQLします。</p>

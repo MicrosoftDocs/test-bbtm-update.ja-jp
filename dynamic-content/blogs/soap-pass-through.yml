@@ -1,0 +1,137 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b88ee6c671c16f097b1b5f6601fe20044f3f4b61
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892394"
+Slug: soap-pass-through
+Title: SOAP パススルー
+Summary: お客様の多くは、Azure API Management を使用して、REST/HTTP API に対して許可するのと同じ方法で SOAP API のプロキシを作成し、開発者ポータルの統合、分析、ポリシーなどを可能にする機能を要求しています。
+Content: >-
+  <p>お客様の多くは、Azure API Management を使用して、REST/HTTP API に対して許可するのと同じ方法で SOAP API のプロキシを作成し、開発者ポータルの統合、分析、ポリシーなどを可能にする機能を要求しています。この記事では、SOAP API を設定する方法と、新しい API のしくみについて説明します。</p>
+
+
+  <p>それでは&#39;始めましょう。 インポートする WSDL ファイルが必要になります。SOAP サービスは、Azure API Management の REST サービスのように最初から作成することはできません (少し複雑すぎます)。 使用する SOAP サービスの WSDL の URL を取得するか、 <a href="https://fazioapisoap.azurewebsites.net/FazioService.svc?singleWsdl">Orders SOAP サービスの例を使用します</a>。 WSDLs のサポート方法に関する注意点を次に示します。</p>
+
+
+  <ul>
+   <li>WS-I Basic Profile 1.1、SOAP 1.1、WSDL1.1、SOAP 1.2 を使用して定義された SOAP サービスがサポートされています。</li>
+   <li>現在、wsdl:import 要素を含む WSDL、または複数の部分を含むメッセージはサポートされていません</li>
+  </ul>
+
+
+  <p>パブリッシャー ポータルで、[API] メニューを参照し、[API のインポート] を &quot;選択します&quot;。 表示される画面で、WADL、Swagger、または WSDL からインポート形式を選択できます。</p>
+
+
+  <p>[WSDL] を選択し、リンクを貼り付けるか、WSDL ファイルを参照します。 API に URL サフィックス (注文など) を付け、必要に合って製品に追加します (&quot;&quot;開発者ポータルでテストできるよう、この例を製品に追加します)。 [保存&#39;] を&#39;。</p>
+
+
+  <p>このデモに表示される次の画面は、WSDL ファイルに複数のサービス エンドポイント (&quot;&quot;&quot;&quot;ポートの種類またはインターフェイス) が定義されている場合に発生します。 SOAP API を他の API と同様の方法で処理するには、その中で定義されているインターフェイスの 1 つのみをインポートする必要があります (他のインターフェイスは個別の API としてインポートできます)。 [FazioService::basic] を選択して続行します。</p>
+
+
+  <p>API Management SOAP API が作成されます。 作成されると、通常の API ダッシュボードが表示されます。ただし、これが SOAP API を示すアイコンが表示されます。 ウィンドウを参照すると、同様のアイコンが表示開発者ポータル。</p>
+
+
+  <p>この開発者ポータル Orders API をクリックすると、生成した操作とドキュメントを確認できます。 SOAP API で定義されている SOAP アクションはすべて、REST API の操作と同様に処理されます。各操作のスキーマと SOAP メッセージの例を確認できます。 また、API をテストする場合と同じ方法でREST API。 &quot;[GetOpenOrders] をクリック&quot;し&quot;、[試&quot;してみる] ボタンをクリックすると、要求の例が表示されます。 GetOpenOrders の場合は、顧客番号 ( &quot;cust&quot; タグの間) &quot;を 1001&quot; に変更して、応答の例を取得します。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/475d4317-0730-4933-a23f-040e6bb6b024.png"><img alt="clip_image002" border="0" height="352" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ead4e290-ff2c-43df-b71b-b0e7287e033e.png" style="display: inline; background-image: none;" title="clip_image002" width="1251"></a></p>
+
+
+  <p>最後に、Publisher ポータルに戻り、[分析] タブを確認します。GetOpenOrders に対して行った呼び出しを確認できます。 Azure API Management SOAP API の分析は、REST API と同じように機能します。</p>
+
+
+  <p>SOAP の使用に関する簡単な注意事項。 まず、ポリシー式で SOAP 本文にアクセスする機能を提供します。</p>
+
+
+  <pre>
+
+  &lt;policies&gt;
+
+
+  &lt;inbound&gt;
+
+
+  &lt;send-request mode=&quot;copy&quot; response-variable-name=&quot;Request&quot; timeout=&quot;5&quot; ignore-error=&quot;false&quot;&gt;
+
+
+  &lt;set-url&gt;https://myservice.test/test&lt;/set-url&gt;
+
+
+  &lt;set-method&gt;POST&lt;/set-method&gt;
+
+
+  &lt;set-body&gt;@(context.Request.Body.AsSoap(true).Body.Contents.ToString())&lt;/set-body&gt;
+
+
+  &lt;/send-request&gt;
+
+
+  &lt;base /&gt;
+
+
+  &lt;/inbound&gt;
+
+
+  &lt;backend&gt;
+
+
+  &lt;base /&gt;
+
+
+  &lt;/backend&gt;
+
+
+  &lt;outbound&gt;
+
+
+  &lt;base /&gt;
+
+
+  &lt;/outbound&gt;
+
+
+  &lt;/policies&gt;</pre>
+
+
+  <p>また、パブリッシャー ポータルではなく、管理 API を使用して WSDLs をアップロードすることもできます。</p>
+
+
+  <p>サービス名とエンドポイント名を指定せずに要求する:</p>
+
+
+  <p>https://myservice.management.current.int-azure-api.net/apis/soapapi?import=true&amp;p ath=soapapiapi-version&amp;=2014-02-14-preview</p>
+
+
+  <p>HTTP 動詞: Put</p>
+
+
+  <p>Headers:</p>
+
+
+  <p>Content-Type application/wsdl+xml</p>
+
+
+  <p>Management &lt;API の承認 SAS トークン&gt;</p>
+
+
+  <p>本文: WSDL の内容</p>
+
+
+  <p>サービス名とエンドポイント名を指定した要求:</p>
+
+
+  <p>https://myservice.management.current.int-azure-api.net/apis/soapapi?import=true&amp;p ath=soapapiwsdlServiceName&amp;=MyApiwsdlEndpointName&amp;=MySoapapi-version&amp;=2014-02-14-preview</p>
+
+
+  <p>HTTP 動詞: Put</p>
+
+
+  <p>Headers:</p>
+
+
+  <p>Content-Type application/wsdl+xml</p>
+
+
+  <p>Management &lt;API の承認 SAS トークン&gt;</p>
+
+
+  <p>本文: WSDL の内容</p>

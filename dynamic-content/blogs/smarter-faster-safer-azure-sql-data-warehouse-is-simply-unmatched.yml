@@ -1,0 +1,167 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f9168a3601c0c2114a40e0d2c79694e10a825af0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892410"
+Slug: smarter-faster-safer-azure-sql-data-warehouse-is-simply-unmatched
+Title: 'よりスマートで高速で安全: Azure SQL Data Warehouseは一致しない'
+Summary: 現在、Azure SQL Data Warehouse が最新の GigaOm ベンチマーク レポートで他のクラウド プロバイダーを上回ったという、注目を集めしたいと思っています。
+Content: >-
+  <p>現在、Azure SQL Data Warehouse が最新の GigaOm ベンチマーク レポートで他のクラウド プロバイダーを上回ったという、注目を集め<a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/compare/" target="_blank">したいと思っています<em></em></a>。</p>
+
+
+  <p>これは、顧客が必要とする新機能を提供し、顧客が可能な限り最高の価値で業界最高のパフォーマンスを得る一方で、価格を下ろすことに対する、容けレスなイノベーションと、イノベーションに焦点を当てた実行の結果です。 <strong>この 1 年の間に、SQL Data Warehouse</strong>は、お客様に強化された速度、柔軟性、セキュリティを提供する 130 以上の機能をリリースしました。 本日は、業界のリーダーを引き続き強化する 3 つのSQL Data Warehouse発表します。</p>
+
+
+  <ul>
+   <li>他に類を見ないクエリパフォーマンス</li>
+   <li>インテリジェントなワークロード管理</li>
+   <li>一致しないセキュリティとプライバシー</li>
+  </ul>
+
+
+  <p>このブログでは、&rsquo;これらの新機能の技術的な機能と、最も重要なのは、今日の使用を開始する方法について詳しく見て説明します。</p>
+
+
+  <h2>他に類を見ないクエリパフォーマンス</h2>
+
+
+  <p>2019 年 3 月のリリースでは、新しく利用可能な機能のコレクションにより、以前のバージョンの Azure SQL Data Warehouse と比較してワークロードのパフォーマンスが最大<strong> 22</strong> 倍向上しました。これは、<a href="https://azure.microsoft.com/mediahandler/files/resourcefiles/data-warehouse-in-the-cloud-benchmark/FINAL%20data-warehouse-cloud-benchmark.pdf" target="_blank">TPC-H ベンチマーク レポートと TPC-DS</a> ベンチマーク レポート<a href="https://azure.microsoft.com/mediahandler/files/resourcefiles/cloud-data-warehouse-performance-testing/FINAL%20GigaOm%20Report_cloud-data-warehouse-performance-testing.pdf" target="_blank"></a>の両方でリーダーの立場に貢献しました。</p>
+
+
+  <p>これは、一&rsquo;夜にして発生したばかりでなかったのです。 SQL Server のような業界をリードするデータベース システムを構築してきた数十年の経験を持つ Azure SQL Data Warehouse&rsquo; は、世界最大のクラウド アーキテクチャの上に構築されています。</p>
+
+
+  <p>クエリのパフォーマンスを向上させる主なイノベーションは次のとおりです。</p>
+
+
+  <ul>
+   <li>クエリ オプティマイザーの機能強化</li>
+   <li>瞬時データ移動</li>
+   <li>その他の高度な分析関数</li>
+  </ul>
+
+
+  <h3>クエリ オプティマイザーの機能強化</h3>
+
+
+  <p>クエリ オプティマイザーは、任意のデータベースで最も重要なコンポーネントの 1 つです。 クエリを最適に実行する方法を最適に選択すると、大幅な改善が可能になります。 複雑な分析クエリを実行する場合、分散環境で実行される操作の数が重要です。 繰り返しサブクエリなどの冗長な計算を排除する機会は、クエリのパフォーマンスに直接影響します。 たとえば、次のクエリは、最新のクエリ オプティマイザーの機能強化を使用して、13 から 5 の操作に減らされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fac566e1-dcbc-4c8c-82e5-01e498a8b00b.gif"><img alt="Animated GIF displaying Query Optimizer enhancements" border="0" height="395" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd979dbf-a5d7-4a96-8b2d-4a96ce7ca6e0.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クエリ オプティマイザーの機能強化" width="640"></a></p>
+
+
+  <h3>瞬時データ移動</h3>
+
+
+  <p>分散データベース システムの場合、最も効率的なデータ移動メカニズムを備えるのは、優れたパフォーマンスを実現する上で重要な材料です。 インスタント データ移動は、第 2 世代の Azure SQL Data Warehouse の立ち上げで導入されました。 即時データ移動のパフォーマンスを向上させるために、ブロードキャストとパーティションのデータ移動操作が追加されました。 さらに、データ移動操作中の文字列の処理方法に関するパフォーマンスの最適化により、最大 2 倍の改善が <strong>実現されました</strong>。</p>
+
+
+  <h3>高度な分析関数</h3>
+
+
+  <p>豊富な一連の分析関数を使用すると、複数のディメンションにSQLを記述する方法が簡単になります。これは、クエリを効率化するだけでなく、パフォーマンスを向上させます。 このような関数のセットは、GROUP BY ROLLUP、GROUPING()、GROUPING_IDです。 以下のオンライン ドキュメントの GROUP BY クエリの例を参照してください。</p>
+
+
+  <pre>
+
+  SELECT Country
+
+  ,Region
+
+  ,SUM(Sales) AS TotalSales
+
+  FROM Sales
+
+  GROUP BY ROLLUP(Country, Region)
+
+  ORDER BY Country
+
+  ,Region</pre>
+
+
+  <h2>インテリジェントなワークロード管理</h2>
+
+
+  <p>Azure SQL Data Warehouse の新しいワークロード重要度機能を使用すると、データ ウェアハウス システムで実行する必要があるワークロードに対して、事前に設定できます。 ワークロードの重要度により、管理者はビジネス要件 (エグゼクティブ ダッシュボードクエリ、ELT 実行など) に基づいてワークロードに優先順位を付ける機能を提供します。</p>
+
+
+  <h3>ワークロード分類</h3>
+
+
+  <p>すべてはワークロード分類から始まります。 SQL Data Warehouse、管理者が定義できる一連の条件に基づいて要求を分類します。 一致する分類子がない場合は、既定の分類子が選択されます。 SQL Data Warehouseでは、SQL クエリ レベル、データベース ユーザー、データベース ロール、Azure Active Directory ログイン、Azure Active Directory グループなど、さまざまなレベルでの分類がサポートされ、要求がシステム定義のワークロード グループ分類にマップされます。</p>
+
+
+  <h3>ワークロードの重要度</h3>
+
+
+  <p>各ワークロード分類には、重要度<strong></strong>の 5 つのレベル (low、 <em>below_normal、normal、above_normal、high) のいずれかを割り当てることができます</em>。 コンパイル、ロックの取得、および実行中のリソースへのアクセスは、関連する要求の重要度に基づいて優先順位が付けられる。</p>
+
+
+  <p>次の図は、ワークロードの分類と重要度の関数を示しています。</p>
+
+
+  <p><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4390f4e5-0b54-480f-a2c1-e1d6d4e657bb.gif"><img alt="ADW_GIF2_v3H" border="0" height="330" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/96fb3703-c009-4d34-9b69-412ebe0bc624.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ADW_GIF2_v3H" width="400"></a></strong></p>
+
+
+  <h3>重要度を持つ要求の分類</h3>
+
+
+  <p>要求の分類は、新しい CREATE WORKLOAD CLASSIFIER 構文を使用して行われます。 ExecutiveReports ロールのログインを重要度にマップし、AdhocUsers ABOVE_NORMALを重要度にマップする例をBELOW_NORMALします。 この構成では、ExecutiveReports ロールのメンバーは、AdhocUsers ロールのメンバーより前にリソースにアクセスできるので、クエリがすぐに完了します。</p>
+
+
+  <pre>
+
+  CREATE WORKLOAD CLASSIFIER ExecReportsClassifier
+
+     WITH (WORKLOAD_GROUP = &#39;mediumrc&#39;
+
+          ,MEMBERNAME     = &#39;ExecutiveReports&#39;
+
+          ,IMPORTANCE     =  above_normal);
+
+   
+
+  CREATE WORKLOAD CLASSIFIER AdhocClassifier
+
+      WITH (WORKLOAD_GROUP = &#39;smallrc&#39;
+
+           ,MEMBERNAME     = &#39;AdhocUsers&#39;
+
+           ,IMPORTANCE     =  below_normal);</pre>
+
+
+  <p>ワークロードの重要度の詳細については、「分類の重要度<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-workload-importance" target="_blank"></a>」と「<a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-workload-classifier-transact-sql?view=azure-sqldw-latest" target="_blank">CREATE WORKLOAD CLASSIFIERdocuments</a> 」を参照してください。</p>
+
+
+  <h2>一致しないセキュリティとプライバシー</h2>
+
+
+  <p>データ ウェアハウスを使用する場合、多くの場合、お客様にはセキュリティとプライバシーに関する質問があります。 分析空間で高く尊重されている思考のリーダーである Donald Farmer が示す通り、Azure SQL Data Warehouse には、市場で最も高度<a href="https://info.microsoft.com/ww-landing-security-and-privacy-with-CDW.html" target="_blank"></a>なセキュリティとプライバシーの機能があります。 これは、&rsquo;偶然には実現されません。 実際、SQL Data Warehouse のコア テクノロジである SQL Server は、NIST 脆弱性データベースの過去 8 年間で最も脆弱なデータベースでした。</p>
+
+
+  <p>データの検出と分類は、SQL Data Warehouse最新のセキュリティとプライバシー機能の 1 つです。 この機能を使用すると、機密データを含む可能性のある列を自動的に検出し、列に関連付けるメタデータ タグを推奨し、それらのタグをテーブルに永続的にアタッチできます。</p>
+
+
+  <p>これらのタグは、機密データに対するクエリの監査ログに表示されるだけでなく、この機能をサポートするクライアントのクエリ結果と共に含まれます。</p>
+
+
+  <p>データ<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-data-discovery-and-classification" target="_blank">Azure SQL Database分類に関する記事&amp;では</a>、この機能を有効にする方法について説明Azure portal。 この記事は、Azure SQL Database用に記述されたが、現在は同じ方法でSQL Data Warehouse。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>詳細については<a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/" target="_blank">、Azure SQL Data Warehouse ページ</a>を参照してください。</li>
+   <li>概要 <a href="https://azure.microsoft.com/en-us/free/sql-data-warehouse/" target="_blank">Azure アカウントを使用SQL Data Warehouseします</a>。</li>
+   <li>クラウド データ <a href="https://info.microsoft.com/ww-landing-security-and-privacy-with-CDW.html" target="_blank">ウェアハウスの 7 つの重要なセキュリティとプライバシーの原則について説明します</a>。</li>
+  </ul>
+
+
+  <h2>Azure はデータ分析に最適な場所です</h2>
+
+
+  <p>Azure は引き続き分析に最適なクラウドです。  <a href="https://aka.ms/simply-unmatched" target="_blank">Azure のanalytics が単に一致しない理由の詳細を確認してください</a>。</p>

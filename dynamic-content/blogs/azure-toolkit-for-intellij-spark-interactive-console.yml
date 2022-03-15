@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e0d3bfac6892e3efea2b66bdd4df07f1cc956878
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889256"
+Slug: azure-toolkit-for-intellij-spark-interactive-console
+Title: Azure Toolkit for IntelliJ – Spark Interactive Console
+Summary: Azure Toolkit for IntelliJ での Spark Interactive Console のリリースを公開して、お知Toolkitうご覧ください。 この新しいコンポーネントは、Spark ジョブの作成を容易にし、IntelliJ 内のシェルのような環境で対話的にコードを実行できる予定です。
+Content: >-
+  <p align="justify">Azure Toolkit for IntelliJ の <a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-intellij-tool-plugin#spark-console" target="_blank">Spark Interactive Console</a> のリリースを公開して、お知Toolkitうご覧ください。 この新しいコンポーネントは、Spark ジョブの作成を容易にし、IntelliJ 内のシェルのような環境で対話的にコードを実行できます。</p>
+
+
+  <p align="justify">Spark コンソールには、 <strong>Spark ローカル コンソールと</strong> <strong>Spark Livy Interactive Session が含まれています</strong>。 Spark コンソールを実行すると、SparkSession と SparkContext のインスタンスが Spark シェルのように自動的にインスタンス化されます。 spark &#39;を&#39;して SparkSession にアクセスし、&#39;sc&#39; を使用して SparkContext にアクセスできます。 Spark ローカル コンソールを使用すると、コードを対話形式で実行し、コード ロジックをローカルで検証できます。 クラスターに送信する前に、プログラミング変数を確認し、他のスクリプト操作をローカルで実行することもできます。 Spark Livy 対話型セッションにより、クラスターとの対話型通信チャネルが確立されます。Spark ジョブのプログラミング中に、ファイル スキーマの確認、データのプレビュー、アドホック クエリの実行を行います。 Livy 対話型セッションをさまざまな Spark クラスターに簡単に切り替えすることもできます。</p>
+
+
+  <p align="justify">Spark コンソールには、 <strong>Scala プログラミング用の言語 </strong>サービスが組み込みされています。 IntelliSense やオートコンプリートなどの言語サービス機能を利用して、Spark オブジェクト (Spark コンテキストと Spark セッション) のプロパティの検索、Hive メタデータのクエリ、関数シグネチャの確認を行います。</p>
+
+
+  <p>Spark コンソールへの選択の送信 <strong>(Ctrl + Shift&nbsp; + S)</strong> という新しい機能が追加され、Spark コンソールにアクセスするためのユーザー エクスペリエンスが簡略化されました。 メインの Scala プロジェクトから、強調表示された 1 行のコードまたはコード ブロックをコンソールに送信できます。 この機能を使用すると、Spark コンソールでのコードのコーディングと検証またはテストというコンテキストをスムーズに切り替えます。</p>
+
+
+  <h2>新機能の概要</h2>
+
+
+  <ul>
+   <li>Spark ローカル コンソールを実行する</li>
+   <li>Spark Livy 対話型セッション コンソールを実行する</li>
+   <li>コンソールで有効な Scala の言語サービス</li>
+   <li>選択したコードをコンソールに送信する</li>
+  </ul>
+
+
+  <p align="justify">Spark コンソールの追加は、バッチ ジョブ処理以外にも機能が拡張Toolkit Azure Toolkitにとって重要な一歩です。 この更新では、ローカル クラスターと開発/テスト クラスター間の対話型クエリもサポートされています。</p>
+
+
+  <p align="justify">コードを実行するには、 <strong>Ctrl + Enter</strong> キーを押したまま、上矢印と下矢印を使用して、以前に実行したコードの履歴を参照します。</p>
+
+
+  <p align="justify"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d20ca612-674d-4c8c-95b4-1d9f692cf919.png"><img alt="Spark Local Console" border="0" height="188" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a97d336-6a83-4b9e-8c4b-32f2420634c7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Spark ローカル コンソール" width="600"></a></p>
+
+
+  <p align="center"><img alt="Spark Livy Interactive Session Console" border="0" height="203" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/interactive-console-result.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Spark Livy 対話型セッション コンソール" width="596"></p>
+
+
+  <h2>アクセス方法</h2>
+
+
+  <p>Spark コンソールは、[ツール] メニューから、またはコンテキスト メニューを右クリックして Scala ファイルから簡単に起動できます。</p>
+
+
+  <p align="justify"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5186ec5-73d1-4e7a-a393-a49e69f9e45d.png"><img alt="Tools menu" border="0" height="200" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9f499012-00a0-4a27-ab04-6cbd7628df09.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="[ツール] メニュー" width="600"></a></p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a5b7bf2-2f1d-46a1-bd7b-708658a152a0.png"><img alt="How to access the tools menu from the Scala file" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e62ef033-a79b-4e83-8240-74cdde97b8e9.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Scala ファイルからツール メニューにアクセスする方法" width="322"></a></p>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+   <li>概要ドキュメント ページの「ユーザー マニュアル &ldquo;<a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-intellij-tool-plugin#spark-console" target="_blank">- HDInsight IntelliJ プラグイン</a>&rdquo; 」を参照してください。</li>
+   <li>Azure Toolkit &ldquo;<a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-intellij-tool-debug-remotely-through-ssh" target="_blank">for IntelliJ</a> を使用して Spark &rdquo; アプリケーションをデバッグする方法については、このドキュメントを参照してください。</li>
+   <li>Channel 9 のデモ「&ldquo;<a href="https://channel9.msdn.com/Series/AzureDataLake/Debug-HDInsight-Spark-Applications-with-Azure-Toolkit-for-IntelliJ" target="_blank">Azure Toolkit for IntelliJ を使用して HDInsight</a> クラスターで Spark アプリケーションをリモートでデバッグする」をご覧ください。&rdquo;</li>
+  </ul>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>ご意見やフィードバックをお待ちしております。 機能の要求、お客様からの質問、または提案がある場合は、 にメモをお送りください <a href="mailto:hdivstool@microsoft.com">hdivstool@microsoft.com</a>。 バグの送信については、テンプレートを使用して新しいチケットを開きます。</p>

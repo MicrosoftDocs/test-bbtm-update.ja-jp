@@ -1,0 +1,223 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bbbcfb0475c1d559f492483fbd7fd323c2df5897
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893586"
+Slug: azure-n-series-preview-availability
+Title: Azure N シリーズプレビューの可用性
+Summary: 本日、パブリッククラウドの最速 Gpu である Azure N シリーズ Virtual Machines がプレビューで利用できるようになったことを発表しました。
+Content: >-
+  <p>本日は、Azure N シリーズ Virtual Machines (パブリッククラウドの最速 Gpu) がプレビューで利用できるようになったことを発表しまし &rsquo; た。 N シリーズのインスタンスは、NVIDIA &rsquo; s 最先端の gpu によって有効になります。これにより、gpu アクセラレータを使用したワークロードを実行し、視覚化することができます。 これらの強力なサイズは、Azure から予想される機敏性によってもたらされ、分単位で料金が発生します。</p>
+
+
+  <p>N シリーズの Vm は2つのカテゴリに分けられています。 NC-Series (計算中心の Gpu) では、CUDA または OpenCL を使用して、コンピューティング集中型の HPC ワークロードを実行できます。 この SKU は Tesla K80 Gpu を搭載しており、パブリッククラウドで利用可能な最速のコンピューティング GPU を提供します。 さらに、他のプロバイダーとは異なり、これらの新しい Sku では、独立したデバイス割り当て (DDA) によって Gpu が公開されるため、ベアメタルのパフォーマンスが低下します。 エネルギー調査アプリケーション、クラッシュシミュレーション、レイトレースレンダリング、ディープラーニングなど、多くのシナリオで CUDA を使用してデータをより高速に高速処理できるようになりました。 Tesla K80 は、倍精度で最大 2.91 テラフロップ、単精度で最大 8.93 テラフロップのパフォーマンスを実現する、デュアル GPU 設計の 4992 CUDA コアを提供します。 使用できる Tesla K80 GPU サイズは次のとおりです。</p>
+
+
+  <table border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td width="71">&nbsp;</td>
+              <td width="210">
+              <p><b>NC6</b></p>
+              </td>
+              <td width="210">
+              <p><b>NC12</b></p>
+              </td>
+              <td width="210">
+              <p><b>NC24</b></p>
+              </td>
+          </tr>
+          <tr>
+              <td width="71">
+              <p>コア</p>
+              </td>
+              <td width="210">
+              <p>6</p>
+
+              <p>(E5-2690v3)</p>
+              </td>
+              <td width="210">
+              <p>12</p>
+
+              <p>(E5-2690v3)</p>
+              </td>
+              <td width="210">
+              <p>24</p>
+
+              <p>(E5-2690v3)</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="71">
+              <p>GPU</p>
+              </td>
+              <td width="210">
+              <p>1 x K80 GPU (1/2 物理カード)</p>
+              </td>
+              <td width="210">
+              <p>2 x K80 GPU (1 つの物理カード)</p>
+              </td>
+              <td width="210">
+              <p>4 x K80 GPU (2 つの物理カード)</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="71">
+              <p>メモリ</p>
+              </td>
+              <td width="210">
+              <p>56 GB</p>
+              </td>
+              <td width="210">
+              <p>112 GB</p>
+              </td>
+              <td width="210">
+              <p>224 GB</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="71">
+              <p>ディスク</p>
+              </td>
+              <td width="210">
+              <p>380 GB SSD</p>
+              </td>
+              <td width="210">
+              <p>680 GB SSD</p>
+              </td>
+              <td width="210">
+              <p>1.44 TB SSD</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>コンピューティングに重点を置いた NC シリーズに加えて、NV-Series は視覚化に重点を置いています。 データの移動は、従来、クラウドで生成された大規模なデータセットを使用した HPC シナリオでは困難でした。 Azure NV シリーズを使用すると、デスクトップアクセラレータアプリケーションや仮想デスクトップ向けに、 &rsquo; azure で Tesla M60 gpu と NVIDIA GRID を使用できるようになります。 Azure の強力な視覚化 Gpu を使用すると、グラフィックを多用するワークフローを視覚化して優れたグラフィックス機能を実現し、エンコードやレンダリングなどの単一の精度のワークロードを実行することができます。 Tesla M60 は、1080p H.264 のストリームを最大 36 備えたデュアル GPU 設計の 4096 CUDA コアを提供します。 使用できる Tesla M60 GPU サイズは次のとおりです。</p>
+
+
+  <table border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td width="79">&nbsp;</td>
+              <td width="184">
+              <p><b>NV6</b></p>
+              </td>
+              <td width="172">
+              <p><b>NV12</b></p>
+              </td>
+              <td width="188">
+              <p><b>NV24</b></p>
+              </td>
+          </tr>
+          <tr>
+              <td width="79">
+              <p>コア</p>
+              </td>
+              <td width="184">
+              <p>6</p>
+
+              <p>(E5-2690v3)</p>
+              </td>
+              <td width="172">
+              <p>12</p>
+
+              <p>(E5-2690v3)</p>
+              </td>
+              <td width="188">
+              <p>24</p>
+
+              <p>(E5-2690v3)</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="79">
+              <p>GPU</p>
+              </td>
+              <td width="184">
+              <p>1 x M60 GPU (1/2 物理カード)</p>
+              </td>
+              <td width="172">
+              <p>2 x M60 GPU (1 つの物理カード)</p>
+              </td>
+              <td width="188">
+              <p>4 x M60 GPU (2 つの物理カード)</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="79">
+              <p>メモリ</p>
+              </td>
+              <td width="184">
+              <p>56 GB</p>
+              </td>
+              <td width="172">
+              <p>112 GB</p>
+              </td>
+              <td width="188">
+              <p>224 GB</p>
+              </td>
+          </tr>
+          <tr>
+              <td width="79">
+              <p>ディスク</p>
+              </td>
+              <td width="184">
+              <p>380 GB SSD</p>
+              </td>
+              <td width="172">
+              <p>680 GB SSD</p>
+              </td>
+              <td width="188">
+              <p>1.44 TB SSD</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p><a href="https://www.nvidia.com/page/home.html" target="_blank">NVIDIA</a>と提携して、最大限のパフォーマンスを実現するために仮想マシンが最適化されていることを確認するなど、これらの機能を Azure に提供してきまし &rsquo; た。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;Azure N シリーズでは、世界中 &rsquo; で最も困難な問題を解決するために、最新の Da Vincis や Einsteins に対して GPU コンピューティングを利用できるようになりました。 NVIDIA Gpu によって加速される400を超える業界アプリケーションを使用して、Microsoft と NVIDIA は、世界&#39;の大規模なユーザーにサービスを提供し、シミュレーション、人工知能、専門家によるすばらしいエクスペリエンスを提供しています。 &rdquo;&ndash;Buck、高速コンピューティング、NVIDIA</p>
+
+  </blockquote>
+
+
+  <p>このプレビューでは、特化されたハードウェアのこのにじみのエッジに対する最初のパブリッククラウドサポートを提供しています。 リリースパートナーの1人は、これらのインスタンスで <a href="https://www.teradici.com/" target="_blank">Teradici</a> の PCoIP テクノロジを検証し、すばらしい結果を得ました。 実際、このプレビューでは、AutoCAD や Adobe プレミア Pro などのデスクトップアクセラレータアプリケーションの実行など、VDI 型のシナリオに Teradici &rsquo; s 最先端のプロトコルを利用できます。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;&rsquo;Microsoft は、Azure クラウドの新しい N シリーズインスタンス (Dan Cordingley、CEO、Teradici) に対して、業界トップレベルの信頼された Teradici PCoIP テクノロジを選択し &rdquo; ていることを嬉しく思いしました。 &ldquo;PCoIP と Azure N シリーズの Vm の組み合わせは、低ロスのイメージングと100% の色の精度で完全なユーザーエクスペリエンスを実現するために最適化された &rsquo; 、受賞した式です。 Azure N シリーズの視覚化レイヤーとして、PCoIP は、クラウドデータセットに対してかつてないコラボレーションを実現し、複数の地理的リージョン間でグラフィカルにリッチなアプリケーションを有効にすることによって、デジタル変革を支援します。これは、完全に暗号化されたピクセルストリームのセキュリティを強化したものです。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p>さらに、このテクノロジを使用すると、azure でのシミュレーションをリアルタイムで視覚化することができます。これには、Azure でモデルを変更し、リアルタイムでシミュレートする機能が含まれます。 これにより、クラウド &rdquo; の真の HPC で &ldquo; ループが終了し、Azure でインフラストラクチャとパイプライン全体を実行できるようになります。</p>
+
+
+  <p>私たち &rsquo; は、BAFTA をはじめとするさまざまな早期導入を行っています。また、ロンドンの <a href="https://jellyfishpictures.co.uk/" target="_blank">Jellyfish の写真</a>で、受賞歴のある studio を使用しています。 ロンドンでは100アーティスト、さまざまな地域では他のアーティストがあります。 現在のところ、リモートアーティストは、studio にいなくても &rsquo; デスクトップアクセラレータアプリケーションにアクセスできるように、いくつかの課題に直面しています。 さらに、現在、 &rsquo; Azure の CPU ベースの仮想マシンでのレンダリングが行われていますが、ピーク時には4k と8k ですが、GPU ベースのレンダリングエンジンを使用してレンダリングする必要があります。これにより、レンダリング時間を複数のフォールドで切りたいだけでなく、より良い結果を得ることができます。</p>
+
+
+  <p>Azure N シリーズ Jellyfish &rsquo; のアーティストは、NV インスタンスを利用して、Autodesk Maya などの GPU およびグリッド高速化アプリケーションを実行できます。 さらに、 &rsquo; Octane や Redshift などの CUDA ベースの射線トレースエンジンに NC インスタンスを使用して、レンダリング時間を5倍に短縮できます。 これにより、最先端の視覚効果とシミュレーションを生成して配信するビジネス価値を重視することで、studio の効率と生産性を向上させることができます。</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;Azure を使用すると、必要に応じて、運用ニーズに合わせて動的に拡張できます。 オンプレミスを使用する場合、シームレスなハイブリッドモデルで実行できるため、現在のインフラストラクチャ &rsquo; では十分ではないときにギャップを埋めることができます。 これは、CPU ベースのソリューションと GPU ベースのソリューションの両方に当てはまります。 結果として、プロビジョニングを超えることなく実稼働期限が満たされます。 &rdquo;&ndash;Jeremy Smith、CTO、Jellyfish Pictures</p>
+
+  </blockquote>
+
+
+  <p>これらの顧客シナリオは、この新しいオファリングによって解決されることを期待しています。 プレビューは最初に南部リージョンで開始され、その年の終わりの前に一般提供が開始されるため、今後2か月以内に追加のリージョンに拡張されます。</p>
+
+
+  <p><a href="https://gpu.azure.com/" target="_blank">プレビューでは、関心を登録</a>することをお勧めします。 N シリーズのテクノロジとユースケースの詳細については、最近の <a href="https://channel9.msdn.com/Shows/Azure-Friday/Leveraging-NVIDIA-GPUs-in-Azure" target="_blank">Channel 9 のビデオ</a>をご覧ください。 価格情報については、 <a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/" target="_blank">Virtual Machines の価格</a>に関するページを参照してください。</p>
+
+
+  <p>私たち &rsquo; は、仮想マシンの最新のメンバーを手にして、Azure で gpu を使用して解決できる新しいユースケースやシナリオ &rsquo; を確認することを待っていません。</p>

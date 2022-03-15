@@ -1,0 +1,38 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 50bb49f510a50dc8dddea25f740157a9b8e96e3f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893349"
+Slug: the-green-team-solves-high-risk-systemic-security-issues-for-azure
+Title: 'グリーン チームは、リスクが高く、システム的なセキュリティの問題を解決Microsoft Azure '
+Summary: 以前は、侵害の発生を防ぐことだけに集中するのではなく、侵害が発生する可能性と発生する可能性を想定する重大性について長い間話しました。 2009 年にさかのぼって、このセキュリティ戦略は侵害の想定と呼ばれ、これまで Microsoft の 2 つのコア グループ (Red Team (攻撃者) と Blue Team (Defenders) によって実行されています。 次に、グリーン チーム (フィクサー) を紹介します。
+Content: >-
+  <p>過去には、&rsquo;侵害の発生を防ぐことだけに集中するのではなく、侵害が発生する可能性と発生する可能性を想定する重大性について長い間話<a href="https://www.cso.com.au/article/528748/red_vs_blue_security_response_war_room/" target="_blank">しました。</a> 2009 年にさかのぼって、侵害の想定と呼ばれるこのセキュリティ戦略は、<a href="https://azure.microsoft.com/en-us/resources/videos/red-vs-blue-internal-security-penetration-testing-of-microsoft-azure/" target="_blank">これまで Microsoft</a> の 2 つのコア グループ (Red <a href="https://azure.microsoft.com/en-us/blog/red-teaming-using-cutting-edge-threat-simulation-to-harden-the-microsoft-enterprise-cloud/" target="_blank">Team (攻撃者) と Blue Team (</a>Defenders) &nbsp;によって実行されています。 次に、グリーン チーム (フィクサー) を紹介します。</p>
+
+
+  <p>2016 年に引き続き Assume Breach を進化させ、この概念と、Microsoft Azure の Green Teaming の機能の両方を確立しました。 業界第一のグリーン チームは、Azure のリスクの高い、システム的なセキュリティの脆弱性のクラスの修復と解決に重点を置く専用のリソースで構成されています。 グリーン チームは、Red および Blue Teams &ndash; &ndash; と密接に関連して取り組み、侵害を可能にするか、または侵害につながるものに特に焦点を当て、根本原因分析を実行して、これらの問題を大規模に特定して対処するリスクの高いシステムセキュリティの問題を理解します。 チームは、Azure をセキュリティで保護し、顧客のデータとワークロードを保護するのに役立つ最新のベスト プラクティスを継続的に実装しています。 実際のベスト プラクティスの&rsquo;一部を確認するために、このチームがソース コードに格納されている資格情報を保護する方法の例を見てみるために説明します。</p>
+
+
+  <p>ソースの資格情報は、リスクが高く、システム的なセキュリティの問題です。 Red Teams は、実際の敵対者と同様に、ソース コードでハードコードされた資格情報など、漏洩した資格情報 (パスワード、API <a href="https://searchsecurity.techtarget.com/answer/Uber-breach-How-did-a-private-GitHub-repository-fail-Uber" target="_blank">&rsquo;</a>キーなど) を見つけて使用し、それらの資格情報を使用して、ターゲット環境内のシステムやピボットに簡単にアクセスできます。</p>
+
+
+  <p>残念ながら、多くの場合、開発者はソース コードに資格情報を入れたくなっています。 グリーン チームは、既にソース コード内にある資格情報を特定して修復するのに役立つセキュリティ コントロールである Get Green と Stay Green を開発し、貢献しながら、Green-by-Design ソリューションを同時に求めていました。 これにより、開発者は資格情報を Azure Key Vault に格納するための内部セキュリティ要件を満たして、資格情報へのアクセスが制限され、監視され、管理が容易になります。</p>
+
+
+  <p>アプリケーションへのKey Vaultは、Azure Active Directory (AD) 認証に基づいて行います。 グリーン チームによって実行された根本原因分析では、Green-by-Design ソリューションによって、開発者が Azure AD アプリケーション、関連する資格情報、およびトークンを取得するために必要なコードを作成する必要がなくなると特定されました。</p>
+
+
+  <p>ソリューションを簡単かつ簡単にデプロイするために、Green Team は Visual Studio、Azure CLI、およびマネージド サービス ID チームと共同作業を行い、アプリ認証ライブラリを開発<a href="https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication" target="_blank">しました。</a> このライブラリでは、Visual Studio/Azure CLI の開発者 id を使用して、ローカル開発シナリオ中に Key Vault に対する認証を行います。また、ソリューションが Azure にデプロイされている場合は、マネージド サービス ID を使用して 自動的に に切り替えられます。&#39;</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/key-vault/vs-key-vault-add-connected-service" target="_blank">Visual Studio 接続済みサービスのKey Vault</a>ライブラリを使用します。 その結果、資格情報の格納と取得は、以前Key Vaultはるかに簡単です。 構成&rsquo;ファイルから構成ファイルに資格情報を移動するのと同Azure Key Vault。</p>
+
+
+  <p>この 1 年で、アプリ認証ライブラリは 100 万回以上ダウンロードされ、Green Team はシンプルな設計と、ユーザーが簡単にセキュリティで保護されるしくみについて多くの肯定的なフィードバックを受け取<strong>っています。</strong><a href="https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication" target="_blank"></a></p>
+
+
+  <p>これは、グリーン チームが行う機能の 1 つの例にすがす。 グリーン チームが引き続き Microsoft&rsquo; の侵害想定の進化に貢献し、単純に安全に取り組み続けるという言い方で十分です。&nbsp;<br>
+
+  セキュリティに大きな影響を与える場合は、オープンにお問い <a href="https://aka.ms/greenteamhiring">合わせください</a>。 Azure をセキュリティで保護するために Microsoft の他のセキュリティ チームが行う操作の詳細については、Microsoft の最新のメカニズムに関する <a href="https://www.youtube.com/watch?v=n58eHSLoU9w" target="_blank">ビデオをご覧ください</a>。</p>

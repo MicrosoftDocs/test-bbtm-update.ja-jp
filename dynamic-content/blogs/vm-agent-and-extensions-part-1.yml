@@ -1,0 +1,131 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 11006279b2d945c15c74e6d2dd82443e7def9d41
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893793"
+Slug: vm-agent-and-extensions-part-1
+Title: VM エージェントおよび拡張機能 – パート 1
+Summary: 最近発表された新機能の1つに、Windows Azure インフラストラクチャサービスが VM エージェントであることがあります。 VM エージェントは、追加のソリューションをブートストラップするための軽量プロセスです。
+Content: >-
+  <a href="https://weblogs.asp.net/scottgu/archive/2014/02/20/azure-expressroute-dedicated-networking-web-site-backup-restore-mobile-services-net-support-hadoop-2-2-and-more.aspx">最近</a>   発表された新機能の1つに、Windows Azure インフラストラクチャサービスが VM エージェントであることがあります。 VM エージェントは、Microsoft とパートナーの両方によって提供される追加のソリューションをブートストラップするための軽量プロセスであり、Virtual Machines の構成、管理、および促進を目的としています。 このブログの目的は、VM エージェントと、vm の拡張機能、その利点、および使用方法について説明することです。 ブログのパート1では、新しい Azure Vm で VM エージェントと拡張機能を有効にすることに重点を置いていますが、第2部ではこれを既存の Vm に拡張する方法について説明します。
+
+  <h4><strong>VM 拡張機能とは</strong></h4>
+
+  VMExtensions について説明する前に、現在、IaaS Virtual Machines に追加のソフトウェアがどのように取得されるかを見てみましょう。 Vm にソフトウェアを管理するための &amp; 一般的な方法の1つは、vm を作成する前にディスクにプレインストールする 2) vm にログオンし、そこから手動でインストールする方法です。 3) リモート PowerShell などを使用したインストール) Update Management と正常性/状態レポートをツールの組み合わせを使用してインストールします。
+
+
+  Vm の拡張機能によって VM の管理が簡素化されます。
+
+  <ul>
+   <li>Vm 拡張機能は、VM の機能を拡張し、さまざまな VM の管理操作を簡略化するソフトウェアコンポーネントです。</li>
+   <li>Vm のライフサイクルに関係なく、複数の VM 拡張機能を任意の VM にインストールし、vm に追加、更新、削除することができます。</li>
+   <li>VM とその拡張機能の状態は、1つの場所から表示および管理できます。</li>
+  </ul>
+
+  拡張機能を備えた VM のビューを次に示します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1748/4578.Kundana-1.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1748/4578.Kundana-1.png" border="0"></a>
+
+  <h4><strong>これらの拡張機能を作成者 Who しますか?</strong></h4>
+
+  拡張機能は、Microsoft に登録されている発行元によって作成、発行、およびサポートされます。 すべての拡張機能には、発行元情報が含まれます。 このブログでは、VM に拡張機能を追加する方法に重点を置いていますが、今後のブログでは、拡張機能の公開プロセスについて説明します。
+
+  <h4><strong>現在使用可能な拡張機能は何ですか?</strong></h4>
+
+  現在、Microsoft から公開されている IaaS VM 拡張機能には、BGInfo と VMAccess の2つがあります。
+
+
+  <strong>BGInfo:  </strong>BGInfo は、便利なサーバー情報を壁紙としてデスクトップに書き込む拡張機能です。 ポータルから Vm を作成する場合は、既にこの拡張機能を取得しています。
+
+
+  Bginfo を有効にすると、VM デスクトップには次のような壁紙があります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1748/0045.Kundana-2.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1748/0045.Kundana-2.png" border="0"></a>
+
+
+  手動で追加する場合は、簡単なコマンドレット Set-AzureVMBGInfoExtension を使用します。 このコマンドレットの使用の詳細については、MSDN ドキュメントを参照してください。
+
+  <ul>
+   <li><strong>BGIno を有効にする</strong>:</li>
+  </ul>
+
+  Get-AzureVM – ServiceName – Name |Set-AzureVMBGInfoExtension |Update-AzureVM
+
+  <ul>
+   <li><strong>BGInfo の無効化:</strong></li>
+  </ul>
+
+  次のコマンドレットの出力から拡張機能 ReferenceName とバージョンを読み取ります。
+
+
+  Get-AzureVM – ServiceName – Name |Get-AzureVMBGInfoExtension
+
+
+  Get-AzureVM – ServiceName – Name |Set-AzureVMBGInfoExtension – ReferenceName – Version – Disable |Update-AzureVM
+
+
+  Bginfo を無効にするには、ログオフ/ログインが必要になることがあります。
+
+
+  <strong>注</strong> : 既に <a href="https://technet.microsoft.com/en-us/sysinternals/bb897557.aspx">Bginfo</a> ユーザーの場合、BGfino の拡張機能バージョンでは、VM の Bginfo 設定の変更がまだサポートされていないことに注意する必要があります。
+
+
+  <strong>Vmaccess:   </strong>IaaS VM パスワードが既に失われている場合は、復旧する方法がないことがわかっています。 同様に、VM の RDP 設定が破損していても、簡単に修正することはできません。 VMAccess は、この2つのシナリオに対応します。 パスワード VMAccess の場合、パスワードとユーザー名をリセットすることで、ユーザーが VM に戻るためのメカニズムを提供します。 <strong>このリセットパスワードを使用してログインできるようになったら、パスワードを変更することをお勧めします。</strong>
+
+
+  コマンドレットの使用の詳細については、こちらの MSDN ドキュメントを参照してください。
+
+
+  VMAccess のシナリオを次に示します。
+
+  <ul>
+   <li><strong>パスワードのリセット:</strong></li>
+  </ul>
+
+  Get-AzureVM – ServiceName – Name |Set-AzureVMAccessExtension – UserName – Password |アップデート-Add-azurevm
+
+
+  ユーザー名を変更する場合は、[username] に新しい値を指定します (既存のユーザー名を使用しない場合)。
+
+  <ul>
+   <li><strong>RDP 設定を修正します。</strong></li>
+  </ul>
+
+  Get-AzureVM – ServiceName – Name |Set-AzureVMAccessExtension |アップデート-Add-azurevm
+
+
+  パラメーターを使用せずに Set-AzureVMAccessExtension を呼び出すと、破損した RDP 設定が修正されます。 拡張機能を有効にした後、後で RDP 設定を修正するには、コマンドレットを再度呼び出すか、VM を再起動します。
+
+  <ul>
+   <li><strong>VMAccess を無効にしています:</strong></li>
+  </ul>
+
+  次のコマンドレットの出力から拡張機能 ReferenceName とバージョンを読み取ります。
+
+
+  Get-AzureVM – ServiceName – Name |Get-AzureVMAccessExtension
+
+
+  Get-AzureVM – ServiceName – Name |Set-AzureVMAccessExtension – ReferenceName – Version – Disable |Update-AzureVM
+
+
+  VM にログオフ/ログインして VMAccess を無効にします。
+
+  <h4><strong>VM 拡張機能を有効にするための事前 requistes は何ですか?</strong></h4>
+
+  VM 拡張機能を有効にすると、1つの簡単な前提条件があります。 VMAgent を有効にすることにより、IaaS VM を作成できます。 ポータルまたは最新の Azure Powershell から VM を作成する場合、手動で無効にしない限り、VMAgent は既定で有効になります。
+
+
+  <strong>注</strong> : このブログのパート2では、既存の vm とディスクから作成された Vm で vmagent を有効にする方法について説明します。
+
+  <h4><strong>VM 拡張機能の次の機能</strong></h4>
+
+  これまでのブログでは、VM 拡張機能を使用して vm の追加機能をオンまたはオフにする方法について詳しく説明しました。 Bginfo と VMAccess は最初に存在するものであり、今後数か月の間にいくつかのことを願っています。 新しい VMExtensions の詳細については、このブログに戻ることをお勧めします。
+
+  <h4> <strong>Cloud Services の拡張機能について</strong></h4>
+
+  このブログでは Virtual Machines に焦点を当てていますが、クラウドサービス Vm に拡張機能を適用できることと、それらの拡張機能が既に提供されていることと、RDP と WAD 拡張 Cloud Services 機能を使用できることを追加する必要があります。 今後のブログでは、これらおよびその他の新しい Cloud Services 拡張機能について説明します。

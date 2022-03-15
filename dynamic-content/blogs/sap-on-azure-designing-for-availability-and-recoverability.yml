@@ -1,0 +1,118 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 804c6dc07816f662b7ef035f20b872d6054ad59c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892742"
+Slug: sap-on-azure-designing-for-availability-and-recoverability
+Title: SAP on Azure– 可用性と回復性のための設計
+Summary: >-
+  これは、4 部のブログシリーズ「Designing A Great SAP on Azure Architecture」の 2 番目です。
+
+  堅牢SAP on Azureアーキテクチャは、セキュリティ、パフォーマンスとスケーラビリティ、可用性と回復性、効率性、運用の柱に基いて構築されています。
+Content: >-
+  <p dir="ltr" style="margin-right: 0px;">これは、4 部のブログシリーズ「 <a href="https://azure.microsoft.com/en-us/blog/sap-on-azure-architecture-designing-for-security/">Designing a great SAP on Azure Architecture」の 3 番目です</a>。</p>
+
+
+  <p dir="ltr">堅牢SAP on Azureアーキテクチャは、セキュリティ、パフォーマンスとスケーラビリティ、可用性と回復性、効率性、運用の重要な柱を基に構築されています。</p>
+
+
+  <p dir="ltr">以前は <a href="https://azure.microsoft.com/en-us/blog/sap-on-azure-architecture-designing-for-performance-and-scalability/">パフォーマンスとスケーラビリティの設計</a> について説明しました。このブログ内では、可用性と回復性に重点を置いています。</p>
+
+
+  <h3 dir="ltr">可用性の設計</h3>
+
+
+  <p dir="ltr">可用性を設計することで、SAP ERP や S/4HANA などのミッション クリティカルな SAP アプリケーションに高可用性 (HA) プロビジョニングが確実に適用されます。 これらの HA プロビジョニングにより、アプリケーションはハードウェアとソフトウェアの両方の障害に対する回復性を備え、SAP アプリケーションのアップタイムはサービス レベル アグリーメント (SLA) を満たしてセキュリティで保護されます。</p>
+
+
+  <p dir="ltr">以下のリンクでは、Azure 仮想マシンのメンテナンスと、計画外のハードウェア メンテナンス イベント、予期しないダウンタイム、計画メンテナンス イベントが詳細に説明されているダウンタイムに関する包括的な概要を示します。</p>
+
+
+  <ul dir="ltr">
+   <li>
+   <div><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/manage-availability">ドキュメントの可用性Linux Virtual Machinesする</a></div>
+   </li>
+   <li>
+   <div><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/manage-availability">Azure での Windows 仮想マシンの可用性の管理</a></div>
+   </li>
+  </ul>
+
+
+  <p dir="ltr" style="margin-right: 0px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/feb66d1a-fe92-464a-b08c-5d0f8822e501.png"><img alt="740 Blog" border="0" height="381" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ea59a64-bd5b-4eef-bf86-099702811a61.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="740 ブログ" width="1024"></a></p>
+
+
+  <p><br>
+
+  可用性の観点から見ると、次のSAP on Azureを使用できます。</p>
+
+
+  <ol dir="ltr">
+   <li>Azure Premium Storage を使用する単一インスタンス VM の 99.9% の SLA。 この場合、SAP データベース (DB)、システム セントラル サービス A(SCS)、およびアプリケーション サーバーは、個別の VM 上で実行するか、1 つ以上の VM に統合されています。 また、1 つのノードであるベア メタル HANA Large Instances でも 99.9% の SLA が提供されます。</li>
+   <li>同じ Azure 可用性セット内の VM の 99.95% の SLA。 可用性セットでは、セット内の VM が個別の障害ドメインと更新ドメインにデプロイされます。これにより、VM が計画外のハードウェア メンテナンス イベント、予期しないダウンタイム、および計画メンテナンス イベントから保護されます。 SAP アプリケーションの HA を確保するために、可用性セットは、Azure Load Balancer&nbsp;、Windows フェールオーバー クラスターや Linux Pacemaker などのゲスト オペレーティング システム クラスタリング テクノロジと組み合わせて使用して、フェールオーバー時間の短縮と同期データベース レプリケーション テクノロジ (SQL AlwaysOn、HANA システム レプリケーションなど) を容易にし、データの損失を保証しません。 さらに、SAP エンキュー レプリケーション サーバーを構成すると、A(SCS) のフェールオーバー中に SAP ロック テーブルが失われるのを軽減できます。</li>
+   <li>Azure 可用性ゾーン内の VM の 99.99% の SLA。 Azure リージョンの可用性ゾーンは、障害ドメインと更新ドメインの組み合わせです。 Azure プラットフォームでは、Azure の計画メンテナンス イベントが発生した場合に、異なるゾーン内の VM が同時に更新されないという、更新ドメイン間でのこの分散が認識されます。&nbsp; さらに、可用性ゾーンは、Azure リージョン内で物理的に分離されたゾーンであり、各ゾーンには独自の電源、ネットワーク、冷却機能が備え付け、Azure リージョン内の他のゾーンから論理的に分離されています。 このコンストラクトは、特定のゾーン内のハードウェアまたはインフラストラクチャの障害による予期しないダウンタイムを回避します。 DBMS レプリケーション (HANA システム レプリケーション、SQL AlwaysOn) などのゾーン間のレプリケーションを活用する SAP デプロイを設計し、SAP エンキュー レプリケーション サーバーを作成し、ゾーン間で SAP アプリケーション サーバーを分散 (冗長性のために) することで、完全なデータセンターの損失から SAP システムを保護できます。 1 つのゾーンが侵害された場合、SAP システムは別のゾーンで使用できます。 Azure 可用性ゾーンと最新の Mv2 VM オファリングの概要については、この <a href="https://www.youtube.com/watch?v=U7I2b0K7LH0">ビデオをご覧ください</a>。</li>
+   <li>HANA Large Instances は、HA ペアとして構成されている場合、99.99% の SLA で提供されます。これは、単一のデータセンターと可用性ゾーンのデプロイに適用されます。</li>
+  </ol>
+
+
+  <p dir="ltr">可用性セットと可用性ゾーンの場合、HA にはゲスト OS クラスタリングが必要です。 この機会を利用して、SAP アプリケーションのスプリット ブレインを回避するために、Azure 上の Linux Pacemaker のフェンシング オプションを明確にし、次のとおりです。</p>
+
+
+  <ul dir="ltr">
+   <li>
+   <div>Azure Fencing Agent</div>
+   </li>
+   <li>Storageベースの死亡 (SBD)</li>
+  </ul>
+
+
+  <p dir="ltr">Azure Fencing Agent は、RedHat Enterprise Linux (RHEL) と SUSE Enterprise Linux (SLES) と SBD の両方で使用できますが、RHEL&nbsp; ではサポートされていません。Pacemaker を使用した SAP on Azure のクラスター フェールオーバー時間を最短にするため、次の方法をお勧めします。</p>
+
+
+  <ul dir="ltr">
+   <li>
+   <div>RHEL 上に構築された SAP クラスター用の Azure Fencing Agent。</div>
+   </li>
+   <li>SLES 上に構築された SAP クラスターの SBD</li>
+  </ul>
+
+
+  <p dir="ltr">生産性の高い SAP アプリケーションの場合は、可用性セットまたは可用性ゾーンを強く推奨します。&nbsp; 可用性ゾーンは、Azure リージョン内のデータセンターの障害に回復性を追加して HA を提供する可用性セットの代替手段です。 ただし、異なる可用性ゾーンをホストする構築構造間に一定の距離が保証されるわけではありません。 物理的な建物の距離に関して、異なる Azure リージョンで異なるセットアップが発生する可能性があります。 そのため、アプリケーションのパフォーマンスが確実で、ネットワークラウンドトリップタイム (RTT) が最も低い場合は、可用性セットの方が適切なオプションになる可能性があります。</p>
+
+
+  <p dir="ltr">単一インスタンス VM は、非実稼働 (プロジェクト、サンドボックス、テスト SAP システム)&rsquo; に適しています。このオプションは、可用性 SLA が実稼働と同じレベルにはない場合もあります。このオプションは、実行コストを最小限に抑えるのにも役立ちます。</p>
+
+
+  <h2>回復性のための設計</h2>
+
+
+  <p>回復性を設計するということは、SAP データベースの論理エラー、大規模な災害、完全な Azure リージョンの損失など、データ損失からの復旧を意味します。 回復性を設計する場合は、SAP アプリケーションの目標復旧時点 (RPO) と目標復旧時間 (RTO) を理解する必要があります。 <a href="https://docs.microsoft.com/en-us/azure/best-practices-availability-paired-regions" target="_blank">Azure リージョン ペアは</a> 、単一のリージョンに影響を与える自然災害や人的災害のリスクに対する分離と可用性を提供するディザスター リカバリーに推奨されます。</p>
+
+
+  <p dir="ltr">DBMS レイヤーでは、非同期レプリケーションを使用して、プライマリ リージョンからディザスター リカバリー (DR) リージョンに実稼働データをレプリケートできます。 SAP アプリケーション レイヤーでは、 <a href="https://docs.microsoft.com/en-us/azure/site-recovery/site-recovery-sap" target="_blank">Azure から</a> Azure Site Recoveryを効率的でコスト志向の DR ソリューションの一部として使用できます。 また、次に示すように、投資に対するより良いリターンを得る目的で、結合された QA/DR システムの実行など、DR 側で二重目的のシナリオを設計することもできます。</p>
+
+
+  <p>HA と DR のプロビジョニングに加えて、SAP データのバックアップと回復のためのエンタープライズ データ保護ソリューションが不可欠です。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-sap-hana-database" target="_blank">ファースト パーティの Azure Backup</a> オファリングは SAP HANA の認定を受けています。このソリューションは現在パブリック プレビュー (2019 年 9 月時点) であり、データ スナップショットや SAP HANA スケールアウトなど、将来サポートされるその他のシナリオを備えた SAP HANA スケールアップ (データとログ バックアップ) をサポートしています。</p>
+
+
+  <p>さらに、Azure プラットフォームでは、SAP アプリケーションのエンタープライズ データ保護と管理を提供する幅広い ISV がサポートされています。 このような ISV の 1 つは Commvault です。Microsoft は最近、このホワイトペーパーを作成 <a href="https://azure.microsoft.com/en-us/resources/protecting-sap-hana-in-azure/" target="_blank">するために提携しています</a>。 Commvault の主な利点は、IntelliSnap (データ スナップショット) 機能です。これにより、SAP &ndash; データベースのアプリケーション整合性データ スナップショットが瞬時に提供されます。これは、RTO 要件が低い大規模なデータベースに非常に役立ちます。 Commvault を使用すると、SAP HANA スケールアップ、SAP HANA スケールアウト、および anyDB ワークロードの両方で、高パフォーマンスのマルチストリーミング (backint) データ バックアップを Azure Blob Storage に直接実行できます。 エンタープライズ データ保護戦略には、データ スナップショットとデータ バックアップの組み合わせ (毎日のスナップショットの実行と週末のデータ バックアップ (backint) など) が含まれる場合があります。 以下では、M128s (2 TB) VM 上の SAP HANA データベースに対して IntelliSnap を介して実行されるデータ スナップショット。スナップショットの期間は 20 秒です。<br>
+
+  &nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c119562-82f0-44b4-ae07-edd3a1134a2c.jpg"><img alt="Blog Photos" border="0" height="277" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3e86f493-b242-42b6-a11c-67a59aa75a1f.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ブログの写真" width="1024"></a></p>
+
+
+  <p>このブログでは、可用性と回復性に関するSAP on Azureをまとめていました。 実稼働 SAP アプリケーションを Azure に設計してデプロイする場合は、ミッション クリティカルな SAP SLA をサポートするために可用性セットまたは可用性ゾーンを含める必要があります。 さらに、DR プロビジョニングとエンタープライズ データ保護を適用して、完全な Azure リージョンの損失やデータの破損から SAP アプリケーションを保護する必要があります。</p>
+
+
+  <p>SAP から Azure へのプロジェクトのライフサイクルを通じて HA テストと DR テストを実行し、SAP アプリケーションが生産的な運用 (毎年 DR ドリル テスト) に入った後は、メンテナンス期間中にこれらの機能を再テストしてください。<br>
+
+  Microsoft のベスト プラクティスに関する最新のテクノロジとガイダンスを組み込むには、可用性と回復性を継続的に確認する必要があります。</p>
+
+
+  <p>このシリーズのブログ #4 では、効率性と運用のための設計について説明します。</p>

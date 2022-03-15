@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: de0ffe39159649733bb4dd4fafce356a89893d35
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893647"
+Slug: announcing-the-preview-of-aad-authentication-for-storage
+Title: Azure AD Authenticationの Azure BLOB とキューのパブリック プレビューが開始
+Summary: Azure BLOB とキューのAzure AD Authenticationプレビューをお知らせします。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">2019 年 3 月 25 日に、Azure Storageベースのアクセス制御Azure Active Directoryのサポートが一般提供されました。 詳細については、ブログの投稿&ldquo;「Azure Storageベースのアクセス制御Azure Active Directory<a href="https://azure.microsoft.com/en-us/blog/azure-storage-support-for-azure-ad-based-access-control-now-generally-available/">一般提供</a>されています。&rdquo;</div>
+
+
+  <p>Azure BLOB とキューのAzure AD Authenticationプレビューをお知らせします。 この機能は、セキュリティまたはコンプライアンスのニーズの一部としてデータへのアクセスを簡単に制御する方法を簡素化する企業のお客様が最も要求する機能の 1 つです。 この機能は、Azure のすべてのパブリック リージョンで使用できます。</p>
+
+
+  <p>Azure Storageは、データにアクセスできるユーザーと、データにアクセスできる方法、いつ、どこからアクセスできるのか、柔軟に制御できるいくつかのメカニズムをサポートしています。 AAD 認証を使用すると、お客様は Azure&#39;のロールベースのアクセス制御<a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-what-is" target="_blank"></a>フレームワークを使用して、個々の BLOB コンテナーまたはキューのスコープまで、ユーザー、グループ、アプリケーションに特定のアクセス許可を付与できます。 この機能により、引き続 <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/Authentication-for-the-Azure-Storage-Services" target="_blank">き使用できる</a> 既存の共有キーと <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/delegating-access-with-a-shared-access-signature" target="_blank">SAS トークン</a> の承認メカニズムが拡張されます。</p>
+
+
+  <p>開発者は、マネージド サービス <a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-service-identity/overview" target="_blank">ID (MSI</a>) を利用して、Azure リソース (Virtual Machines、Function Apps、Virtual Machine Scale Set など) に、Azure AD で自動的に管理される ID を提供することもできます。 管理者は、コードに資格情報を持つことなく、これらの ID にロールを割り当て、アプリケーションを安全に実行できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61bcc542-39f7-4fc8-b2a7-c992f37971bd.png"><img alt="image" border="0" height="565" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0fb2b6ae-c9bb-4228-bedb-927eea578f45.png" style="padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="1024"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a8e71ee4-3177-4ea5-b2e9-bf3390d7522f.png"><img alt="image" border="0" height="331" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d91a30f3-8983-4164-b61d-4bd8e540200b.png" style="padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="1024"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4a03c8a-c974-44b5-b686-17e40ea404c4.png"><img alt="AADBlogPostPic3" border="0" height="449" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ea47636-889f-484d-802c-a2202e76e4e5.png" style="border: 0px currentcolor; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AADBlogPostPic3" width="1024"></a></p>
+
+
+  <p>管理者は、Azure portal、Azure PowerShell、<a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-cli" target="_blank">CLI</a>、または Microsoft Azure Authorization <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-rest" target="_blank">Resource Provider API</a> を使用して、アクセス許可を付与し、Azure Resource Manager ストレージ アカウント<a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-powershell" target="_blank"></a>で AAD 認証を使用できます。 この機能は、すべての冗長性の種類のAzure Storage。</p>
+
+
+  <p>ほとんどのプレビューと同様に、これは実稼働ワークロードに使用する必要はありません。また、この機能が一般提供されるまで、実稼働 SLA はありません。</p>
+
+
+  <p>詳細については、Azure AD Authentication<a href="https://docs.microsoft.com/azure/storage/common/storage-auth-aad/" target="_blank">のStorage。</a></p>

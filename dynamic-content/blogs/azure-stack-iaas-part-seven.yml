@@ -1,0 +1,124 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7018c537e8ec129e9c2212259729b8f25ecd1cd6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894468"
+Slug: azure-stack-iaas-part-seven
+Title: Azure Stack IaaS – パート 7
+Summary: ほとんどのアプリはチームによって配信されます。 チームが仮想マシン (VM) を介してアプリを配信する場合は、作業を調整することが重要です。 世界中のチームにサービスを提供するためにクラウドで生まれた Azure と Azure Stack には、チーム全体で VM の運用を調整するのに役立つ便利な機能がいくつか含まれます。
+Content: >-
+  <h2>チームが必要</h2>
+
+
+  <p>ほとんどのアプリはチームによって配信されます。 チームが仮想マシン (VM) を介してアプリを配信する場合は、作業を調整することが重要です。 世界中のチームにサービスを提供するためにクラウドで生まれた Azure と Azure Stack には、チーム全体で VM の運用を調整するのに役立つ便利な機能がいくつか含まれます。</p>
+
+
+  <h2>ID とシングル サインオン</h2>
+
+
+  <p>覚えておくのが最も簡単な ID は、毎日会社のネットワークにサインインして電子メールを確認するために使用する ID です。 ユーザーまたは独自のAzure Active Directoryを使用している場合は、Azure Stackログインは同じになります。 これは、異なる資格情報を学習して覚える必要がAzure Stack&rsquo;がデプロイされた時点で管理者が設定します。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-integrate-identity" target="_blank">ADFS (Azure Stack と Azure Active DirectoryのActive Directory フェデレーション サービス (AD FS)の詳細を確認してください</a>。</p>
+
+
+  <h2>ロール ベースのアクセス制御</h2>
+
+
+  <p>仮想化の時代に、私のチームは通常、VM と管理ツールへの資格情報を使用して操作を調整しました。 Azure Resource Manager には、システムにアクセスできるユーザーを特定できるだけでなく、ユーザーをロールに割り当て、制御のスコープを設定して、ユーザーが何を実行できるのかを定義できる、非常に堅牢なロールベースのアクセス制御 (RBAC) システムが含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/18802848-63a2-4ebc-9047-dc4349ff5e57.png"><img alt="Role-based access control in Azure and Azure Stack" border="0" height="365" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af6a7a00-6809-4a71-8b18-c09332b68bcf.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ロールベースのアクセス制御" width="1173"></a></p>
+
+
+  <h2>組織内のユーザー以上の情報</h2>
+
+
+  <p>クラウドで作業する場合は、他の組織のユーザーと共同作業が必要な場合があります。 自動化される処理がますます多くなると、ユーザーではなく、リソースへのアクセス権をプロセスに与える必要がある場合があります。 Azure と Azure Stackについて説明しました。 次の図は、3 つのアプリケーション (サービス プリンシパル) と外部ドメイン (外部プリンシパル) のユーザーの両方にアクセス権を与える VM を示しています。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e969368-9229-410c-9f13-c91a9057ecab.png"><img alt="A virtual machine where access was given to both three applications (service principals) and a user from an external domain (foreign principal)." border="0" height="672" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f2fa5ca-8511-4a1a-b8e9-8eaeea4d6730.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="サービス プリンシパルと外部プリンシパル" width="1369"></a></p>
+
+
+  <h3>サービス プリンシパル</h3>
+
+
+  <p>アプリケーションが vm、または Azure Stack 内の他のリソースをデプロイまたは構成するためにアクセスする必要がある場合は、アプリケーションの資格情報であるサービス プリンシパルを作成できます。 サービス プリンシパルには必要な権限のみを委任できます。</p>
+
+
+  <p>たとえば、サブスクリプション内の VM をインベントリする構成管理ツールがある場合があります。 このシナリオでは、サービス プリンシパルを作成し、これに閲覧者のロールを付与して、構成管理ツールのアクセスを読み取り専用に制限します。</p>
+
+
+  <p>サービス プリンシパルの <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-create-service-principals" target="_blank">詳細については、Azure Stack</a>。</p>
+
+
+  <h3>外部プリンシパル</h3>
+
+
+  <p>外部プリンシパルは、別の機関によって管理される人物の ID です。 たとえば、Contoso.com のチームは、請負業者またはパートナーの VM へのアクセスを許可する必要 Fabrikam.com。 仮想化の時代には、そのユーザーのドメインにユーザー アカウントを作成しましたが、それは管理の問題でした。 Azure と Azure Stackを使用すると、会社の資格情報でサインインするユーザーが VM にアクセスできます。</p>
+
+
+  <p>マルチテナントを <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-enable-multitenancy" target="_blank">有効にする方法については</a>、Azure Stack。</p>
+
+
+  <h2>アクティビティ ログ</h2>
+
+
+  <p>VM が 24 時間実行されると、1 日の中でチームが参加します。 さいわい、Azure Azure Stackには、VM に加え、アクションを開始したユーザーのすべての変更を追跡できるアクティビティ ログが含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3d95a9d-2c64-4c43-9639-ce53b003d648.png"><img alt="Activity log in Azure and Azure Stack" border="0" height="453" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56aae6df-35d0-4d45-8d42-cfdb95f7f5aa.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure と Azure のアクティビティ Azure Stack" width="1183"></a></p>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-audit" target="_blank">Azure アクティビティ ログに関するページを参照してください</a>。</p>
+
+
+  <h2>Locks</h2>
+
+
+  <p>間違って実稼働 VM を削除するなど、エラーが発生する場合があります。 Azure に表示される便利な機能Azure Stackはロック &ldquo;です。&rdquo; ロックを使用して、VM または他のリソースの変更や削除を防止できます。 試行すると、ユーザーは手動でロックを削除するまでエラー メッセージを受け取ります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4b1cbf0-581a-4d40-9f2f-cf285d9ee4e5.png"><img alt="Locks in Azure Stack" border="0" height="558" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a712405-acb5-4593-a668-ba2658f8642b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ロックのAzure Stack" width="847"></a></p>
+
+
+  <p>VM と他 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources" target="_blank">の Azure リソースのロックの詳細を確認します</a>。</p>
+
+
+  <h2>タグ</h2>
+
+
+  <p>VM に関する追加データを格納する最適な場所は、VM を管理するツールです。 Azure と Azure Stackタグ機能を使用して VM に関する追加情報を追加する機能を提供します。 タグを使用すると、チームがデプロイ環境を追跡したり、連絡先、コスト センターをサポートしたり、その他の重要な情報を追跡したりするのに役立ちます。 ポータルでこれらのタグを検索して、適切なリソースをすばやく検索することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/51c4b2fe-a450-452f-b2c9-9ca445578a25.png"><img alt="Tags are name/value pairs that enable you to categorize resources and view consolidated billing." border="0" height="462" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c205d4a7-9fd7-489f-9d57-37f91169c147.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="タグ" width="1007"></a></p>
+
+
+  <p>VM と他 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-using-tags" target="_blank">の Azure リソースのタグ付けの詳細を確認します</a>。</p>
+
+
+  <h2>個人ではなくチームとして作業する</h2>
+
+
+  <p>Azure と Azure のチーム機能によりAzure Stackチームはゲームを昇格して、最適な仮想マシン操作を提供できます。 サービスとしてのインフラストラクチャ (IaaS) VM の管理は、停止、開始、ログイン以上の機能です。 IaaS&rsquo; をAzure Stackする Azure プラットフォームを使用すると、チームの運用を整理、委任、追跡して、より優れたエクスペリエンスをユーザーに提供できます。</p>
+
+
+  <h2>このブログ シリーズの</h2>
+
+
+  <p>このブログ シリーズの今後の投稿をお読みください。 過去および今後のトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">Azure Stackは、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">既に持っているものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/" target="_blank">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分のものを保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/" target="_blank">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/" target="_blank">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に行う場合は、自動化します</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功を基に構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

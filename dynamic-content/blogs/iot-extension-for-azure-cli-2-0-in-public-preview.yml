@@ -1,0 +1,125 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cb2776f57ebfd77173913d82705da2f0fe6ba17c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893464"
+Slug: iot-extension-for-azure-cli-2-0-in-public-preview
+Title: Azure CLI 2.0 向け IoT 拡張機能の発表
+Summary: 最近、新しいオープン ソース IoT 拡張機能をリリースしました。この拡張機能は、Azure CLI 2.0 の機能に追加されています。 Azure CLI 2.0 には、管理エンドポイントと管理エンドポイントをAzure Resource Managerするためのコマンドが含まれています。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89f41ac5-38d8-4167-954c-ba20d1661f39.jpg"><img alt="cli2.0" border="0" height="548" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d4b5751-8983-449b-a6c6-9fd44759cba6.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="cli2.0" width="807"></a></p>
+
+
+  <p>最近、新しいオープン ソース <a href="https://github.com/Azure/azure-iot-cli-extension/blob/master/README.md">IoT</a> 拡張機能をリリースしました。この拡張機能は、Azure CLI <a href="https://docs.microsoft.com/en-us/cli/azure/iot?view=azure-cli-latest">2.0</a> の機能に追加されています。 Azure CLI 2.0 には、管理エンドポイントと管理エンドポイントをAzure Resource Managerするコマンドが含まれています。 たとえば、Azure CLI 2.0 を使用して Azure VM または IoT Hub を作成できます。 CLI 拡張機能を使用すると、Azure サービスでサービスを拡張Azure CLI、追加のサービス固有の機能にアクセスできます。 IoT 拡張機能を使用すると、開発者はコマンド ラインから、IoT Hub、IoT Edge、IoT Hub Device Provisioning Serviceできます。</p>
+
+
+  <p>Azure CLI 2.0 を使用すると、Azure IoT Hub リソース、デバイス プロビジョニング サービス インスタンス、およびリンク済みのハブを簡単に管理することができます。 新しい IoT 拡張機能によって、Azure CLI 2.0 には、デバイス管理、完全な IoT Edge 対応などの機能が追加されました。</p>
+
+
+  <p>この IoT 拡張機能の起動は、バージョン CLI 1.0 と <a href="https://github.com/Azure/iothub-explorer">iot-hub-explorer ツールが廃止される予定です</a> 。 Azure CLI 1.0 と CLI 2.0 は完全な機能パリティです。Iot-hub-explorer と CLI 2.0 は、現在イベント監視コマンドが欠落している CLI 2.0 を除き、機能パリティです。 2018 年 3 月初めにイベント監視コマンドを提供する予定です。 Azure CLI 1.0 および <a href="https://github.com/Azure/iothub-explorer">iot-hub-explorer</a> の IoT 拡張機能は、2018 年 6 月 30 日まで非推奨とされます。&nbsp;</p>
+
+
+  <p>&rsquo; Azure CLI 2.0 の IoT 拡張機能に関する詳細をエンジニアに確認してください。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" scrolling="no" src="https://www.youtube.com/embed/EqVKcoVD4uM" width="560"></iframe></p>
+
+
+  <h2>インストール</h2>
+
+
+  <p><strong>手順 1 - Python をインストールする</strong></p>
+
+
+  <p>Python 2.7x または Python 3.x が必要です。</p>
+
+
+  <p><strong>手順 2 - Azure CLI 2.0 をインストールする</strong></p>
+
+
+  <p>GitHub または Microsoft Docs のインストール手順<a href="https://github.com/Azure/azure-cli"></a>に従ってAzure CLI 2.0 をセットアップします。<a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest"></a> Azure CLI 2.0 のバージョンは、少なくとも 2.0.24 以降である必要があります。 az &ldquo;version を &ndash;使用して&rdquo; 検証します。 このバージョンでは <b>、az</b> extension コマンドがサポートされ、Knack コマンド フレームワークが導入されています。 Windows にインストールする簡単な方法の 1 つは、<a href="https://aka.ms/InstallAzureCliWindows">MSI</a> をダウンロードしてインストールすることです。</p>
+
+
+  <p><strong>手順 3 - IoT 拡張機能をインストールする</strong></p>
+
+
+  <p><a href="https://github.com/Azure/azure-iot-cli-extension/blob/master/README.md">IoT 拡張機能の readme</a> に、拡張機能をインストールするためのいくつかの方法が説明されています。 最も簡単な方法は &ldquo;、az extension add --name azure-cli-iot-ext を実行する方法です&rdquo;。 インストール後、 &ldquo;az extension list&rdquo; &ldquo;を使用して現在インストールされている拡張機能を検証するか、az extension show --name azure-cli-iot-ext&rdquo; を使用して IoT 拡張機能の詳細を確認できます。 拡張機能を削除するには、 &ldquo;az extension remove --name azure-cli-iot-ext を使用できます&rdquo;。</p>
+
+
+  <p><strong>手順 4 - サインイン</strong></p>
+
+
+  <p>az &ldquo;login を実行&rdquo; してサインインします。 サブスクリプションの詳細は、ターゲット リソースとの対話に使用されます。 対話形式でログインしたり、アカウントの資格情報を渡したり、パスワード/証明書オプションでサービス プリンシパルを使用したりできます。</p>
+
+
+  <h2>例</h2>
+
+
+  <p>デバイス ID を作成してデバイス ツインを表示する例を次に示します。 この例では、Azure アカウントにログインし、Azure リソース グループ (Azure ソリューションの関連リソースを保持するコンテナー) を作成し、IoT Hub を作成し、新しいデバイス ID を作成して、デバイス ツインを表示する方法を示します。 開始する前に、前に説明したインストール手順を完了してください。 まだ Azure アカウント&#39;していない場合は、今すぐ無料 <a href="https://azure.microsoft.com/en-us/free/?v=17.39a">アカウントを作成</a> できます。</p>
+
+
+  <p><strong>手順 1 - Azure アカウントにログインする</strong></p>
+
+
+  <p>コマンド: az login</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/65f33e8d-17d7-481e-8c98-3e09ffe8f78d.jpg"><img alt="1" border="0" height="243" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b800745-0744-4d35-b299-41be92de231b.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1" width="710"></a></p>
+
+
+  <p><br>
+
+  <strong>手順 2 - 新しいリソース グループ &ldquo;IoTHubBlogDemo を作成する&rdquo;</strong></p>
+
+
+  <p>コマンド: az group create &ndash;l eastus &ndash;n IoTHubBlogDemo</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/03e9e530-1666-41dc-abb4-67f1d50e1c49.jpg"><img alt="2" border="0" height="238" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5cc7a88d-0937-48e0-9204-bae3ab8419e8.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2" width="714"></a><br>
+
+  <strong>手順 3 - リソース グループ &ldquo;IoTHubBlogDemo の下IoT HubブログDemoHub&rdquo; &ldquo;を作成する&rdquo;</strong></p>
+
+
+  <p>コマンド: az iot hub create --name blogDemoHub --resource-group IoTHubBlogDemo</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5381034-139c-43d4-8e7d-7bc3595585c8.jpg"><img alt="3" border="0" height="256" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4d3bd04-c67a-4d4b-83f8-61534d471215.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="3" width="706"></a><br>
+
+  <strong>Strep 4 - IoT Hub BlogDemoHub で新しいデバイス &ldquo;を作成する&rdquo;</strong></p>
+
+
+  <p>コマンド: az iot hub device-identity create --hub-name BlogDemoHub --device-id testDevice</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39df206f-b726-4d5a-bb44-0e8076dd6df4.jpg"><img alt="4" border="0" height="257" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/528aa292-117b-40fb-af01-e41fd88191dc.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="4" width="710"></a><br>
+
+  <strong>手順 5 - デバイス ツインを表示する</strong></p>
+
+
+  <p>コマンド: az iot hub device-twin show --hub-name blogDemoHub --device-id testDevice</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/309497e6-f9a4-4434-b757-579693a0c2cb.png"><img alt="Capture" border="0" height="256" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b38a3018-f5bf-4466-9c5a-63b55248f8b1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="キャプチャ" width="706"></a></p>
+
+
+  <h2>貢献</h2>
+
+
+  <p>このプロジェクトでは、共同作成と提案を歓迎しています。 ほとんどの共同作成では、共同作成者使用許諾契約書 (CLA) にご同意いただき、ご自身の共同作成内容を使用する権利を Microsoft に供与する権利をお持ちであり、かつ実際に供与することを宣言していただく必要があります。 詳細については、<a href="https://cla.microsoft.com/">https://cla.microsoft.com</a> を参照してください。</p>
+
+
+  <p>pull requestを送信すると、CLA ボットによって、CLA を指定し、PR を適切に装飾する必要があるかどうか (ラベル、コメントなど) が自動的に決定されます。 ボットによって提供される手順にそのまま従ってください。 この操作は、Microsoft の CLA を使用するすべてのリポジトリについて、1 回だけ行う必要があります。</p>
+
+
+  <p>このプロジェクトでは、<a href="https://opensource.microsoft.com/codeofconduct/">Microsoft オープン ソースの倫理規定</a>を採用しています。 詳細については、行動基準に関する <a href="https://opensource.microsoft.com/codeofconduct/faq/">FAQ</a> を参照するか、追加 <a>opencode@microsoft.com</a> の質問やコメントをお問い合わせください。</p>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>すべてのツールと SDK と同様に、CLI 拡張機能では、フィードバック フォーラムだけでなく、リポジトリ内で直接問題や pull request の形式で<a href="https://github.com/Azure/azure-iot-cli-extension/blob/master/README.md"></a>フィードバックを<a href="https://feedback.azure.com/forums/321918-azure-iot">受け取っています</a>。</p>

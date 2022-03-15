@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fb270ac35048f76cd75828f5832898a96975cb4d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890774"
+Slug: how-to-leverage-ocr-to-full-text-search-your-images-within-azure-search
+Title: OCR を活用して Azure Search 内の画像をフルテキスト検索する
+Summary: Azure Search と光学式文字認識 (OCR) を使用すると、画像ファイル内のテキストに対するフルテキスト検索を提供できます。
+Content: >-
+  <p><img align="left" alt="AzureSearchOCR" border="0" height="306" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f531914e-4987-49da-87a3-30b35a09f193.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: left; padding-top: 0px; padding-left: 0px; margin: 0px 10px 10px 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="AzureSearchOCR" width="144">Azure Search では、データに対して非常に良い検索アプリケーションを構築するのに役立ちます。 <a href="https://msdn.microsoft.com/en-us/library/azure/dn946891.aspx">Azure Search イン</a>デクサーのような機能を通じて、このフルテキスト検索のサポートを有効にするために、一般的なデータ ソースからデータを取り込むのに便利です。</p>
+
+
+  <p>最近、Azure Blob Storage 用<a href="https://azure.microsoft.com/en-us/documentation/articles/search-howto-indexing-azure-blob-storage/">の</a> Azure Search インデクサーをリリースしました。これにより、Office、PDF、HTML などの一般的なファイルの種類からテキストを抽出できます。 サポートをまだ追加していないファイルの種類の 1 つが、一般的な質問です。 画像が埋め込まれた JPG、TIFF、PDF などのファイルがあるという考え方では、検索インデックスを強化するために使用できるこれらの画像からテキストを抽出できる場合があります。 Imagine画像、FAX、またはスキャンされたドキュメントがある場合は、それらを検索する必要があります。 この手法は光学式文字認識 (OCR) と呼ばれるので、これを使用して Azure Search インデックスのコンテンツを強化する方法を説明したいと思います。</p>
+
+
+  <p>お客様と話をする中で、PDF ドキュメント内に画像を埋め込むのが非常に一般的である点が分かったので、画像に対して OCR&rsquo; を実行する必要があるだけでなく、PDF から画像を抽出する必要があるという理由で、これがサンプルの主な焦点です。 これを実現した方法のサンプルは、次のリポジトリGitHub<a href="https://github.com/liamca/AzureSearchOCR">できます</a>。 サンプルで行われる処理の一般的なフローを次に示します。</p>
+
+
+  <p>&nbsp;<img alt="AzureSearch_OCR_Steps" border="0" height="95" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9405ac8-6811-4d07-b7d7-372a437feead.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin: 5px; display: inline; padding-right: 0px; border-top-width: 0px" title="AzureSearch_OCR_Steps" width="610"><br>
+
+  これを実現するために使用した主なテクノロジは次です。</p>
+
+
+  <ol>
+   <li><a href="https://www.nuget.org/packages/iTextSharp/">iTextSharp</a>: これは、PDF ファイル内のコンテンツを操作できる PDF ライブラリである iText の非常に便利な .NET ポートです。 また、私の投稿で iTextSharp <a href="https://psycodedeveloper.wordpress.com/2013/01/10/how-to-extract-images-from-pdf-files-using-c-and-itextsharp/">の</a> 使い方に関する優れたサンプルを作成し、PDF ファイルから画像を抽出するサンプルで使用した多くの基礎を形成した優れたサンプルを作成した、特に感謝します。</li>
+   <li><a href="https://www.projectoxford.ai/vision">Project Vision API</a>: 画像からテキストを抽出する方法は多数<a href="https://www.nuget.org/packages/Tesseract/">あります (Tesseract など</a>)。 私は、Projectを使用&rsquo;することを選択&rsquo;しました。 コードは非常に使いやすいので、抽出されたテキストは非常に高品質でした。 主な欠点は、現在、1 か月に 5,000 回の API 呼び出しに制限されているという点でした。これは、ドキュメントが多い場合は制限される可能性がありますが、このチームの Program Manager から、必要に応じてこの制限を増やされる可能性もあることを理解しています。</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/services/search/">Azure Search</a>: これは、OCR プロセスからの出力が送信される検索サービスです。 Azure Search に送信する JSON ドキュメントに書式設定されたテキストは、アプリケーションからフルテキスト検索可能になります。</li>
+  </ol>
+
+
+  <p>これを行う方法の完全な概要については、次のリポジトリを<a href="https://github.com/liamca/AzureSearchOCR">GitHubしてください</a>。 Azure Search インデクサーに OCR を追加する場合は、投票 <a href="https://feedback.azure.com/forums/263029-azure-search/suggestions/11540007-ocr-for-common-image-formats-gif-jpeg-tiff">してください</a>。</p>
+
+
+  <h3>次の手順</h3>
+
+
+  <p>このサンプルは単なる開始点です。 より多くの場合、それをさらに拡張する必要があります。 ファイルのタイトル、またはファイルに関連するメタデータ (ファイル サイズ、最終更新など) を追加すると、ユーザーによるさらにファセットとフィルター処理に使用できます。 また、実際のイメージ ファイルへの URL 参照を追加して、ユーザーがアプリケーションから直接開くことを許可することもできます。</p>
+
+
+  <p>OCR 機能を Azure Search インデクサーに統合するまで、画像から Azure Search にコンテンツを取り込むのに役立ちます。 この点について質問やフィードバックがある場合は、以下のコメントをお寄せください。</p>

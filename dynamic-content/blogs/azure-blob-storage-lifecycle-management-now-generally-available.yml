@@ -1,0 +1,94 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 489b97dd5fd0078b6d4d9ea5850f1a0aaab68eac
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893617"
+Slug: azure-blob-storage-lifecycle-management-now-generally-available
+Title: Azure Blob Storage ライフサイクル管理の一般提供
+Summary: データ セットには一意のライフサイクルがあります。 たとえば、ライフサイクルの早い段階で頻繁にアクセスされ、データが古くなるとアクセスの必要性が急激に低下するデータがあります。
+Content: >-
+  <p>データ セットには一意のライフサイクルがあります。 たとえば、ライフサイクルの早い段階で頻繁にアクセスされ、データが古くなるとアクセスの必要性が急激に低下するデータがあります。 使用されずにクラウドに留まるデータや、いったん格納されるとめったにアクセスされないデータもあります。 一部のデータは作成後数日または数か月後に期限切れになりますが、他のデータ セットは有効期間を通してアクティブに読み取りおよび変更されます。</p>
+
+
+  <p>現在、Blob Storage ライフサイクル管理の一般提供を共有して、カスタム定義ルールを使用して BLOB の階層化とリテンション期間を自動化できます。 この機能は、Azure のすべてのパブリック リージョンで使用できます。</p>
+
+
+  <h2>ライフサイクル管理</h2>
+
+
+  <p>Azure Blob Storage ライフサイクル管理には、豊富なルールベースのポリシーが用意されています。このポリシーを使用すると、データを最適なアクセス層に移行し、ライフサイクルの最後にデータを期限切れにすることができます。</p>
+
+
+  <p>ライフサイクル管理ポリシーにより、次のことが可能になります。</p>
+
+
+  <ul>
+      <li>パフォーマンスとコストを最適化するために、BLOB をホットからクール、ホットからアーカイブ、クールからアーカイブなどのよりクールなストレージ層に移行する</li>
+      <li>ライフサイクルの最後に BLOB を削除する</li>
+      <li>最大 100 のルールを定義する</li>
+      <li>ルールを 1 日に 1 回自動的に実行する</li>
+      <li>コンテナーまたは BLOB の特定のサブセットにルールを適用する (ルールあたり最大 10 個のプレフィックス)</li>
+  </ul>
+
+
+  <p>詳細については、Azure Blob Storage ライフサイクルの管理 &ldquo;<a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts" target="_blank">に関するドキュメントを参照してください</a>。&rdquo;</p>
+
+
+  <h2>例</h2>
+
+
+  <p>最初の 1 か月の間に頻繁にアクセスされ、今後 2 か月間しか必要とされない、その後はほとんどアクセスされない、7 年後に有効期限が切れている必要があるデータ セットについて考えてみることができます。 このシナリオでは、ホット ストレージは最初に使用する最適なレベルであり、クール ストレージは不定期アクセスに適しています。アーカイブ ストレージは、数か月後から 7 年後に削除される前に最適なレベルです。</p>
+
+
+  <p>次のサンプル ポリシーは、このようなデータのライフサイクルを管理します。 これは、コンテナー foo 内のブロック BLOB に &ldquo;適用されます&rdquo;。</p>
+
+
+  <ul>
+      <li>最後の変更から 30 日後に BLOB をクール ストレージに階層化する</li>
+      <li>BLOB を階層化して、最後の変更から 90 日後にストレージをアーカイブする</li>
+      <li>最後の変更から 2,555 日 (7 年) 後に BLOB を削除する</li>
+      <li>BLOB のスナップショットを作成したときから 90 日後にスナップショットを削除する</li>
+  </ul>
+
+
+  <pre>
+
+  {
+     &quot;rules&quot;: [
+       {
+         &quot;name&quot;: &quot;ruleFoo&quot;,
+         &quot;enabled&quot;: true,
+         &quot;type&quot;: &quot;Lifecycle&quot;,
+         &quot;definition&quot;: {
+           &quot;filters&quot;: {
+             &quot;blobTypes&quot;: [ &quot;blockBlob&quot; ],
+             &quot;prefixMatch&quot;: [ &quot;foo&quot; ]
+           },
+           &quot;actions&quot;: {
+             &quot;baseBlob&quot;: {
+               &quot;tierToCool&quot;: { &quot;daysAfterModificationGreaterThan&quot;: 30 },
+               &quot;tierToArchive&quot;: { &quot;daysAfterModificationGreaterThan&quot;: 90 },
+               &quot;delete&quot;: { &quot;daysAfterModificationGreaterThan&quot;: 2555 }
+             },
+             &quot;snapshot&quot;: {
+               &quot;delete&quot;: { &quot;daysAfterCreationGreaterThan&quot;: 90 }
+             }
+           }
+         }
+       }
+     ]
+  }</pre>
+
+
+  <h2>価格</h2>
+
+
+  <p>ライフサイクル管理は無料です。 お客様には、この機能によって&ldquo;開始された LIST <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/list-blobs" target="_blank">BLOB</a>&rdquo; &ldquo; と <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/set-blob-tier" target="_blank">Set Blob Tier</a>&rdquo; API 呼び出しの通常の操作コストが課金されます。 価格の詳細については、ブロック BLOB の価格 <a href="https://azure.microsoft.com/en-us/pricing/details/storage/blobs/" target="_blank">に関するページを参照</a> してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure Blob Storage ライフサイクル管理ポリシーにより、クラウド ストレージ管理とコスト最適化戦略が簡素化されるという確信があります。 この機能に関するフィードバックと、 の電子メールを通じて今後の改善に関する提案をお待ちしております <a href="mailto:DLMFeedback@microsoft.com">DLMFeedback@microsoft.com</a>。 お知らせとして、フィードバック フォーラムに投稿できる Azure Storage に関するアイデアや提案Azure Storage<a href="https://feedback.azure.com/forums/217298-storage" target="_blank">お聞かせください</a>。</p>

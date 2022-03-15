@@ -1,0 +1,438 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a95161ff2159e1a2beb17088a3c8da181437bd53
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889841"
+Slug: deep-dive-on-set-body-policy
+Title: セット本文ポリシーの詳細
+Summary: セット本文ポリシーは、要求または応答本文を変更するために使用されます。 ポリシーが受信ポリシー セクションにある場合は、バック エンド API に渡される要求ペイロードが変更されます。ただし、送信セクションにある場合は、API Management によって返される応答ペイロードがクライアントに変更されます。
+Content: >-
+  <p>セット本文ポリシーは、要求または応答本文を変更するために使用されます。 ポリシーが受信ポリシー セクションにある場合は、バック エンド API に渡される要求ペイロードが変更されます。ただし、送信セクションにある場合は、API Management によって返される応答ペイロードがクライアントに変更されます。</p>
+
+
+  <h2>新しい本文の構築</h2>
+
+
+  <p>最も単純な形式では、構文は非常に簡単です。 次のポリシーは、既存の本文を文字列に置き換Hello World。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body&gt;Hello World&lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>ポリシーを使用できる回数に制限はありません。ただし、ポリシーの後のインスタンスによって、前のポリシーの内容がオーバーライドされます。 本文のコンテンツは、いかなる方法でも追加またはストリーミングされません。 セット本文の内部テキストはメモリ ストリームにバッファーされ、受信者に配信されます。</p>
+
+
+  <p>本文を静的テキストで設定する方法は特に役に立たしいとは言え、式を使用してコンテンツを動的に決定できます。 次の例では、既存のペイロードを受け取り、文字列 sad のすべてのインスタンスを更新します。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body&gt;
+
+
+  @(context.Body.As&lt;String&gt;().Replace(&quot;sad&quot;,&quot;happy&quot;))
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>任意の標準単一行 @(...)、または複数行 @{...}expression はここで使用できます。 式は、UTF-8 でエンコードされた文字列を返す必要があります。 現在の Content-Type ヘッダーに charset パラメーターがある場合は、utf8 値に置き換まれます。</p>
+
+
+  <p>本文に配置されるコンテンツが受信したメディアの種類と完全に異なる場合は、Content-Type ヘッダーを set-header ポリシーで更新する必要があります。</p>
+
+
+  <p>set-body ポリシーが正常に適用されると、エントリがトレース ログに書き込まれます。</p>
+
+
+  <h2>使用できる場所</h2>
+
+
+  <p>受信セクションと送信セクションで を使用するだけでなく、エラー時およびバックエンド ポリシーのセクションでも使用できます。 これは、return-response、choose、if、send-request、send-one-way-request などの他の多くのポリシー内に埋め込む可能性があります。</p>
+
+
+  <h2>複雑なボディの作成</h2>
+
+
+  <p>任意の C# コードを使用して新しい本文を生成する機能は十分な柔軟性を提供しますが、一部のシナリオでは、保守するのが最も簡単ではない非常に複雑な文字列連結コードにつながる可能性があります。 これは特に、入力要求本文からいくつかの情報を抽出し、それを渡す前に単に書式を変更する場合です。</p>
+
+
+  <p>別の方法として、Liquid テンプレートを使用して新しいペイロードを生成する別のセット本文モードを使用します。</p>
+
+
+  <h2>Liquid テンプレート</h2>
+
+
+  <p>セット本文ポリシーで Liquid Template を使用するには、テンプレート属性を 要素に追加する必要があります。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  QueryString: {{context.Request.OriginalUrl.QueryString}}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>上の例から、Liquid 式の C# 式で使用されるコンテキスト オブジェクトと同様のオブジェクト モデルを使用できるのを確認できます。 残念ながら、構文は同じではありません。 Liquid バインド構文は、マップと配列の値へのアクセスに限定されます。 したがって、ヘッダー値へのアクセスは次のように表示されます。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  Calling User Agent: {{context.Request.Headers.User-Agent}}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>マップドット表記を使用するか、角かっこと文字列キーを使用してアクセスできます。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  Calling User Agent: {{context.Request.Headers[&quot;User-Agent&quot;]}}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>headers オブジェクトは実際には文字列配列のマップなので、上記のバインドの結果は、すべてのヘッダー値を連結します。 単一のヘッダー値にアクセスするには、配列インデックス演算子を使用できます。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  First Via: {{context.Request.Headers.Via[0]}}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <h2>既存の本文の操作</h2>
+
+
+  <p>Liquid テンプレートは、ペイロードの形式を変更する場合に便利です。 このポリシーを検討してください。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  orderid: {{body.order.id}}
+
+
+  date: {{body.order.orderdate}}
+
+
+  customer:
+
+
+  id: {{body.order.customer.id}}
+
+
+  name: {{body.order.customer.name}}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>本文バインディング オブジェクトを使用すると、XML または JSON ベースのペイロードのフラグメントにアクセスできます。 XML は、現在、要素値へのアクセスに制限されています。 具体的には、テキスト ノードのみを含む要素内のテキスト ノードにのみアクセスできます。&nbsp; 混合コンテンツまたは XML 属性値を含む要素のテキスト ノードにはアクセスできません。&nbsp; ドット演算子を使用すると、オブジェクトと角かっこを使用して配列にインデックスを作成できます。 本文の解釈方法をバインダーに示すために、要求で Content-Type ヘッダーを送信する必要があります。 JSON、application/xml、または +xml で終わる任意のメディアの種類を使用して、JSON および application/xml として処理したり、+xml で終わる任意のメディアの種類を使用して、本文を XML として処理することができます。</p>
+
+
+  <p>上記のテンプレートは、次のいずれかのペイロードに等しくバインドできます。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;Order&gt;
+
+
+  &lt;Id&gt;2323&lt;/Id&gt;
+
+
+  &lt;Date&gt;2017-10-01&lt;/Date&gt;
+
+
+  &lt;Customer&gt;
+
+
+  &lt;Id&gt;4545&lt;/Id&gt;
+
+
+  &lt;Name&gt;Copper Clogs&lt;/Name&gt;
+
+
+  &lt;/Customer&gt;
+
+
+  &lt;Order&gt;
+
+
+  {
+
+
+  &quot;order&quot;: {
+
+
+  &quot;id&quot;:&quot;2323&quot;,
+
+
+  &quot;date&quot;: &quot;2017-10-01&quot;,
+
+
+  &quot;customer&quot;: {
+
+
+  &quot;id&quot;: &quot;4545&quot;,
+
+
+  &quot;name&quot;: &quot;Copper Clogs&quot;
+
+
+  }
+
+
+  }
+
+
+  }</pre>
+
+  </blockquote>
+
+
+  <h2>値の変換</h2>
+
+
+  <p>バインドを使用してペイロードから値を抽出できる以外に、Liquid には、フィルターと呼ぶものを使用して個々の値を変換する機能があります。 フィルターを使用して、日付のレンダリング方法を制御する一般的な使用の 1 つ。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  date: {{body.order.orderdate | Date:&quot;yyyy-MM-dd&quot;}}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>元の Liquid プロジェクトは Ruby ベースのプロジェクトであり、テンプレート言語には特定の Rubyism が存在します。 ただし、使用するライブラリは <a href="file:///C:/Users/mibudz/OneDrive%20-%20Microsoft/API%20Management/Blog%20(old)/apimanagement/www.dotliquid.org">dotLiquid</a> です。これは .net ポートです。これにより、元の構文の一部のバリエーションが可能です。 上記の例の日付形式は、Liquid ネイティブ Ruby スタイルの日付書式文字列ではなく、.net スタイルの日付形式です。 もう 1 つの .Net スタイルの問題は、キャメル ケースではなくパスカルでケースされたフィルターの使用です。 これは、Liquid ドキュメントを探し、フィルターに日付を使用する例が見つから&#39;上がっています。</p>
+
+
+  <p>フィルターの現在の実装のもう 1 つの難しい側面は、特定の文字をエスケープする必要がある点です。 パラメーターは、単一引用符または二重引用符を使用して引用符で囲む場合がありますが、 \ 文字を使用して特殊文字をエスケープする必要があります。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  date: {{body.path | Replace: &#39;/&#39;,&#39;\\&#39; }}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <h2>物のコレクション</h2>
+
+
+  <p>ペイロード内の項目のコレクションを処理する場合、for ループ タグはほとんどの目的で機能します。 次の例では、YAML で注文項目の説明の一覧を作成します。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;Liquid&quot;&gt;
+
+
+  orderid: {{body.order.id}}
+
+
+  date: {{body.order.orderdate}}
+
+
+  customer:
+
+
+  id: {{body.order.customer.id}}
+
+
+  name: {{body.order.customer.name}}
+
+
+  items:
+
+
+  {%for item in body.order.items %} - {{ item.description }}{% endfor %}
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>ただし、JSON を記述し、XML ベースのペイロードから読み取る場合には、いくつかの追加の課題があります。 JSON では、リスト内の項目をコンマで区切る必要があります。 残念ながら、Liquid には、リスト内の最後の項目の後の末尾のコンマを防ぐ簡単な方法はありません。 この問題に対処するために、カスタム ループ メカニズムを作成しました。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;set-body template=&quot;liquid&quot;&gt;
+
+
+  {
+
+
+  &quot;items&quot;: [
+
+
+  {%JSONArrayFor item in body.order.items %}&quot;{{ item.description }}&quot;{% endJSONArrayFor %}
+
+
+  ]
+
+
+  }
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <p>XML に異種コレクションが含まれている場合に、XML から JSON への変換を処理するときに直面する 2 つ目の課題。 次のようなペイロードについて考え、TaxItem 要素のみを抽出します。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  &lt;Order&gt;
+
+
+  &lt;Items&gt;
+
+
+  &lt;ProductItem&gt;P1&lt;/ProductItem&gt;
+
+
+  &lt;ProductItem&gt;P2&lt;/ProductItem&gt;
+
+
+  &lt;ServiceItem&gt;S1&lt;/ServiceItem&gt;
+
+
+  &lt;TaxItem&gt;T1&lt;/TaxItem&gt;
+
+
+  &lt;TaxItem&gt;T2&lt;/TaxItem&gt;
+
+
+  &lt;TaxItem&gt;T3&lt;/TaxItem&gt;
+
+
+  &lt;/Items&gt;
+
+
+  &lt;/Order&gt;
+
+
+  The JSONArrayFor has a where clause that can filter XML elements that will be looped over.
+
+
+  &lt;set-body template=&quot;liquid&quot;&gt;
+
+
+  {
+
+
+  &quot;items&quot;: [
+
+
+  {% JSONArrayFor item in body.order.items where TaxItem %}
+
+
+  &quot;{{ item }}&quot;
+
+
+  {% endJSONArrayFor %}
+
+
+  ]
+
+
+  }
+
+
+  &lt;/set-body&gt;</pre>
+
+  </blockquote>
+
+
+  <h2>コスト</h2>
+
+
+  <p>set-body を使用するには、新しく生成された本文をバッファリングし、古い本文をすべて使用する必要があります。 つまり、コンテンツのストリーミングに依存する HTTP 対話では、チャンク エンコードを使用して、set-body によって許容できないコストが発生する可能性があります。 常に、ポリシーを実稼働環境に入れる前に、負荷の下でポリシーをテストします。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>任意のゲートウェイの主API Managementは、バック エンド API&ccedil; に対する機能を提供します。 これを実現するには、要求と応答のボディを変換できる必要があります。 セット本文ポリシーのさまざまな機能には、最も効果的な方法で HTTP ペイロードを操作するためのさまざまなツールが用意されています。</p>

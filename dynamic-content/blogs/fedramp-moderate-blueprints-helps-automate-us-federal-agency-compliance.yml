@@ -1,0 +1,111 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2dd47b21276335880abe3b2f038daa8b756b6640
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890801"
+Slug: fedramp-moderate-blueprints-helps-automate-us-federal-agency-compliance
+Title: FedRAMP Moderateブループリントは、米国連邦政府機関のコンプライアンスを自動化するのに役立ちます
+Summary: 米国の重要な Azure Blueprints (FedRAMP) 認定の最新のFederal Risk and Authorization Management Programを中程度のレベルでリリースしました。
+Content: >-
+  <p>米国&rsquo;の重要な認証 (FedRAMP) 認定用の最新 <a href="https://aka.ms/fedrampm-blueprint" target="_blank">の Azure Blueprints</a> Federal Risk and Authorization Management Program中程度のレベルでリリースされました。 FedRAMP は重要な認定資格です。米国連邦政府機関にサービスを販売するクラウド プロバイダーは、まず FedRAMP コンプライアンスを実証する必要があります。 Azure と Azure Governmentはどちらも大<a href="https://azure.microsoft.com/en-us/blog/all-us-azure-regions-now-approved-for-fedramp-high-impact-level/" target="_blank"></a>きな影響レベルで FedRAMP&rsquo; に対して承認されています。今後の Azure Blueprints では、影響の大きなコントロール マッピングが提供される予定です。</p>
+
+
+  <p><a href="https://aka.ms/getblueprints" target="_blank">Azure Blueprints</a> は、標準、パターン、要件を実装して遵守する反復可能な一連の Azure リソースを顧客が定義するのに役立つ無料のサービスです。 Azure Blueprints、ISO 27001、Payment Card Industry データ セキュリティ標準 (PCI DSS)、Center for Internet Security (CIS) ベンチマークなどの一般的な内部シナリオや外部標準に一致する準拠環境を設定できます。</p>
+
+
+  <p>FedRAMP などの標準への準拠は、すべての種類の組織にとってますます重要であり、コンプライアンス標準への制御マッピングは、Azure Blueprints の自然なアプリケーションになります。 Azure のお客様 (特に規制対象の業界の顧客) は、コンプライアンスのブループリントに強い関心を示し、コンプライアンス義務の負担を軽減しています。</p>
+
+
+  <p>FedRAMP は、連邦情報セキュリティ管理法 (FISMA) に基づいてクラウド コンピューティング サービスを評価、監視、承認するための標準化されたアプローチを提供し、連邦機関によるセキュリティで保護されたクラウド ソリューションの導入を促進するために確立されました。</p>
+
+
+  <p>管理Office予算の一部として、すべての連邦政府機関が FedRAMP を使用してクラウド サービスのセキュリティを検証する必要があります。 National Institute of Standards and Technology (NIST) 800-53 は標準を設定し、FedRAMP は クラウド ソリューション プロバイダー (CSP) がその標準を満たしたと認定するプログラムです。 Azure は NIST 800-53 にも準拠しており、 <a href="https://docs.microsoft.com/en-us/azure/governance/blueprints/samples/nist-sp-800-53-rev4/" target="_blank">NIST SP 800-53 Rev4</a> 用の Azure Blueprints を既に提供しています。</p>
+
+
+  <p>新しいブループリントでは、FedRAMP セキュリティコントロール ベースラインの重要な部分への部分的な制御マッピングが中程度のレベルで提供されます。次に示します。</p>
+
+
+  <h2>アクセス制御 (AC)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>AC-2 アカウント管理 (AC-2)。 </b>サブスクリプションと非推奨のアカウントに対する読み取り、書き込み、所有者のアクセス許可を持つ外部アカウントを監査する Azure Policy 定義を割り当て、ロールベースのアクセス制御 (RBAC) を実装して、Azure 内のリソースにアクセスできるユーザーを管理し、Just-In-&#39;Time アクセスをサポートできるが、まだ構成されていない仮想マシンを監視します。</li>
+      <li>&nbsp;<strong>情報フローの適用 (AC-4)。</strong>クロスオリジン Azure Policy (CORS) リソースのアクセス制限を監視するのに役立つ、新しい定義を割り当てる。</li>
+      <li>&nbsp;<b>職務の分離 (AC-5)。</b> 仮想Azure Policyの administrators グループのメンバーシップを制御するのに役立つWindows割り当てします。</li>
+      <li>&nbsp;<b>リモート アクセス (AC-17)。</b> リモート アクセスAzure Policy制御するのに役立つ新しい定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>監査と説明責任 (AU)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>監査処理エラーへの対応 (AU-5)。</b> 監査とAzure Policy構成を監視する定義を割り当てる。</li>
+      <li>&nbsp;<b>監査の</b><b>生成 (AU-12)。</b> Azure リソースAzure Policyログ設定を監査する定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>構成管理 (CM)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>最小機能 (CM-7)。</b> アプリケーションのホワイトAzure Policy推奨されるが、まだ構成されていない仮想マシンを監視するのに役立つ仮想マシン定義を割り当てる。</li>
+      <li>&nbsp;<b>ユーザーがインストールしたソフトウェア (CM-11)。</b> アプリケーションのホワイトAzure Policy推奨されるが、まだ構成されていない仮想マシンを監視するのに役立つ仮想マシン定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>コントレンシー計画 (CP)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>代替処理サイト (CP-7)。</b> ディザスター リカバリー Azure Policy仮想マシンを監査する仮想マシン定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>識別と認証 (IA)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>特権アカウントへのネットワーク アクセス (IA-2)。</b> 多要素Azure Policy有効になっていない所有者アクセス許可と書き込みアクセス許可を持つ監査アカウントに&#39;定義を割り当てる。</li>
+      <li>&nbsp;<b>Authenticator管理 (IA-5)。 </b>仮想マシンのパスワード暗号化の種類の構成を監査するポリシー定義Windows割り当てる。</li>
+  </ul>
+
+
+  <h2>リスク評価 (RA)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>RA-5 脆弱性スキャン (RA-5)。</b> 他の情報システムの脆弱性の管理に役立つだけでなく、Advanced Data Securityサーバー SQLを監査して適用するポリシー定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>システムと通信の保護 (SC)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>サービス拒否保護 (SC-5)。</b> 分散型サービス拒否 (DDoS) Azure Policy Standard レベルが有効になっている場合に監査を行う新しい定義を割り当てる。</li>
+      <li>&nbsp;<b>境界保護 (SC-7</b>)。 ネットワーク Azure Policy強化の推奨事項を監視する定義を割り当てるだけでなく、Just-In-Time アクセスをサポートできるが、まだ構成されていない仮想マシン&#39;を監視します。</li>
+      <li>&nbsp;<b>伝送の機密性と整合性 (SC-8)。</b> 通信プロトコルAzure Policy実装された暗号化メカニズムを監視するのに役立つ定義を割り当てる。</li>
+      <li>&nbsp;<b>残りの情報の保護 (SC-28)。</b> 特定のAzure Policyを適用し、脆弱な暗号化設定の使用を監査する定義を割り当てる。</li>
+  </ul>
+
+
+  <h2>システムと情報の整合性 (SI)</h2>
+
+
+  <ul>
+      <li>&nbsp;<b>欠陥の修復 (SI-2)。</b> 不足しているAzure Policy、オペレーティング システムの脆弱性、仮想マシンの脆弱性、および仮想マシンのSQLを監視する定義を割り当てる。</li>
+      <li>&nbsp;<b>悪意のあるコード保護 (SI-3)。</b> 仮想Azure Policyエンドポイント保護の不足を監視する定義を割り当て、仮想マシンに Microsoft マルウェア対策ソリューションWindows適用します。</li>
+      <li>&nbsp;<b>情報システムの監視 (SI-4)。</b> Log Analytics エージェントのデプロイを監査して適用するポリシーと、SQL データベース、ストレージ アカウント、およびネットワーク リソースのセキュリティ設定を強化するポリシーを割り当てる。</li>
+  </ul>
+
+
+  <p>FedRAMP への準拠を求める Azure テナントは、FedRAMP Blueprints コントロールは、お客様が特定のコントロールへのコンプライアンスを評価するのに役立つ場合があるが、コントロールのすべての要件に完全に準拠していることを保証しない場合がある点に注意する必要があります。 さらに、コントロールは 1 つ以上の Azure Policy 定義に関連付けられているほか、コンプライアンス標準には、現時点でブループリント内の Azure Policy 定義によって対処されていない&#39;コントロールが含まれています。 そのため、コンプライアンスはAzure Policy全体のコンプライアンス状態の部分的なビューでのみ構成されます。</p>
+
+
+  <p>お客様は最終的に、環境に適用されるコンプライアンス要件を満たす責任を負い、特定の情報がコンプライアンス のニーズを満たすのに役立つかどうかを判断する必要があります。</p>
+
+
+  <p>Azure FedRAMP の中程度のブループリントの詳細については、ドキュメント <a href="https://aka.ms/fedrampm-blueprint" target="_blank">を参照してください</a>。</p>

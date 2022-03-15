@@ -1,0 +1,113 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ea7144aa99821a9d39cd1422f062b34bb0be9b63
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890413"
+Slug: how-to-build-globally-distributed-applications-with-azure-cosmos-db-and-pulumi
+Title: Azure Cosmos DB およびプル umi を使用してグローバル分散アプリケーションを構築する方法
+Summary: 私たちは、さまざまな大陸の人間や企業が光の速度で対話できるようになるというすばらしい時間で生活しています。 多くの業界およびアプリケーションは、世界中のユーザーを対象としています。 e コマース web サイト、マルチプレーヤーのオンラインゲーム、接続された IoT デバイス、共同作業とレジャーのエクスペリエンスなどです。
+Content: >-
+  <p><em>この投稿は、Mikhail Shilkov、ソフトウェアエンジニア、および公開されています。</em></p>
+
+
+  <p>率いは、開発者が最新のクラウドアプリケーションを構築する方法を、洗練されたプログラミングモデルと開発者ツールを使って、ディープシステムとインフラストラクチャイノベーションを組み合わせた独自のプラットフォームを備えています。</p>
+
+
+  <p>私たちは、さまざまな大陸の人間や企業が光の速度で対話できるようになるというすばらしい時間で生活しています。 多くの業界およびアプリケーションは、世界中のユーザーを対象としています。 e コマース web サイト、マルチプレーヤーのオンラインゲーム、接続された IoT デバイス、共同作業とレジャーのエクスペリエンスなどです。 これらのアプリケーションはすべて、エンドユーザーに近接したコンピューティングとデータインフラストラクチャを必要とし、待機時間を最小限に抑え、ユーザーエクスペリエンスを維持します。 最新のクラウドでは、これらのシナリオが可能になります。&nbsp;</p>
+
+
+  <h2>Azure インフラストラクチャ</h2>
+
+
+  <p>Azure Cosmos DB は、任意の数のリージョンへのターンキーデータ分布を提供します。つまり、運用ワークロードの実行中に場所を追加または削除できます。 Azure は、データのレプリケーション、回復性、および効率性を処理しながら、10ミリ秒未満の待機時間で読み取りおよび書き込み操作用の Api を提供します。</p>
+
+
+  <p>これに対して、compute services &mdash; virtual machines、container instances、Azure アプリ services、Azure Functions、および Managed Azure Kubernetes Service &mdash; は、1つの azure リージョンに配置されます。 データベースの地理的冗長性を適切に使用するには、ユーザーが各ターゲットリージョンにアプリケーションをデプロイする必要があります。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b9c35f90-7af6-4e66-927b-c49d8616de80.png"><img alt="An image showing globally distributed applications." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac144afc-8e7c-4732-bd76-856c04ec5f07.png" title="グローバルに分散されたアプリケーションを示すイメージ。"></a></p>
+
+
+  <p style="text-align: center;"><em>グローバル分散アプリケーション</em></p>
+
+
+  <p align="left">アプリケーションリージョンは、待機時間の短い利点を享受するために Azure Cosmos DB リージョンと同期しておく必要があります。 運用チームは、自動スケールの構成、効率的なネットワーク、セキュリティ、および保守性に加えて、アプリケーションとサービスのプールを管理して、正しい局所性を提供する必要があります。</p>
+
+
+  <p>複雑さを管理するために、 <strong>コードとしてのインフラストラクチャ</strong> のアプローチは復旧に役立ちます。</p>
+
+
+  <h2>コードとしてのインフラストラクチャ</h2>
+
+
+  <p>Azure portal はすべての Azure サービス &rsquo; の優れたウィンドウガラスですが、実稼働アプリケーションのプロビジョニングに直接使用することはできません。 &nbsp;代わりに、必要なすべてのクラウドリソースを作成するために実行できるプログラムの観点から、インフラストラクチャの説明を行う必要があります。</p>
+
+
+  <p>従来、これは、PowerShell コマンドレットや Azure CLI を呼び出す bash スクリプトなどを使用して実現できました。 ただし、この方法は面倒でエラーが発生しやすくなります。 環境を現在の状態から目的の状態にすることは、多くの場合、重要ではありません。 スクリプトの途中でエラーが発生した場合は、環境を修復するために手動で介入する必要があり、ダウンタイムが発生します。</p>
+
+
+  <p><strong>Desired state configuration</strong> は、インフラストラクチャ定義の別のスタイルです。 ユーザーは、インフラストラクチャの目的の最終的な状態を宣言的な方法で記述します。また、ツールは、環境を現在の状態から、目的の状態でパリティに移行します。 このようなプログラムは、変更をより自然に進化させて追跡するためのものです。</p>
+
+
+  <p><strong>Azure Resource Manager テンプレート</strong> は、Azure の世界におけるオーダーメイドツールです。 この状態は、すべてのリソースとプロパティを一覧表示する JSON テンプレートとして記述されています。 ただし、大規模な JSON テンプレートを手動で記述するのは非常に困難です。 高度な学習曲線があり、非常に大きい、複雑、詳細、反復的になります。 開発者は、イテレーションやカスタム関数など、単純なプログラミング言語を用意していません。</p>
+
+
+  <p>この問題<strong> <a href="https://www.pulumi.com" target="_blank"></a>を解決する</strong>には、汎用的なプログラミング言語を使用して、クラウドインフラストラクチャの望ましい状態を記述します。 JavaScript、TypeScript、または Python を使用すると、関数やコンポーネントなどの構造を DevOps ツールボックスに取り込むと同時に、コードの数を減らすことができます。</p>
+
+
+  <h2>グローバルアプリケーションと型の Umi</h2>
+
+
+  <p>この点を説明するために、Azure で分散アプリケーションをプロビジョニングする TypeScript プログラムを開発しました。</p>
+
+
+  <p>ターゲットシナリオでは、アプリケーションを複数の Azure リージョンに分散するために、次のような多くのリソースが必要になります。</p>
+
+
+  <ul>
+      <li>複数のリージョンで Azure Cosmos DB アカウントをプロビジョニングする</li>
+      <li>アプリケーション層のコピーを各リージョンにデプロイする</li>
+      <li>各アプリケーションを Azure Cosmos DB ローカルレプリカに Connect する</li>
+      <li>ユーザー要求を最も近いアプリケーションエンドポイントにルーティングするための Traffic Manager を追加する</li>
+  </ul>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61097250-5398-468e-88c1-61f1971540c8.png"><img alt="A diagram showing the flow of global application with Azure and Pulumi." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c5d8a83-2540-41cd-8b1a-cbaf83e82b1f.png" title="Azure と Azure を使用したグローバルアプリケーションのフローを示す図。 "> </a><em> </em></p>
+
+
+  <p style="text-align: center;"><em>Azure を使用したグローバルアプリケーションとプル Umi</em></p>
+
+
+  <p align="left">&nbsp;</p>
+
+
+  <p>ただし、これを手動でコーディングする代わりに、「 <a href="https://www.pulumi.com/blog/how-to-build-globally-distributed-applications-with-azure-cosmos-db-and-pulumi/" target="_blank">Azure Cosmos DB と生成 umi を使用してグローバル分散アプリケーションを構築する方法</a>」で説明されているように、&#39;s CosmosApp コンポーネントを利用することができます。 コンポーネントは、プラグ可能なコンピューティングレイヤーの実装を許可しながら、フロントエンドルーティングコンポーネントだけでなく、分散 Azure Cosmos DB リソースも作成します。</p>
+
+
+  <p><a href="https://github.com/pulumi/examples/tree/master/azure-ts-cosmosapp-component" target="_blank">再利用可能なコンポーネントでサンプルコードを見つけて、Azure Cosmos DB でグローバルに分散したアプリケーションを作成する</a>ことができます。</p>
+
+
+  <p>生成されたコードは、コードを実行し、作成するリソースツリーに変換して、すべての Azure にデプロイします。</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b08daa9b-6e3d-49fd-b7ea-719e7ce6ac1e.png"><img alt="A screenshot showing Pulumi's CLI executing the code. " src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31026554-3e30-4602-88db-5adec33e5233.png" title="コードを実行している、このコードを実行している、コードを示すスクリーンショット。 "></a></p>
+
+
+  <p>コマンドが成功すると、アプリケーションは、選択した3つのリージョンで実行されます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>コードとしてのインフラストラクチャは、グローバルでスケーラブルなクラウドアプリケーションの世界で最新の DevOps プラクティスを実現するうえで役立ちます。</p>
+
+
+  <p>汎用プログラミング言語を使用してインフラストラクチャを定義できます。 これにより、ソフトウェア開発環境における最適なツールとプラクティスがインフラストラクチャ管理のドメインにもたらされます。</p>
+
+
+  <p>サーバーレスの機能、コンテナー、または仮想マシン &nbsp; &nbsp; で CosmosApp (<a href="https://github.com/pulumi/examples/tree/master/azure-ts-cosmosapp-component" target="_blank">TypeScript</a>、 <a href="https://github.com/pulumi/examples/tree/master/azure-cs-cosmosapp-component" target="_blank">C#</a>) &nbsp; を GitHub &mdash; 使用して、公開さ<a href="https://www.pulumi.com/docs/get-started/azure/" target="_blank">れている</a>を試してみてください。</p>

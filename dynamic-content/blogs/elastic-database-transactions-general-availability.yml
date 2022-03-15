@@ -1,0 +1,105 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d68a95946055fde01029c57801144e43bbbd26c2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889498"
+Slug: elastic-database-transactions-general-availability
+Title: Elastic Database のトランザクションが一般公開されました Azure SQL Database
+Summary: Azure SQL Database の Elastic Database トランザクションが一般公開されました。 エラスティックデータベーストランザクションで、複数の論理サーバー内の Azure SQL データベース間の分散トランザクションがサポートされるようになりました。
+Content: >-
+  <p>&rsquo;Azure SQL Database の Elastic Database トランザクションの一般提供を発表します。 エラスティックデータベーストランザクションを使用すると、データベース間での状態の一貫性を保つ必要がある場合に、使い慣れた原子性と分離のプロパティが有効になります。 たとえば、これらのプロパティは、データベース間で財務トランザクションを処理する場合や、1つのデータベースの在庫を更新して別のデータベースで注文する場合に不可欠です。</p>
+
+
+  <p>一般的な可用性を備えたエラスティックデータベーストランザクションでは、複数の論理サーバーにまたがる分散トランザクションのサポートが追加されます。 サーバーの境界を越えるだけでなく、SQL Database のエラスティックトランザクションも Azure リージョンにまたがることができるようになりました。</p>
+
+
+  <p><img alt="transactions" border="0" height="357" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1b75ba9a-f464-4e29-9d43-c90b79408d5a.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="トランザクション" width="610"><br>
+
+  異なるサーバー間でトランザクションを実装する場合、異なる Azure リージョンに存在する可能性があります。そのため、エラスティックトランザクションに参加している論理サーバーでは、最初に通信関係を入力する必要があります。 これにより、分散トランザクションの調整のメッセージを論理サーバー間でフローさせることができます。 エラスティックトランザクションの通信関係は、サーバーのペア間の通信関係を作成、取得、および削除する PowerShell コマンドレットを使用して管理できます。</p>
+
+
+  <p>エラスティックトランザクションに参加している論理サーバーに対して通信関係が追加されたら、システムトランザクションの TransactionScope クラスなどの使い慣れたプログラミングの抽象化を使用して、アプリケーション内の分散トランザクションの境界を制御できます。 エラスティックデータベーストランザクションは、.net 4.6.1 以降を使用している .NET アプリケーションでのみ使用できます。 BEGIN distributed transaction などの T SQL による分散トランザクションの調整は、SQL Database ではサポートされていません。</p>
+
+
+  <h2>サーバー間トランザクション</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/elastic-database-transactions-with-azure-sql-database/">前のブログ記事</a>では、エラスティックデータベーストランザクションのパブリックプレビューの発表について、Azure SQL Database の同じ論理サーバー上に2つのデータベースを使用した例を示しました。 次の例では、SQL Database の異なる論理サーバー上にあるデータベース間で同じ分散トランザクションを実行する方法を示します。</p>
+
+
+  <h2>サーバー間の通信リンクの確立</h2>
+
+
+  <p>最初の部分は、New-AzureRmSqlServerCommunicationLink コマンドレットを使用して、2つのサーバー間の通信関係を確立することです。 通信関係を管理するコマンドレットとその他のコマンドレットについては、PowerShell ギャラリーを参照してください。 手順に従って、PowerShell ギャラリーから <a href="https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/">最新のコマンドレットをインストール</a> します。</p>
+
+
+  <p>次の PowerShell ステートメントは、Azure SQL Database の論理サーバー myserver1 と myserver2 の間の通信関係を作成します。</p>
+
+
+  <pre>
+
+  -AzureRmSqlServerCommunicationLink `
+   -LinkName etlaunch `
+   -PartnerServer myserver02 `
+   -ServerName myserver01 `
+   -ResourceGroupName myrg
+  </pre>
+
+
+  <h2>開発エクスペリエンス</h2>
+
+
+  <p>次の例では、 <a href="https://azure.microsoft.com/en-us/blog/elastic-database-transactions-with-azure-sql-database/">前のブログ投稿</a> のコードサンプルをクロスサーバーシナリオに拡張しています。 コードサンプルの接続文字列は、新しい Azure PowerShell コマンドレットを使用して、前の手順で登録した論理サーバー名を単に参照します。</p>
+
+
+  <pre class="prettyprint">
+
+  SqlConnectionStringBuilder scsbDb1 = new SqlConnectionStringBuilder
+
+  {
+      DataSource = &quot;myserver01.database.windows.net&quot;,
+      InitialCatalog = &quot;db01&quot;,
+      &hellip;
+  };
+
+
+  SqlConnectionStringBuilder scsbDb2 = new SqlConnectionStringBuilder
+
+  {
+      DataSource = &quot;myserver02.database.windows.net&quot;,
+      InitialCatalog = &quot;db02&quot;,
+      &hellip;
+  };
+
+
+  using (var scope = new TransactionScope())
+
+  {
+      using (var conn1 = new SqlConnection(scsbDb1.ConnectionString))
+      {
+          conn1.Open();
+          SqlCommand cmd1 = conn1.CreateCommand();
+          cmd1.CommandText = string.Format(&quot;insert into T1 values(1)&quot;);
+          cmd1.ExecuteNonQuery();
+      }
+
+      using (var conn2 = new SqlConnection(scsbDb2.ConnectionString))
+      {
+          conn2.Open();
+          var cmd2 = conn2.CreateCommand();
+          cmd2.CommandText = string.Format(&quot;insert into T1 values(2)&quot;);
+          cmd2.ExecuteNonQuery();
+      }
+
+      scope.Complete();
+  }
+
+  </pre>
+
+
+  <h2>次の手順</h2>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/dotnet/2015/11/30/net-framework-4-6-1-is-now-available/">.net 4.6.1</a>をダウンロードし、現在 SQL Database でエラスティックデータベーストランザクションの使用を開始することをお勧めします。 SQL Database と .net 4.6.1 を使用したエラスティックデータベーストランザクションの詳細については、<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-elastic-transactions-overview/">エラスティックデータベーストランザクションのドキュメント</a>と<a href="https://blogs.msdn.microsoft.com/dotnet/2015/11/30/net-framework-4-6-1-is-now-available/">.net 4.6.1 リリースの発表</a>に関するページを参照してください。</p>

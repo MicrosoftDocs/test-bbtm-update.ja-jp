@@ -1,0 +1,28 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6282165fc60f6b9b6b390dd05df5a0155d8acb37
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888914"
+Slug: update-on-transitioning-mobile-apps-from-application-insights-to-hockeyapp
+Title: Application Insights から HockeyApp への移行 Mobile Apps の更新
+Summary: 'Visual Studio Application Insights から HockeyApp するための移行計画について発表した Mobile Apps ので、お客様からのフィードバックを受けて、ホッケーアプリに欠けている機能についての懸念をお寄せください。 '
+Content: >-
+  <p><a href="https://azure.microsoft.com/services/application-insights/">Visual Studio Application Insights</a>から<a href="https://www.hockeyapp.net/features/">HockeyApp</a>するための<a href="https://azure.microsoft.com/blog/transitioning-mobile-apps-from-application-insights-to-hockeyapp/">移行計画</a>について発表した Mobile Apps ので、Application Insights にあるが現在は使用できない機能に関する懸念を示すフィードバックをお客様から受け取りました。 フィードバックを検討した後、microsoft は計画を変更することにしました。 HockeyApp はモバイルアプリの主要なオファリングとして機能しますが、お客様がデバイステレメトリの &nbsp; 詳細な分析にアクセスして実行できるよう &nbsp; にする Application Insights の重要な機能を提供します。 これは、ソリューション全体で分析するために Application Insights &ndash; でサービスとデバイスのテレメトリデータ &nbsp; 全体の相関関係と分析を可能にするための最初の &nbsp; 手順です。</p>
+
+
+  <p>具体的には、次のような変更が加えられます。</p>
+
+
+  <ul>
+      <li>Application Insights は、iOS、Android、およびすべての Windows &nbsp; アプリケーションのデバイスの種類 &rdquo; のアプリケーションを引き続きサポート &ldquo; します。 既存のモバイルアプリには引き続き Application Insights を使用できます。また、間もなく新しいアプリを作成できるようになります。 Application Insights のデバイスの種類 &rdquo; の &ldquo; アプリでは、<a href="https://blogs.msdn.microsoft.com/bharry/2016/03/28/introducing-application-analytics/">分析</a>機能と &ldquo; <a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-export-telemetry/">連続エクスポート</a> &quot; 機能がサポートされます。 Application Insights のデバイスの種類 &quot; のアプリケーションで現在無効 &quot; になっている分析機能は、すぐ &nbsp; にこれらのアプリに対して有効になります。</li>
+      <li><a href="https://blogs.msdn.microsoft.com/bharry/2016/03/28/introducing-application-analytics/">Analytics</a>を使用すると、HockeySDK から供給されるデバイステレメトリに対して詳細な分析を行うことができます。 Application Insights の sdk も引き続きサポートされます。 互換性のあるバージョンを使用できるようになったら、HockeySDK に切り替えることを強くお勧めします。 これらの新しいバージョンは、利用可能な日付の近くに発表されます。</li>
+      <li>検索、ドリルダウン、カスタムグラフ、ダッシュボードなどを含む、Azure Portal の他のすべての現在の機能は、分析と連続エクスポートの外部で使用できなくなります。 クラッシュ分析は、HockeyApp でのみ使用できます。</li>
+      <li>今後の分析に追加された新機能 (ダッシュボード、モバイルアプリや web アプリ間でのデータの結合など) は、デバイスの種類 &rdquo; の &ldquo; アプリで利用できるようにする必要があります。</li>
+      <li>間もなく、デバイスの種類 &quot; のアプリを Application Insights から HockeyApp にリンク &quot; &rdquo; する &ldquo; 機能が有効になります。 これにより、 &ldquo; 現在提供されている HockeyApp &rdquo; 関数に転送が置き換えられます。 アプリをリンク &rdquo; する &ldquo; と、HockeyApp にアプリが作成されます。これにより、最高クラスのクラッシュレポートや、フィードバック機能を使用した直接ユーザーエンゲージメントなどの HockeyApp 機能を利用できます。</li>
+      <li>期限が延長<sup>されました。既存</sup>のモバイルアプリは、7月15日まで Application Insights 現在の動作と同じように動作し続けます。 7月15日以降、これらのアプリの<sup>Application Insights では</sup>、前述の機能のみが有効になります。</li>
+  </ul>
+
+
+  <p>今後、さらに詳しい情報が発表されます。 それまでの間は、引き続き Application Insights でモバイルアプリを使用してください。これで、HockeyApp と Application Insights を最大限に活用できるようになりました。</p>

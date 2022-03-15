@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 22d7d7e39a9b9aef9a21d68da240d780878af4ff
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894496"
+Slug: azure-service-bus-namespacetype-default-value-change
+Title: Azure Service Bus – 'NamespaceType' の既定値の変更
+Summary: '最近、ユーザー エクスペリエンスをアプリとサービスの間で分割Service Bus、Notification Hubsエクスペリエンスを向上Notification Hubs。 現在は、ポータルの動作に合わせて NamespaceType の既定値を "Messaging" にしています。 '
+Content: >-
+  最近、<a href="https://azure.microsoft.com/blog/2014/09/05/simplifying-working-with-azure-notification-hubs/">ユーザー</a> エクスペリエンスをユーザー エクスペリエンスの向上を可能Service BusとNotification Hubsの間でユーザー エクスペリエンスを分割Notification Hubs。 1 か月以上既に実稼働している前のブログ記事で説明したポータルの変更に続いて、現在は、名前空間の作成 Service Bus PowerShell コマンドレット (<a href="https://go.microsoft.com/fwlink/p/?linkid=320376&amp;clcid=0x409">Azure PowerShell</a> に含まれます) と名前空間の作成 <a href="https://msdn.microsoft.com/en-us/library/azure/jj856303.aspx">REST API</a> に対する変更を発表しています。 そのため、PowerShell コマンドレットまたは REST API を直接使用して Service Bus 名前空間を作成する場合は、これらの今後の変更が影響を受ける可能性があります。そのため、先読みしてください。
+
+
+  ポータルの変更と共に、 名前空間に NamespaceType プロパティが導入されました。 サービス バックエンドでは、REST API または PowerShell を使用して名前空間を作成しているお客様が、Notification Hub エンティティと Messaging エンティティ (キュー、トピック、リレー、イベント ハブなど) の両方を含められます。 これは、前の投稿で示した通り<a href="https://azure.microsoft.com/blog/2014/09/05/simplifying-working-with-azure-notification-hubs/"></a>、お客様が段階的に移行し、NamespaceType の明示的な提供を開始するために行いました。
+
+
+  ポータルの動作に合わせて、NamespaceType の既定値を "メッセージング" にしています。 つまり、PowerShell または名前空間を使用して名前空間を作成する場合は、次REST API。
+
+  <ol>
+   <li>このプロパティをNotification Hubs NamespaceType プロパティを "NotificationHub" に明示的に設定する必要があります</li>
+   <li>Notification Hub にメッセージング &amp; エンティティを含むには、2 つの名前空間を作成する必要があります。1 つはメッセージング エンティティを格納する名前空間Notification Hubs、もう 1 つはメッセージング エンティティ用です。 これは、既存のポータルの動作と同じに注意してください。</li>
+   <li>Messaging を含むには、必要に <span style="text-decoration: underline;">応</span> じて NamespaceType プロパティを "Messaging" に設定できます。</li>
+  </ol>
+
+  &nbsp;
+
+
+  NotificationHub を含む名前空間を作成するために NamespaceType を明示的に設定する方法の例を次に示します。
+
+
+  <strong>PowerShell:</strong>
+
+
+  <strong><img style="float: none; padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="powershell" alt="powershell" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/powershell.png" width="802" height="34" border="0" /></strong>
+
+
+  <strong>REST API：</strong>
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RESTAPI" alt="RESTAPI" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/RESTAPI.png" width="1894" height="508" border="0" />
+
+
+  これらの変更は 10 月 26 日から <strong>適用されます</strong>。この変更について強い懸念がある場合は、フィードバックをお寄せください。
+
+
+  よろしくお願いいたします。

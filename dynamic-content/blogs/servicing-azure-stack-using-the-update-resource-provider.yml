@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 22892b7c77eddd9bba28f24694e37b07a36a4700
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892534"
+Slug: servicing-azure-stack-using-the-update-resource-provider
+Title: 更新Azure Stackを使用したサービスの提供
+Summary: GoalAny number of tweets は、お客様がハイブリッド クラウド環境の新しい可能性のロックを解除するためにAzure Stackを計画している方法に関する個々のストーリーを伝えます。 今日の世界では、セキュリティは...
+Content: >-
+  <p>今日の世界&rsquo;では、セキュリティが最も重要です。 Microsoft は、Azure <a href="https://azure.microsoft.com/en-us/blog/security-and-compliance-in-azure-stack/"></a> &ndash; で使用するのと同じアプローチ、API、DevOps ツール、ポータルを使用してアプリケーションをビルドおよびデプロイするための一貫性を提供し、Azure Stack 環境がセキュリティと機能の両方を維持するようにコミットしています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/why-your-team-needs-an-azure-stack-operator/">Azure Stackオペレーターは</a> 、Azure Stack インフラストラクチャを安全かつ確実に更新できる一方で、高可用性のミッション クリティカルなサービスを顧客に提供できる必要があります。 更新プログラムの範囲は、ソフトウェアからファームウェアまで、システムのコア コンポーネント間で行います。 更新プロセスは簡単で予測可能であり、顧客はビジネスの他の側面に集中できる必要があります。</p>
+
+
+  <h2>課題</h2>
+
+
+  <p>更新プログラムAzure Stackダウンロードする場所、更新プログラムを適用する方法、適用する順序、問題が発生した場合に呼び出すユーザー、中断を最小限に抑える、メンテナンス期間を決定する方法をオペレーターが決定する方法 [リソース プロバイダーの更新] を入力します。このプロバイダーは、Azure Stack。</p>
+
+
+  <h2>構築した内容</h2>
+
+
+  <p>Azure Stackには、依存関係に対応したオーケストレーション エンジンが組み込まれています。これにより、Azure Stack オペレーターは、Azure Stack の更新プログラムをインポート、実行、監視できます。 追加のツール、インターネット接続、または統合は必要ありません。 オペレーターは、Azure Stack の更新プログラムをダウンロードし、事前に定義されたメンテナンス期間中に管理者ポータルの [更新] タイルを使用してインポートして実行します。 完全ネイティブの Update リソース プロバイダーにより、すべての物理ホスト、Service Fabric アプリケーションとランタイム、およびすべてのインフラストラクチャ ロールに更新プログラムが確実に適用されます。</p>
+
+
+  <p>[更新] タイルの使用は簡単で、管理者ポータルからの更新プログラムの管理は簡単なプロセスです。 オペレーターは、[更新] タイルに移動して次の操作を行います。</p>
+
+
+  <ul>
+   <li>現在のクラウド バージョンなどの重要な情報を表示する</li>
+   <li>利用可能な更新プログラムをインストールする</li>
+   <li>以前にインストールされた更新プログラムの更新履歴を確認する</li>
+   <li>クラウドの現在の&rsquo; OEM パッケージ バージョンを表示する</li>
+  </ul>
+
+
+  <p>以下に示す通り、Azure Stack オペレーターは更新プログラムをダウンロードし、更新リソース プロバイダーによって処理され、インストールの準備ができている Azure Stack にインポートしました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b49d815-8f9b-4dbf-8e3e-86924ba8b760.png"><img alt="1" border="0" height="547" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c01eb4b6-3200-440e-8025-01e93e660dc0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1" width="1024"></a></p>
+
+
+  <p>更新プログラムがインストールされている間、更新プロセスがシステム内のさまざまなサブシステムを反復処理する場合、オペレーターは高レベルの状態を簡単にAzure Stack。 サブシステムの例として、物理ホスト、Service Fabric、インフラストラクチャ仮想マシン、管理者とユーザーの両方のポータルを提供するサービスなどがあります。 [実行の詳細の更新&ldquo;&rdquo;] ブレードの [完全なログのダウンロード] ボタンを使用すると、更新プロセス中に高レベルのログを簡単に表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cb82057d-c318-4029-ba8b-fc42ef5ff0eb.png"><img alt="2" border="0" height="547" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb69e1f5-ea74-4088-8203-6a6726c7e783.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2" width="1024"></a></p>
+
+
+  <p>更新プロセス全体を通して、更新リソース プロバイダーは、成功した手順の数や進行中の数など、更新に関する追加の詳細をオペレーターに報告します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53f83c75-3cbd-41ef-8ec4-4ab50c3b0627.png"><img alt="3" border="0" height="553" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1185bbc0-edcc-4091-851b-082b468a96f4.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="3" width="1028"></a></p>
+
+
+  <p>完了すると、更新&ldquo;&rdquo;リソース プロバイダーは、更新プロセスが完了し、どのくらいの時間がかかったかについてオペレーターに通知する成功確認をオペレーターに提供します。 そこから、オペレーターは、次に示すフィルターを使用して、すべての更新プログラム、利用可能な更新プログラム、またはインストールされている更新プログラムに関する情報を表示できます。 更新プログラムの適用に失敗&ldquo;&rdquo;した場合、更新プログラムは "要注意" と報告され、ほとんどの場合、サポート チケットを開始する必要があります。 上に示 &ldquo;した [完全な&rdquo; ログのダウンロード] を使用して、更新が失敗した可能性がある場所の大きな状態を取得します。 ほとんどの場合、ログの収集に <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-diagnostics">Azure Stack診断</a> とトラブルシューティングを容易にするのに役立ちます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ec5df65e-c3ea-4373-a43e-0014b15c80aa.png"><img alt="4" border="0" height="545" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5987c60-0d4d-4b17-9b0c-7b67078e636f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="4" width="1024"></a></p>
+
+
+  <h2>今後の予定</h2>
+
+
+  <p>お客様は、Azure Stack &ndash; の更新プログラムが少なくとも毎月リリースされる予定であり、Microsoft ではできるだけ早く更新プログラムをインストールする方法を強く推奨しますが、更新プログラムをインストールできない状況が発生する可能性がある場合があります。 この場合、お客様は、サポートの境界内にとどまる更新プログラムを最大 3 か月間延期できます。 これらの状況では、Azure Stackの更新プログラムは累積的ではないので、順次インストールする必要があります。そのため、このような状況下で延長メンテナンス期間を計画してください。&nbsp;</p>
+
+
+  <p>OEM によって提供されるファームウェアの更新は、更新リソース プロバイダーの外部で更新されます。 Microsoft が提供するソフトウェア更新プログラムと同様に、メンテナンス時間を強く推奨します。 Azure Stack Stack のファームウェア更新プログラムの詳細については、oem にお問い合Microsoft Azureください。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>Azure Stack での更新プログラムの管理の詳細については、オンライン ドキュメントの「 <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-updates">Azure Stack で更新</a> プログラムを管理する」セクションを参照してください。 また、<a href="https://www.microsoft.com/en-us/ignite/">Microsoft Ignite</a> に向かっている場合は、更新とサービス Microsoft Azure <a href="https://myignite.microsoft.com/sessions/57074?source=sessions">Stack</a> セッション (THR3007R2) にドロップします。 サポート ポリシーの詳細については、製品ライフサイクル ポリシーのAzure Stack <a href="https://support.microsoft.com/en-us/lifecycle/search?alpha=Azure%20Stack">ページを参照</a> してください。</p>

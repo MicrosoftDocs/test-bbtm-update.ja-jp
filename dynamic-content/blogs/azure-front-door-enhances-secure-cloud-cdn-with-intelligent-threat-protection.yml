@@ -1,0 +1,150 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 79e3e50725b2039933489aa97062d733f657d5be
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889271"
+Slug: azure-front-door-enhances-secure-cloud-cdn-with-intelligent-threat-protection
+Title: Azure Front Doorインテリジェントな脅威保護を使用してCDNセキュリティで保護されたクラウド サービスを強化する
+Summary: インターネットは、新しい企業ネットワークであり、ユーザー、デバイス、データをすべての種類のアプリケーションに接続するファブリックです。 これは、組織がビジネスを実行し、顧客と関わり、商取引を実施し、サプライ チェーンを運営し、従業員がどこからでも作業できる方法の基礎です。 ただし、インターネットは拡張性が高く、拡大し続けている一方で、さまざまなアプリケーションやユーザー エクスペリエンスに対して常に適切に最適化されているわけではありません。また、セキュリティ上の脅威や脆弱性の高まりからアプリケーションをセキュリティで保護するためのサイバーセキュリティ保護はほとんど実施されません。
+Content: >-
+  <p><em>このブログ記事は、シニア プログラム マネージャーの Jessie 、</em></p>
+
+
+  <p>インターネットは、新しい企業ネットワークであり、ユーザー、デバイス、データをすべての種類のアプリケーションに接続するファブリックです。 これは、組織がビジネスを実行し、顧客と関わり、商取引を実施し、サプライ チェーンを運営し、従業員がどこからでも作業できる方法の基礎です。 ただし、インターネットは拡張性が高く、拡大し続けている一方で、さまざまなアプリケーションやユーザー エクスペリエンスに対して常に適切に最適化されているわけではありません。また、セキュリティ上の脅威や脆弱性の高まりからアプリケーションをセキュリティで保護するためのサイバーセキュリティ保護はほとんど実施されません。</p>
+
+
+  <p>これらのワークロードが企業にとっていかに中心的なものかという点から、キャッシュを超えた新しいクラスのコンテンツ配信ネットワーク (CDN) を探し、可用性、待機時間、スケーラビリティ、さらに重要なセキュリティ目標を満たします。さらに、ターンキー セキュリティ統合が組み込みの動的アクセラレーションと静的アクセラレーションの両方に対応する単一の統合プラットフォームと、シンプルで予測可能な価格モデルを要求しています。</p>
+
+
+  <p>これらのお客様の要件に対処するために、&#39;では、Azure Front Door ファミリに 2 つの新しい SKU のプレビューを導入<a href="https://azure.microsoft.com/en-us/services/frontdoor/" target="_blank"></a>し、Azure Front Door、Azure Content Delivery Network (CDN) 標準、Azure Web Application Firewall (WAF) の機能を組み合わせて、インテリジェントな脅威保護と簡単に理解できる価格モデルを備えた単一のセキュリティで保護されたクラウド CDN プラットフォームに導入します。</p>
+
+
+  <p>Azure Front Door SKU はコンテンツ配信が最適化され、静的および動的なコンテンツ アクセラレーション、グローバル負荷分散、SSL オフロード、ドメインと証明書の管理、強化されたトラフィック分析、基本的なセキュリティ機能の両方が提供されます。</p>
+
+
+  <p>Azure Front Door PREMIUM SKU は、Standard SKU の機能に基付け、WAF、BOT 保護、Azure Private Link のサポート、Microsoft Threat Intelligence との統合、およびセキュリティ分析全体に広範なセキュリティ機能を追加します。 </p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdfd27d3-a9e4-403d-b55e-9750ae2897f0.png"><img alt="Azure Front Door new SKU line up." border="0" height="462" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd713c31-a673-44c1-8931-1f3e8a43c602.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p><em>図 1: 新しいAzure Front Door SKU</em></p>
+
+
+  <h2>Azure Front Doorと Premium の概要</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1099ecb-3b0f-4e5a-a8c0-fc1fd58321b9.png"><img alt="Azure Front Door overview." border="0" height="578" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a6d141f9-807b-4ea2-b8d9-229f187e0086.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>新しいAzure Front Door、アプリ、API、Web サイトを簡単にセキュリティで保護して加速する方法が提供されます。 この機能を使用する主な利点はAzure Front Doorです。</p>
+
+
+  <ul>
+      <li>Open Web Application Security Project (OWASP) の上位 10 件の脆弱性に対する統合 WAF 保護、アプリケーション固有の保護のカスタム 規則、自動悪意のある攻撃に対する Bot Manager 保護により、アプリケーションのセキュリティが強化されました。すべて Microsoft Threat Intelligence と統合され、レイヤー 3 から 4 の分散型サービス拒否 (DDoS) 保護が組み込みされています。</li>
+      <li>ユーザーに近いネットワーク エッジでの静的および動的サイトアクセラレーションの強化、ウォームアップなしの即時スケールアウト、インスタント フェールオーバーによるグローバル HTTP 負荷分散、高度なルーティング機能のための完全にカスタマイズ可能なルール エンジン。</li>
+      <li>Microsoft&#39;の大規模なプライベート グローバル ネットワーク上に構築された Azure Front Door は、Microsoft Office 365、Bing、LinkedIn、Xbox など、Microsoft で最も大きく待機時間が重要なグローバル サービスの一部に電力を供給するために使用される実証済みのプラットフォームです。</li>
+      <li>完全に表現可能な状態転送 (REST) API 駆動型のクラウドネイティブで開発者に優しいサービスを使用して、デプロイと自動化を簡素化します。</li>
+  </ul>
+
+
+  <h2>新機能</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/cdn/cdn-features" target="_blank">Azure CDN Standard</a>、<a href="https://docs.microsoft.com/en-us/azure/frontdoor/front-door-overview" target="_blank">Azure Front Door</a>、<a href="https://docs.microsoft.com/en-us/azure/web-application-firewall/afds/afds-overview" target="_blank">および Azure Web Application Firewall</a> で使用できるすべての機能をサポートするほか、新しい Standard SKU と Premium SKU では、このプレビューでは次の新機能も追加されます。</p>
+
+
+  <h3>簡略化された統合されたユーザー エクスペリエンス</h3>
+
+
+  <p>新しい SKU では、新しいポータル エクスペリエンスで Azure Front Door、Azure CDN、Azure Web Application Firewallの組み合わせ機能が提供されます。</p>
+
+
+  <ul>
+      <li><strong>簡単なFront Door作成</strong>: デプロイの手順と構成を大幅に削減する簡易作成を追加しました。 また、使用シナリオに基づいて適切な SKU を選択できる新しいガイド付きエクスペリエンスも提供されています。 既存のサービスAzure Front DoorサービスCDN、この統合されたエクスペリエンスからアクセスできます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1de258e-83df-4136-8a16-614c1a26c2ac.png"><img alt="Azure Front Door - Quick Create." height="388" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6eb4b838-187c-41f2-96e3-d38f979eeb01.png" style="margin-right: auto; margin-left: auto; display: block;" title="フロントドア" width="573"></a></p>
+
+
+  <ul>
+      <li><b>管理エクスペリエンスの簡素化: </b>また、ドメイン ネーム システム (DNS) TXT レコードベースの検証に排他的に依存する CNAME サブドメインベースの検証への依存を取り除き、ドメイン検証エクスペリエンスを強化しました。 ドメイン検証は、検証の遅延をさらに減Azure DNSサブドメインの問題を排除する、ドメイン検証とシームレスに統合されます。</li>
+      <li><b>TLS 証明書の管理:</b> また、Standard SKU と Premium SKU はどちらも、すべてのカスタム ドメインに対して、追加コストを必要と "ない" Azure マネージド トランスポート層セキュリティ (TLS) 証明書を既定で提供します。 TLS 証明書の有効期限について心配する必要はありません。 独自の TLS 証明書を取り込むには、組み込みの TLS 証明書と Azure Key Vault。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c5d4705-9725-43fb-a809-9b7e240cfae8.png"><img alt="Azure Front Door – Domain Management Blade." height="190" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a78fe1a6-3aff-4618-8817-754a870ae411.png" style="margin-right: auto; margin-left: auto; display: block;" title="azure front door 1" width="624"></a></p>
+
+
+  <h3>セキュリティとプライベートオリジン</h3>
+
+
+  <ul>
+      <li><b>プライベートオ</b>リジン のサポート: <b> </b>Azure Private Link との統合は業界初の CDN 機能であり、顧客はオリジンをプライベートに保ち、ゼロトラスト アクセス モデルを利用できます。 この統合により、パブリック インターネットからアクセス可能な IP アドレスを使用してオリジンを使用する必要がなさから、その結果、表面領域が大幅に減少します。 Azure Storage サービスや Azure アプリ サービスなど、Azure Private Linkと統合する PaaS サービスは、プライベート オリジンとして使用できます。 アプリの背後で実行されている IaaS サービスAzure Load Balancerアクセスに対して有効Azure Private Linkできます。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/745f0133-6fd5-4774-b21f-e441d3c03de4.png"><img alt="Create a Front Door profile with Azure Front Door." height="894" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dfab1907-2c5f-4707-991f-d7914a58774d.png" style="margin-right: auto; margin-left: auto; display: block;" title="" width="539"></a></p>
+
+
+  <ul>
+      <li><b>WAF の機能強化:</b> Azure Front Door Premium SKU では、OWASP 上位 10 からアプリケーションを効果的に保護する Microsoft Threat Intelligence 作成ルール、CRS 3.2 署名、および Bot Manager を統合することで、WAF 機能も強化されます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66e118e9-6bd9-4b4a-8956-7886c5d7eff4.png"><img alt="Azure Front Door – Traffic by location report." height="233" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3962cd42-27a3-49b0-b3d6-89310702d72b.png" style="margin-right: auto; margin-left: auto; display: block;" title="フロント ドア 4" width="699"></a></p>
+
+
+  <h3>分析とテレメトリ</h3>
+
+
+  <ul>
+      <li><b>トラブルシューティングとデバッグを改善</b> するための強化された分析機能。 アクセス ログを強化し、追加のメトリックを提供するほか、新しい SKU では、トラフィックの配信とセキュリティに関する事前に作成されたレポートも提供されます。</li>
+      <li><b>Azure Front Door正常性プローブ ログ: </b>診断ログにさらに多くのメトリックと拡張機能を提供するほか、正常性プローブ診断ログも導入されています。これにより、オリジンが不健康と見なされた場合にデバッグできます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c457e166-d9ab-44ae-af5e-ef160f6141eb.png"><img alt="Azure Front Door Traffic Report by location" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/73cd3501-0459-4c0f-91d0-dd5aa4690e3b.png" style="border: 0px currentcolor; border-image: none; display: block; background-image: none;" title="" width="681"></a></p>
+
+
+  <p><em>場所別のトラフィック レポート</em></p>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30ed4472-42d1-46a7-bd2a-e90a50bd4976.png"><img alt="Azure Front Door Premium SKU Security Report" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/53cdd65e-68d5-42e5-95e9-d37ad87db07b.png" style="border: 0px currentcolor; border-image: none; display: block; background-image: none;" title="" width="680"></a></em></p>
+
+
+  <p><em>セキュリティ レポート </em></p>
+
+
+  <h2>簡略化された価格</h2>
+
+
+  <p>お客様が計画する必要があるメーターを減らして、課金の複雑さを軽減しました。 各 SKU には、固定月額料金、階層型エグレス (データ&nbsp; 転送送信)、1 秒あたりの要求数 (RPS)、イングレス (データ転送受信) 料金が含まれます。 Azure Front Door Premium SKU には、WAF、DDoS、ボット保護、プライベート リンク機能が含まれています。 詳細については、 <a href="https://azure.microsoft.com/en-us/pricing/details/frontdoor/" rel="noreferrer noopener" target="_blank">Azure Front Door の価格に関するページ</a> を参照してください。</p>
+
+
+  <p><a href="https://portal.azure.com/#create/Microsoft.Frontdoor-ARM" target="_blank">概要</a> プレビューを <a href="https://azure.microsoft.com/en-us/services/frontdoor/" target="_blank">Azure Front Doorして</a> 、新しい機能の詳細を確認してください。 標準のオファリング以外の機能を探索する場合は、 <a href="https://feedback.azure.com/forums/217313-networking" target="_blank">UserVoice</a> ページで機能要求を送信するか、メールでお問い合 <a href="mailto:afdfeedback@microsoft.com">わせください</a>。 お客様&rsquo;からのフィードバックをお聞かせください。</p>
+
+
+  <p>一般提供されるその他の機能については、ご期待ください。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>このブログ記事で説明しているすべての詳細については、次を参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/afdxportal" target="_blank">Azure Front Door Azure Portal で Standard と Premium を使用する</a></li>
+      <li><a href="https://aka.ms/AzNetSecBlog" target="_blank">Azure Network Security Tech Community ブログ</a></li>
+      <li><a href="https://aka.ms/AzNetSec" target="_blank">Azure Network Security GitHub リポジトリ</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/services/frontdoor/" target="_blank">Azure Front Door Premium (プレビュー) を使用します</a>。</li>
+      <li><a href="https://azure.microsoft.com/en-us/pricing/details/frontdoor/" target="_blank">Azure Front Door Premium (プレビュー) の価格を設定します</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/frontdoor/standard-premium/" target="_blank">Azure Front Door Premium (プレビュー) ドキュメントを参照してください</a>。</li>
+  </ul>

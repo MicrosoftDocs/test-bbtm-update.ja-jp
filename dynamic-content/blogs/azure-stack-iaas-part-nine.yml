@@ -1,0 +1,170 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b1eed02e3c89698b14856cd086fd7f771b475731
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894471"
+Slug: azure-stack-iaas-part-nine
+Title: IaaS の Azure Stack –パート9
+Summary: Azure Stack を構築する前に、プログラムマネージャーチームは、仮想化インフラストラクチャからプライベートクラウドを作成することに苦労していた多数のお客様と呼ばれていました。
+Content: >-
+  <p><em>このブログは、Aparna Vishwanathan、シニアプログラムマネージャー、Azure Stack および Tiberiu の、シニアプログラムマネージャー、Azure Stack によって共同作成されています。</em></p>
+
+
+  <h2>他のユーザーの成功に応じて構築する</h2>
+
+
+  <p>Azure Stack を構築する前に、プログラムマネージャーチームは、仮想化インフラストラクチャからプライベートクラウドを作成することに苦労していた多数のお客様と呼ばれていました。 1つの設定を取得するための技術的な課題を克服するために管理されているいくつかの問題は、事業単位や開発者による使用に関する問題でした。 私たちは、自分の組織のみに固有のクラウドであるスノーフレーククラウドを作成しました。 しかし、開発者はパブリッククラウドで得られるものと同じ機能を望んでいました。これは、豊富なドキュメント、例、テンプレート、フォーラム、デモなどのエコシステムです。</p>
+
+
+  <p>これは、Azure Stack で解決しようとしていた主な問題の1つです。 デプロイと運用を自動化しただけでなく、Azure と一貫性があり、開発者や事業単位がエコシステムを活用できるローカルクラウド。 このブログ記事では、Azure エコシステムを活用して、IaaS から最大限の価値を引き出すためのさまざまな方法について説明します。</p>
+
+
+  <p><em>プライベートクラウド Azure Stack を呼び出さないでください。これは、多くの人がスノーフレーククラウドを意味するためです。ただし、Azure Stack はローカルに実行でき、組織 &rsquo; のコントロールの下に完全に配置されます。</em></p>
+
+
+  <h2>Azure Marketplace</h2>
+
+
+  <p>Azure エコシステムの使用を開始する最も簡単な場所は、Azure Marketplace を使用することです。 Azure Stack 管理者は、Azure Stack を Azure に登録できます。 登録が完了したら、管理者は Azure Stack で使用できるようにする Azure Marketplace の項目を選択できます。 選択する項目は、Azure 認定を受け、Azure Stack で事前に検証されている marketplace アイテムの curated リストから取得します。 marketplace には、basic Windows および Linux OS イメージの便利な IaaS テンプレートが多数あり、高可用性のデプロイと、仮想マシン (VM) 機能を拡張する拡張機能が用意されています。 一部の項目には、Windows、Ubuntu、SLES、centos、Debian、SQL Server、Kubernetes、Azure Service Fabric、mongo DB with Replication、Cassandra Cluster、kafka Cluster、Redis HA、RabbitMQ HA、Jenkins Cluster、パペット Enterprise、および Chef 自動化が含まれています。</p>
+
+
+  <p>Azure Stack に marketplace アイテムをダウンロードすると、管理者には次のような情報が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d32be4e9-697e-46d1-aa22-77aad5cf3c19.png"><img alt="Screenshot of the administrator view when downloading marketplace items into Azure Stack" border="0" height="831" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a9913ea-ffdf-4dd8-ba28-1770b4a2885f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Stack に marketplace アイテムをダウンロードするときの管理者ビューのスクリーンショット" width="1233"></a></p>
+
+
+  <p>接続されていない環境では、管理者は <a href="https://docs.microsoft.com/en-us/azure-stack/operator/azure-stack-download-azure-marketplace-item#disconnected-or-a-partially-connected-scenario" target="_blank">オフラインの marketplace ツール</a> を使用して、インターネットに接続しているシステムに marketplace 項目をダウンロードし、切断された Azure Stack に項目を転送できます。</p>
+
+
+  <p>Azure Stack で marketplace から何かをデプロイするときに、開発者または事業単位は次のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e36fa4f-1ca8-4928-b441-b2d0ba8e9298.png"><img alt="Screenshot of the developer or business unit view when deploying marketplace items in Azure Stack" border="0" height="831" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f1125b9-15ec-45ca-8356-e9559116fc8e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Stack に marketplace 項目を配置するときの開発者またはビジネス単位ビューのスクリーンショット" width="1252"></a></p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/operator/azure-stack-marketplace-azure-items" target="_blank">Azure Stack marketplace の概要</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/operator/azure-stack-download-azure-marketplace-item" target="_blank">Azure から marketplace アイテムをダウンロードする</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/operator/azure-stack-marketplace-azure-items" target="_blank">Azure Stack 用の Azure Marketplace 項目</a></li>
+  </ul>
+
+
+  <h2>クイックスタートテンプレート</h2>
+
+
+  <p>Marketplace の項目は、Microsoft およびサードパーティのソフトウェアベンダーによって作成されます。 しかし、GitHub によってテンプレートを共有する人は多くあります。 これには、テンプレートからの調査と学習を可能にするという利点があります。 また、開発者とやり取りして、改良を加え、提案することもできます。 Azure には、クイックスタートテンプレートの大規模な GitHub があります。 これらのテンプレートの一部は、変更せずに Azure Stack で使用できますが、これらのテンプレートの多くは Azure の IaaS 機能の最新バージョンを利用しており、その中にはまだ Azure Stack に実装されていないものがあります。 通常は、テンプレートを変更して Azure Stack でサポートされているバージョンを指定するだけで、テンプレートのデプロイは成功します。 しかし、簡単にするために、Azure Stack 用にクイックスタートテンプレートの別の GitHub を維持しています。 これらのテンプレートは、サポートされているバージョンと機能を使用し、Azure Stack と Azure の両方で機能します。</p>
+
+
+  <p>クイックスタートテンプレートには次のものがあります。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/101-vm-windows-create" target="_blank">Windows VM のデプロイ</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/101-vm-linux-create" target="_blank">Linux VM のデプロイ</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/hadoop-cluster" target="_blank">Hadoop クラスターをデプロイする</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/mongodb-cluster" target="_blank">Mongo DB クラスターをデプロイする</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/office-2016-servers" target="_blank">Microsoft Office 2016 サーバーの展開</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/ethereum-consortium-blockchain-poa" target="_blank">ブロックチェーンの証明機関証明をデプロイする</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates/tree/master/sample-hybrid-application" target="_blank">ハイブリッドアプリケーションのサンプル</a></li>
+  </ul>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Azure/azure-quickstart-templates" target="_blank">Azure クイック スタート テンプレート</a></li>
+   <li><a href="https://github.com/Azure/AzureStack-QuickStart-Templates" target="_blank">Azure Stack クイックスタートテンプレート</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-profiles-azure-resource-manager-versions" target="_blank">Azure Stack でサポートされている API バージョン</a></li>
+  </ul>
+
+
+  <h2>Azure のドキュメント</h2>
+
+
+  <p>Azure Stack は Azure と一貫性があるため、両方のクラウドで同じドキュメントを使用できます。 この一貫性により、開発チームは、グローバルな Azure またはローカル Azure Stack であるかどうかにかかわらず、コード開発に単一のモデルを簡単に採用できます。 Azure ドキュメントの使用を開始するには、 <a href="https://docs.microsoft.com/en-us/azure/#pivot=get-started" target="_blank">ドキュメントサイト</a>を参照してください。 ハイブリッドに Azure Stack が &ldquo; あることがわかります。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9557395-4cf4-4815-8b13-95f7e00eae3c.png"><img alt="Screenshot of the Get Started with Azure dashboard and Azure Stack under the Hybrib section" border="0" height="872" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/afbff489-68e2-4dbe-a640-c4c3fbfb713b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure ダッシュボードでのはじめにと [Hybrib] セクションの Azure Stack のスクリーンショット" width="1394"></a></p>
+
+
+  <p>Azure Stack は、管理と制御を行う Azure のインスタンスです。 Azure インフラストラクチャは Microsoft の従業員 &rsquo; によって管理されているので、そのためのパブリックドキュメントは提供しません。 ただし、Azure Stack 操作する必要があるため、Azure Stack インフラストラクチャの運用に固有のドキュメントを提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4bffbbfd-65f0-4e13-93bd-5641f829d0b0.png"><img alt="Screenshot of Azure Stack Operator Documentation" border="0" height="603" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dac6c635-a2c1-4441-8e93-773a52b40aad.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Stack 演算子のドキュメントのスクリーンショット" width="1224"></a></p>
+
+
+  <p>Azure Stack は、Azure を初めて使用する経験があります。 Azure のドキュメントは Azure と Azure Stack 間で共有できますが、Azure のすべてのものが Azure Stack に適用されるわけではありません。 Azure Stack ですぐに実行できることをユーザーがゼロにするのを支援するために、クイックスタートとチュートリアルを使用して、Azure Stack 用に作成されたドキュメントを用意しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a1b044d2-b212-475d-b9b3-d5031fd2f85f.png"><img alt="Screenshot of Azure Stack User Documentation containing quick starts and tutorials" border="0" height="711" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/774a9610-3119-42b3-9e0d-cbed634db1ad.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クイックスタートとチュートリアルを含む Azure Stack のユーザードキュメントのスクリーンショット" width="1237"></a></p>
+
+
+  <p>また、Azure Stack はグローバル Azure ではないため、開発者が理解する必要がある考慮事項がいくつかあります。 最初の Azure Stack は、Azure の sperate インスタンスです。 これは、通常は組織 &rsquo; の dns サフィックスを使用して、独自の dns 名前空間で実行されることを意味します。 これは非常に小さなスケールで実行されるため、すべての大規模な VM サイズとすべての Azure サービスをサポートするわけではありません。 これらの違いについては、Azure Stack 固有の <a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-considerations" target="_blank">ドキュメント</a> を参照してください。</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/#pivot=get-started" target="_blank">Azure ドキュメント</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/operator/" target="_blank">Azure Stack 演算子のドキュメント</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/user/" target="_blank">ユーザードキュメントの Azure Stack</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-vm-considerations" target="_blank">Azure Stack 上のバーチャルマシンに関する考慮事項</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-network-differences" target="_blank">Azure Stack のネットワークに関する考慮事項</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-acs-differences" target="_blank">Azure Stack のストレージに関する考慮事項</a></li>
+  </ul>
+
+
+  <h2>フォーラム</h2>
+
+
+  <p>開発者が Azure を使用して互いに助けているフォーラムがたくさんあります。 Azure は生きたエコシステムなので、開発者は他 &rsquo; のユーザーからのヘルプを見つけることができますが、ブロックする必要はありません。 <a href="https://azure.microsoft.com/en-us/support/community/" target="_blank">Microsoft サポートコミュニティ</a>から次のようにしてみましょう。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fec43757-c189-40d0-a4d3-5e5eedf5239e.png"><img alt="Screenshot of the various forums which developers can find support" border="0" height="856" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a313c9d8-af9e-4540-b101-114629449f0d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="開発者がサポートを見つけることのできるさまざまなフォーラムのスクリーンショット" width="1243"></a></p>
+
+
+  <p>Azure Stack チームは <a href="https://aka.ms/AzureStackForum" target="_blank">MSDN フォーラム</a> に積極的に取り組んでおり、この <a href="https://aka.ms/AzureStackUserVoice" target="_blank">UserVoice フォーラム</a>でもご提案します。</p>
+
+
+  <h2>Azure Stack Mvp</h2>
+
+
+  <p>他のユーザーの成功を考慮して構築するもう1つの優れた方法は、最も貴重なプロフェッショナル (MVP) コミュニティを活用することです。 これは、Azure Stack に関して、例外的な知識と経験を持つユーザーのセットです。 また、世界中のさまざまな geo を代表して、Azure Stack プロジェクトで提案し、作業しています。</p>
+
+
+  <p>Mvp ブログ、web キャスト、記事を作成し、世界中のさまざまなカンファレンスで話すことができます。 これらはソーシャルプラットフォームで非常にアクティブであり、複雑なプロジェクトから学んだ教訓を共有しています。</p>
+
+
+  <p>参照する <a href="https://mvp.microsoft.com" target="_blank">すべての mvp の一覧</a> を見つけることができます。 Azure Stack Mvp は、Azure の特典カテゴリに含まれています。ほとんどのユーザーには、Azure Stack エクスペリエンスによって補完される非常に強力な Azure の基礎があります。 <a href="https://mvp.microsoft.com/en-us/MvpSearch?kw=azure%20stack&amp;ex=Microsoft+Azure&amp;sc=e&amp;pn=7" target="_blank">Azure Stack を検索</a> すると、すべての mvp が一覧表示され、ブログ、投稿、web キャスト、およびカンファレンスへのリンクを調べることができます。</p>
+
+
+  <h2>エコシステムを使用する</h2>
+
+
+  <p>クラウド IaaS に移行するときに、何百万もの開発者によって世界中で使用されているエコシステムを活用できます。 このシリーズの最後のいくつかのブログ投稿では、コードを変更することなく、クラウド IaaS で操作を最新化する方法について説明しました。 Azure エコシステムを通じて他のユーザーが成功した場合の構築は、仮想マシンに対して得られた仮想化よりもはるかに多くの方法で実現できます。</p>
+
+
+  <h3>このブログシリーズの記事</h3>
+
+
+  <p>今後、このブログシリーズの投稿を読むことをお待ちしております。 過去と今後のトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">コアの Azure Stack は、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです。</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">既存のものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/" target="_blank">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分のものを保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/" target="_blank">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/" target="_blank">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に行う場合は、自動化します</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

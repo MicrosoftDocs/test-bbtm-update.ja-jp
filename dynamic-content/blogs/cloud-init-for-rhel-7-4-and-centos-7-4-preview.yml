@@ -1,0 +1,65 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3581a24fe605ec6f63ce4a7586a89a678cca8042
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893133"
+Slug: cloud-init-for-rhel-7-4-and-centos-7-4-preview
+Title: RHEL 7.4 および CentOS 7.4 preview のクラウド初期化
+Summary: クラウド初期化は、Linux Vm を構成するためにますます普及している方法です。 本日、クラウドの初期化を使用して RHEL 7.4 と CentOS 7.4 のプロビジョニングのプレビューを発表します。 これにより、移行することができます...
+Content: >-
+  <p>クラウド初期化は、Linux Vm を構成するためにますます普及している方法です。 本日、クラウドの初期化を使用して RHEL 7.4 と CentOS 7.4 のプロビジョニングのプレビューを発表します。 これにより、既存のクラウド-init 構成を他の環境から Azure に移行することができます。 クラウド初期化では、vm のプロビジョニング中に vm をカスタマイズでき、vm の作成に使用される既存の Azure パラメーターに追加されます。 また、cloud init の機能を使用して、 <a href="https://cloudinit.readthedocs.io/en/latest/topics/modules.html" target="_blank">カスタムクラウド初期化構成モジュール</a>を使用して、ユーザーの追加、ディスク構成の変更、スクリプトの実行、パッケージのインストールなどの VM をさらに構成することもできます。</p>
+
+
+  <h2>可用性</h2>
+
+
+  <p>現在、azure ギャラリーには、Azure にデプロイするための Linux イメージが含まれています。また、既存の RHEL 7.4 および CentOS 7.4 イメージは、初期プロビジョニング中に Linux エージェントを使用してイメージをカスタマイズします。 Azure ギャラリーには、クラウド初期プロビジョニングの新しい RHEL 7.4 および CentOS 7.4 イメージが含まれるようになりました。追加のクラウド初期化構成を使用しても、追加しなくてもデプロイできます。 これらは、Azure パブリッククラウドでのプレビューで使用できます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/using-cloud-init" target="_blank">詳細なドキュメント</a>では、cloud-init を使用して、これらの OS &rsquo; のイメージのカスタマイズをテストする方法について説明します。</p>
+
+
+  <h2>クラウドの初期化が有効になっているイメージを使用した VM のデプロイ</h2>
+
+
+  <p>これは、VM の作成時に別のイメージ名を参照するのと同じくらい簡単です。 カスタムデータ &rsquo; を使用して &lsquo; 、追加のクラウド初期化構成を渡すことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a3c4d843-30a9-4679-ad6b-312a6d917f17.gif"><img alt="CloudInitGif" height="540" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1a22f88d-af15-406f-b439-3ccd648d3dff.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="CloudInitGif" width="864"></a></p>
+
+
+  <h2>FAQ</h2>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p><strong>イメージに Azure Linux エージェントがインストールされている必要がありますか。</strong></p>
+
+
+  <p>はい。 Azure Linux エージェントは引き続き必要です。</p>
+
+
+  <p><strong>クラウド初期構成を実行して、Azure VM 拡張機能をインストールすることはできますか?</strong></p>
+
+
+  <p>はい。拡張機能はサポートされています。</p>
+
+
+  <p><strong>Azure でのクラウド初期化をサポートする CentOS 7.4 と RHEL 7.4 だけですか?</strong></p>
+
+
+  <p>いいえ。標準の Ubuntu イメージでは、クラウド初期化は既に利用可能であり、CoreOS イメージは点火をサポートしています。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>フィードバック/コメントはどこで共有できますか。</strong></p>
+
+
+  <p>ご意見をお寄せください。 <a href="https://feedback.azure.com" target="_blank">Azure フィードバック</a>ページにコメントを送信してください。</p>

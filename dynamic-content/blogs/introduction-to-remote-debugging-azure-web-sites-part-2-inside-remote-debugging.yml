@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 398cff3fe2fe8967443f7666fc168ef77951fa15
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892969"
+Slug: introduction-to-remote-debugging-azure-web-sites-part-2-inside-remote-debugging
+Title: Azure Web サイトのリモート デバッグの概要 パート 2 - リモート デバッグ内
+Summary: このシリーズの前の投稿では、Azure Web サイトでのリモート デバッグと、Visual Studio を接続してデバッグを実行する方法について説明しました。 リモート デバッグを完全に利用するには...
+Content: >-
+  このシリーズの前の投稿では、Azure Web サイトでのリモート デバッグと、Visual Studio を接続してデバッグを実行する方法について説明しました。 Azure Web サイトでリモート デバッグ機能を完全に利用するには、その動作を理解する必要があります。このブログでは、リモート デバッガーを機能させるさまざまな部分について詳しく説明します。サーバー側、クライアント側、デバッグ シンボルを含む。
+
+  <h4>サーバー側: リモート デバッグ機能 'ON' を有効にする</h4>
+
+  リモート デバッグ機能をサーバー側で有効にする必要があります。サーバー側では、接続に必要な TCP/IP ポートが開きます。機能を有効にすると、タイマーが開始され、48 時間後に機能が自動的にオフになります。この 48 時間の上限はセキュリティとパフォーマンス上の理由で設定されています。この機能は何度でも簡単にオンに戻ることができますが、アクティブにデバッグしない場合は無効にすることをお勧めします。
+
+
+  自動 Azure SDK メソッドを使用している場合は、この機能を自動的に有効にします。リモート デバッグ ポートの手動制御は、Web サイトの構成で確認できます。明示的な方向については、以下のチュートリアルを参照してください。
+
+
+  初めてサイトに接続しようとすると、接続パスが設定され、サイトにしばらくアクセスされていない場合は、サイトがダウンすると、サイトがスピンアップされます。つまり、初めて接続する場合、数秒かかる場合があります。最初にVisual Studioするインスタンスは、後で接続されるのと同じインスタンスになります。
+
+  <h4>サーバー側: Visual Studio バージョン</h4>
+
+  このVisual Studioは、Visual Studio に出荷され、Azure 上のサーバー側でも実行される MSVSMON と呼ばれるアプリケーションを使用して行われます。 1 つの課題として、サーバー上の MSVSMON のバージョンが、クライアント側のVisual Studioバージョンと一致している必要があります。サーバーが使用されているバージョンを検出する方法に取り組していますが、ここでは、接続しているバージョンの Visual Studioをサーバーに知らせる必要があります。この手順は、Azure SDK によっても実行されます。Azure SDK は、使用Visual Studioバージョンを検出し、リモート デバッグ機能を有効にするときに、VS バージョンもサーバーに伝達します。
+
+
+  リモート デバッガー機能をオンにし、サーバーに必要Visual Studioバージョンを指定する必要があります。これはすべて、Azure SDK を使用している場合は自動的に実行され、Visual Studio 2013。
+
+  <h4>クライアント側: Visual Studio</h4>
+
+  クライアント側では、デバッガーでVisual Studio  <a href="https://blogs.technet.com/b/askperf/archive/2008/07/15/what-are-symbols-for.aspx?Redirected=true">symbolsto work が</a> 使用されます。 デバッグ シンボルはコンパイル時に構築され、具体的には、その時点で作成されたライブラリまたは実行可能ファイルと一致します。協調的な開発環境でシンボルを管理する方法の詳細については、こちらを参照 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416588(v=vs.85).aspx">してください</a>。
+
+
+  Visual Studioビルドのコンパイルを選択すると、デバッグ シンボル (pdb) を生成するために既定で設定されます。' <a href="https://msdn.microsoft.com/en-us/library/wx0123s5.aspx">Release' と 'Debug' の既定</a> のビルド構成は、この構成と他のコンパイラ構成と最適化をバンドルします。pdb ファイルも生成する 'Release' ビルドを作成できます。手順については、こちらを参照してください。パフォーマンス以外に、pdb ファイルを使用してデバッグ バイナリを発行すべきではない理由は何も表示されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1800/3618.Jaime-Espinosa_2D002900_-FIGURE-10_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1800/3618.Jaime-Espinosa_2D002900_-FIGURE-10_2E00_.PNG" border="0"></a>
+
+  <h4>シンボルのデバッグ (pdb)</h4>
+
+  Azure Web サイトでは、ローカル コンピューターまたはサーバーにVisual Studioシンボル (pdb) ファイルを使用できます。サーバー側のシンボルを利用できる特別なバージョンの MSVSMON があります。バイナリと共に pdb ファイルを発行すると、MSVSMON によってファイルが検索され、使用されます。または、通常と同様に、pdb ファイルをローカルで管理することもできます。
+
+  <h4>デプロイに GIT を使用している場合は、pdb ファイルがサーバー側にある必要があります。デバッグ構成をコンパイルする方法と詳細な説明については、このシリーズの<sup>第 3</sup>  部を参照してください。</h4>
+
+  リモート デバッガーを使用してVisual Studioできる場合は、Azure Websites で実行できます。
+
+
+  デバッガーは、既存の任意のプロセスにアタッチできます。Web サイトと .NET プロセスに重点を置いて取り上していますが、Visual Studio デバッガーを使用できる他にも多くのことが行われるので、詳細を確認してください。ここから開始点を見 <a href="https://msdn.microsoft.com/en-us/library/vstudio/sc65sadd.aspx">つけて、結果</a>を共有することができます。
+
+
+  ここでは、 <a href="https://msdn.microsoft.com/en-us/library/vstudio/5557y8b4(v=vs.100).aspx">breakpoints</a> が有効Visual Studioをグラフィカルに確認できる点に 注目してください。 このコンテキストでは、接続が正常であり、シンボルが読み込まれ、クラウドを制御する準備が整います。ブレークポイントを作成する場合は、そのブレークポイントが単一である必要があります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1800/3808.Jaime-Espinosa_2D00_-FIGURE-11_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1800/3808.Jaime-Espinosa_2D00_-FIGURE-11_2E00_.PNG" border="0"></a>
+
+
+  次の手順では、リモート デバッグのしくみについて理解を深めたので、この知識を高度なシナリオに適用します。 このシリーズの次の投稿では、マルチインスタンス環境と GIT デプロイのデバッグについて説明します。
+
+
+  このシリーズの第 1 部を読むには、ここをクリックしてください。

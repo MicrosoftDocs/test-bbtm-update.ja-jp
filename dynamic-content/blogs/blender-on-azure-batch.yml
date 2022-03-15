@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 08ce47fb5f3a4ae3168df61058a3025deb505002
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893166"
+Slug: blender-on-azure-batch
+Title: Blender on Azure Batch
+Summary: 今日は、Blender をリリースする予定Azure Batch。 レンダリング ジョブの実行に役立つコンポーネントは、Azure Batch。 この投稿では、クラウドでの Blender ジョブの実行を開始する方法について示します。
+Content: >-
+  10 月に、Azure Batch という新しいサービスのパブリック プレビューを発表しました。 このサービスは、サービスとしてのジョブ スケジュールとリソース管理を提供し、コンピューティング集中型のワークロードを Azure にクラウドで実現する非常に簡単です。 アプリケーションを提供し、デプロイ、ジョブ管理、リソース処理、スケジュール設定、ディザスター リカバリー、データ移動、依存関係管理、およびクラウドでジョブを実行するために必要なその他すべての組み込み処理を行います。
+
+
+  本日は、一連のサンプルのリリースをお知らせします。この一連のサンプルでは、お客様がクラウドで Blender ワークロードを実行Azure Batch。 Blender は、モデリング、リグ、アニメーション、シミュレーション、モーション追跡、ゲームの作成など、3D パイプライン全体をサポートする無料のオープンソースの 3D アニメーション スイートです。 Blender は、写真の現実的なレンダリング、高速リグ、すばらしいシミュレーション、ゲームの作成のために個人や小規模なスタジオによって使用されます。 これらすべてでは、プロジェクトの期限を満たすために、現実的な時間枠でレンダリングするために多くのハードウェアが必要です。 ここで、レンダリングAzure Batch複雑さを軽減し、レンダリングに必要な時間を短縮できます。
+
+
+  GitHub を介して使用可能な 2 つのコンポーネントをリリースしています。このコンポーネントを使用すると、だれでも、ユーザーがサービスを使用してレンダリングを処理Azure Batchしています。 最初のコンポーネントは、.Net SDK を使用するサーバー側コンポーネントであり、アニメーション ジョブを個々のアプリケーションで処理される一連のタスクに分割するロジックが含Virtual Machines。 2 番目のコンポーネントは、Blender にネイティブにインストールされた UI ツールを使用してレンダリング ジョブを管理できる Python で記述されたクライアント側コンポーネントです。 このプラグインを使用すると、
+
+  <ul>
+   <li>ジョブ – ジョブの送信、出力のダウンロード、ジョブの取り消し、ジョブ ログのダウンロード、状態の監視を行います。</li>
+   <li>プール – プールの作成、プールの削除、現在実行中のプールへのジョブの割り当て、またはジョブに動的プールの使用を行います。</li>
+   <li>Batch Portal – ジョブとタスクを個別に管理し、ログ、エラー、ジョブとタスクの出力をダウンロードし、失敗したジョブとタスクを再送信できる Web UI です。 また、ジョブを最適化するためにパフォーマンス テレメトリを取得できます。</li>
+   <li>資産 – Azure Storage にアップロードされた資産 (ユーザー ファイル、デジタル コンテンツ、テクスチャ、照明など) を追跡します。そのため、同じ資産を持つジョブを送信する場合は、クラウドに存在しない資産のみをアップロードするか、変更された資産をアップロードします。</li>
+  </ul>
+
+  <h2>Blender クラウド ロジック</h2>
+
+  提供されている Blender C# コードは、こちらからダウンロード <a href="https://github.com/Azure/azure-batch-apps-blender" target="_blank"><b><i>できます</i></b></a>。 このコードは、Azure Azure Batchを使用してデプロイする必要管理ポータル。 Azure Portal を使用して Batch アカウントを既に設定済みであると見なされます。そうではない場合は、Batch アカウントの設定手順については、こちらを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/batch-technical-overview/" target="_blank"><b><i>してください</i></b></a>。 これが完了したら、[Batch アプリの管理] をクリックして Blender サービスを設定できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/clip_image002.png"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/clip_image002.png"><img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border: 0px;" title="Batch Apps サービスの作成" alt="Creating a Batch Apps service" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image002_thumb.png" width="599" height="697" border="0" /></a></a>
+
+
+  作成したら、サービス内にアプリケーションを作成する必要があります。 新しいアプリケーションを作成し、アプリケーションからダウンロードしたビルド済みのクラウド アセンブリをGitHub。 また、実行可能ファイルを zip ファイルにパッケージ化し、新しいアプリケーション プロセスの手順 2 の同じ画面からアップロードします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/Capture8_2.png"><img style="float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="新しいアプリケーションを作成する" alt="Create a new Application" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Capture8_2_thumb.png" width="1388" height="598" border="0" /></a>
+
+
+  アプリケーションが作成されると、Blender クラウド サービスが作成されます。
+
+  <h2>Blender クライアント プラグイン</h2>
+
+  ここから Blender プラグインをダウンロード <b><i><a href="https://github.com/Azure/azure-batch-apps-blender" target="_blank">します</a>。 </i></b>Blender を開き、[ユーザー設定] オプション内から [ファイルからインストール] を選択し、以前にダウンロードしたファイルを使用します。 これで、設定した Blender サービスに接続するためにプラグインを有効にするには、認証資格情報を入力する必要があります。 これらの詳細は、サービスが設定されたポータルから収集できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/clip_image007.png"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/clip_image007.png"><img style="float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="Blender プラグインを有効にする" alt="Enable Blender Plug-in" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image007_thumb.png" width="1181" height="760" border="0" /></a></a>
+
+
+  Batch Apps ポータル内から、"サービス URL" と "アカウント ID" をコピーし、選択した期間に "アカウント キー" を作成し、値をコピーします。 これらの項目を Blender のプラグインに貼り付け、上位 3 つのボックスに入力します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/clip_image008.png"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/26/clip_image008.png"><img style="float: none; margin-left: auto; margin-right: auto; border-width: 0px;" title="自動アカウント キーを作成する" alt="Create unattended account key" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image008_thumb.png" width="895" height="593" border="0" /></a></a>
+
+
+  これで、プラグインを使用して、アニメーションをレンダリングするためにモデルを送信する準備ができました。
+
+  <h2>詳細情報</h2>
+
+  Blender Add-On ドキュメント
+
+
+  <a href="https://github.com/Azure/azure-batch-apps-python"><span style="font-size: small;">Batch Apps Python ライブラリの &amp; ドキュメント</span></a>
+
+
+  <a href="https://azure.microsoft.com/en-us/documentation/articles/batch-dotnet-get-started/#tutorial2"><span style="font-size: small;">.Net 用 Batch Apps ライブラリ</span></a>
+
+
+  <a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=azurebatch"><span style="font-size: small;">Azure Batch フォーラム</span></a>
+
+
+  <a href="https://azure.microsoft.com/en-us/services/batch/"><span style="font-size: small;">Azure Batch</span></a>
+
+
+  <a href="https://blogs.technet.com/b/windowshpc/"><span style="font-size: small;">ビッグ コンピューティング &amp; HPC ブログ</span></a>
+
+
+  <a href="https://weblogs.asp.net/scottgu/azure-new-marketplace-network-improvements-new-batch-service-automation-service-more"><span style="font-size: small;">Scott Guthrie のブログ投稿 (Azure Batch</span></a>
+
+
+  サンプルは、MIT ライセンスを持つGitHub無料で利用できます。 コードを掘り下げ、改善し、機能を追加し、フィードバック、質問、コメントをチームと共有Azure Batch勧めしています。 <a href="mailto:askbatch@microsoft.com"><span style="font-size: small;">askbatch@microsoft.com</span></a>
+
+
+  &nbsp;

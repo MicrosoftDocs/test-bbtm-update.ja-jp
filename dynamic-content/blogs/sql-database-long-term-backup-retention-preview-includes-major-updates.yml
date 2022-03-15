@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2c69d66924e4f784ca9fabbb942e1a0dd1e1bddf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892225"
+Slug: sql-database-long-term-backup-retention-preview-includes-major-updates
+Title: 'SQL Database: 長期的なバックアップ保有期間のプレビューには、主要な更新プログラムが含まれています'
+Summary: Azure SQL Database での長期的なバックアップ保有期間のプレビューは、2016 年 10 月に発表されました。データベースの長期保有期間を簡単に有効にする方法が提供されます。
+Content: >-
+  <p>Azure SQL Database の長期的なバックアップ保有期間のプレビューは 2016 <a href="https://azure.microsoft.com/en-us/blog/azure-sql-database-now-supporting-up-to-10-years-of-backup-retention-public-preview/" target="_blank"></a> &ndash; 年 10 月に発表されました。このプレビューでは、独自の Azure Backup Service Vault に保存されたバックアップを使用して、データベースの長期保有期間を最大 10 &ndash; 年間簡単に管理する方法が提供されました。</p>
+
+
+  <p>プレビュー期間中に収集されたフィードバックに基づき、長期的なバックアップ保有期間ソリューションに対する一連の主要な機能強化をお知らせします。 この更新により、別の Backup Service コンテナーをデプロイして管理する必要がなくなります。 代わりに、SQL Databaseのバックアップを格納Storage管理するために、Azure Blob Storage を利用します。 この新しい設計により、バックアップ戦略の柔軟性が向上し、コストの全体的な制御が向上します。</p>
+
+
+  <p>この更新プログラムには、次の追加の利点があります。</p>
+
+
+  <ul>
+   <li><strong>その他の地域サポート &ndash;</strong> 長期保有は、すべての Azure リージョンと国内クラウドでサポートされます。</li>
+   <li><strong>より柔軟なバックアップ ポリシー &ndash;</strong> 毎週、毎月、毎年、および特定の年内のバックアップをカバーするポリシーを使用して、各データベースの長期バックアップの頻度をカスタマイズできます。</li>
+   <li><strong>個々のバックアップの管理 &ndash;</strong> コンプライアンスに不可欠ではないバックアップを削除できます。</li>
+   <li><strong>合理化された構成</strong> <strong>&ndash;</strong> 別のバックアップ サービス コンテナーをプロビジョニングする必要はありません。</li>
+  </ul>
+
+
+  <h2>既存の長期バックアップ保有ポリシーは何が起こりますか?</h2>
+
+
+  <p>既存のバックアップは、マネージド RA-GRS ストレージ コンテナー SQL Databaseに自動的に移行されます。</p>
+
+
+  <ul>
+   <li>既存の長期バックアップはすべて、復旧コンテナーから新しいストレージ コンテナーに無料でコピーされています。</li>
+   <li>強化された機能セットをサポートする新しい API は、2018 年 5 月 31 日まで既存の API と並行して使用できます。 その期限までに、構成スクリプトを新しい API に更新する必要があります。</li>
+  </ul>
+
+
+  <p>既に削除されているサーバーに関連付けられているバックアップは移行されません。</p>
+
+
+  <p>次の図に示す追加の LTR 機能をサポートするために、ポータル エクスペリエンスが更新されます。 ポータルを使用して長期保有ポリシーを構成した場合、ユーザーからのアクションは必要とされません。 &shy;</p>
+
+
+  <p>次の図は、データベースの新しい長期保有ポリシーを構成する方法を示しています。</p>
+
+
+  <h2><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86b1947e-15f6-4ccd-a120-dc15457581e9.png"><img alt="LtrConfigurePoliciesBlade" border="0" height="930" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05154649-84d4-4388-a1e2-170e5fac3791.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="LtrConfigurePoliciesBlade" width="1694"></a></h2>
+
+
+  <p>次の図に示すように、個々のデータベースの長期的なポリシーを 1 つのテーブルに示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e76e998-a051-4a9d-b4bc-fee1e0942e7b.png"><img alt="LtrConfigurePolicies" border="0" height="930" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a9a2500-3fc5-4768-a38c-ce0d8a37925b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="LtrConfigurePolicies" width="1692"></a></p>
+
+
+  <p>次の図は、特定の長期バックアップを復元する方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c7ad71c7-36eb-4847-8900-9ec9177e4987.png"><img alt="LtrRestore" border="0" height="926" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c137a95-c678-4531-b181-855f4b02eb3b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="LtrRestore" width="1672"></a></p>
+
+
+  <h2>これは請求書に与える影響を示します。</h2>
+
+
+  <p>2018 年 8 月 1 日より、LTR バックアップに Recovery Service コンテナーを使用している場合は、 <strong><em>LTR</em></strong> バックアップ ストレージという名前の請求書に新しい料金が表示されます。 新しい LTR ソリューションの方がコスト効率が高く、全体的な長期的なバックアップ保有期間のストレージ コストが削減される可能性があります。 &rsquo;さらに、バックアップ保持ポリシーに柔軟性が追加され、頻度の低いバックアップ (月 1 回や年 1 回など) を選択したり、不要な個々のバックアップを削除したりすることで、コストをさらに削減できます。</p>
+
+
+  <h2>長期保有は GDPR コンプライアンスに影響しますか?</h2>
+
+
+  <p>バックアップに 一般データ保護規則 (GDPR) の対象となる個人データが含まれている場合は、承認されていないアクセスからデータを保護するために強化されたセキュリティ対策を適用する必要があります。 GDPR に準拠するには、バックアップにアクセスすることなく、データ所有者のデータ要求を管理する方法が必要です。 バックアップに格納されている個人 &quot;データに対するこの保護層は、仮名化されたデータのみを&quot; バックアップに格納することで実現できます。 たとえば、個人に関するデータを削除または更新する必要がある場合でも、これにより既存のバックアップの削除または更新が不要になります。 GDPR のベスト プラクティスの詳細については、「GDPR コンプライアンスのための <a href="https://info.microsoft.com/DataGovernanceforGDPRCompliancePrinciplesProcessesandPractices-Registration.html" target="_blank">データ ガバナンス」を参照してください</a>。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>長期的なバックアップ保有期間Azure SQL Database<a href="https://docs.microsoft.com/azure/sql-database/sql-database-long-term-retention" target="_blank">の詳細については、次を参照してください</a>。</li>
+   <li>長期的なリ<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-long-term-backup-retention-configure" target="_blank">テンション期間Azure SQL Database</a>構成する方法について学習します。</li>
+   <li>長期保有<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-long-term-backup-retention-configure" target="_blank">バックアップを</a>使用してAzure SQL Database復元する方法について学習します。</li>
+  </ul>

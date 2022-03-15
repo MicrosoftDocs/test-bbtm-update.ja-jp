@@ -1,0 +1,143 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7ae0495e4c996f2e14ab1d694bffa5aa54cd5f68
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894475"
+Slug: azure-stack-iaas-part-five
+Title: IaaS の Azure Stack –パート5
+Summary: セルフサービスは、サービスとしてのインフラストラクチャ (IaaS) の中核です。 仮想化の時代に戻って、だれかが VLAN を作成し、LUN を分割して、ホスト上の領域を見つけるまで待つ必要がありました。
+Content: >-
+  <p>セルフサービスは、サービスとしてのインフラストラクチャ (IaaS) の中核です。 仮想化の時代に戻って、だれかが VLAN を作成し、LUN を分割して、ホスト上の領域を見つけるまで待つ必要がありました。 このように Microsoft Azure 実行した場合、クラウドビジネスの成長に応じて、より多くの管理者を雇用する必要があります。</p>
+
+
+  <h2>自分で実行する</h2>
+
+
+  <p>さまざまなアプローチが必要です。これは、IaaS が重要な理由です。 Azure&#39;s IaaS は、管理者を介さずに、仮想マシン (Vm) とその他のリソースを作成するために必要なすべてのものをサブスクリプションの所有者に提供します。 詳細については、 &ldquo; <a href="https://docs.microsoft.com/en-us/learn/modules/intro-to-azure-virtual-machines/" target="_blank">Azure Virtual Machines</a> &rdquo; の概要と<a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-compute-overview" target="_blank">Azure Stack 仮想マシンの概要</a>に関するページを参照して &ldquo; ください。&rdquo;</p>
+
+
+  <p>Azure と Azure Stack Vm のセルフサービス管理を示すいくつかの例を紹介します。</p>
+
+
+  <h2>デプロイ</h2>
+
+
+  <p>VM の作成は、ウィザードを実行するだけで簡単に行うことができます。 Vm を作成するには、[ &ldquo; 仮想マシン &rdquo; の作成ブレードで vm に必要なすべてを指定します。 オペレーティングシステムイメージまたは marketplace テンプレート、サイズ (メモリ、Cpu、ディスクの数、Nic)、高可用性、記憶域、ネットワーク、監視、およびゲスト構成を含めることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f83a71d-ecbc-4a84-954b-045250d467b3.png"><img alt="Screenshot of the Create virtual machine blade" border="0" height="620" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d0565c77-6958-4930-a8b9-1ee9e9e567c1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想マシンの作成ブレードのスクリーンショット" width="600"></a></p>
+
+
+  <p>詳細については、次のリソースを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?toc=%2Fazure%2Fvirtual-machines%2Flinux%2Ftoc.json" target="_blank">Azure Linux VM &ndash; のデプロイ5分間のクイックスタート</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal?toc=%2Fazure%2Fvirtual-machines%2Fwindows%2Ftoc.json" target="_blank">Azure Windows VM &ndash; のデプロイ5分間のクイックスタート</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-vm-sizes" target="_blank">VM サイズの Azure Stack</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-marketplace-azure-items" target="_blank">Azure Stack Marketplace</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-supported-os" target="_blank">サポートされているゲスト Os の Azure Stack</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-vm-considerations" target="_blank">Azure Stack VM に関する考慮事項</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-network-differences" target="_blank">Azure Stack ネットワークに関する考慮事項</a></li>
+  </ul>
+
+
+  <h2>通常の運用</h2>
+
+
+  <p>&rsquo;これはデプロイには適していますが、VM を迅速に変更する必要がある場合は、後でどのようになりますか。 Azure と Azure Stack でも説明しました。 VM の [設定] セクションでは、ネットワーク、ディスク、サイズ Cpu、メモリなど、ゲスト内の構成拡張と高可用性を変更することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c76f785a-1252-4015-a8fd-22c285f1ff29.png"><img alt="Screenshot of the settings section of a virtual machine" border="0" height="297" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1fcbd1bb-f960-4f29-bca3-f9a1d401c68c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="仮想マシンの [設定] セクションのスクリーンショット" width="231"></a></p>
+
+
+  <p>仮想化の日に常に問題となっているのは、適切なファイアウォールポートが開いていることです。 これで、ネットワークチームを待たなくても、これを自分で管理できるようになりました。 Azure では、Azure Stack ファイアウォール規則はネットワークセキュリティグループと呼ばれます。 これは、次に示すように、すべてセルフサービス方式で構成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70cc97bb-bfd2-4b52-921e-4e1588c1bc34.png"><img alt="Screenshot of configuration in a self-service manner" border="0" height="835" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9d0cb0e1-6742-4196-9981-60c6c0b50d48.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="セルフサービス方式における構成のスクリーンショット" width="1341"></a></p>
+
+
+  <p>Azure Vm ファイアウォールポートの管理の詳細については、「Azure portal を使用して<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/nsg-quickstart-portal" target="_blank">仮想マシンへのポートを開く方法</a>」を &ldquo; 参照してください。&rdquo;</p>
+
+
+  <p>ディスクとイメージのセルフサービスも重要です。 仮想化の日にも大きな問題点がありました。 これらを管理者に渡して、使用するためにシステムにアクセスする必要がありました。 幸い、storage は Azure のセルフサービスであり、Azure Stack です。 IaaS サブスクリプションには、ストレージアカウントと管理ディスクの両方へのアクセスが含まれており、そこからディスクとイメージをアップロードしてダウンロードできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c034aa3-61c8-4d6c-9e84-932091e1368a.png"><img alt="Screenshot of uploading and downloading screen for disks and images" border="0" height="646" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6399b9c9-7a6c-4a8a-95a2-107939d1c16f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ディスクとイメージのアップロードとダウンロードの画面のスクリーンショット" width="1219"></a></p>
+
+
+  <p>詳細については、ドキュメントを参照してください。一般化された VHD をアップロード、 &ldquo; azure &rdquo; で新しい vm を作成し &ldquo; 、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/download-vhd" target="_blank">azure から Linux VHD をダウンロード</a><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/upload-generalized-managed" target="_blank">するために使用</a>します。&rdquo;</p>
+
+
+  <p>管理ディスクでは、スナップショットを作成およびエクスポートするオプションも提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc42eb35-5ea0-4f54-8d1d-5914f731b715.png"><img alt="Screenshot of Managed disks allowing the option to create and export snapshots" border="0" height="521" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9ebb209d-441d-469b-953a-7635f62d4707.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="スナップショットを作成およびエクスポートするためのオプションを許可する管理ディスクのスクリーンショット" width="1156"></a></p>
+
+
+  <p>詳細については、次のリソースを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Azure Managed Disks の概要</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/snapshot-copy-managed-disk" target="_blank">スナップショットの Managed Disks</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-managed-disk-considerations" target="_blank">Azure Stack Managed Disks に関する考慮事項</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/attach-managed-disk-portal" target="_blank">管理対象データディスクを Azure VM に接続する</a></li>
+  </ul>
+
+
+  <p>VM 所有者が管理できるその他のリソースとしては、ロードバランサーの構成、DNS、VPN ゲートウェイ、サブネット、ディスクの接続/切断、スケールアップ/スケールダウン、スケールイン/アウトなどが挙げられます。</p>
+
+
+  <h2>サポートとトラブルシューティング</h2>
+
+
+  <p>問題が発生した場合、だれかが他のユーザーに助けを求めることはありません。 状況を修正するために必要なツールが増えました。 最大のパブリッククラウドの1つを運用している間、Azure IaaS チームは、お客様が直面している主な問題とそのサポートニーズについて学習しました。 VM 所有者がこれらの問題自体を解決できるようにするために、複数のセルフサービスサポートとトラブルシューティング機能が作成されました。 最も広く使用されているのは、パスワードのリセット機能です。 &rsquo;仮想化の日にこの機能がないのはなぜですか。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0fce305d-64f7-4edd-82ad-9aa8576cb746.png"><img alt="Screenshot display of the Reset Password feature" border="0" height="779" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a898c24-d0e4-4305-9b0b-2d0fc56e3b65.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="パスワードのリセット機能のスクリーンショット" width="1368"></a></p>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/troubleshooting/reset-rdp" target="_blank">azure Windows vm でのアクセスの設定</a>と<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess" target="_blank">azure Linux vm でのアクセスの再設定</a>に関するドキュメントを参照してください。</p>
+
+
+  <p>私は、absentmindedness のためにサポートの問題を作成できなかった設定を説明する必要があります。 これはロック機能です。 ロックは、VM またはその他のリソースに対する変更や削除を防ぐことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45198ad2-3076-4ce2-b008-df083fbff697.png"><img alt="Screenshot of the Lock feature neing added" border="0" height="422" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f2dabe88-eb9d-473e-9799-a7a9455d9059.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="追加されたロック機能のスクリーンショット" width="640"></a></p>
+
+
+  <p>Vm とその他の Azure リソースのロックに関する詳細については、ドキュメントを参照してください。<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources" target="_blank">リソース tp をロックすると、予期しない変更</a>が &ldquo; 防止されます。&rdquo;</p>
+
+
+  <p>その他の便利なトラブルシューティングとサポート機能には、vm が現在オンになっているホストで問題が発生していると思われる場合は、vm を別のホストに再デプロイすることがあります。 vm が完全に起動して接続できる状態になってから、パフォーマンス診断を確認するには、vm の状態を確認します Azure でこれらの機能を学習して構築すると、最終的には、管理者 &rsquo; がお客様をサポートするために困難な作業を行うことができるように、Azure Stack する方法が求められます。</p>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/troubleshooting/" target="_blank">Azure Virtual Machines のトラブルシューティング</a>に関するページを &ldquo; 参照してください。&rdquo;</p>
+
+
+  <h2>すばらしいインフラストラクチャ管理者</h2>
+
+
+  <p>自分で作業できるようになると、管理者は、中断されることなく、基になるインフラストラクチャを管理できるようになります。 つまり、ユーザーは重要な作業を行うことができ、重要なことに専念できます。</p>
+
+
+  <h2>このブログシリーズの記事</h2>
+
+
+  <p>今後、このシリーズの記事を読むことをお待ちしております。 今後予定されているトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">コアの Azure Stack は、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです。</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">既存のものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/" target="_blank">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分の内容を保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/" target="_blank">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven/" target="_blank">チームを取得する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に実行する場合は、自動化します。</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功に応じて構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

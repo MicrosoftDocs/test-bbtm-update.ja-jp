@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c20c7cce8e41b12490cf9e9a57fa01b64c08f575
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893508"
+Slug: get-notified-when-your-azure-resources-become-unavailable
+Title: Azure リソースが使用できなくなったときに通知を受け取る
+Summary: Azure Service Health は、Azure リソースの可用性に関する情報を常に把握できるようにする機能を拡張しています。 現時点では、リソース正常性アラートを構成して、障害が宣言される前でも、Azure platform の問題によってリソースが利用できなくなったときにすぐに通知することができます。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/service-health/" target="_blank">Azure Service Health</a> は、Azure リソースの可用性に関する情報を常に把握できるようにする機能を拡張しています。 現時点では、リソース正常性アラートを構成して、障害が宣言される前でも、Azure platform の問題によってリソースが利用できなくなったときにすぐに通知することができます。</p>
+
+
+  <p>リソース正常性アラートは、Azure アクティビティログとリソース正常性データを利用して、これらのイベントが発生したときにプロンプト通知を提供します。 このビデオを参照して概要を確認し、これらの新しいリソース正常性アラートの簡単なデモをご覧ください。</p>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" src="https://www.microsoft.com/en-us/videoplayer/embed/RE2DlF7" width="560"></iframe></p>
+
+
+  <h2>リソース正常性アラートによってリソースの可用性に関する情報を常に把握する</h2>
+
+
+  <p>&rsquo;これまでよりも簡単に、リソース &rsquo; の可用性、分単位の情報に関する情報を常に把握し、問題が発生しているかどうか &rsquo; を判断できます。</p>
+
+
+  <p>リソースの正常性アラートを構成して、リソースを監視し、使用できなくなったときに通知し、回復したり、正常性遷移を実行したりすることができるようになりました。 さらに、Azure 仮想マシン (VM) の再起動など、ユーザーが開始したアクションによって発生するイベントを無視することで、プラットフォームレベルの問題に焦点を当てることができます。 これにより、障害が正式に宣言される前でも、プラットフォームイベントについて調べることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4528b15d-f47c-420a-949d-5e4d8a530fa2.png"><img alt="Resource health alerts" border="0" height="663" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8cf64c63-e815-45db-ad91-b6c8ef79275a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リソース正常性アラート" width="1119"></a></p>
+
+
+  <p>SMS、電子メール、またはプッシュ通知を送信するように構成することで、これらのアラートの通知方法を管理できます。 また、Service Now、PagerDuty、OpsGenie などの下流サービスを使用して webhook を設定することもできます。 プログラムを使用してこれらのアラートを作成し、ニーズに合わせて構成する方法の詳細なガイダンスについては、 <a href="https://aka.ms/resourcehealthalerts" target="_blank">Azure Service Health のドキュメント</a>を参照してください。</p>
+
+
+  <h2>Azure アクティビティログの resource health イベントにアクセスする</h2>
+
+
+  <p>Resource health イベントが格納され、 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-activity-logs" target="_blank">Azure アクティビティログ</a>を使用してアクセスできるようになりました。 これは、Log Analytics、取り込みなどのダウンストリームサービスにこのデータを自動的に開始できることを意味します。 他のアクティビティログイベントと同様に、 <a href="https://docs.microsoft.com/en-us/rest/api/monitor/activitylogs/list" target="_blank">ARM インサイト api</a>を使用して、プログラムでリソース正常性にアクセスできるようになりました。 現在、resource health は <a href="https://docs.microsoft.com/en-us/azure/service-health/resource-health-checks-resource-types" target="_blank">30 を超える異なるリソースの種類</a>をサポートしており、時間の経過と共に追加される予定です。 <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-activity-log-schema#resource-health">リソース正常性アクティビティログスキーマ</a>の詳細を確認してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/169b1c78-5096-4cd8-9ea3-8913c8c9ccb9.png"><img alt="Accessing resource health events in Azure Activity Log" border="0" height="663" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/57cb8703-c82a-4db3-bfbd-46838b06efe1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure アクティビティログの resource health イベントへのアクセス" width="1117"></a></p>
+
+
+  <h2>現在、リソース正常性アラートを使用して予期しないものを準備する</h2>
+
+
+  <p>お客様のリソースの可用性に関する情報を常に把握しておくことが重要であること、および Azure 環境の状態を把握し、管理するためにこれらの新機能が役立つことを願っています。 作業を開始するには、 <a href="https://aka.ms/ash-acom" target="_blank">Azure Service Health の web ページ</a> にアクセスし、現在 <a href="https://aka.ms/servicehealth-docs" target="_blank">Azure Service Health のドキュメントを確認</a> してください。</p>
+
+
+  <p>ご意見をお待ちしております。お客様のエクスペリエンスに関するフィードバックをお寄せください。 にご <a href="mailto:servicehealth@microsoft.com">servicehealth@microsoft.com</a> 連絡ください。</p>

@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c82fe2a73271984668ef2539f2246ab3c790517f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893627"
+Slug: azcopy-on-linux-now-generally-availble
+Title: Linux での AzCopy の一般提供開始
+Summary: 現時点では、Azure Storage 用のデータ転送ユーティリティである AzCopy on Linux の一般公開が発表されています。 このリリースでは、プレビュー期間中にお寄せいただいたフィードバックにより、新しい機能や強化された機能が導入され、パフォーマンスが向上しています。
+Content: >-
+  <p>現在、AzCopy on Linux の一般公開リリースを発表しています。 azcopy は、最適なパフォーマンスで Azure Storage との間で大量のデータを移動するように設計されたコマンドラインデータ転送ユーティリティです。 これは、自動再試行による一時的な障害に対処するためだけでなく、失敗した転送の再開オプションを提供するように設計されています。 この一般提供リリースには、新機能や強化された機能に加えて、プレビュー期間中にお寄せいただいたフィードバックにより、パフォーマンスが向上しています。</p>
+
+
+  <p>最新の AzCopy リリースは、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-linux" target="_blank">ドキュメント</a>に従って開始できます。</p>
+
+
+  <h2>新機能</h2>
+
+
+  <h3>スループットの向上 (最大3倍)</h3>
+
+
+  <p>パフォーマンスの向上と .Net Core 2.1 の活用による投資により、azcopy のスループットが大幅に上がりました。 このテストでは、大規模な複数のファイルのスループットの向上と、数百万の小さなファイルが転送されるシナリオにおける最大2倍のスループット向上について説明しました。</p>
+
+
+  <h3>簡単なインストール</h3>
+
+
+  <p>AzCopy は .NET Core 2.1 をパッケージ化するため、前提条件として .NET Core を手動でインストールする必要がなくなりました。 これで、AzCopy パッケージを抽出し、を使用して開始できるようになりました。 ただし、Linux ディストリビューションによっては、.NET Core の依存関係をインストールする必要がある場合があります。 インストール手順については、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-linux#download-and-install-azcopy">ドキュメント </a>を参照してください。</p>
+
+
+  <h3>Stdin からのパイプ</h3>
+
+
+  <p>AzCopy では、標準入力からのリダイレクトがサポートされるようになりました。これは、ユーザーによく寄せられる質問です。 Gzip を1つのコマンドで Blob にアップロードするだけです。 以下に例を示します。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  gzip mydata -c | azcopy --destination https://myaccount.blob.core.windows.net/mycontainer/mydata.gz --dest-key &lt;redacted&gt;</pre>
+
+  </blockquote>
+
+
+  <h3>単一ファイルのサポート</h3>
+
+
+  <p>azcopy on Linux と Windows では、Azure Storage との間での1つのファイルの転送がサポートされるようになりました。 これは、大規模なディスクイメージを移動する必要があるユーザーによく寄せられる質問です。 これは、次のように単純になりました。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  azcopy &ndash;source https://myaccount.blob.core.windows.net/mycontainer/mydata.gzip --source-key &lt;redacted&gt;  --destination https://myotheraccount.blob.core.windows.net/mycontainer/mydata.gzip --dest-key &lt;redacted&gt;</pre>
+
+  </blockquote>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>Azure では、すべての機能を改善することを常に目指しています。 AzCopy に関するフィードバックがあることをお知らせください。</p>
+
+
+  <p>データ転送を楽しんでください。 AzCopy チーム</p>

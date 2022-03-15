@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5832a30803c1614b2d8b2543a230eeb70b6a37d3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894454"
+Slug: boost-your-applications-performance-with-server-side-javascript-in-azure-documentdb
+Title: Azure DocumentDB で JavaScript を使用してServer-Sideパフォーマンスを向上させる
+Summary: この投稿では、DocumentDB によるストアド プロシージャの解釈について詳しく説明します。
+Content: >-
+  <h2>最新の T-SQL としての JavaScript の統合</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/documentdb/" target="_blank" title="Azure DocumentDBAzure"> DocumentDB</a> では、データベース エンジン内で JavaScript ロジックのトランザクション実行がネイティブにサポートされていますか? JavaScript を最新の T-SQLとして使用するアプローチは、開発者にビジネス ロジックを実装するための豊富で使い慣れたインターフェイスを提供します。 これは、ストアド プロシージャ<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-programming/#example-write-a-simple-stored-procedure" target="_blank" title=""></a><a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-programming/#trigger" target="_blank" title="ストア プロシージャ、triggerstriggers</a><a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-programming/#udf" target="_blank" title="">、およびユーザー定義関数">ユーザー定義関数 (UDF) の形式で表されます。</a> この記事では、ストアド プロシージャの DocumentDBs の&rsquo;解釈について詳しく説明します。</p>
+
+
+  <h2>ハイ パフォーマンスのバッチ処理とシーケンス処理の操作</h2>
+
+
+  <p>ストアド プロシージャの主な利点は、アプリケーションが複雑なバッチと一連の操作をデータベース エンジン内で直接、データに近い場所で実行できるという利点です。 開発者は、操作 (挿入、更新、削除など) をグループ化してシーケンス処理し、まとめて送信できます。 ここでの利点は、バッチ処理とシーケンス処理の操作に対するネットワーク トラフィック待機時間のコストを完全に回避できるという利点です。</p>
+
+
+  <p align="center"><img alt="A sequence of database operations" class="aligncenter size-medium wp-image-280691" height="154" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/sprocs-fig1-updated1-636x154.png" width="636"></p>
+
+
+  <p align="center"><em>データベース操作のシーケンス</em></p>
+
+
+  <p align="center"><img alt="A sequence of operations using Stored Procedures" class="aligncenter size-medium wp-image-280701" height="156" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/sprocs-fig2-updated21-636x156.png" width="636"></p>
+
+
+  <p align="center"><em>ストアド プロシージャを使用した一連の操作</em></p>
+
+
+  <p>ストアド プロシージャを使用するもう 1 つの大きな利点は、登録時に暗黙的にバイト コード形式にプリコンパイルされ、各呼び出し時のスクリプト コンパイル コストを回避することです。 JSON が Javascript 言語型システムに本質的にマップされ、DocumentDB のストレージの基本単位であるという事実により、バッファー プール内の JSON ドキュメントの遅延マ素材化や、実行中のコードに対するオンデマンドでの使用など、背後でのさらなる最適化も可能になります。 これにより、高速なストアド プロシージャの呼び出しと小さなフットプリントが保証されます。</p>
+
+
+  <h2>複数ドキュメント トランザクション</h2>
+
+
+  <p>DocumentDB は、1 つのストアド プロシージャに含むすべての操作に対して、完全な ACID (原子性、整合性、分離、および耐久性) を保証します。 つまり、ストアド プロシージャを使用すると、アプリケーションは関連する操作を 1 つのバッチに結合して、すべての操作が成功するか、成功しないかのどちらかになります。 これは、NoSQL データベースの中には、複数のドキュメント/レコード間で ACID&nbsp; 変換を提供するデータベースが少数なので、これは非常に便利です。 では、トランザクションをコミットまたはロールバックするにはどうすれば良いでしょうか。 答えは単純です。ストアド プロシージャ内のすべての操作は、1 つのトランザクションに自動的にラップされます。 例外なく JavaScript が完了すると、データベースに対する操作がコミットされます。 スクリプト内から伝達された例外がある場合、JavaScript ランタイムはトランザクション全体を自動的にロールバックします。 実際には、例外のスローは DocumentDB の &ldquo;ROLLBACK TRANSACTION と&rdquo; 同じです。 ストアド&rsquo; プロシージャには、サーバー<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-limits/" target="_blank" title="指定の documentdb limitsrequest"></a> タイムアウト期間内ですべての操作を完了する必要がある、制限された実行が含まれます。 その制限時間で操作が完了しない場合、トランザクションは自動的にロールバックされます。 開発を簡略化して時間制限を処理するために、すべての CRUD (作成、読み取り、更新、および削除)&nbsp; 操作は、その操作が完了するかどうかを表すブール値を返します。 このブール値を使用すると、実行をラップし、継続ベースのモデルを実装して実行を再開するためのシグナルを使用できます (以下のコード サンプルに示します)。</p>
+
+
+  <h2>ビデオ チュートリアル、コード サンプルなど</h2>
+
+
+  <p>開始&rsquo;するまで待てないか。 &rsquo;5 分間の短いビデオを準備し、Channel 9 で利用可能なストアド プロシージャの作成と実行<a href="https://channel9.msdn.com/Blogs/Windows-Azure/Azure-Demo-A-Quick-Intro-to-Azure-DocumentDBs-Server-Side-Javascript">について説明しました</a>。</p>
+
+
+  <div id="attachment_278651" style="text-align: center;" width="280"><a href="https://channel9.msdn.com/Blogs/Windows-Azure/Azure-Demo-A-Quick-Intro-to-Azure-DocumentDBs-Server-Side-Javascript" target="_blank" title="Azure デモ: Azure DocumentDB の Javascript Server-Sideのクイック イントロ"><img alt="Azure Demo: A Quick Intro to Azure DocumentDB's Server-Side Javascript" class="size-thumbnail wp-image-278651" height="160" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/video-thumbnail-280x160.png" width="280"></a></div>
+
+
+  <div style="text-align: center;" width="280">Azure デモ: JavaScript の Azure DocumentDB&#39;簡単Server-Side説明</div>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>また&rsquo;、Github リポジトリで入手できる <a href="https://github.com/Azure/azure-documentdb-js/blob/master/server-side/samples/stored-procedures/upsert.js">upsert</a>、<a href="https://github.com/Azure/azure-documentdb-js/blob/master/server-side/samples/stored-procedures/bulkDelete.js">一</a>括削除、更新、一括インポートなど<a href="https://github.com/Azure/azure-documentdb-js/blob/master/server-side/samples/stored-procedures/update.js"></a>、さまざまな新<a href="https://github.com/Azure/azure-documentdb-js/blob/master/server-side/samples/stored-procedures/BulkImport.js"></a>しいストアド プロシージャの例も<a href="https://github.com/Azure/azure-documentdb-js/tree/master/server-side/samples">準備しました</a>。 あなたのストアド プロシージャも共有しませんか? プル要求をお送りください。 Wed&rsquo; は、 <a href="https://github.com/Azure/azure-documentdb-js">GitHub</a> と Twitteraccounts で皆さんをフィーチャーし、スポットライト <a href="https://twitter.com/documentdb">を当てるのが</a>&nbsp;好きです。 DocumentDB の使用 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-create-account/">を開始する方法</a> 、または詳細については、Web サイトを <a href="https://azure.microsoft.com/en-us/documentation/services/documentdb/">参照してください</a>。&nbsp;DocumentDBs サーバー側プログラミング モデル&rsquo;の詳細については、こちらを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-programming/">してください</a>。</p>

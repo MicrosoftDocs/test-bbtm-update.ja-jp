@@ -1,0 +1,157 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3222906f3cb3be5a4f3eacdec4859213ad6b4706
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889570"
+Slug: azure-security-center-enhancements
+Title: Azure Security Center の機能強化
+Summary: 世界が連携して COVID-19 を保護し、リモート作業が多くの企業にとって重要な機能であるため、クラウド資産のセキュリティ対策を維持しながら、より多くのリモートワーカーがアクセスできるようにすることが非常に重要です。
+Content: >-
+  <p>Microsoft Ignite 2019 では、15を超える新機能のプレビューが発表されました。 このブログでは、お客様が一般に利用できるようになった機能の更新を提供しています。</p>
+
+
+  <p>世界が連携して COVID-19 に対応し、リモート作業が多くの企業にとって重要な機能であるため、<a href="https://azure.microsoft.com/en-us/blog/keeping-your-cloud-deployments-secure-during-challenging-times/" target="_blank">クラウド資産のセキュリティ対策を維持</a>しながら、より多くのリモートワーカーがアクセスできるようにすること &rsquo; が非常に重要です。</p>
+
+
+  <p>Azure Security Center は、セキュリティ対策を保護し、すべてのクラウドリソースに脅威保護を提供するために必要なアクションの優先順位を決定するのに役立ちます。</p>
+
+
+  <h2>Azure Security Center を使用したクラウドリソースの脅威保護の強化</h2>
+
+
+  <p>Azure Security Center は引き続き、クラウドプラットフォームでの高度な脅威に対抗する脅威保護機能を拡張します。</p>
+
+
+  <h3>Azure Container Registry のコンテナーイメージのスキャンによる脆弱性の一般提供</h3>
+
+
+  <p>Azure Security Center を使用すると、Azure Container Registry (ACR) 内のコンテナー イメージで脆弱性をスキャンできます。</p>
+
+
+  <p>イメージのスキャンは、コンテナーイメージファイルで定義されているパッケージまたはその他の依存関係を解析し、そのパッケージまたは依存関係に既知の脆弱性があるかどうかを確認することによって機能します (Qualys 脆弱性評価データベースによって強化されます)。</p>
+
+
+  <p>新しいコンテナー イメージが Azure Container Registry にプッシュされると、スキャンが自動的にトリガーされます。 検出された脆弱性は Security Center の推奨事項として表示され、 <a href="https://docs.microsoft.com/en-us/azure/security-center/secure-score-security-controls" target="_blank">セキュリティで保護</a> されたスコアに含まれ、許可される攻撃対象領域を減らすための修正方法に関する情報が含まれます。</p>
+
+
+  <p>プレビューは Ignite 2019 で開始したため、150万のコンテナーイメージスキャンで開始された登録済みのサブスクリプション。 お客様からのフィードバックを注意深く分析し、この一般公開バージョンに導入しました。 スキャンの進行状況 (Unscanned、スキャン中の進行状況、スキャンエラー、完了) を反映してスキャン状態が追加され、お&#39;客様から受け取ったフィードバックに基づいてユーザーエクスペリエンスが向上しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5886122c-4cec-4c1d-9596-1b3894fac23a.png"><img alt="Azure Container Registry Vulnerability Assessment Results" border="0" height="806" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44928849-f16e-4a7f-8071-456c1f340ec3.png" style="margin: 0px auto; border: 0px currentcolor; display: block; background-image: none;" title="" width="1457"></a></p>
+
+
+  <h3>Security Center 一般公開される Azure Kubernetes Service サポートの脅威保護</h3>
+
+
+  <p>広く普及しているオープンソースのプラットフォーム Kubernetes は、コンテナーオーケストレーションの業界標準になっています。 この広範な実装にもかかわらず、 &rsquo; Kubernetes 環境をセキュリティで保護する方法についてはまだ理解していません。 コンテナー化されたアプリケーションの攻撃対象領域を防御するには、専門知識が必要です。 インフラストラクチャが安全に構成されていることを確認し、潜在的な脅威を常に監視する必要があります。 Security Center Azure Kubernetes Service (AKS) のサポートが一般公開されました。<br>
+
+  &nbsp;<br>
+
+  機能は次のとおりです。&nbsp;</p>
+
+
+  <ol>
+      <li>検出と可視性: Security Center &rsquo; の登録済みサブスクリプション内のマネージド AKS インスタンスを継続的に検出します。</li>
+      <li>セキュリティで保護されたスコアの推奨事項: Kubernetes サービスクラスターへのアクセスを制限するために、ロールベースの Access Control を使用する必要がある、 &quot; お客様が AKS のセキュリティの &rsquo; ベストプラクティスに従うための実用的な項目です。&quot;</li>
+      <li>脅威保護: 特権コンテナーなど &ldquo; のホストおよびクラスターベースの分析が検出されました。&rdquo;</li>
+  </ol>
+
+
+  <p>一般公開されているリリースでは、新しいアラートを追加&#39;ました (完全な一覧については、「 <a href="https://review.docs.microsoft.com/en-us/azure/security-center/alerts-reference#alerts-akscluster" target="_blank">Azure Kubernetes サービスクラスターのアラート</a> 」と「アラートの参照表」の「 <a href="https://review.docs.microsoft.com/en-us/azure/security-center/alerts-reference#alerts-containerhost" target="_blank">ホストレベル</a> 」セクションを参照してください)。また、警告の詳細は誤検知を減らすように調整されています。<br>
+
+  &nbsp;&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fbfc313c-db17-42c8-96d5-0a2b51038616.png"><img alt="Example of an alert for Azure Kubernetes Service" border="0" height="548" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66b46c12-3d49-470f-86df-c3c2406d81e0.png" style="margin: 0px auto; border: 0px currentcolor; display: block; background-image: none;" title="" width="999"></a></p>
+
+
+  <h2>クラウドのセキュリティ体制の強化</h2>
+
+
+  <p>クラウドワークロードのセキュリティ侵害の最も一般的な原因は、構成の誤りです。 Azure Security Center を使用する &rsquo; と、azure 環境全体にわたってセキュリティ体制を確認できるので、azure のセキュリティ <a href="https://docs.microsoft.com/en-us/azure/security-center/secure-score-security-controls" target="_blank">スコア</a>を使用してセキュリティ対策を継続的に監視し、向上させることができます。 Security Center は、セキュリティポリシーを管理および実施して、さまざまなリソースにおけるこのような不備を特定して修正し、コンプライアンスを維持するのに役立ちます。 Microsoft では、セキュリティ体制管理で利用できるリソースカバレッジと詳細な洞察を継続的に拡張しています。</p>
+
+
+  <h3>カスタムポリシーのサポートが一般公開</h3>
+
+
+  <p>お客様は、Azure Policy で作成したポリシーに基づく独自のセキュリティ評価によって、Security Center の現在のセキュリティ評価の対象範囲を拡張することを求めてきました。 カスタム ポリシーのサポートにより、これが可能になりました。</p>
+
+
+  <p>また、Azure Security Center &rsquo; s のカスタムポリシーのサポートが一般公開されていることもお知らせします&#39;。 これらの新しいポリシーは、Azure Security Center の推奨事項、セキュリティで保護されたスコア、および規制遵守基準のダッシュボードの一部になります。 カスタムポリシーがサポートされるようになったため、Azure policy でカスタムイニシアチブを作成し、簡単なクリックスルーのオンボードエクスペリエンスを通じて Azure Security Center でポリシーとして追加し、推奨設定として視覚化できるようになりました。</p>
+
+
+  <p>このリリースでは、重要度、修復手順、脅威情報などを含めるために、カスタム推奨メタデータを編集する機能が追加されました&#39;。</p>
+
+
+  <h3>評価 API の一般提供開始</h3>
+
+
+  <p>Azure Security Center の推奨事項を取得し、評価が失敗した理由を提供する新しい API が導入されています。 新しい API には、次の2つの API が含まれています。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/securitycenter/assessmentsmetadata" target="_blank">評価メタデータ API</a>: 推奨メタデータを取得します。</li>
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/securitycenter/assessments" target="_blank">評価 API</a>: リソースに対する各推奨事項の評価結果を提供します。</li>
+  </ul>
+
+
+  <p>既存の Tasks API を使用しているお客様は、レポート用に新しい評価 API を使用することをお勧めします。</p>
+
+
+  <h3>規制遵守の動的準拠パッケージの一般提供開始&nbsp;&nbsp;</h3>
+
+
+  <p>規制遵守のために、組み込みの &rsquo; 準拠パッケージを超えて、動的準拠パッケージ、 &rsquo; またはその他の &lsquo; 標準を追加 &lsquo; できるようになりました。</p>
+
+
+  <p>Azure Security Center の法令遵守ダッシュボードは、一連の業界標準、規制、およびベンチマークに対するコンプライアンス対応状況についての洞察を提供します。 評価はリソースのセキュリティの状態を継続的に監視し、環境が特定のコンプライアンス制御の要件を満たしているかどうかを分析するために使用されます。 これらの評価には、リソースの状態を修復する方法に関する実行可能な推奨事項も含まれており、これによってコンプライアンス対応状態が向上します。</p>
+
+
+  <p>最初は、コンプライアンスダッシュボードには、ダッシュボードに組み込ま &rsquo; れており、Security Center に含まれる静的なルールセットに依存する、ごく限られた標準セットが含まれていま &lsquo; した。 動的準拠パッケージ機能を使用すると、ユーザーにとって重要な新しい標準やベンチマークをダッシュボードに追加できます。 コンプライアンス パッケージは、基本的に Azure Policy で定義されたイニシアティブです。 ASC Security Policy からサブスクリプションまたは管理グループにコンプライアンスパッケージを追加すると、基本的に、選択したスコープ (サブスクリプションまたは管理グループ) に規制イニシアチブが割り当てられます。 コンプライアンスダッシュボードには、評価としてマップされている関連するすべてのコンプライアンスデータが表示されています。</p>
+
+
+  <p>このようにして、新たに公開された規制イニシアチブを Security Center の法令遵守ダッシュボードのコンプライアンス標準として追跡できます。さらに、Microsoft がイニシアチブの新しいコンテンツ (標準のより多くのコントロールにマップされる新しいポリシー) をリリースするときに、ダッシュボードに追加のコンテンツが自動的に表示されます。 また、ダッシュボードにオンボードされた標準のいずれかの概要レポートをダウンロードすることもできます。</p>
+
+
+  <p>ダッシュボードにオンボードできる、サポートされている規制標準とベンチマークがいくつかあります。 最新のものは、Azure セキュリティベンチマークです。これは、一般的なコンプライアンスフレームワークに基づくセキュリティおよびコンプライアンスのベストプラクティスに関する、Microsoft が作成した Azure 固有のガイドラインです。 追加の標準は、ダッシュボードが使用可能になるとサポートされます。&nbsp;&nbsp;</p>
+
+
+  <p>動的準拠パッケージの詳細については、 <a href="https://docs.microsoft.com/en-us/azure/security-center/update-regulatory-compliance-packages" target="_blank">こちらのドキュメント</a>を参照してください。</p>
+
+
+  <h3>Azure Logic Apps のワークフローオートメーションの一般提供開始&nbsp;</h3>
+
+
+  <p>一元的に管理されたセキュリティと IT 操作を持つ組織は、環境内で不一致が検出された場合に、組織内で必要なアクションを実行するための内部ワークフロープロセスを実装します。 多くの場合、これらのワークフローは反復可能なプロセスであり、自動化により、組織内のプロセスを合理化するオーバーヘッドを大幅に削減できます。</p>
+
+
+  <p>現在一般公開されている<a href="https://docs.microsoft.com/en-us/azure/security-center/workflow-automation" target="_blank">Azure Security Center のワークフローオートメーション</a>を使用すると、Azure Logic Apps を利用して自動化構成を作成し、推奨事項やアラートなどの特定の Security Center の結果に基づいて自動的にトリガーする<a href="https://github.com/Azure/Azure-Security-Center/tree/master/Workflow%20automation/Configure%20Workflow%20Automation%20in%20scale%20via%20policy" target="_blank">ポリシーを作成</a>できます。 Azure Logic Apps は、大規模なロジックアプリコネクタのコミュニティでサポートされているカスタムアクションを実行するように構成することも、電子メールの送信など Security Center によって提供されるテンプレートの1つを使用することもできます。 さらに、ユーザーは、(クイック修正 &rsquo; オプションを &lsquo; 使用して) 個々のアラートまたは推奨事項に基づいてロジックアプリを手動でトリガーしたり、Azure Security Center のアラートページを使用したりすることができます。</p>
+
+
+  <h3>Security Center の推奨事項とアラートをエクスポートした高度な統合が一般公開されています</h3>
+
+
+  <p>セキュリティアラートと推奨事項のエクスポートをサポートする Azure Security Center の連続エクスポート機能が、 <a href="https://github.com/Azure/Azure-Security-Center/tree/master/Pricing%20%26%20Settings/Continuous%20export/Configure%20Continuous%20Export%20in%20scale%20via%20policy" target="_blank">ポリシーを使用</a>して一般提供されるようになりました。 これを使用すると、Azure Event Hubs または Azure Log Analytics ワークスペースにエクスポートすることによって、Security Center 環境のセキュリティデータを組織で使用される監視ツールに簡単に接続できます。</p>
+
+
+  <p>この機能は、次の統合によって、エンタープライズ規模のシナリオをサポートします。</p>
+
+
+  <ul>
+      <li>Azure Event Hubs にエクスポートすると、Azure Sentinel、サードパーティ製の SIEMs、Azure データエクスプローラー、Azure Functions との統合が可能になります。</li>
+      <li>Azure Log Analytics ワークスペースにエクスポートすると、Microsoft Power BI、カスタムダッシュボード、および Azure Monitor との統合が可能になります。</li>
+  </ul>
+
+
+  <p>詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/security-center/continuous-export" target="_blank">連続エクスポート</a>」を参照してください。</p>
+
+
+  <h2>セキュリティで保護された基盤の構築</h2>
+
+
+  <p>これらの追加により、Azure は引き続きセキュリティで保護された基盤を提供し、クラウドでのセキュリティ体制を迅速に向上させるために役立つ、ネイティブセキュリティツールとインテリジェントな洞察を組み込みます。 Azure Security Center は、ハイブリッドクラウドの統合されたセキュリティ管理と高度な脅威保護ソリューションとしてその役割を強化します。</p>
+
+
+  <p>セキュリティは待機でき &rsquo; ません。 <a href="https://azure.microsoft.com/en-us/services/security-center/" target="_blank">Azure Security Center</a>の使用を開始し、 <a href="https://techcommunity.microsoft.com/t5/Azure-Security-Center/bd-p/AzureSecurityCenter" target="_blank">Azure Security Center Tech Community</a>にアクセスします。ここでは、でしょうなどの他のセキュリティ志向ユーザーと協力できます。</p>

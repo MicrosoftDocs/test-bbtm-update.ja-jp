@@ -1,0 +1,34 @@
+### YamlMime:Yaml
+ms.openlocfilehash: eb451609300a27558f54fee4e6f5194efc336a3c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893021"
+Slug: how-old-net-augmenting-virality-in-real-time-with-batch-analytics-using-data-factory
+Title: 'How-old.net: Data Factory を使用した Batch Analytics でのリアルタイムの増強'
+Summary: Microsoft は、Build2015 で基調講演プレゼンテーションの一部として How-old.net デモを開始しました。 デモは50ユーザー向けのテストとして開始されましたが、1週間以内に3300万人を超えるユーザーと2億3600万イメージでウイルスに感染しました。 近日中に、これはビッグデータの質問になり、履歴 Data Analytics によってリアルタイムを強化することにしました。
+Content: >-
+  <p>Microsoft は、 <a href="https://www.buildwindows.com/">Build2015 developer カンファレンス</a>で、基調講演プレゼンテーションの一環としてデモを <a href="/"></a> 開始しました。 このデモでは、だれでも画像をアップロードし、Azure ML 顔検出 API &rsquo; で、その画像で認識されている顔の年齢と性別を予測することができます。 開発者が新たにリリースされた<a href="https://gallery.azureml.net/MachineLearningAPI/b0b2598aa46c4f44a08af8891e415cc7?share=1" target="_blank">顔検出 Machine Learning API &rsquo; </a>を使用してスマートアプリケーションを簡単かつ迅速に構築し、 <a href="https://azure.microsoft.com/en-us/services/stream-analytics/" target="_blank">Azure Stream Analytics</a>を使用してリアルタイムでデータを分析し、 <a href="https://powerbi.microsoft.com/" target="_blank">PowerBI</a>でデータを視覚化する方法について説明しました。 デモは50ユーザー向けのテストとして開始されましたが、1週間以内に <strong>3300万人</strong> を超えるユーザーと <strong>2億3600万イメージ</strong> でウイルスに感染しました。 近日中に、これはビッグデータの質問になり、履歴 Data Analytics によってリアルタイムを強化することにしました。 リアルタイムおよび batch 分析では、現在発生していることに対してパルスを設定できるだけでなく、既に起こっていることを確認することができます。 これは、ほぼリアルタイムの洞察を取得しようとしているユーザー (過去60秒間に成功した顔の認識の数など) であっても、より大きな期間にわたってデータを分析しようとしている場合 (たとえば、使用量が月ごとに変化した場合) に使用される従来のユースケースパターンです。</p>
+
+
+  <h2>Batch Analytics: どのようにしたのでしょうか。</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/data-factory/">Azure Data Factory</a>と<a href="https://azure.microsoft.com/en-us/services/hdinsight/">azure HDInsight</a>を使用して、azure blob にダンプされている生の顔のデモデータを取得し、(HDInsight/Hadoop を使用して) バッチ処理を実行してデータに関する洞察を得ることができるパイプラインを迅速に構築しました。 Azure Data Factory パイプライン (次のスクリーンショットを参照) が毎日実行され、写真をアップロードして試してみるとき <a href=""></a> にキャプチャされているデータを処理するようになりました。 処理されたデータは SQL azure データベースにダンプされ、PowerBI ダッシュボードによって消費されます。 データファクトリとパイプライン全体は、4時間以内に構築および運用されました。</p>
+
+
+  <blockquote><strong>注</strong>: 収集されるデータは実際の写真そのものではなく、時間単位の要求の数、要求を送信したデバイスの種類などのメタデータです。これらのパイプラインによって個人を特定できる情報が収集または分析されることはありません。</blockquote>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/11/2015-06-11_12h55_51.png"><img alt="2015-06-11_12h55_51" border="0" height="292" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2015-06-11_12h55_51_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="2015-06-PowerBI ダッシュボードを 11_12h55_51 " width="614"> </a> します (次のスクリーンショットを参照してください)。 Azure Stream Analytics を使用して生成されたリアルタイムの分析を紹介します (Photos-Last 60 秒、顔、Browser-Last 2 分、Second-By 日あたりの写真) が Azure Data Factory を使用して生成されたバッチ分析を示すように強化されました。 キャプチャされる batch analytics には、次のようなものがあります。</p>
+
+
+  <ul>
+   <li>日別のユーザー</li>
+   <li>日別の写真</li>
+   <li>プラットフォーム別のユーザー</li>
+  </ul>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/29/2015-06-29_13h56_19.png"><img alt="2015-06-29_13h56_19" border="0" height="354" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2015-06-29_13h56_19_thumb.png" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="2015-06-29_13h56_19 " width="614"> </a> このユースケースでは、ビッグデータ処理のために batch analytics を使用してリアルタイム分析を迅速かつ簡単に拡張する方法を紹介します。 自分で試してみてください (<a href="https://twitter.com/hashtag/HowOldRobot?f=realtime&amp;src=hash"> # </a>考えてみてください) &ndash; 。 Azure サービスと<a href="https://gallery.azureml.net/">ML ギャラリー</a>で提供されている api を使用して独自<a href="&nbsp;"></a>のソリューションを作成することをお勧めします。 Azure Data Factory を試す場合は、 <a href="https://azure.microsoft.com/en-us/documentation/services/data-factory/">ここ</a> にアクセスして、Data Factory を使用してバッチパイプラインを簡単かつ迅速に構築してください。 機能に関するご要望がある場合、または data factory に関するフィードバックをお寄せいただく場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory">Azure Data Factory フォーラム</a>にアクセスしてください。</p>

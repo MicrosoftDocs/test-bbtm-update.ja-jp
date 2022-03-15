@@ -1,0 +1,27 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 81f4853b86b21d2c51ddc33efa44ed664c9fec1a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892533"
+Slug: set-expiration-date-for-vms-in-azure-devtest-labs
+Title: 仮想マシンの VM の有効期限を設定Azure DevTest Labs
+Summary: '仮想マシン内の VM の有効期限を設定して、コストAzure DevTest Labs。 '
+Content: >-
+  <p>トレーニング、デモ、&nbsp;&rsquo;試用版などのシナリオでは、仮想マシンを作成し、一定の期間が経過した後に自動的に削除して、不要なコストが発生しない場合があります。&nbsp;最近<a href="https://azure.microsoft.com/en-us/updates/azure-devtest-labs-set-vm-expiration-date/">、それを</a>行える機能を発表しました。ラボ VM の有効期限を設定します。</p>
+
+
+  <p>現在、この機能は、<a href="https://azure.microsoft.com/en-us/documentation/articles/resource-manager-template-walkthrough/">Azure Resource Manager (ARM)</a> テンプレート、AZURE POWERSHELL SDK、および Azure CLI で使用できる <a href="https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/">API</a> を<a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/">使用してのみ使用できます</a>。</p>
+
+
+  <p>ARM テンプレートを使用して有効期限を持つラボ VM を作成するには、VM の expirationDateproperty&nbsp; を指定します。 テンプレートのサンプル<a href="https://github.com/Azure/azure-devtestlab/tree/master/ARMTemplates/101-dtl-create-vm-username-pwd-customimage-with-expiration">は、パブリック Resource Managerリポジトリ</a>&nbsp;GitHubできます。 また、expirationDate プロパティを追加することで、VM の作成用の既存のサンプル <a href="https://github.com/Azure/azure-devtestlab/tree/master/ARMTemplates">Resource Manager</a>&nbsp; テンプレート (101-dtl-create-vm で始まる名前)&nbsp;&nbsp; を変更することもできます。</p>
+
+
+  <p>この機能と次&rsquo;の機能の詳細については、チーム ブログ <a href="https://blogs.msdn.microsoft.com/devtestlab/2016/09/21/set-expiration-date-for-vms-in-azure-devtest-labs/">の投稿</a> を参照してください。</p>
+
+
+  <p>この機能をお試しください。 <a href="https://feedback.azure.com/forums/320373-azure-devtest-labs">DevTest Labs</a> フィードバック フォーラムでアイデアや提案を共有することで、それを改善する方法をお知らせください。&nbsp; この機能は、この機能は近日、Azure portalされる予定です。</p>
+
+
+  <p>この機能で問題が発生した場合、または質問がある場合は、MSDN フォーラムでいつでも <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureDevTestLabs">お手伝いします</a>。</p>

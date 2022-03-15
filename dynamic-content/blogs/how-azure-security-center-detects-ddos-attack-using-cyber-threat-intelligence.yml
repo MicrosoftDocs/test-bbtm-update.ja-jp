@@ -1,0 +1,146 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2ae4ba20a5f218a141601d0efdf507f44d006d97
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890783"
+Slug: how-azure-security-center-detects-ddos-attack-using-cyber-threat-intelligence
+Title: Azure Security Center がサイバー脅威インテリジェンスを使用して DDoS 攻撃を検出する方法
+Summary: Azure Security Center は、さまざまな Azure リソースのログデータを自動的に収集、分析、統合します。 Security Center に、優先順位が付けられたセキュリティアラートの一覧が表示されます。
+Content: >-
+  <p>Azure Security Center は、さまざまな Azure リソースのログデータを自動的に収集、分析、統合します。 優先順位が付けられたセキュリティアラートの一覧が Security Center に表示され、問題を迅速に調査するために必要な情報と共に、攻撃の修復方法に関する推奨事項が示されます。 さらに、セキュリティ研究者や専門家のチームは、多くの場合、顧客と直接連携して、Microsoft Azure の顧客に影響するセキュリティインシデントについての洞察を得ることができます。また、Security Center 検出とアラート機能を絶えず向上させることを目標としています。</p>
+
+
+  <p>前のブログ記事 &quot; では、 &quot; <a href="https://azure.microsoft.com/en-us/blog/azure-security-center-adds-context-alerts-to-aid-threat-investigation/" target="_blank">脅威調査を支援するためにコンテキストアラートを追加 Azure Security Center</a>ます。また、セキュリティ調査の自動化に役立つコンテキスト警告機能について説明し、攻撃中および攻撃直前にシステムで何が起こったかについての関連コンテキストを提供します。 このブログ投稿では、実際の DDoS 攻撃キャンペーンとサイバー脅威インテリジェンスを使用した検出方法に焦点を当てます。</p>
+
+
+  <p>調査の詳細に進む前に、 &rsquo; このブログ全体に表示される &rsquo; いくつかの用語について簡単に説明します。 DDoS とは DDoS (分散型サービス拒否) は、ターゲットの可用性を損なうことを目的とした攻撃の種類のコレクションです。 これらの攻撃には、複数のインターネットに接続されたシステムを使用して、DNS サーバー、web サービス、電子メールなどのターゲットに対する多数のネットワーク要求を起動する組織的な取り組みが伴います。 攻撃者 &rsquo; の目標は、対象サーバー上のシステムリソースを過剰に処理することです。これにより、正当なトラフィックを効果的に処理できなくなり、システムにアクセスできなくなります。 もう1つの用語 &ldquo; として、ブルートフォース &rdquo; は、コンピューターホストへの不正アクセスを取得するために、有効なユーザー名とパスワードの組み合わせを計算または推測する攻撃の一種です。 多くの場合、ブルートフォース攻撃の回数が膨大な量になると、ターゲットシステムの DDoS が実質的に発生します。</p>
+
+
+  <h2>初期 Azure Security Center アラートの詳細</h2>
+
+
+  <p>最初の調査を開始したときに、一連の <em><strong>失敗した Rdp ブルートフォース攻撃</strong></em> に対して Azure Security Center アラートが発生し、その後すぐに <em><strong>Rdp ブルートフォース攻撃が成功</strong></em> しました。 同時に、一貫性のある <strong><em>Rdp 受信 bf を 1 &amp; つの RDP 受信 bf に対し</em></strong> て、Azure Security Center で1つの攻撃アラートにも観察しています。 これらの攻撃は、RDP サービスを定期的にターゲットとする ~ 79-85 の一意の IP アドレスから発生するように見えます。&nbsp;</p>
+
+
+  <p>次に、Azure Security Center で次の一連のアラートを確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0efaee73-4a8d-401e-9a1f-a42999f5ba70.png"><img alt="Security alerts" border="0" height="483" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7dbbb034-95d0-41c0-8b21-141f5db949db.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="セキュリティの警告" width="491"></a></p>
+
+
+  <p>また Azure Security Center は、次のように、使用されている攻撃手法に関する詳細な洞察を提供するアラートの脅威インテリジェンスレポートも提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90f91a16-fd37-4d1a-9876-eb16c672cfd8.png"><img alt="Threat summary image" border="0" height="506" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7669d576-a4d3-410f-b6ac-5d733908a9d0.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="脅威の概要の画像" width="764"></a></p>
+
+
+  <p>ブルートフォース攻撃が成功した後は、攻撃者が最初に3つの新しいユーザーアカウントを作成したことがわかりました。</p>
+
+
+  <ul>
+   <li><em>&lsquo;管理者 &rsquo; 、 </em></li>
+   <li><em>&lsquo;管理者 &rsquo; 、 </em></li>
+   <li><em>&lsquo;adminserver&rsquo;</em></li>
+  </ul>
+
+
+  <p>それぞれのパスワードは lman321 &rsquo; でした &lsquo; 。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0b057d7-3f66-488c-99b9-544ca808352e.png"><img alt="Table 1" border="0" height="229" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f03a3c2-e14f-4291-9878-3b4ac570ec33.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="表1" width="661"></a></p>
+
+
+  <ul>
+   <li>その後、Azure Security Center、ユーザーアカウント &rsquo; s% temp% ディレクトリから実行されている不明なバイナリ<em> &lsquo;wrsd.exe&rsquo; </em>に関連付けられたプロセスが攻撃者によって実行されたことが検出されました。</li>
+   <li>ダウンロードが完了したら wrsd.exe を観察しました。このコマンドを実行すると、現在ログオンしているドメイン \ ユーザーアカウントが表示されます。</li>
+   <li>攻撃者は、次のレジストリキーを変更して、リモートデスクトップサービスでネットワークレベル認証 (NLA) を有効にします。 これは、他の攻撃者が RDP ブルートフォース攻撃を正常に実行できないようにするために行われます。
+   <ul>
+    <li><em>REG ADD &ldquo; HKLM\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp &rdquo; /V userauthentication/t REG_DWORD/d 1/f</em></li>
+    <li><em>&quot;reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V userauthentication/t REG_DWORD/d 1/f&quot;</em></li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/efe0f234-21d8-431b-ba31-b53029598158.png"><img alt="Table 2" border="0" height="241" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6802ad5e-b8ae-494d-ab5e-a2aff82c11d3.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="表2" width="740"></a></p>
+
+
+  <ul>
+   <li>攻撃者は、LegalNoticeCaption と LegalNoticeText の表示に関連するターミナルサービスのレジストリキーエントリを削除します。 これらのレジストリキーを使用して、カスタムの法的通知を有効にして構成し、ログオン時にすべてのリモート RDP ユーザーに表示 Windows れるメッセージを開始します。 多くの場合 &rsquo; 、攻撃者はこれらの LegalNotice キーを削除します。</li>
+  </ul>
+
+
+  <p><em>reg の削除 </em></p>
+
+
+  <p><em>&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot; /v legalnoticecaption/f &nbsp; &nbsp; &nbsp; </em></p>
+
+
+  <p><em>reg の削除 </em></p>
+
+
+  <p><em>&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot; /v legalnoticetext/f</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5899ea1d-a54c-49f2-a0bb-a6af5ea458e2.png"><img alt="Unauthorized Use of This System" border="0" height="290" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60da2f0e-eeac-452d-a73a-fd5f72c71cc5.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="このシステムの許可されていない使用" width="519"></a></p>
+
+
+  <ul>
+   <li>次に、親プロセスは、/f (force) オプションを使用して Taskill.exe を使用して、実行中の Chrome または Firefox プロセスを終了するコマンドを起動します。 タスク kill (Taskill.exe)<strong> </strong>は、1つまたは複数のタスクまたはプロセスを終了するために使用されるプログラムです。 プロセスは、プロセス ID またはイメージ名によって強制終了できます。 /F &rsquo; パラメーターは &lsquo; 、プロセスを強制的に終了しようとしていること &rsquo; を表します。</li>
+   <li>プロセスを終了すると、次のように表示されます。</li>
+  </ul>
+
+
+  <ol>
+   <li>攻撃者は、 &ldquo; 最初に Shutdown/l/f &rdquo; コマンドを使用してログオフしようとします。 /L スイッチはログオフ &rdquo; を &ldquo; 示し、/f スイッチは実行中のアプリケーションを強制的に閉じます。</li>
+   <li>これに続いて、ping-n 3 127.0.0.1 &rdquo; コマンドを実行し、localhost 3 回 ping を実行します。これにより &ldquo; 、各 ping に1秒間の遅延が挿入されます。</li>
+   <li>最後に、ログオフ &rdquo; コマンドを使用し &ldquo; て、攻撃者がログオフしていることを確認します。</li>
+  </ol>
+
+
+  <p>セキュリティが侵害されてから1時間以内に、攻撃を受けたサブスクリプションがシャドウサーバーとして使用されている可能性があることを検出するために、Azure Security Center Microsoft &rsquo; の脅威インテリジェンスを使用しています。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/641ab4d2-a7c7-4276-868d-3351086c383c.png"><img alt="Screenshot_1" border="0" height="94" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4fd3b273-5045-4edb-bdd0-a9aa9174dd4a.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="Screenshot_1" width="501"></a></p>
+
+
+  <p>DNS 増幅攻撃は、一般的な分散 DDoS 攻撃の一種であり、通常は2つの高度な手順が含まれます。 攻撃者は、まず、標的となるアドレスを偽造し、その後、発信元アドレスとして、複数のオープンリゾルバーに対して多数の DNS 要求を送信します。 この結果、すべての DNS 返信が対象のサーバー&#39;に送信されます。 2番目の手順では、攻撃者が、多くの DNS レコードに登録されている可能性のあるインターネットドメインを検出します。</p>
+
+
+  <p>攻撃者は、そのドメインの DNS レコードのセット全体を要求する DNS クエリを送信します。 通常、DNS サーバー &rsquo; の応答は、大量のパケットでターゲットをあふれさせるために大きくなります。</p>
+
+
+  <p>このようなケースの重要度と優先度を考慮すると、セキュリティ研究者と専門家のチームはすぐにお客様に連絡し、脅威を特定し、訴訟調査手順を実行して、対象ホストで行われたアクティビティ、侵入の範囲、および背後にある motives を確認します。 また、継続的な露出を防止し、顧客 &rsquo; のネットワークにさらに侵害が生じる可能性を防ぐために、さらに修復手順も実行されました。 推奨される操作の詳細については、以下の「修復と軽減策」を参照してください。</p>
+
+
+  <h2>推奨される修復手順と軽減策</h2>
+
+
+  <p>最初の妥協は、RDP ブルートフォース攻撃が成功した結果、コンピューターが完全に侵害され、DDoS DNS 増幅攻撃にさらに使用された結果でした。 この場合、ホストは不正目的で使用されていました。 Microsoft では、使用可能なログソース、ホストベースの分析、および必要に応じて、侵害の画像を構築するために必要な場合に備えて、最初のセキュリティ侵害の原因を調査することをお勧めします。 Azure &lsquo; Infrastructure as a Service &rsquo; (IaaS) 仮想マシン (vm) の場合は、実行中のコンピューターおよびディスクイメージング機能にデータドライブを接続する機能など、データの収集を容易にするためにいくつかの機能が用意されています。 また、マルウェア対策ソフトウェアを使用してスキャンを実行し、ホストで実行されている悪意のあるソフトウェアを特定して削除することをお勧めします。 侵害されたホストから横移動が特定されている場合、修復アクションはこれらのホストに拡張する必要があります。</p>
+
+
+  <p>対象となるホストがクリーンであることを確認できない場合、または侵害の根本原因を特定できない場合は、重要なデータをバックアップし、新しいバーチャルマシンに移行することをお勧めします。 また、reinfection を防ぐために、新しいホストまたは修復されたホストは、ネットワーク上に戻される前に強化する必要があります。 ただし、これはすぐには実行できないことを理解しているため、次の修復/予防手順を実装することをお勧めします。</p>
+
+
+  <ul>
+   <li><strong>パスワードポリシー:</strong> 通常、攻撃者は、ワードワードとスマートルールセットを利用してユーザーのパスワードを自動的に推測する、広く利用可能なツールを使用してブルートフォース攻撃を仕掛けます。 そのため、最初の手順として、すべての Vm に対して複雑なパスワードを使用するようにします。 パスワードの頻繁な変更を実施する複雑なパスワードポリシーを設定する必要があります。 <a href="https://technet.microsoft.com/en-us/library/ff741764.aspx" target="_blank">パスワードポリシーを適用するためのベストプラクティス</a>について説明します。</li>
+   <li><strong>エンドポイント:</strong> エンドポイントは、インターネットから VM と通信できるようにします。 Azure 環境で VM を作成すると、VM、リモートデスクトップ、および PowerShell を管理するために、既定で2つのエンドポイントが作成されます。 不要なエンドポイントを削除し、必要な場合にのみ追加することをお勧めします。 エンドポイントが開いている場合は、可能な限り使用するパブリックポートを変更することをお勧めします。 新しい Windows VM を作成するとき、既定では、リモートデスクトップのパブリックポートは [自動 &rdquo; ] に &ldquo; 設定されます。これは、ランダムなパブリックポートが自動的に生成されることを意味します。 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/classic/setup-endpoints" target="_blank">Azure の従来の Windows 仮想マシンでエンドポイントを設定する方法</a>の詳細については、こちらを参照してください。</li>
+   <li><strong>ネットワークセキュリティグループを有効にする:</strong> ネットワークセキュリティグループ (NSG) がまだ有効になっていない場合は、それ &rsquo; を有効にすることをお勧めします。 Azure Security Center NSG には、Virtual Network 内の VM インスタンスへのネットワーク トラフィックを許可または拒否するアクセス制御リスト (ACL) 規則の一覧が含まれています。 エンドポイント ACL を使用すると、アドレスの IP アドレスまたは CIDR サブネットを制御し、その管理プロトコルでのアクセスを許可することができます。 ネットワーク <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-nsg" target="_blank">セキュリティグループを使用してネットワークトラフィックをフィルター処理</a> し、 <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-network-security-groups" target="_blank">ネットワークセキュリティグループを有効</a>にする方法の詳細については、Azure Security Center を参照してください。</li>
+   <li><strong>管理に VPN を使用する:</strong> VPN ゲートウェイは、パブリック接続経由でオンプレミスの場所に暗号化されたトラフィックを送信する仮想ネットワークゲートウェイの一種です。 VPN ゲートウェイを使用すると、Microsoft ネットワークを経由して Azure 仮想ネットワーク間で暗号化されたトラフィックを送信することもできます。 Azure 仮想ネットワークとオンプレミスサイトの間で暗号化されたネットワークトラフィックを送信するには、仮想ネットワーク用の VPN ゲートウェイを作成する必要があります。 <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways#site-to-site-and-multi-site-ipsecike-vpn-tunnel" target="_blank">サイト</a>間接続と<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways#a-namep2sapoint-to-site-vpn-over-sstp" target="_blank">ポイント対サイト</a>ゲートウェイ接続の両方で、パブリックエンドポイントを完全に削除し、セキュリティで保護された VPN 接続を介して仮想マシンに直接接続することができます。</li>
+  </ul>
+
+
+  <p>Azure Security Center の詳細については、次を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-detection-capabilities" target="_blank">Azure Security Center &rsquo; の検出機能</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-managing-and-responding-alerts" target="_blank">Azure セキュリティ センターでのセキュリティの警告の管理と対応</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-recommendations" target="_blank">Azure Security Center でのセキュリティに関する推奨事項の管理</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-monitoring" target="_blank">Azure Security Center でのセキュリティ ヘルスの監視</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-partner-solutions" target="_blank">Azure Security Center を使用したパートナーソリューションの監視</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-faq" target="_blank">Azure Security Center のよく寄せられる質問 (FAQ)</a>。</li>
+   <li>Azure security の <a href="https://blogs.msdn.com/b/azuresecurity/" target="_blank">ブログ</a>を参照して、azure のセキュリティに関する最新のニュースと情報を入手してください。</li>
+  </ul>

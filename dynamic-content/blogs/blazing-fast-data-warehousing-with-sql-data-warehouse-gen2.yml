@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0262e0dcbc98c2f0aaec08b7b171bec666474514
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893164"
+Slug: blazing-fast-data-warehousing-with-sql-data-warehouse-gen2
+Title: Azure SQL Data Warehouse を使用した高速データ ウェアハウスのSQL Data Warehouse
+Summary: 本日、Azure SQL Data Warehouse (SQL DW) コンピューティング最適化 Gen2 レベル (新世代の Azure SQL DW) の一般提供を発表しました。 Azure SQL DW は、高速で柔軟で安全なクラウドです。
+Content: >-
+  <p>本日、Azure SQL Data Warehouse (SQL DW) コンピューティング最適化 Gen2 レベル (新世代の Azure SQL DW) の一般提供を発表しました。 Azure SQL DW は、ペタバイト単位のデータに対して高速で複雑なクエリを実行するために調整された、高速で柔軟で安全なクラウド データ ウェアハウスです。</p>
+
+
+  <p>データ ウェアハウスの決定を後押しする 2 つの主要な傾向が見られるので、データの量は指数関数的に増加し続け、このすべてのデータから分析情報を提供する必要性はさらに緊急です。 Azure SQL DW コンピューティング最適化 Gen2 レベルは、お客様がクエリのパフォーマンスを大幅に向上することで、これを実現するのに役立つ設計です。 さらに、SQL DW では最大 128 の同時クエリがサポートされる一方で、前の製品世代と比較して 5 倍のコンピューティング能力をプロビジョニングできます。</p>
+
+
+  <p><em>&ldquo;データ ウェアハウスワークロードは、SQL Data Warehouse Gen2 にアップグレードした後、パフォーマンスが平均 5.4 倍向上しました。&rdquo;</em>このサービスの機能強化は驚くものであり、Microsoft の Azure Active Directory 分析チームのシニア ソフトウェア エンジニアである Brent Niezgocki 氏は、お客様のビジネスに関する重要な分析情報を提供するのに役立ちます。</p>
+
+
+  <p><img height="188" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05973b14-fd59-4d1f-80bc-c5ccab8b02c1.png" style="width: 605px; height: 241px; margin-right: auto; margin-left: auto; float: none; display: block;" width="461"></p>
+
+
+  <h2>アダプティブ キャッシュを使用した高速クエリ パフォーマンス</h2>
+
+
+  <p>組織は分析情報の取得までの時間を早め、対話型クエリの領域でのパフォーマンスが引き続き最も高い要件です。 高パフォーマンスを実現する最大のボトルネックと問題の 1 つは、ディスク アクセスです。 これは、コンピューティング 層からストレージ 層までの距離が変化する可能性があるクラウド コンピューティングで特に当てはまるので、クエリのパフォーマンスが最適ではありません。 Azure SQL DW コンピューティング最適化 Gen2 レベルでは、ワークロードの特性とクエリ アクセス パターンに基づいてデータを自動的にキャッシュする、組み込みのアダプティブ キャッシュが提供されます。 メモリ内キャッシュとディスク展開キャッシュを組み合わせると、SQL Data Warehouse頻繁にアクセスされるデータがさまざまなキャッシュ層に自動的かつ透過的に移動されます。 このキャッシュ戦略により、データ アクセスが高速化され、最終的にクエリのパフォーマンスが向上します。 スマート キャッシュ戦略に加えて、Azure SQL DW Compute Optimized Gen2 レベルでは、Azure によって提供される最新のハードウェア イノベーションが活用されます。 これにより、Azure SQL DW Compute Optimized Gen2 レベルで次のレベルのパフォーマンス特性を実現できます。 平均して、クエリ ワークロードでは、DW Gen1 と比較してパフォーマンスが 5 SQL向上します。</p>
+
+
+  <p><img height="334" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6aa826c-014f-4cf0-9e79-91fa2da353d8.png" style="width: 649px; height: 408px; margin-right: auto; margin-left: auto; float: none; display: block;" width="551"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>コンカレンシーの高いエンタープライズ全体のダッシュボードの機能</h2>
+
+
+  <p>多くの組織では、ビジネス インテリジェンス (BI) ツールを使用して、さまざまなビジネス メトリックと KPI に関する分析情報を取得しています。 ただし、既存のデータ ウェアハウス システムでは、通常、処理および実行できる同時実行クエリの数が制限され、ユーザー エクスペリエンスが最適ではありません。 組織は、データ ウェアハウスに格納されている貴重なデータを厳しく制御したり、データ ウェアハウスに対して同時にクエリを実行できるユーザーの数を制限したりすることを余儀なくされます。 このような状況では、分析の遅延が発生します。</p>
+
+
+  <p>Azure SQL DW Compute Optimized Gen2 レベルでは、実行できる同時実行クエリの数が増えなくなりました。 Azure SQL DW では、128 の同時実行クエリがサポートされ、前の世代に比べて 4 倍のコンカレンシーが提供されます。 この改善により、組織はビジネスおよびデータ アナリストの最も要求の厳しいニーズを満たすことができます。 新しいコンカレンシー レベルを有効にするために、ワークロード管理機能が拡張されました。 SLO SQL Data Warehouseには、定義済みのクエリ容量クォータが付属しています。 クエリのコンカレンシーが大きくなると、クォータに達するまで使用可能な容量が消費されます。 このすべてがデータ ウェアハウスのエンド ユーザーに対して完全に透過的に行われるため、選択した BI ツールを使用している数百人のユーザーがデータ ウェアハウスを使用できます。</p>
+
+
+  <p>次の図では、コンカレンシーの下にシステム スループットが表示されています。 さまざまなクエリが、互いに 30 分の遅延でシステムに送信されました。 アクティブなクエリの数は 128 に増え、一部の時間はそこに残り、クエリの実行が完了すると最終的に 0 に低下します。 DW SQLがアクティブなクエリを処理している間、リソースを処理できる状態になるまでキューに入れられませんでした。</p>
+
+
+  <p><img height="206" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/192a7a71-7137-4899-8490-7dd22b89885b.png" style="width: 479px; height: 243px; margin-right: auto; margin-left: auto; float: none; display: block;" width="434"></p>
+
+
+  <h2>スケーリングによる予測可能なパフォーマンス</h2>
+
+
+  <p>組織は、大規模で大規模なデータ セットを格納して操作する需要が増え続けています。 データの拡大と縮小が必要な場合に、データ ウェアハウスを柔軟に拡大および縮小する機能は、データ ウェアハウスの主要な特性の 1 SQL Data Warehouse。 Azure SQL DW コンピューティング最適化 Gen2 レベルでは、この領域で 2 つの追加機能が有効になります。この領域では、無制限のデータを SQL 列形式で格納できる機能と、コンピューティング容量の 5&rsquo; 倍を追加して新しい SOS を利用できます。</p>
+
+
+  <p>SQL Data Warehouseでは、無制限の列ストア ストレージ容量が提供されます。 この新しい機能を使用すると、大規模で大規模なデータに対して許容されるクエリ パフォーマンスを提供するのに十分なコンピューティング能力があるのではないか疑問に思う場合があります。 効果的なデータ処理を可能にし、データの増加に対して予測可能なパフォーマンスを提供するために、Azure SQL DW コンピューティング最適化 Gen2 レベルでは、追加の SLA (DW7500c、DW10000c、DW15000c、DW30000c) を導入することで、コンピューティング力が向上します。</p>
+
+
+  <p>これらの新しい SL へのスケーリングの効果を示す図は、SL を変更しながら、同じデータに対して同じクエリ セットを実行した後の実行時間を示しています。 これら 3 つのクエリは、それぞれ DW6000c と DW15000c で実行されました。 より高い SLO レベルを使用すると、実行時間が向上しているのが分かっています (小さいバーは応答時間の改善を示します)。 使用されるクエリでは、集計、結合、述語、句、サブセレクト、データの順序付けなどの一般的な分析クエリ パターンが実行されます。</p>
+
+
+  <p><img height="223" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/916b8a42-8719-4bf3-a51e-5da207e294f7.png" style="width: 464px; height: 258px; margin-right: auto; margin-left: auto; float: none; display: block;" width="401"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>概要 Azure SQL Data Warehouse を使用する</h2>
+
+
+  <p>Azure SQL DW コンピューティング最適化 Gen2 レベルでは、引き続き一時停止操作と再開操作が提供およびサポートされ、課金の柔軟性が最大限に高まれます。 この新しい製品の世代を市場に提供する方法を非常に楽しみにしています。 この 5 倍のパフォーマンス、4 倍のコンカレンシー、および追加のスケールの 5 倍というこのオファリングは、お客様への継続的なコミットメントを示しています。 Azure SQL DW コンピューティング最適化 Gen2 レベルは、最初に 20 のリージョンにロールアウトされます。利用可能なリージョンの完全な一覧<a href="https://azure.microsoft.com/en-us/blog/region-expansion-for-the-next-generation-of-sql-data-warehouse" target="_blank"></a>を確認できます。その後、他のすべての Azure リージョンにロールアウトされます。 これらの追加により、Azure SQL Data Warehouse、世界で最も広く利用できるデータ ウェアハウス ソリューションの 1 つになります。</p>
+
+
+  <p>次の情報をお読み下さいます。</p>
+
+
+  <ul>
+   <li>
+   <p>今<a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/?v=17.44" target="_blank">すぐ Azure SQL DW Compute Optimized Gen2 レベルをお試しください</a>。</p>
+   </li>
+   <li>
+   <p>この Microsoft Mechanics SQLビデオで、Azure SQL DW Compute Optimized Gen2 レベルの動作<a href="https://www.youtube.com/watch?v=Ap8I3UZonzI&amp;feature=youtu.be" target="_blank">に関するページを参照してください</a>。</p>
+   </li>
+   <li>
+   <p>アダプティブ キャッシュの <a href="https://azure.microsoft.com/en-us/blog/adaptive-caching-powers-azure-sql-data-warehouse-performance-gains/" target="_blank">詳細を参照してください</a>。</p>
+   </li>
+  </ul>

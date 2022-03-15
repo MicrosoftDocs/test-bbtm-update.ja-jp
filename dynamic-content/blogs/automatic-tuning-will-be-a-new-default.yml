@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c9ddf12d3f70b8225b6d2191e1844601e236d5ea
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893212"
+Slug: automatic-tuning-will-be-a-new-default
+Title: 自動チューニングは新しい既定値になります
+Summary: 自動チューニングは、SQL Database でデータベースのパフォーマンスを継続的に監視して自動的に向上させるテクノロジであり、今後の期間に既定で有効になります。
+Content: >-
+  <p>自動チューニングは、SQL Database でデータベースのパフォーマンスを継続的に監視して自動的に向上させるテクノロジであり、今後の期間に既定で有効になります。 この変更のロールアウトは段階的であり、2018 年 1 月 15 日から開始されます。 この変更がサブスクリプションで行う 2 週間前に、サブスクリプション所有者に通知メールが送信されます。 自動チューニングが明示的に構成されていないすべてのサーバーは、Azure の既定値を継承し、自動チューニングを有効にします。 同様に、自動チューニングが明示的に構成されていないすべてのデータベースは、親サーバーから構成を継承します。 既定では、新しく作成されたデータベースはすべて、親サーバーから構成を継承します。</p>
+
+
+  <p>自動チューニングは、安定したパフォーマンスのワークロードに関して顧客に明確な価値の向上を提供し、リソース使用率を節約し、お客様のコストを削減すると同時に、現在の運用とワークロードに影響を与え "ない" ことを目的として設計された時点に達しました。</p>
+
+
+  <p>自動チューニングは、既定で有効にする準備が整った時点SQL Database。 自動チューニングは 2016 年の初めにグローバルな可用性に達したので、SQL Databaseチームは引き続きその機能の向上に投資しました。 ラーニング自動チューニングを既に採用している大規模な顧客のプールから、推奨モデルの進歩、チューニング アクションの適用の速度と安全性の向上、障害の除去を行い、大規模なワークロードを持つ最も要求の厳しい顧客でも自動チューニングを適応するためのパスを可能にしました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/artificial-intelligence-tunes-azure-sql-databases/">お客様が自動チューニングを使用して達成SQL Database大きな利点については、こちらをクリックしてください。</a></p>
+
+
+  <h2>何が起こるか</h2>
+
+
+  <p>2018 年 1 月 15 日より後に自動チューニングが構成されていないすべてのリソースは、構成されていないサーバーから Azure の既定値から継承するように構成されたサーバー、および親サーバーから継承するように構成されたデータベースへの移行スケジュールに含まれます。 切り替える前に、任意のリソースで自動チューニングが構成されている場合、そのようなリソースは自動切り替えに含まれません。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-automatic-tuning-enable">自動チューニングを構成する方法の詳細については、こちらをクリックしてください</a>。</p>
+
+
+  <h2>セーフ信頼性と実証済み</h2>
+
+
+  <p>Azure SQL Database に適用されるチューニング操作は、最も負荷の高いワークロードのパフォーマンスに対して、安全性の高い操作になっています。 自動チューニングの推奨事項は、使用率が低い時間帯にのみ適用されます。 ワークロードのパフォーマンスを損なわないように、自動チューニング操作を、システムによって一時的に無効にすることもできます。 このような場合、 [ &ldquo;システムによって無効] メッセージ&rdquo; が表示Azure portal。 適用される自動チューニング操作は自動的に検証され、ワークロードのパフォーマンスに積極的な改善がみられるようにします。 パフォーマンスの後退に関する推奨事項が動的に検出され、すばやく以前の設定に戻されます。 チューニングの履歴ログを見ると、各 Azure SQL Database に対して実行されたチューニングによる改善の痕跡をはっきりと確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e13822bd-8215-4926-9b22-977992b4786c.png"><img alt="clip_image002" border="0" height="689" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19292d38-d369-4907-8a09-3a20a13f9217.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image002" width="779"></a></p>
+
+
+  <h2>自動チューニング オプション</h2>
+
+
+  <p>自動チューニングは完全に構成可能です。サーバーレベルとデータベース レベルで構成できます。 サーバーは、Azure の既定値から自動チューニング構成を継承するように構成するか、既定の構成を継承するように構成できません。 これら 2 つのオプション以外のデータベースは、親サーバーから設定を継承するように構成することもできます。 リソース レベルの構成に加えて、サーバーとデータベースの両方で、各自動チューニング オプションを個別に明示的に有効または無効にすることができます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-automatic-tuning">このページで自動チューニングの詳細については、こちらをAzure SQL Database</a>。</p>
+
+
+  <h2>自動チューニング構成の指定</h2>
+
+
+  <p>以前に自動チューニングの使用を開始したり、カスタム自動チューニング構成を作成したり、リソースの自動チューニングを無効にしたりする場合は、2018 年 1 月 15 日より前にリソースの自動チューニングを構成してください。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-automatic-tuning-enable">自動チューニングを構成する方法の詳細については、こちらをクリックしてください</a>。</p>

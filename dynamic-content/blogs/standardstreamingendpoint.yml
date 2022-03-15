@@ -1,0 +1,213 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1ed88a6764f38b9bef3f1776a77e9ea2bb40f4d0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892177"
+Slug: standardstreamingendpoint
+Title: '発表: 新しい Standard ストリーミング エンドポイントの自動スケーリングと拡張Azure CDN統合'
+Summary: >
+  Standard Streaming Endpoint と、Azure CDN プロバイダーの統合についてお知らせAzure Media Services。
+Content: >-
+  <p>ストリーミング サービスのAzure Media Servicesは、お客様をプラットフォームに引き付ける最大の要因の 1 つでした。&nbsp;これは、WEB 上で最大のイベントを処理するスケールと堅牢性を提供します。このイベントには、WEB 上で最も大規模な<a href="https://customers.microsoft.com/en-US/story/provider-uses-the-cloud-to-serve-25-million-world-cup">イベント (「THE WORLD Cup</a> の一致」、「<a href="https://blogs.microsoft.com/blog/2014/02/06/going-for-gold-windows-azure-media-services-provide-live-and-on-demand-streaming-of-2014-olympic-winter-games-on-nbc/#sm.00000utvcbvqfpfc6zmlhrhqd00qd">イベント</a>のストリーミング カバレッジ」、スーパー ボールトを含む) があります。&nbsp;また、HLS、MPEG-DASH、および Smooth Streaming への動的<a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-dynamic-packaging-overview"></a>パッケージ化によってワークフローの複雑性とコストを大幅に削減する機能と、Microsoft PlayReady<a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-content-protection-overview"></a>、Google Widevine、Apple Fairplay、AES128 の動的暗号化も提供します。</p>
+
+
+  <p>ただし、配信元サービス (ストリーミング エンドポイント) は、スケールのニーズに基づいてストリーミング ユニット (それぞれ 200 Mbps&nbsp; のエグレス容量を提供) でプロビジョニングする必要があるという使いやすさの問題に常に悩みがありました。お客様&ldquo;&rdquo;&rdquo;&ldquo;&rdquo;&ldquo;やパートナーから、必要なストリーミング ユニットの数、必要なときに知る方法、ストリーミング ユニットを使用せずにダイナミック パッケージを取得する方法などについて、継続的に質問を受け取っています。</p>
+
+
+  <p>&rsquo;そのため、ストリーミング ユニットについて心配することなく、必要なスケールと堅牢性を実現することで、この複雑さを排除する Standard <strong>Streaming Endpoint</strong>&nbsp; と呼ばれる新しいストリーミング エンドポイント オプションが追加されました。背後では、ストリーミング エンドポイントの帯域幅要件を監視し、必要に応じてスケールアウトします。&nbsp;つまり、Standard ストリーミング&nbsp; エンドポイントを使用すると、Azure CDN サービスの統合を使用して、非常に少ない対象ユーザーから数千人の同時閲覧者まで、さまざまな対象ユーザー サイズにストリームを配信できます (詳細については、以下を参照してください)。</p>
+
+
+  <p><strong>さらに良いニュースです。</strong> また、ストリーミング機能について理解を深める無料試用版期間をAzure Media Servicesしました。 新しいサービス Media Services作成されると、既定の Standard Streaming Endpoint もアカウントに自動的にプロビジョニングされます。 このエンドポイントには、15 日間の無料試用版期間が含まれています。また、エンドポイントが初めて開始されると試用期間が開始されます。</p>
+
+
+  <p>Standard ストリーミング エンドポイントに加えて、拡張されたサービス統合をお知らせAzure CDNしています。 1 回のクリックで、使用可能なすべての Azure CDN プロバイダー (Akamai と Verizon) を、Standard および プレミアム 製品を含むストリーミング エンドポイントに統合し、Azure CDN ポータルを使用してすべての関連機能を管理および構成できます。 Azure Media Services を使用してストリーミング エンドポイントに対して Azure CDN が有効になっている場合、ストリーミング エンドポイント<a href="https://azure.microsoft.com/en-us/pricing/details/bandwidth/"></a>と CDNの間のデータ転送料金は適用されません。 代わりに、転送されたデータは、価格を使用してCDNエッジ<a href="https://azure.microsoft.com/en-us/pricing/details/cdn/">CDNされます</a>。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e41d85ce-7005-48f6-b6b4-da6617a97595.png"></p>
+
+
+  <h3>ストリーミング エンドポイントの種類の比較</h3>
+
+
+  <p>以前のストリーミング エンドポイントは削除されないの&nbsp;&rsquo;で、複数のオプションが追加されたので、それらの属性について説明します。&nbsp;しかし、前に&nbsp;、最初&nbsp;にテキストラインにジャンプし、使用するストリーミング エンドポイントの種類に関する情報を提供します。&nbsp;現在の顧客の使用状況を分析し、お客様の 98% のストリーミングニーズを Standard Streaming Endpoint と CDNしました。&nbsp;残りの 2% は<a href="https://customers.microsoft.com/en-US/story/on-demand-servers-for-on-demand-video">、Xbox Movies</a>&nbsp; や <a href="https://customers.microsoft.com/en-US/story/streaming-service-partners-with-microsoft-to-build-a-powerful-distribution-platform">Rakuten Showtime</a>&nbsp; のようなお客様で、非常に大規模なカタログ、大量の対象ユーザー、配信元の負荷プロファイルが非常に一意です。&nbsp;したがって、サービスがその階層にあると思う場合を限り、標準ストリーミング エンドポイントに移行する方法をお勧めしています。&nbsp;その 2% に該当する可能性がある懸念がある場合は、お問<a href="mailto:amsstreaming@microsoft.com?subject=Azure%20Media%20Services%20Streaming%20Question"></a>い合わせください。追加のガイダンスを提供できます。 50,000 人を超える同時閲覧者のサイズが予想される場合は、お問い合わせください。</p>
+
+
+  <p>この方法では、&rsquo;型と、その種類をプロビジョニングする方法について詳しく説明します。</p>
+
+
+  <ul>
+   <li>既存のストリーミング ユニット&quot;の名前が プレミアム&quot; ストリーミング ユニットに変更され、プレミアム &ldquo;ストリーミング ユニットを持つストリーミング エンドポイントは プレミアム ストリーミング&rdquo; エンドポイントという名前になります。&nbsp;これらのストリーミング エンドポイントは、以前とまったく同じように動作し、予想される負荷に基づいてストリーミング ユニットでプロビジョニングする必要があります。&nbsp;前述のように、ほぼすべてのユーザーが Standard ストリーミング エンドポイントを使用している必要があります。また、ストリーミング エンドポイントに接続する必要プレミアム必要な場合は、お問い合わせください。</li>
+   <li>新しく作成Azure Media Services既定では、Azure CDN (S1 Verizon Standard)&nbsp;&nbsp; が統合された Standard ストリーミング エンドポイントが作成され、停止状態になります。&nbsp;ストリーミングを開始する準備&rsquo;が整うまで料金が発生しないので、停止状態になります。</li>
+   <li>新しいストリーミング エンドポイントは、Standard ストリーミング エンドポイントとして作成できます。</li>
+   <li>以前は、新しい Azure Media Servicesアカウントが作成されると、ストリーミング ユニット (クラシック ストリーミング エンドポイント) を使用してストリーミング エンドポイントが作成されました&nbsp;。 これは、開発者がコストを発生させる前にサービスを開発する時間を提供することを目的とした無料のサービスでした。&nbsp;ただし、動的パッケージ化や暗号化などの重要なサービスの多くを有効にするために、ストリーミング ユニットが必要でした。そのため、値は非常に制限されています。&nbsp;一部のお客様は、アカウントにこれらのクラシック &ldquo;&rdquo; ストリーミング エンドポイントの 1 つを引き続き持っている場合があります。&nbsp;お客様はこれらを Standard に移行することをお勧めしますが、自動的には移行されません。&nbsp;移行は、Azure 管理ポータルまたは API を使用Azure Media Servicesできます。&nbsp;詳細については、ストリーミング エンドポイントの概要に関&quot;<a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-streaming-endpoints-overview">するページを参照してください</a>&quot;。&nbsp;前述のように、Standard では 15 日間の無料試用版を提供しています。これは、開発者がストリーミング コストを発生することなくサービスを開発するのと同じ機能を提供します。</li>
+  </ul>
+
+
+  <table style="width: 888px; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; overflow: auto; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-weight: normal; margin-top: 0px; margin-bottom: 16px; word-spacing: 0px; display: block; white-space: normal; border-collapse: collapse; box-sizing: border-box; border-spacing: 0px; orphans: 2; widows: 2; font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">
+   <thead style="box-sizing: border-box;">
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <th style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; font-weight: bold; box-sizing: border-box;">特徴量</th>
+     <th style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; font-weight: bold; box-sizing: border-box;">Standard</th>
+     <th style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; font-weight: bold; box-sizing: border-box;">Premium</th>
+    </tr>
+   </thead>
+   <tbody style="box-sizing: border-box;">
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">最初の 15 日間の無料*</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">いいえ</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(248, 248, 248);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">ストリーミング スケール</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">データが使用されていない場合Azure CDN最大 600 Mbps。このAzure CDN Standard を有効にすると、何千もの同時閲覧者にスケーリングされます</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">ストリーミング ユニット (SU) あたり 200 Mbps で、スケールは CDN。</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">SLA</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">99.9</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">99.9 (SU あたり 200 Mbps)。</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(248, 248, 248);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">CDN</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">Azure CDN、サード パーティ製 CDN、または CDN なし。</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">Azure CDN、サード パーティ製 CDN、または CDN なし。</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">課金は日割り計算</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">毎日</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">毎日</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(248, 248, 248);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">動的な暗号化</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">動的パッケージ</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">IP フィルタリング/G20/カスタム ホスト</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(248, 248, 248);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">プログレッシブ ダウンロード</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">はい</td>
+    </tr>
+    <tr style="border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; box-sizing: border-box; background-color: rgb(255, 255, 255);">
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">推奨使用量</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;">ほとんどのストリーミング シナリオに推奨されます。Standard を超えるニーズがある可能性がある場合は、お問い合わせください</td>
+     <td style="padding: 6px 13px; border: 1px solid rgb(221, 221, 221); border-image: none; box-sizing: border-box;"><a href="mailto:amsstreaming@microsoft.com?subject=Azure%20Media%20Services%20Streaming%20Question">お問い合わせ</a></td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><em>*注: 無料試用版は既存&rsquo;&rsquo;のアカウントには適用されません。終了日は停止/開始などの状態遷移で変更されません。無料試用版は、ストリーミング エンドポイントを初めて開始し、15 日後に終了します。無料試用版は既定のストリーミング エンドポイントにのみ適用され、&#39;ストリーミング エンドポイントには適用されません。</em><br>
+
+  &nbsp;</p>
+
+
+  <h3>使用するAzure CDN?</h3>
+
+
+  <p>前述のように、すべての新しい Media Services アカウントには、既定で Standard Streaming Endpoint と Azure CDN (S1 Verizon Standard) が統合されています。 ほとんどの場合、有効にした状態CDNがあります。 ただし、最大コンカレンシーが 500&nbsp; ビューアーより小さいと予想される場合は、CDN がコンカレンシーで最適にスケーリングCDNを無効にしてください。</p>
+
+
+  <h3>クラシックまたはクラシック プレミアム&nbsp;を Standard に移行するには</h3>
+
+
+  <ol>
+   <li>ストリーミング エンドポイントの設定に移動する<br>
+  型を [クラシック] にプレミアム切り替える。 (エンドポイントにストリーミング ユニット&#39;場合、クラシックタイプが強調表示されます)<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98107694-623d-4e5a-b687-07c1dfd3e58b.png"></li>
+   <li>[クラシック] &quot;<em><strong>をクリック</strong></em>&quot; して保存<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/007114a3-24fb-4107-b2b7-85dba58f5961.png"><br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/62e88348-8627-46da-8011-61f83c6f09e2.png"><br>
+  &nbsp;</li>
+   <li>変更を保存した後、[ &quot;<strong><em>Opt-in to Standard]/(標準にオプトインする)</em></strong>&quot; ボタンが表示されます<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b70e798b-7ea0-4da3-864e-f63fe6c7abd9.png"></li>
+   <li>[Opt-in &quot;<strong><em>to Standard]をクリックします。</em></strong>&quot;<br>
+  詳細を読み、[&nbsp;は&nbsp; い] をクリックします。(<strong>注</strong>: クラシック エンドポイントから標準エンドポイントへの移行はロールバックできません。価格に影響があります)。 価格に<a href="https://azure.microsoft.com/en-us/pricing/details/media-services/">関Azure Media Servicesを確認してください</a>。 移行後、完全な伝達に最大 30 分かかる場合があります。動的パッケージ化およびストリーミング要求は、この期間中に失敗する可能性があります)<br>
+
+  操作が完了すると、クラシック エンドポイントが Standard に移行 &quot;<em>されます</em>&quot;<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4829e2be-498f-45f5-bbe5-c6c7192c1bcf.png"></li>
+  </ol>
+
+
+  <h3>レガシ CDN統合を新しい統合CDN移行するには</h3>
+
+
+  <ol>
+   <li>新しいアプリケーションに移行CDN、ストリーミング エンドポイントを停止する必要があります。 エンドポイントの詳細&nbsp;のストリーミングに移動し、[停止] をクリックします<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c953da6-b01b-46ce-b1de-60476696ec6d.png"><br>
+   <strong>メモ： </strong>エンドポイントを停止すると、既存の構成が&nbsp;CDN削除され、ストリーミングが停止されます。 CDN 管理ポータルを使用して手動で構成された設定も削除され、新しい統合を有効にした後で再構成CDNがあります。 また、レガシ CDN統合&quot;&quot;ストリーミング エンドポイントには、メニュー&#39;[管理] CDNボタンが表示されません。</li>
+   <li>[無効&quot;にする] をCDN&quot;<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a2df846-0278-4113-a5e5-5d73a2c72438.png"></li>
+   <li>[有効&quot;にする] CDN&quot;クリックすると、新しい統合ワークフロー CDNトリガーされます<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7c9f7b2-5204-44c8-987a-452b24f0a118.png"></li>
+   <li>手順に従い、ストリーミング エンドポイントの種類CDNプロバイダーと価格レベルを選択します<br>
+   <img height="497" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1540f125-993e-4e9b-b830-d2a3a4776944.png" style="width: 773px; height: 368px;" width="1107"></li>
+   <li>&quot;[スタート]&quot; をクリックします<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92ca0fc9-19a9-4cca-b1ac-ceccf126adef.png"><br>
+   <strong>メモ：</strong>ストリーミング エンドポイントと完全なプロビジョニングCDN開始するには、最大で 2 時間かかる場合があります。 この期間中は、ストリーミング エンドポイントを使用することもできますが、機能低下モードで動作します。</li>
+   <li>管理CDN。ストリーミング エンドポイントが開始され、完全にプロビジョニングCDN後、管理にCDNできます。<br>
+  [管理&quot;] をクリックCDN&quot;<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0c3e7af-fc8f-44f8-8b0e-9761ad333a71.png"><br>
+  これにより、CDN管理セクションが開き、ストリーミング統合エンドポイントをCDNエンドポイントとして管理および構成CDNできます。<br>
+   <img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da0a5b77-ae7c-4d8d-991a-eba04baeba0f.png"><br>
+   <strong>メモ：</strong>ストリーミング エンドポイントから CDN へのデータ料金は、CDN がストリーミング エンドポイント API 経由で有効になっている場合、または Azure 管理ポータル&#39;ストリーミング&nbsp; エンドポイント セクションを使用している場合にのみ無効になります。 API またはポータル セクションを使用&nbsp;してCDNエンドポイントCDN手動で統合したり、直接作成したりすると、データ料金は無効にされません。&nbsp;</li>
+  </ol>
+
+
+  <p style="margin: 0in 0in 0pt;">最後に、標準ストリーミング エンドポイントのリリースでは、すべての CDN プロバイダーにアクセスすることもできます。また、ストリーミング エンドポイントで簡単な [CDN を有効にする] チェック ボックスを使用して、Verizon Standard、Verizon プレミアム、Akamai Standard などの目的の CDN プロバイダーを有効にすることもできます。</p>
+
+
+  <p style="margin: 0in 0in 0pt;">&nbsp;</p>
+
+
+  <p style="margin: 0in 0in 0pt;">ストリーミング エンドポイントの詳細については、「ストリーミング エンドポイントの概要&quot;<a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-streaming-endpoints-overview">」</a>&quot;&quot;と「<a href="https://docs.microsoft.com/en-us/rest/api/media/operations/streamingendpoint">StreamingEndpoint REST」を参照してください。</a>&quot;</p>
+
+
+  <p style="margin: 0in 0in 0pt;">&nbsp;</p>
+
+
+  <p style="margin: 0in 0in 0pt;">新&nbsp;しい標準ストリーミング エンドポイントと他の機能をお楽しみください。</p>
+
+
+  <h3>ストリーミングに関する一般的な質問</h3>
+
+
+  <p>1) ストリーミング エンドポイントを監視する方法</p>
+
+
+  <p>この数&nbsp;か月間、私たちは&nbsp;&ldquo;telemetry API 用のプライベート プレビュー プログラムを実行しました&rdquo;。&nbsp;プライベート API を既&nbsp;に使用しているユーザーもいますが、一般的な使用方法からパブリック データは存在し、ストリーミング エンドポイントはブラック ボックスでした。</p>
+
+
+  <p>良いニュースは、テレメトリ API <strong><em>&ldquo;をリリースしたばかりです&rdquo;</em></strong>。 &nbsp;この API を使用すると、ストリーミング エンドポイントとライブ チャネルを監視できます。 ストリーミング エンドポイントの場合、スループット、待機時間、要求数、エラー数をほぼリアルタイムで取得し、値に基づいて処理できます。 詳細については、このブログ記事「<a href="https://azure.microsoft.com/en-us/blog/telemetry-platform-features-in-azure-media-services/"><u>&ldquo;テレメトリ プラットフォームの機能」&rdquo;</u></a>&nbsp;Azure Media Services確認してください。 API のドキュメントから詳細を <a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-telemetry-overview">取得することもできます</a>。</p>
+
+
+  <p>2) ストリーミング ユニットの数を確認&nbsp;する方法</p>
+
+
+  <p>残念ながら、この質問に対する簡単な答えはありません。&nbsp;&nbsp;回答は、カタログ サイズ、CDN キャッシュ ヒット率、CDN ノード数、同時接続、集約ビットレート、プロトコル数、DRM&nbsp; カウントなどのさまざまな要因によって異なります。これらの値に基づいて、数値演算を行い、必要なストリーミング ユニット数を計算する必要があります。&nbsp;良いニュースは、標準のストリーミング エンドポイントとAzure CDN&nbsp;の統合の組み合わせで、ほとんどの作業負荷に十分です。 &nbsp;&nbsp;&nbsp;&nbsp;高度なワークロードを実行している場合、またはスループットに関するより多くの分析情報を取得したい場合に、標準エンドポイントが適していない場合は、Telemetry API&nbsp; を使用してストリーミングエンドポイントを監視できます。 &nbsp;&nbsp;負荷が標準エンドポイントのターゲット値を超える場合、またはpremium ストリーミング ユニットを使用する場合は、テレメトリ値に基づいて計算を行い、必要に応じてストリーミング ユニット数とスケーリングを定義する必要があります。 高い数値から開始できますが、その後はシステムを監視し、スループット、要求/秒、待機時間の数に基づいて微調整できます。</p>
+
+
+  <p>3)新しい&rsquo;ポータルCDN既存のストリーミング エンドポイントの分析が表示されません。</p>
+
+
+  <p>CDN統合ストリーミング エンドポイントCDNの管理ポータルは、新しい管理ポータルでは使用できません。また、このポータルは使用できません。 サービス管理にCDNするには&nbsp;&nbsp;、ストリーミング エンドポイントを新しいアプリケーション統合CDN必要があります。 &nbsp;上記の移行手順を参照してください。</p>
+
+
+  <h3 style="margin: 0in 0in 0pt;">フィードバックと機能要求の提供</h3>
+
+
+  <p>Azure Media Servicesの拡大と進化を続け、機能を追加し、さらに多くのシナリオを可能にします。&nbsp;お客様により良い&nbsp;サービスを提供するために、最新のテクノロジを引き続き提供できるよう、フィードバックや新しいアイデアを常に受け取り、バグ レポートをお寄せください。&nbsp;新しい機能を要求したり、アイデアやフィードバックを提供したりするには、ユーザーの声に送信<a href="https://aka.ms/amsvoice/"><strong><u>Azure Media Services</u></strong></a>。 質問者がバグを&nbsp;見つけた場合は&nbsp;、フォーラムに質問を投稿 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=MediaServices">してください</a>。</p>
+
+
+  <p>&nbsp;</p>

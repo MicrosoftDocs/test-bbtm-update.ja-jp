@@ -1,0 +1,86 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c172c5ca90cd0caf51f4d45dbccaff03a241028e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889478"
+Slug: general-availability-azure-media-redactor
+Title: '一般提供: Azure Media Redactor'
+Summary: 'Azure Media Redactorは強力なクラウド ビデオ処理サービスであり、公共の安全やニュース メディアなどの場合に使用するために、ビデオ内の顔を自動的に検出およびぼやかすることができます。 '
+Content: >-
+  <p>Azure Media Redactorは強力なクラウド ビデオ処理サービスであり、公共の安全やニュース メディアなどの場合に使用するために、ビデオ内の顔を自動的に検出およびぼやかすることができます。 Redactor は、家で開発された人工知能テクノロジに基づいて、自動化された方法と半手動の方法の両方で使用して、手間のかかる手動ビデオ編集を伴うワークフローの効率を向上させることができます。</p>
+
+
+  <p>前のブログ <a href="https://azure.microsoft.com/en-us/blog/azure-media-redactor/">記事では、</a> プレビュー リリースの Azure Media Redactorと、それを使用できるさまざまな方法について説明しました。 このリリースには、プレビュー プロセス中のフィードバックに基づくいくつかの変更が含まれています。また、完全な SLA サポートを含む機能が更新されます。 この機能の更新された価格については、こちらを参照してください。</p>
+
+
+  <p>このリリースの更新プログラムには、次のものが含まれます。</p>
+
+
+  <ul>
+   <li>処理速度が大幅に向上しました</li>
+   <li>顔の検出と追跡の向上</li>
+   <li>スティック顔 ID の関連付け</li>
+   <li>複数のぼかしモード</li>
+  </ul>
+
+
+  <p>これらすべての機能 <a href="https://azure.microsoft.com/en-us/blog/azure-media-redactor/">の使用の詳細については</a> 、ドキュメントの全ページを参照してください。</p>
+
+
+  <p>更新された <a href="https://azure.microsoft.com/en-us/pricing/details/media-services/">GA 価格については</a> 、価格に関するページを参照Azure Media Redactor。</p>
+
+
+  <h2>パフォーマンスの向上</h2>
+
+
+  <p>処理速度は、ビデオのサイズ、フレームレート、ビデオ内の顔の数によってかなり異なります。 処理を完了するために、720p 30fps のビデオで 1 倍から 2 倍のリアルタイムが必要です。</p>
+
+
+  <p>もう 1 つの大きな改善点は顔のグループ化です。複数のポイントでビデオに表示されるのと同じ ID が与えられる点です。 以前は、ビデオ全体に表示される同じ顔に複数の ID&rsquo; を簡単に割り当て、個々の顔を選択的にぼかしやすくしました。</p>
+
+
+  <p>顔検出の精度も、以前のバージョンから若干向上しています。</p>
+
+
+  <h2>変更のぼかし</h2>
+
+
+  <p>JSON 構成プリセットを使用して選択できる 5 つのぼかしモードが提供されます。 既定では &lsquo;Med&rsquo; が使用されます。</p>
+
+
+  <p>サンプル JSON:</p>
+
+
+  <p>{&#39;version&#39;:&#39;1.0&#39;, &#39;options&#39;: {&#39;Mode&#39;:&#39;Combined&#39;,&nbsp;&#39;BlurType&#39;:&#39;High&#39;}}</p>
+
+
+  <p><strong>低：</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91073d12-b270-4762-b0ba-769b1f9ce238.png"><img alt="image" border="0" height="94" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/20f4a8b1-7bbb-44f0-8607-808003071392.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="240"></a></p>
+
+
+  <p><strong>Med：</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d7940b7-93e8-43b2-a04a-7d7bb4060e32.png"><img alt="image" border="0" height="113" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/316cbab2-313e-48c2-9e8f-56147a88e0fe.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="240"></a></p>
+
+
+  <p><strong>高：</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee213fea-359a-4040-9611-b050846f6236.png"><img alt="image" border="0" height="101" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9b95801-a4c6-409b-a7c0-bd4d884859be.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="240"></a></p>
+
+
+  <p><strong>デバッグ:</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdd8fb74-dead-43d4-97fa-c2b9182433ee.png"><img alt="image" border="0" height="104" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7bda728e-4197-44fd-bd7d-82d2f9248f55.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="240"></a></p>
+
+
+  <p><strong>黒：</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f1f718f3-1995-464c-8c09-4e7922829b14.png"><img alt="image" border="0" height="105" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/06119b38-2a98-4999-ae53-5360c08d3560.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="240"></a></p>

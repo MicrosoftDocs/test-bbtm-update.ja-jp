@@ -1,0 +1,11 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 64b0996e105ac596810f47fe7ae3613272ed7d60
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893710"
+Slug: windows-azure-deployments-and-the-virtual-ip-unpublished
+Title: Windows Azure デプロイと仮想 IP 未発行
+Summary: Windows Azure でのデプロイでは、仮想 IP アドレス (VIP&nbsp;) と呼ばれる 1 つのパブリック IP アドレスがサービスに割り当てられます。これは、顧客がに関連付けられているすべての入力エンドポイントに使用します。
+Content: '<p><a target="_blank" href="https://azure.microsoft.com/">Windows Azure</a> へのデプロイでは、仮想 IP アドレス (VIP&nbsp;) と呼ばれる 1 つのパブリック IP アドレスがサービスに割り当てられます。このサービスは、サービス内のロールに関連付けられているすべての入力エンドポイントに対して顧客が使用します。 サービスにモデルで指定された入力エンドポイントがなくても、VIP は割り当てられ、各ロールからの送信トラフィックに割り当てられたソース アドレスとして使用されます。</p>  <p>配置の有効期間中、更新、再起動、OS のイメージの再適用などの操作が配置で実行されても、割り当てられた VIP は変更されません。 特定の配置の VIP は、その配置が削除されるまで保持されます。 顧客が 1 <a target="_blank" href="https://msdn.microsoft.com/en-us/library/ee517253.aspx">つのホストされた</a> サービスでステージデプロイと実稼働デプロイの間で VIP を交換すると、両方のデプロイ VIP は保持されますが、スワップされます。 そのため、顧客が VIP をスワップしても、実稼働アプリケーションの VIP はホストされたサービスの一部として保持され、単に他のデプロイ スロットに転送されます。 &nbsp;</p>  <p>VIP は、ホステッド サービスではなく配置に関連付けられます。 配置が削除されると、ホステッド サービスが削除されていなくても、その配置に関連付けられた VIP はプールに返され、適宜再割り当てされます。 Windows Azure では、現在、配置の有効期間外の VIP の予約はサポートされていません。</p>  <p><iframe src="https://www.facebook.com/plugins/like.php?href= https://blogs.msdn.com/b/windowsazure/archive/2011/07/06/windows-azure-deployments-and-the-virtual-ip.aspx;layout=box_count&amp;show_faces=false&amp;width=300&amp;action=like&amp;font=segoe+ui&amp;colorscheme=light&amp;height=50" style="overflow: hidden; width: 300px; height: 50px;" frameborder="0" scrolling="no"></iframe><br>ツイートします  <script type="text/javascript"></script>  </p>'

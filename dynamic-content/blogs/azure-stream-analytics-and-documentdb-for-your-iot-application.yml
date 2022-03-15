@@ -1,0 +1,61 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 23ad707eaad06a887fb1bc0850b6d5403043d542
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894021"
+Slug: azure-stream-analytics-and-documentdb-for-your-iot-application
+Title: IoT アプリケーションの Azure Stream Analytics と DocumentDB
+Summary: モノのインターネットは企業内で変更エージェントとして登場するため、適切なツールを用意することはかつてないほど重要です。 Microsoft では、Azure IoT Suite の最近の発売に加えて、Azure Stream Analytics と Azure DocumentDB の統合が強化され、より高速な構成が実現され、市場投入までの時間が短縮されています。
+Content: >-
+  <p>Microsoft &rsquo; の信頼された Azure クラウドプラットフォームは、世界中の企業がデータの力を活用し、実用的なインテリジェンスを作成するために使用されます。 モノのインターネットが企業内の変更エージェントとして登場しているため、IoT ソリューションを簡単に開発してデプロイするための適切なツールを用意することは、かつてないほど重要になっています。</p>
+
+
+  <p>Microsoft では、 <a href="https://blogs.microsoft.com/iot/2015/09/29/azure-iot-suite-now-available/">Azure IoT Suite</a>の最近の発売に加えて、 <a href="https://azure.microsoft.com/en-us/services/stream-analytics/">Azure Stream Analytics</a>と<a href="https://azure.microsoft.com/en-us/services/documentdb/">Azure DocumentDB</a>の統合が強化され、構成 &mdash; が高速化され、市場投入までの時間が短縮されています。 Stream Analytics のジョブで、処理されたデータを DocumentDB に書き込み、非構造化 JSON データに対するアーカイブと低待機時間のクエリを有効にできるようになりました。 DocumentDB に Stream Analytics データを出力する機能が高度に要求されており、Azure フィードバックフォーラムの <a href="https://feedback.azure.com/forums/270577-azure-stream-analytics/suggestions/7114244-can-we-add-an-output-to-documentdb">トップ投票のアイデア</a> でした。</p>
+
+
+  <p>このブログ投稿では、ストリーミングデータ上でこれら2つのサービスを使用する利点について説明し、それらをまとめて構成する方法について説明します。</p>
+
+
+  <h2>スケールとパフォーマンスのための構築</h2>
+
+
+  <p>ストリーム処理ソリューションを使用する多くのお客様は、処理されたデータに対して、柔軟で低待機時間のクエリを実行できる必要があります。 たとえば、料金所のブースのシナリオでは、数百万の自動車放送局が1分ごとに使用されており、アカウントの残高と有料ステーションの活動のほぼリアルタイムの記録が必要です。 &nbsp; このようなアプリケーションでは、複数の有料ブースからのイベントを並行して処理および永続化できる、高度にスケールアウトされたシナリオが必要です。</p>
+
+
+  <p>DocumentDB は、データがスキーマや変換を必要とすることなく JSON にネイティブで格納されるため、Azure Stream Analytics との間で自然かつシームレスに統合されます。 DocumentDB &rsquo; は、大規模な <a href="https://azure.microsoft.com/documentation/articles/documentdb-indexing/">自動インデックス作成</a> により、スキーマやセカンダリインデックスを必要とせずに、急速に進化する IoT データをリレーショナル、階層、および空間で照会できます。 DocumentDB &rsquo; のクエリ機能の詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/">こちら</a>を参照してください。</p>
+
+
+  <p>Stream Analytics では、DocumentDB コレクションの一覧を指定できます。また、選択した PartitionKey 値に基づいて、指定したコレクションに自動的に受信データを <a href="https://azure.microsoft.com/documentation/articles/documentdb-sharding/#hash-partition-resolver">パーティション</a> 分割します。 これにより、水平方向にスケールアウトすることで、大量のデータを取り込み、インデックスを作成することができます。 また、個々の DocumentDB コレクションの <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-performance-levels/">パフォーマンスレベル</a> を構成することもできます。また、documentdb の <a href="https://azure.microsoft.com/documentation/articles/documentdb-consistency-levels/">一貫性レベル</a> と <a href="https://azure.microsoft.com/documentation/articles/documentdb-indexing-policies">インデックス作成ポリシー</a> を変更して、パフォーマンスのトレードオフを細かく調整することもできます。</p>
+
+
+  <h2>複数の書き込みモード</h2>
+
+
+  <p>Stream analytics では、DocumentDB への書き込みの2つのモード (upsert と append) がサポートされています。</p>
+
+
+  <p>データに id &rdquo; プロパティが含まれて &ldquo; いる場合、Stream Analytics は DocumentDB への書き込み時にドキュメントを<a href="https://azure.microsoft.com/blog/documentdb-adds-upsert/">upsert</a> (挿入または置換) します。 たとえば、料金の両方のシナリオで車両の最新のアクティビティデータを更新する場合に便利です。</p>
+
+
+  <p>&ldquo;Id &rdquo; プロパティが使用できない場合、または一意の識別子に設定されている場合、Stream Analytics は新しいドキュメントを作成します。 これは、車両 &rsquo; のアクティビティデータの履歴全体をアーカイブする場合に便利です。</p>
+
+
+  <h2>DocumentDB の出力を設定する方法</h2>
+
+
+  <ol>
+   <li><a href="https://portal.azure.com/">Azure プレビューポータル</a>または<a href="https://msft.sts.microsoft.com/adfs/ls/?wauth=http%3a%2f%2fschemas.microsoft.com%2fclaims%2fmultipleauthn&amp;username=v-madfre%40microsoft.com&amp;wa=wsignin1.0&amp;wtrealm=urn%3afederation%3aMicrosoftOnline&amp;wctx=estsredirect%3d2%26estsrequest%3drQIIAYWQz0rDQBCH3awU66UiWPAiFQJCYZM02TZJT_65edE3KJvsxAbZ3bDZWuhj9Ogb2KMn6SP01LMnKR48-wQ2lgriwd_hm2HmMB_Txh2n07e973QCUpUN0m23zXWt63lRGN8ifbh_8H56Nt5rW1dPb82Fc3liP6KdGWoNjSnKvusKJtkdOONccjUu2WSkwUmVcF8QWiL0gdDMsn0IfRYmlEQJzQgNWUySHosIZdzLepEfxEn8ajVuLkZm6FdQOp_A6s_k06pnSotBoUozxQ3Fqq1TMVUcpvhIFSBzniopITVOzo26BznD9m9ZAdKsHfWPtSPBuM-4tvYWSs6xHdIoAwgY6VK61vTDgEScU5LFLPV6WcI4BAt8PCpBD3JRgC6VZCZXsrUxWOHmAxGMZxrORZ5qVaqsOimWu2he__d3Xw2">azure 管理ポータル</a>で、Stream Analytics ジョブの出力に移動し、[追加] をクリックします。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/210a5624-8e6d-4e1a-a3af-f2c950a89ba2.jpg"><img alt="Outputs_Stream Analytics" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ab19791-12d3-462e-b07e-18918e6488d3.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Outputs_Stream Analytics" width="610"></a><br>
+  &nbsp;</li>
+   <li>ソースの種類として [DocumentDB] を選択し、必要な接続と構成の情報を指定します。 これらの各フィールドの詳細については、「 <a href="https://azure.microsoft.com/en-us/documentation/articles/stream-analytics-define-outputs/">Stream Analytics の出力につい</a>て」を参照してください。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52ef566b-b015-4900-ab05-f949d31c931d.jpg"><img alt="DocumentDB_Source Type" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3610c5be-602c-41e1-9fbf-f4f3b1a6e4b7.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="DocumentDB_Source の種類" width="164"></a><br>
+  &nbsp;</li>
+   <li>[作成] ボタンをクリックして、入力の設定を完了します。</li>
+  </ol>
+
+
+  <p>IoT Suite では、より多くの機能と更新プログラムを引き続きご利用ください。 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureStreamAnalytics">Stream Analytics フォーラム</a>と<a href="https://feedback.azure.com/forums/270577-azure-stream-analytics">Azure フィードバックフォーラム</a>で Stream Analytics と DocumentDB の統合に関するフィードバックをお寄せください。</p>

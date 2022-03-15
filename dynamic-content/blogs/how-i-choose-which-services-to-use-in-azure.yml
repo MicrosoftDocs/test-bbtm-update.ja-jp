@@ -1,0 +1,139 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c43b8ffcf5a0ecaca7ffc304eb6e481d7342cf78
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893470"
+Slug: how-i-choose-which-services-to-use-in-azure
+Title: Azure で使用するサービスを選択する方法
+Summary: Azure MVP の Barry Luiibregts は、使用する Azure サービスを選択する方法を共有します。
+Content: >-
+  <p><em>このブログ記事は、 <a href="https://mvp.microsoft.com/en-us/PublicProfile/5002865">Barry Luiibregts (Azure MVP) によって共同作成されました</a>。</em></p>
+
+
+  <p>昨年、Azure MVP と Pluralsight の作成者である Barry Luiibregts 氏がホストする Pluralsight ウェビナーに参加しました。適切な <i><a href="https://www.pluralsight.com/resource-center/webinars/productive-with-azure">Azure</a></i> サービスを使用して開発チームの生産性を維持するという名前でした。 これは素晴らしいウェビナーであり、Barrys&rsquo; が自分のプロジェクトに使用する Azure サービスと機能を選択する方法と、クライアントに相談する際のプロセスを学ぶことを本当に楽しんでいます。 最近、私は Barry に、このブログ記事と <i>Azure Friday</i> のエピソードを Scott Hanselman と共有するように求めました (以下を含む)。</p>
+
+
+  <p>Microsoft Azureは非常に大きくて、急速に変化します。 Azure&rsquo; で提供されるサービスと機能と、Microsoft が新しいサービスと機能をリリースする速さによって、私は感心しました。 これは、大き過多になる可能性があります。 そこには非常に多くの&mdash;&mdash;情報が表示され、一覧は拡大し続けています。特定のシナリオで使用するサービスを知りにくい場合があります。</p>
+
+
+  <p>顧客向け Azure ソリューションを作成し、適切なサービスを選択するために使用 <b>する方法があります</b>。 この方法は、サービスを絞り込んでから選択し、ソリューションに適切なサービスを選択するのに役立ちます。 これは、Azure でのアプリケーションの&ldquo;実行や <b>Azure</b>&rdquo; &ldquo; でのアプリケーションのデータの格納など、高レベルの要件を実装<b>する方法を決定するのに役立ちます。</b>&rdquo;もちろん、これらは単なる例です。 Azure ソリューションを設計する際には、他&rsquo;にも多くのカテゴリに対処する必要があります。</p>
+
+
+  <h4>プロセスの確認</h4>
+
+
+  <p>Azure でのアプリケーションの実行に使用 &ldquo;するプロセスについて説明します。&rdquo;</p>
+
+
+  <p>まず、いくつかの高レベルの質問に回答します。この場合、次の質問になります。</p>
+
+
+  <ol>
+   <li>どの量の制御が必要ですか?</li>
+   <li>アプリを実行する必要がある場所</li>
+   <li>どのような使用モデルが必要ですか?</li>
+  </ol>
+
+
+  <p>これらの質問&rsquo;に回答すると、選択&rsquo;するサービスが絞り込みされました。 次に、サービスについて詳しくは、アプリケーションの要件 (可用性、パフォーマンス、コストなど) に最も一致するサービスを確認します。</p>
+
+
+  <p>この&rsquo;プロセスの最初の部分を見て、カテゴリに関する大きな質問に答えます。</p>
+
+
+  <h2>質問 1: 必要な制御の量</h2>
+
+
+  <p>必要な制御の量を検討する際に、オペレーティング システム、ロード バランサー、インフラストラクチャ、アプリケーションのスケーリングなどについて、必要な制御の程度を把握します。 これにより、選択するサービスのカテゴリが決定されます。</p>
+
+
+  <p>この範囲の制御側には、サービスとしてのインフラストラクチャ <b>(IaaS)</b> カテゴリがあります。これには <a href="https://azure.microsoft.com/services/virtual-machines/">、Azure Virtual Machines</a> や Azure Container Instances などのサービス <a href="https://azure.microsoft.com/services/container-instances/">が含まれます</a>。 これらは、アプリケーションを実行するオペレーティング システムとインフラストラクチャを大きな制御を提供します。 しかし <b>、制御には大きな責任があります</b>。 たとえば、オペレーティング システムを制御する場合は、そのオペレーティング システムを更新し、セキュリティで保護されている必要があります。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0319d6b7-0b93-42b7-9fa5-ca9a81b66547.png"><img alt="Illustration showing the tradeoffs in going from IaaS, to Paas, to LaaS, and SaaS." border="0" height="297" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85fe69fc-4fef-409c-8583-5f29dcc4a459.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図 1. どの量の制御が必要ですか?" width="640"></a></p>
+
+
+  <p align="center"><em>図 1。どの量の制御が必要ですか?</em></p>
+
+
+  <p>スタックをさらに上に進むには、サービスとしてのプラットフォーム <b>(PaaS)</b> カテゴリに分類されるサービスがあります。このカテゴリには、Azure App Service Web Apps などの <a href="https://azure.microsoft.com/services/app-service/web/">サービスが含Azure App Service Web Apps</a>。 PaaS では、アプリケーション&rsquo;を実行するオペレーティング システムを制御したり、その責任を負う必要もありません。 アプリケーションとアプリケーション構成のスケーリングを制御できます (アプリケーションを実行する .NET のバージョンなど)。</p>
+
+
+  <p>次の抽象化レベルは、ここでは、サーバーレスとも呼ばれるサービス <b>としてのロジック (LaaS)</b> と呼 <b>ばれるものになります</b>。 このカテゴリには、<a href="https://azure.microsoft.com/services/functions/">Azure Functions や Azure Logic Apps</a> など) <a href="https://azure.microsoft.com/services/logic-apps/">が含Azure Logic Apps</a>。 ここでは、アプリのスケーリングなど、基になるインフラストラクチャが Azure によって自動的に行います。 サービスとしてのロジックでは、アプリケーションが実行されるインフラストラクチャをほとんど制御できません。つまり、アプリケーション自体を作成し、データベースへの接続文字列などのアプリケーション設定を構成する必要があります。</p>
+
+
+  <p>抽象化の最も高いレベルはサービスとしてのソフトウェア <b>(SaaS</b> ) です。このサービスは、ビジネス価値に集中できる最も少ない量の制御と最も時間を提供します。 Azure SaaS の <a href="https://azure.microsoft.com/services/cognitive-services/">例としてAzure Cognitive Services</a>アプリケーションから呼び出すだけの API です。 他のユーザーが自分のアプリケーション コードとインフラストラクチャを所有している。それらを使用するだけである。 また、管理する必要があるのは、サービスの呼び出しに使用する API キーの管理など、基本的なアプリケーション構成です。</p>
+
+
+  <p>必要な制御の量を確認したら、Azure のサービスのカテゴリを選択し、選択を絞り込む必要があります。</p>
+
+
+  <h2>質問 2: アプリを実行する必要がある場所</h2>
+
+
+  <p>2 つ目の質問は &ldquo;、「Azure&rdquo; でアプリケーションを実行する」に由来します。アプリケーションを実行する場所は何ですか?</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/96741acb-617d-4cc5-bb29-aabdebded9f2.png"><img alt="Illustration contrasting running apps in Azure and somewhere else" border="0" height="315" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7436503-d1db-46e8-b327-4e43afc8b0b5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図 2. アプリを実行する必要がある場所" width="640"></a></p>
+
+
+  <p align="center"><em>図 2。アプリを実行する必要がある場所</em></p>
+
+
+  <p>答えは、Azure でアプリケーションを実行する必要があるという答えだと思う場合があります。 しかし、答えは単純ではない可能性があります。 たとえば、アプリケーションの一部を Azure パブリック クラウドで実行したいが、<a href="https://azure.microsoft.com/global-infrastructure/government/">Azure Government または Azure China</a> クラウド、または Azure Stack を使用してオンプレミスで他の部分を実行したい場合などです。<a href="https://azure.microsoft.com/overview/azure-stack/"></a></p>
+
+
+  <p>または、Azure とオンプレミス (規則と規制が変更された場合)、ローカル開発用コンピューター、または他のベンダーのパブリック クラウドでアプリケーションを実行できる必要がある可能性があります。</p>
+
+
+  <p>この質問は、ベンダーに依存しない ID&rsquo; の好みと、データの格納場所を示しています。</p>
+
+
+  <p>この質問&rsquo;に回答したら、Azure サービスの選択をさらに絞り込む必要があります。</p>
+
+
+  <h2>質問 3: どのような使用モデルが必要ですか?</h2>
+
+
+  <p>アプリがどのように使用されるのかという 3 番目の最後の質問に対する答えが導き出されます。どのような使用モデルが必要ですか?</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6eae9abf-f028-4fc8-a5ae-1a118edb7032.png"><img alt="Decision tree branching between apps used all the time (pay per month) and occasionally (pay per execution)" border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75442be0-6cb8-49bd-a822-020df81e99ad.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="図 3: どのような使用モデルが必要ですか?" width="640"></a></p>
+
+
+  <p align="center"><em>図 3。どのような使用モデルが必要ですか?</em></p>
+
+
+  <p>一部の <b>アプリケーションは、Web サイトのように、すべての</b>時間を使用しています。 アプリケーションの場合は、クラシック モデルと呼ばれるものに対して実行されるサービスを探す <b>必要があります</b>。 これは、常に実行され、1 か月おきに支払うという意味です。</p>
+
+
+  <p>その <b>他のアプリケーション</b>は、1 時間に 1 回実行されるバックグラウンド ジョブや、注文のキャンセルを処理する API (1 日に数回と呼ばれる) など、使用される場合にのみ使用されます。 アプリケーションがたまに実行される場合は、サービスとしてのロジック (またはサーバーレス) カテゴリからサービスを選択する必要があります。 これらのサービスは、必要なときにのみ実行され、実行時にのみ料金が発生します。</p>
+
+
+  <p>このカテゴリ&rsquo;の大まかな質問に回答した後は、選択できるサービスを、2、3、1 に絞り込むだけで十分です。</p>
+
+
+  <h4>次の手順: サービス機能をアプリケーションの要件と一致する</h4>
+
+
+  <p>次に、アプリケーションの最も多くの要件を満たすサービスを見つける必要があります。 これを行うには、必要な機能、サービスがサービス レベル アグリーメントで提供する可用性、提供されるパフォーマンス、コストを確認します。</p>
+
+
+  <p>最後に、アプリケーションの実行に使用するサービスが表示されます。 多くの場合、アプリケーションはユーザー インターフェイスや API など、多くの部分で構成されているので、複数のサービスを使用してアプリケーションを実行しています。 そのため、Web アプリで Web アプリケーションを実行し、Azure App Serviceで API を実行Azure Functions。</p>
+
+
+  <h2>サービスのその他のカテゴリ</h2>
+
+
+  <p>要件&rsquo;の 1 つのカテゴリについてのみ説明しました:&ldquo;Azure でのアプリケーションの実行。&rdquo;Azure でのアプリケーションのセキュリティ保護&ldquo;、Azure でのデータ分析の実行、Azure&rdquo;&rdquo; &ldquo;&ldquo;でのアプリケーションの監視など、他にも多くの機能があります。&rdquo;私が説明した方法は、これらすべてのカテゴリに役立ちます。</p>
+
+
+  <p>最近の Azure Friday のエピソード「 <em><a href="https://aka.ms/azfr/435">Azure</a></em> で使用するサービスを選択する方法」では、Azure で使用するサービスを決定するプロセスについて Scott Hanselman と話しました。 その中で、Azure でのアプリケーション &ldquo;の実行と Azure&rdquo; &ldquo;へのデータの格納に基づいてサービスを選択する方法について説明します。&rdquo;</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="270" src="https://channel9.msdn.com/Shows/Azure-Friday/How-I-choose-which-services-to-use-in-Azure/player" width="480"></iframe></p>
+
+
+  <p>私の方法が、&rsquo;Azure で利用できる膨大な種類のサービスから、アプリケーションに最適なサービスを並べ替え、選択するのに役立ちます。 ご質問&rsquo;やフィードバックがある場合は、Twitter (<a href="https://twitter.com/AzureBarry">@AzureBarry</a>) を通じてお問い合わせください。</p>

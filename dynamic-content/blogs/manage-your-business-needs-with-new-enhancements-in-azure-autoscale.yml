@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a3153cc6c8a86047ea62cbb2d99ceacc138f9250
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893912"
+Slug: manage-your-business-needs-with-new-enhancements-in-azure-autoscale
+Title: Azure Autoscale の新しい拡張機能を使用してビジネス ニーズを管理する
+Summary: 'ビジネスの需要を処理するためにアプリケーションで自動的にスケールアウトまたはスケーリングは、クラウド戦略の不可欠な要素です。 Azure の自動スケーリング サービスを使用すると、メトリック条件、時刻/日付スケジュール、または両方に関するユーザー定義の規則に基づいて、コンピューティングワークロードと App Service ワークロードを自動的にスケーリングできます。 '
+Content: >-
+  <p>ビジネスの需要を処理するためにアプリケーションで自動的にスケールアウトまたはスケーリングは、クラウド戦略の不可欠な要素です。 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-autoscale">Azures&rsquo; Autoscale</a> サービスを使用すると、メトリック条件、時間/日付スケジュール、または両方に関するユーザー定義の規則に基づいて、コンピューティングワークロードと App Service ワークロードを自動的にスケーリングできます。 Azure Autoscale は、クラシック Cloud Services、Virtual Machine Scale Sets (VMSS) および App Services。 本日は、自動スケーリングの高速化、構成の簡素化、Application インサイト を使用したカスタム メトリックによるスケーリングの機能、アクティビティ ログで使用できるトラブルシューティング情報など、自動スケーリングの多くの機能強化をお知らせします。</p>
+
+
+  <h2>高速自動スケーリング</h2>
+
+
+  <p><strong>クラシック Cloud Services</strong>: クラシック Cloud Services を利用するクラシック仮想マシン インフラストラクチャでは、Azure Monitor メトリック パイプラインを介して、より信頼性の高いホスト レベルのメトリックがサポートされます。 そのため、自動スケール設定をアクティブ化するために 5 分の期間まで低く設定できます (以前は、30 分以内の期間を推奨しました)。 これにより、より高速で信頼性の高い自動スケーリングを実行できます。 改善されたスケーリングを利用するクラシック クラウド サービスの自動スケーリング設定がある場合は、短い期間 (5 分の短い) で更新してください。</p>
+
+
+  <p><strong>VMSS と App Services:</strong> VMSS および VMSS の自動スケール エンジンApp Services、スケール アクションを迅速にトリガーできます。 新しいエンジンは、メトリック ベースのルールを 1 分ごとに確認するように調整されます。これにより、メトリック値が自動スケーリング設定で設定されたしきい値を超えた後、1 分後にインスタンスをスケーリングできます。 より高速な自動スケーリングを利用するには、既存の自動スケール設定を更新してください。 5 月 10 日より後に VMSS または App Servicesで作成または更新された新しい自動スケール設定はすべて、新しいエンジンを自動的に使用します。</p>
+
+
+  <h2>ポータルでの管理エクスペリエンスの簡素化</h2>
+
+
+  <p>お客様からのフィードバックに基づいて、ポータルでの自動スケール設定の検出と管理が容易になりました。 Azure Monitor ブレード内から自動スケール設定に直接アクセスしたり、完全に再サンプリングされた構成ブレードを使用したり、JSON で完全なテンプレートを簡単に表示したり、その設定のアクション履歴をスケーリングしたりできます。 自動スケーリングを開始する <a href="https://aka.ms/autoscale-get-started">方法の詳細については、今すぐご覧</a> ください。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="1013">
+   <tbody>
+    <tr>
+     <td valign="top" width="458"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c354b1d-bb40-4e6a-9897-9b3053fc7669.png"><img alt="Autoscale monitor" border="0" height="463" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/664c3245-fed7-49ed-8600-23da0dc9493f.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="自動スケール モニター" width="564"></a></td>
+     <td valign="top" width="553"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a380cb86-e5c9-42e9-9e66-8064e879304b.png"><img alt="Autoscale setting" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be6b31a1-d41c-4242-a3d9-ba87ec088576.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="自動スケール設定" width="569"></a></td>
+    </tr>
+    <tr>
+     <td valign="top" width="458">
+     <p align="center"><em>図 1。自動スケール設定にアクセスAzure Monitor管理するための新しいタブ。</em></p>
+     </td>
+     <td valign="top" width="553">
+     <p align="center"><em>図 2。簡略化された [自動スケーリング] ブレードには、スケール アクション履歴の表示、JSON オブジェクトの表示、通知の編集を行うオプションがあります。</em></p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>カスタム メトリックを使用した自動スケーリング</h2>
+
+
+  <p>お客様から&rsquo;高い質問の 1 つが、カスタムのユーザー定義メトリックに基づいて自動スケーリングを行えるという質問で、Application インサイト を使用して有効にしました。 この新しい機能を使用して、Application インサイト(Azures&rsquo; アプリケーション パフォーマンス管理サービス) によって収集された<a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-supported-metrics">任意の Azure Monitor</a> ベースのメトリックまたはカスタムおよびアプリケーション メトリックによって、クラシック クラウド サービス、VMSS、または App Service ワークロードをスケーリングできます。 Application インサイト に<a href="https://aka.ms/autoscale-custom-metric"></a>取り込まれたカスタム メトリックに基づいて Web API アプリをスケーリングできる自動スケーリング設定のサンプルを次に示インサイト。 Application インサイト ベースのメトリックを使用して自動スケーリングするこの機能は、パブリック プレビューで利用できます。試して、フィードバックをお寄せください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7577122-b2cb-4850-a5d3-265b99934468.png"><img alt="Autoscale setting 2" border="0" height="481" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40d43d66-cba3-413f-89ee-a1564bb3edab.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="自動スケール設定 2" width="1024"></a></p>
+
+
+  <p align="center"><em>図 3。メトリックのソースとして [アプリケーションインサイトを選択する機能と、スケーリングを実行する標準またはユーザー定義のメトリックを選択する機能。</em></p>
+
+
+  <h2 align="left">自動スケーリングのトラブルシューティングの改善</h2>
+
+
+  <p align="left">自動スケール エンジンは、スケール アクションをトリガーするたびアクティビティ ログにイベントをログに記録しますが、スケールアウトまたはスケールインされるターゲット リソースは、スケール アクションを完了するために時間がかかる場合があります。 リソースに対して自動化されたアクションを実行できるよう、スケール アクションがいつ完了するか、失敗として報告されるかを知することが重要です。 これをサポートするために、基になるターゲット サービスがアクションを完了するか、失敗として報告すると、自動スケール エンジンによってスケール アクションの結果イベントが生成されます。 このスケール結果イベントはアクティビティ ログにも記録され、自動スケーリング イベントが失敗した理由に関する貴重な情報が含まれています。 また&rsquo;、新しい自動スケーリング アクティビティ ログ カテゴリも導入され、自動スケーリング関連のイベントのみを簡単にフィルター処理して表示できます。 新しいアクティビティ <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-activity-log-alerts">ログ アラートを</a> 利用して、通知を受信したり、webhook や Azure Automation、Logic Apps 関数を使用して自動化されたアクションを実行したりできます。 この機能は、仮想マシン、VMSS、Cloud Servicesに対して有効App Services。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adc90d6d-f40f-4255-87e2-27c12a8ea07d.png"><img alt="Autoscale monitor 2" border="0" height="485" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3579b475-5fb1-420f-98a7-5005f954c5bb.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="自動スケール モニター 2" width="1024"></a></p>
+
+
+  <p align="center"><em>図 4。自動スケーリング イベントによってフィルター処理されたアクティビティ ログのビュー。自動スケーリング トリガー アクションと結果イベントが一覧されます。</em></p>
+
+
+  <h3 align="left">まとめ</h3>
+
+
+  <p align="left">Azure Autoscale のこれらの新機能を使用すると、Azure のコンピューティング能力を効率的に活用して、拡大するビジネス ニーズに最適なアプリケーションをスケーリングできます。 今後の自動スケーリングに関する <a href="https://aka.ms/azuremonitorfeedback">作業をお</a> 知らせするフィードバックをお待ちしております。 これらの新機能を試して、ご自分の考えをお知らせください。 また、自動スケーリング&rsquo;のベスト プラクティスと最も一般的な自動スケーリング パターンを<a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/insights-autoscale-best-practices"></a>確認して、この機能を確実に<a href="https://aka.ms/common-autoscale-patterns">利用してください</a>。</p>

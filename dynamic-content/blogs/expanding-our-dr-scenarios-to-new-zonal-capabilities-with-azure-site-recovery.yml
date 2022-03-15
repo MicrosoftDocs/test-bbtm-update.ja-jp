@@ -1,0 +1,49 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e7ccbac9d79540f73fc8ac2875aca512b65b2da0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890804"
+Slug: expanding-our-dr-scenarios-to-new-zonal-capabilities-with-azure-site-recovery
+Title: 新しいゾーン機能に DR シナリオを拡張する方法Azure Site Recovery
+Summary: 'Azure には、高可用性、ディザスター リカバリー、およびバックアップ ソリューションが用意されています。このソリューションを使用すると、アプリケーションがビジネスの可用性要件と復旧目標を満たします。 引き続き、回復力のあるサービスのポートフォリオを基に、ビジネス継続性とディザスター リカバリーを強化するためのゾーン機能を提供Azure Site Recovery。 '
+Content: >-
+  <p>Azure には <a href="https://azure.microsoft.com/en-us/features/resiliency/" target="_blank">、高可用性、ディザスター リカバリー</a> 、およびバックアップ ソリューションが用意されています。このソリューションを使用すると、アプリケーションがビジネスの可用性要件と復旧目標を満たします。 引き続き、回復力のあるサービスのポートフォリオを基に、ビジネス継続性とディザスター リカバリーを強化するためのゾーン機能を<a href="https://azure.microsoft.com/en-us/services/site-recovery/" target="_blank">Azure Site Recovery。</a> Azure Site Recovery、物理マシンと仮想マシン (VM) で実行されているワークロードをプライマリ サイトからセカンダリ ロケーションにレプリケートします。 プライマリ サイトで障害が発生した&nbsp;&nbsp;場合は、セカンダリ の場所に移動し、そこからアプリにアクセスします。 プライマリの場所が再度実行された後は、フェールバックできます。&nbsp;Azure Site Recoveryは、障害時にビジネス アプリとワークロードを実行し続け、ビジネス継続性を確保するのに役立ちます。&nbsp;&nbsp;</p>
+
+
+  <p paraeid="{89b976c6-4b1c-48d3-bc67-14f49d6baf64}{232}" paraid="1655829102">zonaldisaster&nbsp;&nbsp; 復旧機能を使用すると、Azureacross&nbsp;&nbsp; Azure Availability Zones&nbsp;特定のリージョン内でアプリケーションのフェールオーバーをレプリケートおよび調整できます。&nbsp;<a href="https://docs.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-zone-to-zone-disaster-recovery" rel="noreferrer noopener" target="_blank">ゾーン間ディザスター リカバリー</a> のオプションAzure Site Recovery、 <a href="https://azure.microsoft.com/en-us/global-infrastructure/geographies/" rel="noreferrer noopener" target="_blank"></a>  すべてのリージョン (AZ) で使用 <a href="https://azure.microsoft.com/en-us/global-infrastructure/availability-zones/" rel="noreferrer noopener" target="_blank">Azure Availability Zonesに入</a>っています。&nbsp;Availability Zones、Azure&nbsp; リージョン内の障害が分離された場所では、冗長な電源、冷却、ネットワークが提供され、データセンターの障害に対する可用性とフォールト トレランスが高いミッション クリティカルなアプリケーションを実行できます。Azure Availability Zonesは、2021 年の終わりまでにMicrosoft Azureに運用されているすべての国で利用できます。&nbsp;</p>
+
+
+  <p paraeid="{3ea0676b-b333-4f14-8eac-369ada3787c2}{18}" paraid="1871787319">従来Availability Zones高可用性のためにお客様が使用するサービスですが、特定のシナリオでディザスター リカバリーに利用することもできます。 この機能により、データの保存場所とローカル コンプライアンスを維持し、セカンダリ リージョンでの DR 戦略の構成の複雑さを軽減し、目標復旧時点 (RPO) を改善する必要があるシナリオのディザスター リカバリー オプションが追加されます。&nbsp;</p>
+
+
+  <h3>ローカルのコンプライアンスとデータの保存に準拠する</h3>
+
+
+  <p>お客様が独自&#39;とデータ常駐のニーズを満たすのをサポートするために、Azure では、データの保存とコンプライアンスに個別の境界を提供する地域内のリージョンを提供しています。 ゾーン間の回復&nbsp;は、アプリケーションとデータが国をまたがって行かねないので、特定の法的管轄区域内にアプリケーションを保持することを好む顧客が&nbsp;利用できます。 Azure には、合理化されたコンプライアンスをサポートし、最も包括的なコンプライアンス 対応範囲でデータを保護するために、90 を超えるコンプライアンスオファリングの幅広いポートフォリオ <a href="https://azure.microsoft.com/en-us/overview/trusted-cloud/compliance/" target="_blank">が用意されています</a>。</p>
+
+
+  <h3>セカンダリ リージョン、待機時間、RPO での DR の複雑さを軽減する</h3>
+
+
+  <p paraeid="{3ea0676b-b333-4f14-8eac-369ada3787c2}{51}" paraid="1780238630">多くの Azure リージョンは、従来のディザスター リカバリーを提供するように設計されています。他の場所とは大きく分離された個別のリージョンがあります。 この種の DR を有効にする一部のお客様には、複雑なネットワーク インフラストラクチャのリクリエーションと、コストと運用の複雑さの増加が必要です。 ゾーン間ディザスター リカバリーでは、構成を大幅にシンプルにすることで、複数のネットワークの概念をAvailability Zones複雑さを軽減します。&nbsp;</p>
+
+
+  <p paraeid="{3ea0676b-b333-4f14-8eac-369ada3787c2}{57}" paraid="1513038707">Availability Zones は&nbsp;&nbsp;、物理的な分離を最適化しながら同期レプリケーションをサポートするように設計されています。これは、ローカライズされた障害からの保護と分離を提供するように設計されています。これは、regionDR へのリージョンと比較してデータが短い距離を通過し、お客様がゾーン DR を利用して待機時間が短くなり、結果として RPO が低下する可能性を意味します。&nbsp;</p>
+
+
+  <blockquote>
+
+  <p>&ldquo;Azure Availability Zonesを利用できるとき、オンプレミスのデータセンターからクラウドに実稼働ワークロードを移行する最中でした。 その時点で、冗長性の利点を最大化し、単一データセンターの障害がビジネス向けアプリケーションに与える影響を最小限に抑えるために、すべての IaaS インスタンスを異なるゾーンに分散し始めるという大きな決定をしました。 最近発表されたゾーン間レプリケーションを DR 機能の強化と見なし、実稼働環境で実装しました。 この呼び出しは非常に簡単でした。これは、以前に ASR&rsquo; で肯定的な経験をし、レプリケート先のデータセンターを変更するだけでしたからです。 非実稼働環境では&mdash;、さまざまなアプリケーションに対していくつかの訓練が実施され、保護された VM を約 10 分で復元できたという大きな成功を収めました。 同じリージョン/VNET&rsquo; にフェールオーバーすることで、管理オーバーヘッドを大幅に削減する専用のテスト ネットワークを作成する必要はなかった。 Azure が、新しい VM のプロビジョニング、ディスクの接続、IP &ldquo;&rdquo;&quot; のスワップを行って、他のアプリケーションが新しいインスタンスに迅速に再接続するように、フェールオーバー プロセスのほぼ全体をエンドツーエンドで処理したという事実が本当に気に入っています。Accenture のシニア マネージャー インフラストラクチャ リードである Patryk Wolski &ndash; 氏。</p>
+
+  </blockquote>
+
+
+  <h3>ゾーンの回復性とディザスター リカバリーのための設計</h3>
+
+
+  <p>また、適切なリージョンで適切な機能を提供する以外に、お客様やパートナーがこれらの機能を活用するのに役立つガイダンスと実証済みのプラクティスを提供する取り組みも行っています。 最近、 <a href="https://aka.ms/wellarchitected/framework" target="_blank">Azure Well-Architected Frameworka</a>&mdash; の一連の基本原則を立ち上げ、ワークロードの品質を向上させるために使用できます。 信頼性は、コストの最適化、オペレーショナル エクセレンス、パフォーマンス効率、セキュリティと共にアーキテクチャ エクセレンスの 5 つの柱の 1 つになります。 Azure で実行されているワークロードが既に存在し、これらの領域の 1 つ以上のベスト プラクティスへのアラインメントを評価する場合は、 <a href="https://aka.ms/wellarchitected/review" target="_blank">Azure Well-Architected Review をお試しください</a>。</p>
+
+
+  <p>さまざまなシナリオをサポートする回復性戦略を持つことの重要性をお客様から引き続きお聞きしています。 アーキテクチャ設計のベスト プラクティス、&nbsp;アプリケーションの正常性の監視、障害や災害への対応など、信頼性の高いアプリケーションの設計に関する詳細なガイダンスを保持しています。<a href="https://docs.microsoft.com/en-us/azure/architecture/reliability/" target="_blank"></a> ゾーン間の回復を使用して回復性を強化する方法の  <a href="https://docs.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-zone-to-zone-disaster-recovery" target="_blank">詳細については、お客様にお知りください</a>。</p>

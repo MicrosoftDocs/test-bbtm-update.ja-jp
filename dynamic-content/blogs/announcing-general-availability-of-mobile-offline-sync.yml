@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ac8024ad9d8f1e37cecd590b6d0254d7349f3655
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893657"
+Slug: announcing-general-availability-of-mobile-offline-sync
+Title: Mobile Offline Sync マネージ SDK の一般提供を発表
+Summary: '最適なモバイルアプリでは、ネットワークの中断を適切に処理し、接続の欠如にかかわらずユーザーの生産性を向上させることができます。 Azure Mobile Services のオフライン同期機能を使用して、ネットワークに問題がない場合でも動作する応答性の高いアプリを作成する方法について説明します。 '
+Content: >-
+  最新のモバイルアプリを作成する場合、開発者は、エンドユーザーが常にネットワークにアクセスできるとは限りません。 これは、ネットワークの一時的な問題が原因である場合もあれば、接続がほとんどないリモート領域で頻繁に使用されるモバイルアプリの場合もあります。 また、モバイルデータプランには非常にコストがかかる場合があるため、ユーザーはネットワーク通話を制限するアプリに感謝します。 ただし、適切な同期動作を実装するという課題があるため、多くのアプリがオフラインで動作しません。
+
+
+  幸いにも、Azure Mobile Services を使用すると、iOS、Android、Windows アプリ全体で、ネイティブの同期エクスペリエンスを簡単に提供できます。 この機能は、JavaScript と .net バックエンドの両方で使用でき、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-windows-store-dotnet-get-started-offline-data">Windows Universal</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-ios-get-started-offline-data/">iOS</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-ios-get-started-offline-data">xamarin iOS</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-android-get-started-offline-data">xamarin Android</a>、および<a href="https://azure.microsoft.com/blog/2014/08/07/offline-support-in-azure-mobile-services-android-sdk/">Android</a>の複数のクライアントをサポートしています。
+
+
+  Windows と Xamarin でサポートされている<a href="https://www.nuget.org/packages/WindowsAzure.MobileServices.SQLiteStore" target="_blank">オフラインマネージクライアント SDK</a>の一般提供を発表します。 IOS および Android Sdk の GA は近日対応予定です。
+
+
+  オフライン同期にはさまざまな利点があります。
+
+  <ul>
+      <li>サーバー データをデバイスにローカルでキャッシュすることにより、アプリケーションの応答性を向上させる。</li>
+      <li>ネットワークの問題がある場合でも使用可能な信頼性の高いアプリを作成する。</li>
+      <li>エンド ユーザーがネットワークにアクセスできなくてもデータを作成および変更できるようにすることで、接続がほとんどまたはまったく得られないような状況をサポートする。</li>
+      <li>複数のデバイス間でデータを同期させ、同じレコードが 2 つのデバイスによって変更されたときに競合を検出する。</li>
+      <li>無制限のデータプランを持っていないお客様のネットワーク使用を制限する</li>
+  </ul>
+
+  アプリがオフライン モードの場合でもユーザーはデータを作成および変更できますが、それらのデータはローカル ストアに保存されます。 アプリがオンラインに戻ると、ローカルの変更を Mobile Services バックエンドと同期できます。 この機能には、クライアントとバックエンドの両方で同じレコードが変更された場合の競合検出のサポートも含まれています。 検出された競合は、サーバーまたはクライアントのどちらでも処理することができます。
+
+
+  Azure portal のクイックスタートを更新して、より簡単にオフラインサポートをアプリに追加できるようにしました。 Xamarin および Xamarin Android のクイックスタートがオフラインで有効になりました。 Windows では<a href="https://www.sqlite.org/download.html" target="_blank">SQLite VSIX</a>をインストールする必要があるため、Windows クイックスタートにはすべてのオフラインコードが含まれていますが、コメントアウトされています。
+
+
+  Mobile Services を既に使用している場合は、アプリをオフラインで有効にすることが簡単にできます。 NuGet パッケージ<a href="https://www.nuget.org/packages/WindowsAzure.MobileServices.SQLiteStore" target="_blank">windowsazure.servicebus. windowsazure.mobileservices. microsoft.azure.mobile.client.sqlitestore</a> <b></b> を追加します。 次に、モバイルサービスに接続するときに、 <b>GetTable</b>の代わりに<b>getsynctable</b>メソッドを使用します。
+
+  <pre class="prettyprint">IMobileServiceSyncTable todoTable = App.MobileService.GetSyncTable(); // offline access</pre>
+
+  ここで、ローカル同期ストアを設定します。 このコードは、 <strong>OnNavigatedTo</strong>のイベントハンドラーで使用できます。たとえば、のようになります。 独自の同期ストアを定義したり、提供されている SQLite ベースの実装を使用したりすることができます。
+
+  <pre class="prettyprint">if (!App.MobileService.SyncContext.IsInitialized)
+
+  {
+      var store = new MobileServiceSQLiteStore("localsync.db");
+      store.DefineTable&lt;TodoItem&gt;();
+      await App.MobileService.SyncContext.
+      InitializeAsync(store, new MobileServiceSyncHandler());
+  }</pre>
+
+  これで、アプリは CRUD 操作に <b>IMobileServiceSyncTable</b> ( <b>IMobileServiceTable</b>ではなく) を使用するようになります。 これにより、ローカルデータベースへの変更が保存され、変更のログも保持されます。 アプリの変更をモバイルサービスと同期する準備ができたら、 <b>Pushasync</b> と <b>PullAsync</b>のメソッドを使用します。
+
+  <pre class="prettyprint">await App.MobileService.SyncContext.PushAsync();
+
+
+  await todoTable.PullAsync("queryID", myQuery);</pre>
+
+  <strong>PullAsync</strong>メソッドは、最初のパラメーターとしてクエリ ID を取得します。これは、アプリ内のクエリを一意に識別する文字列です。 クエリ ID は増分同期に使用され、最後のプル操作の結果から最後に更新されたタイムスタンプを格納するために使用されます。
+
+
+  増分同期を無効にする場合は、クエリ ID として <b>null</b> を渡します。 この場合、 <strong>PullAsync</strong>を呼び出すたびにすべてのレコードが取得されるため、非効率的になる可能性があります。
+
+
+  また、クエリを <strong>PullAsync</strong>に渡して、デバイスにレコードのサブセットのみを格納できるようにすることもできます。 ただし、クエリにパラメーターがある場合は、同じパラメーター値をクエリ ID の一部にする必要があります。
+
+
+  詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-windows-store-dotnet-get-started-offline-data/">Windows</a>と<a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-ios-get-started-offline-data/">Xamarin</a>のオフラインチュートリアルを参照してください。
+
+
+  上記のコードはユニバーサルアプリを対象としていますが、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-ios-get-started-offline-data/">iOS</a> および <a href="https://azure.microsoft.com/blog/2014/08/07/offline-support-in-azure-mobile-services-android-sdk/">Android</a>用のアプリにオフライン同期サポートを簡単に追加できます。
+
+
+  この機能の詳細については、次のリソースを確認してください。
+
+  <ul>
+      <li>チュートリアル: <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-windows-store-dotnet-get-started-offline-data/">Windows</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-ios-get-started-offline-data/">xamarin iOS</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-android-get-started-offline-data">xamarin Android</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-ios-get-started-offline-data/">iOS</a>、および<a href="https://azure.microsoft.com/blog/2014/08/07/offline-support-in-azure-mobile-services-android-sdk/">Android</a>。</li>
+      <li>ビデオ: <a href="https://azure.microsoft.com/en-us/documentation/videos/azure-mobile-services-offline-enabled-apps-with-donna-malayeri/" target="_blank">オフライン同期に関する Azure 金曜日のビデオ</a>、 <a href="https://channel9.msdn.com/Shows/Cloud+Cover/Episode-155-Offline-Storage-with-Donna-Malayeri" target="_blank">オフライン同期でのクラウドカバーのエピソード</a></li>
+      <li>Xamarin のサンプル: <a href="https://github.com/lindydonna/mobile-demos/tree/master/XamarinOffline.iOS">iOS</a>、 <a href="https://github.com/lindydonna/mobile-demos/tree/master/XamarinOffline.Android">Android</a>、 <a href="https://github.com/lindydonna/mobile-demos/tree/master/XamarinFormsOffline">xamarin Forms</a></li>
+      <li>ソリューションアクセラレータ–<a href="https://code.msdn.microsoft.com/windowsazure/Field-Engineer-501df99d">フィールドエンジニア</a>   (Windows ストア)</li>
+  </ul>

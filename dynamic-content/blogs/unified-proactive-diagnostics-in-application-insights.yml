@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9fe96e1af5d8c3fa7fd67abf28f6f3196369de2c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888966"
+Slug: unified-proactive-diagnostics-in-application-insights
+Title: Application インサイト での統合プロアクティブ診断
+Summary: さまざまな種類のプロアクティブ検出アラートのユーザー エクスペリエンスを統一しています。
+Content: >-
+  <p>さまざまな種類のプロアクティブ検出アラートのユーザー エクスペリエンスを統一しています。 現在は、Application Visual Studio からのこれらの電子メールに慣インサイト。 障害率の急激な上昇、要求のパフォーマンスの異常、ページの読み込み時間など、アプリケーションの問題に関して自動的に発生します。 実際には、いくつかの種類のプロアクティブ検出があります。 しかし、さまざまな&rsquo;方法で&rsquo;それらを使用する必要がなさそうに、簡略化されました。</p>
+
+
+  <h1>電子メールの外観</h1>
+
+
+  <p>すべてのプロアクティブアラート通知の外観が似ています。 問題の原因だけでなく、その原因に関する関連情報も提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6acc6c09-ec80-4e7e-8f21-ed3a2219f115.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f35e305-4883-46c2-aa69-ed6e8e6662ba.png" style="border-width: 0px; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; width: 425px; height: 390px; background-image: none;" title=""></a></p>
+
+
+  <h1>検出の確認</h1>
+
+
+  <p>選択した期間内のすべてのプロアクティブ&rsquo;検出を確認するために、ポータルの [プロアクティブ検出] ブレードに 1 つのビューが表示されます。 このブレードには、[アプリケーション インサイト&gt; の概要] ブレードからアクセスできます。[プロアクティブ検出] タイルから、または問題をさらに調査するために招待する電子メール通知 -&gt; 青のボタンからアクセスできます。 [プロアクティブ検出] ブレードに一覧表示されている各検出から、特定の検出の詳細にドリルダウンして調査を開始できます。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb032be4-0748-44eb-bc54-a79b658b6759.png"><img alt="" border="0" height="962" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dfdf17b9-1d7e-4cac-a2d7-5516b7f727ea.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="" width="750"></a></p>
+
+
+  <p>これにより、アプリケーションで事前に特定された問題に関する包括的なビューを取得し、それらをトリアージし、根本原因を特定し、検出された問題にアプローチする方法に関する決定をサポートするためのより多くのデータを提供することができます。</p>
+
+
+  <h1>プロアクティブ検出の種類</h1>
+
+
+  <p>プロアクティブ検出には 3 種類があります。</p>
+
+
+  <h2>1.異常な動作</h2>
+
+
+  <p>これらの問題を場所、ブラウザー、クライアント OS、サーバー インスタンス、時刻などのプロパティに関連付け、異常なパターンを毎日検索して、検出に重点を置きます。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; HTTP 要求の応答が遅い<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; アプリによって行われた呼び出しに対する依存関係の応答が遅い<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; ページの読み込み速度が遅い<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; 要求の失敗率が高い</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-proactive-detection/">詳細情報</a></p>
+
+
+  <h2>2.ほぼリアルタイムのエラー アラート</h2>
+
+
+  <p>機械学習を使用して、負荷などの要因と関連付けて、アプリの要求が失敗すると予想される率を設定します。 障害発生率が、予想の包絡線を超えた場合、アラートが送信されます。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; 要求失敗率の異常な上昇。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-nrt-proactive-diagnostics/">詳細情報</a></p>
+
+
+  <h2>3.Azure クラウド サービスの検出</h2>
+
+
+  <p>Azure クラウド サービスに Application <a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-cloudservices/">インサイトを適用すると、これらを取得できます</a>。<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; ロール インスタンスの起動エラーとハング<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; ロール インスタンスの頻繁なリサイクル<br>
+
+  &bull;&nbsp;&nbsp;&nbsp; ロール インスタンスのランタイムがクラッシュする</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/proactive-notifications-on-cloud-service-issues-with-azure-diagnostics-and-application-insights/">詳細情報</a></p>
+
+
+  <h2>4.将来導入される追加のプロアクティブ検出の種類&hellip;</h2>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h3>近日公開予定: 統合された構成エクスペリエンスなので、ご期待ください&hellip;</h3>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><u>次の情報をお知らせください。</u></p>
+
+
+  <p>ご質問やフィードバックについては、Application <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=ApplicationInsights">インサイト フォーラムをご覧ください</a>。<br>
+
+  機能の要求については、User <a href="https://visualstudio.uservoice.com/forums/357324">Voice サイトにアクセスしてください</a>。</p>
+
+
+  <p>&nbsp;</p>

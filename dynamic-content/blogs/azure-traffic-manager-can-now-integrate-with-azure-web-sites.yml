@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 29b329ae4d00a49b2bc9d76258b1b7850f9a6c12
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889255"
+Slug: azure-traffic-manager-can-now-integrate-with-azure-web-sites
+Title: Azure Traffic Manager Azure Web サイトと統合できます。
+Summary: Azure Traffic Managerはしばらく前から使用されています。これは、複数のリージョンにわたってサイトを管理するための最適な方法です。 最高のパフォーマンスを提供するリージョンに訪問者をルーティングできます,...
+Content: >-
+  Azure Traffic Managerはしばらく前から使用されています。これは、複数のリージョンにわたってサイトを管理するための最適な方法です。 訪問者を最適なパフォーマンスを提供するリージョンにルーティングしたり、プライマリ リージョンに問題がある場合はセカンダリ リージョンに自動的にルーティングしたり、複数のリージョンでホストされている Web サイトの複数のコピーにユーザー負荷を分散したりすることができます。
+
+
+  最近、Traffic Manager Azure Web サイトで使用できるとしたら、この投稿では、2 つの機能を組み合わせて構成する手順について説明します。
+
+  <h3><strong>手順 1 - Azure Web サイトに複数のサイトを作成する</strong></h3>
+
+  Azure Web サイトで WATM を使用するには、それぞれ異なるリージョンに複数のサイトが必要です。 WATM にはリージョンごとに 1 つの Web サイトのみを追加できます。そのため、この要件は重要です。 もう 1 つの要件は、サイトが Standard サービス レベル <strong>を使用</strong> しているという要件です。
+
+  <h3><strong>手順 2 - WATM プロファイルを作成する</strong></h3>
+
+  WATM は、作成したプロファイルに基 <em>づいてトラフィック</em> をルーティングします。 WATM プロファイルを作成するには、ポータルのTraffic Managerノードをクリックします。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/3583.Jim-Cheshire-_2D00_--img1.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/3583.Jim-Cheshire-_2D00_--img1.png" width="480" height="292" border="0"></a>
+
+
+  次のスクリーンショットでは、新しいプロファイルプロファイルをTraffic Managerしています。 DNS プレフィックス<strong>として cheche を</strong>選択すると、WATM URL が <em>cheshire.trafficmanager.net。</em>
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/8715.Jim-Cheshire-_2D00_--img2.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/8715.Jim-Cheshire-_2D00_--img2.png" width="480" height="140" border="0"></a>
+
+
+  負荷分散方法として [パフォーマンス] を選択しました。 プロファイルの作成後にニーズが変更された場合に、WATM プロファイルを作成した後で負荷分散を変更できます。 (さまざまな負荷分散方法の詳細については、このブログの投稿で<strong></strong>後の「負荷分散方法」を参照してください)。
+
+  <h3><strong>手順 3 - エンドポイントの追加</strong></h3>
+
+  WATM プロファイルを作成したら、エンドポイントを追加します。 これを行うには、WATM プロファイルをクリックし、ポータルの上部にある [エンドポイント<strong></strong>] リンクをクリックします。 次のスクリーンショットに示すように、サービスの種類として [ <strong>Web</strong> サイト] を選択し、WATM プロファイルに含める各 Web サイトを確認しました。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/3252.Jim-Cheshire-_2D00_--img3.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/3252.Jim-Cheshire-_2D00_--img3.png" width="480" height="200" border="0"></a>
+
+
+  エンドポイントは Web サイトとクラウド サービスの組み合わせである可能性がある点 <strong>に</strong> 注意することが <strong>重要です</strong>。 この方法を使用すると、アプリケーションを Web サイトから Web ロールにシームレスに切り替えることができます。その逆も可能です。
+
+  <h3><strong>手順 4 - WATM プロファイルの構成</strong></h3>
+
+  プロファイルを構成するには、ポータル <strong>で</strong> WATM プロファイルの [構成] リンクをクリックします。 構成を使用すると、DNS の存続時間 (TTL) や負荷分散方法などの設定を変更できます。 また、エンドポイントの可用性を監視するときに、WATM プロファイルで使用するプロトコル、ポート、およびパスを指定できます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/5633.Jim-Cheshire-_2D00_--img4.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/5633.Jim-Cheshire-_2D00_--img4.png" width="423" height="480" border="0"></a>
+
+  <h3><strong>最後の手順 - サイトのテスト</strong></h3>
+
+  これで、Azure Web サイト内のサイトをポイントする WATM プロファイルが作成されます。 WATM URL (私の場合は <strong>cheshire.trafficmanager.net</strong> ) を参照すると、サイトにヒットし、取得する特定のエンドポイントは、WATM プロファイルで構成した負荷分散方法によって異なります。
+
+
+  Azure Web サイトでは、サイトのカスタム ドメインに WATM URL が自動的に追加されるので、WATM URL をサイトにルーティングする方法を知っています。 次のスクリーンショットでは、WATM URL がカスタム ドメインとして一覧表示されているのを確認できます。これは、サイトをエンドポイントとして WATM プロファイルに追加すると自動的に追加されました。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/5807.Jim-Cheshire-_2D00_-img5.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/5807.Jim-Cheshire-_2D00_-img5.png" width="480" height="133" border="0"></a>
+
+
+  必要な場合は、DNS 参照を実行する任意のツールを使用して、WATM プロファイルが直接動作しているのを確認できます。 構成では、ユーザーが最高のパフォーマンスで自動的に Web サイトにアクセスするために、WATM を設定しました。 以下では、 <em>nslookup を使用して、</em> その動作を確認しています。 これを実行しているクライアントは、米国東部です。黄色のテキストは、WATM が米国東部データ センターにある Web サイトの DNS の場所を返したと示しています。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/0523.Jim-Cheshire-_2D00_--img6.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/0523.Jim-Cheshire-_2D00_--img6.png" width="480" height="140" border="0"></a>
+
+
+  ただし、東南アジアのクライアントからこれを実行した場合、WATM から西日本のサイトにアクセスします。次に示すのが強調表示されています。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/4666.Jim-Cheshire-_2D00_--img7.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1717/4666.Jim-Cheshire-_2D00_--img7.png" width="480" height="142" border="0"></a>
+
+  <h3><strong>最後に</strong></h3>
+
+  これは、iceberg の一角に過ぎない。 WATM を使用すると、カスタム ドメインとさまざまな負荷分散方法を構成できます。 詳細については、このブログ記事 <a href="https://blogs.msdn.com/b/waws/archive/2014/03/18/using-windows-azure-traffic-manager-with-waws.aspx">を参照してください</a>。 Traffic Managerは、Azure Web サイトのお客様がかなり長い間楽しみにしている機能です。 この投稿が、この強力な新機能を活用するのに役立ちます。

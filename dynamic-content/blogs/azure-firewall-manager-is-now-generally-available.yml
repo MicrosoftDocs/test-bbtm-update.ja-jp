@@ -1,0 +1,157 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 94f8a86516711a0377eb0e0c11cebe71a1613469
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889973"
+Slug: azure-firewall-manager-is-now-generally-available
+Title: Azure Firewall Manager一般提供中
+Summary: Azure Firewall Managerが一般提供され、Azure Firewall ポリシー、Azure Firewall Virtual WAN ハブ (セキュリティで保護された仮想ハブ)、およびハブ Virtual Network が含まれています。
+Content: >-
+  <p>Azure Firewall Managerが一般提供され、Azure Firewall ポリシー、Azure Firewall Virtual WAN ハブ (セキュリティで保護された仮想ハブ)、ハブ Virtual Network が含まれています。 さらに、スタンドアロンの構成機能に合わせて、Firewall Managerファイアウォール ポリシーにいくつかの新機能を導入Azure Firewallしています。</p>
+
+
+  <p>このリリースの主な機能は次のとおりです。</p>
+
+
+  <ul>
+      <li>ファイアウォール ポリシーの脅威インテリジェンス ベースのフィルター処理許可リストが一般提供されました。</li>
+      <li>セキュリティで保護された仮想ハブでのAzure Firewallのパブリック IP アドレスのサポートが一般公開されています。</li>
+      <li>ハブ サービスの強制トンネリングVirtual Network一般提供されています。</li>
+      <li>Azure Firewall を使用して、西東部のトラフィック (プライベート) と、選択したサード パーティのサービスとしてのセキュリティ <a href="https://docs.microsoft.com/en-us/azure/firewall-manager/trusted-security-partners" target="_blank">(SECaaS)</a> パートナーを使用して、北南トラフィック (インターネットに接続) するためのセキュリティで保護された仮想ハブを構成します。</li>
+      <li>サード パーティの SECaaS パートナーの統合が、すべての Azure パブリック クラウド リージョンで一般公開されました。</li>
+      <li><a href="https://help.zscaler.com/zia/configuring-microsoft-azure-virtual-wan-integration" target="_blank">Zscaler 統合</a> は、2020 年 7 月 3 日に一般提供される予定です。 <a href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsc1.checkpoint.com%2Fdocuments%2FInfinity_Portal%2FWebAdminGuides%2FEN%2FCloudGuard-Connect-Azure-Virtual-WAN%2FContent%2FTopics-CGC-Integration-Azure-Virtual-WAN%2FGeneral-Information.htm&amp;data=01%7C01%7Cliz.wolk%40rationalcx.com%7Cfd639c1f74014e9a931108d81d21edfb%7C03f0126b518e456cbac9346c34f95bd9%7C1&amp;sdata=W3C4h1CMNU3LQkFjm6MwrIeAzapDBvNyXgGHsBAuLRQ%3D&amp;reserved=0" target="_blank">Check Point</a> は、サポートされている SECaaS パートナーであり、2020 年 7 月 3 日にプレビュー段階に入ります。 <a href="https://www.iboss.com/blog/securing-microsoft-azure-with-iboss-saas-network-security" target="_blank">iboss</a> との統合は、2020 年 7 月 31 日に一般提供される予定です。</li>
+      <li>ファイアウォール ポリシーを使用したネットワーク 規則でのドメイン ネーム システム (DNS) プロキシ、カスタム DNS、完全修飾ドメイン名 (FQDN) フィルタリングのサポートがプレビューの開始です。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28ff73d0-ab26-4304-a8d7-c81db9ee2a41.png"><img alt="Azure Firewall Manager partners Zscaler, Check Point, and iboss." border="0" height="159" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74edda2c-2a35-45ea-b947-7e1845be1608.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Firewall Manager Zscaler、Check Point、iboss をパートナーに提供します。" width="1024"></a></p>
+
+
+  <h2>ファイアウォール ポリシーが一般提供される</h2>
+
+
+  <p>ファイアウォール ポリシーは、ネットワーク アドレス変換 (NAT)、ネットワーク、およびアプリケーション規則のコレクション、および脅威インテリジェンスと DNS 設定を含む Azure リソースです。 セキュリティ&rsquo;で保護された仮想ハブとハブ仮想ネットワーク内の複数Azure Firewallインスタンスで使用できるグローバル <a href="https://docs.microsoft.com/en-us/azure/firewall-manager/vhubs-and-vnets" target="_blank">リソースです</a>。 ファイアウォール ポリシーは、リージョンとサブスクリプション間で機能します。</p>
+
+
+  <p>ファイアウォール ポリシーを作成Firewall Managerする必要があります。 REST API、<a href="https://docs.microsoft.com/en-us/powershell/module/az.network/new-azfirewallpolicy?view=azps-4.2.0" target="_blank">PowerShell</a>、またはコマンド ライン インターフェイス <a href="https://docs.microsoft.com/en-us/cli/azure/ext/azure-firewall/network/firewall/policy?view=azure-cli-latest" target="_blank">(CLI)</a> の使用<a href="https://docs.microsoft.com/en-us/rest/api/virtualnetwork/firewallpolicies" target="_blank">など、ファイアウォール ポリシーを作成</a>および管理する方法は多数あります。</p>
+
+
+  <p>ファイアウォール ポリシーを作成した後、Firewall Manager、または <a href="https://docs.microsoft.com/en-us/rest/api/firewall/azurefirewalls/createorupdate" target="_blank">REST API</a>、 <a href="https://docs.microsoft.com/en-us/powershell/module/az.network/new-azfirewall?view=azps-4.2.0" target="_blank">PowerShell</a>、または CLI を使用して、ポリシーを 1 つ以上のファイアウォールに関連付 <a href="https://docs.microsoft.com/en-us/cli/azure/ext/azure-firewall/network/firewall?view=azure-cli-latest#ext-azure-firewall-az-network-firewall-update" target="_blank">けできます</a>。&nbsp; ルールとポリシー <a href="https://docs.microsoft.com/en-us/azure/firewall-manager/policy-overview" target="_blank">の詳細な</a> 比較については、ポリシーの概要に関するドキュメントを参照してください。</p>
+
+
+  <h2>スタンドアロン ファイアウォール規則をファイアウォール ポリシーに移行する</h2>
+
+
+  <p>既存のファイアウォール ポリシーから規則を移行することで、ファイアウォール ポリシーを作成Azure Firewall。 スクリプトを使用 <a href="https://docs.microsoft.com/azure/firewall-manager/migrate-to-policy">してファイアウォール</a> 規則をファイアウォール ポリシーに移行したり、Firewall Managerを使用Azure portal。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0c739e2-0276-4da6-a9c6-6bf749ef9376.png"><img alt="Example of importing rules from an existing Azure Firewall." border="0" height="367" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/48d05065-53c7-4758-8091-6b72d3df73d0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="既存のデータベースからルールをインポートするAzure Firewall。" width="1024"></a></p>
+
+
+  <p align="center"><i>既存のデータベースからルールをインポートAzure Firewall。</i></p>
+
+
+  <h2>ファイアウォール ポリシーの価格</h2>
+
+
+  <p>ファイアウォール ポリシー リソースを作成しただけの場合、料金は発生しない。 さらに、1 つの Azure ファイアウォールに関連付けられている場合、ファイアウォール ポリシーは請求されません。 作成できるポリシーの数に制限はありません。</p>
+
+
+  <p>ファイアウォール ポリシーの価格は、リージョンごとのファイアウォール ポリシーごとに固定されます。 リージョン内では、5 つのファイアウォールまたは 50 のファイアウォールを管理するファイアウォール ポリシーの価格は同じです。 次の例では、4 つのファイアウォール ポリシーを使用して、10 個の個別の Azure ファイアウォールを管理します。</p>
+
+
+  <ul>
+      <li><strong>ポリシー 1: cac2020region1policy</strong>&mdash;4 つのリージョンにわたる 6 つのファイアウォールに関連付けられている。 課金は、ファイアウォールごとにではなく、リージョンごとに行われます。</li>
+      <li><b>ポリシー 2: cac2020region2policy</b>&mdash;3 つのリージョンにわたる 3 つのファイアウォールに関連付けられている。リージョンあたりのファイアウォールの数に関係なく、3 つのリージョンに対して請求されます。</li>
+      <li><b>ポリシー 3: cac2020region3policy</b>&mdash;ポリシーが複数のファイアウォールに関連付けられているため、請求されません。</li>
+      <li><b>ポリシー 4: cacbasepolicy</b>&mdash;3 つのポリシーすべてによって継承される中央ポリシー。 このポリシーは、5 つのリージョンに対して請求されます。 もう一度、ファイアウォールごとの課金アプローチと比較して、価格は低くなります。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f2e82748-3abb-4d0f-beca-18fc369fb640.png"><img alt="Example of Firewall Policy billing." border="0" height="399" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd018b59-c93e-4967-a0a1-f036cae731a8.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ファイアウォール ポリシーの課金の例。" width="1024"></a></p>
+
+
+  <p style="text-align: center;"><i style="font-family: inherit; font-weight: inherit;">ファイアウォール ポリシーの課金例。</i></p>
+
+
+  <h2>脅威インテリジェンス許可リスト、DNS プロキシ、およびカスタム DNS を構成する</h2>
+
+
+  <p>この更新プログラムにより、ファイアウォール ポリシーでは、カスタム DNS と DNS プロキシ設定 (プレビュー) や脅威インテリジェンス許可リストなどの追加の構成がサポートされます。 <a href="https://docs.microsoft.com/en-us/azure/firewall/snat-private-range" target="_blank">SNAT プライベート IP アドレス範囲の</a> 構成はまだサポートされていませんが、ロードマップに含まれています。</p>
+
+
+  <p>ファイアウォール ポリシーは通常、複数のファイアウォール間で共有することができますが、NAT 規則はファイアウォール固有であり、共有することはできません。 複数のファイアウォール間で共有する NAT 規則のない親ポリシーと、必要な NAT 規則を追加する特定のファイアウォールのローカル派生ポリシーを引き続き作成できます。 <a href="https://docs.microsoft.com/en-us/azure/firewall-manager/policy-overview" target="_blank">ファイアウォール ポリシーの詳細については、次を参照してください。</a></p>
+
+
+  <h2>ファイアウォール ポリシーで IP グループがサポートされる</h2>
+
+
+  <p>IP グループは、 の新しいトップ レベルの Azure リソースです。このリソースを使用すると、特定の規則で IP アドレスをAzure Firewallできます。 IP グループのサポートについては、最近のブログで <a href="https://aka.ms/AzureFirewallQ2CY2020" target="_blank">詳Azure Firewallされています</a>。</p>
+
+
+  <h2>セキュリティで保護された仮想ハブAzure Firewallサード パーティの SECaaS パートナーを使用して構成する</h2>
+
+
+  <p>プライベート トラフィック (仮想ネットワークから仮想ネットワークへの仮想ネットワーク/ブランチから仮想ネットワーク) のフィルター処理と、インターネット (仮想ネットワークからインターネットへの仮想ネットワーク/ブランチからインターネットへの) トラフィック フィルター処理に対して選択したセキュリティ パートナーに対して、Azure Firewall を使用して仮想ハブを構成できます。</p>
+
+
+  <p>Firewall Manager <i></i> のセキュリティ パートナー プロバイダーを使用すると、使い慣れた、最適なサードパーティの SECaaS オファリングを使用して、ユーザーのインターネット アクセスを保護できます。 簡単な構成により、サポートされているセキュリティ パートナーを使用してハブをセキュリティで保護し、仮想ネットワーク (VNet) またはリージョン内のブランチの場所からのインターネット トラフィックをルーティングおよびフィルター処理できます。 これは、ユーザー定義ルート (UDR) を設定したり、管理したりすることなく、自動ルート管理を使用して行われます。</p>
+
+
+  <p>セキュリティで保護された仮想ハブは、「セキュリティで保護された仮想ハブFirewall Manager&rsquo;新しい <b>作成」を使用して作成</b> できます。 次のスクリーンショットは、2 つのセキュリティ プロバイダーで構成された新しいセキュリティで保護された仮想ハブを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c68944ba-79bc-4669-bf45-8f318032d2e0.png"><img alt="New secure virtual hub configured with two security providers." border="0" height="679" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28db79f1-6017-4f74-a6b4-8c4886bc2e14.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2 つのセキュリティ プロバイダーで構成された新しいセキュリティで保護された仮想ハブ。" width="1024"></a></p>
+
+
+  <p align="center"><i>新しいセキュリティで保護された仮想ハブを作成すると、2 つのセキュリティ プロバイダーが構成されます。</i></p>
+
+
+  <h2>接続のセキュリティ保護</h2>
+
+
+  <p>セキュリティで保護されたハブを作成した後、ハブのセキュリティ構成を更新し、ハブ内のインターネットおよびプライベート トラフィックをルーティングする方法を明示的に構成する必要があります。 プライベート トラフィックの場合は、&rsquo;RFC1918 範囲内の&rsquo;プレフィックスを指定する必要はありません。 組織が仮想ネットワークとブランチでパブリック IP アドレスを使用している場合は、それらの IP プレフィックスを明示的に追加する必要があります。</p>
+
+
+  <p>このエクスペリエンスを簡略化するために、個々のサブネットを指定する代わりに集計プレフィックスを指定できます。 また、サードパーティのセキュリティ プロバイダーを介したインターネット セキュリティの場合は、パートナー ポータルを使用して構成を完了する必要があります。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/firewall-manager/deploy-trusted-security-partner" target="_blank">セキュリティ パートナー プロバイダーのページ</a> を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5382943-26bd-41c3-ab8c-5ec1a5d5e5a7.png"><img alt="Example of how to select a third-party SECaaS for internet traffic filtering." border="0" height="324" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e1dbf97f-bbba-42ae-90b5-75cda84902f7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="インターネット トラフィック のフィルター処理にサードパーティの SECaaS を選択する方法の例。" width="1024"></a></p>
+
+
+  <p align="center"><i>サード パーティの選択 </i>インターネット トラフィック のフィルター<i>処理のための</i> SECaaS。</p>
+
+
+  <h2>セキュリティで保護された仮想ハブの価格</h2>
+
+
+  <p>セキュリティ <i>で保護 </i>された仮想ハブは、Azure Virtual WAN <a href="https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-about#resources" target="_blank">によって</a> 構成された関連付けられたセキュリティポリシーとルーティング ポリシーを持つ Firewall Manager。 セキュリティで保護された仮想ハブの価格は、構成されているセキュリティ プロバイダーによって異なります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d5fcae5-2378-4b3d-a0e4-a5528c4ed3a7.png"><img alt="Pricing options for secure virtual hub." border="0" height="244" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a0b9046-6f57-48a6-8948-985ed57df438.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="セキュリティで保護された仮想ハブの価格オプション。" width="1024"></a></p>
+
+
+  <p>詳細については <a href="https://azure.microsoft.com/en-us/pricing/details/firewall-manager/" target="_blank">、Firewall Managerの価格に関</a> するページを参照してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>これらのお知らせの詳細については、次のリソースを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall-manager/" target="_blank">Firewall Managerドキュメント。</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/blog/azure-firewall-manager-now-supports-virtual-networks/" target="_blank">Azure Firewall Managerは、仮想ネットワークブログをサポートしています</a>。</li>
+      <li><a href="https://aka.ms/AzureFirewallQ2CY2020" target="_blank">Q2 CY2020 Azure Firewallの新機能。</a></li>
+  </ul>

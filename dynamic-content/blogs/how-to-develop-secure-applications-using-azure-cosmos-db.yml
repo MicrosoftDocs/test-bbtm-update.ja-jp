@@ -1,0 +1,118 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 668293f9c669d85e2834619431db12b6ec993a85
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890398"
+Slug: how-to-develop-secure-applications-using-azure-cosmos-db
+Title: Azure Cosmos DB を使用してセキュリティで保護されたアプリケーションを開発する方法
+Summary: 'Azure Cosmos DB は、リングゼロの Azure サービスです。 つまり、オンラインになるとすぐに新しい Azure データセンターで使用できるようになり、すべてのコンプライアンス証明書を最新の状態に保つ必要があります。 '
+Content: >-
+  <p>Azure Cosmos DB を使用してセキュリティで保護されたアプリケーションを開発する方法について説明する前に、Azure Cosmos DB 提供するさまざまなセキュリティ層の一部についても説明します。 次の図は、これらのさまざまなセキュリティ層を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9133f43-c841-48df-bbf5-8fc545b136d3.png"><img alt="flow chart for the various layers of security provided by Cosmos DB " border="0" height="394" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ecf8d2a1-ea8d-4734-beba-714696e85a97.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Cosmos DB によって提供されるさまざまなセキュリティ層のフローチャート" width="640"></a></p>
+
+
+  <p>Azure Cosmos DB は、リングゼロの Azure サービスです。 つまり、オンラインになるとすぐに新しい Azure データセンターで使用できるようになり、すべてのコンプライアンス証明書を最新の状態に保つ必要があります。 Azure Cosmos DB には、 <a href="https://azure.microsoft.com/en-us/blog/azure-cosmosdb-secure-private-compliant/" target="_blank">Azure #CosmosDB: セキュリティで保護されたプライベート、準拠</a>しているブログの投稿 &ldquo; に関する記事で詳細を読むことができる多数の認定があります。&rdquo;</p>
+
+
+  <p>Azure の最初のレイヤーは、データセンターの物理的な安全性と DDoS 攻撃からの継続的な保護を提供します。 Azure には、セキュリティの問題を継続的に監視する専任のチームがあります。 すべての Azure サービスは、異常なアクティビティを収集するために共通のセキュリティエージェントを実行します。 実稼働リソースには定期的にパッチが適用され、すべてのシークレット、証明書、またはパスワードに有効期間が定義されています。 これらの証明書またはシークレットは、有効期限が切れた後にローテーションする必要があります。 Azure Cosmos DB のすべての運用ポートがスキャンされ、侵入テストが定期的に行われます。 ソースコードはセキュリティ上の問題がないかスキャンされ、製品に統合する前に2人の承認者が必要です。 詳細については、 <a href="https://azure.microsoft.com/en-us/global-infrastructure/" target="_blank">Azure データセンター</a>に関する詳細を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4287e9ce-5cb7-4751-b248-dad4d00d52b2.png"><img alt="Map of availability regions, announced regions, and availability zones" border="0" height="392" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d9d8af5-70d6-4daf-a074-6735869579c6.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="可用性リージョン、発表されたリージョン、可用性ゾーンのマップ" width="800"></a></p>
+
+
+  <p>Azure へのアクセスは制限されています。 Azure Cosmos DB に従事している運用スタッフまたは開発者は、コンピューターから運用環境にアクセスすることはできません。 すべての運用環境には、専用の secure access workstation (Saw) を介してアクセスします。 これらのワークステーションは watertight しています。 Azure を介している場合を除き、これらのコンピューターからの外部アクセスはありません。 エンジニアは、すべての運用アクセスでジャストインタイム (JIT) の承認を受けます。 すべてのアクセスが監視され、エンジニアのすべてのアクティビティは同行者によって監視されます。 &nbsp; すべての運用環境のデプロイには、テストサインオフや承認者を含む複数の承認が必要です。</p>
+
+
+  <p>Azure には、Microsoft の担当者が非常に厳格なアクセスポリシーを持っています。 Microsoft の従業員が承認されていない場合、運用システムにアクセスすることはほとんど不可能です。 これらの詳細については、Azure でのデータのセキュリティが確保されているかどうか、および Azure Cosmos DB エンジニアリングチームが各自のデータにアクセスできるかどうかを確認することがよくあるからです。</p>
+
+
+  <h2>IP ファイアウォールによって提供されるセキュリティ</h2>
+
+
+  <p>IP ファイアウォールの使用は、データベースをセキュリティ保護するための第 1 の保護層です。 Azure Cosmos DB は、受信ファイアウォールでのポリシーに基づく IP ベースのアクセス制御をサポートしています。 このモデルは、従来のデータベースシステムのファイアウォールルールに似ており、Azure Cosmos DB アカウントのセキュリティレベルをさらに向上させることができます。 このモデルでは、承認されたコンピューターやクラウドサービスのセットからのみアクセスできるように Azure Cosmos DB アカウントを構成できるようになりました。 ただし承認されているコンピューターのグループやサービスから Azure Cosmos DB リソースにアクセスするためには、呼び出し側が有効な承認トークンを提示する必要がある点は変わりません。</p>
+
+
+  <p>IP アクセス制御ポリシーは、Azure portal で設定することも、ipRangeFilter &rdquo; プロパティを更新 &ldquo; して<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/cli-samples" target="_blank">Azure CLI</a>、 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/powershell-samples" target="_blank">Azure PowerShell</a>、または<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/powershell-samples" target="_blank">REST API</a>を使用してプログラムで設定することもできます。 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/firewall-support" target="_blank">Cosmos DB のために IP ファイアウォールをセットアップする方法</a>」を参照してください。</p>
+
+
+  <h2>仮想ネットワークによって提供されるセキュリティ</h2>
+
+
+  <p>仮想ネットワークは、Azure Cosmos DB アカウントをセキュリティで保護する次の層です。 Azure Cosmos DB アカウントを構成して、Azure 仮想ネットワークの特定のサブネットからのアクセスのみが許可されるようにすることができます。 仮想ネットワークとそのサブネットから Azure Cosmos DB の<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview" target="_blank">サービスエンドポイント</a>を有効にすると、トラフィックは、Azure Cosmos DB に対して最適かつ安全なルートを確保します。</p>
+
+
+  <p>仮想ネットワークサービスエンドポイントを使用して Azure Cosmos DB アカウントを構成すると、指定したサブネットからのみアクセスできるようになり、パブリックアクセスまたはインターネットアクセスが削除されます。 サービスエンドポイントの詳細については、Azure &ldquo; <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview" target="_blank">Virtual Network サービスエンドポイント</a> &rdquo; の概要に関する記事を参照してください。 仮想ネットワークの詳細については、仮想 &ldquo; ネットワークに関するドキュメントの<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/vnet-service-endpoint" target="_blank">アクセス Azure Cosmos DB リソース</a>の &ldquo; Azure Cosmos DB を参照してください。</p>
+
+
+  <p>ネットワークセキュリティグループを使用して、 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview" target="_blank">azure Virtual Network</a> 内の azure リソースとの間でネットワークトラフィックをフィルター処理できます。 ネットワークセキュリティグループには、複数の種類の Azure リソースからの受信ネットワークトラフィックと送信ネットワークトラフィックを許可または拒否する <a href="https://docs.microsoft.com/en-us/azure/virtual-network/security-overview#security-rules" target="_blank">セキュリティ規則</a> が含まれています。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/security-overview" target="_blank">ネットワークセキュリティグループ</a>に関するページを参照してください。</p>
+
+
+  <h2>キーを使用したアクセス制御</h2>
+
+
+  <p>これまでに説明したセキュリティ層は Azure Cosmos DB の一部として提供されており、ファイアウォールと仮想ネットワークを構成するだけで &rsquo; は必要ありません。 では、アプリケーション開発者としてできることに &rsquo; ついて説明します。 Azure Cosmos DB へのすべてのアクセスは、マスターキーと読み取り専用キーの2つのキーによって制御されます。 マスターキーは、名前が示すように、マスターキーであり、Azure Cosmos DB に対してすべての操作を実行できます。 読み取り専用キーを使用すると、データを読み取ることができますが、このキーで他の操作を実行することはできません。</p>
+
+
+  <p>開発者は、キーについて心配することがあります。だれかが盗んでデータにアクセスできるかどうかを考えます。 この記事の残りの部分では、Azure Cosmos DB でセキュリティで保護されたアプリケーションを構築するために採用する必要があるアーキテクチャについて説明します。</p>
+
+
+  <h2>セキュリティで保護されたアプリケーションを構築するためのアーキテクチャ</h2>
+
+
+  <p>最初に、 <strong>構成ファイルまたはコードにアクセスキーを持つアプリケーションはありません</strong>。 キーは常に Key Vault に保持する必要があります。 アプリケーションまたはユーザーは、Key Vault に登録された <a href="https://docs.microsoft.com/en-us/azure/app-service/app-service-managed-service-identity" target="_blank">マネージ id</a> を持つことができ、実行時にキーを取得できます。 詳細について<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/access-secrets-from-keyvault" target="_blank">は、「キーコンテナーを Azure Cosmos DB に統合する方法</a>」を参照してください。</p>
+
+
+  <p>次に、<strong> アプリケーションはデータベースに直接アクセスしないようにする必要があります。データにアクセスするには、中間層の web サービスが必要です。</strong> このアプローチには、次のような利点があります。</p>
+
+
+  <ul>
+   <li>フロントエンドアプリケーションは、REST サービスを呼び出してデータを取得できます。 フロントエンドは、Azure Cosmos DB の異なる API &rsquo; を理解する必要はありません。 Azure Cosmos DB はマルチモデルデータベースであるため、データをさまざまな形式で保持できますが、フロントエンドアプリケーションはデータアクセスのすべての詳細から抽象化することができます。</li>
+   <li>通常は、同じデータにアクセスするさまざまな形式 (PC、電話、web) で、多くのアプリケーションを使用できます。 すべてのアプリケーションでデータ取得ロジックを繰り返す必要はありません。</li>
+   <li>必要に応じて、web サービス層で承認されていないアプリケーションがデータベースに害を与える前に、調整を行うことができます。</li>
+   <li>データベースへのすべてのアクセスをより詳細に監査できます。</li>
+   <li>もちろん、3層アーキテクチャにはさまざまな利点があります。たとえば、データレイヤーからの抽象化、キャッシュの機会、さまざまなチームがさまざまなレイヤー parallelly 作業でき、異なるレイヤーを個別に、またはメンテナンスが簡単にすることができます。</li>
+  </ul>
+
+
+  <p>さらに最大の利点は、キーにアクセスする必要があるサービスが1つだけであることです。 キーをローテーションする際には、1つのサービスだけが、数百または数千のクライアントではなく、更新する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3e2a3bb-7b96-4c63-85b0-88554e462119.png"><img alt="Flow chart of Application authentication by Azure Active Directory and REST web service " border="0" height="514" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c3eadfd-8e6e-40f1-9d7d-ddf66618ff5c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Active Directory と REST web サービスによるアプリケーション認証の Flow グラフ" width="640"></a></p>
+
+
+  <p>上に示すように、アプリケーションを使用して、AAD によって認証され、REST web サービスを呼び出します。 上記のアプリケーションは、1つの web サイトのインスタンスを数万にすることができます。 REST API は呼び出しの呼び出し元 id を取得します。 ここでは、この web サービスが通話にいくつかのビジネスルールを適用する機会について説明します。 この web サービスは、そのカスタムルールを参照して、Azure Cosmos DB コレクションのアクセス許可を持っているユーザーを確認できます。 ビジネスルールレイヤーによって呼び出しが検証されると、データサービスは Key-Vault からキーを取得して Azure Cosmos DB からデータにアクセスできます。</p>
+
+
+  <p>Azure Cosmos DB に従っている場合は、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/secure-access-to-data#resource-tokens" target="_blank">リソーストークン</a>について疑問に思うかもしれません。 リソーストークンを作成するサービスを実装するのではなく、上記のアーキテクチャを使用することをお勧めします。これにより、クライアントはこれらのリソーストークンを使用して Azure Cosmos DB に直接アクセスできます。</p>
+
+
+  <p>データサービスを使用すると、複数のクライアントアプリがデータベースに直接アクセスするよりも優れた設計になります。 リソーストークンは、小規模なアプリケーションに適したソリューションですが、独自の制限事項がいくつかあります。 リソーストークンは、すべての API &rsquo; に対して機能しません。 SQL API に対してのみ機能します。 Web サービスを作成する必要があります。これにより、ビジネスルールに従ってトークンが作成されます。そのため &rsquo; 、そのサービスが1ステップ進んで、データ自体がラベル付けされます。</p>
+
+
+  <p>はい、アプリケーションのホップを追加しています。また、数ミリ秒を追加することもできますが、これはリソーストークンの代わりに使用する方が適しています。<br>
+
+  Azure Cosmos DB では、すべてのデータが保存時およびネットワーク上で暗号化されます。 &nbsp;仮想ネットワーク、IP フィルタリング、Key-Vault Azure Cosmos DB で非常に安全なアプリケーションを構築できます。</p>
+
+
+  <h2>コンプライアンス対応リソース</h2>
+
+
+  <ul>
+   <li><a href="https://servicetrust.microsoft.com/ComplianceManager" target="_blank">Microsoft コンプライアンス マネージャー</a></li>
+   <li><a href="https://servicetrust.microsoft.com/FrameworkDetailV2/d484c25a-3141-426a-be3c-3888908a434b" target="_blank">Microsoft Service Trust Portal</a></li>
+   <li><a href="https://www.microsoft.com/en-us/trustcenter/compliance/complianceofferings" target="_blank">Microsoft セキュリティ センター</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-cosmosdb-secure-private-compliant/" target="_blank">Azure # Cosmos DB: セキュリティ、プライベート、準拠</a></li>
+  </ul>
+
+
+  <h2>リスク評価リソース</h2>
+
+
+  <ul>
+   <li><a href="https://ecosystemmanager.azurewebsites.net/v2/home" target="_blank">Azure エコシステムマネージャー</a></li>
+   <li><a href="https://msazure.visualstudio.com/AzureWiki/_wiki/wikis/AzureWiki.wiki?pagePath=%2FAzure-Wiki-Home%2FCompliance%2FRisk-Assessment&amp;wikiVersion=GBwikiMaster" target="_blank">Microsoft Azure 開発者ツール</a></li>
+  </ul>

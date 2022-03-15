@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 757d957e2e70d0b7224109a4abcf8b23bc3ff109
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892441"
+Slug: simplifying-declarative-deployments-in-azure
+Title: Azure での宣言型デプロイの簡略化
+Summary: Azure では、アプリケーション (ARM) テンプレートを使用してインフラストラクチャを宣言的にプロビジョニングおよび管理するためのシンプルで直感的なAzure Resource Managerを提供します。
+Content: >-
+  <p>Azure では、アプリケーション (ARM) テンプレートを使用してインフラストラクチャを宣言的にプロビジョニングAzure Resource Manager直感的な方法をお客様に提供しています。 テンプレート言語を使用して Azure 環境全体を記述し、お気に入りの CI/CD またはスクリプト ツールを使用して、この環境を数分で立ち上げすることができます。 ARM テンプレート言語は JSON の形式を取り、リソース スキーマを直接表現します。 つまり、1 日目から ARM テンプレートを使用して任意の Azure リソースを作成し、リソースの任意の設定を構成できます。 ARM テンプレートを使用すると、宣言型のパラメーター化された方法で環境を構成するために必要なリソースを記述できます。 ARM テンプレートは宣言型なので、必要な指定のみを行う必要があります。Azure Resource Managerを特定する必要があります。</p>
+
+
+  <p>過去数か月間、お客様が共有する重要な課題の一部に対処する方法に重点を置き、ARM テンプレートのデプロイに焦点を当てました。 現在、これらの&rsquo;課題の一部に&rsquo;対処するために行った投資の一部を共有しています。</p>
+
+
+  <h2>アプリケーションを使用した簡単な作成Visual Studio Code</h2>
+
+
+  <p>最新のユーザーは、ARM テンプレートを最初から初めて作成および編集する場合に、手ごたえがある可能性があるという共有を行いました。 Azure Portal で必要なリソースを作成し、再利用できる ARM テンプレートをエクスポートすることで、作業の開始エクスペリエンスを簡略化しました。 また、リソースを <a href="https://azure.microsoft.com/en-us/resources/templates/" target="_blank">プロビジョニングする</a> 800 を超えるサンプル テンプレートのテンプレート クイック スタート ギャラリーも用意されています。 しかし、これで、さらに一歩進みます。</p>
+
+
+  <p>Visual Studio Code&#39;の<a href="https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools" target="_blank">新しい Azure Resource Manager (ARM)</a> ツールでは、スニペット (事前に作成されたリソース定義)、IntelliSense、色付け、ARM テンプレートのアウトライン、コメントのサポートが追加されました。 ARM テンプレートでのコメントのサポートを使用すると、CLI、PowerShell、Azure portal を使用してコメントを含む任意のテンプレートをデプロイできます。これは機能します。 次に示す<a href="https://aka.ms/arm-tools-intro" target="_blank">のは、</a>新しい ARM テンプレート作成エクスペリエンスに関する短いビデオVS Code。</p>
+
+
+  <h2>What-if: デプロイ前の影響分析</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98f5d354-5aff-4adc-b637-ff5eac95012f.png"><img align="right" alt="Picture2" border="0" height="332" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89c5a751-67c5-43bf-9fa6-22eee85cddbf.png" style="border: 0px currentcolor; border-image: none; float: right; display: inline; background-image: none;" title="Picture2" width="530"></a>お客様は、多くの場合、デプロイされたリソースに変更を送信する前に、環境へのデプロイの影響を評価する必要があります。 Azure の新しい What-if 機能を使用すると、お客様はデプロイ前評価を実行して、リソース プロパティの変更を含め、作成、更新、または削除されるリソースを決定できます。 what-if コマンドは、環境の現在の状態をリアルタイムで確認し、任意の状態を管理する必要をなくします。 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-deploy-what-if" target="_blank">概要 what-if を使用します</a>。 What-if はプレビュー中ですが、問題と機能に関する要求については、GitHub<a href="https://aka.ms/whatifissues" target="_blank">してください</a>。</p>
+
+
+  <h2>デプロイ スクリプト: 最後の 1 マイルの &lsquo;シナリオを完了&rsquo; する</h2>
+
+
+  <p>多くの場合、環境のセットアップを完了するために、ARM テンプレートのデプロイでカスタム スクリプト コードを実行する必要があるシナリオがあります。 以前はテンプレートデプロイの外部のステップを必要としたこれらのスクリプトは、deploymentScript リソースを使用してテンプレートデプロイ内で実行できます。 新しい deploymentScript リソースは、テンプレートデプロイの一部として PowerShell または bash スクリプトを実行します。 このスクリプトは、ARM テンプレートの一部として含めるか、外部ソースから参照できます。 デプロイ スクリプトを使用すると、1 つの ARM テンプレートでエンドツーエンド環境のセットアップを完了する機能が提供されます。 デプロイ スクリプトの詳細については、 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-script-template?tabs=CLI" target="_blank">このドキュメントを参照してください</a>。 API で公開されていない特定の Azure リソース アクションがコントロール プレーンにネイティブに表示される場合は、ここに要求を <a href="https://feedback.azure.com/forums/281804-azure-resource-manager" target="_blank">送信してください</a>。</p>
+
+
+  <h2>大規模な管理グループとサブスクリプションのプロビジョニング</h2>
+
+
+  <p>組織が Azure の使用を拡大する中で、多くの場合、環境、アプリケーション、課金、またはセキュリティを分離するために管理グループ (MG) 階層 (グループ化構成体) と Azure サブスクリプションを作成する必要性について話し合います。 お客様には、時間とリソースを節約するために、管理グループとサブスクリプションをプロビジョニングするための一貫した宣言型の方法が必要です。 新しいテナントと MG デプロイ API では、ARM テンプレートを使用した MG とサブスクリプションのプロビジョニングがサポートされます。 これにより、1 つの ARM テンプレートで、資産全体と関連するインフラストラクチャ リソースの設定を自動化できます。 詳細については、こちらを参照し、 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-to-subscription" target="_blank">サンプル テンプレートを参照してください</a>。 さらに、サブスクリプションのタグ<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#apply-tags-to-resource-groups-or-subscriptions" target="_blank"></a>付けをサポートし、リソース グループあたりのデプロイ数の上限を 800 に、デプロイあたりのリソース グループ数の制限を <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history-deletions?tabs=azure-powershell" target="_blank">800</a> に増やし、Enterprise Agreement (EA) アカウントあたりのサブスクリプション数を 2000 に増やして、大規模なプロビジョニングと管理を可能にしました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9b67a1b-d2dd-4510-892d-eb1fa545aa06.png"><img alt="ARM1" border="0" height="212" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/577d329a-a5b7-4a9a-8ac0-c5b2937ccca9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ARM1" width="1128"></a></p>
+
+
+  <h2>品質と信頼性に継続的に重点を置く</h2>
+
+
+  <p>品質と信頼性は、Microsoft で行うすべての取り組みにおいて最も重要です。 これは、スキーマの品質を向上し、すべてのリソースのスキーマ カバレッジを持つことから始め、引き続き注目を集め続けている領域です。 この利点は、オーサリング エクスペリエンスとテンプレート エクスポート機能の向上に関するページで見られます。 デプロイする前に問題をキャッチするために、エラー メッセージを改善し、フライト前検証の品質を向上させるために、取り組み中です。 また、すべての API バージョンをテンプレート参照に公開し、テンプレート スニペットをリソース ドキュメントに追加することで、ドキュメントの改善に多大な投資を行っています。</p>
+
+
+  <p>ARM テンプレート コードのテストに役立つ目的で、MICROSOFT で内部的に使用する <a href="https://github.com/Azure/arm-ttk">ARM</a> テンプレート Toolkit をオープンし、ARM テンプレートがベスト プラクティスに従う必要があります。 最後に、速度の問題を認識し、大規模なデプロイのデプロイ時間を約 75% 短縮するために大幅な改善を行いました。</p>
+
+
+  <h2>新しいテンプレートを使用したコードとしてのインフラストラクチャAzure Resource Manager</h2>
+
+
+  <p>ARM テンプレートのデプロイの強化に向けた取り組みが始まったばかりであり、チームは現在のギャップに対処し、将来に向けたイノベーションに向けた取り組みを意識的に行っています。 Microsoft Build <a href="https://youtu.be/UaVCNpD3pvg?t=718">2020</a> カンファレンスで共有した今後の投資の一部について説明します。</p>
+
+
+  <p>ARM のデプロイに関するフィードバックをお寄せください。 エンジニアリング チームとのより深い会話に関心がある場合は、デプロイとガバナンスグループに<a href="https://www.surveymonkey.com/r/ARMMEET" target="_blank">参加Yammerしてください</a>。</p>

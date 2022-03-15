@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 836458b635c18c9e8992b4984e5452550f528637
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893197"
+Slug: azure-cosmosdb-extends-support-for-mongodb-aggregation-pipeline-unique-indexes-and-more
+Title: 'Azure #CosmosDB MongoDB 集計パイプライン、一意のインデックスなど、サポートが拡張されます'
+Summary: これで、Azure Cosmos DB の MongoDB クエリと型内でさらに多くのことを行えるのでお知らせします。 最新のサービス デプロイにより、Azure Cosmos DB for MongoDB API の Azure Cosmos DB で次の機能強化が行Cosmosされています。
+Content: >-
+  <p>Azure&#39;DB で MongoDB のクエリと型内でさらに多くのことを行えるCosmos<a href="https://azure.microsoft.com/services/cosmos-db/" target="_blank">です</a>。 最新のサービス デプロイにより、Azure Cosmos DB for MongoDB API の Azure Cosmos DB で次の機能強化が行Cosmosされています。</p>
+
+
+  <ul>
+   <li>MongoDB 集計パイプラインのサポート (プレビュー)</li>
+   <li>一意のインデックスのサポート</li>
+   <li>MongoDB ワイヤ プロトコル バージョン 5 のサポート、MongoDB 3.4 で使用 (プレビュー)</li>
+  </ul>
+
+
+  <h2>MongoDB 集計パイプライン</h2>
+
+
+  <p>MongoDB &lsquo;&rsquo; では、集計パイプラインを使用すると、開発者は複数の集計ステージを組み合わせることで、より高度なクエリを作成し、データを操作できます。これにより、結果がクライアントに返される前に、サーバー側でさらに多くのデータ処理を実行できます。 データはフィルター処理、並べ替え、使用準備が可能であり、クライアント コード内の管理可能なサイズに減らすためにのみ、大量のデータをネットワークを使用して転送する必要がなくなります。</p>
+
+
+  <p>たとえば、次の集計パイプラインは、1 つのクエリで、米国 内のレコードのみを照合し、レコードを山の種類別にグループ化し、それぞれに対して標高を収集し、一致したレコードの数をカウントして、1 つのクエリ内のレコードを検索します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/447e6fe8-fbdb-48a0-b5eb-bdbfad301bcf.png"><img alt="MongoDB - single query" border="0" height="340" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/148558a9-ff3a-4313-bbdd-f6fcfe9179a9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="MongoDB - 単一クエリ" width="1343"></a></p>
+
+
+  <p>集計パイプライン機能を利用できる、他にも多くの強力な集計、データ ラングリング、分析のシナリオがあります。 Azure Cosmos DB で現在サポートされているすべての集計パイプライン コンストラクトと他の MongoDB 構文コンストラクトについては、MongoDB 機能のサポートに関する<a href="https://aka.ms/mongodb-feature-support" target="_blank">ページを参照してください</a>。</p>
+
+
+  <p>集計パイプラインのサポートは現在パブリック プレビュー中であり、Azure portal の任意の Azure Cosmos DB for MongoDB API アカウントの [プレビュー機能] ページで有効にできます。</p>
+
+
+  <h2>一意のインデックスとインデックス管理</h2>
+
+
+  <p>Azure Cosmos DB では、既定で、データベースに書き込まれるドキュメントのすべてのフィールドにインデックスが付けられます。 一意のインデックスを使用&rsquo;&ldquo;すると、既定の _id キーで一意性が保持されるのと同様に、コレクション内のすべてのドキュメントで特定のフィールドに重複する値が含_id&rdquo;されます。 これで、createIndex コマンド (一意制約を含む) を使用して、Azure Cosmos DB でカスタム インデックスを&lsquo;作成&rsquo;できます。</p>
+
+
+  <p>一意のインデックスは、すべての Azure Cosmos DB for MongoDB API アカウントで使用できます。</p>
+
+
+  <h2>MongoDB ワイヤ プロトコル (バージョン 5)</h2>
+
+
+  <p>Azure Cosmos DB には MongoDB ワイヤ プロトコルが実装されています。これにより、Azure Cosmos DB for MongoDB API はほとんどの MongoDB アプリケーションやツールと互換性があります。 Azure Cosmos DB でサポートされている MongoDB ワイヤ プロトコル バージョンがバージョン 5 です。 この変更により、ワイヤ プロトコルのサポートは MongoDB 3.4 と同じです。 これにより、Azure Cosmos DB を、ワイヤ プロトコル バージョン 5 の機能を利用する幅広いアプリケーションで使用できます。 たとえば、Azure Cosmos DB と Azure Cosmos DB for MongoDB API を使用するアプリケーションでは、Decimal128 などの BSON 仕様で定義されている型を利用できます。</p>
+
+
+  <p>この機能はパブリック プレビュー中であり、Azure portal の Azure Cosmos DB for MongoDB API アカウントの [プレビュー機能] ページで有効にできます。</p>
+
+
+  <h2>今すぐ試す</h2>
+
+
+  <p>これらの機能強化はサービス側の変更のため、クライアント側で何もダウンロードしたり変更を加える必要はありません。 必要な操作は、次の手順でスイッチを使用して、集計パイプラインのパブリック プレビューまたは MongoDB ワイヤ プロトコル (バージョン 5) 機能を有効Azure portal。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/538cab56-ded5-45c7-938f-54a540e57ea0.png"><img alt="MongoDB wire protocol" border="0" height="865" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/242fc069-0ae0-431d-9903-b404816cf510.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="MongoDB ワイヤ プロトコル" width="1267"></a></p>
+
+
+  <p>Azure Cosmos <a href="https://docs.microsoft.com/azure/cosmos-db/create-mongodb-dotnet" target="_blank"></a> DB Azure Cosmos DB for MongoDB API の使用を開始するには、アカウントを作成し、Azure portal の [接続文字列] ページの の資格情報を使用して接続します。</p>
+
+
+  <p>これらの新機能を利用できる可能性がある使用事例を継続的に評価します。 Azure Cosmos DB for MongoDB API に対するこれらの機能強化により、アプリケーションのより多くのシナリオと使用事例のロックが解除されます。 これらの新機能に関するフィードバック <a target="_blank">askcosmosmongoapi@microsoft.com</a> がある場合は、 にお知らせください。</p>
+
+
+  <p>今すぐ <a href="https://azure.microsoft.com/try/cosmosdb/" target="_blank">Azure Cosmos DB を</a>無料で試し、サインアップやクレジット カードは必要ありません。 最新の Azure Cosmos DB のニュースと機能については、Twitter <a href="https://twitter.com/search?q=%23cosmosDB&amp;src=typd" target="_blank">#CosmosDB と に関するページをご覧</a>ください<a href="https://twitter.com/AzureCosmosDB" target="_blank">@AzureCosmosDB</a>。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>-Azure Cosmos DB の友人</p>

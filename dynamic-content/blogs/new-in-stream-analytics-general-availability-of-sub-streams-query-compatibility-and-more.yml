@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ca0bd4c139acf2782d2b80f15329d48f5e2ee77f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892832"
+Slug: new-in-stream-analytics-general-availability-of-sub-streams-query-compatibility-and-more
+Title: 'Stream Analytics の新機能: サブストリームの一般提供、クエリの互換性など'
+Summary: 現在、Azure Stream Analytics のいくつかの機能の一般提供を発表しています。 これらの機能は、企業と企業以外のユーザーの両方にとって、さまざまなシナリオに対応できるように設計されています。
+Content: >-
+  <p>現在、Azure Stream Analytics のいくつかの機能の一般提供を発表しています。 これらの機能は、企業と企業以外のユーザーの両方にとって、さまざまなシナリオに対応できるように設計されています。 次のようなものがあります。</p>
+
+
+  <p><strong>サブストリームのサポート</strong>: お客様が IoT、connected car、自動車テレマティックス、smart エレベーターなどの Azure Stream Analytics を使用して構築するさまざまなストリーミングアプリケーションでは、さまざまなデバイスまたはソースに属するイベントからタイムラインをマージせずに、各資産またはソース &ndash; のテレメトリストリームをすべて同じジョブで処理する必要があります。 これは、クロックの同期が大幅に失われる可能性があるためです。Stream Analytics の新しいサブストリームサポートでは、非常に単純な言語コンストラクトを使用してこの強力な新機能を提供します。 このために、TIMESTAMP BY 句を拡張するために、の新しいキーワードが導入されています。 詳細については、 <a href="https://msdn.microsoft.com/en-US/library/azure/mt573293.aspx">タイムスタンプのドキュメントページ</a>を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a60996d7-e82a-47ec-b877-919b4962c2fb.png"><img alt="image" border="0" height="166" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cb5be173-6275-4c0f-a3a7-881b6ab1d24d.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="434"></a></p>
+
+
+  <p align="center"><em>さまざまな送信者に時間ポリシーを適用することなく、さまざまな送信者 (有料局) からのデータを処理します。入力データは、TollId に基づいてパーティション分割されます。</em></p>
+
+
+  <p align="left"><strong>azure functions への Egress</strong>: <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a>は azure のサーバーレスコンピューティングサービスで、ユーザーは azure またはサードパーティのサービスで発生したイベントによってトリガーされたカスタムコードを実行できます。 トリガーに応答するこの Azure Functions の機能により、Azure Stream Analytics の自然な出力ターゲットになります。 現在、Stream Analytics 一般公開されている Azure functions への送信を行っています。 この出力アダプターは、ユーザーが Stream Analytics を Azure Functions に接続し、スクリプトまたはコードの一部を実行して下流のワークフローをトリガーし、キーイベントへの応答を高速化できるように設計されています。 たとえば、過熱や危険などの事前定義された特定の条件が工場で観察された場合に、開発者が電子メールアラートや SMS 通知をより簡単に送信できるようになります。 また、Azure functions に Egress することで、開発者は、Azure Redis Cache など、現在はサポートされていないターゲットに Stream Analytics の出力を書き込むこともできます。 また、開発者は、Azure Stream Analytics が Azure エコシステムの外部にあるさまざまな Azure サービスやアプリに接続できるようにするカスタムロジックを作成することもできます。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-with-azure-functions">Azure Stream Analytics のドキュメントページ</a>を参照してください。</p>
+
+
+  <p align="left"><strong>クエリの互換性</strong>: 互換性レベルは、Azure Stream Analytics で導入されたクエリ動作の変更を表すために使用されます。 非常にまれなケースでは、新しい互換性レベルによってジョブの重大な変更が発生する可能性があります。 Stream Analytics のユーザーは、任意のジョブに互換性レベルを設定して、エラーを発生させずに実行し続けることができるようになりました。 互換性レベルは、Azure portal (下記参照) を使用するか、create job REST API 呼び出しを使用して簡単に設定できます。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-compatibility-level">互換性レベルの構成に関するドキュメントのページ</a>を参照してください。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/de6a571f-c710-4406-b45e-400c8d711325.png"><img alt="compat level" border="0" height="538" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f21e22e-d0b4-4f69-b525-c5124323e6cc.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="互換性レベル" width="1024"></a></p>
+
+
+  <p align="center"><em>Azure portal で互換性レベルを定義するための設定</em></p>
+
+
+  <p align="left">これらの機能が役に立つことを願っています。 お客様からのフィードバックをお寄せいただき、新しい機能についてのご意見をお待ちして<a href="https://feedback.azure.com/forums/270577-stream-analytics">おります。</a></p>

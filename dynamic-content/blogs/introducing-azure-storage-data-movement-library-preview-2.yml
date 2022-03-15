@@ -1,0 +1,131 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 96ac04453b5ac83334348757e29e7cf37e20bdd4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892977"
+Slug: introducing-azure-storage-data-movement-library-preview-2
+Title: Azure Storage Data Movement Library プレビューの概要
+Summary: .net 用のオープンソースの新しい Azure Storage データ移動ライブラリ (DML の場合は DML) が発表されます。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/">Azcopy</a>は最初にリリースされたため、多数のお客様が azcopy へのプログラムによるアクセスを要求しています。 .net 用のオープンソースの新しい Azure Storage データ移動ライブラリ (DML の場合は DML) が発表されます。 このライブラリは、AzCopy を支えるコアデータ移動フレームワークに基づいています。 このライブラリは、次のようなシナリオを実現する、高パフォーマンスで信頼性の高い、簡単な Azure Storage データ転送操作向けに設計されています。</p>
+
+
+  <ul>
+      <li>Microsoft Azure Blob と File Storage 間でのデータのアップロード、ダウンロード、およびコピー</li>
+      <li>AWS S3 などの他のクラウドプロバイダーから Azure Blob Storage へのデータの移行</li>
+      <li>Azure Storage データのバックアップ</li>
+  </ul>
+
+
+  <p>Blob をアップロードする方法を示すサンプルを次に示します ( <a href="https://github.com/Azure/azure-storage-net-data-movement">GitHub</a>で他のサンプルを参照してください)。</p>
+
+
+  <pre class="prettyprint">
+
+  using System;
+
+  using System.Threading;
+
+  using Microsoft.WindowsAzure.Storage;
+
+  using Microsoft.WindowsAzure.Storage.Blob;
+
+  // Include the New Azure Storage Data Movement Library
+
+  using Microsoft.WindowsAzure.Storage.DataMovement;
+
+
+  // Setup the storage context and prepare the object you need to upload
+
+  string storageConnectionString = &quot;myStorageConnectionString&quot;;
+
+  CloudStorageAccount account = CloudStorageAccount.Parse(storageConnectionString);
+
+  CloudBlobClient blobClient = account.CreateCloudBlobClient();
+
+  CloudBlobContainer blobContainer = blobClient.GetContainerReference(&quot;mycontainer&quot;);
+
+  blobContainer.CreateIfNotExists();
+
+  string sourcePath = &quot;path\\to\\test.txt&quot;;
+
+  CloudBlockBlob destBlob = blobContainer.GetBlockBlobReference(&quot;myblob&quot;);
+
+
+
+  // Use the interfaces from the new Azure Storage Data Movement Library to upload the blob
+
+  // Setup the number of the concurrent operations
+
+  TransferManager.Configurations.ParallelOperations = 64;
+
+
+  // Setup the transfer context and track the upoload progress
+
+  TransferContext context = new TransferContext();
+
+  context.ProgressHandler = new Progress&lt;TransferProgress&gt;((progress) =&gt;
+
+  {
+      Console.WriteLine(&quot;Bytes uploaded: {0}&quot;, progress.BytesTransferred);
+  });
+
+
+  // Upload a local blob
+
+  var task = TransferManager.UploadAsync(
+      sourcePath, destBlob, null, context, CancellationToken.None);
+  task.Wait();</pre>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>Azure Storage データ移動ライブラリのパフォーマンスは同じであり、azcopy のコア機能を公開しています。 <a href="https://www.nuget.org/packages/Microsoft.Azure.Storage.DataMovement">Nuget</a>からライブラリの最初のプレビューをインストールすることも、 <a href="https://github.com/Azure/azure-storage-net-data-movement">GitHub</a>からソースコードをダウンロードすることもできます。 このライブラリの初期バージョン (0.1.0) では、次の機能を見つけることができます。</p>
+
+
+  <ul>
+      <li>Azure Storage 抽象化のデータ転送のサポート: Blob</li>
+      <li>Azure Storage 抽象化のデータ転送のサポート: ファイル</li>
+      <li>1つのオブジェクトのダウンロード、アップロード、コピー</li>
+      <li>同時操作の数を制御する</li>
+      <li>同期および非同期コピー</li>
+      <li>同時操作の数を定義する</li>
+      <li>ユーザーエージェントのサフィックスを定義します。</li>
+      <li>コンテンツの種類の設定</li>
+      <li>条件付きでオブジェクトをコピーするアクセス条件を設定します。たとえば、特定の日付以降に変更されたコピーオブジェクト</li>
+      <li>コンテンツの MD5 の検証</li>
+      <li>特定の blob スナップショットのダウンロード</li>
+      <li>転送の進行状況の追跡: 転送されたバイト数、成功数、失敗、スキップファイル</li>
+      <li>回復 (設定/転送チェックポイントの取得)</li>
+      <li>転送エラー処理 (転送の例外とエラーコード)</li>
+      <li>クライアント側のログ記録</li>
+  </ul>
+
+
+  <p>DML は <b>オープンソース </b>プロジェクトです。 コミュニティからの投稿を歓迎しています。 特に、より堅牢にするために、サンプルの拡張機能を使用することをお勧めします。 バージョン0.1.0 のリリースと共に、次のサンプルを作成しました。詳細については、 <a href="https://github.com/Azure/azure-storage-net-data-movement/blob/master/README.md">GitHub Readme.md</a>を参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://github.com/Azure/azure-storage-net-data-movement/tree/master/samples/DataMovementSamples">Azure Storage Blob のアップロード、ダウンロード、コピー</a></li>
+      <li><a href="https://github.com/Azure/azure-storage-net-data-movement/tree/master/samples/S3ToAzureSample">AWS S3 から Azure Blob Storage へのデータの移行</a></li>
+  </ul>
+
+
+  <p><b>次の手順</b></p>
+
+
+  <p>AzCopy とデータ移動ライブラリの両方の投資を継続し、データ移動ライブラリの次のリリースでは、より高度な機能のサポートを追加します。これには次のようなものが含まれます。</p>
+
+
+  <ul>
+      <li>ダウンロード、アップロード、ディレクトリのコピー (ローカルファイルディレクトリ、blob 仮想ディレクトリ、ファイル共有ディレクトリ)</li>
+      <li>再帰モードまたはフラットモードでディレクトリを転送する</li>
+      <li>ファイルとディレクトリをコピーするときにファイルパターンを指定する</li>
+      <li>[ディレクトリにスナップショットをダウンロードする]</li>
+  </ul>
+
+
+  <p>ご意見をお待ちしております。</p>

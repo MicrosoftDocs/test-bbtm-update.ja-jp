@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d6bcc1816e1c6236f82f4123ceb03b17178cd149
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893523"
+Slug: dev-test-starts-with-it-create-simple-cloud-only-dev-test-configurations-using-resource-manager-templates
+Title: 'Dev-Test 開始: Resource Manager テンプレートを使用した単純なクラウド専用の開発/テスト構成の作成'
+Summary: Azure を使用すると、アプリケーションとそのすべてのコンポーネント (web アプリ、データベース、データベースサーバー、ストレージ、およびすべてのサードパーティサービス) に対して、開発/テスト環境を簡単に設定できます。 Azure Resource Manager は、すべてのアプリリソースとサービスの展開と管理を簡略化するのに役立ちます。
+Content: >-
+  <p><em>60</em><em>-開発者の5% が開発/テストリソースを取得するのに時間がかかりすぎると言っ &rsquo; ています。 * これ &rsquo; は必要ありませ</em>ん。</p>
+
+
+  <p><em>このブログシリーズでは、Microsoft cloud を使用して開発/テスト環境をセットアップする方法について説明します。これにより、数時間または数日ではなく数分 &mdash; で開発/テストを最大限に活用できます。</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9073a6a5-14b2-44b0-a9cb-5809b3f247aa.jpg"><img alt="IaaS_BlogThumb_250x143" border="0" height="137" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7409c381-c525-47b5-bd54-7b9bc3be5fc6.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="IaaS_BlogThumb_250x143" width="240"></a></p>
+
+
+  <p>Azure では、アプリケーションとそのすべてのコンポーネント (web アプリ、データベース、データベースサーバー、ストレージ、およびすべてのサードパーティサービス) の開発/テスト環境を簡単にセットアップできます (Azure で独自の開発/テスト環境を作成するためのリソースについては、前述のブログ記事を<a href="https://azure.microsoft.com/en-us/blog/dev-test-starts-with-it-how-to-resource-vms-for-your-dev-test-environment/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">参照してください</a> )。 <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">Azure Resource Manager</a> は、すべてのアプリリソースとサービスの展開と管理を簡略化するのに役立ちます。</p>
+
+
+  <p>リソースマネージャーを使用すると、サービスとリソースを個別に処理するのではなく、リソースグループ内のアプリのコンポーネントをデプロイ、管理、および監視することができます。 リソースグループを作成し、別のグループにリソースを移動して、既存のグループに新しいリソースを追加することができます。</p>
+
+
+  <p>また、Resource Manager テンプレートを使用して、新規または既存のリソースグループ内に <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">アプリを迅速にデプロイする</a> こともできます。これには、次のクラウドのみの開発/テストの構成が含まれます。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-workload-template-ad-domain/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">Active Directory ドメインコントローラー</a>、高可用性、2サーバー Active Directory Domain Services のドメイン構成</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-workload-template-sharepoint/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">SharePoint server 2013</a>、3サーバーまたは9サーバー SharePoint ファーム</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-workload-template-sql-alwayson/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">alwayson SQL Server</a>5 台のサーバー SQL Server alwayson と可用性グループの構成</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-workload-template-wordpress/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">WordPress サーバー</a>、Ubuntu で実行されている WordPress サーバー</li>
+  </ul>
+
+
+  <p>これらは <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authoring-templates/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">、独自の</a>テンプレートを作成する前に、Resource Manager テンプレートを調べるための開始点として適しています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/campaigns/dev-test-starts-with-it-webinar-series/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">今後の開発/テストに参加するには、IT ウェビナーから始め</a>ます。<br>詳細につい
+
+  <a href="https://azure.microsoft.com/en-us/solutions/dev-test/?wt.mc_id=WW_CE_IAAS_OO_BLOG_NONE">ては、Azure での開発/テストに関するページを参照して</a>ください。</p>
+
+
+  <p><br>
+
+  * ソース: テスト環境管理のビジネスケース、Cognizant</p>

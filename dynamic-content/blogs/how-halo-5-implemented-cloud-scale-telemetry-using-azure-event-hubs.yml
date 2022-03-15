@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c911da91d517701c4c203ada8477d5fadbc9e85c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893483"
+Slug: how-halo-5-implemented-cloud-scale-telemetry-using-azure-event-hubs
+Title: Halo 5 でクラウド スケール テレメトリを実装する方法とAzure Event Hubs
+Summary: Halo 5 では、Event Hubs大規模なゲーム テレメトリ プラットフォームで 1 日あたり数十億件のイベントを処理することを選択しました。 その理由を見つける。
+Content: >-
+  <p><img alt="Halo 5 Guardians" src="" style="height: 444px; width: 720px"></p>
+
+
+  <p>販売数が 6,500 万<a href="https://wwwhalowaypointcom/" target="_blank"></a>ユニットを超える Halo は、全時間で最も人気のあるゲーム ゲーム の 1 つです。Halo <em>5: ガー</em>ディアンは <a href="https://wwwxboxcom/" target="_blank">Xbox</a> 向けファーストユーザー向けシューティング ゲームです。<font style="background-color: #ffff00"><a href="https://gamingtrendcom/2015/11/04/halo-5-has-broken-several-xbox-specific-records/"></a></font>これは、これまでのところ、Halo 5 最高の Halo ゲームと呼ばれるシングルプレイヤーゲームゲームとマルチプレーヤー ゲーム トレンドの両方をサポートし、最初の週の選手はまとめて Halo <em>5</em> の 2,100 万時間をプレイしました。<em></em> 900 万人のマルチ プレーヤー モード</p>
+
+
+  <p>高度なテレメトリは、高品質のゲーム エクスペリエンスを提供するために不可欠であり、Halo チームはテレメトリと分析を使用してゲーム内のスムーズなランタイムから説得力のあるストーリー、キャラクター、アート Halo まで、ゲームエクスペリエンスのあらゆる側面を改善する長い実績を持っています。Halo は、ゲームで作成されるテレメトリの量に対してリアルタイム分析と長期分析の両方を実行します。</p>
+
+
+  <p>他の用途では、分析を使用して、品質の一致などの運用インテリジェンスを得るだけでなく、ゲームをより良く調整してプレーヤーを楽しませるためにゲームを調整する方法に関する入力が使用されます。このテレメトリは、Halo の Web サイトと API の収集と処理に大きな効果を与えます。Halo は、1 秒あたり 100 万要求を超えるピークが続く、特定の日に数百億件のイベントを取り込む大規模なタスクです。</p>
+
+
+  <h1>なぜAzure Event Hubs</h1>
+
+
+  <p>Halo は、ゲーム エクスペリエンス内とそのランタイム サービスからテレメトリを生成します。課題は、ユーザー エクスペリエンスまたは Halo プラットフォームに悪影響を与えることなく、このテレメトリを収集して使用する必要がありました。Halo チームは、使いやすく、実行が信頼性が高く、世界クラスのマルチゲームで必要な大規模なトラフィックとエラスティック スループットに対してスケーリングできる非常にスケーラブルなテレメトリイングレス機能を必要としました。Azure Service Bus Halo は、テレメトリ <a href="https://azuremicrosoftcom/en-us/services/event-hubs/">パイプラインでAzure Event Hubs</a>を使用することを選択しました</p>
+
+
+  <p>Halo チームは Apache Kafka を含むさまざまな分散ログ ソフトウェアの使用を検討しましたが、一部は Azure Event Hubs に決定しました。これは、PaaS <a href="https://azuremicrosoftcom/en-us/overview/what-is-paas">(サービス</a>としてのプラットフォーム)&nbsp; オファリングとして、実行するランタイム管理やメンテナンスがないので、これは、ログ サブシステムをセットアップして維持するためにチームをトレーニングする必要がなさたため、より小さなレベルアップ要件を提供しました</p>
+
+
+  <p>Halo チームにとって重要だったのは、何百万人ものプレーヤーが参加している場合でも、1 秒以下の待機時間でゲーム イベントを処理し、イベントを失わない能力でした Event Hubs が提供する分散ログ メカニズムは、Halo に必要なスケールと速度に大きな一致でした。</p>
+
+
+  <p>Event Hubs は、1 秒あたり数百万のイベントの受信を提供し、1 秒あたりの待機時間が 1 秒以下で、複数のコンシューマーが何度も読み取り可能です。これにより、Halo はテレメトリに対して高速処理と低速処理の両方を実行し、データから最大値を導き出します</p>
+
+
+  <h1>次の手順</h1>
+
+
+  <p>小規模でも&rsquo;大規模でも、ゲーム、アプリ、または IoT &ndash; &ndash; のテレメトリを扱う場合は、無料試用版を使用して <a href="https://azuremicrosoftcom/pricing/free-trial/">Azure Event Hubs</a> を試してください&#39;。halo <a href="https://wwwhalowaypointcom/en-us/games/halo-5-guardians"><em>5: ガー</em></a> ディアンは、ディープ テレマティックスが提供できる結果を自分で取得することを忘れないでください</p>

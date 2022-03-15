@@ -1,0 +1,143 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 977062621d3d06fdce62e8cc027c206e4ef6ac0c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892431"
+Slug: simplifying-virtual-machine-troubleshooting-using-azure-log-collector
+Title: Azure Log Collector を使用した仮想マシンのトラブルシューティングの簡略化
+Summary: この投稿では、仮想マシンとクラウド サービスのログを収集するために Azure Log Collector 拡張機能を使用する方法について説明します。
+Content: >-
+  <p>仮想マシンまたはクラウド サービス アプリケーションで問題が発生し、トラブルシューティングのために異なるロール/VM インスタンスからログを収集する必要があるシナリオが発生しましたか? 仮想マシンに接続してこれらのログを収集できない場合は、どうしますか? これらのシナリオに&nbsp; 対処するために、Azure カスタマー サポート チームは、リモート仮想マシンにログインすることなく、 <strong>Cloud Service</strong> インスタンスまたは <strong>Virtual Machines</strong> からログを収集してアップロードできる Azure Log Collector 拡張機能をリリースしました。&nbsp;&nbsp; これらのログは、Azure サポート チームまたは問題のトラブルシューティングを行っているすべてのユーザーと共有できる Azure Storage に自動的にアップロードできます。 VM 拡張機能&#39;新しく使用する場合は、こちらのドキュメント にアクセスして、VM 拡張機能&nbsp;の概要を確認&nbsp;<a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-extensions-features/">できます</a> 。</p>
+
+
+  <blockquote>注: 現在のバージョンの Log Collector は Windows VM のみを対象とします。Linux のサポートは近日提供予定です。</blockquote>
+
+
+  <h2>Log Collector 拡張機能が必要な理由</h2>
+
+
+  <p>Azure PaaS または IaaS プラットフォームにデプロイされたアプリケーションに関する問題のトラブルシューティングに取り組む場合は、問題が発生した正確な時刻に仮想マシンから診断データを収集する必要があります。 データは、独自のサービスまたは Azure VM エージェントなどの Azure コンポーネントから生成できます。 適切なデータを検索して収集するには、Azure 環境に関する詳細な知識が必要です。&nbsp; Azure Log Collector は、次の機能をサポートすることでこれを簡略化します。</p>
+
+
+  <ul>
+      <li>カスタマイズをサポートする、ログ収集用のシンプルなコマンド ライン インターフェイス。</li>
+      <li>リモート アクセス接続に依存していない場合でも、リモート アクセスが有効になっていないか、何らかの理由で動作が停止した場合でも、診断データは収集されます。</li>
+      <li>拡張機能は、Service Management コマンドレットを使用して任意の場所から有効REST APIまたはAzure PowerShellできます。<b> </b></li>
+      <li>クラウド サービスに多数のロール インスタンスがある場合、拡張機能により、一度に 1 つのコマンド シーケンスを使用してすべての仮想マシンからログ データを取得する時間が大幅に節約されます。</li>
+      <li>これにより、VM 上のカスタムの場所を指定して、追加のデータ ファイルを収集できます。</li>
+      <li>この機能は、Virtual MachinesとCloud Services。</li>
+  </ul>
+
+
+  <h4>&nbsp;</h4>
+
+
+  <h2>拡張機能によって収集されるログ ファイルは何ですか?</h2>
+
+
+  <p>Azure Log Collector でサポートされるコレクション モードは次のとおりです。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" style="height: 296px;" width="663">
+      <tbody>
+          <tr>
+              <td valign="top" width="200"><strong>種類</strong></td>
+              <td valign="top" width="527"><strong>収集されたログ</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" width="200">Azure プラットフォーム ログ</td>
+              <td valign="top" width="527">この収集モードには、Azure ゲスト エージェントと他の Azure コンポーネントに関連するログすべてが含まれます</td>
+          </tr>
+          <tr>
+              <td valign="top" width="200">すべてのログ</td>
+              <td valign="top" width="527">
+              <ul>
+                  <li>Azure プラットフォーム ログ</li>
+                  <li>システムイベント ログとアプリケーション イベント ログ</li>
+                  <li>HTTP エラー ログ</li>
+                  <li>IIS ログ</li>
+                  <li>セットアップ ログ</li>
+                  <li>その他のシステム ログ</li>
+              </ul>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="200">その他のログ</td>
+              <td valign="top" width="527">任意のカスタム ログ フォルダーをコレクション の対象にできます。</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>これらの 2 つの<a href="https://acom-sandbox.azurewebsites.net/en-us/documentation/articles/virtual-machines-windows-log-collector-extension/?rnd=1"></a><a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-log-collector-extension/">モードの構成については、VM</a> 拡張機能のドキュメントを参照してください。この<a href="https://blogs.msdn.com/b/kwill/archive/2013/08/09/windows-azure-paas-compute-diagnostics-data.aspx"></a>拡張機能によって収集されるファイルの説明については、このブログを参照してください。</p>
+
+
+  <h2>Azure Log Collector 拡張機能を使用する方法</h2>
+
+
+  <p>クラウド サービスと Azure Virtual Machine 内で実行されているアプリケーションのトラブルシューティングの方法に応じて、ドキュメントには <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-log-collector-extension/"></a>SetAzureServiceLogCollector.ps1とSetAzureVMLogCollector.ps1&rsquo;&nbsp;&nbsp; という 2 &lsquo; &rsquo;&nbsp; つのサンプル PowerShell&nbsp; &lsquo; スクリプトが記載されています。これらのスクリプトをコピーし、ドキュメント ページの手順に従ってローカルで実行します。その後、ログの収集は次のように簡単です。Azure VM のサンプル の使用例。</p>
+
+
+  <pre class="prettyprint">
+
+  #Specify your cloud service name
+
+  $ServiceName = &#39;YourServiceName&#39;
+
+
+  #Specify the instances on which extension will be installed and enabled.  Use wildcard * for all instances
+
+  $VMName = &quot;YourVMName&quot;
+
+
+  #Specify the additional data collection folders and settings
+
+  $AdditionalDataList = @()
+
+
+  #Specify the collection mode, &quot;Full&quot; or &quot;GA&quot;
+
+  $mode = &quot;Full&quot;
+
+  </pre>
+
+
+  <pre class="prettyprint">
+
+  $StorageAccountName = &#39;Your Azure Storage Account Name&#39;
+
+  $StorageAccountKey = &#39;Your Storage Key&#39;
+
+  </pre>
+
+
+  <pre class="prettyprint">
+
+  .\SetAzureServiceLogCollector.ps1 -ServiceName YourCloudServiceName  -Roles $roles  -Instances $instances &ndash;Mode $mode -StorageAccountName $StorageAccountName -StorageAccountKey $StorageAccountKey -AdditionDataLocationList $AdditionalDataList</pre>
+
+
+  <p>同様に、Azure Cloud Service のサンプル の使用例を次に示します。</p>
+
+
+  <pre class="prettyprint">
+
+  .\SetAzureServiceLogCollector.ps1 -ServiceName YourCloudServiceName  -Roles $roles  -Instances $instances &ndash;Mode $mode -StorageAccountName $StorageAccountName -StorageAccountKey $StorageAccountKey -AdditionDataLocationList $AdditionalDataList</pre>
+
+
+  <p>注: これら 2 つのスクリプトは、ドキュメント ページから <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-log-collector-extension/">コピーできます</a>。 コマンドを繰り返して、ログを複数回収集します。 ログと VM のサイズによっては&nbsp;、ログがストレージ アカウントにアップロードされるのに最大で数分かかる場合があります。</p>
+
+
+  <h2>ログが収集された後は何が起こりますか?</h2>
+
+
+  <p>ログがストレージ アカウントにアップロードされると、ここでの手順に従ってトラブルシューティングを行う方法や、サポート <a href="https://blogs.msdn.com/b/kwill/archive/2013/08/09/windows-azure-paas-compute-diagnostics-data.aspx"></a> インシデントが発生した場合は Azure サポート チームに送信できます。 拡張機能が不要になった場合は、MSDN のドキュメントを使用して拡張機能をアンインストールできます。 IaaS VM のサンプル コードを次に示します。IaaS の場合:</p>
+
+
+  <pre class="prettyprint">
+
+  Get-AzureVM -ServiceName $ServiceName -Name $VMName | Set-AzureVMExtension -Publisher Microsoft.WindowsAzure.Compute -ExtensionName &quot;AzureLogCollector&quot; -Version 1.0 -Uninstall | Update-AzureVM -Verbose</pre>
+
+
+  <p>この拡張機能が役に立つ場合があります。 このの Linux&nbsp; バージョンと、拡張機能&nbsp;を追加するカスタム コマンドレットのサポートにご期待ください。</p>

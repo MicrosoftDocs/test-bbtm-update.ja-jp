@@ -1,0 +1,96 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a88134feaa04639de6df25263f6dd99a1782bbba
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889986"
+Slug: azure-event-hubs-is-now-offering-support-for-availability-zones-in-preview
+Title: Azure Event HubsプレビューでサポートされるAvailability Zonesを提供しています
+Summary: Azure Event HubsプレビューでサポートされるAvailability Zonesを提供しています
+Content: >-
+  <p>Azure Event Hubs簡単にスケーリングできるシンプルさと機能により、ストリーミング データが簡単になります。 このプラットフォームを通過するデータのEvent Hubsは、サービスの信頼性を高くする上で非常に優れた機能です。 実際、この文の読み終わりまでには、Event Hubs 1 億を超えるイベントがグローバルに取り込まれるでしょう。</p>
+
+
+  <p>現在、サービスの耐久性を高め、Availability Zonesのパブリック プレビューでサポートを提供Standard Event Hubs。 この新機能により、上位のイベント ストリーミング サービスにさらに高い回復性とフォールト トレランスが追加されます。 ディザスター Availability Zones機能を使用して、両方<a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-geo-dr" target="_blank"></a>が適切に使用されている場合にゾーンの停止とリージョンの障害の両方に耐えることができる高可用性サービスを提供するために、Availability Zones パートナーを適切にサポートします。</p>
+
+
+  <p>Event Hubs小売、自動車、財務などの業界のお客様は、予測分析や財務取引などのシナリオにストリーミング機能を使用しています。 Availability Zonesサポートにより、お客様&rsquo; のワークロードを可能な限り円滑に実行し続けるというコミットメントがさらに強化されます。 この新機能をお試しください。</p>
+
+
+  <h2>どのようなリージョンで提供されますか?</h2>
+
+
+  <ul>
+   <li>米国中部</li>
+   <li>米国東部 2</li>
+   <li>フランス中部</li>
+  </ul>
+
+
+  <p>今後&rsquo;、有効なリージョンに対するAvailability Zonesサポートを提供する予定です。 <a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank">詳細については、Availability Zones</a>。</p>
+
+
+  <h2>名前空間でAvailability Zonesを有効Standard Event Hubs方法</h2>
+
+
+  <p>新しい名前空間でのみAvailability Zonesを有効にできます。 既存の名前空間の移行はサポートされていません。</p>
+
+
+  <p>ARM テンプレートを使用して Standard Event Hubs 名前空間を作成する場合は、可用性ゾーンでサポートされているリージョンを指定し、テンプレートで zoneRedundant プロパティを true に設定するのと同じ方法で簡単です。</p>
+
+
+  <pre>
+
+  &quot;resources&quot;: [
+
+
+  {
+
+
+  &quot;apiVersion&quot;: &quot;2018-01-01-preview&quot;,
+
+
+  &quot;name&quot;: &quot;[parameters(&#39;eventHubNamespaceName&#39;)]&quot;,
+
+
+  &quot;type&quot;: &quot;Microsoft.EventHub/namespaces&quot;,
+
+
+  &quot;location&quot;: &quot;[parameters(&#39;location&#39;)]&quot;,
+
+
+  &quot;sku&quot;: {
+
+
+  &quot;name&quot;: &quot;Standard&quot;
+
+
+  },
+
+
+  &quot;properties&quot;: {
+
+
+  &quot;zoneRedundant&quot;:true
+
+
+  }
+
+
+  }
+
+
+  ],</pre>
+
+
+  <p>次に示すように、ポータルで新しい名前空間を作成することで、ゾーン冗長を有効にすることもできます。 名前空間&rsquo;でゾーン冗長を有効にした後は無効にできないことに注意することが重要です。</p>
+
+
+  <p><img alt="Enable Availability Zones on your Event Hubs in the Azure portal" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/EH_AZ.png" style="width: 1022px; height: 550px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>詳細については<a href="https://azure.microsoft.com/en-us/services/event-hubs/" target="_blank">、Azure Event Hubs。</a></p>

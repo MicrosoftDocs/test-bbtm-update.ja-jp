@@ -1,0 +1,132 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 349b2f9f63fff57153c11afba5a70d93317ee178
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893489"
+Slug: hdinsight-tools-for-intellij-eclipse-april-updates
+Title: IntelliJ 用 HDInsight ツールと Eclipse & 4 月の更新プログラム
+Summary: HdInsight Tools for IntelliJ &amp; Eclipse の 4 月の更新をお知らせします。 これは品質のマイルストーンであり、主にコンポーネントのリファクタリングとバグの修正に重点を置いて説明します。 こちらも。。。
+Content: >-
+  <p>HdInsight Tools for IntelliJ &amp; Eclipse の 4 月の更新をお知らせします。 これは品質のマイルストーンであり、主にコンポーネントのリファクタリングとバグの修正に重点を置いて説明します。 このリリースでは、Azure Data Lake Storeサポートと Eclipse ローカル エミュレーターのサポートも追加しました。 HDInsight Tools for IntelliJ &amp; Eclipse はオープン ソース コミュニティにサービスを提供し、HDInsight Spark 開発者に関心があります。 このツールは、Linux、Mac、および Windows でスムーズに実行されます。&nbsp;</p>
+
+
+  <h2>主要な更新プログラムの概要</h2>
+
+
+  <h3>Azure Data Lake Store のサポート</h3>
+
+
+  <ul>
+   <li>
+   <p>HDInsight Visual Studio、Eclipse プラグイン、および IntelliJ プラグインで Azure Data Lake Store (ADLS) がサポートされます。 ユーザーは、サービス エクスプローラーで ADLS エンティティを表示し、オーサリングに ADLS 名前空間/&nbsp;パスを追加し、HDInsight クラスターの ADLS に対する読み取り/書き込みを Hive/Spark ジョブに送信できます。</p>
+   </li>
+   <li>
+   <p>Azure Data Lake Storeを使用するには、まず、ストレージとしてAzure HDInsightクラスター Data Lake Storeする必要があります。 <a href="https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-hdinsight-hadoop-use-portal">「Azure Portal を使用して HDInsight クラスターを</a>作成する」のData Lake Store手順に従います。</p>
+   </li>
+   <li>
+   <p>次に示すように、ADLS エンティティはサービス エクスプローラーで表示できます。</p>
+   </li>
+  </ul>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8717427b-5fda-40eb-affd-7e3f36eeed8a.png"><img alt="1" border="0" height="97" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a00c2207-f914-49e3-9022-7b60c748ce88.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin: 0px 0px 0px 13px; display: inline; padding-right: 0px; border-top-width: 0px" title="1" width="514"></a></p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>上の [エクスプローラー &ldquo;]&rdquo; をクリックすると、ユーザーは次に示すように ADLS に格納されているデータを探索できます。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ae8042b-15c4-4693-9bc5-4da62a0d3b96.png"><img alt="2" border="0" height="199" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/730244ad-13a1-4281-a28e-55039b4f522e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin: 0px 0px 0px 13px; display: inline; padding-right: 0px; border-top-width: 0px" title="2" width="629"></a></p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>ユーザーは、次に示すように、Hive/Spark ジョブで ADLS データを読み取り/書き込みできます。
+   <ul>
+    <li>クラスター Data Lake Storeプライマリ ストレージである場合は、クラスターの <b>プライマリ ストレージ adl:///</b>。 これは Azure Data Lake のクラスター ストレージのルートです。 これは、アカウント内の <b>/clusters/CLUSTERNAME</b> のパスData Lake Storeがあります。</li>
+    <li>クラスター Data Lake Store追加のストレージである場合は、次<b>の adl://DATALAKEACCOUNT.azuredatalakestore.net/。</b> URI は、データData Lake Store書き込まれるアカウントを指定し、データが書き込まれるアカウントのルートからData Lake Store。</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <blockquote>
+
+  <p>&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/80ad17b9-04f2-4451-b115-0adc1b1f0b37.png"><img alt="3" border="0" height="102" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/65586f87-3ebd-40f6-acce-00c533834052.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin: 0px 0px 0px 29px; display: inline; padding-right: 0px; border-top-width: 0px" title="3" width="669"></a></p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>
+   <p>&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-use-with-data-lake-store">HDInsight Spark クラスターを使用してデータを分析する</a>方法についてData Lake Store。</p>
+   </li>
+   <li>
+   <p><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-storm-write-data-lake-store">HDInsight で Azure Data Lake StoreをApache Stormする方法について説明します</a>。</p>
+   </li>
+  </ul>
+
+
+  <h3>Eclipse プラグイン用のローカル エミュレーター</h3>
+
+
+  <ul>
+   <li>
+   <p>ローカル エミュレーターは、以前 IntelliJ プラグインでサポートされています。</p>
+   </li>
+   <li>
+   <p>現在、ローカル エミュレーターは、IntelliJ のローカル エミュレーターと同様の機能とユーザー エクスペリエンスである Eclipse プラグインでもサポートされています。</p>
+   </li>
+   <li>
+   <p>ローカル エミュレーター&nbsp;のサポートの<a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-tools-for-intellij-with-hortonworks-sandbox"> 詳細を確認します。</a></p>
+   </li>
+  </ul>
+
+
+  <h3>品質の向上</h3>
+
+
+  <p>主な改善点は、コードのリファクタリングとテレメトリの機能強化です。 このリリースでは、ジョブの作成者、申請、およびジョブ ビューに関する 40 を超えるバグが修正され、ツールの品質が向上します。</p>
+
+
+  <h2>インストール</h2>
+
+
+  <p>HDInsight Tools for Visual Studio/Eclipse/IntelliJ が以前にインストールされている場合は、IDE で新しいビットを直接更新できます。 それ以外の場合は、以下のページを参照して最新のビットをダウンロードするか、お客様に情報を配布してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-visual-studio-tools-get-started">HDInsight Visual Studio プラグイン</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-eclipse-tool-plugin">HDInsight Eclipse プラグイン</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin">HDInsight IntelliJ プラグイン</a></li>
+  </ul>
+
+
+  <h2>今後のリリース</h2>
+
+
+  <p>次の機能は、今後のリリースで予定されています。</p>
+
+
+  <ul>
+   <li>デバッグ可能性: Spark アプリケーションのリモート デバッグのサポート</li>
+   <li>監視: Spark アプリケーション ビュー、ジョブ ビュー、ジョブ グラフを改善する</li>
+   <li>使いやすさ: インストール エクスペリエンスの向上。IntelliJ の実行メニューに統合する</li>
+   <li>Mooncake のサポートを有効にする</li>
+  </ul>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>ご意見やフィードバックをお待ちしております。 機能の要求、顧客の質問、または提案がある場合は、 までメールでお問い合わせください <a href="mailto:hdivstool@microsoft.com">hdivstool@microsoft.com</a>。 バグの送信については、templateprovided を使用して&nbsp;送信してください。</p>

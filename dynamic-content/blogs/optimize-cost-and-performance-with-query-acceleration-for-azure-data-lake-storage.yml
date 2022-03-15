@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 627eedbb79868f2f35f8c79bb458c5558174fe9d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890067"
+Slug: optimize-cost-and-performance-with-query-acceleration-for-azure-data-lake-storage
+Title: Azure Data Lake のクエリ 高速化を使用してコストとパフォーマンスを最適化Storage
+Summary: Azure Data Lake Storage のクエリ高速化のプレビューを発表します。これは Azure Data Lake Storage の新機能であり、パフォーマンスとコストの両方が向上します。
+Content: >-
+  <p>データに基づく意思決定の爆発的な展開により、企業は、より優れたカスタマー エクスペリエンスを提供し、運用効率を向上し、データに基づいてリアルタイムの意思決定を行うデータ戦略を持つ動機付けとなります。 企業がデータ駆動型になると、Azure でデータ レイクを構築する顧客が多くなるのが分かっています。 また、コストの最適化とパフォーマンスの向上は、Azure 上の Data Lake アーキテクチャの最も重要な機能の 2 つだと聞いたことがあります。 &mdash;通常、これらの 2 つの品質は互いにトレードオフされます。より多くのパフォーマンスが必要な場合は、より多くの料金を支払う必要があります。費用を節約する場合は、パフォーマンス曲線が低下すると予想されます。</p>
+
+
+  <p>その&rsquo;理由として、&rsquo;<b></b>現在、<b>Azure Data Lake Storage</b>&mdash;<b> </b><a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank">Azure Data Lake Storage</a> の新機能であるクエリ 高速化のプレビューが発表されました。この機能により、パフォーマンスとコストの両方が向上します。 この機能は、お客様がこれらの利点を実現し、Azure での Data Lake のデプロイを改善し始めるのに使用できます。</p>
+
+
+  <h2>Azure Data Lake のクエリ高速化によってパフォーマンスとコストが向上する方法</h2>
+
+
+  <p>Spark、Hive、大規模なデータ処理アプリケーションなどのビッグ データ分析フレームワークは、MapReduce などの手法を使用して、水平方向にスケーラブルな分散コンピューティング プラットフォームを<i></i>使用してすべてのデータを読み取って<i>動作</i>します。 ただし、一般に、特定のクエリまたは変換では、その目標を達成するためにすべてのデータが必要というわけではありません。 そのため、アプリケーションでは通常、読み取り、ネットワーク上での転送、メモリへの解析、最後に不要なデータの大部分をフィルター処理するコストが発生します。 このようなデータ レイクのデプロイの規模を考えると、これらのコストは設計に影響を与える主な要因になり、どれだけ意欲的になるかになります。 コストとパフォーマンスを同時に向上すると、データから抽出できる貴重な分析情報の量が向上します。</p>
+
+
+  <p>Azure Data Lake Storage のクエリ高速化を使用すると、アプリケーションとフレームワークで述語<i></i>と列プロジェクションをプッシュダウン<i></i>できます。そのため、データが最初に読み取り時に適用される可能性があります。つまり、ダウンストリームのすべてのデータ処理は、必要のないデータのフィルター処理と処理のコストから節約されます。</p>
+
+
+  <p>次の図は、一般的なアプリケーションでクエリ アクセラレーションを使用してデータを処理する方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/71cabee4-a43c-43e4-b3c9-a427c9f1413f.png"><img alt="How a typical application uses Query Acceleration to process data:" border="0" height="268" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d50b7149-36c8-43f0-8366-1e2d5c648eb7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="一般的なアプリケーションでクエリ アクセラレーションを使用してデータを処理する方法:" width="954"></a></p>
+
+
+  <ol>
+      <li>クライアント アプリケーションは、述語と列のプロジェクションを指定することによってファイル データを要求します。</li>
+      <li>クエリ アクセラレーションは、指定されたクエリを解析し、データを解析およびフィルター処理する作業を分散します。</li>
+      <li>プロセッサはディスクからデータを読み取り、適切な形式を使用してデータを解析した後、指定された述語と列のプロジェクションを適用してデータをフィルター処理します。</li>
+      <li>クエリ アクセラレーションは、応答シャードを結合してクライアント アプリケーションにストリームバックします。</li>
+      <li>クライアント アプリケーションは、ストリーミングされた応答を受信して解析します。 アプリケーションでは、追加&#39;をフィルター処理する必要が生じ、目的の計算または変換を直接適用できます。</li>
+  </ol>
+
+
+  <h2>Azure には強力な分析サービスが用意されています</h2>
+
+
+  <p>Azure Data Lake Storage&rsquo; のクエリ 高速化は、組織がすべてのデータから変革の洞察を引き出す最適な場所に Azure を作り出す方法のもう 1 つの例です。 お客様は、強力なクラウド スケールのエンドツーエンド分析ソリューションを構築するために、他の Azure サービスとの緊密な統合の恩恵を受ける可能性があります。 これらのソリューションは、最新のデータ ウェアハウス、高度な分析、リアルタイム分析を簡単かつ経済的にサポートします。</p>
+
+
+  <p>また&rsquo;、最良の組み合いのオープン ソース ソリューションが、プラットフォーム内のすべてのポイントで発生するイノベーションから均等に恩恵を受けるオープン プラットフォームの維持に取り組みしました。 Azure Data Lake Storage強力な分析サービスのエコシステム全体を支える機能を備えています。顧客は、すべてのデータ資産から変革の分析情報を抽出できます。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>Azure Data Lake のクエリ アクセラレーションの詳細については、次のStorageを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/adls/qa-preview-signup" target="_blank">Azure Data Lake Storage プレビュー プログラムにサインアップ</a>します。</li>
+      <li><a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-query-acceleration" target="_blank">Azure Data Lake のドキュメントをStorageしてください</a>。</li>
+      <li><a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-query-acceleration-how-to" target="_blank">Java と .NET のクエリ アクセラレーションを使用する方法について学習します</a>。</li>
+      <li>クエリ 高速化 <a href="https://azure.microsoft.com/en-us/pricing/details/storage/data-lake/" target="_blank">の価格モデルを理解する</a>。</li>
+      <li><a href="https://aka.ms/adls" target="_blank">Azure Data Lake の詳細については、azure Data Lake Storage</a>。</li>
+  </ul>

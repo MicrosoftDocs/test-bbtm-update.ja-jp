@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 877ea81532a4aba9abb4dfb510d962fe9916acfd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892389"
+Slug: soft-delete-for-azure-storage-blobs-ga
+Title: 一般提供されているAzure Storage BLOB のソフト削除
+Summary: >+
+  本日は、BLOB に対するソフト削除の一Azure Storageお知らせします。 この機能は、パブリック クラウド、政府機関クラウド、ソブリン クラウドのすべてのリージョンで使用できます。
+
+Content: >-
+  <p>本日は、BLOB に対するソフト削除の一般Azure Storage<strong>お知らせします</strong>。 この機能は、パブリック <strong>クラウド、政府機関クラウド、ソブリン クラウドのすべてのリージョンで使用できます</strong>。</p>
+
+
+  <p>[ソフト削除] をオンにすると、BLOB または BLOB スナップショットが削除されるデータを保存および回復できます。 この保護は、上書きの結果として消去された BLOB データにまで拡張されます。</p>
+
+
+  <h2>それはどのように機能しますか?</h2>
+
+
+  <p>削除されたデータは、完全に消去されるのではなく、論理的に削除された状態に移行します。 論理的な削除が有効になっている状態で、データを上書きすると、上書きされたデータの状態を保存するために、論理的に削除されたスナップショットが生成されます。 論理的に削除されたオブジェクトは、明示的に一覧表示されない限り表示されません。 論理的に削除されたデータが完全に有効期限切れになって復旧できなくなるまでの時間を構成することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40eb45e9-7c12-4c1f-8d0a-ed337fbb2a35.png"><img alt="storage-blob-soft-delete-overwrite-then-delete (2)" border="0" height="207" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ebd591da-d843-4151-baeb-b19548149fcf.png" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="storage-blob-soft-delete-overwrite-then-delete (2)" width="1139"></a></p>
+
+
+  <p><em>ソフト削除されたデータは灰色で、アクティブなデータは青です。最近書き込まれたデータは、古いデータの下に表示されます。B0 が B1 で上書きされると、B0 のソフト削除スナップショットが生成されます。BLOB が削除された場合、ルート (B1) もソフト削除状態に移動します。</em></p>
+
+
+  <p><em><b>ソフト削除は 100%&rsquo;</b> </em> 下位互換性があります。この機能で提供される保護を利用するために、アプリケーションに変更を加える必要がありません。この GA のお知らせでは、ソフト削除されたスナップショットを使用した BLOB の階層化のサポートが追加されました。 スナップショットがソフトに削除された BLOB で Blob Tier の設定が呼び出された場合、スナップショットは元のストレージ層に残り、構成した保有期間に基づいて期限切れになります。</p>
+
+
+  <p>新しいアカウントを作成したとき、論理的な削除は既定で無効に設定されます。 既存のストレージ アカウントについても、論理的な削除の既定の設定はオフです。 ストレージ アカウントの有効期間中であればいつでも、機能のオンとオフを切り替えることができます。 オブジェクト レベルのソフト削除は、すべてのストレージ アカウントの種類とすべてのストレージ層で使用できます。 コンテナーまたはアカウントの削除から保護されません。 偶発的な削除からストレージ アカウントを保護する方法については、Azure Resource Manager の記事「<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources">リソースのロックによる予期せぬ変更の防止</a>」をご覧ください。</p>
+
+
+  <p>ソフト削除されたデータは、アクティブなデータと同じレートで請求されます。 一般的な Azure Blob Storage の価格について詳しくは、<a href="https://azure.microsoft.com/pricing/details/storage/blobs/">Azure Blob Storage の料金に関するページ</a>をご覧ください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>ソフト削除は <a href="https://portal.azure.com/">、Azure Portal</a>、 <a href="https://www.nuget.org/packages/WindowsAzure.Storage">.NET クライアント </a>ライブラリ (バージョン 9.0.0)、 <a href="https://github.com/azure/azure-storage-java">Java</a> クライアント ライブラリ (バージョン 7.0.0)、 <a href="https://github.com/Azure/azure-storage-python/tree/master/azure-storage-blob">Python</a> クライアント ライブラリ (バージョン 1.1.0)、 <a href="https://azure.github.io/azure-storage-node/">Node.js</a> クライアント ライブラリ (バージョン 2.8.0)、 <a href="https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-5.3.0">PowerShell</a> (バージョン 5.3.0) および <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">CLI 2.0</a> (バージョン 2.0.27) でサポートされています。 また、常に Storage <a href="https://msdn.microsoft.com/library/azure/dd894041.aspx">サービス</a>REST API使用することもできます。 ソフト削除は、バージョン 2017-07-29 REST APIバージョンでサポートされています。 この機能を使っているかどうかにかかわらず、一般に、最新バージョンを常に使うことをお勧めします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91e1ce86-a1b0-43d6-a012-e097b4ca2d3c.png"><img alt="storage-blob-soft-delete-portal-configuration" border="0" height="722" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/055722a8-8f3a-457f-b372-e8e4c7c4ba4f.png" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="storage-blob-soft-delete-portal-configuration" width="771"></a></p>
+
+
+  <p><em>Azure Portal を使用してソフト削除を有効にするには、Blob Service の [ &quot;ソフト&quot; 削除] オプションに &quot;移動します。&quot; 次に、[有効 &quot;]&quot; をクリックし、ソフト削除されたデータを保持する日数を入力します。</em></p>
+
+
+  <p>機能の詳細については、このソフト <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-soft-delete">削除のドキュメント</a> と、このソフト削除コード <a href="https://github.com/Azure-Samples/storage-dotnet-blob-soft-delete">サンプルを参照してください</a>。</p>
+
+
+  <p>アプリケーションまたは他のストレージ アカウント ユーザーによってデータが誤って変更または削除される可能性がある場合は、ソフト削除をオンにすることをお勧めします。 論理的な削除はデータ保護戦略の一部であり、不注意によるデータの損失を防ぐことができます。</p>
+
+
+  <p>ソフト削除は、誤って削除または変更された BLOB データを確実に回復するのに役立ちます。 ソフト削除は、Azure Resource Manager ロックと ZRS、GRS、RA-GRS レプリケーション層を含む全体的なデータ保護戦略の重要な部分です。&nbsp; この投稿または Azure フィードバックで、この機能に関するフィードバックをお待 <a href="https://feedback.azure.com/forums/217298-storage">ちしております</a>。</p>

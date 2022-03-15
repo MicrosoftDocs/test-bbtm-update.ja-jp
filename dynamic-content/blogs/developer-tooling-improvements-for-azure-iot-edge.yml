@@ -1,0 +1,123 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 02afb01054f48fbe4e836f42a39b30ef9b4e7192
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890845"
+Slug: developer-tooling-improvements-for-azure-iot-edge
+Title: Azure IoT Edge の開発者ツールの機能強化
+Summary: 現在、Edge を使用するソリューションを構築する開発者向けのツールの機能強化を発表し、強調Azure IoTしています。
+Content: >-
+  <p>現在、Edge を使用するソリューションを構築する開発者向けのツールの機能強化を発表し、強調Azure IoTしています。 IoT ソリューションの場合、Azure IoT Edge はクラウド分析とカスタム ビジネス ロジックをデバイスに移動して、組織がデータ管理ではなくビジネス分析情報に集中できるようします。 Azure IoT Edge の詳細については、この概要記事<a href="https://docs.microsoft.com/azure/iot-edge/about-iot-edge" target="_blank">を参照してください</a>。 このブログ記事では、開発者ツールの最新の機能強化について説明します。</p>
+
+
+  <h2>Azure IoT 2017 Visual Studio Edge 拡張機能 (プレビュー)</h2>
+
+
+  <p>Visual Studio 2017 年のこの新しい拡張機能開発者は、Azure IoT Edge を使用してソリューションを簡単に作成、デバッグ、デプロイできます。 この最初のプレビュー ビルドでは、Azure IoT Edge 用の C# モジュールがサポートされています。 開始方法を次に示します。</p>
+
+
+  <ol>
+   <li><a href="https://aka.ms/azure-iot-edge-vs" target="_blank">新しい拡張機能と必要な</a> 前提条件をインストールします。</li>
+   <li>2017 Visual Studioを開き、[ファイルの新規追加] &gt; に移動Project &gt; 。</li>
+   <li>[C#] カテゴリの [Edge Azure IoT&ldquo;] をProject&rdquo;。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f058ad4-ad9a-46fa-a05e-6ad98fcc243e.png"><img alt="azure-iot-edge-vs" border="0" height="1077" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aaa44f60-9e6d-49fc-aae7-27f737254086.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="azure-iot-edge-vs" width="1551"></a></p>
+
+
+  <p>これで、最初の Edge モジュールを実行し、拡張機能に付属するシミュレーターのおかげでソリューションを流れるデータを確認する準備ができました。 この動作を確認するには、PipeMessage() メソッドの Program.cs ファイルにブレークポイントを設定し、F5 キーを押します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/04e6e437-6699-4396-86dd-bc8bc16a2d81.png"><img alt="Azure IoT Edge Extension for Visual Studio 2017 (2)" border="0" height="323" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/73a35f33-1cc5-4aaf-8264-163c2adc37cc.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure IoT 2017 Visual Studio Edge 拡張機能 (2)" width="1063"></a></p>
+
+
+  <p>Azure IoT Edge モジュールを実際のデバイスにデプロイする準備ができたら、Cloud Explorer との統合により、Visual Studio 2017 から簡単にデプロイできます。 まず、プロジェクトを右クリックし &ldquo;、[ソリューションのビルドとプッシュ] を選択IoT Edgeします&rdquo;。 次に、Azure IoT <a href="https://docs.microsoft.com/azure/iot-hub/" target="_blank">Hub</a> サービスと、デプロイ先の Edge デバイスを [Cloud Explorer] ビューで見つけて、[デプロイの作成] &ldquo;を選択します&rdquo;。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1e49196-6f8b-4264-afbf-c6c61c11ceed.png"><img alt="Search for resources" border="0" height="420" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/365a198a-4582-471d-ad94-fbb8ebd8386f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="リソースを検索する" width="376"></a></p>
+
+
+  <p>Azure IoT <a href="https://aka.ms/iotdev-vs" target="_blank">Edge 用の新しい Visual Studio 2017 拡張機能について学習します</a>。</p>
+
+
+  <h2>Azure IoT Edge Jenkins プラグイン</h2>
+
+
+  <p>また、Edge <a href="https://plugins.jenkins.io/azure-iot-edge" target="_blank">Jenkins プラグインの Azure IoTが</a>リリースされたと共有して幸せです。 このリリースでは、ネイティブの Jenkins 機能を使用して、IoT Edge ソリューションを継続的に構築し、Azure IoT Edge デバイスにデプロイできます。 Jenkins と一緒<a href="https://azure.microsoft.com/en-us/services/devops/" target="_blank">Azure DevOps Services</a>を使用するか、このプラグインを利用して、以下を含む Intelligent Edge ソリューションを提供することができます。</p>
+
+
+  <ul>
+   <li>C#Azure IoT Python、Node.js、C または Java、または C# 関数で Edge モジュールをビルドします。</li>
+   <li>モジュールを、Azure Container Registry他のレジストリにプッシュします。</li>
+   <li>Linux コンテナーまたはコンテナーをWindowsします。</li>
+   <li>個々のデバイスにIoT Edge、または複数のデバイスに大規模に展開します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2cee0874-39f5-4acd-bf1e-0c71b8d74286.png"><img alt="azure-iot-edge-jenkins" border="0" height="1024" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6d9d1ae-ae5a-463e-8b1a-dbc8b96f63ca.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="azure-iot-edge-jenkins" width="1605"></a></p>
+
+
+  <p>Edge <a href="https://aka.ms/iotdev-jenkins" target="_blank">Jenkins プラグインのAzure IoT詳細を確認してください</a>。</p>
+
+
+  <h2>Azure IoT Edge 拡張機能の Visual Studio Code更新プログラム</h2>
+
+
+  <p>Edge ソリューション開発のために Visual Code 用の<a href="https://aka.ms/azure-iot-edge-vscode" target="_blank">既存の Azure IoT</a> 拡張機能を使用している開発者向けには、最近、次の点を含むいくつかの重要な機能強化もリリースされました。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/iot-edge/how-to-develop-csharp-module#launch-and-debug-module-code-without-container" target="_blank">IoT Edge、</a>Linux、または Mac でのローカル テストとデバッグWindowsシミュレーター。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/iot-edge/how-to-debug-multiple-modules-vscode" target="_blank">複数のモジュールを同時にデバッグする</a>。</li>
+   <li>モジュールAzure Stream Analyticsビルドします。</li>
+   <li>C を使用してカスタム モジュールをビルドします。</li>
+   <li>1.3.0 の新機能である Java を使用してカスタム モジュールをビルドします。</li>
+   <li><a href="https://blogs.msdn.microsoft.com/iotdev/2018/09/19/azure-iot-toolkit-supports-iot-hub-module-management-module-twin-module-direct-method-module-crud/" target="_blank"></a> 1.4.0 の新機能であるモジュール リストのコンテキスト メニューで、モジュール メソッドを呼び出します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f1d8a500-d1ed-4b00-ad3b-0467dcdea3f5.png"><img alt="Select Module Template" border="0" height="309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2e450e0-78a6-4d93-a7cc-8c04d60b3938.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="モジュール テンプレートの選択" width="760"></a></p>
+
+
+  <p>最新の Azure IoT <a href="https://blogs.msdn.microsoft.com/iotdev/2018/08/14/azure-iot-edge-for-vs-code-1-2-0-has-been-released/" target="_blank">Edge 拡張機能の機能強化の詳細については、Visual Studio Code</a>。</p>
+
+
+  <h2>Azure IoT Edge 開発者向けの CLI: iotedgedev</h2>
+
+
+  <p>最後に、オープン ソース <a href="https://github.com/Azure/iotedgedev" target="_blank">IoT Edge Dev Tool</a> を使用すると、使いやすいコマンド ライン インターフェイスを使用して、内部ループ開発タスク (コード、デバッグ、テスト) と CI/CD タスクを簡略化できます。</p>
+
+
+  <pre>
+
+  Usage: iotedgedev [OPTIONS] COMMAND [ARGS]...
+
+
+  Options:
+     --version   Show the version and exit.
+     -h, --help  Show this message and exit.
+
+  Commands:
+     add        Add a new module to the solution
+     build      Build the solution
+     deploy     Deploy solution to IoT Edge device
+     genconfig  Expand environment variables and placeholders in *.template.json
+                and copy to config folder
+     init       Create a new IoT Edge solution and provision Azure resources
+     log        Open a new terminal window for EdgeAgent, EdgeHub and each Edge
+                module and save to LOGS_PATH
+     monitor    Monitor messages from IoT Edge device to IoT Hub
+     new        Create a new IoT Edge solution
+     push       Push module images to container registry
+     setup      Setup IoT Edge simulator. This must be done before starting
+     start      Start IoT Edge simulator
+     stop       Stop IoT Edge simulator
+     docker     Manage Docker
+     iothub     Manage IoT Hub and IoT Edge devices
+     simulator  Manage IoT Edge simulator
+     solution   Manage IoT Edge solutions</pre>
+
+  <p>CLI の使用を開始するには、このクイック スタートに <a href="https://github.com/Azure/iotedgedev" target="_blank">従います</a>。 詳細については、 <a href="https://github.com/Azure/iotedgedev/wiki" target="_blank">iotedgedev wiki を参照し</a> 、この投稿 <a href="https://aka.ms/iotdev-edgecli" target="_blank">を参照してください</a>。</p>

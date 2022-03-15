@@ -1,0 +1,108 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6e3ab0fa8dfce2b5b865e952d37a9af3957b583b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894470"
+Slug: azure-stack-iaas-part-one
+Title: Azure Stack IaaS – パート 1
+Summary: 顧客とAzure Stack話し合う場合、データセンターにクラウドネイティブ機能Azure Stack提供する価値が見え出されます。 アプリを最新化し、サービスを提供できる独自のソリューションにAzure Stackする機会が見つかっていますが、多くの場合、どこから始めるかは一時停止します。
+Content: >-
+  <p><em>このブログ記事は、プリンシパル プログラム マネージャーである Daniel Savage 氏、Azure Stack 氏、Azure Stack シニア プログラム マネージャーの Tiberiu Radu 氏によって共同作成されました。</em></p>
+
+
+  <h2>Azure Stackは、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです</h2>
+
+
+  <p>お客様とAzure Stackについて話し合う際には、データセンターにクラウドネイティブ機能Azure Stack提供する価値が見受け取ります。 アプリを最新化し、サービスを提供できる独自のソリューションにAzure Stackする機会が見つかっていますが、多くの場合、どこから始めるかは一時停止します。 彼らは、仮想マシン (VM) で現在実行されているアプリへの投資から価値を得る方法を疑問に思っています。 彼らは、この &ldquo;Azure Stack役立ちますか? サービスとしてのプラットフォームの準備ができていない場合は、どうしますか?&rdquo; これらの質問は困難ですが、その中核となるアプリケーションが <strong>IaaS</strong> プラットフォームAzure Stack理解すると、より明確になります。</p>
+
+
+  <p>Azure Stack を使用すると、お客様は Azure の自分のインスタンスを、自分のデータセンターで実行できるようになります。 組織はAzure Stackクラウド戦略&rsquo;の一部としてサービスを選択しています。これは、パブリック クラウドが機能しない状況に対処するのに役立つためです。 Azure Stack を使用する最も一般的な 3 つの理由は、パブリック クラウドへのネットワーク接続の低下、規制または契約上の要件、またはインターネットに公開できないバックエンド システムが原因です。</p>
+
+
+  <p>Azure Stack では、新しいハイブリッド アプリケーション パターン、DevOps の<a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/#step-by-step-tutorials" target="_blank"></a>プラクティスとプロセスを簡略化するための一貫した <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/targets/azure-stack?view=azdevops" target="_blank">Azure</a> API、<a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-marketplace-azure-items" target="_blank">Marketplace</a> を通じて利用できる広範な Azure エコシステム、App Services や <a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-app-service-overview" target="_blank">IoT Hub などの Azure PaaS サービス</a>をローカルで実行するオプションに関する多くの人気が生み出されています。 これらすべてが IaaS の重要な機能の 1 つであり、新しいブログ シリーズを開始して見せび出すのは非常に楽しそうです。</p>
+
+
+  <p>IaaS のAzure Stackへようこそ。</p>
+
+
+  <p>詳細については、以下のリソースを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/overview/azure-stack/" target="_blank">Azure Stackの使用例</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/overview/what-is-azure/iaas/" target="_blank">Azure IaaS の概要</a></li>
+  </ul>
+
+
+  <h2>IaaS は仮想マシンを超える</h2>
+
+
+  <p>IaaS を単に仮想マシンだと考える人が多くいますが、IaaS にはもっと多くのことが関係しています。 Azure または Azure Stack に VM をデプロイする場合、マシンには、DNS、パブリック IP、ファイアウォール規則 (ネットワーク セキュリティ グループとも呼ばれます) を含むソフトウェアによるネットワークと、それ以外の多くの機能が含まれることになります。 VM のデプロイでは、Blob Storage で実行されているソフトウェア定義ストレージ上に VM のディスクも作成されます。 ポータル イメージAzure Stack、VM をデプロイした後に、この完全なソフトウェア定義インフラストラクチャがどのように表示されるのか確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/134b984d-4884-42cc-933e-7a55ad986f3a.png"><img alt="Full software defined infrastructure in the Azure Stack portal" border="0" height="884" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1994473-f2ff-4343-925d-87cc5cb7562b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Stack ポータルでの完全なソフトウェア定義インフラストラクチャ" width="1500"></a></p>
+
+
+  <p>詳細については、製品の概要については、以下を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/overview/what-is-a-virtual-machine/" target="_blank">Azure Virtual Machines</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/services/virtual-network/" target="_blank">Azure 仮想ネットワーク</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Azure Managed Disks</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction" target="_blank">Azure ストレージ</a></li>
+  </ul>
+
+
+  <h2>IaaS は PaaS サービスの基盤です</h2>
+
+
+  <p>Azure PaaS サービスが背後にある IaaS VM を利用しているのをご存知でしたか? ユーザーとしてこれらの VM は&rsquo;表示されますが、これらの VM は Event Hubs または Azure Kubernetes Service (AKS) などの機能を提供します。 この同じ Azure IaaS が、Azure Stack の PaaS の基盤です。 アプリケーションの配信に使用できるだけでなく、Azure PaaS サービスでは IaaS VM を使用して、Azure Stack でソリューションを提供します。</p>
+
+
+  <p>例Event Hubs現在プライベート プレビュー中の場合は、次の例を参照してください。 管理者Azure Stack Marketplace からEvent Hubsリソース プロバイダーをダウンロードしてインストールします。 インストールすると、新しい管理者サブスクリプションと一連の IaaS リソースが作成されます。 管理者は、管理ポータルで仮想ネットワーク、DNS ゾーン、仮想マシン スケール セットなどについて確認します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3c995bbe-c8ee-4e78-b2e6-472d79c226ad.png"><img alt="Microsoft Azure Stack Administration portal" border="0" height="879" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5560c540-9dc8-4ad8-9c34-80def2f014b5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Microsoft Azure Stack 管理ポータル" width="1662"></a></p>
+
+
+  <p>ただし、開発者の 1 人が Azure Stack にイベント&rsquo; ハブをデプロイすると、サブスクリプション内の背後にある IaaS VM とリソースが表示されなき、イベント ハブが表示されるだけになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86e21fcf-49be-4f12-81f7-578c860f9635.png"><img alt="Deploys EventHub in Azure Stack" border="0" height="713" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/484d8685-ef02-47e0-b45a-162bbed387de.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="EventHub をデプロイAzure Stack" width="1557"></a></p>
+
+
+  <h2>操作を通じてアプリを最新化する</h2>
+
+
+  <p>多くの場合、アプリケーションの最新化には、アプリケーション コードの記述や変更が含まれる、または最新化とは、アプリケーション全体を設計しなおす意味だと考えます。 ほとんどの場合、体験は小さな手順から始まります。 Azure または Azure で VM を実行Azure Stack、操作を最新化できます。</p>
+
+
+  <p>基になるインフラストラクチャに加えて、Azure と Azure Stack は、統合されたインテリジェントなサービスの完全なセットを提供します。 これらのサービスは、VM の管理、セルフサービス機能、デプロイの強化、コードとしてのインフラストラクチャの有効化をサポートします。 このAzure Stack、チームを強化できます。</p>
+
+
+  <p>次のブログ記事では、これらの領域について詳しく説明します。 IaaS VM 操作を最新化するために利用できるクラウド機能のグラフを次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e2524862-ed18-404d-bce0-5fa9d7ab69ff.png"><img alt="Chart of cloud capabilities to modernize your IaaS VM operations" border="0" height="1132" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e55c469-1137-4c83-ac55-20a97b458f63.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="IaaS VM 操作を最新化するクラウド機能のグラフ" width="1965"></a></p>
+
+
+  <h2>この&rsquo;ブログ シリーズの次の機能</h2>
+
+
+  <p>このブログ シリーズの今後の投稿をお読みください。 今後予定されているトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">既に持っているものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/" target="_blank">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分のものを保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/" target="_blank">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/" target="_blank">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven/" target="_blank">チームが必要</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に行う場合は、自動化します</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功を基に構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

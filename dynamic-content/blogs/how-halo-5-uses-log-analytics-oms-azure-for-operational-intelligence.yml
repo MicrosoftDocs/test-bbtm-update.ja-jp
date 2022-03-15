@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 179e87a61ce5a04f3a2e2f8a47839596fe25cd4a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893479"
+Slug: how-halo-5-uses-log-analytics-oms-azure-for-operational-intelligence
+Title: 'Halo 5: ガーディアンは、運用インテリジェンスのために Microsoft Azure Log Analytics を使用します'
+Summary: Halo 5 で Microsoft Log Analytics を使用して運用インテリジェンスをMicrosoft Operations Management Suiteする方法について説明します。
+Content: >-
+  <p><img alt="Halo-5-Guardians" border="0" height="343" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e7e7bbf-78b8-4a58-af35-87fd0de73e42.jpg" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Halo-5-Guardians" width="610"></p>
+
+
+  <p>343 Industries は、Halo のプログラムを担当するスタジオで、プレーヤーに驚異的なゲーム エクスペリエンスを提供する情熱を持っています。 これを行うには、 <em>Halo 5: ガー </em>ディアンは、最適なゲーム エクスペリエンスを確保するために、サーバーとコンソールの両方から広範なテレメトリを使用して、一致品質、ネットワーク待ち時間、その他の統計などの領域でサービス品質を追跡します。</p>
+
+
+  <p>ご想像のように、これらの種類のイベントによって大量のデータが生成される可能性があります。 拡張性の高い発行/サブスクライブ (pub-sub) サービスの場合、343 業界は <a href="https://azure.microsoft.com/en-us/blog/how-halo-5-implemented-cloud-scale-telemetry-using-azure-event-hubs/">Azure Event Hubs</a> を選択しました。これは、毎日数十億件のテレメトリ イベントによって<strong></strong>生成されるサイズの大きいスループットに合わせてスケーリングできます。</p>
+
+
+  <p>Azure Event Hubs を使用したテレメトリ パイプラインを使用して、Halo チームは、ダッシュボードの視覚化とリアルタイムログ検索を通じてテレメトリから分析情報をロック解除する方法を必要としました。 データの取得は、問題の一部にしか含め "ありません"。何十億ものログを検索して、報告されたゲーム セッションの問題の根本原因を特定したり、サービスの中断の広範さを視覚的に測定したりできる機能がもう 1 つの方法です。</p>
+
+
+  <h2>Log Analytics (一部) を入力Microsoft Operations Management Suite)</h2>
+
+
+  <p>Xbox コンソールでは、ゲームやセッションなどに関するあらゆる種類のテレメトリが生成されます。Halo 5s&rsquo; 専用サーバーとバックエンド サービスも、大きなデータを生成します。 343 業界では、報告された問題をトラブルシューティングするために、すべての無数のソース (専用サーバー、コンソール、バックエンド サービス) 間でイベントを関連付け、ゲーム中に行っていたことを完全に確認する方法が必要でした。 Microsoft Operations Management Suite のコンポーネントである Log&rsquo; Analytics では、さまざまなデータ ソース間でのログ検索とデータの視覚化がネイティブでサポートされますが、その時点では Azure Event Hubs から取り込む機能はなかったのです。</p>
+
+
+  <p>Microsoft Log Analytics は 343 業界に対応し、Halo 5s&rsquo; の要件は次のとおりです。</p>
+
+
+  <ul>
+   <li>Halo 5 では、ほぼリアルタイムのログ検索機能が必要でした。 343 業界では、イベントが生成された時刻から、Microsoft Log Analytics で検索可能な時間を 1 分以内に制限する必要があります。</li>
+   <li>Halo 5s をサポートするために&rsquo;スケーリングして、毎日生成される数十億のテレメトリ イベントをサポートします</li>
+   <li>Azure Event Hubs をサポートする必要があります</li>
+   <li>Microsoft <a href="https://github.com/Microsoft/bond">の予約ベース</a>のイベント メッセージ形式をサポートします。 結合は、大規模なサービスのシリアル化と逆シリアル化をサポートするフレームワークです。</li>
+  </ul>
+
+
+  <p>これらの要件を満たし、Azure Event Hubs&rsquo; pub-sub モデルを利用するために、Microsoft Log Analytics&rsquo; では Event Hub のインジェスト コンポーネントを利用します。</p>
+
+
+  <h2>Microsoft Log Analytics イベント ハブ インジェスト サービスの概要</h2>
+
+
+  <p>次の図は、ソースの場所から Microsoft Log Analytics へのイベントのデータ フローを示しています。</p>
+
+
+  <p><img alt="Halo-Log-Analytis-Diagram" border="0" height="373" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90d0deb3-b3aa-476a-866d-15805cd2ae8e.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Halo-Log-Analytis-Diagram" width="610"></p>
+
+
+  <ol>
+   <li>Azure イベント ハブに送信されたコンソールとゲーム サーバーからの、結合ベースのテレメトリ イベント データ</li>
+   <li>イベント ハブ インジェスト サービスは、Azure Event Hubs&rsquo; コンシューマー グループをサブスクライブし、受信イベント メッセージをリッスンします</li>
+   <li>Halo 5s BLOB スキーマ ストアからイベント メッセージ&rsquo; スキーマをプルします。 イベント メッセージ スキーマは Azure BLOB ストアに格納され、イベント メッセージには含まれていません。 このオプションは、クライアントのバンド幅を節約するために、イベント メッセージを可能な限りコンパクトに保つために選択されました</li>
+   <li>その後、イベント メッセージ データが Microsoft Log Analytics Search クラスターにポストされ、取り込まれます。 何らかの理由でイベント ハブ インジェスト サービスが正常にポストできない場合、イベント メッセージ データは再試行キューに送信されます。 キューに登録された再試行イベント メッセージは、データを Search クラスターにポストするために再試行されます</li>
+  </ol>
+
+
+  <h2>これは非常にクールですが、なぜ私にとって重要なのでしょうか。</h2>
+
+
+  <p>この投稿は、いくつかの理由で作成しました。 まず、Azure ベースの PaaS サービスと SaaS サービスが連携して連携し、最も人気のあるゲーム ゲーム の 1 つをサポートするために必要なエンドツーエンドの運用インテリジェンス ソリューションを提供<em></em>するストーリーを紹介したいと思いました。</p>
+
+
+  <p>次に、Microsoft Log Analytics が、大規模な問題に影響を与えるサービスを視覚的にプロットして追跡できるようにすることで、ログ検索、統計メトリック集計、およびデータ分析のニーズを満たすことができます。</p>
+
+
+  <p>最後に、Microsoft Log Analytics Event Hub インジェスト サービスは <em>Halo 5: Guardians </em>リリースをサポートするために特別に構築されましたが、Microsoft Log Analytics&rsquo; のお客様がプログラムですべての種類のデータを取り込む機能を利用できるよう、より一般化されたソリューションをリリースしています。 その他の更新については、Twitter <a href="https://twitter.com/jochan_msft">@jochan_msft</a> でフォローしてください。</p>

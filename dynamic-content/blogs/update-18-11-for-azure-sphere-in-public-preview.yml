@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f973593ade2205bcf9b2139675111e910b1c953e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139888940"
+Slug: update-18-11-for-azure-sphere-in-public-preview
+Title: パブリック プレビューでの更新プログラム 18.11 Azure Sphere更新プログラム
+Summary: 2018 年 9 月、Azure Sphereパブリック プレビュー用にリリースされました。 本日は、Azure Sphere オペレーティング システム、Azure Sphere Security Service、および Visual Studio の各開発環境に対する 18.11 更新プログラムをお知らせします。
+Content: >-
+  <p>2018 年 9 月、Azure Sphereパブリック プレビュー用に <a href="https://azure.microsoft.com/en-us/blog/azure-sphere-is-here-public-preview-and-dev-kits-now-available/" target="_blank">リリースされました</a>。 本日は、Azure Sphere オペレーティング システム、Azure Sphere Security Service、および Visual Studio の各開発環境に対する 18.11 更新プログラムをお知らせします。 このリリースには、セキュリティ インフラストラクチャと接続ソリューションへの多大な投資が含まれています。また、フィードバックの一部が組み込まれています。</p>
+
+
+  <p>これはパブリック プレビュー リリースの最初の更新であり、四半期ごとに追加の更新プログラムをリリースする予定です。 ソフトウェア更新プログラム、新しい製品の機能、ヒントとテクニック、古いプレビュー ソフトウェアのサポートの終了、その他の有用な情報の通知は <a href="https://azure.microsoft.com/en-us/updates/?product=azure-sphere" target="_blank">、Azure Updates Web サイトに投稿</a> されます。 RSS フィードを使用して Azure Update 通知をサブスクライブし、最新の最新情報をAzure Sphereしてください。</p>
+
+
+  <h2>18.11 リリースの機能</h2>
+
+
+  <p>このリリースでは、長期オフラインだったデバイスを Azure Sphere Security Service に簡単に再接続できるよう、内部セキュリティ メカニズムの戦略的な機能強化を行っています。 製造後、接続されているデバイスはウェアハウスで数か月を費やし、その間にデバイスに格納されているルート証明書の有効期限が切れる可能性があります。 Azure Sphere Security Service は、期限切れのルート証明書をシームレスに処理して、断続的に接続されているデバイスや長時間切断されたデバイスが常に接続し、最新の OS に安全に更新できるようしました。</p>
+
+
+  <p>お客様からのフィードバックに応じて、接続ソリューションにも投資しています。 PC を使用せずに、Wi-FiデバイスAzure Sphereを構成する方法が必要でした。 18.11 リリースには、Bluetooth Low Energy (BLE) モジュールを構成して Azure Sphere を使用する方法を示す参照ソリューションが含まれています。 サンプル コード、設計情報、ドキュメントを提供します。 サンプルに基づいてカスタム ソリューションを実装することで、Wi-Fi Azure Sphere 接続でモバイル アプリを使用して Bluetooth できます。</p>
+
+
+  <h2>その他の新機能は次のとおりです。</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/azure-sphere/reference/applibs-reference/function-clock-systohc?branch=1811-preview" target="_blank">リアルタイム クロック (RTC)。</a> ベータ API を使用すると、アプリケーションで内部クロックを設定して使用し、停電時にボタン電池を使用して RTC が時刻を維持し続けられるようにするサポートを利用できます。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure-sphere/reference/applibs-reference/function-storage-openmutablefile" target="_blank">変更可能ストレージ</a>。 ベータ API では、永続的な読み取り/書き込みデータの格納用に、最大 64 K にアクセスできます。</li>
+      <li>外部 MCU の更新。 アプリケーションで追加接続された MCU のファームウェアを更新する方法が、参照ソリューションで示されています。</li>
+      <li>プライベート イーサネット。 MT3620 では、シリアル周辺機器インターフェイス (SPI) 経由で Microchip イーサネット部分を介したプライベートの 10 Mbps ネットワークへの接続がサポートされます。 この機能により、A7 チップ上で実行されているアプリケーションは、標準の伝送制御プロトコル (TCP) またはユーザー データグラム プロトコル (UDP) ネットワークを介してプライベート ネットワーク上のデバイスと通信できます。 この機能の詳細 <a href="https://azure.microsoft.com/en-us/updates/?product=azure-sphere" target="_blank">については、Azure Updates</a> Web サイトをご覧ください。</li>
+      <li><a href="https://docs.microsoft.com/azure-sphere/app-development/use-beta" target="_blank">ベータ API ターゲット。</a> ベータ API はまだ開発中であり、今後のリリースで変更または削除される可能性があります。 このリリースから、新しい機能の使用を開始できるよう、テストとフィードバックに使用できます。 アプリケーションは、実稼働 API または実稼働 API とベータ API のいずれかを対象にできます。</li>
+  </ul>
+
+
+  <h2>わからないことがある場合は、</h2>
+
+
+  <p>ご意見やご提案を、すべてのプレビューのお客様に感謝します。 まだお問い合わせされていない場合は、お問い合わせをお勧めしています。 Microsoft のエンジニアAzure Sphereコミュニティの専門家は、 <a href="https://aka.ms/AzureSphereSupport" target="_blank">MSDN</a> フォーラムと <a href="https://aka.ms/ASStackoverflow" target="_blank">StackOverflow</a> に関する開発の質問に関する製品関連の質問に回答します。 また、製品の <a href="https://feedback.azure.com/forums/915433-azure-sphere" target="_blank">フィードバックと新機能の要求も歓迎します</a>。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/azure-sphere/" target="_blank">開発キットの使用</a> を開始する方法のドキュメントと詳細については、web サイトAzure Sphereしてください。</p>

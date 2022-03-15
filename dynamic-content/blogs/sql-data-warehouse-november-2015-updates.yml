@@ -1,0 +1,134 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8432eed9c31ecf79077b746fa964ff6e72d29de1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892243"
+Slug: sql-data-warehouse-november-2015-updates
+Title: 'Azure SQL Data Warehouse: 2015 年 11 月の更新プログラム'
+Summary: 11 月中に、11 月に新しい機能強化が行われ、お知らせSQL Data Warehouse。
+Content: >-
+  <p>&rsquo;11 月中に、11 月中に新しい機能強化が行われ、SQL Data Warehouse。&nbsp;これらの機能強化に加えて&rsquo;、前回の更新により、データ監査と更新プログラムも追加<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-data-warehouse-encryption-tde-tsql/">Transparent Data Encryption。</a><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-data-warehouse-auditing-get-started/"></a></p>
+
+
+  <h1>PolyBase</h1>
+
+
+  <p>非&rsquo;リレーショナル データを操作するためのメカニズムである PolyBase に機能が追加されました。</p>
+
+
+  <ul>
+   <li>PolyBase では、Blob の Parquet ファイルの読み取り、書き込み、クエリAzure Storageできます。</li>
+   <li>PolyBase では、拒否された行に関する詳細が提供されます。&nbsp; たとえば、成功しても拒否された行が読み込まれる場合、次のようなメッセージが表示される場合があります。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <pre class="prettyprint">
+
+  Query completed. Rows were rejected while reading from external source(s).
+
+
+  10 rows rejected from FactSalesExternal in step 1 of query execution:
+
+
+  Location: &#39;/example/example.txt&#39; Column ordinal: 0, Expected data type: INT, Offending Value: 2147483648 (Column Conversion Error), Error: Arithmetic overflow error converting NVARCHAR to data type SMALLINT.
+
+
+  and 9 more.
+
+  </pre>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>拒否された行が多すぎるため、読み込みが中止された場合は、次のようなメッセージが表示されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <pre class="prettyprint">
+
+  Rows were rejected while reading from external source(s).
+
+
+  500 rows rejected from FactSalesExternal in step 1 of query execution:
+
+
+  Location: &#39;/example/example.txt&#39; Column ordinal: 0, Expected data type: INT, Offending Value: 2147483648 (Column Conversion Error), Error: Arithmetic overflow error converting NVARCHAR to data type SMALLINT.
+
+
+  and 499 more.
+
+
+  ERROR: Query aborted -- number of rejected rows exceeded the maximum row rejection threshold while reading from an external source: 500 rows rejected out of total 10000 rows processed.
+
+  </pre>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+   <li>既存の EXTERNAL TABLES に関連付けられている CREDENTIAL オブジェクトを削除して再作成すると、それらの EXTERNAL テーブルのキャッシュされた資格情報が常に更新されない問題を修正しました。</li>
+  </ul>
+
+
+  <h1>SQL 機能</h1>
+
+
+  <p>また&rsquo;、次のように、SQL Serverの一部としてサポートされる新しい機能SQL Data Warehouse拡張しました。</p>
+
+
+  <ul>
+   <li><a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">クラスター化列ストア</a>は、既定で作成されたテーブルにSQL Data Warehouseされます。 これにより、テーブルは、このコンストラクトで許可される追加の圧縮とクエリのパフォーマンスを利用できます。 この作業の詳細については、クラスター化列 <a href="https://azure.microsoft.com/en-us/blog/clustered-columnstore-tables-are-the-new-default-in-azure-sql-data-warehouse/">ストアに関するブログ記事を参照してください</a>。</li>
+   <li><a href="https://msdn.microsoft.com/en-us/library/ms188351.aspx">RENAME OBJECT ステートメントの</a>サポート。</li>
+   <li>新しい一連の動的管理ビュー (DMV SQL Data Warehouse) のサポート。 詳細については、DMV の一<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-data-warehouse-reference-tsql-system-views/">覧を参照してください</a>。&nbsp;データ を含むすべての &ldquo;dmv pdw_nodes&rdquo;新しい機能です。&nbsp;たとえば、クエリ中にコンピューティング ノードからのすべてのパフォーマンス <a href="https://msdn.microsoft.com/en-us/library/ms190382.aspx#SQLServerPOs"></a> データを表示する場合は、次の<a href="https://msdn.microsoft.com/library/ms187743.aspx">sys.dm_pdw_nodes_os_performance_counters。</a>&nbsp;または、[クエリ プラン] ビューを使用して、クエリ プランのすべての手順<a href="https://msdn.microsoft.com/library/ms177648.aspx">sys.dm_exec_requests</a>することもできます。</li>
+   <li>データ監査 <a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-threat-detection-get-started/">内の脅威</a> 検出のサポート。異常なアクティビティや疑わしいイベントをユーザーが検出できます。&nbsp; たとえば、ポータル内でアラートを設定して、疑わしいと思われるイベントを特定し、電子メールで確実にアラートを受け取る場合があります。</li>
+  </ul>
+
+
+  <blockquote>
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4_td_email.png"></p>
+
+  </blockquote>
+
+
+  <p>疑わしいイベントの単語を受け取った後は、ポータルのデータ監査機能を使用してイベントを分析するか、Excel でログを開いてより高度な分析オプションを取得できます。</p>
+
+
+  <blockquote>
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7_td_audit_records_open_excel.png"></p>
+
+  </blockquote>
+
+
+  <ul>
+   <li>読み込み中にアクセス許可が常に受け入れられるとは限されない BCP の問題に対処しました。</li>
+  </ul>
+
+
+  <h1>バックアップ</h1>
+
+
+  <p>信頼性&rsquo;を高め、ユーザー ワークロードへの影響を軽減するために、SQL Data Warehouse で自動のスケジュールされたバックアップの設計が改善されました。 2016 年 1 月に新しく追加されたのと同じ <a href="https://msdn.microsoft.com/en-us/library/mt169363.aspx">Azure<i> </i></a> ストレージ スナップショット メカニズムSQL Server活用しました。</p>
+
+
+  <h1>パフォーマンスと安定性</h1>
+
+
+  <p>最後に、パフォーマンス&rsquo;とパフォーマンスの安定性を向上SQL Data Warehouse。 具体的には、次の内容を示&rsquo;します。</p>
+
+
+  <ul>
+   <li>ラウンド ロビン テーブルに読み込むメカニズムが改善され、小規模/増分読み込みのシナリオでもデータの分散が向上しました。</li>
+   <li>接続参加時に " &quot;例外が発生しました" というメッセージが表示され、実行時間の長いクエリが失敗する原因となる、断続的な接続の問題が頻繁に発生する問題に対処しました。 トランザクションはロールバックされます&rdquo;。</li>
+   <li>一時停止、再開、およびスケーリング操作の安定性が向上しました。</li>
+  </ul>

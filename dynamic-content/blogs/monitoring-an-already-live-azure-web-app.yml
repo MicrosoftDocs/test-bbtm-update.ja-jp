@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f4f6be87ed07223f2e8059e845bdca4fd4705e02
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893406"
+Slug: monitoring-an-already-live-azure-web-app
+Title: 既に公開されている Azure Web アプリの監視
+Summary: 'アプリのパフォーマンスを監視したいが、ソース コードにアクセスできない場合があります。 Application インサイト を使用して、アプリを再構築または再デプロイせずに監視する方法について説明します。 '
+Content: >-
+  <p>場合によっては、アプリのパフォーマンスを監視&rsquo;する必要がありますが、ソース コードにアクセスする必要はありません。 たとえば、Microsoft Azure、独自のサイトで構成して実行できるサードパーティ製 Web アプリの Marketplace が提供されます。 理想的には、&ndash;&ndash;ライブ アプリのパフォーマンスと使用方法を監視できるテレメトリ コードをコードに統合し、アプリケーションと共にテスト、構成、デプロイする必要があります。 ただし、アプリケーション&rsquo;のソース コード&rsquo;への書き込みアクセス権を持てない場合は、これを行う必要があります。 さいわい、Application インサイトは、アプリを再構築または再デプロイせずに監視する方法を提供します。</p>
+
+
+  <p>たとえば、ユーザーが&rsquo;&nbsp;ブログや個人用 Web サイトを作成できる .NET ベースの <a href="https://www.orchardproject.net/">CMS システムであるOrchard CMS</a> を使用します。 Azure&rsquo; オンライン <a href="https://azure.microsoft.com/documentation/articles/web-sites-dotnet-orchard-cms-gallery/">ストアから利用できます</a>。 今日は、アプリケーションを有効にする方法を示インサイトを使用して作成された Orchard CMS サイトでAzure portal。</p>
+
+
+  <h1>ポータルを使用して Orchard CMS Web サイトをデプロイする</h1>
+
+
+  <p><img alt="__5" border="0" height="585" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/778f5477-1aa5-4ae3-9797-a4fe2a7b7974.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="__5" width="1299"></p>
+
+
+  <p>Azure Portal を使用して新しい Orchard CMS サイトをデプロイするには、[+ New Web + モバイル &ndash;&gt; Marketplace] を選択 &ndash;&gt; します。 その後、[ブログ + CMS] の下Web + モバイル、Marketplace ブレードにアクセスします。</p>
+
+
+  <p>Azure Portal でソース コードを提供するように求めはされませんが、Orchard CMS サイトをデプロイするプロセスに注意してください。 必要なサービス プランと価格レベルを選択する URL&nbsp; を指定します。</p>
+
+
+  <p><img alt="deploy_orchard" border="0" height="554" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/06ee8687-b4b8-46b0-a1e5-04992647c510.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="deploy_orchard" width="909"></p>
+
+
+  <p>[作成] ボタンを押すと、新しい Orchard CMS Web サイトが数秒で作成されます。 Azure Portal を使用して新しい Web サイトを作成したため、1 秒あたりの要求を示す基本的な監視が既に用意されています。 これは&rsquo;非常に便利ですが、より多くのテレメトリが必要です。</p>
+
+
+  <p><img alt="default_data" border="0" height="348" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e8edf1a-a4a4-4f92-acba-3cabc3ad9315.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="default_data" width="393"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h1>Application Insights を有効にする</h1>
+
+
+  <p>Application インサイトを有効にするには、Web サイトの [ツール] パフォーマンス監視&ndash;&gt;のブレードに&ndash;&gt;移動します。</p>
+
+
+  <p><img alt="__2" border="0" height="637" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b7ae4268-bea0-4de3-8436-41eb0fb18cc0.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="__2" width="799"></p>
+
+
+  <p>この時点で、パフォーマンス監視用の新しいブレードが表示されます。 [&quot;ここをクリック] を選択して、.NET アプリケーションのパフォーマンスに関する分析情報を収集します。&quot; &ndash;&gt;アプリケーション インサイト &ndash;&gt; {Web アプリケーションの名前}。 次に示すこの Web サイトの [リソースインサイトアプリケーション アプリ&quot;] ブレードに Web アプリが表示されます。&quot;</p>
+
+
+  <p><img alt="__3" border="0" height="638" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98486ce2-b2cd-49cf-a405-fbf451684251.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="__3" width="1298"></p>
+
+
+  <p>これで、サーバー応答時間&nbsp;、サーバー要求、失敗した要求など、はるかに多くのデータにアクセスできます。</p>
+
+
+  <p><img alt="more_data" border="0" height="433" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4935e25-28f5-44ec-9034-a7ba5b8dedfc.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="more_data" width="480"></p>
+
+
+  <p>ソース コードにアクセスする必要がない場合は、アプリケーションが依存しているすべてのリソースが不明な場合があります。 Application インサイト依存関係、発生頻度、およびそれらの期間を確認できます。<img alt="dependency" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dd740b95-2c57-4ffd-bf27-ad91fb7ba95a.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="dependency" width="508"> 特定の要求、例外なども検索できます。</p>
+
+
+  <p><img alt="search" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aab7c914-0dbd-4dda-b8dd-6a0a332a4d0d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="search" width="518"></p>
+
+
+  <h1>まとめ</h1>
+
+
+  <p>Application インサイト&nbsp; 拡張機能を選択することで、Azure Web アプリのパフォーマンス、基本的な使用状況、診断情報を取得できます。ソース コードを変更したり、アプリを再デプロイしたりする必要はありません。 ソース コードにアクセスできる場合は、<a href="https://azure.microsoft.com/documentation/articles/app-insights-asp-net/">Application インサイト SDK</a> を追加し、再デプロイして、より豊富な使用状況とカスタム テレメトリを収集することをお<a href="https://azure.microsoft.com/documentation/articles/app-insights-web-track-usage/"></a><a href="https://azure.microsoft.com/documentation/articles/app-insights-api-custom-events-metrics/">勧めします</a>。 さらに、Orchard CMS には、アプリケーションに対して Application インサイトを有効にする<a href="https://orchardazureappinsights.codeplex.com/">、Orchard</a> プラグインが既に用意されています。</p>

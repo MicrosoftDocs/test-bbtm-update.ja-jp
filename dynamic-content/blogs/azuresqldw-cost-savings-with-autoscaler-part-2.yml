@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b42e25135c3f775d470608d264f4338e4234a7a4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894467"
+Slug: azuresqldw-cost-savings-with-autoscaler-part-2
+Title: '#<a name="azuresqldw-cost-savings-with-autoscaler--part-2"></a>Autoscaler を使用した AzureSQLDW のコスト削減 – パート 2'
+Summary: Azure SQL Data Warehouseは、お使SQLのバックボーンである Microsoft のクラウド分析プラットフォームEnterprise Data Warehouse。 この投稿では、スケーリングと弾力性に最適化された SQL Data Warehouse を使用してコストを最適化するために Microsoft Education Data Services チームによって提供されている Azure Functions のセットである Autoscaler について説明します。
+Content: >-
+  <p><em>このブログの投稿は、 <a href="https://www.linkedin.com/in/eldad-hagashi/">Eldad Hagashi</a>、ソフトウェア エンジニアリング マネージャー、Microsoft Education Data Service のソフトウェア エンジニア <a href="https://www.linkedin.com/in/feng-tan-0b1311154/">Tan</a> が共同執筆しました。</em></p>
+
+
+  <p><a href="https://azure.microsoft.com/services/sql-data-warehouse/">Azure SQL Data Warehouse </a>Microsofts&rsquo; SQL、エンタープライズ データ ウェアハウス (EDW) のバックボーンである分析プラットフォームです。 このサービスは、顧客が非常に並列処理を使用してコンピューティングとストレージを柔軟に、独立してスケーリングできるよう設計されています。 SQL DW はビッグ データ ストアとシームレスに統合され、EDW の最適化および調整されたパフォーマンスのためにデータ マートとキューブへのハブとして機能します。 Azure SQL DW では、<a href="https://azure.microsoft.com/support/legal/sla/sql-data-warehouse/v1_0/">99.9%</a> の高可用性、コンプライアンス、高度なセキュリティ、アップストリーム<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security"></a>およびダウンストリーム サービスとの<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-overview-integrate"></a>緊密な統合が保証され、ニーズに合ったデータ ウェアハウスを構築できます。 Azure SQL DW は、企業が 30 を超えるリージョンでグローバルな可用性を持つあらゆる場所にデータをレプリケートできる、最初の唯一のサービスです。</p>
+
+
+  <p>Microsoft の内部では、Azure サービスはチーム間で広範囲に使用されます。 複数の Azure 製品を組み合わせた巧妙なソリューションは、コストを最小限に抑えながら SQL Data Warehouse コンピューティング需要を満たすために Autoscaler を構築した OneNote や Education Microsoft チームなどのチーム間で標準です。</p>
+
+
+  <p>この作業を SQL DW コミュニティと共有する予定です。チームは、1 回のクリックで使用するデプロイ可能なテンプレートを使用してソリューションを提供します (また、お客様も)。 Education Data Service チームの場合、Microsoft SQL Data Warehouseすべてのデータの単一の情報源を表します。 そのインスタンスは、エンジニアリング、マーケティング、財務、営業の各チーム間で共有結果を生み出します。 データ ウェアハウス ソリューションは、Data Lake Storage、Data Factory、Data Warehouse、Analysis Services、Power BI で構成Power BI。</p>
+
+
+  <p>SQL Data Warehouseは、対話型のクエリを提供し、生データをビジネス価値に変換する機能をチームに適しています。 最高の価格とパフォーマンスを得る上で、チームは、Data Warehouse ユニット (DWU) の値が特定の時点での実際の需要と一致する必要がありました。 DWU レベルを下げるとコストを削減できますが、ビジネス上の質問に答えるのに時間がかかることを意味します。&nbsp;DWU レベルが高いほどパフォーマンスが高くなりますが、3,000 DWU という不定期の要件は、単独で残した場合、月次コストがはるかに高くなるという意味です。 チームは、スケジュールベースのソリューションよりも柔軟性の高い弾力性を管理するためのインテリジェントな方法を必要としました。 これは、システムの需要に基づいてスケーリング ソリューションを導入することを決定した理由です。このソリューションは、ハンズフリーで、コストを削減し、ワークロードに影響を与える可能性があります。</p>
+
+
+  <p>EDU Data Service&rsquo; チーム Autoscaler は、DWU 使用状況モニター ベースのスケーラーとタイマーベースのスケーラーを含む 2 つの主要なコンポーネントで構成されています。 モニター ベースの Scaler では、事前に定義された DWU ラダーが使用されます。このラダーは、使用に基づいてスケールアップとダウンを行います。 1 日の間に、使用しきい値を超える DWU の使用状況が Scaler によって通知された場合、スケールはシステムを DWU ラダーの上下に移動します。 タイマー ベースの Scaler&rsquo; は、DWU 設定が非アクティブから低すぎる場合に、営業日の操作前にシステムを定義済みのベースラインに戻す補足として動作します。</p>
+
+
+  <p>自動スケーラーでは、Azure HTTP Webhook 関数を使用し、Azure Monitor通知と組み合わせて使用します。 Azure Monitor前の期間 (通常は 30 分) の DWU の使用状況を確認します。 DWU 使用率が上限しきい値 (DWU 制限の 80% など) を超えると、Azure Monitor は電子メールでアラートを送信し、Webhook をトリガーします。 このパラメーターは簡単に変更できます。 Webhook HTTP 要求により、Autoscaler がトリガーされ、どのしきい値モニターが起動されたかに応じて DWU ラダーをスケールアップまたはスケールダウンするために、REST API 要求がデータ ウェアハウスに送信されます。 自動スケーラーは、後で分析と品質制御を行う要求を Azure テーブルに記録します。 各営業日の開始時に、タイマー スケール はインスタンスを日のベースラインにスケーリング&rsquo;します。</p>
+
+
+  <p>オートスケーラーを使用すると、DWU レベルが 1 日の間に需要と密接に一致しているのが分かっています。 1 か月の間に、チームは年間約 55% を節約しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b7af2d78-728e-4308-9867-e56443ef80c8.png"><img alt="image" border="0" height="413" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dbb39fc0-f987-42f0-93b0-28aebef31729.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="525"></a></p>
+
+
+  <p>Autoscaler の詳細については、独自のインスタンス<a href="https://github.com/Microsoft/sql-data-warehouse-samples/tree/master/arm-templates/sqlDwAutoScaler">GitHubデプロイする</a>方法を確認してください。 デプロイする前に、ソリューションとしての Autoscaler は、読み込み、変換、およびクエリを個別のジョブに切り離すアーキテクチャで、弾力性に最適化された機能を特に備えて機能します。 EDU チームの場合、&rsquo;Azure Data Factory再試行ロジックを使用すると、Autoscaler による読み込みと変換の中断が可能になります。 クエリを実行する場合、サービス レイヤー Azure Analysis Services使用すると、中断することなくチームにパフォーマンスが提供されます。</p>
+
+
+  <p><a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2Fsql-data-warehouse-samples%2Fmaster%2Farm-templates%2FsqlDwAutoScaler%2Fazuredeploy.json"><img alt="clip_image001" border="0" height="34" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3e827741-cc0b-486f-a22c-831fb4587808.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="clip_image001" width="161"></a></p>
+
+
+  <p><br>
+
+  POC のサポートが必要な場合は、直接 <a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/information-request/">お問い合わせください</a>。 Twitter でフォローして、最新の Azure SQL DW のニュースと機能に関する最新情報を確認してください<a href="https://twitter.com/AzureSQLDW">@AzureSQLDW</a>。</p>

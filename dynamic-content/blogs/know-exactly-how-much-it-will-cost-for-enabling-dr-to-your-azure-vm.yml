@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bd9a0a51a0c968576e264a33e7ccbdfcd7ec7628
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889773"
+Slug: know-exactly-how-much-it-will-cost-for-enabling-dr-to-your-azure-vm
+Title: Azure VM の DR を有効にするためにかかる費用を正確に把握する
+Summary: Azure Virtual Machines Azure Site Recovery を通じて、組み込みのディザスターリカバリー (DR) ソリューションを提供しています。 幅広いグローバルカバレッジに加えて、Azure は業界で最も包括的な復元戦略を採用しています。これにより、可用性セットとデータセンターの障害に対するラックレベルの障害の軽減、Azure Site Recovery を使用した別のリージョンへのフェールオーバーによる大規模なイベントからの保護が Availability Zones されます。
+Content: >-
+  <p>Azure には、 <a href="https://azure.microsoft.com/en-in/services/site-recovery/" target="_blank">Azure Site Recovery</a> (ASR) を通じて azure Virtual Machines 用のディザスターリカバリー (DR) ソリューションが組み込まれています。 <a href="https://blogs.microsoft.com/blog/2018/03/14/microsoft-expands-cloud-services-in-europe-and-into-middle-east-to-meet-growing-customer-demand/" target="_blank">幅広いグローバルカバレッジ</a>に加えて、Azure では、可用性セットとデータセンターの障害に対するラックレベルの障害の緩和によって、業界で最も包括的な復元戦略が実現されています。これにより、Availability Zones での大規模なイベントに対する保護により、ASR を使用した個別のリージョンにフェールオーバーします。 よく寄せられる質問は、Azure virtual machines の DR の構成に関連するコストに関するものです。 お客様がリッスンし、優先順位を付けました。</p>
+
+
+  <p>ASR を使用して Azure Vm のディザスターリカバリーを構成すると、次の料金が発生します。</p>
+
+
+  <ul>
+   <li>VM ごとの ASR ライセンスコスト。</li>
+   <li>データ変更をソース VM ディスクから別の Azure リージョンにレプリケートするためのネットワーク エグレス コスト。 ASR は、組み込みの圧縮機能を使用して、データ転送要件を約60% 削減します。</li>
+   <li>復旧サイトでのストレージ コスト。 これは、通常、ソース リージョンのストレージ コストに、復旧ポイントをスナップショットとして維持するための追加ストレージのコストを足したものです。</li>
+  </ul>
+
+
+  <p>この <a href="https://aka.ms/a2a-cost-estimator" target="_blank">サンプルコスト計算ツール</a> を見ると、6つの仮想マシンを使用して3層アプリケーションの DR コストを見積もることができます。 すべてのサービスがコスト計算ツールで事前構成されています。 6台の仮想マシンには、12個の Standard HDD ディスクと6つの Premium SSD ディスクがあります。 そのため、DR リージョンには18個のディスクが作成されます。 各 standard ディスクでは、1日あたり 10 GB のデータが変更され、各 premium ディスクでは1日あたり 20 GB のデータが変更されることが見込まれています。 日次データ変化率は、復旧ポイントのリテンション期間が既定値の24時間であることを考慮して、ストレージスナップショットの料金になります。</p>
+
+
+  <p>ASR は圧縮を使用して、ソースリージョンからターゲットリージョンに転送されるデータを減らします。圧縮比率は通常、約50% になります。 そのため、リージョン間で合計データ変更の40% が転送されるため、6つの Vm すべてで1か月あたり約 3 TB になります。 サンプルコスト計算ツールには、これらすべての料金が記載されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/802b3f77-827c-495b-8ecf-223b03ca4cce.png"><img alt="Pricing calculator" border="0" height="509" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd70bbf8-df17-4bef-93f7-10beb9d51f8b.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="料金計算ツール" width="964"></a></p>
+
+
+  <p align="left">特定のユース ケースの場合、価格がどのように異なるかを確認するには、該当する変数を変更して、コストを見積もります。 ASR ライセンスコストの Vm の数を確認できます。 管理ディスクの数と種類のほか、すべての Vm で予想されるデータ変更率の合計を使用して、DR リージョンの推定ストレージコストを取得することができます。 さらに、圧縮率0.4 を適用した後、1か月に合計データ変更率を使用して、リージョン間でのデータ転送に要した帯域幅のコストを取得できます。</p>
+
+
+  <p>上記のコストに加えて、テストフェールオーバー操作を使用したディザスターリカバリー訓練の一環として作成された Vm、またはフェールオーバー操作を使用した実際のディザスターリカバリーのために、追加のコンピューティングコストが発生します。 また、事前に作成されたロードバランサー、パブリック Ip などのリソースに対しても、フェールオーバー時に Vm を正常に動作させるために必要なリソースに対して課金されます。</p>
+
+
+  <p>Azure リージョン間でのディザスターリカバリーは、ASR が使用可能な <a href="https://aka.ms/a2a-supported-regions" target="_blank">すべての azure リージョン</a> で利用できます。 今すぐ<a href="https://aka.ms/a2a-getting-started" target="_blank">ASR を使ってみる。</a> <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftwitter.com%2FAzSiteRecovery&amp;data=02%7C01%7Cv-cabas%40microsoft.com%7C5412de55c6764309cceb08d65fe27188%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636801823512696530&amp;sdata=TTA0J9lq9Ko%2B1opmYx4Xtg%2BFNScfZmL7K1wQPFIpPYM%3D&amp;reserved=0" target="_blank">Twitter でフォロー</a> して最新の更新プログラムを入手し、フィードバックをお寄せください。</p>
+
+
+  <h2>関連リンクとその他のコンテンツ</h2>
+
+
+  <ul>
+   <li><a href="https://aka.ms/a2a-getting-started" target="_blank">まず、Azure</a> vm のディザスターリカバリーを構成します。</li>
+   <li>Azure Vm のレプリケートに関し <a href="https://aka.ms/a2a-support-matrix" target="_blank">てサポートされている構成</a> の詳細については、こちらをご覧ください。</li>
+   <li>ヘルプが必要ですか? サポートについては、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=hypervrecovmgr" target="_blank">ASR フォーラム</a> にご連絡ください。</li>
+   <li>新しいアイデアを投稿し、既存のものに投票することで、 <a href="https://feedback.azure.com/forums/256299-site-recovery" target="_blank">ASR を向上</a> させる方法についてご意見をお寄せください。</li>
+  </ul>

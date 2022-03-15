@@ -1,0 +1,91 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 99296184281382e53a1319e8d0922823e2ddefe4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893870"
+Slug: monitoring-enhancements-vmware-physical-azure
+Title: Azure Site Recovery で保護された VMware および物理ワークロードの監視の強化
+Summary: Azure Site Recovery は、さまざまな正常性シグナルを導入することによって、VMware と物理ワークロードの監視エクスペリエンスを向上させます。 これらのシグナルは、スケールのガイダンスも提供します。
+Content: >-
+  <p>Azure Site Recovery は、レプリケーションコンポーネントであるプロセスサーバーにさまざまな正常性シグナルを導入することによって、ワークロードの正常性の監視を強化しました。 ハイブリッド DR シナリオのプロセスサーバー (PS) は、データレプリケーションの重要な要素です。 レプリケーションキャッシュ、データ圧縮、およびデータ転送を処理します。 ワークロードが保護されると、ソースでの高いデータ変更率 (チャーン)、ネットワーク接続、使用可能な帯域幅、プロセスサーバーのプロビジョニング、または1つのプロセスサーバーを使用した多数のワークロードの保護など、複数の要因によって問題が発生する可能性があります。 これにより、PS の状態が不適切になり、Vm のレプリケーションに連鎖的な影響が生じる可能性があります。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-physical-azure-monitor-process-server#process-server-alerts" target="_blank">プロセスサーバーからの追加の正常性シグナル</a>により、これらの問題のトラブルシューティングがより簡単になりました。 仮想マシンによって使用されているプロセスサーバーを特定し、その2つの間の正常性を簡単に関連付けることができます。 通知は、PS &ndash; 空き領域使用率、メモリ使用量、CPU 使用率、およびスループットを実現する複数のパラメーターに対して発生します。 警告アラートと重大アラートの両方が解放され、アクションを適切なタイミングで実行できるようになります。 これにより、ユーザーは、PS に接続されている複数のコンピューターに影響する可能性がある大規模な問題を回避できます。</p>
+
+
+  <p style="text-align: center;"><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c437d1d1-1495-4c71-9ab5-2746dee6c19c.png" style="font-size: 13px;" target="_blank"><img alt="Process Server Blade" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6cdd3251-71f3-4ce4-94df-37c7adffd063.png" style="border: 0px solid currentcolor; border-image: none; width: 400px; height: 453px; display: inline; background-image: none;" title="プロセスサーバーブレード"></a></em></p>
+
+
+  <p style="text-align: center;"><em>PS ブレードの表示</em></p>
+
+
+  <p>Azure Site Recovery によって設定された以下のしきい値に従って、警告および重大なイベントが発生します。 補足アラートには、PS サービスと PS ハートビートに関連する問題が含まれます。 ポータルでは、これらの正常性イベントはすべて PS ブレードで照合され、イベントテーブル内の最大72時間のデータポイントについて詳細に監視できます。 スループットは、達成可能な RPO に関して測定されることに注意してください。</p>
+
+
+  <table align="center" border="1" cellpadding="2" cellspacing="0" width="600">
+   <tbody>
+    <tr>
+     <td valign="top" width="200"><strong>パラメーター</strong></td>
+     <td valign="top" width="199"><strong>警告しきい値</strong></td>
+     <td valign="top" width="199"><strong>重大しきい値</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">CPU 使用率</td>
+     <td valign="top" width="199">80%</td>
+     <td valign="top" width="199">95%</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">メモリ使用量</td>
+     <td valign="top" width="199">80%</td>
+     <td valign="top" width="199">95%</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">[空き領域]</td>
+     <td valign="top" width="199">30%</td>
+     <td valign="top" width="199">25%</td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">達成可能 RPO</td>
+     <td valign="top" width="199">&gt;30分</td>
+     <td valign="top" width="199">&gt;45分</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>PS とそのレプリケートされた項目の間の明確な関係は、[レプリケートされた項目] ブレードで確立されます。 これにより、進行中のレプリケーションの問題の識別と解決が高速になります。</p>
+
+
+  <p style="text-align: center;"><em><img alt="Replicated Item Blade" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1157b7bd-0134-44b1-896e-3485787aaa3c.png" style="border-width: 0px; border-style: solid; width: 900px; height: 298px; display: inline; background-image: none;" title="レプリケートされた項目のブレード"></em></p>
+
+
+  <p style="text-align: center;"><em>レプリケートされた項目のブレードのビュー。</em></p>
+
+
+  <p>これらの正常性シグナルはすべて、統合されたプロセスサーバーの正常性にロールアップされます。 この表示パラメーターは、新しいマシンを保護する必要がある場合、または既存の PSes 間の負荷分散が必要な場合に、PS を選択するのに役立ちます。 <a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-azure-manage-process-server#process-server-selection-guidance" target="_blank">プロセスサーバーの選択</a>時に、警告を生成することによって、警告のヘルス状態はユーザー &rsquo; の選択を解除しますが、重大な正常性状態は PS の選択を完全にブロックします。 シグナルは、ワークロードのスケールが大きくなるにつれて強力です。 このガイダンスでは、apt の仮想マシンの数がプロセスサーバーに接続されていることを確認し、関連する問題を回避できます。</p>
+
+
+  <blockquote>
+
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img alt="Healthy Process Server" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ab5d2285-fb41-45b3-b757-a17a6aee0631.png" style="border: 0px currentcolor; border-image: none; width: 250px; height: 384px; display: inline; background-image: none;" title="正常なプロセスサーバー">&nbsp;<img alt="Critical Process Server" height="451" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b0ed89b4-7d86-424d-a985-2850047acb00.png" style="border-width: 0px; border-style: solid; width: 251px; height: 453px; font-size: 13px; display: inline; background-image: none;" title="重要なプロセスサーバー" width="250"></p>
+
+  </blockquote>
+
+
+  <p style="text-align: center;"><em>正常なプロセスサーバー (左側) と重要なプロセスサーバー (右) でレプリケーションワークフローを有効にする</em></p>
+
+
+  <p>プロセスサーバーの正常性シグナルは、CPU 使用率、メモリ使用量、および空き領域を9.24 バージョン以降で利用できます。 スループットに関連するアラートは、以降のリリースで使用できるようになります。</p>
+
+
+  <h2>関連リンクとその他のコンテンツ</h2>
+
+
+  <ul>
+   <li>VMware または物理マシンの<a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-azure-enable-replication" target="_blank">ディザスターリカバリー</a>を Azure に設定する</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-azure-manage-process-server" target="_blank">プロセスサーバーの管理</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-physical-azure-support-matrix#azure-site-recovery-churn-limits" target="_blank">Azure Site Recovery チャーンの制限</a>についての詳細情報</li>
+   <li>プロセスサーバーの<a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-physical-azure-monitor-process-server" target="_blank">トラブルシューティング</a></li>
+  </ul>

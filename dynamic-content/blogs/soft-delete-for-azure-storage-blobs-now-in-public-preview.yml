@@ -1,0 +1,59 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5d975da0484dd718caab56fe8731712d92de07b4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892393"
+Slug: soft-delete-for-azure-storage-blobs-now-in-public-preview
+Title: Azure Storage blob の論理的な削除がパブリックプレビューになりました
+Summary: 本日、Azure Storage blob の論理的な削除のパブリックプレビューを発表します。 この機能は、パブリックとプライベートの両方のリージョンで使用できます。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">2018年5月30日のように、Azure Storage blob の論理的な削除が一般公開されています。 詳細については、ブログの投稿「 <a href="https://azure.microsoft.com/blog/soft-delete-for-azure-storage-blobs-ga/">Azure Storage blob の論理的な削除</a>」 &ldquo; を参照してください。&rdquo;</div>
+
+
+  <p>本日、 <strong>Azure Storage blob の論理的な削除</strong>のパブリックプレビューを発表します。 この機能は <strong>、パブリックとプライベートの両方のリージョン</strong>で使用できます。</p>
+
+
+  <p>論理削除を有効にすると、blob または blob のスナップショットが削除されたデータを保存して復旧できます。 この保護は、上書きの結果として消去された BLOB データにまで拡張されます。</p>
+
+
+  <h2>それはどのように機能しますか?</h2>
+
+
+  <p>削除されたデータは、完全に消去されるのではなく、論理的に削除された状態に移行します。 論理的な削除が有効になっている状態で、データを上書きすると、上書きされたデータの状態を保存するために、論理的に削除されたスナップショットが生成されます。 論理的に削除されたオブジェクトは、明示的に一覧表示されない限り表示されません。 論理的に削除されたデータが完全に有効期限切れになって復旧できなくなるまでの時間を構成することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40eb45e9-7c12-4c1f-8d0a-ed337fbb2a35.png"><img alt="storage-blob-soft-delete-overwrite-then-delete (2)" border="0" height="207" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ebd591da-d843-4151-baeb-b19548149fcf.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ストレージ-blob-削除-上書き-then-delete (2)" width="1139"></a></p>
+
+
+  <p><em>論理的に削除されたデータは灰色で、アクティブなデータは青色です。最近書き込まれたデータは、古いデータの下に表示されます。B0 が B1 で上書きされると、ソフト削除された B0 のスナップショットが生成されます。Blob が削除されると、ルート (B1) も論理的に削除された状態に移行します。</em></p>
+
+
+  <p>論理的な削除は下位互換性があります。&rsquo;この機能によって実現される保護を利用するために、アプリケーションを変更する必要はありません。 パブリックプレビュー中に、スナップショットを持つ blob で Set Blob Tier を呼び出すことはできません。<br>
+
+  論理的な削除では、上書きからデータを保護するためにスナップショットが生成されます。 論理的に削除されたスナップショットを使用して blob の階層化を有効にするために、ソリューションに積極的に取り組んでいます。</p>
+
+
+  <p>新しいアカウントを作成したとき、論理的な削除は既定で無効に設定されます。 既存のストレージ アカウントについても、論理的な削除の既定の設定はオフです。 ストレージ アカウントの有効期間中であればいつでも、機能のオンとオフを切り替えることができます。 オブジェクトレベルの論理的な削除は、すべてのストレージアカウントの種類とすべてのストレージ層で使用できます。 コンテナーまたはアカウントの削除に対しては保護されません。 偶発的な削除からストレージ アカウントを保護する方法については、Azure Resource Manager の記事「<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources" target="_blank">リソースのロックによる予期せぬ変更の防止</a>」をご覧ください。</p>
+
+
+  <p>論理的に削除されたデータは、アクティブなデータと同じレートで課金されます。 一般的な Azure Blob Storage の価格について詳しくは、<a href="https://azure.microsoft.com/pricing/details/storage/blobs/" target="_blank">Azure Blob Storage の料金に関するページ</a>をご覧ください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>論理的な削除は、 <a href="https://portal.azure.com/" target="_blank">Azure Portal</a>の最新リリース、 <a href="https://www.nuget.org/packages/WindowsAzure.Storage" target="_blank">.net クライアントライブラリ </a>(バージョン 9.0.0)、 <a href="https://github.com/azure/azure-storage-java" target="_blank">Java クライアント</a> ライブラリ (バージョン 7.0.0)、 <a href="https://github.com/Azure/azure-storage-python/tree/master/azure-storage-blob" target="_blank">Python クライアントライブラリ</a> (バージョン 1.1.0)、 <a href="https://azure.github.io/azure-storage-node/" target="_blank">Node.js クライアントライブラリ</a> (バージョン 2.8.0)、 <a href="https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-5.3.0" target="_blank">PowerShell</a> (バージョン 5.3.0)、 <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank">CLI 2.0</a> (バージョン2.0.27 以降) でサポートされています。 <a href="https://msdn.microsoft.com/library/azure/dd894041.aspx" target="_blank">Storage Services REST API</a>を常に使用することもできます。 論理削除は REST API バージョン2017-07-29 以降でサポートされています。 この機能を使っているかどうかにかかわらず、一般に、最新バージョンを常に使うことをお勧めします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91e1ce86-a1b0-43d6-a012-e097b4ca2d3c.png"><img alt="storage-blob-soft-delete-portal-configuration" border="0" height="722" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/055722a8-8f3a-457f-b372-e8e4c7c4ba4f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ストレージ-blob-削除-ポータル-構成" width="771"></a></p>
+
+
+  <p><em>Azure ポータルを使用して論理的な削除を有効にするには、[Blob Service &quot; ] の下の &quot; [ &quot; 論理的な削除 &quot; ] オプションに移動します。次に、[有効 &quot; ] をクリック &quot; し、論理的に削除されたデータを保持する日数を入力します。</em></p>
+
+
+  <p>この機能の詳細については、論理的な削除に関する <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-soft-delete" target="_blank">ドキュメント</a> およびこの <a href="https://github.com/Azure-Samples/storage-dotnet-blob-soft-delete" target="_blank">論理的な削除のコードサンプル</a>を参照してください。</p>
+
+
+  <p>アプリケーションまたはその他のストレージアカウントユーザーによってデータが誤って変更または削除される可能性がある場合は、論理的な削除を有効にすることをお勧めします。 論理的な削除はデータ保護戦略の一部であり、不注意によるデータの損失を防ぐことができます。</p>

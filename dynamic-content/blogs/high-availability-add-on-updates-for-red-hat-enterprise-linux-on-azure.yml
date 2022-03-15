@@ -1,0 +1,91 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bf623953d2a73588d2931f8fec417e09b9cb67dc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890784"
+Slug: high-availability-add-on-updates-for-red-hat-enterprise-linux-on-azure
+Title: Azure 上の Linux Add-On Red Hat Enterpriseの高可用性と更新プログラム
+Summary: 高可用性は、ミッション クリティカルな実稼働環境にとって非常に重要です。 Red Hat Enterprise Linux 高可用性Add-On重要な実稼働サービスに信頼性と可用性を提供します。
+Content: >-
+  <p>高可用性は、ミッション クリティカルな実稼働環境にとって非常に重要です。 Red Hat Enterprise Linux 高可用性Add-On、それを使用する重要な実稼働サービスに信頼性と可用性を提供します。 現在、&rsquo;Azure 上 Add-Onの Red Hat Enterprise Linux (RHEL) の高可用性サービスに関するパフォーマンスの向上とイメージの更新について共有しています。</p>
+
+
+  <h3>Pacemaker</h3>
+
+
+  <p>Pacemaker は、高可用性コンピューティング クラスターで使用される堅牢で強力なオープンソース リソース マネージャーです。 これは、RHEL の高可用性サービスのAdd-On部分です。</p>
+
+
+  <p>Pacemaker が更新され、Azure Fencing Agent のパフォーマンスが向上し、Azure フェールオーバー時間が大幅に短縮され、お客様のダウンタイムが大幅に短縮されました。 この更新プログラムは、Azure Marketplace の Pay-As-You-Go イメージまたは Bring-Your-Own-Subscription イメージを使用して、すべての RHEL 7.4 以上のユーザーが利用できます。</p>
+
+
+  <h3>高可用性機能を備え、新しい移動可能な RHEL Add-On</h3>
+
+
+  <p>現在、RHEL の Pay-As-You-Go (PAYG) イメージが用意されています。高可用性は、Add-Onで利用Azure Marketplace。 これらの RHEL イメージには、高可用性とリポジトリへのAdd-Onがあります。 これらのイメージの価格の詳細は、料金計算ツールで <a href="https://azure.microsoft.com/pricing/details/virtual-machines/rhel-ha/">確認できます</a>。</p>
+
+
+  <p>次の RHEL HA PAYG イメージは、米国政府クラウドを含むすべての Azure リージョンで Marketplace で利用できます。</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/rhel74ha" target="_blank">HA を使用した RHEL 7.4</a></li>
+      <li><a href="https://aka.ms/rhel75ha" target="_blank">HA を使用した RHEL 7.5</a></li>
+      <li><a href="https://aka.ms/rhel76ha" target="_blank">HA を使用した RHEL 7.6</a></li>
+  </ul>
+
+
+  <h3>高可用性機能を備え、SAP イメージ用の新しい有料 RHEL Add-On</h3>
+
+
+  <p>また、SAP パッケージと高可用性サービスの両方を含む RHEL イメージAdd-On Marketplace で入手できます。 これらのイメージには、SAP&nbsp; リポジトリ、高可用性 Add-On リポジトリへのアクセスが含まれています。標準の Red Hat ポリシーごとに 4 年間サポートされています。 これらのイメージの価格の詳細は、料金計算ツールで <a href="https://azure.microsoft.com/pricing/details/virtual-machines/rhel-sap-hana-ha/">確認できます</a>。</p>
+
+
+  <p>次の RHEL for SAP with HA および Update Services イメージは、米国政府クラウドを含むすべての Azure リージョンの Marketplace で利用できます。</p>
+
+
+  <ul>
+      <li><a href="https://aka.ms/rhel74sapha" target="_blank">HA および Update Services を使用した RHEL 7.4 for SAP</a></li>
+      <li><a href="https://aka.ms/rhel75sapha" target="_blank">HA および Update Services を使用した RHEL 7.5 for SAP</a></li>
+      <li><a href="https://aka.ms/rhel76sapha" target="_blank">HA および Update Services を使用した RHEL 7.6 for SAP</a></li>
+  </ul>
+
+
+  <p>SAP 認定の Azure VM <a href="https://www.sap.com/dmc/exp/2014-09-02-hana-hardware/enEN/iaas.html#categories=Microsoft%20Azure" target="_blank">サイズの一覧SAP HANAについては、「Certified and Supported SAP HANA Hardware Directory</a> 」を参照してください。</p>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p>次の Azure CLI コマンドを使用して、HA を使用した RHEL と SAP 用の RHEL イメージなど、Azure 上の RHEL イメージの完全な一覧を取得することもできます。</p>
+
+
+  <p><code>az vm image list --publisher redhat --all</code></p>
+
+
+  <h3>サポート</h3>
+
+
+  <p>Azure 上の HA イメージを備えた HA と RHEL for SAP を備えた RHEL はすべて、Red Hat と Microsoft 統合サポート チームによって完全にサポートされています。</p>
+
+
+  <p>サポート サイト <a href="https://aka.ms/AzureSupport" target="_blank">については、こちらを参照してください</a> 。 <a href="https://access.redhat.com/articles/2041623" target="_blank">Red Hat サポート サイトについては、こちらを参照してください</a>。</p>
+
+
+  <p>Red Hat Enterprise Linux サポート ライフサイクルの詳細については、こちらを参照<a href="https://access.redhat.com/support/policy/updates/errata">してください</a>。</p>
+
+
+  <h3>次の手順</h3>
+
+
+  <ul>
+      <li>Azure での <a href="https://azure.com/RedHat" target="_blank">Red Hat Red Hat on Azure</a> の詳細については、Azure サイトを参照してください。</li>
+      <li>料金計算ツールで価格情報 <a href="https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/" target="_blank">を表示します</a>。</li>
+      <li>概要 <a href="https://aka.ms/rhel76ha" target="_blank">RHEL HA PAYG</a> イメージと、HA PAYG イメージを使用した <a href="https://aka.ms/rhel76sapha" target="_blank">RHEL for SAP を使用します</a>。</li>
+      <li>RHEL を使用して SAP 用 Pacemaker クラスターを作成する方法については、こちらを <a href="https://docs.microsoft.com/azure/virtual-machines/workloads/sap/high-availability-guide-rhel-pacemaker" target="_blank">参照してください</a>。</li>
+      <li>クイック スタート ガイドを使用して RHEL に SAP <a href="https://docs.microsoft.com/azure/virtual-machines/workloads/sap/hana-get-started" target="_blank">をデプロイします</a>。</li>
+  </ul>

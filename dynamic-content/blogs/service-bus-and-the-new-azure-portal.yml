@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 32a864698fc7a3bd8a7189ff821a28724cc1e521
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892552"
+Slug: service-bus-and-the-new-azure-portal
+Title: Service Busと新しいAzure portal
+Summary: Azure Service Busサービスは、新しいサービスのAzure portal。 これらの今後の変更の一部について詳しくは、以下を参照してください。
+Content: >-
+  <p>メッセージング、Service Bus、Azure Event Hubs、Azure Relay はすべて同じチームによって作業されているという話を聞いて驚く人もいます。 これらのサービス間には確かに多くの類似点があります。しかし、同じ数の異なる使用例もあります。 新しいサービスでこれらのサービスを提供する予定Azure portal名前空間に関する今後の変更が予定されています。 過去には、メッセージング、Service Busリレー Event Hubs、Service Bus共通の名前空間が共有されています。</p>
+
+
+  <h3>どのような種類の変更が予想されますか?</h3>
+
+
+  <ul>
+      <li>2016 年 8 月から、Service BusメッセージングとAzure Event Hubs新しいサービスで使用Azure portal。</li>
+      <li>Messaging と Event Hubs使用可能になると、新しく作成された名前空間は、対応するサービスに対して一意になります。 たとえば、Event Hubs名前空間Event Hubs持ち、メッセージングやリレーはサポートされていません。 各サービスを使用する場合は、それぞれの名前空間を作成する必要があります。</li>
+      <li>メッセージングEvent Hubs使用した顧客の場合、名前空間の下に一覧Event Hubs表示されません。</li>
+      <li>2016 年 10 月末には、新しいサービスで Relay をAzure portal。</li>
+      <li>これらのサービスはすべて、少なくとも 2016 年 10 月末までプレビューの予定です。</li>
+  </ul>
+
+
+  <p>重要な点の 1 つは、これらの変更のいずれも、現在の名前空間に対するランタイムへの影響はありません。 現在のポータルでは、混合名前空間の種類は引き続きサポートされますが、長い間はサポートされません。 サポートは、お客様が特定のサービスの下で新しい名前空間の種類に正常に移行するのに役立ちます。 今後、お客様には、Messaging 名前空間の種類の下にキューとトピックを作成し、Event Hub 名前空間の種類の下にイベント ハブを作成し、Relay 名前空間の種類でリレーを作成する必要があります。</p>
+
+
+  <h3>なぜこれを行うのですか?</h3>
+
+
+  <p>新しい Azure Portal を使用して、技術的負債を管理する機会を提供しています。 メッセージングService Bus、Azure Event Hubs、Azure Relayはすべて似ていますが、それらは大して異なります。 これらのサービスを独自の名前空間に分割すると、インフラストラクチャを最適化し、パフォーマンスを向上させることができます。 さらに、これらのサービスの関連方法に関する混乱に関する多くのフィードバックを受け取ったので、今後は、お客様の業務を簡単にしたい考えです。 分離により、ドキュメントを簡素化し、サービスの正常性に関するより良いレポートを提供し、カスタマー エクスペリエンスとサポートを全体的に改善することができます。</p>
+
+
+  <p>新しいポータルの異なるサービスの下に既存の名前空間が表示されますか? 移行シナリオに関する投稿については、このスペースをご覧ください。</p>
+
+
+  <p>詳細については、Messaging 名前空間の種類から名前空間の種類に移行する方法の詳細については、 <a href="https://blogs.msdn.microsoft.com/servicebus/2016/11/09/namespace-auto-convert-from-messaging-type-to-eventhub-type/">このブログEvent Hubs参照してください</a>。</p>
+
+
+  <p>ご質問とフィードバックをお寄せください。 フォーラムまたは以下のコメント セクションで、<a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=servbus"><u>Service Busに</u></a>従って会話に参加します。</p>

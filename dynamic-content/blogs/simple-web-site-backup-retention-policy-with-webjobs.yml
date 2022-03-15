@@ -1,0 +1,124 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cde2b3d77eb5380dad5fc00ba4b8ef1740a1397c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892476"
+Slug: simple-web-site-backup-retention-policy-with-webjobs
+Title: Web ジョブを使用した単純な Web サイトバックアップの保持ポリシー
+Summary: Azure には、web サイトコンテキストで Web ジョブを使用してコードを実行する機能が用意されています。 Azure にアクセスしている間、web サイトのアプリケーションシナリオソリューションに関して優れた汎用性を提供します...
+Content: >-
+  Azure には、web サイトコンテキストで <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-create-web-jobs/" target="_blank">web ジョブ</a>を使用してコードを実行する機能が用意されています。 Azure リソースにアクセスしながら、web サイトのアプリケーションシナリオソリューションに関して優れた汎用性を提供し、さまざまな方法でそれらを解決できます。 <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-backup/" target="_blank">Web サイトのバックアップ機能</a>は、スケジュールに基づいて実行され、Azure storage を使用します。これにより、これが特に興味深い例になります。 この記事では、古い web サイトバックアップファイルを定期的にクリーンアップする単純な web ジョブを構築する方法の詳細について説明します。<em> </em>
+
+  <h4>バックアップファイルのレイアウト</h4>
+
+  コンテキストを設定するには、このソリューションの理解に関連するバックアップ機能の詳細について説明します。 設計の最も良い側面の1つは、顧客向けにバックアップコンテンツを作成するための、アクセスと管理の方法です。 バックアップが正常に実行されるたびに、指定したストレージアカウントに2つのファイルが格納されます。バックアップの内容を記述する XML ファイルと、バックアップされた実際のファイルを含む ZIP ファイルです。 ファイルの名前付け規則は<em> &lt; website_name &gt; _ &lt; タイムスタンプ &gt; です。 &lt;拡張機能 &gt; 。</em>例えば：
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/2630.2014_2D00_04_2D00_01_5F00_17h23_5F00_00.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/2630.2014_2D00_04_2D00_01_5F00_17h23_5F00_00.png" border="0"></a>
+
+
+  ほとんどのお客様は、1日に1回など、スケジュールに従って実行するようにバックアップ操作を設定します。 これにより、バックアップストレージアカウントで時間の経過と共に蓄積される2つのファイルが毎日作成されます。 この機能はプレビューモードですが、リテンション期間ポリシーはまだ提供されていませんが、このクリーンアップを行うようにサイトを構成することができます。
+
+  <h4>ソリューションの概要</h4>
+
+  古いバックアップをクリーンアップする簡単な方法の1つは、スケジュールされた Web ジョブを実行して、バックアップファイルの保持ポリシーを適用することです。 Web ジョブについて理解を深めるには、Azure の web サイトで <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-create-web-jobs/">この記事</a> を確認してください。 このために Web ジョブを使用するには、単純なアプリケーションを作成し、毎日実行するように Web ジョブを構成する必要があります。 アプリケーションは、backup フォルダー内のすべてのファイルを処理し、それらが作成されたことを確認して、定義したポリシーよりも古い場合は削除します。
+
+  <h4>サンプル コード</h4>
+
+  アプリケーションは、さまざまな方法で記述および展開できます。 次の例は C# で記述されており、コンソールアプリ (.exe) としてデプロイされていますが、他の言語で簡単に実行できます。 <strong>注: </strong>このコードを直接使用する場合は、web ジョブとしてビルドおよびデプロイするために使用できる完全なバージョンをダウンロードする方法に関する次のセクションの手順に従ってください。
+
+
+  このコードの最初の部分では、バックアップストレージアカウントの構成、バックアップフォルダーの場所、保持する最大有効期間 (日数)、および Web サイト名を収集します。 構成値 (以下の大文字の文字列) は、web サイトのアプリケーション設定から取得されます。 この記事の後半では、これらの設定の値を設定する方法について説明します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/0412.code-1.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/0412.code-1.png" border="0"></a>
+
+
+  設定が設定されている状態で、コードの2番目の部分は、バックアップファイルが格納されている blob ストレージに接続します。 次に、現在の時刻から最長有効期間ポリシーまでの日付と時刻のオフセットを計算します。 次に、 <em>foreach</em> ループを使用して、フォルダー内の各ファイルと、 <strong>zip</strong> または <strong>xml</strong> 拡張子を持つファイルに対して、バックアップ処理規則に従って名前が付けられます。 次にプログラムは、各ファイルの有効期間を計算します。これは、定義された最大値よりも古い場合、コードによってファイルが削除されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/3644.code-2.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/3644.code-2.png" border="0"></a>
+
+  <h4>バイナリのビルドとパッケージ化 (.exe)</h4>
+
+  コマンドライン実行可能ファイル (.exe) の作成に慣れていない場合は、次の手順に従って<a href="https://msdn.microsoft.com/en-us/library/dd831853.aspx" target="_blank">Visual Studio 2013</a>と<a href="https://azure.microsoft.com/en-us/downloads/" target="_blank">Azure SDK</a>を使用して実行可能ファイルをビルドします (両方を事前にインストールする必要があります)。
+
+  <ol>
+   <li>新しいコンソールアプリの作成- &gt; テンプレート Visual C#- &gt; コンソールアプリケーション- &gt; 名前を「webjobproject」のように指定します。</li>
+   <li>次に示す <a href="https://gist.github.com/eduardolaureano/9822461#file-backupretentionpolicyWebJob" target="_blank">よう</a>に、プログラム .cs の内容を、上記のコードの完全なバージョンに置き換えます。
+  <ol>
+   <li>これには、ライブラリへの参照 (ステートメント<em>を使用 </em>)、進行状況とエラーを標準出力に記録する、名前空間とクラスの定義、および追加のコードのコメントが含まれています。</li>
+  </ol>
+
+  </li>
+   <li>参照の追加 ([ソリューションエクスプローラー] ダイアログボックス- &gt; 右クリック参照– &gt; 追加参照)
+  <ol>
+   <li>フレームワーク– &gt; システム構成</li>
+   <li>拡張機能– &gt; Storage windowsazure.servicebus</li>
+  </ol>
+
+  </li>
+   <li>ソリューションをビルドする (Ctrl + Shift + B)</li>
+   <li>プロジェクトの [デバッグ] の内容を Zip 形式にして、"WebJobProject.zip" のように名前を指定します。
+  <ol>
+   <li>デバッグフォルダーに移動するには、[すべてのファイルを表示] アイコン &gt; ソリューションエクスプローラー &gt; をクリックし、[bin] フォルダーを展開して "Debug" フォルダー &gt; を表示します。ファイルエクスプローラーでフォルダーを右クリックして開きます。</li>
+   <li>Windows 8 コンピューターの内容を圧縮するには: [すべてのコンテンツを選択する]- &gt; 右クリックして、[圧縮 (zip 形式) フォルダー] に &gt; 送信します。</li>
+  </ol>
+
+  </li>
+
+  </ol>
+
+  <div>
+
+  <h4>Web ジョブのセットアップ</h4>
+
+  Web ジョブのセットアップは次のようになります。 後のセクションでは、Web ジョブコンテンツの zip ファイルを作成する方法について説明します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/8244.2014_2D00_04_2D00_01_5F00_17h41_5F00_01.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/8244.2014_2D00_04_2D00_01_5F00_17h41_5F00_01.png" border="0"></a>
+
+
+  スケジュールの詳細が表示されます。 バックアップ機能が毎日実行されているため、Web ジョブのスケジュールも同じように設定されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/5226.2014_2D00_04_2D00_01_5F00_17h44_5F00_46.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/5226.2014_2D00_04_2D00_01_5F00_17h44_5F00_46.png" border="0"></a>
+
+  <h4>アプリケーションパラメーターの設定</h4>
+
+  この web ジョブは、設定する必要がある特定の web サイトアプリの設定を検索します。 この設定を行うには、Azure portal のサイトに移動し、[構成] タブを選択して、[アプリの設定] まで下にスクロールします。 ここでは、バックアップファイルの保持ポリシーを日単位で定義し、バックアッププロセスに使用するストレージアカウントを示します (実際の情報は画像に表示されません)。 [WEBSITE_SITE_NAME] 設定は、すべての web サイトで既に提供されているため、追加する必要はありません。 すべてのアプリケーション設定を表示するには、scm.azurewebsites.net website_name &gt; に &lt; アクセスし、[環境] をクリックします。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/1754.BackupRetentionWebjob_2D00_AppSettingsMasked.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/1754.BackupRetentionWebjob_2D00_AppSettingsMasked.png" border="0"></a>
+
+  <h4>結果</h4>
+
+  セットアップ後、正常に実行された場合は、次のようになります。
+
+
+  Web ジョブダッシュボードが正常に実行された後
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/1884.2014_2D00_04_2D00_01_5F00_17h49_5F00_28.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/1884.2014_2D00_04_2D00_01_5F00_17h49_5F00_28.png" border="0"></a>
+
+  <h4>Web ジョブからのログファイル</h4>
+
+  Web ジョブダッシュボードのログへのリンクに従うと、以前のすべての実行結果を含む web ページが表示されます。 ログは、Web ジョブ実行のエラーを把握したり、ジョブが想定どおりに実行されたことを確認したりするのに非常に役立ちます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/4520.2014_2D00_04_2D00_01_5F00_17h58_5F00_51.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/4520.2014_2D00_04_2D00_01_5F00_17h58_5F00_51.png" border="0"></a>
+
+
+  特定の実行結果をクリックすると、Web ジョブからのテキスト出力が表示されます。 この例では、Web ジョブインフラストラクチャ ("SYS INFO") によるログエントリと、この Web ジョブによって出力されるエントリ ("INFO") が表示されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/6403.2014_2D00_04_2D00_01_5F00_18h00_5F00_09.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/361/6403.2014_2D00_04_2D00_01_5F00_18h00_5F00_09.png" border="0"></a>
+
+  <h4>保持ポリシーの拡張のアイデア</h4>
+
+  これは、コンテンツサイズ、対数の周期性 (最新のバックアップを保持する、古いバックアップを減らす)、または zip コンテンツの相違点を比較して、削除するバックアップを選択することによって、より高度な保持ポリシーに簡単に変更できます。 ここで説明するように、Web ジョブをコーディングしてデプロイする方法は他にも多数あります。 ご意見やご感想をお寄せください。
+
+
+  </div>

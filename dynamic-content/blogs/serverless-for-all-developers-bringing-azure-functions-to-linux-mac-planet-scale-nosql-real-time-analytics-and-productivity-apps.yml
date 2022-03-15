@@ -1,0 +1,67 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 90b322a50f5527911a4297515d4d09a18dc05e44
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892555"
+Slug: serverless-for-all-developers-bringing-azure-functions-to-linux-mac-planet-scale-nosql-real-time-analytics-and-productivity-apps
+Title: 'すべての開発者向けのサーバーレス: Linux、Mac、Azure Functionsスケール NoSQL、リアルタイム分析、生産性アプリへのデータの取り込み'
+Summary: サーバーレスの人気が高くなっている中で、あらゆる種類の背景や好みから開発者の声が聞こえ、 その多くは、真に有名なサーバーレス アプリケーションを構築しています。
+Content: >-
+  <p>サーバーレスの人気が高く<a href="https://azure.com/serverless"></a>なっている中で、あらゆる種類の背景や好みから開発者の声が聞こえ、 その多くは、真に有名なサーバーレス アプリケーションを構築しています。 プラットフォームを使用している革新的なシナリオは、常に私たちを驚かされます。</p>
+
+
+  <p>お客様は、アプリの構築速度の向上、メンテナンスの削減の利点、全体的なコスト効率に注意を向け、 これにより、チームは、より多くのシナリオやアプリケーションを引き出すプラットフォームをさらに強化する方法を常に探す動機になります。 今日は、いくつかの&rsquo;重要な領域で新しい機能と進歩についてお知らせします。</p>
+
+
+  <ul>
+   <li><b>Azure Cosmos DB トリガー</b>: <a href="https://azure.com/functions">Azure Functions</a>トリガーと呼ばれる機能が提供され、イベントに応答してサーバーレス コードを実行できます。 新 <a href="https://azure.microsoft.com/en-us/blog/introducing-azure-event-grid-an-event-service-for-modern-applications/">しいアプリケーションの発表Azure Event Grid</a> 、サーバーレス アプリケーションを構築するための興味深い可能性が多数生み出されました。 現在、トリガーのサポートを拡張して、グローバルに分散された、非常にスケーラブルなマルチモデル データベース サービスである Azure Cosmos DB が含まれるまで拡張しています。 Azure Cosmos DB は完全に管理されるため、サーバーレス アプリケーションに最適なデータベース アリーです。 この機能の詳細については、この機能に関するブログ記事で、Cosmos <a href="https://aka.ms/cfblog">DB トリガーに関するページをAzure Functions</a>。 次に示すのは、受信注文が Cosmos DB に格納され、複数のサーバーレス関数をトリガーして支払い処理やフルフィルメントなどのさまざまな操作を実行する注文管理システムのアーキテクチャの例です。</li>
+  </ul>
+
+
+  <p><img alt="Serverless_1" border="0" height="510" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c2cc139f-d5df-45a5-a952-dd836a556073.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Serverless_1" width="1024"></p>
+
+
+  <p><em>図 1: eコマース注文管理のイベント駆動型アーキテクチャの例</em></p>
+
+
+  <ul>
+   <li><b>Microsoft Graphバインド</b>: Azure Functionsと呼ばれる一意の機能をサポートし、他のサービスとの通信を簡略化します。 これにより、開発者は、他のサービスと話す際に必要な、めったに行う構成や初期化のタスクを学習するのではなく、問題に集中できます。 現在、Microsoft の一連のバインディングを含むバインディング のサポート<a href="https://developer.microsoft.com/en-us/graph/">Graph</a>しています。 これらの新しいバインドは構成が簡単ですが、非常に強力です。 関数は、わずか数行のコードで OneDrive、Excel、Outlook、および Microsoft Graph と簡単に話し合えるので、Microsoft クラウドで何百万人ものユーザーに対して興味深い機能をすばやく構築できます。 この機能のしくみを次に示します。</li>
+  </ul>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Azure-Friday/Navigating-the-Microsoft-Graph-with-Azure-Functions/player" width="960"></iframe></p>
+
+
+  <p>Microsoft Graph 用の Functions バインドに関するページの<a href="https://aka.ms/funcgraphdoc">手順に従って、お試Graph</a>。</p>
+
+
+  <ul>
+   <li><b>クロスプラットフォームの開発者エクスペリエンス</b>: 開発環境の好みに関係なく、すべての開発者が、環境に合Azure Functions。 過去に、関数がクラウドにデプロイされる前に、ローカル開発エクスペリエンスを提供しました。 現在、MacOS および Linux の開発者にもそのエクスペリエンスを拡張できます。 これは、ランタイムをクロスプラットフォームの .NET Core 2.0 に移行した場合に発生します。 クラウド アプリを機能するのと同じランタイムによって、ローカル開発エクスペリエンスも提供されます。 これにより、開発者は .NET Core 用に構築されたコード資産をサーバーレス アプリケーションで利用できます。 お気に入りの開発環境を選択し、Azure Functionsを与えます。 詳細 <a href="https://aka.ms/funccrossplattools">と以下のプレビューについてはAzure Functions</a> クロス プラットフォーム ツールに関するページを参照してください。</li>
+  </ul>
+
+
+  <p><img alt="Serverless_2" border="0" height="598" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/891e92c1-b595-4733-9d9c-33db6d422153.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Serverless_2" width="1024"></p>
+
+
+  <p><em>図 2: Mac でローカルAzure Functionsを作成して実行する</em></p>
+
+
+  <ul>
+   <li><b>AZURE アプリケーション インサイト GA による</b>監視: 高品質の実稼働アプリを実行する重要な要素は、それらを監視し、そのアプリに関する豊富なデータを収集する機能です。 高度な監視は、サーバーレス アプリを構築しているお客様からの絶え間ない質問でした。 この必要性に対処するために、関数Azure アプリ インサイトサポートが一般提供されます。 これには、ライブ メトリック ストリーミング、ILogger によるトレース、C# と JavaScript でのカスタム テレメトリのサポート、ポータル統合の改善、関数プロキシの実行に関するメトリックなど、プレビューで導入された一連の機能が含まれます。 詳細と開始 <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring">についてはAzure Functions</a> 監視に関するドキュメントをご覧ください。</li>
+  </ul>
+
+
+  <p><img alt="ai_screenshot" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f76532a6-1fdc-487b-8110-ec05aef87ab9.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ai_screenshot" width="831"></p>
+
+
+  <ul>
+   <li><b>Azure Stream Analytics との</b>統合: データストリームに対してリアルタイム分析を実行する必要があります。現在では、さまざまなデバイス、センサー、アプリケーションが増え、24 時間に大量のテレメトリ データを生成する必要があります。 Azure Stream Analyticsは、Azure でリアルタイム分析を行う、高度にスケーラブルでフル マネージドのサーバーレス PaaS オファリングです。 現在、Azure Stream Analyticsクエリにリアルタイムで応答して、Azure Functions でサーバーレス コードをトリガーするサポートが導入されています。 これにより、開発者はカスタム ロジックをストリーム分析パイプラインに挿入できます。 たとえば、ストリーミング データで特定の定義済みの条件が観察された場合に電子メールまたは通知を送信したり、最初からサポートされていない特定の出力ターゲットにエグレスしたり、受信するデータのカスタム後処理手順を作成することができます。 サーバーレス分析とコンピューティングのこの強力な組み合わせの詳細については、「Azure Stream Analytics: Azure Functions への出力」 <a href="https://aka.ms/funcsa">を参照してください</a>。</li>
+  </ul>
+
+
+  <p>多くの&#39;顧客が自分の目標を達成し、目標を達成できるのを見Azure Functions。 <a href="https://customers.microsoft.com/en-us/story/fujifilm-software-co-ltd">QUEST</a>、<a href="https://customers.microsoft.com/en-us/story/quest">Quest</a>、<a href="https://customers.microsoft.com/en-us/story/plexure-dev-azure">Plexure など、いくつかの企業は</a>、すばらしいサーバーレス シナリオを有効にしています。 あなたのストーリーは何ですか?</p>
+
+
+  <p>これらの新機能をお客様の手に取り入れ、フォーラム、<a href="https://stackoverflow.com/questions/tagged/azure-functions">StackOverFlow</a>、<a href="https://feedback.azure.com/forums/355860-azure-functions/filters/top">または Uservoice</a> を通じてご意見をお待ちしています。<a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureFunctions"></a></p>

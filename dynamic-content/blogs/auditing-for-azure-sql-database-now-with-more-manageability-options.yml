@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: db5c4a719ed15fb728af1f3b23e619cd62dec97d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893642"
+Slug: auditing-for-azure-sql-database-now-with-more-manageability-options
+Title: 管理性のAzure SQL Databaseオプションを使用して監査を行う
+Summary: 以前は、監査は新しい Azure プレビュー ポータルで導入されました。 これで、監査を管理するには、Azure portal PowerShell コマンドを使用します。
+Content: >-
+  <a href="https://manage.windowsazure.com/">Azure portal</a> から監査を管理し、<a href="https://github.com/Azure/azure-sdk-tools/releases/tag/v0.8.8-September2014">PowerShell</a> コマンドを使用して、以前は監査が導入され、新しい <a href="https://azure.microsoft.com/blog/2014/08/25/a-boost-in-security-for-azure-sql-database-auditing/">Azure</a> プレビュー ポータルで使用できる状況を共有できます。 監査は、データに対する更新やクエリなど、データベースで発生したイベントを追跡してログに記録します。
+
+
+  Azure プレビュー ポータルと同様に、次に示す Azure portal の直感的な構成インターフェイスを使用して、いくつかの簡単な手順でデータベースの監査を構成できます。
+
+
+  監査を設定するには、Basic、Standard、または プレミアム データベースから始める必要があります。
+
+
+  [監査] タブでターゲット データベースAzure portalし、[ <b>&amp;</b><b></b>監査セキュリティ] タブをクリックして [監査構成] タブを起動します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/09/MS-Azure.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="MS Azure" alt="MS Azure" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/MS-Azure_thumb.png" width="1173" height="476" border="0" /></a>
+
+
+  監査を有効にするだけで、監査構成オプションが表示されます。 監査ログAzure Storageするイベント アカウントを選択し、ログに記録するイベントのセットを指定します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/09/demodb.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="demodb" alt="demodb" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/demodb_thumb.png" width="968" height="705" border="0" /></a>
+
+
+  監査設定を構成したら、セキュリティが有効な接続文字列を使用するように、データベースに接続している既存のクライアント アプリケーションを更新する必要があります。 これにより、これらのアプリケーションのデータベース アクティビティをログに記録できます。 <b>セキュリティが有効な接続文字列</b> の形式は少し異なります。以前に使用した接続文字列は置き換えます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/10/09/connection-string.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="接続文字列 (connection string)" alt="connection string" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/connection-string_thumb.png" width="630" height="138" border="0" /></a>
+
+
+  この手順が完了したら、準備が整います。 ログは、Tables ストレージを使用して、指定Storageアカウントに保存されます。
+
+
+  データベース管理のスクリプト作成を希望するユーザーは、PowerShell を使用して監査を構成および <a href="https://github.com/Azure/azure-sdk-tools/releases/tag/v0.8.8-September2014">管理できます</a>。 ポータルの監査に対して実行されるすべてのアクションは、PowerShell コマンドを使用して実行することもできます。 使用可能な監査コマンドレットは次のとおりです。
+
+  <ul>
+   <li>データベースの現在の監査ポリシーを取得する</li>
+   <li>データベース サーバーの現在の監査ポリシーを取得する</li>
+   <li>データベース サーバーの監査ポリシーを設定する</li>
+   <li>特定のデータベースの監査を無効にする</li>
+   <li>特定のデータベース サーバーで監査を無効にする</li>
+   <li>サーバーの監査ポリシーを使用する特定のデータベースを設定する</li>
+  </ul>
+
+  監査の詳細については、以下を参照してください。
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-auditing-get-started/">監査の使用を開始する</a></li>
+   <li><a href="https://channel9.msdn.com/Shows/Data-Exposed/Auditing-in-Azure-SQL-Database">監査に関する Channel 9 ビデオ</a></li>
+  </ul>
+
+  &nbsp;
+
+
+  監査プレビューへのアクセスにサインアップしていない場合は、 <a href="https://azure.microsoft.com/en-us/services/preview/">今すぐサインアップしてください</a>。 監査に関するフィードバックについては、このフォーラムSQL Database<a href="https://feedback.azure.com/forums/217321-sql-database">してください</a>。

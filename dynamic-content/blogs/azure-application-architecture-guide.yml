@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3db468f2e1cae0335a4d1acf45290a2b24310c50
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890278"
+Slug: azure-application-architecture-guide
+Title: Azure アプリケーション アーキテクチャ ガイド
+Summary: Azure アプリケーションアーキテクチャガイドでは、クラウドアプリケーションのアーキテクチャスタイル、テクノロジの選択、設計の原則、ソフトウェア品質の5つの柱、およびクラウド設計パターンについて説明します。
+Content: >-
+  <p>Azure は約8年前にリリースされたため、多くのお客様には&#39;ます。 その後、Azure にはいくつかのサービスしかありませんでした。 これで&#39;が非常に大きくなり、拡張が維持されます。 また、クラウドコンピューティング自体も、顧客の需要の受け入れに発展してきました。 たとえば、ほとんどのコンシューマー向けアプリでは、競合他社と区別するために、以前よりもはるかに高速な更新速度が必要です。 これは、マイクロサービスなどの新しいアーキテクチャスタイルが現在の牽引力を獲得する &rsquo; 理由の一部です。 コンテナーベースのワークロードとサーバーレスワークロードは事実上、非常に大きくなりつつあります。 これらの新しいサービスと業界の傾向はすべて、優れた機会として提供されていますが、同時に、顧客の混乱の原因になる可能性があります。 お客様には、次のような多数の質問があります。</p>
+
+
+  <ul>
+   <li>どのアーキテクチャを選択すればよいですか。 マイクロサービス? N 層? どのように判断すればよいでしょうか。</li>
+   <li>ストレージには多くの選択肢がありますが、どちらが最適ですか。</li>
+   <li>サーバーレスアーキテクチャはどのような場合に使用すればよいですか。 どのような &rsquo; メリットがありますか? 制限事項はありますか。</li>
+   <li>拡張性と回復性を向上させるにはどうすればよいですか。</li>
+   <li>&rsquo;DevOps カルチャ 組織に導入するにはどうすればよいですか。</li>
+  </ul>
+
+
+  <p>これらの質問に回答するために、AzureCAT <strong>patterns &amp; プラクティス</strong> チームは <a href="https://docs.microsoft.com/azure/architecture/guide/">Azure アプリケーションアーキテクチャガイド</a>を公開しました。 &nbsp;このガイドは、クラウド用のアプリケーションを設計しているアーキテクトおよびアプリケーション開発者のための出発点として使用することを目的としています。 このガイドでは、アーキテクチャスタイルを選択し、適切なテクノロジを選択して、関連する設計パターンと実証済みプラクティスを適用する方法について説明します。 また、サイト上の既存のコンテンツの多くを結合します。 次の図は、このガイドの手順と関連トピックを示しています。</p>
+
+
+  <p style="text-align: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0820450-3ff8-4565-88c9-081ef37255e0.png"><img alt="Architecture guide steps" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39312a3b-8ae8-4fdb-bbea-1d483cb73df1.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="アーキテクチャガイドの手順" width="469"></a></p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/architecture/guide/architecture-styles">アーキテクチャスタイル</a>。 最初の意思決定ポイントがすべての基盤になります。 どのような種類のアーキテクチャを構築しますか。 マイクロサービス アーキテクチャ、従来の n 層アプリケーション、またはビッグ データ ソリューションも考えられます。 アーキテクチャ スタイルを 7 つ特定しました。 それぞれに利点と課題があります。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-overview">テクノロジの選択</a>。 早い段階で 2 つのテクノロジの選択を決定する必要があります。アーキテクチャ全体に影響が及ぶためです。 これらは、コンピューティングと記憶域のテクノロジの選択です。 "コンピューティング" という用語は、アプリケーションが実行するコンピューティング リソースのホスティング モデルを指します。 記憶域にはデータベースの他に、メッセージ キュー、キャッシュ、IoT データ、非構造化ログ データ、およびアプリケーションが記憶域に格納するその他すべての記憶域が含まれます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/architecture/guide/design-principles">設計原則</a>。 設計プロセス全体を通じて、ここで示す 10 個の設計原則に留意してください。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/architecture/guide/pillars">柱</a>。 成功するクラウド アプリケーションでは、ソフトウェア品質の 5 つの重要な要素、すなわち拡張性、可用性、回復性、管理性、セキュリティに重点が置かれています。</p>
+
+
+  <p><a href="https://docs.microsoft.com/azure/architecture/patterns/index?toc=/azure/architecture/guide/toc.json">クラウドの設計パターン</a>。 これらの設計パターンは、信頼性の高い、スケーラブルで安全なアプリケーションを Azure に構築するために役立ちます。 各パターンでは、問題、その問題を解決するパターン、Azure に基づく例を説明します。</p>
+
+
+  <p>このガイドは、電子 <a href="https://azure.microsoft.com/campaigns/cloud-application-architecture-guide/">ブック</a>としてダウンロードすることもできます。</p>
+
+
+  <p>Azure アプリケーション Architure ガイドが役に立つことを願っています。 最後に、フィードバックと提案について説明します。 コンテンツに欠けているものがある場合、改善の提案がある場合、またはお客様にとって問題がないと考えられる情報を共有したい場合は、までご連絡 <a href="mailto:arch-center-feedback@microsoft.com">arch-center-feedback@microsoft.com</a> ください。</p>

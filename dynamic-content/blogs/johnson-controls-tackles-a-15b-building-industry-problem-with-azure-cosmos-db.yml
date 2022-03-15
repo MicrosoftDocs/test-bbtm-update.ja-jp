@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 06903f4b942f2d5ca3ad220757f821557d74027d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892948"
+Slug: johnson-controls-tackles-a-15b-building-industry-problem-with-azure-cosmos-db
+Title: 150 億ドルの建設業界の問題に取り組む、Azure Cosmos DB
+Summary: 1885 年に最初の電気室サーモスタットを考案して以来、管理ソリューションとサービスを構築する上で、制御コントロールは革新的です。 コントロールは長年にわたり多くのイノベーションをビル業界に導入し、現在、毎年何十億もの建設業界にコストがかかる問題に取り組み続けてきました。
+Content: >-
+  <p><em>このブログの投稿は、Nikisha Reyes-Grange、シニア 製品マーケティング マネージャー、Azure Marketing、および Cloud Solution Architect、CSU-Data、AI の 1 つが共同作成者です。</em></p>
+
+
+  <p>1885 年に最初の電気室サーモスタットを考案して以来、管理ソリューションとサービスを構築する上で、制御コントロールは革新的です。 コントロールは長年にわたり多くのイノベーションをビル業界に導入し、現在、毎年何十億もの建設業界にコストがかかる問題に取り組み続けてきました。</p>
+
+
+  <p>最新の建物には、建物の管理から HVAC、セキュリティまで、すべてを処理する複数のシステムが含まれます。 これらのシステムは、共通のデータ モデルのないプロトコル、独自のシステム、アプリケーションによって管理され、相互運用性を防ぎ、スケーラビリティを制限し、業界に年間 <a href="https://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf" target="_blank">推定 150</a> 億ドルのコストがかかります。</p>
+
+
+  <h2>ソリューション</h2>
+
+
+  <p>建物のオペレーターが建物、運用、および乗員に関するデータを収集して理解するために、Energy Controls は、内部および外部のデータ ソースを統合し、エネルギー使用量、セキュリティ違反、火災報知器の状態、温度制御、その他の建物管理システムの詳細なビューを示す Digital Vault を作成しました。 <a href="https://azure.microsoft.com/en-ca/services/cosmos-db/" target="_blank">Azure Cosmos DB</a> を搭載した Digital Vault は、保存中および移動中の IoT データとイベント用の単一のアプリケーション プログラミング インターフェイス (API) レイヤーを使用して、オブジェクトリレーションシップ管理を簡素化します。 もう 1 つの API レイヤーでは、Azure Cosmos DBS&rsquo; の自動インデックス作成とマルチモーダル機能を利用して、キー値からグラフまでの形式でデータを受け取ります。 その後、Digital Vault は、フロアや部屋のような物理構造の仮想バージョンを作成し、資産の構築間の関係を簡単に概念化できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7957bbd-5a38-4632-abe4-eb116f1ec001.jpg"><img alt="Johnson Controls Digital Vault technical architecture" border="0" height="596" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6413a01e-08d7-4cb3-b53a-fb22e0aa7bfb.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="制御デジタル コンテナーの技術アーキテクチャ" width="931"></a></p>
+
+
+  <p align="center"><em>制御デジタル コンテナーの技術アーキテクチャ</em></p>
+
+
+  <p>Digital Vault は、スマート環境のオペレーション テクノロジ (OT) と情報技術 (IT) のデータを組み合わせて処理します。Digital Vault&rsquo; は、過去および現在の状態の建物に関する質問に回答し、その将来に関する予測を行うリアルタイムのナレッジ グラフを作成します。 OT データは、ビル内のデバイスとセンサー、HVAC、火災、照明、セキュリティ、IT、資産追跡などから取得されます。 このような環境での課題は、データの多様性、ボリューム、速度です。 デバイスが時間の経過と共に進化するにつれて、そのスキーマとデータ モデルも進化します。 複数の世代のデバイスがビルに存在する場合、データ ストアはさまざまなスキーマを柔軟に処理する必要があります。 センサーを使用すると、データを高いレートで保存できます。センサーの数が増えるほど、保存されたデータの量が大幅に増加します。 データ ストアがリアルタイムのビュー、ダッシュボード、意思決定に力を与える一方で、高度な分析と AI に履歴データを活用できると同時に、ベロシティが増加します。</p>
+
+
+  <p>受信 OT データを処理することで、Digital Vault は一般的なデータクリーニングと分析機能を自動的に実行できます。 所有者とアプリケーション開発者を構築する場合、データをストリーミングする処理システムの構築に時間を費やす必要はない。 デバイスからの生データと処理済みデータは 1 つの場所で使用できます。一般的なアルゴリズムでは、欠損値の埋め込み、外れ値のクリーニングとスムージング、およびストリームに既に適用されている多くの分析関数と正規化関数があります。</p>
+
+
+  <h2>Azure Cosmos DB を使用する理由</h2>
+
+
+  <p>数十億もの毎日のデータ サンプルを生成する世界中の何千もの建物にサービスを提供するために、世界規模のサービスを提供し、膨大な量のデータを管理し、必要に応じてスケーリングし、コストを削減し、運用の複雑さを低く抑える、ソリューションとしてのプラットフォーム (PaaS) データ ストアが必要だと考えました。 これらのニーズを満たすために Azure Cosmos DB に変更され、さまざまなモデルのデータの管理、データの自動インデックス作成、他の Azure サービスとの統合も簡単に行えます。</p>
+
+
+  <p>Digital Vault では<a href="https://azure.microsoft.com/en-ca/services/iot-hub/" target="_blank">、Azure IoT Hub</a> を使用してビル内のデバイスからデータ ストリームを収集し、<a href="https://azure.microsoft.com/en-ca/services/event-hubs/" target="_blank">Azure Event Hubs</a> を使用してデータストリームを管理し、<a href="https://azure.microsoft.com/en-ca/services/hdinsight/" target="_blank">HDInsight</a> クラスター内の Spark を使用して、完全なストリームを処理し、135 年間の建物&rsquo;管理の経験を備える分析アルゴリズムを適用します。 Azure Cosmos DB は、処理システムの中心であり、必要に応じて追加のデータをフィードし、処理されたデータを格納します。その Graph API を使用すると、開発者は最小限の統合時間で任意の言語でグラフ データを処理できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/001fd751-c446-4e3a-9272-517466935652.jpg"><img alt="Digital Vault architecture" border="0" height="527" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c24dd7d-572c-4e30-9462-d3220a5de0bb.jpg" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Digital Vault のアーキテクチャ" width="803"></a></p>
+
+
+  <p align="center"><em>Digital Vault のアーキテクチャ</em></p>
+
+
+  <p>ビルを真にスマートにするには、IT データ (従来は複数のサイロに保持され、OT データに接続されていないデータ) に大量の IT データにアクセスできる必要があります。 ナレッジ グラフの IT 部分を格納して管理するために、もう一度[共有コントロール] は Azure Cosmos DB に変更されました。 OT データと同様に、IT データのスキーマと形状は非常に多様です。 Digital Vault は、Azure Cosmos DB Graph API を使用して、IT&rsquo; データを取り込み、格納し、建物のナレッジ グラフに組み込む。 これにより、Developer の&rsquo; 開発者は、業界標準の API を使用して、任意の言語のグラフ データを処理できます。</p>
+
+
+  <p>このグラフは、さまざまな種類とデータソース間の関係を理解し、建物内の多くのセンサー、資産、人、プロセス間を移動できます。 さらに、Digital Vault では、機器の現在の正常性とメンテナンスの履歴を評価し、予測モデルを適用して将来の状態と傾向を予測できます。</p>

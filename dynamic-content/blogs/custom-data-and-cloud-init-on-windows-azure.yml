@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8dfb5b4416423ecd4778c58faaf683c95f9194ee
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889850"
+Slug: custom-data-and-cloud-init-on-windows-azure
+Title: Microsoft Azure のカスタム データと Cloud-Init
+Summary: >-
+  カスタムデータとは
+
+  お客様はしばしば、プロビジョニング時にスクリプトまたはその他のメタデータを Microsoft Azure 仮想マシンに挿入する方法について質問されます。他のクラウドでは、この概念は次のように呼ばれます。
+Content: >-
+  <h4>カスタムデータとは</h4>
+
+
+  <p>多くの場合、プロビジョニング時にスクリプトまたはその他のメタデータを Microsoft Azure 仮想マシンに挿入する方法について質問します。 &nbsp;他のクラウドでは、この概念は<em>ユーザーデータ</em>と呼ばれることがよくあります。 &nbsp;Microsoft Azure は、カスタムデータと同様の機能を備えてい<em>ます。</em> カスタムデータは、新しいホスト名、ユーザー名、パスワード、証明書、キーなど、その他のプロビジョニング構成情報と共に VM に送信されます。 &nbsp; このデータは、base64 でエンコードされたデータとして Azure API に渡されます。 &nbsp;Windows、このデータはバイナリファイルとして<em>%SYSTEMDRIVE%\AzureData\CustomData.bin</em>で終了します。 &nbsp;Linux では、このデータは ovf-env.xml ファイルを介して VM に渡され、プロビジョニング中に/var/lib/waagent ディレクトリにコピーされます。 &nbsp;新しいバージョンの Microsoft Azure Linux エージェントも、便宜上、<em>が/var/lib/waagent/customdata</em>に base64 でエンコードされたデータをコピーします。</p>
+
+
+  <h4>クラウド初期化の概要</h4>
+
+
+  <p>現時点では、Microsoft Azure ギャラリーの Ubuntu イメージのみがプレインストールされ、プロビジョニング時に送信されるカスタムデータを操作するように構成されています。 &nbsp;つまり、Ubuntu の場合、カスタムデータを使用して、クラウド初期化構成ファイルを使用して VM をプロビジョニングしたり、プロビジョニング中にクラウド初期化によって実行されるスクリプトを送信したりすることができます。 &nbsp;詳細については、 <a href="https://help.ubuntu.com/community/CloudInit">cloud-init のドキュメント</a>を参照してください。 イメージで cloud init を使用できない場合でも、データを読み取ることができるシステムにスクリプトまたはその他のツールをプレインストールした場合でも、カスタムデータを使用できます。 &nbsp;この場合は、 <em>%SYSTEMDRIVE%\AzureData\CustomData.bin</em> (Windows) または<em>/var/lib/waagent/ovf-env.xml</em> (Linux) ファイルを使用してカスタムデータを読み込んだ後、データをデコードして操作できるように、起動時にスクリプトをインストールすることができます。 &nbsp;スクリプトがインストールされたら、 <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-capture-image-windows-server/">Windows</a>または<a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-capture-image/">Linux</a>イメージをプロビジョニング解除して再利用するためにキャプチャできます。</p>
+
+
+  <h4>どのように動作するのでしょうか。</h4>
+
+
+  <p>現時点では、IaaS VM にカスタムデータを挿入する最も簡単な方法は、 <a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/">Windows Azure コマンドラインツール</a>を使用することです。 &nbsp;Microsoft Azure Powershell コマンドレットでのこの機能のサポートはまだ使用できませんが、近日中にリリースされる予定です。 CLI ツールのバージョン0.7.5 の As では、 <em>--custom</em>という新しいパラメーターが追加されています。 &nbsp;このパラメーターはファイル名を引数として受け取り、ツールがファイルの内容を base64 でエンコードし、プロビジョニングの構成情報と共に送信します。 &nbsp;ここでの制限は、ファイルが 64 KB 未満であるか、Azure API が要求を受け入れないことです。 次に示すのは、Ubuntu Linux VM にカスタムデータをプロビジョニングして渡す方法の簡単な例です。 <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1768/3426.stephen.png"> <img alt="" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1768/3426.stephen.png"> </a> この例では、 <em>custom-data.txt</em>はクラウド初期化構成ファイルであるか、単にシェルスクリプト (#! で始まる限り) である場合があります。 お試しください。</p>
+
+
+  <h4>その他の参照情報:</h4>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/previous-versions/azure/reference/jj157186(v=azure.100)?redirectedfrom=MSDN">役割の追加操作のドキュメント</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/custom-data">Azure Virtual Machines ドキュメントの</a><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/custom-data">カスタム</a><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/custom-data">データ</a>と Cloud-Init</li>
+  </ul>

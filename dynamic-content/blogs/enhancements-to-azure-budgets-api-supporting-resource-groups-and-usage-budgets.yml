@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ae35510754d15fbecc283b4524f38e92adf62ea7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890805"
+Slug: enhancements-to-azure-budgets-api-supporting-resource-groups-and-usage-budgets
+Title: リソース グループと使用量の予算をサポートする Azure Budgets API の機能強化
+Summary: 先月、エンタープライズのお客様向けサブスクリプション レベルの予算のプレビュー リリースを発表しました。これは最初の手順にすら行き着くだけでした。 本日は、フィルターを使用したより詳細な予算のスコープと、使用量とコストの予算のサポートをサポートする追加機能のリリースを発表します。
+Content: >-
+  <p>先月、エンタープライズのお客様 <a href="https://azure.microsoft.com/en-us/blog/subscription-budgets-api-preview/" target="_blank">向けサブスクリプション レベルの</a> 予算のプレビュー リリースを発表しました。これは最初の手順にすしか行き着けでした。 今日&#39;、より詳細な予算のスコープと、使用量とコストの予算のサポートをサポートする追加機能のリリースを発表します。 顧客&#39;複数のチームがサブスクリプションを共有し、リソース グループがコストの境界として機能すると聞いたことがあります。 現在&#39;の更新では、サブスクリプション レベルの予算に加えて、リソース グループとリソース レベルの予算がサポートされます。 budgets API が一般提供され、フィードバックをお寄せください。</p>
+
+
+  <p>予算のプレビュー リリースでは、コスト ベースの予算のみをサポートしました。 このリリースでは、使用予算のサポートも追加されています。 さらに、フィルターのサポートにより、予算を適用するスコープを定義できます。</p>
+
+
+  <p>budgets API で対応する一般的なシナリオを次に示します。</p>
+
+
+  <ul>
+   <li>制約がないサブスクリプションの予算。<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da7b6f1a-866e-45d9-bd37-437a77e8041e.gif"><img align="right" alt="image" border="0" height="265" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4e8bd1b-414d-4a0b-b9ef-5531b1adc9b6.gif" style="border: 0px currentcolor; border-image: none; float: right; display: inline; background-image: none;" title="イメージ" width="399"></a></li>
+   <li>制約がないリソース グループの予算。</li>
+   <li>サブスクリプション内の複数のリソース グループの予算。</li>
+   <li>リソース&nbsp; グループまたはサブスクリプション内の複数のリソースの予算。</li>
+   <li>サブスクリプションまたはリソース グループでの使用量に基づく予算。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>これにより、リソース グループまたはリソース グループ内の特定のリソースを予算化する必要がある最も一般的なシナリオが可能になります。 次の表では、さまざまな種類とスコープの予算を作成するために使用できる特定のフィルターについて説明します。</p>
+
+
+  <h2>Azure アクション グループのサポート</h2>
+
+
+  <p>プレビューから最も要求された機能の 1 つは、コストしきい値に基づいてサービスを調整する機能でした。 アクション グループとの統合により、Webhook を含む複数の通知チャネルをサポートできます。 Webhook を使用すると、Azure Logic App や Azure Automationスクリプトをトリガーして、必要なアクションを実行できます。 たとえば、最初のしきい値で電子メールで開発者に通知し、次のしきい値でリソースのスピンダウンを開始することができます。</p>
+
+
+  <h2>制限事項</h2>
+
+
+  <p>budgets API にはいくつかの制限があります</p>
+
+
+  <ul>
+   <li>現在、予算は顧客に対Enterpriseされています。</li>
+   <li>budgets API の呼び出しでは、ユーザー コンテキストが適用されます。 そのため、サービス プリンシパルではなく、ユーザーのコンテキストで budgets API を呼び出す必要があります。 MFA を使用しているお客様 <a href="https://github.com/projectkudu/ARMClient" target="_blank">の場合、ARM</a> クライアントは、要求で使用するユーザー トークンを取得するオプションです。</li>
+   <li>使用量ベースの予算にはメーターが必要です。budget API によって適用される制約は、予算内のすべてのメーターに対して 1 つの測定単位を適用する方法です。 たとえば、コンピューティング時間を予算化する場合、同じ予算で転送された GB を測定するネットワークのメーターを含めすることはできません。</li>
+  </ul>
+
+
+  <h2>API のCost Management強化</h2>
+
+
+  <h3>新しいデータ インジケーター (E タグ) のサポート</h3>
+
+
+  <p>API のユーザーが多いお客様は、新しいデータ インジケーター <strong>を要求しました</strong>。 これは、API をポーリングし、前回の呼び出し以降に変更されていない完全な応答を返すのを回避するのに役立ちます。 この必要性をサポートするために、E タグを使用してデータが更新された時点を呼び出し元に知らせる、使用状況の詳細 API の更新バージョンをリリースします。 API の呼び出しごとに E タグが返されます。後続の同じ API の呼び出しでは、キャプチャされた E タグを要求ヘッダーの <strong>キー If-None-Match</strong> で渡します。E-Tag が生成された後に変更がない場合、API はデータを返しません。</p>
+
+
+  <h3>Pricesheet と Marketplace の料金に対する ARM API</h3>
+
+
+  <p>チームの継続的な取り組みの 1 つは、レガシ キー ベースの API から ARM (Azure Resource Manager) ベースの API としてすべての API を標準化しています。 Marketplace の料金と Pricesheet API の今月のリリースにより、すべての主要な API が ARM に変換されます。</p>
+
+
+  <p>引き続き予算機能の改善に取り組み、今後数か月間にいくつかのリリースを計画しています。 いつものように、エクスペリエンスを向上させる方法に関するフィードバックをお寄せください。</p>

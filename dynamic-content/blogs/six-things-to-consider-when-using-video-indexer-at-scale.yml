@@ -1,0 +1,114 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 47fb88348baf89b079bb21556110fbda49a1fd16
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892417"
+Slug: six-things-to-consider-when-using-video-indexer-at-scale
+Title: Video Indexer を大規模に使用する場合に考慮すべき6つの点
+Summary: インデックスを作成するための大規模なビデオのアーカイブは増加しているため、Video Indexer を評価し、スケールアップすることによって、それとの関係を次のレベルにすることを決定しました。
+Content: >-
+  <p>インデックスを作成するための大規模なビデオのアーカイブは増加しているため、Microsoft Video Indexer を評価し、スケールアップすることによって、それとの関係を次のレベルにすることを決定しました。</p>
+
+
+  <p>一般に、スケーリング &rsquo; は困難ですが、最初にこのようなプロセスに直面すると、最適な方法がわからない場合があります。 &ldquo;たとえば &ldquo; 、技術的な制約を考慮する &rdquo; 必要はありますか。スマートで効果的な方法 &rdquo; はありますか。また &ldquo; 、プロセスに余分なコストをかけないようにすることができますか &rdquo; 。 ここでは、Video Indexer を大規模に使用する方法に関する6つのベストプラクティスについて説明します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>1. ビデオをアップロードするときに、ファイルをバイト配列として送信するよりも URL を優先する</h2>
+
+
+  <p>Video Indexer では、URL からビデオをアップロードするか、ファイルをバイト配列として直接送信するかを選択できますが、後者にはいくつかの制約があることに注意してください。</p>
+
+
+  <p>まず、ファイル サイズの制限があります。 URL の使用中は、アップロードサイズが 30 GB の場合と比較して、バイト配列ファイルのサイズは 2 GB に制限されます。</p>
+
+
+  <p>2つ目の重要な点として、マルチパートを使用してファイルを送信することは、ネットワークへの高い依存関係を意味し、サービスの信頼性、接続性、アップロード速度、および世界中の web のどこかにある紛失したパケットは、パフォーマンスに影響する可能性があるため、拡張できることです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5949b9c2-fa51-4bef-98e6-3358fc5c6c80.png"><img alt="“illustration of uploading a video via URL compared with potential network issues when using direct upload" border="0" height="547" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5dac0c65-7b6c-4b17-9473-69a01aeba495.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="図-02" width="1024"></a></p>
+
+
+  <p>URL を使用してビデオをアップロードする場合は、メディアファイルの場所へのパスを指定するだけで済みます ( <a href="https://api-portal.videoindexer.ai/docs/services/Operations/operations/Upload-Video?&amp;pattern=upload">アップロードビデオ API</a>のフィールドの下を参照してください)。</p>
+
+
+  <p>API 経由で URL を使用してビデオをアップロードするには、この <a href="https://github.com/Azure-Samples/media-services-video-indexer/tree/master/API" target="_blank">短いコード</a> サンプルを確認するか、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10" target="_blank">azcopy</a> を使用してコンテンツをストレージアカウントに取得し、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview" target="_blank">SAS</a> URL を使用して Video Indexer に送信できるようにすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5585caa5-3509-47b8-8faf-51e75290568f.jpg"><img alt="URL address field in the uploadVideo API" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c7eb01a-a79f-495f-a72a-dc6cdc640fd8.jpg" title="1008 img 2"></a></p>
+
+
+  <h2>2. 必要に応じてメディア占有ユニットを増やします。</h2>
+
+
+  <p>通常、Video Indexer &rsquo; の使用を開始したときの概念実証段階では、多くのコンピューティング能力は必要ありません。 ここでは、Video Indexer の使用量をスケールアップするときに、インデックスを作成するビデオのアーカイブが大きくなり、ユースケースに適したペースでプロセスを実行する必要があるとします。 したがって、現在のコンピューティング能力が十分でない場合は、使用するコンピューティング リソースの数を増やすことを検討する必要があります。</p>
+
+
+  <p>Azure Media Services では、メディア<a href="https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-scale-media-processing-overview">占有ユニット</a>(ru) について説明するときに、メディア処理タスクのパラメーターを決定するコンピューティングユニットです。 RU の数は、各アカウントで同時に処理できるメディア タスクの数に影響を与え、その種類によって処理速度が決まります。また、インデックス作成が複雑な場合は、1 つのビデオに複数の RU が必要になることがあります。 RU がビジー状態になると、別のリソースが利用可能になるまで、新しいタスクがキューに保持されます。</p>
+
+
+  <p>効率的 &rsquo; に運用する必要があり、最終的にはアイドル状態になるリソースを必要としないことがわかっています。 そのため、処理量が少ないときに Ru を回転させる自動スケールシステムが用意されており、(すべての Ru を完全に利用できるようになるまで) 急ぎ時間になったときに ru が稼働します。 この機能を有効にするには、アカウント設定で <a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/manage-account-connected-to-azure#auto-scale-reserved-units">自動スケール</a> をオンにするか、または、 <a href="https://api-portal.videoindexer.ai/docs/services/Operations/operations/Update-Paid-Account-Azure-Media-Services?&amp;pattern=update">Azure-MEDIA-サービス API</a>を使用します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f87faa4-753a-4ef5-b0e6-7edbcb465263.jpg"><img alt="autoscale button in the account settings" border="0" height="424" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39b7da22-8916-4329-8787-3956e42f240f.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1008 img 3" width="640"></a><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be52380b-b3c9-4f00-97cd-7fb10db3015f.jpg"><img alt="API sample to update paid account on AMS with autoScale = true" border="0" height="348" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f53045a-3f52-4626-aa21-a75b5e4ccdd3.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1008 img 4 " width="640"> </a> インデックス作成の期間と低スループットを最小限に抑えるには、S3 タイプの 10 ru から始めることをお勧めします。 後で、より多くのコンテンツまたは高い同時実行性をサポートするようにスケールアップし、さらにリソースが必要な場合は、サポートシステム (有料アカウントの場合のみ) <a href="https://ms.portal.azure.com/#blade/Microsoft_Azure_Support/HelpAndSupportBlade/newsupportrequest">を使用し</a> て、より多くの ru 割り当てを要求することができます。</p>
+
+
+  <h2>3. 制限を尊重する</h2>
+
+
+  <p>Video Indexer は大規模なインデックス作成を処理するように構築されています。また、この機能を最大限に活用するには、システム &rsquo; の機能を認識し、それに応じて統合を設計する必要があります。 &rsquo;ビデオのバッチに対してアップロード要求を送信しようとしても、一部のムービー &rsquo; がアップロードされていないこと、および HTTP 429 応答コード (要求が多すぎます) を受信していることが検出されます。 これは、<a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/upload-index-videos#uploading-considerations-and-limitations" target="_blank">サポートされている 1 分あたりのムービーの制限</a>を超える要求を送信したことが原因で発生する可能性があります。 &rsquo;HTTP 応答では、再試行後のヘッダーを追加します。 次の再試行を試行するときに指定するヘッダー。 次の要求を試す前に、必ずそのことを考慮してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/49f93164-2532-4847-ade0-f1a983260f2c.jpg"><img alt="The documentation of the HTTP 429 response the user receives" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/14f1c41b-9293-44d0-af77-52249f389d54.jpg" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="1008 img 5"></a></p>
+
+
+  <h2>4. コールバック URL を使用する</h2>
+
+
+  <p>カスタマーサービスを呼び出しましたが、要求を処理していた &ldquo; &rsquo; ので、数分かかります。 電話番号はそのままに &rdquo; し &rsquo; ておくことができます。 数値をそのまま使用する場合、要求が処理された2番目の要求は、 <a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/upload-index-videos#callbackurl">コールバック URL</a>を使用する場合とまったく同じ概念です。</p>
+
+
+  <p>そのため、アップロード要求を送信した2番目の要求の状態を常にポーリングするのではなく、コールバック URL を追加して、更新を待機することをお勧めします。 アップロード要求の状態が変更されるとすぐに、送信した URL に POST 通知が送信されます。</p>
+
+
+  <p><a href="https://api-portal.videoindexer.ai/docs/services/Operations/operations/Upload-Video?&amp;pattern=upload">アップロードビデオ api</a>のパラメーターの1つとして、コールバック URL を追加できます (api の説明を参照してください)。 その方法がわからない場合は、 <a href="https://github.com/Azure-Samples/media-services-video-indexer/tree/master/API" target="_blank">GitHub リポジトリ</a>のコードサンプルを確認してください。 また、コールバック URL には、HTTP によってトリガーされ、次のフローを実装できるサーバーレスのイベントドリブンプラットフォームである Azure Functions を使用することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2bfc0d15-4276-4121-bc3c-0174c7c4efd4.jpg"><img alt="callback URL address field in the uploadVideo API" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c1c45ca-1719-4e8e-960f-2f5c7d068f8f.jpg" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="1008 img 6"></a></p>
+
+
+  <h2>5. 適切なインデックス作成パラメーターを使用する</h2>
+
+
+  <p>Video Indexer を使用するときに最初に行う必要があることがあります。特に、スケーリングを試みる場合は、ニーズに合った適切なパラメーターを使用して、最大限に活用する方法を検討することになります。 ユースケースについて考えてみましょう。さまざまなパラメーターを定義することで、コストを節約し、ビデオのインデックス作成プロセスを迅速に行うことができます。</p>
+
+
+  <p>Video Indexer のインデックス作成パラメーターを選択することによって、使用状況をカスタマイズするオプションを提供しています。 &rsquo;ストリーミングをストリーミング &rsquo; するようにプリセットを設定しないで &rsquo; ください。ビデオインサイトのインデックスを作成する必要がある場合は、簡単です。</p>
+
+
+  <p>ビデオをアップロードしてインデックスを作成する前に、この短い <a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/upload-index-videos">ドキュメント</a>を参照してください。 <a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/upload-index-videos#indexingpreset">IndexingPreset</a> と <a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/upload-index-videos#streamingpreset">streamingpreset</a> パーツを確認し、オプションの内容を理解してください。</p>
+
+
+  <h2>6. 最適な解像度のインデックス (最高解像度ではない)</h2>
+
+
+  <p>それほど前ではなく、HD ビデオが&#39;になっていました。 これで、HD から8K までのさまざまな品質のビデオが作成されました。 質問は、ビデオのインデックス作成に必要なビデオ品質です。 アップロードするムービーの品質が高くなると、ファイル サイズが大きくなり、ビデオのアップロードに必要なコンピューティング能力と時間が増大します。</p>
+
+
+  <p>ここでは、多くの場合、インデックス作成のパフォーマンスに HD (720P) ビデオと4K ビデオの違いがほとんどないことを示しています。 最終的には、同じ自信を持ってほぼ同じ洞察を得ることができ &rsquo; ます。</p>
+
+
+  <p>たとえば、顔検出機能の場合、解像度が高くなると、小さいがコンテキスト上重要な顔が多数存在するシナリオで役立ちます。 ただし、これには、実行時に 2 次的な増加が伴い、誤検知のリスクが高まります。</p>
+
+
+  <p>そのため、ユース ケースに適した結果が得られることを確認し、最初にローカルでテストすることをお勧めします。 720P と 4K で同じビデオをアップロードし、取得された分析情報を比較します。 ただし、キャノンを使用してすぐに終了する必要はありません。</p>
+
+
+  <p><strong>質問やフィードバックがある場合や</strong> 皆様からのご意見をお待ちしております。 <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcognitive.uservoice.com%2Fforums%2F598144-video-indexer&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7Cf5330de08d374a90a91008d77cd26759%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637115115445238801&amp;sdata=ARddkDg6%2FufcIGZWNOa8fWtzyjSoyAzX3BHwcYRCu18%3D&amp;reserved=0">UserVoice ページ</a>を使用して、機能の優先順位を設定し、以下にコメントを残すか、または質問を電子メールで送信  <a href="mailto:VISupport@Microsoft.com">VISupport@Microsoft.com</a>   します。</p>
+
+
+  <p>お客様のユースケースについてご意見をお待ちしております。</p>

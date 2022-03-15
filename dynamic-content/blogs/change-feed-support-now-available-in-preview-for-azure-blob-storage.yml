@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cc6817623b7430872bb7bffb4ec3c7f787548ef4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894450"
+Slug: change-feed-support-now-available-in-preview-for-azure-blob-storage
+Title: Change feed サポートをプレビューで利用できるようになりました Azure Blob Storage
+Summary: 'Microsoft Azure Blob storage での Change feed のサポートがプレビューで利用できるようになりました。 '
+Content: >-
+  <p>Microsoft Azure Blob storage の<a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-change-feed?" target="_blank">変更フィード</a>のサポートをプレビューで利用できるようになりました。 Change feed は、ストレージアカウント内の blob に対して発生するすべての作成、変更、および削除の変更イベントについて、保証された順序付けられた永続的な読み取り専用のログを提供します。 このログは、ストレージアカウント内に追加 blob として格納されるため、要件に基づいてデータ保有期間とアクセス制御を管理できます。</p>
+
+
+  <p>Change feed は、定期的にリストを作成し、変更を手動で比較するのではなく、ストレージアカウントで大量の blob 変更を一括処理するための理想的なソリューションです。 これにより、イベントドリブンアプリケーションが最後のチェックポイントから変更フィードログとプロセス変更イベントを単に使用できるように、プログラムによるアクセスを提供することで、コスト効率の高い記録と処理が可能になります。</p>
+
+
+  <p>Blob change feed を使用すると、次のような利点があります。</p>
+
+
+  <ul>
+      <li>ウイルススキャン、サイズ変更、またはバックアップ用に新しくアップロードされたファイルのグループを一括処理します。</li>
+      <li>データ管理またはコンプライアンスのために、オブジェクトに対する変更の保存、監査、分析を任意の期間にわたって行います。</li>
+      <li>さまざまな IoT センサーによってアップロードされたデータを、データの変換と洞察のために1つのコレクションに結合します。</li>
+      <li>キャッシュ、検索エンジン、またはデータウェアハウスと同期することによる追加のデータ移動。</li>
+  </ul>
+
+
+  <h2>ファースト ステップ</h2>
+
+
+  <p>プレビューに登録するには、この機能をサブスクリプションに登録する要求を送信する必要があります。 要求が承認された後 (数日以内)、米国西部2および米国中西部の既存または新規の GPv2 または blob ストレージアカウントで、change feed 機能を有効にすることができます。</p>
+
+
+  <p>要求を送信するには、次の PowerShell または Microsoft Azure CLI コマンドを実行します。</p>
+
+
+  <h5>PowerShell を使用して登録する</h5>
+
+
+  <pre>
+
+  Register-AzProviderFeature -FeatureName<code> Changefeed</code> -ProviderNamespace<code> Microsoft.Storage</code></pre>
+
+
+  <pre>
+
+  Register-AzResourceProvider -ProviderNamespace<code> Microsoft.Storage</code></pre>
+
+
+  <h5>&nbsp;</h5>
+
+
+  <h5>Azure CLI を使用して登録する</h5>
+
+
+  <pre>
+
+  <code>az feature register --namespace Microsoft.Storage --name Changefeed</code></pre>
+
+
+  <pre>
+
+  <code>az provider register --namespace &#39;Microsoft.Storage&#39;</code></pre>
+
+
+  <p>&rsquo;変更フィードのプレビューを登録して承認したら、ストレージアカウントに対して有効にし、ログの使用を開始することができます。 詳細については、「 <a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-change-feed?%20" target="_blank">change feed support in Azure Blob Storage</a> 」および「 <a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-change-feed-how-to" target="_blank">process change feed in Azure Blob Storage</a>」を参照してください。 ほとんどのプレビューと同様に、この機能は一般公開されるまで運用環境のワークロードには使用しないでください。</p>
+
+
+  <h2>コスト</h2>
+
+
+  <p>Change feed の価格は現在プレビュー段階であり、一般公開の際に変更される可能性があります。 変更フィードによってキャプチャされた blob 変更イベントと、変更フィードログのデータストレージコストに対して、お客様は料金が発生します。 価格の詳細については、「 <a href="https://azure.microsoft.com/pricing/details/storage/blobs/" target="_blank">ブロック blob の価格</a> 」を参照してください。</p>
+
+
+  <h2>ビルドして使用し、それについてお知らせください</h2>
+
+
+  <p>今後も機能強化を続け、の電子メール <a>AzureStorageFeedback@microsoft.com</a> を通じて変更フィードやその他の機能に関するフィードバックをお寄せください。 ご意見をお寄せください。 Azure Storage についてのご意見やご提案をお聞かせください。 <a href="https://feedback.azure.com/forums/217298-storage" target="_blank">Azure Storage フィードバックフォーラム</a>で投稿できます。</p>

@@ -1,0 +1,11 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dfa05975177ae9fcdfdfa9b2a6aced4ab2e3cb1f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889865"
+Slug: creating-a-sql-azure-database-with-sqlcmd
+Title: SQLCMD を使用した SQL Azure データベースの作成
+Summary: '[この記事は SQL Azure チームによって提供されました。]SQL Azure ポータルを使用してサーバーを割り当てたら、sqlcmd.exe... を使用して、デスクトップのコマンドラインからデータベースを作成および削除できます。'
+Content: <p>[この記事は SQL Azure チームによって提供されました。]</p><p>SQL Azure ポータルを使用してサーバーを割り当てたら、sqlcmd.exe を使用して、デスクトップのコマンドラインからデータベースを作成および削除できます。 これは、データベースを最初から作成し、スキーマをアンロードして、繰り返し可能な方法でテストを実行するクリーンスレートテストに便利です。</p>  <p>1つ注意すべき点は、データベースを作成および削除するときに、master データベースを対象にすることです。 また、-N パラメーターを使用して接続を暗号化することも重要です。このブログ記事で暗号化を行う理由の詳細については、こちらを参照してください。</p>  <h2>データベースの作成</h2>  <p>最初に、データベースを作成するための SQL transact-sql ファイルを作成する必要があります。このファイルは、次のようになります。</p>  <pre class="csharpcode"><span class="kwrd">CREATE</span> <span class="kwrd">DATABASE</span> Test</pre>      <p>これにより、既定のサイズである 1 Gb のデータベースが作成されます。 この .sql ファイルには、他の SQL transact-sql ステートメントを記述することはできません。 SQL Azure の CREATE DATABASE コマンドの詳細については、MSDN を参照してください。</p>    <p>CreateDatabase という名前のコマンドラインからこのコマンドを実行するには、次のコマンドを使用します。</p>    <p><i>SyourSeverdatabase.windows.net -UyouLogin@yourServer -dmaster-i – N CreateDatabase を入力します。</i></p>    <p>ユーザー名は、の形式にする必要があります。 yourLogin@yourServer ここで、ログインは SQL Azure 上のサーバーの管理者ログインです。 この情報は、SQL Azure ポータルから直接取得できます。 対象となるデータベースが master であることに注意してください。</p>    <h2>データベースの削除</h2>    <p>データベースの削除は、ほぼ同じように機能します。 スクリプトは次のようになります。</p>    <pre class="csharpcode"><span class="kwrd">DROP</span> <span class="kwrd">DATABASE</span> Test</pre>      <p>SQL Azure の DROP DATABASE コマンドの詳細については、MSDN を参照してください。</p>    <p>このコマンドをコマンドラインから実行するには、ファイルの名前が DropDatabase. sql の場合、次のコマンドを使用します。</p>    <p><i>SyourSeverdatabase.windows.net -UyouLogin@yourServer -dmaster-i – N DropDatabase .sql を入力します。</i></p>    <h2>検証</h2>    <p>これらのスクリプトを試してみるときに注意してください。 SQL Azure の最小請求期間は1日です。 1 gb のデータベースは1か月あたり $9.99 です。 これは約33セント1日です。 データベースを作成してすぐに削除するには、33セント以上のコストがかかります。 料金の詳細については、こちらを参照してください。</p>    <h2>まとめ</h2>    <p>をと共に使用するために使用するツールは、sqlcmd.exe を含む SQL Azure を操作 SQL Server ます。 質問、懸念事項、コメントがありますか。 これらを下に投稿してください。</p>

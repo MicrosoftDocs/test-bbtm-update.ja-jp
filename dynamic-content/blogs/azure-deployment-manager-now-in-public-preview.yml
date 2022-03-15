@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 66a595f914b0f385391ad89ee362ed8e1cc4e859
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893176"
+Slug: azure-deployment-manager-now-in-public-preview
+Title: Azure Deployment Managerプレビュー中
+Summary: サービスはどのくらい複雑ですか? 何十ものリソースが、一連のリソース グループとリージョンに分割されていますか? 何 百 も。 何 千 も。 エンジニアリング システムを使用すると、これらのリソースのトポロジ、どのように組み合わせて動作し、安全でスケーラブルな方法でデプロイおよび更新できるかを宣言によって簡単に定義できますか?
+Content: >-
+  <p>サービスはどのくらい複雑ですか? 何十ものリソースが、一連のリソース グループとリージョンに分割されていますか? 何 百 も。 何 千 も。 エンジニアリング システムを使用すると、これらのリソースのトポロジ、どのように組み合わせて動作し、安全でスケーラブルな方法でデプロイおよび更新できるかを宣言によって簡単に定義できますか?</p>
+
+
+  <p>今年の&rsquo; Ignite カンファレンスでは、プレビューのために Azure Deployment Manager (ADM) を発表できます。 デプロイ機能を大幅に拡張 <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">する Azure Resource Manager</a> (ARM) の新しい機能セット。 &rsquo;&rsquo;&rsquo;複数のリージョンにデプロイする必要がある複雑なサービスがある場合、リソースがデプロイされる状況を制御し合うのが好きな場合、または進行中に顧客をキャッチして、顧客の更新プログラムへの露出を制限する場合は、ADM を使用します。</p>
+
+
+  <p>ADM を使用すると、リソースの段階的なロールアウトを実行できます。つまり、リソースは順序付けされた方法でリージョン別にデプロイされます。 このリージョンのロールアウトの一環として、サービスの正常性が監視され、許容できないパフォーマンス低下が検出された場合、デプロイは自動的に停止され、トラブルシューティングを行って影響の規模を縮小できます。 この正確な一連のツールは、何百もの Microsoft サービス によって内部的に使用され、高可用性を確保し、更新プログラムの回帰によって発生するサービスの利用不可を防止または大幅に削減する、安全で信頼性の高いデプロイを確保します。</p>
+
+
+  <p>ADM では、ARM デプロイ ストーリーに 2 つの新しい概念が導入されています。</p>
+
+
+  <ul>
+   <li>サービス トポロジ</li>
+   <li>ロールアウト</li>
+  </ul>
+
+
+  <p>サービス トポロジは、Azure にデプロイするリソースの階層をグループに編成して記述します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39cdba43-5820-49e6-93a0-b49e839ada4b.png"><img alt="image" border="0" height="414" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90235a92-30fb-4e79-a1a7-598b700b8225.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>テンプレートファイルとパラメーター ファイルは、ARM デプロイの基礎となります。 これらは、 <strong>サービス ユニット、</strong> またはサービスのフロント エンドなど、特定のサービスの個別にデプロイ可能なチャンクを表します。 サービス ユニットのグループはサービスで構成 <strong>され</strong>、サービス <strong>トポロジ</strong> はサービスのグループに過ちしません。</p>
+
+
+  <p>ADM を使用すると、サービスが複数のリージョン、サブスクリプション、またはリソース グループにまたがる場合でも、このような複雑なトポロジを簡単に定義できます。 定義した後は、ロールアウトを使用してデプロイしてから、何度でも更新できます。</p>
+
+
+  <p>ロールアウトでは、段階的で安全な方法でサービス ユニットをデプロイする方法の構造とタイミングを定義します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/381d2f83-b775-4ea3-b680-539746bf6ddf.png"><img alt="image" border="0" height="250" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8fd4b074-5776-4c4f-ae61-e2c2650a0cec.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="539"></a></p>
+
+
+  <p>ロールアウトは、ステップ グループ <strong>で構成されます</strong>。 ステップ グループはデプロイの順序を定義し、シーケンシャル操作と並列操作の両方をサポートします。 たとえば、手順グループ 3 を展開する前に、手順グループ 1 と 2 を並列でデプロイできます。</p>
+
+
+  <p>名前が示すように、ステップ グループはさらにステップに分 <strong>けられます</strong>。 デプロイの前に実行する手順と、デプロイ後に実行する手順。 このような手順の例を次に示します。</p>
+
+
+  <ul>
+   <li>Wait <ul>
+    <li>続行する前に、指定した時間デプロイを一時停止します。</li>
+    <li>これにより、手動テストとリソースのベイク時間が可能になります。&nbsp;</li>
+   </ul>
+   </li>
+   <li>カスタム コードの実行 <ul>
+    <li>カスタム スクリプトまたは Web SQLを使用してデプロイしたデータベースにデータを設定する必要がありますか? ロールアウトと voila のステップにしてください。</li>
+    <li>カスタム コードの実行は一部の Azure サービスで既に使用されています。この種の手順は ADM のパブリック オファリングではまだ使用できませんが、Ignite の直後に行われる予定です。</li>
+   </ul>
+   </li>
+   <li>正常性チェック <ul>
+    <li>ADM は、既存のサービス監視プロバイダーと統合して、デプロイの進行中にサービスの正常性を確認します。</li>
+    <li>サービスの正常性が低下した場合、デプロイは停止します。</li>
+    <li>Azure サービスのデプロイ時に Microsoft によって使用されるこの種類の手順はまだ使用できませんが、Ignite の直後に行われる予定です。</li>
+   </ul>
+   </li>
+   <li>詳細については、近日発表予定です。</li>
+  </ul>
+
+
+  <p>ステップ グループの作成は、サービス ユニットのデプロイの前と後に使用する手順を定義し、他のステップ グループが依存している手順を示してロールアウトの順序にスロットリングするのと同じ方法です。 上の図に示す例では、ステップ グループ 1 が依存しているので、ステップ グループ 2 が最初にデプロイされます。 ニーズ&rsquo;に合わせてシンプルで強力でスケーラブルです。</p>
+
+
+  <p>Azure&rsquo; Deployment Manager プレビューをお試しいただけますと非常に楽しみに思います。サインアップ フォームを使用して、<a href="https://aka.ms/admsignup" target="_blank"></a>アクセス権の一覧で自分の名前を取得することができます。 詳細については、Ignite セッション <a href="https://myignite.techcommunity.microsoft.com/sessions/66932?source=sessions#ignite-html-anchor" target="_blank">BRK3390</a> で確認するか、以下のリンクを確認してください。</p>
+
+
+  <ul>
+   <li><a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fazure-resource-manager%2Fdeployment-manager-overview&amp;data=02%7C01%7C%7Cc502c39f40654c5a258e08d623d6aa42%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636735802236697470&amp;sdata=iR%2B5PgJQL0y%2B18TDOsFUvQsWa2GzcoRyl%2FJ7UNhTzVE%3D&amp;reserved=0" target="_blank">Azure Deployment Manager を使用して安全なデプロイ プラクティスを有効にする</a>。&nbsp;</li>
+   <li><a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fazure-resource-manager%2Fdeployment-manager-tutorial&amp;data=02%7C01%7C%7Cc502c39f40654c5a258e08d623d6aa42%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636735802236697470&amp;sdata=6leahD8D25LtO8AWmRbC2wjSiWAbSpF0aoqNxmVRKPY%3D&amp;reserved=0" target="_blank">チュートリアル:Resource Manager テンプレートで Azure Deployment Manager を使用する</a>」の手順に従います。</li>
+   <li>フィードバック: ADM を試して、フィードバックをお寄せください。 <a href="https://aka.ms/admfeedback" target="_blank">お&rsquo;客様からのお話をお聞かしいのが気に入っています</a>。</li>
+  </ul>

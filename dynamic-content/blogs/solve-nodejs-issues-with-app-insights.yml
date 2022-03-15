@@ -1,0 +1,139 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f583a2c390f5d50770df044025baf5acbb302b0f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892379"
+Slug: solve-nodejs-issues-with-app-insights
+Title: Application Node.js for インサイトで問題をより迅速に解決Node.js
+Summary: Azure アプリケーション インサイトは、実行中のサービスとアプリケーションに関するパフォーマンスと診断情報を提供するアプリケーション パフォーマンス管理 (APM) プラットフォームです。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/application-insights/" target="_blank">Azure アプリケーション インサイト</a>は、実行中のサービスとアプリケーションに関するパフォーマンスと診断情報を提供するアプリケーション パフォーマンス管理 (APM) プラットフォームであり、問題をすばやく検出して診断するのに役立ちます。 App インサイト、Node.jsコンテナー、<a href="https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-get-started-nodejs" target="_blank">PaaS</a>、<a href="https://azure.github.io/azure-iot-sdk-node/" target="_blank">IoT</a>、Electron デスクトップ アプリを実行する<a href="https://electron.atom.io/" target="_blank">場所に関係ない場所で</a>使用します。 手順に <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-nodejs" target="_blank">従って、</a> Node.js SDK をアプリにドロップし、役立つ情報が Azure Portal に数分で流れるのを見ます。</p>
+
+
+  <p>APM&rsquo; は、&rsquo;アプリケーションで何が起こっているかを理解して行動するのに役立ちます。そのため、問題を特定するのに役立つ情報を自動的に収集して表示するのもミッションの 1 つです。 最新の SDK リリース (<a href="https://github.com/Microsoft/ApplicationInsights-node.js/releases/tag/0.21.0" target="_blank">0.21.0</a>) で次の機能が利用できると期待しています。</p>
+
+
+  <h2>関連イベントの検索</h2>
+
+
+  <p>問題を特定する場合は、すべてのトレースとログを確認すると役に立つ場合がありますが、問題に直接関連するトレースのみを迅速にフィルター処理するとさらに便利です。 たとえば、API サービスからエラー&rsquo;応答が返された場合、そのエラーに関連する他のすべてのトレースをすばやく見つけるのに役立ちます。 問題&rsquo;の発生源に近づく可能性が高い可能性があります。</p>
+
+
+  <p>このリリースでは、各アプリ&rsquo;の関連付け項目に共有の関連付け識別子を含めて、この関連付インサイトしました。 任意の項目&rsquo;の&ldquo;&rdquo;詳細ビューにドリルダウンしたら、[このルート操作で使用可能なすべてのテレメトリ] をクリックすると、関連付け ID に基づいて関連項目のフィルター処理されたビューがすぐに取得されます。 たとえば、次のスクリーンショットでは、Node.js API 要求が MongoDB 呼び出しに導き、要求と依存関係の項目を一緒にすぐに表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/922c945d-4a1c-4a40-8326-339c343e2296.png" target="_blank"><img alt="01-correlation-mongo" border="0" height="289" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70add026-de33-48e1-967a-3617d92689c1.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="01-correlation-mongo" width="770"></a></p>
+
+
+  <p>概要ポータルでナビゲーションと<a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-dashboards" target="_blank">ダッシュボードの詳細を</a>確認インサイトします。</p>
+
+
+  <h2>しくみ</h2>
+
+
+  <p>Azure Portal で相関項目を瞬時にフィルター処理するには、SDK によって送信される関連項目に同じ関連付け識別子 (ID) を追加する必要があります。 つまり、元の要求コンテキストと、データベースや HTTP 呼び出しや応答の送信など、後の操作のコンテキストとの間で、SDK 内のその ID を共有する必要があります。 Node.js と JavaScript でコールバックや他の非同期タスク間でこのようなデータを共有する作業は困難です。JavaScript と Node.js&rsquo; には、いくつかの作業が進行中ですが、コールバック間でコンテキストを共有するための標準的な方法<a href="https://github.com/nodejs/CTC/issues/4" target="_blank"></a>がまだ含まれるためです。</p>
+
+
+  <p>簡単&rsquo;な気象 API サービスに関する問題を示します。 この API への要求では、HTTP クエリ パラメーターで指定された米国郵便番号の予測の詳細が返されます。 サービス自体は、 <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap HTTP API からこれらの予測の詳細を</a> 取得します。 メイン ハンドラーは に従い、完全なコードは <a href="https://gist.github.com/joshgav/e2205d03d7fc357b2d3c7b28dffc71d8" target="_blank">、この gist に含まれます</a>。</p>
+
+
+  <pre>
+
+  function httpHandler (request, response) {
+
+    let parsed_url = url.parse(request.url);
+    let zip = parsed_url.query.zip;
+    let country = parsed_url.query.country || &#39;us&#39;;
+
+    let query_string = `zip=${zip},${country}&amp;APPID=${appid}`
+    http.get(`${query_string}`,
+      weather_response =&gt; { weather_response.pipe(response) }
+    );
+  }
+
+  http.createServer(httpHandler).listen(8080);
+
+  </pre>
+
+
+  <p>App Map で検出されたこのアプリ&rsquo;インサイト<a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-app-map" target="_blank">トポロジ</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea89fef9-a8de-4ee2-9145-5b8c6a3d0e35.png"><img alt="02-weather_topo" border="0" height="75" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c2071e10-dccd-4818-9e1b-94879dabf236.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="02-weather_topo" width="360"></a></p>
+
+
+  <p>このコードでは、Nodes&rsquo; HTTP サーバーが受信要求を受信すると、App インサイト SDK によってその要求に関する情報が自動的に収集され、関連付け識別子 (ID) が指定されます。 関連付けられた HTTP 要求が OpenWeatherMap API に送信された場合、SDK は、以前に指定した関連付け ID を含むその要求に関する情報も収集します。 OpenWeatherMap API からの応答がサービスによって受信され、元の呼び出し元に送信された場合、元の関連付け識別子も含むイベントが App インサイト によって送信されます。</p>
+
+
+  <p>これらのすべての操作とコールバックでこのような識別子を共有するには、App インサイト SDK がそれらのすべてにわたって共有されているストレージにアクセスする必要があります。 この課題に対応するために、App インサイト では、既定で一般的な <a href="https://github.com/angular/zone.js/" target="_blank">zone.js</a> ライブラリを利用して、要求の開始時に関連付け識別子を格納および共有する永続的なコンテキストを提供し、他の情報を収集して送信するときにそれを取得して使用します。 その結果、ユーザーとポータルは、この識別子でフィルター処理して、アプリ内の問題をより迅速に検出して修正できます。</p>
+
+
+  <h2>サービス間で関連イベント *を検索する*</h2>
+
+
+  <p>アプリzone.jsアプリインサイトを使用すると、1 つのサービスで問題の根本を迅速に取得できます。 ただし、実際にはアプリケーションは複数のサービスで構成され、根本問題は別のサービスにある可能性があります。 この問題に対処し、すべてのサービスに関連するトレースとログのフィルター処理されたビューを提供するには、このリリースで.NET チームと. <a href="https://azure.microsoft.com/en-us/blog/app-insights-microservices/" target="_blank">NET</a> チームが実装を開始した別の手順を実行します。</p>
+
+
+  <p>複数のインストルメンテーション キー (ikey) を使用する場合に HTTP 経由で通信する複数の Node.js サービスと .NET サービスの間でトレースを適切に関連付ける機能が追加されました。 たとえば、&rsquo;次の画面では、Node.js API サービスを使用してアプリケーションで失敗した要求を調査し、その後に .NET サービスを呼び出します。 これらのエラーの 1 つをドリルダウンして関連イベントを見つけ、Node.js サービスからいくつかのイベントを見つけ、一部を .NET から検索します。 .&rsquo;NET サービスの例外が API 呼び出しで失敗した原因Node.js識別できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10788ca0-be5c-4c4f-a305-04ea5f8c11cb.png"><img alt="03-transaction_trace_complete" border="0" height="1596" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/77784150-5f69-4cae-8005-002ad93619a4.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="03-transaction_trace_complete" width="450"></a></p>
+
+
+  <h2>アプリ マップのサポートの向上</h2>
+
+
+  <p>また、上記の関連付け&rsquo;&rsquo;作業を使用すると、App Map でアプリ トポロジをよりインサイト<a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-app-map" target="_blank">することもできます</a>。 上記の Node.js と .NET アプリは次のように App Map で表され、Node.js API &ldquo;は appinsights-node-02&rdquo; 、.NET &ldquo;サービスは api-11&rdquo; です。 api-11 ノードのエラー (&ldquo;!&rdquo;) アイコンは、前のセクションで説明した調査の別のエントリ ポイントとして機能する可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e036fc1-4277-441a-b05e-2c9980da9ffd.png"><img alt="04-appmap" border="0" height="212" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4d0fb79-5c8e-42c0-b0ca-acef291986f0.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="04-appmap" width="480"></a></p>
+
+
+  <p>引き続き、App Map&rsquo; によって提供される詳細を試し、ニーズを満たすために必要な内容に関するフィードバックをお寄せください。</p>
+
+
+  <h2>サード パーティモジュールからの情報</h2>
+
+
+  <p>次に、大規模なモジュール エコシステムから派生したNode.js&rsquo;を知っています。 問題を特定するのに本当に役立つには&rsquo;、多くの場合、サードパーティのモジュールに関する分析情報も必要になります。 たとえば、MongoDB 呼び出しが失敗した場合、Mongo サービスに送信されたメッセージと受信したエラーを把握するのに役立ちます。</p>
+
+
+  <p>App インサイト では、このアクティビティを自分でトレースするために使用できるユーザー API が提供されますが、このリリースでは、MongoDB、MySQL、Redis、およびBunyan ログ フレームワークとコンソール <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics" target="_blank">API</a> に対して、この情報の収集を自動的に<a href="https://nodejs.org/api/console.html" target="_blank"></a>開始します。 そのため、失敗したデータベース呼び出しの詳細が自動的に使用できます。</p>
+
+
+  <p>たとえば、前の例で、MongoDB 呼び出しの原因である Node.js API 呼び出しが、実際には Mongo への *2* 回の呼び出しを一覧表示していたとします。 次のスクリーンショットに示すように、検索<a href="https://docs.mongodb.com/manual/reference/command/find/" target="_blank"></a>コマンドと <a href="https://docs.mongodb.com/manual/reference/command/getMore/" target="_blank">getMore</a> コマンドの両方が送信されたと判断するのに役立ちます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d24d2e66-5e49-480b-99af-ffef02e9e660.png"><img alt="05-transaction_trace_mongodb-03" border="0" height="160" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fdf2d0cd-0b36-4855-af61-3e37b947e7ea.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="05-transaction_trace_mongodb-03" width="770"></a></p>
+
+
+  <p>サードパーティモジュールのモジュール パッチを一貫して確実に維持するのは難しいので、これらの修正プログラムと、それらを GitHub のオープン ソース ノード診断チャネル プロジェクトとして利用するために使用するメカニズム<a href="https://github.com/Microsoft/node-diagnostic-channel" target="_blank"></a>を公開しました。&rsquo; Project&rsquo; とこのプロジェクトの共有に取り組み、他のツール プロバイダー<a href="https://github.com/Microsoft/node-diagnostic-channel/issues" target="_blank"></a>やモジュール作成者からの共同作業方法に関するフィードバックをお寄せください。</p>
+
+
+  <h2>サンプリング</h2>
+
+
+  <p>最後に、このリリースには割合ベースのサンプリングのサポートも含まれています。これにより、App インサイト リソースに送信されるデータの量を減らし、コストを<a href="https://azure.microsoft.com/en-us/pricing/details/application-insights/" target="_blank">削減できます</a>。 心配&rsquo;はいりません&rsquo;&rsquo;。サンプリング アルゴリズムは上記の関連付け作業に影響を受け、サンプリングを有効にした場合でも、サンプリングされた要求からすべての関連イベントを送信します。</p>
+
+
+  <p>サンプリングを有効にするには、次のようにクライアントを開始する前にパーセンテージを指定します。</p>
+
+
+  <pre>
+
+  const appInsights = require(&quot;applicationinsights&quot;);
+
+  appInsights.client.config.samplingPercentage = 33;
+
+  appInsights.start();</pre>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>これらと他の更新プログラムの詳細については、<a href="https://github.com/Microsoft/ApplicationInsights-node.js/releases/tag/0.20.0" target="_blank">v0.20.0、v0.20.1、v0.21.0</a> の変更ログ<a href="https://github.com/Microsoft/ApplicationInsights-node.js/releases/tag/0.21.0" target="_blank">を</a>参照してください。 <a href="https://github.com/Microsoft/ApplicationInsights-node.js/releases/tag/0.20.1" target="_blank"></a></p>
+
+
+  <p>私たちの目標は、サービスとアプリケーションのパフォーマンスと機能の問題を迅速に検出して診断Node.js支援します。 Wed&rsquo; は、お客様に最<a href="https://github.com/Microsoft/ApplicationInsights-node.js/issues" target="_blank"></a>&rsquo;&rsquo;も重要GitHub方法と最も重要な点に関するフィードバックを、こちらおよびご意見をお聞かせください。 よろしくお願いいたします。</p>

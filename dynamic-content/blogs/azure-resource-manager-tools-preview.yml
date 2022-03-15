@@ -1,0 +1,219 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 339f6cccf097ccf4d24eead760a84bef9ca4c55d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889591"
+Slug: azure-resource-manager-tools-preview
+Title: Azure Resource Manager Tools プレビュー
+Summary: >-
+  エディターの注: この投稿は最新ではなくなりました。 「最も最近の投稿」を参照してください。
+
+
+  本日は、Azure Resource Manager Tools Preview for... の一般提供を発表します。
+Content: >-
+  <strong>エディターの注: </strong>この投稿は最新ではなくなりました。 「最も最近の投稿」を <a href="https://azure.microsoft.com/blog/2014/11/26/azure-resource-manager-2-5-for-visual-studio/">参照してください</a>。
+
+
+  本日は、Azure Resource Manager Tools Preview for Visual Studio の一般<a href="https://go.microsoft.com/fwlink/?LinkID=507510">提供を発表します</a>。 Azure Resource Manager Tools プレビューでは、次の操作が可能です。
+
+  <ul>
+   <li>Azure ギャラリー テンプレートを使用してアプリケーションを作成する</li>
+   <li>デプロイ Azure Resource Managerテンプレート (データベースを含む Web サイトなど) とパラメーター ファイル (たとえば、開発、ステージング、運用用に異なる設定を使用できます) を作成および編集します。</li>
+   <li>リソース グループを作成し、これらにテンプレートをデプロイして、リソースの作成を簡略化する</li>
+  </ul>
+
+  Build <a href="https://www.buildwindows.com/">2014 では、</a> 新しい <a href="https://portal.azure.com/">Azure Portal</a> と azure portal <a href="https://channel9.msdn.com/Events/Build/2014/2-607">を発表</a>Azure Resource Manager。 このAzure Resource Managerでは、アプリケーションを構成するリソース (Web サイトや SQL データベースなど) を宣言によって記述する再利用可能なデプロイ テンプレートを作成できます。 これにより、繰り返し可能な方法で開発、テスト、運用を行う複雑な環境を作成するプロセスが簡略化されます。 また、Azure プレビュー ポータルからアプリケーションを構成するリソースを管理および監視するための統一された方法が提供されます。
+
+
+  このプレビューでは、Azure ギャラリー テンプレートを使用してアプリケーションを作成し、JSON テンプレートを使用して Azure リソースを定義および管理できます。 これにより、Azure でアプリケーションを開発/テストするために必要な環境をすばやく簡単にセットアップできます。 2 つの主な機能は、Azure ギャラリー Visual Studioの統合と、デプロイ テンプレートを作成および編集する機能Azure Resource Managerです。
+
+
+  このツールの使用を開始するには、シナリオを説明します。 まず、Azure ギャラリーのテンプレートに基づいてプロジェクトを作成し、プロジェクトの作成時にソリューションに追加される成果物を確認します。 次に、アプリケーションに必要な Azure リソース グループとリソースを作成してデプロイします。リソース グループとリソースをプロビジョニングしたら、アプリケーションを発行します。
+
+
+  <strong>ツールを今すぐダウンロードする</strong>: <a href="https://go.microsoft.com/fwlink/?LinkID=507510">Azure Resource Manager Tools Preview for Visual Studio</a>
+
+  <h3>Azure Cloud Gallery – クラウド アプリ の作成 Project</h3>
+
+  Azure Resource Managerツールを使用して、Azure ギャラリー テンプレートを使用Visual Studioアプリケーションを作成できます。 これらのテンプレートは、プレビュー ツールをインストールした後、<b>File-New&gt; Project - Cloud-&gt;&gt; "Cloud App from the Azure Gallery" (Azure</b> ギャラリーからクラウド アプリ) に移動することで見つけ出されます。 次のスクリーンショットでは、それを行い、プロジェクトを "MyAzureCloudApp" と呼び出しました。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/CloudProject.png"><img class="alignnone size-large wp-image-171561" alt="CloudProject" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CloudProject-636x365.png" width="636" height="365" /></a>
+
+
+  Azure ギャラリーからクラウド アプリを作成すると、使用可能なテンプレートの一覧が表示されます。 より一般的な Azure ギャラリー テンプレートが 2 つ用意されています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/websitetemplate.png"><img class="alignnone size-large wp-image-171571" alt="websitetemplate" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/websitetemplate-491x369.png" width="491" height="369" /></a>
+
+  <ul>
+   <li><b>Web</b> サイト – このテンプレートでは、Application ASP.NET を使用して Web <a href="https://www.visualstudio.com/explore/application-insights-vs">サイトを作成インサイト</a>。</li>
+   <li><b>Web サイトとSQL</b> – このテンプレートでは、ASP.NET Web サイト、SQL Azure サーバーとデータベース、およびアプリケーション の監視<a href="https://www.visualstudio.com/explore/application-insights-vs">インサイト</a>されます。</li>
+  </ul>
+
+  このプレビューでは 2 つのテンプレートしか使用できませんが、今後は、キャッシュ、ストレージ、仮想マシンなどの他の Azure 機能を使用する一般的なアプリケーション シナリオ用に、さらに多くのテンプレートが追加されます。
+
+
+  このチュートリアルでは、Web サイト テンプレートを <b>選択</b> します。<b></b>
+
+  <h3>クラウド アプリ ソリューション</h3>
+
+  Azure ギャラリーからクラウド アプリを作成すると、ASP.NET Website Project と新しいプロジェクトの種類 (<b>MyAzureCloudApp.Deployment</b> という名前の Azure Resource Manager Deployment プロジェクト) が表示されます。 デプロイ プロジェクトには、デプロイ テンプレート ファイル (<b>WebSite.json</b>)、テンプレート パラメーター定義 (<b>WebSite.param.dev.json</b>)、Azure へのリソースのデプロイに使用できる PowerShell スクリプト (<b>Publish-AzureResourceGroup.ps1</b>) が含まれます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/solution.png"><img class="alignnone size-full wp-image-171661" alt="solution" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/solution.png" width="280" height="167" /></a>
+
+
+  ソリューション内のこれらの各成果物を見て見てみ取りを行います。
+
+  <ul>
+   <li>デプロイ プロジェクトは、リソース定義、パラメーター、およびリソースのデプロイに使用できる PowerShell スクリプトのコンテナーです。 後で説明しますが、デプロイ プロジェクトを右クリックして、定義されたリソースをデプロイすることもできます。</li>
+   <li><b>WebSite.json ファイル</b>は、リソースが定義されているデプロイ テンプレート ファイルです。 このファイルには、後でデプロイする予定のすべてのリソースが含まれている。 ご想像のように、Web サイト テンプレートを選択したので、このファイルには Web サイトの作成に必要な定義が含まれているのです。 後で詳しく説明します。</li>
+   <li><b>WebSite.param.dev.json には</b>、デプロイ テンプレート ファイルに必要なすべてのパラメーターの値が含まれています。 たとえば、Web サイトの名前はパラメーターであり、その値はこのファイルに含まれるとします。</li>
+  </ul>
+
+  <h4>Azure リソースの作成 - ダイアログの使用</h4>
+
+  リソースとリソース グループを Azure にデプロイするには、いくつかの方法があります。 最も簡単な方法は、[デプロイ] タブを右クリックProject、[リソース グループにデプロイ<strong>] を選択します</strong>。 [リソース グループへのデプロイ <strong>] ダイアログが表示</strong> されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/clip_image008.jpg"><img style="border-width: 0px;" title="clip_image008" alt="clip_image008" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image008_thumb.jpg" width="604" height="229" border="0" /></a>
+
+
+  Web アプリケーションに必要なすべてのリソースの論理グループを含む Azure リソース グループを作成する必要があります。 これを行うには、[リソース グループ] コンボ ボックス <strong>をクリックし</strong> 、[Create New]を<strong>選択します</strong>。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/createresourcegroup2.png"><img class="alignnone size-full wp-image-171641" alt="createresourcegroup2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/createresourcegroup2.png" width="397" height="283" /></a>
+
+
+  Azure リソース グループに必要な名前を付け ("MyAzureCloudApp" という名前を付け)、場所を指定します。 準備ができたら <strong>[作成 </strong>] ボタンをクリックすると、Azure リソース グループが自動的にプロビジョニングされます (ただし、リソースはまだありません)。
+
+
+  上記のように、デプロイ テンプレート (website.json)、テンプレート パラメーター ファイル (webite.param.dev.json)、ストレージ アカウントが選択されている必要があります。 ストレージ アカウントをまだ持ってない場合は、先に進む前にストレージ <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-create-storage-account/">アカウントを作成する</a> 必要があります。
+
+
+  次に、[パラメーターの編集] ボタンをクリックします。 ここでは、Web サイト名、Web ホスティング プラン名、および Web サイトの場所を定義して、次のようにします。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/editparam.png"><img class="alignnone size-full wp-image-171421" alt="editparam" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/editparam.png" width="399" height="298" /></a>
+
+
+  各パラメーターの意味を見てみてください。"<strong>siteName</strong>" パラメーターは、Web サイトの名前です。 "<strong>hostingPlanName</strong>" は <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-web-hosting-plan-overview/">Web ホスティング プラン名</a> です。 ホスティング プランは、複数の Web サイトで共有できる機能と容量の設定を表します。 "<strong>siteLocation</strong>" は、Web サイトが存在するリージョンであり、"米国西部" や "米国中部" や任意の有効な Web サイト リージョンのようなものになります。 "<strong>sku</strong>" パラメーターは既定値の "Free" に設定されています。これは Web サイトの価格レベル <a href="https://azure.microsoft.com/blog/2014/04/21/azure-web-sites-new-basic-pricing-tier/">です (その</a> 他のオプションは Shared、Basic、Standard です)。 "<strong>workerSize</strong>" も 0 に残します。 この設定は、Web サイトを実行する仮想マシンのサイズ (0 = 小、1 = 中、および 2 = 大) を表す場合に使用されます。 この例では、"Free" の SKU サイズを選択したので、workerSize は効果がありません。 適用するには、SKU サイズを Basic または Standard に選択する必要があります。
+
+
+  これらのパラメーターを入力した後、[<strong>デプロイ] ボタン</strong>をクリックすると、リソース グループとリソースが Azure にデプロイされます。 この場合、Azure リソース グループ内に Web サイトをデプロイしました (新しく拡張された <a href="https://portal.azure.com">Azure Portal で確認してください</a>)。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azureportal1.png"><img class="alignnone size-full wp-image-171431" alt="azureportal1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azureportal1.png" width="322" height="217" /></a>
+
+
+  リソースをデプロイすると、次のようにパラメーター値が <b>WebSite.param.dev.json</b> ファイルに書き戻されたのが表示されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/param1.png"><img class="alignnone size-full wp-image-171441" alt="param1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/param1.png" width="290" height="384" /></a>
+
+
+  変更が保持される JSON ファイルを保存します。
+
+  <h4>アプリケーションを発行する</h4>
+
+  MyAzureCloudApp リソース グループを作成してデプロイしたら、アプリケーションを発行しましょう。テンプレートをデプロイするときにプロビジョニングが完了した Web サイト リソースに発行します。
+
+
+  次のソリューション エクスプローラー Web プロジェクトを右クリックし ASP.NET [発行] を<strong>選択します</strong>。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Publish.png"><img class="alignnone size-full wp-image-171451" alt="Publish" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Publish.png" width="349" height="177" /></a>
+
+
+  発行ウィザードが起動し、発行先のターゲットを選択するように求めるメッセージが表示されます。 "Microsoft Azure <strong>Web サイト" 発行ターゲット</strong>を選択します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Target.png"><img class="alignnone size-full wp-image-171461" alt="Target" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Target.png" width="500" height="333" /></a>
+
+
+  これで、Azure サブスクリプション内の Azure Websites の一覧が表示されます。 先に進み、先に作成した項目を選択します ("mattsWebSite" を選択しました)。 終了したら、[OK] をクリックします。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azurewebsiteselect.png"><img class="alignnone size-full wp-image-171591" alt="azurewebsiteselect" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azurewebsiteselect.png" width="378" height="223" /></a>
+
+
+  必要なすべての発行設定は、発行ウィザードに自動的に設定されます。 そのため、ここで行う必要があるのは、[発行] ボタンをクリックする必要があります。しばらく待った後、Web アプリケーションが発行され、Web ブラウザーで Web サイトが起動します。この時点で、Web アプリケーションが MyAzureCloudApp リソース グループの Web サイト リソースに発行されました。
+
+
+  発行したので、Azure リソース グループを作成して Azure リソースをデプロイする別の方法を見てみしましょう。
+
+  <h4>Azure リソースをデプロイする - PowerShell を使用する</h4>
+
+  Azure でリソース グループを作成する 2 つ目の方法は、デプロイ プロジェクト (Publish-AzureResourceGroup.ps1) の一部として提供される PowerShell<b> スクリプトを実行する方法です </b>。 このスクリプトでは、<a href="https://azure.microsoft.com/en-us/documentation/articles/powershell-azure-resource-manager/">最新Azure PowerShell (</a>少なくともバージョン 0.8.3 以降) を利用して、リソース グループとリソースをデプロイします。
+
+
+  実行する前に、 <b>Website.param.dev.json</b> ファイルに、Web サイト、ホスティング プラン、Web サイトの場所の正しい名前が含まれている必要があります。 変更を保存してください。
+
+
+  <strong>以下に、Web サイト名を "mattsAwesomeSite" に変更しました。 </strong>Web サイト名も変更する必要があります。 これを行って、新しい Web サイトが作成されるのを確認しました。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/param2.png"><img class="alignnone size-full wp-image-171471" alt="param2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/param2.png" width="317" height="379" /></a>
+
+
+  ここで何かを見せび出す場合は、<strong>Publish-AzureResourceGroup.ps1</strong> ファイルをダブルクリックして Visual Studio のドキュメント ウィンドウに表示します (まだ表示されていない場合は、PowerShell スクリプトの色分け表示を追加しました)。
+
+
+  その後、新しいファイルを右クリック<b></b>しPublish-AzureResourceGroup.ps1<strong>PowerShell ISE のプログラムから開く選択します</strong>。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/clip_image018.jpg" target="_blank"><img style="border: 0px;" title="clip_image018" alt="clip_image018" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image018_thumb.jpg" width="393" height="85" border="0" /></a>
+
+
+  これにより、PowerShell ISE が起動します。 この時点で PowerShell スクリプトを実行できます。 ただし、エラーの発生を確認するために、いくつかのことを確認してください。
+
+
+  1) インストール済み<a href="https://go.microsoft.com/?linkid=9811175">Azure PowerShell</a> (少なくともバージョン 0.8.3)?
+
+  <blockquote>a. これをインストールするには、 <a href="https://www.microsoft.com/web/downloads/platform.aspx">Web プラットフォーム インストーラーを使用します</a>。 [Microsoft Azure PowerShell] を選択します
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/webpi.png"><img class="alignnone size-full wp-image-171501" alt="webpi" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/webpi.png" width="893" height="41" /></a></blockquote>
+
+  2) 以前に PowerShell を使ったことがあまりない場合は、おそらく、PowerShell スクリプトの実行を許可する実行ポリシーを設定する必要があります。 これを行うには、PowerShell ISE から "<a href="https://technet.microsoft.com/en-us/library/ee176961.aspx">Set-ExecutionPolicy RemoteSigned</a>" を実行して、 のようなリモート署名されたスクリプトの実行を許可する必要があります (注: このコマンドを管理者として実行する必要があります)。 ポリシー設定を変更するダイアログが表示されます。
+
+
+  3) Azure アカウントを現在の PowerShell セッションにログインAzure PowerShellコマンド "<a href="https://msdn.microsoft.com/en-us/library/dn495128.aspx">Add-AzureAccount</a>" を実行してください。 ダイアログが表示され、Azure 資格情報を入力するように求めるメッセージが表示されます。
+
+
+  4) Azure サブスクリプションには既定のストレージ アカウントがありますか? そうしない場合は、いくつかの方法でこれを設定できます。
+
+  <blockquote>a. 1 つの方法は、"Set-AzureSubscription -CurrentStorageAccountName 'yourstorageaccount'" を実行して、このセッションの現在の Azure ストレージ アカウントを設定する方法です。
+
+
+  b. もう 1 つの方法は、PowerShell スクリプト (<b>Publish-AzureResourceGroup.ps1</b>) を編集して、新しいパラメーター "–StorageAccountName myStorageAccount" を作成する方法です (New-AzureResourceGroup ... -StorageAccountName 'defaultstoragerms')</blockquote>
+
+  PowerShell スクリプトを今すぐ実行します: "&gt; .\Publish-AzureResourceGroup.ps1"
+
+
+  有効なリージョンであるリソース グループの場所を入力するように求めるメッセージが表示されます ("米国西部" を選択しました)。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WestUSLocation.png"><img class="alignnone size-full wp-image-171481" alt="WestUSLocation" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WestUSLocation.png" width="760" height="69" /></a>
+
+
+  数秒後に、PowerShell スクリプトが完了します。 スクリプトには優れた詳細出力も用意されています。そのため、作成されたリソースと、発生したエラー (ある場合) を明確に確認できます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/verbose.png"><img class="alignnone size-full wp-image-171491" alt="verbose" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/verbose.png" width="952" height="109" /></a>
+
+
+  このスクリプトでは、<a href="https://msdn.microsoft.com/en-us/library/dn654594.aspx">Azure PowerShell</a> コマンドレットを使用して、Azure リソース グループが存在しない場合 (スクリプトの –Name パラメーターで指定されます) を作成します。 このスクリプトは、 <b>WebSite.json</b> ファイルと <b>WebSite.param.dev.json</b> ファイルを Azure Resource Manager サービスに渡し、デプロイする必要がある Azure リソースを正確に把握します。
+
+
+  スクリプトが完了すると、Azure リソース グループと、指定した Azure リソースが (前の例で行ったのと同様に) 作成され、 <a href="https://portal.azure.com">Azure Portal</a> で表示できます。
+
+  <h3>まとめ</h3>
+
+  その後、このツールのプレビュー リリースを紹介Azure Resource Managerしました。 Azure ギャラリー テンプレートに基づいて、Visual Studioプロジェクトを作成する方法について説明しました。 また、ツールを使用して Azure リソース グループとリソースを定義してデプロイする方法も説明します。 Azure リソース グループは、実際には、アプリケーションをホストするために必要な環境を設定するための最適な方法です。 また、このツールと組み合わせると、Visual Studio Azure での開発とテストのエクスペリエンスが向上する必要があります。
+
+
+  ご意見をお寄せ下さい。

@@ -1,0 +1,43 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b24c81a6afa3e370c9f7d187c6d37cd45e44fa85
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889185"
+Slug: full-text-search-of-audio-and-video-files
+Title: オーディオファイルとビデオファイルのフルテキスト検索
+Summary: ここでは、音声ファイルとビデオファイル内の読み上げられた単語に対してフルテキスト検索を実行する方法について説明します。 詳細については、後の説明を参照してください。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/search/">Azure Search</a>を使用して、OCR、 <a href="https://azure.microsoft.com/en-us/blog/azure-search-indexer-for-azure-blob-storage-now-in-public-preview/">Office、PDF、HTML ドキュメント</a>など<a href="https://azure.microsoft.com/en-us/blog/how-to-leverage-ocr-to-full-text-search-your-images-within-azure-search/">を使用してイメージ</a>に対してフルテキスト検索を実行する方法については、これまで数か月後に説明してきています。 この記事では、これについて説明し、Azure Media Services を Azure Search と共に使用して、音声とビデオファイル内の読み上げられた単語に対してフルテキスト検索を実行する方法について説明します。</p>
+
+
+  <p>オーディオとビデオのコンテンツを検索できることは、ユーザーが関連性のあるコンテンツを検索するのに役立ちます。 これは、大量のコンテンツがない場合に特に重要です。 &rsquo;トレーニングを提供し、ユーザーが視聴するビデオのセットがある会社があるとします。 通常 Azure Search 内では、タイトル、スピーカー、説明などのトレーニングビデオに関するメタデータのインデックスを作成し、ユーザーが検索できるようにします。</p>
+
+
+  <p>これは良い開始ですが、ビデオのスピーカーがこのメタデータに含まれていないトピックについて話している場合はどうでしょうか。 読み上げられたテキストのインデックスを作成することにより、以前に検索できなかった結果をユーザーに表示できます。 これは重要なことです。これは、ユーザーがサイトから離れたときに、検索応答の &ldquo; 結果が0件になるためです。 &rdquo; また、読み上げられた単語のインデックスを作成することにより、ユーザーは最も関連性の高い結果を見つけることができます。</p>
+
+
+  <h2>議事録エラーの処理</h2>
+
+
+  <p>残念ながら、オーディオの議事録は完全ではありません。 たとえば、ビデオのスピーカーは遺伝子 &rdquo; という単語 &ldquo; を示すことがありますが、ジーンズとして &ldquo; 解釈されます。 &rdquo;これは問題ではありません。 Azure Search では<a href="https://azure.microsoft.com/en-us/blog/custom-analyzers-in-azure-search/">発音検索</a>がサポートされているため、単語を検索することができます。また、必要に応じて、似たような単語を返すことができます。</p>
+
+
+  <p>これは、名前にも適しています。 たとえば、姓は Cavanagh ですが、多くの場合、k と U ( <b>k</b>avana<b>U</b>gh など) でスペルがよく使用されます。 これらの発音は似ているため、このようなスペルミスも Azure Search &rsquo; s の結果で返すことができます。</p>
+
+
+  <h2>それはどのように機能しますか?</h2>
+
+
+  <p>これがどのように動作するかを示すために、次の<a href="https://aka.ms/azsearchmedia">GitHub リポジトリ</a>にあるサンプルを作成しました。 このサンプルでは、 <a href="https://channel9.msdn.com/events/build/2015">2015 ビルドカンファレンス</a>でビデオ録画のインデックスを作成しました。 このサンプルでは、次の方法を示します。</p>
+
+
+  <ol>
+      <li>オーディオまたはビデオファイルを Azure Media Services にアップロードし、ビデオのテキストの議事録を作成する</li>
+      <li>ビデオに関連するメタデータと共に、書き起こしテキストを Azure Search にアップロードします。</li>
+      <li>この Azure Search インデックスに対していくつかの検索を実行し、この追加の書き起こしテキストを使用して関連するその他のコンテンツを返す方法を示します。</li>
+  </ol>
+
+
+  <p>ご不明な点がある場合は、以下のコメントにご連絡ください。 Azure Search インデクサーの一部として表示されるようにするには、 <a href="https://feedback.azure.com/forums/263029-azure-search">UserVoice ページ</a>で投票を行ってください。</p>

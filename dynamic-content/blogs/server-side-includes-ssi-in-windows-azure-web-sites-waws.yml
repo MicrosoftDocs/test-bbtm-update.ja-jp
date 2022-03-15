@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6b6f6a2f1ff117f78a21ef546ee90840719a0b2d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892561"
+Slug: server-side-includes-ssi-in-windows-azure-web-sites-waws
+Title: Microsoft Azure Web サイトでのサーバー側の追加 (SSI)
+Summary: Microsoft Azure Web サイトのお客様の間でよく寄される質問は、サーバー側の組み込み (SSI) のサポートと、.htm などのさまざまな拡張機能で動作できるかどうかに関連しています。 数か月まで...
+Content: >-
+  Microsoft Azure Web サイトのお客様の間でよく寄される質問は、サーバー側の組み込み (SSI) のサポートと、.htmなどのさまざまな拡張機能で動作できるかどうか<strong>に関連しています</strong>。 数か月前までは、この機能は利用できません。おそらく、サポート フォーラムを参照してください。 ただし、これは当てはらなくなったので、<strong>ServerSideIncludeModule</strong> は Web サイトにMicrosoft Azure完全にサポートされています。
+
+
+  サーバー側の組み込みは、1 つのファイルのコンテンツを別のファイルに埋め込む簡単な方法であり、Web アプリケーションで一般的に使用されます。 SSI は、別のページのコンテンツを埋め込むのと同じ単純な場合がありますが、多くの場合、モジュール式の Web アプリケーションを構築するために使用されます。この場合、コードを含むファイルを他の複数のファイルから呼び出す可能性があります。 たとえば、一部の名前のない Web アプリのこの部分では、いくつかの include ステートメントが使用されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1722/1362.Ahmed-1.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1722/1362.Ahmed-1.png" border="0"></a>
+
+
+  既定では、Windows Azure Web サイト上の SSI は <strong>*.stm、*.shtm</strong><strong>*、.shtml</strong> ファイル拡張子でのみ動作するように構成されますが、場合によっては、他のユーザーに拡張する必要があります。 当然ながら、ここでは権利や間違いはありません。これは Web アプリケーションの設計方法に関するすべてであり、他の拡張機能でビルドされたアプリケーションを移動する必要がある場合は、WAWS で既定の構成を拡張してサポートする必要があります。
+
+
+  他の拡張機能の追加は非常に簡単です。 必要な操作は、サイト用の小 <strong>Web.Config</strong> ファイルを作成することです。 この構成では、SSI モジュール ハンドラーへの追加について説明します。形式は次のとおりです。 この例では、次のファイルを含むサポート <strong>.htm</strong> 示します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1722/7870.ahmed-2.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1722/7870.ahmed-2.png" border="0"></a>
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1722/6472.Ahmed-3.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1722/6472.Ahmed-3.png" border="0"></a>
+
+
+  注: 現在 Web サイトに web.config がインストールされていない場合は、上記のすべてをテキスト ファイルにコピーし、web.config として保存し、Web マトリックスまたは <a href="https://blogs.msdn.com/b/avkashchauhan/archive/2012/06/19/windows-azure-website-uploading-downloading-files-over-ftp-and-collecting-diagnostics-logs.aspx">FTP</a> を使用して Web サイトにアップロードできます。 既存&lt;の web.config がある場合は、system.webServer &lt;セクションに handlers&gt; セクションを追加するか、ない場合は、[構成] セクションに system.webserver&gt; セクション全体を追加します。
+
+
+  SSI の詳細については、こちらを参照してください。
+
+
+  この投稿は、<strong>Cristhian Uribe </strong> と <strong>Enari Benari によって作成された投稿です</strong>。

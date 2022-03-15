@@ -1,0 +1,183 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c3d40069e09f58ad849449f681ecc1c5a5e2643b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889207"
+Slug: enterprise-scale-github-at-azure
+Title: 'EnterpriseレベルのGitHub: Azure が 2,000 人を超える従業員にスケーリングGitHub'
+Summary: Azure がオープン ソースのプレゼンスを拡大する中で、エンタープライズ規模でアプリケーションを使用GitHub必要でした。 その途中で、オープン ソースの導入、貢献、リリースを行Microsoft Azureサービスの使用を支援するツールを構築しました。
+Content: >-
+  <p>Azure が過去&rsquo; 4 年間にオープン ソースのプレゼンスを拡大する過程で、プロセスを再考し、大規模な GitHub 組織の実行に伴う手動の手順を最小限に抑える必要がありました。 &rsquo;いくつかの Azure サービス (App Service、Active Directory、Azure Storage を含む)、GitHub API、最適なオープン ソースを備えた Web アプリを使用して大規模な組織管理を自動化し、OSS に貢献しました。</p>
+
+
+  <p>この投稿では、&rsquo;現在公開されている GitHubのオープン ソース ポータル<a href="https://github.com/Azure/azure-oss-portal">を紹介GitHub</a>。 機能&rsquo;、サービス&rsquo;構成要素を共有し、GitHub でどのように成長したのかという観点で終わり、詳細情報へのポインターで終わるのです。 Ive&rsquo; は <a href="https://www.jeff.wilcox.name/2015/11/azure-on-github">、ハ</a> ッカソンの根本から現在の場所まで、このプロジェクトについて詳しく説明した詳細な投稿も準備しました。</p>
+
+
+  <p>任意の規模の組織を持つ開発者は、このポータルから簡単にメリットを得ることができます。このポータルでは、Azure Active Directory を活用して、セルフサービスのサービス ツールGitHubエンジニアリング グループに提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22802212-d352-4e7a-88da-e4eb8cdbc2b4.png"><img alt="open-source-portal-for-github" border="0" height="412" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b372ed5-1826-493d-8052-3094774949c4.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="open-source-portal-for-github" width="1366"></a><br>
+
+  <em>Azure GitHub、GitHub API、Node.js を利用したポータル Web アプリにより、新しいオンボード エクスペリエンスは迅速かつ簡単かつ自動化Node.js。</em></p>
+
+
+  <h1>Azure Open Source Portal for GitHub</h1>
+
+
+  <p>GitHub で組織に参加するには、組織の管理者から特定の GitHub &ndash; ユーザー名に招待を送信する必要があります。このユーザー名は、多くの場合、会社のエイリアスや電子メール アドレスと関連付け合う必要があります。 GitHubは、特に小規模および中規模のチームにとってすばらしい製品とサービスです。ほとんどのシナリオでは、シンプルさに重点が置いて機能します。 私&rsquo;たちは、水の上に頭を保つために自動化するために必要なシンプルで、他の重要な作業に集中する必要がありました。</p>
+
+
+  <blockquote>
+
+  <p>GitHub Enterpriseはさらに多くの統合ポイントをサポートしますが、オープン ソースの世界と共同作業を行う GitHub.com に関しては、現在、すべてのユーザーが公式の GitHub アカウントを必要とします。</p>
+
+  </blockquote>
+
+
+  <p>Azure Open Source Portal for GitHubハッカソン プロジェクトとして開始されました。つまり、手動メンテナンスの問題を新しい方法で改善するための課題です。 ユーザーが GitHub ID と企業 <em></em> ID の両方で認証し、参加プロセスを自動化することで、標準の GitHub&nbsp; ワークフローから大きなボトルネックを取り除き、単純なオープン ソース ポリシーを適用し、仲間の満足を維持することができます。</p>
+
+
+  <p>時間の長い&rsquo;間、組織モデル<a href="https://github.com/orgs/improved-permissions"></a>&rsquo;に対する GitHub の機能強化 (先月発生した大きな更新) と共に適応し、会社の他のシステムと統合しました。 Microsoft 全体のプロセスは非常に似ています。</p>
+
+
+  <p>これらのセルフサービス ツールとシンプルなワークフローにより、エンジニアは自分のペースで生産性を高め、チームの保守管理者に決定を委任できます (管理者ではなく、プロジェクトにスコープを設定します)。</p>
+
+
+  <p>&rsquo;GitHub の機能強化と並行してポータルを時間の流れと並行して調整するのも楽しいのですが、GitHub が繰り返される中で、ポータルの多くの部分を廃止できると期待しています。 彼&rsquo;らは私たちの非常に良いパートナーであり、私&rsquo;たちは共に成長し続けていけるのを楽しみにしています。</p>
+
+
+  <p><em>ポータル&rsquo;の簡単なシナリオと&nbsp;機能の一部を見てみる&hellip;</em></p>
+
+
+  <h2>瞬時のオンボード エクスペリエンス</h2>
+
+
+  <p>組織の規模が大きくなるにつれて、管理者数&rsquo;をスケールアップするのは理想的ではありません。 管理者には、グローバルな読み取り/書き込み特権が付与され、リポジトリ、チーム、および組織自体の危険ゾーンへのフル アクセスが付与され、新しいメンバーを組織に手で招待するよりも、注目する必要がある重要な点が多い可能性があります。 スケールには重要な質問が含まれる: &ldquo;このユーザー名は Microsoft の従業員ですか? この人が誰か知っていますか? この従業員は引き続き私たちの仕事をしていますか、それとも別の会社に出社しましたか?&rdquo;</p>
+
+
+  <p>ポータルでは、GitHub <a href="https://developer.github.com/v3/">API を</a>使用して、管理者アカウントに代わって操作を承認します。 &rsquo;OAuth&nbsp; を介したユーザーのアクセス許可を使用すると、招待をすぐに送信して受け入れ、2 要素認証が有効になっていることを確認し (コンプライアンスを 100% に引き上げ)、作業が必要なチームに参加する機会を提供できます。</p>
+
+
+  <p>ポータルでは、オープン ソース トレーニング、ベスト プラクティスへのリンクを共有し、豊富なエクスペリエンスを構築することもできます。 一部のエンジニアは、オンボード時GitHub初めて問題が発生しています。そのため、これらは重要な瞬間です。</p>
+
+
+  <h2>複数の組織のサポート</h2>
+
+
+  <p>ポータルでは、多くの組織がサポートされています。 ユーザーは 1 つ以上のユーザーに参加できます。 変更が発生した場合は、すべての組織から元の従業員を削除することができます。 ポータルは、各組織が独立した一意の基になる資格情報を持つできるよう構成されています。 組織の管理者は、ポータルが管理しているすべての組織の管理者である必要があります。</p>
+
+
+  <h2 style="font-style: normal; font-family: Tahoma, 'Helvetica Neue', Arial, Helvetica, sans-serif;">ロールベースの組織管理者</h2>
+
+
+  <p style="font-weight: normal; font-style: normal; font-size: 13.008px; font-family: Tahoma, 'Helvetica Neue', Arial, Helvetica, sans-serif;">組織の Azures&rsquo; ファミリGitHub、通常の従業員ユーザーは管理者ではなく、保護された特別なロールベースの管理者アカウントを持っています。 これにより、誤ってコミットをリポジトリにプッシュするなど、管理者によるミスのリスクが &nbsp;軽減されます。 各組織には、休暇の対象 &ldquo;範囲や緊急の要求に役立つ特定の個人に sudo 権限を与える特別な sudoer&rdquo; チームがあります。</p>
+
+
+  <h2>ユーザー名と共に従業員 ID GitHub提示する</h2>
+
+
+  <p>&rsquo;ポータル内では、すべての操作 (メンバーと保守管理者の追加、チームへの参加に対するアクセス許可要求中、新しいレポポを要求する場合) に対して、ユーザー リンク (従業員と GitHub ID)&nbsp; が表示されます。<span style="font-size: 13.008px; line-height: 1.538em;">これにより、チーム メンバーは</span>、既知のユーザー名の一覧をハンティングすることなく、同僚GitHubできます。</p>
+
+
+  <p>また、Azure CLA ボットを含むデータ ストアとのインターフェイスを Microsoft の他のオープン ソース ツールで可能にする、アプリによって公開される Web フック統合と REST API もいくつか用意 <a href="https://azure.microsoft.com/en-us/blog/simple-contribution-to-azure-documentation-and-sdk/">されています</a>。</p>
+
+
+  <h2>チーム保守担当者への委任</h2>
+
+
+  <p>私たちはエンジニアを信頼しています。 グローバル管理者に決定を任す代わりに、決定はチーム保守管理者に委任されます。 保守管理者は、自分のアクセス許可要求を所有します。&nbsp;各組織には、新しいリポジトリを承認する特別なチームが割り当てされています。</p>
+
+
+  <p>チーム保守管理者に与えられる昇格された機能には、リポジトリを公開したり、チームに従業員を追加したり、1 回限りのアクセス許可、Web フック、またはリポジトリの外部コラボレーターを管理する機能が含まれます。</p>
+
+
+  <p>2015 &ldquo;&rdquo; 年 10 月より前は、ポータル内でアクセス許可とレポの決定を行う権限を与えられたチーム所有者の独自の実装がポータルに与え込みでした。 10 月GitHub組織&rsquo;の機能強化により、新しいモデルにロックされ、システムが更新されました。</p>
+
+
+  <h2><span style="font-size: 1.231em; font-weight: normal; line-height: 1;">問題を使用して割り当GitHub要求</span></h2>
+
+
+  <p>データベースを使用してアクセス許可を管理し、ワークフローを作成するリポジトリを作成する代わりに、軽量の NoSQL テーブル設計と、GitHubを使用します。 チームへの&nbsp;参加要求が発生すると、すべてのメンバーがアクセスできるプライベート GitHub レポに問題が開き、その要求はチームを管理しているすべての GitHub ユーザーに対して言及され、要求に対してアクションを実行するためのリンクが提供されます。<span style="font-size: 13.008px; line-height: 1.538em;">このGitHub使用すると、透明性とシンプルさのレベルが向上します。</span></p>
+
+
+  <h2>Azure クラウド インフラストラクチャ&rsquo;を利用</h2>
+
+
+  <p>ポータルでは OSS を活用し、次の Azure サービスを利用します。</p>
+
+
+  <ul>
+   <li>アプリのホスティング、可用性、継続的なデプロイ、およびアプリケーションを使用 <strong>した</strong>Azure App Service。 CI/CD は、開発/テスト ループを簡単で応答性の高いものにするように構成されています。 デプロイ スロットを使用すると、&rsquo;ポータルでは、出荷前にステージング Git ブランチを使用して、今後の変更をフライトすることができます。 ピンチでは、リアルタイム診断ログ ストリームによって問題の診断が迅速かつ簡単になります。また、API またはポータル自体で既知の問題が検出された場合に備え、Application 設定 はサービス アラート バナーを設定できます。</li>
+   <li>Microsoft テナント<strong>Azure Active Directory</strong>を使用することで、アプリケーションは従業員を認証および承認できます。</li>
+   <li>ユーザーの仮想リンクは、ストレージ サービスの一部である <strong>Azure Table Storage</strong> に保持されます。 高可用性の geo 冗長データ ストアは、迅速かつ安価です。</li>
+   <li><strong>Azure Redis Cache</strong> は、GitHub API の負荷を軽減し、セッションや他の主要データを転送中に格納するために使用されるフル マネージド キャッシュです。 これにより、キャッシュの共有中に必要な数のリージョンまたはインスタンスにアプリをデプロイできます。</li>
+   <li><strong>Visual Studio Application インサイト</strong> とその Node.js npm モジュールは、Web クライアントのパフォーマンスとサーバー側の応答時間の両方を監視し、世界中から可用性テストを実行するために使用されます。</li>
+  </ul>
+
+
+  <p><img alt="azure-portal-view-of-services" border="0" height="325" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a5ecd400-fc91-4395-a76b-480fadff3d05.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="azure-portal-view-of-services" width="610"></p>
+
+
+  <p><em>次&rsquo;に、次のAzure portal。ポータルに関する重要な統計情報と情報がスタート ページにピン留めされています。アプリの分析情報のタイムライン ビューと応答時間グラフ、Redis の時間の統計情報の取得/設定、他の Azure サービスへのクイック アクセスと情報、現在 prod 内の App Service デプロイが含まれます。</em></p>
+
+
+  <h2>最適なオープン ソース</h2>
+
+
+  <p>プロジェクトで使用されるフロントエンド コンポーネントには、Bootstrap、jQuery、およびいくつかの小さな jQuery プラグインが含まれます。 ポータルは、applicationinsights、async、azure-storage、express、jade、moment、node-uuid、octonode、passport、passport-azure-ad、passport-github、redis の NPM モジュールを使用する Node.js アプリです。 このアプリは、Mac、Mac、および Linux Windows開発されています。</p>
+
+
+  <p>開発中に、Pavan Kumar Sunkf (<a href="https://github.com/pksunkara">pksun pav</a>) による <a href="https://github.com/pksunkara/octonode">octonode</a> に貢献し、GitHub s 組織管理エンドポイントに対して多くの追加 API 呼&rsquo;び出しを実装しました。</p>
+
+
+  <p>ソースを確認し、このポータルに貢献できると、他のユーザーがアプローチから学び、フィードバックを提供できると思います。 また、Azure は、企業のオープン ソース ツールに関するイニシアチブの一環として、このポータルを共有するように Microsoft&rsquo; のオープン ソース プログラム オフィスと調整しています。</p>
+
+
+  <h1>Azure on GitHub:&nbsp;4 年後</h1>
+
+
+  <p>2011 年後半に最初の GitHub 組織を設定した際、<a href="https://weblogs.asp.net/scottgu/meet-the-new-windows-azure">2012</a> 年 6 月の成果物のセットに向けて加速し、GitHub は一般的な Microsoft スタックを超える新しい開放性を示す場所でした。 私たちは、会社の Amex を引き出して支払いを行GitHub、すぐに 20 人を組織の管理者として任命し、そこからすべて成長しました。 私たちは&ldquo;&rdquo;、暗い場所でプロジェクトを開発する代わりに、法務チームと一緒に作業し、承認された OSS プロジェクトの多くを GitHub で構築する方法を見つける方法を見つける必要がありました。 コミュニティ コード レビューを含む初期のフィードバックは、本当に肯定的な変更であり、GitHub&rsquo; を使用する Azure のお客様が非常に多かったので、とても楽しそうでした。</p>
+
+
+  <p>現在、Microsoft の全角から GitHub 2,000 人を超えるメンバーが microsoft の全角から 2,000 人を超え、少数の所有者アカウント、GitHub&hellip; 売上を含む正式な PO プロセス、組織の 2 要素参加率が高く、多くのエンジニアが、作業に近いチーム保守担当者に委任された決定を基に、セルフサービス機能を利用しています。 リソース テンプレート (<a href="https://github.com/Azure/azure-quickstart-templates/tree/master/node-mongodb-high-availability">高可用性 MongoDB</a> クラスターを GitHub からクラウドに直接デプロイする) から、Azure Web サイトのドキュメントの改善 (Azure 上の <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-tutorial/">Linux</a> チュートリアルへの投稿)、SDK、サンプルまで、コミュニティと共同作業を行うエンジニアリング チームがいます。 次の情報を見て楽&rsquo;しいでしょう。</p>
+
+
+  <h1>詳細情報</h1>
+
+
+  <h2>Open Source Portal for GitHub</h2>
+
+
+  <ul>
+   <li>Jeff Wilcox による <a href="https://www.jeff.wilcox.name/2015/11/azure-on-github">OSS ポータルのストーリー、アーキテクチャ</a> 、体験に関する詳細なブログ投稿</li>
+   <li>Azure オープン ソース ポータルを複製し、<a href="https://github.com/Azure/azure-oss-portal"></a>フォークして、GitHub<em>を確認</em>GitHub</li>
+   <li>これは、Microsoft 内の Git ソース管理への Azure エンジニアリング&rsquo; チームの取り組みについて読むのにも最適な時間です。</li>
+  </ul>
+
+
+  <h2>Azure での Node.js</h2>
+
+
+  <ul>
+   <li>チュートリアルに従って、 <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-nodejs-develop-deploy-mac/">Node.js Web アプリを作成Azure App Service</a></li>
+   <li>Azure Table <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-nodejs-how-to-use-table-storage/">Storage と Azure テーブル ストレージの組み合Node.jsする</a></li>
+   <li>Azure <a href="https://github.com/Azure/azure-sdk-for-node">SDK for Node.jsおよび Azure Storage </a> <a href="https://github.com/Azure/azure-storage-node">SDK for Node.js</a>をGitHub</li>
+  </ul>
+
+
+  <h2>Azure サービスとクラウド インフラストラクチャ</h2>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/services/app-service/">Azure App Service</a>: インテリジェントな Web アプリとモバイル アプリを構築してホストする</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/active-directory/">Azure Active Directory</a>: クラウドの ID&nbsp; とアクセス管理</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/cache/">Azure Redis Cache</a>: Microsoft によって管理される専用 Redis</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/storage/">Azure Storage</a>: ブログ、テーブル、キュー、その他の重要なデータ サービス</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/application-insights/">Visual Studio アプリケーション インサイト</a>: 問題の検出、クラッシュの診断、Web アプリの使用の追跡</li>
+   <li>Azure を新規&rsquo;に使用する場合は、Azure 無料試用版 <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">を確認してください</a>。</li>
+  </ul>
+
+
+  <p><strong><em>雇用&rsquo;を受け入れる:</em></strong> &quot;オープン ソース テクノロジを採用している新しい Microsoft&quot; で働くことをお考えですか? Azure チームは、素晴らしいエンジニアを雇用しています。 Microsoft のオープン なポジションの一部を <a href="https://careers.microsoft.com/search.aspx#&amp;&amp;p0=Azure engineering&amp;p1=18%2c48%2c3%2c19%2c26%2c27%2c41%2c15%2c50%2c11%2c20%2c24&amp;p2=all&amp;p3=all&amp;p4=all&amp;p5=all&amp;WT.mc_id=engineering.microsoft.2191">確認</a> し、 <a href="https://careers.microsoft.com/">Microsoft</a> のキャリア サイトで働く方法について学習できます。</p>

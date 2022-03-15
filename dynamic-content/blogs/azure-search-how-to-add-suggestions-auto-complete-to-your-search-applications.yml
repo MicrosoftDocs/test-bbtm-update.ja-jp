@@ -1,0 +1,204 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 70f9e4f7b3374248750c29a16a1c43fe0ed03e8a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893577"
+Slug: azure-search-how-to-add-suggestions-auto-complete-to-your-search-applications
+Title: Azure Search-検索アプリケーションに提案 (オートコンプリート) を追加する方法
+Summary: この記事では、このエクスペリエンスを強化する提案とその他の新機能を活用する方法を説明します。
+Content: >-
+  <h2>検索候補とは何ですか。</h2>
+
+  多くのモバイルアプリケーションと web サイトでは、検索は、ユーザーが探しているものを見つける主な手段です。そのため、ユーザーがすばやくコンテンツを検索できるようにするには、検索ボックスが有効である必要があります。これを行う1つの方法は、提案またはオートコンプリートと呼ばれます。これは、ユーザーが検索ボックスに入力した内容に応じて、用語の一致候補を提案するプロセスです。この例については、「.sur」という文字を入力したときの Microsoft Store を参照してください。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/type-ahead.png"><img class="alignnone size-full wp-image-243401" style="width: 245px; height: 216px;" alt="type-ahead" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/type-ahead.png" width="332" height="334" /></a>
+
+  <h2>提案を含むはじめに</h2>
+
+  この記事では、イメージやあいまい検索など、このエクスペリエンスを強化する提案とその他の新機能を活用する方法について説明します。
+
+
+  このチュートリアルでは、MVC4 ベースの web サイトを使用して、ユーザーが野菜のリストを検索できるようにします。インデックスを作成するために使用したデータは <a href="https://en.wikipedia.org/wiki/List_of_vegetables">WikiPedia</a> からのものであり、 <a href="https://github.com/twitter/typeahead.js">Twitter の入力前</a> java スクリプトライブラリも使用して、見栄えの良い検索ボックスを作成しています。これらのコンポーネントを Azure Search と共に使用すると、次に示すように、先行入力だけでなく、イメージを使用して提案を拡張することもできる web サイトが作成されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/19/azure-search-suggestions.png"><img class="alignnone size-medium wp-image-243412" alt="azure-search-suggestions" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azure-search-suggestions-452x369.png" width="452" height="369" /></a>
+
+  <h2>要件</h2>
+
+  このチュートリアルでは、次にアクセスできることを前提としています。
+
+  <ul>
+   <li>Azure Search サービス (詳細について <a href="https://azure.microsoft.com/en-us/documentation/articles/search-get-started/">はこちら</a>)</li>
+   <li>Visual Studio 2012 以降</li>
+   <li>サンプルの <a href="https://azsearchsuggestions.codeplex.com/SourceControl/latest">ソースコード</a> のダウンロード</li>
+   <li>最初にチュートリアル「 <a href="https://azure.microsoft.com/en-us/documentation/articles/search-create-first-solution/">Azure Search を使用した最初の検索ソリューションの作成</a>」を完了しておくことを強くお勧めします。</li>
+  </ul>
+
+  <h2></h2>
+
+  <h2>Azure Search 提案の構成のサンプル</h2>
+
+  この時点で、<a href="https://azsearchsuggestions.codeplex.com/SourceControl/latest">サンプルプロジェクト</a>をダウンロードし、Visual Studio で開く必要があります。サンプル Visual Studio プロジェクトでは、Azure Search サービスの接続情報を追加する必要があります。
+
+  <ul>
+   <li>CreateIndex プロジェクト内で app.config を開き、SearchServiceName と SearchServiceApiKey の値を変更して、Azure Search サービスと Azure Search サービス API キーを反映させます。これは、 <a href="https://portal.azure.com/">Azure Portal</a>で確認できます。</li>
+   <li>AzureSearchSuggestionsDemo プロジェクト内で web.config を開き、SearchServiceName および SearchServiceApiKey の値を変更します。</li>
+  </ul>
+
+  <h2></h2>
+
+  <h2>野菜のインデックスを作成する</h2>
+
+  アプリケーションの構成が完了したので、CreateIndex アプリケーションを起動できます。
+
+  <ul>
+   <li>F5 キーを押してアプリケーションを起動します。</li>
+  </ul>
+
+  このアプリケーションでは、次の手順を実行します。
+
+  <ul>
+   <li>Azure Search サービスに野菜のインデックスが既に存在する場合は削除する</li>
+   <li>プロジェクトに含まれているスキーマの json ファイルを使用して、野菜という名前の新しい検索インデックスを作成します。</li>
+   <li>プロジェクトファイル documents. json に格納されているドキュメントをこのインデックスに読み込みます。</li>
+  </ul>
+
+  成功した場合は、次のようにコンソールウィンドウに出力が表示されます。
+
+
+  インデックスを作成しています...
+
+
+  ドキュメントをインデックスに読み込んでいます...
+
+
+  完全:続行するには enter &gt; キーを押し &lt; ます。
+
+
+  このチュートリアルでは、検索インデックスの作成の詳細については説明しません。この詳細については、次のチュートリアルを参照してください。 <a href="https://azure.microsoft.com/en-us/documentation/articles/search-create-first-solution/">Azure Search を使用した初めての検索ソリューションの作成</a>
+
+  <h2>Azure Search の提案を実行するサンプル</h2>
+
+  Azure Search インデックス "野菜" が作成されたので、ASP.NET MVC アプリケーション (F5) AzureSearchSuggestionsDemo を起動します。これにより、次の処理が行われます。
+
+
+  1) 野菜を検索するための検索ボックスを使用してページを読み込みます。
+
+
+  2) Azure Search から戻った提案の結果を表示するには、いくつかの文字を入力してみてください。注: 初めて検索するときは、数秒かかります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/19/azure-search-suggestions.png"><img class="alignnone size-medium wp-image-243412" alt="azure-search-suggestions" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azure-search-suggestions-452x369.png" width="452" height="369" /></a>
+
+  <h2>コードを使用した提案の動作</h2>
+
+  このサンプルを見てきました。次は、このしくみの主要なコンポーネントについて説明します。
+
+  <ul>
+   <li>アプリケーションを停止し、\Views\Home フォルダーの下にあるファイルのインデックスを開きます。</li>
+  </ul>
+
+  このページのコードのほとんどは、 <a href="twitter.github.io/typeahead.js">Twitter typeahead.js ライブラリ</a>を活用しています。これは、優れた検索ボックスを表示するための多くの作業を実行するライブラリであり、Azure Search の非同期 ajax 呼び出しを非常に簡単に行うことができます。また、typeahead.js ライブラリでは、候補の出力を書式設定する方法を簡略化する handlebars.js が使用されます。たとえば、アプリケーションでは、次の書式設定を使用しています。
+
+  <p style="padding-left: 30px;">&lt;p &gt; &lt; img src = "{{thumbnail}}" style = "height: 40px; width: 60px;" &gt; &amp;nbsp; &lt;strong &gt; {{name}} &lt; /strong &gt; &amp; nbsp;- &amp; nbsp; {{?}} &lt;/p&gt;</p>
+
+  これにより、検索候補に画像をテキストと共に表示できます。この詳細については、次のセクションで詳しく説明します。
+
+
+  最後に注意すべき点は、HomeController ファイル内で MVC コントローラー関数を呼び出すことができる次の参照です。また、ユーザーがテキストボックスに入力した値をパラメーター ' q ' として渡し、パラメーターのあいまいさを false に設定することもできます。
+
+  <p style="padding-left: 30px;">リモート: '/home/suggest? q =% クエリ &amp; の種類 = 名前 &amp; のあいまい = false '</p>
+
+
+  <h2>あいまい一致をサポートするためのサンプルの拡張</h2>
+
+  あいまい検索は Azure Search の提案に最近追加された機能であり、ユーザーが検索ボックスに単語を misspells した場合でも、結果を閉じることができます。
+
+  <p style="padding-left: 30px;">これを試すには、次の行を次のように変更します。</p>
+
+  <p style="padding-left: 60px;">リモート: '/home/suggest? q =% クエリ &amp; の種類 = 名前 &amp; のあいまい = false '</p>
+
+  <p style="padding-left: 30px;">変更後は次のようになります。</p>
+
+  <p style="padding-left: 60px;">リモート: '/home/suggest? q =% QUERY &amp; type = name &amp; あいまい = true '</p>
+
+   変更を保存し、F5 キーを押してアプリケーションを起動します。
+
+  <ul>
+   <li>入力した文字と完全に一致しない場合でも、"arta" などの入力を試し、結果がどのように返されるかを確認してください。</li>
+  </ul>
+
+  <h2>Home コントローラー</h2>
+
+  このサンプルの JavaScript コードを確認したので、次は検索候補要求を実行する C# コントローラーコードを見てみましょう。
+
+  <ul>
+   <li>コントローラーディレクトリの下にある HomeController ファイルを開きます。<b></b></li>
+  </ul>
+
+  最初に気付くのは、このコントローラーがを呼び出すことです。
+
+
+  SuggestionSearch _suggestSearch = new SuggestionSearch ();
+
+
+  これは、Azure Search サービスへの認証された HTTP クライアントの作成など、さまざまな処理を行います。このしくみの詳細については、次のチュートリアルを参照してください。 <a href="https://azure.microsoft.com/en-us/documentation/articles/search-create-first-solution/">Azure Search を使用した初めての検索ソリューションの作成</a>
+
+  <ul>
+   <li>提案関数に移動する</li>
+  </ul>
+
+  この関数は非常に単純で、パラメーター q (ユーザーが検索ボックスに入力した文字) と、あいまい検索のブール値を取得して _suggestSearch に渡すだけです。
+
+  <ul>
+   <li>プロジェクトのルートにある SuggestionsSearch ファイルを開き、[候補] 関数に移動します。</li>
+  </ul>
+
+  受信したパラメーターを使用して、Azure Search REST API の呼び出しが実行されます。次に、提案の結果がリストオブジェクト、リスト &lt; の提案 &gt; suggestionList に読み込まれます。
+
+
+  提案クラスに、サムネイルという文字列があることを確認します。Azure Search 野菜のインデックスでは、これは PNG イメージへの URL 参照です。バイナリイメージを Azure Search に格納するのは理にかなっていないので (画像はフルテキスト検索可能ではありません)、(\ images ディレクトリに表示されるように) プロジェクトにサムネイルを格納しているか、Azure Blob Storage のようなものになります。
+
+
+  このリストが作成されると、Home Controller 候補の関数に戻されます。この関数は、JSON 形式で Index. cshtml に返されます。その後、解析され、候補として検索ボックスに読み込まれます。
+
+  <ul>
+   <li>OptionalSuggestionsSearch ファイル内の提案関数の先頭にブレークポイントを追加して、アプリケーションを再度実行することができます (F5 キー)。検索ボックスに文字を入力するとどうなるかがわかります。</li>
+  </ul>
+
+  <h2></h2>
+
+  <h2>最後の考え: [検索結果] ページへの接続</h2>
+
+  検索ボックスから項目を選択すると、検索結果が返されないことにお気付きかもしれません。このサンプルでは、検索用語定式化の特徴のみを示しています。
+
+
+  このサンプルをさらに実行するには、検索を実行して結果を返すコードを追加する必要があります。 この処理には複数の方法がありますが、最も一般的な方法は、ユーザーが検索ボックスで [enter] をクリックしたときに検索を実行することです。現在の index. cshtml ファイルには、次のコードへの参照が表示されます。
+
+  <p style="padding-left: 30px;">. on (' 先行入力: selected ', function (obj, datum) {</p>
+
+  <p style="padding-left: 60px;">console .log (obj);</p>
+
+  <p style="padding-left: 60px;">console .log (datum);</p>
+
+  <p style="padding-left: 30px;">})</p>
+
+  提案された検索語句のいずれかを選択すると、このコードが呼び出されます。検索を実行して結果を取得するには、このタスクを実行する ajax 呼び出しを使用して、コンソールの .log コードを置き換えます。
+
+
+  検索結果ページの作成方法の詳細については、「 <a href="https://azure.microsoft.com/en-us/documentation/articles/search-create-first-solution/">Azure Search を使用した初めての検索ソリューションの作成</a>」チュートリアルを参照してください。
+
+
+  typeahead.js ライブラリを拡張する方法の詳細については、 <a href="https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md">こちら</a>を参照してください。
+
+
+  Azure Search の詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/services/search/">Azure Search のドキュメント</a>を参照してください。
+
+
+  <a href="https://feedback.azure.com/forums/263029-azure-search/suggestions/6328649-localization">ご意見</a>をお寄せください。
+
+
+  Liam Cavanagh は、彼のブログまたは <a href="https://twitter.com/liamca" target="_blank">twitter</a>からアクセスできます。

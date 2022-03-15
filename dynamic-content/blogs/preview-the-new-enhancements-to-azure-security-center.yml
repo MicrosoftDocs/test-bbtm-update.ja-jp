@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c74193b98a84fff2c86b09a1980ca44f58d9bb98
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889662"
+Slug: preview-the-new-enhancements-to-azure-security-center
+Title: Azure Security Center の新しい機能強化をプレビューします
+Summary: クラウドでは、企業間でセキュリティ上の懸念が最初に発生している場合がありますが、Microsoft ではこれらの dynamics を変更しています。 何百万ものクラウドの顧客の集合力を活用して、,...
+Content: >-
+  <p>クラウドでは、企業間でセキュリティ上の懸念が最初に発生している場合がありますが、Microsoft ではこれらの dynamics を変更しています。 Microsoft は、何百万ものクラウドのお客様の集団力を活用することによって、より多くのお客様がより効果的に攻撃を強化することを支援します。 Azure Security Center は、脅威を検出するだけでなく、それを防ぐことができるようにするために、このようなインテリジェンスを活用する多くの新機能をリリースしました。</p>
+
+
+  <h2>高度なクラウド防御&nbsp;&nbsp;</h2>
+
+
+  <p>従来のセキュリティコントロールは、脅威からの重要な保護を提供していますが、構成と保守にコストがかかりすぎることがわかっています。 アプリケーションとネットワークのデータに規範的な分析を適用し、マシンまたはコンピューターのグループの動作を学習し、これらの洞察を幅広いクラウドの評判と組み合わせることにより、管理オーバーヘッドを発生させることなく、これらのコントロールの利点を実感することができ Azure Security Center ます。</p>
+
+
+  <ul>
+      <li><strong>アプリケーションの </strong>ホワイトリスト登録-攻撃者が攻撃を受けた後は、その目的に対してアクションを実行するときに、悪意のあるコードが VM で実行される可能性があります。 ホワイトリストに登録することで、悪意のあるアプリケーションや悪意のあるアプリケーションが実行されるのを防ぐことができますが、以前はこれらのホワイトリストの管理と保守には問題がありました。 Azure Security Center は、コンピューターのグループに対して自動的に検出されて推奨されるホワイトリストを作成し、組み込みの AppLocker 機能を使用してこれらの設定を Windows vm に適用できるようになりました。 ポリシーを適用すると、Azure Security Center は引き続き構成を監視し、アプリケーションのホワイトリスト登録の強力なセキュリティ上の利点を活用するために、かつてないほど簡単に変更を提案します。</li>
+      <li><strong>Vm へのジャストインタイム (JIT) ネットワークアクセス</strong> 通常、攻撃者は、クラウドで実行されている Vm にアクセスする手段として、ブルートフォース攻撃を受けて、開いているネットワークポート (RDP、SSH など) を標的としています。 これらのポートは、VM へのリモート接続に必要なときに限られた時間だけ開くことで、攻撃対象領域を大幅に削減し、その後 VM が侵害されるリスクを Azure Security Center ことができます。</li>
+  </ul>
+
+
+  <p>早期プレビューを行うには、 <a href="https://aka.ms/AzureAdvisors">Azure</a> advisor コミュニティに参加し、 <a href="https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&amp;feedId=5896234&amp;view=all">Azure Security Center</a> advisor グループに参加してください。</p>
+
+
+  <h2>高度な脅威検出</h2>
+
+
+  <p>マイクロソフトのセキュリティ研究およびデータサイエンスチームは、脅威の状況を絶えず監視し、最新の検出アルゴリズムを追加または強化しています。 Azure Security Center のお客様は、署名を最新の状態に保つことを気にせずに、アルゴリズムが継続的にリリース、検証、およびチューニングされるので、これらのイノベーションを活用できます。 最新の更新プログラムの一部を次に示します。</p>
+
+
+  <ul>
+      <li><strong>Machine Learning の力を利用する -</strong>Azure Security Center は、クラウド ネットワークのアクティビティに関する大量のデータにアクセスし、このデータを使用して Azure デプロイメントを対象とする脅威を検出することができます。 次に例を示します。
+
+      <ul>
+          <li><strong>ブルート フォース検出 -</strong> Machine learning を使用してリモート アクセスが試行された履歴のパターンを作成します。これによって SSH、RDP、および SQL の各ポートに対するブルート フォース攻撃を検出できます。 このような機能は、今後数週間にわたって、FTP、Telnet、SMTP、POP3、SQUID プロキシ、MongoDB、エラスティック検索、VNC など、多数のアプリケーションやプロトコルを対象とするネットワークブルートフォース攻撃を監視するためにも拡大されます。</li>
+          <li><strong>送信 DDoS とボットネット検出-</strong> クラウドリソースを対象とする攻撃の一般的な目的は、これらのリソースのコンピューティング能力を使用して他の攻撃を実行することです。 新しい検出アルゴリズムは、Azure Security Center で一般公開されています。ネットワークトラフィックパターンに従って仮想マシンをクラスター化し、監視分類手法を使用して DDoS 攻撃に参加しているかどうかを判断します。 また、プライベートプレビューでは、仮想マシンがボットネットの一部であるかどうかを検出する新しい分析機能も備えています。 ネットワークデータ (IPFIX) をパッシブ DNS 情報に結合して、VM によってアクセスされるドメインの一覧を取得し、それらを使用して悪意のあるアクセスパターンを検出することで機能します。</li>
+      </ul>
+      </li>
+      <li><strong>新しい行動分析サーバーおよび VM -</strong> サーバーまたは仮想マシンが一度侵害されると、攻撃者は、検出を逃れながら繰り返しセキュリティ制御を回避しながら、そのシステムに対して悪意のあるコードを実行するためにさまざまな手法を仕掛けます。 Azure Security Center では、レジストリ内のプロセス永続性、システムプロセスとしてのマスカレードなどの疑わしいアクティビティを特定し、アプリケーションのホワイトリストを回避するように要求されるようになりました。 また、新しい分析は、Windows Server 2016 専用に設計されたパブリックプレビューにリリースされています。たとえば、SAM や管理者アカウントの列挙に関連するアクティビティなどです。 今後数週間で、Windows vm で利用できる行動分析の多くが Linux vm でも利用できるようになります。 Operations Management Suite のセキュリティユーザーは、Azure 以外のサーバーと Vm に対してこれらの新しい検出機能を利用することもできます。</li>
+      <li><strong>Azure SQL Database 脅威検出-</strong> Azure SQL Database の脅威検出。これは、データベースへのアクセスまたは悪用の可能性があり、害を及ぼす可能性のある異常なデータベース<a href="https://azure.microsoft.com/en-us/blog/azure-sql-database-threat-detection-general-availability-in-spring-2017">アクティビティを特定</a>し、2017年4月に一般公開される予定です。 SQL Database の脅威検出からのアラートを Azure Security Center で表示できます。また、今後同様の脅威を調査して回避するための追加の詳細とアクションを確認することもできます。</li>
+  </ul>
+
+
+  <p>これらおよびその他の高度な検出機能を利用するには、 <a href="https://portal.azure.com/?feature.customportal=false#blade/Microsoft_Azure_Security/SecurityMenuBlade/1">Security Center ポリシー</a>の [価格レベル] ブレードで<strong>Standard レベルまたは90日間の無料試用版を選択し</strong>ます。 <a href="https://azure.microsoft.com/en-us/pricing/details/security-center/">価格</a>の詳細についてはこちらをご覧ください。</p>
+
+
+  <h2>統合されたパートナー&nbsp;&nbsp;&nbsp;</h2>
+
+
+  <p>Azure Security Center を使用すると、信頼されたクラウドセキュリティベンダーをクラウドに簡単に取り込むことができます。 最近の追加には次のものがあります。</p>
+
+
+  <ul>
+      <li><strong>FORNGFW と CISCO ASA-</strong> ASC now は、Checkpoint と Barracuda のソリューションに加えて、For Et および Cisco ASA next generation ファイアウォールとの統合を特徴としています。 ASC は、これらのソリューションが推奨されているデプロイを (設定したポリシーに基づいて) 自動的に検出し、展開と監視を合理化し、これらのパートナーソリューションからのセキュリティアラートを統合します。これにより、信頼されたセキュリティソリューションをクラウドに簡単に取り込むことができます。</li>
+  </ul>
+
+
+  <p>Azure Security Center にはゼロのセットアップが必要です。 Azure Portal で <a href="https://portal.azure.com/?feature.customportal=false#blade/Microsoft_Azure_Security/SecurityMenuBlade">Security Center</a> を開いてください。 無料バージョンを使用するか、90日の試用版にアップグレードして、高度な防止と脅威の検出を有効にします。</p>

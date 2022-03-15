@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b2e4efea40e0023a45b0026ee58c4cbcf8d3ccf1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893395"
+Slug: multi-modal-topic-inferencing-from-videos
+Title: ビデオのマルチモーダルトピック推論
+Summary: 大きなメディアアーカイブ格闘を持つすべての組織は、同じ課題に対応しています。メディアアーカイブをビジネス価値に変換するにはどうすればよいですか。 メディアコンテンツの管理は難しいため、大規模なコンテンツの検出です。 トピック別のコンテンツの分類は、ユーザーが必要なコンテンツを簡単に検索できる直感的な方法です。
+Content: >-
+  <p>大規模なメディアアーカイブ格闘を持つ組織は、メディアアーカイブをビジネス価値に変換する方法について同じ課題 &ndash; がありますか。 メディアコンテンツの管理は難しいため、大規模なコンテンツの検出です。 トピック別のコンテンツの分類は、ユーザーが必要なコンテンツを簡単に検索できる直感的な方法です。 ただし、コンテンツの分類は通常は deductive &rsquo; であり、必ずしもビデオに明示的に表示されるわけではありません。 たとえば、医療分野 &rsquo; のトピックに焦点を絞ったコンテンツには、実際には、医療 &rsquo; の &lsquo; 言葉 &lsquo; が含まれていない可能性があります。これにより、分類の問題がさらに困難になります。 多くの組織では、コンテンツに手動でタグを付けようとしています。これはコストがかかり、時間がかかり、エラーが発生しやすく、定期的に実行する必要があり、スケーラブルではありません。</p>
+
+
+  <p>このプロセスの一貫性と効率を大幅に向上させるために、Video Indexer には <strong>複数のモーダルトピック推論</strong> が導入されています。 この新しい機能では、クロスチャネルモデルを使用してメディアコンテンツのインデックスを直感的に作成し、トピックを自動的に推測できます。 このモデルでは、ビデオの概念を 3 <a href="https://iptc.org/standards/media-topics/" target="_blank">つの異なるオントロジ、</a> <a href="https://www.wikipedia.org/" target="_blank">Wikipedia</a>、Video Indexer 階層型トピックに投影します (以下の詳細情報を参照してください)。 このモデルでは、Video Indexer<a href="https://azure.microsoft.com/en-us/blog/video-indexer-general-availability-and-beyond/" target="_blank">顔認識</a>モデルを使用して、ビデオで認識される議事録 (音声)、 <a href="https://azure.microsoft.com/en-us/blog/text-recognition-for-video-in-microsoft-video-indexer/" target="_blank">OCR コンテンツ</a>(ビジュアルテキスト)、および有名人を使用します。 これら3つの信号は、ビデオを見たときと同じように、さまざまな角度からビデオの概念をキャプチャします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f86e4061-ab98-49d6-954f-2f096ec2093b.png"><img alt="Figure 1 - Topics on Video Indexer portal" border="0" height="495" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74a47198-2a20-4400-b6a7-db5db8dbda94.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 1-Video Indexer ポータルに関するトピック" width="779"></a></p>
+
+
+  <h2>トピックとキーワード</h2>
+
+
+  <p>Video Indexer &rsquo; s レガシ <strong>キーワード抽出</strong> モデルは、トランスクリプトの重要な用語と OCR テキストを強調表示します。 追加された値は、アルゴリズムの教師なしの性質から得られたものであり、その部分は、音声言語と専門用語によって決まります。 既存のキーワード抽出モデルとトピック推論モデルの主な相違点は、キーワードが明示的に記述されているのに対して、トピックは推測されます。たとえば、ナレッジグラフを使用して、類似した検出された概念をまとめてクラスター化することで、より高いレベルの暗黙的な概念などです。</p>
+
+
+  <h2>例</h2>
+
+
+  <p>Microsoft Build 2018 開発者 &rsquo; カンファレンスのオープン基調講演を見てみましょう &rsquo; 。これにより、多数の製品や機能に加えて、近い将来の microsoft のビジョンが提供されます。 Microsoft のリーダーの主なテーマは、AI と ML がクラウドとエッジに infused する方法でした。 ビデオは 3 ~ 30 時間で、手動でラベルを付けるには時間がかかります。 Video Indexer によってインデックスが作成され、テクノロジ、Web 開発、単語埋め込み、サーバーレスコンピューティング、スタートアップ通知と戦略、Machine Learning、ビッグデータ、クラウドコンピューティング、Visual Studio Code、ソフトウェア、企業、スマートフォン、Windows 10、Inventions、およびメディアテクノロジについて説明しました。</p>
+
+
+  <h2>エクスペリエンス</h2>
+
+
+  <p>では、ビルドの基調講演の例を使ってみましょう &rsquo; 。 これらのトピックは、図2に示すように右側の Video Indexer ポータルと、図3のようなインサイト JSON を使用した API の両方で利用できます。図3のように、サイエンスとテクノロジ &rdquo; や Wikipedia のカテゴリの各トピック &rdquo; &ldquo; のような IPTC トピック &ldquo; は、サイドバイサイドで表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa7edbb8-8176-4b59-a4e3-000fde7f7853.png"><img alt="Figure 2- Video Indexer insights with topics on the right" border="0" height="664" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5e54e44-b982-4122-8cec-0cd9bebb715a.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 2-右側のトピックを含む Video Indexer 洞察" width="1432"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c20fc39d-95c4-4b13-922a-869f87b466c3.png"><img alt="Figure 3- Insights JSON example of all ontologies" border="0" height="358" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b95530f0-1722-42d9-a8fd-1ebe4915bf3c.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 3-すべてのオントロジの JSON の例をインサイト" width="627"></a></p>
+
+
+  <h2>しくみ</h2>
+
+
+  <p>Video Indexer の内部で適用される人工知能モデルを図4に示します。 この図は、左側に表示される、アップロードからのメディアファイルの分析を示しています。これは、右側の洞察に関するものです。 下のチャネルでは、複数のコンピュータービジョンアルゴリズム、OCR、顔認識が適用されます。 前述のように &rsquo; 、言語 id や音声からテキストへの変換、キーワード抽出などの上位レベルのモデル、自然言語処理アルゴリズムに基づくトピックの推定など、基本アルゴリズムから始まるオーディオチャネルがあります。 これは、さまざまなソースからの信頼性の高い独立した入力信号を使用して上位レベルの概念を推測するために、ビルディングブロックで複数の AI モデルを調整 Video Indexer 方法を示す強力なデモンストレーションです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aa500b17-9d72-44b7-8db1-806cbc3adb5a.png"><img alt="Figure 4 - Video Indexer AI models under the hood" border="0" height="743" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb0518f4-2838-4ab3-817b-c0210acb7cff.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 4-内部の AI モデルを Video Indexer する" width="1352"></a></p>
+
+
+  <p>Video Indexer は、トピックを抽出するために2つのモデルを適用します。 1つは、大規模な独自のデータセットに基づいて、生のテキストから直接トピックをスコア付けしてランク付けするディープニューラルネットワークです。 このモデルでは、ビデオのトランスクリプトを Video Indexer Ontology ビデオと IPTC にマップします。 2番目のモデルは、ビデオで説明されている名前付きエンティティにスペクトルグラフアルゴリズムを適用します。 このアルゴリズムでは、ビデオで認識されている有名人の Wikipedia Id のような入力信号を受け取ります。これは、OCR やトランスクリプトなどの性質上非構造化データです。 テキストで言及されているエンティティを抽出するには、 <a href="https://labs.cognitive.microsoft.com/en-us/project-entity-linking" target="_blank">エンティティリンクインテリジェントサービス</a> を使用します。 ELIS は自由形式のテキストの名前付きエンティティを認識するので、この時点から構造化データを使用してトピックを取得できます。 後で、エンティティ &rsquo; Wikipedia ページの類似性に基づいてグラフを作成し、それをクラスター化してビデオ内のさまざまな概念をキャプチャします。 最後のフェーズでは、Wikipedia のカテゴリが事後 probability に従って順位付けされ、クラスターごとの2つの例が選択されていることをお勧めします。 フローを図5に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f18d6cc-96e2-4e90-be68-44320509363a.png"><img alt="Figure 5 – Multi-modal topics inference model flow" border="0" height="276" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bff8a488-2a27-4b34-9fc0-df3deb4263ba.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="図 5-複数のモーダルトピックの推論モデルフロー" width="1388"></a></p>
+
+
+  <h2>オントロジ</h2>
+
+
+  <p><em>Wikipedia のカテゴリ</em> &ndash;<a href="https://en.wikipedia.org/wiki/Wikipedia:FAQ/Categorization" target="_blank">カテゴリ</a>は、トピックとして使用できるタグです。 これらは適切に編集されており、カテゴリが170万であるため、この高解像度の ontology の価値は、その特異性と、その他のカテゴリへのリンクと共に、そのグラフに似た接続になります。</p>
+
+
+  <p><em>Video Indexer Ontology</em> &ndash; Video Indexer Ontology 技術は、2万のエントリと3つのレイヤーの最大深度を持つ、専用の階層構造になっています。</p>
+
+
+  <p><em>IPTC</em> &ndash; IPTC ontotelは、メディア企業で広く普及しています。 この階層的に構造化されたこの ontology は、IPTC&#39;s で調べることができます。 IPTC のトピックは、IPTC の第1レベルレイヤーからの Video Indexer ontology トピックのほとんどが Video Indexer によって提供されています。</p>
+
+
+  <h2>結論</h2>
+
+
+  <p>Video Indexer &rsquo; s トピックモデルは、直感的な方法でコンテンツを分類し、コンテンツの検出を最適化することをメディアユーザーに与えます。 マルチモーダルは、ビデオの概要を理解するための重要な要素です。 教師なし Wikipedia のナレッジチャートと共に、管理されたディープラーニングベースのモデルを使用して、Video Indexer はメディアファイル内の内部関係を理解することができます。そのため、手動で分類するよりも、正確で効率的でコストのかからないソリューションを提供できます。</p>
+
+
+  <p>メディアコンテンツをビジネス価値に変換する場合は、 <a href="https://vi.microsoft.com" target="_blank">Video Indexer</a>を確認してください。 &rsquo;以前にインデックス付きビデオを作成した場合は、ファイルのインデックスを再作成して、この新しい機能を体験することをお勧めします。</p>
+
+
+  <p>質問やフィードバックがある場合や 別のメディアを使用して Video Indexer にするには 皆様のご意見をお待ちしております。</p>
+
+
+  <p>UserVoice にアクセスして、機能の優先順位を設定するか、質問があれば電子メール <a href="mailto:VISupport@Microsoft.com" target="_blank">VISupport@Microsoft.com</a> でお問い合わせください。</p>

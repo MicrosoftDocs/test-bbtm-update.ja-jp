@@ -1,0 +1,68 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9601fbd6d75391533409bb2c65643de058927593
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892339"
+Slug: spinnaker-continuous-delivery-platform-now-with-support-for-azure
+Title: Azure をサポートする Spinnaker 継続的デリバリー プラットフォームが提供される
+Summary: Spinnaker は、高速で信頼性の高いソフトウェア変更をリリースするオープン ソースのマルチクラウドの継続的デリバリー プラットフォームです。 これは、アプリケーションの展開を最新化するために使用されるオープン ソースの継続的デプロイ プラットフォームとして、ますます多くの企業によって選択されています。
+Content: >-
+  <p><a href="https://www.spinnaker.io/" target="_blank">Spinnaker</a> は、高速で信頼性の高いソフトウェア変更をリリースするオープン ソースのマルチクラウドの継続的デリバリー プラットフォームです。 これは、アプリケーションの展開を最新化するために使用されるオープン ソースの継続的デプロイ プラットフォームとして、ますます多くの企業によって選択されています。 これらの企業のほとんどが、複数のクラウドにアプリケーションをデプロイします。 Spinnakers&rsquo; の機能の 1 つは、ベスト プラクティスと実証済みのデプロイ戦略を使用して、ユーザーがさまざまなクラウドにアプリケーションをデプロイできる機能です。</p>
+
+
+  <p>これまで、Spinnaker を標準化していたお客様は、カスタムまたは異なるツールを使用してアプリケーションを Azure にデプロイする必要がありました。</p>
+
+
+  <p>このブログ記事と Spinnaker (1.13) の最近のリリースでは、Microsoft がコアの Spinnaker チームと一緒に Azure デプロイが Spinnaker に統合されたと発表しました。</p>
+
+
+  <p>これらの統合により、既存のオープン ソース CI/CD パイプライン ツールチェーンが強化され、Spinnaker に依存しているお客様が可能になります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d3cc89f5-1633-4218-bb0f-8d81c659a039.png"><img alt="Spinnaker integration" border="0" height="130" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9b9d88c-42e0-43f1-8097-dedd85f5376a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Spinnaker の統合" width="640"></a></p>
+
+
+  <h2>初期リリース (1.13)</h2>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>最初のリリースでは、ビルド、ベイク、デプロイのシナリオで、変更できない VM &ndash; イメージをデプロイするためのコアな Spinnaker シナリオを有効にしました。</p>
+
+
+  <p>シナリオ名が示すように、Spinnaker パイプラインには 3 つの主要なステージがあります。</p>
+
+
+  <ul>
+   <li><strong>ビルド (上記の [構成] &ldquo;&rdquo; というラベルが</strong>付いた): ビルド ステージは Spinnaker の外部で行われるので、次のステージのトリガーとして使用されます。 Jenkins ジョブ、Travis ジョブ、または Webhook を指定し、VM イメージの作成に使用されるパッケージを生成します。</li>
+   <li><strong>焼く：</strong> このステージでは、前の手順のパッケージを使用して、Azure マネージド VM イメージを作成します。</li>
+   <li><strong>展開：</strong> 最後に、デプロイ ステージでは、前の手順のマネージド VM イメージを使用して、1 つ以上の仮想マシン スケール セットをデプロイします。 これは、高地や赤/黒のような組み込み戦略のいずれかを使用して実行できます。</li>
+  </ul>
+
+
+  <p>Spinnaker は複数のクラウドにデプロイするために使用されます。このため、一般的なインフラストラクチャ コンポーネントの抽象化がいくつか作成されています。 このリリースでは、これらの抽象化は次のように Azure インフラストラクチャにマップされます。</p>
+
+
+  <ul>
+   <li>サーバー グループ: マップ <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview" target="_blank">Azure 仮想マシン スケール セットへの接続</a></li>
+   <li>ロード バランサー: <a href="https://docs.microsoft.com/en-us/azure/application-gateway/" target="_blank">マップにAzure Application Gateway</a></li>
+   <li>ファイアウォール: マップ <a href="https://docs.microsoft.com/en-us/azure/virtual-network/security-overview" target="_blank">Azure ネットワーク セキュリティ グループへの接続</a></li>
+  </ul>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>Spinnaker オープン ソース コミュニティの一部として受け入れられて、引き続き Spinnaker に投資して、コンテナーベースの Azure Kubernetes Service (AKS) デプロイ、パフォーマンスの向上、インフラストラクチャの抽象化の柔軟性などの他のシナリオを実現します。 ロードマップを <a href="https://www.spinnaker.io/community/releases/roadmap/" target="_blank">公開しますの</a> で、ご覧ください。ご自分の考えをお知らせします。</p>
+
+
+  <p>Spinnaker&rsquo; の詳細に関心がある場合、または既に DevOps の重要なコンポーネントであり、Azure との統合を支援する場合は、お問い合わせください。 次の会場で直接接続できます。</p>
+
+
+  <ul>
+   <li><a href="https://join.spinnaker.io/" target="_blank">Spinnaker Slack の Azure チャネルで会話に参加します</a>。</li>
+   <li>問題を作成したり、問題に貢献<a href="https://github.com/spinnaker/spinnaker" target="_blank">したりGitHub</a>。</li>
+  </ul>

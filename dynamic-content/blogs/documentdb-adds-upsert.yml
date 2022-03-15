@@ -1,0 +1,108 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1ef48ca8ca1c1f8e122b45d59e2762c56cdcd016
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890825"
+Slug: documentdb-adds-upsert
+Title: 'DocumentDB: 作成する場合は、作成しない場合は、'
+Summary: Azure DocumentDB は、atomic Upsert の追加を発表します。
+Content: >-
+  <p>現在、JSON ドキュメントを DocumentDB に永続化することを検討している場合は、この質問を終了してください。 &ldquo;作成を行う必要がありますか、または置換操作を行う必要がありますか。&rdquo;</p>
+
+
+  <p>作成操作を実行し、レコードが既に存在する場合は、エラーが発生します。 同様に、置換操作を実行してもレコード &rsquo; が存在しない場合は、エラーが発生します。 この質問に対する回答を確認する唯一の方法は、まず、id 操作によって読み取りまたはクエリを実行し、ドキュメントを検索してから、作成または置換するかどうかを決定することです。</p>
+
+
+  <p>一般的な実装は次のようになります。</p>
+
+
+  <pre class="prettyprint">
+
+  using (DocumentClient client = new DocumentClient(new Uri(endpoint), authKey))
+
+  {
+      var docSpec = new { id = &quot;document id&quot;, foo = &quot;bar&quot; };
+
+      var docExists = client.CreateDocumentQuery(UriFactory.CreateCollectionUri(databaseId, collectionId))
+                          .Where(doc =&gt; doc.Id == &quot;document id&quot;)
+                          .Select(doc =&gt; doc.Id)
+                          .AsEnumerable()
+                          .Any();
+
+      //doc exists, so replace with the docSpec
+      if (docExists)
+      {
+          Uri docUri = UriFactory.CreateDocumentUri(databaseId, collectionId, &quot;document id&quot;);
+          await client.ReplaceDocumentAsync(docUri, docSpec);
+      }
+      //doc does not exist, so create a new document using docSpec
+      else
+      {
+          Uri collUri = UriFactory.CreateCollectionUri(databaseId, collectionId);
+          await client.CreateDocumentAsync(collUri, docSpec);
+      }
+  }</pre>
+
+
+  <p>ほとんどの場合、問題ありません。 最初の問題は、最初にレコードが存在する場合に常にデータベースに要求するように、追加の要求ユニットにコストがかかることです。</p>
+
+
+  <p>追加のクエリとネットワークラウンドトリップのコストを無視した場合でも、このコードは2段階のプロセスになります。 競合状態が発生する可能性もあります。 2つのプロセスがまったく同じ質問を同時に要求するシナリオを Imagine します。SELECT * FROM c WHERE id = &lsquo; ドキュメント id &rsquo; 、および両方のプロセスは、結果がゼロの場合に回答を取得します。 これで、両方のプロセスで作成操作が続行されます。 1つのプロセスが成功し、もう一方のプロセスは競合を獲得した他のプロセスによって既に挿入されたレコードを挿入しようとしたために失敗します。</p>
+
+
+  <p>現時点では、DocumentDB は、バックエンドでの atomic Upsert 操作のサポートの追加を発表しました。</p>
+
+
+  <p>Upsert は、この2つの課題を解決します。 Upsert &rsquo; では、ドキュメントが存在するかどうかを確認してから、実行する操作を決定する必要はありません。 これで、データベースでこの決定が行われるようになりました。 これにより、追加の要求ユニット料金が節約されるだけでなく、操作はアトミックであるため、競合状態の可能性も排除されます。</p>
+
+
+  <p>Upsert は、ドキュメントの id プロパティを使用して、新しいドキュメントを作成するか、既存のドキュメントを置き換えるかを決定します。 DocumentDB はドキュメントの部分的な更新をまだサポートしていないことに注意してください。 現時点では、ドキュメントの完全な置換のみがサポートされています。 したがって、ドキュメントが既に存在している場合 (id に一致)、完全なドキュメントは Upsert 要求の内容に置き換えられます。</p>
+
+
+  <p>Upsert では、上記のコードは次のように変更されます。</p>
+
+
+  <pre class="prettyprint">
+
+  await client.UpsertDocumentAsync(UriFactory.CreateCollectionUri(databaseId, collectionId), docSpec);</pre>
+
+
+  <p>内部での REST 要求を見ると、上記のコードでは、新しいカスタム HTTP ヘッダー upsert が True に設定されているドキュメントリソースの POST に変換されます。 DocumentDB からの応答によって、作成または置換が実行されたかどうかがわかります。 作成が発生した場合、HTTP 応答は StatusCode 201 になります。 置換が発生した場合、StatusCode は200になります。</p>
+
+
+  <p><img align="left" alt="image" height="175" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df6fcc5b-7ab3-404e-a5cd-1ea8c0f362f3.png" style="float: left; display: inline;" title="image" width="709"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>前に示したように、クライアント側の要求を通じて Upsert 要求を行うだけでなく、ストアドプロシージャやトリガーを作成するときに、JavaScript サーバー側 SDK を使用して機能を利用することもできます。</p>
+
+
+  <p>Upsert 機能を使用するには、使用するプラットフォームに基づいて、最新の <a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/1.5.0" target="_blank">.net</a>、 <a href="https://www.npmjs.com/package/documentdb/" target="_blank">Node.js</a>、 <a href="https://pypi.python.org/pypi/pydocumentdb/1.4.2" target="_blank">Python</a>、または <a href="https://mvnrepository.com/artifact/com.microsoft.azure/azure-documentdb/1.4.0" target="_blank">Java</a> SDK をダウンロードする必要があります。</p>
+
+
+  <p>すべての新機能のリリースと同様に、フィードバックを受け取ることができます。 次のコメントを自由に残してください。ヘルプが必要な場合、またはご質問がある場合は、MSDN または<a href="https://stackoverflow.com/questions/tagged/azure-documentdb" target="_blank">stackによるオーバーフロー</a>の<a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=AzureDocumentDB" target="_blank">開発者フォーラム</a>でご連絡ください。</p>
+
+
+  <p>最新の DocumentDB のニュースと機能については、Twitter <a href="https://twitter.com/DocumentDB">@DocumentDB</a> でフォローして最新情報を入手してください。</p>
+
+
+  <p>ドキュメントをお楽しみください。</p>

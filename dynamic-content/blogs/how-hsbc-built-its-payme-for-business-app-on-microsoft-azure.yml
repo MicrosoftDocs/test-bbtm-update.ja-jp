@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a9035354eb3cbe7c2c368e53f5aa920e545d6f0e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893473"
+Slug: how-hsbc-built-its-payme-for-business-app-on-microsoft-azure
+Title: HSBC で PayMe for Business アプリをビルドした方法Microsoft Azure
+Summary: アジアに住んでいる場合、またはアジアを旅行した経験がある場合は、モバイル テクノロジが毎日のあらゆる側面に及ぼす大きな影響を目にしたと思います。 特に香港特別特別州では、ほとんどの消費者がスマートフォンを毎日使用し、組織がモバイル デバイスにコンテンツとサービスを直接配信する新しい機会を提示しています。
+Content: >-
+  <h3>銀行レベルのセキュリティ、超高速トランザクション、分析&nbsp;</h3>
+
+
+  <p>アジアに住&rsquo;んでいる場合、またはアジアを旅行した経験がある場合は、モバイル テクノロジが毎日のあらゆる側面に及ぼす大きな影響を目にしたと思います。 特に香港特別特別州では、ほとんどの消費者がスマートフォンを毎日使用し、組織がモバイル デバイスにコンテンツとサービスを直接配信する新しい機会を提示しています。</p>
+
+
+  <p>&rsquo;HSBC は、世界の最大の国際銀行の 1 つとして、クラウド上に新しいサービスを構築し、データをより効率的に整理し、それを分析して顧客をよりよく理解し、より多くの主要な顧客体験と機能をモバイルで最初に利用できます。</p>
+
+
+  <p>香港の HSBCs&rsquo;&ldquo;&rdquo; 小売およびビジネス 銀行のチームは、スマート フォンによって提供される利便性をクラウド サービスと組み合わせて、人々がスマート フォンを使用してデジタルで支払いを実行できるキャッシュレス トランザクションを可能にしました。 現在、150 万人を超えるユーザーが HSBCs&rsquo; PayMe アプリを使用して、個人ネットワーク内のユーザーと無料でお金を交換しています。 また、企業は、Azure 上にネイティブに構築された HSBCs&rsquo; の新しい PayMe for Business アプリを使用してすぐに支払いを収集し、すべてのトランザクションの <strong>98% が 500</strong> ミリ秒以下で完了しています。 さらに、企業はアプリに強力な組み込みインテリジェンスを活用して、売上と運用を改善できます。</p>
+
+
+  <p>今日では&rsquo;、Microsoft Mechanics &ldquo;の『How We Built』&rdquo; のエピソードで、HSBC の PayMe の最高アーキテクトである Alessio・リポが、彼らが採用したアプローチと理由について説明しています。</p>
+
+
+  <p><a href="https://youtu.be/KEYqG0IcUy8" target="_blank"><img alt="Microsoft Mechanics episode - HSBC's PayMe for Business app" border="0" height="361" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56034221-327d-4543-9a80-4b1104583a5f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Microsoft Mechanics のエピソード - HSBC の PayMe for Business アプリ" width="640"></a></p>
+
+
+  <h2>銀行レベルのセキュリティ、配信時間の短縮、動的なスケールと回復性</h2>
+
+
+  <p>Alessio とチームが最初に行った決定は、完全に管理されたサービスを使用して、わずか数か月でアイデアから完全に運用可能なサービスに移動できるようでした。 これらのアプローチにとって重要だったのは、マイクロサービス ベースのアーキテクチャを、<a href="https://azure.microsoft.com/en-us/services/kubernetes-service/" target="_blank">Azure Kubernetes ServiceとAzure Database for MySQL</a><a href="https://azure.microsoft.com/en-us/services/mysql/" target="_blank">。</a></p>
+
+
+  <p>各マイクロサービスは、資格情報とシークレット管理のために、Azure Database for MySQL、<a href="https://azure.microsoft.com/en-us/services/event-hubs/" target="_blank">Azure Event Hub</a>、<a href="https://azure.microsoft.com/en-us/services/storage/" target="_blank">Azure Storage、Azure Key Vault</a> など、Azure マネージド サービスの独自のインスタンス<a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">で</a>独立するように設計されています。 共有の依存関係が排除されたので、セキュリティと全体的なアプリケーションのアップタイムを強化するために、このレベルの分離のために設計されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/928197a2-f4ef-416a-a142-571557324c4f.gif"><img alt="microservice" border="0" height="608" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f38c4c93-71e2-453d-8d94-c40c199c8ea6.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="マイクロサービス" width="1080"></a></p>
+
+
+  <p>各マイクロサービスは、需要に基づいて、コンピューティング リソースとデータベース リソースを柔軟かつ個別に迅速にスケーリングできます。 さらに&rsquo;、Azure Database for MySQLを使用すると、読み取りレプリカを作成して、支払いトランザクションの応答時間に影響を与えることなく、読み取り専用クエリと分析クエリをオフロードできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3bf63fe9-008f-47df-8efc-cef47eb8e560.gif"><img alt="replicas" border="0" height="608" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dcbca9dd-687e-4976-9828-4409bf84c913.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="レプリカ" width="1080"></a></p>
+
+
+  <p>また、セキュリティの観点からは、各マイクロサービスは Azure Virtual Network 内の独自のサブネット内で実行されるので、チームは Virtual Network サービス エンドポイントを介してサービス プリンシパルを使用して Azure リソース間のネットワークと通信を分離できます。</p>
+
+
+  <h2>高速で応答性の高い分析プラットフォーム</h2>
+
+
+  <p>その中核となる HSBCs&rsquo; PayMe は、コンシューマーが個人ネットワークを確立しながら、円やビジネス エンティティ内の人々との対話やトランザクションを促進できるソーシャル アプリです。 企業とコンシューマーの両方に対してより多くの価値を生み出すには、顧客とマーチャントトランザクションのリレーションシップを格納するためにモデル化されたグラフ データに <a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank">Azure Cosmos DB</a> が使用されます。</p>
+
+
+  <p>Azure Database for MySQL、Event Hubs、および Storageからの大量の構造化データと非構造化データがストリーミングおよび変換されます。 チームは、内部的に開発されたデータ インジェスト プロセスを設計し、S.L.I.M と呼ばれる分析モデル (単純で軽く、統合されたモデル) を提供し、分析クエリのパフォーマンスのために最適化されただけでなく、Azure Databricks Deltas&rsquo; アンマネージド テーブル機能を使用して、分析プラットフォームでデータを仮想的に使用可能にしました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1eacb505-ab43-4363-a3ba-e7848f836dff.gif"><img alt="virtualized-data" border="0" height="608" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d88a6f86-c3fd-43ee-8650-bcd7060e36e3.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="仮想化データ" width="1080"></a></p>
+
+
+  <p>その後、Azure Databricks 上に構築された分析プラットフォーム内の機械学習を使用すると、パターンとリレーションシップを迅速に決定できるだけでなく、異常なアクティビティの検出も可能です。</p>
+
+
+  <p>Azure を使用すると、組織は、次のレベルのデジタル支払いプラットフォームを含むモバイル デバイスにコンテンツとサービスを直接配信する新しい機会をすぐに利用できます。</p>
+
+
+  <ul>
+   <li>HSBC がキャッシュレス デジタル トランザクション プラットフォームを設計した方法の詳細については、完全 <a href="https://youtu.be/KEYqG0IcUy8" target="_blank">なエピソードをご覧ください</a>。</li>
+   <li>Azure マネージド サービスの独自のインスタンス (例: Azure Database for MySQL) を使用してマイクロサービスの独立 <a href="https://azure.microsoft.com/en-us/services/mysql/" target="_blank">性を実現する方法について説明します</a>。</li>
+  </ul>

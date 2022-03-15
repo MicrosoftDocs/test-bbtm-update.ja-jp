@@ -1,0 +1,150 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5e437660a2ce283e738f56c2e3d897cee196bae9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892965"
+Slug: introduction-to-remote-debugging-on-azure-web-sites
+Title: Azure Web サイトでのリモート デバッグの概要
+Summary: >-
+  この投稿は、Azure Web サイト チームの Program Manager Jaime Espinosa によって作成された投稿です
+
+
+  リモート デバッグを利用できると、Microsoft では、一連の統合された Web 開発エクスペリエンスが提供されます。
+Content: >-
+  この投稿は、Azure Web サイト チームの Program Manager Jaime Espinosa によって作成された投稿です
+
+
+  Microsoft は、リモート デバッグを利用できると共に、最初から最後まで、一連の統合された Web 開発エクスペリエンスを提供します。Microsoft Visual Studio、クラウド全体がデスクの下に座っている場合と同様に、クラウドに接続して対話できます。Web 開発者は、Azure でホストされている Web サイトを 1 つの開発環境からすべて作成、発行、デバッグできます。Visual Studioと Azure Web サイトの統合により、開発が高速化され、バグを減らすのに役立ちます。
+
+
+  Microsoft Visual Studio 2013 には、開発者がデバッガーと対話する方法に対する多くの機能強化が含まれています。デバッグは、開発を学ぶ場合でも、何年もの経験を持っている場合でも、設計フロー全体の重要な部分です。 Web サイトのリモート デバッグは 2012 年 2012 年Visual Studioで実行できますが、2012 年 3 月のデバッグには多くの機能強化Visual Studio 2013。 詳細については、製品のVisual Studio <a href="https://www.visualstudio.com/">を参照してください</a>。
+
+
+  Azure Websites リモート デバッグでは、Microsoft の最も強力なテクノロジである Azure クラウドとクラウドの 2 つをVisual Studio。独自の Azure Visual Studioに接続し、完全に制御できます。ブレークポイントを設定したり、メモリを直接操作したり、コードをステップ実行したり、コード パスを変更したりすることもできます。これは、Web サイトの動作を真に確認する唯一の方法です。
+
+
+  リモート デバッグを実行する機能は、迅速な開発で大きな違いを生み出します。 メンテナンスを容易にし、人々がより良いサイトを作成できます。このリモート デバッグ用のツールとしてVisual Studioの機能と柔軟性があります。すべてのしくみに関する背景コンテキストを使用して、ツールと機能を最適に利用できます。
+
+  <h4>Azure Web サイトでのリモート デバッグ</h4>
+
+  Azure Web サイトでリモート デバッガー セッションに接続するには、手動または自動の 2 つの方法があります。
+
+
+  すべてのツール、特にデバッグ ツールを最も有効に利用するには、そのすべてがどのように機能するのかを知る価値があります。 このシリーズの<sup>第 2</sup>  部では、リモート デバッガーのしくみの詳細について説明します。 後のパート 3 では、複数のインスタンスにスケールアウトするために Web サイトを拡張したユーザーに対処し、GIT を使用して Web サイトをデプロイおよび保守します。
+
+
+  一般的に、リモート デバッガーを使用する方法に関するVisual Studio、ブログ、チュートリアルが多数あります。探索、実験、共有をお勧めしています。
+
+  <h4>次の手順</h4>
+
+  お客様からの質問に基づいて、言及する価値のあるものがあります。デバッグ中のインスタンスから、手動または自動でトラフィックをルーティングする方法を提供する予定です。 起動時にプロセスにアタッチしてステップ 実行する機能は調査中ですが、決定的ではありません。ユーザー Windows制限が修正&lt;されました。以前は 20 文字に制限されています)。
+
+  <h4>階層の制限</h4>
+
+  リモート デバッグは、すべてのレベルで使用できます。ただし、レベルによってはいくつかの制限があります。内訳は次のとおりです。 <strong>FreeandShared</strong>  <strong></strong> (Basic) レベルでは、任意の時点で 1 つの接続が許可されます。 <strong>Standardtier には</strong> 、5 つの同時接続が許可されます。
+
+  <h4>警告のシール</h4>
+
+  残念ながら、警告のシールを残す必要があります。ただし、削除に取り組み中です。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/8713.warning-sticker.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/8713.warning-sticker.png" border="0"></a>
+
+  <h1>Azure Web サイトVisual Studio リモート デバッガー接続する</h1>
+
+  手動と自動の 2 つのVisual Studio リモート デバッガー方法で接続できます。手動の手順は、Visual Studio 2012 および 2013 で使用できます (Express バージョンでは使用できません)。自動手順ははるかに簡単ですが、クライアント コンピューターに <a href="https://azure.microsoft.com/en-us/downloads/">Azure SDK</a>  がインストールされ、サブスクリプション プロファイルがダウンロードされている必要があります。
+
+
+  リモート デバッガーを任意のプロセスに手動でアタッチできると、多くの利点があります。Web サイト プロセス (W3WP) をデバッグできるだけでなく、Azure Web サイトで実行されるその他の種類のプロセスを  <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-create-web-jobs/">WebJobsor</a> でデバッグできます。Visual Studioデバッガーは .NET 用に構築されますが、VS には追加のツールにまで及び、多くの柔軟性があります。
+
+
+  一方、 <a href="https://azure.microsoft.com/en-us/downloads/">Azure SDK</a> では、より一連の Web サイトの開発とメンテナンスのストーリーが提供されます。1 つのツール (Visual Studio) から、最小限の労力で Web サイトを作成、デプロイ、リモート デバッグできます。これは、迅速な開発を行う場合や、多数の Web サイトを管理する場合に非常に便利です。SDK は、シンプルで一連のエクスペリエンスを提供するために常に進化しています。
+
+
+  どの方法を選択した場合でも、サーバー側で注意する必要がある場合があります。リモート デバッグ機能を有効にする必要があります。また、Visual Studio のバージョンを Azure の Web サイトの構成で定義する必要があります。このすべてのしくみを理解するには、「<em>Azure Web サイト (Azure Web サイト)の内部リモート デバッガー」のブログを参照してください。</em><em> </em>
+
+  <h4>自動的に接続する手順</h4>
+
+  Azure Websites のリモート デバッグには、この機能を利用した開発者からのビデオなど、いくつかのブログがあります。さらに別の例を提供するのではなく、次の資料を参照します。
+
+  <ul>
+   <li>Azure のドキュメントでは、Azure Web サイトのトラブルシューティングに関するWindows <a href="https://azure.microsoft.com/en-us/develop/net/tutorials/troubleshoot-web-sites-in-visual-studio">例について説明</a>Visual Studio。</li>
+   <li>.NET Web 開発とツールのブログでは、Azure Web サイトを使用したウィンドウのリモート デバッグに関するVisual Studio 2013。</li>
+   <li>ここでは、開発者が最初の 9 分間に例を見る <a href="https://channel9.msdn.com/Shows/Web+Camps+TV/Securing-ASPNET-Web-APIs"></a>ビデオがあります。</li>
+  </ul>
+
+  発行プロファイルは、次の方法でダウンロードできる点に注意してください。
+
+  <ol>
+   <li>差出人 <a title="https://windows.azure.com/download/publishprofile.aspx" href="https://windows.azure.com/download/publishprofile.aspx">https://windows.azure.com/download/publishprofile.aspx</a></li>
+   <li>PowerShell コマンドの使用: Get-AzurePublishSettingsFile</li>
+  </ol>
+
+  <div><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/0363.Jaime-Espinosa_2D00_FIGURE-1_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/0363.Jaime-Espinosa_2D00_FIGURE-1_2E00_.PNG" border="0"></a></div>
+
+  <div></div>
+
+  <div>
+
+  <h4>手動で接続する手順</h4>
+
+  手順 1 から 6 では、WebDeploy を設定する方法を説明Visual Studio。または、ソース管理から  <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/">Windows Azure Web サイト</a>に発行し、 <em>Azure Web</em> サイトでの GIT デプロイによるリモート デバッガーの使用に必要な変更を行います。
+
+
+  <strong>手順 1.</strong> デプロイ資格情報をセットアップする: ユーザー名とパスワード
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/5504.Jaime-Espinosa_2D00_FIGURE-2_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/5504.Jaime-Espinosa_2D00_FIGURE-2_2E00_.PNG" border="0"></a>
+
+
+  <strong>手順 2.</strong>  発行プロファイルのダウンロード
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/4162.Jaime-Espinosa_2D002900_-FIGURE-3_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/4162.Jaime-Espinosa_2D002900_-FIGURE-3_2E00_.PNG" border="0"></a>
+
+
+  <strong>手順 3</strong><strong>.</strong> リモート デバッグを有効にして、リモート デバッグのバージョンVisual Studio。これらの設定を保存すると、現在保存されているデプロイ資格情報を使用してリモート デバッグがアクティブ化されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/6866.Jaime-Espinosa_2D00_FIGURE-4_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/6866.Jaime-Espinosa_2D00_FIGURE-4_2E00_.PNG" border="0"></a>
+
+
+  <strong>手順 4</strong><strong>.</strong> 発行プロファイルをインポートします。このキャプチャでは、SDK がインストールされたため、"Windows Azure Web サイトからインポートする" セクションが存在します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/6332.Jaime-Espinosa_2D00_-FIGURE-5_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/6332.Jaime-Espinosa_2D00_-FIGURE-5_2E00_.PNG" border="0"></a>
+
+
+  <strong>手順 5.</strong> Web  <em>サイト</em> に発行する構成
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/5282.Jaime-Espinosa_2D00_-FIGURE-6_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/5282.Jaime-Espinosa_2D00_-FIGURE-6_2E00_.PNG" border="0"></a>
+
+
+  <strong>手順 6</strong><strong>.</strong> リモート プロセスVisual Studioデバッガーをアタッチする
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/7318.Jaime-Espinosa_2D00_-FIGURE-7_2E00_.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/7318.Jaime-Espinosa_2D00_-FIGURE-7_2E00_.png" border="0"></a>
+
+
+  <strong>手順 7</strong><strong>.</strong> プロセスが存在する場所と接続方法を指定する
+
+
+  修飾子: &lt;<em>Web サイトの URL (http*なし)&gt; </em>ユーザーとパスワード<strong>:</strong><strong> </strong> 手順 1. で作成した資格情報を使用します。資格情報の <em>前に置く</em> Dot バックスラッシュに注意してください。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/1234.Jaime-Espinosa_2D00_-FIGURE-8_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/1234.Jaime-Espinosa_2D00_-FIGURE-8_2E00_.PNG" border="0"></a>
+
+
+  <strong>手順 8.</strong> デバッグするプロセスを選択します。発行された Web サイトは <em>W3WPprocess です</em>。複数ある場合は、ご利用のサイトを実験して把握する必要があります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/4048.Jaime-Espinosa_2D00_-FIGURE-9_2E00_.PNG"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1798/4048.Jaime-Espinosa_2D00_-FIGURE-9_2E00_.PNG" border="0"></a>
+
+
+  基本を確認したので、この知識の適用を開始できます。 ただし、これは iceberg の一角に過ぎではありません。 このシリーズの次の投稿では、リモート デバッグ、マルチインスタンス環境、GIT デプロイデバッグの内部の確認など、追加のトピックについて説明します。
+
+
+  </div>

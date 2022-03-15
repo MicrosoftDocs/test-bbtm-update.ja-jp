@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: afd1af0c7ac1754ae330d35b7e3a76322e687157
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893864"
+Slug: move-your-data-from-aws-s3-to-azure-storage-using-azcopy
+Title: AzCopy を使用して AWS S3 から Azure Storageにデータを移動する
+Summary: AzCopy v10 (プレビュー) で、データ ソースアマゾン ウェブ サービス (AWS) S3 がサポートされます。 AzCopy を使用して、AWS S3 バケット全体または複数のバケットを Azure Blob Storageコピーできます。
+Content: >-
+  <p>AzCopy v10 (プレビュー) で、データ ソースアマゾン ウェブ サービス (AWS) S3 がサポートされます。 AzCopy を使用して、AWS S3 バケット全体または複数のバケットを Azure Blob Storageコピーできます。</p>
+
+
+  <p>AWS S3 から Azure Blob Storage にデータを移行したいお客様は、クラウド プロバイダー間でクライアントを立ち上げ、AWS からデータを読み取って Azure Storage に格納する必要があったため、課題に直面しています。 これは、データ転送のスケールと速度が、移動の複雑さを追加する途中のクライアントに限定されたことを意味します。</p>
+
+
+  <p>新しい BLOB API により、スケールアウト手法を使用して AzCopy の最新リリースでこの問題に対処しました。 Azure Storage の次世代データ転送ユーティリティである AzCopy v10 は、組み込みの回復性を備えた大規模なデータ移動を提供するために、ゼロから再設計されました。 AzCopy v10 では、ローカル ファイル システムからローカル ファイル システムへのデータのコピーと、Azure Storageアカウント間のデータAzure Storageサポートしています。 最新リリース (AzCopy v10.0.9) では、シンプルで効率的なコマンド ライン ツールを使用してデータを移動するのに役立つソースとして AWS S3 のサポートが追加されています。</p>
+
+
+  <h2>新しい BLOB API の [URL から入力] は、データを効率的に移動するのに役立ちます</h2>
+
+
+  <p>AzCopy は、コピー ジョブを複数のサーバーにスケールアウトすることで、高スループットで AWS S3 Azure Storageします。 AzCopy は、指定された URL Azure Storage REST API直接データをコピーする Put <a href="https://docs.microsoft.com/rest/api/storageservices/put-block-from-url" target="_blank">Block from URL</a> 操作の新しい要求に依存します。 Put Block from URL を使用すると、AzCopy v10 は、AzCopy が実行されているクライアント マシンに最初にデータをコピーすることなく、AWS S3 バケットから Azure Storage アカウントにデータを移動します。 代わりに、Azure Storageから直接コピー操作を実行することもできます。 この方法により、中央のクライアントがボトルネックではなくなりました。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>S3 バケットを BLOB コンテナーにコピーするには、次のコマンドを使用します。</p>
+
+
+  <pre>
+
+  azcopy cp &quot;https://s3.amazonaws.com/mybucket/&quot; &quot;https://mystorageaccount.blob.core.windows.net/mycontainer&lt;SAS&gt;&quot; --recursive</pre>
+
+
+  <p>Azure Storage アカウントと同じリージョン内の AWS S3 バケットからのコピー操作をテストする場合、50 Gbps &ndash; 以上のレートにヒットする可能性があります。 このレベルのパフォーマンスにより、AWS から大量のデータを移動する場合、AzCopy は高速でシンプルなオプションになります。 AzCopy では、回復性も提供されます。 各エラーは、ネットワークの不具合を軽減するために何度も自動的に再試行されます。 さらに、失敗または取り消されたジョブを再開または再起動して、一度に簡単にデータの TB を移動できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/496ffca3-d820-4afe-becc-92e490c24258.gif"><img alt="AzCopy moving a 50GB file from AWS in 8 seconds." border="0" height="494" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1c28329-c9db-486d-a124-aab798cb535d.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="AzCopy で 50 GB ファイルを移動する" width="977"></a></p>
+
+
+  <p>詳細については、「 &ldquo; AzCopy v10 を使用してデータを転送<a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10" target="_blank">する (プレビュー)」のドキュメントを参照してください</a>。&rdquo;</p>
+
+
+  <h2>Azure Data Factory</h2>
+
+
+  <p>または、AWS S3 から Azure Storage にデータを移行するフル マネージドのサービスとしてのプラットフォーム (PaaS) オプションを探している場合は、次の追加の利点を提供する <a href="https://azure.microsoft.com/en-us/services/data-factory/" target="_blank">Azure Data Factory</a> (ADF) を検討してください。</p>
+
+
+  <ul>
+   <li>Azure Data Factory、コードを使用する作成エクスペリエンスと豊富な組み込みの監視ダッシュボードが提供されます。</li>
+   <li>サーバーレスな方法でデータを移動し、使用した分だけ料金を支払う必要がある場合に備え、電力の量を簡単にスケールアップできます。</li>
+   <li>パブリック Azure Integration Runtime上でデータを移動する場合は Azure Integration Runtime (IR) を使用するか、セルフホステッド IR を使用して、Azure ExpressRoute とピアリングされた AWS DirectConnect を使用してデータを移動します。</li>
+   <li>1 回限りで履歴読み込みと、スケジュールされた増分読み込みを実行する機能。</li>
+   <li>エンタープライズ レベルのAzure Key Vaultを実現するために、資格情報管理用の資格情報と統合します。</li>
+   <li>ハイブリッド環境全体ですべてのデータ統合と ETL のニーズに ADF を活用できるよう、すべての Azure データ サービスとの 80 以上のコネクタとネイティブ統合を提供します。</li>
+  </ul>
+
+
+  <h2>フィードバックの送信</h2>
+
+
+  <p>AzCopy でのソースとしての AWS S3 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10" target="_blank">の使用は、現在</a> プレビュー中です。 お試しのうえ、ソース コード リポジトリに投稿してフィードバックをお寄<a href="https://github.com/Azure/azure-storage-azcopy/" target="_blank">せください</a> GitHub!</p>
+
+  <sample 50gbps="" gif="" here="" shows="" that="" throughput="">
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+  </sample>

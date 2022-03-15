@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1377dc226895178a8530f9ba73e17ff1606ee457
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892519"
+Slug: share-big-data-at-scale-with-azure-data-share-inplace-sharing-for-azure-data-explorer
+Title: ビッグ データを大規模に共有し、Azure Data Shareのイン place 共有と共有Azure Data Explorer
+Summary: Azure Data Share一般提供される Azure Data Explorer のイン Place Sharing を使用すると、社内部門と外部パートナー、ベンダー、または顧客との間でビッグ データを簡単かつ安全に共有し、ほぼリアルタイムのコラボレーションを実現できます。
+Content: >-
+  <p><em>この投稿は、、  、 及び 、 の 立ち上がりシニア プロダクト マネージャーによって共同Microsoft Azure。</em></p>
+
+
+  <p><a href="https://azure.microsoft.com/services/data-share/" target="_blank">Microsoft Azure Data Share</a>は、組織がデータをインセットまたはデータ スナップショットとして共有することで、大規模なデータを共有するためのオープンで簡単で安全な方法です。 <a href="https://azure.microsoft.com/services/data-explorer/" target="_blank">Microsoft Azure データ エクスプローラー</a>は、テレメトリ、時系列、ログ データ用の高速でスケーラブルなデータ分析サービスです。</p>
+
+
+  <p>デジタル変革を支援する最新の組織は、ビジネス上の意思決定を支援するために、流動的なデータ共有をますます可能にしたいと思っています。 部門間および組織間のコラボレーションのためにデータをシームレスに共有すると、競争上の大きな優位性を引き出す可能性があります。 ただし、制御と可視性の維持は、引き続き参照可能な目標です。 現在でも、データはファイル転送プロトコル (FTP)、アプリケーション プログラミング インターフェイス (API)、USB デバイス、電子メール添付ファイルを使用して共有されます。 これらのメソッドは、セキュリティで保護されていないだけで、管理できません。また、最善の方法では非効率的です。</p>
+
+
+  <p>Azure Data Share一般提供される Azure Data Explorer のイン Place Sharing を使用すると、社内部門と外部パートナー、ベンダー、または顧客との間でビッグ データを簡単かつ安全に共有し、ほぼリアルタイムのコラボレーションを実現できます。</p>
+
+
+  <p>データ プロバイダーがデータを共有すると、受信者 (データ コンシューマー) は、追加の介入を必要とせずに常に最新のデータを取得します。 さらに、データ プロバイダーは共有の制御を維持し、アクセスをいつでも取り消す可能性があります。 データ プロバイダーは、すべての共有リレーションシップを一中心に管理することで、どのデータが共有され、誰と共有されるのかを完全に制御できます。 オンデマンドでスケーリングできるフル マネージド環境内で運用するデータ プロバイダーは、インフラストラクチャを管理しながら、ロジックData Share集中できます。</p>
+
+
+  <p>お客様の言葉は次のとおりです。</p>
+
+
+  <p style="margin-left: 40px;"><i>&ldquo;クライアントは、データに簡単、シームレス、安全に接続し、独自のカスタム レポートと分析を構築する機能を好みしています。また、データ セキュリティを損なうことなく、Azure Data Explorerおよび Azure Data Shareをほぼリアルタイムで共有して、組織間のデータ コラボレーションを可能にします。&rdquo;</i>&mdash;Paul Paul Paulpe、CTO、Financial Fabric</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;私&rsquo;たちは、クラウドとクラウドの間でイン place 共有を活用Azure Data ExplorerにAzure Data Share。利害関係者にほぼリアルタイムのアクセス&nbsp;権を与える機能により、製品開発に優先順位を付け、顧客のアップタイムを向上できます。また、データのプライバシー&nbsp;に重点を置いて、コア インフラストラクチャへのパフォーマンスへの影響を受けずに、テレメトリ データの安全で簡単な分析を保証できます。&rdquo;&nbsp;</em>&mdash;Saajan Patel、IT 製品マネージャー、Mler トラック 北米</p>
+
+
+  <h2>インセット データ共有のしくみ<b> </b></h2>
+
+
+  <p>データ プロバイダーは、共有するクラスター Azure Data Explorerデータベース、共有するユーザー、使用条件を指定することで、共有を開始できます。 次に、Data Shareサービスは、共有を受け入れ可能なデータ コンシューマーに電子メールの招待を送信します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5de6c4a5-cd88-4e4d-81ec-887e1437b4f6.png"><img alt="In-place sharing with Azure Data Share." border="0" height="257" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e148026-f4e6-46f6-aa08-a6067b617286.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イン Place sharing with Azure Data Share。" width="400"></a></p>
+
+
+  <p>共有関係が確立されると、Data Shareクラスターのプロバイダーとコンシューマーの間にシンボリック リンク&#39;作成Azure Data Explorerされます。 これにより、データ コンシューマーは、ほぼリアルタイムでデータの読み取りとクエリを実行できます。 データへのアクセスでは、コンシューマークラスターからコンピューティング リソースが使用&#39;クラスター Azure Data Explorerされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7edc3b1c-26fe-46d0-a186-943e5d881d30.png"><img alt="Effortless near real-time collaboration with Azure Data Share and Azure Data Explorer." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1dcd141a-1611-4731-b3f7-284a5400864e.png" style="border: 0px currentcolor; display: inline; background-image: none; width: 600px; height: 367px;" title="ほぼリアルタイムのコラボレーションで、Azure Data ShareとAzure Data Explorer。"></a></p>
+
+
+  <p>このAzure Data Explorer、データがキャッシュされ、インデックスが作成され、クラスター内のコンピューティング ノードに分散され、Azure Storage に保持されます。 コンピューティングとストレージは切り離されるので、ソース クラスターのパフォーマンスとセキュリティに影響を与えることなく、異なるキャッシュ ポリシーセットを使用して、複数の使用するクラスターを同じソース ストレージにアタッチできます。</p>
+
+
+  <p>インセット共有機能は、内部部門間、または外部パートナーや顧客とのほぼリアルタイムのビッグ データ コラボレーションを探している組織向けゲーム 変更者です。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>詳細については、以下のリソースを参照Azure Data ShareのインAzure Data Explorer使用を開始してください。</p>
+
+
+  <ul>
+      <li>Azure Friday のビデオ「How <a href="https://www.youtube.com/watch?v=Q3MJv90PegE" target="_blank">to share data in place from Azure Data Explorer」をご覧ください</a>。</li>
+      <li>クラスターとデータベースの作成に関 <a href="https://docs.microsoft.com/azure/data-explorer/create-cluster-database-portal" target="_blank">するクイック スタート Azure Data Explorerを参照してください</a>。</li>
+      <li>「 <a href="https://docs.microsoft.com/azure/data-explorer/data-share" target="_blank">データをAzure Data Share使用してデータを共有する」をAzure Data Explorer</a>。</li>
+      <li><a href="https://customers.microsoft.com/story/825356-financial-fabric-banking-and-capital-markets-azure-powerbi-en-united-states" target="_blank">Financial Fabric のケース スタディを参照してください</a>。</li>
+      <li>IoT <a href="https://techcommunity.microsoft.com/t5/azure-data-share/share-iot-and-log-data-in-real-time-using-azure-data-share-and/ba-p/1141419" target="_blank">とログ データをリアルタイムで共有する</a> 方法については、Azure Data ShareとAzure Data Explorerしてください。</li>
+  </ul>

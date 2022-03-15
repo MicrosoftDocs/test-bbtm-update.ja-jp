@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e3c5a627150636cbe89ce23d2a23ea1ef590fdf3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889987"
+Slug: azure-event-hubs-integration-with-apache-spark-now-generally-available
+Title: Azure Event Hubsとの統合Apache Spark一般提供
+Summary: このEvent Hubsチームは、Apache Spark との統合の一般提供を発表Apache Spark。 現在、Event Hubsユーザーは Spark を使用して、エンドツーエンドのストリーミング アプリケーションを簡単に構築できます。
+Content: >-
+  <p>このEvent Hubsチームは、Apache Spark との統合の一般提供を発表Apache Spark。 現在、Event Hubsユーザーは Spark を使用して、エンドツーエンドのストリーミング アプリケーションを簡単に構築できます。 Spark Event Hubs コネクタでは、Spark 2.1、Spark 2.2、および Spark 2.3 用の Spark Core、Spark ストリーミング、構造化ストリーミングがサポートされています。</p>
+
+
+  <p>Spark を使用するユーザーの場合、Spark Streaming と Structured Streaming はスケーラブルでフォールト トレラントなストリーム処理エンジンです。 これらの処理エンジンを使用すると、マップ、削減、結合、ウィンドウなど、高レベルの関数で表現された複雑なアルゴリズムを使用して、膨大な量のデータを処理できます。 その後、このデータをファイル システム、データベース、またはファイル システムにプッシュEvent Hubs。</p>
+
+
+  <p>ストリームの設定は簡単です。次の項目を確認してください。</p>
+
+
+  <pre>
+
+  import org.apache.spark.eventhubs._
+
+  import org.apache.spark.sql.SparkSession
+
+
+  val eventHubsConf = EventHubsConf(&quot;{EVENT HUB CONNECTION STRING FROM AZURE PORTAL}&quot;)
+     .setStartingPosition(EventPosition.fromEndOfStream)
+
+  // Create a stream that reads data from the specified Event Hub.
+
+  val spark = SparkSession.builder.appName(&quot;SimpleStream&quot;).getOrCreate()
+
+  val eventHubStream = spark.readStream
+     .format(&quot;eventhubs&quot;)
+     .options(eventHubsConf.toMap)
+     .load()</pre>
+
+  <p>それは&#39;簡単です。 イベントが Spark にストリーミングされた後は、必要に合った方法でイベントを処理できます。 Spark には、グラフ分析や機械学習など、さまざまな<a href="https://spark.apache.org/graphx/" target="_blank">処理オプション</a><a href="https://spark.apache.org/mllib/" target="_blank">があります</a>。 この <a href="https://github.com/Azure/azure-event-hubs-spark/tree/master/docs" target="_blank">ドキュメント</a> には、コネクタとプロジェクトのリンクに関する詳細が含まれています。</p>
+
+
+  <p>プロジェクトはオープン ソースであり、<a href="https://github.com/Azure/azure-event-hubs-spark" target="_blank">GitHub</a>。 すべての詳細とドキュメントは、そこで確認できます。 すべてのコミュニティへの参加は歓迎です。こんにちは。 表示される情報が気に入っている場合は、レポポに星を付け、サポートを表示してください。</p>
+
+
+  <p>最後に、質問、コメント、フィードバックがある場合は、 <a href="https://gitter.im/azure-event-hubs-spark" target="_blank">Gitter チャットに参加してください</a>。 共同作成者は、自分が思い付く間にチャットして質問に回答するチャネルにいます。コネクタをお楽しみください。</p>
+
+
+  <p>次の手順</p>
+
+
+  <ul>
+      <li><a href="https://github.com/Azure/azure-event-hubs-spark" target="_blank">GitHub リポジトリ</a></li>
+      <li><a href="https://docs.azuredatabricks.net/spark/latest/data-sources/azure/eventhubs-connector.html" target="_blank">Azure Event Hubs Databricks を使用する</a></li>
+      <li><a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html" target="_blank">構造化ストリーミング プログラミング ガイド</a></li>
+  </ul>

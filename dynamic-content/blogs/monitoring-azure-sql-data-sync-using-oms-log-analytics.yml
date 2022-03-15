@@ -1,0 +1,204 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a7533133728e3d28b00d5e4ead3ed1966f5402cc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893871"
+Slug: monitoring-azure-sql-data-sync-using-oms-log-analytics
+Title: OMS Log Analytics Azure SQL データ同期使用したデータの監視
+Summary: Azure SQL データ同期は、お客様が複数の Azure SQL データベースとオンプレミスの SQL Databases の間で双方向または一方向にデータを簡単に同期できるソリューションです。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-sync-data" target="_blank">Azure SQL データ同期</a>は、お客様が複数の Azure SQL データベースとオンプレミスの SQL データベースの間で双方向または一方向にデータを同期できるソリューションです。</p>
+
+
+  <p>以前は、ユーザーは Azure portal の SQL Azure データ同期 を手動で確認するか、PowerShell/RestAPIs&rsquo; を使用してログをプルし、エラーと警告を検出する必要があります。 このブログ記事の手順に従って、ユーザーデータ同期監視エクスペリエンスを大幅に向上させるカスタム ソリューションを構成データ同期できます。 このソリューションは、シナリオに合わせてカスタマイズ可能であり、カスタマイズする必要があります。</p>
+
+
+  <h2>すべての同期グループの監視ダッシュボード</h2>
+
+
+  <p>ユーザーは、各同期グループのログを個別に確認して問題を探す必要がなくなりました。 ユーザーは、カスタム OMS ビューを使用して、任意のサブスクリプションからすべての同期グループを 1 か所で監視できます。 このビューを使用すると、ユーザーは重要な情報を表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d938b741-2da5-4aeb-8666-bb965cb3d9b0.jpg"><img alt="Monitoring Dashboard" border="0" height="564" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d5eae062-26d8-40a4-a59f-c4e4576a00c7.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="監視ダッシュボード" width="1089"></a></p>
+
+
+  <h2>自動電子メール通知</h2>
+
+
+  <p>ユーザーは、Azure Portal または PowerShell/RestAPIs でログを手動で確認する必要がなくなりました&rsquo;。 <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview" target="_blank">OMS Log Analytics</a> を利用することで、アラートを作成できます。アラートは、エラーが発生した場合に表示する必要があるアラートの電子メールに直接送信されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3dd943e8-f97c-4fc3-9a2a-e9b7904cf785.jpg"><img alt="Data sync error" border="0" height="362" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1752d6b6-1b93-45de-a54e-4349ee1606fe.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="データ同期エラー" width="1254"></a></p>
+
+
+  <h2>これを設定する方法</h2>
+
+
+  <p>次の手順に従い、特定のサンプルデータ同期最小限の変更を行って、OMS 監視ソリューションのカスタム アプリケーションを 1 時間未満で実装できます。</p>
+
+
+  <p>次&rsquo;の 3 つのコンポーネントを構成する必要があります。</p>
+
+
+  <ul>
+   <li>ログ データを OMS にデータ同期 PowerShell Runbook</li>
+   <li>電子メール通知の OMS Log Analytics アラート</li>
+   <li>監視のための OMS ビュー</li>
+  </ul>
+
+
+  <p>2 つのサンプルをダウンロードします。</p>
+
+
+  <ul>
+   <li><a href="https://github.com/Microsoft/sql-server-samples/blob/master/samples/features/sql-data-sync/DataSyncLogPowerShellRunbook.ps1">データ同期のログ PowerShell Runbook</a></li>
+   <li><a href="https://github.com/Microsoft/sql-server-samples/blob/master/samples/features/sql-data-sync/DataSyncLogOmsView.omsview">データ同期のログ OMS ビュー</a></li>
+  </ul>
+
+
+  <p>前提条件:</p>
+
+
+  <ul>
+   <li>Azure Automation アカウント</li>
+   <li>OMS ワークスペースにリンクされた Log Analytics</li>
+  </ul>
+
+
+  <h2>PowerShell Runbook を使用してログデータ同期する</h2>
+
+
+  <p>ログ データを取得して OMS に送信するには、Azure Automationでホストデータ同期 PowerShell Runbook を使用します。 サンプル スクリプトが含まれています。 前提条件として、新しいアカウントAzure Automationがあります。 Runbook とそれを実行するスケジュールを作成する必要があります。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/automation/automation-first-runbook-textual-powershell">Runbook を作成するには</a>:</p>
+
+
+  <ol>
+   <li>[アカウント] Azure Automation[プロセスの自動化 <strong>] の下にある [Runbook]</strong> タブをクリックします。</li>
+   <li>[ <strong>Runbook] ブレードの左上</strong> 隅にある [Runbook の追加] をクリックします。</li>
+   <li>[既存 <strong>の Runbook のインポート] をクリックします</strong>。</li>
+   <li><strong>Runbook ファイルで、</strong>指定された &ldquo;DataSyncLogPowerShellRunbook ファイルを使用&rdquo;します。 <strong>Runbook の種類を</strong> PowerShell に&ldquo;設定します&rdquo;。 任意の名前を使用できます。</li>
+   <li><strong>Create</strong> をクリックしてください。 これで Runbook が作成されます。</li>
+   <li>[リソース アカウントAzure Automation共有リソース <strong>] の下にある [変数]</strong> タブをクリックします。</li>
+   <li>[ <strong>変数] ブレードの</strong> 左上にある [変数の追加] をクリックします。 Runbook の最後の実行時間を格納するための変数を作成する必要があります。 複数の Runbook がある場合は、&#39;1 つの変数が必要です。</li>
+   <li>名前を &ldquo;DataSyncLogLastUpdatedTime に設定し、&rdquo; Type を DateTime に設定します。</li>
+   <li>[Runbook] を選択し、ブレードの上部にある [編集] ボタンをクリックします。</li>
+   <li>必要な変更を行います (スクリプトの詳細) <ul>
+    <li>Azure の情報</li>
+    <li>同期グループの情報</li>
+    <li><a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-collector-api" target="_blank">OMS 情報</a> (OMS ポータルでこの情報を見つける - 設定&gt; -&gt; 接続されたソース)</li>
+   </ul>
+   </li>
+   <li>テスト ウィンドウで Runbook を実行し、成功を確認&rsquo;します。
+   <ul>
+    <li>注: エラーが発生した場合は、最新の PowerShell モジュールがインストールされていることを確認してください。 これは、Automation アカウントを使用して <strong>[Modules Gallery] (モジュール ギャラリー)</strong> で実行できます。</li>
+   </ul>
+   </li>
+   <li><strong>[発行]</strong> をクリックします。</li>
+  </ol>
+
+
+  <p>Runbook のスケジュールを設定するには:</p>
+
+
+  <ol>
+   <li>Runbook の [リソース] の <strong>下にある [スケジュール</strong> ] タブをクリックします。</li>
+   <li>[ <strong>スケジュール] ブレードで [</strong> スケジュールの追加] をクリックします。</li>
+   <li>[ <strong>スケジュールを Runbook にリンクする] をクリックします</strong>。</li>
+   <li>[新 <strong>しいスケジュールの作成] をクリックします</strong>。</li>
+   <li>[ <strong>繰り返</strong> し] を [定期的] に設定し、好きな間隔&rsquo;を設定します。 ここでは、スクリプトと OMS で同じ間隔を使用する必要があります。</li>
+   <li><strong>[作成]</strong></li>
+  </ol>
+
+
+  <p>自動化が実行されている場合に監視するには:</p>
+
+
+  <ol>
+   <li>Automation <strong>アカウントの</strong> [概要] で、[監視] の下 <strong>にある [ジョブ統計]</strong> ビューを <strong>探します</strong>。 見やすくするために、これをダッシュボードにピン留めします。</li>
+   <li>Runbook の正常な実行は &ldquo;[完了]&rdquo; と表示され、失敗した実行は [失敗] と &ldquo;表示されます&rdquo;。</li>
+  </ol>
+
+
+  <h2>電子メール通知の OMS ログ リーダー アラート</h2>
+
+
+  <p>OMS Log Analytics を使用してアラートを作成します。 前提条件として、LOG Analytics を OMS ワークスペースにリンクする必要があります。</p>
+
+
+  <ol>
+   <li>OMS ポータルで、左上にある <strong>[ログ検索</strong> ] をクリックします。</li>
+   <li>クエリを作成して、使用している間隔内の同期グループ別にエラーと警告を選択します。
+   <ul>
+    <li>Type=DataSyncLog_CL LogLevel_s!=Success|measure count() by SyncGroupName_s interval 60minute</li>
+   </ul>
+   </li>
+   <li>クエリを実行した後、[アラート] と表示されているベルを <strong>クリックします</strong>。</li>
+   <li>[アラートの<strong>生成基準] で</strong><strong>、[メトリック測定</strong><strong>] を選択します</strong>。
+   <ul>
+    <li>[Aggregate Value] \(集計値) を <strong>[より大きい]</strong> に設定します。</li>
+    <li>より大きい値を指定した後、通知&rsquo;を受信する前に設定したしきい値を使用します。</li>
+    <li>一時的なエラーは、次のデータ同期。ノイズを減らすために、しきい値を 5 に設定することをお勧めします。</li>
+   </ul>
+   </li>
+   <li>[アクション <strong>] の [</strong> 電子メール <strong>通知] を [は</strong> い] に &ldquo;設定します&rdquo;。 目的の受信者を入力します。</li>
+   <li><strong>[保存]</strong> をクリックします。 これで、エラーに基づいて電子メール通知を受信します。</li>
+  </ol>
+
+
+  <h2>監視のための OMS ビュー</h2>
+
+
+  <p>すべての同期グループを視覚的に監視する OMS ビューを作成します。 ビューには、いくつかの主要なコンポーネントが含まれています。</p>
+
+
+  <ul>
+   <li>[概要] タイルには、すべての同期グループに含めるエラー、成功、警告の数が表示されます。</li>
+   <li>すべての同期グループのタイル。同期グループごとのエラーと警告の量が表示されます。 問題がないグループは表示されません。</li>
+   <li>各同期グループのタイル。エラー、成功、警告の数、および最近のエラー メッセージが表示されます。</li>
+  </ul>
+
+
+  <p>ビューを構成するには:</p>
+
+
+  <ol>
+   <li>OMS ホーム ページで、左側のプラス記号をクリックしてビュー デザイナーを <strong>開きます。</strong></li>
+   <li>ビュー <strong>デザイナーの</strong> 上部バーにある [インポート] をクリックし、 &ldquo;DataSyncLogOMSView ファイルを選択&rdquo; します。</li>
+   <li>指定されたビューは、2 つの同期グループを管理するためのサンプルです。 これは、ケースに合わせて編集できます。 [ <strong>編集] を</strong> クリックし、次の変更を行います。
+   <ul>
+    <li>必要に応 &ldquo;じて、 &amp; ギャラリーから&rdquo; 新しいドーナツ リスト オブジェクトを作成します。</li>
+    <li>各タイルで、情報を使用してクエリを更新します。&nbsp; <ul>
+     <li>すべてのタイルで、必要に応じてTimeStamp_t間隔を変更します</li>
+     <li>[同期グループ] 固有のタイルで、[同期グループ名] を更新します。</li>
+    </ul>
+    </li>
+    <li>各タイルで、必要に応じてタイトルを更新します。</li>
+   </ul>
+   </li>
+   <li>[ <strong>保存</strong> ] をクリックすると、ビューの準備が完了します。</li>
+  </ol>
+
+
+  <h2>コスト</h2>
+
+
+  <p>ほとんどの場合、このソリューションは無料になります。</p>
+
+
+  <p><strong>Azure Automation：</strong> 使用状況によっては、Azure Automation アカウントにコストが発生する可能性があります。 1か月あたりのジョブ実行時間の最初の500分は無料です。 ほとんどの場合、このソリューションには500分未満を使用します。 課金されないようにするには、runbook を2時間以上の間隔で実行するようにスケジュールします。</p>
+
+
+  <p><strong>OMS の Log Analytics:</strong> 使用量によっては、OMS に関連する <a href="https://azure.microsoft.com/en-us/pricing/details/log-analytics/" target="_blank">コスト</a> が発生する場合があります。 Free レベルには、1 日あたり 500 MB の取り込まれたデータが含まれます。 ほとんどの場合、このソリューションにはこれで十分です。 使用量を減らすには、runbook に含まれるエラーのみのフィルター処理を使用します。 1日あたり 500 MB を超える場合は、有料レベルにアップグレードして、分析が制限に達しないようにします。</p>
+
+
+  <h2>コード サンプル</h2>
+
+
+  <ul>
+   <li><a href="https://github.com/Microsoft/sql-server-samples/blob/master/samples/features/sql-data-sync/DataSyncLogPowerShellRunbook.ps1" target="_blank">データ同期のログ PowerShell Runbook</a></li>
+   <li><a href="https://github.com/Microsoft/sql-server-samples/blob/master/samples/features/sql-data-sync/DataSyncLogOmsView.omsview" target="_blank">データ同期のログ OMS ビュー</a></li>
+  </ul>

@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 77495916c8db12c6ce1c9af1659219a293865527
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889191"
+Slug: faster-metric-alerts-for-logs-now-in-limited-public-preview
+Title: ログの高速メトリック アラートがパブリック プレビューに
+Summary: 新しい機能のパブリック プレビューである Log Analytics のログに関するメトリック アラートを共有できます。 この機能を使用すると、お客様はログから待機時間の短いアラートを受け取る可能性があります。 興味。。。読み取り中です。
+Content: >-
+  <p><strong>更新日: 2018 年 7 月 5 日:</strong> ログのメトリック アラートは、サインアップまたは有効化プロセスを使用してパブリック プレビュー中です。 西ヨーロッパ、米国東部、および中西部のリージョンに Azure Log Analytics ワークスペースを持つすべてのお客様が、サポートされているログのメトリック アラートの作成を開始できます。 サポートされているログが拡張され、ハートビート、更新、パフォーマンス カウンター (Windows &amp; Linux)、および Log Analytics ワークスペースにチャネル化されているイベント ログに対してメトリック アラートを作成できます。</p>
+
+
+  <p>Log Analytics のログに &ndash; 関する新しい機能メトリック アラートのパブリック プレビューを共有できます。 この機能を使用すると、お客様はログから待機時間の短いアラートを受け取る可能性があります。 Interestedread&hellip; on!</p>
+
+
+  <p>お客様は、問題を解決するために、Azure 監視ツールのアラートに依存しています。 ログ アラートは一般的ですが、1 つの懸念事項は、トレース パターンを見つけてアラートをトリガーするのにかかる時間です。 ログ アラートの生成にかかる時間が 5 分以下になる新しい機能のメトリック アラートの限定パブリック プレビューを共有できます。</p>
+
+
+  <p>ログのメトリック アラート プレビューでは、現在、Log Analytics での次のログの種類 (ハートビート、パフォーマンス カウンター (SCOM からのカウンターを含む)、および更新) がサポートされています。 ログから生成されたメトリックの完全な一覧については、ドキュメントを参照 <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts">してください</a>。 近い将来、この一覧を拡張してイベントを含める予定です。</p>
+
+
+  <p>このブログ記事では、新しい機能について説明します。 しかし、最初に興味がある人のために、簡単に目を見て、すべてがどのように機能するのかについて説明します。&nbsp;&nbsp;&nbsp;</p>
+
+
+  <p>監視ツールは、基になるリソースによって生成されるテレメトリに依存します。 このテレメトリは、構造化データ (メトリック) または非構造化データ (ログ) の形式です。 メトリックとログは異なる特性を持ち、それぞれが監視で果たす個別の役割を果たします。 メトリックは、グラフを介した探索や、満たされている数値のしきい値に対するアラートに使用される個別の値で構成されます。</p>
+
+
+  <p>一方、ログには、リソース/アプリによって出力された説明データのストリームが含まれます。 お客様は、Log Analytics プラットフォームを使用してログを取り込み、通常はトラブルシューティングと監査のために、クエリを介してこれらのログから分析情報を取得します。 お客様は、これらのログに対してアラート ルールも設定します。 アラート エンジンは、Log Analytics プラットフォームに取り込まれたログの上で実行され、(クエリを使用して) アラート ルールで指定された条件を確認します。 このインジェスト プロセスには、ログのバッチ インデックス作成が含まれます。これには数分かかる場合があります。 したがって、クエリを使用 &ndash; してログにアラート ルールを書き込むのは非常に柔軟ですが、特定の状況では、トレードオフの待機時間が少なくとも 10 分から 15 分長くなります。 これは一般に、イベントの発生の検出などの即時のアクションを必要とする問題を検出したり、定期的なハートビートをチェックしてリソースが利用できない状況を特定したり、パフォーマンスを監視したりするために望ましくありません。</p>
+
+
+  <p>では、これらのシナリオに対してより高速なアラートを提供するにはどうすれば良いでしょうか。</p>
+
+
+  <p>上記の例では、ハートビートの欠落またはイベントの発生に関するアラートを生成するには、ログ内の特定のフィールドの数を追跡する必要があります。 これは、メトリックのしきい値を確認するのと同じ結果です。</p>
+
+
+  <p>&quot;&quot;この観察を受け、新しいメトリック アラート機能を構築し、新しいメトリック アラート プラットフォームと Logs Analytics プラットフォームを組み合わしました。特に、ログ アラートに対して 5 分以下のエンドツーエンドの待機時間を提供し、評価頻度は 1 分という低さです。 このソリューションでは、Log Analytics プラットフォームにストリーミングすると、ログがメトリックに変換されます。 その後、これらのメトリックはメトリック プラットフォームに送り込み、そこでアラートを生成できます。 このメトリックの変換により、ログの取り込みが回避されます。そのため、インジェスト中に発生する遅延は完全にバイパスされます。</p>
+
+
+  <p>次に、&rsquo;ログのメトリック アラートのしくみを見てみしましょう。</p>
+
+
+  <p>[アラート (プレビュー) ] の新しい統合アラート エクスペリエンスを使用して、Log Analytics のワークスペースにアラート ルールを設定できます。 これを行うには、ユーザーは [アラート ルール &gt; &gt; サブスクリプションリソースの種類 (Log Analytics) リソース (ワークスペース ID) の作成] &gt; を選択できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3eeb1331-f3aa-4916-bfb5-baf5f1865880.png"><img alt="SelectTarget" border="0" height="1153" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/705f0893-4531-4286-ac79-de37a7f3c2ee.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SelectTarget" width="2554"></a></p>
+
+
+  <p>次の手順では、アラートを生成するシグナルを選択します。 シグナルの選択の一環として、ユーザーはクエリを定義したり、保存されたクエリから選択したり、ログから生成されたメトリックを選択したりできます (このプレビューで利用可能)。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b7f57266-f848-4c8e-9788-b73c35ae66ff.png"><img alt="SelectSignal" border="0" height="1157" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8cd1ecc-38b1-498f-9e9a-7c18b26920a1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SelectSignal" width="2558"></a></p>
+
+
+  <p>ユーザーはハートビートを選択できます。これは、シグナル リストにメトリックとして表示されます。 このシグナルを選択すると、ログから生成されたメトリックの待機時間がはるかに短くなりますが、実質的に同じアラート ルールが作成されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3c30b46c-1b38-4f72-b7db-f3bbf46385fe.png"><img alt="SelectHeartbeatMetric" border="0" height="1149" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e67c248f-ca01-4269-9f81-21fb12831ea7.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="SelectHeartbeatMetric" width="2556"></a></p>
+
+
+  <p>最後に、 &ndash; ログのメトリック アラート プレビューを使用すると、メトリック テクノロジを使用してログに対するアラートを高速化し、Log Analytics を活用して分析情報を得ることができます。</p>
+
+
+  <p>いつものように、フィードバックをお寄せください。ご <a href="mailto:azurealertsfeedback@microsoft.com" target="_blank">azurealertsfeedback@microsoft.com</a>意見をお寄せください。</p>

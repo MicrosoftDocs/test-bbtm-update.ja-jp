@@ -1,0 +1,117 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6248d2912145a97533e3fd990d4b68e7b33ff689
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892831"
+Slug: new-in-stream-analytics-machine-learning-online-scaling-custom-code-and-more
+Title: '新しいStream Analytics: Machine Learning、オンライン スケーリング、カスタム コードなど'
+Summary: Azure Stream Analyticsは、リアルタイムの分析情報を活用した何千ものミッション クリティカルな顧客アプリケーションをサポートする、フル マネージドのサービスとしてのプラットフォーム (PaaS) です。
+Content: >-
+  <p>Azure Stream Analyticsは、リアルタイムの分析情報を活用した何千ものミッション クリティカルな顧客アプリケーションをサポートする、フル マネージドのサービスとしてのプラットフォーム (PaaS) です。 他の多くの Azure サービスとの組み込みにより、開発者やデータ エンジニアは数分以内に高パフォーマンスのホットパス データ パイプラインを構築できます。 この機能の主なStream Analyticsには、使いやすさ、開発者の生産性、準備のEnterpriseがあります。 本日、これらの&#39;を強化するいくつかの新機能を発表します。 次&#39;機能について詳しく見てみると思います。</p>
+
+
+  <h2>プレビュー機能</h2>
+
+
+  <p>これらのプレビュー機能のロールアウトは、2019 年 11 月 4 日に開始されます。 その数週間後に続く世界規模の可用性。&nbsp;</p>
+
+
+  <h3 style="font-style: normal;">オンライン スケーリング</h3>
+
+
+  <p style="font-style: normal; font-weight: 400;">過去に、ジョブに割り当てられたストリーミング ユニット (SUs) を変更Stream Analyticsユーザーは停止して再起動する必要がありました。 これにより、データが失われずに実行された場合でも、余分なオーバーヘッドと待機時間が発生しました。</p>
+
+
+  <p style="font-style: normal; font-weight: 400;">オンライン <a href="https://aka.ms/asascalingsu" target="_blank">スケーリング機能を</a> 使用すると、SU の割り当てを変更する必要がある場合、ユーザーはジョブを停止する必要がなくなりました。 ユーザーは、実行中のジョブの SU 容量を停止することなく増減できます。 その根底には、ミッションクリティカルな長時間実行パイプラインを Stream Analytics で提供するというユーザーへの誓いがあります。</p>
+
+
+  <p style="font-style: normal; font-weight: 400;"><img alt="Change SUs on a Stream Analytics job while it is running" border="0" height="566" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9413dba-4493-451c-a062-aa6e7b82bbcd.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="687"></p>
+
+
+  <p align="center"><em>実行中に、Stream Analyticsの SUS を変更します。</em></p>
+
+
+  <h3>C# カスタム デシリアライザー</h3>
+
+
+  <p>Azure Stream Analyticsでは、JSON、CSV、または AVRO データ形式の入力イベントが常にサポートされています。 ただし、多くの場合、何百万もの IoT デバイスは、より効率的で拡張可能な形式で構造化データをエンコードするために、他の形式でデータを生成するためにプログラミングされています。</p>
+
+
+  <p>現在のイノベーションにより、開発者は Azure Stream Analytics の機能を活用して、Protobuf、XML、または任意のカスタム形式でデータを処理できます。 C# で <a href="https://aka.ms/custom-deserializer" target="_blank">カスタムのデシリア</a> ライザーを実装できます。このデシリアライザーを使用して、C# で受信したイベントを逆シリアル化Azure Stream Analytics。</p>
+
+
+  <h3>C# のカスタム コードを使用した拡張性</h3>
+
+
+  <p>Azure Stream Analyticsは、従来SQLのストリームに対して変換と計算を実行するための言語で提供されています。 現在サポートされている SQL 言語には強力な組み込み関数が多数存在しますが、SQL に似た言語では複雑なシナリオに取り組むための十分な柔軟性やツールが&#39;提供されていない場合があります。</p>
+
+
+  <p>クラウドまたは IoT Edge で Stream Analytics モジュールを作成する開発者は、カスタム C# 関数を記述または再利用し、ユーザー定義関数を使用してクエリ内で直接呼び出す機能を利用できます。 これにより、複雑な計算、ML.NET を使用したカスタム ML モデルのインポート、カスタム データ入力ロジックのプログラミングなどのシナリオが可能になります。 完全に忠実な作成エクスペリエンスは、これらの関数Visual Studioで使用<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-edge-csharp-udf-methods" target="_blank">できます</a>。</p>
+
+
+  <h3>Power BI に対するマネージド ID 認証</h3>
+
+
+  <p>Power BIを使用した動的なダッシュボード作成エクスペリエンスは、世界中の何千人ものStream Analyticsの運用化に役立つ重要なシナリオの 1 つです。</p>
+
+
+  <p>Azure Stream Analytics、動的なダッシュボードエクスペリエンスのためのマネージド ID ベースの認証と Power BIを完全にサポートする機能が提供されます。 これにより、お客様は組織のセキュリティ目標に合わせて調整し、Visual Studio CI/CD ツールを使用してホット パス パイプラインをデプロイし、ユーザーが 90 日ごとにパスワードを変更する必要がなくなったので、実行時間の長いジョブを有効にするのに役立ちます。</p>
+
+
+  <p>この新機能<a href="https://docs.microsoft.com/en-us/azure/stream-analytics/powerbi-output-managed-identity" target="_blank">はすぐに</a>利用できる一方で、お客様は引き続きユーザーベースの認証モデルで Azure Active Directoryオプションを使用できます。</p>
+
+
+  <h3>Stream AnalyticsのAzure Stack</h3>
+
+
+  <p>Azure Stream Analyticsランタイムを介してAzure StackでIoT Edgeされます。 これにより、お客様がコンプライアンスやデータをクラウドに移動するその他の理由によって制約を受ける一方で、Azure テクノロジを活用して Edge でハイブリッド データ分析ソリューションを提供する必要があるシナリオを実現できます。</p>
+
+
+  <p>2020 年 1 月からプレビュー オプションとして展開すると、Azure Stack 上の Event Hubs または IoT Hub のイングレス データを分析し、同じ上の BLOB ストレージまたは SQL データベースに結果を送信することができます。 それまで、 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR9DAPBLGAvBMqTj1b3QDjiRUM1JYQlpRVlFUQ0dBWElRSUJOSkQzVzg1Ui4u" target="_blank">この機能の</a> プレビューに引き続きサインアップできます。</p>
+
+
+  <h3>Visual Studio でのクエリ ステップのデバッグ</h3>
+
+
+  <p>クエリ&#39;WITH ステートメントで定義されている中間行セットをデバッグする課題について、多くのユーザーフィードバックをAzure Stream Analyticsしました。 ユーザーは、データ ダイアグラムで中間行セットを簡単にプレビューできます。この場合、データ ダイアグラム用の Azure Stream Analytics ツールを使用Visual Studio。 この機能は、ユーザーがクエリを詳細に分析し、コードを修正するときに結果をステップ バイ ステップで確認するのに非常に役立ちます。</p>
+
+
+  <h3>Visual Studio Code でのライブ データを使用したローカル テスト</h3>
+
+
+  <p>開発者は、Azure Stream Analyticsを開発する際に、ライブ入力に接続して結果を視覚化する必要性を示しています。 この機能は、軽量でAzure Stream Analyticsクロスプラットフォーム のVisual Studio Codeツールで使用できます。 開発者は、ジョブを Azure に送信する前に、ローカル コンピューター上のライブ データに対してクエリをテストできます。 それぞれのテストのイテレーションにかかる時間は平均して 2 秒から 3 秒なので、きわめて効率的な開発プロセスが実現します。</p>
+
+
+  <p><img alt="Live Data Testing feature in Visual Studio Code" border="0" height="800" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1dcd8474-1442-4ac4-a554-a7d14d7e659b.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1409"></p>
+
+
+  <p align="center"><em>Visual Studio Code の Live Data Testing 機能</em></p>
+
+
+  <h2>プライベート プレビュー (Azure Machine Learning</h2>
+
+
+  <h3>カスタム モデルを使用したリアルタイム スコアMachine Learningする</h3>
+
+
+  <p class="xmsonormal">Azure Stream Analyticsでは、Azure Machine Learning サービスによって管理され、Azure Kubernetes Service (AKS) または Azure Container Instances (ACI) でホストされているカスタムの事前トレーニング済み Machine Learning モデルを利用し、ユーザーにまったくコードを記述する必要がないワークフローを使用することで、高パフォーマンスのリアルタイム スコアリングがサポートされます。</p>
+
+
+  <p>ユーザーは、Scikit-learn、PyTorch、TensorFlow などの一般的な Python ライブラリを使用してカスタム モデルを構築し、Azure Databricks、Azure Machine Learning Compute、HD Insight などの任意の場所でモデルをトレーニングできます。 Azure Kubernetes Service または Azure Container Instances クラスターにデプロイすると、ユーザーは Azure Stream Analytics を使用して、ジョブ自体内のすべてのエンドポイントを表示できます。 ユーザーは、Azure Stream Analytics ジョブ内の [関数] ブレードに移動し、[Azure Machine Learning 関数] オプションを選択して、Azure Machine Learning ワークスペースのいずれかのデプロイに関連付けします。</p>
+
+
+  <p>パフォーマンスを最大化するために、エンドポイントに送信される並列要求の数Azure Machine Learning高度な構成が提供されます。</p>
+
+
+  <p>この機能 <a href="https://aka.ms/ASApreview1" target="_blank">のプレビュー</a> にサインアップできます。</p>
+
+
+  <h2>フィードバックとエンゲージメント</h2>
+
+
+  <p>Twitter () でフォローすることで、お問い合わせのうえ、新しい機能を早期に簡単に確認できます <a href="https://twitter.com/AzureStreaming" target="_blank">@AzureStreaming</a>。</p>
+
+
+  <p>このAzure Stream Analyticsチームは、フィードバックに耳を傾け、お客様の声をユーザーに&#39;が将来の投資に影響することを強くお勧めしています。 会話に参加して、 <a href="https://feedback.azure.com/forums/270577-stream-analytics/filters/top" target="_blank">UserVoice</a> ページから音声を聞いへようこそ。</p>

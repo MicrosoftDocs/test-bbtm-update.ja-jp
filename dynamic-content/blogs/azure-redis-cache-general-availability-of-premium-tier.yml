@@ -1,0 +1,127 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cc09230b312720c686497908aca485d2c005a4a9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889259"
+Slug: azure-redis-cache-general-availability-of-premium-tier
+Title: 'Azure Redis Cache: プレミアム レベルの一般提供'
+Summary: Azure Redis Cache プレミアムレベルは SLA で一般提供されています。 このプレミアムレベルは、最大スケールとエンタープライズ統合用に設計されたエンタープライズ対応レベルです。
+Content: >-
+  <p>Azure Redis Cacheチームは、Azure Redis Cache プレミアム レベルの一般提供を発表Redis Cache プレミアムしています。 このオファリングは、最大Enterprise統合を目的として設計された、すぐに使用できるレベルです。</p>
+
+
+  <p>このプレミアム <a href="https://azure.microsoft.com/en-us/blog/azure-redis-cache-public-preview-of-premium-tier/">10 月に、この</a>レベルが発表されました。 それ以降、チームは、アプリケーションの構築とデプロイを開始できるよう、このオファリングを実稼働可能な状態にするための信頼性の向上に努めていました。</p>
+
+
+  <p>Premium レベルの主な機能を次に示します。現在から、これらのすべての機能を組み合プレミアムキャッシュを作成できます。 これはパブリック プレビューでは、クラスタリングと永続化を有効にしたRedis Cache作成できないという制限でした。</p>
+
+
+  <h2>Basic/Standard レベルよりもパフォーマンスが向上する</h2>
+
+
+  <p>プレミアムレベルのキャッシュは、Basic/Standard レベルと比較して、プロセッサが高速でパフォーマンスが向上したハードウェアにデプロイされます。</p>
+
+
+  <p><b>Standard レベルと比較して、同じサイズのキャッシュプレミアムのスループットが高くなります。</b> たとえば、53 GB のキャッシュ、P4 (プレミアム) のスループットは、Standard C6 の 150,000 に対して 250,000 RPS です。</p>
+
+
+  <p>サービス レベルのパフォーマンス<a href="https://azure.microsoft.com/en-us/documentation/articles/cache-faq/#what-redis-cache-offering-and-size-should-i-use">特性の</a>詳細については、これらの FAQ をプレミアムしてください。</p>
+
+
+  <h2>Redis データの保持</h2>
+
+
+  <p>プレミアムレベルを使用すると、Redis に格納されているデータを自分のアカウントAzure Storageできます。 Basic/Standard レベルでは、すべてのデータはメモリにのみ格納されます。 基になるインフラストラクチャの問題が発生した場合は、データが失われる可能性があります。 データ損失に対する回復性を高めるには、プレミアム Redis データ永続化機能を使用することをお勧めします。</p>
+
+
+  <p>Azure Redis Cache Redis で実装されている Redis 永続化 <a href="https://redis.io/topics/persistence">が提供されます</a>。 現在、RDB の永続化を提供しています。AOF は後で有効になります。</p>
+
+
+  <p>Redis 永続化を作成して有効 <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-persistence/">にする方法Redis Cache記事を参照してください</a>。</p>
+
+
+  <h2>Redis クラスター</h2>
+
+
+  <p>Azure Redis Cache では、 <a href="https://redis.io/topics/cluster-tutorial">Redis での実装</a>と同じように Redis クラスターが提供されます。 Redis クラスターでは、次の利点があります。</p>
+
+
+  <ul>
+   <li>複数の Redis ノード間でデータセットを自動的に分割する機能。</li>
+   <li>スループットの向上: シャードの数を増やすと直線的に増加します。</li>
+   <li>より多くのメモリ サイズ: シャードの数を増やすと比例的に増加します。 53 GB を超えるデータを格納できる Redis クラスターを作成できます。</li>
+  </ul>
+
+
+  <p>Azure Redis は、マスタースレーブ モデルで <a href="https://redis.io/topics/cluster-tutorial">Redis</a> クラスターを提供します。このモデルでは、クラスター内の各シャード (Redis ノード) がマスタースレーブ ペアであり、Azure Redis Cache サービスによってクラスター内のノード間のレプリケーションとフェールオーバーが管理されます。</p>
+
+
+  <p><b>Redis クラスタリングでは、最大のスケールと全体が提供されます。</b> クラスター内のシャード (ノード) の数を増やすと、スループットは直線的に増加します。 たとえば、10 個のシャードの P4 クラスターを作成する場合、使用可能なスループットは 250K *10 = 2.5Million RPS の高さになります。 パフォーマンス レベルのパフォーマンス<a href="https://azure.microsoft.com/en-us/documentation/articles/cache-faq/#what-redis-cache-offering-and-size-should-i-use">特性</a>の詳細については、FAQ をプレミアムしてください。</p>
+
+
+  <p>Redis クラスターを作成して有効にする <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-clustering/">方法についてはRedis Cache記事を参照してください</a>。</p>
+
+
+  <h1>強化されたセキュリティと分離</h1>
+
+
+  <p>Standard レベルで作成されたキャッシュには、パブリック インターネットからアクセスできます。 キャッシュへのアクセスは、アクセス キーに基づいて制限されます。 このプレミアムレベルでは、指定したネットワーク内のクライアントだけが特定のインスタンスにアクセスRedis Cacheできます。 Redis Cache は、 <a href="https://azure.microsoft.com/en-us/services/virtual-network/">Azure Virtual Network (VNet)</a>内にデプロイできます。 また、サブネット、アクセス制御ポリシー、その他の機能など、VNET のすべての機能を使用して、Redis へのネットワーク アクセスをさらに制限できます。</p>
+
+
+  <p>Azure Redis Cache でデータを作成 <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-vnet/">する方法については、この記事をVirtual Network</a>。</p>
+
+
+  <h1>価格</h1>
+
+
+  <p>特別なプロモーションの一環として&rsquo;、2015 年 12 月に Standard レベルのメーターを使用して Standard レベルの価格を引き続き受け取る予定です。 <strong>GA 価格は、2016 年 1 月 1 日に有効になります。</strong> 詳細については、Azure Redis Cache <a href="https://azure.microsoft.com/en-us/pricing/details/cache/">の価格に関する</a> ページを参照してください。</p>
+
+
+  <h1>SLA</h1>
+
+
+  <p>Azure Redis Cacheでは、Standard/プレミアム キャッシュを 99.9% 以上の時間使用できると保証されています。 SLA の詳細については、SLA ページを <a href="https://azure.microsoft.com/en-us/support/legal/sla/cache/">参照</a> してください。 SLA では、キャッシュ エンドポイントへの接続のみを対象とします。 SLA は、データ損失からの保護には対応していません。 データ損失に対する回復性を高めるには、プレミアム Redis データ永続化機能を使用することをお勧めします。</p>
+
+
+  <h1>階層内Redis Cacheをプレミアムする</h1>
+
+
+  <p>Azure プレビュー ポータルを使用して プレミアム レベルで Redis Cache を作成するか、ARM テンプレートとコマンド ライン ツールを使用して&ndash;自動化することができます。</p>
+
+
+  <p><img alt="GA_Premiumtier" border="0" height="370" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/03e54f48-7f61-4cc5-a75f-1f8219060dd5.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="GA_Premiumtier" width="606"></p>
+
+
+  <h1>ドキュメント</h1>
+
+
+  <p>詳細については、次のドキュメントを <a href="https://azure.microsoft.com/en-us/documentation/services/redis-cache/">Redis Cacheしてください</a>。</p>
+
+
+  <p>さまざまな機能を使用して Redis Cacheレベルプレミアム作成するための関連リンク:</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-clustering/">Redis Redis Cacheを作成して有効にする</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-persistence/">Redis Redis Cacheを作成して有効にする</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-vnet/">Azure Redis Cacheでデータを作成Virtual Network</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-redis-cache-arm-provision/">サービス レベルでのRedis Cache作成プレミアム自動化する</a></li>
+   <li><a href="https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/910">ビデオ: Azure&#39;の新機能Redis Cache</a></li>
+  </ul>
+
+
+  <h1>フィードバックを送る</h1>
+
+
+  <p>このオファリングを試す間に新機能に関する質問や提案がある場合は、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=azurecache">Azure Redis Cache フォーラム</a> または Azure Redis Cache User Voice でお問 <a href="https://feedback.azure.com/forums/169382-cache">い合</a>わせください。</p>
+
+
+  <p>サービス レベル<a href="mailto:AzureCache@microsoft.com?subject=Premium%20tier%20feedback">に関する</a>制限事項やフィードバックについては、お問い合プレミアムください。</p>
+
+
+  <p>ありがとう！</p>
+
+
+  <p>Azure Redis Cache チーム</p>

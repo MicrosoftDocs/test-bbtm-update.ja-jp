@@ -1,0 +1,181 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 78031fb70a730d9efe6a6c16a3984d9475e85454
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893410"
+Slug: migrating-to-azure-sql-database-with-zero-downtime-for-read-only-workloads
+Title: 読み取り専用ワークロードのダウンタイムなしで Azure SQL Database に移行する
+Summary: Microsoft は、MSAsset と呼ばれる内部的に記述されたサービスを使用して、世界中のすべての Microsoft データセンターハードウェアを管理します。 MSAsset は、Microsoft のサーバー、スイッチ、記憶装置、およびケーブルを会社全体で追跡するために使用され、障害対策の要件に対応するために24/7 の可用性を必要とします。
+Content: >-
+  <p><em>msasset engineering チーム &rsquo; の Peter liu (シニアソフトウェアエンジニア)、Vijay Kannan (ソフトウェアエンジニア)、Sathya mu (software engineering)、Bryan Castillo (プリンシパルソフトウェアエンジニア)、および、移行ストーリーを Azure SQL Database 製品チームと共有するためのシャード Batra (プリンシパルソフトウェアエンジニアリングマネージャー) に感謝します。</em></p>
+
+
+  <p>Microsoft は、 <strong>Msasset</strong> と呼ばれる内部的に記述されたサービスを使用して、世界中のすべての Microsoft データセンターハードウェアを管理します。 MSAsset は、Microsoft &rsquo; のサーバー、スイッチ、記憶装置、およびケーブルを会社全体で追跡するために使用され、障害対策の要件に対応するために24/7 の可用性を必要とします。</p>
+
+
+  <p>昨年 Azure SQL Database に移行する前に、msasset &rsquo; s データ層には、SQL Server 上の245テーブルを含む 107 GB のデータベースが含まれていました。 データベースは、高可用性と読み取りアクティビティのスケールアウトに使用される SQL Server Always On 可用性グループトポロジに含まれていました。</p>
+
+
+  <p>MSAsset エンジニアリングチームは、次の問題に直面しています。</p>
+
+
+  <ul>
+   <li>古いハードウェアは、安定性とスケールの要件に対応していませんでした。</li>
+   <li>重要度の高いデータ層インシデントが増加し、トラブルシューティング、軽減策、根本原因分析、継続的なメンテナンスに役立つスタッフのデータベース管理者がいませんでした。</li>
+   <li>msasset &rsquo; s データベースは SQL Server 2012 で実行されました。 開発者や社内のお客様は、新しい SQL Server 機能へのアクセスをますます要求していました。</li>
+  </ul>
+
+
+  <p>さまざまなオプションを確認し、いくつかの要因を検討した後、msasset エンジニアリングチームは、Azure SQL Database が将来の投資に適したデータ層であると判断し、主要なすべての問題点に対処します。 Azure SQL Database に移行することで、スケーラビリティの向上、組み込みの管理容易性、最新の機能へのアクセスが実現しました。&nbsp;&nbsp;</p>
+
+
+  <p>24/7 の可用性要件により、エンジニアリングチームは、読み取り専用アクティビティにダウンタイムを発生させることなく、SQL Server から Azure SQL Database に移行する方法を見つける必要があります。 MSAsset は読み取り負荷の高いサービスであり、データ変更を伴うトランザクションの割合が大幅に削減されます。 段階的アプローチを使用すると、読み取り専用トラフィックのダウンタイムなしで Azure SQL Database に移行でき、読み取り/書き込みアクティビティのダウンタイムが2時間未満になります。 このケーススタディでは、この方法について簡単に説明します。&nbsp;</p>
+
+
+  <h2>元の MSAsset アーキテクチャ</h2>
+
+
+  <p>元の msasset アプリケーションアーキテクチャは、SQL Server 2012 インスタンスにあるプライマリデータベースへの読み取り/書き込みアクセス権を持つ web 層で作成されています。 データベースは、1つの同期読み取り専用セカンダリレプリカと3つの読み取り専用非同期セカンダリレプリカを持つ Always On 可用性グループ内に含まれていました。 アプリケーションは、可用性グループリスナーを使用して、受信した書き込みトラフィックをプライマリレプリカに送信しています。 読み取り専用のレポートトラフィックを大量に処理するために、独自のロードバランサーを使用して、ラウンドロビンアルゴリズムを使用して読み取り専用のセカンダリレプリカで要求を送信しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a398a874-bf06-4b9d-83d9-a5756689ad1e.png"><img alt="image" border="0" height="270" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/856b2314-52e2-4c23-9809-166be37b76e4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p><br>
+
+  従来の SQL Server ソリューションと同様に、Azure SQL Database への移行を計画するときに、1つの読み取り/書き込みデータベースに対応するために、提案された新しいソリューションでは、最後に移行されたワークロードボリュームと、1つ以上の読み取り専用レプリカに関連付けられた Azure SQL Database リソース消費に基づいています。</p>
+
+
+  <h2>段階的な移行アプローチの使用</h2>
+
+
+  <p>msasset エンジニアリングチームは、SQL Server から Azure SQL Database に移行する段階的な増分アプローチを採用していました。 &nbsp;この段階的なアプローチにより、プロジェクトの障害のリスクが軽減され、複雑なアプリケーションの移行で発生する、不可避の予期しない変数に対する学習と適応が可能になりました。</p>
+
+
+  <p>移行フェーズは次のとおりです。</p>
+
+
+  <ol>
+   <li>従来の SQL Server データベースにすべての読み取り/書き込み操作を常駐させたまま、ハイブリッド SQL Server と Azure SQL Database 読み取り専用アクティビティを構成します。
+   <ul>
+    <li>読み取り専用のアクティビティに対応するために、SQL Server から Azure SQL Database へのトランザクションレプリケーションを設定します。</li>
+    <li>レプリケーショントポロジを監視して、安定性、パフォーマンス、および収束に関する問題を確認します。&nbsp;</li>
+    <li>必要に応じて、読み取り専用のトラフィックスケール要件に対応するために、同じリージョンに最大4つのアクティブ geo レプリケーション読み取り可能なセカンダリデータベースを作成します。</li>
+    <li>トポロジが一定期間安定していることを確認したら、負荷分散を使用して読み取り専用アクティビティを Azure SQL Database に送信します。読み取り専用トラフィックの25% から開始します。 週単位で、50% に増加し、次に75% になります。 負荷分散のために、MSAsset エンジニアリングチームは独自のアプリケーションレイヤーライブラリを使用します。</li>
+    <li>このように、Query Performance Insight を使用して、全体的なリソース消費量と上位のクエリを CPU、期間、実行回数で監視します。 MSAsset では、API の待ち時間やエラー率など、アプリケーションメトリックも監視されています。</li>
+    <li>必要に応じて、Azure SQL Database のサービス階層とパフォーマンスレベルを調整します。</li>
+    <li>大量のリソースを消費している不要なレガシトラフィックを一括アクセスエンドポイントに移動またはリダイレクトします。</li>
+   </ul>
+   </li>
+   <li>Azure SQL Database における75% の読み取り専用アクティビティの前のフェーズで安定した後、読み取り専用トラフィックの100% を Azure SQL Database に移動します。
+   <ul>
+    <li>ここでも、Query Performance Insight を使用して、全体的なリソース消費量と上位のクエリを CPU、期間、実行回数で監視します。 必要に応じて Azure SQL Database サービス階層とパフォーマンスレベルを調整し、読み取り専用トラフィックに対応するために、同じリージョンに最大4つのアクティブ geo レプリケーション読み取り可能なセカンダリデータベースを作成します。</li>
+   </ul>
+   </li>
+   <li>Azure SQL Database に最後にカットオーバーする前に、完全なロールバック計画を開発し、完全にテストします。 msasset チームは、SQL Server Data Tools (SSDT) データ比較機能を使用して、Azure SQL Database と4日前の &nbsp; バックアップの差分を収集し、SQL Server データベースにデルタを適用しました。</li>
+   <li>最後に、すべての読み取り/書き込みトラフィックを Azure SQL Database に移動します。 msasset &rsquo; のケースでは、最後の読み取り/書き込みのカットオーバーの準備として、トランザクションレプリケーションによって、読み取り/書き込みアクティビティのために Azure SQL Database の新しいデータベースを転送します。 次の手順を実行します。</li>
+   <li>再シードがいっぱいになったら、トランザクションレプリケーショントポロジを削除する前に、SQL Server の残りのトランザクションがドレインされるのを待ちます。</li>
+   <li>すべての読み取り/書き込みアクティビティに Azure SQL Database プライマリデータベースを使用するように web フロントエンド構成を変更します。 読み取り専用のトラフィックには読み取り専用レプリカを使用します。</li>
+   <li>すべてのビジネスサイクルを監視した後、SQL Server 環境のコミッションを解除します。</li>
+  </ol>
+
+
+  <p>この段階的なアプローチにより、MSAsset チームは読み取り専用アクティビティにダウンタイムを発生させることができました。また、リスクを最小限に抑えることもできるようになりました。元の環境に戻す必要はありません。&nbsp;</p>
+
+
+  <p>最終的な msasset アーキテクチャでは、1つの読み取り/書き込み Azure SQL Database レプリカと4つのアクティブ geo レプリケーション読み取り可能なセカンダリデータベースが使用されます。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/729c5a03-6992-401b-a653-7f9b343472e0.png"><img alt="image" border="0" height="260" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95c933c6-43fd-4494-be50-aad9c563f8df.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="436"></a></p>
+
+
+  <p>残りのセクションでは、移行作業から得られた主な側面と教訓について説明します。</p>
+
+
+  <h2>トランザクションレプリケーションを使用した読み取り専用 Azure SQL Database の作成</h2>
+
+
+  <p>最初のフェーズでは、SQL Server から Azure SQL Database へのトランザクションレプリケーションを設定し、パフォーマンスや収束の問題が発生することなく安定したレプリケーショントポロジを確保します。&nbsp;</p>
+
+
+  <p>MSAsset エンジニアリングチームは、次のプロセスを使用してトランザクションレプリケーションを設定しています。</p>
+
+
+  <ul>
+   <li>まず、既存の SQL Server データベースを、レプリケーションの Azure SQL Database に対する要件に照らして確認します。 これらの要件の詳細については<a href="https://docs.microsoft.com/en-us/sql/relational-databases/replication/replication-to-sql-database" target="_blank">SQL Database のレプリケーション</a>に関するドキュメントを参照してください。 たとえば、MSAsset のレガシテーブルの一部に主キーがない場合、トランザクションレプリケーションでサポートされるように主キーを追加する必要がありました。 一部のテーブルが使用されなくなったため、古いオブジェクトと関連するコードをクリーンアップすることができました。</li>
+   <li>MSAsset パブリケーションは Always On 可用性グループでホストされていたため、MSAsset チームは、構成トランザクションレプリケーションについては、「 <a href="https://docs.microsoft.com/en-us/sql/database-engine/availability-groups/windows/configure-replication-for-always-on-availability-groups-sql-server" target="_blank">Always On 可用性グループのレプリケーションを構成する」 (SQL Server)</a>の手順に従ってください。</li>
+  </ul>
+
+
+  <p><strong>SQL Server から Azure SQL Database に移行するための2つの主要な方法の概要については、「 </strong><a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-cloud-migrate" target="_blank"><strong>クラウドで SQL Database するための SQL Server データベースの移行</strong></a>」を参照してください<strong>。</strong></p>
+
+
+  <p>トランザクションレプリケーションが構成され、完全に同期されると、読み取り専用のトラフィックは SQL Server と Azure SQL Database の両方に送信され、読み取り/書き込みアクティビティは SQL Server 常駐データベースに対してのみ実行され続けます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1b20b91-87bf-4b61-9ce1-b04b14c36ef4.png"><img alt="image" border="0" height="232" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d21c5718-e75c-4a68-8801-49db06499311.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="624"></a></p>
+
+
+  <p>Azure SQL Database に対する読み取り専用トラフィックは、時間の経過と共に25%、50%、75% に段階的に増加しています。また、十分なクエリパフォーマンスと DTU の可用性を確保するための方法を注意深く監視しています。 MSAsset チームは、独自の負荷分散アプリケーションライブラリを使用して、さまざまな読み取り専用データベースに負荷を分散していました。 msasset チームは、75% で安定した時点で、読み取り専用アクティビティの100% を Azure SQL Database に移動し、前に説明した他のフェーズを続行しました。</p>
+
+
+  <h2>クリーンアップの機会</h2>
+
+
+  <p>また、MSAsset チームは、これを不正なレポートプロセスをクリーンアップする機会として使用しています。 これには社内の Microsoft レポートツールとアプリケーションが含まれていますが、データベースへのアクセスが許可されている間は、MSAsset よりも継続的に使用するのに適した他のデータウェアハウスオプションがありました。 悪意のあるプロセスが検出された場合、MSAsset チームは所有者に連絡し、適切なデータストアに再ルーティングする必要がありました。 使用されていないコードおよびオブジェクトも削除されました。</p>
+
+
+  <h2>互換性の問題に関する再設計</h2>
+
+
+  <p>MSAsset チームは、Azure SQL Database に移行する前に、再エンジニアリングが必要な2つの領域を検出しました。</p>
+
+
+  <ul>
+   <li>Change Data Capture (CDC) は、SQL Server でのデータ変更の追跡に使用されました。 このプロセスは、代わりに <a href="https://docs.microsoft.com/en-us/sql/relational-databases/tables/temporal-tables" target="_blank">テンポラルテーブル</a> を活用するソリューションに置き換えられました。</li>
+   <li>SQL Server エージェントジョブは、SQL Server でカスタムの t-sql SQL スケジュールされたジョブを実行するために使用されました。 SQL Server エージェントのすべてのジョブが、同等のストアドプロシージャを呼び出した Azure ワーカーロールに置き換えられました。</li>
+  </ul>
+
+
+  <p>チームは、<a href="https://www.microsoft.com/en-us/download/details.aspx?id=53595" target="_blank">データ Migration Assistant</a>を使用して互換性の問題を検出し、次の参照を使用して、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-transact-sql-information" target="_blank">SQL Database への移行時の SQL の違いを解決</a>しています。</p>
+
+
+  <p>Microsoft では、オンプレミスの SQL Server との互換性を向上させる<strong>新しいデプロイオプション</strong> <a href="https://channel9.msdn.com/Events/Connect/2017/T142" target="_blank"><strong>Azure SQL Database Managed Instance</strong></a>も導入し<strong>ています。拡張パブリックプレビューは近日公開予定です。</strong></p>
+
+
+  <h2>Azure SQL Database を使用したネットワークと接続について</h2>
+
+
+  <p>msasset &rsquo; s データ層へのアクセスを必要とするサービスの配列により、エンジニアリングチームは、Azure SQL Database のネットワークと接続の要件に加えて、基本的な情報を理解する必要がありました。 この経歴は全体的な労力の重要な側面であり、Azure SQL Database するための移行計画の中心となる分野である必要があります。</p>
+
+
+  <p>接続<strong>の基礎と接続のトラブルシューティングに関する基本事項については、「 </strong> <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connectivity-architecture" target="_blank"><strong>Azure SQL Database</strong></a>の接続アーキテクチャ」<strong>および</strong>「 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-troubleshoot-common-connection-issues" target="_blank"><strong>Azure SQL Database に対する接続の問題のトラブルシューティング</strong></a>」を参照してください Azure SQL Database<strong>。</strong></p>
+
+
+  <h2>プラットフォームを最新化し、クラウドのスケーラビリティを解除する</h2>
+
+
+  <p>元の msasset SQL Server ハードウェアは強力ですが、古いハードウェアでした。 Azure SQL Database に移行する前に、msasset engineering はサーバーの交換を検討しています。 しかし、今後5年間で、MSAsset &rsquo; の予測されるワークロードの増加に対応するために、ハードウェアの予想されるコストと能力が懸念されていました。 また、msasset エンジニアリングチームは、最新の SQL Server バージョンを使用したり、最新の機能にアクセスしたりすることにも関心を持ちました。</p>
+
+
+  <p>Azure SQL Database に移行することは、msasset チームがリソースをより簡単に拡張し、既存のハードウェアの outgrowing を気にする必要がなくなることを意味します。 また、明示的にアップグレードしなくても Azure SQL Database で利用できるようになったため、新しい機能にアクセスできるようになりました。 また、<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-threat-detection" target="_blank">脅威の検出</a>や<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-query-performance" target="_blank">Query Performance Insight</a>などの Azure SQL Database に固有の組み込みの機能を利用できるようになりました。</p>
+
+
+  <h2>重要度の高い問題とデータベース管理のオーバーヘッドの削減</h2>
+
+
+  <p>MSAsset エンジニアリングチームは、スタッフにデータベース管理者がいないため、以前のハードウェアおよび標準的な DBA メンテナンス要件をサポートしているため、これらの要因はますます深刻度の高いインシデントに対する大きな貢献者でした。</p>
+
+
+  <p>Azure SQL Database に移行すると、データベースサーバーの修正プログラムの適用、バックアップ、複雑な高可用性とディザスターリカバリーのトポロジ構成に関して、msasset チームは心配なくなりました。 Azure SQL Database に移行するため、msasset engineering チームは、データ層の重要度の高い問題を80% 削減しました。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure SQL Database と、スケーラブルで低メンテナンスのクラウドソリューションの構築の詳細については、「SQL Database とは」を参照してください。 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-technical-overview" target="_blank">SQL Database のドキュメントの概要</a>。</p>
+
+
+  <p>開始したいのですが、どこから始めたらよいかわからない場合は &rsquo; 、 <a href="https://azure.microsoft.com/en-us/free/" target="_blank">無料の azure アカウント</a>を使用して<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-portal" target="_blank">azure で初めての SQL Database を作成</a>します。</p>

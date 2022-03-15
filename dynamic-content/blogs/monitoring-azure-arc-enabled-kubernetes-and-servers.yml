@@ -1,0 +1,100 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1097dbe2755af562666c552bc471d34a2d75070a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893403"
+Slug: monitoring-azure-arc-enabled-kubernetes-and-servers
+Title: 有効Azure Arc Kubernetes とサーバーの監視
+Summary: Azure Arcは、ユーザーが Azure の内部と外部の両方で Kubernetes クラスターを作成してアタッチできるプレビュー サービスです。 Azure Arcを使用すると、ユーザーはネイティブ Azure Windows管理するのと同じ方法で、Azure の外部にある Virtual Machinesマシンを管理できます。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-arc/" target="_blank">Azure Arc</a> は、ユーザーが Azure の内部と外部の両方で Kubernetes クラスターを作成してアタッチできるプレビュー サービスです。 Azure Arcを使用すると、ユーザーはネイティブ Azure Windows管理するのと同じ方法で、Azure の外部にある Virtual Machinesマシンを管理できます。 これらの有効な<a href="https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview" target="_blank">Azure Arcと</a>サーバーを監視するには<a href="https://docs.microsoft.com/en-us/azure/azure-arc/servers/overview" target="_blank"></a>、Azure リソースAzure Monitor使用するのと同じ方法で、これらのクラスターを使用できます。</p>
+
+
+  <p>Azure Arc では、Kubernetes クラスターとサーバーに本格的な Azure リソース ID とマネージド ID が与えられるので、共通のコントロール プレーンからこれらのリソースの管理と監視を簡略化するさまざまなシナリオが可能になります。 Kubernetes では、GitOps ベースの管理を使用したアプリケーションのデプロイ、Azure ポリシーの適用、コンテナーの監視などのシナリオが可能になります。 サーバーの場合、ユーザーは、仮想マシン (VM) 監視用の Log Analytics エージェントを使用して Azure ポリシーを適用し、ログを収集するメリットも得たとします。</p>
+
+
+  <h2>Azure とオンプレミスのリソースの監視とAzure Monitor</h2>
+
+
+  <p>顧客がクラウドへの移行を開始すると、クラウド インフラストラクチャと共にオンプレミスのリソースを監視すると、管理が不合理で面倒な場合があります。 Azure Arc Kubernetes とサーバーを有効にすると、Azure Monitor を使用すると、クラウドネイティブリソースとオンプレミス リソース全体の完全なテレメトリを 1 か所で監視できます。 これにより、複数の異なる監視サービスを構成して管理する必要が生じ、複数の環境で作業するときに多くのユーザーが経験する切断をブリッジする手間が省きます。</p>
+
+
+  <p>たとえば、次のビューは、Azure Monitor <strong></strong> Azure Arc が有効になっているサーバー上のマップ エクスペリエンスを示しています。接続が失敗した場合は、赤い破線が表示されます。 マップの右側のグラフには、選択した接続に関する詳細なメトリックが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36d4178f-5e3a-4e17-946a-dac7e7ce25e8.jpg"><img width="1024" height="714" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="iewing Azure Monitor for VM map for an Arc enabled server" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4c6ac0f-ea43-458e-a4e7-cb971720a491.jpg" border="0"></a></p>
+
+
+  <p>また、ここでは、コンテナーの Azure Monitor で Azure Kubernetes Services (AKS)、Azure Arc、Azure Red Hat OpenShift からのデータをサイド バイ サイドで確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aaa390ef-11fb-4ca0-b943-ad2ded064574.jpg"><img width="1024" height="587" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Azure Monitor for containers for Hybrid Environment" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c9832b6-52d4-40a7-afc0-dec809329066.jpg" border="0"></a></p>
+
+
+  <h2>有効なAzure MonitorにAzure Arcを使用する</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/vminsights-overview" target="_blank">Azure Monitor for VMs</a> は、仮想マシンのパフォーマンスに関するビューと情報、および監視対象のマシンが持つ可能性がある依存関係を提供する完全な監視オファリングです。 1 台の監視対象マシンの分析情報ビューと、複数のマシンのパフォーマンスを一度に確認する大規模なビューが提供されます。</p>
+
+
+  <p>Azure Arcが有効になっているサーバーは、Azure Virtual Machines の既存の監視ビューに適しています。そのため、Azure Arc 対応サーバーの監視ビューは、ネイティブ Azure Virtual Machines のビューと同じように表示されます。 Azure Arc ブレード内から Azure Arc マシンを確認し、[パフォーマンス] タブの両方で監視を確認できます。このタブには、CPU 使用率や <strong></strong> [マップ] タブなどのさまざまなメトリックに関する分析情報が表示され、依存関係<strong></strong>が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4241b877-84d5-4b1d-bc75-fb7816f471e6.jpg"><img width="1024" height="571" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Viewing Azure Monitor for an Arc enabled server from within the Arc blade" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1b68b4e6-85cc-4462-bb16-93508f40eb70.jpg" border="0"></a></p>
+
+
+  <p>大規模な監視ビューでは、Azure Arc マシンがネイティブの Azure Virtual Machines および Virtual Machines Scale Sets と共に結合され、マシンに関するパフォーマンス情報を表示する 1 つの場所が作成されます。 これらの大規模なビューに表示される監視データには、すべての VM、Virtual Machines スケール セット、Azure Arc 対応サーバーが含まれます。このサーバーには、Azure Monitor にオンボードされています。</p>
+
+
+  <p>[ <strong>はじめに</strong> ] タブには、サブスクリプションとリソース グループ別に、マシンの監視状態の概要が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/26835ec5-8f3f-4df7-ab23-dcc6f713090a.jpg"><img width="1024" height="606" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="At-scale Azure Monitor for VMs Getting Started tab" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3018718b-b077-441f-9689-1faf348a3a93.jpg" border="0"></a></p>
+
+
+  <p>[ <strong>パフォーマンス]</strong> タブには、選択したサブスクリプションとリソース グループ内のすべてのマシンの特定のメトリックのパフォーマンスとして、大規模な傾向が表示されます。 大規模ビュー内で、指定された [種類] <strong></strong> フィルターを使用して、任意のビューをドリルダウンして、ネイティブ Azure Virtual Machines、ネイティブ Azure Virtual Machine Scale Sets、または Azure Arc 対応サーバーのいずれかを表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5dd892e8-a81f-414a-9256-ac4642be98b0.jpg"><img width="1024" height="631" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="At-scale Azure Monitor for VMs Performance tab filtered to show only Azure Arc machines" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/03f4331f-9d3f-460e-a0d3-323720909e0a.jpg" border="0"></a></p>
+
+
+  <p>オンボードに関するドキュメントを参照 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/vminsights-enable-overview" target="_blank">して</a> 、有効になっているサーバーの監視を開始Azure Arc確認できます。</p>
+
+
+  <h2>有効な Kubernetes Azure MonitorにAzure Arcを使用する</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview" target="_blank">Azure Monitor for Containers には</a> 、クラスターの正常性とパフォーマンスを理解するために十分なエクスペリエンスを作成する多数の監視機能Azure Arcされています。</p>
+
+
+  <p>Azure Monitorは、Standard AKS、AKS エンジン、Azure Red Hat OpenShift、および Azure Arc からのすべてのクラスターに対して大規模なビューを提供します。Azure Monitor、次のような重要な詳細が提供されます。</p>
+
+
+  <ul>
+      <li>正常性状態 (正常、重大、警告、不明)。</li>
+      <li>ノード数。</li>
+      <li>ポッド数 (ユーザーとシステム)。</li>
+  </ul>
+
+
+  <p>Kubernetes が有効になっているAzure Arcレベルでは、クラスターの主要なパフォーマンス指標がいくつかあります。 ユーザーは、これらのグラフのメトリックをパーセントに基づいて切り替え、Azure ダッシュボードにピン留めできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/648136a9-e401-4c00-8352-e2dacf7152a0.jpg"><img width="1024" height="438" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Resource blade level view of Container Insights" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/378e1de5-b086-45f8-a7fa-3db2ba6c3d2e.jpg" border="0"></a></p>
+
+
+  <p>[<strong>ノード、コントローラー</strong>、コンテナー] タブ<strong></strong>では、コンテキスト ブレードに詳細情報を含むさまざまなレベルの階層にデータが表示されます。 <strong></strong> [分析で <b>表示] を</b>クリックすると、完全なコンテナー ログを詳細に分析してトラブルシューティングできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4fe8da35-6817-4181-99e1-62da9ae21c87.jpg"><img width="1024" height="519" title="" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" alt="Nodes tab grid of Container Insights" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7b3f257e-4939-4ffc-a096-e809a509a747.jpg" border="0"></a></p>
+
+
+  <h2>次の手順 </h2>
+
+
+  <p>追加の <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/workbooks-overview" target="_blank">メトリックAzure Monitor独自</a> のカスタム監視エクスペリエンスを作成する場合は、ブックと <a href="https://grafana.com/grafana/dashboards/10956" target="_blank">Grafana</a> の統合も利用できます。</p>
+
+
+  <p>オンボードに関するドキュメント <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-enable-arc-enabled-clusters" target="_blank">を</a> 参照して、有効になっている Kubernetes クラスターの監視をAzure Arc確認できます。</p>

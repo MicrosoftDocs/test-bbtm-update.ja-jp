@@ -1,0 +1,96 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2aebdc13536b146070bf3dd78ddac473a7d48525
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892460"
+Slug: simplify-always-on-availability-group-deployments-on-azure-vm-with-sql-vm-cli
+Title: SQL vm CLI を使用して Azure vm で Always On 可用性グループのデプロイを簡略化する
+Summary: 'Always On 可用性グループ (AG) は、オンプレミス、クラウド、またはその両方の組み合わせにかかわらず、高可用性とディザスターリカバリーの機能を SQL Server データベースに提供します。 '
+Content: >-
+  <p>Always On 可用性グループ (AG) は、オンプレミス、クラウド、またはその両方の組み合わせにかかわらず、高可用性とディザスターリカバリーの機能を SQL Server データベースに提供します。 azure Virtual Machines (VM)<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-portal-sql-availability-group-tutorial" target="_blank">に SQL Server 用の可用性グループを手動でデプロイ</a>することは、azure &rsquo; のインフラストラクチャについて理解する必要がある複雑なプロセスですが、新しい機能強化によりプロセスが大幅に簡略化されています。</p>
+
+
+  <p>azure クイックスタートテンプレートを使用し<a href="https://azure.microsoft.com/en-us/blog/automate-always-on-availability-group-deployments-with-sql-virtual-machine-resource-provider/" target="_blank">て SQL 仮想マシンリソースプロバイダーを使用して azure VM で Always On AG デプロイを自動化</a>する新しい方法を最近公開しました。 現時点では、 <a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm?view=azure-cli-latest" target="_blank">Azure SQL vm CLI</a>を使用してこの自動化をさらに簡略化し、 <a href="https://azure.microsoft.com/en-us/blog/sql-server-on-azure-virtual-machine-resource-provider/" target="_blank">SQL vm リソースプロバイダー</a>用の management API を使用することをお誇りにしています。</p>
+
+
+  <p>次の簡単な手順で、Always On AG 構成を<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-sql-server-iaas-overview" target="_blank">Azure VM に SQL Server</a>にデプロイできるようになりました。</p>
+
+
+  <h2>Windows フェールオーバークラスターのメタデータを定義する</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm/group?view=azure-cli-latest">az sql vm group</a>は、Always On AG をホストする Windows フェールオーバークラスターサービスに関するメタデータを管理します。 クラスターメタデータには、クラウド監視および SQL Server バージョンとして使用される Active Directory (AD) ドメイン、クラスターアカウント、およびストレージアカウントが含まれます。 <a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm/group?view=azure-cli-latest#az-sql-vm-group-create">az sql vm group create</a>を使用して Windows フェールオーバークラスターメタデータを定義します。これにより、最初の vm が追加されるときに、定義に従ってクラスターが作成されます。 コマンドの例を以下に示します。</p>
+
+
+  <pre>
+
+  az sql vm group create -n &lt;cluster name&gt; -l &lt;region ex:eastus&gt; -g &lt;resource group name&gt; --image-offer &lt;SQL2016-WS2016 or SQL2017-WS2016&gt; --image-sku Enterprise --domain-fqdn &lt;FQDN ex: domain.com&gt; --operator-acc &lt;domain account ex: testop@domain.com&gt; --bootstrap-acc &lt;domain account ex:bootacc@domain.com&gt; --service-acc &lt;service account ex:testservice@domain.com&gt; --sa-key &lsquo;&lt;PublicKey&gt;&rsquo; --storage-account &lsquo;&lt;ex:<a href="https://cloudwitness.blob.core.windows.net/">https://cloudwitness.blob.core.windows.net/</a>&gt;&rsquo;</pre>
+
+
+  <p>フェールオーバークラスター定義 Windows AD ドメインに参加しているだけです。 FQDN にはプロパティが必要です。また、クラスターに追加する前に、すべての AG レプリカが AD ドメインに参加している必要があります。</p>
+
+
+  <p>クラスター内のクラウド監視として既存のストレージアカウントを使用することも、新しいストレージアカウントを作成することもできます。 ストレージアカウントを作成するための Azure CLI コマンドの例を次に示します。</p>
+
+
+  <pre>
+
+  az storage account create -n &lt;name&gt; -g &lt;resource group name&gt; -l &lt;region ex:eastus&gt; --sku Standard_LRS --kind StorageV2 --access-tier Hot --https-only true</pre>
+
+
+  <h2>クラスター &ndash; に SQL vm を追加する最初の vm を追加するとクラスターが作成される</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm?view=azure-cli-latest#az-sql-vm-add-to-group" target="_blank">az sql vm add to group</a>は、上で定義した Windows フェールオーバークラスターに AG レプリカを追加します。 最初の VM がグループに追加されると、クラスターが作成されます。 VM にクラスターの役割をインストールし、指定した名前のクラスターを作成すると、このコマンドによって自動化されます。 次のグループへの追加呼び出しによって、次のレプリカがクラスターに追加されます。</p>
+
+
+  <pre>
+
+  az sql vm add-to-group -n &lt;VM Name&gt; -g &lt;Resource Group Name&gt; --sqlvm-group &lt;cluster name&gt; -b &lt;bootstrap account password&gt; -p &lt;operator account password&gt; -s &lt;service account password&gt;</pre>
+
+
+  <p>Azure Marketplace の Enterprise SQL Server 2016 または2017イメージから新しい SQL VM インスタンスをデプロイして、AG レプリカとして使用することができます。 Azure portal から SQL VM をデプロイすると、既定で SQL IaaS 拡張機能がインストールされ SQL vm RP に登録されます。 Azure powershell、CLI、または SQL Server 以外のイメージを使用してデプロイする場合は、次の手順を手動で実行する必要があります。</p>
+
+
+  <ol>
+      <li>仮想マシンに<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-sql-server-agent-extension" target="_blank">SQL IaaS 拡張機能をインストール</a>します。</li>
+      <li><a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm?view=azure-cli-latest#az-sql-vm-create" target="_blank">Az sql vm create</a>を使用して、VM に関連付けられている SqlVirtualMachine リソースを作成します。 この例を次に示します。</li>
+  </ol>
+
+
+  <pre>
+
+  az sql vm create -n &lt;VM Name&gt; -g &lt;Resource Group Name&gt; -l &lt;region ex:eastus&gt;</pre>
+
+
+  <p>これらの前提条件に従っている場合は、既存の SQL VM を AG レプリカとしてクラスターに追加できます。</p>
+
+
+  <h2>SSMS を使用した可用性グループの作成</h2>
+
+
+  <p>すべての SQL vm がクラスターに追加されたら、そのいずれかにログインし、 <a href="https://docs.microsoft.com/en-us/sql/database-engine/availability-groups/windows/use-the-availability-group-wizard-sql-server-management-studio?view=sql-server-2017" target="_blank">SSMS 新しい可用性グループウィザード</a>を使用して可用性グループをセットアップできます。 この時点では、すべてのレプリカが既にクラスターに追加されているため、可用性グループの作成は非常に簡単です。</p>
+
+
+  <h2>可用性グループ リスナーの作成</h2>
+
+
+  <p>AG 構成 Always On の最後の手順では、フェールオーバー後に自動接続ルーティングを有効にする AG リスナーを作成します。 次に示すように、 <a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm/group/ag-listener?view=azure-cli-latest#az-sql-vm-group-ag-listener-create" target="_blank">az sql vm ag リスナー create</a> コマンドを使用して AG リスナーを作成できます。</p>
+
+
+  <pre>
+
+  az sql vm group ag-listener create -n &lt;listener name&gt; -g &lt;resource group name&gt; --ag-name &lt;availability group name&gt; --group-name &lt;cluster name&gt; --ip-address &lt;ag listener IP address&gt; --load-balancer {lbname} --probe-port &lt;Load Balancer probe port, default 59999&gt;  --subnet {subnet resource id} --sqlvms &lt;names of SQL VM&rsquo;s hosting AG replicas ex: sqlvm1 sqlvm2&gt;</pre>
+
+
+  <p>AG リスナーには、Azure Vm での <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview" target="_blank">内部 Load Balancer</a> (ilb) が必要です。 SQL の vm が同じ可用性セット内にある場合は、<a href="https://docs.microsoft.com/en-us/azure/load-balancer/quickstart-create-basic-load-balancer-cli" target="_blank">基本的な ilb</a>を使用できます。それ以外の場合は、<a href="https://docs.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-cli" target="_blank">標準の ilb</a>を使用する必要があります。 次の例に示すように、Azure CLI を使用して ILB を作成できます。</p>
+
+
+  <pre>
+
+  az network lb create --name &lt;ILB name&gt; -g &lt;resource group name&gt; --sku Standard --vnet-name &lt;VNet Name&gt; --subnet &lt;subnet name&gt;</pre>
+
+
+  <p>これは、Always On AG 構成を使用して<a href="https://azure.microsoft.com/en-us/services/virtual-machines/sql-server/" target="_blank">Azure Virtual Machines に SQL Server</a>をデプロイするためのものです。 現時点では、 <a href="https://azure.microsoft.com/en-us/blog/sql-server-on-azure-virtual-machine-resource-provider/" target="_blank">SQL vm リソースプロバイダー</a>と<a href="https://docs.microsoft.com/en-us/cli/azure/sql/vm?view=azure-cli-latest" target="_blank">Azure SQL vm CLI</a>で有効になっているこれらの拡張された機能の利用を開始します。 ご質問がある場合や、ご意見をお寄せになりたい場合は、 <a href="https://aka.ms/sqlfeedback" target="_blank">UserVoice</a>からお問い合わせください。 皆様のご意見をお待ちしております。</p>

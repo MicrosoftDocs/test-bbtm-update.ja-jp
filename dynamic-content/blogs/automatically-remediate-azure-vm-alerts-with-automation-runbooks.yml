@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0b0e542030432ee8e4431fd4b0c8a87750a77a80
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893210"
+Slug: automatically-remediate-azure-vm-alerts-with-automation-runbooks
+Title: Automation runbook を使用して Azure VM アラートを自動的に修復する
+Summary: Azure Automation と Virtual Machines は、Azure Automation runbook を実行するように Azure 仮想マシンのアラートを構成できる新機能のパブリックプレビューリリースを発表します。
+Content: >-
+  <p>Azure Automation と Azure Virtual Machines は、新しい機能がリリースされたことをお知らせします。これにより、仮想マシン (VM) アラートを構成して、Automation runbook を実行することができます。 この新機能を使用すると、vm の再起動や停止などの VM アラートに応じて、標準の修復を自動的に実行できます。</p>
+
+
+  <p>以前は、VM アラートルールの作成中に、アラートがトリガーされるたびに runbook を実行するために、 <a href="https://azure.microsoft.com/en-us/blog/using-azure-automation-to-take-actions-on-azure-alerts/" target="_blank">runbook に対して Automation webhook を指定</a> することができました。 ただし、これには Runbook を作成し、Runbook 用の Webhook を作成してから、アラート ルールの作成中に Webhook をコピーして貼り付ける必要がありました。 この新しいリリースでは、アラート ルールの作成中に Runbook を一覧から直接選択でき、また Runbook を実行する Automation アカウントを選択するかアカウントを簡単に作成できるようになったため、プロセスがはるかに簡単なりました。</p>
+
+
+  <p>Azure VM アラートを設定して、アラートがトリガーされるたびに実行するように Automation runbook を構成するのは簡単 &nbsp; です。詳細な手順については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/automation-azure-vm-alert-integration/" target="_blank">この記事を参照して</a>ください。 &nbsp;この最初のリリースでは、サービス &ndash; が vm の再起動、vm の停止、または vm の削除という3つの runbook から選択できます (他の runbook を選択する機能、または自分の runbook の1つが近日対応しています)。 &nbsp; シナリオ例としては、メモリリークが発生した VM 上のアプリケーションによってメモリ使用量がしきい値を超えた場合の VM の再起動、または CPU ユーザー時間が過去1時間未満であり、使用されていない場合の VM の停止などがあります。</p>
+
+
+  <p>Runbook をアラートに関連付けるプロセスの一環として、まだ使用してい&#39;&nbsp; ない場合は、Automation アカウントを自動的に作成します。 &nbsp; &nbsp;また、 &nbsp; Automation アカウント &nbsp; で<a href="https://azure.microsoft.com/en-us/documentation/articles/automation-sec-configure-azure-runas-account/" target="_blank">azure 実行アカウント</a>を作成して、 &nbsp; Runbook を使用した azure リソース &nbsp; 管理の認証の側面を簡略化します。&nbsp;&nbsp;</p>
+
+
+  <p>警告の runbook を構成 &nbsp; した後は、構成を削除せずに無効にすることができます。 これにより、アラートを実行したままにして、アラートルールをテストした後、runbook を再度有効にすることができます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>Azure VM でアラートを構成すると、アラートがトリガーされたときに修復アクションを自動的に実行するように Automation runbook を簡単に構成できるようになりました。 &nbsp;この &nbsp; リリースでは、アラートシナリオに応じて、VM の再起動、停止、または削除を行う runbook を選択できます。 この新機能は、アラートのトリガー時に自動的に実行されるアクション (通知、トラブルシューティング、修復) を制御できる、便利なシナリオの始まりにすぎません。</p>
+
+
+  <p>この機能についてのフィードバックや、有効になっているシナリオのアイデアがある場合は、 <a href="https://feedback.azure.com/forums/246290-automation" target="_blank">Azure ユーザーの声</a> にコメントを入れ、他のユーザーのアイデアを投票してください。</p>
+
+
+  <p>Azure Automation を使い始めたばかりですか? <a href="https://aka.ms/Q2p1ap" target="_blank">ここでサービスについて説明</a>し、 <a href="https://twitter.com/AzureAutomation" target="_blank">Twitter の Azure Automation</a>に従います。</p>

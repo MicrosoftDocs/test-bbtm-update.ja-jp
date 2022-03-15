@@ -1,0 +1,239 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1e1b54843f96d7d6eb4bff5f7d209aec83411c16
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890352"
+Slug: monitoring-on-azure-hdinsight-part-3-performance-and-resource-utilization
+Title: '第 3 部Azure HDInsight監視: パフォーマンスとリソース使用率'
+Summary: CPU、メモリ、ネットワーク使用量などのメトリックに関するタブを保持して Azure HDInsight のパフォーマンスとリソース使用率を監視し、クラスターがワークロードを処理している方法と、タスクを完了するのに十分なリソースが必要かどうかをよりよく理解する方法について説明します。
+Content: >-
+  <p>これは、Azure HDInsight の監視に関する 4 部構成のシリーズの 3 番目<em style="border-bottom-color: currentColor; border-bottom-style: none; border-bottom-width: 0px; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: currentColor; border-left-style: none; border-left-width: 0px; border-right-color: currentColor; border-right-style: none; border-right-width: 0px; border-top-color: currentColor; border-top-style: none; border-top-width: 0px; color: rgb(67, 67, 67); font-family: inherit; font-size: 100%; font-style: italic; font-variant: normal; font-weight: inherit; letter-spacing: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; orphans: 2; outline-color: invert; outline-style: none; outline-width: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">のブログ投稿です。 </em><em style="border-bottom-color: currentColor; border-bottom-style: none; border-bottom-width: 0px; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: currentColor; border-left-style: none; border-left-width: 0px; border-right-color: currentColor; border-right-style: none; border-right-width: 0px; border-top-color: currentColor; border-top-style: none; border-top-width: 0px; color: rgb(67, 67, 67); font-family: inherit; font-size: 100%; font-style: italic; font-variant: normal; font-weight: inherit; letter-spacing: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; orphans: 2; outline-color: invert; outline-style: none; outline-width: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"><a href="https://azure.microsoft.com/en-in/blog/monitoring-on-hdinsight-part-1-an-overview/" target="_blank">パート 1 は</a>、</em>クラスターの正常性と可用性、リソースの使用率とパフォーマンス、ジョブの状態とログの 3 つの主な監視カテゴリについて説明する概要です。<em style="border-bottom-color: currentColor; border-bottom-style: none; border-bottom-width: 0px; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; border-left-color: currentColor; border-left-style: none; border-left-width: 0px; border-right-color: currentColor; border-right-style: none; border-right-width: 0px; border-top-color: currentColor; border-top-style: none; border-top-width: 0px; color: rgb(67, 67, 67); font-family: inherit; font-size: 100%; font-style: italic; font-variant: normal; font-weight: inherit; letter-spacing: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; orphans: 2; outline-color: invert; outline-style: none; outline-width: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"><a href="https://azure.microsoft.com/en-us/blog/monitoring-on-azure-hdinsight-part-2-cluster-health-and-availability/" target="_blank">パート 2 は</a>、クラスターの正常性と可用性の監視に関する最初のトピックを中心に説明しました。このブログでは、これらのトピックの 2 つ目であるパフォーマンスとリソースの使用率について詳しくは説明します。</em></p>
+
+
+  <hr>
+
+  <p>パフォーマンスとリソース使用率の監視は、クラスターの実行状況に関するより良い分析情報を得る基本的な方法です。 CPU、メモリ、ネットワーク使用量などのメトリックに関するタブを保持して、クラスターでワークロードがどのように処理されているのか、また、目の前のタスクを完了するのに十分なリソースを持っているかどうかをよりよく理解できます。 Azure HDInsightには、クラスター リソース使用率の監視に使用できる 2 つのツールが用意されています。Apache Ambari とログの統合Azure Monitorです。 Apache Ambari は、すべての Azure HDInsight クラスターに含まれており、クラスターの監視と構成変更の実行に使用できる使いやすい Web UI を提供します。 Azure Monitorでは、HDInsight クラスターを含む複数のリソースから Log Analytics ワークスペースにメトリックとログが収集されます。 Log Analytics ワークスペースは、カスタム アラートの構成に使用できる構造化されたクエリ可能なテーブルとしてメトリックとログを表示します。</p>
+
+
+  <h2>Apache Ambari</h2>
+
+
+  <h3>ダッシュボード</h3>
+
+
+  <p>Ambari ダッシュボードには、クラスターの概要を一目で確認できるメトリックを示すウィジェットが含まれています。 これらのウィジェットには、クラスターの CPU、メモリ、ネットワークの使用状況などの一般的な使用状況メトリックと、Spark/Hadoop クラスターの YARN ResourceManager 情報や Kafka クラスターのブローカー情報など、特定のクラスターの種類に固有のメトリックが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/591d1972-eae4-4a7d-a001-7216bf374a26.png"><img alt="ambari_dashboard" border="0" height="932" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/42ba112f-cd68-435f-b1cd-9e963f7fb87e.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="ambari_dashboard" width="1724"></a></p>
+
+
+  <p align="center"><em>すべてのクラスターに含まれる Ambari ダッシュボードAzure HDInsightされます。</em></p>
+
+
+  <h3>Hosts</h3>
+
+
+  <p>Ambari には、ノードごとに使用率メトリックを表示できる [ホスト] タブも用意されています。 [ホスト] タブには、クラスター内のすべてのノードの一目でわかる統計情報が表示されます。 ノードの名前を選択すると、そのノードの詳細ビューが開き、ホスト メトリックのグラフが表示されます。</p>
+
+
+  <div class="row" style="display: flex;">
+
+  <div class="left" style="float: left; width:50%; display: flex; align-items: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/557810c8-d1f7-43a4-93d1-378e5657f2c2.png"><img alt="hosts_view" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d3b63e4-92fb-441a-b474-2879f31a9c9e.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="hosts_view" width="337"></a></div>
+
+
+  <div class="right" style="float: left; width:50%; display: flex; align-items: center;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be824da9-02ac-4529-b1be-5607b125cacf.png"><img alt="hosts_cpu" border="0" height="451" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7443877d-2292-448a-820a-08980554bc36.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="hosts_cpu" width="640"></a></div>
+
+  </div>
+
+
+  <p align="center"><em>[Ambari ホスト] ビューには、クラスター内の個々のノードの詳細な使用率情報が表示されます。</em></p>
+
+
+  <p>特定の使用率ホスト メトリックをさらにドリルダウンするには、グラフを選択して、そのグラフに表示されるメトリックの内訳を表示します。</p>
+
+
+  <h3>アラート</h3>
+
+
+  <p>Ambari には、特定のイベントの通知を提供できる構成可能なアラートもいくつか用意されています。 アラートは、HDInsight 4.0 の Ambari の右上隅にベル アイコンとして表示され、アクティブなアラート通知の数を含む赤いバッジが付きます。</p>
+
+
+  <p>Ambari には、パフォーマンスの監視に使用できる定義済みのアラートが多数用意されています。次に示します。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td style="width: 312px;">
+              <p>アラート名</p>
+              </td>
+              <td style="width: 312px;">
+              <p>説明</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>ResourceManager CPU 使用率</p>
+              </td>
+              <td style="width: 312px;">
+              <p>このホスト レベルのアラートは、ResourceManager の CPU 使用率が特定の警告しきい値と重大しきい値を超えた場合にトリガーされます。 SystemCPULoad プロパティの ResourceManager JMX サーブレットがチェックされます。</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>HBase Master CPU 使用率</p>
+              </td>
+              <td style="width: 312px;">
+              <p>このホスト レベルのアラートは、デバイスの CPU 使用率が特定の警告HBase Masterしきい値を超えた場合にトリガーされます。 SystemCPULoad プロパティHBase Master JMX サーブレットの一部を確認します。</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>ホストのディスク使用量</p>
+              </td>
+              <td style="width: 312px;">
+              <p>このホスト レベルのアラートは、ディスク領域の使用量が特定のしきい値を超えた場合にトリガーされます。 既定のしきい値は WARNING の場合は 50%、CRITICAL の場合は 80% です。</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>履歴サーバーの CPU 使用率</p>
+              </td>
+              <td style="width: 312px;">
+              <p>このホスト レベルのアラートは、履歴サーバーの CPU 使用率の割合が、構成されている重大しきい値を超えた場合にトリガーされます。 しきい値はパーセントで指定します。</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>各アラートの詳細ビューには、アラートの説明、警告または重大なアラートをトリガーする特定の条件またはしきい値、および条件のチェック間隔が表示されます。 しきい値とチェック間隔は、個々のアラートに対して構成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/17817392-374c-4531-8c6c-5521a311f61e.png"><img alt="alert_details" border="0" height="686" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/acd50a87-e2ca-41f4-8ce4-4de2d1ebdc92.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="alert_details" width="1333"></a></p>
+
+
+  <p align="left"><em>[Ambari の詳細なアラート] ビューには、アラートの説明が表示され、アラートが発生するチェック間隔としきい値を編集できます。</em></p>
+
+
+  <p>必要に応じて、Ambari アラートに対する電子メール通知を構成することも可能です。 Ambari 電子メール通知は、多くの HDInsight クラスターを管理するときにアラートを監視するための優れた方法です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52f9eb05-6b97-4280-be75-b34522d820d6.png"><img alt="ambari_email" border="0" height="227" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f420fbe4-dab8-4b64-ae82-d506c3d6b067.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="ambari_email" width="1353"></a></p>
+
+
+  <p align="center"><em>Ambari の電子メール通知を構成すると、クラスターのアラートを通知する便利な方法になります。</em></p>
+
+
+  <h2>Azure Monitor ログ</h2>
+
+
+  <p>Azure Monitorログを使用すると、HDInsight クラスターなどの複数のリソースによって生成されたデータを 1 か所で収集して集計し、統合された監視エクスペリエンスを実現できます。 前提条件として、収集されたデータを格納するための Log Analytics ワークスペースが必要になります。 まだ作成していない場合は、Log Analytics ワークスペースの作成手順 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace" target="_blank">に従ってください</a>。</p>
+
+
+  <p>その後、 <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-oms-log-analytics-tutorial#enable-azure-monitor-logs-by-using-the-portal" target="_blank">ログとメトリックのホストを Log Analytics に送信する HDInsight クラスターを簡単に構成できます</a>。 ログAzure Monitor統合が有効になると、ノードから Linux パフォーマンス カウンターを収集して Log Analytics ワークスペースに送信する <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-performance-counters#linux-performance-counters" target="_blank">Log Analytics</a> ワークスペースを構成できます。</p>
+
+
+  <h3>HDInsight 監視ソリューション</h3>
+
+
+  <p>HDInsight では、クラスター リソース使用率の監視に使用できるソリューションの形式で<a href="https://docs.microsoft.com/azure/azure-monitor/insights/solutions"></a>、ワークロード固有の事前に作成された監視ダッシュボードが提供されます。 <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-oms-log-analytics-tutorial#install-hdinsight-cluster-management-solutions" target="_blank">監視ソリューションをインストールする方法について学習します</a>。 これらのソリューションを使用すると、複数のクラスターにわたる CPU 時間、使用可能な YARN メモリ、論理ディスク書き込みなど、メトリックを監視できます。 グラフを選択すると、ログ ビューに表示される、グラフの生成に使用されるクエリが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6ad51991-59a5-4231-ad9b-337c24a7e5b8.png"><img alt="solution_perf" border="0" height="564" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8bf4baa8-74e2-49e1-b2a3-512f9014393d.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="solution_perf" width="984"></a></p>
+
+
+  <p align="left"><em>HDInsight 監視ソリューションは、使用率メトリックのホストを監視できる、シンプルな事前作成済みのダッシュボードを提供します。</em></p>
+
+
+  <h3>ログ ブレードでメトリックを照会する</h3>
+
+
+  <p>Log Analytics ワークスペースのログ ビューを使用して、メトリック テーブルに直接クエリを実行することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7306574e-1d28-4a64-8b4e-cc6a3cef1b0f.png"><img alt="logs_perf" border="0" height="819" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fab1628c-80e6-477d-ad48-2a0622cfc2bb.png" style="border: 0px currentcolor; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="logs_perf" width="1214"></a></p>
+
+
+  <p align="center"><em>Log Analytics ワークスペースの [ログ] ブレードを使用すると、多数のクラスターで収集されたメトリックとログに対してクエリを実行できます。</em></p>
+
+
+  <p>Log Analytics ワークスペースの [ログ] ブレードの [コンピューターのパフォーマンス] タブには、可用性に関連するサンプル クエリの数が一覧表示されます。次に例を示します。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td style="width: 312px;">
+              <p><strong>クエリ名</strong></p>
+              </td>
+              <td style="width: 312px;">
+              <p><strong>説明</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>どのようなデータが収集されていますか?</p>
+              </td>
+              <td style="width: 312px;">
+              <p>収集されたパフォーマンス カウンターとオブジェクトの種類を一覧表示プロセス、メモリ、プロセッサします。</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>メモリと CPU の使用</p>
+              </td>
+              <td style="width: 312px;">
+              <p>過去 1 時間&#39;メモリと CPU を使用しているすべてのコンピューターをグラフ表示します。</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>過去 1 日の CPU 使用率の傾向</p>
+              </td>
+              <td style="width: 312px;">
+              <p>すべてのコンピューターの CPU 使用率パターンを計算し、パーセントでグラフ化します。</p>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 312px;">
+              <p>ディスク領域が最も高い上位 10 台のコンピューター</p>
+              </td>
+              <td style="width: 312px;">
+              <p>使用可能なディスク領域が最も高い上位 10 台のコンピューターを表示します。</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>Azure Monitor アラート</h2>
+
+
+  <p>メトリックの値または <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/alerts-metric" target="_blank">クエリAzure Monitorが</a> 特定の条件を満たした場合にトリガーされるアラートを設定することもできます。 一部のしきい値より大きい値またはより小さい値を持つレコードを返すクエリ、またはクエリによって返される結果の数に対して条件を設定できます。 たとえば、CPU 使用率が定義済みのしきい値を超えたままの期間、電子メールを送信するアラートを作成できます。</p>
+
+
+  <p>電子メール、SMS、プッシュ、音声、Azure 関数、LogicApp、Webhook、ITSM、Automation Runbook など、アラートが発生した場合にトリガーできるアクションには、いくつかの種類があります。 1 つのアラートに対して複数のアクションを設定できます。 これらのさまざまな種類のアクションの&ldquo;詳細については、「アクション グループの作成と管理」のドキュメントを参照<a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/action-groups#action-specific-information" target="_blank">Azure portal</a>。&rdquo;</p>
+
+
+  <p>最後に、名前に加えてアラートの重大度を指定できます。 重大度を指定する機能は、複数のアラートを作成するときに使用できる強力なツールです。 たとえば、1 つのヘッド ノードが使用できなくなった場合に警告 (Sev 1) アラートを生成するアラートと、両方のヘッド ノードがダウンする可能性が低い場合に重大 (Sev 0) アラートを発生する別のアラートを作成できます。 アラートは、後で表示するときに重大度別にグループ化できます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Apache Ambari と Azure Monitor ログの統合の間で、Azure HDInsight は、すべてのクラスターのパフォーマンスとリソース使用率を監視する包括的なソリューションを提供します。 詳細については、クラスターのパフォーマンスの監視に関するドキュメント &ldquo;<a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-key-scenarios-to-monitor" target="_blank">を参照してください</a>。&rdquo;</p>
+
+
+  <p>このシリーズの他&rsquo;の部分をまだ読んでいない場合は、こちらを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/blog/monitoring-on-hdinsight-part-1-an-overview/" target="_blank">Azure HDInsight の監視 (パート 1): 概要</a></li>
+      <li><a href="https://azure.microsoft.com/blog/monitoring-on-azure-hdinsight-part-2-cluster-health-and-availability/" target="_blank">Azure HDInsight の監視 (パート 2): クラスターの正常性と可用性</a></li>
+  </ul>
+
+
+  <p>このブログシリーズの「監視」の <em>次のAzure HDInsight</em> してください。</p>

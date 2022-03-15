@@ -1,0 +1,177 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 696b55a127681920c4c82bb765ef5a80c98dd287
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892361"
+Slug: sonic-the-networking-switch-software-that-powers-the-microsoft-global-cloud
+Title: 'SONiC: マイクロソフトの世界規模のクラウドを支えるネットワーク スイッチ ソフトウェア'
+Summary: マイクロソフトは、世界最大規模のクラウドの運用を通じて、パフォーマンス、可用性、安全性に優れたグローバル ネットワークの構築や管理に関するさまざまな知見を得ています。 エクスペリエンスには...
+Content: >-
+  <p>マイクロソフトは、世界最大規模のクラウドの運用を通じて、パフォーマンス、可用性、安全性に優れたグローバル ネットワークの構築や管理に関するさまざまな知見を得ています。 これまでの経験から、数百のデータセンターを運用し、数万のスイッチを使用する場合、以下の要件を満たす必要があることを学びました。</p>
+
+
+  <ul>
+   <li>ネットワークの各層で最高レベルのスイッチ ハードウェアを使用すること。</li>
+   <li>エンド ユーザーに影響を与えることなく新機能をデプロイすること。</li>
+   <li>更新プログラムのロールアウトは、全体的な安全性と信頼性を確保しながら、数週間ではなく数時間で完了させること。</li>
+   <li>クラウド規模の詳細なテレメトリと、完全に自動化された障害対策を活用すること。</li>
+   <li>ネットワーク ソフトウェアSoftware-Defined統合構造を使用してネットワーク内のすべてのハードウェア要素を簡単に制御し、重複を排除し、障害を減らします。</li>
+  </ul>
+
+
+  <p>これらの要件に対処するために、Microsoft は、ネットワーク スイッチの操作と管理のための革新的なクラウド (SONiC) におけるオープン ネットワーク用ソフトウェアを開発しました。 Microsoft は、このイノベーションをコミュニティにオープン ソース化し、<a href="https://azure.github.io/SONiC/">SONiC GitHub リポジトリで利用できます</a>。 SONiC は、ハードウェアおよびソフトウェア パートナーの大規模で成長しているエコシステムを備え、複数の切り替えプラットフォームとさまざまなソフトウェア コンポーネントを提供する、独自に拡張可能なプラットフォームです。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Blogs/Azure/SONiC-The-networking-switch-software-that-powers-the-Microsoft-Global-Cloud/player" width="960"></iframe></p>
+
+
+  <h2>スイッチ抽象化インターフェイス (SAI) によってハードウェアのイノベーションが促進される</h2>
+
+
+  <p>SONiC は、標準化された API を定義する <a href="https://github.com/opencomputeproject/SAI">SWITCH Abstraction Interface (SAI)</a> 上に構築されています。 ネットワーク ハードウェア ベンダーはこれを使用して、ASIC (アプリケーション固有の統合回線) へのプログラミング インターフェイスの一貫性を維持しながら、優れた速度を実現できる革新的なハードウェア プラットフォームを開発できます。 Microsoft オープン ソースの 2015 年の SAI。 このアプローチにより、オペレーターは、シリコン、CPU、電力、ポート密度、光学、速度の急速なイノベーションを活用しながら、複数のプラットフォームにわたる 1 つの統合ソフトウェア ソリューションへの投資を維持できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e54cea1a-bb02-4e43-8594-45b2dd5a2256.png"><img alt="SDN" border="0" height="323" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3adfcf29-fc9f-4bec-bfc4-8aa029d7ca6d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="SDN" width="679"></a></p>
+
+
+  <p align="center"><em>図 1。SONiC: ハードウェアイノベーションのブロックを解除する 1 つの投資</em></p>
+
+
+  <h2>コンテナーを使用したモジュール設計により、ソフトウェアの進化が促進されます</h2>
+
+
+  <p>SONiC は、モノリシック スイッチ ソフトウェアを複数のコンテナー化されたコンポーネントに分割する最初 <a href="https://en.wikipedia.org/wiki/Operating-system-level_virtualization">のソリューション</a> です。 SONiC を使用すると、ダウンタイムを発生ささなく、きめ細かな障害復旧とサービス内アップグレードが可能になります。 これは、オープン ソースのキーと値のペア ストアを利用してすべてのスイッチ状態要件を管理し、スイッチを目標状態に向かって駆動するサービスである <a href="https://github.com/Azure/SONiC/blob/gh-pages/architecture.md">Switch State Service (SWSS)</a> と組み合わせて行います。 バグ修正のためにスイッチ イメージ全体を置き換える代わりに、データ プレーンのダウンタイムを発生させずに、 <a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">Border Gateway Protocol (BGP)</a> などのプロトコルを含む新しいコードで欠陥のあるコンテナーをアップグレードできます。 この機能は、SONiC プラットフォームのサービス性とスケーラビリティの重要な要素です。</p>
+
+
+  <p>また、コンテナー化により、SONiC を非常に拡張可能にできます。 その中核となる SONiC は、クラウド ネットワーク シナリオを対象とします。このシナリオでは、シンプルさと大規模な管理が最も優先度が高くなります。 オペレーターは、最小限の労力で新しいコンポーネント、サードパーティ製、独自のソフトウェア、またはオープン ソースのソフトウェアをプラグインし、SONiC を特定のシナリオに合わせて調整できます。</p>
+
+
+  <div align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7249b202-e2c8-4e9b-b438-21ca4ead7708.png"><img alt="Confirguration and management tools" border="0" height="313" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/15b6989e-44c2-4897-8ee2-f58ef5fedea3.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="構成ツールと管理ツール" width="665"></a>
+
+
+  <p><em>図 2。SONiC: プラグ アンド プレイ機能拡張</em></p>
+
+
+  <p align="left">監視および診断機能は、大規模なネットワーク管理にも重要です。 Microsoft は、障害の早期検出、障害の相関関係、人間の介入なしに自動化された復旧メカニズムなどの分野で継続的にイノベーションを起こしています。 <a href="https://atscaleconference.com/videos/pingmesh-netbouncer-fine-grained-path-and-link-monitoring-for-data-centers/">Netbouncer</a> や <a href="https://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p479.pdf">Everflow</a> などのこれらのイノベーションはすべて SONiC で利用できます。これらは、何年もの運用経験の集大成を表しています。</p>
+
+
+  <h2 align="left">急速に成長するエコシステム</h2>
+
+
+  <p align="left">SONiC と SAI は、昨年、業界で幅広いサポートを受けしてきました。 ほとんどの主要なネットワーク チップ ベンダーは、主要な ASIC で SAI をサポートしています。</p>
+
+
+  <ul>
+   <li>
+   <div align="left"><a href="https://www.barefootnetworks.com/">Barefoot Networks</a>: Tofino</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://www.broadcom.com/">Broadcom Limited</a>: Trident と Tomahawk</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://cavium.com/">Ium:</a> XPliant</div>
+   </li>
+   <li>
+   <div align="left">Centec Networks: Goldengate</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://www.mellanox.com/">Mellanox テクノロジ</a>: Spectrum</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://www.marvell.com/">Marvell Technology Group Ltd.</a>: Prestera</div>
+   </li>
+   <li>
+   <div align="left">Nephos Inc: Taurus</div>
+   </li>
+  </ul>
+
+
+  <p align="left">コミュニティは、新しい拡張機能と高度な機能を SAI リリースに積極的に追加しています。</p>
+
+
+  <ul>
+   <li>
+   <div align="left">Broadcom、Marvell、Barefoot、Microsoft は、ASIC と強力な分析機能を詳細に可視化するために、SAI で高度な監視とテレメトリを推進しています。</div>
+   </li>
+   <li>
+   <div align="left">Mellanox、Centium、Dell、Centec は、より豊富なプロトコル サポートと大規模なネットワーク シナリオのために、SAI へのプロトコル発表に貢献しています。たとえば、MPLS、拡張 ACL モデル、ブリッジ モデル、L2/L3 マルチキャスト、セグメント ルーティング、802.1BR などです。</div>
+   </li>
+   <li>
+   <div align="left">Dell と Metaswitch では、L3 高速再ルーティングと BFD の提案を追加することで、障害の回復性とパフォーマンスを SAI に提供しています。</div>
+   </li>
+   <li>
+   <div align="left">Mellanox と Broadcom、および Dell によるマルチ NPU によって駆動されるパイプライン モデルは、上に構築された SAI とネットワーク スタックが適用できるインフラストラクチャを強化します。</div>
+   </li>
+  </ul>
+
+
+  <p align="left">Open Compute Project U.S. Summit 2017 では、複数のスイッチ ハードウェア企業から 100 ギガビットのスイッチを紹介します。 SONiC は、最新かつ最速の SKU で有効になっています。 SONiC をサポートするプラットフォームは次のとおりです。</p>
+
+
+  <ul>
+   <li>
+   <div align="left"><a href="https://www.arista.com/en/">Arista Networks</a>: 7050 および 7060 シリーズ</div>
+   </li>
+   <li>
+   <div align="left">Centec Networks: E580 および E582 シリーズ</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://en.wikipedia.org/wiki/Dell">Dell Inc</a>: S6000 ON、S6100-ON、Z9100-ON シリーズ</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://www.edge-core.com/">エッジコア ネットワーク</a>: AS7512 シリーズ、100b</div>
+   </li>
+   <li>
+   <div align="left"><a href="https://www.facebook.com/">Facebook</a>: 100</div>
+   </li>
+   <li>
+   <div align="left">Ingrasys Technology Inc.: S9100 シリーズ</div>
+   </li>
+   <li>
+   <div align="left">Marvell Technology Group Ltd.: RD-BC3-4825G6CG-A4 および RD-ARM-48XG6CG-A4 シリーズ</div>
+   </li>
+   <li>
+   <div align="left">Mellanox テクノロジ: SN2700 シリーズ</div>
+   </li>
+  </ul>
+
+
+  <p align="left">SONiC を使用すると、クラウド コミュニティには選択肢があります&mdash;。最適なソリューションを選択できます。 パートナーは、より充実した環境を提供するために、このシステムに参加しています。</p>
+
+
+  <ul>
+   <li>
+   <div align="left">Arista は、SONiC 上で実行する EOS BGP のようなコンテナー化された EOS コンポーネントを提供しています。 SONiC コミュニティは、Aristas の豊富な&rsquo; EOS ソフトウェア スイートに簡単にアクセスできます。</div>
+   </li>
+   <li>
+   <div align="left">Ubuntu のスナップとしての Canonical 対応 SONiC。 これにより、切り替えに SONiC を展開できるだけでなく、SONiC を使用してサーバーをデプロイすることもできます。 統合されたネットワークとサーバーのデプロイにより、オペレーターの機敏性が大幅に向上します。</div>
+   </li>
+   <li>
+   <div align="left">Swarm を使用して SONiC コンテナーを管理する Docker が有効になっています。 Swarm は、シンプルで宣言型のサービス モデルを使用して、SONiC を大規模に管理および更新できます。</div>
+   </li>
+   <li>
+   <div align="left">Mellanox は SONiC を使用して、Spectrum ASIC のハードウェアベースのパケット生成機能を提供しています。 これは、診断とトラブルシューティングに役立つ高度に求められている機能です。</div>
+   </li>
+  </ul>
+
+
+  <p align="left">コミュニティとパートナー エコシステムと&rsquo;共に取り組み、現在と将来のネットワークに変革を起こしていけ、</p>
+
+
+  <p align="left"><a href="https://azure.github.io/SONiC/">SONiC は、</a>GitHub で完全にオープン ソースであり、産業コラボレーター、研究者、学生、イノベーション者が同様に利用できます。 SONiC コンテナー化されたアプローチとソフトウェア シミュレーション ツールを使用すると、開発者は、世界最大のクラウド プラットフォームの 1 つである Microsoft Azure&rsquo; で使用されるスイッチ ソフトウェアを体験し、何百万もの顧客にメリットをもたらすコンポーネントを提供できます。 SONiC はクラウド コミュニティ&rsquo;全体に恩恵を与え、プラットフォームの背後でますます強力なパートナーの勢いに非常に大きな力を与えています。</p>
+
+
+  <h2 style="text-align: left;">詳細情報</h2>
+
+
+  <p style="text-align: left;">このシリーズの他の投稿を読むには、次のページを参照してください。</p>
+
+
+  <ul>
+   <li style="text-align: left;"><a href="https://azure.microsoft.com/en-us/blog/networking-innovations-that-drive-the-cloud-disruption/">クラウドの分断を促進するネットワークの革新</a></li>
+   <li style="text-align: left;"><a href="https://azure.microsoft.com/en-us/blog/how-microsoft-builds-its-fast-and-reliable-global-network/">マイクロソフトが高速で信頼性の高いグローバル ネットワークを構築する方法</a></li>
+  </ul>
+
+  </div>

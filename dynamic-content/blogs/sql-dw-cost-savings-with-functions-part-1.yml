@@ -1,0 +1,33 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1876b930cb1595629adac5a96b97a947884b3675
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892212"
+Slug: sql-dw-cost-savings-with-functions-part-1
+Title: '#<a name="azuresqldw-cost-savings-with-optimized-for-elasticity-and-azure-functions--part-1"></a>弾力性と柔軟性に最適化された AzureSQLDW のAzure Functions - パート 1'
+Summary: 'Azure SQL Data Warehouseは、Microsoft の SQL分析プラットフォームで、お使Enterprise Data Warehouse (EDW) のバックボーンです。 このサービスは、顧客が非常に並列処理を使用してコンピューティングとストレージを柔軟に、独立してスケーリングできるよう設計されています。 '
+Content: >-
+  <p><a href="https://azure.microsoft.com/services/sql-data-warehouse/">Azure SQL Data Warehouse</a>は、SQL&rsquo; (EDW) のバックボーンである Microsofts Enterprise Data Warehouse分析プラットフォームです。 このサービスは、顧客が非常に並列処理を使用してコンピューティングとストレージを柔軟に、独立してスケーリングできるよう設計されています。 SQL DW はビッグ データ ストアとシームレスに統合され、EDW の最適化および調整されたパフォーマンスのためにデータ マートとキューブへのハブとして機能します。 Azure SQL DW では、<a href="https://azure.microsoft.com/support/legal/sla/sql-data-warehouse/v1_0/">99.9%</a> の高可用性、コンプライアンス、高度なセキュリティ、アップストリーム<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security"></a>およびダウンストリーム サービスとの<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-overview-integrate"></a>緊密な統合が保証され、ニーズに合ったデータ ウェアハウスを構築できます。 Azure SQL DW は、企業が 30 を超えるリージョンでグローバルな可用性を持つあらゆる場所にデータをレプリケートできる、最初の唯一のサービスです。 今日は、最適化されたパフォーマンスを実現するために、データをすばやくデータにプッシュAzure Analysis Services方法を示します。</p>
+
+
+  <p>Azure SQL Data Warehouseの主な機能の 1 つは、分離されたコンピューティングとストレージ モデルです。 主要な価格とパフォーマンスについては、必要な最大値に加え、現在のワークロードに一致するパフォーマンス レベルを選択することが重要です。 このブログ記事は、Azure Function App を使用してコンピューティング レベルを自動化してコストを節約する方法を説明する 2 部構成のブログ シリーズの最初の記事です。</p>
+
+
+  <p>最初に検討するソリューションは、スケジュールベースの Azure 関数のセットです。これにより、データ ウェアハウスをスケールアップ、スケールダウン、または一時停止する時間を設定できます。 多くのデータ ウェアハウス ユーザーには、通常は workday に対応するアクティビティと非アクティブな期間があります。 次に示すのは、数日間の対応するクエリ使用量を含む実際の顧客データ ウェアハウス インスタンスです。 この毎日のワークロードを観察すると、クエリ パターンでは、毎日の作業時間中に明らかに急増し、夜間は降りるという結果が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0034562b-d740-4031-b197-01dc02d8b301.png"><img alt="DWU Usage to Query Activity Recommendation" border="0" height="351" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7dabd1c-b78d-43ca-978e-573c9db1fb3c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="DWU のクエリアクティビティの使用に関する推奨事項" width="713"></a></p>
+
+
+  <p>現在、この顧客は使用に関係なく DWU を変更していないので、常に DW600 で実行されています。 作業時間中に DW600 が必要になる場合は、営業時間外に DW200 の方が適している場合があります。 16:8 時間の比率でこれら 2 つの値の間のスケーリングを 1 か月以上行った場合、約 32% の節約になる可能性があります。 その使用状況を見ると、UTC の午前 12 時に動作スパイクが発生する前に 1 回スケールアップし、毎日午後 5 時 (UTC) にスケールダウンすることをお勧めします。 Azure TimeTrigger 関数を使用すると、この&rsquo;顧客の月間支出を 25% 削減できます。</p>
+
+
+  <p>Azure Functions を使用したSQL Data Warehouseベースのスケーリングの詳細については、ドキュメントとその <a href="https://github.com/Microsoft/sql-data-warehouse-samples/tree/master/arm-templates/sqlDwAutoScaler" target="_blank">Github</a> リポジトリを<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/manage-compute-with-azure-functions" target="_blank"></a>確認するか、今すぐインスタンスにデプロイしてください。 このスケジュール ベースの関数は概念実証 (POC) であり、ログ記録、エラーが発生した場合の再試行ロジック、およびユーザー エクスペリエンスを向上させるその他の機能に関するコミュニティの貢献をお待ちしています。 この関数の既定値は、BLOB ストレージでの使用量プランの使用です。 消費プランの価格には、1 か月あたり 100 万件の要求と 400,000 GB/秒のリソース消費量の毎月の無料付与が含まれます。</p>
+
+
+  <p>POC のサポートが必要な場合は、直接 <a href="https://azure.microsoft.com/services/sql-data-warehouse/information-request/" target="_blank">お問い合わせください</a>。 Twitter でフォローして、最新の Azure SQL DW のニュースと機能に関する最新情報を確認してください<a href="https://twitter.com/AzureSQLDW" target="_blank">@AzureSQLDW</a>。</p>
+
+
+  <p><a href="https://ms.portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2Fsql-data-warehouse-samples%2Fmaster%2Farm-templates%2FsqlDwTimerScaler%2Fazuredeploy.json" target="_blank"><img alt="Deploy in Azure" border="0" height="34" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b2ded0f-259f-4b85-ad0a-71ad6d0f4867.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure にデプロイする" width="161"></a></p>

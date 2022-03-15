@@ -1,0 +1,222 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7a9e374c44fed8f996ef244ef7996170d0a3762a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894482"
+Slug: azure-stack-iaas-part-3
+Title: IaaS の Azure Stack –パート3
+Summary: 仮想マシンのホストを選択する必要がある場合は、仮想化の日を忘れないようにしてください。 一部の事業単位では、ハードウェアの製造元と製造元を命名規則によって識別できます。 この知識を活用して、最初により優れた歯車を作成し、最も古いホストについてはあまり理解していないチームを残しておきます。
+Content: >-
+  <p><em>このブログ投稿は、David Armour Principal PM Manager、Azure Stack と Tiberiu のによって作成されました。シニアプログラムマネージャー Azure Stack、上級プログラムマネージャー。</em></p>
+
+
+  <h2>Azure Stack IaaS の基礎</h2>
+
+
+  <p>仮想マシンのホストを選択する必要がある場合は、仮想化の日を忘れないようにしてください。 一部の事業単位では、ハードウェアの製造元と製造元を命名規則によって識別できます。 この知識 &rsquo; を活用して、最初により優れた歯車を作成し、最も古いホストについてはあまり理解していなかった &rsquo; チームを残しておきます。</p>
+
+
+  <p>クラウドは、別のアプローチを採用しています。 ホストの代わりに、Vm は容量プールに配置されます。 物理インフラストラクチャは抽象的なものです。 VM によって消費されるコンピューティングリソース、ストレージリソース、およびネットワークリソースは、ソフトウェアを通じて定義されます。</p>
+
+
+  <p>Azure Stack は、独自のデータセンターで実行できる Azure クラウドのインスタンスです。 Microsoft は、世界中の最大規模のクラウドの1つを実行して、施設でホストできるソリューションを設計するという経験とテクノロジを手にしました。 これは、Azure Stack &rsquo; s サービスとしてのインフラストラクチャ (IaaS) の基礎となります。</p>
+
+
+  <p>ここでは、クラウドネイティブ Vm を施設内で直接実行できるようにする、Azure Stack インフラストラクチャのいくつかの特性について説明 &rsquo; します。</p>
+
+
+  <h2>クラウドによるハードウェア</h2>
+
+
+  <p>Microsoft の従業員は、お気に入りのサーバーを購入し、それを Azure データセンターにラック化する &rsquo; だけで済みます。 Azure データセンターに入る唯一のサーバーは、Azure 向けに特別に構築されています。 Azure 用に構築されたサーバーだけでなく、ネットワークデバイス、ラック、ケーブル配線もあります。 このような極端な標準化により、Azure チームは少数の従業員だけで Azure データセンターを操作できます。 すべてのサーバーは標準化され、統一された運用と自動化が可能であるため、データセンター &rsquo; に容量を追加するには、より多くの従業員を雇用する必要がありません。</p>
+
+
+  <p>ハードウェア構成を標準化するその他の利点は、標準化の結果、Microsoft と Azure だけでなく、顧客にとっても反復可能な結果 &ndash; になることです。 ハードウェアの統合が検証され、既知のレシピです。 サーバー、記憶域、ネットワーク、ケーブル接続のレイアウトなどはすべて既知で、新しいハードウェアコンポーネントの順序、配信、および統合に基づいています。 サービスと最終的な提供終了は反復可能でスケーラブルです。 これらの構成を完全にエンドツーエンドで検証するには、容量が配信されてインストールされるときにクイックチェックが行われます。</p>
+
+
+  <p>これらの原則は Azure Stack ソリューションにも適用されます。 構成、機能、検証はすべてよく知られており、結果は反復可能でサポート可能な製品です。 Microsoft、そのパートナー、そして最も重要なのは、エンドカスタマー特典です。 Azure Stack のお客様は、定義済みのパートナーソリューションに限定されていますが、適切な柔軟性を備えて構築されているため、顧客は必要な特定の機能や容量を選択できます。 ただし<em>、例外</em> &ndash; が1つあります。 Azure Stack Development Kit (asdk) では、ハードウェア要件を満たすハードウェアに Azure Stack をインストールすることができます。 ASDK は評価目的用であり、運用環境としてはサポートされていません。</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://gallery.technet.microsoft.com/Azure-Stack-Capacity-24ccd822" target="_blank">Azure Stack のキャパシティ プランニング ツール</a></li>
+   <li><a href="https://myignite.techcommunity.microsoft.com/sessions/65844" target="_blank">Azure を使用して Azure Stack のデプロイとデプロイ後の統合を計画するためのベストプラクティス</a></li>
+  </ul>
+
+
+  <h2>ハードウェアパートナーシップの Azure Stack</h2>
+
+
+  <p>Microsoft は、さまざまなハードウェアパートナーまたは Oem と連携して、ソリューションを提携および共同エンジニアリングしています。 この利点は、既存のリレーションシップが存在する場所を Azure Stack が満たすことができることです。 これらの関係は、既存のハードウェア購入契約、地理的な場所、またはサポート機能に基づいている可能性があります。 ソリューションを適切に定義された方法で運用するための原則を念頭に置いて、マイクロソフトでは Azure Stack ハードウェアソリューションの最小要件を設定しています。 各パートナーは、ニーズに最も合ったコンポーネント、サーバー、およびネットワークスイッチをポートフォリオから選択できます。 これにより、引き続きサポートされ、全体的なソリューションの値が提供される、明確に定義されたさまざまなものが作成されます。</p>
+
+
+  <p>現在の <a href="https://azure.microsoft.com/en-us/overview/azure-stack/">ソリューションパートナー </a>は次のとおりです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/13967e26-69c5-4a76-8232-99e1314459dd.png"><img alt="Azure Stack solution partner logos" border="0" height="523" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e6f9671c-b171-4a62-a125-45b25a6a2f84.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Stack ソリューションパートナー" width="1202"></a></p>
+
+
+  <h2>障害に対する回復性</h2>
+
+
+  <p>企業と Azure の Microsoft &rsquo; の経験から得た原則の1つは、ソリューション全体の復元です。 ソフトウェアとハードウェアの世界は完璧ではありません。障害 &ndash; が発生したケーブルに問題があり、ソフトウェアにバグがある、停電が発生した、およびオンとオンになっています。 Microsoft では、より優れたソフトウェアを構築し、ソリューションパートナーが継続的に改善することを目指していますが、問題が発生することを期待する必要があります。 Azure Stack ソリューションは完全ではありませんが、一般的な障害点を克服することを目的として構築されています。 たとえば、テナント/ユーザーデータの各コピーは、3つの異なるサーバー内の3つの異なるストレージデバイスに格納されます。 物理ネットワークパスは冗長であり、潜在的な障害に対するパフォーマンスと回復性が向上します。 Azure Stack の内部ソフトウェアは、複数のインスタンスにわたって調整されるサービスです。 この種のエンドツーエンドのアーキテクチャ設計と実装により、エンドツーエンドのエクスペリエンスが向上します。 このアプローチをインフラストラクチャの復元力として使用することは、前述のよく知られた検証済みのソリューションアプローチによって、お客様のエクスペリエンスを向上させることができます。</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://myignite.techcommunity.microsoft.com/sessions/66253" target="_blank">Microsoft Azure スタックでのビジネス継続性とディザスターリカバリーのアーキテクチャパターンとプラクティスについて</a></li>
+  </ul>
+
+
+  <h2>既定で強化</h2>
+
+
+  <p>IaaS Vm を Azure Stack で実行する場合は、セキュリティで保護された基盤で実行されていることを把握しておく必要があります。 これは、ユーザーが Azure Stack を選択した理由の1つは、契約契約で規制されているか定義されているデータやプロセスがあるためです。 その所有者が自分のデータとプロセスを制御できるだけでなく、既定でセキュリティ保護されているインフラストラクチャも提供します。 Azure Stack 実際には、基になるインフラストラクチャは、所有者でも Microsoft にもアクセスできないようにロックダウンされています。 サポートの問題によってアクセスする必要がある場合は、所有者と Microsoft の両方がキーを組み合わせて、システムへのアクセス権と期間を制限します。</p>
+
+
+  <p>Azure では、セキュリティコンプライアンスの業界をリードしており、Azure Stack にもセキュリティコンプライアンスが重要です。 Azure では、Microsoft は、テクノロジ、スタッフ、およびプロセスのほか、コンプライアンスの責任を完全に管理します。 Azure Stack とは異なります。 テクノロジは Microsoft によって提供されていますが、担当者とプロセスはオペレーターによって管理されます。 オペレーターが認定プロセスをすぐに開始できるように、Azure Stack は、サードパーティに依存しない監査企業による一連の正式な評価を行ってきました。これにより、Azure Stack インフラストラクチャがいくつかの主要なコンプライアンス標準から適用可能なコントロールをどのように満たしているかを文書化することができます。 このドキュメントは、担当者とプロセスに関連したいくつかのコントロールを含む標準により、Azure Stack の認定を受けていないテクノロジの評価であり、作業を開始するのに役立ちます。 テクノロジ評価には、次の標準があります。</p>
+
+
+  <ul>
+   <li><a href="https://www.pcisecuritystandards.org/pci_security/" target="_blank">PCI DSS</a> &ndash; 支払いカード業界に対処する</li>
+   <li><a href="https://cloudsecurityalliance.org/group/cloud-controls-matrix/#_overview" target="_blank">CSA クラウド制御マトリックス</a> &ndash; &nbsp;FedRAMP 中程度、ISO27001、HIPAA、HITRUST、ITAR、NIST SP800-53 など、複数の標準にわたる包括的なマッピング</li>
+   <li><a href="https://www.fedramp.gov/fedramp-releases-high-baseline/" target="_blank">Fedramp High</a> &ndash; 政府機関のお客様向け</li>
+  </ul>
+
+
+  <p>クラウドデータ暗号化キーを発信して管理する必要があるコンプライアンスの要件または内部プロセスに直面していて、Azure Stack の場合でも、Thales の<a href="https://www.thalesesecurity.com/products/key-management/ciphertrust-cloud-key-manager" target="_blank">CipherTrust Cloud Key Manager</a> (CCKM) は Azure と連携し、このようなキーの制御を有効にするために Bring Your Own Key &rdquo; (BYOK) API &rsquo; を Azure Stack &ldquo; します。 CipherTrust Cloud Key Manager は、FIPS 140-2 ソースから Azure と互換性のあるキーを作成します。 これにより、必要に応じて、Azure Stack または Azure で実行されている Azure Key vault との間でのアップロード、管理、および取り消しを、すべて1つのウィンドウから行うことができます。</p>
+
+
+  <p>たとえば、Azure Stack で給与アプリを作成し、CipherTrust Cloud Key Manager を使用してデータ暗号化キーを生成した後、アプリが給与を計算している月の末日にのみ Azure Stack の Key Vault でこれらのキーを使用できるようにするポリシーを設定できます。 他にも多くの利点がありますが、CCKM はキー、リモートバックアップ、キーを格納するための安全な場所、アプリ自体からのキーの管理の分離などの時間を短縮します。 自動化されたキーのバージョン管理については言及しません。 CCKM は、Azure Active Directory (AAD) と Active Directory フェデレーションサービス (AD FS) (ADFS) の両方の展開をサポートしています。</p>
+
+
+  <p>Azure Stack のコンプライアンスドキュメントをダウンロードするには、「 <a href="https://aka.ms/azurestackcompliance">Azure のセキュリティとコンプライアンスの追加フレームワーク</a>」を &quot; 参照してください。&quot;</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://www.microsoft.com/en-us/trustcenter/compliance/compliance-overview" target="_blank">Azure セキュリティ センター</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-security-foundations" target="_blank">Azure Stack インフラストラクチャのセキュリティ体制</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/security-and-compliance-in-azure-stack/" target="_blank">Azure Stack のセキュリティとコンプライアンス</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-privileged-endpoint" target="_blank">Azure Stack での特権エンドポイントの使用</a></li>
+  </ul>
+
+
+  <h2>まず、オプションを確認してください。</h2>
+
+
+  <p>前述のように、Azure Stack は統合ハードウェアシステムとして販売され、検証済みのハードウェアにソフトウェアが事前にインストールされています。 通常、標準のサーバーラックに付属しています。 システムを配置する場所を選択します。 データセンターでホストすることも、サービスプロバイダー &rsquo; の機能で実行することもできます。</p>
+
+
+  <p>選択した場所で Azure Stack を実行すると、Azure Stack インフラストラクチャを操作するユーザーも選択できます。 Azure Stack オペレーターは、Azure Stack へのアクセス権を付与し、ソフトウェアとファームウェアを最新の状態に保ち、marketplace でコンテンツを提供し、システムの正常性を監視し、問題を診断する役割を担います。 Azure Stack は、組織のユーザーが Azure Stack 操作できるように、これらすべてのプロセスの自動化、ドキュメント、トレーニングを提供します。 また、お客様の施設で、または自分の Azure Stack を運用できるトレーニング済みのパートナーエキスパートも提供します。</p>
+
+
+  <p>Azure Stack を取得する際のオプションの概要を次に示します。</p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top">
+     <p align="center"><strong>管理するシステム</strong></p>
+
+     <ul>
+      <li>通常はオンプレミス</li>
+      <li>管理と操作を制御する</li>
+      <li>Microsoft Azure Stack購入する</li>
+      <li>ベンダーからハードウェアを購入する</li>
+      <li>サポートについては Microsoft に問い合わせください</li>
+     </ul>
+     </td>
+     <td valign="top">
+     <p align="center"><strong>マネージド サービス </strong></p>
+
+     <ul>
+      <li>通常、サービス プロバイダーのオンプレミスで</li>
+      <li>サービスは管理されます</li>
+      <li>サービス プロバイダーからサービスを購入する</li>
+      <li>サービスには、ハードウェアとソフトウェアが含まれます</li>
+      <li>サポートのためにサービス プロバイダーを呼び出す</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/" target="_blank">Azure Stackオペレーターのドキュメント</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/resources/azure-stack-technology-and-service-partners/" target="_blank">Azure Stackテクノロジとサービス パートナー</a></li>
+  </ul>
+
+
+  <h2>クラウド インフラストラクチャ用の IaaS VM のチューニング</h2>
+
+
+  <p>Azure Stackを起動して実行し、最初の IaaS VM デプロイの計画を開始したら、これらの VM を仮想化デプロイではなくクラウド デプロイと考える必要があります。 IaaS VM は、実行されているクラウド インフラストラクチャを利用する場合に最適に実行されます。 多くの場合、クラウド インフラストラクチャ内の VM を調整する方法は、従来の仮想化環境で VM をチューニングした方法とは大きな違いがあります。 しかし、いつでも既に持 <a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">っている</a> ものから始め、最新の運用を通じてこれらのソリューションを改善することができます。</p>
+
+
+  <p>この例として、複数のディスクを使用して、アプリケーションに必要な IOps とスループットを取得します。 Azure の場合と同様に、 に配置された仮想マシンAzure Stackのディスク アクティビティに制限が適用されます。 これにより、ある VM アクティビティが別の VM&rsquo; (ノイズの多い近隣) に与える影響 &ndash; が制限されます。 これらの制限は IaaS 環境に最適ですが、必要な適切なリソースを取得するワークロードをデプロイするには余分な作業が必要な場合があります。この例では、IOps です。</p>
+
+
+  <p>デプロイの最適化SQL Server、必要なパフォーマンスを得るためにストレージを構成する方法に関する<a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-sql-server-vm-considerations" target="_blank">ガイダンスを提供します</a>。 この場合のアプローチでは、複数のディスクを接続し、それらをストライプして容量とパフォーマンスを取得します。 VM に <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">マネージド ディスクを</a> 使用すると、物理データが仮想マシン内に格納される場所をシステムで最適化Azure Stack。 仮想化環境から IaaS への移行は合理的に簡単であり、その利点がありますが、最初のデプロイでは少し作業が必要です。 Azure Monitor や<a href="https://aka.ms/azstackmonitor" target="_blank">仮想</a><a href="https://docs.microsoft.com/en-us/azure/azure-monitor/" target="_blank">マシン ソリューションのような</a>ツールをいつでも使用して、ワークロードをより深く理解し、VM のパフォーマンスに関する分析情報を取得できます。 VM がパフォーマンス要件に対応していない場合は、<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/troubleshooting/performance-diagnostics-vm-extension" target="_blank">Windows 用の Azure Performance Diagnostics VM</a> 拡張機能を使用して、潜在的なボトルネックをトラブルシューティングして特定することもできます。</p>
+
+
+  <p>IaaS (特に Azure Stack) の大きな点は、デプロイ テンプレートまたは成果物を簡単に再利用して、同様のワークロードの移行作業を減らすことです。 この詳細については、今後のブログ記事で取り上げます。</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-manage-vm-disks" target="_blank">Azure Stack で仮想マシンのディスク記憶域を作成する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-sql-server-vm-considerations" target="_blank">データSQLパフォーマンスを最適化Azure Stack</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">Azure Managed Disks の概要</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq-for-disks" target="_blank">Azure IaaS VM ディスクに関してよく寄せられる質問</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-managed-disk-considerations" target="_blank">データのManaged Disksに関するAzure Stack</a></li>
+  </ul>
+
+
+  <h2>クラウドネイティブ VM の実行用に構築されたインフラストラクチャの目的</h2>
+
+
+  <p>世界で最大のクラウド インフラストラクチャを構築した経験を持つ組織は少数です。 アプリを購入するとAzure Stack Microsofts Azure エクスペリエンスの&rsquo;利点が得されます。 Microsoft は、これらの詳細について心配&rsquo;する必要がなさそうに、標準化された構成を提供するために最適な OEM と提携しています。 このインフラストラクチャAzure Stack、IaaS &ndash; VM の安全性、安全性、パフォーマンスを維持するために、専用に構築されています。</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/overview/azure-stack/how-to-buy/" target="_blank">Azure Stack の購入方法</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-customer-journey" target="_blank">Azure Stack データセンターの統合</a></li>
+  </ul>
+
+
+  <h3>このブログ シリーズの</h3>
+
+
+  <p>このブログ シリーズの今後の投稿をお読みください。 渡されたトピックと今後のトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">Azure Stackは、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">既に持っているものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分のものを保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/" target="_blank">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/" target="_blank">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven/" target="_blank">チームが必要</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に行う場合は、自動化します</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功を基に構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>
