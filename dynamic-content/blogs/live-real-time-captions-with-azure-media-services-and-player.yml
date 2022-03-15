@@ -1,0 +1,34 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a17a532098c100c2d072cdaf6f446ac8483e6195
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894767"
+Slug: live-real-time-captions-with-azure-media-services-and-player
+Title: Azure Media Services とプレーヤーを使用したリアルタイムのライブキャプション
+Summary: ライブイベントに対してリアルタイムの複数言語のキャプションを提供することは、Azure Media Services と subply で簡単に実行できます。
+Content: >-
+  先月、Microsoft Azure Media Services Microsoft Azure Media Services microsoft production スタジオ " href="https://www.microsoft.com/en-us/productionstudios/" target="_blank"> の <a title=" microsoft production スタジオ </a> と提携して、microsoft build microsoft build </a> and <a title=" microsoft Ignite " href="https://ignite.microsoft.com/#fbid=gJpU_5lYke8" target="_blank"> microsoft Ignite </a> 基調講演を <a title=" 作成 " href="https://www.buildwindows.com/" target="_blank"> します。 </a> " href="https://azure.microsoft.com/en-us/services/media-services/" target="_blank"> <a title=" これらのイベントは、クラウドの機能を活用して、膨大な数の一意のビューアーに提供されています。 Azure Media Player " href="https://azure.microsoft.com/blog/2015/04/15/announcing-azure-media-player/" target="_blank"> Azure Media Player </a> を使用する <a title=" と、web キャストは非常に優れており、さまざまなプラットフォーム、デバイス、およびブラウザーでアクセスできました。 また、クロスプラットフォームで提供されるこれらのライブイベントに加えて、subply " href="https://www.subply.com/en/home.htm" target="_blank"> </a> という <a title=" 会社で構築された独自のソリューションを使用して、Azure Media Player 内のリアルタイムのマルチ言語キャプションも提供しました。
+
+  <h2>どのように動作するのでしょうか。</h2>
+
+  このソリューションでは、ライブストリーミングデータがエンコーダーと RTMP 取り込まれたから米国東部および米国西部 Azure Media Services データセンターにプッシュされました。 これに加えて、2つの低ビットレート RTMP ストリームも SubPLY サーバーに直接送信されました。これにより、クライアントが CDN からコンテンツを受信する前に、がストリームを受信し、関連付けられている英語のキャプションをわずかに生成できます。 リアルタイムで生成されたキャプションは、RTMP ストリームの埋め込みタイムコードにリンクされ、Azure でホストされる負荷分散された webservice にプッシュされます。その後、Microsoft 翻訳ツール " href="https://www.microsoft.com/translator/" target="_blank"> Microsoft 翻訳ツール </a> テクノロジを中心 <a title=" に開発されたソリューションを使用して、複数の異なる言語に変換されます。
+
+
+  ライブイベントが開始される前に、事前ロールスレート中に、同期ビデオを使用して、サブソースがエンコーダーから RTMP フィードまでのタイムコードと、Azure Media Services オリジンの CDN によって処理されるストリームを同期できるようにしました。 これにより、Azure Media Player に表示されたときにキャプションとライブビデオストリームが同期されるようになりました。
+
+
+  Azure Media Player 用の SubPLY JavaScript 拡張機能は、Azure でホストされている webservice から表示する言語の一覧を受け取りました。 Windows media player では、閲覧者はキャプションを有効にしたり、プロフェッショナルによって生成された英語のキャプションを表示したり、10個のコンピューター翻訳言語を選択したりすることができます。プレーヤー内から言語を選択すると、拡張機能によって負荷分散された web サービスからキャプションデータが取得され、リアルタイムで CDN から配信された対応するタイムライン調整ビデオフラグメントに対して表示されます。
+
+
+  キャプションに対するすべてのスタイル設定は、CSS を使用して適用されました。既定の言語、色、輪郭、影、フォント、および位置を設定するための属性はすべて、SubPLY JavaScript 拡張機能を初期化するときに構成できました。
+
+
+  <img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border: 0px;" title="image" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/image.png" alt="image" width="498" height="844" border="0" />
+
+
+  Azure Media Services の機能を活用して、Microsoft の運用スタジオは、エンドツーエンドのライブワークフローを使用してライブストリーミングイベントをクラウドに取り込むことができました。これにより、Azure Media services では、mpeg、Smooth Streaming、HLS によって提供されるライブキャプションワークフローと共に、すべてを結合 Azure Media Player し、そのコンテンツをビューアークロスプラットフォーム 世界中です！
+
+
+  <a title="Microsoft Production スタジオのブログ " href="https://www.microsoft.com/en-us/productionstudios/blog/streaming-with-azure.html" target="_blank"> では、 </a> このイベントの詳細と、Azure Media Services を使用したエンドツーエンドワークフローについて説明します。

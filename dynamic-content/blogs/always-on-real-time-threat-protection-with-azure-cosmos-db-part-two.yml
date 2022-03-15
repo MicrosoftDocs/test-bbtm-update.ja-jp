@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 294199a803318bb1fa137144bebd8b423e6f7a0e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891313"
+Slug: always-on-real-time-threat-protection-with-azure-cosmos-db-part-two
+Title: Azure Cosmos DB を使用した Always on、リアルタイムの脅威保護-パート2
+Summary: Azure Advanced Threat Protection チームがクラウドベースのセキュリティサービスに Azure Cosmos DB を使用することによって、チームは、データベースのメンテナンス、優れたリアルタイムのパフォーマンス、エラスティックスケーラビリティ、高可用性、強力なセキュリティとコンプライアンスなど、すべての重要な要件を満たすことができました。
+Content: >-
+  <p><em><em>この2部構成のブログ記事は、実際のニーズを満たすために組織がどのように Azure Cosmos DB を使用しているか、およびそれに加えた違い &rsquo; について説明するシリーズの一部です。</em><a href="https://azure.microsoft.com/en-us/blog/always-on-real-time-threat-protection-with-azure-cosmos-db-part-one/">第1部</a>では、Microsoft Azure Advanced Threat Protection チームが、Azure Cosmos DB を採用して再利用する方法につい &rsquo; て説明した課題について説明します。第 2 &rsquo; 部では、チーム &rsquo; の取り組みによって得られる結果を確認します。</em></p>
+
+
+  <h2>組み込みのスケーラビリティ、パフォーマンス、可用性など</h2>
+
+
+  <p>Azure Advanced Threat Protection チーム &rsquo; がクラウドベースのセキュリティサービスに Azure Cosmos DB を使用するかどうかは、データベースのメンテナンス、優れたリアルタイムのパフォーマンス、エラスティックのスケーラビリティ、高可用性、強力なセキュリティとコンプライアンスなど、すべての重要な要件を満たすことができるようになりました。 &ldquo;Azure Cosmos DB は、microsoft 自体、 &rdquo; Yaron Hagai、microsoft の Advanced Threat Analytics のプリンシパルグループエンジニアリングマネージャーなど、世界中の大企業をサポートできるエンタープライズレベルのセキュリティサービス &rsquo; を提供するために必要なすべての機能を提供します。</p>
+
+
+  <h3>メンテナンスなし</h3>
+
+
+  <p>管理されたデータベースサービスによって Hagai &rsquo; のチームの膨大なメンテナンス作業が保存されたため、少数のサービスエンジニアだけを使用して Azure Advanced Threat Protection を実行できます。 &ldquo;Azure Advanced Threat Protection は、サーバーを修正してアップグレードする必要がなくなり、コンプライアンスについて心配する必要があります。これについては、「Hagai」 &rdquo; をご覧ください。 &ldquo;また、microsoft では、保存時の暗号化などの機能を利用できます。作業を行う必要はありません。これにより、リソースを提供してサービスを向上させることができます。&rdquo;</p>
+
+
+  <p>お客様の成長をサポートするためのスケーリングは、ハンズフリーの方法と同じです。 &ldquo;Azure CLI スクリプトを使用して &rsquo; 、複数の Azure リージョン &mdash; でクラスターをプロビジョニングし、プロビジョニングを解除します。すべてが自動的に行われるため、新しい顧客用の新しいクラスターを簡単にデプロイでき、必要に応じ &rdquo; て Hagai という指示があります。 &ldquo;自動スケールも自動的に設定されます。 スループットベースの分割は特に便利です。これは、チームのメンテナンスをゼロにして、データベースの規模を拡大し、顧客の成長をサポートできるようにするためです。&rdquo;</p>
+
+
+  <h3>リアルタイムのパフォーマンス</h3>
+
+
+  <p>Azure Cosmos DB は、Azure Advanced Threat Protection のような重要なセキュリティサービスに必要なパフォーマンスを提供します。 &ldquo;組織が侵害された後に保護するため、実行 &rdquo; される可能性のある損害を最小限に抑えるために、検出速度が非常に重要になります。 Hagai について説明します。 &ldquo;高度で拡張性の高いデータベースを使用すると、多数の複雑なクエリをリアルタイムでサポートできるようになります。これにより、数秒でアラートに違反することができます。 Azure Cosmos DB によって提供されるパフォーマンスは、市場において最も生産レベルの高いドキュメント DB となります。これは、これを選択したもう1つの理由です。&rdquo;</p>
+
+
+  <p>次のグラフは、サービス &rsquo; が最大のテナントを対象として継続的に増加しており、書き込みに対する負荷が大きいことを示しています。書き込みは10分ごとに行われます。 Azure Advanced Threat Protection によって、プロファイルのメモリ内キャッシュが Azure Cosmos DB に保持されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af0d7a15-0a17-44cf-921c-a66ba835ee69.png"><img alt="Graph showing sustained high throughout for the service’s largest tenant" border="0" height="351" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/82d08e8e-ea27-4fb4-8b67-f0d36091aa92.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="1つのサービスインスタンスの Sum アクション" width="2001"></a></p>
+
+
+  <h3>柔軟なスケーラビリティ</h3>
+
+
+  <p>2018年3月に Azure Advanced Threat Protection 開始されたため、ユーザーが保護している組織と有料の組織の両方について、その使用量が指数関数的に増加しています。 &ldquo;Azure Cosmos DB を使用すると、過去1年間の顧客ベースで600% の成長をサポートしているという摩擦なしに、継続的に規模を拡大することができます (Hagai) &rdquo; 。 &ldquo;これと同じスケーラビリティにより、オンプレミスのソリューション Microsoft Advanced Threat Analytics の場合よりも大規模な顧客のインストールをサポートできるようになります。 Microsoft &rsquo; の独自の内部ネットワークは典型的な例であり、1つのオンプレミスサーバーで mongo DB を実行する場合にサポートするには大きすぎましたが、 &rsquo; Azure Cosmos DB では問題ありません。&rdquo;</p>
+
+
+  <p>次のグラフに示すように、トラフィックの頻繁な変動をサポートするようにスケールアップおよびスケールダウンすることは、非常に簡単です。 &ldquo;このグラフは、最大のテナントのトラフィックを示しています。ビジネステレメトリ &rdquo; を生成するスケジュールされたタスクにより、全体が急増しています。 &ldquo;これは、Azure Cosmos DB の自動スケールの利点と、各データベースを自動的にスケールアップして、毎日のスループットを短期間で短縮できるようにする方法と、テレメトリが計算された後に自動的にスケールダウンし、サービスの配信コストを最小限に抑える方法を示しています。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3037bbec-ff32-4b1c-9cb0-520fa8f56b86.png"><img alt="Graph showing traffic for a large tenant with the spikes in throughout due to scheduled tasks that produce business telemetry" border="0" height="368" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/484f4631-ede9-41fb-9b76-a4b8f84d2329.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="1つのサービスインスタンスに対する Sun のスループット (RU/秒)" width="1925"></a></p>
+
+
+  <h3>強力なセキュリティとコンプライアンス</h3>
+
+
+  <p>Azure Advanced Threat Protection は Azure Cosmos DB やその他の Azure サービスに基づいて構築されており、それ自体が高いコンプライアンス認定を持っているため、Azure Advanced Threat Protection でも同じように簡単に実現できました。 &ldquo;Azure Cosmos DB のアクセス制御メカニズムを使用すると、簡単にアクセスをセキュリティで保護し、高度な JIT ポリシーを適用して、顧客データの安全を維持することができます。これには Hagai が &rdquo; あります。</p>
+
+
+  <h3>高可用性</h3>
+
+
+  <p>複数リージョンのデータベースでは Azure Cosmos DB の可用性 SLA は99.999% ですが、実稼働環境での実際の可用性 &rsquo; はさらに高くなります。 &ldquo;Azure Cosmos DB チームは過去の可用性番号を取得しています。4月、5月、2019年6月に発生した実際の可用性 &rsquo; が 99.99995 ~ 99.99999% &rdquo; であることがわかりました。これは Hagai と書かれています。 &ldquo;私たちにとって、 &rsquo; これ &rsquo; は実質的には100% のアップタイムを考慮する必要があります。&rdquo;</p>
+
+
+  <p><a href="https://azure.microsoft.com/features/azure-advanced-threat-protection/" target="_blank">Azure Advanced Threat Protection</a>と<a href="https://www.azurecosmosdb.com/" target="_blank">Azure Cosmos DB</a>の詳細については、こちらを参照してください。</p>

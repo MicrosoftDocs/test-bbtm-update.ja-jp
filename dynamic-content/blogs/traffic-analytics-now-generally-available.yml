@@ -1,0 +1,126 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c02eeb1b1e7283da669dbdc8db079f72f655f791
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895285"
+Slug: traffic-analytics-now-generally-available
+Title: Traffic Analytics一般提供
+Summary: Traffic Analytics の一般提供をお知らせします。これにより、組織は脅威を特定し、セキュリティとパフォーマンスを向上させることができます。
+Content: >-
+  <p>クラウド ネットワーク上のユーザーとアプリケーションのトラフィックを可視化する SaaS ソリューションである Traffic Analytics の一般提供 (GA) をお知らせします。</p>
+
+
+  <p>3 か<a href="https://azure.microsoft.com/en-in/blog/traffic-analytics-in-preview/" target="_blank"></a>月前のパブリック プレビュー以降、このソリューションでは、仮想サブネット、VNet、Azure データ センターのリージョン、VPN にわたるネットワーク アクティビティについて、数テラバイトの Flow ログが定期的に分析され、お客様を支援するアクション可能な分析情報が提供されています。</p>
+
+
+  <ul>
+   <li>ネットワークを監査し、シャドウ IT と非準拠のワークロードを根本から取り出します。</li>
+   <li>ワークロードの配置を最適化し、エンド ユーザーのユーザー エクスペリエンスを向上させる。</li>
+   <li>セキュリティの問題を検出し、アプリケーションとデータのセキュリティを向上させる。</li>
+   <li>過剰プロビジョニングまたは使用率の低い問題を排除することで、コストを削減し、デプロイのサイズを適切に設定します。</li>
+   <li>多数のサブスクリプションにまたがる複数の Azure リージョンにまたがるパブリック クラウド ネットワークを可視化します。</li>
+  </ul>
+
+
+  <p>この GA リリースには、問題を検出し、ネットワークをセキュリティで保護/最適化し、以前よりも迅速かつ直感的に行うのに役立つ機能強化が含まれています。</p>
+
+
+  <p>このリリースの機能強化の一部を次に示します。</p>
+
+
+  <ul>
+   <li><strong>お使い環境:</strong> Azure &ndash; ネットワーク全体のビューを提供し、非アクティブなリージョン、仮想ネットワーク、サブネットを識別します。たとえば、VM を使用したネットワークの場所や、詳細な分析のためのネットワーク アクティビティはありません。 アプリケーション ゲートウェイ、サブネット、およびネットワーク間を流れる悪意のあるフローを検出します。 インターネットを通過する開いているポートと、インターネットにトラフィックを送信するホストを示して、考えられる脅威を特定します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/527920c5-c0dd-48da-8068-31839f6fc5ef.png"><img alt="Your environment" border="0" height="554" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/864d4957-ee65-4b19-ac5d-a55314647c15.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="環境" width="1295"></a></p>
+
+
+  <p align="center"><em>図 1: 環境では、直感的で視覚的に豊富なネットワーク マップを使用して、リージョン、VNet、サブネットにドリルダウンするクラウド ネットワークの概要を示します。</em></p>
+
+
+  <ul>
+   <li><strong>概要ビュー:</strong> 受信トラフィックと送信トラフィック間の許可、ブロック、無害、悪意のあるフローの概要を示します。 トラフィックの種類の異常な増加は、許可される悪意のあるフローの数が多い、無害なブロックされたフローの数が多いなど、侵入調査のメリットがあります。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9814616-c2fd-4cb7-b976-8458fa4d8111.png"><img alt="Dashboard_1 Blog" border="0" height="238" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/77d829ed-39df-40b0-97a5-3150dff3862c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Dashboard_1ブログ" width="1397"></a></p>
+
+
+  <p align="center"><em>図 2: トラフィックの概要では、許可されている悪意のあるフローと、無害なフローが多数あるがブロックされているフローが強調表示されています。</em></p>
+
+
+  <ul>
+   <li><strong>アプリケーション アクティビティ:</strong> 最も多くのフローを生成または使用するアプリケーションや、VNet からホストまでの細分性で上位の VM 会話ペアを含むワークロード アクティビティを特定します。 アプリケーション/ポートによって悪意のあるトラフィックやブロックされたトラフィックからの分析情報を使用してネットワークをセキュリティで保護するか、ネットワーク セキュリティ グループ (NSG) を更新して通常のトラフィックを許可します。 たとえば、通信用に開いているポートを特定し、悪意のあるフローを許可します。 これらのメリットは、NSG 構成でのさらなる調査と可能な更新です。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0cc3699a-5db9-40fb-9c1e-440e8960147a.png"><img alt="Host Blog" border="0" height="687" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c616631-8e45-48c4-8c88-63113fd9b133.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ホスト ブログ" width="1414"></a></p>
+
+
+  <p align="center"><em>図 3: ホスト、サブネット、VNet の粒度でのトラフィック フローの分散。</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5a4ed32-3e29-4833-bb5b-3c9c0140ce66.png"><img alt="Application Port Blog" border="0" height="620" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52141319-3a75-4a92-8eb3-8f42c95645f6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="アプリケーション ポートのブログ" width="1399"></a></p>
+
+
+  <p align="center"><em>図 4: ポートFlowによって、ネットワーク上の上位のアプリケーションと上位のコンシューマーが決定されます。</em></p>
+
+
+  <ul>
+   <li><strong>容量計画:</strong> VPN は、ハイブリッドおよび VNet 間接続の重要なメディアを構成します。 ゲートウェイ全体の使用率を表示し、使用率が高いゲートウェイまたは最大使用率のゲートウェイを検出します。 ゲートウェイごとの上位 VPN 接続の&nbsp; 一覧を使用して、トラフィック パターンを理解し、トラフィック負荷を分散し、プロビジョニング中のダウンタイムを排除します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a150151-0f86-46bd-b66e-be01ef34e98b.png"><img alt="VPN GW Blog" border="0" height="684" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e72a458-a3d9-4973-b980-7d22bfcdd042.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="VPN GW ブログ" width="1403"></a></p>
+
+
+  <p align="center"><em>図 5: VPN ゲートウェイの容量使用率。</em></p>
+
+
+  <ul>
+   <li><strong>Application GatewayとLoad Balancerサポート:</strong> Traffic Analytics、分析機能を拡張して、ゲートウェイとロード バランサーを通過するトラフィックAzure アプリケーション含める必要があります。 トラフィック パターン、悪意のあるトラフィックの影響を受け取ったリソース、バックエンド プールのインスタンスとホストへのトラフィック分散に関する分析情報を取得します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a8f5d267-b5fd-4c30-8637-3e7a81c76f4c.png"><img alt="Flow statistics" border="0" height="1038" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ab40387d-f36b-4c3e-b24b-397591f2e0b8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Flow統計" width="1856"></a></p>
+
+
+  <p align="center"><em>図 6: application gateways Flow Load Balancer の統計を示します。</em></p>
+
+
+  <ul>
+   <li><strong>NSG 分析情報を使用してクラウド ネットワークをセキュリティで保護する:</strong>上位 5 つの NSG と NSG &ldquo;ルールから詳細なフロー情報に至るまで、詳細な統計情報を得て、NSG &ldquo;&rdquo;の効果、NSG&rdquo;&ldquo;&ldquo;&rdquo; あたりの上位ルールは何ですか?、悪意のあるソースからのトラフィックを許可していますか?、NSG&rdquo; あたりのフロー統計は何ですか?、&ldquo;NSG&rdquo; あたりの上位の話し合いのペアは何ですか? その他。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4de07262-922c-45ea-8cf7-74fc3ac20d66.png"><img alt="NSG2 Blog" border="0" height="1807" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac35c12b-bc9a-438c-ae17-bd3f6c99320f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="NSG2 ブログ" width="1860"></a></p>
+
+
+  <p align="center"><em>図 7: NSG と時系列グラフに関する詳細な統計。</em></p>
+
+
+  <ul>
+   <li><strong>デプロイを自動化する:</strong> 分析を有効にする必要があるリージョン間で複数の NSG がありますか? Traffic Analytics PowerShell (v6.2.1 以上) がサポートされ、数分で立ち上がって分析できます。 詳細については、ドキュメントを参照 <a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.network/set-azurermnetworkwatcherconfigflowlog?view=azurermps-6.2.0" target="_blank">してください</a>。</li>
+   <li><strong>その他のリージョン:</strong> これで、この Azure リージョンの NSG を東アジア、または分析するワークスペースを South 東アジアに追加できます。 サポートされているリージョン <a href="https://docs.microsoft.com/en-us/azure/network-watcher/traffic-analytics-faq" target="_blank">の完全</a> な一覧については、FAQ を参照してください。</li>
+  </ul>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>開始するには、アプリケーションをセットアップする方法の詳細な <a href="https://docs.microsoft.com/en-us/azure/network-watcher/traffic-analytics" target="_blank">手順をTraffic Analytics</a>。</p>
+
+
+  <h3>フィードバックをお待ちしております。</h3>
+
+
+  <p>ご意見をお寄せいただきありがとうございますTraffic Analyticsフィードバックをお寄せください。 UserVoice ページから引き続き <a href="https://feedback.azure.com/forums/217313-networking?category_id=195844" target="_blank">ご提案をお送りください</a>。</p>
+
+
+  <h3>質問はございますか?</h3>
+
+
+  <p>FAQ に関 <a href="https://docs.microsoft.com/en-us/azure/network-watcher/traffic-analytics-faq" target="_blank">するTraffic Analytics確認してください</a>。</p>

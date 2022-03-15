@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c79a8c28533d3cf8a751bafc5c32ebea2dcd0638
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894951"
+Slug: accessing-virtual-machines-behind-azure-firewall-with-azure-bastion
+Title: 仮想マシンを使用してAzure Firewall仮想マシンAzure Bastion
+Summary: Azure Virtual Networkにより、高度なネットワーク アーキテクチャを構築する柔軟な基盤が可能です。 Azure Firewall やお気に入りのネットワーク仮想アプライアンスなど、さまざまな種類のフィルター コンポーネントを使用して異種環境を管理するには、少しの計画が必要です。
+Content: >-
+  <p>Azure Virtual Networkにより、高度なネットワーク アーキテクチャを構築する柔軟な基盤が可能です。 Azure Firewall やお気に入りのネットワーク仮想アプライアンス (NVA) など、さまざまな種類のフィルター処理コンポーネントを使用して異種環境を管理するには、少しの計画が必要です。</p>
+
+
+  <p>Azure Bastionは現在プレビュー中ですが<a href="https://azure.microsoft.com/en-us/blog/announcing-the-preview-of-microsoft-azure-bastion/" target="_blank"></a>、フル マネージドのサービスとしてのプラットフォーム (PaaS) であり、Azure portal を介して仮想マシン (VM) への安全でシームレスなリモート デスクトップ プロトコル (RDP) とセキュア シェル (SSH) アクセスを提供します。 Azure Bastion仮想ネットワークに直接プロビジョニングされ、パブリック IP アドレスを介して公開することなく、接続されているすべての VM がサポートされます。</p>
+
+
+  <p>仮想ネットワークまたは任意Azure Firewall NVA をデプロイする場合は、サブネットからのすべてのトラフィックを強制的に強制的にトンネリングします。 0.0.0.0/0 のユーザー定義ルートを適用すると、仮想ネットワーク内のワークロードへのイングレス トラフィックとエグレス トラフィックの非対称ルーティングにつながる可能性があります。</p>
+
+
+  <p>簡単ではないのに、多くの場合、すべてのアプリケーションでこれを解決するために、DS NAT や転送など、増え続ける一連のネットワーク 規則を作成して管理しています。 これはすべてのアプリケーションに影響を与える可能性があります。RDP と SSH が最も一般的な例です。 このシナリオでは、インターネットからのイングレス トラフィックが仮想ネットワーク内の仮想マシンに直接送信される場合がありますが、エグレス トラフィックは NVA に送信されます。 ほとんどの NVA はステートフルです。そのため、最初は受信しなかったので、最終的にこのトラフィックが削除されます。</p>
+
+
+  <p>Azure Bastionを使用すると、ステートフル NVA または強制トンネリングが有効になっている Azure Firewall を含む仮想ネットワーク内のワークロードへの RDP/SSH の簡単な設定が可能になります。 このブログでは、シームレスに動作させる方法について説明します。</p>
+
+
+  <p style="text-align: center;"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" scrolling="no" src="https://www.microsoft.com/en-us/videoplayer/embed/RE39JYA" width="560"></iframe></p>
+
+
+  <ul>
+   <li>仮想ネットワークに Azure Bastion (プレビュー) &ldquo; をデプロイする方法については、ドキュメント「Create <a href="https://docs.microsoft.com/en-us/azure/bastion/bastion-create-host-portal" target="_blank">an Azure Bastion host (Preview)」を参照してください</a>。&rdquo;</li>
+   <li>仮想ネットワークに仮想ネットワークをAzure Firewallする&ldquo;方法については、「仮想ネットワークを使用して仮想ネットワークをデプロイして構成するAzure Firewall<a href="https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall-deploy-portal" target="_blank">を参照Azure portal</a>。&rdquo;</li>
+  </ul>
+
+
+  <p>仮想ネットワークに Azure Bastion と Azure Firewall の両方をデプロイした後、このシナリオで動作する Azure Bastion を構成する方法について説明します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e22d790b-e4f5-4f45-9dca-39528683a333.png"><img alt="Azure Bastion architecture" border="0" height="563" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66f4fbe8-a443-440f-b4a4-8b2de1c96fc8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Bastion アーキテクチャ" width="1024"></a></p>
+
+
+  <h2>構成Azure Bastion</h2>
+
+
+  <p>Azure Firewall または仮想アプライアンスをデプロイするときに、仮想ネットワーク内のすべてのサブネットに、Azure Firewall のデプロイ中に作成された <strong>RouteTable</strong> を関連付け終わる可能性があります。 <strong>AzureBastionSubnet サブネットも含</strong>む場合もあります。&nbsp;</p>
+
+
+  <p>これにより、ユーザー定義ルートが AzureBastionSubnet サブネットに適用され、すべての Azure Bastion トラフィックが Azure Firewall に送信され、Azure Bastion に必要なトラフィックがブロックされます。 この問題を回避するには、Azure Bastion構成は非常に簡単ですが、 <strong>RouteTable</strong> を <strong>AzureBastionSubnet サブネットに関連付け</strong> は行う必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c59a68a-72bf-440b-8a60-790af4ee09b5.png"><img alt="myRoute table in Microsoft Azure" border="0" height="1141" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fbb546cb-7244-479d-917b-6461cd14e326.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Microsoft Azure の myRoute テーブル" width="3000"></a></p>
+
+
+  <p>上記のように、 <strong>myRouteTable</strong> は <strong>AzureBastionSubnet</strong> に関連付けられるのではなく、Workload-SN などの他のサブネット <strong>に関連付けられているのです</strong>。</p>
+
+
+  <p><strong>AzureBastionSubnet</strong> サブネットはセキュリティで保護されたプラットフォーム のマネージド サブネットであり、このサブネットにデプロイできる Azure リソースは他にAzure Bastion。 クライアントへのAzure Bastionは、2FA Azure Active Directory トークンベースの認証を通じて適用され、すべてのトラフィックは HTTPS 経由で暗号化または送信されます。&nbsp;</p>
+
+
+  <p>Azure Bastionは内部的に強化され、ポート 443 経由のトラフィックのみを許可します。これにより、追加のネットワーク セキュリティ グループ (NSG) またはユーザー定義ルートをサブネットに適用するタスクが節約されます。</p>
+
+
+  <p>これにより、RDP/SSH 要求は 2 つのAzure Bastion。 上記の例を使用して構成した場合、既定のルート (0.0.0.0/0) は、このサブネットに関連付け&#39;<strong>AzureBastionSubnet</strong> には適用されません。 着信 RDP/SSH 要求に基づいて、Azure Bastionは、既定のルートが関連付けられている Workload-SN などの他のサブネット内の仮想マシンに接続します。 仮想マシンからの戻りトラフィックは、仮想ネットワーク内の NVA に移動するのではなく、仮想ネットワーク内の Azure Bastion に直接送信されます。これは、戻りトラフィックが仮想ネットワーク内の特定のプライベート IP に送信されます。 仮想ネットワーク内の特定のプライベート IP アドレスにより、より具体的なルートが作成されます。そのため、NVA への強制トンネル ルートよりも優先され、仮想ネットワークに NVA または Azure Firewall がデプロイされている場合、RDP/SSH トラフィックは Azure Bastion とシームレスに動作します。</p>
+
+
+  <p>お客様とコミュニティのエンゲージメントと歓迎に感謝し、サービスをさらに改善し、間もなく一<a href="https://feedback.azure.com/forums/922378-azure-bastion" target="_blank"></a>般提供できるよう、フィードバックをお待ちしております。</p>

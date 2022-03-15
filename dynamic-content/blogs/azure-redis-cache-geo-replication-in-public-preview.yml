@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 444dbd4a306ab5ab5913a081a189e9aeb3da1734
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894067"
+Slug: azure-redis-cache-geo-replication-in-public-preview
+Title: パブリック Redis Cache Geo-Replicationでの Azure Redis Cache Geo-Replication
+Summary: Azure Redis サービスの geo レプリケーション機能のパブリック プレビューをお知らせします。 geo レプリケーションを使用すると、さまざまな Azure リージョン間で Redis キャッシュをリンクできます。
+Content: >-
+  <p>Azure Redis サービスの geo レプリケーション機能のパブリック プレビューをお知らせします。 geo レプリケーションを使用すると、さまざまな Azure リージョン間で Redis キャッシュをリンクして、プライマリ レプリカのリレーションシップを形成できます。 アプリケーションのディザスター リカバリー設計に必要な材料が提供されます。 geo レプリケーション プレビューは、すべての Premium Azure Redis キャッシュで利用できます。 現時点では、geo 冗長構成では、1 つのプライマリ キャッシュと 1 つのレプリカをサポートしています。</p>
+
+
+  <h2>Azure Redis Caches for Geo-Replication</h2>
+
+
+  <p>geo レプリケーションを設定するには、1 つの Azure サブスクリプションに属する Azure Redis Premium Cache の 2 つのインスタンスが必要です。1 つはプライマリとして使用され、もう 1 つはレプリカとして使用されます。 レプリカ キャッシュは、プライマリを作成したのとまったく同じ方法で作成します。 レプリカ キャッシュのサイズはプライマリ キャッシュと同じかそれより大きくする必要があります。さらに、プライマリ キャッシュがクラスター化されている場合は、シャードの数が一致する必要があります。 2 つのキャッシュを異なる Azure リージョンに格納する必要はありません。これは最も一般的に予想されるケースです。 VNET に存在する場合、キャッシュは互いに到達できる必要があります。 geo レプリケーションを使用する<a href="https://aka.ms/redis/georeplication/requirements">GitHub</a>の一覧の要件と制限事項については、このドキュメントを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/104beb32-e049-4279-9e8a-ea7a9e3f76c1.png"><img alt="Redis Cache" border="0" height="310" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f5f37ec-f0f0-4269-ba13-cf84dd2372f7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Redis Cache" width="682"></a></p>
+
+
+  <p>geo レプリケーションに使用する Redis キャッシュを作成したら、Azure 管理ポータルでそれらをリンク <a href="https://portal.azure.com/">できます</a>。 まず、プライマリ キャッシュを選択します。 次に、そのキャッシュの [geo レプリケーション] 設定を見つける必要があります。 既定では、geo レプリケーションを選択すると、プライマリ キャッシュにリンクされているレプリカ キャッシュが表示されます。 geo レプリケーションを初めて設定する場合、キャッシュはまだ関連付けられません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/822a2263-ed5a-4624-aafd-8c138332fa1a.png"><img alt="Redis Cache - geo primary" border="0" height="370" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8665c709-e443-4918-b303-5646e38b8010.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Redis Cache - geo プライマリ" width="658"></a></p>
+
+
+  <p>[キャッシュ レプリケーション &ldquo;の追加] リンクを使用&rdquo; して、プライマリ キャッシュからレプリカへの一方向のレプリケートリレーションシップを作成します。 このボタンをクリックすると、azure リージョン別にグループ化された geo レプリケーションに使用できる、対象となるキャッシュの一覧が表示されます。 ワールド マップまたは場所の一覧を使用して、特定の Azure リージョンに切り替えます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca06d5b0-071a-45ab-bd9f-9ea5d791da98.png"><img alt="Geo-primary preview" border="0" height="364" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ce90f8d-8c5c-4c84-b174-c3c6982ce4ba.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="geo プライマリ プレビュー" width="657"></a></p>
+
+
+  <p>レプリカとして使用するキャッシュを選択したら、[&ldquo;&rdquo;リンク] ボタンをクリックしてセットアップを完了する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32105061-b0d3-4b08-b529-195b03ce689b.png"><img alt="Geo-secondary" border="0" height="372" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9bf8ce76-f3d3-4224-be49-c31ec59d682e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="geo セカンダリ" width="656"></a></p>
+
+
+  <p>これにより、プライマリ キャッシュが構成され、レプリカ&ldquo;&rdquo;にデータがレプリケートされ、他のすべての書き込み操作が後者に対して無効になります。 すべてを設定し、プライマリ キャッシュ内の既存のデータをコピーするには、時間がかかる場合があります。 そのプロセス全体が完了すると、次の手順で変更がAzure portal。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/089e31f0-135b-4dc8-98fb-12bef9114f30.png"><img alt="Redis Cache 2" border="0" height="365" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5d23d02-2772-4451-90c5-d4ed72210f9b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Redis Cache 2" width="659"></a></p>
+
+
+  <h2>レプリカへのフェールオーバー</h2>
+
+
+  <p>Azure Redis サービスは、最初のリリースでは、Azure リージョン間の自動フェールオーバーをサポートしません。 geo レプリケーションは、主にディザスター リカバリー シナリオで使われます。 このような場合、お客様は、個々のアプリケーション コンポーネントが自分でバックアップに切り替える状況を決定するのではなく、調整された方法でバックアップ 領域内のアプリケーション スタック全体を起動したいと考えます。 これは特に Redis に関連します。 Redis の主な利点の 1 つは、非常に短い待機時間のストアです。 アプリケーションで使用される Redis がコンピューティング レベルではなく別の Azure リージョンに失敗した場合、追加されたラウンドトリップ時間はパフォーマンスに大きな影響を与えます。 このため、一時的な可用性の問題による Redis の自動的なフェールオーバーを回避します。</p>
+
+
+  <p>現時点では、フェールオーバーを開始するには、Azure portal のプライマリからレプリカ キャッシュのリンクを解除し、Redis クライアントの接続のエンド ポイントをプライマリ キャッシュからレプリカに変更する必要があります。 これは、Azure 管理 SDK&rsquo; とコマンド ライン ツールを使用してすぐに行えるので、必要に応じてシーケンスをスクリプト化して自動化することができます。 2 つのキャッシュの関連付けが解除されると、レプリカが再び正規の読み取り/書き込みキャッシュになり、Redis クライアントからの要求を直接受け入れます。</p>
+
+
+  <h2>追加コストについて</h2>
+
+
+  <p>Azure Redis サービスで geo レプリケーション機能を使用する場合、追加料金は発生します。 しかし、プライマリ キャッシュとレプリカ キャッシュが異なるリージョンに格納されている場合は、2 つの Azure リージョン間のネットワーク トラフィックの送信に関連する追加コストが発生します。 Azure が適用するネットワーク通信に対するこの標準料金に注意する必要があります。</p>
+
+
+  <p>Azure Redis geo レプリケーションがアプリケーションに役立つ場合があります。 この新機能に関するフィードバックがある場合は、 にお問い合わせください <a>AzureCache@microsoft.com</a>。</p>

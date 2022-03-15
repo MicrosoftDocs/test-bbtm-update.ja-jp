@@ -1,0 +1,81 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1294955900bdc6da6e7d07f182d32c647f61ec79
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895078"
+Slug: fastai-on-azure-dsvm
+Title: Azure データサイエンス Virtual Machines で独自のディープラーニングモデルを構築する
+Summary: 最新の開発者は、独自のディープラーニングモデルを作成することが必要になる場合がありますが、どこから始めるかはあまりよくありません。 このような場合は、fast.ai からのディープラーニングコースをご覧になることをお勧めします。 この新しい fast.ai コースは、ソフトウェア開発者が独自の最先端のディープラーニングモデルの構築を開始するのに役立ちます。
+Content: >-
+  <p>最新の開発者は、独自のディープラーニングモデルを作成することが必要になる場合がありますが &rsquo; 、どこから始めれるかはあまりよくありません。 このような場合は、 <a href="https://course.fast.ai/" target="_blank">fast.ai</a>からのディープラーニングコースをご覧になることをお勧めします。 この <a href="https://www.fast.ai/2019/01/24/course-v3/" target="_blank">新しい fast.ai コース</a> は、ソフトウェア開発者が独自の最先端のディープラーニングモデルの構築を開始するのに役立ちます。 この fast.ai コースを完了する開発者は、コンピュータービジョン、自然言語処理、レコメンダーアルゴリズム、表形式データなど、複数のドメインのディープラーニング手法に習熟しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/153ba6f5-9171-4bc6-91b7-fa45dd66d8e3.png"><img alt="Fast.ai top banner" border="0" height="223" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/20a1904e-66cd-4b6b-900d-802f8db0acad.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Fast.ai のトップバナー" width="878"></a></p>
+
+
+  <p>また、 &rsquo; Microsoft &rsquo; <a href="https://aka.ms/dsvm" target="_blank">Azure Data Science Virtual Machine (dsvm)</a>についても学習します。 Azure DSVM を使用すると、開発者はこの fast.ai コースで生産性を向上させるために必要なツールを Azure ですぐに利用できるようになります。ほとんどのセットアップは必要ありません。 クラウドベースの高速 GPU 仮想マシン (Vm) を使用すると、最も競争力の高い料金で、Azure DSVM は、インストール、構成、およびディープラーニングモデルのトレーニングを待機する時間を節約します。</p>
+
+
+  <p>ここでは、Azure で fast.ai コースの例を効果的に実行する方法について説明します。</p>
+
+
+  <h2>Azure DSVM での fast.ai ディープラーニングコースの実行</h2>
+
+
+  <p>ディープラーニングコースで Azure を使用するにはいくつかの方法がありますが、最も簡単な方法の1つは <a href="https://aka.ms/dsvm/" target="_blank">azure Data Science Virtual Machine (DSVM)</a>を利用することです。 Azure DSVM は、データサイエンス、ディープラーニング、機械学習のための豊富な curated セットのツールとフレームワークで事前構成された仮想マシン (VM) イメージのファミリです。</p>
+
+
+  <p>Azure DSVM を使用すると、Jupyter notebook などのツールと、強力な Gpu で実行するために必要なドライバーを利用できます。 これにより、システムの互換性の問題のインストール、構成、およびトラブルシューティングにかかる時間が短縮されます。 Azure dsvm は、Linux と Windows の両方のエディションで提供されます。 Azure Vm では、DSVM が利用できる優れた拡張メカニズムが提供されるため、必要に応じて VM を自動的に構成できます。</p>
+
+
+  <p>Microsoft では、fast.ai コース専用の DSVM の拡張機能を提供しています。このプロセスを簡単に行うことで、いくつかの質問に答えて、DSVM の独自のインスタンスを数分でプロビジョニングできます。 <a href="https://aka.ms/dsvm/fastai" target="_blank">fast.ai 拡張機能</a>では、コース jupyter notebook を実行するために必要なすべてのライブラリがインストールされます。また、fast.ai GitHub リポジトリから最新のコースノートブックを取得することもできます。 非常に短い時間で、コースサンプルの実行を開始する準備が整いました &rsquo; 。</p>
+
+
+  <h2>Azure DSVM と fast.ai の概要</h2>
+
+
+  <h3>&rsquo;簡単に開始するには、次の手順を実行します。</h3>
+
+
+  <h3>1. Azure サブスクリプションにサインインまたはサインアップする</h3>
+
+
+  <p>&rsquo;Azure サブスクリプションを所有していない場合は、<a href="https://azure.com/free" target="_blank">無料試用版サブスクリプション</a>から開始して、任意の azure サービスを30日間探索し、12か月間無料の人気のサービスセットにアクセスできます。 無料試用版サブスクリプションでは、GPU リソースへのアクセス権が付与されないことに注意してください。 GPU アクセスの場合は、azure の<a href="https://azure.microsoft.com/pricing/purchase-options/pay-as-you-go/" target="_blank">従量課金制サブスクリプション</a>にサインアップするか、Visual Studio サブスクリプションの azure クレジットを使用する必要があります (お持ちの場合)。 サブスクリプションを作成したら、Azure portal にログインできます。</p>
+
+
+  <h3>2. fast.ai 拡張機能を使用して DSVM インスタンスを作成する</h3>
+
+
+  <p>次のリンクのいずれかを選択することで、fast.ai 拡張機能を使用して DSVM を作成できるようになりました。 Windows と Linux 環境のどちらを使用するかに応じて、どちらかを選択してください。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/dsvm/fastai" target="_blank">Fast.ai を使用した DSVM の Linux (Ubuntu) エディション</a></li>
+   <li><a href="https://aka.ms/dsvm/fastai/windows" target="_blank">fast.ai を使用した dsvm の Windows Server 2016 エディション</a></li>
+  </ul>
+
+
+  <p>デプロイフォームでいくつかの簡単な質問に答えると、VM は約 5 ~ 10 分で作成され、fast.ai コースを実行するために必要なすべてのものがあらかじめ構成されています。 DSVM の作成中に、DSVM の GPU ベースまたは CPU のみのインスタンスのいずれかを選択できます。 GPU インスタンスは、ディープラーニングモデルをトレーニングするときに、実行時間を大幅に短縮します。 このコースでは、主にこのコースで説明しているので、GPU インスタンスをお勧めします。 また、Azure では、GPU を含む低優先度のインスタンスも、standard インスタンスと比較して、コンピューティング使用料金の80% という大きな割引率で提供されています。 ただし、これらのリソースの需要のような要因に応じて、いつでもサブスクリプションから割り込まれ、割り当てを解除することができます。 ディープ割引を利用する場合は、 <a href="https://aka.ms/dsvm/fastai4cheap" target="_blank">fast.ai 拡張機能を使用して Preemptable Linux DSVM インスタンス</a>を作成できます。</p>
+
+
+  <h3>3. コースノートブックを実行する</h3>
+
+
+  <p>DSVM インスタンスを作成したら、すぐに使用して、DSVM に事前に読み込まれている Jupyter および course notebook にアクセスすることによって、コース例のすべてのコードを実行できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df43a0e1-c1c7-4ef1-9964-fde0e00bae65.png"><img alt="Fast.ai notebook screenshot" border="0" height="719" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8ece942-20c6-40b1-8bd0-44d4853014a2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Fast.ai notebook スクリーンショット" width="1024"></a></p>
+
+
+  <p>Fast.ai for Azure の使用を開始する方法の詳細については、<a href="https://course.fast.ai/start_azure.html" target="_blank">コースのドキュメントページ</a>を参照してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>実験の追跡を可能にする<a href="https://azure.microsoft.com/services/machine-learning-service/" target="_blank">Azure Machine Learning サービス</a>を確認することで、機械学習とデータサイエンスの取り組みを続けることができます。 また、 <a href="https://docs.microsoft.com/azure/machine-learning/service/concept-automated-ml" target="_blank">自動機械学習</a>を使用したり、カスタムモデルを作成したりできます。また、dsvm にあらかじめ組み込まれているいくつかのサンプルノートブックを使用して、 <a href="https://docs.microsoft.com/azure/machine-learning/service/how-to-deploy-and-where" target="_blank">machine learning、ディープラーニングモデル</a>、または <a href="https://docs.microsoft.com/azure/machine-learning/service/concept-ml-pipelines" target="_blank">パイプライン</a> を大規模に運用環境にデプロイすることもできます。 また、Microsoft &rsquo; の <a href="https://aischool.microsoft.com/" target="_blank">AI School</a> と <a href="https://learnanalytics.microsoft.com/" target="_blank">LearnAnalytics</a>で、その他のラーニングリソースを見つけることもできます。</p>
+
+
+  <p><a href="https://forums.fast.ai/t/platform-azure/35920" target="_blank">Fast.ai フォーラム</a>または<a href="https://stackoverflow.com/questions/tagged/azure-dsvm" target="_blank">Stack Overflow</a>についてのご意見やご質問をお寄せください。</p>

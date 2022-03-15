@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d10262440c62b0b1ac4f6980bbeb42ef215aa80d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894150"
+Slug: announcing-general-availability-of-app-service-mobile-apps
+Title: サービスの一般提供をApp Service Mobile Apps
+Summary: サービスの一般提供を発表App Service Mobile Apps。
+Content: >-
+  <p>最近、モバイル バックエンド <a href="https://azure.microsoft.com/en-us/blog/azure-mobile-apps-november-2015-update/" target="_blank">を構築して</a> 実行App Service Mobile Appsプラットフォームを向上するために、多数の更新プログラムを展開しました。 本日は、App Service Mobile Apps の一般提供と、既存の Mobile Services のダウンタイムを 1 回限りで移行する機能をお知らせApp Service。</p>
+
+
+  <p>多くのお客様は、Mobile Appsを既に使用しています (「Transport For London、LondonAir&nbsp;」、その他の例についてはこちらを参照 <a href="https://azure.microsoft.com/en-us/blog/go-mobile-with-app-service-and-xamarin/" target="_blank">してください</a>)。 この発表では、すべてのユーザーが実稼働モバイル アプリに対して App Service Mobile Apps 機能セットを使用し、最大 99.95% の SLA を利用できます。&nbsp;Mobile Apps次の機能が含まれます。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-ios-get-started/" target="_blank">&nbsp;</a> SQL Azure、SQL オンプレミス、Mongo、Azure Table Storage、Dynamics や Salesforce などの SaaS API など、クラウドまたはオンプレミスのデータにアプリを簡単に接続できます。</li>
+      <li>アプリがオフラインで <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-offline-data-sync/" target="_blank">データを操作し、上記の</a> データ ソースと同期できる</li>
+      <li><a href="https://azure.microsoft.com/en-us/blog/azure-mobile-apps-november-2015-update/" target="_blank">コードを記述せずにモバイル バックエンド API を数秒</a> で構築する</li>
+      <li>iOS、Android、Windows用の直感的な SDK と、Xamarin、Cordova などのクロスプラットフォーム フレームワーク</li>
+      <li>App Service Mobile <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-dotnet-backend-how-to-use-server-sdk/" target="_blank">.NET または Node.js</a> サーバー側 SDK を利用するか、PHP、Java、Python など、App Service でサポートされている他の言語の REST フレームワークを介して直接使用して、カスタム コードを使用してモバイル バックエンドを拡張します</li>
+      <li>iOS、Android、Windows、Kindle などのデバイスへのクロスプラットフォーム のプッシュ通知 (この機能は、別のサービス<a href="https://azure.microsoft.com/en-us/documentation/services/notification-hubs/" target="_blank">Notification Hubs)</a></li>
+      <li><a href="https://aka.ms/amobileauth" target="_blank">認証/承認機能を使用して</a> バックエンド コードを追加せずにユーザー App Service承認する</li>
+  </ul>
+
+
+  <p>これらの機能はすべて、現在もプレビュー中のサーバー側 Node.js SDK を除き、最大 99.95% の SLA&nbsp;&nbsp; で、実稼働環境で使用できます。Web アプリ、API アプリ、ロジック アプリなど、App Service で実行されている任意のアプリにこれらの機能を追加できます。</p>
+
+
+  <p>モバイル バックエンド開発に固有のこれらの機能に加えて、次のようなさまざまな機能App Service活用できます。</p>
+
+
+  <ul>
+      <li>広範な自動スケール、トラフィック管理を備え、 <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-scale/" target="_blank">サービスとしての</a>真のホスティング プラットフォーム</li>
+      <li>Enterprise VNET と <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-integrate-with-vnet/" target="_blank">VPN</a> のサポート、高可用性、バックアップ、ロールベースのアクセス<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-backup/" target="_blank"></a>などの機能が提供されます。</li>
+      <li>ステージング スロット<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-staged-publishing/" target="_blank">DevOps実稼働</a>環境でのテスト、さまざまな<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-staged-publishing/" target="_blank"></a>継続的インテグレーション システムとの統合など、豊富な機能<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/" target="_blank">を備えています</a></li>
+  </ul>
+
+
+  <p>既存の Azure Mobile Servicesのお客様App Service Mobile Apps機能のスーパー&nbsp;セットMobile Services提供します。 上記の App Service&nbsp;<a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-dotnet-backend-migrating-from-mobile-services/" target="_blank">&nbsp;</a>&nbsp;&nbsp;&nbsp; 機能をすぐに利用するには、既存のモバイル サービスを 1 回のクリックでダウンタイムなく App Service に移行してください。 これには、クライアント アプリを変更&nbsp;する必要はありません。 &nbsp;移行されたモバイル サービスNode.js .NET と両方とも、最大 99.95% の SLA を利用できます。 新しい Mobile Apps Node.js SDK&nbsp; はまだプレビュー中ですが、移行された Node.js モバイル サービスは 99.95% の SLA で完全にサポートされています。&nbsp;移行後は、必要に応じてこの<a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-net-upgrading-from-mobile-services/" target="_blank"></a>ガイドに従って、移行されたモバイル サービスをアップグレードして、新しいモバイル アプリ サーバー側 SDK を使用できます。</p>
+
+
+  <p>この <a href="https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/Enterprise-Mobile-Apps-with-Azure-App-Service">短いビデオでは、</a> 次の機能のライブ デモをMobile Appsしてください。</p>
+
+
+  <p>現在は、お使Node.jsと .NET モバイル サービスの移行を開始して、App Serviceしてください。 まだ行っていない&#39;、次のモバイル アプリ プロジェクトApp Service Mobile Appsを使用します。 最初に、クレジット <a href="https://aka.ms/trymobile" target="_blank">カードApp Service</a>サインアップは必要ありません。</p>
+
+
+  <p>Connect Twitter、&nbsp;<a href="https://twitter.com/AzureMobile">@AzureMobile</a><a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=azuremobile" km.title="" ms.cmpgrp="body" ms.cmpnm="MSDN forums" ms.cmptyp="link" ms.interactiontype="1" ms.pgarea="content" ms.title=""><u><font color="#0066cc">MSDN</font></u></a> フォーラム、または Azure フィードバック サイトでお問い<a href="https://feedback.azure.com/forums/216254-mobile-apps-formerly-mobile-services" km.title="" ms.cmpgrp="body" ms.cmpnm="Azure feedback site" ms.cmptyp="link" ms.interactiontype="1" ms.pgarea="content" ms.title=""><u><font color="#0066cc">合わせください</font></u></a>。</p>

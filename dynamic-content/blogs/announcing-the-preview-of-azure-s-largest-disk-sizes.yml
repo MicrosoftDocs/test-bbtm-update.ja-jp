@@ -1,0 +1,67 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7841106e20666bd2319fcb944e91265b91527994
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895184"
+Slug: announcing-the-preview-of-azure-s-largest-disk-sizes
+Title: Azure の最大ディスクサイズのプレビューの発表
+Summary: ビルドカンファレンスで、新しい Azure ディスクサイズの追加が発表されました。これにより、最大 4 TB のディスク領域が提供されます。 これらの新しいサイズでは、最大 250 MBps のストレージスループットと 7500 IOPS を実行できます。 お知らせの詳細は、ここではビルドセッションでキャプチャされます。
+Content: >-
+  <p>ビルドカンファレンスで、最大 4 TB のディスク領域を提供する新しい Azure ディスクサイズ &ndash; の追加を発表しました。 これらの新しいサイズでは、最大 250 MBps のストレージスループットと 7500 IOPS を実行できます。 お知らせの詳細は、 <a href="https://channel9.msdn.com/events/Build/2017/B8008">ここではビルドセッション</a>でキャプチャされます。</p>
+
+
+  <p>P40 (2tb) と P50 (4 tb) という2つの新しいディスクサイズが導入されました。これは、管理対象/非管理対象プレミアムディスク用です。Standard Managed Disks 用の S40 (2TB) と S50 (4 TB)。 Standard 非管理対象ディスクの場合は、最大サイズが 4095 GB のディスクを作成できます。 これらの新しいサイズは、Azure Powershell と ARM 経由で Cli を使用して、米国西部中部リージョンで使用できます。 今後のリージョンで、可用性を継続的に拡大し、Azure Portal のサポートをより多くのリージョンでロールアウトすることができ &rsquo; ます。 それに加えて、1 TB を超える Vhd のアップロードをサポートするために、Azure tools の新しいバージョンをリリースします。</p>
+
+
+  <h3>新しいディスクサイズの詳細</h3>
+
+
+  <p>次の表に、新しいディスクサイズの正確な機能の詳細を示します。</p>
+
+
+  <table border="1" cellpadding="5" cellspacing="0" width="623">
+      <tbody>
+          <tr>
+              <td valign="top">
+              <blockquote dir="ltr" style="margin-right: 0px">
+              <p>&nbsp;</p>
+              </blockquote>
+              </td>
+              <td valign="top" width="133">
+              <p align="center">P40</p>
+              </td>
+              <td valign="top" width="130">
+              <p align="center">P50</p>
+              </td>
+              <td valign="top" width="136">
+              <p align="center">S40</p>
+              </td>
+              <td valign="top" width="132">
+              <p align="center">S50</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク サイズ</td>
+              <td valign="top" width="133">2048 GB</td>
+              <td valign="top" width="130">4095 GB</td>
+              <td valign="top" width="136">2048 GB</td>
+              <td valign="top" width="132">4095 GB</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク IOPS</td>
+              <td valign="top" width="133">7500 IOPS</td>
+              <td valign="top" width="130">7500 IOPS</td>
+              <td valign="top" width="136">最大 500 IOPS</td>
+              <td valign="top" width="132">最大 500 IOPS</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク帯域幅</td>
+              <td valign="top" width="133">250 MBps</td>
+              <td valign="top" width="130">250 MBps</td>
+              <td valign="top" width="136">最大 60 Mbps</td>
+              <td valign="top" width="132">最大 60 Mbps</td>
+          </tr>
+      </tbody>
+  </table>

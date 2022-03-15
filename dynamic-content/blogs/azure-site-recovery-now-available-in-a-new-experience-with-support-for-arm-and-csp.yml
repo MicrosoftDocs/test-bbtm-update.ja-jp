@@ -1,0 +1,135 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7e90b683ae706c1a866ab9b483a2e444e6adb733
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894039"
+Slug: azure-site-recovery-now-available-in-a-new-experience-with-support-for-arm-and-csp
+Title: Azure Site Recoveryエクスペリエンスと ARM と CSP のサポートが簡素化されました
+Summary: '最近のアップグレードで、Azure Site Recovery が現在の Azure portal で使用できるのが簡単で、Azure Resource Manager (ARM) で動作することお知らせします。 '
+Content: >-
+  <p>最近のアップグレードでは、Azure Site Recovery が現在の Azure portal で一般提供 (GA) され、エクスペリエンスが簡素化され、Azure Resource Manager (ARM) で動作します。 このリリースでは、クラウド ソリューション プロバイダー (CSP) プログラムでも利用できます。 この手順では、Azure Site Recovery&rsquo;を民主化する(ASR) のミッションをさらに進め、 OPERATIONS Management Suite (OMS) の一部である ASR では、多くの組織が、使いやすくコスト効率の高い設計を通じて、災害からビジネスを保護することができます。</p>
+
+
+  <p>信頼できるコスト効率の高い DR は、企業とサービス プロバイダーの両方で、お客様にとって最優先事項です。 企業はミッション クリティカルな LOB アプリを保護したいと考える一方で、サービス プロバイダーは、データセンターで実行されているテナント ワークロードに対して追加の保護を提供したいと考っています。 その取り組みでは、ASR は、これらのセグメントが直面する課題に徐々に対処しました</p>
+
+
+  <p>a) &ndash; 異種環境は、多くのお客様が VMware、Hyper-V、物理を組み合わせているので、ASR はこれらすべての保護を Azure またはセカンダリ データセンターにサポートしています。 さらに、Hyper-V の場合、SC MM を使用しているか、SCVMM の外部で仮想マシンを管理しているお客様は、どちらも ASR を介して保護できます。</p>
+
+
+  <p>b) 複数の層 &ndash; にまたがるアプリケーションをサポートする複雑なアプリケーションの回復。ASR は、アプリケーションの復旧を自動化する復旧計画を提供します。</p>
+
+
+  <p>c) 複数 &ndash; のリージョンに世界クラスのデータセンターを持つセカンダリ データセンターがない、Azure は、これらのアプリケーションを保護するための理想的なターゲットであり、組織が資本支出を投資する必要がなさを保証します。</p>
+
+
+  <h1>エクスペリエンス</h1>
+
+
+  <p>このリリースでは、改善されたポータルで ASR &ndash; &ndash; を使用して、自分が簡単な場所を知り、関心のある項目をピン留めできます。さらに、作業を保存し、後で戻ってポータルのすべての良さをタスクを完了する場合に備え、体験を保存することができます。 この移行は、コストに直接影響を与え、信頼性を高める、単純な DR の約束に向けた大きな一歩です。 [管理] セクションの下の [Backup and Site Recovery (OMS)] タイルから Recovery Services コンテナーを &ldquo;<em>作成</em>&rdquo; します。</p>
+
+
+  <p>既存のすべてのシナリオを新しいエクスペリエンスに取り込むのとは別に、この改善されたエクスペリエンスの主な機能は次のとおりです。</p>
+
+
+  <p>1) お客様 &lsquo;はじめに&rsquo; のセットアップを確実に行う目的で設計された、合理化されたエクスペリエンスです。 DR では、多くの移動部分が存在し、1 つのステップが欠落すると、保護または回復に失敗する可能性があります。 これまで、ディザスター リカバリー ソリューションが十分にデプロイされていない主な理由は、多くのワークロードが十分に保護されていない市場で発生しています。 成功のセットアップを確実に行うステップ バイ ステップ ガイドが重要であるため、このエクスペリエンスには多大な投資<em>はじめにされています。</em>&nbsp;</p>
+
+
+  <p>エクスペリエンスは、最初に保護の目標を求めてから始まり、その目的に合わせて残りのエクスペリエンスを準備します。 具体的には &ndash; 、ソースを準備し、ターゲットが Azure ストレージとネットワークを確認する準備ができていることを確認し、レプリケーション設定/ポリシーをサーバーに関連付け、容量計画ツールを使用するように求めるメッセージが表示されます。 これらの手順は、顧客からの直接のフィードバック、使用状況/&ndash;&rsquo;エラーに関するサービスからのデータ、成功のために設定する必要があるさまざまなフォーラムに基づいてまとめ、データを保護するための手順を見逃さなくするようにポータルを設計しました。</p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a33ebf3-581b-4edd-88d8-715033f79046.png"><img alt="image" border="0" height="478" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67c3b76c-fa6b-46a1-8d65-9a0f43fddd82.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="504"></a></p>
+
+
+  <p>2) 一番上の一覧の次 &ndash; の保護エクスペリエンスは、スマートな既定値で構築されたサーバーの保護をガイドするウィザードです。 このウィザードでは、ソースに関する情報を取得し、ターゲットの準備ができていることを確認するチェックを実行します。 その後、&nbsp; 3 番目のブレードで、保護するサーバーを選択し、4 番目の手順で情報を提供します。 最後に、主に使用する &ndash; ポリシーのレプリケーション設定を指定します。</p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00f96979-f31a-4b39-bf84-6501278d86d7.png"><img alt="image" border="0" height="420" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9945709-f81f-4000-b394-6d1bdc1f30bc.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="504"></a></p>
+
+
+  <p>ASRs&rsquo; のミッションは、ディザスター リカバリーを民主化し、任意のソースをターゲット、パフォーマンス、簡略化、診断などに保護するためのすべての丸い投資を行い、お客様が ASR &ndash; を活用して、より多くのワークロードを保護フォールドに取り込む必要があります。そのため、次のセットを保護する場合、その目標はエクスペリエンスをスマートにする必要があります。 このウィザードでは選択が記憶されます。これにより、より多くの仮想マシンを簡単に保護できます。</p>
+
+
+  <h1>Azure Resource Manager (ARM)</h1>
+
+
+  <p>このリリースでは、仮想マシンと物理マシンを ARM ストレージ アカウントに保護できます。 フェールオーバー時に、サーバーは ARM ネットワークに接続Virtual Machines RM として表示されます。 ARM の利点は、<a href="https://azure.microsoft.com/en-in/documentation/articles/resource-group-overview/"></a>&ndash;ASR に適用されるのと同様に、この概要に関するページで説明されているいくつかの利点です。</p>
+
+
+  <p>a <i>)</i> &ndash; 任意のサイズの仮想マシン、またはクラシックの復旧計画内の任意のネットワーク構成の共存。同じクラウド サービスに少数のサイズが存在する可能性が高く、アプリケーションの回復が難しいか、サイズの侵害が必要になります。 たとえば、DS シリーズを必要とする SQL を使用し、フロントエンドが標準 A4 &ndash; &ndash; で良好であり、それらを復旧計画に含め、これら 2 つのサイズの DS と A4 &ndash;&rsquo;がクラウド サービスに共存できないのでフェールオーバーが失敗する可能性があります。これは、復旧計画がフェールオーバー ワークフローの一部として作成されます。 NIC の数に基づくネットワーク構成 &ndash; にも同様の課題があります。 これらのすべての問題は、ARM アーキテクチャで対処されています。</p>
+
+
+  <p>b) ARM <i>で使用できる</i>&ndash;ロールベースのアクセス制御を使用してリソースへのアクセスを制御すると、ARM リソースへのきめ細かなアクセスを実現できます。 適切なユーザーへのアクセス権を持つさまざまなリソース グループを作成し、マシンが適切なリソース グループ内に表示されるのを確認できます。</p>
+
+
+  <p>ARM リソースの使用は省略可能です。 または、既存の IaaS デプロイが存在し、ディザスター リカバリーが同じと共に存在する必要がある場合は、クラシック リソースも使用できます。 ARM &ndash; とクラシックのこれらのオプションは、VMware、企業向け Hyper-V (SCVMM ベースのデプロイ)、ブランチ オフィスの Hyper-V、物理マシン、AWS から Azure への移行のすべてのシナリオで使用できます。 さらに、1 つのシナリオ内では、一部のアプリケーションに ARM を使用し、Virtual Machinesにクラシックを使用することもできます。</p>
+
+
+  <h1>1 つのコンテナー Site Recoveryバックアップとバックアップ</h1>
+
+
+  <p>バックアップソリューションと DR ソリューション&nbsp; は、 &ndash; 組織が BCDR とコンプライアンスのニーズを満たすのに役立つ目標の観点から密接に関連しています。 多くのお客様が両方を使用しています。 クラシック ポータルでは、&ndash;&ndash;異なるエクスペリエンスを持ち、より多くのオブジェクトを管理Site Recoveryとバックアップ コンテナーに個別のコンテナーを作成していたでしょう。 簡略化を目的として、これらのエクスペリエンスは Recovery Services コンテナーにマージされます。 これで、DR またはバックアップ用のサーバーを同じコンテナーから保護できます。エクスペリエンスは両方に類似しています。</p>
+
+
+  <h1>Cloud Solution Provider (CSP)</h1>
+
+
+  <p>CSP は、パートナーが Microsoft クラウド テクノロジでソリューションとビジネスを再販売できるオファーです。 CSP を使用すると、パートナーは顧客のニーズ&rsquo; に対する最初の連絡ポイントであり、顧客関係の中心になります。 これにより、エンドツーエンドのエクスペリエンスを管理することで、顧客との強力な関係を構築できます。</p>
+
+
+  <p>ビジネスとしての DRaaS は、パートナーによって広く駆動されています。パートナーは、DR コンサルティングからフル マネージド DR サービスまで、さまざまなサービスを提供することで、顧客に大きな付加価値を提供しています。 パートナーは、ユーザー インターフェイス (UI) を介して完全なエクスペリエンスをサポートする CSP で ASR がサポートされるのを待っています。 現在の更新プログラムでは、すべての ASR シナリオが完全な UI サポートを備える CSP で完全に利用できるので、待機は確実に終わりました。</p>
+
+
+  <h1>ディスクを除外する</h1>
+
+
+  <p>多くの場合、&lsquo;お客様は次の質問をします。このボリュームをレプリケートしたくない場合、SQL tempDB &ndash;&rsquo;ボリュームがあります。 ASR では可能ですか。&rsquo;&lsquo;&ndash;Azure に保護するときに、多くのチャーンを含むページ ファイルを除外できますか?&rsquo; &ldquo;帯域幅に問題がありますが、サーバーを保護したいと考えています。 これを実現するには、別の &ndash; ディスクに格納できる一時ファイルを除外して帯域幅を節約したいと思っています&rdquo;。 このリリースでは、レプリケーションを有効にしながら、レプリケーションからボリュームを除外できます。 この機能は、近い将来、VMware から Azure &ndash; のシナリオに保護するときに有効になっています。この機能は、Hyper-V シナリオにも適用されます。</p>
+
+
+  <p style="margin-left: 40px;">&nbsp;<a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/54e0b02e-022f-49f7-bf37-861c599afee7.jpg"><img alt="Exclude Disk view (002)" border="0" height="216" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75e7477c-e25a-475d-b888-c5bd9f2789f6.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="ディスクビューを除外する (002)" width="595"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>この機能 &ndash; を利用するには、モビリティ サービスがサーバーにインストールされていることを確認する必要があります。モビリティ サービスはボリュームに関する情報を収集して ASR サービスに送信します。これにより、ボリュームの一覧が表示されます。これにより、それらのファイル (tempDB、ページ ファイル ディスク、一時ファイル) を含むボリュームを除外できます。 など。</p>
+
+
+  <h1>ローカル冗長Storage (&ndash;LRS) プレミアムの追加のStorageのサポート</h1>
+
+
+  <p>多くの場合、フィードバック&ndash;&ldquo;を受け取るもう 1 つのシナリオは、ワークロードに高い IOP が必要であり、Premium Storage アカウントによってのみ Azure で提供されるシナリオです&rdquo;。 高チャーン ワークロードを保護するために、サーバーを Premium Storage アカウントに保護することができます。 この機能は、VMware から Azure に対して有効になっています。近い将来、この機能を Hyper-V シナリオに取り込む予定です。 この機能&ndash;を使用するには、フェールオーバー後に最終的なサーバーが作成される プレミアム Storage アカウントと、ソースから送信されたログを受信するストレージ アカウントが 2 つ必要です。</p>
+
+
+  <p style="margin-left: 40px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f5c3702-bca4-4cb8-9eed-71c9a6d2c874.png"><img alt="image" border="0" height="444" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7891be1-24be-4703-9085-558525088b6a.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="447"></a></p>
+
+
+  <p>この機能の設計&rsquo;上の考慮事項を理解するには、同僚の 1 人からの詳細なブログに気を付け、その下の情報を紹介します。</p>
+
+
+  <p>データセンター内の障害に対する保護を確保するために、グローバル冗長ストレージを強くお勧めします。 同時に、お客様は、より良い経済性を持ち、より重要ではないアプリケーションの保護を拡張したいと考えています。 このニーズを満たすために、このリリースで LRS のサポートを有効にします &ndash; 。これは、すべてのシナリオでサポートされています。</p>
+
+
+  <p>要約すると、改善されたエクスペリエンスでの ASR の一般提供により、お客様とパートナーは ARM リソースと CSP サブスクリプションを使用できます。また、ボリュームを除外するか、新しい種類のストレージを使用して経済性やワークロードの特性を満たして帯域幅を節約する新しい機能を利用できます。</p>
+
+
+  <p>簡単な FAQ を以下に示します。</p>
+
+
+  <p><strong>Q &ndash;&nbsp; この新しいエクスペリエンスは ARM リソースでのみ使用できますか?</strong></p>
+
+
+  <p>既存のデプロイと共存する場合は、ARM およびクラシック/ASM リソースにこのエクスペリエンスを使用できます。 また、これは、VMware &ndash; /VMM/Hyper-V から Azure および VMM から VMM までのすべてのサポートされるシナリオでも使用できます。</p>
+
+
+  <p><strong>Q &ndash; クラシック エクスペリエンスを使用しているお客様ですが、新しい Azure エクスペリエンスに移行するにはどうすれば良いですか?</strong></p>
+
+
+  <p>新しいサーバーからマシンを保護するために、新しい Azure エクスペリエンスを使用できます。 クラシック エクスペリエンスでの既存の保護のために、近い将来、新しい Azure エクスペリエンスに移行するための機能をリリースします</p>
+
+
+  <p><strong>Q- この新しいリリースに関連して価格の変更はありますか?</strong></p>
+
+
+  <p>このリリースは、価格に影響を与える影響はありません。 合理化されたエクスペリエンスと診断可能性の向上により、ディザスター リカバリー ソリューションをデプロイする全体的なコストが削減されます。</p>

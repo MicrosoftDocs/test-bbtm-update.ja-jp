@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c8bded53c951b18efdc966f0155007b5824b3b12
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890753"
+Slug: improving-the-typescript-support-in-azure-functions
+Title: の TypeScript サポートのAzure Functions
+Summary: 'TypeScript は、JavaScript コミュニティでますます人気が高まっています。 Azure Functions実行Node.js、TypeScript が JavaScript にコンパイルされるので、やる気のあるユーザーは既に TypeScript コードを Azure Functions で実行できます。 '
+Content: >-
+  <p>TypeScript は、JavaScript コミュニティでますます人気が高まっています。 Azure Functions実行Node.js、TypeScript が JavaScript にコンパイルされるので、やる気のあるユーザーは既に TypeScript コードを Azure Functions で実行できます。 しかし、エクスペリエンスはシームレスで&rsquo;なかったので、既定のフォルダー構造など、少し複雑な始め方でした。 本日は&rsquo;、この状況を改善する一連のツールの機能強化をお知らせします。 Azure Functionsユーザーは、イベント駆動型アプリケーションを構築するときに TypeScript を使用して簡単に開発できます。</p>
+
+
+  <p>慣れていない場合、TypeScript は JavaScript のスーパーセットであり、オプションの静的な型指定、クラス、インターフェイスを提供します。 これらの機能を使用すると、開発プロセスの早い方でバグをキャッチし、より堅牢なソフトウェア エンジニアリングを実現できます。 TypeScript は ECMAScript 2015 と互換性があるので、TypeScript では最新の JavaScript 構文を間接的に利用することもできます。</p>
+
+
+  <p>Azure Functions Core Tools および Azure Functions Extension for Visual Studio Code に対するこの一連の変更により、Azure Functions は標準で TypeScript をサポートする必要があります。 これらの変更には、TypeScript、型定義、および npm スクリプト用の一連のテンプレートが含まれています。 新しいエクスペリエンスの詳細については、以下を参照してください。</p>
+
+
+  <h2>TypeScript のテンプレート</h2>
+
+
+  <p>最新バージョンの Azure Functions Core Tools および <a href="https://code.visualstudio.com/tutorials/functions-extension/getting-started" target="_blank">Azure Functions Extension for VS Code</a>&rsquo; では、関数の作成時に TypeScript を使用するオプションを指定しました。<a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local" target="_blank"></a> より正確に言うと、新しい関数アプリを作成すると、言語スタックの選択時に TypeScript を指定するオプションが表示されます。 このアクションにより、既定の package.json ファイルと .tsconfig ファイルが選択され、アプリが TypeScript 互換に設定されます。 この後、関数を作成するときに、多数の TypeScript 固有の関数テンプレートから選択できます。 各テンプレートは 1 つの可能なトリガーを表し、JavaScript でサポートされているテンプレートごとに TypeScript に同等のトリガーが存在します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ece30046-4277-4d34-837d-197bd86f9dc4.gif"><img alt="Select from a number of TypeScript specific function templates for different triggers" border="0" height="684" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/866935ec-b4da-414f-ab2c-82d1dc86af93.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Typescript" width="2054"></a></p>
+
+
+  <p>この新しいフローの最も重要な部分は、TypeScript&rsquo; 関数をトランスバイトして実行するには、Functions に固有のアクションを実行する必要が全くないという部分です。 たとえば、ユーザーが F5 キーを押して Visual Studio Code のデバッグを開始すると、コードによって必要なインストール タスクが自動的に実行され、TypeScript コードがトランスピリングされ、Azure Functions ホストが起動されます。 このローカル開発エクスペリエンスはクラス最高であり、ユーザーがアプリ内の他のアプリのデバッグを開始する方法VS Code。</p>
+
+
+  <p>TypeScript 関数を稼働状態に戻す方法の詳細については、ドキュメントを参照 <a href="https://aka.ms/ts-functions" target="_blank">してください</a>。</p>
+
+
+  <h3>の型定義Azure Functions</h3>
+
+
+  <p><a href="https://www.npmjs.com/package/@azure/functions" target="_blank">@azure/functions</a> npm のパッケージには、次の型の定義Azure Functions。 Azure 関数オブジェクトの&rsquo;形状について疑問に思ったことはありますか? それとも、すべての JavaScript 関数に渡されるコンテキスト オブジェクトでしょうか。 このパッケージは役に立ちます。 TypeScript を利用するには、すべての .ts 関数にインポートする必要があります。 JavaScript の純粋リストは、コード &ndash; にこのパッケージを含め、より豊富な Intellisense エクスペリエンスを提供します。 詳細については、 <a href="https://www.npmjs.com/package/@azure/functions" target="_blank">@azure/functions</a> npm のパッケージを参照してください。</p>
+
+
+  <h3>Npm スクリプト</h3>
+
+
+  <p>TypeScript 関数アプリには、いくつかの単純な npm スクリプトを含む package.json ファイルが既定で含まれています。 これらのスクリプトを使用Azure Functions特定のコマンドを呼び出すことによって、一般的な開発フローに直接Azure Functions Core Toolsできます。 たとえば、&lsquo;npm start は func start &lsquo;&rsquo;&rsquo;&rsquo;を自動的に実行します。つまり、関数アプリを作成した後は、他の Node.js プロジェクトとは異なる方法で処理する必要はありません。</p>
+
+
+  <p>これらの動作を確認するには、サンプル のレポ <a href="https://aka.ms/ts-functions-example" target="_blank">ポを確認してください</a>。</p>
+
+
+  <h2>自分で試してみてください。</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local" target="_blank">Azure Functions Core Tools</a> または <a href="https://code.visualstudio.com/tutorials/functions-extension/getting-started" target="_blank">Azure Functions Extension for VS Code</a> を使用すると、Azure アカウントを持っていなくても、ローカル コンピューター上の Azure Functions で TypeScript&rsquo; のエクスペリエンスを向上させることができます。</p>
+
+
+  <h3>次の手順</h3>
+
+
+  <ul>
+   <li>概要でAzure Functionsを使用<a href="https://code.visualstudio.com/tutorials/functions-extension/getting-started" target="_blank">VS Code</a>。</li>
+   <li>概要を使用Azure Functions CLI でファイル <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local" target="_blank">を作成Azure Functions Core Tools</a>。</li>
+   <li><a href="https://aka.ms/ts-functions-example" target="_blank">TypeScript 関数アプリのサンプルを確認してください</a>。</li>
+   <li>詳細については、 <a href="https://aka.ms/ts-functions" target="_blank">JavaScript 開発者Azure Functionsガイドを</a> 参照してください。</li>
+   <li>Azure 無料アカウントがない<a href="https://azure.microsoft.com/free/serverless" target="_blank">場合</a>&rsquo;はサインアップし、サーバーレス アプリをクラウドにデプロイします。</li>
+  </ul>
+
+
+  <p>いつものように、ご意見や Twitter に関するフィードバックをお寄せくださいGitHub<a href="https://twitter.com/AzureFunctions" target="_blank">してください</a>。<a href="https://github.com/Azure/Azure-Functions" target="_blank"></a> コーディングをお楽しみください!</p>

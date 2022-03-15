@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: abe91b71c69952b60baf82fdcfb2bf4a39294f0c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889725"
+Slug: multi-language-identification-and-transcription-in-video-indexer
+Title: 言語での複数言語の識別と文字起こしVideo Indexer
+Summary: 最近、国際放送局会議 (IBC) で Microsoft Video Indexerに複数言語の音声文字起こしが導入されました。 プレビュー機能として利用できます。お客様はポータルで既に体験を開始できます。
+Content: >-
+  <p>最近、国際放送局会議 (IBC) で Microsoft Video Indexerに複数言語の音声文字起こしが導入されました。 プレビュー機能として利用できます。お客様はポータルで既に体験 <a href="https://vi.microsoft.com/en-us/" target="_blank">を開始できます</a>。 IBC2019 のすべての機能強化の詳細については、こちらを参照 <a href="https://azure.microsoft.com/en-us/blog/azure-media-services-new-ai-powered-innovation/" target="_blank">してください</a>。</p>
+
+
+  <p>多言語ビデオは、グローバリゼーション のコンテキストにおける一般的なメディア資産であり、グローバルなフォーラム、経済フォーラム、スポーツのカンファレンスは、話者がネイティブ言語を使用して独自のステートメントを伝える会場の例です。 これらのビデオは、大量のビデオ アーカイブに自動文字起こしを提供する必要がある企業にとって、固有の課題になります。 自動文字起こしテクノロジでは、音声をテキストに変換するために、ユーザーが事前にビデオ言語を明示的に決定する必要があります。 この手動ステップは、複数言語のコンテンツを文字変換するときにスケーラビリティの障害になります。オーディオ セグメントに適切な言語を手動でタグ付けする必要があります。</p>
+
+
+  <p>Microsoft Video Indexerでは、複数言語コンテンツに対して音声による自動言語識別の独自の機能が提供されます。 このソリューションを使用すると、ユーザーは、多言語コンテンツをトリガーする前に、簡単に手動で準備する手順を実行することなく、複数言語のコンテンツを簡単に文字起こしできます。 そうすることで、時間と金額の両方のビデオの大規模なアーカイブを持つすべてのユーザーを節約し、検出可能性とアクセシビリティのシナリオを可能にできます。</p>
+
+
+  <h2>Video Indexer での複数言語の音声文字起こし</h2>
+
+
+  <p>複数言語の文字起こし機能は、ポータルの一部Video Indexerできます。 現在、英語、フランス語、ドイツ語、スペイン語を含む 4 つの言語がサポートされている一方で、入力メディア資産には最大 3 つの異なる言語が必要です。 新しいメディア資産をアップロードする場合は、 &ldquo;次に示すように[自動検出の&rdquo; 多言語] オプションを選択できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4152e43-3c46-44b3-96e3-ef79032800a2.png"><img alt="A new multi-language option available in the upload page of Video Indexer portal." border="0" height="750" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95b32b6e-cd87-48b6-979b-c8edb25aaba4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="1. ポータルのアップロード ページで使用できる新しいVideo Indexer。" width="669"></a></p>
+
+
+  <p>このアプリケーション プログラミング インターフェイス (API) では、ユーザーがアップロード API の言語として &#39;マルチ&#39; を指定できるだけでなく、この機能もサポートしています。 インデックス作成プロセスが完了すると、インデックス JavaScript オブジェクト表記 (JSON) に基になる言語が含まれます。 詳細については、Microsoft の<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fmedia-services%2Fvideo-indexer%2Fmulti-language-identification-transcription&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7C6c12731f9e3e446293a008d76c680dff%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637097066570307184&amp;sdata=iH2Ynl9%2FCdLPNrto%2BxVWx3PiszFGG2%2F7XJnLY0x7ZH8%3D&amp;reserved=0" target="_blank">ドキュメント</a>をご覧ください。</p>
+
+
+  <p>さらに、文字起こしセクションの各インスタンスには、文字起こしされた言語が含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b9b2f1c4-a61b-4a88-943c-aa1976ccb185.png"><img alt="2.   A transcription snippet from Video Indexer timeline presenting different language segments" border="0" height="388" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fee9d170-c1fb-46f0-b2ee-ec05cded3fa3.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2.   さまざまな言語セグメントをVideo Indexerタイムラインからの文字起こしスニペット" width="779"></a></p>
+
+
+  <p>お客様は、トランスクリプトと識別された言語を時間別に表示し、各言語のビデオ内の特定の場所に移動して、複数言語の文字起こしをビデオ キャプションとして表示することができます。 結果の文字起こしは、クローズド キャプション ファイル (VTT、TTML、SRT、TXT、CSV) でも使用できます。</p>
+
+
+  <h2><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/588d6029-6975-40a8-9ff6-b7dd42ef0882.png"><img alt="two languages" border="0" height="193" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6dd839cf-2f8f-4346-bca5-a6ecb45ab9cd.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="2 つの言語" width="766"></a></h2>
+
+
+  <h2>手法</h2>
+
+
+  <p>音声信号からの言語識別は複雑なタスクです。 音響環境、話者の性別、話者の年齢は、このプロセスに影響を与えるさまざまな要因の 1 つです。 さまざまな言語がディープ ニューラル ネットワークを使用して学習できる固有の視覚パターンを誘発すると仮定して、反射器などの視覚的表現を使用してオーディオ信号を表します。</p>
+
+
+  <p>このソリューションには、多言語メディア コンテンツで使用される言語を決定する 2 つの主要なステージがあります。 まず、ディープ ニューラル ネットワークを使用して、非常に細分性の高いオーディオ セグメント (つまり、数秒) を分類します。 適切なモデルは基になる言語を正常に識別しますが、言語間の類似性により、一部のセグメントを見失う可能性があります。 そのため、これらのミスを調べ、結果をスムーズにするため、2 番目のステージを適用します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8df33f4d-765e-4a2e-b768-d9593368c4d8.png"><img alt="3.   A new insight pane showing the detected spoken languages and their exact occurrences on the timeline" border="0" height="250" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5980faf9-972d-44a5-9df8-12668dd46d0b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="3. 検出された音声言語とタイムラインでの正確な出現を示す新しい分析情報ウィンドウ" width="924"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>複数言語の音声文字起こしに対して差別化された機能を導入しました。 Video Indexer でこの独自の機能を使用すると、さまざまな言語セグメントのビデオ間の検索をすぐに開始できるので、ビデオのコンテンツに関するより効果的になります。 今後数か月の間に、より多くの言語のサポートを追加し、モデルの精度を向上することで、この機能を&rsquo;改善する予定です。</p>
+
+
+  <p>詳細については、Video Indexer ポータル<a href="https://www.videoindexer.ai/" target="_blank">または&rsquo;</a> Video Indexer開発者ポータルにアクセスし、<a href="https://api-portal.videoindexer.ai/" target="_blank"></a>この新しい機能を試してください。 新しい多言語オプションの詳細と、それを使用する方法については、ドキュメント<a href="https://docs.microsoft.com/en-us/azure/media-services/video-indexer/multi-language-identification-transcription" target="_blank"> を参照してください</a>。</p>
+
+
+  <p><a href="https://cognitive.uservoice.com/forums/598144-video-indexer" target="_blank">UserVoice を使用してフィードバック</a>を共有し、機能の優先順位を付けるか、質問がある場合は電子メール<a>visupport@microsoft.com</a>でお問い合わせください。</p>

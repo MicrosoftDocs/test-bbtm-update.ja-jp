@@ -1,0 +1,123 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b21bc0bcf3df27dabfb664c6a36422a29f9b6e4a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890431"
+Slug: general-availability-of-instance-size-flexibility-for-azure-reserved-virtual-machine-instances
+Title: インスタンス サイズの柔軟性の一般提供Azure Reserved Virtual Machine Instances
+Summary: 同じ VM グループ内の異なる仮想マシン サイズに予約割引を適用することで、予約インスタンスの購入と管理をさらに簡単にする新機能である Azure Reserved Virtual Machine Instances のインスタンス サイズの柔軟性をお知らせします。
+Content: >-
+  <p><em>このブログ記事は、&nbsp;Prinicipal Engineering Manager のArabinda Mohapatra 氏によって共同作成Microsoft Azure。</em></p>
+
+
+  <p>同じ <a href="https://aka.ms/VMgroups" target="_blank">VM</a> グループ内の異なる仮想マシン (VM) サイズに予約割引を適用することで、予約インスタンスの購入と管理をさらに簡単にする新機能である Azure Reserved Virtual Machine Instances のインスタンス サイズの柔軟性をお知らせします。</p>
+
+
+  <p>インスタンス サイズの&rsquo;柔軟性により、購入した Azure Reserved Instances (RI) のメリットを得るのとまったく同じ VM サイズをデプロイする必要は、同じ VM グループ内の他の VM サイズでも RI 割引が適用されます。</p>
+
+
+  <p>たとえば、次の VM グループについて考え考えしてください。</p>
+
+
+  <table border="1" cellpadding="2">
+      <tbody>
+          <tr>
+              <td style="text-align: center;" valign="top"><strong>VM 名</strong></td>
+              <td style="text-align: center;" valign="top"><strong>VM グループ</strong></td>
+              <td style="text-align: center;" valign="top"><strong>比</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Standard_D2s_v3</p>
+              </td>
+              <td valign="top">
+              <p align="center">DSv3 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">1</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Standard_D4s_v3</p>
+              </td>
+              <td valign="top">
+              <p align="center">DSv3 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Standard_D8s_v3</p>
+              </td>
+              <td valign="top">
+              <p align="center">DSv3 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">4</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Standard_D16s_v3</p>
+              </td>
+              <td valign="top">
+              <p align="center">DSv3 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Standard_D32s_v3</p>
+              </td>
+              <td valign="top">
+              <p align="center">DSv3 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">16</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Standard_D64s_v3</p>
+              </td>
+              <td valign="top">
+              <p align="center">DSv3 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">32</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>D2s_v3 VM 用に 1 つの Azure 予約インスタンスを購入した場合、次の VM インスタンスは、同じリージョン内にある場合は、予約インスタンスの購入を通じてカバーできます。</p>
+
+
+  <ol>
+      <li>1 Standard_D2S_v3</li>
+      <li>1/2 Standard_D4s_v3</li>
+      <li>1/4 Standard_D8s_v3</li>
+      <li>1/8 Standard_D16s_v3</li>
+      <li>1/16 Standard_D32s_v3</li>
+      <li>1/32 Standard_D64s_v3</li>
+  </ol>
+
+
+  <p>Azure Reserved Instances の差別化されたシンプルさに加えて、インスタンス サイズの柔軟性により、azure Reserved Instance の利点は、Windows Server、Linux、RHEL などのオペレーティング システムに関係なく、VM のインフラストラクチャ コストに適用されます。 必要に応じて、VM で実行されている追加のソフトウェアに対してだけ課金されます。</p>
+
+
+  <p>インスタンス サイズの柔軟性は、共有スコープを持つ既存の Azure Reserved Instance に対して既定で有効になりますが、単一スコープの予約インスタンスの場合は、予約構成からインスタンス サイズの柔軟性を有効にできます。 <a href="https://docs.microsoft.com/en-us/azure/billing/billing-manage-reserved-vm-instance#change-the-scope-for-a-reserved-instance" target="_blank">Azure 予約インスタンスのスコープを変更する方法については、ドキュメントを参照してください</a>。&nbsp;</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>開始するには、単一予約インスタンスのインスタンス サイズの柔軟性オプションを切り替える方法については、ドキュメント <a href="https://aka.ms/PurchaseUIInstanceSizeFlex" target="_blank">を参照してください</a>。</p>

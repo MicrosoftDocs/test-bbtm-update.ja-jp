@@ -1,0 +1,123 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 14e0dad849054b1ef09033c8236cf8c0bc956b37
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890770"
+Slug: hybrid-storage-performance-comes-to-azure
+Title: ハイブリッドストレージのパフォーマンスが Azure にもたらされる
+Summary: 'コンピューティングストレージとファイルストレージの間にパフォーマンスレベルを追加すると、Avere システムは Avere FXT エッジファイラーと呼ばれるハイパフォーマンスキャッシュアプライアンスを使用して機能します。 '
+Content: >-
+  <p>コンピューティングストレージとファイルストレージの間にパフォーマンスレベルを追加すると、Avere システムは Avere FXT エッジファイラーと呼ばれるハイパフォーマンスキャッシュアプライアンスを使用して機能します。 今週の NAB で、出席者は新しい <a href="https://azure.microsoft.com/en-us/services/fxt-edge-filer/" target="_blank">azure FXT エッジフィルター</a>を最初に見ていきます。これで、さらに多くのパフォーマンス、メモリ、SSD、azure Blob のサポートが追加されました。 Microsoft &rsquo; は3月に Avere を獲得したため、 &rsquo; Avere アプライアンステクノロジを使用してハイブリッドストレージアーキテクチャをサポートするためのパフォーマンスと効率性の優れた組み合わせを実現しています。</p>
+
+
+  <h2>NFS 経由の Linux パフォーマンス</h2>
+
+
+  <p>Microsoft は、お客様が必要としている &rsquo; お客様にお応えします。 新しい Azure FXT エッジファイラーの起動は、Linux コンピューティングファームで実行されているアプリケーションに高スループットと低待機時間の NFS を提供するので、もう1つの例です。 Azure FXT エッジファイラーは、NFS から Blob への組み込み変換を使用して、Blob storage とオンプレミスコンピューティング間の待機時間の問題を解決します。 オンプレミスのコンピューティングに最も近いハイブリッドストレージ環境のエッジに配置され、アクティブなデータをキャッシュしてボトルネックを軽減します。 一般的なアプリケーションを見てみましょう &rsquo; 。</p>
+
+
+  <ul>
+   <li>Azure Blob &ndash; のアクティブなアーカイブ Azure blob が、まだコールドデータではなく、エージング用のターゲットストレージの場所である場合、azure FXT エッジファイラーは、アクティブなデータのオンプレミスキャッシュを作成することにより、ファイルへのアクセスを高速化します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1ae6e105-339d-46dc-9b13-34caff4f4879.png"><img alt="Active Archives in Azure Blob" border="0" height="210" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7aba34e-a78b-4652-8a58-58efb02635a5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Blob のアクティブなアーカイブ" width="696"></a></p>
+
+
+  <ul>
+   <li>ワイドエリアネットワーク (Wan) 間の WAN キャッシュ &ndash; の遅延により、生産性が低下する可能性があります。 Azure FXT Edge ファイラーは、ユーザーに最も近いアクティブなデータをキャッシュし、データセンターまたは colos に格納されているデータの待機時間を非表示にします。 リモートオフィスのエンジニア、アーティスト、およびその他のパワーユーザーは、必要なファイルにすばやくアクセスできます。一方、バックアップ、ミラーリング、およびその他のデータ保護アクティビティは、コアデータセンターでシームレスに実行されます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c0b6bf4-90bb-4d0f-aa01-4b8df8519937.png"><img alt="WAN Caching" border="0" height="239" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6b1ff60-ed19-4ddd-a032-6a3e96ecc3ae.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="WAN キャッシュ" width="679"></a></p>
+
+
+  <ul>
+   <li>NAS の最適化 &ndash; 多くのハイパフォーマンスコンピューティング環境には、大規模な NetApp または DELL EMC の Isilon ネットワーク接続ストレージ (NAS) アレイがあります。 需要がピークになると、これらのストレージシステムがボトルネックになる可能性があります。 Azure FXT エッジファイラーは、コンピューティングに最も近いデータをキャッシュし、容量からパフォーマンスを分離し、両方の機能を向上させることで、これらの NAS システムを最適化します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5779c7d8-f2d2-40ad-a344-5ae2f479de07.png"><img alt="NAS Optimization" border="0" height="228" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9e0462f3-d0e0-4b8c-873d-9016139521ea.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="NAS の最適化" width="433"></a></p>
+
+
+  <p>データセットが大きい場合、ハイブリッドファイルストレージキャッシュは、コア操作の生産性を維持するために必要なパフォーマンスと柔軟性を提供します。</p>
+
+
+  <h2>Azure FXT エッジフィルターの仕様</h2>
+
+
+  <p>現在、お客様のサイトで FXT 6600 モデルをプレビューしています。このモデルでは、2つ目の FXT 6400 モデルが一般公開されています。 FXT 6600 は、優れたトップエンドモデルであり、読み取りパフォーマンスが40% 向上し、FXT 5850 のメモリが2倍になっています。 FXT 6400 は、十分なメモリと SSD 容量を必要としないお客様や、FXT 5600 および FXT 5400 モデルを手頃な価格でアップグレードすることを検討しているお客様 &rsquo; を対象とした、優れたミッドレンジモデルです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ac1ace61-b4d7-4e3b-bdea-9c9a3b6f7a9d.jpg"><img alt="Azure FXT Edge Filer" border="0" height="274" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/41e98543-52e2-43a6-a73e-b51740b4298e.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure FXT エッジフィルター" width="530"></a></p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top"><strong>Azure FXT エッジフィルター &ndash; 6600 モデル</strong></td>
+     <td valign="top"><strong>Azure FXT エッジフィルター &ndash; 6400 モデル</strong></td>
+    </tr>
+    <tr>
+     <td valign="top">最高のパフォーマンス、最大のキャッシュ</td>
+     <td valign="top">高パフォーマンス、大規模なキャッシュ</td>
+    </tr>
+    <tr>
+     <td valign="top">ノードごとの仕様:</td>
+     <td valign="top">メモごとの仕様:</td>
+    </tr>
+    <tr>
+     <td valign="top">1536 GB DRAM</td>
+     <td valign="top">768 GB DRAM</td>
+    </tr>
+    <tr>
+     <td valign="top">25.6 TB SSD</td>
+     <td valign="top">12.8 TB SSD</td>
+    </tr>
+    <tr>
+     <td valign="top">6x25/10 Gb + 2x1Gb ネットワークポート</td>
+     <td valign="top">6x25/10 Gb + 2x1Gb ネットワークポート</td>
+    </tr>
+    <tr>
+     <td valign="top">最小3ノードクラスター</td>
+     <td valign="top">最小3ノードクラスター</td>
+    </tr>
+    <tr>
+     <td valign="top">256 AES 暗号化を使用します。</td>
+     <td valign="top">256 AES 暗号化を使用します。</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>主要な機能</h2>
+
+
+  <ul>
+   <li>オンデマンドで24個の FXT サーバーノードに拡張</li>
+   <li>ビッグデータワークロードをサポートするための、アクティブなデータと大規模な SSD キャッシュサイズへの高速アクセスを実現する高パフォーマンスの DRAM/メモリ</li>
+   <li>単一のマウントポイントを使用すると、異種ストレージでの管理が容易になります。</li>
+   <li>ハイブリッドアーキテクチャ &ndash; NFSv3、クライアントとアプリケーションへの SMB2、NetApp、DELL EMC Isilon、Azure Blob、S3 ストレージのサポート</li>
+  </ul>
+
+
+  <p>Azure FXT Edge ファイラーは、Dell EMC によって提供されるハードウェアと Microsoft が提供するソフトウェアの組み合わせです。 システムインテグレーターを通じて、完全なソリューションをソフトウェアプラスハードウェアアプライアンスとしてお客様に提供します。 オンプレミスのインフラストラクチャへの Azure FXT エッジフィルターの追加、または既存の Avere ハードウェアのアップグレードについて詳しく知りたい場合は、 <a href="mailto:FXTEdgeFiler@microsoft.com">今すぐチームにご連絡</a>ください。 それ以外の場合は、 <a href="https://azure.microsoft.com/en-us/services/fxt-edge-filer/" target="_blank">Azure FXT エッジフィルターホームページ</a>で更新プログラムを監視します。&nbsp;</p>
+
+
+  <h2>レンダーファーム用の Azure FXT エッジフィルター</h2>
+
+
+  <p>レンダーファームとアーティスト向けの高パフォーマンスのファイルアクセスは、重要な期限を満たし、運用後のパイプラインに効率を高めるための鍵となります。 NAB 2019 のラスベガスで、Microsoft Azure のブース #SL6716 にアクセスして、新しい Azure fxt エッジフィルターを表示する方法を確認してください。 &rsquo;テクノロジの専門家、プレゼンテーション、サポート資料を参照して、Azure でより迅速にレンダリングできるようにします。</p>
+
+
+  <h3>リソース</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/services/fxt-edge-filer/" target="_blank">Azure FXT Edge</a>のホームページにアクセスします。&nbsp;</li>
+   <li>まずは、 <a href="https://Github.com/azure/fxt" target="_blank">Azure FXT のドキュメント</a>を参照してください。</li>
+   <li>Microsoft &rsquo; による Avere システムの買収の詳細については、ブログの投稿「 &ldquo; microsoft による Avere systems の取得」を参照してください。<a href="https://blogs.microsoft.com/blog/2018/01/03/microsoft-to-acquire-avere-systems-accelerating-high-performance-computing-innovation-for-media-and-entertainment-industry-and-beyond/" target="_blank">また、メディアおよびエンターテインメント業界向けのハイパフォーマンスコンピューティングイノベーションを加速</a>させることができます。&rdquo;</li>
+   <li><a href="https://azure.microsoft.com/en-us/services/storage/avere-vfxt/" target="_blank">Azure 用の Avere vFXT の</a>詳細については、l) を参照してください。</li>
+  </ul>

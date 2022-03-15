@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b1b7e4405ec3a5a52f286490526fce503dd95db7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895043"
+Slug: introducing-app-service-environment
+Title: App Service Environment の概要
+Summary: 現在、追加の排他プレミアムサービスプランオプションのパブリックプレビューをご紹介します。 App Service Environment。
+Content: >-
+  Azure App Service のプレミアムレベルを<a href="https://azure.microsoft.com/blog/2015/03/30/azure-app-service-premium-tier/">発表</a>しました。これにより、拡張オプションと Biztalk Services が拡張され、アプリ開発者にプレミアムコネクタが導入されました。現在、追加の排他プレミアムサービスプランオプションのパブリックプレビューをご紹介します。 App Service Environment。
+
+
+  App Service Environment は、 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-web-overview/">Web Apps</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-value-prop-preview/">Mobile Apps</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-api-apps-why-best-platform/">API Apps</a> 、 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-logic-what-are-logic-apps/">Logic Apps</a>を含むすべてのアプリを安全に実行するための完全に分離された専用の環境を提供します。App Service Environment は常に、リージョンの仮想ネットワーク内に作成されます。これにより、アプリは、 <a href="https://msdn.microsoft.com/library/azure/dn133795.aspx">サイト間</a> 接続と <a href="https://azure.microsoft.com/services/expressroute/">ExpressRoute</a> 接続を介して接続されたエンドポイントを含め、仮想ネットワーク内でのみアクセス可能な他のエンドポイントに安全に接続できます。また、上流のアプライアンス、ファイアウォール、およびネットワーク SaaS プロバイダーの背後で App Service Environment をセキュリティで保護することもできます。
+
+
+  App Service Environment で実行されているアプリでも、さらに多くのスケーリングオプションがあります。たとえば、最大 50 (50) のコンピューティングインスタンスと新しい P4 コンピューティングリソースで実行できます。
+
+
+  お客様は、 <a href="https://portal.azure.com">ポータル</a>の [作成] メニューから App Service Environment をすぐに開始できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/04/24/web-portal.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Web ポータル" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/web-portal_thumb.png" alt="web portal" width="264" height="610" border="0" /></a>
+
+
+  App Service Environment の作成時に、仮想ネットワークとスケールの構成に対して既定の選択が行われます。次の例では、既定の構成を使用して、"App Service Environment" という名前の <i>アプリケーション</i> を作成します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/04/24/App-Service-Enviornment.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="App Service 環境" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/App-Service-Enviornment_thumb.png" alt="App Service Enviornment" width="298" height="609" border="0" /></a>
+
+
+  App Service Environment が作成されると、新しいアプリを簡単に構成できます。次に示すのは、新しいアプリを作成するためのポータルエクスペリエンスです (<i>モバイル対応</i>の <i>アプリ App Service Environment)</i> 。 [場所の選択] で <i>は、アプリが App Service Environment で</i> 作成されることを示しています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/04/24/WebApp.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="WebApp" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WebApp_thumb.png" alt="WebApp" width="298" height="610" border="0" /></a>
+
+
+  App Service Environment の内部で実行されている <i>モバイル対応 seapp </i>では、同じ仮想ネットワークに接続されている社内リソースにアクセスできるようになりました。また、アップストリームのサービスとファイアウォールからのアクセスのみを許可するようにアプリをセキュリティで保護することもできます。
+
+  <h2>作業の開始</h2>
+
+  App Service 環境は、現在、プレビュー段階からご利用いただけます。App Service Environment オプションは<a href="https://azure.microsoft.com/blog/2015/03/30/azure-app-service-premium-tier/">Azure App Service プレミアムレベル</a>の一部であり、限られた期間のプレミアムレベルの価格は、既存の Standard レベル価格でご利用いただけます。詳細については、「  <a href="https://go.microsoft.com/fwlink/?LinkID=532956">App Service Environment</a> と App Service Environment の <a href="https://go.microsoft.com/fwlink/?LinkId=534235">作成方法</a>」を参照してください。
+
+  <h2>その他のリソース</h2>
+
+  App Service Environment の作成と操作、および App Service Environment を使用したネットワーク通信のセキュリティ保護の詳細については、次のドキュメントの App Service Environment を参照してください。
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=534235">App Service Environment の作成方法</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkId=534233">App Service Environment で Web アプリを作成する方法</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=532960">App Service Environment で Web アプリをスケールする方法</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=532962">App Service Environment を構成する方法</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=532969">App Service Environment への受信トラフィックをセキュリティで保護する方法</a></li>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=532970">App Service Environment からバックエンドリソースに安全に Connect する方法</a></li>
+  </ul>

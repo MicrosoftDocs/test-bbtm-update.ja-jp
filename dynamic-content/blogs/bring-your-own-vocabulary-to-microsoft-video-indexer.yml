@@ -1,0 +1,181 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4246e1523a4d7c691f6cf95ba088ae6961168fa9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890489"
+Slug: bring-your-own-vocabulary-to-microsoft-video-indexer
+Title: 独自のボキャブラリを Microsoft Video Indexer に持ち込む
+Summary: Video Indexer (VI) は、Microsoft Custom Speech Service との統合により、自動音声認識 (ASR) の業界およびビジネス固有のカスタマイズをサポートするようになりました。
+Content: >-
+  <h3>音声認識のセルフサービスカスタマイズ</h3>
+
+
+  <p><a href="https://vi.microsoft.com/" target="_blank">Video Indexer</a> (VI) は、Microsoft<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/custom-speech-service/cognitive-services-custom-speech-home"> </a> <a href="https://azure.microsoft.com/en-us/services/cognitive-services/custom-speech-service/">Custom Speech Service</a>との統合により、自動音声認識 (ASR) の業界およびビジネス固有のカスタマイズをサポートするようになりました。 &nbsp;サポートされている言語は、モダンスタンダードアラビア語、ドイツ語、スペイン語、英語、フランス語、ヒンディー語、イタリア語、日本語、ポルトガル語、ロシア語、中国語です。</p>
+
+
+  <p>ASR は Video Indexer の重要なオーディオ分析機能です。 音声認識は、音声から単語を抽出する人間認知機能を模倣した、最適な人工知能です。 このブログ投稿では、特殊なニーズに合わせて VI で ASR をカスタマイズする方法について説明します。</p>
+
+
+  <p>技術的な詳細について説明する前に、「」では、経験のある状況からインスピレーションを取得してみましょう &rsquo; 。 ジョブの最初の日を思い出してください。 新しい単語、製品名、暗号頭字語、およびそれらを使用する方法があふれていることを覚えているかもしれません。 ただし、しばらくすると、これらすべての新しい単語を理解することができます。 ボキャブラリに適合させています。</p>
+
+
+  <p>ASR システムは優れていますが、特殊な語彙を認識する場合、ASR システムは人間と同じです。 これらは、適合させる必要があります。 Video Indexer では、音声認識のカスタマイズレイヤーがサポートされるようになりました。これにより、ASR エンジンの新しい単語、頭字語、およびビジネスコンテキストでの使用方法を教えることができます。</p>
+
+
+  <h2>音声認識はどのように機能しますか。 カスタマイズが必要な理由</h2>
+
+
+  <p>ASR は、音響モデルと言語モデルの2つの基本的なモデルを使用して機能します。 音響モデルは、オーディオ信号を単語の一部である音素に変換する役割を担います。 これらの音素に基づいて、これらの音素がシステム &rsquo; の語彙によってどのようにシーケンス処理されるかについての推測が生成されます。 次に、言語モデルを使用して、テキストの大規模なサンプルから学んだ単語の確率に基づいて、これらの推測から最も適切な単語の順序を選択します。</p>
+
+
+  <p>入力音声に新しい単語が含まれている場合、システムは推測 &rsquo; として提案できず、正しく認識されません。 たとえば、新しい Azure 製品である Kubernetes は、以下の例で VI を認識するように指導する言葉です。 それ以外の場合、単語は存在しますが、言語モデルでは、特定のコンテキストでの表示が想定されていません。 たとえば、コンテナーサービスは、非特殊化言語モデルが高い確率でスコア付けされる2ワードシーケンスではありません。</p>
+
+
+  <h2>カスタマイズのしくみ</h2>
+
+
+  <p>Video Indexer を使用すると、適合テキスト、つまり、エンジンに適合するボキャブラリ &rsquo; を持つドメインからのテキストをアップロードして、音声認識をカスタマイズできます。 適合テキストに新しい単語が表示されるようになり、既定の発音が想定されるようになりました。言語モデルでは、新しい可能性のある単語のシーケンスが学習されます。</p>
+
+
+  <h3>使用例</h3>
+
+
+  <p>例として、 <a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Container-Instances?term=donovan%20Friday%20sean" target="_blank">Azure コンテナーのビデオ</a>を見てみましょう &rsquo; 。 まず、ビデオを適応せずに video indexer にアップロードします。 <a href="https://www.videoindexer.ai/" target="_blank">VI ポータル</a>にアクセスし、 &nbsp; [<strong> &#39;アップロード &rsquo; </strong>] をクリックして、マシンからファイルを選択します。</p>
+
+
+  <p>数分後に、Kubernetes のビデオにインデックスが作成されます (<a href="https://www.videoindexer.ai/media/90d4a79150/" target="_blank">結果の表示</a>)。 適合が役立つ場所をご確認ください。 9分46秒でビデオを表示します。 単語 &lsquo; Kubernetes &rsquo; は、システムが認識しておらず、コミュニティ &rdquo; とし &ldquo; て認識される新しい、高度に固有の単語です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d80afda-9a5b-4fde-8fb4-1604170727d2.png"><img alt="Transcript" border="0" height="482" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d15fc139-7d54-43bf-9e76-ffb80a9bf2de.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="チャット" width="1167"></a></p>
+
+
+  <p>他の2つの例を次に示します。 00:49 では、 &ldquo; VM &rdquo; は IBM &rdquo; として認識されて &ldquo; いました。 ここでも、特定のドメインの語彙では、頭字語です。 これは、00:17 の PM &rdquo; でも同様に発生 &ldquo; しますが、この場合は認識されません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8b7a3536-40cc-4ca0-9710-be387c9bba68.png"><img alt="Customization example" border="0" height="407" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a4465405-4dc7-45e2-a4d2-4e41aec84d69.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="カスタマイズの例" width="1137"></a></p>
+
+
+  <p>これらの問題やその他の問題を解決するには、言語の適応を適用する必要があります。 ここでは、ソリューション全体を理解するのに役立つ、部分的なソリューションについて説明します。</p>
+
+
+  <h3>例 1: コンテキストのない部分的 &ndash; な調整語</h3>
+
+
+  <p>VI では、音声認識システムにボキャブラリを導入するアダプテーションテキストを提供できます。 この時点で、Kubernetes、VM、PM を含む単語を含む3本の線だけが導入されます。 この <a href="https://1drv.ms/t/s!AqML1MAFjkqFhedFDxXjnv3boATNvA" target="_blank">ファイル</a> は、レビューに使用できます。</p>
+
+
+  <p>次に示すように、VI ポータルの右上隅にある強調表示されたアイコンをクリックして、カスタマイズ設定にアクセスします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40bf2e7d-d84a-45d6-883f-cd4cd06560a0.png"><img alt="Customization settings" border="0" height="155" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3427158c-f7a0-45d3-a7e5-d2d67f01db9f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="カスタマイズ設定" width="640"></a></p>
+
+
+  <p>次の画面で、[ファイル &rdquo; の追加] をクリック &ldquo; して、適合ファイルをアップロードします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6520b890-c5f4-4cc2-bccc-aa925e3fc65d.png"><img alt="Content model customization" border="0" height="522" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75c7f54a-cd97-4429-956b-4fc61147bd04.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="コンテンツモデルのカスタマイズ" width="1421"></a></p>
+
+
+  <p>必ず、ファイルを適合データとしてアクティブ化してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0bc7314e-91f1-44b1-9dd2-d3dd65ad2752.png"><img alt="Activate the file" border="0" height="227" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7bdc9a83-4978-4220-a510-f469e0363109.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ファイルのアクティブ化" width="1348"></a></p>
+
+
+  <p>モデルが調整されたら、ファイルのインデックスを再作成します。 &hellip;Kubernetes が認識されるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ba6ddbd0-52cd-4f04-8491-65a8f0af4784.png"><img alt="Re-index the file" border="0" height="301" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/46cf4f8b-4960-4e48-8dae-f3b9c41c4f50.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ファイルのインデックスを再作成する" width="1144"></a></p>
+
+
+  <p>VM は、00:17 でも、PM と同様に認識されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8245bf3-4872-4d18-8e91-6d148d9b4649.png"><img alt="VM is recognized" border="0" height="258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6218000e-138c-457e-afc8-e990ae74b1e2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="VM が認識されています" width="1151"></a></p>
+
+
+  <p>ただし、より多くの適応を可能にする余地は残っています。 単語を手動で追加することは、すべての単語を網羅することはできないため、非常に役に立ちます。また、言語モデルを使用して、ボキャブラリの実際のインスタンスから学習することもできます。 これにより、コンテキスト、音声の一部、およびより大きなコーパスから学習できるその他の手掛かりが使用されます。 次の例では、ドメインから実際のセンテンスの適正なコーパスを追加することにより、より完全なアプローチを採用します。&nbsp;</p>
+
+
+  <h3>例 2: 言語モデルを適合させる</h3>
+
+
+  <p>前に行ったのと同様に、Azure コンテナーに関するドキュメントのいくつかのページで、適合テキストとしてを使用できるようになりました。 お客様のレビュー用にこの <a href="https://1drv.ms/t/s!AqML1MAFjkqFhedMIMHSFRaIR5aqvw" target="_blank">適合テキスト</a> を収集しました。 このスタイルの適応データの例を次に示します。</p>
+
+
+  <p><em>Azure Container Instances のボリュームとして Azure ファイル共有をマウントするには、ストレージアカウント名、共有名、およびストレージアクセスキー &hellip; の3つの値が必要です。これは、多数のコンテナーを自動化および管理するタスクと、それらのコンテナーとの対話方法をオーケストレーションと呼びます。一般的なコンテナーオーケストレーター、Kubernetes、DC/OS、Docker の群れを含みます。これらはすべて Azure Container Service で利用できます。</em></p>
+
+
+  <p>ファイル全体を確認することをお勧めします。 では、効果の例をいくつか見てみましょう &rsquo; 。 09:46 に戻りましょう &rsquo; 。 &ldquo;&rdquo;調整テキストコンテキストにより、調整された orchestrator になりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00f328a7-5bfb-4c70-ae34-2b2b08d1ec39.png"><img alt="Image 01" border="0" height="237" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef45ec94-8d06-4df3-9350-b018f55a697c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ01" width="1120"></a></p>
+
+
+  <p>ここでは、非常に特殊な用語が認識可能になるもう1つの便利な例を示します。</p>
+
+
+  <p>適応前:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/abc07fe7-d88f-4bdc-9c3b-1f190f1027ab.png"><img alt="Before adaptation" border="0" height="164" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/152bf95a-1a30-40f6-985a-773d55a2b0b0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="適合前" width="1129"></a></p>
+
+
+  <p>適応した後:</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/522bdec4-eb60-416a-9fdf-173eb59a7b93.png"><img alt="After adaptation" border="0" height="195" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6b44974-fa1f-4d97-a34c-05f0d44b4c36.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="適応後" width="1142"></a></p>
+
+
+  <h2>&rsquo;言語モデルの適応のために s と don &rsquo; を使用する</h2>
+
+
+  <p>システムは単語の組み合わせの確率に基づいて学習するため、最適な方法を学ぶことができます。</p>
+
+
+  <ul>
+   <li>文の実際の例を読み上げられるようにしてください。数百から数千にすることをお勧めします。</li>
+   <li>各行には 1 つの文だけを配置します。多くてはいけません。 そのようにしないと、システムでは複数の文にわたる確率が学習されます。</li>
+   <li>1 つの単語を文として配置し、特定の単語を他の単語よりも優先して学習させてもかまいませんが、システムが最適な学習を行うのは完全な文からです。</li>
+   <li>新しい単語や頭字語を導入するときには、可能であれば、できるだけ多くの使用例を完全な文で提供し、システムにできるだけ多くのコンテキストを提供します。</li>
+   <li>いくつかの適応オプションを試して、どのような結果が得られるかを確認します。</li>
+  </ul>
+
+
+  <p>適合データで回避するパターンをいくつか次に示します。</p>
+
+
+  <ul>
+   <li>まったく同じ文の繰り返しが複数回繰り返されます。 これにより、確率が上がり、残りの入力に対してバイアスが生じる可能性があります。</li>
+   <li>一般的ではないシンボル (~、# @% &amp; ) は破棄されますが、それが含まれる文も含められます。</li>
+   <li>数百の文を含む、入力が大きすぎます。 これらはブーストの効果を薄められします。</li>
+  </ul>
+
+
+  <h2>VI 言語適合 API の使用</h2>
+
+
+  <p>適応をサポートするために、新しい [カスタマイズ] タブをサイトに追加しました。新しい web API が追加されました。このタブでは、適合テキストの管理、適合テキストのトレーニング、および調整されたモデルを使用した議事録の作成を行います。</p>
+
+
+  <p><em>Api/Partner/LinguisticTrainingData</em> web api では、適合テキストファイルの作成、読み取り、更新、削除を行うことができます。 ファイルは、適合データを含むファイル形式の<em>* .txt</em> &nbsp; ファイルです。 ユーザーエクスペリエンスを向上させるために、主に UI では、各ファイルが属しているグループがあります。 これは、UI で一度に複数のファイルを無効または有効にする場合に特に便利です。</p>
+
+
+  <p>適合データファイルがアップロードされたら、 <em>Api/パートナー/LinguisticModel</em> &nbsp; api&#39;s を使用してシステムをカスタマイズするために使用する必要があります。これにより、1つ以上のファイルに基づく言語モデルが作成されます。 1つ以上のファイルがある場合は、ファイルを連結して1つのファイルにします。 カスタマイズされたモデルの &quot;準備には数分かかる場合があります。インデックス作成でモデルを使用する前に、モデルの状態が [&quot; 完了] である必要があります。</p>
+
+
+  <p>最後の最も重要な手順は、文字起こし自体です。 文字起こしに使用する &ldquo;有効なカスタマイズされた言語モデル ID を受け入れる、linguisticModel&rdquo; という名前の新しいフィールドをアップロードに追加しました。 インデックスを再設定する場合は、元のインデックス作成で指定されたのと同じモデル ID を使用します。</p>
+
+
+  <p><strong>重要な注意:</strong> サイトと API を使用する場合のユーザー エクスペリエンスには若干の違いがあります。 サイトを使用する場合は、トレーニング データ ファイルとグループの有効化と無効化を許可し、ファイルのアップロード/再インデックス作成中にアクティブなモデルを選択します。 API を使用する場合は、アクティブな状態を無視し、実行時に提供されるモデル ID に基づいてビデオのインデックスを作成します。 この違いは、Web サイトのシンプルさと開発者の堅牢なエクスペリエンスの両方を可能にするため意図的です。</p>
+
+
+  <p>完全な API は、開発者ポータルで <a href="https://aka.ms/viapi" target="_blank">確認できます</a>。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>ASR システムの新しい単語と、ドメインボキャブラリでの使用方法を学習するには、音声認識の適応が&rsquo;必要です。 Video Indexer では、文字起こしされた音声が適応テキストと同じドメインから取得された場合に、適応テキストを受け取り、ASR システムの言語モデルを変更してインテリジェントな推測を行う適応テクノロジを提供します。 これは、システム頭字語 (VM など)、新しい単語 (Kubernetes など)、既知の単語の新しい使用 (コンテナーなど) を教えるのに役立ちます。</p>

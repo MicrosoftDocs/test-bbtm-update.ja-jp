@@ -1,0 +1,227 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d4e6301b9fa47228740fe4cebb892e1c9ac0ad17
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896136"
+Slug: azure-welcomes-parse-developers
+Title: Azure が開発者の解析を歓迎
+Summary: モバイル アプリをサポートするバックエンドとして Parse ホスティングを使用している場合は、これを試してみるのに最適なAzure App Service。
+Content: >-
+  <p><strong>更新：</strong>&nbsp; Microsoft は、 <a href="https://azure.microsoft.com/marketplace/partners/microsoft/parseserver/">Azure で Parse を</a> 実装するプロセスを簡略化するための Marketplace テンプレートをリリースしました。&nbsp; 詳細については、「Azure Managed Services を使用したサーバーの解析」のパブリケーションの発表 <a href="https://azure.microsoft.com/blog/announcing-the-publication-of-parse-server-with-azure-managed-services">に関するページを参照してください</a>。</p>
+
+
+  <p>モバイル アプリをサポートするバックエンドとして Parse ホスティングを使用している場合は、これを試してみるのに最適なAzure App Service。 最近の発生により、Parse のユーザーは、Parse によってホストされている既存のバックエンドを別のホストに移行する方法を提供しています。 新しいホストを検索する場合は、Azure をお試しください。</p>
+
+
+  <h2>簡単な移行パス</h2>
+
+
+  <p>Parse 移行ガイドが示すように、Parse サーバー API を Express アプリにマウントして、アプリで使用される Parse-hosted バックエンドを別のホストに移行できます。 Azure App Service、Parse サーバー実装をホストする代わりに最適です。 結局のところ、Node.jsのMobile AppsバックエンドAzure App Service Express アプリです。 作業を開始しやすくするために、Azure App Service チームは合理化されたプロビジョニング プロセスを作成しました。これにより、Parse サーバーを App Service で簡単に実行できます。</p>
+
+
+  <p>開始する前に、<a href="https://parse.com/docs/server/guide#migrating"></a>&rsquo;新しい Parse サーバーでサポートされている内容とサポートされていない内容を理解するために、移行ガイドの解析に関するページを読む必要があります。 Parse サーバーに不足している主要なモバイル アプリ機能の 1 つはプッシュ通知ですが、Azure Notification Hubsを使用する方法も最適です。</p>
+
+
+  <p>移行が完了したら、既存のデータにアクセスするアプリでクライアント SDK の解析を引き続き使用できます (もちろん、新しいバージョンの SDK を使用し、新しいサービスの場所を指し示すには、クライアントも更新する必要があります)。</p>
+
+
+  <h2>始める前に</h2>
+
+
+  <p>Azure で実行されている新しい Parse サーバーを作成するプロセスに移動する前に、次の手順を実行する必要があります。</p>
+
+
+  <h4>Azure サブスクリプションを作成する</h4>
+
+
+  <p>Azure サブスクリプションを&rsquo;まだお持ちでない場合は、サインアップする必要があります。 無料 <a href="https://azure.microsoft.com/en-us/pricing/free-trial/?WT.mc_id=A261C142F">試用版サブスクリプション</a> を利用できます。</p>
+
+
+  <h4>MongoDB を設定する</h4>
+
+
+  <p>Parse サーバーの現在の要件の 1 つは、MongoDB を使用しています (Parse では <a href="https://parse.com/docs/server/guide#database">、MongoDB の要件に関するガイダンスが提供されます</a>)。 Parse は、Parse でホストされているデータを MongoDB に移動できる移行ツールにも期待されています。 これが MongoDB の使用経験である場合、Parse では、MongoLab サービス (Azure Marketplace からサインアップできるフル マネージドクラウド データベース サービス) から始めるのが推奨されます。<a href="https://azure.microsoft.com/en-us/marketplace/partners/mongolab/mongolab/"></a> ただし、MongoDB をホストする場合は&rsquo;、Parse サーバーを実行するために接続情報が必要です。</p>
+
+
+  <p>今後は、サービスとしてのマネージド NoSQL ドキュメント データベースである Azure DocumentDB の使用も検討する必要があります。 以降の投稿では、DocumentDB にデータを移行し、Parse サーバーで DocumentDB を使用する方法について説明します。</p>
+
+
+  <h4>アカウントをGitHubする</h4>
+
+
+  <p>この投稿で示されている Azure への移行パスでは、アカウントに<a href="https://github.com/" target="_blank">GitHubがあります。</a> また、Git リポジトリを複製する方法と、変更をコミットしてリポジトリにプッシュする方法を知る場合にも役立ちます。</p>
+
+
+  <h2>新しいバックエンドを作成App Service</h2>
+
+
+  <p>最初の手順では、Parse サーバーをホストするApp Service新しいバックエンドを作成します。 [新しい<a href="https://portal.azure.com/" target="_blank">Azure portal</a><strong></strong> &gt; <strong>+</strong> &gt; <strong>Web</strong> アプリ] をクリックWeb + モバイルバックエンドの一意の名前を入力し、[作成] をクリック<strong>します</strong>。</p>
+
+
+  <p><img alt="Create new app service in Azure portal" border="0" height="341" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6d3c5b9-1d96-4f1d-bb14-abe668009017.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="create-app-service" width="610"></p>
+
+
+  <p>これにより、Parse サーバーをホストする新しいバックエンド サービスが作成されます。 これを行う前に、サービスの価格に影響をApp Service別のプランを作成 <a href="https://azure.microsoft.com/pricing/details/app-service/" target="_blank">することができます</a>。 プランは後でいつでもApp Service変更できます。 詳細については、「Azure App Service <a href="https://azure.microsoft.com/documentation/articles/azure-web-sites-web-hosting-plans-in-depth-overview/" target="_blank">の概要」を参照してください</a>。</p>
+
+
+  <p>初期デプロイが完了すると、新しいバックエンドのブレードが表示されます。</p>
+
+
+  <p><img alt="New web app in Azure portal" border="0" height="336" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b8bfe658-9847-4d79-89c7-db9c6fd26d4d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="web-app-in-portal" width="610"></p>
+
+
+  <p>App Service には、アプリをデプロイするためのさまざまな方法が提供されています。 次に、Parse サーバー レポからデプロイを設定します。</p>
+
+
+  <h2>サーバー リポジトリの解析と Azure へのデプロイを複製する</h2>
+
+
+  <p>Azure で Parse サーバーを簡単に発行するために、App Service チームは Parse サーバーのサンプル レポポをフォークして、App Service で正しく実行されるカスタマイズされた Parse サーバーを作成しました。 このGitHub、<a href="https://github.com/Azure/parse-server-example" target="_blank">Azure Parse サーバー</a> サンプル のレポを自分のアカウントにフォークします。</p>
+
+
+  <p><img alt="Fork the Parse server example repo" border="0" height="259" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c5049bf-6051-480a-bb21-2ec1180bba45.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="fork-the-parse-server-repo" width="610"></p>
+
+
+  <p>このフォークは、バックエンドのデプロイ ソースとして使用します。 新しく作成したバックエンドの 設定 <strong></strong> &gt; <strong></strong> &gt; ブレードに戻り、下にスクロールして [継続的デプロイ] [ソース<strong>の選択] GitHub</strong><strong></strong> &gt; をクリックし、[承認の承認] をクリックし、表示される GitHub ページで Azure 管理ポータルへのアクセス権を付与します (GitHub パスワードも指定する必要があります)、[<strong>OK</strong>] をクリックします。<strong></strong></p>
+
+
+  <p><img alt="Set up GitHub continous deployment" border="0" height="363" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9933ab44-044b-4d56-8693-87a1cd3edbb1.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="setup-github-deployment" width="610"></p>
+
+
+  <p>ポータルが GitHub アカウントに接続されたので、<strong>parse-server-example</strong> のフォークをプロジェクトとして選択し、<strong>マスター</strong> ブランチを選択して、[OK] をクリック<strong>します</strong>。</p>
+
+
+  <p><img alt="Set deployment credentials" border="0" height="439" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a77ba5c0-9eeb-485c-9fc8-ca30f0d708ff.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="set-deployment-credentials" width="480"></p>
+
+
+  <p>この時点で、デプロイが設定され、Parse サーバー コードが GitHubから取得され、Azure に発行されます。 何らかの理由でデプロイが&rsquo;トリガーされていない場合は、[デプロイ] ブレードの [同期] ボタンをクリックして、<b></b>同期を手動<b>でトリガー</b>することもできます。</p>
+
+
+  <h2>バックエンドの構成</h2>
+
+
+  <p>Parse サーバーにはいくつかの情報が必要です。これは、環境変数として提供されるのが最も良く、アプリ設定と呼App Service。 これには、MongoDB 接続情報と、アプリ ID とマスター キーの値が含まれます。 アプリ設定を使用すると&rsquo;、セキュリティが強化されます。この重要な情報は、セキュリティで保護されていないか、パブリック レポポに発行される可能性があるコードに残されません。&nbsp;新しいアプリ設定を作成するには、[設定] ブレードで [アプリケーション <strong>設定</strong>] をクリックし、[アプリの設定] セクション<b></b>まで下にスクロールし、次の設定用に新しいキーと値のペアを作成し、[保存] を<strong>クリックします</strong>。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="508">
+   <tbody>
+    <tr>
+     <td valign="top" width="200"><strong>キー</strong></td>
+     <td valign="top" width="306"><strong>Value</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">
+     <p>DATABASE_URI</p>
+     </td>
+     <td valign="top" width="306">
+     <p>MongoDB 接続文字列</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">
+     <p>APP_ID</p>
+     </td>
+     <td valign="top" width="306">
+     <p>アプリ ID の解析</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="200">
+     <p>MASTER_KEY</p>
+     </td>
+     <td valign="top" width="306">
+     <p>解析マスター キー</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><img alt="Parse application settings in the portal" border="0" height="298" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45b651df-5989-43b6-806d-02abfdd46a3e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="application-settings-parse" width="610"></p>
+
+
+  <p>この時点で、REST クライアントを使用して新しい Parse サーバーにアクセスできる必要があります。 Parse サーバーで Facebook アプリ ID などの他のハードコードされた値が必要な場合は、これらをアプリ設定に追加する必要もあります。</p>
+
+
+  <h2>次の情報を試Hello World</h2>
+
+
+  <p>Parse サーバーサンプル プロジェクトには &ldquo;hello という名前の hello world&rdquo; 関数があります。 <strong>この</strong>関数は、次のように cURL を使用してを呼び出すことができます。</p>
+
+
+  <pre class="prettyprint">
+
+  $ curl -X POST \
+
+  &gt;   -H &quot;X-Parse-Application-Id: dsXH3syuEuuIZvXi1niEtX49LLilneJK5oIBcLM3&quot; \
+
+  &gt;   -H &quot;Content-Type: application/json&quot; \
+
+  &gt;   -d &#39;{}&#39; \
+
+  &gt;   <a href=""></a></pre>
+
+
+  <p>これは、ほとんどの Parse 開発者にとって使い慣れた呼び出しである必要があります。 ただし、今回はサービスからの応答が決して異なります。</p>
+
+
+  <pre class="prettyprint">
+
+  {&quot;result&quot;:&quot;Hello from Azure.&quot;}</pre>
+
+
+  <p>Parse サーバーが Azure&rsquo; で正しく実行されていることを確認したので、クラウド コードをデプロイに追加します。</p>
+
+
+  <h2>Parse クラウド コードを追加する</h2>
+
+
+  <p>Parse サーバー&rsquo; サンプル レポポのフォークを使用して継続的デプロイを構成したので、この GitHub レポポを使用して Parse クラウド コードをデプロイに追加するのが最も簡単です。</p>
+
+
+  <p>デプロイにクラウド コードを追加するには、Git クライアントまたは GitBash のようなコマンド ライン ツールを使用して、ローカル コンピューター上の Parse サーバー サンプル リポジトリのフォークを複製します。</p>
+
+
+  <p>ローカルの Parse インストールから、/Cloud サブフォルダーと /Public サブフォルダーを新しいローカル クローンにコピーし、変更を追加し、コミットし、GitHub のオリジンにプッシュします。 アプリケーションにプッシュするとGitHubデプロイが再びトリガーされるのが表示されます。 デプロイが正常に完了すると、クラウド コードを使用する準備が整います。</p>
+
+
+  <p>これを行うには、クラウド コードをパブリック またはパブリック のレポポに追加GitHub注意してください。 コードをプライベートに保つために、&#39;リポジトリをプライベートに複製<a href="https://help.github.com/articles/duplicating-a-repository/" target="_blank"></a>する必要があります。または、最初に別のデプロイ方法を使用<a href="https://azure.microsoft.com/documentation/articles/web-sites-deploy/" target="_blank">するために切り替える必要があります</a>。</p>
+
+
+  <h2>クライアント アプリで Parse SDK を更新する</h2>
+
+
+  <p>新しい Parse サーバーと新しいホスティング環境では、クライアント アプリで使用される PARSE SDK の更新が必要です。 「Parse SERVER での SDK の解析の <a href="https://parse.com/docs/server/guide#using-sdks" target="_blank">使用」の手順に従ってください</a>。</p>
+
+
+  <h2>プッシュ通知についてはどうでしょうか。</h2>
+
+
+  <p>サーバーの移行の解析 <a href="https://parse.com/docs/server/guide#migrating" target="_blank">ガイドを詳しく</a> 読むと、次の内容が表示されます。</p>
+
+
+  <blockquote>
+
+  <p>Parse Server では、プッシュ通知機能は実装されません。 別のプッシュ プロバイダーに移行することをお勧めします。</p>
+
+  </blockquote>
+
+
+  <p>パニック&rsquo;に陥らないでください。 Azure には、モバイル アプリ、Azure Notification Hubs にプッシュ通知を送信するように特別に設計された拡張性 <a href="https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-overview/">の高いサービスがあります</a>。 Parse でのプッシュと同様に、Notification Hubs では、各プッシュ通知サービス (PNS)、APNS、GCM、WNS、Kindle、Chrome、Baidu の各認証情報が格納されます。 このNotification Hubs Node.jsライブラリを使用すると、クラウド コードまたは他のほぼ任意のバックエンド サービスからプッシュ通知を簡単に送信できます。 近い将来、解析サーバーからプッシュ通知を送信するためにNotification Hubs方法に関するガイダンスを提供します。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>Parse サーバーの Azure App Service ホスティング環境に慣れたら、分析、スケジュールされたジョブ、Tw tw two や SendGrid などのサードパーティサービスとの統合など、Parse サーバーにはない Parse ホスティングの機能の一部を提供する他の Azure サービスを調査してください。 App Service、サーバーを解析する、より多くの組み込み認証オプションも提供されます。</p>
+
+
+  <p>Parse サーバーをホストするために Azure を試す経験が豊富です。 Parse ホスティングからアプリの新しいバックエンド ホームへの移行に最適です。</p>
+
+
+  <p>歓声</p>
+
+
+  <h5>1970 年 10 月 10 月</h5>

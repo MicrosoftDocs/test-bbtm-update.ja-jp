@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 635ce8d95352bde56e48c290e49357453792a276
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890877"
+Slug: azure-update-sql-database-easy-upgrade-to-new-service-tiers-performance-improvements-pitr-for-basic-and-automated-export-for-all-service-tiers
+Title: 'Azure Update: SQL Database: 新しいサービス レベルへの簡単なアップグレード、パフォーマンスの向上、PITR for Basic、およびすべてのサービス レベルの自動エクスポート'
+Summary: 4 月後半の Scott Guthrie は、新しい SQL Database Basic および Standard サービス レベルと、プレミアム サービス レベルに追加された新機能についてブログに投稿しました。これらのサービス レベル (現在プレビュー段階)、フォーカス...
+Content: >-
+  4 月後半、Scott  <a href="https://weblogs.asp.net/scottgu/azure-99-95-sql-database-sla-500-gb-db-size-improved-performance-self-service-restore-and-business-continuity">Guthrieblogged </a>は、新しい SQL Database Basic および Standard サービス レベルと、プレミアム サービス レベルに追加された新機能について説明しました。これらのサービス レベルは、現在プレビュー段階ですが、データベースのパフォーマンス予測可能性の提供に重点を置いてお使いいただけます。サービス レベルとそのパフォーマンス レベルにより、パフォーマンスが向上し、ビジネス継続性が向上する機能が提供され、アプリケーション、予算、ビジネスのパフォーマンス ニーズに合ったデータベースの機能を調整できます。これらの新しいサービス レベルを試してみるには、Azure プレビュー ページに <a href="https://azure.microsoft.com/en-us/services/preview/">サインアップする必要があります</a>。
+
+
+  プレビュー プログラムでは、新しいテクノロジを導入し、必要に応じて顧客のフィードバックに応じて迅速に調整を行うことができます。フィードバックに応じて、最近、いくつかの重要な変更を行いました。
+
+
+  <b>新しいサービス レベルへの簡単なアップグレード</b>
+
+
+  新しいパフォーマンス レベルを試しに使用できるよう、既存のデータベースを新しいサービス レベルに簡単にアップグレードしました。Web または Business から Basic、Standard、または プレミアム に、任意のデータベースをイン place でアップグレードできます。この変更により、任意のサーバー上の任意のサービス レベルのデータベースを自由に組み合わせ、任意のサービス レベルまたはパフォーマンス レベル間でデータベースをアップグレードまたはダウングレードできます。
+
+
+  データベースをアップグレードするには、Azure 管理ポータルの [データベース スケール] タブを使用します。目的のサービス レベルとパフォーマンス レベルを選択し、[保存] をクリックします。データベースはアップグレード操作中もオンラインにし続け、場合によっては、最後に短時間の切断/再接続だけが発生します。 データベース接続文字列は変更されていないので、アプリケーションを変更または再構成する必要はありません。
+
+  <!--?xml:namespace prefix = "o" ns = "urn:schemas-microsoft-com:office:office" /--><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/1.png"><img class="alignnone size-medium wp-image-159461" alt="1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1-520x369.png" width="520" height="369" /></a>
+
+
+  Standard または プレミアムにアップグレードする場合、またはデータベースのパフォーマンス レベルを高くする場合、データベースのサイズによっては、アップグレードに時間がかかる場合があります。アップグレード プロセスの詳細については、こちらを参照 <a href="https://msdn.microsoft.com/en-us/library/azure/dn369872.aspx">してください</a>。
+
+
+  <b>Basic と Standard のパフォーマンスの向上</b>
+
+
+  Basic データベースと Standard データベースでは、データベース 'power' が大幅に増加しました。データベース スループット ユニット (DTC) を使用してデータベースに提供されるリソースを測定します。これにより、各パフォーマンス レベルのパワーを簡単に比較できます。Basic が 1 DTU から 5 DTU に増やされました。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/2.png"><img class="alignnone size-medium wp-image-159471" alt="2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2-636x172.png" width="636" height="172" /></a>
+
+
+  Standard では、2 つのパフォーマンス レベルが提供されます。S1 は 5 DTC から 15 DTC に、S2 は 25 DTC から 50 DTC まで増加しています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/3.png"><img class="alignnone size-medium wp-image-159481" alt="3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3-636x181.png" width="636" height="181" /></a>
+
+
+  プレミアムパフォーマンスは、P1 が 100 DTC、P2 が 200 DTC、P3 が 800 DTC で変更されません。
+
+
+  データベースのパフォーマンスを測定して考える方法の詳細<a href="https://msdn.microsoft.com/en-us/library/azure/dn741336.aspx"></a>については、パフォーマンスに関する前のブログ記事<a href="https://azure.microsoft.com/blog/2014/05/19/performance-in-the-new-azure-sql-database-service-tiers/">を</a>参照してください。
+
+
+  <b>Basic のポイントインタイム リストア</b>
+
+
+  Basic データベースへのポイントインタイム リストアのサポートを追加し、Standard データベースのバックアップ保有期間を延長しました。Basic データベースを過去 7 日間の任意の時点に復元し、Standard データベースを過去 14 日間の任意の時点に復元し、プレミアム データベースを過去 35 日間の任意の時点に復元できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/4.png"><img class="alignnone size-medium wp-image-159491" alt="4" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4-542x369.png" width="542" height="369" /></a>
+
+
+  この記事のビジネス継続性機能の詳細については、こちらをSQL Database<a href="https://msdn.microsoft.com/en-us/library/azure/hh852669.aspx">してください</a>。
+
+
+  <b>新しいサービス レベルの自動エクスポート</b>
+
+
+  また、Basic、Standard、および プレミアム データベースへの自動エクスポートのサポートも拡張されています。自動エクスポートを使用すると、スケジュールに基してデータベースの論理バックアップを定期的にエクスポートできます。ポイントインタイム リストアの自動エクスポートは、短期的なバックアップ目的では不要になりますが、長期的なバックアップを維持する場合やアーカイブ目的で使用する場合に役立ちます。 自動エクスポートを設定するには、データベースの [構成] タブを使用します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/5.png"><img class="alignnone size-medium wp-image-159501" alt="5" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5-462x369.png" width="462" height="369" /></a>
+
+
+  新しい SQL Database サービス レベルが、組み込みのビジネス継続性機能を最適に組み合った競争力のある価格パフォーマンスを提供できるよう取り組みです。フィードバックをお寄せください。

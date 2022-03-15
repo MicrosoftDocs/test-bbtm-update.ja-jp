@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 78904634ab9a94b2a56c8d5d2673974b6b507684
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894652"
+Slug: announcing-new-azure-functions-capabilities-to-accelerate-development-of-serverless-applications
+Title: サーバーレスアプリケーションの開発を促進する新しい Azure Functions 機能の発表
+Summary: 現時点では、Azure Functions を使用したサーバーレスアプリケーションの開発を加速させるいくつかの新機能について、プレビューサポートを発表いたします。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a>が導入されて以来、お客様は興味深いソリューションとインパクト<a href="https://customers.microsoft.com/en-us/search?sq=%22Azure%20Functions%22&amp;ff=&amp;p=0">ソリューション</a>を構築しています。 &nbsp;サーバーレスアーキテクチャでは、他のソリューションと簡単に統合することができます。また、Azure Functions によって実現される開発環境やオンデマンドのスケーリングが効率化され、複数のシナリオでの優れた使用が可能になります。</p>
+
+
+  <p>現時点では、Azure Functions を使用したサーバーレスアプリケーションの開発を加速させるいくつかの新機能について、プレビューサポートを発表いたします。</p>
+
+
+  <h2>Serverless Framework との統合</h2>
+
+
+  <p>本日、<a href="https://serverless.com/">Serverless Framework</a><a href="https://serverless.com/">との</a>Azure Functions 統合のプレビューサポートを発表しまし &rsquo; た。 Serverless Framework は、任意のクラウドでのサーバーレスアプリケーションのデプロイと監視を簡略化する、広く普及しているオープンソースツールです。 サーバーレスリソースの詳細を抽象化し、開発者がアプリケーションの重要な部分 &ndash; に集中できるようにすることができます。 この統合は、プロバイダーの <a href="https://aka.ms/serverlessfx">プラグイン</a>を利用しています。これにより、サーバーレスフレームワークのエクスペリエンスでファーストクラスの参加要素が Azure Functions されるようになりました。 &nbsp; Azure Functions の出所がオープンソースの <a href="https://github.com/Azure/azure-webjobs-sdk">AZURE WEBJOBS SDK</a>に含まれていた場合、このコミュニティの取り組みに貢献するのは非常に自然な選択肢でした。</p>
+
+
+  <p>プラグインの詳細については、 <a href="https://www.serverless.com/framework/docs/providers/azure/">Azure Functions Serverless Framework のドキュメント</a> と <a href="https://aka.ms/msdnserverlessfx">Azure Functions Serverless Framework</a> のブログ記事を参照してください。&nbsp;</p>
+
+
+  <h2>Azure Functions プロキシ</h2>
+
+
+  <p>関数を使用すると、いくつかのトリガー (イベント) に応答して実行する必要があるアクションをすばやく簡単に表すことができます。 &nbsp;これは、複数の顧客が既にの関数を使用している、API のような恐ろしくのようなものです。 &nbsp;&rsquo;また、お客様がマイクロサービスアーキテクチャの関数を使用し始めたことを確認しています。個々のコンポーネント間でデプロイを分離する必要があります。</p>
+
+
+  <p>現在、Azure Functions を使用した Api の開発を容易にする新しい機能である Azure Functions プロキシのプレビューが発表されています。 プロキシを使用すると、複数の関数アプリに対して1つの API サーフェスを定義できます。 任意の関数アプリで、別の API に対するリバースプロキシとして機能するエンドポイントを定義できるようになりました。このエンドポイントは、別の関数アプリ、API アプリ、またはその他のものになります。</p>
+
+
+  <p>Azure Functions プロキシの詳細については、 <a href="https://docs.microsoft.com/azure/azure-functions/functions-proxies">ドキュメント</a> のページと <a href="https://blogs.msdn.microsoft.com/appserviceteam/2017/02/22/azure-functions-proxies-public-preview/">Azure Functions プロキシパブリックプレビュー</a> のブログ記事をご覧ください。 この機能はプレビュー中は無料ですが、標準の関数の課金はプロキシの実行に適用されます。 詳細については、 <a href="https://azure.microsoft.com/pricing/details/functions/">Azure Functions の価格</a> に関するページを参照してください。</p>
+
+
+  <h2>PowerApps と Flow との統合</h2>
+
+
+  <p><a href="https://powerapps.com/">PowerApps</a>と<a href="https://flow.microsoft.com/">Flow</a>は、組織内のビジネスユーザーがビジネスプロセスの知識をソリューションに変えることができるようにするサービスです。 ユーザーは、コードを記述しなくても、さまざまなエンタープライズデータやサービスと対話するアプリやカスタムの自動化ワークフローを簡単に作成できます。 さまざまな組み込みの SaaS 統合を利用できますが、多くの場合、ユーザーは会社固有のビジネスプロセスを組み込む必要があります。 このようなカスタムロジックは従来、プロの開発者によって構築されてきましたが、ビジネスユーザーがワークフローでこのようなロジックを使用できるようになりました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/app-service/">Azure App Service</a>と Azure Functions は、多くのアプリやアクティビティで必要とされる重要なビジネスロジックを表す組織 api の構築に適しています。 &nbsp;App Service と Azure Functions の API 定義機能が拡張され&#39;、PowerApps と Microsoft Flow &quot; のジェスチャへのエクスポートが含ま &quot; れるようになりました。 このチュートリアルでは、App Service または Azure Functions の API を PowerApps と Flow ユーザーが使用できるようにするために必要なすべての手順について説明します。 詳細については、<a href="https://docs.microsoft.com/azure/app-service/app-service-export-api-to-powerapps-and-flow">ドキュメント</a>を参照し、 <a href="https://aka.ms/msdnpowerappsflow">PowerApps の api と Flow</a>ブログの投稿を参照してください。</p>
+
+
+  <p>これらの新機能を手に入れて、フォーラム、 <a href="https://stackoverflow.com/questions/tagged/azure-functions">stackoverflow</a>、または<a href="https://feedback.azure.com/forums/355860-azure-functions/filters/top">Uservoice</a>を通じてお客様からのご<a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureFunctions">意見</a>をお待ちしております。</p>

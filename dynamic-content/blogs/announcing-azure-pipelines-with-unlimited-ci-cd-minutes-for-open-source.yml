@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dcbc8bb87f1aa6025cf664a5ee5c6a65cf0979a2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891284"
+Slug: announcing-azure-pipelines-with-unlimited-ci-cd-minutes-for-open-source
+Title: オープン ソースのAzure Pipelines CI/CD 分を無制限に使用する場合に関する発表
+Summary: 現在、Azure DevOps の導入により、開発者は Azure Pipelines と呼ばれる新しい CI/CD サービスを提供しています。これにより、任意のプラットフォームまたはクラウドに継続的にビルド、テスト、デプロイすることができます。
+Content: >-
+  <p><a href="https://azure.microsoft.com/services/devops/" target="_blank">現在</a>&rsquo;、Azure DevOps の導入により、開発者は <a href="https://azure.microsoft.com/services/devops/pipelines/" target="_blank">Azure Pipelines</a> と呼ばれる新しい CI/CD サービスを提供しています。これにより、任意のプラットフォームまたはクラウドに継続的にビルド、テスト、デプロイすることができます。 Linux、macOS、および Windows 用のクラウドでホストされるエージェント、ネイティブ コンテナーをサポートする強力なワークフロー、Kubernetes、VM、サーバーレス環境への柔軟なデプロイがあります。</p>
+
+
+  <p>Microsoft は、オープンソースソフトウェア開発を推進する取り組みです。 この取り組みでは、オープン ソース プロジェクトに最適な CI/CD エクスペリエンスを提供します。 現在から、Azure Pipelinesは、すべてのオープン ソース プロジェクトに無制限の CI/CD 分と 10 の並列ジョブを無料で提供しています。 すべてのオープン ソース プロジェクトは、有料の顧客が使用するのと同じインフラストラクチャ上で実行されます。 つまり、同&rsquo;じ高速パフォーマンスと高品質のサービスを使用できます。 上位のオープン ソース プロジェクトの多くは、<a href="https://github.visualstudio.com/Atom/_build?definitionId=32" target="_blank">Atom</a>、<a href="https://python.visualstudio.com/cpython/_build?definitionId=9" target="_blank">CPython</a>、<a href="https://pypa.visualstudio.com/pipenv/_build?definitionId=9" target="_blank">Pipenv</a>、<a href="https://toxdev.visualstudio.com/tox/_build?definitionId=9" target="_blank">Tox</a>、<a href="https://vscode.visualstudio.com/VSCode/_build?definitionId=1" target="_blank">Visual Studio Code</a>、<a href="https://typescript.visualstudio.com/TypeScript/_build?definitionId=3" target="_blank">TypeScript</a> &ndash; など、CI/CD に Azure Pipelines を既に使用しています。一覧は毎日拡大しています。</p>
+
+
+  <p>次に示すのは、Linux、macOS、および CI で並列ジョブを実行している Atom Windows確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/081d9601-822c-4183-8101-9a1bcc201f0e.png"><img alt="atom2x" border="0" height="1732" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7785b324-37ed-4035-981f-e3bdbaea3590.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="atom2x" width="2960"></a></p>
+
+
+  <h2>GitHub Marketplace にある Azure Pipelines アプリ</h2>
+
+
+  <p>Azure Pipelines Marketplace にアプリが<a href="https://github.com/marketplace/azure-pipelines" target="_blank">GitHub、</a>&rsquo;簡単に開始できます。 アプリを GitHub アカウントにインストールした後、すべてのリポジトリに対して CI/CD の実行を開始できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78a6a226-0e0e-439e-9b37-21268fcd6be7.png"><img alt="pipelines2x" border="0" height="2194" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b42eb00c-e3fa-4c3c-a8b5-2e48f90d3e90.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="pipelines2x" width="2938"></a></p>
+
+
+  <h2>Pull Request と CI のチェック</h2>
+
+
+  <p>アプリのGitHub、&rsquo;既定のブランチとすべてのコミットに対する各コミットに対する CI/CD チェックがpull request。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87558814-a9da-4a4a-a73a-a074a6bf5afc.png"><img alt="highlight2x" border="0" height="660" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a257807e-ea4b-481a-9418-84db3a01a56e.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="highlight2x" width="1790"></a></p>
+
+
+  <p>GitHub Checks API との統合により、アプリ内のビルド結果を簡単にpull request。 エラーが&rsquo;発生した場合は、呼び出し履歴と影響を受けるファイルが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3d7a1af6-79a0-4cd6-8e50-f12201d702ac.png"><img alt="githubchecks2x" border="0" height="985" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7f7ad95-36b8-46e5-b4a2-6e5f56bec651.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="githubchecks2x" width="2140"></a></p>
+
+
+  <h2>オープン ソース以上の</h2>
+
+
+  <p>Azure Pipelinesは、プライベート リポジトリにも最適です。 これは、Shell、Shell、Accenture、その他多くの企業向け CI/CD ソリューションです。 また&rsquo;、Azure、azure、&rsquo;Office 365、Bing など、Microsoft の最大のプロジェクトでも使用Bing。 プライベート プロジェクトの無料オファーには、クラウドでホストされるジョブが含まれています。1 か月に 1,800 分の CI/CD を使用するか、クラウドまたはオンプレミスのハードウェアでホストされている独自のハードウェアで CI/CD を無制限に実行できます。 プライベート プロジェクトの並列ジョブは、Azure DevOps <a href="https://azure.com/pricing/details/devops/azure-pipelines" target="_blank">Marketplace から</a><a href="https://github.com/marketplace/azure-pipelines" target="_blank">GitHubできます</a>。</p>
+
+
+  <p>ci に加えて、Azure Pipelines には、Azure、アマゾン ウェブ サービス、Google Cloud Platform を含む任意のプラットフォームとクラウド、および Linux、macOS、Windows を実行しているオンプレミス サーバーへの柔軟なデプロイがあります。 Kubernetes、サーバーレス、VM のデプロイには、組み込みのタスクがあります。 また、最も&rsquo;一般的な言語とツールのための拡張機能の豊富なエコシステムも用意されています。 エージェントAzure Pipelines<a href="https://github.com/Microsoft/vsts-agent/" target="_blank">タスク</a><a href="https://github.com/Microsoft/vsts-tasks/" target="_blank">は</a>&rsquo;オープン ソースであり、常にフィードバックを確認し、GitHub で pull request を受け入GitHub。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Events/Microsoft-Azure/Azure-DevOps-Launch-2018/A102/player" width="960"></iframe></p>
+
+
+  <p>今後のライブ ストリームに参加して、他のAzure Pipelinesサービスの詳細Azure DevOpsしてください。</p>
+
+
+  <ul><!--StartFragment-->
+   <li>
+   <h3><strong>基調 講演：</strong>2018 年 9 月 11 日の午前 8:00 から太平洋Azure DevOps:9:30 まで、ライブ セッションの講演をご覧ください。</h3>
+   </li>
+   <li>
+   <h3><strong>ライブ トレーニング:</strong>2018 年 9 月 17 日午前 8 時 30 分から太平洋時間午後 2 時 30 分まで、対話型 QA&amp; とライブ Mixer ワークショップに参加してください。</h3>
+   </li>
+  </ul>
+
+
+  <p>日付を保存し、両方のライブ ストリームをイベント ページ <a href="https://aka.ms/AzureDevOpsLaunch" target="_blank">で視聴できます</a>。 また、&rsquo;追加のオンデマンド ビデオや、開始に役立つその他のリソースも用意されています。</p>
+
+
+  <p>ぜひ&rsquo;お試しAzure Pipelinesご自分の考えをお聞かわせください。 この投稿に関するコメントを<a href="https://twitter.com/azuredevops" target="_blank">@AzureDevOps</a>使用して、、<a href="https://developercommunity.visualstudio.com/spaces/21/index.html" target="_blank">Developer Community</a>、またはコメントを使用して、製品チームに直接ご自分の考えを共有できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ジェレミエプリング</p>
+
+
+  <p><a href="https://twitter.com/jeremy_epling" target="_blank">@jeremy_epling</a></p>

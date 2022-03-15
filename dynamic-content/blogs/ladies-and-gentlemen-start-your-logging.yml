@@ -1,0 +1,113 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f1f7b31ec378f246a5f66419501b72e13744f01a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891517"
+Slug: ladies-and-gentlemen-start-your-logging
+Title: Ladies と gentlemen、ログを開始する
+Summary: 'ELK から Azure Log Analytics への移行により、運用コストを90% 以上に抑える方法について説明します。 '
+Content: >-
+  <p>この投稿は<em>、Quaranta、AZURE MVP、Autocosmos</em> <a href="https://mvp.microsoft.com/en-us/PublicProfile/5001078?fullName=Mat%c3%adas%20%20Quaranta"><em>として台紙 &iacute; </em></a><em>によって作成されました</em>。</p>
+
+
+  <p>このブログ投稿では、 &rsquo; ELK から <a href="https://azure.microsoft.com/services/log-analytics/">Azure Log Analytics</a> に移行し、 <strong>運用コストを90% 以上削減し、メンテナンス時間を短縮</strong>する方法について説明します。</p>
+
+
+  <h3>背景</h3>
+
+
+  <p>ログ記録の必要性はコンピューターと同じであり、その重要性は、分散アーキテクチャの複雑さによって手動で増加しています。</p>
+
+
+  <p>多くの場合、アプリケーションとプラットフォームは複数のサーバー、サービスインスタンス、言語、さらにはテクノロジにまたがります。 すべての部分の状態とログを保持することが課題になります。</p>
+
+
+  <p>Autocosmos は azure で完全に機能します。アーキテクチャ全体は、Azure アプリ services、Azure Redis Cache および Azure SQL Database など、最も一般的なものから、Azure Search、Azure DocumentDB、Microsoft Cognitive Services まで、さまざまな azure サービスで実行されます。 Microsoft は、Azure &rsquo; の SaaS および PaaS サービスを活用して、ラテンアメリカの自動車および自動車愛好家向けの最適な製品とプラットフォームの作成とデプロイに焦点を当てたテクノロジチームです。</p>
+
+
+  <p>数年前に、一元化されたログ記録プラットフォームを実装することにした場合、さまざまなログ出力と構造を管理できるオプションが多数あり &rsquo; ます。そのため、Azure Virtual Machines で実行されている ELK (Elasticsearch) スタックの実装は終了しました。 Kibana を通じてログを記録して視覚化することで、非常にうまく機能していることを認めなければなりません。</p>
+
+
+  <h3>問題点</h3>
+
+
+  <p>前述したように、私たちは開発者とエンジニアの専門技術チームであり、ELK スタックが機能していたとしても、仮想 Linux 環境を維持することを余儀なくされていましたが、Elasticsearch クラスターの正常性と、開発者 &rsquo; が特に注意を払っていない多数のタスクを監視していました。 私たちは、ログアーキテクチャを維持するためにタイムシンクになっていたと思います。製品に価値を追加すること &rsquo; はできませんでした。</p>
+
+
+  <p>これに加えて、Azure Vm は IaaS オファリングであり、あらゆる種類のスケーリングとネットワークバランスを開発者にとって面倒で複雑なタスクにします。 この作業は、ログアーキテクチャのためだけです。<br>
+
+  Who は、問題の解決策について、videogame がドアを開くと考えました。</p>
+
+
+  <h3>予期しない機会</h3>
+
+
+  <p><a href="https://azure.microsoft.com/blog/how-halo-5-uses-log-analytics-oms-azure-for-operational-intelligence/">Halo 5 がログパイプラインを管理</a>した方法を読んだ後、Azure Log Analytics の優れたチームと連携し、現在のシナリオと共有できます。</p>
+
+
+  <p>Azure Log Analytics に慣れていない場合は、 &rsquo; Microsoft Operations Management Suite のサービス部分ですが、個別の価格 (free レベルを含む) を持ち、Windows および Linux 環境のソース (オンプレミスまたはクラウド) を含む複数のソースからのログデータの収集、格納、および分析を行うことができます。</p>
+
+
+  <p>当然ながら、HTTP API と JSON オブジェクトを使用して、宣言されたエージェントまたはソースから排他的に取得されたカスタムログの取り込み &rsquo; を可能にする実装に取り組んでいました。</p>
+
+
+  <p>これは、まさに必要なソリューションでした。 ELK Stack には既に JSON を使用していたので、ログフローを <a href="https://azure.microsoft.com/documentation/articles/log-analytics-data-collector-api/">Azure LOG ANALYTICS HTTP データコレクター API</a>にリダイレクトするのと同じように簡単でした。 このアーキテクチャ全体では、HTTP と JSON の自由な利点を活用して、ログの送信を開始しました。また、Azure Log Analytics が各 JSON 属性を個別に解析して認識しているため、フロントエンドログ、DocumentDB ログ、Cognitive Services ログを送信することもできます。 Azure Functions の内部からログを送信することもできますが、異なる情報を持つソースが異なる一方で、作業は成功しました。</p>
+
+
+  <p><img alt="Autocosmos Azure Architecture" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/723c26c9-4372-4c19-8748-ae8c66e037ff.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Autocosmos Azure アーキテクチャ" width="574"></p>
+
+
+  <p>これは、すべてのオペレーションインサイトのバックボーンになりました。</p>
+
+
+  <h3>HTTP による JSON ログの実装</h3>
+
+
+  <p>ソリューションの一部であるすべてのサービスとアプリケーションで ASP.NET Core が実行されているため、 <a href="https://github.com/ealsur/HTTPDataCollectorAPI">GitHub パブリックリポジトリ</a>に投稿するために開いている Nuget パッケージの形式で、Azure Log Analytics HTTP データコレクター API 用の .net ラッパーを作成しました。 このラッパーを使用すると、アーキテクチャのどの部分からでも JSON ペイロードを送信できるようになり、オブジェクトのシリアル化もサポートされます。</p>
+
+
+  <p>事後分析のためのログ記録を使用します。これは、Api または Web ジョブ関数の内部呼び出しが失敗したときに例外を直接送信し、Azure Log Analytics の検索機能を使用して問題の原因を見つけることで実現できます。</p>
+
+
+  <p><img alt="Sending Exceptions" border="0" height="272" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c210dcf6-0686-4d52-ba06-1fd12065694f.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="例外の送信" width="610"></p>
+
+
+  <p>パフォーマンスはログでも測定できます。(公開されたヘッダーを使用して) 各呼び出しで使用される DocumentDB 要求ユニットを追跡して、時間単位のクォータの使用状況を測定し、スケーリングが必要なポイントに到達した場合にアラートを通知します。</p>
+
+
+  <p><img alt="Sending Data" border="0" height="229" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e6519d38-b72b-4724-93e6-f93b540390a4.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="データの送信" width="610"></p>
+
+
+  <h3>検索エクスペリエンス</h3>
+
+
+  <p>Azure Log Analytics はログストレージではなく、優れた検索機能を備えています。この機能を使用すると、ログデータを詳細に説明したクエリ構文で詳細に掘り下げ、解析とフィルター処理が可能な各 JSON 属性を表示できます。</p>
+
+
+  <p><img alt="Perf" border="0" height="261" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/838f06da-4a3c-41f9-b980-a0cd21650480.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Perf" width="610"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="Search" border="0" height="202" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92bd17c0-c272-4a51-a32a-31be89b336bc.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="検索" width="610"></p>
+
+
+  <p>任意のウィジェットとタイルを使用してカスタムダッシュボードを作成し、シナリオに最適な視覚エフェクトを構築することもできます。</p>
+
+
+  <p><img alt="Visualization" border="0" height="370" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cbbb20ee-9083-4e08-aa30-b20237ef7bd4.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="グラフ" width="610"></p>
+
+
+  <p>最後に、検索とタイムフレームに基づいてアラートを構成し、Webhook、Azure Automation Runbook、または電子メール通知に関連付けることができます。</p>
+
+
+  <p><img alt="Alerts" border="0" height="328" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87fd3654-4a73-42ed-ad7e-7c153a0e77a5.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="アラート" width="610"></p>
+
+
+  <h3>まとめ</h3>
+
+
+  <p>Azure Log Analytics を実装すると、メンテナンス時間が短縮されるだけでなく、運用コストも90% を超えて削減されます。 今のところ、私たちのビジネスにとって最も重要なのは、ラテンアメリカで自動車愛好家向けに最適な製品とプラットフォームを作成して構築することです。</p>

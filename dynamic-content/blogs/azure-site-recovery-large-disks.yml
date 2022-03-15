@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d1bf997da5ff075b5dac28cec2e830a0862dca57
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894043"
+Slug: azure-site-recovery-large-disks
+Title: Azure Site Recovery が Azure で大規模なディスクサイズをサポートするようになりました
+Summary: Azure Site Recovery (ASR) では、最大 4 TB のディスクサイズを使用して、オンプレミスの仮想マシンのディザスターリカバリーと移行がサポートされるようになりました。
+Content: >-
+  <p>Azure での大規模なディスクサイズの最近の <a href="https://azure.microsoft.com/en-us/blog/azure-introduces-new-disks-sizes-up-to-4tb/">一般提供</a> の後、AZURE SITE RECOVERY (ASR) では、オンプレミスの仮想マシンと物理サーバーのディザスターリカバリーと移行がサポートされるようになりました。これは、最大 4095 GB のディスクサイズで azure に対応しています。</p>
+
+
+  <p>データベース層とファイルサーバーの一部である多くのオンプレミス仮想マシンでは、サイズが 1 TB を超えるディスクが使用されます。 大規模なディスクサイズでこれらの仮想マシンを保護するためのサポートは、お客様とパートナーの両方からのトップな質問として常に提供されています。 この機能強化により、ASR は、これらのワークロードを Azure に回復または移行する機能を提供するようになりました。</p>
+
+
+  <p>これらの大規模なディスクサイズは、standard storage と premium storage の両方で使用できます。 Standard storage では、S40 (2TB) と S50 (4 TB) という2つの新しいディスクサイズを、管理ディスクと非管理対象ディスクで使用できます。 高 IOPS とスループットを常に必要とするワークロードでは、管理ディスクと非管理対象ディスクの両方について、premium storage で2つの新しいディスクサイズ、P40 (2TB) と P50 (4 TB) を使用できます。 アプリケーションの要件に応じて、ASR を使用して仮想マシンを standard または premium storage にレプリケートすることを選択できます。 構成、リージョンの可用性、大容量ディスクの価格の詳細については、このストレージの <a href="https://docs.microsoft.com/en-us/azure/storage/storage-scalability-targets#managed-virtual-machine-disks">ドキュメント</a>を参照してください。</p>
+
+
+  <p>Azure Site Recovery が大きなディスクサイズをサポートする方法を説明するために、SharePoint ファームのデータベース層の VM を保護しました。 この VM には、1 TB を超えるデータディスクがあることがわかります。</p>
+
+
+  <p><img alt="Large disks" border="0" height="402" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/529f2f33-d590-44d7-84ef-1dbd0430cd14.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="大容量ディスク" width="610"></p>
+
+
+  <h3>既存の ASR ユーザーの前提条件の手順:</h3>
+
+
+  <p>1 TB を超えるディスクを使用して仮想マシン/物理サーバーの保護を開始する前に、既存のオンプレミスの ASR インフラストラクチャに最新の更新プログラムをインストールする必要があります。 これは、既存の ASR ユーザーに必須の手順です。</p>
+
+
+  <p>VMware 環境/物理サーバーの場合は、構成サーバー、追加のプロセスサーバー、追加のマスターターゲットサーバーおよびエージェントに <a href="https://aka.ms/update-rollup-19-azure-site-recovery">最新</a> の更新プログラムをインストールします。</p>
+
+
+  <p>System Center VMM によって管理される hyper-v 環境の場合は、オンプレミスの vmm サーバーに<a href="https://aka.ms/update-rollup-19-azure-site-recovery">最新</a>の Microsoft Azure Site Recovery プロバイダーの更新プログラムをインストールします。</p>
+
+
+  <p>System Center VMM で管理されていない hyper-v 環境の場合は、Azure Site Recovery に登録されている hyper-v サーバーの各ノードに<a href="https://aka.ms/update-rollup-19-azure-site-recovery">最新</a>の Microsoft Azure Site Recovery プロバイダーをインストールします。</p>
+
+
+  <p>現時点では、大規模なディスクサイズを使用した Azure で <a href="https://aka.ms/asr-azure-to-azure-iaas">の IaaS マシンのディザスターリカバリー</a> をサポートしているわけではありません。 このサポートは間もなく提供<b></b>される予定です。<b> </b></p>
+
+
+  <p><b>今すぐ Azure Site Recovery の使用を開始します。 </b>詳細については、 <a href="https://aka.ms/asr-hub-asr-forums">MSDN の Azure Site Recovery フォーラム</a> にアクセスして、他のお客様と協力してください。 <a href="https://aka.ms/asr_vmware_to_azure_enhanced_uservoice">ASR ユーザー音声</a>を使用して、次に有効にする機能を知ることもできます。</p>

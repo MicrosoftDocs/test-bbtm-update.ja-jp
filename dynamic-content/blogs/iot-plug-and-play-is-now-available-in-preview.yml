@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0145b834e928da373a83e6766b31401e84f2a526
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895042"
+Slug: iot-plug-and-play-is-now-available-in-preview
+Title: IoT プラグアンドプレイをプレビューで使用できるようになりました
+Summary: 現在、IoT プラグアンドプレイはプレビューでご利用いただけるようになりました。 2019年5月の Microsoft ビルドでは、IoT プラグアンドプレイを発表し、IoT Central とシームレスに連携する方法を説明しました。
+Content: >-
+  <p>現在、IoT プラグアンドプレイはプレビューでご利用いただけるようになりました。 2019年5月の Microsoft ビルドでは、 <a href="https://azure.microsoft.com/en-us/blog/build-with-azure-iot-central-and-iot-plug-and-play/" target="_blank">IoT プラグアンドプレイを発表</a> し、IoT Central とシームレスに連携する方法を説明しました。 IoT プラグアンドプレイでは、ソリューション開発者が<a href="https://aka.ms/DTDL" target="_blank">デジタルツイン定義言語</a>で定義されたデバイス機能モデルを使用して iot デバイスに接続し、対話できるようにすることで、デバイスの統合を簡単に<a href="https://mybuild.techcommunity.microsoft.com/sessions/77053?source=sessions#top-anchor" target="_blank">する方法を説明し</a>ています。 また、IoT プラグアンドプレイ有効になっているデバイスとソリューションを起動したパートナーのセットについても発表しました。 IoT プラグアンドプレイ認定デバイスは、 <a href="https://catalog.azureiotsolutions.com/" target="_blank">Azure Certified for IoT デバイスカタログ</a>で確認できます。</p>
+
+
+  <p>現在 &rsquo; の発表では、ソリューション開発者は<a href="https://azure.microsoft.com/en-us/services/iot-central/" target="_blank">Azure IoT 中央</a>または<a href="https://azure.microsoft.com/en-us/services/iot-hub/" target="_blank">Azure IoT のハブ</a>を使用して、iot プラグアンドプレイで有効になっている iot デバイスとシームレスに統合するソリューションを構築できます。 また、デバイス認定の送信プロセスを効率化し、デバイスを Azure IoT デバイスカタログにすばやく追加することを目的としたデバイスパートナー向けに、新しい<a href="https://aka.ms/acfi" target="_blank">Azure Certified for IoT ポータル</a>を開始しました。</p>
+
+
+  <p>この記事では、ソリューション開発者が IoT ソリューションで IoT プラグアンドプレイデバイスを使用する方法と、デバイスパートナーがカタログに掲載される製品を構築および認定する方法について説明します。</p>
+
+
+  <h2>ソリューション開発者のためのより高速なデバイス統合</h2>
+
+
+  <p>Azure IoT central は完全に管理されたサービスとしてのソフトウェア (SaaS) であり、iot デバイスと製品の接続、監視、管理を簡単に行うことができます。 Azure IoT central は、iot ソリューションの初期設定を簡略化し、一般的な iot プロジェクトの管理負担、運用コスト、およびオーバーヘッドを削減します。 IoT プラグアンドプレイとの中央統合 Azure IoT は、ソリューション開発者が埋め込みコードを記述しなくてもデバイスを統合できるようにすることで、これをさらに一歩進めます。 Iot ソリューション開発者は、多数の IoT プラグアンドプレイ認定デバイスからデバイスを選択して、IoT ソリューションをエンドツーエンドですばやく構築およびカスタマイズすることができます。 ソリューション開発者は、デバイスカタログの認定デバイスから開始し、表示名や単位の編集など、デバイスのエクスペリエンスをカスタマイズできます。 ソリューション開発者は、ソリューションオペレーター用のダッシュボードを追加してデータを視覚化することもできます。この新しいリリースの一部として、開発者は幅広い視覚エフェクトセットから選択できます。 また、ダッシュボードと視覚エフェクトを自動生成して、すばやく稼働させることもできます。 ダッシュボードと視覚エフェクトを作成すると、ソリューション開発者は、デバイスカタログからの実際のモデルに基づいてシミュレーションを実行できます。 開発者は、IoT プラグアンドプレイ機能モデルによって公開されているコマンドやプロパティと統合して、オペレーターがデバイス保有機材を効率的に管理できるようにすることもできます。 IoT Central は、認定されたデバイスの機能モデルを自動的に読み込み、真のプラグアンドプレイエクスペリエンスを実現します。</p>
+
+
+  <p>さらに多くのカスタマイズを行う開発者 &rsquo; にとっては、Azure IoT hub と iot プラグアンドプレイデバイスを使用して iot ソリューションを構築するという選択肢もあります。 現在 &rsquo; のリリースでは、Azure IoT hub は、IoT プラグアンドプレイデバイス機能モデルとインターフェイスの機能を公開する RESTful デジタルツイン api をサポートするようになりました。 開発者はプロパティを設定して、アラームしきい値などの設定を構成したり、デバイスのリセット、テレメトリのルーティング、特定のインターフェイスをサポートしているデバイスを照会したりすることができます。 最も便利な方法は、 <a href="https://aka.ms/iotpnpnodesdk" target="_blank">Node.jsに Azure IoT SDK</a>を使用することです (他の言語は近日対応予定)。 また、Azure Certified for IoT デバイスカタログで IoT プラグアンドプレイが有効になっているすべてのデバイスは、IoT Central と同様に IoT Hub で動作します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3fc10bfc-f2dd-442c-8e7e-65baa15c9a03.png"><img alt="An image of the certified device browsing page." border="0" height="538" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/327f7c97-c485-4b66-a849-81c14605d5a0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="認定デバイス参照ページの画像。" width="1024"></a></p>
+
+
+  <h2>デバイスパートナー向けの合理化した認定プロセス</h2>
+
+
+  <p>Azure Certified for IoT デバイスカタログを使用すると、お客様は、適切な Azure IoT 認定デバイスをすばやく見つけて、IoT ソリューションの構築をすぐに開始できます。 デバイスパートナーが製品を IoT プラグアンドプレイと互換性のあるものとして認定するために、新しいポータルと提出プロセスを開始することで、Azure Certified for IoT プログラムを改良し、合理化しました。 デバイスパートナーは、Azure Certified for IoT ポータルを使用して、Azure Certified for IoT デバイスカタログに表示される新しい製品を定義し、物理ディメンション、説明、geo 可用性などの製品詳細を指定できます。 デバイスパートナーは自社のモデルリポジトリ内の IoT プラグアンドプレイモデルを管理できます。これにより、自分の従業員と選択したパートナーだけでなく、パブリックモデルリポジトリにもアクセスが制限されます。 また、ポータルでは、デジタルツイン定義言語および必要なインターフェイスの実装の正しい実装を検証する自動検証プロセスに送信することで、デバイスパートナーが製品を認定することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7424172b-4092-4aa4-a5b8-155ba83b1e2f.png"><img alt="An image of the device page for the MXChip-Certified." border="0" height="577" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/657d5519-4439-48f9-b591-9d87bf928727.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="MXChip 認定のデバイスページの画像。" width="1024"></a></p>
+
+
+  <p>デバイスパートナーは、IoT プラグアンドプレイをサポートするために開発者ツールに投資することにもメリットがあります。 VS Code 用の<a href="https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-iot-workbench" target="_blank">Azure IoT デバイスワークベンチ</a>拡張機能は、IoT Play および play デバイスモデルを簡単に作成できるように IntelliSense を追加します。 また、コード生成を使用して、IoT プラグアンドプレイモデルを実装する C デバイスコードを作成し、IoT Central に接続するためのロジックを提供できるようになります。お客様は、IoT デバイス Sdk のプロビジョニングや統合について心配する必要はありません。</p>
+
+
+  <p>新しいツール機能は、デバイスモデルをシームレスに発行するためのモデルリポジトリサービスとも統合されています。 デバイス開発者は、Azure IoT デバイスワークベンチに加えて、 <a href="https://github.com/Azure/azure-iot-explorer/releases" target="_blank">Azure IoT エクスプローラー</a>や Azure コマンドラインインターフェイスの Azure IoT 拡張機能などのツールを使用できます。 デバイスコードは、 <a href="https://aka.ms/iotpnpcsdk" target="_blank">C 用の Azure IoT SDK</a>および<a href="https://aka.ms/iotpnpnodesdk" target="_blank">Node.js</a>用に開発できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/384cec7a-6f7c-411f-bbb0-e110d8063f2a.png"><img alt="An image of the Azure IoT explorer." border="0" height="724" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e664f7c2-9175-4fdf-b10f-b3c7cf9e9cd5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure IoT エクスプローラーのイメージ。" width="1024"></a></p>
+
+
+  <h2>Windows および Linux ゲートウェイ上のセンサーを Azure に Connect</h2>
+
+
+  <p>Windows または Linux ゲートウェイデバイスを使用していて、既にゲートウェイに接続されているセンサーがある場合は、JSON 構成を編集するだけで、これらのセンサーを Azure で使用できるようにすることができます。 このテクノロジは、IoT プラグアンドプレイブリッジと呼ばれています。 ブリッジを使用すると、Windows と Linux のセンサーは、これらのセンサーを IoT ゲートウェイから IoT Central または IoT Hub にブリッジすることで、Azure でのみ動作するようになります。 IoT ゲートウェイデバイスでは、センサーブリッジは OS Api と OS のプラグアンドプレイ機能を活用して下流センサーに接続し、IoT プラグアンドプレイ Api を使用して Azure で IoT Central と IoT Hub と通信します。 ソリューションビルダーは、IoT デバイスで列挙されたセンサーから簡単に選択し、IoT Central または IoT Hub に登録できます。 Azure で利用できるようになると、センサーにリモートでアクセスして管理できるようになります。 ここでは、Modbus と、Mcu または embedded デバイスからセンサーデータを管理および取得するためのシンプルなシリアルプロトコルをサポートしており、MQTT などの他のプロトコルのネイティブサポートを引き続き追加しています。 Windows では、カメラと、OS が認識できるデバイス (USB 周辺機器など) の一般的なデバイス正常性監視もサポートしています。 独自のアダプターでブリッジを拡張して、他の種類のデバイス (I2C/SPI など) と通信することができ、さらに多くのセンサーとプロトコル (HID など) のサポートを追加することに取り組んでいます。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>IoT プラグアンドプレイデバイスでソリューションを構築する方法については、 <a href="https://aka.ms/iotpnpcentraldocs" target="_blank">IoT Central のドキュメントを参照</a>してください。</li>
+   <li>Azure IoT プラットフォームを使用してソリューションを構築する方法について<a href="https://aka.ms/iotpnpdocs/" target="_blank">は、IoT プラグアンドプレイのドキュメントを参照</a>してください。</li>
+   <li><a href="https://aka.ms/pnpcertdoc" target="_blank">IoT プラグアンドプレイデバイスを構築し、認定する方法について説明</a>します。</li>
+   <li>GitHub の<a href="https://aka.ms/dtdl" target="_blank">デジタルツイン定義言語仕様</a>を確認します。</li>
+   <li>9月11日に <a href="https://aka.ms/iotpnpdeepdiveshow" target="_blank">詳細を表示モノのインターネット</a> にチューニングします。</li>
+   <li>Azure IoT デバイスカタログの<a href="https://catalog.azureiotsolutions.com/" target="_blank">IoT プラグアンドプレイデバイスを参照</a>します。</li>
+   <li>Channel 9 IoT Show の「 <a href="https://youtu.be/d2r5qZUotFI" target="_blank">MODBUS 環境センサーを使用した iot プラグアンドプレイ bridge</a> のデモ」を参照してください。</li>
+   <li>GitHub で<a href="https://github.com/Azure/AzurePnPBridgepreview" target="_blank">IoT プラグアンドプレイ bridge をお試しください</a>。</li>
+   <li>Azure Maps と IoT プラグアンドプレイ location スキーマを使用して<a href="https://aka.ms/am-lot-tutorial" target="_blank">iot 空間分析を実装する方法に</a>ついて説明します。</li>
+  </ul>

@@ -1,0 +1,64 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 50241d94d4291a49ed2166075c4b65154a71cd3e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896150"
+Slug: azure-web-sites-extensions
+Title: Azure Web サイト拡張機能
+Summary: >
+  サイト拡張機能は、サイト管理ツールを拡張できる管理エンドポイントです。 Web サイトで使用する新しいサイト拡張機能を作成し、サイト拡張機能ギャラリー送信ポータルを使用して新しいサイト拡張機能を送信することもできます。
+Content: >-
+  各 Azure Web サイトには、サイト拡張機能としてデプロイされた強力なツール セットを活用できる拡張可能な管理エンド ポイントが用意されています。 これらのツールは、Visual Studio Online などのソース コード エディターから、Web サイトに接続されている MySQL データベースなどの接続されたリソースの管理ツールまで、さまざまな種類があります。 既存のサイト拡張機能は、Azure プレビュー ポータルの Web サイトごとに使用できます。
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img1.png"><img alt="Daria Grigoriu - Daria Griguriu - Azure Web Sites Extensions - Img1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img1-636x345.png" width="636" height="345" /></a></p>
+
+  このリンクの手順に基づいて、Web サイトで使用する新しいサイト拡張機能を作成 <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-transform-extend/">できます</a>。 サイト拡張機能ギャラリーの申請ポータルを使用して、Azure Websites プラットフォーム全体で可用性のために新しいサイト拡張機能を送信することもできます。 <a href="https://www.siteextensions.net">https://www.siteextensions.net</a>
+
+  <h1>既存のサイト拡張機能との対話</h1>
+
+  既存のサイト拡張機能を操作するためのエントリ ポイントは、Azure プレビュー ポータルの [構成] レンズの下にある各 Web サイトで使用できます。 [拡張機能] パーツにアクセスすると、新しいブレードが開きます。
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img2.png"><img alt="Daria Grigoriu - Daria Griguriu - Azure Web Sites Extensions - Img2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img2-636x248.png" width="636" height="248" /></a></p>
+
+  新しいサイト拡張機能を追加するには、[追加] ボタンをクリックし、一覧から拡張機能を選択します。 これらの各拡張機能は、拡張機能をインストールする前に、各発行元によって提供される拡張機能名と法律条項に記載されている発行元が使用できる必要があります。
+
+
+  追加すると、サイトのルートと並行して %HOME%\SiteExtensions フォルダーの下にサイト拡張機能のコンテンツがコピーされます。 サイト拡張機能を追加すると、サイトが再起動されます。
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img3.png"><img alt="Daria Grigoriu - Daria Griguriu - Azure Web Sites Extensions - Img3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img3-367x369.png" width="367" height="369" /></a></p>
+
+  インストールされている各サイト拡張機能にアクセスして管理するには、拡張機能の一覧の項目を右クリックするか、各サイト拡張機能のブレードの上部に表示されるアクションを使用します。
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img4.png"><img alt="Daria Grigoriu - Daria Griguriu - Azure Web Sites Extensions - Img4" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img4-470x369.png" width="470" height="369" /></a></p>
+
+
+  <h1>新しいサイト拡張機能の作成</h1>
+
+  独自のサイト拡張機能を作成して共有しますか? Azure Websites のお客様が利用できるのを楽しみにしています。
+
+
+  サイト拡張機能は、拡張機能登録用の単純なメタデータを持つ Web アプリです。 サイト拡張機能は、Azure Websites プラットフォームでサポートされている開発スタックに対して作成できます。例については、このリンクのドキュメントを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-transform-extend/">してください</a>。 特定の構成用に applicationHost.xdt ファイルを作成できます。このようなファイルがない場合は、サイト拡張機能のアプリケーションと仮想ディレクトリのパスを示す単純なテンプレートが自動的に生成されます。
+
+
+  サイト拡張機能は、このリンクで説明NuGet形式でパッケージ化<a href="https://docs.nuget.org/docs/creating-packages/creating-and-publishing-a-package">されます</a>。 たとえば、このNuGet.exeコマンド ライン ユーティリティをダウンロードして、簡単なサンプル拡張機能を<a href="https://nuget.org/nuget.exe"></a>パッケージ化できます。 このサンプル拡張機能のソース コードについては、このリンクを参照 <a href="https://github.com/projectkudu/FileCounterSiteExtension">してください</a>。
+
+  <ol>
+   <li>サイト拡張機能の名前を持つフォルダーを作成します。</li>
+   <li>Web アプリを作成し、関連するすべてのコンテンツをサイト拡張フォルダーの下の Content フォルダーに配置します。</li>
+   <li>拡張機能の NuSpec ファイルを作成し、このリンクの例などのライセンス条項へのリンクを必ず含 <a href="https://github.com/projectkudu/FileCounterSiteExtension/blob/master/FileCounter.nuspec">めます</a>。</li>
+   <li>NuGet.exe ユーティリティがパス内に存在し、サイト拡張機能フォルダーから次のコマンドを実行して、NuGetします。</li>
+  </ol>
+
+  <pre class="prettyprint">nuget pack example.nuspec</pre>
+
+  Azure Websites プラットフォーム全体で利用可能な NuPkg サイト拡張機能を送信するには、 の申請ポータルにアクセスします <a href="https://www.siteextensions.net">https://www.siteextensions.net</a>。 申請アクセスに登録する必要があります。
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img5.png"><img alt="Daria Grigoriu - Daria Griguriu - Azure Web Sites Extensions - Img5" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img5-391x369.png" width="391" height="369" /></a></p>
+
+  登録/サインイン後、拡張機能パッケージをアップロードし、送信の詳細を確認します。
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img6.png"><img alt="Daria Grigoriu - Daria Griguriu - Azure Web Sites Extensions - Img6" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Daria-Grigoriu-Daria-Griguriu-Azure-Web-Sites-Extensions-Img6-611x369.png" width="611" height="369" /></a></p>
+
+  サイト拡張機能を作成すると、Azure Websites コミュニティに大きなメリットがあります。 作業のダウンロードを追跡するには、 のギャラリー ページから特定の拡張機能リンクに移動します <a href="https://www.siteextensions.net/">https://www.siteextensions.net</a>。 お気に入りのソーシャル メディア の店舗全体で新しいサイト拡張機能を発表することを忘れないでください。

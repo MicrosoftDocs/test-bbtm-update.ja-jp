@@ -1,0 +1,162 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2ce547b0b0b1f9dd221b1804033ef4b7f9617d01
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896615"
+Slug: azure-and-scalr-come-together-to-offer-cloud-management-on-a-top-notch-cloud
+Title: Azure とスケールが連携して、Azure でのクラウド管理を最上位に提供
+Summary: 現在、スケール r のクラウド管理プラットフォームで Azure Virtual Machines のサポートが追加されたことをお知らせします。
+Content: >-
+  これまでシアトルですばらしい夏を行ってきました。 現在、 <a href="https://www.scalr.com/blog/scalr-now-supports-microsoft-azure">スケール r のクラウド管理プラットフォームで Azure Virtual Machines のサポートが追加され</a>たことをお知らせします。 複数のクラウドとハイブリッド環境にまたがるデプロイ、インフラストラクチャガバナンス、財務ポリシー制御のために、拡張性に優れた管理エクスペリエンスを使用して、Azure でクラウドネイティブインフラストラクチャを構築できるようになりました。
+
+
+  拡張性のあるクラウド管理プラットフォーム ( <a href="https://www.scalr.com"><i>https://www.scalr.com</i></a> <i>)</i>を使用すると、パブリックかプライベートかにかかわらず、複数のハイブリッドクラウドにわたるアプリケーション開発を管理し、インフラストラクチャをデプロイするための学習曲線を短縮できます。 拡張性のあるプラットフォームは、デプロイと監視を自動化し、ガバナンスとポリシーを提供します。これには、財務コストのアカウンタビリティとコンプライアンス制御が含まれます。 以前は「ビルド」で説明し、現在の発表では、コンピューティング、ネットワーク、ストレージで Azure の新しい <a href="https://azure.microsoft.com/blog/2015/04/29/iaas-just-got-easier-again/">Azure Resource Manager</a> を使用して Virtual Machines をデプロイおよび管理するためのサポートが追加されました。
+
+
+  Azure のスケール r は、AWS と GCE よりも多くのリージョンをサポートしており、19のリージョンですぐに利用できます (まもなく 24)。 Azure が提供する幅広いグローバル範囲により、アプリケーションをエンドカスタマーや従業員に対してより近くに実行できるだけでなく、スケール r を使用してクラウドネイティブインフラストラクチャを簡単に管理できます。 デプロイされた Virtual Machines を Azure Web Apps、Mobile Apps、Logic Apps などの幅広い Azure PaaS サービスと組み合わせることもできます。
+
+  <h2>拡張性のあるプラットフォームを使用する方法</h2>
+
+  ここでは、スケール r を使用して Azure にデプロイする方法を簡単に説明します。 から  <a href="https://github.com/Scalr/installer-ng">https://github.com/Scalr/installer-ng</a>   、スケール r をインストールしてログインした後、[イメージ] の下にある [すべての場所] ボタンをクリックし、そこから [Azure] を選択します。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Scalr.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="スケール r" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Scalr_thumb.png" alt="Scalr" width="1098" height="467" border="0" /></a>
+
+
+  &nbsp;
+
+
+  次に、目的のイメージを選択し、[使用] ボタンをクリックします。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Scalr-Use.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Scalr-Use" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Scalr-Use_thumb.png" alt="Scalr-Use" width="1505" height="316" border="0" /></a>
+
+
+  &nbsp;
+
+
+  新しいロールを作成するか、既存のロールでイメージを使用することができます。 この例では、新しいロールを作成してみましょう。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Create-New-Role.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="新しいロールの作成" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Create-New-Role_thumb.png" alt="Create New Role" width="1606" height="653" border="0" /></a>
+
+
+  &nbsp;
+
+
+  次の手順では、ファームを作成し、Azure で作成したロールをファームに追加します。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Azure-Farm.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure ファーム" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Azure-Farm_thumb.png" alt="Azure Farm" width="1611" height="208" border="0" /></a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Azure-Farm-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure ファーム2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Azure-Farm-2_thumb.png" alt="Azure Farm 2" width="1609" height="426" border="0" /></a>
+
+
+  &nbsp;
+
+
+  ファームのプロパティを構成したら、[すべてのクラウド] ドロップダウンから [Azure] を選択します。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/All-Clouds.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="すべてのクラウド" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/All-Clouds_thumb.png" alt="All Clouds" width="969" height="615" border="0" /></a>
+
+
+  &nbsp;
+
+
+  先ほど作成したロールを選択すると、VM の詳細、ネットワーク構成、ストレージ構成、リソースグループ情報などの Azure 固有のプロパティを構成できるようになります。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Select-Role.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="ロールの選択" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Select-Role_thumb.png" alt="Select Role" width="1608" height="503" border="0" /></a>
+
+
+  &nbsp;
+
+
+  このデモ用の Standard_D1 を使用してデプロイすることをお勧めします。 これは、"作業の開始" VM サイズとして適しています。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Standard_D1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Standard_D1" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Standard_D1_thumb.png" alt="Standard_D1" width="1488" height="964" border="0" /></a>
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Standard_D1-v2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Standard_D1 v2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Standard_D1-v2_thumb.png" alt="Standard_D1 v2" width="1488" height="958" border="0" /></a>
+
+
+  &nbsp;
+
+
+  また、さまざまなメトリックに基づいて、ロールのスケーリングの決定を構成することもできます。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Metrics.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="メトリック" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Metrics_thumb.png" alt="Metrics" width="1505" height="956" border="0" /></a>
+
+
+  &nbsp;
+
+
+  また、さまざまなトリガーイベントに基づいて、フォームで実行されるオーケストレーションロジックを追加することもできます。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Logic.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="ロジック" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Logic_thumb.png" alt="Logic" width="1509" height="959" border="0" /></a>
+
+
+  &nbsp;
+
+
+  ファームを起動したら、[ファーム] タブで進行状況を追跡できます。
+
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/06/Farm-Tab.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="[ファーム] タブ" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Farm-Tab_thumb.png" alt="Farm Tab" width="1510" height="191" border="0" /></a>
+
+
+  &nbsp;
+
+
+  これで完了です。 Azure 仮想マシンは、スケール r によって管理および監視されます。
+
+
+  お役に立てば幸いです。 また、スケール r プラットフォームの詳細については、次のリンクを参照してください。
+
+  <ul>
+   <li><a href="https://scalr-wiki.atlassian.net/wiki/display/docs/Five+Minute+Quick+Start">5分間のクイックスタート</a></li>
+   <li><a href="https://scalr-wiki.atlassian.net/wiki/display/docs/Tutorials">スケールのチュートリアル</a></li>
+   <li><a href="https://scalr-wiki.atlassian.net/wiki/display/docs/API">スケール r API</a></li>
+  </ul>
+
+  Ya を参照してください。
+
+
+  Corey

@@ -1,0 +1,131 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 285c698cedcbd3a3ee8c0f6f7b1292feecc78f5f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889386"
+Slug: networking-to-and-within-the-azure-cloud-part-2
+Title: Azure Cloud へのネットワークと Azure Cloud 内のネットワーク、パート 2
+Summary: これはこのシリーズの 2 番目のシリーズです。先に進む前に、最初のシリーズをお読みください。 ハイブリッド ネットワークは良いことですが、ハイブリッド ネットワークを定義する方法は何ですか? 私にとっては、 のコンテキストで...
+Content: >-
+  <p><em>これは、3 部構成のシリーズの 2 番目のブログ投稿です。読み始める前に、最初の投稿「 <a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud/">Networking to and within the Azure Cloud,part 1</a>」を読んでお勧めします。 </em></p>
+
+
+  <p>ハイブリッド ネットワークは良いことですが、ハイブリッド ネットワークを定義する方法が問題です。 私にとって、仮想ネットワーク、<a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-howto-routing-portal-resource-manager#azure-private-peering">ExpressRoutes&rsquo;</a> プライベート ピアリング、<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-portal">または VPN</a> 接続への接続のコンテキストでは、クロスオンプレミス リソースを 1 つ以上の<a href="https://docs.microsoft.com/en-us/azure/virtual-network/">仮想</a>ネットワーク (VNet) に接続する機能です。 これはすべてうまく機能し、クラウドに接続する方法はわかっていますが、クラウド内でどのようにネットワークを <strong><u>構築しますか</u></strong>? これを行う Azure には、少なくとも 3 つの組み込み方法があります。 この一連の 3 つのブログ記事では、簡単に説明します。</p>
+
+
+  <ol>
+   <li><a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud/" target="_blank">ハイブリッド ネットワーク接続オプション</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud-part-2/" target="_blank">クラウド内接続オプション</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud-part-3/" target="_blank">これらすべての概念をまとめる</a></li>
+  </ol>
+
+
+  <h2>背景</h2>
+
+
+  <p>クラウド内のネットワーク&rsquo;について詳しく説明する前に、通常は複数の VNet を使用できる理由、または VNet とは何かを試して <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview" target="_blank">理解します</a>。</p>
+
+
+  <p>その <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview" target="_blank">内容を説明</a> する良い記事がありますが、この方法でまとめると、Azure 内で独自のニーズに合って作成する分離されたネットワークです。 たとえば、オンプレミスから Azure への仮想マシンの移動を開始する場合は、これが必要になります。 IP アドレス空間を選択します。 そのため、クラウドに移行する前に、IP <em>アドレス指定</em> を計画することが重要です。 Azure は、独自のデータ センター(仮想データ センター) の<em></em>拡張機能と考えるので、IP アドレスのブロックを計画する必要がある場合があります。 または、1 つ以上の IP アドレス空間ブロック (CIDR <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing" target="_blank"></a>&hellip;&rsquo;ブロックとも呼ばれる)、またはクラスレスドメイン間ルーティングによってネットワーク エンジニアの作業が行う場合があります。</p>
+
+
+  <p>VNet の機能が少し理解されたの<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview" target="_blank">で (読</a> み取りやエクスペリエンスも役立ちます)、複数の VNet を使用する理由は何でしょうか。 1 つには、これらのリソースを独立する必要がある複数の事業ラインがある可能性があります。 これは、(ここで作成できる別の Azure サブスクリプションを使用して) 別の事業単位に請求することや、他の<a href="https://account.windowsazure.com/Home/Index" target="_blank"></a>仮想ネットワークとその関連<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-create-nsg-arm-pportal" target="_blank">要素 (ネットワーク</a> セキュリティ グループ、ユーザー定義ルートなど) を管理する別のチームになる可能性もあります。 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview" target="_blank"></a></p>
+
+
+  <h2>Intra-Cloud接続オプション</h2>
+
+
+  <p>仮想ネットワークを作成し&rsquo;、クラウドへの接続を確立したら、Azure クラウド内で通信するための <strong><em>ネイティブ オプションは</em></strong> 何ですか? 言い換えると、これらのビジネスラインでデータを交換する必要がある場合、または仮想ネットワーク間の IP 接続を有効にする必要がある場合と、Azure が提供する 3 つのネイティブ オプションがあります。</p>
+
+
+  <ol>
+   <li>VPN 経由の VNet から VNet への接続 (<a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-vnet-vnet-resource-manager-portal" target="_blank">VNet 間接続</a>)</li>
+   <li>ExpressRoute 経由で VNet から VNet へ</li>
+   <li>VNet から VNet へのVirtual Networkピアリング (<a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview" target="_blank">VNet</a> ピアリング) と <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-create-vnetpeering-arm-portal#service-chaining---transit-through-peered-vnet" target="_blank">VNet 転送</a></li>
+  </ol>
+
+
+  <p>ここでの目的は、これらのメソッド、許可される方法、およびこれらを使用して実現できるトポロジの種類を比較します。</p>
+
+
+  <h3>VPN 経由の VNet 間</h3>
+
+
+  <p>次の図に示す通り、VPN 経由で VNet 間を使用して 2 つの VNet が一緒に接続されている場合、両方の仮想ネットワークのルーティング テーブルは次のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/527be1fe-e58d-4bf3-b89e-e06085c393ea.png"><img alt="1.VNet-VNet-VPN_thumb[6]" border="0" height="575" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d1be75a9-7810-4038-8458-0b247a944eed.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="1.VNet-VNet-VPN_thumb[6]" width="1298"></a></p>
+
+
+  <p>これは 2 つの VNet で興味深いものですが、次の何らかの方法で増加する可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c66a122-4859-4ab4-a860-f3281a4f2762.png"><img alt="2.VNet-VNet-VPN-multi-VNet_thumb[2]" border="0" height="584" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78d6a3bf-1d3d-434d-94f4-398991769b99.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="2.VNet-VNet-VPN-multi-multi-VNet_thumb[2]" width="1299"></a></p>
+
+
+  <p>気が付いた場合、VNet4 と VNet5 のルート テーブルは VNet3 に到達する方法を示します。 ただし、VNet4 は VNet5 に到達できない。 このような場合でも、これを実現する方法は 2 つがあります。</p>
+
+
+  <ol>
+   <li>フル メッシュ VNet 間</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-bgp-resource-manager-ps#a-name-v2vbgpapart-3---establish-a-vnet-to-vnet-connection-with-bgp" target="_blank">BGP 対応 VPN の使用</a></li>
+  </ol>
+
+
+  <p>どちらの方法でも、3 つの VNet すべてが各 VNet に到達する方法を知っています。 当然ながら、VPN ゲートウェイの制限 (トンネルの最大数など) が尊重されている場合、これはさらに多くの <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-plan-design#planning" target="_blank">VNet</a> にスケーリングされる可能性があります。</p>
+
+
+  <h3>ExpressRoute 経由の VNet 間</h3>
+
+
+  <p>誰もが気付く人は少ないかもしれませんが、複数の VNet を同じ ExpressRoute 回線にリンクする場合、 <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-howto-linkvnet-portal-resource-manager" target="_blank">VNet を ExpressRoute</a> 回線にリンクすると興味深い副作用があります。 たとえば、2 つの VNet が同じ ExpressRoute 回線にリンクされている場合、ルート テーブルは次のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6657737c-70d3-4cd1-83cb-71c3c1950d82.png"><img alt="3.VNet-VNet-ER-2VNet_thumb[2]" border="0" height="523" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f57be7a9-df2c-4c72-a309-0d477bd0eb95.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="3.VNet-VNet-ER-2VNet_thumb[2]" width="1319"></a></p>
+
+
+  <p>興味深いことに、両方の VNet は、Microsoft のバックボーンから<u></u>離れることなく、Microsoft Enterprise Edge (MSEE) ルーターの外部に出ることなく、相互に通信できます。 なぜそれが重要なのでしょうか。 1 つには、VNet <em>間で追加料金 </em>なしで通信できます。 つまり、ExpressRoute プレミアム 回線の場合は、国内クラウドを除き、同じ<a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-locations-providers#a-namepartnersaexpressroute-connectivity-providers" target="_blank"></a>地政学的リージョン内またはグローバルに <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-faqs#expressroute-premium" target="_blank">VNet 間で通信</a>できます。 つまり、世界中の <a href="https://azure.microsoft.com/en-us/blog/how-microsoft-builds-its-fast-and-reliable-global-network/" target="_blank">Microsoft</a> バックボーンを使用して、複数の VNet を接続できます。 ここでも、これらの VNet を同じ ExpressRoute 回線<em></em>に接続できる限り、その VNet 間トラフィックは無料です。 次の例では、同じ ExpressRoute 回線に 3 つの VNet が接続されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/02c75c60-c2ef-413b-a8a5-bb5604cbb755.png"><img alt="4. VNet-VNet-VPN-ER-multi-VNet_thumb[2]" border="0" height="657" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/065a3d00-a119-42e0-ba2b-1daf413b9285.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="4. VNet-VNet-VPN-ER-multi-VNet_thumb[2]" width="1317"></a></p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-routes-troubleshoot-portal#using-effective-routes-to-troubleshoot-vm-traffic-flow" target="_blank">また、</a>各 VNet&rsquo;&rsquo; サブネットの有効なルート テーブルに表示されるさまざまなルートの上の図も表示されます (&rsquo;&rsquo;その場合、ルーティングが期待したような動作をしない理由を理解すると非常に便利です)。</p>
+
+
+  <h3>VNet 間ピアリングを使用Virtual Network VNet</h3>
+
+
+  <p>複数の VNet を接続する最後のオプションは、1 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview" target="_blank">つの</a> Azure リージョン内でVirtual Networkピアリングを使用する方法です。 この 2 つの VNet 間のピアリングの配置により、VNet は基本的に 1 つの大きな仮想ネットワークの場合と同様に動作しますが、NSG やルート テーブルとのこれらの通信を管理/制御できます。 この意味の図については、以下を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be0fae34-8e99-4964-a3b9-6104667d6d63.png"><img alt="5.VNet-VNet-Peering-2-VNets_thumb[2]" border="0" height="400" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f98ae2c2-b5ba-4295-8bae-5a6705e10b6a.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="5.VNet-VNet-Peering-2-VNets_thumb[2]" width="1309"></a></p>
+
+
+  <p>そのため、これを次のレベルに進め、次のようなハブ アンド スポーク トポロジを持つトポロジを想像できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09caed38-e9a4-4445-b906-2d4f4bad59b9.png"><img alt="6.VNet-VNet-Peering-Hub&amp;Spoke_thumb[2]" border="0" height="751" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f1dc5eb-ba14-4ade-896d-6fa7fb2a709a.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="6.VNet-VNet-Peering-Hub&amp; Spoke_thumb[2]" width="1090"></a></p>
+
+
+  <p>ピアリングは推移的ではなから、その場合、HR VNet はマーケティング VNet と直接通信することはできませんが、HR、マーケティング、エンジニアリングの 3 つすべてがハブ VNet と通信し、ドメイン コントローラー、監視システム、ファイアウォール、その他のネットワーク仮想アプライアンス (NVA) などの共有リソースを含むハブ VNet と通信できます。<u></u> スポーク VNet 内のサブネットに適用されるユーザー定義ルートと、一元化されたハブ VNet にデプロイされた NVA の組み合わせを使用して、ピアリングされたすべての VNet 間の通信を実現したり、実際に必要な VNet への通信を制限したりすることができます。</p>
+
+
+  <p>ただし、VPN の場合と同様に、何らかの理由で各 VNet が互いに話し合える必要がある場合は、これに似たトポロジを作成することもできます。 わかりやすくするために完全にメッシュ化されているのではありません (この場合、HR VNet はエンジニアリング VNet と直接話し合う必要があります)。しかし、次のアイデアを得る必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7ae59b8f-eb8d-49c6-9206-2b16ed2b6d08.png"><img alt="7.VNet-VNet-Peering-Hub&amp;Spoke-Full-Mesh_thumb[2]" border="0" height="758" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19c35168-e942-420a-be12-070170577522.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="7.VNet-VNet-Peering-HubSpoke-Full-Mesh_thumb&amp;[2]" width="1088"></a></p>
+
+
+  <p>VNet ピアリングを使用する場合、共有できる最適なリソースの 1 つは、VPN ゲートウェイと ExpressRoute ゲートウェイの両方のゲートウェイです。 次のように表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fedb8d27-fec1-4ee3-abf5-f021d6521a6d.png"><img alt="8.VNet-VNet-Peering-VNet Transit_thumb[2]" border="0" height="358" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/905564d0-eb0e-41e0-9872-a4f67fa74f6d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="8.VNet-VNet-Peering-VNet Transit_thumb[2]" width="1087"></a></p>
+
+
+  <p>これにより、すべてのスポーク VNet に ExpressRoute または VPN Gateway をデプロイする必要が生じ、ハブ VNet へのセキュリティ スタンプとゲートウェイ アクセスを一元化できます。</p>
+
+
+  <p>これらすべての概念をまとめるときは、必ず次の投稿を確認してください。</p>

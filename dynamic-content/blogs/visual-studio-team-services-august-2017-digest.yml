@@ -1,0 +1,324 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 34f5d0f4669c574d2f108dbb1da6b38712eb4d4b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891370"
+Slug: visual-studio-team-services-august-2017-digest
+Title: 2017 年 8 月のVisual Studio Team Servicesのダイジェスト
+Summary: この投稿シリーズは、Visual Studio Team Services の最新の更新プログラムとニュースを提供し、Azure ユーザーが 3 週間ごとにリリースされる新機能を最新の状態に保つ優れた方法です。 Visual Studio Team Servicesは、Azure DevOps効率的な継続的インテグレーションとリリース パイプラインを作成するための最適なツールを提供します。
+Content: >-
+  <p>この投稿シリーズは、<a href="https://visualstudio.com/team-services/?utm_source=AzureCOM&amp;utm_medium=Blog&amp;utm_campaign=Oct2016Digest" target="_blank">Visual Studio Team Services</a> (VSTS) の最新の更新プログラムとニュースを提供し、Azure ユーザーが 3 週間ごとにリリースされる新機能を最新の状態に保つ優れた方法です。 Visual Studio Team Servicesは、Azure DevOps効率的な継続的インテグレーションとリリース パイプラインを作成するための最適なツールを提供します。</p>
+
+
+  <p>今月は、&rsquo;新しいリリース定義エディター、新しい Wiki の更新、pull request の機能強化、VSTS 用の独自の拡張機能の構築を簡単に開始する方法について説明します。 最新&rsquo;のリリース エクスペリエンスの改善点を見てみしましょう。</p>
+
+
+  <h2>新しいリリース定義エディター</h2>
+
+
+  <p>新しい <strong>リリース定義エディターが</strong> プレビューに入る。 これは、少し前にリリースした新しい CI&rsquo; エディターに基づいており、今後の全体的な方向性の良い例です。 より&rsquo;クリーンなエクスペリエンスであるのではなく、リリース プロセスを視覚化できるというのが構造的に異なります。 これにより、システムに関する考え方でリリースを使用できます。 この同じアプローチをランタイム ビューにも取り込み、リリースの進行を視覚化します。 視覚化をより豊富で使いやすくしてすべてのデータのロックを解除する方法は、製品全体で行おうとしている作業です。</p>
+
+
+  <h2>パイプラインの視覚化</h2>
+
+
+  <p>エディターのパイプラインは、リリースでの配置の進捗状況のグラフィカルなビューを提供します。 成果物はリリースで使用されて、環境に配置されます。 環境のレイアウトとリンクは、各環境に定義されているトリガー設定を反映します。</p>
+
+
+  <p><img alt="release pipeline visualization" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_08.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="リリースの視覚化"></p>
+
+
+  <h2>コンテキスト内の構成 UI</h2>
+
+
+  <p>成果物、リリース トリガー、配置前と配置後の承認、環境のプロパティ、配置の設定が現在コンテキスト内にあり、簡単に構成できます。</p>
+
+
+  <p><img alt="Relesae in-context configuration" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_09.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="リリース構成 "></p>
+
+
+  <h2>デプロイ テンプレートの適用</h2>
+
+
+  <p>新しい環境を作成するときに、おすすめテンプレートの一覧が表示されます。</p>
+
+
+  <p><img alt="Release templates" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_10.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="リリース テンプレート"></p>
+
+
+  <h2>タスクおよびフェーズ エディターの強化</h2>
+
+
+  <p>新しいビルド定義エディターのすべての機能強化は、リリース定義エディターでも使用できます。 [追加] ボタンを使用するか、ドラッグ アンド ドロップを<strong></strong>使用して、タスクを検索して追加できます。 ドラッグ アンド ドロップを使用して、タスクの順序を変更または複製できます。</p>
+
+
+  <p><img alt="Release task and phase editor" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_11.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="リリース タスク エディター"></p>
+
+
+  <h2>Jenkins CI を使用したリリースのコード情報</h2>
+
+
+  <p>リリース <strong>では</strong>、Jenkins のような一般的な CI システムとの統合を向上したいと考えています。 現在、リリースの <strong>概要タブ</strong> では、CI ビルドが VSTS から来ている場合にのみ、コードのコミットが表示されます。 この機能により、リリースを実行しているエージェントが Jenkins サーバーに到達できる場合に、Jenkins CI 成果物のコード情報も有効になります。</p>
+
+
+  <p><img alt="Code info in Release with Jenkins" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_03.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="リリースの Jenkins"></p>
+
+
+  <h2>[コード] ハブのリリース状態バッジ</h2>
+
+
+  <p>現在、コミットが顧客の実稼働環境にデプロイされているかどうかを知りたい場合は、最初にコミットを使用するビルドを特定してから、このビルドがデプロイされているすべてのリリース環境を確認します。 このエクスペリエンスは、配置状態が <strong>[コード]</strong> ハブの状態バッジに統合されて、コードが配置されている環境の一覧が表示されるようになったことで、はるかに簡単になりました。 すべての配置について、配置の一部であった最新のコミットに状態が通知されます。 複数の環境の複数のリリース定義にコミットが配置される場合は、それぞれがバッジにエントリを持ち、環境ごとに状態が表示されます。 これにより、配置に対するコードのコミットの追跡可能性が向上します。</p>
+
+
+  <p><img alt="release status badge" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_16.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="リリースの状態バッジ"></p>
+
+
+  <h2>Ansible 拡張機能</h2>
+
+
+  <p><a href="https://docs.ansible.com/ansible/latest/index.html" target="_blank">Ansible</a> と統合<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscs-rm.vss-services-ansible" target="_blank"></a>し、コマンド ライン インターフェイスを使用してインベントリ ノードの指定された一覧で特定の<strong>プレイ</strong>ブックを実行するビルドおよび<strong></strong>リリース タスクを含む新しい拡張機能をリリースしました。 Ansible では、 <strong><a href="https://docs.ansible.com/ansible/latest/playbooks.html" target="_blank">構成、デプロイ</a></strong> 、オーケストレーションの手順を YAML 形式で表現するプレイブックを使用します。 各 <strong>プレイブックは</strong> 、ホストのグループを一連のロールにマップします。 各ロールは、Ansible タスクの呼び出しによって表されます。 インベントリ <strong><a href="https://docs.ansible.com/ansible/latest/intro_inventory.html" target="_blank">ファイル</a></strong> は、Ansible からアクセスできるホスト ノードの説明です。</p>
+
+
+  <p>このタスクでは、 <strong>プレイ</strong> ブックファイルと <strong>インベントリ</strong> ファイルが、プライベート Linux エージェントまたは Ansible オートメーション エンジンがインストールされているリモート コンピューターに保存されている必要があります。 Ansible がリモート コンピューター上にある場合は、SSH エンドポイントを設定する必要があります。 <strong>インベントリ</strong> は、インライン、動的 <strong>インベントリ、または</strong>ホスト リストとして <strong>指定</strong> できます。</p>
+
+
+  <p><img alt="configure Ansible extension" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_18.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="Ansible を構成する"></p>
+
+
+  <h2>Wiki の編集エクスペリエンスの改善</h2>
+
+
+  <p>先月説明したように、VSTS の各プロジェクトでは独自の Wiki がサポートされ、すべてのスプリントが引き続き改善されます。 最新&rsquo;の機能強化の一部を見てみしましょう。</p>
+
+
+  <p>新しい Wiki 編集エクスペリエンスでは、マークダウンで HTML タグがサポートされます。</p>
+
+
+  <p><img alt="Wiki HTML tags" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_29.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="wiki html"></p>
+
+
+  <p>マークダウン フォルダー内のイメージのサイズを簡単に変更することもできます。</p>
+
+
+  <p><img alt="Wiki resize image" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_30.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="wiki のサイズ変更"></p>
+
+
+  <h2>Wiki リビジョンを元に戻す</h2>
+
+
+  <p>Wiki を使用する場合は、意図しない&rsquo;変更を保存する可能性があります。 リビジョンの詳細に移動して <strong>[元に戻す]</strong> ボタンをクリックすることで、Wiki ページのリビジョンを戻すことができるようになりました。</p>
+
+
+  <p><img alt="revert wiki edit confirmation" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_12.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="Wiki の編集を元に戻す"></p>
+
+
+  <p>詳しくは、<a href="https://www.visualstudio.com/docs/collaborate/add-edit-wiki#create-your-wiki-and-first-wiki-page" target="_blank">Wiki の概要</a>に関するページをご覧ください。</p>
+
+
+  <h2>パブリック pull requestでの Git の機能拡張</h2>
+
+
+  <p>ブランチ <a href="https://www.visualstudio.com/en-us/docs/git/branch-policies" target="_blank">ポリシーの使用</a> は、コード レビューだけでなく、自動化されたビルドとテストを通じて、コードの品質を向上する優れた方法です。 これまで、これらのポリシーは VSTS によってネイティブに提供される統合にのみ制限されています。 新しい PR Status API と対応するブランチ ポリシーを使用して、サードパーティのサービスは、ネイティブ VSTS 機能と同様に PR ワークフローに参加できます。</p>
+
+
+  <p>サービスが pull request を Status API に発行すると、新しい <strong>[ステータス]</strong> セクションの <strong>PR 詳細</strong>ビューにすぐに表示されます。 ステータス セクションには、説明が表示され、サービスによって提供される URL へのリンクが作成されます。 状態エントリは、Web 拡張機能によって追加される新しいアクションに対して拡張可能なアクション メニューもサポートします。</p>
+
+
+  <p><img alt="pull request" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_07.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="pull request"></p>
+
+
+  <p>状態だけでは、PR の完了がブロックされるのではなく、ポリシー&rsquo;が適用される場所です。 PR ステータスを発行した後は、ポリシーを構成することができます。 ブランチ ポリシーのエクスペリエンスで、<strong>外部サービスからの承認を要求する</strong>新しいポリシーを使用できます。 [サービス <strong>+ の追加] を</strong> 選択してプロセスを開始します。</p>
+
+
+  <p><img alt="add service status for pull request" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_08.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="の状態pull request"></p>
+
+
+  <p>ダイアログで、状態を投稿する&rsquo;サービスを一覧から選択し、目的のポリシー オプションを選択します。</p>
+
+
+  <p><img alt="branch policy status dialog" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_09.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="ブランチ ポリシーの状態"></p>
+
+
+  <p>ポリシーがアクティブになると、ステータスが <strong>[ポリシー]</strong> セクションの <strong>[必須]</strong> または <strong>[任意]</strong> のどちらか該当する方に表示され、必要に応じて PR 完了が適用されます。</p>
+
+
+  <p>Status API の詳細を学習し、自分で試してみるには、<a href="https://go.microsoft.com/fwlink/?linkid=854107" target="_blank">ドキュメント</a>と<a href="https://go.microsoft.com/fwlink/?linkid=854108" target="_blank">サンプル</a>をご覧ください。</p>
+
+
+  <h2>pull request 完了時に作業項目を自動的に完了させる</h2>
+
+
+  <p>作業項目&rsquo;を (正しいか)、作業項目をリンクする場合は、すべてを最新の状態に保つのが簡単になります。 PR を完了すると、PR&rsquo; が正常にマージされた後に、リンクされた作業項目を自動的に完了するオプションが表示されます。 ポリシーを&rsquo;使用し、PRs をオートコンプリートに設定すると、同&rsquo;じオプションが表示されます。 PR が完了したら、作業項目を再確認して状態を更新する必要がもうない - VSTS によって自動的に実行されます。</p>
+
+
+  <p><img alt="Complete work items via pull request" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_16.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="作業項目の完了"></p>
+
+
+  <h2>pull request の説明とコメントのタスク一覧</h2>
+
+
+  <p>PR またはコメントを準備するときに、追跡する項目の短い一覧が表示される場合がありますが、その後、テキストを編集したり、複数のコメントを追加したりします。 軽量タスク一覧は、PR 作成者やレビュー担当者が、説明または単一の統合されたコメントで、ToDo リストの進行状況を追跡できる優れた方法です。 Markdown ツール バーをクリックして開始するか、選択したテキストに書式を適用します。</p>
+
+
+  <p><img alt="pull request task list" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_13.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="タスク一覧"></p>
+
+
+  <p>タスクリスト&rsquo;を追加したら、ボックスをオンにして項目を完了としてマークできます。 これらは、マークダウン内で <code>[ ]</code> および <code>[x]</code> と表されて、コメントに格納されます。 詳しくは、<a href="https://www.visualstudio.com/docs/reference/markdown-guidance#checklist-or-task-list" target="_blank">マークダウンのガイダンス</a>をご覧ください。</p>
+
+
+  <p><img alt="Pull request task list complete" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_14.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="タスク一覧"></p>
+
+
+  <h2>pull requests &ldquo;の&rdquo; コメントを気に入る機能</h2>
+
+
+  <p>PR コメントの支持を、<strong>いいね</strong>ボタンのシングル クリックで示します。 ボタンをポイントすると、コメントに "いいね" をしたすべてのユーザーのリストを見ることができます。</p>
+
+
+  <p><img alt="Like pull request comments" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_15.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="コメントのような"></p>
+
+
+  <h2>古いブランチをクリーンアップする</h2>
+
+
+  <p>不要になったブランチを削除することによってリポジトリをクリーンに維持すると、チームは重要なブランチを探して、適切な細分性でお気に入りを設定できます。 ただし、リポジトリ内に多数の分岐がある場合は、非アクティブで、削除できるブランチを特定するのが困難な場合があります。 &rsquo;古い &rdquo; ブランチ (3 か月以上経過したコミットをポイントする分岐) を簡単に識別 &ldquo; できるようになりました。 古くなったブランチを表示するには、[<strong>ブランチ</strong>] ページの [<strong>古い</strong>ピボット] にアクセスします。</p>
+
+
+  <p><img alt="Stale branches" border="0" height="179" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_04.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="古いブランチ" width="240"></p>
+
+
+  <h2>削除されたブランチを検索して再作成する</h2>
+
+
+  <p>サーバーからブランチを誤って削除したとき、何が起きたのか明らかにするのが難しい場合があります。 削除されたブランチを検索し、いつ、だれが削除したのかを確認して、必要であれば再作成できるようになりました。</p>
+
+
+  <p>削除されたブランチを検索するには、ブランチ検索ボックスにブランチの完全な名前を入力します。 そのテキストに一致する既存のブランチが返されます。 削除されたブランチの一覧で完全に一致するものを検索するオプションもあります。 リンクをクリックして、削除されたブランチを検索します。</p>
+
+
+  <p><img alt="Search deleted branches" border="0" height="223" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_05.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="削除されたブランチの検索" width="1024"></p>
+
+
+  <p>一致が見つかった場合、だれが、いつ削除したかが表示されます。 また、そのブランチを復元することもできます。</p>
+
+
+  <p><img alt="Restore deleted branch" border="0" height="102" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_06.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="削除されたブランチの復元" width="640"></p>
+
+
+  <p>ブランチを復元すると、最後にポイントされたコミットで再作成されます。 ただし、ポリシーとアクセス許可は復元されません。</p>
+
+
+  <h2>作業項目プロセスのコピー</h2>
+
+
+  <p>新しいプロセスの開始点として使用するか、プロセスの変更を準備およびテストするために、継承されたプロセスのコピーを作成できるようになりました。</p>
+
+
+  <p><img alt="copy work item process" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08_04_31.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="コピープロセス"></p>
+
+
+  <p>1つ以上のチームプロジェクトで使用されているプロセスを変更すると、これらのチームプロジェクトごとにこれらの変更がすぐに表示されます。 多くの場合、この方法は必要ありません。 代わりに、変更をプロセスにバンドルし、変更をテストしてからすべてのチームプロジェクトにロールアウトする必要があります。 これを行うには、次の手順を実行します。</p>
+
+
+  <ol>
+   <li>変更するプロセスのコピーを作成します。</li>
+   <li>複製されたプロセスに変更を加えます。 このプロセスを使用しているチームプロジェクトがないため、これらの変更はどのユーザーにも影響しません。</li>
+   <li>変更をテストするには、この重複するプロセスに基づいてテストプロジェクトを作成します (&#39;t がまだない場合)。 以前にテストプロジェクトを作成済みの場合は、コンテキストメニューの [<strong>チームプロジェクト &lt; &gt; の変更</strong>] オプションを使用して、テストプロジェクトのプロセスを変更できます。</li>
+   <li>次に、変更をデプロイします。 これを行うには、新しい変更が必要なチームプロジェクトのプロセスを変更します。 コンテキストメニューの [<strong>チームプロジェクトを変更して、プロセス名 &gt; を使用 &lt; する</strong>] オプションを選択します。</li>
+   <li>必要に応じて、元のプロセスを無効にしたり削除したりすることができます。</li>
+  </ol>
+
+
+  <h2>かんばんボードの最後の列の順序が更新されました</h2>
+
+
+  <p>作業項目の種類にカスタム状態を追加した場合、かんばんボードの最後の列には、最も早く閉じられたカードが常に表示されていることがわかります。 &rsquo;最近、カードが閉じられたことを確認する方が便利です。</p>
+
+
+  <p>この動作の根本原因は、かんばんボードの最後の列が <strong>Closed Date</strong> フィールドで降順に並べ替えられていることです。 このプロセス (スクラム、アジャイル、CMMI) では、各作業項目の種類には、 <strong>終了</strong> 状態または <strong>完了</strong> 状態に遷移したときにこのフィールドを設定する規則が含まれています (プロセスと作業項目の種類によって異なります)。 ただし、カスタム状態を追加した場合は、新しい状態をサポートするように [ <strong>終了日</strong> ] フィールドを設定する規則が自動的に追加&#39;ます。 作業項目を<strong>新しい</strong>状態から<strong>Closed</strong>または<strong>Done</strong>状態に移動し &rsquo; た場合、<strong>終了日</strong>の値は空になります。 クエリエンジンは、降順に並べ替えるときに、空の値を上に配置します。 かんばんボードでは、最初に閉じられたカードが一番上に表示されます。</p>
+
+
+  <p>まず、カスタム状態を追加する場合に備えて、適切な一連のルールを作業項目に追加していることを確認しました。 作業項目を閉じると、 <strong>終了日</strong> が空になることはありません。 既存の閉じられた作業項目をバックフィルしません。 かんばんボードの一番上に最後に閉じられたカードが表示されるように、かんばんボードの最後の列にある順序のロジックを更新して、下部の [ <strong>終了日</strong> ] フィールドに空の値を持つカードを挿入しました。</p>
+
+
+  <h2>分析用の Velocity ウィジェット</h2>
+
+
+  <p><a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-analytics" target="_blank">Analytics</a>拡張機能には、<strong>ベロシティ</strong>ウィジェットが含まれるようになりました。</p>
+
+
+  <p>この強力なウィジェットを使用すると、ストーリーポイント、作業項目数、または任意のカスタムフィールドごとにチーム &rsquo; の速度をグラフ化できます。 高度なオプションを使用すると、計画と比較してチームの提供内容を比較したり、終了した作業を強調表示したりすることができます。</p>
+
+
+  <p><img alt="Velocity Widget" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07_14_12.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="ベロシティウィジェット"></p>
+
+
+  <p>ベロシティウィジェットには、バックログビューに表示される速度グラフで使用できない機能が用意されています。次に例を示します。</p>
+
+
+  <ul>
+   <li>現在のチームだけでなく、チームのベロシティを表示する</li>
+   <li>ストーリーバックログだけでなく、すべてのバックログレベルまたは作業項目の種類のベロシティを表示します。</li>
+   <li>ストーリーポイントだけでなく、すべてのフィールドの合計によって速度を計算します。 または、任意の作業項目の種類の数で。</li>
+   <li>計画された対実績を表示します。 実際に計画したものを提供しましたか?</li>
+   <li>スプリントの後に、終了した作業を強調表示します。</li>
+   <li>1つのタイルに平均的なベロシティを表示する場合に備えて、1 &times; 1 へのサイズ変更をサポートします。</li>
+  </ul>
+
+
+  <p>まだ使用 &rsquo; していない場合は、<a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-analytics" target="_blank">分析拡張機能</a>をインストールして、ベロシティウィジェットに加えて、リードタイム、サイクル時間、および累積 Flow 図のウィジェットにアクセスできるようにします。</p>
+
+
+  <p>バーンダウン、バーンアップ、傾向など、今後数か月の間、分析拡張機能用のウィジェットをさらに発行します。</p>
+
+
+  <h2>月の拡張: SpecFlow + LivingDoc</h2>
+
+
+  <p><a href="https://marketplace.visualstudio.com/items?itemName=techtalk.techtalk-specflow-plus" target="_blank">Specflow + LivingDoc</a> が <a href="https://marketplace.visualstudio.com/vsts" target="_blank">Marketplace</a>で使用できるようになりました。 生きたドキュメントは、最新で理解しやすいシステムドキュメントを記述するために使用される用語です。 この例は、 <a href="https://cucumber.io/docs/reference" target="_blank">Gherkin</a>で記述された機能ファイルで、自然言語を使用して、特定のシナリオでアプリケーションがどのように動作するかを説明しています。 仕様を自然言語で記述することにより、すべての利害関係者 (ビジネス、開発、テスト、要件など) は、同じ footing の仕様を理解し、議論することができます。 これらの仕様は、システムドキュメントの重要な部分であり、BDD のようなアジャイル開発方法や例による仕様でよく使用されます。</p>
+
+
+  <p>多くの .NET 開発者にとって、オープンソースプロジェクトの<a href="https://specflow.org/" target="_blank">Specflow</a>は、Visual Studio で Gherkin で記述されたテストシナリオを自動化するためのツールとして適しています。 ただし、これらの Gherkin ファイルはプレーンテキストファイルであり、通常はコードリポジトリに格納され、多くのチームメンバーがアクセスすることはできません。 specflow Visual Studio 拡張機能では Visual Studio の Gherkin に対する構文の強調表示がサポートされていますが、すべての利害関係者が Visual Studio にアクセスできるわけではありません (特にビジネス上の関係者)。</p>
+
+
+  <p>SpecFlow + LivingDoc はこのギャップを橋渡しし、Gherkin で記述された仕様を VSTS のすべてのチームメンバーがアクセスできるようにします。 SpecFlow + LivingDoc は specflow <a href="https://specflow.org/plus/" target="_blank">+</a>の一部であり、specflow の一連の (省略可能な) 有料の拡張機能です。 SpecFlow + LivingDoc は機能ファイルを取得して解析し、構文の強調表示と書式設定を使用して VSTS に表示できるようにします。 これにより、機能ファイルを書式設定せずにプレーンテキストよりもはるかに簡単に移動できます。</p>
+
+
+  <p>書式設定には、次のものが含まれます。</p>
+
+
+  <ul>
+   <li>Gherkin keywords 構文の強調表示</li>
+   <li>テーブル</li>
+   <li>指定された/Then/When セクションの背景色を交互にする</li>
+   <li>Markdown を使用して埋め込まれたイメージのサポート</li>
+  </ul>
+
+
+  <p><img alt="spec flow" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/specflowss1.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="仕様フロー"></p>
+
+
+  <h2>独自の拡張機能の作成をすぐに開始する</h2>
+
+
+  <p>ここ数年で、VSTS との拡張および統合を行うさまざまな方法が導入されました。 たとえば、 <a href="https://www.visualstudio.com/docs/integrate/get-started/client-libraries/dotnet" target="_blank">.net</a>用のクライアントライブラリ (.NET Framework と .net Core アプリの両方で動作) と<a href="https://github.com/Microsoft/vsts-node-api" target="_blank">Node.js</a>に対応しています。 また、web エクスペリエンスの拡張を可能にする拡張モデルも用意されています。</p>
+
+
+  <p>これらのすべての優れたオプションを使用すると、どのような作業を開始する必要があるかを把握し、それらを適切な方法で組み立てることができます。 統合ドキュメントに対して多くの機能強化が行われており、ドキュメントの改善についてもう少し詳しく説明していますが、ドキュメント以外にも必要な場合があります。</p>
+
+
+  <p>新しい <a href="https://blogs.msdn.microsoft.com/devops/2017/07/17/fastest-path-new-team-services-extension/" target="_blank">VSTS 拡張機能の最速パス</a>である新しいブログ投稿では、独自の拡張機能の構築をすぐに開始する方法を説明しています。</p>
+
+
+  <p><img alt="yeoman command line" border="0" height="417" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/yo-start-1024x667.png" style="border: 0px currentcolor; border-image: none; float: none; display: inline; background-image: none;" title="コマンドラインを実行する (オマーン)" width="640"></p>
+
+
+  <p>各リリースには、ここで説明するよりも多くのことがあります。 詳細については、 <a href="https://www.visualstudio.com/en-us/articles/news/2017/jul-14-team-services" target="_blank">7 月 14</a> <a href="https://www.visualstudio.com/en-us/articles/news/2017/aug-04-team-services" target="_blank">日と8月4日</a> のリリースノートをご確認ください。 VSTS の最新の計画と開発については、必ず<a href="https://blogs.msdn.microsoft.com/devops/" target="_blank">DevOps のブログ</a>を購読してください。</p>
+
+
+  <p>コーディングをお楽しみください!</p>
+
+
+  <p><a href="https://twitter.com/tfsbuck" target="_blank">@tfsbuck</a></p>

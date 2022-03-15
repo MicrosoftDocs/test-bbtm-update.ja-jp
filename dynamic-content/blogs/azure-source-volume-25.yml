@@ -1,0 +1,204 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9e5b5830b73e2b12a5f79658a723be977056db1a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890228"
+Slug: azure-source-volume-25
+Title: Azure. ソース-ボリューム25
+Summary: 現在のところ、プレビュー版、一般公開版、ニュース & 更新プログラムなど、Azure で起こっていることをご確認ください。
+Content: >-
+  <p>先週の中で最も重要なニュース項目の1つは、仮想マシンのシリアルコンソールへのアクセスがすべてのグローバルリージョンでパブリックプレビューに到達することでした。 これは、お客様がしばらくの間、お客様が必要としていたものであり、最終的にそれを実現するために、チームは ecstatic でした 以下では、すべての詳細について説明し、その動作を示すために、Azure 金曜日の火曜日のブログ投稿とエピソードを見つけ&#39;ます。</p>
+
+
+  <h2>現在プレビュー中</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/virtual-machine-serial-console-access/">バーチャルマシンのシリアルコンソールへのアクセス</a> - 仮想マシンのシリアルコンソールを使用すると、仮想マシンへの双方向のシリアルコンソールアクセスが可能になります。 プレビューは、グローバルな Azure リージョンでご利用いただけます。 試してみるには、仮想マシンの [<b>サポート + トラブルシューティング</b>] セクションで<b>Serial console (プレビュー)</b>を探してください。 シリアルコンソールにアクセスするには、仮想マシンに対する VM 共同作成者以上の特権が必要です。 これにより、コンソールへの接続が、システムを保護するための最高レベルの特権で保持されるようになります。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/transparent-data-encryption-with-azure-key-vault-configuration-checklist/">プレビュー: Azure Key Vault 構成チェック Azure SQL Database リスト</a> - を使用して Transparent Data Encryption を SQL Database し、データウェアハウスでは、保存時の暗号化が提供され Transparent Data Encryption (TDE)。データベース、ログファイル、バックアップなど、ディスクに書き込まれたすべてのデータを対象とします。 TDE プロテクターは、既定では完全に透過的な方法でサービスによって管理され、90日おきにローテーションされ、バックアップへのアクセスのためアーカイブで保持されます。 必要に応じて、詳細な制御のために TDE プロテクターの管理を想定できます。 ただし、Azure Key Vault でお客様が管理するキーを使用して Azure SQL Database tde を設定する前に、この投稿を参考にしてください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/soft-delete-for-azure-storage-blobs-now-in-public-preview/">Azure Storage blob の論理的な削除がパブリックプレビュー</a> - になりましたAzure Storage blob の論理的な削除は、パブリックとプライベートの両方のリージョンで使用できます。 論理削除を有効にすると、blob または blob のスナップショットが削除されたデータを保存して復旧できます。 この保護は、上書きの結果として消去された BLOB データにまで拡張されます。 アプリケーションまたはその他のストレージアカウントユーザーによってデータが誤って変更または削除される可能性がある場合は、論理的な削除を有効にすることをお勧めします。 論理的な削除はデータ保護戦略の一部であり、不注意によるデータの損失を防ぐことができます。</p>
+
+
+  <h3>プレビューでも</h3>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/updates/event-hubs-go-preview/">パブリックプレビュー: ゴーの Event Hubs</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/updates/public-preview-soft-delete-for-azure-storage-blobs/">パブリックプレビュー: Azure Storage blob の論理的な削除</a></li>
+  </ul>
+
+
+  <h2>一般提供開始</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-azure-service-health-general-availability-configure-your-alerts-today/">一般提供 &ndash; の発表 Azure Service Health 今すぐ</a> - アラートを構成するAzure Service Health は、Azure サービスの問題が影響を受ける場合のガイダンスとサポートを提供する、パーソナライズされたダッシュボードです。 一般的な状態情報を提供するパブリックステータスページとは異なり、Azure Service Health はリソースに合わせて調整された情報を提供します。 また、リソースの可用性に影響する可能性がある計画済みメンテナンスやその他の変更の準備にも役立ちます。</p>
+
+
+  <p>Azure Files 共有スナップショット - <a href="https://azure.microsoft.com/en-us/blog/announcing-the-general-availability-of-azure-files-share-snapshot/">の一般提供の発表</a>Azure Files 共有スナップショットは、すべての Azure クラウドでグローバルに利用できます。 共有スナップショットを使用すると、サーバーメッセージブロック (SMB) 共有の増分バックアップを Azure Files で行うことができます。 Storage 管理者はスナップショットを直接使用できます。バックアッププロバイダーは、この機能を活用して、Azure Files のバックアップと復元の機能を製品に統合できるようになりました。/p&gt;</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-monitor-general-availability-of-multi-dimensional-metrics-apis/">Azure Monitor &ndash;多次元メトリック Api の一般提供</a>により、ディメンションを通じて Azure メトリックを探索し、より深い洞察を解除できます。 - ディメンションは、メトリックをさらに分割するために使用できる名前と値のペア (属性) です。 これらの追加の属性を使用すると、メトリックをわかりやすく調べることができます。 また Azure Monitor は、メトリックの保有期間を30日から93日に増やしました。これにより、データにアクセスしたり、月単位で意味のある比較を実行したりすることができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-sql-data-warehouse-now-generally-available-in-all-azure-regions-worldwide/">世界中のすべての Azure リージョンで Azure SQL Data Warehouse が一般公開されるようになりました</a> -Azure SQL Data Warehouse は、日本西部、オーストラリア東部、インド西部の3つのリージョン &mdash; で使用できるようになりました。 これらの追加の場所によって、世界中のすべてのクラウドデータウェアハウスプロバイダーを超えるすべての33リージョン &ndash; に製品全体の可用性が提供されます。 SQL Data Warehouse は、高パフォーマンスで安全で準拠した SQL 分析プラットフォームであり、データ全体の SQL ベースのビューと、完全に管理された高速なペタバイト規模のクラウドソリューションを提供します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-availability-zones-now-available-for-the-most-comprehensive-resiliency-strategy/">最も包括的な回復性戦略で Azure Availability Zones できるようになりました</a> - Availability Zones の可用性は、米国とヨーロッパの選択領域で始まります。 可用性ゾーンは、Azure リージョン内の物理的に分離された場所です。 各可用性ゾーンは、独立した電源、冷却装置、ネットワークを備えた1つ以上のデータセンターで構成されています。 Availability Zones の導入により、仮想マシンの稼働時間に対して99.99% のサービスレベルアグリーメント (SLA) が提供されるようになりました。</p>
+
+
+  <h3>一般公開</h3>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/updates/global-vnet-peering-general-availability/">一般公開: グローバル VNET ピアリング</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/updates/general-availability-azure-network-watcher-connection-monitor-in-all-public-regions/">一般提供: すべてのパブリックリージョンでの Azure Network Watcher 接続モニター</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/updates/applicationsecuritygroupsga/">一般提供: すべての Azure リージョンのアプリケーションセキュリティグループ </a></li>
+      <li><a href="https://azure.microsoft.com/en-us/updates/azure-zrs/">一般提供: ゾーン冗長ストレージ</a></li>
+  </ul>
+
+
+  <h2>ニュース &amp; の更新</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-the-support-for-tags-in-cost-management-apis/">コスト管理 api でのタグのサポートを利用できる</a> - ようになりました&rsquo;Azure の使用状況と料金に関する詳細なレポートを作成するために、使用状況の詳細 api と予算 api の両方でタグのサポートを発表します。 このリリースでは、Enterprise agreement (EA) のサブスクリプションのタグのみがサポートされています。今後のリリースでは、他のサブスクリプションの種類のサポートも予定されています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/the-new-azure-load-balancer-10x-scale-increase/">新しい Azure Load Balancer &ndash; 10 倍のスケール増加</a> - Azure Load Balancer は、TCP および UDP 負荷分散における高いスケーラビリティ、スループット、低待機時間を提供するネットワークロードバランサーです。 Standard SKU では、小数点以下桁数が10倍になり、既存の Basic SKU よりも詳細な診断機能が追加されています。 新しいプランは、1秒あたり何百万ものフローを処理し、スケールを構築し、さらに高い負荷をサポートするように設計されています。 Standard および Basic Load Balancer オプションは Api を共有し、お客様がニーズに最も合った選択肢を選択するための複数のオプションを提供します。</p>
+
+
+  <p>&#39;入力に基づいて<a href="https://azure.microsoft.com/en-us/blog/create-service-fabric-clusters-visual-studio/">Visual Studio 使用できる</a> - ようになった Service Fabric クラスターを作成します。 Visual Studio から安全なクラスターを直接作成する機能が追加され、プロセスの簡素化と高速化に役立ちました。 この更新プログラムには、Visual Studio 2015 の Service Fabric ツールの最新リリースと、Azure ワークロードの一部として Visual Studio 2017 が付属しています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/bigdl-spark-deep-learning-library-vm-now-available-on-microsoft-azure-marketplace/">bigdl Spark ディープラーニングライブラリ VM が Microsoft Azure Marketplace で利用できるようになりました</a> -BigDL ディープラーニングライブラリは、大規模なディープラーニングモデルを作成してデプロイするための Spark ベースのフレームワークです。 以前は Azure HDInsight にデプロイされており、Data Science VM ていますが、固定 VM イメージとして Azure Marketplace でも使用できるようになりました。これは、デプロイの複雑さを軽減するためのさらなる手順を表します。</p>
+
+
+  <h3>その他のニュース &amp; の更新</h3>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/updates/azure-sdk-go-v15/">Azure SDK for Go v15 を利用できます</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/updates/iot-edge-march-update/">Azure IoT Edge の3月の更新</a></li>
+  </ul>
+
+
+  <h2>テクニカルコンテンツ &amp; トレーニング</h2>
+
+
+  <p>Azure - <a href="https://azure.microsoft.com/en-us/blog/implementation-patterns-for-big-data-and-data-warehouse-on-azure/">上のビッグデータとデータウェアハウスの実装パターン</a>ビッグデータとデータウェアハウスのワークロードのために Azure サービスを導入するお客様を支援するために、最新のデータウェアハウス、ビッグデータに対する高度な分析、リアルタイム分析 (ラムダ) など、成功のための参照アーキテクチャである一般的な導入パターンを特定しました。</p>
+
+
+  <p>Azure IoT sdk - Azure IoT sdk<a href="https://azure.microsoft.com/en-us/blog/how-to-get-support-for-azure-iot-sdk/">のサポートを受ける方法</a>では、開発者は Azure IoT hub と Azure IoT hub Device Provisioning Service 用のアプリケーションのコーディングとデプロイを簡単に開始できます。 sdk は、ユーザーの声、Stack Overflow、Azure サポート、および GitHub の問題の提出を通じて Microsoft がサポートする、実稼働品質のオープンソースプロジェクトです。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/essential-tools-and-services-for-building-mobile-apps/">モバイルアプリを構築するための重要なツールとサービス</a> -Azure、Visual Studio、Xamarin、Visual Studio App Center は、ユーザーが好む Android アプリと iOS アプリを構築、テスト、デプロイ、および継続的に向上させるための柔軟で信頼性の高いツールとサービスを提供します。 お気に入りの言語とツールを使用して、堅牢なクラウドサービスを活用し、オンデマンドで数百万のユーザーに迅速にスケーリングできる方法について説明します。</p>
+
+
+  <h2>顧客事例</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/how-catania-secures-public-data-with-azure-sql-data-warehouse/">Catania を使用してパブリックデータをセキュリティで保護する方法 Azure SQL Data Warehouse</a> -200万人を超える市町村の Catania は、パブリックサービス操作データの簡素化された管理とストレージを構築したいと考えていました。 また、物理的なデータセンターに対する潜在的な損害を防ぎ、サービスの継続性を確保する必要がありました。 azure とソフト紙は、Commune di Catania が、SQL Server と azure Data Warehouse (azure SQL DW) を使用して、自動復旧とサイト間回復によってサポートされる、すべてのレポートのニーズに合わせて柔軟なデータウェアハウスを構築するハイブリッドソリューションを構築しました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/using-artificial-intelligence-to-analyze-roads/">人工知能を使用した道路</a> - の分析Gaimersheim、ドイツ、EFS は、シャーシ開発の監査の1パートナーです。 これは、自動化された運転など、将来のテクノロジを調査し、実装するのに役立ちます。 研究作業の一環として、NVIDIA Tesla P100 Gpu を搭載した Azure NC シリーズの仮想マシンを使用して、道路の高解像度の2次元イメージを分析するディープラーニング AI ソリューションを推進しています。 その目的は、自己運転車両がこれらの道路をより深く理解できるようにすることです。 EFS では、概念が機能していることがわかったので、会社は製品開発に進むことができます。 EFS は、Azure Blob storage に数テラバイトのデータを保持していました。 NVIDIA &rsquo; s Tesla P100 GPU を搭載した NC シリーズの仮想マシンは、そのデータを簡単に処理しました。 また、Azure の弾力性により、作業を効果的に行うために必要な柔軟性が EFS に与えられています。</p>
+
+
+  <h2>イベント</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/learn-from-experts-and-play-with-emerging-tech-at-microsoft-build/">Microsoft Build でエキスパートから学び、最新の技術をご活用ください</a> - Microsoft &rsquo; の最大規模の開発者カンファレンスである Microsoft Build は、コーナーを中心としています。登録には時間がかかることがあり &rsquo; ます。 プログラマーや Microsoft のエンジニアは、ワシントン州シアトルに5月 7 &ndash; 日を集めて、クラウド、AI、mixed reality などでの次のことについて議論 &rsquo; しています。 このイベントは、非常に優れた技術セッション、あまり講演者、インタラクティブなワークショップ &mdash; に加え、接続や記念にかかる時間を十分に備えています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/globalazure-bootcamp-2018/"> # Globalazure ブートキャンプ 2018</a> -グローバルな Azure Bootcamp (#GlobalAzure) は、Azure の1日間のテクニカルラーニングイベントの世界規模のシリーズです。 これは、グローバルクラウド開発者コミュニティのリーダーによって作成およびホストされます。 これは、非常に優れたコミュニティで、純粋なものです。 また、参加することもできます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/secure-your-backups-not-just-your-data/">世界のバックアップ日: データだけでなく、バックアップをセキュリティで保護します。</a> - 先週は、世界のバックアップ日でした。 この記事では、バックアップ製品でのバックアップをセキュリティで保護するための防御策を構築する際に考慮する必要がある主な考慮事項について説明します。</p>
+
+
+  <h2>開発者スポットライト</h2>
+
+
+  <p><a href="https://aka.ms/lwia/data-01">応答性と柔軟性</a>に優れたトランザクションアプリ - の構築myexpenses は、フロントエンドに AngularJS を使用し、バックエンドに Node.js を、データベースサーバーとして2017を SQL Server します。 このアプリケーションを Azure SQL DB に移行し、新しい機能を活用して、アプリケーション&#39;のデータパフォーマンスとセキュリティを向上させます。</p>
+
+
+  <p><a href="https://aka.ms/lwia/data-02">開発用データ: ソフトウェアから SaaS への SQL ワークロードの進化</a> -Azure database services (Azure SQL Database) を使用して、e コマース製品ベースの SaaS (サービスとしてのソフトウェア) アプリケーションをハンズオンし、構築します。</p>
+
+
+  <p><a href="https://aka.ms/lwia/data-03">SQL Server Data Tools と Team Services を使用したデータベース DevOps</a>このセッションでは、Visual Studio 2017 の SQL Server Data Tools を使用して、どこでも Azure でも実行される SQL Server データベースを迅速に開発する方法について説明します。 -SQL データベース。 Visual Studio Team Services を使用して、アプリケーションとデータベースの CI/CD パイプラインを自動化する方法について説明します。</p>
+
+
+  <p><a href="https://aka.ms/lwia/gaming-07">ピンボール Lizard (サンプルゲーム)</a> - ピンボール Lizard は、課題として開始されました。 新しい Windows Mixed Reality ヘッドセットのゲームプレイの可能性と、Microsoft Azure、playfab、および Unity を使用してそれらの可能性を推進する方法について説明しました。 ソースコードはすべて GitHub で利用できるようになりました。 私たちは、遊び、拡張、独自のものにすることを願っています。</p>
+
+
+  <p><a href="https://aka.ms/lwia/gaming-08">ピンボール Lizard ゲームマニュアル</a> -基盤となるゲームアーキテクチャを調べる必要があるか、それとも、Azure と Unity の間のコミュニケーションを確立したか、また Mixer と playfab サービスをゲーム &mdash; に統合する方法については、ここで説明する &rsquo; 方法を紹介します。</p>
+
+
+  <p><a href="https://aka.ms/lwia/gaming-09">ゲームをプレイする&#39;:GDC 2018</a> - での PlayFab (リアルタイム分析)PlayFab の開発者の成功のヘッドである Brendan Vanous は、ライブ ゲーム用のクラウド内の PlayFab&#39;バックエンド プラットフォームでの Real-Time Analytics の概要を提供します。</p>
+
+
+  <h2>Azure の表示</h2>
+
+
+  <table>
+      <tbody>
+          <tr>
+              <td align="center" width="300">
+              <p><iframe allowfullscreen="" frameborder="0" src="https://www.youtube-nocookie.com/embed/KQweh7N17UQ?rel=0" width="240"></iframe></p>
+              </td>
+              <td valign="top">
+              <p><strong><a href="https://www.youtube.com/watch?v=KQweh7N17UQ">火曜日と Corey |Azure シリアル</a> </strong> - コンソール Corey Sanders、企業 VP - Microsoft Azure Compute チームは、Linux および Windows VM へのシリアル コンソールのプライベート プレビューについて説明するために、Azure Linux チームのプリンシパル PM である Hariharin Vpcraman に座りました。</p>
+              </td>
+          </tr>
+          <tr>
+              <td align="center" width="300">
+              <p><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Virtual-Machine-Serial-Console/player" width="240"></iframe></p>
+              </td>
+              <td valign="top">
+              <p><strong><a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Virtual-Machine-Serial-Console">Azure Friday #395 |Azure Virtual Machine シリアル コンソール</a> </strong> - の Hariharin Hariraman が Scott Hanselman に参加し、Azure Virtual Machine シリアル コンソールについて説明します。これにより、コンソールから Azure VM にアクセスできます。 これにより、OS または構成の問題が原因でスタック状態にある VM に接続して回復できます。</p>
+              </td>
+          </tr>
+          <tr>
+              <td align="center" width="300">
+              <p><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Visual-Studio-Xamarin-Great-mobile-apps/player" width="240"></iframe></p>
+              </td>
+              <td valign="top">
+              <p><strong><a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Visual-Studio-Xamarin-Great-mobile-apps">Azure Friday #396|Azure + Visual Studio + Xamarin = Great Mobile Apps</a> </strong> - James Montemagno が Scott Hanselman に参加し、フロントエンドとバック エンドで 1 つのツールセットと開発言語 (C#) を使用して、android、iOS、および Windows 用のクラウド接続モバイル アプリを作成するために、azure サービスを Visual Studio と Xamarin で使用する強力な方法を示します。</p>
+              </td>
+          </tr>
+          <tr>
+              <td align="center" valign="middle" width="300">
+              <p>
+              <audio controls="" src="https://azpodcast.blob.core.windows.net/episodes/Episode222.mp3">HTML5 オーディオはサポートされていません</audio>
+              </p>
+              </td>
+              <td>
+              <p><strong><a href="https://azpodcast.azurewebsites.net/post/Episode-222-Azure-Portal-Update">Azure Podcast: Episode 222 - Azure Portal Update</a> </strong> - Azure Portal チームのシニア PM である Sean Watson が、ポータルの設計の背後にある考え方について説明し、ポータルを利用するためのヒント &#39;n のテクニックについて説明します。</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>Azure のヒントの &amp; テクニック</h2>
+
+
+  <table>
+      <tbody>
+          <tr>
+              <td width="300">
+              <p><iframe allowfullscreen="" frameborder="0" src="https://www.youtube-nocookie.com/embed/QWi6HvyKeAc?rel=0" width="240"></iframe></p>
+
+              <p><strong><a href="https://www.youtube.com/watch?v=QWi6HvyKeAc">Azure ヒントとテクニック - タイルをドラッグして Azure ダッシュボードをカスタマイズする</a></strong></p>
+              </td>
+              <td width="300">
+              <p><iframe allowfullscreen="" frameborder="0" src="https://www.youtube-nocookie.com/embed/ZM1An0HMdHM?rel=0" width="240"></iframe></p>
+
+              <p><strong><a href="https://www.youtube.com/watch?v=ZM1An0HMdHM">Azure ヒントとテクニック - グラフをカスタマイズして Azure ダッシュボードにピン留めする</a></strong></p>
+              </td>
+          </tr>
+      </tbody>
+  </table>

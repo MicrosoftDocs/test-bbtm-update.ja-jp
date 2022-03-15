@@ -1,0 +1,160 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 031b98216a8b55410fc2f28b868dbac7c9e4cf8a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890224"
+Slug: azure-stack-laas-part-two
+Title: Azure Stack laaS –パート2
+Summary: すべての組織がクラウドに固有の取り組みを行っています。 この取り組みは、組織の歴史、ビジネス固有、文化、そして最も重要なものから始まります。
+Content: >-
+  <p><em>このブログ投稿は、David Armour、プリンシパルプログラムマネージャー、Azure Stack によって共同作成されました。</em></p>
+
+
+  <h2>既存のものから始める</h2>
+
+
+  <p>すべての組織がクラウドに固有の取り組みを行っています。 この取り組みは、組織 &rsquo; の履歴、ビジネスの詳細、文化に基づいており、最も重要なのは出発点です。 現在の仮想化環境とその実行方法については、何らかの処理を行うことが難しい場合がありますが、クラウドへの移行には、既存のガバナンスや運用を改善し、新たに実装するためのさまざまなオプション、機能、機能、および機会が用意されています。 クラウドへの移行により、アプリケーションを再設計し、クラウドアーキテクチャを活用する機会も得られます。 また、Microsoft Azure では、仮想マシン (vm) をパブリッククラウドまたは独自の施設 (Azure Stack でホストすることもできます。</p>
+
+
+  <p>ほとんどの場合、この旅は、仮想マシンまたは物理サーバーの既存のサーバーのリフトアンドシフトから始まります。 <a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">コアでの Azure Stack はサービスとしてのインフラストラクチャ (IaaS) プラットフォーム</a>であるため、この最初の段階であることを考えるには、揚力と最適化のプロセスが適しています。 ワークロード全体で最新の操作を可能にするには、まずサーバーを移動する必要があります。 Vm に適したサイズを選択するだけで、使用 &rdquo; した分だけ課金されるよう &ldquo; になります。セルフサービスを自分で実行したり、デプロイを自動化したり、他のユーザーが成功したときに構築したりすることもできます。</p>
+
+
+  <h2>移行時の考慮事項</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/migration/" target="_blank">Azure Migration Center</a>には、評価を開始するための優れたモデルが用意されています。適切な関係者が関係していることを確認し、移行のための適切なフレームを作成することをお勧めします。</p>
+
+
+  <p>この評価を開始すると、Azure と Azure Stack のどちらであるかにかかわらず、ワークロードに最適なプラットフォームを特定するために使用できるいくつかの要素があります。</p>
+
+
+  <ul>
+   <li>コスト</li>
+   <li>接続の要件</li>
+   <li>潜在的な規制とデータの重心要件</li>
+   <li>高可用性とリージョンの要件</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9ad3d7f-43ee-4c50-91ff-75b70306a708.png"><img alt="Flowchart displaying migration from suited platforms to Azure" border="0" height="493" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/124323e7-6ca9-45ee-8c6d-a4d2c5d0956d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="適したプラットフォームから Azure への移行を示すフローチャート" width="1063"></a></p>
+
+
+  <p>評価と計画を完了したら、移行に適したツールを選択する必要があります。</p>
+
+
+  <p>Microsoft のパートナーエコシステムに &ldquo; は、単純な移行から、サービス &rdquo; ソリューションとしての幅広いソリューションを構築した isv が含まれています。 また、Microsoft の移行オプションもあります。このオプションを使用するには、手動の手順を実行する必要がありますが、コストが低くなる可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/db81f050-09ab-48c8-8fad-eb890f58d904.png"><img alt="Partner migration options and third party tools available" border="0" height="772" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b766155f-a964-4c51-8050-da0f206f038f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="パートナーの移行オプションとサードパーティ製ツールを利用可能" width="1638"></a></p>
+
+
+  <h2>パートナーオプション</h2>
+
+
+  <p>Azure Stack には、PaaS 機能を利用することで、構想や検出から最新化まで、アプリケーションの移行のすべての段階について ISV ソリューションがあります。 それぞれに独自の機能があり、独自の方法でプロセスを改善します。</p>
+
+
+  <ul>
+   <li><a href="https://www.carbonite.com/cp/partnership/microsoft-azure" target="_blank">Carbonite</a> &ndash;サーバーの移行、バックアップ、Windows サーバーの高可用性、および Microsoft Windows エンドポイントのエンタープライズ保護を提供します。</li>
+   <li>制約 &ndash; は、サービスとしての移行ソリューションを提供しています。これは、Azure Migrate と統合 <a href="https://cloudbase.it/coriolis/" target="_blank">され、</a> <a href="https://www.youtube.com/watch?v=ytRW034iueE" target="_blank">VM サイズマッピング</a>と同様に、初期評価に使用されます。
+   <ul>
+    <li>Coriolis は、Azure Stack Marketplace で試用版として使用できるようになります。 VM を無料で移行して、プロセスを検証し、適切なソリューションであることを確認してください。</li>
+   </ul>
+   </li>
+   <li>
+   <p>&nbsp;&nbsp;<a href="https://www.commvault.com/news/2018/april/commvault-expands-microsoft-azure-stack-integration" target="_blank">Commvault</a> &ndash;Microsoft Azure スタックやその他のハイブリッドクラウドインフラストラクチャソリューションにおけるデータの移行、管理、保護、アクティブ化を補完します。 Commvault は、企業が機敏性を高め、コストを削減し、貴重な洞察を発見するのに役立ちます。</p>
+
+   <ul>
+    <li>
+    <p>Commvault は Azure Stack Marketplace で使用でき、60日間の無料試用版が用意されており、完全なバージョンにアップグレードすることができます。&nbsp;&nbsp;</p>
+    </li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+   <li><a href="https://www.corenttech.com/SurPaaS-Migration-As-A-Service.html" target="_blank">Corent</a> &ndash; サービスとしての移行ソリューションを提供します。 公開されたケーススタディについては、以下を参照してください。
+
+   <ul>
+    <li>&ldquo;<a href="https://www.corenttech.com/images/downloads/CBN_Cloud_Azure_Stack_Migration-Case_Study.pdf" target="_blank">BFSI (銀行、金融サービス、保険) アプリケーションを、「」を使用して Microsoft Azure Stack に移行する</a>&rdquo;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+    <li>
+    <p>&ldquo;<a href="https://globenewswire.com/news-release/2018/09/21/1574413/0/en/Calligo-delivers-successful-migration-to-Azure-Stack-using-Corent-Technology-SurPaaS-platform.html" target="_blank">Calligo は、Corent テクノロジを使用した Azure Stack への移行の成功を実現します。</a>&rdquo;</p>
+    </li>
+    <li>
+    <p>Corent テクノロジは、このブログの閲覧者に最大5つの Vm をスキャンして移行するための、無料の POC を提供しています。 &nbsp; #AzureStackBlog を使用して電子メールを送信 sales@corenttech.com し、無料の PoC を設定します。</p>
+    </li>
+   </ul>
+   </li>
+   <li>
+   <p><a href="https://www.zerodownsoftware.com" target="_blank">ゼロダウン</a> &ndash; 複数のスタンプにわたるビジネス継続性と高可用性を提供します。また、移行プロセス中でも利用できます。</p>
+   </li>
+  </ul>
+
+
+  <ul>
+   <li>
+   <ul>
+    <li>
+    <p>&rsquo;これは移行ツールではなく、ソリューションのフォールトトレランスと高可用性を提供できます。&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    </li>
+    <li>
+    <p>このソリューションは、複数のスタンプ間でフォールトトレランスと高可用性を実現するのにも役立ちます。 <a href="https://www.youtube.com/watch?v=QswBaY0AY1I" target="_blank">2 つの Azure Stack スタンプで実行されるアプリケーション</a>のデモを参照してください。</p>
+    </li>
+    <li>また、Azure Stack Marketplace でも利用でき、30日間の無料試用版が用意されています。&nbsp;&nbsp;</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h2>Microsoft の移行オプション</h2>
+
+
+  <p><a href="https://aka.ms/storagemigrationservice" target="_blank">Storage 移行サービス</a>を使用すると、Azure Stack のサーバーの移行とターゲット vm への移行が容易になります。 サーバー上のデータをインベントリするグラフィカルツールを使用し、そのデータと構成を Azure Stack に既に配置されている Vm に転送できます。 サービスは、アプリやユーザーが何でも変更する必要がない場合に機能します。 評価によっては、一部のワークロードが Azure IaaS または Azure Files に移行する場合があります。</p>
+
+
+  <p>Storage 移行サービスを使用するのは、Azure Stack 仮想マシンに移行するサーバーまたは多数のサーバーを&#39;しているためです。 記憶域移行サービスは、次の操作を行うことによって役立つように設計されています。</p>
+
+
+  <ul>
+   <li>複数のサーバーとそのデータをインベントリします。</li>
+   <li>ソース サーバーからファイル、ファイル共有、およびセキュリティ構成をすばやく転送する。</li>
+   <li>必要に応じて、移行元サーバーの id を引き継ぎます。これにより、ユーザーとアプリケーションは、既存のデータにアクセスするために何でも変更する必要が&#39;ます。</li>
+   <li>Windows 管理センターのユーザーインターフェイスから、1つまたは複数の移行を管理します。</li>
+  </ul>
+
+
+  <p>通常、移行の過程では、ツールを組み合わせて使用します。 そのため、特定のワークロードに適したツールを選択するために使用できるオプションを理解しておく必要があります。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/windows-server/storage/storage-migration-service/migrate-data" target="_blank">Storage 移行サービスを使用してサーバーを移行する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/deploy/install" target="_blank">Windows Admin Center のインストール</a></li>
+  </ul>
+
+
+  <h2>このブログシリーズの記事</h2>
+
+
+  <p>今後、このブログシリーズの投稿を読むことをお待ちしております。 今後予定されているトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">コアの Azure Stack は、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです。</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/" target="_blank">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分の内容を保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/" target="_blank">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-six/" target="_blank">使用した分の支払い</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven/" target="_blank">チームを取得する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に実行する場合は、自動化します。</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功に応じて構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

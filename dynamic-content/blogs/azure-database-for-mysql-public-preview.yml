@@ -1,0 +1,116 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b166a3f1a3b78fd664141bfc39e748027efa34c3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890249"
+Slug: azure-database-for-mysql-public-preview
+Title: パブリック プレビュー Azure Database for MySQL発表
+Summary: 本日、シアトルで開催された Microsoft Build 2017 カンファレンスで、Scott Guthrie は Azure Database Services プラットフォーム (Azure Database for MySQL と Azure Database for PostgreSQL) に 2 つの新しいオファリングを発表しました。 今日は、MySQL オファリングについて説明します。私たちの体験、アーキテクチャ、将来への願望について少し説明します
+Content: >-
+  <p>本日、シアトルで開催された Microsoft Build 2017 カンファレンスで、Scott Guthrie は Azure Database Services プラットフォーム (Azure Database for MySQL および Azure Database for PostgreSQL) に対<strong></strong>して 2 つの新しいオファリング<strong>を</strong>発表しました。 今日は&rsquo;、MySQL &ndash; オファリングについて、私たちの取り扱い、アーキテクチャ、および将来への願望について少し話します。&nbsp;PostgreSQL オファリングの詳細について学習することに関心がある場合は、Sunil などのようなブログ記事を<a href="https://azure.microsoft.com/en-us/blog/announcing-azure-database-for-postgresql-preview/"></a>参照してください。この&rsquo;&rsquo;ブログ記事では、PostgreSQL に対して行ったことについて説明しています。&rsquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/29a26767-77ac-42b1-89c0-01db38562dd9.png"><img alt="image" border="0" height="324" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6262e8e6-ccd5-408b-b863-b59a0fcace0a.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="304"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>Azure Database for MySQL とは</h2>
+
+
+  <p>マーケティング ページで詳細を再説明するのではなく、Azure Database for MySQL が<a href="https://azure.microsoft.com/en-us/services/mysql/"></a>新しいサービスとして Azure&nbsp; と顧客の両方に最適である理由についてもう少し詳しく説明したいと思います。現在まで、Azure に MySQL データベースをデプロイするオプションは、スタック全体 (通常は完全な LAMP スタック) を管理する必要があった複雑な VM デプロイか、パートナーの 1 人を通じてマネージド サービス オファリングにデプロイする必要があったかのどちらかに制限されています。 お客様から、これらのオプションはニーズを完全に満たしていない、および現在 SQL Database によって提供される同じレベルの高可用性、パフォーマンスのスケーリング、サポートを備えた Microsoft からのオファリングを直接優先したと長い間お客様から伝えてきました。</p>
+
+
+  <p>それはまさに私たちが行ったことです。</p>
+
+
+  <p>1 年以上前から、チームは SQL アーキテクトと密接に関して、SQL、MySQL、PostgreSQL&ndash;、および将来他のデータベース エンジンを知っている可能性のあるデータベース システム基盤を構築する方法について密接に取り組めました。 SQL DB サービス ファブリック ベースのアーキテクチャの基盤として Azure Database for MySQL と PostgreSQL の両方を構築しただけでなく、ストレージ オプションとパフォーマンスに関して、すべてのサービスにより多くの機能を提供できるように、SQL が一緒に取り組んできました。 クラウド規模の経済を通じて、この投資により、予測可能な容量計画と高いインスタンス密度が可能になります。これにより、お客様に非常に柔軟な価格モデルを導入できます。 価格の詳細については、後で参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10222c62-bdfe-4381-b2f7-121ae7010559.png"><img alt="azure_dbms" border="0" height="403" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d1e1ef6-94ac-4110-bc4d-93d0b44d45aa.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="azure_dbms" width="1001"></a></p>
+
+
+  <p>上記のビルド プレゼンテーションのスニペットは、Azure Database for MySQL が Azure Database Services プラットフォーム全体の一部である方法を示すスニペットです。この場合、共有アーキテクチャによって、その上に存在する各サービスにメリットが生み出されます。 以下では&rsquo;、コア領域についてもう少し詳しく説明<strong><em>します:信頼</em></strong>済み<strong><em></em></strong>、柔軟、インテリジェント<strong><em>。</em></strong></p>
+
+
+  <h2>信頼性</h2>
+
+
+  <p>マネージド サービスの最大の価値提案の 1 つは、インフラストラクチャが管理されているという事実です。 たとえば、&rsquo;MySQL サーバーの修正プログラムの適用について心配する必要はありません。 重大な脆弱性 (CVE) は、残念ながらすべてのソフトウェア開発で必要なイベントであり、MySQL コミュニティは、検出された直後に CVE に修正プログラムを適用する場合に最適です。 CVE が発表され、&rsquo;利用可能な場合は、システムに修正プログラムを適用します。心配する必要はありません。 MySQL Community Edition のマイナー バージョン リリースでも同様です。 お客様のサーバーは、必要がなきそうに、バック エンドで&rsquo;更新されます。 サーバーを再起動する必要がある場合は、どうでしょうか。 これは&rsquo;、Azure Database Services プラットフォームの高可用性の性質を優れたものにし、修正プログラムと更新プログラムを有効にするためにサーバーを再起動すると、アプリケーションがオフラインにならずに発生します。 どうすればよいでしょうか? &rsquo;単純です。データベースのレプリカを維持し、更新が必要な場合は、新しいデータベース サーバーを起動し、利用不可の数秒で新しいサーバーに切り替えます。つまり、アプリは気付かない場合があります。 もちろん、MySQL サーバーでクラッシュが発生した場合でも、数秒で復旧できます。</p>
+
+
+  <p>バックアップと復元も同様の方法で動作します。サーバーを完全に復元したり、最大 35 日間、5 分間隔で特定のポイントに復元したりすることができます。 &rsquo;&rsquo;ここで&rsquo;非常にクールなのは、これをサポートするために必要なストレージの量を管理する必要がなくてすむという事実です。これは、バック エンドで管理され、このストレージの料金を支払う必要はありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3f50a06-dd00-4fca-8976-e0a1d0545d9a.png"><img alt="2017-05-04_15-33-05" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5695ae1f-b491-4724-88e6-f9ecda68ebb6.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="2017-05-04_15-33-05" width="369"></a></p>
+
+
+  <p>セキュリティは、パブリック クラウド Microsoft Azureとして特に強力な領域であり、保存データと移動中データの暗号化を提供します。 制御アクセスも実装され、ファイアウォール規則管理を介してサーバーにアクセスできる IP アドレスを制御できるだけでなく、サーバー間の SSL 接続を適用し、クライアント アプリケーションを接続することもできます。 最後に、製品として MySQL に組み込みのネイティブ セキュリティ機能はすべて、ユーザー アクセス制御も含めて実装されています。そのため、読み取りや読み取り/書き込み専用などのアクセス書き込みの異なる複数のユーザーを作成し、データの整合性を損なうことなく、特定のニーズに対して特定のユーザーにアクセス権を付与できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6a7d486-46ae-4e30-a446-1bcd9646aad2.png"><img alt="2017-05-04_15-34-25" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/76b2dae0-2e18-4eaa-b410-c27918111fb3.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="2017-05-04_15-34-25" width="586"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>柔軟性</h2>
+
+
+  <p>アプリケーションと関連付けられたデータベースを任意のパブリック クラウド プラットフォームに取り込むという課題の 1 つは、特定のアプリケーションのクラウド&rsquo; プラットフォーム サービスのサイズを設定する方法です。 多くの場合、間違ったパフォーマンス オプションを選択すると、新しいデータベース サーバーを起動し、データベースとアプリケーションの設定を新しいサーバーに移行する必要があります。 このAzure Database for MySQL、すばらしい HA フレームワークを活用して、アプリケーションのダウンタイムを発生なく、オンザフライスケール(スケールアップまたはスケールダウン) できます。 これにより、データベースに対して間違ったパフォーマンス オプションを選択したという問題が軽減されるだけでなく、アクティビティが周期的に急増するワークロードにも適用されます。&nbsp;Imagine、週末または休日に実行されるマーケティングプロモーションがある場合、トラフィックが 300% 増加すると予想されます。 イベントの前にスケールアップするだけで、昇格中のトラフィックを処理し、その後スケールダウンしてコストを制御できます。 ここでは&rsquo;、お客様の 2 人がこのことを言う必要があります。</p>
+
+
+  <blockquote>
+
+  <p align="left">&ldquo;Web サイトに Azure を使用すると、親と通信する機能が問題ではありません。&nbsp; たとえば、私たちのスタッフは、以前は積雪の日をパニックにしていたため、サイトが立ち上がり続けるので、誰もが問題を抱えているのを忘れてしまいました。 簡単に言えば、&rsquo;私たちは勝ちます。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="left" style="margin-left: 40px">- School District 42 の 42 立方部立ち込みPitt の編集者である、システム&mdash; アナリスト、 <a href="https://aka.ms/esjj2y">School District 42s のストーリーについては&rsquo;、こちらを参照してください</a>。</p>
+
+
+  <blockquote>
+
+  <p align="left">&ldquo;Azure Database for MySQL&rsquo; の最大の利点は、一時的にリソースを追加し、不要なときにそれらをダウン状態に戻して、トラフィックの急増に自動スケールして対応する機能です。 これは&rsquo;私たちにとって大きな問題です。&rdquo;</p>
+
+  </blockquote>
+
+
+  <p align="left" style="margin-left: 40px">-Kevin Lisota、Wire。 <a href="https://aka.ms/kjqu8y">ここの「Wires の&rsquo;ストーリー」をお読みください</a>。</p>
+
+
+  <p>スケールオンザフライは&rsquo;、スケールオンザフライ &ldquo;の唯一のフレキシブル&rdquo; テナントAzure Database for MySQL。 多くの場合、高速データベース処理&rsquo;の必要性は、アプリケーションに必要なコンピューティング リソース (CPU とメモリ) に排他的に関連付けられていません。 コンピューティング <a href="https://docs.microsoft.com/azure/mysql/concepts-compute-unit-and-storage">リソース (コンピューティング</a> ユニット) をストレージ パフォーマンス (IOPS) から分離することで、サービスの Standard パフォーマンス レベルで、MySQL データベース サーバーを次のサービス レベルにアップグレードすることなく、IOPS を増やす機能を利用できます。 プレビュー価格は予想される小売価格の約 50% で、プレビューのAzure Database for MySQLを確認する良い時期です。 Azure Database for MySQL の価格の詳細については <a href="https://azure.microsoft.com/en-us/pricing/details/mysql">、こちらを参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e3e36de-bf92-4173-a981-48222ff2bf84.png"><img alt="2017-05-04_15-25-44" border="0" height="436" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb04af1c-777e-4dac-830f-0e984d47b879.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="2017-05-04_15-25-44" width="674"></a></p>
+
+
+  <h2>インテリジェント</h2>
+
+
+  <p>組み込みの監視を使用すると、ワークロードに対する MySQL サーバーの実際の使用状況を確認できます。 コンピューティング ユニットの使用量と Storage の両方に関する詳細な使用状況メトリックを提供することで、より高い SKU に移動してコンピューティング ユニットを増やすのではなく、IOPS を増やす必要があるかどうかを簡単に判断できます。 組み込みの&rsquo;アラートを使用すると、MySQL Server に対して設定した事前に決定されたしきい値に達すると、問題になる前にこれらの変更を行う必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33fcc18d-cc14-461e-8292-321005ac3272.png"><img alt="2017-05-08_12-41-33" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b8679b5-65c4-4375-b30f-20650e2c73ee.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="2017-05-08_12-41-33" width="921"></a></p>
+
+
+  <h2>い&rsquo;ずれにしても、アプリに関するすべてが</h2>
+
+
+  <p>アプリの開発者は、Azure Database for MySQLインフラストラクチャについて心配する必要がなさそうである可能性があります。 最適なアプリを構築する最善の方法 &ndash; に焦点を当てる。 Azure Database for MySQL mysql.com から使用できるのと同じ MySQL Community Edition を使用しています。これは、<a href="https://dev.mysql.com/downloads/"></a>開発、管理、パフォーマンス プロファイル、監視に既に使用しているのと同じツールをすべて使用できます。 他の Azure サービス (つまり、Azure Azure Database for MySQLと深い統合を行ったもう 1 つの領域<a href="https://azure.microsoft.com/en-us/services/app-service/web/">Web Apps。</a> Azure Database for MySQL&rsquo; をデータベース プロバイダーとして使用して Azure Web アプリを簡単にデプロイできるだけでなく、Wordpress や Drupal などの一般的なコンテンツ管理システム (CMS) 用の完全なソリューションを提供するために取り組みしました。 そのため、Web サイトのデプロイは、単一のプロビジョニング プロセスと統合され、簡単に行うだけでなく、スケーラブルなデータベース プロバイダーが Web サイトトラフィックを処理するための選択肢を持っています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3b7b04f2-c68e-4b6c-b1ff-9d9a0863c099.png"><img alt="image" border="0" height="239" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d32b1ac-cc45-4e27-ad46-d19a705a73d4.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="882"></a></p>
+
+
+  <p>これはほんの始めです。 移行、スケーリング、HA、Azure Database for MySQL の開発などのトピックに関する詳細を含め、プレビューから GA まで製品を進め、私やチームからのブログ投稿の多くを監視してください。</p>
+
+
+  <p>Jason Anderson</p>
+
+
+  <p>Twitter： <a href="https://twitter.com/jasonma_msft">@JasonMA_MSFT</a></p>

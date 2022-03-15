@@ -1,0 +1,93 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d059eb7b25f12856bf14a15aabd6ececc71b48c6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889302"
+Slug: announcing-the-general-availability-of-azure-monitor
+Title: Azure Monitor の一般提供の発表
+Summary: 本日、Azure 向けの Microsoft の組み込みプラットフォーム監視サービスである Azure Monitor の一般提供を発表します。
+Content: >-
+  <p>現在、Azure 向けの Microsoft &rsquo; の組み込みプラットフォーム監視サービスである Azure Monitor の一般提供が発表されています。</p>
+
+
+  <p>Azure でワークロードを作成する際に、重要な監視機能を使用できるようになります。手動で構成を行ったり、追加のツールを購入したりしなくても、クラウドへのシームレスな移行が可能になります。 Azure Monitor には、プラットフォームおよびサービスレベルのメトリックとログを含むすべての重要な監視テレメトリが用意されており、そのデータに対してインテリジェントなアクションを実行するようにアラートを構成することができます。また、お好みの高度な監視ソリューションとシームレスに統合することにより、テレメトリの上位の洞察と分析のロックを解除すること Azure monitor には、REST Api、Resource Manager テンプレート、PowerShell コマンドレット、および Azure CLI サポートが付属しており、監視機能の使用と構成を柔軟に行うことができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-the-public-preview-of-azure-monitor/">プレビュー</a>以降は、お客様とパートナーの間での Azure Monitor の拡大と導入についてご紹介します。 お客様とパートナーがサービスにどのように対応しているかについて、継続的なサポートとフィードバックを受け入れ、ストーリーを共有することをお勧めします。</p>
+
+
+  <h2>アラートと通知の組み込みサポート</h2>
+
+
+  <p>ニュージーランドベースの <a href="https://www.theta.co.nz/">シータ Systems ltd.</a> は、多数のクライアントに Azure ベースのソリューションを提供する、プレミアコンサルティングサービスです。 シータの DevOps チームは、監視に関連するすべてのものについて、最初の防御ラインとして Azure Monitor を使用します。</p>
+
+
+  <p style="margin-left: 40px;"><em> &ldquo; シータでは、24/7 のサポートを提供する運用環境に複数の Logic Apps が実装されています。Azure Monitor は、サポート戦略の重要な部分であり、問題を &rdquo; 常に把握するために必要なすべての機能を提供して</em>います。これには、"シータ" のプリンシパル統合アーキテクトである<strong>Wagner</strong>があります。 <em>&ldquo;Azure ダッシュボードを使用すると、ソリューション内の各ロジックアプリについて、過去3時間以内に成功した実行と失敗した実行を追跡する統合環境 &ndash; の状態の概要がわかります。Microsoft のサービスデスクには、システムの現在のヘルスを確認し、必要に応じて特定の情報をドリルダウンするためのショッピングショップが1つあります。電子メールアラートを使用して、クライアントに通知される前に問題の通知を受け取ります。これにより、ソリューションのサポートを積極的に行うことができます。アクティビティログを使用してアラートトリガーのパターンを把握することで、問題を事前に特定、優先順位付け、修正し、今後のエラーを回避することができます。&rdquo;</em></p>
+
+
+  <p style="margin-left: 40px;">Wagner を続ける<em>と、 &ldquo; Azure に組み込まれている多くの機能を、クライアントとサポートチームの両方にとって非常に良い側面でした。この機能は、確かにこのような機能を備えています。ソリューションにエラーが表示されることはありませんが、問題が発生した場合は、それを迅速に処理できるようにするためのツールが頼もしくます。 &rdquo; </em></p>
+
+
+  <p>シータシステムは、Azure クラウド上で高可用性サービスを維持することを目指しています。これにより、ソースが個々のリソースのパフォーマンスの低下、Azure サブスクリプションへの変更、または Azure からのサービス正常性インシデントが発生したかどうかなど、インシデントについての通知をすぐに受け取ることができます。</p>
+
+
+  <h3>SMS、webhook、および電子メール通知を使用した新しいアクティビティログアラート</h3>
+
+
+  <p>既存のメトリックベースのアラートによって、インフラストラクチャの問題を認識し、電子メールと webhook を使用して自動化されたアクションを実行できるようになりましたが、多くの場合、アクティビティログイベントに対してアラートを作成して、VM の再起動、デプロイの失敗、ユーザーのアクセス許可の変更などのイベントに対して同じように 本日は、この2つの新機能 (一般公開) が発表されました。これにより、アラート &ldquo; の受信 &rdquo; 者とアクティビティログアラートの一覧を管理するための再利用 &ldquo; 可能なアクショングループ &rdquo; が提供されます。 これらの柔軟な新しいツールにより、Azure サービス正常性インシデント、デプロイエラー、自動スケールイベントなどのイベントが発生したときにオペレーションチームが SMS を受け取ることができるようにする、さまざまなアラート機能が有効になります。 これらの新機能の詳細については、 <a href="https://aka.ms/azmondocs">microsoft のドキュメント</a>を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc2d0e00-26cf-449a-a051-452b659b1d3b.png"><img alt="Figure 1 add activity log" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4cb7ea25-71e8-405f-8631-2edf9ffcddd6.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="図1アクティビティログの追加" width="364"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p align="center"><em>図 1.アクショングループとアクションの種類を含むアクティビティログアラートの事前設定されたビュー。</em></p>
+
+
+  <h2 align="left">より深い洞察と統合されたエンドツーエンド監視のロック解除</h2>
+
+
+  <p align="left"><a href="https://www.rackspace.com/">Rackspace &rsquo; s</a> Microsoft Cloud チームは <a href="https://www.rackspace.com/en-us/microsoft/managed-azure-cloud">azure の Fanatical サポート</a>を提供し、azure での顧客 &rsquo; のワークロードに対する専門家レベルの監視と管理サポートを提供します。 Rackspace のサポートチームは、Azure Monitor のリソースおよびプラットフォームレベルのテレメトリを、 <a href="https://azure.microsoft.com/en-us/suites/operations-management-suite/">Microsoft Operations Management Suite</a>の一部として提供されている Azure Log Analytics の豊富な operational insights と組み合わせて使用して、顧客のエンドツーエンドの監視とトラブルシューティングを実行します。</p>
+
+
+  <p align="left" style="margin-left: 40px;">環境の全体像を把握するには、<em>クラウドプラットフォームの正常性、IAAS VM テレメトリ、アプリケーションログ、PaaS メトリックなど、さまざまな情報を把握しておく必要があります。 &ldquo;Rackspace では、azure Log Analytics の機能を開花して、お客様 &rdquo; に最高の azure サポートエクスペリエンスを提供してい</em>ます。これは、 <strong>Dugan Sheehan</strong> - 主要製品アーキテクトである azure Cloud, Rackspace です。 <em>&ldquo;Azure Log Analytics と Azure Monitor は、すぐに使用できる非常に強力な機能を提供します。これらのサービスの拡張可能な性質により、運用監視サービスを非常に迅速に開発できるようになりました。(ARM テンプレートを使用した) 自動化により、新しい顧客環境を数分で完全にオンボードできます。standard ワークスペースのデプロイには、Windows/Linux パフォーマンスカウンターとイベント、azure アクティビティログ、azure PaaS メトリック、アプリケーションからの他のテレメトリデータのログなどが含まれます。ここで、 &rsquo; web サイトの可用性のアラートを受信し、根本原因を分析したいとします。Azure Portal にログインすると、アプリケーションに関連するさまざまな事柄をすぐに確認できます。 App Services のプラットフォームレベルのイベントまたはエラーに関するアクティビティログのクエリ、web サイトのパフォーマンスと正常性に関するメトリックのクエリ、またはアプリケーションのコンポーネントからのエラーの検索を行うことができます。&rdquo;</em></p>
+
+
+  <p align="left" style="margin-left: 40px;">Dugan を追加<em>すると、 &ldquo; Azure Log Analytics および Azure Monitor によって提供される包括的なサービスを再作成するのに、大きな時間、コスト、労力がかかることになります。これらのサービスを活用することによって、お客様にとって、お客様にとって、お客様にとって、お客様にとっては、お客様にとっ &rdquo; ての Rackspace</em>に</p>
+
+
+  <p align="left">Azure でのフットプリントの拡大を続けるにつれて、高度な洞察を得てインテリジェントなアクションを迅速に実行するためのスケーラブルな監視ソリューションが必要になります。 Azure Monitor からのプラットフォームレベルのテレメトリ、 <a href="https://azure.microsoft.com/en-us/services/application-insights/">Application Insights</a>からのアプリケーションレベルのテレメトリ、 <a href="https://azure.microsoft.com/en-us/services/log-analytics/">Azure Log Analytics</a>のすべてのデータをシームレスに分析、検索、アラート化する機能を使用して、お客様は Azure portal 内で全体のエンドツーエンドの監視と管理のエクスペリエンスのロックを解除できます。</p>
+
+
+  <h2 align="left">成長するエコシステム</h2>
+
+
+  <p align="left">また Azure Monitor は、Microsoft &rsquo; の包括的な監視エクスペリエンスを超えて、パートナーツールの数が増えているシンプルで強力な統合ポイントを提供します。 Azure のお客様は、さまざまなサービスを使用して個々のニーズを満たすことができます。また、多くのサービスと緊密に連携して、ソリューションでの Azure の高品質エクスペリエンスを実現します。</p>
+
+
+  <p align="left"><a href="https://www.datadoghq.com/">Datadog inc.</a>は、インフラストラクチャを監視するための単一のウィンドウを提供するパートナーの1つであり、Azure Monitor を使用して<a href="https://www.datadoghq.com/monitor-azure/">Azure 統合 &amp; サポート</a>を<a href="https://www.datadoghq.com/search/?ref=blog-search&amp;s=azure">継続的</a>に強化しています。</p>
+
+
+  <p align="left" style="margin-left: 40px;"><em> &quot; Azure Monitor API を使用すると、お客様は実行中のさまざまな Azure サービスに関する洞察を得ることができます。お客様は、Azure テレメトリが Datadog に到着すると、対話型のダッシュボード、アラート、コラボレーションのトラブルシューティング、および他の機能と統合されたアプリケーション監視のエクスペリエンスを活用できます。これは &quot; </em>、Datadog での<strong>Amit agarwal</strong>, 最高製品責任者です。<em> &quot; 私たちは、過去1年間の企業のお客様に Azure プラットフォームの非常に多くの導入を&#39;ました。 &quot; </em></p>
+
+
+  <p align="left">現在 Azure Monitor と統合しているパートナーの完全な一覧について <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-partners">は、こちらを参照</a>してください。 &rsquo;Azure のお客様に最適な監視エクスペリエンスを提供するために、パートナーのオープンエコシステムを構築することに努めています。そのため、この簡単なアンケートを使用して<a href="https://www.instant.ly/s/82APq">Azure Monitor と統合するうえで最も重要なツールについてフィードバックを</a>お寄せください。</p>
+
+
+  <h2 align="left">まとめ</h2>
+
+
+  <p align="left">Azure Monitor の導入が急増していることがわかります。 今後数か月の間に、Azure Monitor を通じてデータを出力する追加サービスが表示されます。 お客様からのフィードバックに基づいて、多くのサービスチームが、メトリックとログを追加することによってテレメトリを強化することを検討しています。 また、高度なアラート、自動スケール、およびログルーティングエクスペリエンスが利用可能になる予定です。</p>
+
+
+  <p align="left">サインアウトする前に、Azure Monitor の概要を簡単に説明します。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="360" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Monitor/player" width="640"></iframe></p>
+
+
+  <p>詳細については、 <a href="https://azure.microsoft.com/en-us/services/monitor/">Azure Monitor の概要</a> に関するページを参照して、フィードバックをお <a href="https://aka.ms/monitorfeedback">寄せ</a>ください。&nbsp;</p>

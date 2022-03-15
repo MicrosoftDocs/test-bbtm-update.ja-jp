@@ -1,0 +1,172 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 24437c79bbc5bf889fbc89565fe4e470b94643ae
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890060"
+Slug: programmatically-onboard-and-manage-your-subscriptions-in-azure-security-center
+Title: Azure Security Center でのサブスクリプションのプログラムによるオンボードと管理
+Summary: Azure ワークロードのセキュリティ保護は、Azure Security Center 公式の PowerShell モジュールのリリースにより、より簡単になりました。 多くの組織は、手動での作業が人為的なエラーに陥りやすく、マルチ商法作業の可能性を作成するため、より多くのタスクを自動化することを検討しています。
+Content: >-
+  <p><em>この投稿は、Tiander Turpijn、シニアプログラムマネージャー、Azure Security Center によって共同作成されました。</em>&nbsp;</p>
+
+
+  <p>Azure ワークロードのセキュリティ保護は、Azure Security Center (ASC) 公式の PowerShell モジュールのリリースにより、より簡単になりました。</p>
+
+
+  <p>多くの組織は、手動での作業が人為的なエラーに陥りやすく、マルチ商法作業の可能性を作成するため、より多くのタスクを自動化することを検討しています。 数百から数千のリソース &ndash; を含む多数のサブスクリプションを含む大規模なデプロイに関しては、自動化の必要性が特に一般的です。これらはすべて、最初からセキュリティで保護する必要があります。</p>
+
+
+  <p>DevOps のライフサイクルのセキュリティ面を効率化するために、ASC は最近、公式の PowerShell モジュールをリリースしました。 これにより、組織はプログラムを使用して、Azure リソースのオンボードと管理を ASC で自動化し、必要なセキュリティコントロールを追加することができます。</p>
+
+
+  <p>このブログでは、PowerShell を使用して ASC をオンボードする方法に重点を置いて説明します。 今後のブログ記事では、PowerShell を使用して、ASC でリソースの管理を自動化する方法を説明します。</p>
+
+
+  <p>この例では、Security Center を ID: d07c0080-170c-4c24-861d-9c817742786c のサブスクリプションで有効にし、Security Center の Standard 階層を実装して、高レベルの保護を提供する推奨設定を適用します。これにより脅威からの高度な保護と検出機能が提供されます。</p>
+
+
+  <ol>
+      <li>Advanced threat protection と検出機能を有効にするには、ASC を standard に設定します。 ASC は Free と Standard の2つのレベルで <a href="https://azure.microsoft.com/en-us/pricing/details/security-center/" target="_blank">提供する必要がある</a> ことについて詳しく説明します。</li>
+      <li>サブスクリプションに関連付けられている vm で Microsoft Monitoring Agent が収集するデータを送信する Log Analytics ワークスペースを設定します。ここでは、既存のユーザー定義ワークスペース (myworkspace) を使用します。 データ収集の詳細について <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection#how-can-i-use-my-existing-log-analytics-workspace" target="_blank">は、「ASC」を</a>参照してください。</li>
+      <li>Microsoft Monitoring Agent にデプロイされる Security center &rsquo; s 自動エージェントプロビジョニングをアクティブ化します。 <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-enable-data-collection#enable-automatic-provisioning-of-microsoft-monitoring-agent" target="_blank">自動プロビジョニングの有効化</a>の詳細については、こちらをご覧ください。</li>
+      <li>ASC alerts と注目すべきイベントのセキュリティ連絡先として、組織 &rsquo; の CISO を設定します。 詳細について <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-provide-security-contact-details" target="_blank">は、「ASC」を</a>参照してください。</li>
+      <li>Security Center &rsquo; s の既定のセキュリティポリシーを割り当てます。 <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-azure-policy" target="_blank">セキュリティポリシー</a>の詳細については、こちらを参照してください。</li>
+  </ol>
+
+
+  <p><strong>前提条件</strong>: これらの手順は、Security Center コマンドレットを実行する前に実行して、環境に前提条件と依存関係がすべてインストールされていることを確認する必要があります。</p>
+
+
+  <ol>
+      <li>管理者として powershell を実行する</li>
+      <li>Set-ExecutionPolicy-Set-executionpolicy AllSigned</li>
+      <li>Install-Module 名 Az. Security-Force</li>
+  </ol>
+
+
+  <p>a. Security Center リソースプロバイダーにサブスクリプションを登録する</p>
+
+
+  <ol>
+
+  </ol>
+
+
+  <pre>
+
+  Set-AzContext-Subscription &quot;d07c0080-170c-4c24-861d-9c817742786c&quot;
+
+  Register-AzResourceProvider &ndash;ProviderNamespace &#39;Microsoft.Security&#39;</pre>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p>b. サブスクリプションのカバレッジレベル (価格レベル) を設定 <strong>します (これはオプションです。&rsquo;定義されていない場合、価格レベルは無料です)。</strong></p>
+
+
+  <ul>
+
+  </ul>
+
+
+  <pre>
+
+  <strong></strong>Set-AzContext-Subscription &quot;d07c0080-170c-4c24-861d-9c817742786c&quot;
+
+  Set-AzSecurityPricing -Name &quot;default&quot; -PricingTier &quot;Standard&quot;</pre>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p>c. エージェントの報告先となるワークスペースを構成し <strong>ます (これはオプションです。この値が &rsquo; 定義されていない場合は、既定のワークスペースが使用されます)。</strong></p>
+
+
+  <ul>
+
+  </ul>
+
+
+  <p><strong>前提条件: サブスクリプション &rsquo; の vm のレポート先となる Log Analytics ワークスペースを作成します。複数のサブスクリプションを定義して、同じワークスペースにレポートすることができます。</strong></p>
+
+
+  <pre>
+
+  Set-AzSecurityWorkspaceSetting -Name &quot;default&quot; -Scope &quot;/subscriptions/d07c0080-170c-4c24-861d-9c817742786c&quot; -WorkspaceId &quot;/subscriptions/d07c0080-170c-4c24-861d-9c817742786c/resourceGroups/myRg/providers/Microsoft.OperationalInsights/workspaces/myWorkspace&quot;</pre>
+
+
+  <ul style="margin-left: 40px;">
+
+  </ul>
+
+
+  <p>d. Azure vm での Microsoft Monitoring Agent の自動プロビジョニングを定義<strong>します (これはオプションです。自動でない場合は、エージェントを手動でインストールできます。)</strong></p>
+
+
+  <ul style="margin-left: 40px;">
+
+  </ul>
+
+
+  <pre>
+
+  Set-AzContext -Subscription &quot;d07c0080-170c-4c24-861d-9c817742786c&quot;
+
+  Set-AzSecurityAutoProvisioningSetting -Name &quot;default&quot; -EnableAutoProvision</pre>
+
+
+  <ul style="margin-left: 40px;">
+
+  </ul>
+
+
+  <p>e. セキュリティ連絡先の詳細を定義します (省略可能)。</p>
+
+
+  <ul style="margin-left: 40px;">
+
+  </ul>
+
+
+  <p>オンボードするサブスクリプションのセキュリティ連絡先の詳細を定義することを強くお勧めします。これらの連絡先は Security Center によって生成されるアラートおよび通知の受信者として使用されるためです。</p>
+
+
+  <pre>
+
+  Set-AzSecurityContact -Name &quot;default1&quot; -Email &quot;CISO@my-org.com&quot; -Phone &quot;2142754038&quot; -AlertsAdmin -NotifyOnAlert</pre>
+
+
+  <ul style="margin-left: 40px;">
+
+  </ul>
+
+
+  <p>f. 既定の Security Center ポリシーイニシアチブを割り当てる</p>
+
+
+  <ul style="margin-left: 40px;">
+
+  </ul>
+
+
+  <pre>
+
+  Register-AzResourceProvider -ProviderNamespace &#39;Microsoft.PolicyInsights&#39;
+
+  $Policy = Get-AzPolicySetDefinition -Name &#39; [Preview]: Enable Monitoring in Azure Security Center&#39;
+
+
+  New-AzPolicyAssignment -Name &#39;ASC Default &lt;d07c0080-170c-4c24-861d-9c817742786c&gt;&#39; -DisplayName &#39;Security Center Default &lt;subscription ID&gt;&#39; -PolicySetDefinition $Policy &ndash;Scope &#39;subscriptions/d07c0080-170c-4c24-861d-9c817742786c&#39;</pre>
+
+
+  <p>Automation スクリプトと共に公式の PowerShell コマンドレットを使用して、複数のサブスクリプション/リソースをプログラムで反復処理できるようになりました。これらのアクションを手動で実行することによって生じるオーバーヘッドを減らし、手動アクションによる人的エラーのリスクを軽減することができます。 詳細については、 <a href="https://github.com/Microsoft/Azure-Security-Center/blob/master/quickstarts/ASC-Samples.ps1" target="_blank">ASC サンプルスクリプト</a>を参照してください。</p>
+
+
+  <p>PowerShell を使用して Security Center へのオンボードを自動化する方法の詳細については、こちらの <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FAzure%2Fazure-powershell%2Fblob%2Fmaster%2Fsrc%2FResourceManager%2FSecurity%2FCommands.Security%2Fhelp%2FAz.Security.md&amp;data=02%7C01%7Cv-cabas%40microsoft.com%7C5c8bc9b99cce4c7b281808d666989b10%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636809202972311707&amp;sdata=%2BYns3lwgacF23VBD4je6reCOkynrgTVMQcLWTUwkA64%3D&amp;reserved=0" target="_blank">ドキュメント</a>を参照してください。</p>

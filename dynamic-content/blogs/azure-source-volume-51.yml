@@ -1,0 +1,689 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2b7f253085ce905d0ed409e1c1c363d68b5916d4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139912858"
+Slug: azure-source-volume-51
+Title: Azure.Source - ボリューム 51
+Summary: プレビューの現在の機能、一般提供、最新情報、更新プログラムなど、Azure &を最新の状態に保つ。
+Content: >
+  <h2>Microsoft Ignite 2018 振り返り</h2>
+
+
+  <p>ご存知のように、先週、何千人もの人々が Microsoft Ignite 2018 でマイアミのマイアミに降り立っています。 この Azure.Source のボリュームでは、&#39;すべての発表を掘り下げるのに必要なリンクを 1 か所で収集しました。 以下を読んでご覧ください。先週、多くのことが発生しました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/resources/videos/ignite-2018-vision-keynote/">Microsoft Ignite 2018 - Vision の講演</a> - Microsoft の CEO である Satya Nadella は、この講演で Ignite と Vision 2018 を開始します。この講演では、地球のすべての人とすべての組織が、より多くの成果を得る力を与える Microsoft のビジョンを示します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="allowFullScreen" frameborder="0" scrolling="no" src="https://medius.studios.ms/Embed/Video/IG18-Key01?w=581&amp;h=302&amp;Autoplay=0" style="width: 581px; height: 302px;"></iframe></p>
+
+
+  <p><a href="https://azure.microsoft.com/resources/videos/technology-keynote-at-microsoft-ignite-2018-by-scott-guthrie/">Microsoft Azure</a> - Microsoft Azure を使用した IT および開発者の成功により、お気に入りのツールやフレームワークを使用して、大規模なグローバル クラウド上にクラウド ネイティブアプリケーションとハイブリッド アプリケーションを自由に構築、管理、デプロイできます。 Scott Guthrie、EVP Cloud + AI &amp; Julia White、CVP Azure に参加して、最新の進歩を示します。</p>
+
+
+  <p align="center"><iframe allowfullscreen="allowFullScreen" frameborder="0" scrolling="no" src="https://medius.studios.ms/Embed/Video/IG18-Key03?w=581&amp;h=302&amp;Autoplay=0" style="width: 581px; height: 302px;"></iframe></p>
+
+
+  <p><a href="https://www.microsoft.com/ignite-the-tour">Microsoft Ignite |ツアー:</a> - あなたがオーランドの Ignite への参加を欠場した場合は、&#39;t fret - Ignite は、数か月の間に近くの都市に来る可能性があります。 開発者や技術プロフェッショナルが専門家と共に学び続ける場所に参加してください。 最新の開発者ツールとクラウド テクノロジを探索し、スキルを新しい領域で機能する方法について学習します。 Connect、クラウド開発、データ、IT、ビジネス インテリジェンスの将来に関する実用的な分析情報とベスト プラクティスを得るために、コミュニティと一緒に取り組む必要があります。</p>
+
+
+  <p><a href="https://azure.microsoft.com/updates/ignite/">Microsoft Ignite 2018 のニュースとハイライト</a> - 9 月には、Azure Web サイトの [更新プログラム] 領域でいくつかの作業を行い、Azure サービスの変更を簡単に追跡し、開発中の&#39;ロードマップを追跡しました。 Updates のこのセクションでは、Ignite で発表した情報の簡潔なディレクトリを提供します。</p>
+
+
+  <p><a href="https://docs.microsoft.com/learn/azure/">Microsoft Learn</a> - ガイド付きラーニング パスに従って Azure を学習する新しい方法。Azure の基礎、Azure でのインフラストラクチャ リソースの管理など、実用的なジョブ スキルを構築できます。</p>
+
+
+  <p align="center"><a href="https://docs.microsoft.com/learn/azure/"><img alt="Microsoft Learn illustration" border="0" height="172" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be9335d9-f0ee-48a7-a519-cb1d80969a1c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Microsoft Learn" width="500"></a></p>
+
+
+  <h2>インフラストラクチャ</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/a-crazy-amount-of-new-azure-infrastructure-announcements/">新しい Azure インフラストラクチャのお知らせの膨大な量</a> - Azure の企業副社長である Core Sanders 氏は、このブログ記事で多くの発表について説明しています。これは Ignite での一般的なセッションのコンパニオン投稿です。</p>
+
+
+  <p align="center"><iframe allowfullscreen="allowFullScreen" frameborder="0" scrolling="no" src="https://medius.studios.ms/Embed/Video/IG18-GS002?w=581&amp;h=302&amp;Autoplay=0" style="width: 581px; height: 302px;"></iframe></p>
+
+
+  <h4>詳細を取得します。</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/unlocking-innovation-with-the-new-n-series-azure-virtual-machines/">新しい N シリーズ Azure サービスを使用してイノベーションのVirtual Machines</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/introducing-the-new-hb-and-hc-azure-vm-sizes-for-hpc/">HPC 用の新しい HB および HC Azure VM サイズの導入</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-public-preview-of-azure-front-door-service/">Azure Front Door Services のパブリック プレビューの発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/">大規模なサイズのパブリック プレビュー Managed Disks紹介</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-standard-ssd-disks-for-azure-virtual-machine-workloads/">Azure Virtual Machine ワークロード用の Standard SSD ディスクの一般提供の発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-ultra-ssd-the-next-generation-of-azure-disks-technology-preview/">次世代のUltra SSD &ndash; Azure Disks テクノロジ (プレビュー) の発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/expanding-the-azure-data-box-family/">グループ ファミリAzure Data Box展開する</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/new-investments-in-azure-stack-extend-microsoft-s-hybrid-cloud-leadership/">Microsoft ハイブリッド クラウド のリーダーシップをAzure Stackする新&rsquo;しい投資</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/strengthen-your-security-posture-and-protect-against-threats-with-azure-security-center/">セキュリティ体制を強化し、脅威から保護Azure Security Center</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/now-is-the-time-to-migrate-all-your-apps-data-and-infrastructure-to-azure/">次は、すべてのアプリ、データ、インフラストラクチャを Azure に移行する必要があります</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/database-migration-service-and-tool-updates-ignite-2018/">Azure Database Migration Serviceツールの更新プログラム &ndash; Ignite 2018</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/get-speed-and-control-with-new-free-azure-governance-services/">新しい無料サービスを使用して速度とAzure のガバナンスする</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-the-preview-release-of-management-group-cost-apis/">管理グループのコスト API の EA プレビュー リリースの発表</a></p>
+   </li>
+  </ul>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Introducing-the-Azure-Data-Box-family/player?format=ny" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong><a href="https://channel9.msdn.com/Shows/Azure-Friday/Introducing-the-Azure-Data-Box-family">Azure Friday |</a> </strong> Donovan Brown Azure Data Box - 家族である Mathew Brown が参加し、クラウドにデータを移動する課題に対応する Data Box ファミリのソリューションについて説明します。 Azure Data Boxデバイスを使用すると、ネットワークが無効な場合に大量のデータ&#39;転送できます。 Data Box製品は、サイトと Azure の間のデータをインテリジェントに管理するためのネットワーク ストレージ ゲートウェイとして機能します。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <p><strong><a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Front-Door-Service-Preview">Azure Friday |Azure Front Door Service (プレビュー)</a> </strong> - Sharad Agrawal が LaraBelke に参加し、最近発表された Azure Front Door Service について話し合います。これは、Microsoft&#39;の大規模なグローバル エッジ ネットワークを使用してユーザーに接続することでパフォーマンスを最大化しながら、アプリケーションの可用性をグローバルにリアルタイムで実現します。 このセッションでは、&#39;アプリケーション用に Front Door を設定する方法と、実現できるパフォーマンスと信頼性の利点について学習します。</p>
+     </td>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Front-Door-Service-Preview/player?format=ny" width="240"></iframe></p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>Data</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/ignite-2018-making-ai-real-for-your-business-with-azure-data/">Ignite 2018 - Azure Data を使用して AI をビジネスに対応させる</a> - Azure Data のコーポレート バイス プレジデントである Rohan Kumar は、クラウド、データ、人工知能 (AI) の合流によってこれまでにない変化がどのように推進され、すべての業界におけるイノベーションの基礎になりすんでいるかについて共有しています。これは Ignite での一般的なセッションのコンパニオン ポストです。</p>
+
+
+  <p align="center"><iframe allowfullscreen="allowFullScreen" frameborder="0" scrolling="no" src="https://medius.studios.ms/Embed/Video/IG18-GS005?w=581&amp;h=302&amp;Autoplay=0" style="width: 581px; height: 302px;"></iframe></p>
+
+
+  <h4>詳細を取得します。</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/introducing-azure-data-explorer/">Azure Data Explorer のAzure Data Explorer</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-data-explorer-technology-101/">Azure Data Explorer Technology 101</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-sql-database-managed-instance-general-purpose-tier-general-availability/">Azure SQL Database Managed Instance、General Purposeレベルの一般提供</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/three-reasons-azure-sql-database-is-best-for-sql-server-migration/">移行のAzure SQL Database最適な 3 つのSQL Server理由</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-azure-sql-database-hyperscale-public-preview/">Hyperscale パブリック Azure SQL Databaseの発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/performance-updates-and-tuning-best-practices-for-using-azure-database-for-postgresql/">Azure Database for PostgreSQL を使用するためのパフォーマンスの更新とチューニングのベスト プラクティス</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/latest-updates-to-open-source-database-services-for-azure-ignite-2018/">Azure Ignite 2018 のオープン ソース &ndash; データベース サービスに関する最新の更新プログラム</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/advanced-threat-protection-for-azure-database-for-postgresql-in-preview-2/">Advanced Threat Protection for Azure Database for PostgreSQLプレビュー</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/advanced-threat-protection-for-azure-database-for-mysql-in-preview/">Advanced Threat Protection for Azure Database for MySQLプレビュー</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-databricks-delta-in-preview-9-regions-added-and-other-exciting-announcements/">&ndash; Azure Databricks差分、9 つのリージョンの追加、その他のおすすめのお知らせ</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/information-security-policy-in-asc/">アプリでSQL Information Protectionポリシーを管理Azure Security Center</a></p>
+   </li>
+  </ul>
+
+
+  <h3>Azure SQL Data Warehouse</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/redefine-data-analytics-with-modern-data-warehouse-on-azure/">Azure 上の Modern Data Warehouseを使用してデータ分析を再定義する</a> -John Macintyre Partner Group Program Manager (Azure SQL Data Warehouse) は、何千もの顧客が Azure SQL Data Warehouse を使用して高速で柔軟で安全な分析プラットフォームを利用して、より深い分析情報を得て、より良い意思決定を行う理由を示しています。</p>
+
+
+  <h4>次の用語も参照:</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/near-real-time-analytics-in-azure-sql-data-warehouse/">Azure SQL Data Warehouse でのほぼリアルタイムの分析</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/seamless-access-to-management-insights-for-sql-data-warehouse-with-data-studio/">Data Studio を使用したデータの管理SQL Data Warehouseへのシームレスなアクセス</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-sql-data-warehouse-now-supports-maintenance-scheduling/">Azure SQL Data Warehouseでメンテナンス スケジュールがサポートされる</a></p>
+   </li>
+  </ul>
+
+
+  <h3>Azure Cosmos DB</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-cosmos-db-database-for-intelligent-cloud-intelligent-edge-era/">Azure Cosmos DB - インテリジェント クラウド用データベース - Intelligent Edge 時代</a> -Azure Cosmos DB の製品マネージャーおよびアーキテクトである彼女は、誰でも Intelligent-Cloud-Intelligent Edge 時代に向けてグローバルに分散されたアプリを簡単に構築するための重要なステップとして機能する新機能を発表します。</p>
+
+
+  <h4>次の用語も参照:</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-cosmos-db-pushing-the-frontier-of-globally-distributed-databases/">Azure Cosmos DB: グローバルに分散されたデータベースのフロンティアをプッシュする</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-azure-cosmos-db-reserved-capacity/">Azure Cosmos DB 予約容量の一般提供の発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/cosmos-js-sdk-generally-available/">Azure Cosmos DB JavaScript SDK 2.0 の一般提供</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/cosmos-developer-experience/">Azure Cosmos DB 開発者エクスペリエンスの更新プログラム</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/try-azure-cosmosdb-for-30-days-free-no-commitment-or-sign-up/">Azure CosmosDB を 30 日間無料で試す(コミットメントなし、サインアップなし)</a></p>
+   </li>
+  </ul>
+
+
+  <h3>Azure HDInsight</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/deep-dive-into-azure-hdinsight-4-0/">Azure HDInsight 4.0 の詳細</a> - Ashish Thapliyal Principal Program Manager (Azure HDInsight) は、HDInsight 4.0 を発表します。HDInsight 4.0 は、オープン ソース コミュニティと主要な Apache フレームワークにわたるパートナー Hortonworks の 5 年間にわたる作業を表す最新の Apache Hadoop 3.0 イノベーションを実現し、拡大し続けるビッグ データと高度な分析の課題を解決します。</p>
+
+
+  <h4>次の用語も参照:</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-brings-next-generation-hadoop-3-0-and-enterprise-security-to-the-cloud/">Azure HDInsight次世代 Apache Hadoop 3.0 とエンタープライズ セキュリティをクラウドに導入する</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-and-starburst-brings-presto-to-microsoft-azure-customers/">Azure HDInsight Starburst を使用して Presto を顧客Microsoft Azureする</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/new-azure-hdinsight-management-sdk-now-in-public-preview/">新Azure HDInsight管理 SDK がパブリック プレビューに</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/spark-debugging-and-diagnosis-toolset-for-azure-hdinsight/">Spark Debugging and Diagnosis Toolset for Azure HDInsight</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/eight-new-features-in-azure-stream-analytics/">Azure Stream Analytics での 8 つの新機能</a></p>
+   </li>
+  </ul>
+
+
+  <h2>人工知能</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-ai-making-ai-real-for-business/">Azure AI &ndash;</a>ビジネス向け AI - を実現する Eric Eric Ericd 企業副社長 (Azure AI) は、azure を AI に最適な場所にするために、Machine Learning、Cognitive Services、およびナレッジ マイニング全体にわたるさまざまなイノベーションを発表します。 このブログ投稿は、Ignite での彼の一般的なセッションへのコンパニオン投稿です。</p>
+
+
+  <p align="center"><iframe allowfullscreen="allowFullScreen" frameborder="0" scrolling="no" src="https://medius.studios.ms/Embed/Video/IG18-GS009?w=581&amp;h=302&amp;Autoplay=0" style="width: 581px; height: 302px;"></iframe></p>
+
+
+  <h4>詳細を取得します。</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/what-s-new-in-azure-machine-learning-service/">Azure Machine Learning&rsquo; サービスの新機能</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/experimentation-using-azure-machine-learning/">Azure Machine Learning を使用した実験</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-automated-ml-capability-in-azure-machine-learning/">サービスの自動化されたML機能のAzure Machine Learning</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/release-models-at-pace-using-microsoft-s-automl/">Microsoft の自動機械学習を使用して、ペース&rsquo;でモデルをリリースします。</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/microsoft-s-new-neural-text-to-speech-service-helps-machines-speak-like-people/">Microsoft&rsquo; の新しいニューラル テキスト読み上げサービスは、マシンが人のように話すのを助ける</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/global-scale-ai-with-azure-cognitive-services/">グローバル規模の AI と Azure Cognitive Services</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/build-conversational-experiences-with-microsoft-bot-framework/">データを使用して会話エクスペリエンスを構築Microsoft Bot Framework</a></p>
+   </li>
+  </ul>
+
+
+  <h2>管理</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/new-full-stack-monitoring-capabilities-in-azure-monitor/">新しいフル スタック監視機能</a> - (Azure MonitorAzure Monitoring &amp; Diagnostics のプログラム管理のディレクターである Shiva Sivaivar は、Azure Log Analytics と Azure アプリケーション インサイト が Azure Monitor 内の統合機能として利用できる状態にし、機能の損失や侵害を発生させず、同じ価格で利用できると発表しました。</p>
+
+
+  <h4>詳細を取得します。</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-monitor-alerting-just-got-better/">Azure Monitorアラートが向上しました。</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-monitor-is-providing-a-unified-logs-experience/">Azure Monitorログ エクスペリエンスを提供している</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/rich-insights-for-virtual-machines-from-azure-monitor/">仮想マシンに関する豊富な分析情報 (Azure Monitor</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/a-new-way-to-send-custom-metrics-to-azure-monitor/">カスタム メトリックをカスタム メトリックに送信する新しいAzure Monitor</a></p>
+   </li>
+  </ul>
+
+
+  <h4>次の用語も参照:</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-user-experience-improvements/">Ignite 2018 での Azure ユーザー エクスペリエンスの向上の発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-deployment-manager-now-in-public-preview/">Azure Deployment Managerパブリック プレビュー中</a></p>
+   </li>
+   <li>
+   <p><a href="&#10;        https://azure.microsoft.com/en-us/blog/get-notified-when-your-azure-resources-become-unavailable/">Azure リソースが使用できなくなったときに通知を受け取る</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-advisor-has-new-recommendations-for-you/">Azure Advisor推奨事項が追加されています</a></p>
+   </li>
+  </ul>
+
+
+  <h2>モノのインターネット (IoT)</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/microsoft-azure-enables-a-new-wave-of-edge-computing-here-s-how/">Microsoft Azure、エッジ コンピューティングの新しい波動が可能です。方法&rsquo;を次に示します。</a> -Microsoft Azure&rsquo; 社の副社長である Julia White は、これらの永続的な原則に沿った Azure クラウド/エッジ機能を構築しながら、クラウドとエッジ全体で一貫性を一意に提供する方法を共有しています。</p>
+
+
+  <h4>詳細情報を取得します。</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-iot-central-ga/">Azure IoT 中部の一般提供を発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/azure-sphere-is-here-public-preview-and-dev-kits-now-available/">Azure Sphere はこちら-パブリックプレビューと開発キットを利用できるようになりました</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/publish-your-azure-iot-edge-modules-in-azure-marketplace/">Azure Marketplace で Azure IoT Edge モジュールを発行する</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/developer-tooling-improvements-for-azure-iot-edge/">Azure IoT Edge の開発者ツールの機能強化</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/extended-offline-operation-with-azure-iot-edge/">Azure IoT Edge でのオフライン操作の拡張</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/allego-offers-electric-vehicle-smart-charging-solutions-powered-by-azure-digital-twins/">Allego は、Azure Digital ツインを活用した電気車両スマート課金ソリューションを提供します。</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/a-powerful-and-intuitive-way-to-route-device-messages-in-azure-iot-hub/">Azure IoT Hub でデバイスメッセージをルーティングするための強力で直感的な方法</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/happy-anniversary-new-iot-hub-device-provisioning-service-features-out-today/">ハッピー記念日: 現在、新しい IoT Hub Device Provisioning Service 機能をご利用いただけます</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/expanding-the-azure-data-box-family/">Azure Data Box ファミリを展開する (Data Box Edge)</a></p>
+   </li>
+  </ul>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Introducing-Azure-Data-Box-Edge/player?format=ny" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Azure-Friday/Introducing-Azure-Data-Box-Edge">Azure 金曜日 |</a></strong> Data Box Gateway と Data Box Edge を導入するための Azure Data Box Edge - Andrew Donovan Brown については、Azure からの2つの新しいデータネットワーク転送ソリューションを紹介します。 どちらの方法でも、クラウドへのデータ転送を簡単に行うことができます。 Data Box Edge を使用すると、高速でローカルな結果を事前処理したり、アップロード前にデータを変更したりできます。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Deploying-and-Managing-IoT-From-an-Ops-Perspective">IoT Show |Microsoft Ignite 2018 の運用の観点から、IoT のデプロイと管理を行うことが</a></strong>できます。 -</p>
+     </td>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Deploying-and-Managing-IoT-From-an-Ops-Perspective/player?format=ny" width="240"></iframe></p>
+     </td>
+    </tr>
+    <tr>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Routing-Messages-in-Azure-IoT-Hub-based-on-Device-Twin/player?format=ny" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Routing-Messages-in-Azure-IoT-Hub-based-on-Device-Twin">IoT Show |デバイスツインに基づく Azure IoT Hub でのメッセージのルーティング」</a> </strong>では、デバイスツインのプロパティと Azure portal の更新された UI を使用して Azure IoT ハブでメッセージルーティングを構成する新しい方法について、この優れたデモを確認します。 - Paul モントゴメリーは、Azure IoT チームのシニアソフトウェアエンジニアが、ESP32 ベースのマイクロコントローラー、温度センサー、ホットウォーターと iced 水のガラスのガラスを使用して、どのように動作するかを示しています。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/IoT-Hub-DPS-updates">IoT Show |Azure IoT hub Device Provisioning Service</a> </strong> - IoT Hub Device Provisioning Service の最初の記念日は、お客様が IoT デバイスをセキュリティで保護された方法で大規模にプロビジョニングおよび登録するのに役立ちます。 サービスを記念するために、Azure IoT チームの Nicole には、IoT デバイスをより簡単にプロビジョニングできるようにするためのサービスへの最新の追加機能が含まれています。</p>
+     </td>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/IoT-Hub-DPS-updates/player?format=ny" width="240"></iframe></p>
+     </td>
+    </tr>
+    <tr>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-Sphere-Overview/player?format=ny" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-Sphere-Overview">IoT Show |Azure Sphere の概要</a></strong> - Azure Sphere とは Nightingale は、高度にセキュリティで保護された接続された MCU デバイスを作成するための新しい Microsoft ソリューションのパートナーアーキテクトであることを&#39;ます。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-Central-is-now-GA">IoT Show |Azure IoT Central の一般提供開始</a></strong>-IoT の Microsoft SaaS プランである Azure IoT central が一般公開されました。 これにより、運用環境に移動できるようになります。 また、デバイスを自動的にプロビジョニングする機能、高度な分析ルールを設定する機能、デバイスのデータとメタデータを blob storage に継続的にエクスポートする機能、デバイスごとの単純なコスト、完全に無料の試用版など、大規模な IoT シナリオを可能にする新機能の負荷を得ることもできます。 IoT Central チームからの marcello Majonchi と Larry ヨルダンは、これらの新機能についてすべてを示すために IoT ショーにアクセスしました。</p>
+     </td>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-Central-is-now-GA/player?format=ny" width="240"></iframe></p>
+     </td>
+    </tr>
+    <tr>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Dial-up-your-MXChip-Azure-IoT-starter-kit/player?format=ny" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Dial-up-your-MXChip-Azure-IoT-starter-kit">IoT Show |mxchip Azure IoT スタートキット</a></strong> - Connect Azure IoT devkit を Azure IoT ハブにダイヤルし、カスタム web アプリケーションでセンサーの情報を表示して、Azure IoT ハブが有形のデバイスからリアルタイムでメッセージを処理する方法を確認します。 このサンプルでは、ダイレクトメソッドを使用してデバイスに通信する方法、ルールエンジンを設定する方法についても説明します。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>ネットワーク</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-networking-fall-2018-update/">Azure ネットワークフォール2018更新</a> - Yousef Khalidi CVP (Azure ネットワーク) は、100 Gbps、パブリッククラウドでの最速の接続、ブランチ接続の可用性、新しいクラウドネイティブセキュリティ機能、アプリケーションパフォーマンスサービスを発表します。</p>
+
+
+  <h4>詳細情報を取得します。</h4>
+
+
+  <ul>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/announcing-alias-records-for-azure-dns/">Azure DNS のエイリアスレコードの発表</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/application-gateway-analytics-via-goaccess/">GoAccess による Application Gateway Analytics</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/microsoft-s-content-delivery-network-is-now-generally-available/">Microsoft &rsquo; Content Delivery Network が一般公開されました</a></p>
+   </li>
+   <li>
+   <p><a href="https://azure.microsoft.com/en-us/blog/ddos-protection-attack-analytics-rapid-response/">DDoS Protection 攻撃分析と迅速な対応</a></p>
+   </li>
+  </ul>
+
+
+  <h2>The Azure Podcast</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" valign="middle" width="300">
+     <p>
+     <audio controls="" src="https://azpodcast.blob.core.windows.net/episodes/Episode248.mp3">HTML5 オーディオはサポートされていません</audio>
+     </p>
+     </td>
+     <td>
+     <p><strong> <a href="https://azpodcast.azurewebsites.net/post/Episode-248-Updates-from-Ignite-2018">Azure ポッドキャスト |エピソード 248-Ignite 2018</a> </strong> - からの更新プログラム全体が Ignite に発表されました。そのため、c thia、scale、sujit は、可能な限り30分以内に対応しています。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>現在プレビュー中</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-container-registry-public-preview-of-helm-chart-repositories-and-more/">Azure Container Registry: ヘルムグラフリポジトリなど</a> - のパブリックプレビュー複数コンテナーのアプリケーションをデプロイする場合、Kubernetes ベースのアプリケーションを記述するために、ヘルムは事実上標準として進化しました。 Helm リポジトリを使用すると、お客様は Helm Chart を Azure Container Registry にプッシュし、Kubernetes で実行するイメージとデプロイ定義に対して信頼できる唯一のソースを提供できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-the-public-preview-of-shared-image-gallery/">共有イメージギャラリー</a> - のパブリックプレビューの発表共有イメージギャラリーには、azure で仮想マシン (VM) イメージのカスタム管理を容易にする Azure ベースのソリューションが用意されています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-private-preview-of-azure-vm-image-builder/">AZURE VM イメージビルダー</a> - のプライベートプレビューの発表Azure 仮想マシン (VM) イメージビルダーがプライベートプレビューで利用可能になり、イメージ作成パイプラインを Azure に移行できるようになりました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-active-directory-integration-for-smb-access-now-in-public-preview/">Azure Files SMB アクセスの Azure Active Directory 認証がパブリックプレビュー</a> - になりましたAzure AD との統合により、Azure AD DS ドメインに参加している Windows vm からの Azure AD の資格情報を使用して Azure ファイル共有に SMB でアクセスできます。 また、Azure Files では、ファイル共有のすべてのフォルダーとファイル上で  Microsoft ファイル システム NTFS ACL の保持、継承、強制がサポートされています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/introducing-azure-premium-blob-storage-limited-public-preview/">azure プレミアム Blob Storage の導入 (限られたパブリックプレビュー)</a> - azure プレミアム Blob Storage は、ソリッドステートドライブにデータを格納することで、既存のホット、クール、およびアーカイブ層を補完します。これは、従来のハードドライブと比べて、待機時間が短く、トランザクションレートが高くなることがわかっています。</p>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/appserviceteam/2018/09/24/announcing-webapps-undelete-preview/">Webapps の削除の取り消し (プレビュー)</a> - 削除された web アプリを削除して、過去30日以内に削除されたサイトを復元する (コンテンツと構成を含む) ことができます。また、ホスト名も復元されます (使用可能な場合)。</p>
+
+
+  <p>Azure - <a href="https://azure.microsoft.com/en-us/blog/microsoft-365-adds-modern-desktop-on-azure/">で最新のデスクトップを追加 Microsoft 365</a>マルチユーザー Windows 10 エクスペリエンスを提供するクラウドベースのサービスであり、Office 365 ProPlus 用に最適化されており、無料の Windows 7 の拡張セキュリティ更新プログラムが含まれています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/a-new-era-for-azure-files-bigger-faster-better/">Azure Files の新しい時代: 大、高速、改善</a> -IOPS が高く、スループットが高く、Azure Active Directory 統合された、より大きな、待機時間の短いファイル共有を取得します。 さらに、新しい Azure File Sync エージェントには、同期のパフォーマンス、階層化、およびレポートが大幅に改善されています。</p>
+
+
+  <p align="center"><img alt="Diagram showing Azure Files scale and performance" height="257" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f8087e4-328e-4538-b3cd-1bd5544c6bb0.jpg" title="Azure Files のスケールとパフォーマンス" width="500"></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/premium-files-pushes-azure-files-limits-by-100x/">プレミアムファイルは、Azure Files 制限を100倍にします。</a> -Azure プレミアム Files は、完全に管理されたファイルサービスを提供します。これは、既存の Azure Files に対する100倍のパフォーマンスを実現するために最適化されています。 高スループットと1桁のミリ秒の待機時間を必要とする IO 集中型のエンタープライズワークロード向けに設計されています。</p>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/appserviceteam/2018/09/24/announcing-bring-your-own-storage-to-app-service/">独自の Storage を App Service</a> - に発表Linux および Web App for Containers で App Service する新機能であり、Azure Blob と Azure Files を Azure App Service にマウントできます。 指定された App Service に対して最大5つの Azure ストレージアカウントを構成できます。</p>
+
+
+  <h2>一般提供開始</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-signalr-service-now-generally-available/">Azure SignalR サービスの一般提供</a> - 開始完全に管理された SignalR サービスを利用して、SignalR サーバーの設定、ホスティング、スケーリング、負荷分散について心配することなく、リアルタイムの web エクスペリエンスの構築に専念できます。</p>
+
+
+  <p>Linux - <a href="https://azure.microsoft.com/en-us/blog/general-availability-of-tomcat-and-java-se-on-app-service-on-linux/">上の App Service での Tomcat と Java Standard Edition の一般提供</a>Linux で App Service を使用すると、java プロジェクトを Tomcat または好みの java Standard Edition プラットフォーム (Spring など) にデプロイできます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/serial-console-for-azure-vms-now-generally-available/">Azure vm の Serial console が一般公開</a> - されるようになりましたAzure Vm の Serial console が、すべてのパブリックリージョンで一般公開されました。 新機能には、マジック SysRq キー、マスク不可能割り込み、サブスクリプション全体の有効化/無効化などがあります。</p>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p align="center"><iframe allowfullscreen="" frameborder="0" height="135" src="https://channel9.msdn.com/Shows/Azure-Friday/Troubleshoot-and-diagnose-Azure-Virtual-Machines-with-Serial-Console/player?format=ny" width="240"></iframe></p>
+     </td>
+     <td valign="top">
+     <p><strong> <a href="https://channel9.msdn.com/Shows/Azure-Friday/Troubleshoot-and-diagnose-Azure-Virtual-Machines-with-Serial-Console">Azure 金曜日 |シリアルコンソール</a></strong> - alfred Sin join Donovan Brown を使用した azure Virtual Machines のトラブルシューティングと診断 azure シリアルコンソールについて説明します。これは、すべてのパブリッククラウドで一般提供されています。 Serial console を使用すると、VM に SSH または RDP 接続できない場合に対話型シェルを使用できます。これにより、トラブルシューティングや VM のセルフサービス診断が非常に簡単になります。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/introducing-azure-functions-2-0/">Azure Functions 2.0</a> - の導入UX の更新に加えて、Functions アプリ内でクロスプラットフォームの .NET Core アセットを使用できるようになりました。 Azure Functions ランタイムの中核は、.NET Core 2.1 で実行するように書き直された関数ホストです。 これにより、パフォーマンスが大幅に向上するだけでなく、すべての主要なプラットフォーム &mdash; (Windows、Mac、Linux) で関数を作成し、ローカルにホストすることもできます。</p>
+
+
+  <h2>新機能と更新</h2>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/appserviceteam/2018/09/24/announcing-the-new-app-service-diagnostics-experience/">新しい App Service 診断エクスペリエンス</a> - の発表App Service 診断は、アプリに関する問題の診断とトラブルシューティングに役立つインテリジェントで対話型のエクスペリエンスです。 Genie を使用すると、さまざまな問題をトラブルシューティングするためのさまざまな方法を案内できます。これは、優れたアプリで問題が発生する可能性があるためです。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/data-driven-styling-and-more-in-the-latest-azure-maps-web-sdk-update/">最新の Azure Maps WEB SDK 更新プログラム</a> - におけるデータドリブンスタイルAzure Maps Web SDK の最新の更新プログラムが使用できるようになりました。これには、開発者に重点を置いた API の改善、空間計算ライブラリなどが含まれます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/sap-at-microsoft-ignite-announcing-sap-data-custodian-for-azure/">Sap At Microsoft Ignite: Azure 向けの Sap Data 管理人の発表</a> - Sap の SaaS サービスである SAP Data 管理人が間もなく Azure で利用できるようになります。 SAP Data 管理人は、Azure &rsquo; に組み込まれているコンプライアンス制御と sap の深い専門知識を組み合わせて、azure 上での sap データのエンドツーエンドの可視性を提供し、データガバナンスコントロールの使いやすいセットを提供します。 これにより、顧客はデータガバナンス、監視作業の分離、独立した検証を実現する責任を果たすことができます。</p>
+
+
+  <p>Azure - <a href="https://azure.microsoft.com/en-us/blog/building-with-blockchain-on-azure/">でのブロックチェーンを使用したビルド</a>Azure と Azure ブロックチェーンワークベンチを使用して構築された企業に更新を提供します。これにより、作成済みのネットワークとインフラストラクチャを使用して開発を簡素化し、実験を容易に行うことができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-pipelines-is-the-ci-cd-solution-for-any-language-any-platform-any-cloud/">Azure Pipelines は、あらゆる言語、あらゆるプラットフォーム、あらゆるクラウド</a> - Azure Pipelines の ci/cd ソリューションであり、任意のプラットフォームまたはクラウドを継続的に構築、テスト、デプロイできる ci/cd サービスです。 Linux、macOS、Windows 用のクラウドホスト型のエージェント、ネイティブコンテナーをサポートする強力なワークフロー、Kubernetes、vm、サーバーレス環境への柔軟なデプロイがあります。 Azure Pipelines は、無制限のビルド時間と10個の並列ジョブを提供し、GitHub リポジトリとの統合を可能にすることで、オープンソースプロジェクトに優れたプランを提供します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/go-cloud-native-with-spring-cloud-on-azure/">Azure 上の Spring cloud を使用してクラウドネイティブに移行</a> - クラウドで Spring アプリを実行するための作業を効率化するために、Azure プロジェクトの Spring Cloud を発表しました。 さらに、Visual Studio Code の新しい Spring boot Extension Pack を使用すると、spring boot アプリケーションを使用して軽量の開発エクスペリエンスを実現できます。</p>
+
+
+  <p>Java - <a href="https://azure.microsoft.com/en-us/blog/manage-azure-monitor-using-java/">を使用した Azure Monitor の管理</a>Java 用 Azure 管理ライブラリのバージョン1.16 をリリースしました。 Java 用 Azure 管理ライブラリを使用して、プログラムで Azure Monitor を管理できるようになりました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-quickstart-center-update/">Azure クイックスタートセンターの更新</a> - Azure クイックスタートセンターを使用すると、ステップバイステップのガイダンスに従って、Azure でプロジェクトを迅速に開始できます。 Azure クイックスタートセンターのエクスペリエンスに新たに加えられた機能強化により、azure のベストプラクティスとガイダンスを使用して Azure 環境をセットアップできるようになりました。</p>
+
+
+  <p align="center"><img alt="Launching Quickstart Center from the global search box" border="0" height="216" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a68fb47-8f78-44d0-bc23-e9e876e585f4.png" style="border: 0px currentcolor; border-image: none; background-image: none;" title="グローバル検索ボックスからクイックスタートセンターを起動しています" width="500"></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/new-features-and-enhancements-released-in-bing-custom-search-v3/">Bing Custom Search V3</a> - でリリースされた新機能と機能強化さらに強力でカスタマイズ可能な検索エクスペリエンスを構築できるようにすることで、開発者や開発者以外のユーザーが web の機能を活用できるようにするために、Bing Custom Search 製品の追加機能と機能強化がリリースされました。</p>
+
+
+  <p>ハイブリッドエンタープライズソリューション - <a href="https://azure.microsoft.com/en-us/blog/red-hat-openshift-and-microsoft-azure-stack-together-for-hybrid-enterprise-solutions/">用の Red Hat openshift と Microsoft Azure Stack</a>openshift と Azure Stack を使用すると、Azure、Azure Stack、ベアメタル、Windows および RHEL を通じて、Microsoft &rsquo; と Red Hat &rsquo; s の開発者向けフレームワークとパートナーエコシステムを統合して一貫したアプリケーションエクスペリエンスを実現できます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/move-managed-disks-and-vms-now-available/">移動 Managed Disks と vm が使用可能</a> - になりました1回のクリックで、リソースグループとサブスクリプションに Managed Disks と Vm を移動します。 これにより、管理対象のイメージとスナップショットを移動することもできます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-service-fabric-updates-at-ignite-2018/">Ignite 2018</a> - Service Fabric での Azure Service Fabric の更新は、メッセージルーティング、待機時間の短いストレージ、および正常性監視を使用してサービスを構築、デプロイ、検出、および拡張するためのマイクロサービスプラットフォームです。 Service Fabric メッシュプレビューの更新と、Service Fabric ランタイムバージョン6.4 の保留中のリリースを、対応する SDK およびツールの更新と共に発表します。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/strengthen-security-with-key-azure-innovations/">主要な Azure イノベーション</a> - によりセキュリティを強化Ignite の新しい機能とサービスを発表しました。これにより、パスワードなしで id を管理し、ネットワーク保護に新しいレイヤーを追加し、機密コンピューティングを可能にする場所でデータを保護することができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/microsoft-azure-the-only-consistent-comprehensive-hybrid-cloud/">Microsoft Azure: 唯一の一貫した包括的なハイブリッドクラウド</a> -Fortune 500 企業の95% 以上が Azure でのビジネスを現在信頼しており、その多くは Azure ハイブリッド機能を活用してイノベーションを促進し、優れたビジネスの結果を提供しています。 お客様がこれらの機能をどのように活用しているか、および最終的に一貫性のあるハイブリッドクラウドを使用してハイブリッドのニーズを&#39;再サポートする方法について説明します。</p>
+
+
+  <h2>Azure DevOps ポッドキャスト</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" valign="middle" width="300">
+     <p>
+     <audio controls="" src="https://traffic.libsyn.com/azuredevops/ADP_003-3.mp3">HTML5 オーディオはサポートされていません</audio>
+     </p>
+     </td>
+     <td>
+     <p><strong>Azure DevOps ポッドキャスト |テスト、データ収集、DevOps レポートエピソード 003 Guckenheimer の状態に関する Sam Guckenheimer</strong>は、オープンソースチームのための優れた Azure Pipelines 新しいオファリング、業界において、Microsoft でのさまざまな作業について説明しています。また、ユーザーが Azure DevOps を操作する方法における大きな変更点についても説明します。 -</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>技術コンテンツとトレーニング</h2>
+
+
+  <p><a href="https://medium.com/microsoftazure/the-owasp-devslop-show-91c5da553478">OWASP DevSlop Show</a> -devsecops の詳細について説明します。 owasp DevSlop Show では DevOps セキュリティが強化されており、、Twitch、YouTube の各1:00 日曜日の Mixer 午後1時にライブストリーミングが行われます。 YouTube では過去のエピソードを利用できます。</p>
+
+
+  <p><a href="https://medium.com/microsoftazure/azure-functions-and-azure-storage-secure-authentication-with-managed-identities-and-without-fa253bf2d2a7">Azure Functions と Azure Storage: キーを管理せずに、管理対象 id を使用した認証をセキュリティで保護します。</a> - アクセスキーまたは資格情報を管理したり格納したりすることなく、サーバーレス機能から Azure サービスに対する認証を行うための安全で便利なアプローチについて、管理対象 Id を使用する方法を説明します。</p>
+
+
+  <p>Azure - <a href="https://medium.com/microsoftazure/how-to-securely-access-cloud-resources-from-linux-vms-on-azure-f77e655d72e2">上の Linux vm からクラウドリソースに安全にアクセスする方法</a>クラウドリソース間の認証プロセスを大幅に向上させる方法について説明します。また、認証資格情報を管理および保存する際の運用上のオーバーヘッドと脆弱性を軽減します。</p>
+
+
+  <p><a href="https://medium.com/microsoftazure/broadcast-real-time-updates-from-cosmos-db-with-signalr-service-and-azure-functions-349abe76dc5e">SignalR Service および Azure Functions を使用して Cosmos DB からリアルタイムの更新をブロードキャストし</a>ます -Azure Functions と SignalR サービスを使用して、websocket 経由でクライアントに Cosmos DB のドキュメントのリアルタイムの変更をブロードキャストする方法について説明します。</p>
+
+
+  <h2>Azure のヒント &amp;</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center">
+     <p align="left"><a href="https://www.youtube.com/watch?v=TLGLBbv3HoA"><img alt="TLGLBbv3HoA" border="0" height="134" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e05496ef-6e82-4b51-a20d-e7f4d760c143.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="TLGLBbv3HoA" width="240"></a></p>
+
+     <p align="left">運用環境 - <strong><a href="https://www.youtube.com/watch?v=TLGLBbv3HoA">で web アプリケーションをテストする方法</a></strong>Azure App Service を使用して、web アプリケーションを運用環境でテストする方法について説明します。 このテストを運用機能で使用すると、さまざまなバージョンのアプリケーションで AB テストを簡単に実行できるようになります。</p>
+     </td>
+     <td valign="top">
+     <p><a href="https://www.youtube.com/watch?v=hBl_2iaqIDs"><img alt="hBl_2iaqIDs" border="0" height="135" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6d2cf62-cf38-4fb2-ad3f-8def9b935853.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="hBl_2iaqIDs" width="240"></a></p>
+
+     <p>Azure Resource Explorer - <strong><a href="https://www.youtube.com/watch?v=hBl_2iaqIDs">の使用方法</a></strong>Azure Resource Explorer を使用して REST Api をすばやく探索する方法について説明します。 Azure Resource Explorer は、リソースを探索するための興味深い方法ではありませんが、PowerShell または Azure CLI で呼び出すことができるコマンドを確認することもできます。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>イベント</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/what-to-expect-in-spark-ai-summit-europe/">Spark と AI のサミットの欧州</a> - で期待されることSpark + AI サミット欧州はロンドンのロンドンにあります。これは、Microsoft と、Azure Databricks を使用する多くのお客様が、サミット中に存在します。</p>
+
+
+  <h2>お客様とパートナー</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/microsoft-and-azul-systems-bring-free-java-lts-support-to-azure/">Microsoft および Azul システムは、Azure に対して無料の JAVA LTS サポートをもたらし</a>ます -Azure と Azure Stack の java 開発者は、azul Systems ズールー Enterprise openjdk のビルドを使用して、追加のサポートコストなしで運用環境の java アプリケーションを構築して実行できます。 現在オンプレミスまたは他の Jdk を使用して Java アプリを実行している場合は、無料のサポートとメンテナンスのために Azure のズールーに移行する &rsquo; ことを検討してください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/healthcare-cloud-security-stack-now-available-on-azure-marketplace/">Azure Marketplace で医療クラウドセキュリティスタックを利用できるようになりました</a> - Azure Marketplace で利用できるようになった医療機関向けのクラウドセキュリティスタックでは、Qualys 脆弱性管理とクラウドエージェント、Trend Micro Deep Security、および XentIT Executive ダッシュボードを統合されたクラウド脅威管理ソリューションとして使用しています。 Qualys のクラウドエージェントは、脆弱性に関する情報を継続的に収集し、Trend Micro ディープセキュリティ IP にマップされます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/azure-isvs-expand-the-possibilities-with-azure-stack/">Azure isv は、Azure Stack</a> - の可能性を拡張しますこの投稿では、Azure Stack の一般的な顧客要件に対応する一部の ISV パートナーに焦点を当てています。</p>
+
+
+  <h2>Cloud の専門家&#39;今週の Azure</h2>
+
+
+  <table>
+   <tbody>
+    <tr>
+     <td align="center" width="300">
+     <p><a href="https://www.youtube.com/watch?v=J0pfXurePaU" style="font-size: 10.57px;"><img alt="J0pfXurePaU" border="0" height="134" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7385b75-3c92-4cdb-ba73-f05d2feb3375.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="J0pfXurePaU" width="240"></a></p>
+     </td>
+     <td valign="top">
+     <p><a href="https://www.youtube.com/watch?v=J0pfXurePaU">Azure 今週 |Ignite 2018 年9月</a> - lars-erik klint は、Azure Functions 2.0 の一般提供、Azure ブループリントのパブリックプレビュー Azure Logic Apps について説明しています。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <p><a href="https://www.youtube.com/watch?v=GHJOwPQl9B8">Azure 今週 |Ignite Special-26 2018</a> - 年9月 lars-erik klint は、Azure Digital ツイン、Azure Sphere、および Azure IoT プラットフォームの機能強化について説明しています。 また、Microsoft の Holland と Brian Clark と話しています。</p>
+     </td>
+     <td align="center" width="300">
+     <p><a href="https://www.youtube.com/watch?v=GHJOwPQl9B8" style="font-size: 10.57px;"><img alt="GHJOwPQl9B8" border="0" height="131" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbc28186-d0cf-4a4d-a223-2ed174df3568.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="GHJOwPQl9B8" width="240"></a></p>
+     </td>
+    </tr>
+    <tr>
+     <td align="center" width="300">
+     <p><a href="https://www.youtube.com/watch?v=mAs86qpBwBc" style="font-size: 10.57px;"><img alt="mAs86qpBwBc" border="0" height="134" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/497d7fc7-f809-4f2a-8f24-c8099fb9726b.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="mAs86qpBwBc" width="240"></a></p>
+     </td>
+     <td valign="top">
+     <p><a href="https://www.youtube.com/watch?v=mAs86qpBwBc">Azure 今週 |Ignite 2018 年9月</a> - lars-erik klint humanitarian toolbox Action の AI、新しい Machine Learning 機能、一般公開されている新しい音声サービスについて説明します。 また、Loftysoft、Magnus M &aring; rtensson、チーフアーキテクト、トレーナー、Scott Duffy の CEO とのインタビューを受けています。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>

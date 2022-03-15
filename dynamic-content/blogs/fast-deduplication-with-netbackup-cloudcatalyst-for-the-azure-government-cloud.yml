@@ -1,0 +1,112 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 091a74872c1e0712d38e9a96e5fd263deef116af
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895079"
+Slug: fast-deduplication-with-netbackup-cloudcatalyst-for-the-azure-government-cloud
+Title: NetBackup CloudCatalyst を使用したクラウドの高速重複Azure Governmentする
+Summary: 'バックアップを受け取った場合 自宅に家に家を持っている人は誰でも、スペースを取り出してストレージを管理する場合に、時にはつらつらした必要性を知っています。 '
+Content: >-
+  <p><em>このブログは、Veritas のゲスト作成者 Arjan Van Proosdii によって投稿されました。</em></p>
+
+
+  <p>バックアップを受け取った場合 自宅に家に家を持っている人は誰でも、スペースを取り出してストレージを管理する場合に、時にはつらつらした必要性を知っています。 デジタル変革に着手している政府機関も、バックアップのストレージの蓄積によるランナウェイ コストの負担を感じる可能性があります。 Azure Government Marketplace で Veritas NetBackup 8.1 を使用すると、クラウド ストレージの重複を排除するための CloudCatalyst の利点を得て、Azure Government Trusted Cloud で効率的な領域管理を行います。</p>
+
+
+  <p><a href="https://msdnshared.blob.core.windows.net/media/2018/06/MSC17_dataCenter_049.png"><img alt="Image of man in a server room " border="0" height="828" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fb564fc1-19c5-4dda-b0ba-1ccf07fab0b3.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="サーバー ルームの人間の画像 " width="1246"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>公共部門組織の技術的およびビジネス上の意思決定者は、最近のクラウド研究の「 <a href="https://www.veritas.com/form/whitepaper/the-truth-in-cloud-alt" target="_blank">Truth in Cloud</a> 」調査で Veritas に対し、企業内のアプリケーションとインフラストラクチャの代替手段としてパブリック クラウドの使用を拡大する方が、大幅なコスト削減の推進効果となると述べた。 20% は、クラウド テクノロジへの投資が 2019 年までの IT 予算全体の <b>20 ~ 25</b> % と予想されています。 また、クラウド テクノロジの予算割り当ては、次の年に平均 58% 増加する予定です。</p>
+
+
+  <p>また、調査の結果、政府機関のほぼ半分が Microsoft Azure でクラウドを活用し、データ保護が使用事例リストの上位にある点も明らかにしました (下の図 1 を参照)。</p>
+
+
+  <p><a href="https://msdnshared.blob.core.windows.net/media/2018/06/Veritas-PublicSectorUseAzure.png"><img alt="Graph chart showing hwo public sector organizations plan to use Azure" border="0" height="881" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10f802a2-e559-4a55-a7be-ecdea88b8235.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Graph組織が Azure を使用する計画を示す新しいグラフ" width="1239"></a></p>
+
+
+  <p align="left"><i>図 1: 多くの政府機関は、データ保護Microsoft Azureを使用しています。ソース:</i><a href="https://www.veritas.com/form/whitepaper/the-truth-in-cloud-alt"><i>Veritas Truth in Cloud Report</i></a></p>
+
+
+  <h2>バックアップ データの値のロック解除</h2>
+
+
+  <p>従来、政府機関のバックアップ リポジトリは、ストレージフットプリントの大部分を保持しています。そのほとんどは、高価なプライマリ ストレージまたは大規模なテープ ライブラリに格納されています。&nbsp; 非運用バックアップ コピーを、より経済的で耐久性があり、セキュリティで保護されたオフサイトクラウド ストレージ リポジトリに移動すると、オンプレミスのストレージとデータ センターのインフラストラクチャの支出を削減するのに役立ちます。</p>
+
+
+  <p>さらに、クラウド ストレージで機敏性を得られる可能性があります。 たとえば、ウォーム オフサイト バックアップ コピーは、クラウド ストレージとクラウド コンピューティングを簡単に組み合わせることで、ディザスター リカバリー、テスト/開発作業、データ分析に使用できます。 言い換えると、使用されていないデータからビジネス価値のロックを解除します。</p>
+
+
+  <h2>移行前の 5 つの考慮事項Azure Government</h2>
+
+
+  <p>バックアップ コピーをコピーに移動する前にAzure Government次の考慮事項に注意してください。</p>
+
+
+  <ol>
+   <li><b>復旧時間</b></li>
+  </ol>
+
+
+  <p>現在、多くの企業では、バックアップにテープ メディアが引き続き使用されています。 テープは長期的&rsquo;な保持には優れていますが、オフラインのオフサイト テープ ウェアハウスからデータ コピーを取得するのに時間がかかるため、高速なデータ回復には最適ではありません。 同様に、バックアップの成功は検証が困難であり、バックアップ データの鮮度を確保するためにメディア管理が必要であり、時間とリソースにもコストがかかります。</p>
+
+
+  <p>より迅速かつコスト効率の高い目標復旧時間を実現し、信頼性の高い回復を必要とする場合は、24 時間 365 日のオンデマンド アクセスと迅速なネットワーク復旧のために、バックアップ コピーを Azure Government でオンラインに保つ方が優れたオプションです。</p>
+
+
+  <ol start="2">
+   <li><b>暗号化データ</b></li>
+  </ol>
+
+
+  <p>データ&rsquo;をクラウドに移動する大きなステップなので、バックアップコピーを Azure Government にプッシュする前に、データの種類を理解する必要があります。 これには、Azure Government で安全に稼働できるデータと、オンプレミスに残す必要があるデータ (重要な実稼働アプリケーションに近い必要があるデータなど) を特定する機能が含まれます。 クラウドに転送するバックアップ コピーでは、最新の暗号化とキー管理テクノロジを利用して、それを保持および制御する必要があります。</p>
+
+
+  <ol start="3">
+   <li><b>スケーラブルなアーキテクチャ</b></li>
+  </ol>
+
+
+  <p>IT 環境はデータ センターに限定されなくなりました。 現在&rsquo;、オンプレミスのプライベート クラウドと複数のパブリック クラウドで実行されるレガシ アプリケーションと最新のアプリケーションで構成されています。 これらの断片化された環境全体でデータを保護すると、面倒で面倒な場合があります。 そのため、バックアップ アーキテクチャを構成する多数のポイント製品を、IT およびクラウド戦略でシームレスにスケーリングできる統合データ保護ソリューションに統合することをお勧めします。</p>
+
+
+  <ol start="4">
+   <li><b>総保有コスト</b></li>
+  </ol>
+
+
+  <p>総保有コスト (TCO) を削減するには、バックアップ コピーを重複排除することで、クラウドに格納されているデータの全体的な量を減らす必要があります。 期限切れのバックアップ コピーの自動削除によるデータ保有期間の管理は、TCO を制御する上でもう 1 つの重要な要素です。 しかし、ネットワーク インフラストラクチャ、ローカル ストレージ、クラウドにデータを転送するゲートウェイ アプライアンス、スペシャリスト リソースなど、TCO を構成する多数の CAPEX と OPEX の要因があります。TCO の目標と戦略を決定するために、これらすべての異なる、多くの場合は一意の要素を調査します。</p>
+
+
+  <ol start="5">
+   <li><b>ハードウェア ライフサイクル管理</b></li>
+  </ol>
+
+
+  <p>テープ ハードウェアは、7 年から 10 年ごとに更新する必要があります。 これらは長期的な投資であり、多くの場合、多くの場合、重要な先行投資です。 質問する必要がある質問は、さらに 10 年コミットできるかどうかです。 バックアップ コピーを Azure に移動すると、レガシ テープ形式や大量のデータを新しいハードウェアに移行する必要がなくなりました。 Azure では、ハードウェアのライフサイクルとデータの移行が管理されます。</p>
+
+
+  <h2>バックアップ コピーをコピーに移動するAzure Government</h2>
+
+
+  <p>NetBackup 8.1 の一部として、Veritas は <a href="https://www.veritas.com/product/backup-and-recovery/netbackup/cloud-data-protection" target="_blank">NetBackup CloudCatalyst</a> を提供しています。これは、クラウド ストレージを利用しながらコストを節約できる非常に効率的な重複排除テクノロジです。 データ センターで強力なエンドツーエンドの重複排除を提供し、リハイドレーションやステージングを行わずに、重複を避けた形式で Azure Government にバックアップ データを拡張します。 データの回復は、復旧を高速化する CloudCatalyst から直接実行できます。</p>
+
+
+  <p><a href="https://msdnshared.blob.core.windows.net/media/2018/06/Veritas-CloudCatalyst.png"><img alt="Third party and Veritas comparison image" border="0" height="639" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fcf64272-89a5-42b6-ab7a-98671a937c3d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="サード パーティと Veritas の比較画像" width="1228"></a></p>
+
+
+  <p><i>図 2: NetBackup CloudCatalyst を使用すると、コストを削減し、競合他社のソリューションよりも優れたパフォーマンスを実現するための強力なエンドツーエンドの重複排除が提供&rsquo; されます。 </i>ソース: <i>Veritas の内部ベンチマーク調査。</i></p>
+
+
+  <p>Veritas は Microsoft Azure との深い統合を提供します。そのため、シームレスで自動化されたデータ ライフサイクル管理とガバナンスを実現するために、統合エンタープライズ データ保護のすべての利点を利用してクラウド プロジェクトを加速できます。 CloudCatalyst は、データ センター、リモート ブランチ オフィス、またはクラウド内のデータとアプリケーションAzure Governmentします。</p>
+
+
+  <p><b>次の手順</b></p>
+
+
+  <p>NetBackup CloudCatalyst を使用してエンドツーエンドの重複排除パフォーマンスを迅速に実現し、クラウド ストレージの時間、コスト、ネットワーク帯域幅を削減します。 <a href="https://www.veritas.com/product/backup-and-recovery/netbackup/cloud-data-protection" target="_blank">CloudCatalyst の詳細については、</a> クラウド レポート <a href="https://www.veritas.com/form/whitepaper/the-truth-in-cloud-alt">の Veritas Truth に関するページを参照してください</a>。</p>

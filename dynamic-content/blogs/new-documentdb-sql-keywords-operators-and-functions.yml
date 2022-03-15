@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f839f36f312c946ff268b74ea3416b9780ef6cdf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895815"
+Slug: new-documentdb-sql-keywords-operators-and-functions
+Title: 新しい DocumentDB SQL キーワード、演算子、および関数
+Summary: '新しいキーワード、演算子、関数など、DocumentDB の SQL 文法に対するいくつかの機能強化が発表されました。 '
+Content: >-
+  <p>新しいキーワード、演算子、関数など、DocumentDB の SQL 文法に対するいくつかの機能強化を発表しまし &rsquo; た。 最新のサービス更新プログラムには、キーワード IN と BETWEEN キーワード、三項 (?)、合体 (??)、およびビットごとのシフト演算子と、多数の組み込み関数がサポートされています。</p>
+
+
+  <h2>新しく追加されたキーワードと演算子:</h2>
+
+
+  <table>
+      <tbody>
+          <tr>
+              <td>新しいキーワード</td>
+              <td><sub>IN と BETWEEN</sub></td>
+          </tr>
+          <tr>
+              <td>新しい演算子</td>
+              <td><sub>三項 (?)、合体 (??)、ビットごとのシフト演算子 ( &lt; &lt; 、 &gt; &gt; 、 &gt; &gt; &gt; )</sub></td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>ANSI SQL と同様に、との間で作業を行います。 BETWEEN は、範囲クエリの短縮形として使用できます。また、では、クエリの WHERE 句の式と照合する最大100の値 (既定では) を指定するために使用できます。 結合、三項、およびビットごとの演算子は、C# や JavaScript などの上位レベルのプログラミング言語で動作し、JSON の結果セットを即座に構築する &nbsp; 場合に便利です。 詳細については、SQL クエリのチュートリアルのこの<a href="https://azure.microsoft.com/documentation/articles/documentdb-sql-query/#where-clause">セクション</a>を参照してください。</p>
+
+
+  <h2>新しく追加された組み込み関数:</h2>
+
+
+  <table>
+      <tbody>
+          <tr>
+              <td>数学関数</td>
+              <td><sub>ABS、CEILING、EXP、FLOOR、LOG、LOG10、POWER、ROUND、SIGN、SQRT、SQUARE、TRUNC、ACOS、ASIN、ATAN、ATN2、COS、COT、DEGREES、PI、RADIANS、SIN、TAN</sub></td>
+          </tr>
+          <tr>
+              <td>型チェック関数</td>
+              <td><sub>IS_ARRAY、IS_BOOL、IS_NULL、IS_NUMBER、IS_OBJECT、IS_STRING、IS_DEFINED、IS_PRIMITIVE</sub></td>
+          </tr>
+          <tr>
+              <td>文字列関数</td>
+              <td><sub>CONCAT、CONTAINS、ENDSWITH、INDEX_OF、LEFT、LENGTH、LOWER、LTRIM、REPLACE、REPLICATE、REVERSE、RIGHT、RTRIM、STARTSWITH、SUBSTRING、UPPER</sub></td>
+          </tr>
+          <tr>
+              <td>配列関数</td>
+              <td><sub>ARRAY_CONCAT、ARRAY_CONTAINS、ARRAY_LENGTH、ARRAY_SLICE</sub></td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>DocumentDB の組み込み関数を使用すると、クライアント側の処理やカスタム Udf の作成ではなく&#39;、STARTSWITH や ROUND などの一般的なライブラリルーチンをクエリで呼び出すことができます。 この変更により、他の SQL プラットフォームや NoSQL プラットフォームで記述されたアプリケーションを、同様の機能で簡単に移植できます。 これらの関数の中には、ABS やシーリングのようなものもありますが、T SQL に似ていますが、ARRAY_CONTAINS や IS_DEFINED などの他の関数は、柔軟なスキーマで JSON データを操作するように設計されています。 組み込み関数の詳細については、SQL クエリのチュートリアルに関する記事のこの<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/#built-in-functions">セクション</a>を参照してください。 <a href="https://www.documentdb.com/sql/demo">Documentdb クエリプレイグラウンド</a>でこれらの新機能を試すか、 <a href="https://portal.azure.com/#gallery/Microsoft.DocumentDB">documentdb アカウント</a>を作成してください。 ご不明な点がある場合は、MSDN &nbsp; の<a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=AzureDocumentDB">Azure DocumentDB 開発者フォーラム</a>または &nbsp; <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">stack overflow の開発者フォーラム</a>で &nbsp; ご連絡ください。 <a href="https://feedback.azure.com/forums/263030-documentdb">Azure フィードバック</a>フォーラムで追加の関数またはキーワードをサポートしたい場合は、ご連絡ください。</p>

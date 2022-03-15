@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 18f513b968ed7ea947a98a17b49e7b08aefef658
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895157"
+Slug: application-insights-three-latest-visual-studio-features
+Title: 'アプリケーション インサイト: 次の 3 つの最新機能Visual Studio'
+Summary: アプリケーションDeveloper Analytics Tools機能Visual Studio、インサイト編集およびデバッグ ワークフローにデータを統合できます。 追加した最新の機能の 3 つを確認してください。
+Content: >-
+  <p>アプリケーション インサイトテレメトリは、Web サービスの問題を検出、トリアージ、診断する強力なツールです。 アプリケーションDeveloper Analytics Tools機能Visual Studio、インサイト編集およびデバッグ ワークフローにデータを統合できます。 追加した最新の機能の 3 つ&rsquo;を確認してください。</p>
+
+
+  <h2>Application インサイト Search の操作タイムライン</h2>
+
+
+  <p>Web サービスは要求によって駆動されます。 &rsquo;そのため、テレメトリを使用して Web&rsquo; サービスの問題を診断する場合は、例外、依存関係呼び出し、またはカスタム イベントをトリガーした要求のコンテキストでテレメトリを確認すると便利です。 これらの一連の関連イベントは、Application インサイト &ldquo;での&rdquo;操作と呼インサイト。</p>
+
+
+  <p>Application インサイト <strong></strong> Search ツールの各イベントの新しい [操作の追跡] タブには、同じ操作中に発生した他のイベントが表示されます。</p>
+
+
+  <p><img alt="Operation Tracking with Application Insights in Visual Studio" border="0" height="418" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ac03f1e-27d5-4833-b99b-208a08ca8f93.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アプリケーション を使用した操作インサイトのVisual Studio" width="610"></p>
+
+
+  <p>[操作の追跡] タブでは、イベントを時系列的に一覧することで、問題が発生する前にサービスで発生した処理を簡単にまとめます。 各イベントのタイムラインとイベント継続時間のデータは、依存関係が遅い場所を見つけるのに役立ち、サービスのパフォーマンスを向上させることができます。 各操作の最も遅いイベントは、見つけやすくするために、フレーム アイコンでマークされています。</p>
+
+
+  <h2>CodeLens でテレメトリを要求する</h2>
+
+
+  <p>各コントローラー メソッドの要求テレメトリ ASP.NET CodeLens に表示されます。 CodeLens インジケーターから、過去 24 時間以内の要求の数と失敗した要求の割合を確認できます。 CodeLens インジケーターをクリックすると、要求の平均応答時間と、各要求メトリックの過去 24 時間と過去 24 時間の比較も確認できます。</p>
+
+
+  <p><img alt="Request CodeLens with Application Insights in Visual Studio" border="0" height="363" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30937d64-58d4-436a-b6ee-18ae5e188b89.png" style="border-width: 0px; margin: 0px auto; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: none; display: block; background-image: none;" title="アプリケーション を使用して CodeLens インサイトを要求Visual Studio" width="610"></p>
+
+
+  <p>要求テレメトリをエディターで&rsquo;&rsquo;直接配置することで、コードベースで作業している間に、実稼働の信頼性とパフォーマンスの問題を簡単に見つけるのに役立つ。 過去&rsquo; 24 &ldquo;時間以内にメソッドが要求された頻度を確認すると、変更を加える際に有用なコンテキストも提供されます。編集を開始するこのメソッドでは、実稼働環境で多くの使用状況が表示されますか?&rdquo;</p>
+
+
+  <p>Application インサイト と CodeLens の詳細については<a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-visual-studio-codelens/">、Azure のドキュメントを参照してください</a>。</p>
+
+
+  <h2>デバッグ セッション テレメトリの CodeLens</h2>
+
+
+  <p>CodeLens では、&rsquo;Azure の Application インサイト サービスにアプリケーションを接続していない場合でも、ローカル デバッグ セッションからのテレメトリを表示できます。 Application インサイト SDK&rsquo; を使用したプロジェクトの場合は、CodeLens インジケーターで例外が表示され、最新のデバッグ セッションからテレメトリが要求されます。 ASP.NET デバッグを停止してコードを編集&rsquo;すると、要求の応答時間や例外データなど、すぐに使用できます。</p>
+
+
+  <p><img alt="Local CodeLens with Application Insights in Visual Studio" border="0" height="486" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/51843949-7f3f-483e-ae2d-7da506ae2569.png" style="border-width: 0px; margin: 0px auto; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: none; display: block; background-image: none;" title="ローカル CodeLens とアプリケーション インサイトのVisual Studio" width="610"></p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>2015 Developer Analytics Tools 15 では、Visual Studio機能がVisual Studio&ldquo;されています。&rdquo;これらは&rsquo;、Visual Studio <a href="https://visualstudiogallery.msdn.microsoft.com/82367b81-3f97-4de1-bbf1-eaf52ddc635a/">ギャラリーの拡張機能としてVisual Studioすることもできます</a>。</p>
+
+
+  <p>アプリケーションを Application インサイト サービスに接続し、実稼働テレメトリを有効にするには:</p>
+
+
+  <ol>
+   <li>[アプリケーション] ウィンドウでプロジェクトを右クリックしソリューション エクスプローラー<strong>テレメトリの [アプリケーションの追加インサイト選択します。&hellip;</strong></li>
+   <li>[アプリケーションの構成] ウィンドウの指示インサイト従います。</li>
+  </ol>
+
+
+  <p>必要に応じて、Application インサイト SDK をアプリケーションに追加して、Application インサイト サービスに接続せずにデバッグ セッション テレメトリをインサイトできます。</p>
+
+
+  <ol>
+   <li>[アプリケーション] ウィンドウでプロジェクトを右クリックしソリューション エクスプローラー<strong>テレメトリの [アプリケーションの追加インサイト選択します。&hellip;</strong></li>
+   <li>[アプリケーションの構成] ウィンドウの指示インサイト従います</li>
+   <li>「SDK を追加して &ldquo;ローカル専用モードを試す」へのリンクを探します。&rdquo;</li>
+  </ol>
+
+
+  <p>以下のコメントで、Developer Analytics Tools&rsquo; の使用方法と、インサイト 内から Application インサイト テレメトリを使用する方法をお知Visual Studio。</p>

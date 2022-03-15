@@ -1,0 +1,162 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 54dccd6295c904a42e5adfda602483a61c3ccbed
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890117"
+Slug: new-azure-vpn-gateways-now-6x-faster
+Title: 新しい Azure VPN ゲートウェイが 6 倍速くなりました
+Summary: ミッションクリティカルなワークロードを実行するには、パフォーマンスと信頼性の両方が必要です。 Azure VPN エクスペリエンスを向上させるために、パフォーマンスが向上した新世代の VPN ゲートウェイ が導入されています。
+Content: >-
+  <p>ミッションクリティカルなワークロードを実行するには、パフォーマンスと信頼性の両方が必要です。 Azure VPN エクスペリエンスを向上させるために、パフォーマンスが向上し、SLA が向上し、古いゲートウェイと同じ価格で新世代の VPN ゲートウェイが導入されます。</p>
+
+
+  <p>Azure Virtual Networks (VNet) でネットワークを集中的に使用するワークロードを使用している多くのお客様は、クロスオンプレミスおよびリージョン間 VPN のパフォーマンスを向上させる必要性を高める必要があります。 さらに要求の厳しいワークロードに対応するために、VPN Gateway サービスを再設計して、6 倍のパフォーマンスを提供し、信頼性が向上し、さらに厳しい SLA によってサポートされました。</p>
+
+
+  <p>パフォーマンスに加えて、ミッション クリティカルなワークロードを持つ多くのお客様は、コンプライアンス規制を満たすために VPN ポリシーを制御する必要があります。 これで、暗号化ポリシーを柔軟に選択できるカスタム IPsec/IKE ポリシーの選択が提供されます。 また、ルートベースの VPN とポリシー ベースの VPN の両方に対応するように、新しいゲートウェイを強化しています。 BGP を使用してルーティングを自動的に学習するルートベース VPN は管理が簡単ですが、多くのお客様はブランチ オフィスにポリシー ベースの VPN を既にデプロイしています。 新しい VPN ゲートウェイでは、ポリシーベースの VPN を使用する複数のサイトが同じ VPN ゲートウェイに接続できます。</p>
+
+
+  <h2>新しいガイダンス</h2>
+
+
+  <p>VpnGw1、VpnGw2、VpnGw3 という新しい VPN ゲートウェイを導入する中で、デプロイ ガイダンスも更新しています。 既存の Basic VPN ゲートウェイは、同じ 80 から 100 Mbps のパフォーマンスと 99.9% の SLA で変更されません。 Basic VPN ゲートウェイは、非実稼働の開発/テスト シナリオに適しています。 Basic VPN ゲートウェイは、どの実稼働シナリオにも使用できません。</p>
+
+
+  <p>実稼働サービスでは、SLA が 99.95% の新しい VPN ゲートウェイを選択または移行することを強く推奨します。 新しい VPN ゲートウェイの SLA が高く、古いゲートウェイと同じ価格でパフォーマンスが向上します。 既存のデプロイを管理できるよう、古い VPN ゲートウェイは引き続きサポートされますが、9 月から古い Standard または High Performance VPN ゲートウェイを作成する予定ではありません。</p>
+
+
+  <h2>パフォーマンスの向上</h2>
+
+
+  <p>新しい世代の Azure VPN Gateway は、最大 1 Gbps の単一トンネル パフォーマンスを提供し、複数のトンネルを使用して最大 1.25 Gbps を集計し、オンプレミスまたはリージョン間 <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-vnet-vnet-resource-manager-portal" target="_blank">VNet</a> 間接続の VNet へのアクセスを向上させます。 アクティブ/アクティブ VPN ゲートウェイ オプションを有効にすると、Azure VPN ゲートウェイへの複数のフローでスループットが向上します。</p>
+
+
+  <p>これらについて詳しく説明します。</p>
+
+
+  <div align="center">
+
+  <table align="center" border="1" cellpadding="2" cellspacing="0" width="999">
+   <tbody>
+    <tr>
+     <td style="text-align: center;" valign="top" width="142">VPN Gateway</td>
+     <td style="text-align: center;" valign="top" width="142">推奨 <strong>されるワークロードの</strong> 種類</td>
+     <td style="text-align: center;" valign="top" width="142">Price<br>
+  ($/時間)</td>
+     <td style="text-align: center;" valign="top" width="142">スループット ベンチマーク*</td>
+     <td style="text-align: center;" valign="top" width="142">SLA</td>
+     <td valign="top" width="142">
+     <p style="text-align: center;">S2S &amp; V2V トンネル</p>
+
+     <p style="text-align: center;">($/tunnel-hour)</p>
+     </td>
+     <td style="text-align: center;" valign="top" width="142">PS2 トンネル<br>
+  (最大)</td>
+    </tr>
+    <tr>
+     <td style="text-align: center;" valign="top" width="142">Basic</td>
+     <td style="text-align: center;" valign="top" width="142">開発/テスト</td>
+     <td style="text-align: center;" valign="top" width="142">$0.04</td>
+     <td style="text-align: center;" valign="top" width="142">100 Mbps</td>
+     <td style="text-align: center;" valign="top" width="142">99.9%</td>
+     <td valign="top" width="142">
+     <p style="text-align: center;">最大 10<br>
+  1 - 10: 含まれる</p>
+     </td>
+     <td style="text-align: center;" valign="top" width="142">128</td>
+    </tr>
+    <tr>
+     <td style="text-align: center;" valign="top" width="142"><strong>VpnGw1</strong></td>
+     <td style="text-align: center;" valign="top" width="142">Production</td>
+     <td style="text-align: center;" valign="top" width="142">$0.19</td>
+     <td style="text-align: center;" valign="top" width="142"><strong>650 Mbps</strong></td>
+     <td style="text-align: center;" valign="top" width="142"><strong>99.95%</strong></td>
+     <td valign="top" width="142">
+     <p style="text-align: center;">最大 30<br>
+  1 - 10: 含まれる<br>
+
+  11-30:&nbsp; $0.015</p>
+     </td>
+     <td style="text-align: center;" valign="top" width="142">128</td>
+    </tr>
+    <tr>
+     <td style="text-align: center;" valign="top" width="142"><strong>VpnGw2</strong></td>
+     <td style="text-align: center;" valign="top" width="142">Production</td>
+     <td style="text-align: center;" valign="top" width="142">$0.49</td>
+     <td style="text-align: center;" valign="top" width="142"><strong>1 Gbps</strong></td>
+     <td style="text-align: center;" valign="top" width="142"><strong>99.95%</strong></td>
+     <td valign="top" width="142">
+     <p style="text-align: center;">最大 30<br>
+  1 から 10: 含まれる<br>
+
+  11-30: $0.015</p>
+     </td>
+     <td style="text-align: center;" valign="top" width="142">128</td>
+    </tr>
+    <tr>
+     <td style="text-align: center;" valign="top" width="142"><strong>VpnGw3</strong></td>
+     <td style="text-align: center;" valign="top" width="142">Production</td>
+     <td style="text-align: center;" valign="top" width="142">$1.25</td>
+     <td style="text-align: center;" valign="top" width="142"><strong>1.25 Gbps</strong></td>
+     <td style="text-align: center;" valign="top" width="142"><strong>99.95%</strong></td>
+     <td valign="top" width="142">
+     <p style="text-align: center;">最大 30<br>
+  1 から 10: 含まれる<br>
+
+  11-30: $0.015</p>
+     </td>
+     <td style="text-align: center;" valign="top" width="142">128</td>
+    </tr>
+   </tbody>
+  </table>
+
+  </div>
+
+
+  <p><sub>* 同じリージョン内の VNet 間で iperf3 を実行して取得したベンチマーク データ。最小期間は 120 秒、フローは最大 32 です。Azure VPN ゲートウェイ <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-validate-throughput-to-vnet" target="_blank">全体の</a> スループットを測定する方法の詳細については、このページを参照してください。</sub></p>
+
+
+  <p>650 Mbps の VpnGw1 では、6.5x と 1 Gbps の VpnGw2 が、古い Standard ゲートウェイとハイ パフォーマンス ゲートウェイと同じ価格で 5 倍のパフォーマンス向上を提供します。 また、サイト間 (S2S) トンネル数を 10 から 30 トンネルに増やし、より多くのサイトを VPN Gateway に接続できます。 11 ~ 30 番目のトンネルには、S2S トンネルごとに料金がかかります。 また、VpnGw3 と呼ばれる新しい、さらに高パフォーマンスの VPN ゲートウェイも導入されています。 複数のトンネルを使用する VpnGw3 では、テストで 1.25 Gbps のスループットが示されています。 実稼働環境での実際のパフォーマンスは、アプリケーションの動作、ISP の品質、および Azure VNet を使用した物理 VPN デバイスから Azure リージョンへの実際の距離 (ネットワーク パス) に大き依存します。</p>
+
+
+  <p>多くの場合、お客様は S2S VPN をデプロイしてブランチ オフィスを同じ Azure VNet に接続し、主要な企業 WAN には ExpressRoute 経由でアクセスします。 企業 WAN では、ExpressRoute で接続の問題が発生した場合に、バックアップ パスとして S2S VPN を使用する場合があります。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/562aec61-8072-4325-a299-9d6b646543a1.png"><img alt="ExpressRoute" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4aa59b3c-4cf5-477c-a2d8-2ce06fa545c0.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ExpressRoute" width="619"></a></p>
+
+
+  <p>1 Gbps ExpressRoute 回線がある場合は、バックアップ パスに 1 Gbps S2S トンネルを使用できます。そのため、フェールオーバー イベントが発生した場合でも、インターネット経由でも VNet へのパフォーマンスの高いネットワーク接続が確立されます。 ISP の品質に関して前述したパフォーマンスに関する注意点に注意してください。</p>
+
+
+  <h2>新しい VPN 機能 &ndash; カスタム IPsec/IKE ポリシー &amp; のマルチサイト ポリシーベース VPN</h2>
+
+
+  <p>また、VPN の管理性を向上し、お客様により多くの選択肢を提供するために、2 つの新機能もリリースされます。 これには、コンプライアンスとセキュリティの要件を満たすカスタム IPsec/IKE 接続ポリシーのサポートや、ポリシーベースのファイアウォール デバイスを使用して複数のオンプレミス ネットワークを Azure VPN ゲートウェイに接続する機能が含まれます。</p>
+
+
+  <p>カスタム IPsec/IKE ポリシーを使用すると、企業のコンプライアンスとセキュリティの要件を満たすために、各 S2S または VNet 間接続で正確な暗号化アルゴリズムとキー強度を設定できます。 Azure VPN ゲートウェイは、さまざまなサード パーティ VPN デバイスとの相互運用性を最大化する IPsec/IKE 暗号化アルゴリズムの既定のセットを利用します。 既定の一覧は、コンプライアンス要件の一部を満たしていない場合があります。 たとえば、既定よりも高い Diffie-Hellman グループまたは PFS グループ (Perfect Forward Security) が必要な場合や、除外する特定の暗号化アルゴリズム (SHA1、3DES など) が必要な場合があります。次の例に示すように、暗号化アルゴリズムとキーの強度の正確な組み合わせを指定できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a33c7e11-c6c3-4d71-9e6f-6f5a9e1b03ca.png"><img alt="cryptographic algorithms and key strengths" border="0" height="146" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09e3606a-151c-4865-aaf8-5b6815162a6b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="暗号化アルゴリズムとキーの強度" width="625"></a></p>
+
+
+  <p>さらに、カスタム ポリシーを利用して、複数のオンプレミス ポリシーベースの VPN デバイスを Azure VPN ゲートウェイに接続できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6962a618-b249-4a17-8479-19ad38cf6ed0.png"><img alt="Multiple on-prem policy based VPN devices" border="0" height="259" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1032b2ba-6912-4cf6-80ff-cfd9b7baad7a.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="複数のオンプレム ポリシー ベースの VPN デバイス" width="621"></a></p>
+
+
+  <p>ミッション クリティカルなワークロード用に VPN を構成および保守する作業は複雑な作業です。 これらの新しい VPN 機能は、お客様からのフィードバックに基づいて開発されました。 ドキュメントの多くを書き換え、デプロイのブループリント、ガイダンス、ベスト プラクティスを提供します。</p>
+
+
+  <p>Azure VPN サービスをさらに強化する方法をお知らせください。 新しい VPN ゲートウェイの使用を開始するリンクを次に示します。</p>
+
+
+  <ol>
+   <li><a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways#gwsku" target="_blank">新しい VPN ゲートウェイ SKU の移行 &amp; 手順について</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-compliance-crypto" target="_blank">暗号化要件と Azure VPN ゲートウェイについて</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-ipsecikepolicy-rm-powershell" target="_blank">S2S VPN または VNet 間接続で IPsec/IKE ポリシーを構成する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-connect-multiple-policybased-rm-ps" target="_blank">Connectベースの VPN デバイスを Azure VPN ゲートウェイに接続する</a></li>
+  </ol>

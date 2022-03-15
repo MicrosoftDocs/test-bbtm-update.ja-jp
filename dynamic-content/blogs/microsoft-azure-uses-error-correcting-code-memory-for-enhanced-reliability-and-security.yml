@@ -1,0 +1,33 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a783ff5efaf126ce6ce01b83eea360834f1d01ef
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894966"
+Slug: microsoft-azure-uses-error-correcting-code-memory-for-enhanced-reliability-and-security
+Title: Microsoft Azure は Error-Correcting コードメモリを使用して信頼性とセキュリティを強化する
+Summary: Microsoft Azure は、デプロイされたシステム全体で Error-Correcting コード (ECC) メモリを利用して保護します。
+Content: >-
+  多くの例に名前を指定するために、メモリデバイスでは、電気、磁気、バックグラウンド、製造の欠陥など、さまざまなソースからのエラーが発生しやすくなっています。 一般的なメモリエラーの種類は、1つのビットが 0 ~ 1 の状態 (逆) であることです。 検出されない、または未修正のメモリエラーは、セキュリティ上の問題 (コードまたはデータの破損、システムまたはアプリケーションのクラッシュなど)、システムのセキュリティを低下させる可能性があります。 Microsoft Azure は、デプロイされたシステム全体で Error-Correcting コード (ECC) メモリを利用して、こうした種類の問題から保護します。
+
+
+  ECC メモリは、1つのビット、および複数ビットエラーの特定のケースを含む、さまざまな種類のメモリエラーを検出して修正できるテクノロジです。 ECC メモリを使用すると、エラーの修正はアプリケーション/サービスに対して透過的に処理され、アプリケーションは、最初にメモリに書き込まれたデータを常に読み取ります。 エラーを修正できない場合は Microsoft Azure ホストオペレーティングシステムが直ちに再起動し、詳細イベントをログに記録するように構成されているため、アプリケーションがメモリの破損にさらされるのを防ぐことができます。 ECC メモリは、ECC 以外のメモリの方が高価であり、Microsoft はこのテクノロジが Azure でのエンタープライズグレードの顧客データのホスティングをサポートするために適していると考えています。
+
+
+  Microsoft は、データセンター内にデプロイされた Azure 製品サーバー全体で広範囲にわたるテストを実施し、Rowhammer と呼ばれるメモリプロセスのスケーリングの問題を解決しました。 Rowhammer は、marketplace にデプロイされた DRAM メモリモジュールのサブセットに影響する可能性があるメモリハードウェアの問題であり、メモリ読み取り操作の特定のパターンを発行することによって悪用を作成する可能性があります。これにより、メモリの特権領域で "ビットを反転" して、不正な書き込みが発生する可能性があります。
+
+
+  Rowhammer の悪用を試みるには、攻撃者がターゲットシステムで選択したコードを実行できる必要があります。 Office365 などのほとんどのクラウドサービスでは、お客様がサービスをホストするシステムで任意のソフトウェアを実行することを許可していないため、攻撃者は Rowhammer 攻撃を直接実行することはできません。 ただし、Microsoft Azure を使用すると、悪意のあるソフトウェア (IAAS 仮想マシンなど) を含む任意のソフトウェアを実行できます。
+
+
+  数か月前に実施されたテストでは、運用サーバー、顧客の Vm、および顧客データが Rowhammer の影響を受けないと判断しました。
+
+
+  Microsoft Azure は、テスト中に発生および検証される Rowhammer エラーの種類を検出して修正する、ECC メモリを持つシステムを展開しました。さらに多層防御の手段として、Microsoft Azure には、修正された修正不可能なメモリエラー状態と Rowhammer 攻撃試行を検出するために監視とアラートが配置されています。
+
+
+  ECC メモリの詳細については、 <a href="https://en.wikipedia.org/wiki/ECC_memory">こちら</a>を参照してください。
+
+
+  Rowhammer の詳細については、 <a href="https://users.ece.cmu.edu/~yoonguk/papers/kim-isca14.pdf">こちら</a>を参照してください。

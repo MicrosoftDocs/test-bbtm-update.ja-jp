@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 83ed252d960fa1cc9bfe5174743d9b545fe12b1f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889051"
+Slug: quick-glance-azure-devtest-labs-at-build
+Title: //Build 2016 Azure DevTest Labs概要
+Summary: この投稿では、//Build 2016 の DevTest Labs の機能強化について説明します。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/devtest-lab/">Azure DevTest Labs</a>は、開発者やテスト担当者が再利用可能なテンプレートを使用して Azure で環境をすばやく作成し、無駄を最小限に抑え、コストを制御するのに役立つサービスです。 //Build 2016 では、次の 4 つのバケットでAzure DevTest Labs機能が強化される予定です。</p>
+
+
+  <ul>
+      <li>VM イメージの準備が簡単</li>
+      <li>仮想ネットワークの設定</li>
+      <li>コスト管理と監視</li>
+      <li>VM の作成を高速化する再利用可能なテンプレート</li>
+  </ul>
+
+
+  <p>この投稿では、これら 4 つの領域に関するすべてのハイライトを共有します。 機能強化の詳細については、チームブログの詳細な投稿をAzure DevTest Labsしてください。<a href="https://aka.ms/dtlbuild2016blog"></a></p>
+
+
+  <h2>VM イメージの準備が簡単</h2>
+
+
+  <p>ラボ管理者の場合、Azure DevTest Labsは、基本的に次の 2 つの方法を使用して、VM イメージを使用する準備をするためのより優れた場所になります。</p>
+
+
+  <ul>
+      <li>ラボで共有されているカスタム イメージ (VHD ファイル) を準備する</li>
+      <li>仮想マシンから VM イメージを使用Azure Marketplace</li>
+  </ul>
+
+
+  <p>Azure DevTest Labsを使用すると、ラボ内の VM から新しいカスタム イメージを簡単に作成できます。 DevTest Labs で VM をプロビジョニングして確認した後、カスタム イメージの作成コマンドを実行して VHD を生成し、すべてのラボ ユーザーが VM を作成するために VM ベースとして自動的に使用できます。</p>
+
+
+  <p>さらに、必要に応じて Azure Marketplace から VM を選択するだけで DevTest 環境用の VM を作成したり、ラボ内に Azure Marketplace イメージからカスタム イメージを作成するために VM 構成を変更したりすることもできます。</p>
+
+
+  <p>ラボ管理者は、ラボで使用するイメージAzure Marketplace許可するかどうか、および許可するイメージを指定できます。</p>
+
+
+  <h2>仮想ネットワークの設定</h2>
+
+
+  <p>&rsquo;ラボ管理者として、(Azure ExpressRoute、サイト間 VPN、または他の目的で) 仮想ネットワークが既に設定されている場合は、同じリージョンとサブスクリプション内にある限り、その仮想ネットワークを Azure DevTest Labs&rsquo; で使用できるようラボを構成できます。</p>
+
+
+  <p>さらに、DevTest Labs では、仮想ネットワークの使用方法に関する規則を適用することもできます。 仮想ネットワーク内のサブネットごとに、パブリック IP アドレスを許可するかどうか、ラボ ユーザーが VM を作成するときにサブネットを使用できるかどうか、およびラボ ユーザーごとにそのサブネットに作成できる VM の最大数を指定できます。</p>
+
+
+  <h2>コスト管理と監視</h2>
+
+
+  <p>ラボでのコストの制御に役立つすべてのポリシー設定に加えて、Azure DevTest Labs にはラボの支出を視覚化する機能も用意されています。 ラボ <strong></strong> <strong>設定</strong> の [コストのしきい値] には、当月の通常の小売価格に基づく総推定コストと、支出の傾向に関するアイデアを示すグラフが表示されます。</p>
+
+
+  <p>その名前が示す通り、支出の視覚化は最初のステップに過ごします。 コストしきい値を使用すると、将来の目標支出を指定し、コストの追跡に役立つより多くの機能を有効にできます。</p>
+
+
+  <h2>VM の作成を高速化する再利用可能なテンプレート</h2>
+
+
+  <p>この記事で前述したように、Azure DevTest Labs再利用可能なテンプレート (カスタム イメージ、成果物など) により、VM の迅速なプロビジョニングが可能になります。 VM の作成時に時間を節約するために、この //Build リリース<strong></strong>で数式を導入しました。 ラボ ユーザーは、VM の作成後もラボ VM ブレードから VM の作成に使用される設定 (基本イメージ、VM サイズ、成果物など) を保存できます。 保存された数式はラボ内で共有され <strong>、VM ベース</strong>として使用できます。そのため、次回、ラボ ユーザーが同じ設定で VM を作成する場合は、VM ベースとして数式を選択し、他のすべての詳細を再度入力せずに VM を作成できます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>Azure DevTest Labsは、昨年 AzureCon でパブリック プレビューとして発表されました。 この数か月間、チームは、高速で簡単で無駄のない DevTest 環境を作成するために、すべての機能 (上記の機能を含む) の提供に非常に情熱を注ぎました。 より高品質な機能が目標に向けて提供される中で、サービスは GA のポイントに非常に近い場所にあります。</p>
+
+
+  <p>これは、今後 1 か月または 2 か月間の主な焦点になります。 Azure DevTest Labs で導入された新しい情報を最新の状態に保つ場合は、Azure DevTest Labsチームのブログ<a href="https://blogs.msdn.microsoft.com/devtestlab/">を参照してください</a>。</p>
+
+
+  <p>クラウドで DevTest&rsquo; 環境を実行している場合、またはそれを検討している場合は、Azure DevTest Labs を試してみて、ご自分の考えについてお知り合いください。 よりうまく機能する方法を知っている場合は、フィードバック フォーラムでフィードバックを送信 (または他のユーザーに投票) Azure DevTest Labs<a href="https://feedback.azure.com/forums/320373-azure-devtest-labs">してください</a>。</p>
+
+
+  <p>質問はございますか? MSDN Community フォーラムで回答を確認するか、新<a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureDevTestLabs">しい質問をしてください</a>。</p>
+
+
+  <p>機能を有効にご活用ください。</p>
+
+
+  <p>- DevTest Labs チーム</p>

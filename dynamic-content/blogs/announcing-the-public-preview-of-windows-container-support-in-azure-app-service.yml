@@ -1,0 +1,92 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b50b863853b14b15d660ebe96152e9ac9b316017
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896265"
+Slug: announcing-the-public-preview-of-windows-container-support-in-azure-app-service
+Title: Azure App Service での Windows コンテナーサポートのパブリックプレビューの発表
+Summary: Web アプリの Windows サーバーコンテナーをパブリックプレビューで使用できるようになりました。 Web App for Containers は、コンテナーにインストールされている内容をより詳細に制御する必要がある開発者に対して作成されます。
+Content: >-
+  <p>Web アプリの Windows サーバーコンテナーをパブリックプレビューで使用できるようになりました。 Web App for Containers は、コンテナーにインストールされている内容をより詳細に制御する必要がある開発者に対して作成されます。</p>
+
+
+  <p>Azure App Service で Windows コンテナーをサポートすることで、アプリケーションの最新化に関する新しい機会が生まれます。</p>
+
+
+  <ul>
+   <li><strong>PaaS &ndash; へのリフトアンドシフト</strong>.NET Framework と .net Core アプリケーションを Azure に移行し、PaaS サービスに直接移動して、App Service プラットフォームから多くの生産性向上を実現することに関心があるお客様に適しています。</li>
+   <li><strong>依存関係 &ndash; があるアプリケーション</strong>Windows コンテナー内にアプリをデプロイすると、ユーザーはカスタム依存関係をインストールできます。 例としては、グローバルアセンブリキャッシュ (GAC) にインストールする必要があるカスタムフォントまたはコンポーネントライブラリのインストールがあります。</li>
+   <li>緩やかになる<strong>セキュリティ制限 &ndash; </strong>コンテナー化されたアプリケーションを配置する場合、Windows コンテナーは分離とセキュリティの境界です。 その結果、通常 Azure App Service によってブロックされるライブラリへの呼び出しは、Windows コンテナー内で実行するときに成功します。 たとえば、多くの PDF 生成ライブラリは、グラフィックスデバイスインターフェイス (GDI) Api を呼び出します。 Windows コンテナーでは、これらの呼び出しは成功します。</li>
+   <li><strong>サードパーティ製アプリケーションの移行 &ndash; </strong>多くの場合、顧客はサードパーティによって開発されたビジネスクリティカルなアプリケーションを使用しています。 これらの種類のアプリケーションをコンテナー化すると、アプリケーションを Azure App Service に移行する機会が解放されます。</li>
+  </ul>
+
+
+  <h2>Windows コンテナーの新しい sku</h2>
+
+
+  <p>Windows コンテナーサポートの導入により、Windows コンテナーを使用してデプロイされたアプリケーションをホストする App Service プラン専用の3つの新しい premium sku も追加します。 これらの新しい Sku はすべて、Dv3 シリーズの機能を提供し、お客様のアプリケーションに対してより多くの選択肢を提供します。 新しいプレミアムコンテナー層では、コンテナーを実行する3つのオプションが用意されています。</p>
+
+
+  <ul>
+   <li>S (2 CPU 仮想コア、8 GB メモリ)</li>
+   <li>中 (4 CPU 仮想コア、16 GB メモリ)</li>
+   <li>Large (8 CPU 仮想コア、32 GB メモリ)</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0e2eeed-ff42-4796-bcb2-6e78ba87a7b1.png"><img alt="Pricing tiers" border="0" height="522" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dbf76f23-488a-4de2-a85e-dc15358ab567.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="価格レベル" width="1370"></a></p>
+
+
+  <p>お客様が Azure App Service で Windows コンテナーをホストするためのオファリングを調査して評価できるようにするために、最初に、8月のうちにこれらの新しい sku の無料プレビューを提供しています。 プレビュー価格は2018年9月13日から適用されます。</p>
+
+
+  <h2>サポートされている基本イメージ</h2>
+
+
+  <p>Windows コンテナーは常に基本 Windows イメージから派生し、Azure App Service 上に配置される Windows コンテナーは変わりません。 サービスとして、いくつかの基本イメージをインフラストラクチャにキャッシュし、そのイメージをコンテナーのベースとして使用して、アプリケーションの起動時間を短縮できるようにすることをお勧めします。 また、独自の基本イメージを使用することもできます。ただし、異なる基本イメージを使用すると、アプリケーションの起動時間が長くなる可能性があります。</p>
+
+
+  <p>.NET Framework アプリケーションを展開するお客様は、Windows Server Core 2016 の長期的なサービスチャネルリリースに基づいて基本イメージを選択する必要があります。 .net Core アプリケーションを展開するお客様は、Windows Server Nano 2016 の長期的なサービスチャネルリリースに基づいて、基本イメージを選択する必要があります。 この時点で、Azure App Service は、Windows Server 1709 リリースに基づくコンテナーでのアプリケーションの展開をサポートしていません。</p>
+
+
+  <p>キャッシュされた基本イメージ:</p>
+
+
+  <ul>
+   <li>microsoft/iis:windowsservercore-ltsc2016, latest</li>
+   <li>microsoft/iis:nanoserver-sac2016</li>
+   <li>microsoft/aspnet:4.7.2-windowsservercore-ltsc2016, 4.7.2, latest</li>
+   <li>microsoft/dotnet:2.1-aspnetcore-runtime</li>
+   <li>microsoft/dotnet:2.1-sdk</li>
+  </ul>
+
+
+  <ul>
+
+  </ul>
+
+
+  <h2>パブリックプレビュー機能</h2>
+
+
+  <ul>
+   <li>Docker Hub、Azure Container Registry、またはプライベートレジストリを使用して、コンテナー化されたアプリケーションをデプロイします。</li>
+   <li>デプロイスロットとスロットスワップを使用して、運用環境にアプリを段階的にデプロイします。</li>
+   <li>自動スケールで自動的にスケールアウトします。</li>
+   <li>アプリケーションログを有効にし、App Service ログストリーミング機能を使用して、アプリケーションのログを確認します。</li>
+   <li>PowerShell と Win-RM を使用して、コンテナーに直接リモート接続します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8c99c6d-6c63-4c8d-aad6-8831883e568c.png"><img alt="appservice_windows_containers_winrm (002)" border="0" height="633" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/441d7fc7-c17e-486c-9ac1-804c2df68eb8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="appservice_windows_containers_winrm (002)" width="987"></a></p>
+
+
+  <p>開始するには、こちらの <a href="https://aka.ms/appsvcwindowscontainersquickstart" target="_blank">クイックスタート</a>を参照してください。</p>
+
+
+  <h2>ご意見をお聞かせください</h2>
+
+
+  <p>Azure App Service のコンテナーサポート Windows、Windows プラットフォームで実行されるエンタープライズレベルの web アプリケーションと API アプリケーションをさらに構築、移行、デプロイ、およびスケーリングする方法を提供します。 パブリックプレビュー期間中にさらに多くの機能を追加する予定です。一般公開されている間に、フィードバックをお <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=windowsazurewebsitespreview&amp;filter=alltypes&amp;sort=lastpostdesc" target="_blank">寄せ</a> ください。</p>

@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 010101c63f2f49c645f9f78241e671b5fc2b29d8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894129"
+Slug: azure-container-registry-securing-container-workflows
+Title: 'Azure Container Registry: コンテナー ワークフローのセキュリティ保護'
+Summary: 環境をセキュリティで保護するには、複数の防御ラインが必要です。 Azure Container Registry最近発表された、Azure Private Link、カスタマー マネージド キー、専用データ エンドポイント、Azure Policy定義など)。 これらの機能により、コンテナーのエンド Azure Container Registryワークフローの一部としてセキュリティで保護するためのツールが提供されます。
+Content: >-
+  <p>環境をセキュリティで保護するには、複数の防御ラインが必要です。 Azure Container Registry最近、Azure Private Link、カスタマー <a href="https://aka.ms/acr/privatelink" target="_blank">マネージド</a> キー、専用データ エンドポイント、定義など、<a href="https://aka.ms/acr/cmk" target="_blank"></a>機能の一Azure Policy<a href="https://aka.ms/acr/azurepolicy" target="_blank">発表しました</a>。 <a href="https://aka.ms/acr/dedicated-data-endpoints" target="_blank"></a> これらの機能により、コンテナーのエンド Azure Container Registryワークフローの一部としてセキュリティで保護するためのツールが提供されます。</p>
+
+
+  <h2>カスタマー マネージド キー</h2>
+
+
+  <p>既定では、イメージや他の成果物を Azure Container Registry に格納すると、コンテンツは Microsoft マネージド キーを使用して保存時に自動的に暗号化されます。</p>
+
+
+  <p>Microsoft マネージド キーを選択すると、Microsoft はキーのライフサイクルの管理を監視&rsquo;します。 多くの組織では、コンプライアンスのニーズが厳しく、キーの&rsquo;ライフサイクルとアクセス ポリシーの所有権と管理が必要です。 このような場合、顧客は&rsquo;、インスタンス内の顧客に作成および管理されるカスタマー マネージド <a href="https://docs.microsoft.com/en-us/azure/key-vault/general/overview" target="_blank">キー Azure Key Vault</a> できます。 キーは Key Vault <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/azure-key-vault" target="_blank"></a>&nbsp; に格納されているので、お客様は Key Vault の組み込みの診断機能と監査ログ機能を使用して、これらのキーのアクセスを密接に監視することもできます。 カスタマー マネージド キーは、顧客が提供するキーを使用して、既定の暗号化機能を追加の暗号化レイヤーで補完します。 カスタマー マネージド キーに対して有効 <a href="https://aka.ms/acr/cmk" target="_blank">なレジストリを作成する方法の詳細を参照してください</a>。</p>
+
+
+  <h2>プライベート リンク</h2>
+
+
+  <p>Container Registry以前は、ファイアウォール規則を使用してアクセスを <a href="https://aka.ms/acr/firewallrules" target="_blank">制限する機能が必要でした</a>。 Private Link を導入すると<a href="https://aka.ms/acr/private-link" target="_blank"></a>、レジストリ エンドポイントにはプライベート IP アドレスが割り当てられます。仮想ネットワーク内のトラフィックとサービスは Microsoft のバックボーン ネットワークを介してルーティングされます。</p>
+
+
+  <p>Private Linkのサポートが最も重要な質問の 1 つであり、お客様は、厳しく制御されたネットワークのイングレスとエグレスの恩恵を受けながら、レジストリの Azure 管理からメリットを得るのを可能にしています。</p>
+
+
+  <p>プライベート リンクは、近日公開予定の幅広い Azure リソースで利用できます。プライベート仮想ネットワークのセキュリティにより、幅広いコンテナー ワークロードが可能になります。 アプリケーションの構成方法 <a href="https://aka.ms/acr/private-link" target="_blank">に関するドキュメントをAzure Private LinkをContainer Registry</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a3b807a2-2c52-416a-b103-98c2d1bc2fa0.png"><img alt="Architecture diagram showing Azure Container Registry connectivity to other Azure services over Private Link." src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ecfc63bf-21d1-493f-9f76-e1f895dc90a9.png" style="margin-right: auto; margin-left: auto; display: block; width: 1024px; height: 483px;" title="1312 新規"></a></p>
+
+
+  <h2>専用データ エンドポイント</h2>
+
+
+  <p><a href="https://aka.ms/acr/privatelink" target="_blank">Private Link</a> は、ネットワーク トラフィックが Azure Virtual Network に制限されている場合に、クライアントとレジストリ間のネットワーク アクセスを制御する最も安全な方法です。 データPrivate Link使用&#39;場合、専用 <a href="https://aka.ms/acr/dedicated-data-endpoints" target="_blank">のデータ</a> エンドポイントを使用すると、データの侵入に関する問題を最小限に抑える可能性があります。 専用データ エンドポイントを有効にすると、すべてのストレージ アカウントにワイルドカード () を含む規則ではなく、完全修飾ドメイン名 (<code>[registry].[region].data.azurecr.io</code><code>*.blob.core.windows.net</code>) でファイアウォール規則を構成できます。</p>
+
+
+  <p>専用のデータ エンドポイントは、AZURE PORTAL CLI を使用Microsoft Azureできます。 データ エンドポイントはリージョン パターンに従います <code>&lt;registry-name&gt;.&lt;region&gt;.data.azurecr.io.</code> 。geo レプリケートされたレジストリでは、データ エンドポイントを有効にすると、すべてのレプリカ リージョンでエンドポイントが許可されます。 詳細については、専用データ エンドポイントを有効 <a href="https://docs.microsoft.com/en-us/azure/container-registry/container-registry-firewall-access-rules#enable-dedicated-data-endpoints-preview" target="_blank">にする方法に関するドキュメント</a> を参照してください。</p>
+
+
+  <h2>Azure 組み込みポリシー</h2>
+
+
+  <p>セキュリティ機能を使用すると、実装されたワークフローが&rsquo;セキュリティで保護されます。 Azure リソースがベスト セキュリティ プラクティスに従っていることを確認するために、Azure Container Registry には、セキュリティ規則を適用するために利用できる組み込みの <a href="https://aka.ms/acr/azurepolicy" target="_blank">Azure Policy</a> 定義が追加されています。 コンテナー レジストリに対して有効にできる組み込みポリシーの一部を次に示します。</p>
+
+
+  <ul>
+      <li><a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5b9159ae-1701-4a6f-9a7a-aa9c8ddd0580" target="_blank">コンテナー レジストリは、カスタマー マネージド キーを使用して暗号化する必要があります</a>。 カスタマー マネージド キーを使用して暗号化が有効になっていないコンテナー レジストリを監査します。</li>
+      <li><a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fd0793b48-0edc-4296-a390-4c75d1bdfd71" target="_blank">コンテナー レジストリでは、無制限のネットワーク アクセスを許可しない必要があります</a>。 ネットワーク (IP または VNET) 規則が構成されていないコンテナー レジストリを監査し、既定ですべてのネットワーク アクセスを許可します。 少なくとも 1 つの IP またはファイアウォール規則を持つコンテナー レジストリ、または構成された仮想ネットワークは準拠しているとみなされます。</li>
+      <li><a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe8eef0a8-67cf-4eb4-9386-14b0e78733d4" target="_blank">コンテナー レジストリでは、プライベート リンクを使用する必要があります</a>。 1 つ以上の承認されたプライベート エンドポイント接続がないコンテナー レジストリを監査します。 仮想ネットワーク内のクライアントは、プライベート リンク経由でのプライベート エンドポイント接続があるリソースに安全にアクセスできます。</li>
+  </ul>
+
+
+  <p>このAzure Policyを使用すると、レジストリが組織のコンプライアンスニーズに準拠&#39;維持することができます。</p>
+
+
+  <h2>その他のリンク</h2>
+
+
+  <ul>
+      <li><a href="https://aka.ms/acr" target="_blank">Azure Container Registry</a> の詳細を学びます。</li>
+      <li><a href="https://aka.ms/acr/uservoice" target="_blank">UserVoice</a>: 既存の要求に投票するか、新しい要求を作成します。</li>
+      <li><a href="https://aka.ms/acr/issues" target="_blank">問題</a>: 既存のバグや問題を表示したり、新しいバグや問題をログに記録したりします。</li>
+      <li><a href="https://docs.microsoft.com/azure/container-registry/" target="_blank">Azure Container Registryドキュメント</a>: チュートリアルAzure Container Registryドキュメントを参照してください。</li>
+  </ul>

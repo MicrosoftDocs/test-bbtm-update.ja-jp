@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0567344f0c02fe5da2ec1ad64498ecac0eecc4c4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895124"
+Slug: diagnostics-troubleshoot-remote-desktop-connections
+Title: 新しいトラブルシューティングのリモート デスクトップ接続に関するトピック
+Summary: 診断パッケージと新しいトラブルシューティング トピックは、Azure 仮想マシンへのリモート デスクトップ接続を行う際のほとんどの問題を解決するのに役立ちます。
+Content: >-
+  Azure インフラストラクチャ サービスは、Windowsベースの Azure 仮想マシンを作成すると、リモート デスクトップ接続を介してアクセスするように仮想マシンを自動的に構成します。 この構成は、既定の TCP ポート 3389 でリッスンする リモート デスクトップ サービス サービスと、ランダムに決定された外部 TCP ポート番号を持つ仮想マシンの Azure エンドポイントで構成されます。
+
+
+  Azure 管理ポータル または Azure プレビュー ポータルからリモート デスクトップ接続を開始する場合は、正しいクラウド サービスの DNS 名と外部ポート番号を使用して RDP ファイルをダウンロードして実行します。
+
+
+  <i>何が問題を起こしている可能性がありますか?</i>
+
+
+  結局のところ、エンドポイント アクセス制御リスト (ACL) や、コンピューターと Azure 仮想マシン間のリモート デスクトップ接続トラフィックを誤ってブロックする可能性があるホスト セキュリティのその他の要素を構成する場合、特に時間のと共に、多くの問題が起きる可能性があります。
+
+
+  良いニュースは、ほとんどの問題を修正する <a href="https://home.diagnostics.support.microsoft.com/SelfHelp?knowledgebaseArticleFilter=2976864">Azure IaaS</a> 診断パッケージがあるという話です。 診断パッケージで解決できない問題については、「Windows ベースの <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-troubleshoot-remote-desktop-connections/">Azure 仮想</a>マシンへのリモート デスクトップ接続のトラブルシューティング」トピックで、問題の原因を特定してさらに調査するプロセスについて説明します。
+
+
+  次に示すのは、リモート デスクトップ接続とリモート ベースの Azure Windowsの問題の主なVirtual Machines。
+
+  <ol>
+   <li>リモート デスクトップ クライアント</li>
+   <li>組織のイントラネット エッジ デバイス</li>
+   <li>仮想マシンが含まれているクラウド サービスのエンドポイントと ACL</li>
+   <li>Azure 仮想マシンの設定と状態</li>
+  </ol>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/24/TshootRDP.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="TshootRDP" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/TshootRDP_thumb.png" alt="TshootRDP" width="672" height="316" border="0" /></a>
+
+
+  <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-troubleshoot-remote-desktop-connections/">新しい「Windows ベースの Azure</a> 仮想マシンへのリモート デスクトップ接続のトラブルシューティング」トピックでは、考えられる問題の各ソースを分離して調べ、問題を修正するためのアドバイスまたは回避策を提供します。
+
+
+  表示する Azure インフラストラクチャ サービスに関するその他のトラブルシューティング トピックがある場合は、以下のコメントを残してください。
+
+
+  よろしくお願いいたします。
+
+
+  Joe Davies シニア コンテンツ開発者

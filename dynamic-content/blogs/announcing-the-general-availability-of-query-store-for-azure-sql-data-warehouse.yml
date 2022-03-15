@@ -1,0 +1,90 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 32040c985859b40c57f10ed9a3eece3b24c1d9d4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891209"
+Slug: announcing-the-general-availability-of-query-store-for-azure-sql-data-warehouse
+Title: Azure クエリ ストア の一般SQL Data Warehouse
+Summary: プレビューのお知らせ以降、何百ものお客様がクエリのクエリ ストア分析情報を提供する機能を有効にしています。 Azure SQL Data Warehouse の世界中のサービスの一クエリ ストアを共有できると思います。
+Content: >-
+  <p>プレビューのお <a href="https://azure.microsoft.com/blog/automatic-performance-monitoring-in-azure-sql-data-warehouse-with-query-store/" target="_blank">知らせ以降、</a>何百もの顧客がクエリの <a href="https://docs.microsoft.com/sql/relational-databases/performance/monitoring-performance-by-using-the-query-store" target="_blank">クエリ ストア分析情報</a> を提供する機能を有効にしています。 Azure&rsquo; SQL Data Warehouse の世界中のサービスの一クエリ ストア<a href="https://azure.com/sqldw" target="_blank">を共有SQL Data Warehouse</a>。</p>
+
+
+  <p>クエリ ストア、プラン、およびランタイム統計の履歴が自動的にキャプチャされ、データ ウェアハウスを監視するときにレビュー用に保持されます。 クエリ ストアの使用パターンを確認し、プランの変更がいつ発生したのかを把握できるよう、タイム ウィンドウごとにデータが分離されます。</p>
+
+
+  <h2>アプリケーションを今すぐ使用するクエリ ストア 3 つ</h2>
+
+
+  <p>1. <strong>クエリの全</strong>文を見つける: <a href="https://docs.microsoft.com/sql/relational-databases/system-catalog-views/sys-query-store-query-transact-sql" target="_blank">sys.query_store_query</a> カタログ ビューと <a href="https://docs.microsoft.com/sql/relational-databases/system-catalog-views/sys-query-store-query-text-transact-sql" target="_blank">sys.query_store_query_text</a> カタログ ビューを使用すると、過去 7 日間にデータ ウェアハウスに対して実行されたクエリの全文を確認できます。</p>
+
+
+  <pre>
+
+  SELECT
+       q.query_id
+       , t.query_sql_text
+  FROM
+       sys.query_store_query q
+       JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id;</pre>
+
+  <p>2.<strong> 上位の実行クエリの検索</strong>: クエリ ストアのすべてのクエリ実行を追跡します。 ビジー状態のデータ ウェアハウスでは、毎日数千または数百万のクエリが実行される場合があります。 カタログ ビュークエリ ストア使用すると、さらに分析を行う上位のクエリを取得できます。</p>
+
+
+  <pre>
+
+  SELECT TOP 10
+         q.query_id                    [query_id]
+         , t.query_sql_text            [command]
+         , SUM(rs.count_executions)    [execution_count]
+  FROM
+         sys.query_store_query q
+         JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id
+         JOIN sys.query_store_plan p ON p.query_id = q.query_id
+         JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id
+  GROUP BY
+         q.query_id , t.query_sql_text ORDER BY 3 DESC;</pre>
+
+  <p>3. <strong>クエリの実行時間の検索</strong>: クエリでは、実行時のクエリ統計も収集し、実行の差異があるクエリに集中するのに役立ちます。 分散は、新しいデータの一連の読み込みなど、さまざまな理由で発生する可能性があります。</p>
+
+
+  <pre>
+
+  SELECT
+         q.query_id               [query_id]
+         , t.query_sql_text       [command]
+         , rs.avg_duration        [avg_duration]
+         , rs.min_duration        [min_duration]
+         , rs.max_duration        [max_duration]
+  FROM
+         sys.query_store_query q
+         JOIN sys.query_store_query_text t ON q.query_text_id = t.query_text_id
+         JOIN sys.query_store_plan p ON p.query_id = q.query_id
+         JOIN sys.query_store_runtime_stats rs ON rs.plan_id = p.plan_id
+  WHERE
+         q.query_id = 10
+         AND rs.avg_duration &gt; 0;</pre>
+
+  <h2>今すぐ使ってみる</h2>
+
+
+  <p>クエリ ストアは、すべての世代のサービスのすべてのリージョンで使用SQL Data Warehouse追加料金は発生し" できません。 コマンドを実行クエリ ストアを有効 <code>ALTER DATABASE &lt;database name&gt; SET QUERY_STORE = ON; </code>にできます。</p>
+
+
+  <p>開始するには、次の概要トピックを使用して、監視 <a href="https://docs.microsoft.com/sql/relational-databases/performance/monitoring-performance-by-using-the-query-store" target="_blank">クエリ ストア</a> 確認できます。 サポートされている操作の完全な一覧については、カタログ ビューに関するクエリ ストア <a href="https://docs.microsoft.com/sql/relational-databases/system-catalog-views/query-store-catalog-views-transact-sql" target="_blank">を参照</a> してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure SQL Data Warehouse、セキュリティ、コンプライアンス、プライバシー、監査の分野で引き続きリードしています。 &ldquo;詳細については、<a href="https://aka.ms/gdprsqlwhitepaper">Microsoft SQL</a>&rdquo; プラットフォームを使用したプライバシーの強化と GDPR 要件への対処に関するホワイトペーパー、<a href="https://www.microsoft.com/en-us/trustcenter">Microsoft セキュリティ</a>&ldquo; センター、またはドキュメント「<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security">SQL Data Warehouse</a> でデータベースをセキュリティで保護する」を参照してください。&rdquo;</p>
+
+
+  <ul>
+      <li>Azure SQL Data Warehouse &ldquo;<a href="https://docs.microsoft.com/sql/relational-databases/performance/monitoring-performance-by-using-the-query-store"></a>&rdquo; での クエリ ストア の詳細については、クエリ ストア を使用したパフォーマンスの監視に関する記事と、クエリ ストア DMV (sys.query_store_query など) を<a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-query-store-query-transact-sql?view=sql-server-2017">参照</a>してください。</li>
+      <li>機能の要求については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse">UserVoice に投票してください</a>。</li>
+      <li>今すぐ始めるには<a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal">、Azure アプリを作成SQL Data Warehouse</a>。</li>
+      <li>最新の Azure サービスの最新情報と機能SQL Data Warehouse Twitter でフォローしてください<a href="https://twitter.com/AzureSQLDW">@AzureSQLDW</a>。</li>
+  </ul>

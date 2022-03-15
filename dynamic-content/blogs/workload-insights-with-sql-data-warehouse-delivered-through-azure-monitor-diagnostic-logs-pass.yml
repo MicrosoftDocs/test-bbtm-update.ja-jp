@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8f590730adb892072f597e5952c05f39d98a9a14
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895697"
+Slug: workload-insights-with-sql-data-warehouse-delivered-through-azure-monitor-diagnostic-logs-pass
+Title: Microsoft Azure Monitor 診断ログを通じて提供される SQL Data Warehouse のワークロードの洞察
+Summary: SQL Data Warehouse (SQL DW) では、Microsoft Azure Monitor 診断ログと直接統合することにより、分析ワークロードに対する洞察を強化できるようになりました。 この新しい機能により、開発者は長期間にわたってワークロード ビヘイビアーを分析し、クエリの最適化や容量の管理に関して十分に情報を得たうえで決定を下すことができます。
+Content: >-
+  <p>SQL Data Warehouse (SQL DW) では、Microsoft Azure Monitor 診断ログと直接統合することにより、分析ワークロードに対する洞察を強化できるようになりました。 この新しい機能により、開発者は長期間にわたってワークロード ビヘイビアーを分析し、クエリの最適化や容量の管理に関して十分に情報を得たうえで決定を下すことができます。 SQL DW は、ペタバイト規模のデータに対して複雑なクエリを迅速に実行するために最適化された、柔軟性が高く、セキュリティで保護された、完全に管理されたエンタープライズ向けの分析プラットフォームです。</p>
+
+
+  <p>現在、お客様は動的管理ビュー (Dmv) を活用して、データウェアハウスのワークロードに関する洞察を得ることができます。 これらの Dmv には1万行という制限があり、大量のクエリを使用して、大量のエンタープライズデータウェアハウスのワークロードを容易に超えることができます。 Dmv のみに依存するか、アクティブなワークロードの多くのクエリトラブルシューティングシナリオをブロックします。 この DMV の制限を回避するには、内部システムリソースを使用するカスタムログソリューションが必要でした。また、データウェアハウスソリューションの総コストを増やし、開発の複雑さとメンテナンス作業を追加しました。</p>
+
+
+  <p>ここでは、 <a href="https://docs.microsoft.com/azure/monitoring/monitoring-data-collection?toc=/azure/azure-monitor/toc.json#logs" target="_blank">Azure Monitor 診断ログ</a>を使用して外部ログプロセスを導入しました。これにより、データウェアハウスのワークロードに関する追加の洞察が得られます。 ボタンを 1 回クリックすることで、<a href="https://docs.microsoft.com/azure/log-analytics/log-analytics-log-search" target="_blank">Log Analytics</a> を使用して履歴クエリのパフォーマンスをトラブルシューティングするための診断ログを構成できます。 診断ログ Azure Monitor は、監査目的でストレージアカウントにログを保存することによって、カスタマイズ可能な保有期間をサポートしています。また、リアルタイムのテレメトリの洞察に近いイベントハブにログをストリーミングする機能、および <a href="https://docs.microsoft.com/azure/log-analytics/log-analytics-queries">ログクエリ</a>を使用して Log Analytics を使用してログを分析する機能をサポートしています。 診断ログは、データ ウェアハウスのテレメトリ ビューで構成されています。これは、よく使用される SQL Data Warehouse でのパフォーマンス トラブルシューティングの DMV に相当します。 この最初のリリースでは、次のビューが有効になっています。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/sql/relational-databases/system-dynamic-management-views/sys-dm-pdw-exec-requests-transact-sql?view=aps-pdw-2016-au7" target="_blank">sys.dm_pdw_exec_requests</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-pdw-request-steps-transact-sql?view=aps-pdw-2016-au7" target="_blank">sys.dm_pdw_request_steps</a></li>
+   <li><a href="https://docs.microsoft.com/sql/relational-databases/system-dynamic-management-views/sys-dm-pdw-dms-workers-transact-sql?view=aps-pdw-2016-au7" target="_blank">sys.dm_pdw_dms_workers</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-pdw-waits-transact-sql?view=aps-pdw-2016-au7" target="_blank">sys.dm_pdw_waits</a></li>
+   <li><a href="https://docs.microsoft.com/sql/relational-databases/system-dynamic-management-views/sys-dm-pdw-sql-requests-transact-sql?view=aps-pdw-2016-au7" target="_blank">sys.dm_pdw_sql_requests</a></li>
+  </ul>
+
+
+  <p>Log Analytics に出力する診断ログを構成します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5182682-bcd1-4521-89d0-fc4b0ab32957.png"><img alt="Configure diagnostic logs to emit to Log Analytics." border="0" height="796" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f44fcd2-8e3a-42da-8877-f27f66ce89cd.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Log Analytics に出力する診断ログを構成します。 " width="638"> </a>Azure functions と統合されたアクショングループを使用してデータウェアハウスを動的にスケーリングするには、ログアラートを設定します。</p>
+
+
+  <p><i><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/488e82da-2a7a-41a9-ba0c-ba019ff52625.png"><img alt="Azure Monitor Logs - Alerts" border="0" height="692" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eddad513-bb99-42b1-8bf8-9e06ac03e4e2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ログの Azure Monitor-アラート" width="1225"></a></i></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>Azure Monitor ログの詳細については、 <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-overview-of-diagnostic-logs?toc=/azure/azure-monitor/toc.json#how-to-enable-collection-of-diagnostic-logs" target="_blank">オンラインドキュメント</a> を参照してください。</li>
+   <li>機能に関する要望については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse" target="_blank">UserVoice</a>にご投票ください。</li>
+   <li>今すぐ開始するための<a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal" target="_blank">Azure SQL Data Warehouse を作成</a>します。</li>
+   <li>最新の Azure SQL Data Warehouse ニュースや機能については、Twitter <a href="https://twitter.com/AzureSQLDW" target="_blank">@AzureSQLDW</a> の後で最新情報を入手してください。</li>
+  </ul>

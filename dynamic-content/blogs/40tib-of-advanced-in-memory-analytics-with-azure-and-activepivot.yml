@@ -1,0 +1,52 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8b3d05bcf87b73e61c7f4a0d0c4cb4b3ea532823
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894700"
+Slug: 40tib-of-advanced-in-memory-analytics-with-azure-and-activepivot
+Title: Azure と ActivePivot を使用した高度なメモリ内分析の 40TiB
+Summary: インメモリ コンピューティングにより、大きなコンピューティング機能が高速化され、顧客はモンテカルロ シミュレーションを超えて分析にエクスペリエンスを拡張できます。  このブログでは、ActivePivot を使用した Azure でのメモリ内分析のためのスケールアウト アーキテクチャの新しい可能性について説明します。
+Content: >-
+  <p>インメモリ コンピューティングにより、大きなコンピューティング機能が高速化され、顧客はモンテカルロ シミュレーションを超えて分析にエクスペリエンスを拡張できます。 これは、ビジネス ユーザーが事前に作成されたレポートから移動し、代わりにデータを直接操作する必要がある金融サービス内で注目に値します。&nbsp;Azure を使用すると&nbsp;、銀行はリアルタイムで分析し、正しい意思決定を日中に行い、規制基準を満たしてより多くの機能を備えたものにすることができます。 このブログでは、ActivePivot を使用した Azure でのメモリ内分析のためのスケールアウト アーキテクチャの新しい可能性について説明します。 ActivePivot は、ビッグ コンピューティングとビッグ データを緊密に統合する ActiveViam プラットフォームの一部です。</p>
+
+
+  <p>ActivePivot は、増分処理、トランザクション処理、分析処理を通じて大量の高速移動データを集計するメモリ内データベースであり、顧客が短時間で適切な意思決定を行うのを可能にします。 ActivePivot は、事前集計を必要とせずにその時点で更新されるデータに関する高度なメトリックを計算し、顧客が数百のディメンションのメトリックを探索し、その最も細かいレベルでライブ データを分析し、並外れた速度で What-If シミュレーションを実行できます。</p>
+
+
+  <p>お客様がこれをオンプレミスで有効にするには、十分なメモリを備えるサーバーを購入するとコストがかかる可能性があります。多くの場合、ミッション クリティカルなワークロードに対して保存されます。&nbsp;ただし、パブリック クラウドではこれを調査と実験のためのより多くのワークロードに引き上げ、このシナリオを Azure に取り込むのは説得力があります。&nbsp;Azure BLOB ストレージを&nbsp;&nbsp;使用して、一定の期間に生成された履歴データセットを収集して格納すると、ユーザーがコンピューティングを必要とする場合にのみ、顧客がコンピューティングを使用できます。 ゼロから 30 分以内に完全にデプロイされるまで、総保有コストが大幅に削減され、膨大なビジネスの機敏性が提供されます。</p>
+
+
+  <p>テストでは、400 日間の履歴データをまとめて処理し、10 秒未満で 200Bn レコードを照会するために 15 分で 40 TB を 128 ノード クラスターに読み込む方法を示しました。 ここでは、Java と ActivePivot を備える Linux イメージを実行する 32 コアと 448GiB の RAM を備える G5 インスタンスと、10 日間のデータを持つ 40 のストレージ アカウント (それぞれ約 1 TB) を使用しました。</p>
+
+
+  <p style="margin: 0in; text-align: center;"><img height="435" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6996aab0-a811-4652-a0c5-5c080d37f2f0.gif" style="width: 736px; height: 375px;" width="870"><br>
+
+  <em>上のグラフは、5 分間のデータ転送速度を示しています。</em></p>
+
+
+  <p style="margin: 0in; color: black; font-family: Calibri; font-size: 11pt;">&nbsp;</p>
+
+
+  <p>特殊なクラウド コネクタを利用して、ActivePivot は複数のストレージ アカウントからプルして、1 秒あたり 50 GiB で転送します。 この ActiveViam クラウド コネクタは、VM とストレージの帯域幅を完全に飽和状態にするのに役立ついくつかの HTTP 接続を開き、大きなファイルに合わせて調整されます。</p>
+
+
+  <p>データフェッチと並行して、ActivePivot は、分析ワークロードを加速するために、このデータをメモリ内にインデックス化します。 ActivePivot クエリ ノードは、計算をデータ ノード全体に自動的に分散します。ノード間の転送は不要です。 CPU&nbsp;、メモリ、データ サイズを 2 倍にし、予想と一緒に追跡して非常にうろしく思ったので、線形スケールに近いパフォーマンスが期待されました。</p>
+
+
+  <p>次のグラフで確認できます。データセットを 64 で乗算すると、600 GiB から 37.5 TiB まで、スループットは 54 倍増加しています。</p>
+
+
+  <p style="margin: 0in; text-align: center; color: black; font-family: Calibri; font-size: 11pt;"><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e6d2be50-b2a6-449e-8107-a6c8cf5a5895.png"></p>
+
+
+  <p>このテストは、10 秒未満でデータセット全体に対して広範なクエリを実行できたので、非常に成功したと証明されましたが、詳細とステップ バイ ステップのプロセスを確認するには、 <a href="https://activeviam.com/blog/advanced-memory-analytics-azure-activeviam-platform/"><u>ActiveViam</u></a> ブログを参照してください。 また、年の後半にさらにスケールアップ テストを行う予定なので、このスペースをご覧ください。</p>
+
+
+  <div align="center">
+
+  <hr align="center" size="2" width="100%"></div>
+
+
+  <p>&nbsp;Financial Services 内のビッグ コンピューティングの詳細については、&nbsp;Azure の<a href="https://banking.azure.com/"><u>HPCFinancial&nbsp; Services の</u></a>&nbsp;ページまたは <a href="https://azure.microsoft.com/en-us/solutions/high-performance-computing"><u>HPC に関するページを参照してください</u></a>。</p>

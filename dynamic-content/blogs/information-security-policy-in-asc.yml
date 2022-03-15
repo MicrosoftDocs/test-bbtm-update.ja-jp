@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c717131bac3c56c0ae49e3b8ca051e5b9364112a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889450"
+Slug: information-security-policy-in-asc
+Title: アプリでSQL Information Protectionポリシーを管理Azure Security Center
+Summary: SQL Information Protectionポリシーは、次の方法で管理Azure Security Center。 ポリシー管理を使用すると、カスタマイズされた分類ポリシーとラベル付けポリシーを一中心に定義できます。これは、テナント上のすべてのデータベースに適用されます。
+Content: >-
+  <p>お客様のポリシーを、SQL Information Protection内のテナント全体に対して一本的に管理Azure Security Center。 SQL Information Protectionは、Azure データ リソース内の機密データを検出、分類、ラベル付け、保護するための高度なセキュリティ機能です。 中央ポリシー管理を使用すると、テナント上のすべてのデータベースに適用されるカスタマイズされた分類とラベル付けポリシーを定義できます。</p>
+
+
+  <h2>SQL Information Protection</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/sql-database/sql-database-data-discovery-and-classification" target="_blank">SQL Information Protection</a> (SQL IP) は、データベースではなくデータの保護を目的とした SQL の新しい情報保護パラダイムを形成する高度な一連の機能で構成されます。 次の機能が提供されます。</p>
+
+
+  <ul>
+   <li><strong>検出と推奨事項:</strong> 分類エンジンはデータベースをスキャンし、機密性の高いデータを含む列を識別します。 その後、Azure portal を介して、適切な分類の推奨事項を確認して適用するための簡単な方法を示します。</li>
+   <li><strong>ラベリング：</strong>感度分類ラベルは、新しい分類メタデータ属性を使用して列に永続的にタグ付けできます。この属性は、SQLされます。 その後、このメタデータは、機密度に基づく高度な監査と保護のシナリオに利用できます。</li>
+   <li><strong>監視/監査:</strong> クエリ結果セットの感度はリアルタイムで計算され、機密データへのアクセスの監査に使用されます。</li>
+   <li><strong>可視 性：</strong> データベース分類の状態は、データベースの詳細なダッシュボードで表示Azure portal。 さらに、コンプライアンスと監査の目的や他のニーズに使用するために、Excel 形式でレポートをダウンロードできます。</li>
+  </ul>
+
+
+  <p>機密データのラベル付けは、ラベルと情報の種類で構成される分類分類を使用して行われます。 ラベルは、格納されたデータの感度レベルを定義するために使用される主な分類属性です。 [情報の種類] では、データベース列に格納されているデータの種類に細分性が追加されます。 さらに、特殊なキーワードを含む文字列パターンを使用して、機密データの異なるクラスを検出し、適切な情報の種類とラベルに関連付けるのに役立ちます。</p>
+
+
+  <h2>カスタム ポリシー Information Protectionカスタマイズする</h2>
+
+
+  <p>これで、ユーザー定義で使用されるラベルと情報の種類をSQL Information Protection。 システムには開始する分類分類が組み込まれますが、多くのお客様は、感度ラベルとデータの種類に対して独自の値を設定する機能を要求しています。</p>
+
+
+  <p>このポリシーは、Azure テナント全体に対する単一のポリシーであり、このポリシーで <a href="https://docs.microsoft.com/azure/security-center/security-center-intro" target="_blank">管理Azure Security Center</a>。 独自のカスタマイズされたポリシーを管理すると、次の操作が可能です。</p>
+
+
+  <ol>
+   <li>組織の要件に応じて、完全にカスタマイズされた一連の感度ラベルを定義します。</li>
+   <li>感度ラベルを直線的な順序でランク付けし、最も機密性の低いスケールを示します。</li>
+   <li>カスタマイズされた情報の種類を追加して、組織固有の機密データ型を識別し&#39;環境を特定します。</li>
+   <li>検出された各種類のデータに適切な感度分類が自動的に割り当てられるので、情報の種類と感度ラベルの関連付けを完全にカスタマイズします。</li>
+   <li>データベース内の機密データを自動的に識別するためにデータ検出エンジンによって使用される、カスタマイズされた検出キーワードと文字列パターンのセットを各情報の種類に追加します。</li>
+   <li>重複するデータ型が検出された場合の関連付けを明確に決定するには、情報の種類を階層順にランク付けします。</li>
+  </ol>
+
+
+  <p><img alt="Information Protection Policy" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/InfoProtectionPolicy.png" style="width: 956px; height: 433px; margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>お使Information Protectionポリシーが完全に定義された後、テナント内のすべての Azure SQL データベースのデータの分類に適用されます。</p>
+
+
+  <h2>概要今日!</h2>
+
+
+  <p>これで、一Information Protectionポリシー管理を使用して、すべての Azure&#39;データベースInformation Protectionポリシーで組織をSQLできます。 これにより、システムで機密データを検出する方法を柔軟に制御し、機密ラベルと分類クラスを組織のニーズに合わせて調整できます。</p>
+
+
+  <ul>
+   <li>開始するには、ポリシーのInformation Protection <a href="https://go.microsoft.com/fwlink/?linkid=2009845&amp;clcid=0x409" target="_blank">ガイドを参照してください</a>。</li>
+   <li>データの検出と分類SQL Information Protection詳細については、「データの検出<a href="https://docs.microsoft.com/azure/sql-database/sql-database-data-discovery-and-classification" target="_blank">Azure SQL Databaseを参照してください</a>。</li>
+   <li>サービスの詳細については、Azure Security Center概要に関する <a href="https://docs.microsoft.com/azure/security-center/security-center-intro" target="_blank">ページAzure Security Centerしてください</a>。</li>
+  </ul>
+
+
+  <p>試して、ご自分の考えをお知らせします。</p>

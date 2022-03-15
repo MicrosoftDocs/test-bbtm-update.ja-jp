@@ -1,0 +1,302 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fa2d61a3e88b34271e1833c59589cce493e2ee86
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894176"
+Slug: adf-v2-visual-tools-enabled-in-public-preview
+Title: 'Azure Data Factory: Visual Tools がパブリックプレビューで有効になっている'
+Summary: ADF v2 パブリックプレビューは、2017年9月25日に Microsoft Ignite で発表されました。
+Content: >-
+  <table cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top">
+     <p>Azure Data Factory (ADF) &nbsp; v2 パブリックプレビューは、2017年9月25日に Microsoft Ignite で <a href="https://azure.microsoft.com/en-us/blog/azure-data-factory-announcing-new-capabilities-in-public-preview/">発表</a> されました。 ADF v2 では、ADF アプリモデルに柔軟性を追加し、制御フロー構造を有効にしました。これにより、Python、.Net、Powershell、REST Api、ARM テンプレートなどのさまざまなプログラムインターフェイスで、ループ、分岐、条件構造、オンデマンド実行、柔軟なスケジューリングが容易になりました。 お客様から寄せられたお客様からのフィードバックのうちの1つは、ユーザーがデータ統合パイプラインの作成、構成、テスト、デプロイ、監視を行うことができる、対話型の視覚的な作成と監視のエクスペリエンスを実現することです。 お客様からのフィードバックをお待ちしており、 <b>ADF v2 用のビジュアルツール</b>のリリースを発表いたします。 ADF ビジュアルツールの主な目的は、1行のコードを記述しなくてもパイプライン &amp; を迅速に実行できるようにすることで、adf での生産性を高めることです。 シンプルで直感的なコードフリーのインターフェイスを使用して、パイプラインキャンバスにアクティビティをドラッグアンドドロップしたり、テストの実行を実行したり、反復的にデバッグしたり、 &amp; パイプラインの実行を監視したりすることができます。 このリリースでは、有効になっているビジュアル作成 &amp; の監視機能を使用する方法についてのガイドツアーも提供しています。また、有益なフィードバックを提供することもできます。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>ADF v2 用のビジュアルツールの目標は、直感的なエクスペリエンスで新規および上級ユーザーの生産性と効率性を向上させることです。 開始するには、プロビジョニング済みの v2 データファクトリブレードで [ <strong>作成者 &amp; モニター</strong> ] タイルをクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/69e338b5-6d80-4a5a-a75f-cf5b055b98dc.png"><img alt="image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4426a4b3-debf-4d01-b52c-a61dfa1fb2fd.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="491"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ADF v2 の新しいビジュアルツールで有効になっている、魅力的な機能の一部をご確認ください。 次の短いビデオも &nbsp; ご覧ください。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Azure-Friday/Visually-build-pipelines-for-Azure-Data-Factory-v2/player" width="960"></iframe></p>
+
+
+  <h2>はじめに迅速に</h2>
+
+
+  <ol>
+   <li>
+   <p>最初の ADF v2 パイプラインを作成する</p>
+   </li>
+   <li>
+   <p>コピーウィザードを使用して多数のデータソースからすばやくデータコピー</p>
+   </li>
+   <li>
+   <p>Ssis パッケージを Azure にリフトアンドシフトするように SSIS IR を構成する</p>
+   </li>
+   <li>
+   <p>ソース管理、コラボレーション、バージョン管理などのコードリポジトリ (VSTS GIT) を設定します。</p>
+   </li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b2392be-ae8c-4f21-a1f4-7a6997a5d73a.jpg"><img alt="clip_image001[3]" border="0" height="395" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0210a500-91a8-4e9c-9de2-85b33c2dc596.jpg" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image001 [3]" width="610"></a></p>
+
+
+  <h2>ビジュアルの作成</h2>
+
+
+  <h3>作成コントロール Flow Pipelines</h3>
+
+
+  <p>パイプラインを作成し、アクティビティをドラッグアンドドロップして、成功時、失敗時、完了時に接続します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/15091010-7e51-406f-8787-877da1a7ea21.png"><img alt="image" border="0" height="428" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70933572-3791-43ee-a34c-88959c9f52c1.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>Azure &amp; の自己ホスト型統合ランタイムを作成する</h4>
+
+
+  <p>ハイブリッドデータ移動用の自己ホスト型統合ランタイム、または SSIS パッケージを Azure にリフトアンドシフトするための Azure-SSIS IR を作成します。 データストアまたはコンピューティングへのリンクされたサービス接続を作成します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89d7cd98-fe31-49ff-b862-e4c1fda6b87d.jpg"><img alt="clip_image001" border="0" height="304" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/976952a5-8cb4-443f-8d4c-d6c68c145bc5.jpg" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image001" width="610"></a></p>
+
+
+  <h4>Azure で実行されるすべての制御フローアクティビティのサポート</h4>
+
+
+  <p><strong>アクティビティの制御 Flow:</strong></p>
+
+
+  <ul>
+   <li>hdinsight Hive、hdinsight Pig、hdinsight Map Reduce、HDI Streaming、HDI Spark、U-SQL、ストアドプロシージャ、Web、For each、Get Metadata、Look up、パイプラインの実行</li>
+  </ul>
+
+
+  <p><strong>Azure の計算のサポート:</strong></p>
+
+
+  <ul>
+   <li>HDI (オンデマンド、byoc)、ADLA、Azure Batch</li>
+  </ul>
+
+
+  <h4>反復開発とデバッグ</h4>
+
+
+  <p>パイプラインにトリガーをアタッチし、オンデマンドまたはスケジュールに基づいて実行する前に、 <strong>テストを実行</strong> します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b2239998-02ee-42b7-aa26-78ab9ca579b6.png"><img alt="image" border="0" height="333" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0eefded8-6d3c-478c-9ab2-d7a1aa496813.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>パイプラインとデータセットのパラメーター化</h4>
+
+
+  <p>式、システム変数を使用してパラメーター化します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/492006bb-1e36-4778-94b6-312fd452f0ba.png"><img alt="image" border="0" height="375" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2fa87a60-94a9-4662-b4d3-cb7088aef560.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>豊富な検証のサポート</h4>
+
+
+  <p>パイプラインを検証して、不足しているプロパティの構成や不適切な構成について知ることができるようになりました。 パイプラインキャンバスの [ <strong>検証</strong> ] ボタンをクリックするだけです。 これにより、サイドドロアーに検証出力が生成されます。 各エントリをクリックすると、不足している検証の場所に直接移動できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f80d5629-8d72-4003-ab85-0408906ff66e.png"><img alt="image" border="0" height="346" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c9d338e-6a0e-4ea8-8ffb-9bb7b073b060.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>パイプラインのトリガー</h4>
+
+
+  <p>オンデマンドでトリガーし、スケジュールに基づいてパイプラインを実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/23c3d762-fd0c-46f3-9ba5-8071a684784a.png"><img alt="image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3c114170-1be0-435b-81d0-a0aa6bdb511e.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="396"></a></p>
+
+
+  <h4>VSTS GIT の使用</h4>
+
+
+  <p>ソース管理、コラボレーション、バージョン管理などの VSTS GIT。</p>
+
+
+  <p><img alt="image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7457f98b-63ac-4a8b-848b-efc27f61b29d.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image" width="534"></p>
+
+
+  <h3>データをコピーする</h3>
+
+
+  <h4>データストア (65)</h4>
+
+
+  <p>65データストアのサポート。 ユーザーが構成値のみを提供する必要がある、ファーストクラスのサポートを備えた18のストア。 残りの47ストアは、JSON で使用できます。</p>
+
+
+  <p><strong>最初のクラスをサポートする18個のストア:</strong></p>
+
+
+  <ul>
+   <li>azure Blob、azure CosmosDB、Azure Database for MySQL、Azure Data Lake Store、amazon Redshift、amazon S3、azure SQL DW、azure SQL、azure Table、File System、HDFS、MySQL、ODBC、Oracle、Salesforce、SAP HANA、SAP BW、SQL Server</li>
+  </ul>
+
+
+  <p><strong>47 JSON サポートでのストア:</strong></p>
+
+
+  <ul>
+   <li>Search Index、Cassandra、HTTP file、mongo DB、OData、リレーショナルテーブル、dynamics 365、dynamics CRM、Web テーブル AWS Marketplace、PostgreSQL、Concur、Couchbase、ドリル、Oracle の実行、Greenplum、HBase、Hive、HubSpot、Apache Impala、Jira、Magento、MariaDB、Marketo、PayPal、フェニックス、Presto、QuickBooks、ServiceNow、Shopify、Spark、Square、Xero、Zoho、DB2、FTP、GE Historian、Informix、Microsoft Access、MongoDB、SAP Cloud for customer</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32c1ab03-8e6b-4ff5-9419-6f2f15b16172.png"><img alt="image" border="0" height="473" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/47527969-1140-461f-b6df-354c3ad0d9cd.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>コピーウィザードを使用して、多数のデータソースからデータをすばやくコピーする</h4>
+
+
+  <p>使い慣れた ADF v1 コピーウィザードを ADF v2 で使用できるようになり、ワンタイムクイックインポートが可能になりました。 コピーウィザードでは、作成キャンバスにコピーアクティビティを含むパイプラインが生成されます。 コピーアクティビティを拡張して、Spark、USQL、ストアドプロシージャなどの他のアクティビティ (成功時、失敗時など) を実行し、制御フローパイプライン全体を作成できるようになりました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/21681370-8c1f-4563-949b-4d06f5869d55.png"><img alt="image" border="0" height="355" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40c110e7-1ac7-4edd-a942-cfabd779a523.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <table cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top">&nbsp;</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h3>ガイドツアー</h3>
+
+
+  <p>左下にある<strong> 情報アイコン</strong> をクリックします。 次に、 <strong>ガイドツアー </strong>をクリックして、パイプラインとアクティビティの実行を視覚的に監視するための詳細な手順を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d6884963-9a31-4a64-a4e9-bc069d1260d9.png"><img alt="image_thumb55" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/54884e78-d45b-47cd-9685-a20709122f69.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb55" width="453"></a></p>
+
+
+  <h3>フィードバック</h3>
+
+
+  <p><strong>フィードバック</strong>アイコンをクリックして、さまざまな機能や、直面している可能性のある問題に関するフィードバックをお寄せください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a54021a3-b4ca-40f0-9038-5aa810bc26ef.png"><img alt="image_thumb56" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af0f8eb8-4fbf-4a76-86c1-91181206ea1d.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb56" width="387"></a></p>
+
+
+  <h3>データ ファクトリの選択</h3>
+
+
+  <p>左上の <strong>[Data Factory]</strong> アイコンにマウス ポインターを移動します。 <strong>矢印</strong>アイコンをクリックすると、監視できる Azure サブスクリプションとデータファクトリの一覧が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7605af3-a521-4d19-bc48-a9b56f14fc9b.png"><img alt="image_thumb57" border="0" height="328" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be099953-3c48-4cf7-bcab-3286a884d27f.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb57" width="610"></a></p>
+
+
+  <h2>ビジュアル監視</h2>
+
+
+  <h4>リストビューの監視</h4>
+
+
+  <p>単純なリストビューインターフェイスを使用してパイプラインを監視し、アクティビティ &amp; トリガーを実行します。 すべての実行はローカル ブラウザーのタイム ゾーンで表示されます。 タイム ゾーンは変更できます。すべての日時フィールドは選択したタイム ゾーンにスナップされます。</p>
+
+
+  <p><strong>パイプラインの実行の監視:</strong></p>
+
+
+  <p>リスト ビューには、Data Factory v2 パイプラインの各パイプラインの実行が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79f0a4e7-e398-41f0-a3b1-703ebcfe77f2.png"><img alt="image_thumb51" border="0" height="203" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6689ad63-5e3c-4219-9e3e-0b7d306128b0.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb51" width="610"></a></p>
+
+
+  <p><strong>アクティビティの実行の監視:</strong></p>
+
+
+  <p>リスト ビューには、各パイプラインの実行に対応するアクティビティの実行が表示されます。 [<strong>アクション</strong>] 列の [<strong>アクティビティの実行</strong>] アイコンをクリックすると、各パイプラインの実行に対するアクティビティの実行が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6309662f-a95b-4516-a2fb-d1a78c764d5a.png"><img alt="image_thumb52" border="0" height="236" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67e13490-a089-4139-917b-31d110e1a8fa.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb52" width="610"></a></p>
+
+
+  <p><strong>重要な注意: </strong>パイプラインとアクティビティの実行の一覧を更新するには、上部にある [ <strong>更新</strong> ] アイコンをクリックする必要があります。 現在、自動更新はサポートされていません。</p>
+
+
+  <p><strong>トリガーの実行の監視:</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a2f080c3-e4bb-4c82-9cfc-4a21b07374c8.png"><img alt="image" border="0" height="164" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7d3da49f-46b8-42c9-8330-6ae245a09b48.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>高度な並べ替えとフィルター処理</h4>
+
+
+  <p>順序パイプラインは、実行開始とフィルターパイプライン実行によって desc/asc で実行され、パイプライン名、実行開始および実行の状態を実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/18cf6620-ddbd-412c-bf39-910a1d773996.png"><img alt="image_thumb53" border="0" height="410" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7dbe4f81-a2b5-4e93-95d7-69b603e47a9f.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb53" width="610"></a></p>
+
+
+  <h4>列のリスト ビューへの追加と削除</h4>
+
+
+  <p>リストビューのヘッダーを右クリックし、リストビューに表示する列を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4d9875b-58f6-49d5-9bda-dd2c4c5357ce.png"><img alt="image_thumb54" border="0" height="415" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4d161fe-49ff-4b50-b611-177204c87c2e.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image_thumb54" width="610"></a></p>
+
+
+  <h4>リストビューでの列幅の並べ替え</h4>
+
+
+  <p>リストビューの列の幅を増減するには、単に列ヘッダーをポイントします。</p>
+
+
+  <h4>統合ランタイムの監視</h4>
+
+
+  <p>自己ホスト型、Azure、Azure SSIS 統合ランタイムの正常性を監視します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ae89138-0bdb-49fa-a762-71e46bd34706.png"><img alt="image" border="0" height="196" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef364e4e-c0b5-4478-af7b-a1b0ccdc4388.png" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h4>パイプラインの実行をキャンセル/再実行する</h4>
+
+
+  <p>パイプラインの実行をキャンセルするか、既に定義されているパラメーターを使用してパイプラインの実行を再実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7b3bbe65-df56-4e1d-930f-e5102180f5a4.jpg"><img alt="clip_image001[1]" border="0" height="188" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b0c74d3-b0b9-4e78-9efb-dc112b506dc4.jpg" style="border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image001 [1]" width="509"></a></p>
+
+
+  <p>これは ADF v2 ビジュアルツールの <strong>最初のパブリックリリース</strong> であり、お客様からのフィードバックに基づいて、リリースされたビットを新機能で更新するために継続的に取り組んでいます。 <a href="https://go.microsoft.com/fwlink/?linkid=866319" target="_blank">ADF v2 のビジュアルツール</a>を使用するための詳細と詳細な手順については、こちらを参照してください。</p>
+
+
+  <p>Azure Data Factory を使用して、簡単かつ迅速にパイプラインの構築を<a href="https://docs.microsoft.com/en-us/azure/data-factory/">開始しましょう</a>。 機能に関する要望がある場合、またはフィードバックを提供する場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory" target="_blank">Azure Data Factory フォーラム</a>にアクセスしてください。</p>

@@ -1,0 +1,55 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 976741c7e338641af9fe28a4e24b695c96a7d3d9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889013"
+Slug: real-time-analytics-on-your-iot
+Title: IoT でのリアルタイム分析
+Summary: 信頼できる Azure クラウド プラットフォーム上に構築された Azure IoT Suite は、事前構成済みのオファリングを組み合わせて、企業がクラウド ソリューションを迅速かつ簡単に開発およびデプロイモノのインターネットします。
+Content: >-
+  <p>本日、Microsoft は、Azure IoT <a href="https://www.microsoft.com/en-us/server-cloud/internet-of-things/azure-iot-suite.aspx">Suite を</a>購入できると発表しました。 信頼できる Azure クラウド プラットフォーム上に構築された Azure IoT Suite は、事前構成済みのオファリングを組み合わせて、企業がクラウド ソリューションを迅速かつ簡単に開発およびデプロイモノのインターネットします。</p>
+
+
+  <p>Azure IoT Suite&rsquo; のコア サービスとして、IoT デプロイの一般的なビジネス ニーズにさらに対応する Azure Stream Analytics に多数の更新プログラムを追加しました。 最新の更新プログラムStream Analytics次のとおりです。</p>
+
+
+  <ul>
+   <li>IoT Hub 入力<strong>の</strong>サポート: Stream Analytics ジョブには、Azure IoT Hubs からデータを取り込むプレビュー機能が追加され、接続されているすべてのデバイスから数百万件を超えるイベントをリアルタイムで分析できます。</li>
+   <li><strong>Azure プレビュー ポータルの統合</strong>: Azure 管理ポータルでの継続的なプレゼンスに加えて、Stream Analytics Azure <a href="https://azure.microsoft.com/en-us/overview/preview-portal/">プレビュー ポータルに統合されました</a>。</li>
+   <li><strong>DocumentDB 出力のサポート</strong>: Stream Analytics ジョブを <a href="https://azure.microsoft.com/en-us/services/documentdb/">Azure DocumentDB</a> に出力し、非構造化 JSON データに対するデータ アーカイブと低待機時間のクエリを有効にできます。</li>
+   <li><strong>異種イベント</strong>の TIMESTAMP BY: 1 つのデータ ストリームに、異なるフィールドにタイムスタンプを持つ複数のイベントの種類が含まれている場合、式で <a href="https://msdn.microsoft.com/en-us/library/mt573293.aspx">TIMESTAMP BY</a> を使用して、ケースごとに異なるタイムスタンプ フィールドを指定できます。</li>
+  </ul>
+
+
+  <p>このブログ記事では、IoT Hub 統合について説明します。これにより、リアルタイム分析の機能を活用して、接続されているすべてのデバイスから何百万ものイベントに関する分析情報を取得できます。 現在、Stream Analyticsのお客様は、Azure Event Hubs、IoT Hubs、Azure BLOB を介して取り込まれたデータに対してリアルタイム分析を実行できます。</p>
+
+
+  <p>IoT Hubは、何百万もの IoT デバイスとアプリケーション のバック エンド間の信頼性とセキュリティで保護された双方向通信を可能にするフル マネージド サービスです。 Azure IoT Hub は、信頼性の高いデバイス間およびクラウドからデバイスへのハイパースケール メッセージングを提供し、デバイスごとのセキュリティ資格情報とアクセス制御を使用してセキュリティで保護された通信を可能にし、最も一般的な言語とプラットフォーム用のデバイス ライブラリを含む。</p>
+
+
+  <h2>入力を設定するIoT Hub方法</h2>
+
+
+  <ol>
+   <li><a href="https://portal.azure.com">Azure プレビュー ポータルで、新</a>しいジョブを作成Stream Analyticsします。 Stream Analyticsカテゴリの下データ + 分析されます。</li>
+   <li>[入力] をクリックし、[入力] ブレードで [追加] をクリックします。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b615637e-652c-4889-826b-445c9a3ebf66.png"><img alt="Inputs blade" border="0" height="364" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e91ecd08-ea75-46f1-b22e-a9921bb538b3.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="[入力] ブレード" width="640"></a></li>
+   <li>[ソース] として [種類] と [IoT ハブ] として [データ ストリーム] を選択し、エンドポイントや共有アクセス ポリシーやキーなど、IoT Hub に関する接続情報を入力します。 特定のプロパティのIoT Hubについては、こちらを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/stream-analytics-define-inputs/">してください</a>。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9bd418a5-780e-4127-8054-e88de77bdbf8.png"><img alt="IoT Hub info" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3352709-401d-4507-84e6-fe2e4280d7f0.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="IoT Hub情報" width="174"></a></li>
+   <li>[作成] ボタンをクリックして、入力の設定を完了します。<br>
+   <br>
+  Stream Analytics <a href="https://manage.windowsazure.com">は Azure 管理</a> ポータルで引き続き完全にサポートされ、サブスクリプションから既存の IoT Hub を選択するか、新しい IoT Hub を作成するか、別のサブスクリプションから IoT ハブを選択することで、IoT Hub 入力で Stream Analytics ジョブを IoT Hub に接続できます。<br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc11620d-88d6-45bf-b972-08033524ebb4.png"><img alt="Add Data Stream" border="0" height="135" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fa266b54-9320-413a-9e28-67d4f3f8e56d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="データ ストリームの追加" width="240"></a><br>
+   <br>
+   <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/17ead8c9-f1d3-4a94-9b61-15e4268f1370.png"><img alt="IoT Hub Settings" border="0" height="203" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a45d4d2-4531-4ccb-a489-667d29dea523.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="IoT Hub 設定" width="240"></a><br>
+  &nbsp;</li>
+
+  </ol>
+
+
+  <p>この方法の詳細についてはStream Analyticsパスに関する<a href="https://azure.microsoft.com/en-us/documentation/learning-paths/stream-analytics/">ページStream Analytics ラーニングしてください</a>。 azure フィードバック フォーラムと Azure フィードバック フォーラムStream Analytics <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureStreamAnalytics">フィードバック</a> をお待ち <a href="https://feedback.azure.com/forums/270577-azure-stream-analytics">しております</a>。 製品の更新プログラムが近日公開予定です。</p>

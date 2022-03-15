@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b171dd674279e29c0f672cfc1dd19127577ffb70
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889028"
+Slug: rbac-and-azure-websites-publishing
+Title: RBAC と Azure Websites の発行
+Summary: コンテンツ公開投稿の管理は、azure Websites のお客様が Azure で利用できる新しいロールベースの Access Control (RBAC) 機能を直接活用できる分野です。
+Content: >-
+  Azure で利用できる新しいロールベースの Access Control (RBAC) を使用すると、組織は従業員やパートナーのクラウドリソースへのアクセスを簡単に管理できます。 RBAC、Azure Active Directory 基になるサポート、Azure プレビューポータルとの統合の詳細については、こちらの<a href="https://azure.microsoft.com/en-us/documentation/articles/role-based-access-control-configure/">リンク</a>を参照してください。
+
+
+  Azure Websites のお客様が RBAC 機能から直接恩恵を受けることができる領域の1つは、コンテンツ発行の投稿の管理です。 共同作成者ロールのアクセス権を持つユーザーは、独自のユーザー展開資格情報を使用してコンテンツを発行できます。 これは、web サイトリソースの資格情報を共有する場合と比べて重要な利点です。 RBAC は、属性の投稿や、アクセスの許可と取り消しの機敏性を向上させるためです。 これは、web サイトの発行プロファイルではなく、個々のデプロイ資格情報を期待するオープンソースの公開クライアントに依存している組織にとってさらに重要になります。
+
+  <h2>ロールベースのアクセスの例</h2>
+
+  Web サイトリソースの共同作成者としてユーザーをオンボードするには、Azure プレビューポータルから特定の web サイトを選択します。 [アクセスレンズ] の下で、[ロール] 部分を選択します。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RBAC と Azure Websites の発行" alt="RBAC and Azure Websites Publishing" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/roles.png" width="640" height="240" border="0" />
+
+  ユーザーを共同作成者として追加します。 ロールは、この例のような個々のリソース、およびリソースグループに割り当てることができます。 外部ユーザーを追加すると、ディレクトリにゲストが作成されます。 ロール部分で始まる同様のワークフローを使用して、web サイトリソースへのアクセスを簡単に削除できます。 RBAC ロールからゲストを削除しても、ディレクトリからゲストが削除されないことに注意してください。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RBAC と Azure Websites の発行" alt="RBAC and Azure Websites Publishing" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adduser.png" width="640" height="222" border="0" />
+
+
+  新しい共同作成者ユーザーは、Azure プレビューポータルのビューの右上隅から適切なディレクトリを選択し、関連する web サイトリソースを参照できるようになります。共同作成者のユーザーは、自分のユーザーデプロイ資格情報を使用して変更を発行できます。
+
+  <h2>ローカル Git 発行の例</h2>
+
+  ローカル Git ベースの発行の例を次に示します。 共同作成者ユーザーは、デプロイレンズでデプロイ資格情報を設定またはリセットできます。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RBAC と Azure Websites の発行" alt="RBAC and Azure Websites Publishing" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/credentials.png" width="640" height="245" border="0" />
+
+
+  ソース管理が有効な web サイトの web サイトのコンテンツを複製するには、[プロパティ] ブレードで Git URL を検索します。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RBAC と Azure Websites の発行" alt="RBAC and Azure Websites Publishing" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/url.png" width="611" height="480" border="0" />
+
+
+  Git プッシュ操作後、デプロイブレードには、さまざまなユーザーのコンテンツが反映されます。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RBAC と Azure Websites の発行" alt="RBAC and Azure Websites Publishing" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/deployments.png" width="455" height="480" border="0" />
+
+  <h2>Web サイトの操作</h2>
+
+  コンテンツの発行は、web サイトを提供するのに十分ではありません。 また、共同作成者ロールは、同じユーザーデプロイ資格情報に基づいて SCM web サイト管理エンドポイントへのアクセスを提供するため、Azure Websites のコンテキストでの RBAC の利点も得られます。 これには、ログストリーミングや、web ジョブなどのオペレーションイネーブラーなどの診断ツールへのアクセスが含まれます。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="RBAC と Azure Websites の発行" alt="RBAC and Azure Websites Publishing" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/devexperience.png" width="640" height="238" border="0" />

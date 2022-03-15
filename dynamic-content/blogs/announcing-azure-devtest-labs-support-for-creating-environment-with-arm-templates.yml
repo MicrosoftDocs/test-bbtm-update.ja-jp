@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e67c5059a644cf66fa8e56e9c1fbec9c44d3c2a6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895668"
+Slug: announcing-azure-devtest-labs-support-for-creating-environment-with-arm-templates
+Title: ARM テンプレートを使用して環境を作成するための Azure DevTest Labs サポートの発表
+Summary: 現在、Azure DevTest Labs が Azure Resource Manager (ARM) テンプレートを使用して環境を作成する機能をサポートするようになりました。
+Content: >-
+  <p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">現在、Azure DevTest Labs が Azure Resource Manager (ARM) テンプレートを使用して環境を作成する機能をサポートするようになりました。</p>
+
+
+  <p style="margin: 0px; box-sizing: border-box;">Azure DevTest Labs について聞いたことがない場合は、Azure のセルフサービスサンドボックス環境を使用して、開発/テスト環境をすばやく作成し、無駄を最小限に抑え、コストを制御することで、Azure DevTest Labs の<a href="https://blogs.msdn.microsoft.com/devtestlab/2016/05/25/announcing-general-availability-of-azure-devtest-labs/" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">一般提供</a>(GA) を発表しました &rsquo; 。 このサービスの目的は、IT および開発チームが直面している問題を解決することです。つまり、作業環境の取得、時間のかかる環境構成、運用の忠実性の問題、および高いメンテナンスコストによる遅延が発生します。 お客様が、心配のないセルフサービス環境で簡単 &ldquo; にテスト &rdquo; できるよう支援しています。 DevTest Labs の再利用可能なテンプレートは、作成されたすべての場所で使用できます。 パブリック Api、PowerShell コマンドレット、 <a href="https://blogs.msdn.microsoft.com/devtestlab/2016/06/15/azure-devtest-labs-vsts-extension/" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">VSTS 拡張機能</a> を使用すると、開発/テスト環境をラボからリリースパイプラインに簡単に統合することができます。 Azure DevTest Labs は、開発/テストシナリオに加えて、トレーニングやハッカソンなどの他のシナリオでも使用できます。 値の提案の詳細については、GA の発表に関する <a href="https://blogs.msdn.microsoft.com/devtestlab/2016/05/25/announcing-general-availability-of-azure-devtest-labs/" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">ブログ記事</a>をご覧ください。 DevTest Labs がトレーニングにどのように役立つかを知りたい場合は、この記事で<a href="https://azure.microsoft.com/en-us/documentation/articles/devtest-lab-training-lab/" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">トレーニング用に Azure DevTest Labs を使用</a>する方法を確認してください。</p>
+
+
+  <p style="margin: 0px; box-sizing: border-box;">&nbsp;</p>
+
+
+  <p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">過去1か月間、 &rsquo; 多数のお客様と話をし、そのストーリーとフィードバックを聞いてきました。 Azure DevTest Labs は、ユーザーが1つの VM を作成するために非常に適したエクスペリエンスを提供していることがわかりました。 マルチ VM 環境 (多層 web アプリや SharePoint ファームなど) に関しては、お客様は、これらの環境をプロビジョニングおよび管理するためのより生産的な方法を探しています。 さらに、Azure には、お客様が広く使用している <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authoring-templates/" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">Azure Resource Manager テンプレート</a>が用意されており、azure ソリューションのインフラストラクチャ/構成を定義し、一貫性のある状態で繰り返しデプロイすることができます。 これらのニーズに対応するために、ARM テンプレートからマルチ VM 環境を作成できるように、この機能を実装しています。 この機能のいくつかの特徴を次に示します。</p>
+
+
+  <ul style="color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; margin-top: 0px; margin-bottom: 10px; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">
+   <li style="box-sizing: border-box;">ARM テンプレートは、ソース管理リポジトリ (GitHub または VSTS Git) から直接読み込まれます。</li>
+   <li style="box-sizing: border-box;">セットアップが完了すると、DevTest Labs ユーザーは、他の種類のベースで実行できるものとして Azure portal から ARM テンプレートを選択するだけで、環境を作成できます。</li>
+   <li style="box-sizing: border-box;">Azure PaaS リソースは、Iaas Vm だけでなく、ARM テンプレートから環境にプロビジョニングすることもできます。</li>
+   <li style="box-sizing: border-box;">環境のコストは、他の種類のベースによって作成された個々の Vm だけでなく、ラボでも追跡できます。</li>
+  </ul>
+
+
+  <p style="box-sizing: border-box;"><img alt="Creating an environment using “IIS VMs &amp; SQL Server 2014 VM” ARM template" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Figure-1-environment-overview.png" style="width: 800px; height: 497px;"></p>
+
+
+  <p style="margin: 0in 0in 0pt;">ARM テンプレートを使用して Azure DevTest Lab 環境をプロビジョニングする &nbsp; 方法の詳細については、 <a href="https://blogs.msdn.microsoft.com/devtestlab/2016/11/16/connect-2016-news-for-azure-devtest-labs-azure-resource-manager-template-based-environments-vm-auto-shutdown-and-more/">Azure DevTest Labs ブログのメイン発表</a>を参照してください。 Connect ()、2016セッション、 <a href="https://channel9.msdn.com/events/connect/2016/122" style="color: rgb(51, 122, 183); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; text-decoration: none; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">Azure DevTest Labs の新機能を使用して、 &rsquo; </a>ライブデモを見ることもできます。 &rsquo;</p>
+
+
+  <p style="margin: 0in 0in 0pt;">&nbsp;</p>
+
+
+  <p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">サービスリリースまたは DevTest Labs についての最新情報を入手するには、 <a href="https://blogs.msdn.microsoft.com/devtestlab/feed/" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">このチームブログの RSS フィード</a> とサービスの <a href="https://azure.microsoft.com/en-us/updates/?service=devtest-lab" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">更新</a>を購読してください。</p>
+
+
+  <p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">この機能のリリースは1回だけです。 &nbsp;このロードマップには、お客様の構築と出荷を待つことができる &rsquo; ことがまだたくさんあります。 お客様のご意見は、お客様の問題に適したソリューションを提供するうえで役立ちます。 DevTest Labs がサポートする内容についてのアイデアやご意見をお待ちしておりますので、 <a href="https://feedback.azure.com/forums/320373-azure-devtest-labs" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">DevTest labs フィードバックフォーラム</a>でアイデアを作成したり、他 &rsquo; のアイデアに投票したりしないでください。</p>
+
+
+  <p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: &quot;Segoe UI&quot;, Tahoma, Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; word-spacing: 0px; white-space: normal; box-sizing: border-box; orphans: 2; widows: 2; background-color: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px;">DevTest Labs を使用しているときに問題が発生した場合、または質問がある場合は、 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureDevTestLabs" style="color: rgb(51, 122, 183); text-decoration: none; box-sizing: border-box; background-color: transparent;">MSDN フォーラム</a> でお手伝いします。</p>

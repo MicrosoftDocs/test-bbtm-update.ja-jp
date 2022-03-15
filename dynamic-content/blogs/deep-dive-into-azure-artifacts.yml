@@ -1,0 +1,139 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 216352cac0ec39eda05f2d932840c7c4396d716d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890451"
+Slug: deep-dive-into-azure-artifacts
+Title: Azure Artifacts の詳細情報
+Summary: Azure Artifactsコードベースで使用される依存関係を管理し、これらのコンポーネントの変更可能性とパフォーマンスを確保するための簡単なツールを提供します。 利用可能な新しいサービスの 1 つとしてリリースされました...
+Content: >-
+  <p><a href="https://docs.microsoft.com/azure/devops/artifacts/overview" target="_blank">Azure Artifacts</a>コードベースで使用される依存関係を管理し、これらのコンポーネントの変更可能性とパフォーマンスを確保するための簡単なツールを提供します。 Azure DevOps の開発者が利用できる新しいサービスの 1 つとしてリリースされた <a href="https://docs.microsoft.com/azure/devops/artifacts/overview" target="_blank">Artifacts</a> の現在の機能は、ユーザーが成果物を生成および使用するのに役立ちます。 バイナリ パッケージを使用または生成するチームの場合、Azure Artifacts、セキュリティで保護された高パフォーマンスのストアと簡単なフィードが提供されます。</p>
+
+
+  <h2>Artifacts の使用: パッケージ フィード</h2>
+
+
+  <p>Azure Artifactsをフィードにグループ化します。フィードは、使用して発行するのに役立つパッケージのコンテナーです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8b8486d-5202-4f24-b45c-233794233cad.png"><img alt="Package feeds" border="0" height="1022" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f6b58049-3b73-46c7-83cd-338cea0474e0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="パッケージ フィード" width="1666"></a></p>
+
+
+  <p>フィード&rsquo; アカウントを表示してチーム全体でパッケージの 1 つのソースを簡単に共有するなど、フィード ユーザーに最も役立つ既定の設定を最適化しました。 ただし、設定を&rsquo;カスタマイズする場合は、[設定] タブにアクセスして設定を更新します。</p>
+
+
+  <h2>新機能: Universal Packages</h2>
+
+
+  <p>Azure Artifactsは、開発とデプロイの一部として使用するすべての成果物のユニバーサル ストアです。 フィードでは、NuGet、npm、および Maven パッケージに加えて、任意のファイルまたはファイルセットを格納できる Universal Packages がサポートされます。 VSTS (Universal Packages CLI をVisual Studio Team Servicesして使用します。 それらを使用して、インストーラー、大規模なデータセット、または開発時に必要なバイナリ ファイルなどのデプロイ入力を格納したり、パイプライン出力のバージョン管理されたコンテナーとして格納したりします。 試してみるには、右上にある &ldquo;プロファイル イメージをクリックし、[プレビュー機能] をクリックして、プレビュー機能パネルで [Universal Packages] トグルを探します&rdquo;。 詳細については、お知らせの投稿Universal Packages <a href="https://blogs.msdn.microsoft.com/devops/2018/07/09/universal-packages-bring-large-generic-artifact-management-to-vsts/" target="_blank">を参照してください</a>。</p>
+
+
+  <h2>次に、ビューを有効にする</h2>
+
+
+  <p>Azure Artifactsビューを使用すると、フィード内の NuGet および npm パッケージ バージョンのサブセットをコンシューマーと共有できます。 ビューの一般的な使用は、テスト済み、検証済み、またはデプロイ済みで、開発中のパッケージを保持し、パブリックに使用する準備ができていないパッケージ バージョンを共有する場合です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f3fda7d-7dcf-4ea6-ad03-242c8cdd4833.png"><img alt="Views" border="0" height="566" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31f5e82d-d7c9-419b-b471-91d3b00d1879.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="表示モード" width="1762"></a></p>
+
+
+  <p>ビューとアップストリーム ソースは、エンタープライズ規模でパッケージを簡単に生成および使用するために、一緒に動作するように設計されています。</p>
+
+
+  <h2>アップストリーム ソースを使用して依存関係を制御する</h2>
+
+
+  <p>アップストリーム ソースを使用すると、1 つのフィードを使用して、生成するパッケージとリモート フィードから使用するパッケージの両方を &quot;格納できます&quot;。 これには、npmjs.com や nuget.org などのパブリック フィードと、組織内の他の Azure DevOps フィードなどの認証済みフィードの両方が含まれます。 アップストリーム ソース&#39;を有効にすると、フィードに接続しているすべてのユーザーがリモート フィードからパッケージをインストールし、フィードでコピーを保存できます。&nbsp;</p>
+
+
+  <p><strong>メモ：</strong> アップストリームから提供される各コンポーネントについて、元のソースがダウンしている場合や TFS&rsquo; ユーザーの場合でも、コピーを常に使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9267d2b-e07a-4321-92b8-5ec85f1c882a.png"><img alt="Upstream sources" border="0" height="807" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cdc0110e-bfbc-4f56-ada9-3f60c6af9eea.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アップストリーム ソース" width="1515"></a></p>
+
+
+  <p>つまり、アップストリーム ソースをパブリック ソースに対して有効にすると、お気に入りの依存関係や最も使用されている依存関係を簡単に使用できます。また、障害や破損または侵害されたパッケージに対する保護を強化することもできます。</p>
+
+
+  <h2>使いやすいシンボルとシンボル サーバー</h2>
+
+
+  <p>コンパイルされた実行可能ファイル (特に C++ のようなネイティブ コード言語からコンパイルされた実行可能ファイル) をデバッグするには、デバッグ情報を含むシンボル ファイルが必要です。 Artifactsシンボルのサポートと公開を迅速かつ簡単に行います。</p>
+
+
+  <p>更新された [<a href="https://docs.microsoft.com/en-us/vsts/build-release/tasks/build/index-sources-publish-symbols" target="_blank">インデックス&ldquo; ソース] タスクと&rdquo;</a> [シンボルの発行] タスクは、1 つのチェック ボックスAzure DevOpsシンボル サーバーにシンボルを発行する機能を追加しました。 高度な構成またはファイル共有のセットアップは必要ありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2081cdc8-0471-4eda-b616-157ab6c9a350.jpg"><img alt="Symbols" border="0" height="582" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3f7a2da4-9d8f-4ee7-9e01-29aa4998331c.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="シンボル" width="909"></a></p>
+
+
+  <p>また、次の方法でシンボル<a href="https://docs.microsoft.com/azure/devops/pipelines/tasks/build/index-sources-publish-symbols" target="_blank">を簡単に使用Visual Studio</a>。</p>
+
+
+  <ol>
+   <li>VS2017 Update 4.1 (バージョン 15.4.1) &ldquo;&rdquo; 以降では、クイック起動 にデバッグ シンボルを入力し、Enter キーを押します。</li>
+   <li>[シンボル サーバー&ldquo;の場所Azure DevOps新しい場所] ボタンをクリック&hellip;&rdquo;します (下の赤でマークされています)。 表示されるダイアログで、自分のアカウントを選択Azure DevOpsをクリック&ldquo;Connect&rdquo;。</li>
+  </ol>
+
+
+  <p>完了すると、次のように表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5d670fd2-dd2b-4c79-a037-77c3bae911ea.png"><img alt="Symbols from Visual Studio" border="0" height="1073" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66fda96f-3199-4ff9-a61a-2e594669580c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="シンボルのVisual Studio" width="1340"></a></p>
+
+
+  <p>WinDbg の新しい UWP バージョンでデバッグする場合は、これらのドキュメント<a href="https://docs.microsoft.com/en-us/vsts/package/symbols/debug-with-symbols-windbg" target="_blank"></a>を使用して <a href="https://www.microsoft.com/en-us/store/p/windbg-preview/9pgjgd53tn86" target="_blank">WinDbg</a> Azure DevOps アカウントを構成できます。</p>
+
+
+  <h2>資格情報プロバイダーのNuGet認証Azure Artifacts</h2>
+
+
+  <p>Azure Artifacts、発行する成果物をセキュリティで保護します。 しかし、これまでは、特&rsquo;に Mac と Linux 上で、NuGet パッケージを使用するセキュリティを利用するには課題でした。 現在は、新しいアプリケーションによって変更Azure Artifacts 資格情報プロバイダー。 &rsquo;Windows、Mac、Linux で MSBuild、dotnet、または NuGet(.exe) を使用する場合でも、.NET&rsquo; 開発ワークフローの一部として NuGet パッケージを復元するために必要な資格情報の取得を自動化しました。 Azure Artifacts フィードからパッケージを使用する場合、資格情報プロバイダー は、使用している NuGet クライアントに代わってトークンを自動的に取得して&#39;します。 詳細と新しい情報を取得するには資格情報プロバイダーの <a href="https://github.com/Microsoft/artifacts-credprovider#readme" target="_blank">readme を参照GitHub</a>。</p>
+
+
+  <h2>サポートされているプロトコルのバージョンと互換性</h2>
+
+
+  <p>一部のパッケージ管理サービスは、特定のバージョンの TFS とのみ互換性があります。 次の表に、バージョンの互換性を理解するために必要な情報を示します。</p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top"><strong>機能</strong></td>
+     <td valign="top"><strong>Azure DevOps Services</strong></td>
+     <td valign="top"><strong>TFS</strong></td>
+    </tr>
+    <tr>
+     <td valign="top"><strong>NuGet</strong></td>
+     <td valign="top">はい</td>
+     <td valign="top">TFS 2017</td>
+    </tr>
+    <tr>
+     <td valign="top"><strong>npm</strong></td>
+     <td valign="top">はい</td>
+     <td valign="top">TFS 2017 Update 1 以降</td>
+    </tr>
+    <tr>
+     <td valign="top"><strong>NuGet.org のアップストリーム ソース</strong></td>
+     <td valign="top">はい</td>
+     <td valign="top">TFS 2018 Update 2 以降</td>
+    </tr>
+    <tr>
+     <td valign="top"><strong>Maven</strong></td>
+     <td valign="top">はい</td>
+     <td valign="top">TFS 2018</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>もっと詳しい説明が必要でしょうか。 ドキュメントに記載されているベスト <a href="https://docs.microsoft.com/azure/devops/artifacts" target="_blank">プラクティス、ビデオ、その他</a>の学習資料を参照Azure Artifacts。</p>
+
+
+  <p>また、 <a href="https://visualstudio.uservoice.com/forums/330519-visual-studio-team-services?category_id=145266" target="_blank">UserVoice</a> を通じて要求された機能の一覧を保持し、情熱的なユーザーに対する要求を完了してください。 質問や問題を含む Twitter ( または )@had_msft @VSTSでいつでもお問い合わせください。</p>

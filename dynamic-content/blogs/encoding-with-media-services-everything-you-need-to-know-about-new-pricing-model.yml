@@ -1,0 +1,183 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 30a0a76a0357417a5d7ca8f520db558b4933c52f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895098"
+Slug: encoding-with-media-services-everything-you-need-to-know-about-new-pricing-model
+Title: 2017年1月にリリースされる Azure Media Services によるエンコードの新しい価格モデル
+Summary: 23 2016 年11月に、Azure Media Services を使用したメディアのオンデマンドエンコード用の新しい価格モデルが発表されます。
+Content: >-
+  <p>お客様の要求とフィードバックに基づき、2017年1月1日から、Azure Media Services を使用したメディアのオンデマンドエンコード用の新しい価格モデルを実装します。</p>
+
+
+  <p>Standard encoder とプレミアム encoder では、エンコーダーによる出力として生成されたメディアファイルの合計実行時間に基づいて使用量を計算します。 アダプティブストリーミングを使用した配信用の高品質なビデオのエンコードに関連する一般的な顧客シナリオのコストモデリングと分析に基づいて、新しい期間ベースの課金メーターによって約 40 &ndash; 50% の価格が削減されます。 節約は、使用シナリオや、以前の GB ごとの価格によって異なります。</p>
+
+
+  <p>さらに、メディア占有ユニットについては、速度を大幅に下げ、分単位の使用量を計算するように変更を加えています。 この投稿では、 &rsquo; 新しい価格モデルがどのように機能するかを示すいくつかの例を紹介します。</p>
+
+
+  <h2>エンコード用の新しい出力時間 (分単位) モデル</h2>
+
+
+  <p>2017年1月1日以降、エンコーダーによる出力として生成されたメディアファイルの期間に基づいて、エンコードジョブに対して課金されます。 新しいモデルはサービスによって自動的に適用されるため、アプリケーションでコードを変更する必要はありません。 &nbsp; 各データセンターの最終的な価格を確認するには、2017年1月1日以降の <a href="https://azure.microsoft.com/en-us/pricing/details/media-services/">公式価格 </a>に関するページを参照してください。</p>
+
+
+  <h4>出力時間 (分) の計算</h4>
+
+
+  <p>エンコードタスクの合計出力時間 (分) を計算するには、次の乗数を使用します。</p>
+
+
+  <p align="center">出力時間 (分) を計算する乗数</p>
+
+
+  <div align="center">
+
+  <table align="center" border="0" cellpadding="2" cellspacing="0" width="603">
+   <tbody>
+    <tr>
+     <td valign="top" width="189"><strong>Quality</strong></td>
+     <td valign="top" width="77"><strong>乗数</strong></td>
+     <td valign="top" width="335"><strong>例</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="189">オーディオのみの出力</td>
+     <td valign="top" width="77">0.25 x</td>
+     <td valign="top" width="335">20分のオーディオ数 (5 SD 分)</td>
+    </tr>
+    <tr>
+     <td valign="top" width="189">SD (1280 &times; 720 より小さい)</td>
+     <td valign="top" width="77">1x</td>
+     <td valign="top" width="335">20 分</td>
+    </tr>
+    <tr>
+     <td valign="top" width="189">HD (1280 &times; 720-1920 x 1080)</td>
+     <td valign="top" width="77">2x</td>
+     <td valign="top" width="335">HD 出力カウントが 40 SD 分として20分間</td>
+    </tr>
+    <tr>
+     <td valign="top" width="189">UHD (最大 4096x2160)</td>
+     <td valign="top" width="77">4x</td>
+     <td valign="top" width="335">UHD 出力カウントが 80 SD minutes として20分間</td>
+    </tr>
+   </tbody>
+  </table>
+
+  </div>
+
+
+  <p>Standard Encoder の料金の例</p>
+
+
+  <p>標準的なエンコーダーは、さまざまなデバイス (スマートフォン、タブレット、Pc、コンソール、テレビ) での再生に適した出力形式にさまざまな入力ビデオ/オーディオファイルをトランスコードすることを目標としている場合に最適なオプションです。 この (Media Encoder Standard) メディアプロセッサの機能の詳細については、こちらのドキュメントを参照してください。</p>
+
+
+  <p>このエンコーダーを使用する際の全体的なコストを確認するには、入力ビデオとその解像度、およびエンコードプリセットの期間を把握しておく必要があります。 1920x1080p 解像度 (期間は20分) で、高品質の QuickTime ビデオを使用しているとします。 この1080p 入力を<a href="https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming" target="_blank">アダプティブストリーミング</a>プロトコルを使用してさまざまなデバイスに配信するためにエンコードする場合は、通常、 <a href="https://msdn.microsoft.com/en-us/library/azure/mt269937.aspx" target="_blank">H264 マルチビットレート 1080p</a>などのプリセット &ldquo; を使用します。 &rdquo;このようなプリセットを使用すると、出力レイヤー/ビットレートごとに課金が発生し、ビデオの解像度に応じて乗数が発生します。 このプリセットでは、次の乗数が適用されます。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="400">
+   <tbody>
+    <tr>
+     <td valign="top" width="133"><strong>レイヤー</strong></td>
+     <td valign="top" width="133"><strong>解像度</strong></td>
+     <td valign="top" width="133"><strong>乗数</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">HD ビデオ1</td>
+     <td valign="top" width="133">1,920 x 1,080</td>
+     <td valign="top" width="133">2x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">HD ビデオ2</td>
+     <td valign="top" width="133">1,920 x 1,080</td>
+     <td valign="top" width="133">2x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">HD ビデオ3</td>
+     <td valign="top" width="133">1,280 x 720</td>
+     <td valign="top" width="133">2x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">SD ビデオ1</td>
+     <td valign="top" width="133">960 x 540</td>
+     <td valign="top" width="133">1x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">SD ビデオ2</td>
+     <td valign="top" width="133">960 x 540</td>
+     <td valign="top" width="133">1x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">SD ビデオ3</td>
+     <td valign="top" width="133">640 x 360</td>
+     <td valign="top" width="133">1x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">SD ビデオ4</td>
+     <td valign="top" width="133">640 x 360</td>
+     <td valign="top" width="133">1x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">SD ビデオ5</td>
+     <td valign="top" width="133">320x180</td>
+     <td valign="top" width="133">1x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">オーディオ</td>
+     <td valign="top" width="133">該当なし</td>
+     <td valign="top" width="133">0.25 x</td>
+    </tr>
+    <tr>
+     <td valign="top" width="133">合計</td>
+     <td valign="top" width="133">&nbsp;</td>
+     <td valign="top" width="133">11.25 x</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>上の表に基づいて、QuickTime ビデオのエンコードによって合計 11.25 * 20 = 225 の出力分が算出されます。 2017年1月1日以降、お客様のデータセンターに適用される1つの出力分の現在の料金については、<a href="https://azure.microsoft.com/en-us/pricing/details/media-services/"> 公式価格ページ </a>を参照してください。これにより、225によって最終的なコストが決定されます。</p>
+
+
+  <h4>プレミアムエンコーダーの料金の例</h4>
+
+
+  <p>ブロードキャストまたは映画業界に共通する形式を変換することが目的である場合、またはビデオワークフローで複雑なロジックが必要な場合は、プレミアムエンコーダーが必要になります。 2つのエンコーダーの機能の違いの詳細な比較については、こちらの <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/">ドキュメント</a> を参照してください。 また、 <a href="https://azure.microsoft.com/en-us/blog/introducing-premium-encoding-in-azure-media-services/" target="_blank">この</a> ブログでは、2つのエンコーダーを選択する際に役立つフローチャートを提供しています。 1920x1080p ビデオ解像度では20分間の高品質の ProRes/QuickTime ビデオがあるとしますが、2つのオーディオトラック &ndash; は英語で、もう1つはスペイン語であるとします。 このビデオを1つのビデオトラックと2つのオーディオトラックを使用して、プレミアムエンコーダーを使用して、単一ビットレートの MXF ファイルに変換することができます。 この場合、乗数は 2 (HD ビデオの場合) と 2 *0.25 (各オーディオの場合) を加算して2.5 になります。したがって、QuickTime ビデオを MXF ファイルにエンコードすると、合計で 20* 2.5 = 50 出力分となります。 2017年1月1日以降、お客様のデータセンターに適用される1つの出力分の現在の料金については、 <a href="https://azure.microsoft.com/en-us/pricing/details/media-services/">公式価格ページ </a>を参照してください。これにより、50によって最終的なコストが決定されます。</p>
+
+
+  <h4>サムネイルの料金の例</h4>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/media-services/media-services-advanced-encoding-with-mes#thumbnails">この</a>サンプルのように、通常のエンコードジョブの一部としてサムネイルを生成する場合は、サムネイル画像を生成するための追加料金は発生しません。 ただし、サムネイルのみを生成するエンコードタスクを送信する場合 (つまり、出力にビデオやオーディオが含まれていない場合)、出力アセットの各画像は1秒 (1/60 分の 1) としてカウントされます。</p>
+
+
+  <h2>メディア占有ユニットの1時間あたりの料金</h2>
+
+
+  <p>ワークロードで1つ以上のビデオを同時に処理する必要がある場合は、media Services アカウントにメディア予約ユニット (MRUs) を追加する必要があります。 (A) MRUs の数を増やして同時に複数のビデオを処理し、(b) 高速 MRUs を使用することにより、サービスからの全体的なスループットを向上させることができます ( S3)。 詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-scale-media-processing-overview/">ドキュメント </a>を参照してください。 お客様の要求やフィードバックに基づいて、このようなユニットの実際の使用状況をより詳しく追跡するために、MRUs の価格モデルを変更します。 2017年1月1日の時点で、各 MRU がアクティブになっている時間 (分単位) に基づいて課金されます。</p>
+
+
+  <h4>MRU 価格の例</h4>
+
+
+  <p>次に示すのは、MRUs の実際の使用時間 (分) に基づいて課金されることを示す例です。 最初は MRU がゼロで、特定の日の午前10:00 に、2つの S1 MRUs を使用するようにアカウントを設定したとします。 午後5時に到着するビデオが増えるため、1:15 pm に4つの S3 Ru を使用するようにアカウントを変更します。 すべてのビデオが 4:00 pm によって処理された後、自分のアカウントの MRUs をオフにします (MRUs の数をゼロに設定します)。 その日の使用量は、次のように計算されます。</p>
+
+
+  <ul>
+   <li>S1 メディア占有ユニット: 2 ユニット * 3.25 時間 (午前10時 ~ 1: 15PM) &nbsp; = 7.5 S1 時間</li>
+   <li>S3 メディア占有ユニット: 4 ユニット * 2.75 時間 (1: 15PM から午後4時) &nbsp; = 11 S3 時間</li>
+  </ul>
+
+
+  <p>2017年1月1日以降、1つの S1 時間と1つの S3 時間の現在の料金については、<a href="https://azure.microsoft.com/en-us/pricing/details/media-services/"> 公式の価格ページ </a>を参照し、それぞれ S3 時間を7.5 と11で乗算し、結果を追加して合計コストを取得することができます。</p>
+
+
+  <h2>お問い合わせ</h2>
+
+
+  <p>エンコード機能の更新については、 <a href="https://azure.microsoft.com/en-us/blog/topics/media-services-2/">Azure Media Services のブログ</a>を引き続き監視してください。</p>
+
+
+  <p>フィードバックと機能に関する要望は、 <a href="https://feedback.azure.com/forums/169396-media-services/category/144411-encoding-and-processing">UserVoice </a>ページに送信してください。</p>

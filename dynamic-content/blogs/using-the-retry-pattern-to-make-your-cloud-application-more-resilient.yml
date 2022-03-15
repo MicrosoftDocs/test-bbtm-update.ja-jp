@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 841bf5a6dd02f1bcda1646d0084635a205dfeab9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895232"
+Slug: using-the-retry-pattern-to-make-your-cloud-application-more-resilient
+Title: 再試行パターンを使用してクラウド アプリケーションの回復性を高くする
+Summary: コンテナーまたはクラウドでアプリケーションを実行しても、アプリケーションの回復性は自動的に確保されません。 指定した再試行ロジックを有効にする機能を構成する必要があります。
+Content: >-
+  <p><em>この投稿は、<a href="https://mvp.microsoft.com/en-us/PublicProfile/5002533">MVP の Jason Haley 氏によってMicrosoft Azureされました</a>。</em></p>
+
+
+  <p>最近、私は、いくつかの古い友人に追い付き、マイクロサービス アプリケーションをコンテナーで実行する現在のプロジェクトで役立つコンテナーや何かを学ぶ必要があります。 Polly でセッションを発表し、私の注目を集めたコメントをしたある友人と話をしました。 彼は、セッションの参加者の 1 人が、クラウドを使用するとアプリケーションが本質的に回復力を持ち、Polly が提供する機能を必要としないという印象を受けたと言いました。</p>
+
+
+  <p>Polly に慣していない場合は、このライブラリを使用して、再試行、サーキット ブレーカー、タイムアウト、バルクヘッド分離、フォールバックなど、一般的なパターンをコードに簡単に追加して、システムの回復性を高めることができます。 Scott Hanselman は最近、ブログ記事「Polly を使用して <a href="https://www.hanselman.com/blog/AddingResilienceAndTransientFaultHandlingToYourNETCoreHttpClientWithPolly.aspx">.NET Core HttpClient</a> に回復性と一時的な障害処理を追加する」を作成し、ASP.NET Core 2.1 で Polly と HttpClient を使用した方法について説明しました。</p>
+
+
+  <p>参加者が言及していた可能性があるのは、ほとんどの Azure サービスとクライアント <a href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/retry-service-specific">SDK</a> に再試行を実行する機能がある (アプリケーションの回復性を高め、大きな役割を果たします)、場合によっては再試行ロジックを具体的に設定する必要がある場合があります。 また、サードパーティのクライアント SDK では、さまざまな方法で再試行ロジックを有効にする必要がある場合があります。 クラウドに置くだけで、アプリケーションが自動的に回復力を持つにはなら "されません"。</p>
+
+
+  <h2>回復性とは</h2>
+
+
+  <p>回復性は、クラッシュではなく実行を続けながら部分的なエラーを処理する機能です。 最新のアプリケーション アーキテクチャ &mdash; では &mdash; 、オンプレミスのコンテナーで実行されているマイクロサービスでも、クラウド障害で実行されているアプリケーションでも発生します。 たとえば、ネットワークを介して通信するアプリケーション (データベースまたは API と通信するサービスなど) は、一時的な障害の対象となります。 これらの一時的な障害は、タイムアウト、過負荷のリソース、ネットワークの問題、および発生し、再現が難しいその他の問題により、ダウンタイムの量を減らします。 通常、これらのエラーは自己修正です。</p>
+
+
+  <p>障害を&rsquo;回避できますが、システムを稼働状態に保つ方法や、少なくともダウンタイムを最小限に抑える方法で対応できます。 たとえば、1 つのマイクロサービスで障害が発生すると、その影響によってシステムが失敗する可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fd65ba13-b861-472a-9826-e596a2291ffe.png"><img alt="Block diagram showing system impact due to a failed microservice" border="0" height="218" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b01a151a-96ff-44b4-aa3a-ccee904c47d6.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="マイクロサービスの障害によるシステムへの影響" width="640"></a></p>
+
+
+  <p>最新のアプリケーション設計がモノリシック アプリケーションからマイクロサービスに移行すると、相互に通信する必要があるコンポーネントの数が増えたので、回復性がさらに重要になります。</p>
+
+
+  <h2>システムの回復性を高くするにはどうすれば良いでしょうか。</h2>
+
+
+  <p>&rsquo;最近、もう 1 つの大きなリソースである <a href="https://aka.ms/microservicesebook">.NET マイクロサービス: コンテナー化された .NET アプリケーション</a>のアーキテクチャに関する電子書籍を読み始め、<a href="https://github.com/dotnet-architecture/eShopOnContainers">eShopOnContainers</a> と呼ばれる GitHub に参照マイクロサービス アプリケーションも用意されています。 .NET Core 2.1 で記述された eShopOnContainers は、Docker コンテナーを使用するマイクロサービス アーキテクチャです。 サンプル&rsquo; コードの参照アプリケーションを参照します。 サービス メッシュのように<a href="https://docs.microsoft.com/en-us/azure/architecture/microservices/interservice-communication#using-a-service-mesh"></a>&rsquo;、コードを追加せずにサービス間通信の回復性を高め、サービス間通信の回復性を高め、ここで説明しない新しいテクノロジがいくつかあるので、ご理解ください。 コードで使用できる型パターンを確認したいと思います。 いくつかの&rsquo;回復性パターンの例を見てみる: <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/retry">再試行</a> と <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker">サーキット ブレーカー</a>。 この <a href="https://docs.microsoft.com/en-us/azure/architecture/">Azure アーキテクチャ センター</a> 、アプリケーション <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/resiliency">で使用できる</a> いくつかの回復性パターンについて説明します。</p>
+
+
+  <h3>再試行</h3>
+
+
+  <p>再試行は、システム内のコンポーネント間通信で発生する一時的な障害を処理する効果的な方法です。 前述のように、ほとんどの Azure サービスとクライアント SDK には、再試行を実行するための機能があります。 データベースを操作する場合の 1 つの例は、Entity Framework Core と <b>EnableRetryOnFailure</b> を使用して再試行戦略を構成する方法です。 eShopOnContainers コードでは、 <a href="https://github.com/dotnet-architecture/eShopOnContainers/blob/dev/src/Services/Catalog/Catalog.API/Startup.cs">Catalog.API プロジェクトの Startup.cs</a> ファイルを見て、この例を確認できます。 CustomExtensionsMethods ユーティリティ クラスの AddCustomDbContext メソッドで、CatalogContext&rsquo; を構成する下部に向かって、 <b>EnableRetryOnFailure</b> の使用方法が表示されます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6a11d5ec-3943-4392-a7fe-371a3417d0d0.png"><img alt="Code sample: AddCustomDbContext method from Startup.cs" border="0" height="254" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ea198cdf-25c5-4526-9154-707c393e50f1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Startup.cs の AddCustomDbContext メソッド" width="827"></a></p>
+
+
+  <p>上記のコードは、Entity Framework Coreが失敗する前にデータベース呼び出しを最大 10 &mdash; 回再試行し、再試行の間にある程度の遅延を追加し、30 秒を超える遅延を加えない方法を示しています。 これは、既定の実行戦略を使用しています (他の実行方法もあります)。 失敗したデータベース呼び出しを自動的に再試行Entity Framework Coreを構成する方法の詳細については、「接続の回復性」 <a href="https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency">を参照してください</a>。</p>
+
+
+  <h3>サーキット ブレーカー</h3>
+
+
+  <p>多くの場合、開発者はサーキット ブレーカーパターンと再試行パターンを組み合わせて使用して、再試行を行います。 再試行によって&rsquo;&rsquo;操作が再試行されますが、成功しない場合は、常にもう一度試す必要はありません。または、問題が長引くリスクがあります (特に、サービスの負荷が高いサービスが原因である場合)。 サーキット ブレーカー パターンは、設定された回数の再試行が失敗した後、操作のすべての再試行を効果的にシャットダウンします。 これにより、システムは既知の制限に達した後に失敗した再試行から回復し、キャッシュされた値に戻ったり、後で再試行するメッセージをユーザーに返したりなど、別の方法で対応する機会を与えます。</p>
+
+
+  <p><a href="https://aka.ms/microservicesebook">.NET マイクロサービス: コンテナー化された .NET</a> アプリケーションのアーキテクチャに関する電子書籍を読んだ今年の初めに、回復性に関する章で <b>ResilientHttpClient</b> という名前の特に便利な HttpClient ラッピング クラスが見つかりました。 このユーティリティ クラスは<i>、リポジトリ</i>を複製し、eShopContainers GitHub学習を開始した理由でした。 .NET Core 2.1 を使用するコードベースの更新に続いて、リファクタリングによってそのユーティリティ クラスが削除され、同じことを行う新機能が使用されました。 ただし、.NET Core 2.1 をまだ使用していない場合は、GitHub の <a href="https://github.com/dotnet-architecture/eShopOnContainers/blob/master/src/BuildingBlocks/Resilience/Resilience.Http/ResilientHttpClient.cs">ResilientHttpClient.cs</a> でコードを見GitHub。 HttpInvoker メソッドは、このユーティリティの中心です。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a95f50ec-0092-4b02-b9cb-20377bdfbc4e.png"><img alt="Code sample: HttpInvoker method from ResilientHttpClient.cs" border="0" height="242" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b1a658d6-995e-4883-a5f7-6ceebcb55bba.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ResilientHttpClient.cs の HttpInvoker メソッド" width="642"></a></p>
+
+
+  <p>このメソッドでは、Polly を使用して、 <b>HttpClient を</b> 使用して呼び出しを行い、指数バックオフ再試行ポリシーとサーキット ブレーカー ポリシーを使用します。このポリシーでは、指定した回数の再試行に失敗した後、再試行が 1 分間停止します。 メソッドの最後の行は、引き渡しアクションを実行して呼び出しを行う行です。 これは小さなコード スニペットから見ただけで大きな意味がないかもしれませんが、電子書籍「Resilient <em>Applications</em> の実装」のセクション 8 では、ResilientHttpClient ユーティリティ クラスの動作について詳しく説明しています。 ポリシーは ResilientHttpClientFactory クラスの CreateResilientHttpClient メソッドに含されます。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d30facd5-2b66-4292-9e46-90f38bba1c15.png"><img alt="Code Sample: ResilientHttpClientFactory class from .NET Microservices: Architecture for Containerized .NET Applications" border="0" height="718" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c1718e0-d218-4fd7-940f-48d847b15060.png" style="display: inline; background-image: none;" title=".NET マイクロサービスの ResilientHttpClientFactory クラス: コンテナー化された .NET アプリケーションのアーキテクチャ" width="602"></a></p>
+
+
+  <p>ポリシーの内容を理解できるはずですが、ここでも電子書籍を参照して詳細な説明を確認します。 また、.NET Core 2.1 を使用している場合、電子&rsquo;書籍の更新プログラムには、新しい HTTPClientFactory を構成して使用して同じことを行う方法に関する有用な情報があります。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>コンテナーまたはクラウドでアプリケーションを実行しても、アプリケーションの回復性は自動的に確保されません。 指定&rsquo;した再試行ロジックを有効にする機能を構成する必要があります。 システムに再試行ロジックを追加する必要がある場合は、Polly などのライブラリを使用して実装を高速化する必要があります。 または、コードなしで回復性を追加する方法を調べる場合は、 <a href="https://istio.io/">Istio</a> や Linkerd のようなサービス メッシュ製品を <a href="https://linkerd.io/">調査する必要があります</a>。</p>
+
+
+  <p>アプリケーションで HttpClient を使用して API を呼び出す場合は、 をダウンロードする必要があります。<a href="https://aka.ms/microservicesebook">NET マイクロサービス: コンテナー化された .NET アプリケーション</a>のアーキテクチャに関する電子書籍を作成し、GitHub<a href="https://github.com/dotnet-architecture/eShopOnContainers">します</a>。 この電子書籍では、マイクロサービス アーキテクチャを理解するのに役立つ参照アーキテクチャについて詳細に説明しています。</p>
+
+
+  <p>&rsquo;電子書籍と eShopOnContainers プロジェクトに関する Ignite 2017 ブレークアウト セッションのこの記録も行います。.<a href="https://channel9.msdn.com/Events/Ignite/Microsoft-Ignite-Orlando-2017/BRK3317">NET Core</a> コンテナーと Docker コンテナーを使用してマイクロサービス パターンを実装します。</p>

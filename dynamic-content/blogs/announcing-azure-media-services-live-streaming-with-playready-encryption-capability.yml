@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d6c772b7ff16619b36a7065d6917d0e184b851ac
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891292"
+Slug: announcing-azure-media-services-live-streaming-with-playready-encryption-capability
+Title: PlayReady 暗号化Azure Media Servicesライブ ストリーミングの使用を発表
+Summary: 'ライブ ストリーミングの AES 動的暗号化を発表した 1 か月後に、現在はライブ ストリーム用の PlayReady 暗号化も追加されました。 '
+Content: >-
+  ライブ ストリーミングの<a href="https://azure.microsoft.com/blog/2014/11/19/announcing-aes-dynamic-encryption-enabled-on-live-streaming-with-azure-media-services/"> AES</a> 動的暗号化を発表した 1 か月後に、現在はライブ ストリーム用の PlayReady 暗号化も追加されました。http-live-streaming (HLS)、Smooth Streaming、MPEG-DASH などのサポートされているストリーミング プロトコルである Azure Media Services を使用すると、AES または PlayReady 暗号化を構成し、暗号化されたライブ ストリームを配信できます。
+
+
+  Microsoft PlayReadyは、コンテンツを著作権侵害から保護する、スタジオで承認された広範な暗号化テクノロジであり、現在最も人気のある幅広いデバイスでサポートされています。 これで、PlayReady を使用して、ビデオ オン デマンドストリームとライブ ストリームの両方を保護できます。
+
+
+  大きなレベルでは、次のように動作します。
+
+  <ol>
+   <li>暗号化する資産にコンテンツ キー、キー承認ポリシー、およびコンテンツ配信ポリシーを設定します。 キーの承認に提供するオプションの 1 つはトークン認証です。使用する場合、ライセンスを要求するクライアントは、ライセンスを発行するために、最初に有効なトークンを指定する必要があります。 トークン認証を構成した場合、トークンは Custom Data API経由で送信されます。これは、すべての PlayReady SDK で使用できます。</li>
+   <li>PlayReady ライセンス テンプレートは、コンテンツ キー承認ポリシーの一部として構成されます。 コンテンツは、次の 48 時間以内にのみ表示されるなど、テンプレート内のメディアの使用を制限できます。</li>
+   <li>動的暗号化は、既存の動的パッケージ化機能と組み合わせて使用できます。そのため、1 つの MP4 セットから、複数の形式と暗号化の種類の組み合わせを生成できます。たとえば、PlayReady で暗号化された HLS と PlayReady で暗号化された DASH を生成できます。</li>
+   <li>また、VOD の動的暗号化と同様に、ストリーミング プロトコルと暗号化方法を混在して一致できます。 たとえば、AES で暗号化された HLS ストリームと PlayReady で暗号化された DASH ストリームを生成できます。</li>
+   <li>Silverlight プレーヤー、iOS および Android 用クライアント SDK など、PlayReady で暗号化されたライブ ストリーム再生をサポートするさまざまなデバイスとプラットフォームがあります。</li>
+   <li>ライブ イベントが完了し、対応する資産が VOD に移行した後も、構成に基づいて PlayReady または AES が暗号化された状態が続きます。</li>
+  </ol>
+
+  ライブ ストリーミング機能を使用した PlayReady/AES 動的暗号化については、次の図を参照してください。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/12/18/playready_livestreaming.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="playready_livestreaming" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/playready_livestreaming_thumb.png" alt="playready_livestreaming" width="890" height="447" border="0" /></a>
+
+
+  このサービスの QA の一部&amp;を次に示します。
+
+  <ul>
+   <li><strong>PlayReady Azure Media Services配信サービスは提供されますか?</strong></li>
+  </ul>
+
+  はい。Azure Media Servicesプラットフォーム機能<a href="https://azure.microsoft.com/blog/2014/09/10/announcing-public-availability-of-azure-media-services-content-protection-services/">の一部として PlayReady</a> ライセンス サービスが提供されます。
+
+  <ul>
+   <li><strong>ライブ ストリーミングの PlayReady 暗号化にはキーローテーションが含まれますか?</strong></li>
+  </ul>
+
+  いいえ。現在、PlayReady 暗号化を使用したライブ ストリーミングのキー ローテーションは提供しません。
+
+  <ul>
+   <li><strong>HLS ストリームと PlayReady で AES 暗号化を使用して、Smooth Streamingできますか?</strong></li>
+  </ul>
+
+  はい。これはサービスで可能です。異なるプロトコルで異なる暗号化方法を構成できます。
+
+  <ul>
+   <li><strong>PlayReady で暗号化されたライブ ストリームを再生するために使用できるプレーヤーの種類は何ですか?</strong></li>
+  </ul>
+
+  デスクトップ: <a href="https://msdn.microsoft.com/en-us/library/ee958035%28v=vs.95%29.aspx">Silverlight Smooth Streaming クライアント</a>。 また、ホストしているこのテスト プレーヤーでストリームをテストできます。 <a title="https://sltoken.azurewebsites.net/" href="https://sltoken.azurewebsites.net/">https://sltoken.azurewebsites.net/</a>
+
+
+  IOS と Android: これにはクライアントのライセンス料金が必要なので、 の PlayReady チームにお問い合わせください<a title="</a>https://www.microsoft.com/PlayReady/features/ClientOptions.aspx" href="https://www.microsoft.com/PlayReady/features/ClientOptions.aspx">https://www.microsoft.com/PlayReady/features/ClientOptions.aspx。
+
+
+  Windows ストア アプリ: <a title="</a>https://visualstudiogallery.msdn.microsoft.com/e02ccac7-f3eb-4b53-b11a-c657d5631483" href="https://visualstudiogallery.msdn.microsoft.com/e02ccac7-f3eb-4b53-b11a-c657d5631483">https://visualstudiogallery.msdn.microsoft.com/e02ccac7-f3eb-4b53-b11a-c657d5631483。
+
+  <ul>
+   <li><strong>サービスで定義できる PlayReady ライセンス テンプレートの種類は何ですか?</strong></li>
+  </ul>
+
+  のドキュメントを参照してください<a title="</a>https://msdn.microsoft.com/en-us/library/azure/dn783459.aspx" href="https://msdn.microsoft.com/en-us/library/azure/dn783459.aspx">https://msdn.microsoft.com/en-us/library/azure/dn783459.aspx。
+
+  <ul>
+   <li><strong>ライブ ストリームを使用して PlayReady/AES 動的暗号化を構成する方法</strong></li>
+  </ul>
+
+  現在、この機能を構成するポータルではサポートされていません。 ただし、ライブ資産REST API PlayReady 暗号化を設定できる .NET SDK が含まれています。 その間、アカウントで PlayReady ライセンス サービスを有効にするには、追加の手順を実行する必要があります。このビデオの手順に従ってください<a title="</a>https://www.youtube.com/watch?v=nQCM1jFdi_4" href="https://www.youtube.com/watch?v=nQCM1jFdi_4">https://www.youtube.com/watch?v=nQCM1jFdi_4。 ライブ ストリーム<a href="https://mingfeiy.com/configure-playready-encryption-live-streaming-using-azure-media-services">を使用して</a> PlayReady 暗号化を設定するには、この API チュートリアルを参照してください。サンプル コードは、この GitHub <a href="https://github.com/Azure/azure-media-services-samples/tree/master/LiveStreamingWithPlayReady">リポジトリでホストされています</a>。
+
+
+  &nbsp;
+
+
+  ご不明な点がある場合は、 にお問い合わせください <a href="mailto:yanmf@microsoft.com">yanmf@microsoft.com</a>。 さらに詳しい説明が必要です。

@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8b685e4649117f3095d43ff8120b6b2723e7ae08
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891909"
+Slug: usage-analytics-for-wordpress-with-azure-app-insights
+Title: Application インサイト を使用して WordPress Web アプリの使用状況を確認インサイト
+Summary: Visual Studio アプリケーション インサイト (プレビュー) は、ライブ アプリケーションのパフォーマンスと使用状況を理解するのに役立つ拡張可能な分析サービスです。 WordPress で Visual Studio アプリケーションインサイトする方法について学習します。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/application-insights/">Visual Studio アプリケーション インサイト (プレビュー)</a> は、ライブ アプリケーションのパフォーマンスと使用状況を理解するのに役立つ拡張可能な分析サービスです。 これは&#39;、アプリのパフォーマンスと使いやすさを継続的に向上させるのに役立つ開発者向けです。</p>
+
+
+  <p>この分析サービスでは、Web アプリケーション ページに挿入する JavaScript コードが提供され、使用状況に関するテレメトリの収集を開始できます。 このブログ記事では、任意の場所で実行されている WordPress アプリ内でアプリケーション インサイトを構成する方法について説明します。</p>
+
+
+  <h2>手順 1: インストール</h2>
+
+
+  <ul>
+   <li>プラグインをダウンロード <a href="https://wordpress.org/plugins/application-insights-dashboard-remake/installation/">します</a>。</li>
+   <li>wp-content\plugins の下にある WordPress インストールの <em><u>plugins ディレクトリにプラグインを抽出します</u></em>。</li>
+   <li>管理者として WordPress にログインしてプラグインをアクティブ化し、プラグインの一覧に移動します。</li>
+   <li>プラグインに関連付けられているチェック ボックスをオンにし、[アクティブ化] を <strong>クリックします</strong>。</li>
+  </ul>
+
+
+  <h2>手順 2: アプリケーションをAzure Active Directoryする</h2>
+
+
+  <p>これらの手順では、<strong><em><u>テナントにアクセスできる Azure サブスクリプションAzure Active Directoryがあります。</u></em></strong></p>
+
+
+  <ul>
+   <li>Azure プレビュー ポータルに<a href="https://portal.azure.com/">サインインし、</a><strong>Active Directory に移動します</strong>。 使用するディレクトリ (テナント) を選択します。 これは、Azure サブスクリプションにリンクされているディレクトリである必要があります。</li>
+   <li>[アプリケーション] <strong>タブの [</strong> 追加] を <strong>クリックして</strong> 、新しいアプリケーションを登録します。</li>
+   <li>[ <strong>組織が開発しているアプリケーションと認識可能な</strong>名前を追加する] を選択します。 アプリケーションの種類として [ネイティブ <strong>クライアント アプリケーション] を選択します。</strong></li>
+   <li>[リダイレクト URL] の値を形式で入力します <a href=""></a></li>
+   <li>構成ページで、下部&nbsp;までスクロールし、他の<strong></strong>アプリケーションへのアクセス許可の下に次<font color="#2a2a2a" face="Segoe UI">のアクセス許可を設定します </font></li>
+  </ul>
+
+
+  <p><code>Windows Azure Active Directory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Delegated Permissions:1<br>
+
+  Microsoft Azure Data Catalog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Delegated Permissions:1<br>
+
+  Windows Azure Service Management API&nbsp;&nbsp; &nbsp;Delegated Permissions:1</code></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>手順 3: Azure portal でアプリケーション インサイトを作成する</h2>
+
+
+  <ul>
+   <li>Azure プレビュー ポータルインサイト Application インサイト<a href="https://portal.azure.com/">リソースを作成します</a>。 Application インサイト リソースを作成する方法については、こちらを<a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-javascript/">参照してください</a>。&nbsp;</li>
+  </ul>
+
+
+  <h2>手順 4: プラグインを構成する</h2>
+
+
+  <ul>
+   <li>自分の資格情報を使用Microsoft Azureログインします。</li>
+   <li>[Application <strong>設定 &ndash;&gt; ダッシュボード] インサイト移動します</strong>。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ba177ad7-38a1-4aed-958e-214b52fcefb0.png"><img alt="Microsoft Azure Application Insights Settings" border="0" height="326" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/018f0d7b-63b8-4dc9-98be-981930ca0c71.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Microsoft Azure Application インサイト 設定" width="640"></a></p>
+
+
+  <ul>
+   <li>[テナント ID] と [クライアント ID] を入力し、[プラグインの承認] <strong>をクリックします</strong>。 これらの値は、Azure プレビュー ポータル<strong></strong>の Azure Active Directory の [構成] <a href="https://portal.azure.com/">タブにあります</a>。</li>
+   <li>リソースから受信したインストルメンテーション キー Azure アプリ インサイトします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/66a96cc9-d90c-4535-aa01-7291fb1d21d4.png"><img alt="Instrumentation Key" border="0" height="295" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0e5ebcb-707b-47fd-ba9a-0b51cecf0bec.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="インストルメンテーション キー" width="640"></a></p>
+
+
+  <ul>
+   <li>プラグインが正常に構成されると、WordPress ダッシュボードにメトリックが表示されます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/be49cc77-5ba9-4a57-b1a0-7383af829dd0.png"><img alt="Metrics in WordPress Dashboard" border="0" height="321" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e413b836-661f-4844-b5bb-ac46c0dc6484.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="WordPress ダッシュボードのメトリック" width="640"></a></p>
+
+
+  <ul>
+   <li>ダッシュボードには、ユーザー、セッション、ページ ビュー、サーバー応答時間などに関する情報が表示されます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5db8fc01-3c34-4aa0-b037-05f19a9c847d.png"><img alt="Dashboard Info" border="0" height="175" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/def3ca6c-7eee-408e-9b7f-1cbcc0acedd6.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ダッシュボード情報" width="240"></a></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/application-insights/">Visual Studioアプリケーション インサイト (プレビュー)</a> は、問題を検出し、ユーザー トラフィックに関する分析情報を提供して、アプリケーションを継続的に改善するのに役立ちます。 必要に応じて、いつでも <a href="https://github.com/Microsoft/ApplicationInsights-PHP">Application インサイト PHP SDK</a> を使用してカスタム追跡イベントを作成できます。</p>

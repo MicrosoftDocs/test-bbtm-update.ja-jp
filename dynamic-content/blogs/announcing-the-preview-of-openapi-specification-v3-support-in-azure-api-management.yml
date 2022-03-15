@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ccf213023433f10858e23fd24b7be90d67299fae
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889295"
+Slug: announcing-the-preview-of-openapi-specification-v3-support-in-azure-api-management
+Title: Azure API Management での OpenAPI 仕様 v3 サポートのプレビューの発表
+Summary: Azure API Management、OpenAPI 仕様 v3 のプレビュー サポートが導入されたばかりです。API の記述に関して広く使用されているオープンソース標準の最新バージョンです。 この機能の実装は、OpenAPI.NET SDK に基づいて行います。
+Content: >-
+  <p>Azure API Managementでは、API を記述するための広範に使用されるオープンソース標準の最新バージョンである <a href="https://www.openapis.org/" target="_blank">OpenAPI Specification</a> v3 &ndash; のプレビュー <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore-expanded.yaml" target="_blank"></a> サポートが導入されました。 この機能の実装は、OpenAPI.NET <a href="https://github.com/Microsoft/OpenAPI.NET" target="_blank">SDK に基づいて行います</a>。</p>
+
+
+  <p>このブログ記事では、以下について説明します。</p>
+
+
+  <ul>
+   <li>API に OpenAPI 仕様を使用する利点。</li>
+   <li>Azure API Management の OpenAPI 仕様ドキュメントから API を作成する方法。</li>
+   <li>Api を OpenAPI 仕様ドキュメントとしてエクスポートする方法。</li>
+   <li>一般公開リリースの残りの作業。</li>
+  </ul>
+
+
+  <h2>API に OpenAPI 仕様を使用する理由</h2>
+
+
+  <p>OpenAPI 仕様は広 <strong>く採用されている業界標準です</strong>。 OpenAPI イニシアチブは、Microsoft などの大企業を含む <a href="https://www.openapis.org/membership/members" target="_blank">30</a> を超える企業によって支援されています。</p>
+
+
+  <p>OpenAPI 仕様を使用すると <strong>、API を実装から抽象化できます</strong>。 API 定義は言語<strong>に依存しない。</strong></p>
+
+
+  <p>また、理解 <strong>は簡単ですが、正確です</strong>。 API は YAML または JSON ファイルを介して表され、人間とマシンで読み取り可能です。</p>
+
+
+  <p>OpenAPI 仕様の広範な導入により、広範な <strong>ツール エコシステムが生み出されています</strong>。 ツールの機能は、API の設計のコラボレーション プロセスの促進から、一般的なプログラミング言語でのクライアント SDK とサーバー実装の自動生成まで、範囲があります。</p>
+
+
+  <h2>Azure API Management で OpenAPI 仕様 v3 定義をインポートするAPI Management</h2>
+
+
+  <p>API が OpenAPI 仕様ファイルで定義されている場合は、Azure API Management で簡単にインポートできます。 このAzure portal、適切なバージョンの OpenAPI 仕様ファイルが自動的に認識されます。 最初の API のインポートと&ldquo;発行に関するチュートリアルに従って、ビジュアル インターフェイスを使用して API をインポートする<a href="https://docs.microsoft.com/en-us/azure/api-management/import-and-publish" target="_blank">方法を学習できます</a>。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ed5eadf7-e18e-4476-8642-51944e829f8d.png"><img alt="Importing APIs in Microsoft Azure" border="0" height="783" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ac0d56c-14f8-4c9f-a43a-5e1c209f7d2e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Microsoft Azure での API のMicrosoft Azure" width="1463"></a></p>
+
+
+  <p>または、<a href="https://docs.microsoft.com/en-us/rest/api/apimanagement/apis/createorupdate#contentformat" target="_blank"><em>contentFormat</em></a> ペイロード パラメーターを <em>openapi</em>、<em>openapi+json</em>、または <em>openapi-link</em> に設定して、<a href="https://docs.microsoft.com/en-us/rest/api/apimanagement/apis/createorupdate#apimanagementcreateapiusingoai3import" target="_blank">REST API</a> 呼び出しを使用して API をインポートすることもできます。</p>
+
+
+  <p>インポート中に、仕様 <em>の servers</em> フィールドに複数のエントリが含まれている場合、API Management HTTPS URL が選択されます。 HTTPS URL&#39;されていない場合は、最初の HTTP URL が選択されます。 HTTP URL&#39;されていない場合、バックエンド サービスの URL は空になります。</p>
+
+
+  <p>インポート機能にはいくつかの <a href="https://docs.microsoft.com/en-us/azure/api-management/api-management-api-import-restrictions#a-nameopen-api-aopenapiswagger" target="_blank">制限があります</a>。 たとえば、例と<em>マルチパート/</em><em>フォーム データ フィールドはサポート</em>されていません。</p>
+
+
+  <h2>Azure API Management で OpenAPI 仕様 v3 定義をエクスポートするAPI Management</h2>
+
+
+  <p>Azure API Managementでは、OpenAPI 仕様 v3 形式で API を簡単にエクスポートできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0d56a25-ab09-40ba-b88d-5dbc284ec826.png"><img alt="API Management portal" border="0" height="533" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a2a30e1b-e085-4b55-9bf7-3ff5e69ea154.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="API Management ポータル" width="1095"></a></p>
+
+
+  <p>API 仕様は、開発者ポータルから JSON または YAML ファイルとしてダウンロードできます。 開発者ポータルは、自動的に生成され、完全にカスタマイズ可能な Web サイトです。この Web サイトでは、訪問者は API を検出し、その使い方を学習し、対話形式で試し、最後にサインアップして API キーを取得できます。</p>
+
+
+  <p>Azure portal または <a href="https://docs.microsoft.com/en-us/rest/api/apimanagement/apiexport/get#exportformat" target="_blank">REST API</a> 呼び出しのビジュアル インターフェイスを使用して、クエリ パラメーターの形式を <em>openapi-link</em> に設定して、仕様をエクスポートすることもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/346be481-f3de-4639-97c1-e2175e16aec3.png"><img alt="Exporting APIs" border="0" height="376" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bf7d1f4a-c807-4979-bf27-3de6f70af790.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="API のエクスポート" width="705"></a></p>
+
+
+  <h2>開始方法と次の&rsquo;予定</h2>
+
+
+  <p>OpenAPI 仕様ファイルから API をインポートすることで、現在の機能<a href="https://docs.microsoft.com/en-us/azure/api-management/import-and-publish" target="_blank"></a>を数分で試しに行うことができます。 機能が一般提供される前に、呼び出しを使用して JSON 形式でエクスポートREST APIします。 今後数か月で、PowerShell SDK で OpenAPI 仕様 v3 のインポートとエクスポートのサポートも追加されます。</p>
+
+
+  <p><a href="https://aka.ms/apimso">ご自分の考えをお知らせします</a>。&nbsp;</p>

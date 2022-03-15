@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 56ee6b9b7c98ef3bfce7c3186fb624a2d5d3ebcf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895771"
+Slug: tracking-configuration-changes-for-your-azure-vm
+Title: Azure VM の構成変更の追跡
+Summary: このブログ投稿では、Change Tracking ソリューションを使用して、Azure Vm でゲスト内の変更を検出する方法について説明します。 Azure VM 内から直接、システム全体で発生した変更の詳細をすばやく評価できます。 現在、ソフトウェア、ファイル、Windows レジストリ、Windows サービス、および Linux デーモンの追跡がサポートされています。
+Content: >-
+  <p>このブログ投稿では、Change Tracking ソリューションを使用して、Azure Vm でゲスト内の変更を検出する方法について説明します。 Azure VM 内から直接、システム全体で発生した変更の詳細をすばやく評価できます。 現在、ソフトウェア、ファイル、Windows レジストリ、Windows サービス、および Linux デーモンの追跡がサポートされています。</p>
+
+
+  <p>この機能は現在、 <strong>プライベートプレビュー</strong>段階です。 &rsquo;試してみる場合は、<a href="https://aka.ms/automationconfigforvm">こちらからサインアップ</a>してください。</p>
+
+
+  <h2>変更の追跡の有効化</h2>
+
+
+  <p>VM から、[仮想マシン] ブレードの [ <strong>Automation + Control</strong>] の下にある [<strong>変更</strong> &rdquo; の追跡] を選択 &ldquo; できます。 これを選択すると、この VM に対して Change Tracking ソリューションが有効になっているかどうかを確認するための検証が実行されます。 有効になっていない場合は、ソリューションを有効にするオプションが表示されます。</p>
+
+
+  <p>通常、ソリューションの有効化プロセスには数分しかかかりませんが、最大で15分かかることがあります。 この期間中は、ブラウザーウィンドウを閉じないでください。 ソリューションを有効にし、ログデータがワークスペースへのフローを開始すると、次のセクションで説明するダッシュボードでデータを分析できるようになるまでに、30分以上かかることがあります。 このタイミングは、今後大幅に改善される予定です。</p>
+
+
+  <h2>VM の変更を視覚化する</h2>
+
+
+  <p>Change Tracking ダッシュボードから、VM で発生した変更を表示できます。 グラフのメインセットには、構成の変更が時間と種類によって表示されます。 下の対話型の表は、指定された時間範囲内に発生した変更を示しています。 テーブルの行をクリックすると、各変更の詳細を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e25da92-48e5-45d1-a594-4d17afe8f73f.png"><img alt="image" border="0" height="380" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/59657b1a-3cdc-4693-b35f-194f3c7ac3cf.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="800"></a></p>
+
+
+  <p>表示可能な時間枠を変更するには、[<strong>フィルター</strong> &rdquo; ] をクリックし &ldquo; ます。 既定の時間範囲は過去24時間ですが、時間の範囲を過去30分、過去1時間、過去6時間、過去7日間、過去30日間、またはカスタムの時間範囲に設定することもできます。 Change Tracking ソリューションでは、すべての Windows サービス、linux デーモン、すべてのソフトウェア、および一部の linux ファイル (/etc/* conf) が既定で追跡されます。ただし、追加のファイルを収集し、マシン全体でレジストリの変更を Windows する場合は、[<strong>構成</strong> &rdquo; ] をクリック &ldquo; して、それらをソリューション &rsquo; のコレクション設定に追加できます。 注意: 構成設定は、そのワークスペースのすべてのコンピューターでユニバーサルです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5a1dbbf-a474-4576-8aaa-03b4c49cd7fb.png"><img alt="image" border="0" height="361" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/94052b69-b2ef-4c87-847a-64f9a2b04874.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="640"></a></p>
+
+
+  <p>コレクションの設定では、ページの上部にあるタブを使用して変更する変更の種類に移動できます。 プラス (+) アイコンをクリックすると、指定した変更の種類に新しいコレクション設定を追加できます。または、既存の設定をクリックしてプロパティを編集することもできます。</p>
+
+
+  <h2>VM の Azure アクティビティログイベントを関連付ける</h2>
+
+
+  <p>Azure アクティビティログソリューションで OMS ワークスペースにデータを funneling している場合は、Azure アクティビティ相関関係線グラフを有効にして、Change Tracking 時間枠内に発生した VM のアクティビティログイベントの傾向を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45fb26ac-37a8-403d-9432-b1c9733908af.png"><img alt="image" border="0" height="193" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9350e2c9-aed3-4888-a8cf-f0eed88622be.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="640"></a></p>
+
+
+  <p>OMS ワークスペースで Azure アクティビティログを受信するには、次の手順に従います (から <a href=""></a> )</p>
+
+
+  <ol>
+   <li>OMS で Azure Activity Log Analytics ソリューションを追加する</li>
+   <li>Azure のワークスペースにアクセスし、ワークスペースのデータソースの下にある azure のアクティビティログ &quot; を &quot; クリックします</li>
+   <li>任意のサブスクリプションへの接続を有効にする</li>
+   <li>データの収集を開始します</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7610aab-06c0-43eb-83ae-fc74b091f9e3.png"><img alt="image" border="0" height="306" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bc75eb04-0b17-4b21-a3cd-d5dd91cb635a.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="640"></a></p>
+
+
+  <p>アクティビティログのグラフポイントをクリックすると、その時間内に発生したアクティビティログイベントを確認できます。 結果はログ検索で開きます。</p>
+
+
+  <h2>OS のサポート</h2>
+
+
+  <p>OMS エージェントの要件を満たすすべてのオペレーティングシステムがサポートされています。 X86 と x64 の両方のバージョンが、さまざまなディストリビューションで公式にサポートされています。 ただし、OMS エージェントは、一覧に表示されていない他のディストリビューションでも実行される可能性があります。</p>
+
+
+  <ul>
+   <li>Windows
+   <ul>
+    <li>Windows Server 2008 SP 1 以降</li>
+    <li>Windows 7 SP1 以降</li>
+   </ul>
+   </li>
+   <li>Linux
+   <ul>
+    <li>Amazon Linux 2012.09 ～ 2015.09</li>
+    <li>CentOS Linux 5、6、7</li>
+    <li>Oracle Linus 5、6、7</li>
+    <li>Red Hat Enterprise Linux Server 5、6、および 7</li>
+    <li>Debian GNU/Linux 6、7、8</li>
+    <li>Ubuntu 12.04 LTS、14.04 LTS、15.04、15.10</li>
+    <li>SUSE Linux Enterprise Server 11 および 12</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <h2>OMS の新 Change Tracking</h2>
+
+
+  <p>OMS Change Tracking を初めて使用する場合は、<a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-change-tracking">ドキュメント</a>の Windows と Linux マシンの両方で変更の検出を含む現在の機能を確認できます。</p>

@@ -1,0 +1,159 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 68c7cb2c2dec61796b64cc2ec02ae7a7dde0b49c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895205"
+Slug: announcing-the-beta-apache-cordova-plugin-for-azure-app-service-mobile-apps
+Title: ベータ版プラグインのApache Cordova発表Azure App Service Mobile Apps
+Summary: Apache Cordova 用プラグインの最新のベータ リリースのお知Azure App Service Mobile Apps。
+Content: >-
+  <p>Apache Cordova Plugin for Azure App Service Mobile Apps の最新のベータ リリースをお知らせします。 このプラグインは、データ アクセス、プッシュ登録、および認証用の API を、Node.js または ASP.NET で記述された Azure Mobile App バックエンドに提供します。</p>
+
+
+  <p>Azure Mobile App バックエンドの開発の詳細については、Azure Mobile App バックエンドの開発に関するページを参照して、<a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-dotnet-backend-how-to-use-server-sdk/">ASP.NET またはNode.js</a> <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-node-backend-how-to-use-server-sdk/"> 。 </a> また、TodoList クイック スタートのドキュメントに記載されている簡単な手順に従って、Azure Mobile App バックエンドを生成し、 <a href="https://portal.azure.com/">Azure portal</a> 内で管理することもできます。</p>
+
+
+  <p>サービスを&rsquo;作成したら、&#39;クライアントを作成Apache Cordovaします。 このために使用するApache Cordovaクライアントがある可能性があります。 必要に&#39;場合は、クイック スタート ツールを<a href="https://github.com/Azure/azure-mobile-apps-quickstarts/tree/master/client/cordova/README.md">使用Project</a>。</p>
+
+
+  <h2 id="installing-the-apache-cordova-plugin-in-your-project">プロジェクトに Apache Cordova プラグインをインストールする</h2>
+
+
+  <p>このApache Cordova <a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.html#link-7">Cordova プラグイン コマンドを使用してインストール</a> されます。</p>
+
+
+  <pre class="prettyprint">
+
+  <code>cordova plugin add cordova-plugin-ms-azure-mobile-apps
+
+  </code></pre>
+
+
+  <p>これにより、サポートされているすべてのプラットフォームでプラグインを自動的に使用できます。</p>
+
+
+  <h2 id="connecting-to-the-azure-mobile-app-backend">Azure モバイル アプリ バックエンドへの接続</h2>
+
+
+  <p>最初に行う必要があるのは、バックエンド サービスへの接続を定義する方法です。 これは、 の呼び出しで行 <code>WindowsAzure.MobileServiceClient()</code> われます。</p>
+
+
+  <pre class="prettyprint">
+
+  <code>var azureConnection = new WindowsAzure.MobileServiceClient(&#39;https://mysitename.azurewebsites.net&#39;);
+
+  </code></pre>
+
+
+  <p>他のすべての関数は、この接続オブジェクトを参照&#39;汎用的にアクセスできる azureConnection を格納する場合に最適です。</p>
+
+
+  <h2 id="connecting-to-a-sql-azure-table">テーブルへの接続SQL Azureする</h2>
+
+
+  <p>テーブルに接続するには:</p>
+
+
+  <pre class="prettyprint">
+
+  <code>var tableRef = azureConnection.table(&#39;todoitem&#39;);
+
+  </code></pre>
+
+
+  <p>オブジェクト<code>tableRef</code>を使用すると、Azure Mobile App バックエンドと通信して、接続されているテーブルの読み取りSQL Azureできます。 たとえば、次のようになります。</p>
+
+
+  <pre class="prettyprint">
+
+  <code>var query = tableRef.where({ complete: false });
+
+  query.read().then(function (results) {
+      var items = $.map(results, function (singleRow) {
+          return $(&#39;&lt;li&gt;&#39;)
+              .attr(&#39;data-todoitem-id&#39;, item.id)
+              .append($(&#39;&lt;button class=&quot;item-delete&quot;&gt;Delete&lt;/button&gt;&#39;))
+              .append($(&#39;&lt;input type=&quot;checkbox&quot; class=&quot;item-complete&quot;&gt;&#39;).prop(&#39;checked&#39;, item.complete))
+              .append($(&#39;&lt;div&gt;&#39;).append($(&#39;&lt;input class=&quot;item-text&quot;&gt;&#39;).val(item.text)));
+      });
+      $(&#39;#listitems&#39;).empty().append(items);
+  });
+
+  </code></pre>
+
+
+  <p>このコード スニペットの例では、todoitem テーブルの不完全なタスクのクエリを実行し、結果テーブルの各行に基づいて一連の LI 項目を生成します。</p>
+
+
+  <p>次のコード スニペットを使用して、項目を更新するイベント ハンドラーを接続することもできます。</p>
+
+
+  <pre class="prettyprint">
+
+  <code>var isComplete = $(this).prop(&#39;checked&#39;);
+
+  var itemid = $(this).closest(&#39;li&#39;).attr(&#39;data-todoitem-id&#39;)
+
+  todoItemTable
+      .update({ id: itemid, complete: isComplete })
+      .then(refreshTodoItems, handleError);
+  </code></pre>
+
+
+  <p>新しい行の挿入、古い行の削除、Todo リストのテキストの変更など、同様のコード スニペットがあります。</p>
+
+
+  <h2 id="authenticating-using-azure-app-service">Azure App Service を使用した認証</h2>
+
+
+  <p>モバイル バックエンドで認証を使用Azure App Service <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-auth/">した</a>後は、Cordova アプリでこの機能を利用できます。 次のスニペットを使用して認証をトリガーします。</p>
+
+
+  <pre class="prettyprint">
+
+  <code>var provider = &#39;microsoftaccount&#39;; // or facebook,twitter,google,aad
+
+  azureConnection.login(provider).done(
+      function success(user) {
+          console.info(&#39;User &#39; + user + &#39; has logged in);
+      }, function error(error) {
+          console.error(&#39;Failed to login: &#39;, error);
+      });
+  // azureConnection.currentUser is available after success() is called
+
+  </code></pre>
+
+
+  <p>iOS または Android デバイスで認証をテストEmulator - 認証サービスには、現在、リプル シミュレーターで使用する場合に制限があります。</p>
+
+
+  <h2 id="limitations">制限事項</h2>
+
+
+  <p>これはベータ リリースであり、エミュレーターまたは iOS および Android アプリケーション用のデバイスで実行されている Apache Cordova アプリ向けに、このリリースを意図的に最適化しました。 認証フローは、リプル内で動作しない (Apache Cordova アプリケーションの実行中に使用される標準シミュレーター Visual Studio。</p>
+
+
+  <p>認証フローは、AngularJS ベースのフレームワークApache Cordovaなアプリを実行する場合にも <a href="https://ionicframework.com/">機能しません</a>。 これらの両方の問題は、フォローアップ ベータ リリースで修正される予定です。</p>
+
+
+  <p>さらに、このプラグインではオフライン同期機能はサポートされていません。 プラグインの一般提供の前に、この問題を修正します。</p>
+
+
+  <h2 id="working-with-mobile-web-applications">モバイル Web アプリケーションの操作</h2>
+
+
+  <p>モバイル Web アプリケーションでは、JavaScript ライブラリを使用します。 上記の認証フローに関する問題もブラウザー全般に影響を与えるので、現時点では、関連付けられている JavaScript ライブラリはリリースされません。 モバイル Web アプリケーションで使用する JavaScript ライブラリを、モバイル Web アプリケーションの認証フローを修正するのと同時にリリースApache Cordova。</p>
+
+
+  <h2 id="get-involved">参加する</h2>
+
+
+  <p>オープン環境でクライアントを開発中であり、ソース コード リポジトリは <a href="https://github.com/azure/azure-mobile-apps-js-client">GitHub。</a> 制限によってまだ対処されていないコードに関する問題がある場合は、次の問題に関するGitHub<a href="https://github.com/azure/azure-mobile-apps-js-client/issues">してください</a>。</p>
+
+
+  <h2 id="get-help">ヘルプを取得</h2>
+
+
+  <p><a href="https://stackoverflow.com/questions/tagged/azure-mobile-services">StackOverflow</a> または Azure Mobile Services フォーラムでサポート<a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=azuremobile&amp;filter=alltypes&amp;sort=lastpostdesc">を提供しています</a>。 これらのフォーラムに投稿する場合は、使用しているベータ 版プラグインの特定Apache Cordovaに記載&rsquo;してください。</p>

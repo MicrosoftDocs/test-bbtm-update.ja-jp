@@ -1,0 +1,200 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 16527192971298378f7adc9e02f5c22613ca6dec
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894978"
+Slug: microsoft-azure-storage-service-version-removal
+Title: Microsoft Azure Storage サービス バージョンの削除
+Summary: '更新: このブログ投稿は適用されなくなりました。  サービス バージョンの削除プランのAzure Storageについては、以下を参照してください。https://azure.microsoft.com/en-us/blog/microsoft-azure-storage-service-version-removal-update-extension-to-2016/'
+Content: >-
+  <p><b><span style="color:#FF0000;">更新</span>: このブログ投稿<span style="color:#FF0000;">は適用されなくなりました</span>。&nbsp;サービス バージョンの削除プランのAzure Storageについては、以下を参照してください。<a href="https://azure.microsoft.com/en-us/blog/microsoft-azure-storage-service-version-removal-update-extension-to-2016/">https://azure.microsoft.com/en-us/blog/microsoft-azure-storage-service-version-removal-update-extension-to-2016/</a></b></p>
+
+
+  <p>-------------------コンテンツは現在、古い形式-----------------</p>
+
+
+  <p><strong>更新: 指定したバージョンを削除する期間を 2015 年 12 月 9 日に延長しました。</strong> Storage サービスは 2008 年に最初に導入されました。その後、7 つのバージョンの更新プログラムをリリースし、それぞれプロトコルを絞り込み、新機能を追加しました。&nbsp;今後、以前のバージョン&nbsp;のサービスの一部が削除される予定REST API。&nbsp;この投稿では、これらのバージョンが削除された後もアプリケーションが引き続き実行されるのを確認するために知る必要があるすべての概要を説明します。 &nbsp;</p>
+
+
+  <h1>背景: Storage サービスのバージョン管理</h1>
+
+
+  <h2>バージョン管理とは</h2>
+
+
+  <p>Azure Storageは、REST APIを使用してアクセス&rsquo;されます。&nbsp;これらの API は 2008 年に初めてリリースされました。&nbsp;追加と変更によってサービスが改善されたので、既存のアプリケーションが破損しないようにバージョン管理を使用しました。&nbsp;既存のアプリケーションを壊す可能性がある変更を行う場合は、新しいバージョンが導入されます。このバージョンでは、アプリケーションで明示的にオプトインして使用する必要があります。&nbsp;既存のアプリケーションは、新しいバージョンの存在の影響を受&rsquo;けません。&nbsp;ストレージの呼び出しでは、通常、次のいずれかの方法で使用されるバージョンを指定します: 1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api-version クエリ パラメーター: sv と x-ms-version が指定されていない限り、ストレージに対して行われるすべての呼び出しに対して指定できます。または、指定した場合はバージョン 2014&nbsp; 以上を使用します。この api-version パラメーターは、使用されるサービスのバージョンを指定します。 2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x-ms-version 要求ヘッダー: これは、共有キー認証を使用して行われた呼び出しに必要です。&nbsp;x-ms-version ヘッダーは、要求を解釈する方法と、そのバージョンの REST API を使用してクライアントの応答を形成する方法をサービスに通知するバージョンを指定します。 3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SAS バージョン ヘッダー: バージョン 2012 および 2013 &ldquo;では、Shared Access Signature (SAS) トークンの sv&rdquo; パラメーターで指定されたバージョンによってプロトコルのバージョンが指定&nbsp;されます。バージョン 2014 &ldquo;では、sv&rdquo; パラメーターは、api-version クエリ パラメーターが指定されていない場合にのみプロトコル のバージョンを指定します。 4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DefaultServiceVersion: ユーザーは、Blob Service の SetServiceProperties を使用してこれを設定し、バージョンが指定されていない要求 (つまり、パブリック BLOB の要求) に使用される API のバージョンを設定できます。 5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 既定値: パブリック BLOB に対して要求が行われたが、DefaultServiceVersion が設定されていない場合は、サービスの既定値が使用されます。&nbsp;これは、SetContainerACL が設定されていない限り、最初の 2008 バージョンでした。その場合、バージョン 2009 が使用されます (SetContainerACL に使用されたバージョンに関係なく)。 要求のバージョンを決定するために使用される完全な規則については、 <a href="https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx">MSDN を参照してください</a>。</p>
+
+
+  <h2>クライアント ライブラリとツールについて</h2>
+
+
+  <p>多くのユーザーは、アプリケーションの開発Storage Microsoft が提供するクライアント ライブラリの一覧を使用しています。&nbsp;これらの各クライアント ライブラリは、基本的に特定のバージョンのクライアント ライブラリにバインドREST API。&nbsp;これは、PowerShell コマンドレットと AzCopy にも適用されます。&nbsp;このStorage Emulatorは、そのバージョンの REST APIリリース時にリリースされたバージョンのすべてのバージョンStorage Emulatorサポートしています。</p>
+
+
+  <h1>何が&rsquo;変わるか</h1>
+
+
+  <p>バージョン管理のアプローチ &ndash; は変更されていません。既存のアプリケーションを壊す可能性がある変更を加えるたびに、REST API の新しいバージョンが引き続き導入されます。&nbsp; ただし、ストレージ サービスの有効期間の早い段階でリリースされた以前のサービス バージョンの一部を削除する予定です。</p>
+
+
+  <h2>削除の詳細</h2>
+
+
+  <h3>削除されるバージョンは何ですか?</h3>
+
+
+  <p>バージョン 2012-02-12 より前のすべてのバージョンは、<sup>2015</sup> 年 8 月 1 日に削除されます。&nbsp; これには、次のバージョンが含まれます。</p>
+
+
+  <ul>
+      <li>2008 (GA 前にリリース)</li>
+      <li><a href="https://msdn.microsoft.com/en-us/library/windowsazure/dn592122.aspx">バージョン 2009-04-14</a> (GA より前にリリース)</li>
+      <li><a href="https://msdn.microsoft.com/en-us/library/windowsazure/dn592117.aspx">バージョン 2009-07-17</a> (GA より前にリリース)</li>
+      <li><a href="https://msdn.microsoft.com/en-us/library/windowsazure/dn592121.aspx">バージョン 2009-09-19</a> (GA より前にリリース)</li>
+      <li><a href="https://msdn.microsoft.com/en-us/library/windowsazure/dn592120.aspx">バージョン 2011-08-18</a></li>
+  </ul>
+
+
+  <p>次のバージョンは影響を受けず、引き続き完全にサポートされます。</p>
+
+
+  <ul>
+      <li><a href="https://msdn.microsoft.com/en-us/library/azure/dn592123.aspx">バージョン 2012-02-12</a></li>
+      <li><a href="https://msdn.microsoft.com/en-us/library/azure/dn592124.aspx">バージョン 2013/08/15</a></li>
+      <li><a href="https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx">バージョン 2014-02-14</a></li>
+  </ul>
+
+
+  <h3>これらのバージョンが削除されるのは、いつですか?</h3>
+
+
+  <p>影響を受ける 5 つのバージョンは、<sup>2015</sup> 年 8 月 1 日に削除されます。</p>
+
+
+  <h3>これらのバージョンが削除されるとどうなるでしょうか。</h3>
+
+
+  <p>削除が有効な場合は、次の変更が行われます。</p>
+
+
+  <h4>明示的にバージョン管理された要求</h4>
+
+
+  <p>x-ms-version 要求ヘッダー (削除されたバージョンの 1 つに設定) を使用して明示的にバージョン管理されている要求は失敗し、無効なバージョン ヘッダーで行われた要求と同様に、HTTP 400 (Bad Request) 状態コードを受信します。</p>
+
+
+  <h4>sv パラメーターがない &ldquo;&rdquo; SAS 要求</h4>
+
+
+  <p>バージョン 2012-02-12 より前の SAS 要求では、SAS &ldquo;トークンの sv&rdquo; パラメーターにバージョンが指定されていない。&nbsp; これらの要求の SAS トークン パラメーターは、2009-07-17 REST バージョンの規則を使用して解釈されました。&nbsp; 2012-02-12 より前のバージョンが削除されると、これらの要求は失敗し、サポートされているバージョンとして x-ms-version&nbsp; が指定されているかどうかに関係なく、HTTP 400 (Bad Request) 状態コードを受信します。SAS 要求が引き続き動作するには、sv パラメーターを指定する &ldquo;必要&rdquo; があります。&nbsp; バージョン 2014-02-14 以上の使用をお勧めします。</p>
+
+
+  <h4>明示的なバージョンがない既定のサービス バージョンと匿名要求</h4>
+
+
+  <p>Blob <a href="https://msdn.microsoft.com/en-us/library/azure/hh452235.aspx">Service のプロパティの設定 (REST API)</a> を使用して要求の既定のバージョンをバージョン 2012-02-12 以上に設定した場合は、バージョン セットが使用されます&nbsp; 。既定のバージョンが設定されていない場合、要求はバージョンに依存しないと想定され、今後はバージョン 2014-02-14&nbsp; で応答を開始します。バージョン管理されていない要求が新しいサービス バージョンの取得を開始するときに、変更が壊れるかどうかについては保証は行われず、ベスト プラクティスは常にバージョンの提供が最善である点に注意してください。 既定のサービス バージョンが &ldquo;削除されたバージョンに設定されている場合、その要求は明示的にバージョン管理されると見なされ、400 Bad Request で失敗します&rdquo;。&nbsp; 既定のサービス バージョンがまだサポートされているバージョンに設定されている場合、そのバージョンは引き続き使用されます。</p>
+
+
+  <h4>明示的なバージョンがない SharedKey/SharedKeyLite 要求</h4>
+
+
+  <p>&rsquo;アカウント共有キーを使用して署名された要求の場合、x-ms-version ヘッダーまたは api-version クエリ パラメーター (バージョン 2014-02-14 以上でサポートされています) を使用して明示的なバージョンが指定されていない場合、要求は 400 Bad Request で失敗します。 <b>メモ： </b>ストレージ サービスに対して行われたすべての要求が明示的にバージョン管理されるのがベスト プラクティスと見なされます。&nbsp;バージョン 2014-02-14 より、要求は api-version&nbsp; クエリ文字列パラメーターを使用して明示的にバージョン管理できます。これにより、カスタム ヘッダーを指定できないクライアントでも、クエリ文字列にこのパラメーターを含めてバージョンを指定できます。バージョン<a href="https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx">管理の詳細については、MSDN</a> に関するページをAzure Storageベスト プラクティスを参照してください。</p>
+
+
+  <h2>サポートされている最小バージョン/ライブラリ/SDK&rsquo;</h2>
+
+
+  <p>ユーザーは、可能な限り最新バージョンにアップグレードする必要があります。&nbsp; 次の表は、削除するバージョンを対象とするコンポーネントをユーザーが使用している場合にすばやく確認するために用意されています。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top" width="119"><b>Language</b></td>
+              <td valign="top" width="628"><b>サービス バージョン &nbsp; 2012-02-12 以降を使用してサポートされている最も古いバージョン</b></td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">.NET</td>
+              <td valign="top" width="628">2.0. これは、Azure SDK バージョン 2.1 に最初に含まれていました。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">Java</td>
+              <td valign="top" width="628">0.3</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">C++</td>
+              <td valign="top" width="628">すべて</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">Windows Phone</td>
+              <td valign="top" width="628">すべて</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">WinRT</td>
+              <td valign="top" width="628">すべて</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">Android</td>
+              <td valign="top" width="628">すべて</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">PHP</td>
+              <td valign="top" width="628">現在、バージョン 2012-02-12 &ndash; &nbsp; をサポートしているリリースバージョンはありません。更新プログラムは近日公開予定です。</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">Node.js</td>
+              <td valign="top" width="628">現在リリースされているバージョンでは、2012-02-12 がサポートされます</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">Ruby</td>
+              <td valign="top" width="628">現在リリースされているバージョンでは、2012-02-12 がサポートされます</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">Python</td>
+              <td valign="top" width="628">現在リリースされているバージョンでは、2012-02-12 がサポートされます</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">PowerShell</td>
+              <td valign="top" width="628">すべて</td>
+          </tr>
+          <tr>
+              <td valign="top" width="119">CLI</td>
+              <td valign="top" width="628">現在リリースされているバージョンでは、2012-02-12 がサポートされます</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <h1>どうすればよいですか。</h1>
+
+
+  <p>削除後もアプリケーションが引き続き正常に動作するには、次の操作を行う必要があります。</p>
+
+
+  <h2>アプリケーションで使用されているバージョンを確認する</h2>
+
+
+  <p>最初に行う必要があるのは、アプリケーションで使用されている REST バージョンを特定する方法です。&nbsp;アプリケーションが制御下に置かれている場合、Azure Storage を呼び出すすべてのコンポーネントを認識している自信がある場合は、上記の一覧に対して使用されているコンポーネントを確認するか、独自のコードを記述してストレージの呼び出しを行っている場合はコードを調することで、これを確認できます。 より強力なチェックとして、またはどのバージョンのコンポーネントがデプロイされているのか不明な場合は、ログ記録を有効にして<a href="https://msdn.microsoft.com/en-us/library/hh343270.aspx"></a>、ストレージ アカウントに対して行われた要求をログに記録できます。&nbsp;ログには、使用<a href="https://msdn.microsoft.com/en-us/library/hh343259.aspx">される要求バージョンが</a>含まれています。これは、計画的な削除を含むバージョンを使用して要求が行われる場合に使用できます。&nbsp;&ndash;ここでは、使用されているバージョンが強調表示されたサンプル ログ エントリを示します。この場合、要求は匿名<b>の GetBlob</b> 要求で、暗黙的に 2009-09-19 バージョンを使用しました:1.0;2011-08-09T18:52:40.9241789Z;GetBlob;AnonymousSuccess;200;18;10;anonymous;;myaccount;BLOB;&quot;&quot;https:// myaccount.blob.core.windows.net/thumbnails/lake.jpg?timeout=30000;&quot;/myaccount/thumbnails/lake.jpg&quot;;a84aa705-8a85-48c5-b064-b43bd22979c3;0;123.100.2.10;2009-09-19;252;0;265;100;0;265;10;0&quot;;&quot;0x8CE1B6EA95033D5;金曜日、09-8 月 11 日 18:52:40 GMT;;;;&quot;;8/2011 年 9 月 9 日 6:52:40 PM ba98eb12-700b-4d53-9230-33a3330571fc&quot;</p>
+
+
+  <h2>変更する情報</h2>
+
+
+  <p>削除するバージョンが使用されているのを示すログ エントリが見つけた場合は、そのコンポーネントを見つけて、引き続き動作を検証する必要があります (&ndash;&nbsp;バージョン管理されていない要求は、上記の暗黙的なバージョンが増えるだけで動作し続ける可能性があります)。または、使用されているバージョンを変更するための適切な手順を実行します。最も一般的には、次の 2 つの手順のいずれかを使用します。1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 要求で指定されたバージョンを変更します。通常は、ライブラリ/ツールの新しいバージョンに移行します。&nbsp;可能であれば、最新バージョンに移行して、最も多くの機能強化と修正を行います。 2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 削除前に動作を確認できるよう、既定のサービス バージョンをサポートされているバージョンの 1 つに設定します。&nbsp;これは、明示的なバージョンがない匿名要求にのみ適用されます。 アプリケーションを&rsquo;新しいバージョンに移行する場合は、各サービス バージョンの上記のリンクされた変更リストを確認し、更新後にアプリケーションが正常に動作するように十分にテストする必要があります。&nbsp; サービス バージョンの更新には、含まれる構文の区切り (要求はエラーまたは形式が非常に異なる応答を受信します) とセマンティック区切り (要求は、異なる何かを意味する同様の応答を受け取ります) の両方が含まれていました。</p>
+
+
+  <h2>移行後の検証</h2>
+
+
+  <p>移行後、以前のバージョンが見つからなくなったことをログで検証する必要があります。&nbsp; これは、削除するバージョンがアプリケーションで使用されていないことを知る最も確実な方法です。&nbsp; 古いバージョン (たとえば、1 日に 1 回実行されるスケジュールされたタスク) を引き続き使用するタスク/ワークロードがまれに実行されていないか確認するために、十分な期間のログを確認してください。</p>
+
+
+  <h1>まとめ</h1>
+
+
+  <p>以前のサービス バージョンが <sup>2015</sup> 年 8 月 1 日に削除された場合に影響を受けずに、ユーザーはアプリケーションのアップグレードを今すぐ開始してください。</p>

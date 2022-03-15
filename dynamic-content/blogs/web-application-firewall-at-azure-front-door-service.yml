@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a41eb77b03888919872a30ae74aa4aa274704611
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890042"
+Slug: web-application-firewall-at-azure-front-door-service
+Title: Azure フロントドアサービスの Web アプリケーションファイアウォール
+Summary: Web アプリケーションをクラウドに移行する際には、セキュリティが最優先事項となっています。 本日、Azure フロントドアサービスの Web アプリケーションファイアウォール (WAF) のパブリックプレビューを発表いたします。  グローバルなアプリケーションおよびコンテンツ配信ネットワークとネイティブに統合された WAF エンジンを組み合わせることにより、web アプリケーションを世界中に、セキュリティで保護された方法で配信できる、可用性の高いプラットフォームが提供されるようになりました。
+Content: >-
+  <p>優れた web アプリケーションがあり、世界中のすべてのユーザーが満足しています。 悪意のある攻撃者もいます。 サイバー攻撃は、毎年、頻度と洗練された方法で増加し、保護されていないため、サービスの中断、データ損失、tarnished の評判のリスクが発生します。</p>
+
+
+  <p>Web アプリケーションをクラウドに移行する際には、セキュリティが最優先事項となっています。 本日、Azure フロントドアサービスの Web アプリケーションファイアウォール (WAF) のパブリックプレビューを発表いたします。 &nbsp; グローバルなアプリケーションとコンテンツ配信ネットワークをネイティブに統合された WAF エンジンと組み合わせることにより、web アプリケーションを世界中に安全かつ迅速に提供するのに役立つ、高可用性プラットフォームを提供できるようになりました。</p>
+
+
+  <p>フロントドアサービスを使用した WAF は、Azure edge で行った高度なセキュリティ投資を活用し、注入型攻撃や容量 DoS 攻撃などの複数の攻撃ベクトルから保護するように設計されています。 Azure &rsquo; のネットワークエッジで受信した各要求を検査し、バックエンドサーバーに入る前に不要なトラフィックを停止し、パフォーマンスに悪影響を及ぼすことなく大規模な保護を提供します。 フロントドア用の WAF を使用すると、定義したカスタムルールを使用して web アプリケーションへのアクセスを微調整したり、管理対象ルールとしてパッケージ化されている一般的な web アプリケーションの脆弱性に対してセキュリティルールのコレクションを有効にしたりすることができます。 さらに、フロントドアで WAF を使用すると、セキュリティポリシーの管理が一元化され、加えられたすべての変更が即座にすべてのフロントドアの端に反映されます。</p>
+
+
+  <p>WAF ポリシーは、web アプリケーションのセキュリティ体制を定義する WAF のビルディングユニットです。 セキュリティ規則には、カスタム規則と、管理対象セットと呼ばれる事前構成された一連の規則グループの2種類があります。 Azure によって管理される既定の規則セットは、新しい攻撃署名に適合するように、必要に応じて Azure によって更新されます。 Azure PaaS プラットフォームでホストされている web アプリなど、クラウドネイティブのインターネットに接続された web アプリケーションがある場合、既定の WAF ポリシーを使用してフロントドアを追加するのは非常に簡単です。 ほんの数回クリックするだけで、web アプリケーションは一般的な OWASP 上位10弱点から保護され、フロントドアサービスによって待機時間が最適化されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5fdc3b91-dd54-4e49-b2f1-5745baa2f53a.png"><img alt="Diagram of Web Application Firewall protecting Contoso's Web App" border="0" height="196" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f44ea369-486f-4b7f-a27e-287da2d5a179.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Contoso の Web アプリを保護する Web アプリケーションファイアウォールの図" width="607"></a></p>
+
+
+  <p align="center"><em>図1フロントドアで WAF を使用して Web アプリを保護する</em></p>
+
+
+  <p><br>
+
+  ビジネスに不可欠なアプリケーションのコンプライアンスと BCDR の要件を持つお客様の多くが、web アプリケーションが複数のリージョンでホストされている可能性があります。 フロントドアを使用した WAF は、一元化されたポリシー管理と、バックエンドに対する多数のルーティングオプションをサポートするグローバル負荷分散を提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8e59b740-6b05-4b31-afeb-cade2840b503.png"><img alt="Diagram of Web Application Firewall (WAF) protecting your Web Apps within your organization with multiple regions" border="0" height="329" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/005f261c-919a-4b9f-ab5e-95f27f842bb5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="複数のリージョンで組織内の Web Apps を保護する Web アプリケーションファイアウォール (WAF) の図" width="590"></a></p>
+
+
+  <p align="center"><em>図2フロントドアで WAF を使用して複数リージョンの web アプリケーションを保護する</em></p>
+
+
+  <p>フロントドアを使用した WAF は、Azure でホストされているバックエンドと、他のクラウドやオンプレミスでホストされているバックエンドを保護できます。 バックエンドをさらにロックダウンして、フロントドアからのトラフィックのみを許可し、インターネットからの直接アクセスを拒否することができます。 フロントドアに WAF を使用すると、カスタムルールを使用してきめ細かなアクセスやレート制御を行うことができます。 次のディメンションに沿ってカスタムルールを作成できます。</p>
+
+
+  <ul>
+   <li><strong>Ip 許可リストとブロックリスト</strong>: クライアントの ip アドレスまたは ip アドレスの範囲の一覧に基づいて、web アプリケーションへのアクセスを制御します。 IPv4 と IPv6 の両方がサポートされます。</li>
+   <li><strong>地理的ベースのアクセス制御</strong>: クライアント &rsquo; の国コードに基づいて web アプリケーションへのアクセスを制御します。</li>
+   <li><strong>Http パラメーターベースのアクセス制御</strong>: クエリ文字列、ポスト引数、要求 Uri、要求ヘッダー、要求本文などの Http (S) 要求パラメーターの文字列一致に基づいて、web アプリケーションへのアクセスを制御します。</li>
+   <li><strong>メソッドベースのアクセス制御の要求</strong>: Get、Put、Head などの HTTP 要求メソッドに基づいて、web アプリケーションへのアクセスを制御します。</li>
+   <li><strong>サイズ制約</strong>: クエリ文字列、Uri、要求本文など、要求の特定の部分の長さに基づいて、web アプリケーションへのアクセスを制御します。</li>
+   <li><strong>レート制限規則</strong>: レート制御規則は、任意のクライアント IP からの異常な高トラフィックを制限することです。 1 分間にクライアント IP によって許可される Web 要求の数にしきい値を設定することができます。 レートを一致条件と組み合わせることができます (たとえば、特定の Uri パスに対するレート制限アクセス)。</li>
+  </ul>
+
+
+  <p>WAF の料金は、作成する WAF のポリシーとルールの数、選択するマネージルールセットの種類、受信する web 要求の数に基づいて課金されます。 パブリックプレビュー期間中は、フロントドアに WAF を無料でご利用いただけます。</p>
+
+
+  <p>引き続き Azure WAF オファリングを強化することで、皆様のフィードバックをお待ちしております。 現在、ポータル、ARM テンプレート、または PowerShell を使用して、Web アプリケーションファイアウォールでフロントドアを試すことができます。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/frontdoor/waf-overview">Azure フロントドアサービスの Web アプリケーションファイアウォール (WAF)</a>に関する詳細なドキュメントを参照してください。</p>

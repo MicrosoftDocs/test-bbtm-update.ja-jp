@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fcc4893b78cfe9e5e6ebeb330970303e1b15dd1e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890299"
+Slug: asr-now-supports-netapp-private-storage-for-microsoft-azure
+Title: ASR では、NetApp プライベート StorageがサポートMicrosoft Azure
+Summary: Microsoft と NetApp は、シカゴの Ignite 2015 で、セカンダリ データセンターに投資することなく Hyper-V ワークロードのディザスター リカバリーを簡素化する方法を紹介します。 一緒に、netApp Storage Private Azure Site Recovery for Microsoft Azure を使用して SAN ベースのオンプレミス アプリケーションを Azure コンピューティングにレプリケートおよび復旧する方法をデモします。
+Content: >-
+  Microsoft と NetApp は、シカゴの <a href="https://aka.ms/asr_at_ignite">Ignite 2015</a> で、セカンダリ データセンターに投資することなく Hyper-V ワークロードのディザスター リカバリーを簡素化する方法を紹介します。 Azure Site Recovery ( <a href="https://aka.ms/asr_nps_video"></a> ASR) が netApp Private Storage (NPS) for Microsoft Azure を使用して SAN ベースのオンプレミス アプリケーションを Azure コンピューティングにレプリケートおよび復旧する方法をデモします。 Enterpriseお客様は、Equinix Cloud Exchange を使用して Equinix データセンターに配置されている NetApp Private Storage に Azure コンピューティング リソースを接続できます。
+
+
+  ASR と System Center Virtual Machine Manager (SCVMM) を使用すると、企業のお客様はオンプレミスの NetApp FAS Storage から Azure 用 NetApp Private Storage への配列ベースのレプリケーションを有効にできます。 その後、オンプレミスにデプロイされた Hyper-V 仮想マシンを Azure にフェールオーバーし、iSCSI 経由でレプリケートされたストレージ LUN に接続できます。
+
+
+  SAN ベースのワークロードを Azure に移行するには、ASR で既に一般提供されている 2 つの主要なレプリケーション機能が必要です。
+
+  <ul>
+   <li>オンプレミスのプライベート クラウドと Azure の間の Hyper-V 仮想マシンの OS ドライブをミラー化する ASR レプリケーション。 オンプレミスの <a href="https://aka.ms/asr_nps_documentation">VMM サイトと Azure の間で Hyper-V 仮想マシンの保護を有効にする必要があります</a></li>
+   <li>NetApp Storage SnapMirror レプリケーションを使用して、オンプレミスのプライベート クラウドと NetApp Private Storage の間のデータ ディスクを、Azure に配置された Equinix データセンターにミラーリングします。 配列ベースのレプリケーションを使用して、オンプレミス サイトと NPS の間のレプリケーション グループの <a href="https://aka.ms/asr_nps_documentation_san">保護を有効にする必要があります</a></li>
+  </ul>
+
+  &nbsp;
+
+
+  <strong><em>ソリューション トポロジを次の図に示します。</em></strong>
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ASR_NPS3.png"><img class="aligncenter size-full wp-image-288504" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ASR_NPS3.png" alt="ASR_NPS.png" width="926" height="693" /></a>
+
+
+  SCVMM、ASR、NPS を使用すると、お客様<b></b> <b> </b>は、NPS に接続された Azure コンピューティングに直接 SAN ベースの Hyper-V ワークロードに対して、シームレスなエンドツーエンドのストレージ アレイベースのレプリケーションとディザスター リカバリーを有効にできます。
+
+  <ul>
+   <li><b><sup><span style="color: #00bf30; font-size: medium;">NEW</span></sup></b><b> </b><b>Move SAN-Based Applications to Azure: </b>ASR と SCVMM を使用すると、すべてのターゲット オブジェクト (ストレージとコンピューティングの両方) の作成と管理が自動化され、復旧が確実に機能します。 <i>保護</i>と<i>回復</i>は仮想マシンであり、Storage対応しています。手動の手順と、障害発生後にワークロードを復旧するために従来必要だった複数の管理者ロールを切り分けることができます</li>
+   <li><b><sup><span style="color: #00bf30; font-size: medium;"></span></sup></b><b> </b> Microsoft Azure 向け <b>NetApp Private Storage</b> の新しいサポート: Enterprise のお客様は、Azure のスケーラビリティと柔軟性と、SQL Server、SAP などの階層 1 アプリケーションの NetApp ストレージの制御とパフォーマンスを組み合わせたアジャイル クラウド インフラストラクチャを構築できます。</li>
+   <li><b><sup><span style="color: #00bf30; font-size: medium;">新</span></sup></b><b></b><b>しいマルチ VM</b> 整合性とレプリケーション グループ: 複数の仮想マシンを一緒に保護してレプリケートすることで、アプリケーション層が一貫してレプリケートされ、同時にフェールオーバーされる必要がある <b>n</b> 層アプリケーションのサポートが拡張されます。 NPS にレプリケートされたデータ ディスクでは、Azure Internal Load Balancing (ILB) を利用して、Azure のクラスターで共有ディスク SQL Serverをオンラインにします</li>
+  </ul>
+
+  &nbsp;
+
+
+  NetApp のお客様は、ASR を SnapMirror と組み合わせて使用することで、簡単にデプロイできるディザスター リカバリーを使用して、データベースや電子メールなどの仮想化されたビジネス クリティカルなワークロードを保護できます。 ASR SAN レプリケーションに SnapMirror を使用しているお客様は、これらのワークロードのディザスター プロテクションが強化されたことを知って、Hyper-V でエンタープライズ アプリケーション ワークロードを自信を持って実行できます。
+
+
+  ソリューションの動作を確認<strong><span class="Apple-converted-space"> </span>するには、次のビデオを参照してください。このビデオでは、Azure への共有ディスクを使用してオンプレミスSQL Server<span class="Apple-converted-space"> </span></strong>クラスターをレプリケートおよびフェールオーバーする方法を示します。
+
+  <ul>
+   <li>ASR レプリケーションは、クラスター内の 2 ノード の OS ドライブを Azure にSQL Serverするために使用されます</li>
+   <li>NetApp SnapMirror 配列ベースのレプリケーションは、オンプレミス SAN から NPS にデータディスクとクォーラム ディスクをレプリケートするために使用されます</li>
+   <li>ASR はエンドツーエンドフローを調整し、レプリケーションをシームレスに有効にし、SQL Server クラスターを NPS に接続されている Azure コンピューティングにフェールオーバーします</li>
+   <li>ASR では、すべてのターゲット オブジェクト (ストレージとコンピューティングの両方) の作成と管理が自動化され、復旧が確実に機能します</li>
+  </ul>
+
+  &nbsp;
+
+
+  <iframe src="//channel9.msdn.com/Blogs/Windows-Azure/Availability-on-Demand-ASR-with-NetApp-Private-Storage/player" width="760" height="440" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+
+
+  &nbsp;
+
+
+  NPS への SAN ベースの Hyper-V ワークロードのレプリケーションとディザスター リカバリーを設定する方法の詳細については、ソリューションの構成とテストに関するホワイトペーパーを詳しく説明した <a href="https://aka.ms/asr_nps_whitepaper">NetApp</a> の新しいホワイトペーパーを参照してください。 詳細については、NetApp ブログを参照してください。
+
+
+  このソリューションは、Microsoft、NetApp、その他のストレージ企業による標準ベースのストレージ管理に多大な投資を行った結果です。 詳細については、このブログStorageネットワーク業界アソシエーション <a href="https://aka.ms/asr_nps_snia_blog">(SNIA) に関するページを参照してください</a>。
+
+
+  MSDN の <a href="https://aka.ms/asr_nps_forum">Azure Site Recoveryフォーラムにアクセスして</a> 、追加情報を確認し、他のお客様と関わり合います。 Hyper-V サイトSystem Center間の Storage Array-Based レプリケーションとディザスター リカバリーを有効にするには、<a href="https://aka.ms/asr_nps_vmm_ur5">VMM 2012 R2 更新プログラムロールアップ 5.0</a> が必要です。 詳細については、次のドキュメントを <a href="https://aka.ms/asr_nps_documentation_san">Azure Site Recoveryしてください</a>。
+
+
+  これで、要求時の可用性を有効にし<a href="https://aka.ms/asr_nps_landingpage">Azure Site Recovery</a>データセンターを拡張して<a href="https://aka.ms/asr_nps_aod"></a>保護するために、サービスを簡単に試しに行えるになりました。 レプリケートする新しい物理サーバーまたは仮想マシンごとに、Site Recovery の強力なレプリケーション機能を 31 日間無料で使用できます。

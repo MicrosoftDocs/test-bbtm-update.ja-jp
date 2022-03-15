@@ -1,0 +1,11 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3c4a4432da7c888ee471b284198213566b7415cc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890119"
+Slug: moving-to-coordinated-universal-time-utc
+Title: 協定世界時 (UTC) への移動
+Summary: 現在、Azure 内のタイム ゾーンWindows太平洋標準時 (PST) です。&nbsp;間もなく、新しいバージョン (UTC) 協定世界時予定です。&nbsp;これは、... の重要な変更である可能性があります。
+Content: '<p>現在、Azure 内のタイム ゾーンWindows太平洋標準時 (PST) です。&nbsp;間もなく、新しいバージョン (UTC) 協定世界時予定です。&nbsp;これは、ローカル時刻に依存するアプリケーションの場合に、壊れる変更である可能性があります。</p>  <p><b>変更を行うのは、いつですか?</b></p>  <p><b>UPDATE [2009 年 3 月 6 日]</b>: この変更は、3 月 8 日日曜日の午前 <a href="https://blogs.msdn.com/windowsazure/archive/2009/03/07/moving-to-coordinated-universal-time-utc-starting-this-sunday.aspx" mce_href="https://blogs.msdn.com/windowsazure/archive/2009/03/07/moving-to-coordinated-universal-time-utc-starting-this-sunday.aspx">10:00 GMT</a>&nbsp; から行われます。このプランに関するフィードバックをお寄せいただきありがとうございます。</p>  <p><strike>今後数週間以内に、この変更を間もなく行う予定です。&nbsp; コミュニティからのフィードバックと内部テストの結果は、正確なときに選択するのに役立ちます。&nbsp; 正確なタイミングが決定された場合は、ブログとフォーラムにもう一度投稿します。</strike></p>  <p><b>なぜこれを行うのですか?</b></p>  <p>Windows Azure はグローバル サービスです。&nbsp;アプリケーションが物理的な場所に関係なく同じように動作するようにするには、Windows Azure がすべての地域で一貫したタイム ゾーンを持っている必要があります。&nbsp;UTC は、グローバルな顧客ベースを考えると自然な選択であり、UTC は夏時間 (および関連するバグのリスク) の対象ではありません。</p>  <p><b>ユーザーにどのような影響が及ぼす可能性がありますか?</b></p>  <p>Azure で実行されているアプリケーションWindows現地時刻に依存している場合は、UTC への移行の影響を受け取る可能性があります。&nbsp;潜在的な問題の例を次に示します。</p>  <ul>    <li>ローカル タイムスタンプが使用されている場合、イベント ログでギャップが発生する可能性があります。</li>    <li>ローカル タイムスタンプに依存するユーザー インターフェイスでは、異なる結果が表示される場合があります。</li>    <li>アプリケーションによって格納されるローカル タイムスタンプは、変更後に異なる方法で解釈される場合があります。</li>  </ul>  <p>多くのアプリケーションは、UTC 時刻にのみ依存するように既に設計されています。&nbsp; これらのアプリケーションは影響を受けません。</p>  <p><b>質問または懸念事項</b></p>  <p>Azure ブログのページで、お問い合わせWindows<a href="https://blogs.msdn.com/windowsazure" mce_href="https://blogs.msdn.com/windowsazure">、Azure</a>&nbsp; フォーラムのWindows<a href="https://social.msdn.microsoft.com/Forums/en-US/windowsazure/threads" mce_href="https://social.msdn.microsoft.com/Forums/en-US/windowsazure/threads">してください</a>。</p>'

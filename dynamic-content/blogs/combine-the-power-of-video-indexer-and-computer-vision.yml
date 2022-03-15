@@ -1,0 +1,69 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d063bfca33c958a75a2b707553e00bd47aaab020
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890214"
+Slug: combine-the-power-of-video-indexer-and-computer-vision
+Title: Video Indexer と Computer Vision の力を組み合わせる
+Summary: 高解像度のキーフレームを Azure Media Services の Video Indexer からエクスポートできるようになります。
+Content: >-
+  <p>Azure Media Service &rsquo; s Video Indexer から高解像度のキーフレームをエクスポートできるようになりました。 キーフレームは、ソースビデオと比較して、以前は縮小された解像度でエクスポートされていますが、高解像度のキーフレーム抽出では、元の品質のイメージが提供され、Microsoft Computer Vision および Custom Vision サービスによって提供されるイメージベースの人工知能モデルを使用して、ビデオからさらに洞察を得ることができます これにより、事前トレーニング済みの豊富なカスタムモデル機能がロック解除されます。 Video Indexer から抽出されたキーフレームを使用して、ユーザー補助のニーズに合わせてシーンの説明を追加したり、車両の種類や場所を特定するなど、組織に関連する特定のオブジェクトを正確に特定したりすることができます。</p>
+
+
+  <p>この新しい概要で有効にできるユースケースをいくつか見てみましょう &rsquo; 。</p>
+
+
+  <h2>キーフレームを使用してイメージの説明を自動的に取得する</h2>
+
+
+  <p>視覚障碍を持つユーザーがコンテンツにアクセスしやすくするために、Computer Vision 内の<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/concept-describing-images" target="_blank">イメージの説明</a>モデルを使用して、ビデオのさまざまなビジュアルをキャプション &rdquo; するプロセス &ldquo; を自動化できます。 このモデルでは、イメージの信頼の値と共に複数の説明の提案が提供されます。 各高解像度のキーフレームの説明を取得し、それらをまとめて、ビデオのオーディオ記述トラックを作成することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/29a89fb9-92b2-4b7b-9720-05f06bcba7da.jpg"><img alt="Image description within Computer Vision" border="0" height="645" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3232d400-bd4e-4f49-bb42-ceadc46f268d.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Computer Vision 内のイメージの説明" width="1271"></a></p>
+
+
+  <h2>キーフレームを使用してロゴ検出を取得する</h2>
+
+
+  <p>Video Indexer が音声と視覚テキストでブランドを検出しても、ロゴのブランドの検出はまだサポートされていません。 代わりに、Computer Vision &rsquo; s <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/concept-brand-detection" target="_blank">ロゴベースのブランド検出</a> モデルを使用してキーフレームを実行し、コンテンツ内のロゴのインスタンスを検出することができます。</p>
+
+
+  <p>これにより、ブランドの安全性を理解し、コンテンツに表示されるブランドを制御できるようになります。 たとえば、自社のロゴを直接対戦したくない場合があります。 また、スポンサー契約またはコンテキスト広告を使用して、コンテンツに表示されるブランドに収益化ことができます。</p>
+
+
+  <p>さらに、このモデルの結果をキーフレームのタイムスタンプで相互参照して、ビデオにロゴが正確に表示されているかどうか、およびその長さを判断することができます。 たとえば、コンテンツ作成者と共に、ビデオに一定期間、ロゴを表示するスポンサーアグリーメントがある場合は、本契約の条項が導入されたかどうかを判断するのに役立ちます。</p>
+
+
+  <p>Computer Vision &rsquo; s のロゴ検出モデルは、何千ものさまざまなブランドを検出して認識できます。 ただし、ユースケースに固有のロゴを使用している場合、または箱のロゴデータベースに含まれていない場合は、Custom Vision を使用してカスタムオブジェクト検出機能を作成し、基本的には、関連するロゴのインスタンスをアップロードして適切にラベル付けすることで、独自のロゴのデータベースをトレーニングできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df641adf-813d-4421-aa45-203f9c20eba5.png"><img alt="Computer Vision's logo detector, detecting the Microsoft logo." border="0" height="397" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9bdb9913-feff-4659-b578-e61aab3ae61f.png" style="border: 0px currentcolor; border-image: none; margin-right: 0px; margin-left: 0px; display: inline; background-image: none;" title="Computer Vision のロゴ検出機能により、Microsoft ロゴが検出されます。" width="682"></a></p>
+
+
+  <h2>他の Computer Vision および Custom Vision オファリングでのキーフレームの使用</h2>
+
+
+  <p>Computer Vision Api は、イメージの説明やロゴの検出 (<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/concept-object-detection" target="_blank">オブジェクト</a>の検出、<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/concept-categorizing-images" target="_blank">画像の分類</a>など) に加えて、さまざまな洞察を<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home#analyze-images-for-insight" target="_blank">提供します。</a> 高解像度のキーフレームをこれらの製品と組み合わせて使用すると、無限の可能性があります。</p>
+
+
+  <p>たとえば、Computer Vision のオブジェクト検出モデルは、現在 Video Indexer の一部として既に検出されている一般的なボックスオブジェクトの境界ボックスを提供します。 これらの境界ボックスを使用して、標準に合わない特定のオブジェクト &rsquo; を除去できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/979b6d94-5cd9-438d-a8a5-f3d8e31734e9.jpg"><img alt="Object detection model" border="0" height="573" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5e0b53d5-a69c-4930-98d9-71a058952301.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="オブジェクト検出モデル" width="1024"></a></p>
+
+
+  <p>高解像度のキーフレームを Custom Vision と組み合わせて使用すると、さまざまなカスタムユースケースを実現できます。 たとえば、モデルをトレーニングして、ショットに示されている自動車の種類 (または cat の種類) を決定できます。 場合によっては、編集目的でシーンが客席された場所やセットを特定する必要があります。 目的のオブジェクトがユースケースに固有のものである場合は、Custom Vision を使用して、タグを付けるための <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/Custom-Vision-Service/getting-started-build-a-classifier" target="_blank">カスタム分類子</a> を構築し、ビジュアルオブジェクトの境界ボックスを指定するための <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/Custom-Vision-Service/get-started-build-detector" target="_blank">カスタムオブジェクト検出</a> 機能を作成します。</p>
+
+
+  <h2>試してみる</h2>
+
+
+  <p>これらは、Video Indexer での高解像度のキーフレームの可用性によって実現される新しい営業案件のほんの一部です。 ここでは、Video Indexer からキーフレームを取得し、先ほど説明したビジョンモデルを使用して追加のイメージ処理を実行することで、ビデオから追加の洞察を得ることができます。 この操作を開始するには、最初 <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fmedia-services%2Fvideo-indexer%2Fupload-index-videos&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7Cf5330de08d374a90a91008d77cd26759%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637115115445218815&amp;sdata=2XTZYP7uSLaeUXR6NidxPpnLzN95x0wTlmhzfY%2B2bcI%3D&amp;reserved=0" target="_blank">にビデオを Video Indexer にアップロード</a> し、インデックス作成ジョブの完了後に <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fmedia-services%2Fvideo-indexer%2Fscenes-shots-keyframes%23keyframe-detection&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7Cf5330de08d374a90a91008d77cd26759%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637115115445228808&amp;sdata=NtLhBe7LpdhkmCojYcU%2Fzxi%2BgHH3FGmWJANMZSE26Jw%3D&amp;reserved=0" target="_blank">高解像度のキーフレームを取得</a> します。次に、 <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fcognitive-services%2Fcomputer-vision%2Fvision-api-how-to-topics%2Fhowtocallvisionapi&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7Cf5330de08d374a90a91008d77cd26759%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637115115445228808&amp;sdata=QXLrogs06cefH1e%2FOIOF7oH7JppUrNNCB%2FwA%2FNbFu5o%3D&amp;reserved=0" target="_blank">アカウントを作成し、Computer Vision API</a> と <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fcognitive-services%2FCustom-Vision-Service%2Fhome&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7Cf5330de08d374a90a91008d77cd26759%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637115115445238801&amp;sdata=Wwhin2TwE791bDTlpX8tnP%2B%2FXIY2nFSisFDDLKt94PQ%3D&amp;reserved=0" target="_blank">Custom Vision</a>を開始します。</p>
+
+
+  <p><strong>質問やフィードバックがある場合や</strong> 皆様からのご意見をお待ちしております。 <a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcognitive.uservoice.com%2Fforums%2F598144-video-indexer&amp;data=02%7C01%7Cv-carjen%40microsoft.com%7Cf5330de08d374a90a91008d77cd26759%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637115115445238801&amp;sdata=ARddkDg6%2FufcIGZWNOa8fWtzyjSoyAzX3BHwcYRCu18%3D&amp;reserved=0" target="_blank">UserVoice ページ</a>を使用して、機能の優先順位を設定し、以下にコメントを残すか、または質問を電子メールで送信 <a>VISupport@Microsoft.com</a> します。</p>
+
+
+  <p><a name="_msocom_1"></a></p>

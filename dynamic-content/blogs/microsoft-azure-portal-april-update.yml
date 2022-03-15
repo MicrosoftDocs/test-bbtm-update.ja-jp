@@ -1,0 +1,229 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c5499663b50dd27f18a44142b1ee3530882e545f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890707"
+Slug: microsoft-azure-portal-april-update
+Title: Microsoft Azure ポータル 2019 年 4 月の更新プログラム
+Summary: 今月の更新プログラムには、IaaS、Azure Data Explorer、Security Center、Recovery Services、Role-Based Access Control、サポート、Intune の機能強化が含まれます。
+Content: >-
+  <p>今月の&rsquo;更新プログラムには、IaaS、Azure Data Explorer、Security Center、Recovery Services、Role-Based Access Control、サポート、Intune の機能強化が含まれます。</p>
+
+
+  <p>ここで <a href="https://portal.azure.com/" target="_blank">、Azure portalサインイン</a> して、新しい機能すべてを自分で&rsquo;確認します。 いつでも、 <a href="https://aka.ms/azuremobileapp" target="_blank">Azure mobile app</a> Azure リソースに接続し、いつでも、どこでも接続できるアプリをダウンロードします。</p>
+
+
+  <h2>4&rsquo; 月の更新プログラムの一覧を次に示Azure portal。</h2>
+
+
+  <h3>IaaS</h3>
+
+
+  <ul>
+   <li><a href="#Improved create experience for Managed Disks">アプリの作成エクスペリエンスのManaged Disks</a></li>
+   <li><a href="#Use of non-ASCII characters for virtual machine names">仮想マシン名に非 ASCII 文字を使用する</a></li>
+  </ul>
+
+
+  <h3>Azure Data Explorer</h3>
+
+
+  <ul>
+   <li><a href="#New full-screen Create Cluster experience">新しい全画面クラスターの作成エクスペリエンス</a></li>
+  </ul>
+
+
+  <h3>Security Center</h3>
+
+
+  <ul>
+   <li><a href="#Public preview: Adaptive network hardening">パブリック プレビュー:アダプティブ ネットワークのセキュリティ強化 (Azure Security Center</a></li>
+   <li><a href="#Adaptive application control updates">Azure Security Center適応型アプリケーション制御の更新</a></li>
+   <li><a href="#Support for virtual network peering">仮想ネットワーク ピアリングのサポート (Azure Security Center</a></li>
+   <li><a href="#Secure score impact changes">Azure Security Center: セキュリティ スコアの影響の変更</a></li>
+  </ul>
+
+
+  <h3>Azure Site Recovery</h3>
+
+
+  <ul>
+   <li><a href="#Replication to managed disks">マネージド ディスクへのレプリケーション</a></li>
+  </ul>
+
+
+  <h3>ロールベースのアクセス制御</h3>
+
+
+  <ul>
+   <li><a href="#New Classic administrators tab">[新しいクラシック管理者] タブ</a></li>
+  </ul>
+
+
+  <h3>サポート</h3>
+
+
+  <ul>
+   <li><a href="#Updated support request experience">サポート リクエスト エクスペリエンスの更新</a></li>
+  </ul>
+
+
+  <h3>その他</h3>
+
+
+  <ul>
+   <li><a href="#Updates to Microsoft Intune">Microsoft Intune の更新</a></li>
+  </ul>
+
+
+  <h2>IAAS</h2>
+
+
+  <h3><a id="Improved create experience for Managed Disks" name="Improved create experience for Managed Disks">アプリの作成エクスペリエンスのManaged Disks</a></h3>
+
+
+  <p>マネージド ディスクには、Azure でリソースを作成するための最新の UI パターンが追加されています。 この更新されたフローにより、作成ワークフロー中の水平スクロールが不要になり、VM、Storage、Cosmos DB、AKS などの他の一般的なサービスで使用するのと同じ UI パターンに従います。これにより、学習が容易になり、カスタマー エクスペリエンスが向上します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5be2ea4-07cc-46f1-9b1b-bf8f75a984b7.png"><img alt="Disk create screenshot" border="0" height="1800" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/34abe29a-44ed-4455-9666-d93604f0b419.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ディスク作成のスクリーンショット" width="3360"></a></p>
+
+
+  <h3><a id="Use of non-ASCII characters for virtual machine names" name="Use of non-ASCII characters for virtual machine names">仮想マシン名に非 ASCII 文字を使用する</a></h3>
+
+
+  <p>ポータルで仮想マシンに名前を付け、ASCII 以外の文字を含める場合に使用できる文字の制限を緩めしました。 ポータルでの Azure 仮想マシンの名前付けは、Azure リソースの名前付け規則とゲスト オペレーティング システムのホスト名の名前付け規則の 2 つのセットによって制限されます。これは、より制限の厳しい場合があります。 このリリースでは、仮想マシン名に Unicode 文字を追加できます。この文字は、Azure リソース名とゲスト ホスト名の両方として使用されます。 Azure リソース名は変更できませんが、VM の作成後にゲスト内ホスト名を更新できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33f5923d-e671-4aa1-9b8b-2e6f6b601515.png"><img alt="Non ascii screenshot" border="0" height="1696" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ded7842-0116-4157-b6d8-7aa9b3ca5ac5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ASCII 以外のスクリーンショット" width="3360"></a></p>
+
+
+  <h2>Azure Data Explorer</h2>
+
+
+  <h3><a id="New full-screen Create Cluster experience" name="New full-screen Create Cluster experience">新しい全画面クラスターの作成エクスペリエンス</a></h3>
+
+
+  <p>ユーザー&#39;クラスターの作成方法を変更しました。 新しいエクスペリエンスには、いくつかの Azure 製品に表示される &quot;レビューと&quot; 作成の新しい UX パターンが含まれている。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/55ea56dd-cb1f-448e-824c-3549e4e4fdd9.png"><img alt="Data explorer screenshot" border="0" height="448" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ff360872-dc75-43a0-b8e0-430e1c3354d3.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="データ エクスプローラーのスクリーンショット" width="760"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75efb82b-eb77-47a5-98eb-cf54520f2046.png"><img alt="Data explorer screenshot" border="0" height="64" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3bedb1e5-e6ab-4e85-a300-e60292c010ca.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="データ エクスプローラーのスクリーンショット" width="760"></a></p>
+
+
+  <h2>Security Center</h2>
+
+
+  <h3><a id="Public preview: Adaptive network hardening" name="Public preview: Adaptive network hardening">パブリック プレビュー:アダプティブ ネットワークの強化</a></h3>
+
+
+  <p>Azure Security Center Azure ワークロードのネットワーク トラフィックと接続パターンを学習し、インターネットに接続する仮想マシンに対するネットワーク セキュリティ グループ (NSG) ルールの推奨事項を提供できます。 これはアダプティブ ネットワークのセキュリティ強化と呼ば&#39;パブリック プレビュー中です。 これは、最も一般的な攻撃面の 1 つである (パブリック クラウドで実行されているワークロードによって作成された) パブリック インターネットとの間の接続をセキュリティで保護するのに役立ちます。</p>
+
+
+  <p>Azure ワークロードが必要なソース範囲でのみ使用できるよう、どの NSG ルールを設定する必要があるのか把握するのは難しい場合があります。 ネットワーク アクセス ポリシーを構成Security Center攻撃にさらされるリスクを制限するのに役立つ、この新しい推奨事項を次に示します。 Security Center機械学習を使用して、自動適用メカニズムなど、このプロセスを完全に自動化します。 これらの推奨事項では、Microsoft の広範な&rsquo;脅威インテリジェンス レポートを使用して、既知の悪意のあるアクターが確実にブロックされます。</p>
+
+
+  <p>これらの推奨事項を表示するには、ポータルの [ネットワークSecurity Centerアダプティブ ネットワークの強化<strong></strong>] <strong>を選択します</strong>。</p>
+
+
+  <h3><a id="Adaptive application control updates" name="Adaptive application control updates">適応型アプリケーション制御の更新</a></h3>
+
+
+  <p>このAzure Security Center、Azure Linux VM で監査モードの適応型アプリケーション制御を使用できます。 このホワイトリスト登録ソリューションは、Azure 以外の Windows と、Azure に接続されている Linux VM とサーバーでもSecurity Center。</p>
+
+
+  <p>さらに、仮想マシンとサーバー クラスターのグループの名前を変更Security Center。 それらは&#39;group1、group2 などという名前で自動的に作成されます。 ただし、それらを編集して、マシン クラスター グループにわかりやすい名前を付け、それらのアプリケーション制御ポリシー グループをより適切に表現できます。 Security Center の&ldquo;ドキュメント「アダプティブ アプリケーション制御」を参照して、Security Center での自動化されたエンドツーエンド<a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-adaptive-application" target="_blank">のアプリケーション制御の詳細を確認Azure Security Center</a>。&rdquo;</p>
+
+
+  <h3><a id="Support for virtual network peering" name="Support for virtual network peering">仮想ネットワーク ピアリングのサポート</a></h3>
+
+
+  <p>仮想ネットワーク ピアリングAzure Security Centerネットワーク <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview" target="_blank">マップがサポートされます</a>。 ピアリングされた仮想ネットワーク間の許可されたトラフィック フローをネットワーク マップから直接表示し、接続とエンティティを詳細に確認できます。</p>
+
+
+  <h3><a id="Secure score impact changes" name="Secure score impact changes">セキュリティ スコアの影響の変更</a></h3>
+
+
+  <p>このAzure Security Centerスコアへの影響の数は、推奨事項に従った場合に全体的なセキュリティ スコアがどれだけ向上するのかを表します。</p>
+
+
+  <p>Security Centerのスコアを微調整し、必要な先行付けを反映するようにそれらを継続的に調整します。 この取り組みの一環として、いくつかの推奨事項に対してセキュリティ スコアが変更されました。 この変更は、全体的なセキュリティ スコアに影響する可能性があります。 セキュリティ スコアの詳細については、ドキュメント「セキュリティ スコア&ldquo;の向上」を参照<a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-secure-score" target="_blank">Azure Security Center。</a>&rdquo;</p>
+
+
+  <h2>Azure Site Recovery</h2>
+
+
+  <h3><a id="Replication to managed disks" name="Replication to managed disks">マネージド ディスクへのレプリケーション</a></h3>
+
+
+  <p>Azure Site Recovery (ASR) は、VMware 仮想マシンと物理サーバーのディザスター リカバリーをサポートする機能を、仮想マシンに直接レプリケートManaged Disks。 すべての新しい保護で、この機能が新しいAzure portal。 マシンの <a href="https://docs.microsoft.com/en-us/azure/site-recovery/vmware-azure-enable-replication" target="_blank">レプリケーションを有効</a> にするには、ストレージ アカウントを作成する必要がなくなりました。 詳細については、お知らせの&ldquo;ブログ記事「VMware および物理サーバーのデータ を使用してディ<a href="https://azure.microsoft.com/en-us/blog/simplify-disaster-recovery-with-managed-disks-for-vmware-and-physical-servers/" target="_blank">ザスター Managed Disksを簡略化する」を参照してください</a>。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/182e6784-780d-4d39-8242-450809443088.png"><img alt="Recovery screenshot" border="0" height="807" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d22e2f8d-9a59-447b-9e08-4e399b000a64.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="回復のスクリーンショット" width="1526"></a></p>
+
+
+  <h2>ロール ベースのアクセス制御</h2>
+
+
+  <h3><a id="New Classic administrators tab" name="New Classic administrators tab">[新しいクラシック管理者] タブ</a></h3>
+
+
+  <p>クラシック デプロイ モデルをまだ使用している場合は&#39;管理者という名前の新しいタブに共同管理者の管理 <strong>を統合する必要があります</strong>。 共同管理者を追加または削除する必要がある場合は、この新しいタブを使用できます。このタブの詳細については、「Azure クラシック サブスクリプション管理者 <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/classic-administrators" target="_blank">」を参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9c9a0cc0-c784-45fd-80cf-87a586b3f16e.png"><img alt="Classic administrators in the Azure portal" border="0" height="646" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75bc2f6d-4e96-48ee-9b93-3460f9d3c84f.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クラシック管理者" width="1098"></a></p>
+
+
+  <p>新しい [クラシック管理者<strong> ] タブを表示</strong> するには:</p>
+
+
+  <ol>
+   <li>[サブスクリプション] Azure portal[すべてのサービス <strong>] 、</strong> [サブスクリプション] の順 <strong>に選択します</strong>。</li>
+   <li>サブスクリプションを選択します。</li>
+   <li>[<strong> アクセス制御 (IAM)] を選択し、[</strong> クラシック管理者 <strong>] タブを選択します</strong>。</li>
+  </ol>
+
+
+  <h2>サポート</h2>
+
+
+  <h3><a id="Updated support request experience" name="Updated support request experience">サポート リクエスト エクスペリエンスの更新</a></h3>
+
+
+  <p>サポートリクエストの作成エクスペリエンスが更新され、画面の不動産の使用状況が向上し、より優れた対話パターンが作成されました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f9d164c8-130a-4af3-9953-2e860542ca0f.jpg"><img alt="Basics screenshot" border="0" height="886" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f89ac985-ea70-4784-86c3-37804f747436.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="基本のスクリーンショット" width="1534"></a></p>
+
+
+  <p>サポート ケースの作成中に、お客様は豊富なセルフヘルプ コンテンツと診断を利用して問題のトラブルシューティングを行い、問題に対する迅速な解決策を得る可能性があります。 セルフ ヘルプとトラブルシューティングの手順は、Microsoft のテクニカル サポート プランを購入していない顧客を含め、すべてのお客様が利用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92a404c5-beb4-4bc8-8463-fdf466661599.png"><img alt="Solutions screenshot" border="0" height="1008" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67dad92f-b904-4150-95ac-babffa48862e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ソリューションのスクリーンショット" width="1920"></a></p>
+
+
+  <h2>その他</h2>
+
+
+  <h3><a id="Updates to Microsoft Intune" name="Updates to Microsoft Intune">Microsoft Intune の更新</a></h3>
+
+
+  <p>新Microsoft Intuneチームも更新に取り組み、取り組み中です。 Intune の更新プログラムの完全な一覧は、Intune &ldquo; を使用したエクスペリエンスに影響を与える変更など、[<a href="https://aka.ms/intunewhatsnewtoday" target="_blank">&#39;</a>&rdquo; Microsoft Intune の新機能] ページで確認できます。</p>
+
+
+  <h2>&ldquo;Azure portalビデオ シリーズの&rdquo;方法</h2>
+
+
+  <p>ビデオ シリーズのAzure portal<a href="https://www.youtube.com/playlist?list=PLLasX02E8BPBKgXP4oflOL29TtqTzwhxR" target="_blank">&ldquo;を確認&rdquo;</a>しましたか? このビデオでは、ポータルの特定の側面が強調表示され、ポータルからクラウド ワークロードをデプロイしながら、より効率的で生産性を高めることができます。 最近のビデオには、ストレージ アカウントを作成して BLOB をアップロードする方法と、ポータルで Azure Kubernetes Service クラスターを作成する方法のデモが含まれます。 毎週、 <a href="https://www.youtube.com/playlist?list=PLLasX02E8BPBKgXP4oflOL29TtqTzwhxR" target="_blank">YouTube のプレイリストで</a> 新しいビデオを確認してください。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Azure portal &rsquo; s の大規模なチームは、常にお客様からのご意見をお待ちしております。フィードバックは、以下のコメントセクションまたは Twitter <a href="https://twitter.com/azureportal" target="_blank">@AzurePortal</a> でお送りください。</p>
+
+
+  <p>&rsquo;Azure portal を忘れずに<a href="https://portal.azure.com/" target="_blank">サインイン</a>して、最新のすべての &rsquo; ものを確認するために<a href="https://aka.ms/azuremobileapp" target="_blank">Azure mobile app</a>をダウンロードしてください。 来月をご覧ください。</p>

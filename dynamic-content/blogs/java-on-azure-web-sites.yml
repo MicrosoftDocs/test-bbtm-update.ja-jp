@@ -1,0 +1,46 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 529f4df6db3c40a379a034c8a083175917e98154
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895038"
+Slug: java-on-azure-web-sites
+Title: Azure Web サイト上の Java
+Summary: Microsoft は、Azure Web サイトで Java ベースの Web サイトのサポートを開始しています。 この機能は、Azure Web サイトの管理容易性と簡単なスケーリング オプションを組み合わせた多くの一般的な Java シナリオを満たすことを目的としています。
+Content: >-
+  Microsoft は、Azure Web サイトで Java ベースの Web サイトのサポートを開始しています。 この機能は、Azure Web サイトの管理容易性と簡単なスケーリング オプションを組み合わせた多くの一般的な Java シナリオを満たすことを目的としています。
+
+
+  ポータル UX には、次の機能を有効にする組み込みのサポートがあります。
+
+  <ul>
+   <li>Java 1.7.0_51 (32 ビット) – これは、サポートされている既定の Java バージョンです</li>
+   <li>Tomcat 7.0.50 – 既定の Java コンテナー</li>
+   <li>Jetty 9.1.0</li>
+  </ul>
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="JavaUX" alt="JavaUX" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/JavaUX.png" width="610" height="430" border="0" />
+
+
+  この UI を使用すると、ユーザーは Java のバージョンを選択し、上記の 2 つのオプションから Web コンテナーを選択できます。 現在、Java のバージョン オプションは 1 つのみですが、今後追加のバージョンが追加される予定です。
+
+
+  構成 UI に加えて、Web アプリケーション ギャラリーには、Java Web コンテナーを変更およびカスタマイズする必要があるお客様に対して Tomcat と Jetty で使用できる完全なインストールが用意されています。
+
+
+  ポータル UI や Web アプリケーション ギャラリーで提供される機能を超えて、お客様は独自のバージョンの Java と Java ベースのアプリケーションをアップロードすることもできます。 たとえば、お客様は、Azure Web サイトで使用できる機能を使用する代わりに、Java 6 と Tomcat 6 をアップロードすることができます。
+
+
+  多くのエンタープライズ クラスの Java アプリケーションにはかなりのメモリが必要なので、Java 1.7.0_51 の 64 ビット バージョンを実行する機能も用意されています。 現在、開発者は web.config ファイルの構成を通じて 64 ビット ランタイムを選択する必要があります。今後、64 ビット バージョンも UI から選択できます。
+
+  <h2>制約</h2>
+
+  少なくとも最初は、Azure Web サイトで実行されているすべての Java アプリケーションは、受信 HTTP トラフィックのみをリッスンします。 つまり、現時点では、JMX または JMS メッセージングも JDWP も JDI リモート デバッグも行えなっています。
+
+
+  また、すべての Java プロセスは、サービスとしてではなく、アプリケーションとして実行する必要があります。
+
+  <h2>まとめ</h2>
+
+  Java の追加は、すべてのレベルですぐに利用できます。追加コストはありません。 既存の Java Web アプリケーションをホストする新しい可能性が提供されます。 Azure での新しい Java Web サイト開発は、Azure サービスとの統合を提供する Java Azure SDK を使用して簡単に行います。

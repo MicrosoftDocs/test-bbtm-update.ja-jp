@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6d4d4d0dbb6a08cd15852e58e4abae6b1d4ee448
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890726"
+Slug: integrate-azure-security-center-alerts-into-siem-solutions
+Title: Azure Security Center アラートを SIEM ソリューションに統合する
+Summary: いくつかのお客様から、組織全体のセキュリティ体制を一元的に表示するために、SIEM ソリューションで Azure Security Center アラートを表示する方法が必要であると聞いています。 本日、SIEM Export と呼ばれる新機能のパブリックプレビューを発表しました。これを使用すると、Azure Security Center アラートを、SIEM や IBM QRadar などの人気のあるソリューションにエクスポートすることができます。 サポートされているパートナーの数に引き続き投資しています。 この機能は、クラウドとオンプレミスのワークロードに対して統合されたセキュリティ管理と保護を提供するための、継続的なコミットメントの一部です。
+Content: >-
+  <p>いくつかのお客様から、組織全体のセキュリティ体制を一元的に表示するために、SIEM ソリューションで Azure Security Center アラートを表示する方法が必要であると聞いています。 本日、SIEM Export と呼ばれる新機能のパブリックプレビューを発表しました。これを使用すると、Azure Security Center アラートを、SIEM や IBM QRadar などの人気のあるソリューションにエクスポートすることができます。 サポートされているパートナーの数に &nbsp; 引き続き投資しています。 この機能は、クラウドとオンプレミスのワークロードに対して統合されたセキュリティ管理と保護を提供するための、継続的なコミットメントの一部です。</p>
+
+
+  <p>Security Center は、さまざまな検出機能を使用して、環境に対する潜在的な脅威を警告します。 アラートによって、アラートが発生した原因、環境内での対象がどのようなものか、攻撃の原因、および必要に応じて修復手順が通知されます。 また、環境内の特定のニーズに対応するために、カスタムアラートを柔軟に設定することもできます。</p>
+
+
+  <p>これらのアラートを Security Center から取得し、独自の SIEM ソリューションに統合できます。これにより、1つの管理場所からの注意が必要なものをすばやく表示し、対処することができます。</p>
+
+
+  <p>Azure Security Center アラートを partner SIEM ソリューションに移動するには、まず、Azure Monitor を使用するためのいくつか &nbsp; の手順を実行してから、イベントハブを完了 &nbsp; する必要があります。 Azure Security Center アラートは、Azure Monitor で使用できるログの種類の1つである Azure Monitor <a href="https://review.docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-activity-logs">アクティビティログ</a>に発行されます。 Azure Monitor から、 <a href="https://review.docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitor-stream-monitoring-data-event-hubs">Azure Monitoring 1 パイプライン</a> を使用してイベントハブにログをエクスポートします。 最後に、SIEM サーバーで、partner SIEM コネクタをインストールする必要があります。 次に、イベントハブからログを SIEM ソリューションにストリーミングできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e59f863e-1f4b-43b3-b594-ebaa65706663.png"><img alt="image" border="0" height="110" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a68e228d-04f0-43ad-86e4-ea9a8c25da4e.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="547"></a></p>
+
+
+  <p align="center"><em>図 1: パイプラインの概要</em></p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f74041d-2c18-45a1-a42c-bc1ace6996ad.png"><img alt="splunk" border="0" height="539" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5cd5e8f-d8d2-415e-b7b7-ab042c7c053a.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="splunk" width="1024"></a></p>
+
+
+  <p align="center"><em>図 2: 警告の Azure Security Center</em></p>
+
+
+  <p align="left">このパブリックプレビューバージョンでは、お客様からのフィードバックにより、セキュリティアラートのリリースに優先されます。 今後のリリースでは、セキュリティに関する推奨事項でデータ セットを増やします。</p>
+
+
+  <p>SIEM ソリューションとの Azure Security Center アラートの統合を開始するには、 <a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-export-data-to-siem">ドキュメント</a>の詳細な手順に従ってください。</p>
+
+
+  <p>フィードバック/追加情報については、「 <a href="mailto:ASC_SIEM@microsoft.com">ASC_SIEM@microsoft.com</a> 」を参照してください。</p>
+
+
+  <p>この機能は、standard Azure Security Center レベルで使用できます。 現在、SIEM ソリューションのアラートを Azure Security Center してみてください。</p>

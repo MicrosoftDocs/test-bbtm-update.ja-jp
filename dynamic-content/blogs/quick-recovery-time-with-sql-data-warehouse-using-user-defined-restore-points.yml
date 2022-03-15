@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f40c12bba5434a020463ca22ef12831eccae6b9b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889049"
+Slug: quick-recovery-time-with-sql-data-warehouse-using-user-defined-restore-points
+Title: User-Defined 復元ポイントを使用した SQL Data Warehouse の迅速な回復時間
+Summary: SQL Data Warehouse (SQL DW) がユーザー定義の復元ポイントをサポートするようになったことをお知らせします。 この機能を使用すると、トランザクションに一貫性のあるデータウェアハウスの手動スナップショットをトリガーすることができます。
+Content: >-
+  <p>SQL Data Warehouse (SQL DW) で User-Defined 復元ポイントがサポートされるようになったことをお知らせします。 SQL DW は、ペタバイト規模のデータに対して複雑なクエリを迅速に実行するために最適化された、エンタープライズ向けの柔軟で安全な分析プラットフォームです。</p>
+
+
+  <p>以前は、SQL DW では自動スナップショットのみがサポートされており、8時間の目標復旧時点 (RPO) を保証していました。 このスナップショットポリシーでは高いレベルの保護が提供されていましたが、より効率的なデータウェアハウス管理機能を実現するために、ワークロードの中断やユーザーエラーが発生した場合の復旧にかかる時間を短縮することをお客様に要求しました。&nbsp;</p>
+
+
+  <p>これで、ユーザー定義の復元ポイントを使用して、自動スナップショットに加えて、データウェアハウスでの重要な操作の前後にスナップショットを開始できます。 より詳細な復元ポイントを使用すると、各復元ポイントが論理的に一貫していることを確認し、影響を制限し、データウェアハウスの復元にかかる復旧時間を短縮する必要があります。 ユーザー定義の復元ポイントには、後で識別しやすいようにラベルを付けることもできます。&nbsp;</p>
+
+
+  <p>PowerShell で1つのステートメントを使用して復元ポイントをシームレスに作成できるため &rsquo; 、データウェアハウス管理操作と簡単に統合できます。 任意の時点で最大42の復元ポイントを持つことができ、すべての復元ポイントは7日 &rsquo; 後に期限切れになるため、個別に管理する必要はありません。&nbsp;</p>
+
+
+  <pre>
+
+  #Create Restore point
+
+  New-AzureRmSqlDatabaseRestorePoint -ResourceGroupName $ResourceGroupName -ServerName $ServerName -DatabaseName $DatabaseName -RestorePointLabel $RestorePointName</pre>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+      <li>ユーザー定義の復元ポイントの詳細については、 <a href="https://docs.microsoft.com/powershell/module/azurerm.sql/new-azurermsqldatabaserestorepoint?view=azurermps-6.2.0#examples" target="_blank">オンラインドキュメント</a> を参照してください。</li>
+      <li>機能に関する要望については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse">UserVoice</a>にご投票ください。</li>
+      <li>今すぐ開始するための<a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal" target="_blank">Azure SQL Data Warehouse を作成</a>します。</li>
+      <li>最新の Azure SQL Data Warehouse ニュースや機能については、Twitter <a href="https://twitter.com/AzureSQLDW" target="_blank">@AzureSQLDW</a> の後で最新情報を入手してください。</li>
+  </ul>

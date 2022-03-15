@@ -1,0 +1,152 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f5d291ff4da95a15462f8b3dcd06691b717438a6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890012"
+Slug: announcing-azure-cli-shell-preview-more-azure-cli-2-0-commands-now-generally-available
+Title: シェル (プレビュー Azure CLI発表);2.0 Azure CLI 2.0 コマンドのその他の一般提供
+Summary: 新しい Azure CLI 2.0 での VM、ACS、Storage、および Network コマンドの一般公開リリースに続いて、ACR、Batch、KeyVault、SQL の一般公開リリースに加えて、新しい Azure CLI 対話型シェル プレビュー モード リリースが発表されました。
+Content: >-
+  <p>新しい <a href="https://azure.microsoft.com/en-us/blog/announcing-general-availability-of-vm-storage-and-network-azure-cli-2-0/">Azure CLI 2.0 の VM、ACS、Storage</a>、および Network コマンドの一般公開リリースに続いて、ACR、Batch、KeyVault、SQL の一般公開リリースに加えて、新しい Azure CLI 対話型シェル プレビュー モード リリースが発表されました。</p>
+
+
+  <h2>対話型シェル</h2>
+
+
+  <p>Azure CLI 2.0 には、Bash および POSIX ツールとネイティブに統合される慣用的なコマンド ライン インターフェイスが備えています。 インストール、使用、学習は簡単です。 このコマンドを使用すると、一度に 1 つのコマンドを実行できるだけでなく、他の BASH コマンドを含む複数のコマンドで構成される自動化スクリプトを実行することもできます。 これをサポートするために、コマンドは対話型ではなく、不完全な入力または正しくない入力が指定された場合にエラーが発生します。</p>
+
+
+  <p>ただし、Azure CLI 機能、コマンド構造、出力形式を学習する場合など、対話的なエクスペリエンスを&rsquo;好む場合があります。 Azure CLI シェル (az-shell) には、2.0 コマンドを実行する対話型モードAzure CLIが備わります。 オートコンプリート ドロップダウン、自動キャッシュされた検索候補を、各コマンドの使用例など、その他のドキュメントと組み合わせて提供します。 Azure CLIシェルには、コマンドを簡単に学習して使用できるエクスペリエンスAzure CLIがあります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4ff2cb77-e969-4107-b0bf-c008148d580b.jpg"><img alt="Azure CLI Shell" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/354e3a8a-7cfa-4868-80c1-fdac7577a2d8.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure CLI シェル" width="529"></a></p>
+
+
+  <p>2.0 用の新しい対話型シェルをインストールAzure CLI使用してください。 作成した <a href="https://hub.docker.com/r/azuresdk/azure-cli-shell/">Docker イメージで</a>使用するか、Mac またはコンピューターに<a href="https://github.com/azure/azure-cli-shell#installation"></a>ローカルにインストールWindowsできます。 既存の Azure CLI インストールで動作し、az-shell または選択した別のコマンド シェル (MAC/linux では BASH、Windows では cmd.exe) でコマンドをサイド バイ サイドで使用できます。</p>
+
+
+  <h2>新しいコマンドが一般提供される</h2>
+
+
+  <p>2 月 27 日に最初の Azure CLI 2.0 コマンド モジュールの GA リリースの勢いを続けて、現在は次のコマンド モジュールが一般提供される予定です(Azure Container Registry、Batch、KeyVault、SQL)。 この GA リリースでは、これらのコマンドを実稼働環境で使用できます。Microsoft は、Azure サポート チャネルを通じて、または Azure のサポート チャネルを通じて完全にサポートGitHub。 &rsquo;2.0 の今後のリリースでは、これらのコマンドに対するAzure CLI変更は予想外です。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/container-registry/">Azure Container Registry</a> 開発者は、プライベート Docker コンテナー イメージを格納および管理するための Azure コンテナー レジストリを作成および管理できます。 Azure CLI 2.0 で <a href="https://docs.microsoft.com/en-us/cli/azure/acr">acr</a> コマンドを使用すると、コマンド ラインからこれらのレジストリを作成および管理できます。 レジストリを作成した後は、他の CLI コマンドを使用して、サービス プリンシパルを割り当て、管理者の資格情報を管理し、その中のリポジトリを一覧表示できます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/batch/">Azure Batch</a> は、開発者がコンピューティング リソースを管理し、特定のリソースと依存関係を使用してジョブを実行するスケジュールを設定するために使用できる環境を提供します。 Azure CLI 2.0 のバッチ コマンドを使用して、Azure Batch アカウント、アプリケーション、およびアプリケーション パッケージをそのアカウントに作成できます。<a href="https://docs.microsoft.com/en-us/cli/azure/batch"></a> 特定の時刻に実行するジョブ、タスク、およびジョブ スケジュールを作成し、コマンド ラインから直接管理 (作成、更新、削除) することもできます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/key-vault/key-vault-whatis">Azure Key Vault</a> 、クラウド アプリケーションとサービスによって使用される暗号化キーとシークレットを保護するのに役立ちます。 開発者とセキュリティ管理者は、このサービスを使用して、キーの生成、キーの格納とアクセス、ポリシーの設定、使用状況の監視を行えます。 Azure CLI 2.0 の <a href="https://docs.microsoft.com/en-us/cli/azure/keyvault">keyvault</a> コマンドを使用すると、キー コンテナーの作成と削除、証明書、ポリシーの管理、新しいキーのインポートと作成、キー コンテナーへのシークレットの設定を行います。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-database/">Azure SQL Database</a>エンジンを使用するサービスとしてのリレーショナル データベースMicrosoft SQL Serverです。 Azure CLI 2.0 の <a href="https://docs.microsoft.com/en-us/cli/azure/sql">SQL</a> コマンドを使用すると、コマンド ラインからこのサービスのすべての側面を管理できます。つまり、SQL サーバーの作成、削除、更新、データベースとデータ ウェアハウスの作成、削除、更新、エラスティック プールの作成と共有プールのデータベースの移動などによって、個別にスケーリングできます。</p>
+
+
+  <p>上記のコマンドの一般提供に加えて、新しいリリースには、プレビュー モードで使用できる開発/テスト ラボ (<em>ラボ</em><em>) および</em>監視 (監視) サービス用のコマンド モジュールも含まれています。</p>
+
+
+  <h2>Azure CLI 2.0 の新機能</h2>
+
+
+  <p>また、このリリースには、より簡単で生産性の高い機能を使用Azure CLI新機能もいくつか含まれる予定です。</p>
+
+
+  <p>&ldquo;Az find は&rdquo; 、単純なテキストに基づいて 2.0 Azure CLIを検索する新しいコマンドです。 Azure CLI 2.0 で Azure サービスのコマンドとカバレッジの数が増えるにつれて、開発者が特定のタスクに必要なコマンドを見つけるのが難しくなる可能性があります。</p>
+
+
+  <p>たとえば、次のコマンドは、テキスト Azure CLIテンプレート、または配置を含むすべての 2.0 &ldquo;&rdquo; &ldquo;コマンドを&rdquo;検索&ldquo;します。&rdquo;</p>
+
+
+  <pre class="prettyprint">
+
+  az find -q arm template deploy
+
+
+  `az monitor autoscale-settings get-parameters-template`
+      Scaffold fully formed autoscale-settings&#39; parameters as json
+      template
+
+  `az group export`
+      Captures a resource group as a template.
+
+  `az group`
+      Manage resource groups and template deployments.
+
+  `az group deployment export`
+      Export the template used for the specified deployment.
+
+  `az group deployment create`
+      Start a deployment.
+
+  `az group deployment validate`
+      Validate whether the specified template is syntactically correct
+      and will be accepted by Azure Resource Manager.
+
+  `az vm capture`
+      Captures the VM by copying virtual hard disks of the VM and
+      outputs a template that can be used to create similar VMs.
+      For an end-to-end tutorial, see https://docs.microsoft.com/azure
+      /virtual-machines/virtual-machines-linux-capture-image.
+
+  `az keyvault certificate get-default-policy`
+      Get a default policy for a self-signed certificate
+      This default policy can be used in conjunction with `az keyvault
+      create` to create a self-signed certificate. The default policy
+      can also be used as a starting point to create derivative
+      policies.   Also see: https://docs.microsoft.com/en-
+      us/rest/api/keyvault/certificates-and-policies
+
+  `az keyvault certificate create`
+      Creates a new certificate version. If this is the first version,
+      the certificate resource is created.
+      Create a Key Vault certificate. Certificates can also be used as a
+      secrets in provisioned virtual machines.
+
+  `az vm format-secret`
+      Format secrets to be used in `az vm create --secrets`
+      Transform secrets into a form consumed by VMs and VMSS create via
+      --secrets.
+  </pre>
+
+
+  <p>コマンド ライン セッション内で繰り返し使用する必要がある特定の変数とリソースのグローバルな既定値とスコープを設定できます。 これらの既定値は、az configure コマンドを使用 &ldquo;して設定&rdquo; できます。</p>
+
+
+  <pre class="prettyprint">
+
+  az configure --defaults group=MyResourceGroup</pre>
+
+
+  <p>これにより、このパラメーターを必要とする&ldquo;後続のコマンドでパラメーターとして指定する必要がなさそう、リソース グループが MyResourceGroup&rdquo;&rsquo; に設定されます。 たとえば、リソース グループ パラメーターを明示的 &ldquo;に指定せずに vm show&rdquo; コマンドを実行できます。</p>
+
+
+  <pre class="prettyprint">
+
+  az vm show -n MyLinuxVM
+
+
+  Name       ResourceGroup    Location
+
+  ---------  ---------------  ----------
+
+  MyLinuxVM  MyResourceGroup  westus2
+
+  </pre>
+
+
+  <p>az configure&rdquo; コマンドで&lt;リソース名と&gt;&ldquo;値のペアをリストすることで、複数の既定値を指定することもできます。また、configure コマンドで空の値を設定するだけでリセットできます。</p>
+
+
+  <h2>今すぐ Azure CLI 2.0 の使用を開始してください。</h2>
+
+
+  <p>既存の CLI ユーザーでも、新しい Azure&rsquo; プロジェクトを開始する場合でも<a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli">、CLI を</a>直接開始したり、対話型モードを使用して、更新されたドキュメントとサンプルを<a href="https://github.com/azure/azure-cli-shell#installation"></a>使用してコマンド ラインをマスターしたりするのは簡単です。<a href="https://docs.microsoft.com/en-us/cli/azure/"></a></p>
+
+
+  <p>Azure CLI 2.0 はオープン ソースであり、<a href="https://github.com/azure/azure-cli">GitHub。</a></p>
+
+
+  <p>今後数か月で、さらに多くの&rsquo;更新プログラムが提供されます。 これまでと同様に、お客様の継続的なフィードバックが必要です。 現在 GA リリース中のコマンドを使用しているお客様は、問題について Azure サポート に問い合わせ、azure-cli タグを使用して StackOverflow 経由で連絡するか、 で直接メールでお問い合わせください azfeedback@microsoft.com。 また、CLI 内から &quot;az feedback&quot; コマンドを直接使用して、フィードバックをお送りください。</p>

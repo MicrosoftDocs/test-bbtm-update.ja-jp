@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: baf22876dbcb9509b2a944f1303dcf27e78fd34e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894663"
+Slug: announcing-azure-files-share-snapshots-public-preview
+Title: 共有スナップショットのパブリックプレビュー Azure Files の発表
+Summary: Azure Files は、Azure の完全に管理されたクラウドファイル共有サービスであり、組織が Azure Vm とオンプレミスクライアントの間でファイルを共有する機能を拡張します。 業界標準の SMB がサポートされています...
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/storage/files/" target="_blank">Azure Files</a> は、完全に管理されたクラウドファイル共有を提供し、組織がオンプレミスとクラウドの間でファイルを共有できる機能を拡張します。 業界標準の SMB プロトコルがサポートされているため、このサービスは本当にクロスプラットフォームであり、暗号化を使用する SMB 3.0 を実装する任意のクライアントからのファイル共有としてのマウントをサポートできます。 例として、Windows、Mac、Linux などがあります。 ネイティブマウントに加えて、プログラミング用の REST Api を公開しています。 Azure Files を使用すると、セキュリティが強化され、非常にスケーラブルで、グローバルに利用可能なストレージインフラストラクチャのメリットが得られます。 これらすべての機能を使用していても、ユーザーまたはアプリケーションが Azure Files 共有に格納されているファイルやフォルダーを誤って削除または破損した場合はどうすればよいでしょうか。</p>
+
+
+  <p>現在、 <strong>Azure Files 共有スナップショットのパブリックプレビュー</strong>が導入されています。 Azure Files 共有スナップショットを使用すると、読み取り専用バージョンのファイル共有を定期的に保存することができます。 また、コンテンツの古いバージョンを任意の場所からコピーして、さらに変更して使用することもできます。</p>
+
+
+  <p>共有スナップショットが作成されると、ファイル共有と共有スナップショットの内容はまったく同じになります。 ただし、増分の変更だけがスナップショットに書き込まれます。 これにより、スナップショットの作成が高速になり、領域効率とコスト効率が向上します。</p>
+
+
+  <p>Windows では、次の図1に示すように、使い慣れた<em>以前のバージョン</em>の機能を利用できます。ここで、 <em>sharesnapshotdefs</em>はマウントされた Azure ファイル共有で、[<em>以前のバージョン</em>] タブの各エントリは共有スナップショットです。 [<strong>開く &rdquo; ] を選択 &ldquo; </strong>するか、[<strong>復元 &rdquo; ] を選択 &ldquo; </strong>してその共有スナップショットの内容を元の場所にコピーすることにより、スナップショットの内容をエクスプローラーで参照できます。 個々のディレクトリまたはファイルに対して、 <em>以前のバージョン</em> と同じ機能を使用できます。 つまり、スナップショットは共有レベルで取得されるのに対し、ファイル共有と個々のディレクトリ/ファイルレベルの両方でデータの取得を実行できます。&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b56f9b8-0f74-4a41-8a6e-4946c152c233.png"><img alt="Azure Files" border="0" height="1173" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0dc3d654-4f13-4edd-ac7f-22af7531a355.png" style="border-image: none; display: inline; background-image: none;" title="Azure Files" width="1529"></a></p>
+
+
+  <p align="center"><em>図 1: 以前のバージョンと統合された &ldquo; Windows &ndash; での共有スナップショットエクスペリエンスの Azure Files&rdquo;</em></p>
+
+
+  <p>Linux では、図2に示すように、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-azure-cli#create-share-snapshot" target="_blank">Azure Files に Azure CLI 2.0</a>を使用できます。 スナップショットの作成を含むすべての機能は、Azure CLI 2.0 で使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8ba0b3c-cc0b-4101-bc33-7ee59b010d98.png"><img alt="Azure Files share snapshot" border="0" height="355" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7948c13d-0791-4d82-abde-713d24575773.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Files 共有スナップショット" width="458"></a></p>
+
+
+  <p align="center"><em>図 2: Azure CLI &ndash; リストのスナップショットで共有スナップショットエクスペリエンスを Azure Files</em></p>
+
+
+  <p>Azure CLI 2.0 に加えて、スナップショットは <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/operations-on-shares--file-service-" target="_blank">REST</a> およびクライアントライブラリ ( <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-dotnet-how-to-use-files" target="_blank">.net</a> や <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-python-how-to-use-file-storage" target="_blank">Python</a> プログラムによるアクセスなど) によって完全にサポートされています。 また、PowerShell のサポートは近日対応予定です。 すぐに使用を開始するには、 <a href="https://portal.azure.com/" target="_blank">Azure Portal</a> に直接アクセスして、スナップショットの作成を開始することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4cd81add-459c-4c6e-ba15-d9282a664479.png"><img alt="Azure Files share snapshot on Azure Portal" border="0" height="584" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c113a3a-1a21-4371-bf23-b4ca0c7485b1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Portal でスナップショットを共有 Azure Files" width="2552"></a></p>
+
+
+  <p align="center"><em>図 3: Azure Portal での Azure Files 共有スナップショットエクスペリエンス</em></p>
+
+
+  <p>また、パブリックプレビュー期間中は、スナップショットによって消費される容量には課金されません。</p>
+
+
+  <p>Azure Files 共有スナップショットは、クラウドストレージ管理ツールキットに追加されます。 スナップショットの詳細については、こちらの <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-snapshots-files" target="_blank">ドキュメント</a>を参照してください。</p>
+
+
+  <p>Azure Files に関してご不明な点がある場合は、以下のコメントをお寄せください。 また、機能に関するご要望がある場合は、お客様のご意見をお待ちして<a href="https://feedback.azure.com/forums/217298-storage/category/180670-files" target="_blank">おります。</a></p>

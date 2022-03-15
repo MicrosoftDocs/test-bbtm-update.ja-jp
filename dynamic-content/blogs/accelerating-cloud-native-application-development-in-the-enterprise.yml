@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d33da9f8bdb09847de074635625b27bf6de73c0a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890027"
+Slug: accelerating-cloud-native-application-development-in-the-enterprise
+Title: 企業でのクラウドネイティブアプリケーション開発の促進
+Summary: Azure Kubernetes Service (AKS) などの製品を使用すると、組織は、クラウドとエッジでの移植性を実現しながら、回復性と動的にスケーラブルな分散アプリケーションを構築できます。
+Content: >-
+  <p>クラウドネイティブ開発の利点は、日々多くの組織が経験しています。 <a href="https://azure.microsoft.com/services/kubernetes-service/" target="_blank">Azure Kubernetes Service</a> (AKS) などの製品を使用すると、 &rsquo; クラウドとエッジでの移植性を実現しながら、回復性と動的にスケーラブルな分散アプリケーションを構築できます。 ほとんどの組織では、Kubernetes とクラウドのネイティブテクノロジを使用して、企業においてセキュリティ、ガバナンス、コンプライアンスについてより迅速にイノベーションすることを望んでいます。 私たちは、Kubernetes と AKS を利用して、Azure でのクラウドネイティブアプリケーションの配信を高速化するために設計されたいくつかのイノベーションをお楽しみしています。</p>
+
+
+  <h2>開発者エクスペリエンスの合理化</h2>
+
+
+  <p>Git と GitHub は、最新のソフトウェアの作成方法を変更しました。 プル要求 (Pr) は、開発チームが共同作業する方法の中心になりました。 Pr は特定のコード変更を確認する優れた方法ですが、コードが複雑なマイクロサービスアーキテクチャの他の部分とどのように統合されるかを確認するのは困難な場合があります。 <a href="https://aka.ms/devspaces/pr-flow" target="_blank">GitHub アクションを使用した Dev Spaces PR flow</a> for AKS は、プル要求のレビューバージョンをサンドボックス環境に自動的に配置することで、この問題を解決します。この環境では、プル要求分岐の変更に対してエンドツーエンドのテストを簡単に実行できます。 これにより、PR テストプロセスが高速化され、新しい変更がアプリケーションの他の部分に悪影響を及ぼさないことを確認した後に、チームメンバーが確実にプル要求を承認できるようになります。 また、製品マネージャーやデザイナーなどの他のチームメンバーがレビュープロセスに簡単に参加できるようになります。&nbsp;</p>
+
+
+  <p>開発者は、プレビューで利用できる<a href="https://aka.ms/devspaces/connect" target="_blank">Dev Spaces connect</a>を使用して、共有 AKS クラスターで実行されている幅広いアプリケーションのコンテキストで、そのクラスターで実行されている他のプロセスに影響を与えずに、ローカルワークステーション上で個々のサービスを開発し、テストすることができます。 Dev Spaces や Visual Studio Code Kubernetes 拡張などのツールにより、お客様はコンテナー化されたアプリの開発を加速させることができます。 最新のレポートでは、 <a href="https://aka.ms/forresterwave2019" target="_blank">Forrester</a>のような最先端の企業を見ることができました。これ &rsquo; は、Microsoft &nbsp; &ldquo; が最も強力な開発者エクスペリエンスとグローバルなリーチでパックをリードしていることを示しています。 &rdquo;1</p>
+
+
+  <h2>信頼性と拡張性に優れた Kubernetes クラスター</h2>
+
+
+  <p>企業が Kubernetes と AKS を非常に優れた方法で採用し続けるにつれて、信頼性とスケーラビリティに関する厳しい要件を持つミッションクリティカルな顧客のワークロードが増加していることがわかります。 可用性ゾーンの AKS サポート、クラスターレベルの自動スケール、および複数のノードプールのサポートが一般公開されました。 <a href="https://aka.ms/aks/stories/bosch" target="_blank">Bosch</a>が共有されているため、Azure はシンプルな Kubernetes エクスペリエンスを提供し、信頼性と拡張性に優れたサービスをより簡単に提供します。 &rsquo;AKS の自動スケール機能を使用して、クリックして拡大縮小します。</p>
+
+
+  <p>世界中で運用する必要があるお客様については、AKS、スイス北部、スイス西部、UAE 北部など、他のクラウドよりも多くのリージョンドイツ中西部36で管理されている Kubernetes が提供されるようになりました。</p>
+
+
+  <h2>オンプレミス、クラウド、エッジでシームレスに運用</h2>
+
+
+  <p>Kubernetes の使用は、あらゆる場所で拡大しています。 &rsquo;クラウドでは AKS のような製品を使用して成長していますが &rsquo; 、オンプレミスとエッジでクラスターを使用してクラウドを超えて成長しています。 お客様がこれらの環境を管理および制御するために、 <a href="https://aka.ms/azureanywhere" target="_blank">Azure Arc</a> が有効になっている Kubernetes クラスターについて紹介します。 Kubernetes クラスターにエージェントをインストールすることにより、Kubernetes クラスターを実行されている場所に関係なく Azure に登録できるようになり、一元化されたポリシーコントロール、ロールベースのアクセス制御 (RBAC)、単純な GitOps ワークフローを使用した構成管理など、統一された管理とガバナンスモデルが提供されるようになりました。 つまり、単純な GitHub プル要求フローを使用して、Azure portal から管理されている数百または数千の Kubernetes クラスターにワークロードを安全にデプロイできます。</p>
+
+
+  <p>オンプレミス、エッジ、または完全に切断された環境で実行されている、Microsoft がサポートするバージョンの Kubernetes を入手する方法をお探しですか? Microsoft は、Azure Stack Hub の製品ポートフォリオを通じて Kubernetes を提供しています。 Azure Stack Hub での Kubernetes の一般提供が開始され、クラスターライフサイクル管理機能を利用できるようになりました。 Azure Stack Hub で Kubernetes クラスターを簡単にプロビジョニングし、単純なコマンドラインツールを使用して、これらのクラスターの作成、更新、修正プログラムの適用、スケーリング、および削除を自動化できるようになりました。 また、Azure Stack Edge にも Kubernetes が導入されています。これは、強力な機械学習推論機能のために、FPGA または新しい GPA アクセラレーションを備えた Azure で管理されたエッジコンピューティングアプライアンスです。 Azure Stack Edge は、アプライアンスのクラスターを自動的に作成してクラウドに接続することで Kubernetes 操作を簡略化します。ここでは、Azure Arc を使用して、すべての Kubernetes クラスターにアプリケーションをデプロイして構成することができます。</p>
+
+
+  <h2>簡単に監視してトラブルシューティングを行う</h2>
+
+
+  <p>Kubernetes とクラウドのネイティブシステムには、多くの可動パーツがあります。 これらのシステムを大規模に管理するには、top ノッチ監視ツールと可観測性ツールが必要です。 このようなツールの1つは、クラウドネイティブエコシステムでメトリックを収集するための標準的なメカニズムとして登場した Cloud Native Computing Foundation (CNCF) プロジェクトである Prometheus です。 Prometheus と Azure Monitor の統合が一般公開されました。 スクラップは、Prometheus のメトリックを作成し、ユーザーに代わって保存できるようになりました。独自の Prometheus コレクションとストレージインフラストラクチャを操作する必要はありません。 <a href="https://docs.microsoft.com/azure/azure-monitor/insights/container-insights-overview" target="_blank">Azure Monitor</a> AKS からのパフォーマンスデータを視覚化できるように、 <a href="https://grafana.com/grafana/dashboards/10956" target="_blank">Grafana テンプレート</a> が用意されています。 現在、Azure Monitor からのライブコンテナーメトリックも導入しています。 ライブのメトリックと展開、およびライブログとイベントの機能を組み合わせることにより、AKS クラスターとデプロイで何が起こっているか &rsquo; をリアルタイムで把握できるため、これまでにない速さで問題を診断して解決することができます。 <a href="https://customers.microsoft.com/story/hafslund-nett-power-and-utilities-azure" target="_blank">Hafslund Nett</a>が AKS と共にどのように Azure Monitor 活用されているかを確認し、セキュリティとパフォーマンスの制御を失うことなく、開発とテストを高速化します。</p>
+
+
+  <h2>セキュリティで保護されたエンタープライズレベルの基盤</h2>
+
+
+  <p>Kubernetes とクラウドのネイティブモデルは、セキュリティで保護して管理することが困難な場合があります。 これは、オペレーティングシステムとライブラリの脆弱性の新しいクラスを格納できるコンテナーイメージに特に当てはまります。 この問題を解決するには、 <a href="https://aka.ms/ASC_container_security" target="_blank">Azure Security Center</a> Azure Container Registry に格納されているコンテナーイメージに対して脆弱性評価を実行します。 これで、顧客 &rsquo; のサブスクリプション内のコンテナーレジストリをスキャンし、特定の脆弱性に対処するための推奨事項を提供できるようになりました。 また、クラウド環境における AKS クラスターの検出、クラスターがセキュリティのベストプラクティスに準拠するための方法に関する実用的な推奨事項、ホストとクラスターの分析に基づく脅威の検出など、脅威保護 Azure Security Center 機能の新しいセットも導入しています。</p>
+
+
+  <p>クラウドネイティブの領域は急速に進化し続けており、新しいテクノロジやパターンが毎日登場しています。 イノベーションのペースはおもしろくなっていますが、特に保守性の高い企業にとっては特にしれになることもあります。 これらのイノベーションにより、クラウドネイティブテクノロジを採用するための障壁がさらに減少します。 Kubernetes を初めて使用する場合は、 <a href="https://aka.ms/k8slearning" target="_blank">Kubernetes の概要</a>、 <a href="https://aka.ms/k8sbasics" target="_blank">ラーニングビデオ</a> 、 <a href="https://aksworkshop.io/" target="_blank">ワークショップ</a>をご覧ください。 &nbsp; Kubernetes は、将来のアプリケーションを定義することです。 何千もの Azure Kubernetes のお客様に参加し、Azure で Kubernetes の旅を開始しましょう。</p>
+
+
+  <hr>
+
+  <p><em>Microsoft.目的を持つ在庫。</em></p>
+
+
+  <p>1.Forrester の新しい Wave &trade; : パブリッククラウド Enterprise コンテナープラットフォーム、2019年 3.</p>

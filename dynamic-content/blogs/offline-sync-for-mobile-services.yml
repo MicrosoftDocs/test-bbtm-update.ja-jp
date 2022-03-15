@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e13a8109cb31664d45ef096fc10c967411239ee6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890097"
+Slug: offline-sync-for-mobile-services
+Title: オフライン同期 (Mobile Services
+Summary: '最適なモバイル アプリは、ネットワークの中断を適切に処理し、接続が不足しているにもかかわらず、ユーザーの生産性を高めることができます。 Azure Mobile Services のオフライン同期機能を使用して、ネットワークが機能しない場合でも動作する応答性の高いアプリを作成する方法について説明します。 '
+Content: >-
+  最新のモバイル アプリを作成する場合、開発者は、エンド ユーザーが常にネットワーク アクセス権を持つとは限らないという現実を考慮する必要があります。 これは、一時的なネットワークの問題が原因である場合や、接続が少ないリモート領域で頻繁に使用されるモバイル アプリである可能性があります。
+
+
+  これらの種類のアプリを簡単に記述するために、Azure Mobile Services SDK には、バックエンド データをデバイス上のローカル データベースと同期するプレビュー機能が用意されています。 この機能は、JavaScript バックエンドと .NET バックエンドの両方で使用できます。<a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-windows-store-dotnet-get-started-offline-data">また、Windows Store</a>、<a href="https://azure.microsoft.com/en-us/documentation/articles/Mobile-services-windows-phone-get-started-offline-data/">Windows Phone</a>、<a href="https://blogs.msdn.com/b/azuremobile/archive/2014/06/11/offline-support-in-the-azure-mobile-services-ios-sdk.aspx">iOS</a>、<a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-ios-get-started-offline-data">Xamarin iOS</a>、<a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-android-get-started-offline-data">Xamarin Android</a> の複数のクライアントをサポートしています。 (今後、Android および HTML クライアントのサポートを追加する予定です)。
+
+
+  <a href="https://www.nuget.org/packages/WindowsAzure.MobileServices.SQLiteStore/1.0.0-alpha4" target="_blank">Windows Universal Apps</a> のオフライン サポートが最近リリースされました。そのため、共通のコードベースを使用して、Windows Store と Windows Phone の両方で動作するオフライン対応アプリを作成できます。
+
+
+  アプリがオフライン モードの場合でもユーザーはデータを作成および変更できますが、それらのデータはローカル ストアに保存されます。 アプリがオンラインに戻った場合、ローカルの変更をバックエンドの Mobile Servicesできます。 この機能には、クライアントとバックエンドの両方で同じレコードが変更された場合の競合検出のサポートも含まれています。
+
+
+  アプリを既に使用しているMobile Servicesアプリにオフライン サポートを簡単に追加できます。使用するには、ユニバーサル ソリューションを開き、ソリューション<strong>の [NuGet管理] をクリックします</strong>。 [プレリリースを含める] を選択し、 <a href="https://www.nuget.org/packages/WindowsAzure.MobileServices.SQLiteStore/1.0.0-alpha4" target="_blank"><strong>パッケージ WindowsAzure.MobileServices.SQLiteStore を検索します</strong></a>。 バージョン 1.0.0-alpha4 以上では、ユニバーサル アプリがサポートされています。 パッケージをパッケージ ストア と Windows プロジェクトの両方Windows Phoneします。
+
+
+  次に、モバイル サービスに接続するときに、 <strong>GetTable ではなく GetSyncTable</strong> メソッドを <strong>使用します</strong>。
+
+  <pre class="prettyprint">IMobileServiceSyncTable todoTable = App.MobileService.GetSyncTable(); // offline access</pre>
+
+  次に、ローカル同期ストアを設定します。 このコードは、たとえば <strong>OnNavigatedTo</strong> のイベント ハンドラー内に移動できます。独自の同期ストアを定義するか、提供されている SQLite ベースの実装を使用できます。
+
+  <pre class="prettyprint">if (!App.MobileService.SyncContext.IsInitialized)
+
+  {
+    var store = new MobileServiceSQLiteStore("localsync.db");
+    store.DefineTable&lt;TodoItem&gt;();
+    await App.MobileService.SyncContext.
+           InitializeAsync(store, new MobileServiceSyncHandler());
+  }</pre>
+
+  これで、アプリで <strong>CRUD 操作に IMobileServiceSyncTable</strong> ( <strong>IMobileServiceTable</strong> ではなく) を使用する必要があります。 これにより、ローカル データベースへの変更が保存され、変更のログも保持されます。 アプリで変更をモバイル サービスと同期する準備ができたら、 <strong>PushAsync と PullAsync の</strong> メソッド <strong>を使用します</strong>。
+
+  <pre class="prettyprint">await App.MobileService.SyncContext.PushAsync();
+
+  await todoTable.PullAsync();</pre>
+
+  上記のコードではユニバーサル アプリについて説明しましたが、 <a href="https://blogs.msdn.com/b/azuremobile/archive/2014/06/11/offline-support-in-the-azure-mobile-services-ios-sdk.aspx">iOS</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-ios-get-started-offline-data">Xamarin iOS</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-xamarin-android-get-started-offline-data">およびXamarin Android</a> 用のアプリにオフライン同期のサポートを追加するのと同じ方法です。
+
+
+  この機能の詳細については、次のリソースを確認する必要があります。
+
+  <ul>
+      <li>チュートリアル: オフライン <a href="https://azure.microsoft.com/en-us/documentation/articles/Mobile-services-windows-phone-get-started-offline-data/">概要データ同期を使用する</a>方法、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-services-windows-phone-handling-conflicts-offline-data/">オフライン データ同期との競合を処理する</a></li>
+      <li>ブログ<a href="https://blogs.msdn.com/b/azuremobile/archive/2014/04/07/deep-dive-on-the-offline-support-in-the-managed-client-sdk.aspx">記事:</a> <a href="https://blogs.msdn.com/b/azuremobile/archive/2014/06/11/offline-support-in-the-azure-mobile-services-ios-sdk.aspx">Azure Mobile Services iOS SDK でのオフライン、オフライン同期のサポートに関する詳細</a></li>
+      <li>ビデオ: <a href="https://channel9.msdn.com/Series/Windows-Azure-Mobile-Services/Build-offline-apps-Azure-Mobile-Services">Channel 9 ビデオ: Windows Store アプリのオフライン同期</a></li>
+      <li>サンプル: <a href="https://code.msdn.microsoft.com/Azure-Mobile-Service-678a5855" target="_blank">保険エージェント (エンドツーエンドサンプル)</a>、 <a href="https://github.com/Azure/mobile-services-samples/tree/master/TodoOffline/iOS/blog20140611" target="_blank">iOS オフライン To Do サンプル</a>、 <a href="https://aka.ms/MobileFESource">フィールド エンジニア (完全なアプリ)</a></li>
+  </ul>
+
+  &nbsp;
+
+
+  Azure Mobile Services またはオフライン機能について質問がある場合は、Twitter にお問い@lindydonna合わせください。

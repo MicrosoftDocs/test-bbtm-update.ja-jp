@@ -1,0 +1,164 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7092c16e5f0ba3243649203f93248da7e680573c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895712"
+Slug: windows-azure-web-sites-how-application-strings-and-connection-strings-work
+Title: 'Windows Azure Web サイト: アプリケーション文字列と接続文字列の動作'
+Summary: Windows Azure Web サイトには便利な機能があります。開発者は、Web サイトに関連付けられている構成情報の一部として、キーと値の文字列ペアを Azure に格納できます。実行時に、Windows...
+Content: >-
+  Windows Azure Web サイトには便利な機能があります。開発者は、Web サイトに関連付けられている構成情報の一部として、キーと値の文字列ペアを Azure に格納できます。実行時に、Windows Azure Web サイトによってこれらの値が自動的に取得され、Web サイトで実行されているコードで使用できます。開発者は、プレーンなバニラ キーと値のペアと、接続文字列として使用されるキーと値のペアを格納できます。
+
+
+  キーと値のペアは Windows Azure Web Sites 構成ストアの背後に格納されます。キーと値のペアは、Web アプリケーションのファイルコンテンツに格納する必要があります。パスワードを含む Sql 接続文字列などの機密情報が、web.config ファイルまたは php.ini ファイルにクリア テキストとして表示されるのを防php.iniです。
+
+
+  Web サイトの [構成] タブからキーと値のペアを入力Azure portal。次のスクリーンショットは、キーと関連する値を入力できる、このタブの 2 つの場所を示しています。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2275.app-1.png" border="0" />
+
+
+  キーと値のペアは、"アプリ設定" または "接続文字列" として入力できます。唯一の違いは、接続文字列に、文字列値がデータベース接続文字列Windows Azure Web サイトに伝える追加のメタデータが少し含まれる点です。これは、Web サイトで実行されているダウンストリーム コードで、接続文字列に対して何らかの動作が特殊な場合に役立ちます。
+
+  <h4>環境変数Key-Valueペアの取得</h4>
+
+  開発者が Web サイトのキーと値のペアを入力すると、Web サイト内で実行されているコードによって実行時にデータを取得できます。
+
+
+  Azure Web サイトを使用Windows、実行中の Web サイトにこれらの値を提供する最も一般的な方法は、環境変数を使用する方法です。たとえば、前のスクリーンショットに示したデータを使用して、環境変数を使用してデータをダンプする ASP.NET のコード スニペットを次に示します。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2605.Screen-Shot-2013_2D00_07_2D00_17-at-10.12.22-AM.png" border="0" />
+
+
+  前のコード スニペットのページ出力例を次に示します。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4101.Screen-Shot-2013_2D00_07_2D00_17-at-10.13.06-AM.png" border="0" />
+
+
+  [注: Sql 接続文字列の興味深い部分は、この投稿ではアスタリスク付きで意図的に空白になります。ただし、実行時には、サーバー名、データベース名、ユーザー名、パスワードを含む完全な接続文字列が取得されます。
+
+
+  "アプリ設定" と "接続文字列" の両方のキーと値のペアは環境変数に格納されます。開発者は、Windows Azure Web サイトでサポートされている任意の Web アプリケーション フレームワークからこれらの値を簡単に取得できます。たとえば、php を使用して同じ設定を取得する方法を示すコード スニペットを次に示します。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4314.Screen-Shot-2013_2D00_07_2D00_17-at-10.45.32-AM.png" border="0" />
+
+
+  前の例から、個々のキーを参照する名前付けパターンに気付いたと思います。"アプリ設定" の場合、対応する環境変数の名前の前に "APPSETTING_" が付きます。
+
+
+  "接続文字列" には、データベース ドロップダウンで選択したデータベースの種類に応じて、環境変数の前に付加するために使用される名前付け規則があります。構成された接続文字列がドロップダウンで [Sql Databases] を選択していたので、サンプル コードでは "SQLAZURECONNSTR_" が使用されています。
+
+
+  データベース接続文字列の種類の完全な一覧と、環境変数の名前付けに使用される先頭の文字列を次に示します。
+
+  <p style="padding-left: 30px">"Sql Databases" を選択した場合、先頭の文字列は "SQLAZURECONNSTR_" になります。</p>
+
+  <p style="padding-left: 30px">[追加] を選択SQL Server、先頭の文字列は "SQLCONNSTR_" になります</p>
+
+  <p style="padding-left: 30px">"MySQL" を選択した場合、先頭に付加される文字列は "MYSQLCONNSTR_" になります。</p>
+
+  <p style="padding-left: 30px">[カスタム] を選択した場合、先頭に付加される文字列は "CUSTOMCONNSTR_" になります。</p>
+
+
+  <h4>オブジェクト内Key-Valueペアの ASP.NET</h4>
+
+  ここまでは、ポータルに入力されたキーと値のペアが、環境変数を介して Web アプリケーションに流れるしくみについて説明しました。ASP.NET Web アプリケーションの場合、.NET 4.5 フレームワークを使用する場合にも使用できる追加のランタイム マジックがあります (注: .NET 3.5 を選択した場合、このマジックは .NET 4.5 にのみ存在する機能に依存します)。異なるキーと値の型の名前を見ていると、意図的な .NET 開発者にはなじみがあるようです。"アプリ設定" は、アプリの <em>appSettings .NET Frameworkに正しくマップ</em>されます。同様に、"接続文字列" は、.NET Framework <em>connectionStrings コレクションに対応</em>します。
+
+
+  <em>System.Configuration</em> の ASP.NET を使用してアプリ設定を参照する方法を示す別のコード スニペットを次に示します。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4276.Screen-Shot-2013_2D00_07_2D00_17-at-10.38.42-AM.png" border="0" />
+
+
+  前にポータルに入力した値が <em>、AppSettings</em> コレクションの一部として自動的に表示される方法に注意してください。アプリケーション設定が web.config ファイルに既に存在する場合、Windows Azure Web サイトは、Web サイトに関連付けられている値を使用して実行時にそれらを自動的にオーバーライドします。
+
+
+  接続文字列も同様の方法で動作し、追加の要件も少しです。以前から、Web サイトに関連付けられている "example-config_db" という接続文字列があるのを思い出してください。web サイトの web.config &lt;ファイルが connectionStrings/&gt;configuration セクションで同じ接続文字列を参照している場合、Windows Azure Web Sites は、ポータルに表示される値を使用して実行時に接続文字列を自動的に更新します。
+
+
+  ただし、Windows Azure Web サイトで web.config の名前が一致する接続文字列が見つからない場合、ポータルに入力された接続文字列は、環境変数としてのみ使用できます (前に示したように)。
+
+
+  たとえば、次のようなweb.configを想定します。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5342.Screen-Shot-2013_2D00_07_2D00_17-at-10.13.56-AM.png" border="0" />
+
+
+  Web サイトでは、次のコード スニペットを使用して、環境に依存しない方法でこの接続文字列を参照できます。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4666.Screen-Shot-2013_2D00_07_2D00_17-at-10.23.32-AM.png" border="0" />
+
+
+  このコードが開発者のローカル コンピューターで実行されている場合、返される値は、このファイルのweb.configされます。ただし、このコードを Azure Web サイトWindows実行すると、返される値は、代わりにポータルに入力された値でオーバーライドされます。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0434.Screen-Shot-2013_2D00_07_2D00_17-at-10.24.35-AM.png" border="0" />
+
+
+  これは、アプリケーションのデプロイ場所に関係なく、アプリケーションで正しい接続文字列情報が使用されていることを確認する、古い開発者の問題を適切に解決するため、非常に便利な機能です。
+
+  <h4>コマンド ラインKey-Valueペアの構成</h4>
+
+  ポータルでアプリ設定と接続文字列を維持する代わりに、開発者は PowerShell コマンドレットまたはクロスプラットフォーム コマンド ライン ツールを使用して、両方の種類のキーと値のペアを取得および変更することもできます。
+
+
+  たとえば、次の PowerShell コマンドは、複数のアプリ設定のハッシュテーブルを定義し、 <em>Set-AzureWebsite</em> コマンドレットを使用してそれらを Azure に格納し、それらを "example-config" という Web サイトに関連付けします。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3465.Screen-Shot-2013_2D00_07_2D00_17-at-10.39.44-AM.png" border="0" />
+
+
+  ASP.NET で次のコード スニペットを実行すると、元のアプリ設定 ("some-key-here") の値が更新され、2 つ目のキーと値のペア ("some-other-key") も追加されています。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8737.Screen-Shot-2013_2D00_07_2D00_17-at-10.26.07-AM.png" border="0" />
+
+
+  変更が有効な状態を示すサンプル HTML 出力:
+
+  <p style="padding-left: 30px">some-other-key &lt;&gt;--a-different-value some-key-here &lt;--&gt; changed-this-value</p>
+
+  接続文字列の更新も同様の方法で動作しますが、内部的には PowerShell コマンドレットが接続文字列を <em>ConnStringInfo</em> オブジェクトの <em>ListT&lt;&gt;</em> として処理します (<em>正確には Microsoft.WindowsAzure.Management.Utilities.Websites.Services.WebEntities.ConnStringInfo</em>)。
+
+
+  次の PowerShell コマンドは、新しい接続文字列を定義し、Web サイトに関連付けられている接続文字列の一覧に追加して、すべての接続文字列を Azure に格納する方法を示しています。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5340.Screen-Shot-2013_2D00_07_2D00_17-at-10.26.48-AM.png" border="0" />
+
+
+  プロパティのプロパティは $cs <em>。「</em>」と入力すると、次の文字列を使用して、"Custom"、"SQLAzure"、"SQLServer"、および "MySql" の型を定義できます。
+
+
+  次のコード スニペットを ASP.NET、Web サイトのすべての接続文字列を一覧表示します。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2018.Screen-Shot-2013_2D00_07_2D00_17-at-10.26.07-AM.png" border="0" />
+
+
+  ただし、Windows Azure Web サイトで接続文字列をオーバーライドし、.NET Framework の接続文字列構成コレクションで実現するには、接続文字列が web.config で既に定義されている必要があります。 この Web サイトの例では、web.config次のように更新されています。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7418.Screen-Shot-2013_2D00_07_2D00_17-at-10.28.21-AM.png" border="0" />
+
+
+  ASP.NET ページを実行すると、PowerShell で格納された値を使用して、両方の接続文字列の値が過剰に使い過ぎたと表示されます (最初の接続文字列の機密性の高い部分は、アスタリスクで意図的に空白になります)。
+
+
+  <img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5488.Screen-Shot-2013_2D00_07_2D00_17-at-10.28.27-AM.png" border="0" />
+
+  <h4>まとめ</h4>
+
+  この記事では、構成データの単純なキーと値のペアを Web サイトに簡単に関連付け、実行時にそれらを環境変数として取得する方法について説明しました。この機能を使用すると、Web 開発者は、Web サイトの構成ファイルにこのデータをクリア テキストとして表示することなく、構成データを安全かつ安全に格納できます。 また、ASP.NET を使用している場合は、.NET <em>AppSettings</em> および <em>ConnectionStrings</em> 構成コレクションの値として値を自動的に実現する、少し余分な構成 "マジック" があります。
+
+
+  それではお楽しみください。

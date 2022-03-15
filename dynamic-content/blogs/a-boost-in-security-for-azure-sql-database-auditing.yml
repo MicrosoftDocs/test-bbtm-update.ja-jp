@@ -1,0 +1,120 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 621eafbf4eee3dbf7edda3c59ee380f84df85644
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891355"
+Slug: a-boost-in-security-for-azure-sql-database-auditing
+Title: 'セキュリティの強化: Azure SQL Database: 監査'
+Summary: Azure SQL DB の監査機能は、プレビュー オファリングで利用できます。 これは、クラウドでデータベースを管理する企業の障壁を取り除く、重要なセキュリティ強化です。
+Content: >-
+  <p>お客様は、&rsquo;Azure SQL DB のプレビュー オファリングで、予想される監査機能を利用できます。 これは、クラウドでデータベースを管理する企業の障壁を取り除く、重要なセキュリティ強化です。 数週間前にプレビューするために導入された SQL Database 監査&rsquo;では、データに対する更新やクエリなど、データベース内で発生するイベントや変更に関する深い分析情報を得る組織の能力が向上します。 非常にシンプルで直感的な構成インターフェイスを使用して、数分以内にデータベースで監査を実行できます。</p>
+
+
+  <p>デモを確認し、Eyal Carmel と Scott Scott Scott がこの新しい機能について説明する、この活発で有益な Channel <a href="https://channel9.msdn.com/Shows/Data-Exposed/Auditing-in-Azure-SQL-Database">9</a> ビデオで監査の利点の詳細を確認してください。 監査は、すべての Basic、Standard、プレミアム データベースで使用できます。また、新しい <a href="https://portal.azure.com/">Azure プレビュー ポータル</a>または標準 API を使用して構成できます。 データベースの監査を設定する方法に関する更新情報については、「データベース監査のはじめに<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-auditing-get-started/">設定SQL参照してください</a>。</p>
+
+
+  <h1>監査が必要な理由</h1>
+
+
+  <p>データベースで監査を有効にすると、さまざまな目的に対応できる貴重なデータのリポジトリがすぐに作成されます。</p>
+
+
+  <ul>
+   <li><strong>コンプライアンス関連のアクティビティを効率化する</strong></li>
+  </ul>
+
+
+  <blockquote>監査は、組織が PCI-DSS、SOX、HIPAA などのさまざまな業界コンプライアンス要件と規制を満たすのに役立つ貴重なツールです。 このような規制の多くは、基になるデータベースに対するデータ関連のアクティビティに関する監査証跡を必要とします。</blockquote>
+
+
+  <ul>
+   <li><strong>データベース アクティビティに関する分析情報を取得する</strong></li>
+  </ul>
+
+
+  <blockquote>監査証跡を保持すると、データベースに対して<i></i>どのようなアクティビティがいつ、誰によって行っているのかを正確<i>に</i>知<i>ることになります</i>。 これは、ビジネスの可視性を向上させるのにすぐに使用できます。このようなデータは、ビジネスの傾向を特定したり、ビジネス上の懸念事項を示したりするのに役立ちます。 たとえば、データの分析によって、特定の地理的な場所にあるデータベース内の時間の間にアクティビティ レベルの低下が識別され、ビジネスによって対処される可能性があります。</blockquote>
+
+
+  <ul>
+   <li><strong>疑わしいセキュリティ違反を特定する</strong></li>
+  </ul>
+
+
+  <blockquote>監査データを分析すると、組織全体のデータ関連のアクティビティに不一致や異常が生じかねない可能性があります。 これにより、潜在的なセキュリティ インシデントが特定される可能性があります。</blockquote>
+
+
+  <p>監査や他のセキュリティ機能を使用すると、規制コンプライアンスを満たすアプリケーションを簡単に構築できる一方で、コンプライアンスを保証できないことを確認することが重要です。 必要な企業または&rsquo;業界のセキュリティとコンプライアンスの標準に準拠するために、アプリケーションの設計とデータベースのプラクティスが確実に実装されるのは、組織の責任です。</p>
+
+
+  <h1>監査では、自分のイベントに対するイベントの追跡SQL Database。</h1>
+
+
+  <p>有効にし、構成すると、監査エンジンは、指定されたサーバーからのすべての受信イベントと送信イベントを追跡SQL Database。&nbsp;ログに記録するデータベース アクションとイベントのカテゴリを構成できます。関連する各イベントは、Azure Storage の監査ログに書き込まれます。 各監査エントリ&lsquo;で&rsquo;参照されるユーザー (またはプリンシパル) &ndash; は、必ずしもアプリケーション ユーザーではなく、SQLにログインしているデータベース ユーザーです。</p>
+
+
+  <h1>実際にログに記録されているデータは何ですか? そのデータはどこに保存されていますか。</h1>
+
+
+  <p>監査を構成するときに、監査Azure Storage書き込むアカウントを指定します (Azure Storageに注意してください)。 監査が有効になると、指定されたストレージ アカウントに Azure テーブルが自動的に作成され、選択したイベントのレコード (構成した構成に基づいて) がそのテーブルに書き込まれます。 監査アーキテクチャの下の図を参照してください。 作成された監査エントリは、定義済みのフィールドを持つスキーマに準拠しています。この <a href="https://go.microsoft.com/fwlink/?LinkId=506733">スキーマの詳細</a> な仕様は、こちらからダウンロード <a href="https://go.microsoft.com/fwlink/?LinkId=506732">できます</a>。</p>
+
+
+  <blockquote><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/audit-p1.png"><img alt="audit p1" border="0" height="428" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/audit-p1_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="audit p1" width="559"></a></blockquote>
+
+
+  <p>監査ログはアカウントに直接書き込Azure Storage、このデータへのアクセスは完全に制御できます。 ログを表示するには、Azure Storage Explorer などの選択したツールを使用するか、PowerQuery を使用して Azure Storage アカウントからログ<a href="https://azurestorageexplorer.codeplex.com/"></a>を取得できる定義済みの <a href="https://go.microsoft.com/fwlink/?LinkId=403540">Excel</a> ダッシュボードとレポート テンプレートを使用して、Azure Storage アカウントに接続します。 2013 Power Query 2013 Excelのすべてのお客様に対する無料ダウンロード<a href="https://www.microsoft.com/en-us/download/details.aspx?id=39379"></a>として、Office利用できます。</p>
+
+
+  <h1>操作方法 DB の監査を設定SQLしますか?</h1>
+
+
+  <p>次に示すように、Azure プレビュー ポータルの直感的な構成インターフェイスを使用して、いくつかの簡単な手順でデータベースの監査を構成できます。 監査を設定するには、Basic、Standard、または プレミアム データベースから始める必要があります。 <a href="https://portal.azure.com/">Azure</a> プレビュー ポータルでターゲット データベースに移動し、[監査の有効化と<strong></strong>セットアップ] をクリックして [監査構成] ブレードを起動します。 監査ログAzure Storageするアカウントを選択し、ログに記録するイベントのセットを指定します。</p>
+
+
+  <blockquote><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/audit-p2.png"><img alt="audit p2" class="alignnone size-medium wp-image-176991" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/audit-p2-146x369.png" style="width: 150px; height: 308px;" width="146"></a></blockquote>
+
+
+  <p>監査設定&rsquo;を構成したら、セキュリティが有効な接続文字列を使用するように、データベースに接続している既存のクライアント アプリケーションを更新する必要があります。 これにより、データベース上のこれらのアプリケーションのアクティビティをログに記録できます。 <strong>セキュリティが有効な接続文字列</strong> の形式は少し異なります。以前に使用した接続文字列は置き換えます。</p>
+
+
+  <blockquote><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/clip_image001.png"><img alt="clip_image001" border="0" height="134" hspace="24" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/clip_image001_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="clip_image001" vspace="24" width="626"></a></blockquote>
+
+
+  <p>監査が設定され、機能したら、次に示す監査ダッシュボードを表示できます。このダッシュボードでは、データベース アクティビティを Azure portal から直接簡単に確認できます。 過去 24 時間以内に発生した監査されたデータベース イベントの更新された数 (最大 15 分の鮮度) が表示されます。 また、種類別のイベントの内訳も表示され、データベースで発生するイベントの分布をすばやく把握し、異常なアクティビティや予期しないアクティビティを特定できます。</p>
+
+
+  <blockquote><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/audit-p3.png"><img alt="audit p3" class="alignnone size-medium wp-image-177011" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/audit-p3-636x369.png" width="636"></a></blockquote>
+
+
+  <h1>&nbsp;</h1>
+
+
+  <h1>すべてのデータベースを監査する必要があります&ndash;。一度に複数のデータベースの監査SQL設定できますか?</h1>
+
+
+  <p>特定のデータベース サーバー内のすべてのデータベースに対して、1 つの監査ポリシーを簡単に定義できます。 これを行うには、ポリシーをそのサーバーの <strong>既定のポリシー</strong> として指定します。 このようなポリシーを作成するには、そのサーバー上のいずれかのデータベースに対して監査を構成し、[既定値として保存] をクリックして<strong></strong>、明示的な監査構成が定義されていない DB サーバー上のすべてのデータベースにこれらの同じ設定を自動的に適用する必要があります。 この特定の構成ワークフローを次に示します。</p>
+
+
+  <blockquote><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/audit-p4.png"><img alt="audit p4" class="alignnone size-medium wp-image-177013" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/audit-p4-196x369.png" width="196"></a></blockquote>
+
+
+  <p>サーバー上のすべてのデータベースに対して既定の設定を作成する機能は、DB サーバー コンテキストからすぐに使用できます。</p>
+
+
+  <h1>&nbsp;</h1>
+
+
+  <h1>データベース内の&rsquo;アクティビティに関するデータを収集したので、それをどのように分析しますか?</h1>
+
+
+  <p>Azure Storage から監査レコードを CSV 形式のファイルとしてエクスポートすることで、選択したアプリケーションを使用して監査ログを分析できます (他のファイル形式も使用できます)。 また、定義済みのダッシュボードとレポートを含む対話型の分析テンプレートの形式で、監査データ用の事前に作成された分析ツールExcel<a href="https://go.microsoft.com/fwlink/?LinkId=403540">用意されています</a>。 Azure Storage から監査ログ データを直接取得するには、Power QueryアドインExcelを使用します。 レポートは、データベース アカウントから読み込まれた監査ログに基づいて、データベースアクティビティを反映するようにStorageされます。 レポート テンプレートを監査ログ ストレージにアタッチする方法と、組み込みの分析テンプレートを使用する詳細な手順については、Excel テンプレートを操作する手順に関するドキュメント<a href="https://go.microsoft.com/fwlink/?LinkId=403540">を参照</a>してください。 複数のデータベースが (同じ Storage アカウントに対して) 監査されている場合は、組み込みのレポートを使用して、データベース間のアクティビティと傾向を比較し、異常を検出できます。 レポート自体は対話型です。データPower ViewとPower Pivotを使用して、データベース、イベントの種類、期間などに従ってビューをスライスできます。レポートもカスタマイズ可能で拡張可能です。 必要に応じて、組織の要件に合わせて追加のレポートとビューを&rsquo;作成できます。 サンプル レポートを次に示します。</p>
+
+
+  <blockquote>&nbsp;<a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/audit-p5.jpg"><img alt="audit p5" class="alignnone size-medium wp-image-177031" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/audit-p5-508x369.jpg" width="508"></a> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/audit-p6.png"><img alt="audit p6" class="alignnone size-medium wp-image-177041" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/audit-p6-457x369.png" width="457"></a> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/image.png">&nbsp;</a> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/image.png">&nbsp;</a></blockquote>
+
+
+  <h1>まとめ</h1>
+
+
+  <p>監査では、イベントとデータベース アクティビティを追跡Azure SQL Databaseログ記録することで、セキュリティの層が提供されます。 監査データを使用して、データベースアクティビティに関する分析情報を取得し、潜在的なセキュリティ上の懸念事項を特定し、疑わしい違反に対してレコードが存在することを確認し、コンプライアンス関連のタスクを容易にし、合理化することができます。 <a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-auditing-get-started/">監査</a>の概要の詳細を確認するか、Channel <a href="https://channel9.msdn.com/Shows/Data-Exposed/Auditing-in-Azure-SQL-Database">9 で Eyal と Scott</a> が監査の利点と設定の簡単性について説明しているのを見るのに数分かかります。 監査機能を使用してすぐ開始できますが、Basic、Standard、または プレミアム データベースを使用する必要<a href="https://azure.microsoft.com/en-us/services/preview/">があります (</a>&rsquo;まだ行っていない場合は、新しいサービス レベルのプレビューにサインアップしてから、監査プレビューにサインアップしてください)。<a href="https://account.windowsazure.com/PreviewFeatures?fid=datasecurity"></a> データベースの監査は、 <a href="https://portal.azure.com/">Azure プレビュー ポータルで構成できます</a>。 フィードバック&rsquo;に詳しくお寄せください。ぜひお試しの上、ご意見をお寄せください。</p>

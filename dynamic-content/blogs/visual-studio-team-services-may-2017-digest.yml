@@ -1,0 +1,285 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fddbdedeac22fdc598d26be4ee1c0f4865f5e9bc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891905"
+Slug: visual-studio-team-services-may-2017-digest
+Title: 2017 年 5 月のVisual Studio Team Servicesのダイジェスト
+Summary: 最新の DevOps Visual Studio Team Services。
+Content: >
+  <p>この投稿シリーズは<a href="https://visualstudio.com/team-services/?utm_source=AzureCOM&amp;utm_medium=Blog&amp;utm_campaign=Oct2016Digest">、Visual Studio Team Services</a> の最新の更新プログラムとニュースを提供し、Azure ユーザーが 3 週間ごとにリリースされる新機能を最新の状態に保つ優れた方法です。 Visual Studio Team Servicesは、Azure DevOps効率的な継続的インテグレーションとリリース パイプラインを作成するための最適なツールを提供します。 このスプリントにはビルド 2017&rsquo; カンファレンスの成果物が含まれるので、特に CI/CD 空間では大きな成果物です。 ここでは&rsquo;、すべてのカンファレンス プレゼンテーションの要約 <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/05/17/build-2017-recap/">を示します</a>。</p>
+
+
+  <p>目標の 1 つは、アプリケーションのデプロイを自動化するエントリへの障壁を引き続き下げることです。 チームがアプリケーションを簡単にデプロイして検証できるのは、出荷できる時間の大きな部分です。 CI/CD システムは完全にオープンですが、Azure との深い統合を行って、デプロイの設定を非常に簡単に行います。 また、開発と運用の両方にまたがる、より豊富なワークフローの多くの機会のロックを解除します。 その結果、VSTS + Azure をエンドツーエンドのエクスペリエンスとして最適にDevOpsしています。</p>
+
+
+  <p>今月は、その目標の実現に向けて、多くの新機能が提供されます。 サポートされるアプリの種類の幅が大幅に広がっています。</p>
+
+
+  <ul>
+   <li>デプロイする VM で Automation エージェントを使用し、それを使用してアプリケーションのデプロイを行うのがサポートされます。 これは、アプリケーションに対して最も要求Release Management機能&rsquo;であり、公開されるのを楽しみにしています。</li>
+   <li>コンテナーに対してさらに多くの焦点を当て続ける。 このスプリントでは、Kubernetes と Service Fabric のネイティブ サポートを導入します。後者は、コンテナーのWindowsです。</li>
+   <li>Azure Web Apps&rsquo; へのデプロイに関するサポートは既に大きいですが、ネイティブ タスクでサポートされているアプリの種類を拡張し、コンテナーに Node、PHP、Linux Web Apps を含めしました。 &rsquo;また、Azure portal 構成 UI のオプションを増やして CI/CD を設定するためのエントリ ポイントを拡張し、AZ CLI から Azure Web Apps の CI/CD を設定する機能を導入しました。</li>
+  </ul>
+
+
+  <p>詳細&rsquo;を見てみよう。</p>
+
+
+  <h2>VM のデプロイ (パブリック プレビュー)</h2>
+
+
+  <p>Release Management は、堅牢で設定なしで使用できる複数のコンピューターの配置をサポートするようになりました。 アプリケーション全体の高可用性を確保しながら、複数のコンピューターの間で配置を調整し、ローリング更新を実行できます。</p>
+
+
+  <p>エージェント ベースの配置機能は、同じビルドと配置エージェントに依存します。 ただし、エージェント プールの一連のプロキシ サーバーにビルドと配置エージェントをインストールしてリモート ターゲット サーバーへの配置を行う現在のアプローチとは異なり、各ターゲット サーバーに直接エージェントをインストールして、それらのサーバーへのローリング配置を行います。 ターゲット コンピューター上の完全なタスク カタログを使うことができます。</p>
+
+
+  <p>デプロイ <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/03/03/deployment-groups/">グループは</a> 、それぞれにエージェントがインストールされたターゲット (マシン) の論理グループです。 配置グループの集合は、単一コンピューターの開発、複数コンピューターの QA、UAT/Prod 用のコンピューターのファームなど、物理的な環境を表します。また、物理環境のセキュリティ コンテキストを指定します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/afda82bc-d463-43ad-a147-cc18b097ff45.png"><img alt="image" border="0" height="214" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adacf8bc-38c3-4c79-a0dd-50c97ac35344.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="838"></a></p>
+
+
+  <p>エージェントが登録されている任意の VM に対して、これを使うことができます。 また&rsquo;、VM の起動時にエージェントを自動インストールする Azure VM 拡張機能のサポートを使用して Azure に登録する方法も非常に簡単に行いました。 VSTS に登録されている場合は、Azure VM 上&rsquo;のタグが自動的に継承されます。</p>
+
+
+  <p>配置グループを作成した後は、その配置グループで実行させたいことを構成するだけです。 タグを使ってどのコンピューターで何を実行するかを制御し、ロールアウトの速さを制御できます。</p>
+
+
+  <p><img alt="configure deployment groups" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_23.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; padding-right: 0px"></p>
+
+
+  <p>配置を実行すると、対象のコンピューター グループ全体での進行状況がログに表示されます。</p>
+
+
+  <p><img alt="deployment groups progress" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_24.png"></p>
+
+
+  <p>この機能は、Release Management に統合されています。 この使用に追加のライセンスは必要ありません。</p>
+
+
+  <p>さまざまな環境&rsquo;へのデプロイに関するトピックについては、安全なデプロイ用のリリース パイプラインの構成に関する投稿 <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/04/24/configuring-your-release-pipelines-for-safe-deployments/">をご覧ください</a>。</p>
+
+
+  <h2>Azure 仮想マシン スケール セットのデプロイ</h2>
+
+
+  <p>デプロイに使用されるもう 1 つの一般的なパターンは、アプリケーションのバージョンごとに完全なマシン イメージを作成し、それをデプロイする方法です。 簡単にするために、Packer を使用して<strong></strong>、アプリケーションと必要なすべての前提条件をデプロイした後にマシン イメージを生成する、新しいビルド不変マシン イメージ タスクを作成します。 タスクは、マシン イメージを作成するためにデプロイ スクリプトまたはパッカー構成テンプレートを受け取り、Azure Storageします。 このイメージは、この種類の変更できないイメージのデプロイに適した Azure Virtual Machine Scale Set デプロイに使用できます。 詳細については、VM スケール セットへのアプリケーション <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/05/15/deploying-applications-to-azure-vm-scale-sets/">のデプロイに関する記事を参照してください</a>。</p>
+
+
+  <h2> コンテナー ベースのアプリケーションを構築し、デプロイするための組み込みタスク</h2>
+
+
+  <p>今回のリリースでは、Docker 拡張のほとんどのタスクが改善され、既定でこの製品に入りました。新しいタスクとテンプレートが導入され、一連のコンテナー シナリオの実現が簡単になりました。</p>
+
+
+  <ul>
+   <li><strong>Docker:</strong> Docker イメージをビルド、プッシュ、実行するか、Docker コマンドを実行します。 このタスクは Docker または Azure コンテナー レジストリで利用できます。 ACR による組み込みのサービス プリンシパル認証を利用できるようになり、さらに使いやすくなりました。</li>
+   <li><strong>Docker-Compose:</strong> 複数コンテナー Docker アプリケーションをビルド、プッシュ、実行します。 このタスクは Docker または Azure コンテナー レジストリで利用できます。</li>
+   <li><strong>Kubernetes:</strong> kubectl コマンドを実行して、Azure Container Service で Kubernetes クラスターをデプロイ、構成、更新します。</li>
+   <li><strong>Service Fabric:</strong> Service Fabric クラスターにコンテナーをデプロイします。 Service Fabric は現在、クラウドで Windows コンテナーを実行するために最適な選択肢です。 実際、これは、各スプリントを実行する VSTS 自体の数が多い場所です。</li>
+  </ul>
+
+
+  <h2> Azure Web App デプロイ更新</h2>
+
+
+  <p>Azure Web App のさまざまな機能を強化しました。</p>
+
+
+  <ul>
+   <li>Azure App Serviceタスクでは、デプロイNode.js Python アプリケーションをサポートしています。</li>
+   <li>Azure App Service デプロイ タスクでは、コンテナーを利用し、Azure Web App for Linux にデプロイできます。</li>
+   <li>Azure portal継続的デリバリーが拡張され、Node アプリケーションがサポートされます。</li>
+  </ul>
+
+
+  <p>また、CI/CD を構成するための CI/CD サポートを最新版の Azure CLI に導入しました。 次に例を示します。</p>
+
+
+  <blockquote>
+
+  <pre>
+
+  <code>az appservice web source-control config --name mywebapp --resource-group mywebapp_rg --repo-url https://myaccount.visualstudio.com/myproject/_git/myrepo --cd-provider vsts --cd-app-type AspNetCore</code></pre>
+
+  </blockquote>
+
+
+  <h2>Azure Government Cloud へのデプロイ</h2>
+
+
+  <p>Government クラウドで Azure サブスクリプションをお持ちのお客様は、国内クラウドAzure Resource Manager <a href="https://www.visualstudio.com/en-us/docs/build/concepts/library/service-endpoints#sep-azure-rm">サービス</a> エンドポイントを構成できます。</p>
+
+
+  <p>これで、同じデプロイ タスクをRelease Managementを使用して、政府機関クラウドでホストされている Azure リソースにアプリケーションをデプロイできます。 詳細については、「Microsoft Azure Government への継続的デリバリー<a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/04/30/setup-continuous-deployment-to-ms-azure-government-using-visual-studio-team-services/">の設定」を参照してください</a>。</p>
+
+
+  <h4><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a88356ac-eb12-441e-bb34-78e9eefac960.png"><img alt="image" border="0" height="578" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a9c4060-073a-423a-a427-c8a58d47c21e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="568"></a></h4>
+
+
+  <h2>作業項目とビルドの自動リンク</h2>
+
+
+  <p>ビルド定義でこの新しい設定を使用すると、ユーザーは大量のビルドを手動で検索することなく、作業を組み込んだビルドを追跡できます。 ビルドと作業項目が正しく関連付けられると、作業項目フォームの開発セクションに自動的に表示されます。</p>
+
+
+  <p>この機能を有効にするには、ビルド定義の [オプション <strong>] の設定</strong> を切り替える必要があります。</p>
+
+
+  <p>注: この機能は、Team Services Git または TFVC リポジトリをビルドする定義でのみ使用できます。また、新しいビルド定義エディターを使用した場合にのみ使用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d49f7699-0a6a-46a1-9bb4-124e64da85d7.png"><img alt="image" border="0" height="224" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78229d96-d9f8-4274-aa9a-e205c3341d94.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="834"></a></p>
+
+
+  <h2>Team Services との継続的インテグレーションに Jenkins を使用する</h2>
+
+
+  <p>Jenkins は一般的な継続的インテグレーション ビルド サーバーであり、Team Services で CI サーバーとして Jenkins を使用する方法は複数あります。 Jenkins の&rsquo;組み込みの <a href="https://plugins.jenkins.io/git">Git プラグイン</a>または <a href="https://wiki.jenkins-ci.org/display/JENKINS/Team+Foundation+Server+Plugin">Team Foundation Server プラグイン</a>は、数分ごとに Team Services リポジトリをポーリングし、変更が検出されるとジョブをキューに入れられます。 より緊密な統合が必要な場合、Team Services には、2 つの追加の方法が用意されています。1) Jenkins Service Hook と 2) Jenkins のビルドタスクとリリース タスクです。</p>
+
+
+  <p>Team Services は、Jenkins サービス フックに対して、そのビルドおよびリリース システムを Jenkins と統合できるコネクタを含めて機能を追加します。 これらのコネクタは、Team Services のビルドまたはリリース定義の手順として実行するタスクの一覧から選択できます。</p>
+
+
+  <p><img alt="Add Jenkins build tasks" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/JenkinsTasksAdd.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; padding-right: 0px"></p>
+
+
+  <p>Team Services のビルドまたはリリースでは、Jenkins ジョブをキューに入れ、結果の成果物をダウンロードします。 これらのタスクは、データ センターにインストールできる軽量で長いポーリング <a href="https://github.com/Microsoft/vsts-agent"></a> エージェントで実行されます。このため、Team Services がクラウドから Jenkins サーバーにアクセスするために受信ファイアウォール規則を変更する必要はありません。</p>
+
+
+  <p>詳細については、Jenkins との統合に <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/04/25/vsts-visual-studio-team-services-integration-with-jenkins/">関するブログ記事を参照してください</a>。</p>
+
+
+  <h2>Maven for Package Management (パブリック プレビュー)</h2>
+
+
+  <p>Java 開発者は、Maven 成果物にコードをパッケージ化してコンポーネントを共有します。Java は、NuGet パッケージに相当します。 Team Services のお客様は、ニーズを満たすために、Nexus や Artifactory など、サードパーティのサービスを使用する必要がある Maven 成果物をホストする場所を必要とします。 Team&rsquo; Services が Maven アーティファクトの <a href="https://marketplace.visualstudio.com/items?itemName=ms.feed">Package Management</a> サポートを開始しました。 使用開始ガイド <a href="https://www.visualstudio.com/en-us/docs/package/preview/maven-docs">を確認してください</a>。</p>
+
+
+  <p>また&rsquo;、Team Services を使用した Java 開発の広範なサポートに関する最近の <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/05/22/visual-studio-team-services-demonstrates-how-microsoft-loves-java/">ブログ記事も参照してください</a>。</p>
+
+
+  <h2>新しい Git ブランチ ポリシーの構成エクスペリエンス</h2>
+
+
+  <p><a href="https://www.visualstudio.com/en-us/docs/git/branch-policies">ブランチ ポリシーは、</a> コード レビューを要求し、PR ごとにビルドとテストを自動的に実行することで、ブランチの品質を確保するための優れた方法です。 ブランチ&rsquo; ポリシーの構成エクスペリエンスを再設計し、いくつかの大きな新機能を追加しました。  最も強力な機能の 1 つは、ブランチ フォルダーにポリシーを設定する機能です。  これは <strong>[ブランチ]</strong> ビューで設定できます。ブランチ フォルダーを選択し、コンテキスト メニューから <strong>[ブランチ ポリシー]</strong> を選択します。</p>
+
+
+  <p><img alt="configure branch policies" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_10.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; padding-right: 0px"></p>
+
+
+  <p>これにより、新しいポリシー構成 UX が開き、ブランチ フォルダー内のすべてのブランチに適用されるポリシーを構成できます。</p>
+
+
+  <p><img alt="policies page" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_11.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; padding-right: 0px"></p>
+
+
+  <p>ビルド ポリシー&rsquo;を使用する場合は、1 つのブランチに対して複数のビルドを構成できます。 トリガーの種類(自動または手動) を指定する新しいオプションも用意されています。 実行に時間がかかる自動化テスト実行のようなものには手動トリガーが役立ちます。1 回実行するだけで pull request が完了します。 ビルド ポリシーには表示名も含め、&rsquo;複数のビルドを構成する場合に便利です。</p>
+
+
+  <p><img alt="manual build" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_12.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; padding-right: 0px"></p>
+
+
+  <h2>Git pull requests をチームと共有する</h2>
+
+
+  <p>[ <strong>プル要求の共有]</strong> アクションは、レビュー担当者に通知する便利な方法です。 このリリースでは、チーム&rsquo;とグループのサポートが追加されたので、1 つの手順でpull requestに通知できます。</p>
+
+
+  <p><img alt="share pull requests with team" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_07.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; padding-right: 0px"></p>
+
+
+  <h2> Git リポジトリを視覚化する</h2>
+
+
+  <p>Team Services で、リポジトリまたはファイルのコミット履歴を表示しながらグラフを表示できます。 これで、git graph を使用して、Git リポジトリのすべてのブランチとコミットのメンタル モデルを簡単に作成できます。 このグラフでは、すべてのコミットが位相幾何学的に表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2563601b-ead9-4a15-9c87-bf39d23bc06a.png"><img alt="image" border="0" height="365" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f3bf938-0de8-42b1-8e23-6ab9c19163f6.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="842"></a></p>
+
+
+  <p>Git グラフの主な要素は次のとおりです。</p>
+
+
+  <ol>
+   <li>git グラフは右揃えなので、既定のブランチまたは選択したブランチに関連付けられているコミットが右側に表示され、グラフの残りの部分は左側に拡大されます。</li>
+   <li>マージ コミットは、最初の親と 2 番目の親につながれた灰色の点で表されます。</li>
+   <li>通常のコミットは青色の点で表されます。</li>
+   <li>コミットの親コミットが次の 50 コミットでビュー ポートに表示されない場合、コミット接続が実行されます。 矢印をクリックすると、コミットがその親コミットに接続されます。</li>
+  </ol>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/956a17ee-2da7-486e-85c8-1cfc1ab606db.png"><img alt="image" border="0" height="189" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a14e5d80-2299-4302-859d-92f8f06b0f83.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="821"></a></p>
+
+
+  <p>詳細については、Git グラフと高度なフィルターに関 <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/05/10/announcing-git-graph-and-advanced-filters-to-visualize-commit-history/">する記事を参照してください</a>。</p>
+
+
+  <h2>配信プランの一般提供</h2>
+
+
+  <p>配信計画がプレビュー外であり、VSTS の基本的なアクセス レベルに含まれるのでお知らせいたします。 配信計画は、イテレーションベースのカレンダーで作業状態を追跡することで、ユーザーがチーム間の可視性と配置を向上するのに役立つ組織ツールです。 ユーザーは、アカウント内の複数のプロジェクトから任意のチームレベルまたはバックログ レベルを含める計画を調整できます。 さらに、プラン <strong>のフィールド条件</strong> を使用すると、ユーザーはビューをさらにカスタマイズできます。一方、 <strong>マーカー</strong> では重要な日付が強調表示されます。</p>
+
+
+  <p>現在、配信プランは VSTS でのみ使用できます。ただし、今後の TFS 2017 Update 2 リリースに含まれる予定です。</p>
+
+
+  <p>拡張機能の詳細を表示し、インストールするには、<a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-plans">配信計画</a>についてのマーケットプレース ページをご確認ください。</p>
+
+
+  <p><img alt="delivery plans" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_17.png"></p>
+
+
+  <h2>配信タイムライン マーカー</h2>
+
+
+  <p>配信計画で重要な日付を強調表示する方法を探 <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/01/23/new-feature-delivery-plans-for-visual-studio-team-services/">していますか</a>? これで、プラン マーカーを使用できます。 プラン マーカーを使用すると、チームの主要な日付を配信計画で直接視覚化できます。 マーカーには色とラベルが関連付けられている。 マーカー のドットをクリックすると、ラベルが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/082da47e-46e5-4d23-b683-a7718caaaa12.png"><img alt="image" border="0" height="334" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f5107729-27cb-4e50-9748-0467b26054d1.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="847"></a></p>
+
+
+  <h2>作業項目検索の一般提供</h2>
+
+
+  <p>Marketplace から作業項目検索プレビューをインストールして <a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-workitem-search">使用</a> して下さい。 これは、最も評価の高い拡張機能の 1 つでした。 このリリースでは、VSTS の組み込み機能にすることで、作業項目の検索を簡単に使用できます。</p>
+
+
+  <p>検索ボックスを使用して、作業項目の検索を開始できます。</p>
+
+
+  <p><img alt="wit search" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_06.png"></p>
+
+
+  <h2>プロセスのカスタマイズ エクスペリエンスの更新</h2>
+
+
+  <p>プロセスをカスタマイズするときにページを最新化しました。 ページの上部に階層リンクが含まれるので、プロセスの編集時のコンテキストやプロセス内の作業項目の種類が明確に表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7641806c-7a25-49a8-9a8f-ee3acf0c9cf8.png"><img alt="image" border="0" height="400" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b018f9a-7803-4771-b021-1e6c50937a6d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="イメージ" width="586"></a></p>
+
+
+  <p>また、作業&rsquo;項目フォームのカスタマイズを開始する方がはるかに簡単です。 作業項目の <strong>コンテキスト</strong> メニューから [カスタマイズ] を選択すると、継承されたプロセス (まだ使用していない場合) が自動的に作成され、レイアウト エディターに移動します。</p>
+
+
+  <p><img alt="wit process context menu" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05_10_19.png"></p>
+
+
+  <h2>Analytics を使用したプロジェクトに関する分析情報</h2>
+
+
+  <p>新しい <a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-analytics">Analytics</a> サービスを使用すると、作業の正常性と状態に関する新しい分析情報がユーザーとチームに提供されます。 Analytics は現在プレビュー段階であり、この初期段階には、リード <a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/05/02/private-preview-new-widgets-for-visual-studio-team-services/"></a>タイム、サイクルタイム、累積データ ダイアグラム (CFD) の 3 つの新しいダッシュボード ウィジェットFlow含まれています。 <a href="https://marketplace.visualstudio.com/vsts">VS Team Services Marketplace から Analytics をインストールできます</a>。<a href="https://marketplace.visualstudio.com/items?itemName=ms.vss-analytics"></a></p>
+
+
+  <p><img alt="Cycle Time" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cycletime.png"></p>
+
+
+  <p>最後の 2 つのスプリントの新機能の長い一覧をリリースしました。 完全な一覧については、 <a href="https://www.visualstudio.com/en-us/articles/news/2017/may-11-team-services">5 月 11</a> 日と <a href="https://www.visualstudio.com/en-us/articles/news/2017/apr-19-team-services">4 月 19</a> 日のリリース ノートをお読みください。</p>
+
+
+  <p>コーディングをお楽しみください!</p>

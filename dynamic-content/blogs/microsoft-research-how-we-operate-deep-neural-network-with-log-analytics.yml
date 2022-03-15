@@ -1,0 +1,44 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f1d969c77112e6aa40f7fdf6dac7a8072b229e8c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890134"
+Slug: microsoft-research-how-we-operate-deep-neural-network-with-log-analytics
+Title: 'Microsoft Research: Log Analytics を使用したディープニューラルネットワークの運用方法'
+Summary: Microsoft Research は、Machine Learning やディープニューラルネットワーク (dnn) などのテクノロジを使用して、最先端の問題を解決し、それに取り組むことに取り組んでいます。 これらのテクノロジは次のものを使用します...
+Content: >-
+  <p>Microsoft Research は、Machine Learning やディープニューラルネットワーク (dnn) などのテクノロジを使用して、最先端の問題を解決し、それに取り組むことに取り組んでいます。 これらのテクノロジは、膨大な Windows および Linux クラスター環境にまたがる次世代サーバーインフラストラクチャを採用しています。 また、DNNs では、これらのアプリケーションスタック &rsquo; には、従来のシステムリソース (cpu、メモリ) だけでなく、グラフィック処理装置 (gpu) も関係しています。</p>
+
+
+  <p>nontraditional インフラストラクチャ環境では、Microsoft Research オペレーションチームは、完全なスタック全体の根本原因をトラブルシューティングして判断するために、高度に柔軟で拡張性が高く、Windows および Linux と互換性のあるサービスを必要としていました。</p>
+
+
+  <h2>Azure Log Analytics を入力してください</h2>
+
+
+  <p>Microsoft Operations Management Suite のコンポーネントである<a href="https://azure.microsoft.com/services/log-analytics/">Azure Log Analytics</a>は、数十億のレコード、リアルタイムのメトリックの収集、多数のソースにわたる豊富なカスタム視覚エフェクトによるログ検索をネイティブでサポートしています。 これらの機能は、使用可能なデータソースの柔軟性と組み合わせることによって、DNN クラスター &amp; コンポーネント全体に相関させることで可視性 &amp; に関する洞察を得ることができる優れたオプション Log Analytics ます。</p>
+
+
+  <p>次の図は、Log Analytics が、1つのディープニューラルネットワーククラスターノード内でリアルタイムデータを送信するために、さまざまなハードウェアおよびソフトウェアコンポーネントの柔軟性を提供する方法を示しています。</p>
+
+
+  <h3><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d9df31d7-3bfb-4503-9c8e-9571c7f845aa.png"><img alt="Log Analytics Diagram" border="0" height="563" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/34db286d-c495-44c7-a15d-664a83a44a0a.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="図 " width="1024"> </a> 1 を Log Analytics します。 Linux サーバーシステムリソースの監視</h3>
+
+
+  <p>従来、ディープニューラルネットワークは Linux 上で実行されており、Log Analytics は主要な Linux ディストリビューションを第一クラスの市民としてサポートしています。 OMS エージェント for Linux も最近一般公開され、オープンソースのログコレクター FluentD に基づいて作成されました。 &nbsp; Linux エージェントを利用することにより、10秒間隔でシステムメトリックを簡単に収集でき、カスタマイズ作業を行わずにすべての Linux ログを収集することができました。</p>
+
+
+  <h3>2. NVIDIA GPU 情報</h3>
+
+
+  <p>Log Analytics プラットフォームも非常に柔軟であり、ユーザーは最近リリースされた <a href="https://blogs.technet.microsoft.com/msoms/2016/08/30/http-data-collector-api-send-us-data-from-space-or-anywhere/">HTTP POST API</a>を使用してデータを送信できます。 NVIDIA Gpu からデータを取得し、GPU 温度などのメトリックに基づいてアラートを作成する機能のロックを解除するカスタム Python アプリケーションを作成できました。 さらに、これらのメトリックをカスタムビューで視覚化することで、チームがさらに詳細な監視を行うための豊富なパフォーマンスグラフを作成できます。</p>
+
+
+  <h2>ワー、 &rsquo; 詳細情報</h2>
+
+
+  <p>この記事では、オンボード可能なデータソースの種類について顧客が提供する柔軟性 Log Analytics を紹介しました。 また、この種類の洞察のレプリケートに関心がある場合は、Python コード例が含まれている <a href="https://blogs.technet.microsoft.com/msoms/">Msoms ブログ</a> の完全なチュートリアルもご覧ください。<br>
+
+  最後に、Log Analytics 初めての場合は、 <a href="https://experience.mms.microsoft.com/">ここ</a>に記載されている完全な取り込まデモ環境を試すか、無料の <a href="https://aka.ms/getoms">Microsoft Operations Management Suite サブスクリプション</a> にサインアップして、これらすべての機能を独自の環境でテストすることができます。</p>

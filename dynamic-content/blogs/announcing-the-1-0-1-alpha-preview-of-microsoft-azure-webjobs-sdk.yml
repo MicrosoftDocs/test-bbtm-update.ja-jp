@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 40321cbb85ae521feea378a0bd7e4e01a6512bb8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890887"
+Slug: announcing-the-1-0-1-alpha-preview-of-microsoft-azure-webjobs-sdk
+Title: WebJobs SDK の 1.0.1 アルファ プレビュー Microsoft Azure発表
+Summary: WebJobs SDK の別のプレビューをMicrosoft Azureしています。
+Content: >-
+  WebJobs SDK の別のプレビューをMicrosoft Azureしています。 以前のリリースの詳細については、このお知らせの投稿 <a href="https://azure.microsoft.com/blog/2014/08/21/announcing-the-0-4-0-beta-preview-of-microsoft-azure-webjobs-sdk/">を参照してください</a>。 この最新リリースには、1 つの新機能といくつかのバグ修正が含まれている。
+
+  <h2>このリリースのダウンロード</h2>
+
+  NuGet ギャラリーから WebJobs SDK をダウンロードし、次のコマンドを使用して NuGet コンソールを使用して NuGet NuGet パッケージ マネージャー ギャラリーからこれらのパッケージをインストールまたは更新できます。
+
+
+  <b>Install-Package Microsoft.Azure.WebJobs -Pre</b>
+
+
+  トリガーをMicrosoft Azure Service Busするには、次のコマンドを使用してパッケージをインストールします。
+
+
+  <b>Install-Package Microsoft.Azure.WebJobs.ServiceBus -Pre</b>
+
+  <h2>このプレビューの更新プログラム</h2>
+
+  この更新プログラムにはいくつかのバグ修正が含まれているので、ここではいくつかの機能を強調しています。
+
+  <ul>
+   <li><strong>BLOB トリガーは、新規または更新された BLOB に対してトリガーされません</strong>- BLOB トリガーが機能していないという報告が発生し、問題の根本原因を特定しました。 この結果は、SDK がすべての Azure Storage BLOB イベントをリッスンしていないので、場合によっては新規または更新された BLOB を検出できないという結果を示しています。 この例として、 <a href="https://stackoverflow.com/questions/27813769/azure-webjob-not-processing-all-blobs">Azure WebJob ですべての BLOB が処理されない場合があります</a>。 この問題が発生するその他の方法は、PutBlock または PutBlockList を使用していた場合、またはデータ を使用して BLOB をアップロードする場合Visual Studio サーバー エクスプローラー。</li>
+   <li><strong>インスタンス メソッドは SDK によってトリガーできます</strong>- このリリースから、SDK は静的メソッドと非静的メソッドの両方にインデックスを作成します。</li>
+  </ul>
+
+  有効な関数定義を次に示します。
+
+  <pre>public class Functions
+
+  {
+      public void ProcessQueue([QueueTrigger("input")] string input)
+      {
+      }
+  }</pre>
+
+  <h3>サンプル</h3>
+
+  WebJobs SDK のサンプルは、 で確認できます <a href="https://github.com/Azure/azure-webjobs-sdk-samples">https://github.com/Azure/azure-webjobs-sdk-samples</a> 。 一部のサンプルは次のとおりです。
+
+  <ul>
+   <li>BLOB、テーブル、キュー、およびテーブルに対してトリガーとバインドを使用するService Bus</li>
+   <li>顧客が BLOB ストレージから画像を処理する関数をトリガーする画像をアップロードできる <b>PhluffyShuffy </b></li>
+   <li><b>PhluffyLogs</b> :WebJob がアプリによって生成されたログ ファイルを解析し、ログ ファイルをアーカイブする</li>
+  </ul>
+
+  <h3>ドキュメント</h3>
+
+  <ul>
+   <li><a href="https://channel9.msdn.com/Shows/Web+Camps+TV/Making-Your-Jobs-Easier-With-Windows-Azure-WebJobs-SDK">Channel 9 のビデオ「ジョブを SDK を使用してジョブを簡単Windows Azure WebJobsする</a></li>
+   <li><a href="https://www.hanselman.com/blog/IntroducingWindowsAzureWebJobs.aspx">Scott Hanselman による WebJobs と SDK の概要</a></li>
+   <li>WebJobs を使用して構築され、<a href="https://twitter.com/bradygaster">Brady Gaster によって ASP.NET Web サイト モニター</a></li>
+   <li><a href="https://www.asp.net/aspnet/overview/developing-apps-with-windows-azure/azure-webjobs-recommended-resources">Azure WebJobs – 推奨されるリソース</a></li>
+   <li><a href="https://channel9.msdn.com/Tags/azurefridaywebjobs">Azure Friday の WebJobs ビデオ シリーズ</a></li>
+   <li>Magnus Martensson によるビデオ シリーズ</li>
+   <li><a href="https://www.asp.net/aspnet/overview/developing-apps-with-windows-azure/getting-started-with-windows-azure-webjobs">チュートリアル: WebJobs SDK のMicrosoft Azureする</a></li>
+  </ul>
+
+  <h3>SDK を使用した WebJobs の Azure Web サイトへのデプロイ</h3>
+
+  Visual Studio 2013 Update 3 と Azure SDK 2.4 が追加され、Visual Studio WebJobs を Azure Websites に発行するサポートが追加されました。 詳細については、「<a href="https://azure.microsoft.com/en-us/documentation/articles/websites-dotnet-deploy-webjobs/">Azure Web サイトにアプリをデプロイAzure WebJobs方法」を参照してください。</a> <a name="how-to-deploy-azure-webjobs-to-azure-web"></a>
+
+  <h3>フィードバックを送信し、ヘルプを得る</h3>
+
+  質問がある場合は、<a href="https://azure.microsoft.com/en-us/support/forums/">Azure</a> フォーラム、ASP.NET フォーラム、または StackOverflow.com で<a href="https://stackoverflow.com/">質問 StackOverflow.com</a>。<a href="https://forums.asp.net/1247.aspx"></a> <a href="https://twitter.com/search?q=AzureWebJobs">Twitter# 用の AzureWebJobs</a> SDK と StackOverflow Azure-WebJobsSDKタグを使用します。

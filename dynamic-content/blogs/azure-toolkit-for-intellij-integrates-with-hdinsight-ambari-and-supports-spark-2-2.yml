@@ -1,0 +1,82 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b2f0bf3b9c08264537c39cef8f87525ca5697d92
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889908"
+Slug: azure-toolkit-for-intellij-integrates-with-hdinsight-ambari-and-supports-spark-2-2
+Title: Azure Toolkit for IntelliJ は HDInsight Ambari と統合され、Spark 2.2 がサポートされます
+Summary: より多くの認証オプションを提供するために、Azure Toolkit for IntelliJ では、Ambari を介した HDInsight クラスターへのジョブの送信がサポートされます。 Ambari で管理されているユーザー名とパスワードを使用して、任意のクラスターを簡単にリンクまたはリンク解除できます。これは、Azure のサインイン資格情報とは関係はありません。
+Content: >-
+  <p align="justify">より多くの認証オプションを提供するために、Azure Toolkit for IntelliJ では、ジョブの送信、クラスター リソースの参照、ストレージ ファイルの移動のために、Ambari を介した HDInsight クラスターとの統合がサポートされます。 Ambari で管理されているユーザー名とパスワードを使用して、任意のクラスターを簡単にリンクまたはリンク解除できます。これは、Azure のサインイン資格情報とは関係はありません。&nbsp; Ambari 接続は、Azure 上の HDInsight 内でホストされている通常の Spark と Hive に適用されます。 これらの追加により、Azure サブスクリプションに加えて HDInsight クラスターに接続する方法の柔軟性が向上し、Spark ジョブの送信エクスペリエンスも簡素化されます。</p>
+
+
+  <p align="justify">このリリースでは、&amp;新しい機能を利用し、Azure Toolkit for IntelliJ の Spark 2.2 の新しいライブラリ API を使用できます。 Spark 2.2 プロジェクトを作成、作成、Spark 2.2 クラスターに送信できます。&nbsp; Spark 2.2 の下位互換性を使用すると、既存の Spark 2.0 および Spark 2.1 プロジェクトを Spark 2.2 クラスターに送信することもできます。</p>
+
+
+  <h3 align="justify">クラスターをリンクする方法</h3>
+
+
+  <ul>
+   <li><strong>Azure 用エクスプローラー</strong>の<strong>[Link a cluster]\(クラスターのリンク\)</strong> をクリックします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/80a0262f-d47f-4924-93d0-aa95d361e581.png"><img alt="image" border="0" height="204" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/86e13df7-db80-43a0-b0cb-3025e98760d9.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="350"></a></p>
+
+
+  <ul>
+   <li><strong>[クラスター名]</strong>、<strong>[ストレージ アカウント]</strong>、<strong>[ストレージ キー]</strong> を入力し、<strong>[ストレージ コンテナー]</strong> からコンテナーを選択し、最後に [ユーザー名] と [パスワード] を入力します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9a2fc2d6-20c9-49cb-b3b3-ab7fd7f2cb46.png"><img alt="image" border="0" height="327" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8a2fe0df-bc36-4605-8866-d0f719970e04.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="350"></a></p>
+
+
+  <p>Ambari ユーザー名、pwd、Secure Hadoop ドメインユーザー名、または pwd のいずれかを使用して接続できます。 ストレージ アカウントとキー情報は、クラスター接続の次のリリースでは省略可能になります。</p>
+
+
+  <ul>
+   <li>リンクされたクラスターは、Azure Explorer の <strong>HDInsight</strong> ノードの下に表示されます。 Spark ジョブは、このリンクされたクラスターに送信できます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/00e46fe9-f0dc-4ba1-b5ef-db9974662b6e.png"><img alt="image" border="0" height="324" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c7fe880f-f51c-4b3c-9f30-c95c7ce8db86.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="350"></a></p>
+
+
+  <ul>
+   <li>また、<strong>Azure 用エクスプローラー</strong>からクラスターのリンクを解除することもできます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5db67071-014b-45f9-acd7-02ee5a2a0dfe.png"><img alt="image" border="0" height="220" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61828ff5-02cf-499e-81ce-a8c88c607f73.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="350"></a></p>
+
+
+  <h3>インストールまたは更新する方法</h3>
+
+
+  <p>先に IntelliJ を<strong> 2018.1 バージョンに</strong> アップグレードしてください。 以前に Azure Toolkit for IntelliJ がインストールされている場合、または IntelliJ リポジトリにアクセスして <strong>Azure Toolkit for IntelliJ</strong> を検索することで最新のビットを取得できる場合は、IntelliJ から最新の更新プログラムの入力を求めるメッセージが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dfc8e217-01d8-446a-a56f-4e6f4bb7ecd5.png"><img alt="image" border="0" height="311" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7b01f7f8-c675-4beb-9c58-921ecef917c9.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="イメージ" width="450"></a></p>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin" target="_blank">HDInsight IntelliJ プラグイン</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-intellij-tool-debug-remotely-through-ssh" target="_blank">Azure Toolkit for IntelliJ を使用して Spark アプリケーションをデバッグする</a></li>
+   <li><a href="https://www.youtube.com/watch?v=YTZzYVgut6c" target="_blank">Spark Scala の作成に関するデモProject</a>&nbsp;</li>
+   <li><a href="https://channel9.msdn.com/Series/AzureDataLake/Debug-HDInsight-Spark-Applications-with-Azure-Toolkit-for-IntelliJ" target="_blank">Azure Toolkit for IntelliJ を使用して HDInsight クラスターで Spark アプリケーションをリモートでデバッグする</a></li>
+  </ul>
+
+
+  <p>Azure ブログとビッグ&rsquo; データブログで今日のお知らせの<a href="https://blogs.msdn.microsoft.com/azuredatalake" target="_blank"></a>詳細を確認し、<a href="https://azure.microsoft.com/en-us/blog/" target="_blank">さらに</a> Azure サービスの<a href="https://azure.microsoft.com/en-us/updates/" target="_blank">更新プログラムを確認してください</a>。</p>
+
+
+  <h3>フィードバック</h3>
+
+
+  <p>ご意見やフィードバックをお待ちしております。 機能の要求、顧客の質問、または提案がある場合は、 にメモを送信してください <a href="mailto:hdivstool@microsoft.com">hdivstool@microsoft.com</a>。 バグの送信については、テンプレートを使用して新しいチケットを開きます。</p>

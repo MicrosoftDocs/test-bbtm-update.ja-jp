@@ -1,0 +1,92 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 14a8664bb54d966730d5dd14ea2412871725751d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895661"
+Slug: announcing-powershell-script-support-azure-automation-2
+Title: Azure Automation でのネイティブ PowerShell スクリプトのサポートの発表
+Summary: Azure Automation の新しい PowerShell Runbook の種類と、クラウドとオンプレミスのデータセンター間の自動化を容易にする方法について説明します。
+Content: >-
+  <p><span style="font-size:14px;"><strong>Update 10/19/2015</strong> - 次のブログ記事では、 &quot;<span style="color: rgb(80, 80, 80); text-transform: none; line-height: 21px; text-indent: 0px; letter-spacing: normal; font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; word-spacing: 0px; float: none; display: inline !important; white-space: normal; widows: 1; background-color: rgb(255, 255, 255); -webkit-text-stroke-width: 0px;">PowerShell Runbook runbook workerハイブリッド サポートが近日公開される予定です。&quot; これが実装されました。ネイティブ PowerShell Runbook をハイブリッド Runbook Worker で実行できます。</span></span></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&rsquo;<a href="https://azure.microsoft.com/en-us/services/automation/" target="_blank">Azure Automation</a>&rsquo; サービスをよく理解している方は、IT インフラストラクチャをクラウドとオンプレミスで稼働状態に保つために必要なすべての手動で長時間実行され、エラーが発生しやすく、頻繁に繰り返されるタスクを確実に自動化するすばらしいツールです。 ただし、&rsquo;純粋な PowerShell を実際Azure Automation&rsquo;実行しない場合、 <a href="https://blogs.technet.com/b/heyscriptingguy/archive/2012/12/26/powershell-workflows-the-basics.aspx" target="_blank">PowerShell ワークフローが</a>実行される可能性があります。</p>
+
+
+  <p>PowerShell ワークフロー&nbsp;には多くの利点があります。 PowerShell に関するセマンティクス、モジュール、ナレッジ、コンテンツ、コミュニティを活用できるだけでなく、Windows Workflow Foundation の機能にもアクセスできます。&nbsp;Windows Workflow Foundation&nbsp;&nbsp; を使用すると、Runbook をチェックポイント、中断、再開して、ロジック、環境、またはネットワークの障害をより適切に処理できるだけでなく、並列またはシリアルで簡単に実行できます。</p>
+
+
+  <p>しかし、ほとんどのことを生き生きと同様&rsquo;に、悪い事態が起きなくても良いはずではありません。 PowerShell ワークフローは通常の PowerShell と非常に似ていますが、追加<a href="https://technet.microsoft.com/en-us/magazine/dn151046.aspx" target="_blank"></a>される追加機能の一部を許可するために、いくつかの違いと制限があります。&nbsp;&nbsp;&rsquo;&rsquo;たとえば、既に PowerShell スクリプトとして記述されている情報だけを使用したり、既存の PowerShell の知識のみを使用して、Azure Automation で実行したりすると便利でしょうか。</p>
+
+
+  <p>今日は幸&rsquo;いな日です。 Azure Automation PowerShell ワークフローと PowerShell 以外の別の種類の Runbook Graph &ndash; <b>追加しました</b>。 PowerShell Runbook のライフサイクル、機能、管理は他の Runbook&nbsp;&nbsp; の種類と同じですが、ネイティブ PowerShell を Azure Automation で実行できます。</p>
+
+
+  <p>Automation アカウントでネイティブ PowerShell Runbook の使用を開始するには、 <a href="https://portal.azure.com" target="_blank">Azure</a> プレビュー ポータルに移動し、Automation アカウントを選択し、[Runbook の Runbook &gt; の追加] をクリックしてから、新しい PowerShell Runbook を作成するか、既存の PowerShell スクリプトをインポートします。</p>
+
+
+  <p><img alt="Adding a PowerShell script runbook to Azure Automation" border="0" height="300" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ed1ceed-2766-487f-994e-ac1e36ef6d53.png" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; float: none; margin-left: auto; display: block; border-top-width: 0px; margin-right: auto" title="PowerShell スクリプト Runbook を追加してAzure Automation" width="610"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>他の Runbook の種類と同様に、PowerShell Runbook では Automation アセットを使用し、スケジュールと Webhook にフックして、Runbook をインラインで呼び出します。 PowerShell runbook runbook workerハイブリッド サービスのサポートは近日公開予定です。 現在は、PowerShell Runbook からインライン PowerShell Runbook を呼び出すだけで、PowerShell Workflow または Graph Runbook を PowerShell Workflow または Graph Runbook から呼び出す必要があります。 これは、今後変更される可能性があります。 さらに、いつでも Start-AzureAutomationRunbook を使用して、Runbook から任意の種類の Runbook を開始できます。これは、単に別のジョブとして開始されます。</p>
+
+
+  <p>別の PowerShell Runbook から PowerShell Runbook をインラインで呼び出す場合も、PowerShell Workflow Runbook&rsquo; で使用する構文とは少し異なります。 ローカル PowerShell と一致するには:</p>
+
+
+  <p><u>PowerShell ワークフロー Runbook</u></p>
+
+
+  <blockquote>
+
+  <p><i>MyChildPswfRunbook &ndash;Parameter1 &ldquo;Value1&rdquo;</i></p>
+
+  </blockquote>
+
+
+  <p><u>PowerShell Runbook</u></p>
+
+
+  <blockquote>
+
+  <p>.\<i>MyChildPSRunbook.ps1 &ndash;Parameter1 &ldquo;Value1&rdquo;</i></p>
+
+  </blockquote>
+
+
+  <p>スピン&rsquo;に取り入れてみたらどうでしょう。 ご覧のように、PowerShell Runbook は、PowerShell ワークフローの兄弟と同様に、Azure Automation (またはローカル) で編集できます。</p>
+
+
+  <p><img alt="Editing a PowerShell script runbook in Azure Automation" border="0" height="271" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/790d3668-d8cb-4e12-b9d3-e7fe9058ea39.png" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; float: none; margin-left: auto; display: block; border-top-width: 0px; margin-right: auto" title="Azure Automation での PowerShell スクリプト Runbook のAzure Automation" width="610"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>また、実行されるだけでなく、高速で実行 <b>されます</b>。 Runbook のサイズとインライン Runbook の数が増えるにつれて時間が経つコンパイル ステップを含む PowerShell ワークフローとは異なり、PowerShell Runbook は PowerShell ワークフローではなく PowerShell であり、コンパイル ステップは一度も行う必要はありません。 たとえば、次の実行は、start-button-clicked から infive seconds の&nbsp;実行に進み、</p>
+
+
+  <p><img alt="Running a PowerShell script runbook in Azure Automation" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/eeea1bd0-1b9f-4513-91dc-a11089ed6dfa.png" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; float: none; margin-left: auto; display: block; border-top-width: 0px; margin-right: auto" title="Azure Automation での PowerShell スクリプト Runbook のAzure Automation" width="610"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>「PowerShell &ldquo;Workflow Runbook を再度使用する必要がある理由」という質問が表示される場合があります。&rdquo; はい、気が読み取り可能です。 &ndash;ただし、PowerShell Runbook&rsquo; はシンプルで高速ですが、PowerShell ワークフローの固有の機能 (つまり、並列、チェックポイント、中断/再開) は提供されませんが、いくつかの良いアドバイスを提供できます。 並列処理を使用しない場合、PowerShell Runbook はコマンドのみをシリアルに実行できます。 また、チェックポイントや中断/再開機能がない場合、PowerShell Runbook は、ロジック、環境、ネットワーク障害、または公平な共有の制限に達した場合、Runbook&rsquo; 内の最初以外の任意<a href="https://azure.microsoft.com/en-us/documentation/articles/automation-runbook-execution/#fair-share" target="_blank"></a>の時点から再開できます。 また、Automations&rsquo; グラフィカル エディターで作成されたグラフ Runbook を使用すると、プロセスの作成、テスト、実行を行うプロセスの自動化を視覚化できます。</p>
+
+
+  <p>使用する Runbook の種類の選択はユーザーの選択です。 &nbsp;Runbook&nbsp;&nbsp;&nbsp; の各種類が役に立つシナリオは必見です。これで、その選択を行う力が得らされました。 この&rsquo;機能を導入できるのを非常に楽しみに思います。また&#39;楽しく学ぶことを願っています。</p>
+
+
+  <p>次回まで、 &ndash; PowerShell Runbook を使用して、落ち &ndash; 着いて自動化します。</p>
+
+
+  <p>次のAzure Automation? このサービスについては、こちらを <a href="https://aka.ms/Q2p1ap" target="_blank">確認し</a>、Twitter のAzure Automation <a href="https://twitter.com/AzureAutomation" target="_blank">に従ってください</a>。</p>

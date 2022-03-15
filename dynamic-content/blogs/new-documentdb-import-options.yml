@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2c97af026177ae9f4da83c5029324c37ac2b3773
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895820"
+Slug: new-documentdb-import-options
+Title: 新しい DocumentDB インポート オプション
+Summary: 本日、Azure Table Storage と JSON、CSV、MongoDB エクスポート ファイルの URL サポートという 2 つの新しいインポート オプションをお知らせします。
+Content: >-
+  <p>4 月 8 日に、Azure DocumentDB データ移行ツールをリリースしました。Azure DocumentDB データ移行ツールは、次を含むさまざまなソースから DocumentDB にデータをインポートするオープン ソース ソリューションです。</p>
+
+
+  <ul>
+   <li>JSON ファイル</li>
+   <li>MongoDB</li>
+   <li>SQL Server</li>
+   <li>CSV ファイル</li>
+   <li>DocumentDB コレクション</li>
+  </ul>
+
+
+  <p>本日、Azure&rsquo; Table Storage と JSON、CSV、MongoDB エクスポート ファイルの URL サポートという 2 つの新しいインポート オプションをお知らせします。</p>
+
+
+  <h2>Azure Table Storage</h2>
+
+
+  <p>これで、Azure Table Storage から DocumentDB にデータをインポートできます。&nbsp; 接続文字列とテーブル名を指定するだけで、Azure テーブルからすべてのエンティティをインポートできます。&nbsp; インポートするデータを細かく制御するには、必要に応じて次を指定できます。</p>
+
+
+  <ol>
+   <li>フィルター <ul>
+    <li>インポート <a href="https://msdn.microsoft.com/en-us/library/azure/ff683669.aspx">するエンティティ </a>を制限するフィルターを指定します (PartitionKey eq &lsquo;Partition1&rsquo; や RowKey gt &lsquo;00001&rsquo; など)。</li>
+   </ul>
+   </li>
+   <li>内部フィールドを含める <ul>
+    <li>[すべて &ndash; 含める] すべての内部フィールド (PartitionKey、RowKey、タイムスタンプ)</li>
+    <li>なし &ndash; すべての内部フィールドを除外する</li>
+    <li>RowKey &ndash; のみ RowKey フィールドを含める</li>
+   </ul>
+   </li>
+   <li>列の選択 <ul>
+    <li>特定の Azure Table エンティティ プロパティのみをインポートする場合は、それらを [列の選択] リストに追加します。&nbsp; その他のすべてのエンティティ プロパティは無視されます。</li>
+   </ul>
+   </li>
+  </ol>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/05/05/azuretablesource.png"><img alt="azuretablesource" class="alignnone size-medium wp-image-289091" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/azuretablesource-492x369.png" width="492"></a></p>
+
+
+  <h2>JSON、CSV、MongoDB エクスポート ファイルの URL サポート</h2>
+
+
+  <p>JSON、CSV、MongoDB&rsquo; のエクスポート ファイルをインポートすると、データ移行ツールの新しいオプション 、つまり、ソース ファイルに 1 つ以上の HTTP URL&nbsp; を追加する機能が表示されます。Azure Blob Storage にファイルがある場合でも、data.gov から CSV データを直接インポートする場合でも、HTTP&rsquo; アクセス可能なファイルからデータをインポートする方が簡単ではありません。 <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/05/05/mongodbexportsource4.png"><img alt="mongodbexportsource" class="alignnone size-medium wp-image-289211" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/mongodbexportsource4-492x369.png" width="492"></a>更新された移行ツールのソース コードは GitHub で<a href="https://github.com/azure/azure-documentdb-datamigrationtool"></a>使用できます。また、更新されたコンパイル済みバージョンは Microsoft ダウンロード センター<a href="https://www.microsoft.com/downloads/details.aspx?FamilyID=cda7703a-2774-4c07-adcc-ad02ddc1a44d">から利用できます</a>。 ソリューションをコンパイルするか、コンパイルされたバージョンをダウンロードして、選択したディレクトリに抽出します。&nbsp; 各データ ソース オプションのコマンド ライン サンプルなど、ツールの使い方の詳細については、こちらを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/">してください</a>。&nbsp; また&rsquo;、データ移行ツール&nbsp;に表示するその他のソースについてお聞かせください。フィードバックをお送 <a href="https://feedback.azure.com/forums/263030-documentdb">りください</a>。&nbsp; DocumentDB の詳細については、サービス ページを <a href="https://azure.com/docdb">参照してください。</a></p>

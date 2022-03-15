@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3cb637aa2b36a4f1ee24972db23f0f42f8753bc0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894070"
+Slug: azure-redis-cache-feature-updates
+Title: Azure Redis Cache機能の更新プログラム
+Summary: ファイアウォールと再起動の機能が、3 つのすべての Azure Redis Cacheされました。 これらの以前の Premium 専用機能は、Basic レベルと Standard レベルで追加コストを必要と "なし" で利用できます。
+Content: >-
+  <p>ファイアウォールと再起動の機能が、3 つのすべての Azure Redis Cacheされました。 これらの以前の Premium 専用機能は、Basic レベルと Standard レベルで追加コストを必要と "なし" で利用できます。 さらに、Redis インスタンスを特定の可用性ゾーン対応 Azure リージョンにピン留めする機能をプレビューしています。</p>
+
+
+  <h2>ファイアウォール</h2>
+
+
+  <p>ファイアウォールは、Azure Redis デプロイのセキュリティを強化します。 これにより、どのクライアントが自分の IP アドレスに基づいて Redis キャッシュに接続できるのか制限できます。 Redis クライアント <a href="https://docs.microsoft.com/en-us/azure/redis-cache/cache-configure#firewall" target="_blank">が使用する</a> IP アドレス範囲ごとにファイアウォール規則を作成できます。 ファイアウォールを有効にした後、少なくとも 1 つの規則を指定すると、定義された IP 範囲に該当する IP アドレスからの要求だけが Redis によって受け入れされます。 ただし、Redis 監視エンドポイントはファイアウォール規則から除外されます。 これにより、ファイアウォール設定によるネットワークの誤った切断を防ぎ、監視が中断なく動作することを保証します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27e155fe-d119-49cb-b86a-a1107b8b40b0.png"><img alt="Firewall (002)" border="0" height="301" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/54a1a6b0-bdfb-467b-b1af-e25d43f13f85.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ファイアウォール (002)" width="780"></a></p>
+
+
+  <h2>再起動</h2>
+
+
+  <p>再起動を使用すると、クラスター内の 1 つ以上のノードを再起動Redis Cache。 この関数は、特にキャッシュエラーをシミュレートし、アプリケーションがそれに対してどのように反応するかテストする場合に便利です。 これは、User Voice から高く要求される機能です。 Azure Portal またはこの PowerShell コマンドの <a href="https://docs.microsoft.com/en-us/azure/redis-cache/cache-administration#reboot" target="_blank">[再起動</a> ] ブレードを使用して、任意のキャッシュ <a href="https://docs.microsoft.com/en-us/azure/redis-cache/cache-howto-manage-redis-cache-powershell#to-reboot-a-redis-cache" target="_blank">ノードを再起動できます</a>。 再起動によってデータが失われる可能性があります。また、損失の量は、再起動するノードによって異なります。 再起動 <a href="https://docs.microsoft.com/en-us/azure/redis-cache/cache-administration#reboot-faq" target="_blank">に関する FAQ</a> には、この問題と、知りたいその他の問題が記載されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9ac02991-9100-474c-b6bc-85ec06e47b59.png"><img alt="image" border="0" height="288" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e36bce77-2de6-41fc-927b-383cd1115f2b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="210"></a></p>
+
+
+  <h2>ゾーンのピン留め</h2>
+
+
+  <p>ゾーン固定を使用すると、複数の <a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank">Availability Zones</a> で構成される Azure リージョン内のキャッシュ インスタンスの配置場所を制御できます。これにより、データセンターレベルの障害から保護されます。 キャッシュを特定のゾーンにピン留めすることで、アプリケーションとキャッシュが密接に一緒に配置されます。 この機能は現在パブリック プレビュー (Availability Zones) であり、Redis キャッシュプレミアムサポートされています。 ゾーンのサポートに対して Azure サブスクリプションを有効にした後<a href="https://aka.ms/redis/az/getstarted/" target="_blank"></a>、この一連の手順に従ってゾーンのピン留<a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank">めを試しに行います</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/839d78c4-e294-47dc-8bf4-f258c8bc918a.png"><img alt="image" border="0" height="537" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/85868f27-fc6b-471f-95e2-35aac7bb2230.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="image" width="240"></a> ご質問やフィードバックがある場合は、 までお問い合わせください AzureCache@microsoft.com。</p>

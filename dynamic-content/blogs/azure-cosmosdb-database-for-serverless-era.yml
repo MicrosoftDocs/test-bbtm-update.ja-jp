@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 022c1f369108a18098da4921f602225914945cc4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896235"
+Slug: azure-cosmosdb-database-for-serverless-era
+Title: 'Azure #CosmosDB –サーバーレス時代 (年号) のデータベース'
+Summary: 最近までは、ソフトウェア開発はサーバーの概念を中心に発展してきました。 アプリケーションのプロビジョニング、保守、スケーリングは、開発者が多くの時間と労力を費やす必要がありました。
+Content: >-
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4f0e2081-f52f-4eae-afaa-c3dcb6cfc32b.png"><img alt="image" border="0" height="290" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/512b6608-6cef-4b56-ae0d-d894dab4605c.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="1024"></a></p>
+
+
+  <p>最近までは、ソフトウェア開発はサーバーの概念を中心に発展してきました。 アプリケーションのプロビジョニング、保守、スケーリングは、開発者が多くの時間と労力を費やす必要がありました。</p>
+
+
+  <p>ここでは、サーバーレスの時代 (年号) を入力します。 サーバーレスアーキテクチャでは、特にサーバーレスのイベントドリブンアプリで、新しいアプリケーションの範囲が新たに新たに追加されています。 イベントがトリガーされると、アプリケーションが動作し、実行する必要がある操作が実行され、再度表示されなくなります。 このようにして、サーバーが必要になるまで存在しないため、この &ldquo; 呼び出しを実行する &rsquo; 理由はかなり少なく &rdquo; なります。</p>
+
+
+  <p>ご存じのように、 <a href="https://azure.microsoft.com/en-us/services/cosmos-db/">Azure Cosmos DB</a>は、グローバルに分散された、非常に<a href="https://youtu.be/aAy635iBB50">スケーラブルな、マルチモデルのデータベースサービス</a>です。 このサービスは、顧客が任意の数の地理的リージョンでスループットとストレージの両方を弾力的、水平方向に拡張できるように設計されており、99パー99.99 センタイルで10ミリ秒の待機時間を保証 &lt; し、開発者がデータのパフォーマンス、可用性、一貫性のバランスを正確に保つことができます。 また Azure Cosmos DB は、今日の市場における最初のグローバル分散データベースサービスでもあり、スループット、待機時間、可用性、整合性に関する<a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_0/">包括的なサービスレベルアグリーメント (sla)</a>を提供します。</p>
+
+
+  <p>現在、 <a href="https://azure.microsoft.com/en-us/services/cosmos-db/">Azure Cosmos DB</a>と<a href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a>間のネイティブ統合の可用性が発表されています。 このネイティブ統合により、データベーストリガー、入力バインド、および出力バインドを Azure Cosmos DB アカウントから直接作成できます。 Azure Functions と Azure Cosmos DB を使用すると、グローバル ユーザー ベース向けの、リッチ データに低待機時間でアクセスできる、イベント ドリブンのサーバーレス アプリケーションを作成およびデプロイすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/46e71098-271d-454f-9df5-6feb42f02c4a.png"><img alt="image" border="0" height="509" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ec5c4cda-ea39-4b94-b6f8-217b23e6ed8b.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="1024"></a></p>
+
+
+  <p align="center"><strong>図:</strong> E コマースサーバーレスのイベントドリブンアーキテクチャの例</p>
+
+
+  <p align="left">このアーキテクチャの利点は次のようになります。</p>
+
+
+  <ul>
+   <li>これにより、システムをより簡単に管理しやすい <strong>小さな部分に分割</strong> することができます。</li>
+   <li>インフラストラクチャではなく、 <strong>開発者がコードに専念できる</strong> ポイントへのサーバーの実行と保守に関連する問題が解消されます。</li>
+   <li>より単純なアーキテクチャは、 <strong>より管理しやすい</strong>だけでなく、はるか <strong>に経済的</strong>です。 各関数は、必要に応じて個別に呼び出すことができます。その後、リソースフットプリントが大幅に小さくなります。</li>
+   <li>もう1つの大きな利点は、コードの再利用 <strong>性</strong>によってパフォーマンスが向上することです。</li>
+   <li>Azure Cosmos DB は、ユーザーが世界中のどこにいても、大規模で多様なデータを利用できるようにすることで、<strong>上記のアーキテクチャをさら</strong>に活用します。</li>
+  </ul>
+
+
+  <h2>すべてのサーバーレスアプリのデータベースを Azure Cosmos DB &ndash; する</h2>
+
+
+  <p>Azure Cosmos DB は将来のデータベースであり、非常にスケーラブルなデータベースの世界における次の大きなメリットです。 これは、世界規模で分散されたマルチモデルデータベースサービスで、任意の API とデータモデルを使用して、さまざまなアプリを簡単に構築できます。 次の理由により、すべてのサーバーレスコンピューティングアーキテクチャに推奨されるデータベースは Azure Cosmos DB です。</p>
+
+
+  <ul>
+   <li><strong>すべてのデータへの即時アクセス</strong>: 既定ですべてのデータの<a href="https://docs.microsoft.com/azure/cosmos-db/indexing-policies">インデックスが自動的に</a>作成され、それらのインデックスがすぐに使用できるようになる Azure Cosmos DB ため、格納されているすべての値に詳細にアクセスできます。 つまり、constinuously を Azure Functions 使用して、データベースに対するクエリの実行、更新、新しい項目の追加を行うことができます。</li>
+   <li><strong>スキーマが</strong>ありません。 Azure Cosmos DB はスキーマを持たないため、は Azure 関数からのデータ出力を一意に処理することができ&#39;ます。 この &quot; ハンドルを処理 &quot; することで、すべての出力が Azure Cosmos DB になるさまざまな関数を簡単に作成できるようになります。</li>
+   <li><strong>スケーラブルなスループット</strong>。 Azure Cosmos DB のスループットのスケール アップとスケール ダウンはすぐに行うことができます。 数百から数千単位の Functions のクエリがあり、同じコレクションに書き込む場合、負荷を処理する <a href="https://docs.microsoft.com/azure/cosmos-db/request-units">RU/秒</a>をスケール アップできます。 すべての関数は、割り当てられた RU/秒を使用して並列処理できます。また、データの<a href="https://docs.microsoft.com/azure/cosmos-db/consistency-levels">整合性</a>が保証されます。</li>
+   <li><strong>グローバル レプリケーション</strong> ユーザーのいる場所に最も近いデータの位置を特定することで、<a href="https://docs.microsoft.com/azure/cosmos-db/distribute-data-globally">世界中</a>の Azure Cosmos DB データをレプリケートして待機時間を短縮できます。 すべての Azure Cosmos DB クエリと同様に、トリガーからのデータは、そのリージョンに最も近い Azure Cosmos DB から読み取られます。</li>
+  </ul>
+
+
+  <h2>Azure Cosmos DB と Azure Functions でできること</h2>
+
+
+  <p>Azure Cosmos DB と Azure Functions のネイティブ統合により、次のことが可能になります。</p>
+
+
+  <ol>
+   <li><strong>Azure 関数で Azure Cosmos DB トリガーを作成でき</strong>ます。 これにより、では、イベントソースとイベントドリブンのサーバーレスアプリを非常に簡単に構築できます。 このトリガーは、変更フィードストリームに依存して Azure Cosmos DB コンテナーの変更を監視します。 コンテナーに変更が加えられると、変更フィード ストリームがトリガーに送信され、それによって Azure Functions が呼び出されます。 クイック スタートの手順については、<a href="https://aka.ms/cosmosdbtriggerportalfunc">Azure portal での Azure Cosmos DB トリガーの作成</a>に関するページをご覧ください。</li>
+   <li><strong>入力バインディングを使用して、Azure 関数を Azure Cosmos DB コンテナー (ドキュメントのコレクション、テーブル、グラフ) にバインドでき</strong>ます。 入力バインドは、関数の実行時にコンテナーからデータを読み取ります。 &nbsp;クイックスタートの手順については、「 <a href="https://docs.microsoft.com/azure/azure-functions/functions-integrate-store-unstructured-data-cosmosdb">Azure Functions と Cosmos DB を使用した非構造化データの格納</a>」をご覧ください。</li>
+   <li><strong>出力バインディングを使用して、Azure 関数を Azure Cosmos DB コレクションにバインドでき</strong>ます。 関数が完了すると、出力バインディングはコンテナーにデータを書き込みます。</li>
+  </ol>
+
+
+  <p>Azure Functions の Azure Cosmos DB トリガーの概要については、Azure 金曜日のビデオをご覧ください。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Shows/Azure-Friday/Severless-Apps-with-Azure-Cosmos-DB-and-Azure-Functions/player" width="960"></iframe></p>
+
+
+  <h2>小売から IoT まで、数分で充実した Event-Driven サーバーレスアプリ</h2>
+
+
+  <p>次のユース ケースでは、データをイベント ドリブンの Azure Functions に接続して Azure Cosmos DB データを最大限に活用する方法をいくつか紹介します。</p>
+
+
+  <ul>
+   <li><strong>小売</strong>: 小売の実装では、ユーザーがバスケットに項目を追加するときに、オプションのビジネスパイプラインコンポーネントの関数を柔軟に作成して呼び出すことができるようになりました。 変更フィードをリッスンすることによって Azure Cosmos DB トリガーを作成できます。また、プロセス内の重要な注文処理イベントの遅延が発生 &rsquo; していないことを確認してください。</li>
+   <li><strong>財務: 金融</strong>アプリケーションでは、銀行口座の残高が特定のしきい値を下回ったときに関数を呼び出すことができます。 <a href="https://docs.microsoft.com/azure/azure-functions/functions-create-scheduled-function">タイマートリガー</a>を使用すると、<strong>入力バインディング</strong>を使用して、Azure Cosmos DB コンテナーに格納されている銀行口座の残高情報を取得できます。 タイマーは、日単位または週単位の間隔に設定できます。この場合、ユーザーは、低残高と見なされる対象のしきい値を設定できます。その後、Azure 関数からのアクションを使用して実行できます。</li>
+   <li><strong>IoT:</strong>接続された自動車のシナリオなど、IoT アプリケーションでは、 <strong>Azure Cosmos DB トリガー</strong>を使用して、接続された車での小切手エンジンの光など、自動車の警告に関連するイベントをトリガーできます。 トリガーは、センサーデータコレクションに対するすべてのデータ変更に対して呼び出されます。しきい値条件が満たされている場合、この関数はセンサーデータを保証部門に送信できます。 また、車のメンテナンスに関連するメールを管理するタスクに関連する所有者情報を送信するために、別の関数を作成することもできます。 関数の1つの出力バインドでは、別の Azure Cosmos DB コンテナーの車レコードを更新して、チェックエンジンイベントに関する情報を格納できます。</li>
+   <li><strong>ゲーム:</strong>ゲームでは、新しいユーザーが作成されるときに、 <a href="https://docs.microsoft.com/azure/cosmos-db/graph-introduction">Azure Cosmos DB Graph API</a>を使用して、そのユーザーを知っている可能性のある他のユーザーを検索できます。 その後、簡単に取得できるように、結果を Azure Cosmos DB データベースに書き込むことができます。 Azure Cosmos DB グラフ データベースを使用してすべてのユーザーを格納することで、Azure Cosmos DB トリガーを使用して新しい関数を作成できます。 新しいユーザーが挿入されるたびに関数が呼び出され、結果は<strong>出力バインディング</strong>を使用して格納されます。 関数は、グラフデータベースに対してクエリを実行し、新しいユーザーに直接関連付けられているすべてのユーザーを検索し、そのデータセットを関数に返します。 これは、キーと値のペアのセットとして Azure Cosmos DB <a href="https://docs.microsoft.com/azure/cosmos-db/table-introduction">Table データベース</a>に格納できます。これは、新しいユーザーが接続された友人を示すフロントエンドアプリケーションによって簡単に取得できます。</li>
+  </ul>
+
+
+  <h2>Azure Cosmos DB を試して今すぐ Azure Functions</h2>
+
+
+  <p>Azure Cosmos DB を簡単に試すことができ、Azure Cosmos DB ポータルまたは Azure Functions ポータルから [新しい項目 &gt; の追加 &gt; ] [Azure 関数] をクリックして Azure Cosmos DB トリガーを作成 Azure Functions &ndash; ことができます。 次の図は、Azure Functions ポータルで関数に Azure Cosmos DB トリガーを追加する方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/db096c50-ef17-4a54-a243-f07bffbf710f.png"><img alt="image" border="0" height="448" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/25ae7209-72b0-49c7-a779-8f3de1684461.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="510"></a></p>
+
+
+  <p>Azure Functions と Azure Cosmos DB を使用すると、イベントドリブン型のサーバーレスアプリを作成し、世界各地のさまざまなデータセンターにデプロイすることができます。 Azure Functions を Azure Cosmos DB のようなグローバル分散データベースと組み合わせて使用すると、世界中の膨大な数の顧客に対して非常に短い待機時間でデータにアクセスできます。 大規模な企業から個人の開発者まで、数分で大規模なサーバーレスアプリを構築できるようになりました。 詳細については、「 <a href="https://aka.ms/cosmos-db-serverless">Azure Cosmos DB: Azure Functions を使用したサーバーレスデータベースコンピューティング</a>」を参照してください。 今すぐ<a href="https://azure.microsoft.com/try/cosmosdb/">無料の Azure Cosmos DB を試す</a>ことができます。サインアップやクレジットカードは必要ありません。 ヘルプが必要な場合、または質問やフィードバックがある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-cosmosdb">Stack Overflow の開発者フォーラム</a>でご連絡ください。 Twitter <a href="https://twitter.com/search?q=%23cosmosDB&amp;src=typd"> # CosmosDB</a>() <a href="https://twitter.com/AzureCosmosDB">@AzureCosmosDB</a> に従って、最新の Azure Cosmos DB ニュースや機能について最新情報を入手してください。</p>
+
+
+  <p>-友人の Azure Cosmos DB</p>

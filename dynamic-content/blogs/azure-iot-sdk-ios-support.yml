@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 108ad14766fae7507a0be5a2a921e007e632b024
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889968"
+Slug: azure-iot-sdk-ios-support
+Title: Azure IoT Hub SDK は正式にネイティブ iOS サポートを提供
+Summary: IOS プロジェクトが Swift または目標-C のどちらで記述されている場合でも、デバイス SDK とサービス SDK を直接活用して、iOS デバイスを IoT デバイスに変換することができます。
+Content: >-
+  <p>最近、Azure IoT Hub C SDK for iOS プラットフォームのポートをリリースしました。 IOS プロジェクトが Swift または目標-C のどちらで記述されている場合でも、デバイス SDK とサービス SDK を直接活用して、iOS デバイスを IoT デバイスに変換することができます。 ライブラリは、iOS 用の一般的なパッケージマネージャーである Cocoアポストロフィ d で入手できます。ソースコードは GitHub で入手できます。</p>
+
+
+  <p>iOS デバイスは、従来は IoT デバイスとして表示されていませんが、最近では IoT 空間で牽引力を持っています。 プレビュー段階で業界のお客様から収集した興味深いシナリオの一部を次に示します。</p>
+
+
+  <ul>
+      <li>工場出荷時のリーフデバイスまたはセンサーのゲートウェイとしての iOS デバイス。</li>
+      <li>会議室にある iOS デバイス。これは、Azure IoT hub からメッセージを送受信するためのエンド IoT デバイスとして機能します。</li>
+      <li>IoT テレメトリの視覚化を表示する iOS デバイス。</li>
+      <li>IoT Hub 操作を管理する iOS デバイス。</li>
+  </ul>
+
+
+  <p>では、このボックスには何があるのでしょうか。 以前に Azure IoT Hub C SDK を操作したことがある方は、これで理解できます。 C SDK は、さまざまなプラットフォームへの移植性を最大化するために C99 で記述されています。 移植プロセスでは、プラットフォーム固有のコンポーネントのシン導入レイヤーを作成します。 GitHub では、iOS 用のシン<a href="https://github.com/Azure/azure-c-shared-utility/tree/master/pal/ios-osx">導入レイヤー</a>を見つけることができます。 C SDK のすべての機能は、iOS プラットフォームで直接利用できます。これには、サポートしている Azure IoT のハブ機能や、ネットワークの信頼性の再試行ポリシーなどの SDK 固有の機能が含まれます。 さらに、iOS プラットフォームは、正式にサポートされているプラットフォームの一部であり、すべてのリリースでテストされています。 microsoft のテストスイートには、単体テスト、統合テスト、およびエンドツーエンドのテストが含まれています。これらはすべて GitHub で利用できます。 &nbsp; Azure IoT Hub Device Provisioning Service sdk は、すぐに iOS でも利用できます。</p>
+
+
+  <p>IOS デバイスを IoT デバイスに変換する方法については、こちらを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/quickstart-send-telemetry-ios" target="_blank">デバイスから IoT ハブへの利用統計情報の送信 (Swift)</a></li>
+      <li>アプリケーションからの<a href="https://docs.microsoft.com/azure/iot-hub/iot-hub-ios-swift-c2d">クラウドからデバイスへ</a>の<a href="https://docs.microsoft.com/azure/iot-hub/iot-hub-ios-swift-c2d" target="_blank">メッセージの送信 (Swift)</a> <a href="https://docs.microsoft.com/azure/iot-hub/iot-hub-ios-swift-c2d"> </a></li>
+      <li><a href="https://github.com/Azure-Samples/azure-iot-samples-ios" target="_blank">Github のサンプル</a></li>
+  </ul>
+
+
+  <iframe src="https://channel9.msdn.com/Shows/Internet-of-Things-Show/iOS-SDK-for-Azure-IoT-Hub/player" width="960" height="540" allowfullscreen="" frameborder="0"></iframe>

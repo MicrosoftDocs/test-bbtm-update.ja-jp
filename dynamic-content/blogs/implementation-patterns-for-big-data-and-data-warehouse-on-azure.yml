@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b77c8955a87b2bb8209d3a58810f204efeb24e18
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890764"
+Slug: implementation-patterns-for-big-data-and-data-warehouse-on-azure
+Title: Azure でのビッグ データとデータ ウェアハウスの実装パターン
+Summary: お客様がビッグ データとデータ ウェアハウスのワークロードに対して Azure サービスを導入する場合に役立つ、参照アーキテクチャである一般的な導入パターンを確認しました。
+Content: >-
+  <p>お客様がビッグ データとデータ ウェアハウスのワークロードに対して Azure サービスを導入する場合に役立つ、成功のための参照アーキテクチャである一般的な導入パターンを確認しました。 では、最新のデータ ウェアハウスのプレイにどのようなパターンがあるのでしょうか。</p>
+
+
+  <h2>最新のデータ ウェアハウス</h2>
+
+
+  <p>これは<a href="https://azure.microsoft.com/en-us/services/storage/blobs/">、Azure Storage サービス</a>のプライマリ データ ソースとして機能するために、<a href="https://azure.microsoft.com/en-us/services/data-factory/">Azure Data Factory</a> によって調整されたリレーショナル データと非リレーショナル データ、または構造化データと非構造化データの収束です。<a href="https://azure.microsoft.com/en-us/"></a> リレーショナル データ ウェアハウス レイヤーを使用する価値は、多くの場合、ここでレイヤー化されるビジネス ルール、セキュリティ モデル、ガバナンスをサポートすることです。 リレーショナル モデル内のデータの非正規化は、さまざまな内部ビジネス組織やアプリケーションをサポートするためにデータ モデルとスキーマを調整する目的があります。 <a href="https://azure.microsoft.com/en-us/services/databricks/">Azure Databricks</a> Azure に読み込む前にデータを<a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/">クリーンアップSQL Data Warehouse。</a> これにより、アプリケーションや他のビジネス アプリケーションAzure Analysis Servicesなどの<a href="https://azure.microsoft.com/en-us/services/analysis-services/"></a>ビジネス インテリジェンス アプリケーションのPower BIに加えて、オプション<a href="https://powerbi.microsoft.com/en-us/">の</a>分析パスが可能です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3949eb28-843e-4a5d-8c6e-bf9d28e4ebbd.jpg"><img alt="Pattern1_c" border="0" height="486" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/892adc4f-33c6-4422-a0d1-863f32950451.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Pattern1_c" width="884"></a></p>
+
+
+  <h2>ビッグ データの高度な分析</h2>
+
+
+  <p>ここでは、高度な分析機能を、<a href="https://azure.microsoft.com/en-us/services/databricks/">Azure Databricksプラットフォームを</a>通<a href="https://azure.microsoft.com/en-us/overview/machine-learning/">じて紹介Azure Machine Learning</a>。 Azure BLOB、Azure Blob Azure Data Factory、<a href="https://azure.microsoft.com/en-us/services/storage/blobs/">および Azure</a> Storageの優SQL Data Warehouse<a href="https://azure.microsoft.com/en-us/services/sql-data-warehouse/">。</a> <a href="https://azure.microsoft.com/en-us/services/data-factory/"></a> 最新のデータ ウェアハウス パターンを基に、新しい機能を追加し、データの使用事例を拡張して高度な分析とモデルのトレーニングを推進します。 データ サイエンティストは、<a href="https://azure.microsoft.com/en-us/overview/machine-learning/">この方法で Azure Machine Learning</a> の機能を使用して、大規模、履歴、および事実のデータ セットに対して実験モデルをテストし、モデル スコアに対してより広く信頼性を提供しています。&nbsp;最新かつインテリジェントなアプリケーション統合は、<a href="https://azure.microsoft.com/en-us/services/cosmos-db">Azure Cosmos DB</a> を使用して実現されます。これは、さまざまなデータ要件と消費をサポートするために最適です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fd6d352b-db92-4303-9560-b7b60b86ba94.jpg"><img alt="Pattern2_d" border="0" height="494" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1adb0f98-fe5b-4907-b7cd-f70d107d78bb.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Pattern2_d" width="904"></a></p>
+
+
+  <h2>リアルタイム分析 (ラムダ)</h2>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/iot-hub/">Azure IOT Hub</a> と Apache Kafka Azure Databricks <a href="https://azure.microsoft.com/en-us/services/hdinsight/apache-kafka/"></a> を紹介し、バッチベース<a href="https://azure.microsoft.com/en-us/services/databricks/"></a>のワークロードと共に豊富なリアルタイム分析モデルを提供します。 ここでは、前のパターンからすべてを取得し、既存のバッチ ワークロードと並行して受信データに対してデータ分析を実行できる高速インジェスト レイヤーを導入します。 Azure Stream Analyticsを使用<a href="https://azure.microsoft.com/en-us/services/stream-analytics/"></a>して同じことを行う場合があります。ここで考慮する必要があるのは、現在格納されているデータに対する受信データとの結合機能の高い確率です。 これはラムダ要件の要因になる場合とそうではない場合があります。また、使用事例に基づいて、適正な注意を適用する必要があります。&nbsp;<a href="https://azure.microsoft.com/en-us/services/cosmos-db">Azure Cosmos DB</a> を使用した最新かつインテリジェントなアプリケーション統合が引き続きサポートされているのを確認できます。これにより、Modern Data Warehouse の基盤パターンからの使用事例の構築が完了します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e75a6408-80eb-4bf1-868f-28f80f84a32d.jpg"><img alt="Pattern3_c" border="0" height="499" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2663ab4c-1bb3-4bcf-aefa-19e7d6ee177e.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Pattern3_c" width="908"></a></p>
+
+
+  <p>共有されている情報が役に立ち、この記事で共有されているパターンに関するフィードバックをお待ちしております。</p>

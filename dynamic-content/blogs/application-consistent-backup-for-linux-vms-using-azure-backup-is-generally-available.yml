@@ -1,0 +1,120 @@
+### YamlMime:Yaml
+ms.openlocfilehash: deddc8d3071957ff8d4ec41e53e34cdb7ebd4258
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889294"
+Slug: application-consistent-backup-for-linux-vms-using-azure-backup-is-generally-available
+Title: アプリケーションを使用した Linux VM のアプリケーション整合性バックアップAzure Backup一般提供
+Summary: Azure で実行されている Linux VM のアプリケーション整合性バックアップの一般提供 (GA) について、Azure Backup。 この機能のプレビューは、昨年と顧客に対して行いました。
+Content: >-
+  <p>Azure で実行されている Linux VM のアプリケーション整合性バックアップの一般提供 (GA) について、Azure Backup。 この機能の<a href="https://azure.microsoft.com/en-in/blog/announcing-application-consistent-backup-for-linux-vms-using-azure-backup/"></a>プレビューは昨年行われ、お客様は Oracle、MySQL、Mongo DB、SAP HANA、PostGreSQL など、さまざまなアプリケーションにこのフレームワークを既に使用しています。</p>
+
+
+  <h2>アプリケーション整合性バックアップとは</h2>
+
+
+  <p>アプリケーション整合性バックアップを使用すると、バックアップされたデータのトランザクション整合性が確保され、VM の復元後にアプリケーションが起動されます。 トランザクションの整合性を確保するには、アプリケーションを一貫性を保つ必要があります。また、VM スナップショットを作成するときに未完了のトランザクションが発生しない必要があります。</p>
+
+
+  <p>Windows一貫性のある VM バックアップを確保するために、ボリューム スナップショット サービス (VSS) フレームワークがありますが、Linux 用のこのような汎用フレームワークはありません。 Azure Linux VM の導入が増える中、Azure VM 内で実行されている重要なエンタープライズ アプリケーションをバックアップする需要が増えています。 Linux ディストリビューションで実行されている Linux アプリケーションのアプリケーション整合性 VM バックアップを確保するための VSS に似た汎用フレームワークを導入しました。 このフレームワークを使用すると、VM バックアップ プロセスの一環として、カスタムの事前および事後スクリプトを柔軟に実行できます。 これらのスクリプトを使用すると、アプリケーションの整合性を保証する VM スナップショットを作成しながら、アプリケーションの IOs を一時保存できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c54e4aa-8e4f-4d31-8ca0-48adaa2e71cd.png"><img alt="f4bad234-e373-48e9-812a-46e9f90aa79e" border="0" height="490" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6503c117-2250-47b1-b078-aa3c8862c35a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="f4bad234-e373-48e9-812a-46e9f90aa79e" width="886"></a></p>
+
+
+  <p>実際、フレームワークは、VM スナップショットの一部としてネイティブ バックアップ API を呼び出してアプリケーションネイティブ バックアップを作成するために使用できるので、より強力です。 Azure Backup、このデータをオフサイトの Recovery Services コンテナーに移動し、VM の破損、VM の削除、またはディザスター リカバリーのシナリオに対してセキュリティで保護します。 VM をシャットダウンする必要がないすべて。</p>
+
+
+  <h2>主要な機能</h2>
+
+
+  <ul>
+   <li><strong>アプリケーション データを簡単にテストおよび復元する: </strong>iSCSI を <a href="https://azure.microsoft.com/en-in/blog/instant-file-recovery-from-azure-vm-backups-is-now-generally-available/">使用して、復旧</a> ポイントから直接アプリケーションをマウントできます。 これにより、バックアップ データをコピーせずに復旧ポイントをすばやく検証できます。 その後、VM 全体を復元することなく、特定のアプリケーション ファイルを回復できます。 たとえば、MySQL を実行している Azure Linux VM のバックアップがある場合は、クラウド復旧ポイントから .sql データ ダンプをマウントし、MySQL データベースをこのファイルに直接接続して、データ ダンプ全体をダウンロードすることなく、バックアップをすばやく検証したり、テーブルなどの個々の項目を取得することができます。</li>
+   <li><strong>監視の改善:</strong> このリリースでは、フレームワーク関連のエラーがバックアップ ジョブに表示され、問題を特定して簡単に修正できます。 たとえば、スクリプトに対して &ldquo;[失敗時に続行&rdquo; ] を構成した場合、バックアップはファイル システムまたはクラッシュ整合性として続行されます。 ただし、バックアップ ジョブに [ &ldquo;完了&rdquo; ] と警告が表示され、詳細なエラー メッセージとスクリプト エラーを修正するための推奨されるアクションが提供されます。</li>
+   <li><strong>アプリケーションとディストリビューションに依存しない: </strong>このフレームワークは Linux ディストリビューションとバージョンに依存し、ゲスト アプリケーションにアプリケーションの IOs を一時停止および再開する API がある限り、サポートされている <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare#supported-operating-systems-for-backup">すべての Linux</a> ディストリビューションでシームレスに動作します。</li>
+   <li><strong>GitHub のサンプル スクリプト:</strong> 一般的な Linux アプリケーション用に、パートナーや ISV と協力して、GitHubのオープンソース <a href="https://github.com/MicrosoftAzureBackup">スクリプト</a>を提供しています。 このリリースの時点で、MySQL、Oracle、および Cach 用にこれらが提供されています&eacute;。</li>
+   <li><strong>Azure CL を使用した大規模な自動化: </strong>アプリケーション を使用 <a href="https://azure.microsoft.com/en-in/blog/manage-your-azure-vm-backups-with-azure-cli-2-0-preview/">して、Azure CLIタスク</a> を大規模に構成、管理Azure Backup自動化できます。 最も一般的な操作のスマートな既定値、タブ補完、パイプが可能な出力などの CLI 機能を利用して、VM のバックアップ操作と復旧操作を簡単に管理できます。 バックアップと復元の構成とは別に、コマンド出力に対してクエリを実行して、他の管理タスクを自動化することもできます。 たとえば、バックアップの正常性情報をプログラムで取得し、正常性状態に基づいて後続の操作を開始できます。</li>
+  </ul>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>以下のビデオでは、事前スクリプトと事後スクリプトを実行するためのフレームワークを構成する方法について、さまざまな手順について説明します。 詳細については、アプリケーション整合性 Linux VM バックアップ <a href="https://docs.microsoft.com/azure/backup/backup-azure-linux-app-consistent">を構成する手順を参照してください</a>。</p>
+
+
+  <p align="center"><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Series/Azure-Backup/Configure-application-consistent-backup-for-Linux-VMs-using-Azure-Backup/player" width="960"></iframe></p>
+
+
+  <p align="left">これで、VM バックアップから直接アプリケーションをマウントしてデータを検証できます。データのコピーとバックアップは不要です。 詳細については、以下のビデオをご覧ください。</p>
+
+
+  <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="540" scrolling="no" src="https://channel9.msdn.com/posts/Restore-application-files-from-application-consistent-Linux-VM-backup/player" width="960"></iframe></p>
+
+
+  <h2>お客様の成功事例</h2>
+
+
+  <p><a href="https://www.open.ac.uk/">Open University</a> (OU) では、Azure Linux 整合性バックアップ ソリューションを利用して、Azure ベースの仮想学習環境のセットに対して Linux データベース サーバーのイメージ ベースのバックアップを一貫して Azure で実行できます。</p>
+
+
+  <p>OU は、仮想化を利用して Mi uk のオンプレミス データセンターなど、いくつかの仮想学習環境を運用し、現在、新しい仮想学習環境を Azure にデプロイし始めつとしています。 Azure Backup および Azure Linux Consistent Backup ソリューションを利用することで、Linux データベース バックアップに対して一貫したアプローチを使用して、Azure でホストされる新しい学習環境のデプロイ、バックアップ、復旧を簡略化できます。</p>
+
+
+  <blockquote>
+
+  <p><em>&ldquo;事前凍結と凍結後のプロセスは、オンプレミスの仮想マシン イメージ レベルのバックアップ ソリューションを使用して Linux データベース サーバーで使用するプロセスとほぼ同じです。これにより、既存のパッケージ化された事前凍結スクリプトと凍結後スクリプトを変更なしで利用できます。これにより、Azure 仮想学習環境のデプロイがはるかに簡単に行われたので、データベース バックアップの整合性を確保しながら、Azure マシンのバックアップを使用できます&rdquo;。</em></p>
+
+  </blockquote>
+
+
+  <p align="right">- オープン大学、IT サービス サポート &amp; 、システム プログラマー、エディザスター ロビンス</p>
+
+
+  <p><a href="https://intercept.nl/">Microsoft</a> パートナーである Intercept は、Azure Linux VM で実行されている Oracle データベースのアプリケーション整合性バックアップを実装しました。 この機能に関するインター&rsquo;セプト フィードバックを次に示します。</p>
+
+
+  <blockquote>
+
+  <p><i>&ldquo;Azure VM&rsquo; 内の Oracle データベースが一貫してバックアップされるのを確認するために、お客様の 1 人が Linux 向けアプリケーション整合性バックアップ機能を実装しました。お客様は、バックアップ ツールをシンプルにし、管理を容易にし、すべての Azure リソースに対して統一されたバックアップ エクスペリエンスを提供することを望んでおり、Linux 用の Azure アプリケーション整合性バックアップを可能にしています。&rdquo;</i></p>
+
+  </blockquote>
+
+
+  <p align="right">- Remco Vrielink、Intercept</p>
+
+
+  <p><a href="https://www.impactinggroup.com/" target="_blank">SA</a> に影響を与えたのは、MySQL と MongoDB に対してこのソリューションを試し、VM 全体ではなく特定のアプリケーション ファイルのみを復元する必要があるという点で、復元時間が大幅に (最大 70%) 向上しました。 影響を受け取る SA からのフィードバックを次に示します。</p>
+
+
+  <blockquote>
+
+  <p>この機能は、利用可能なドキュメントとガイドラインに従うだけでしたので、簡単<em>に有効にできます。&ldquo;これらは単純で、明示的で、理解しやすいものでした。</em>この機能の肯定的な点は、バックアップ時間が短縮された点です。これは、復元できるまで開始された時点から<em>でした。バックアップの復旧は、前のプロセスと比較して約 70% 多く、より速くなりました。4 時間から約 20 分でした。&rdquo;</em></p>
+
+  </blockquote>
+
+
+  <h2>アプリケーションのサンプル スクリプトOracle DB</h2>
+
+
+  <p>多くのお客様が MySQL と Oracle 用のソリューションを使用しているのに対し、MySQL オープン ソース スクリプトは既に GitHub にアップロードされているのに対し、サンプル Oracle スクリプトを追加<a href="https://github.com/MicrosoftAzureBackup/Oracle">しました</a>。 これを参照として使用して、独自のスクリプトを作成し、このフレームワークの機能を活用できます。</p>
+
+
+  <h2>オープンソース コミュニティへの貢献を求める</h2>
+
+
+  <p>このフレームワークを汎用的にし、Windows VSS のようなさまざまなアプリケーションをサポートするために、開発者、ISV、技術技術者、パートナーを呼び出して、<a href="https://github.com/MicrosoftAzureBackup">GitHub</a> リポジトリにオープンソース スクリプトを提供しています。 スクリプトは、すべてのユーザーが直接使用したり、要件に基づいてカスタマイズしたりするために使用できます。 <a href="mailto:linuxazurebackupteam@service.microsoft.com">linuxazurebackupteam@service.microsoft.com</a>投稿に関心をお持ちのお客様は、メールをお送りください。GitHub で公開し、使用ガイドラインを説明し、投稿の確認を受け取る必要があります。</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li>この機能の詳細については、以下をご覧ください。 Azure アプリケーション整合性 <a href="https://docs.microsoft.com/azure/backup/backup-azure-linux-app-consistent">Linux VM のバックアップに関するドキュメントを参照してください</a>。</li>
+   <li>ヘルプが必要ですか? サポートについては、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">Azure Backupフォーラムに連絡</a> するか、ドキュメントを <a href="https://docs.microsoft.com/azure/backup/">参照Azure Backupしてください</a>。</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+   <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください。</li>
+   <li>新しい <a href="https://azure.microsoft.com/en-us/services/backup/">Azure Backup</a>、無料の <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">Azure 試用版サブスクリプションにサインアップしてください</a>。</li>
+  </ul>

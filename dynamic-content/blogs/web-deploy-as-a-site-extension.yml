@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 315f2d90548c71286349b65bc66c463d9e80d099
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890041"
+Slug: web-deploy-as-a-site-extension
+Title: Web 配置拡張機能として使用する
+Summary: 最新バージョンの Azure Websites では、新しい Web 配置 エンドポイントが有効になっています。このエンドポイントは、各顧客のサイトでサイト拡張機能として機能します。サイト拡張機能に慣れ親しくない場合は、次の操作を行います。
+Content: >-
+  最新バージョンの Azure Websites では、新しい Web 配置 エンドポイントが有効になっています。このエンドポイントは、各顧客のサイトでサイト拡張機能として機能します。サイト拡張機能に慣れ親しくない場合は、基本的に、Web サイトの所有者がサイトの管理を強化できるプラグインです。Web 配置は、各サイトがサービスの独自のインスタンスをホストできるだけでなく、より頻繁に更新することができるため、サイト拡張機能として適しています。
+
+  <h2>新しいエンドポイントを使用している場合の確認方法</h2>
+
+  新しいエンドポイントを有効にすると、ダウンロードした新しい発行プロファイルがそれを指す構成になります。発行プロファイルで新しいエンドポイントが使用されるのを確認するには、それを開き、MSDeploy プロファイル ノードで publishUrl 属性を探します。publishUrl が "sitename.scm" のような場合。*" の場合、プロファイルは新しいエンドポイントを指しています。 "*.publish.azurewebsites.windows.net" のように見える場合は、古い値を指しています。次に示すのは、次のような例です。
+
+
+  &nbsp;
+
+  <p style="text-align: center;"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Elliott-Hamai-Web-Deploy-as-a-site-extension-image1a.png"><img class="alignnone size-large wp-image-154391" alt="Elliott Hamai - Web Deploy as a site extension - image1a" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Elliott-Hamai-Web-Deploy-as-a-site-extension-image1a-560x369.png" width="560" height="369" /></a></p>
+
+  <p align="center">左側のプロファイルには古いエンドポイントが含み、右側のプロファイルには新しいエンドポイントがあります</p>
+
+
+  <h2>操作方法エンドポイントに戻る必要がありますか?</h2>
+
+  現時点では、移行を容易にWeb 配置前のエンドポイントを使用できます。 必要に応じて、次の手順を実行して、古い publishUrl をポイントする発行プロファイルを取得できます。
+
+
+  <b>1.Azure 管理ポータルでサイトを開き、[構成] タブをクリックします。</b>
+
+
+  <b> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Elliott-Hamai-Web-Deploy-as-a-site-extension-image2.png"><img class="alignnone size-medium wp-image-153641" alt="Elliott Hamai - Web Deploy as a site extension - image2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Elliott-Hamai-Web-Deploy-as-a-site-extension-image2-636x196.png" width="636" height="196" /></a></b>
+
+
+  &nbsp;
+
+  <div><b>2. アプリ設定 "WEBSITE_WEBDEPLOY_USE_SCM" を追加し、"false" に設定します。 忘れずに [保存] をクリックして変更をコミットしてください。</b></div>
+
+  <b> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Elliott-Hamai-Web-Deploy-as-a-site-extension-image3.png"><img class="alignnone size-medium wp-image-153651" alt="Elliott Hamai - Web Deploy as a site extension - image3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Elliott-Hamai-Web-Deploy-as-a-site-extension-image3-636x113.png" width="636" height="113" /></a></b>
+
+
+  <strong>3. ダッシュボードに戻り、発行プロファイルを再ダウンロードします。 publishUrl は、古い *.publish.azurewebsites.windows.net アドレスを指す必要があります。</strong>
+
+
+  <b> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/06/Elliott-Hamai-Web-Deploy-as-a-site-extension-image4.png"><img class="alignnone size-medium wp-image-153661" alt="Elliott Hamai - Web Deploy as a site extension - image4" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Elliott-Hamai-Web-Deploy-as-a-site-extension-image4-633x369.png" width="633" height="369" /></a></b>
+
+
+  &nbsp;
+
+  <div><b>4.      </b><b>新しい発行プロファイルを使用して発行します。</b></div>
+
+  <b> </b>
+
+  <h2>新しいエンドポイントの制限事項</h2>
+
+  新しいエンドポイントには、Azure Portal を使用した簡単な回避策があり、通常は 1 回のアクションである、いくつかの既知の制限があります。これらの制限には、次を試みるアクションが含まれます。
+
+  <ol>
+   <li>アプリケーション プールの設定を変更する</li>
+   <li>新しいサブアプリケーションを作成する</li>
+  </ol>

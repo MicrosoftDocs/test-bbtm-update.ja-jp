@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 086572785a084663b702e27cd75780c2db8b3704
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896170"
+Slug: azure-iot-hub-message-routing-enhances-device-telemetry-and-optimizes-iot-infrastructure-resources
+Title: Azure IoT ハブメッセージルーティングは、IoT ソリューションの開発を大幅に簡素化します
+Summary: すべてのデータを1つの場所に移動する必要があるのではなく、メッセージのルーティングによってデータがさまざまなエンドポイントに並べ替えられ、より管理しやすくなります。
+Content: >-
+  <p>IoT ソリューションは複雑になる可能性があるため、 &rsquo; 単純化する方法について常に取り組んでいます。</p>
+
+
+  <p>Azure IoT 上に構築された実際のエンタープライズレベルの IoT ソリューションでは、お客様と協力して、企業が受信メッセージをさまざまなデータ処理システムにルーティングする方法について見てきまし &rsquo; た。</p>
+
+
+  <p>数百万のデバイスが Azure IoT Hub に数十億のメッセージを送信 Imagine。 これらのメッセージの一部は、重大な問題を示すアラームなど、すぐに処理する必要があります。 一部のメッセージでは異常が分析されます。 一部のメッセージは、長期的なストレージに送信されます。 このような場合は、各メッセージの送信先を決定するルーティングロジックを作成する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bcc1c8a6-e3ef-4c03-b868-00c04590b341.png"><img alt="routes1" border="0" height="262" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/99a4358a-6dbb-4877-b087-a558e0d27ee7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="routes1" width="610"></a></p>
+
+
+  <p>ルーティングロジックは概念的には単純ですが、ディスパッチシステムの構築時に処理する必要があるすべての詳細 (一時的なエラーの処理、失われたメッセージの処理、信頼性の高い、ルーティングロジックのスケールアウト) を考慮すると、実際には非常に複雑になり &rsquo; ます。</p>
+
+
+  <p>これらの機能をすべて簡単にするために、 &rsquo; 一般公開されている IoT Hub の優れた新機能であるメッセージのルーティングを実現しました。 これにより、お客様は、Azure メッセージングサービスと IoT Hub 自体のルーティングロジックを使用して、さまざまなシステムへの自動ルーティングを設定できます。これにより、すべての困難な実装アーキテクチャを利用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/34a18376-13aa-49b5-922a-23fea41555d4.png"><img alt="routes 2" border="0" height="256" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7d549bc-948b-4167-89b2-a8b895c3268b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ルート2" width="610"></a></p>
+
+
+  <p>ルーティングルールのカスタムエンドポイントとして Service Bus キュー、トピック、Event Hubs を使用して、バックエンド処理サービスにメッセージをルーティングするように IoT hub を構成することができます。 Service Bus キューや Event Hubs などのキューサービスとストリーミングサービスは、すべてのメッセージングアプリケーションではなく、多くの場合に使用されます。 <a href="https://portal.azure.com/">Azure portal</a>では、メッセージルーティングを簡単に設定できます。 IoT Hub の左側の情報ウィンドウから、エンドポイントとルートの両方にアクセスできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2674433e-cae7-4fa4-b162-1a0f4e30e7bf.png"><img alt="routes 3" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d0a14e27-88e0-46db-8bbb-b078ddc6a147.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ルート3" width="171"></a></p>
+
+
+  <p>[エンドポイント」ブレードからルーティングエンドポイントを追加できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/566e3dc1-6012-4715-be79-63621c230bb4.png"><img alt="routes 4" border="0" height="235" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31ba8874-c19e-4bef-b37a-ba3981892bb1.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ルート4" width="610"></a></p>
+
+
+  <p>データストリーム (デバイステレメトリ)、一致する条件、および一致するメッセージを書き込むエンドポイントを指定することによって、IoT Hub でルートを構成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc2b7efe-0e50-4478-998e-5524c3be0b63.png"><img alt="routes 5" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90ca0513-2611-42a7-907a-a69d5bfdd50b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ルート5" width="268"></a></p>
+
+
+  <p>メッセージルーティング条件では、<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-device-twins">デバイスツイン</a>クエリと<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-jobs">デバイスジョブ</a>と同じ<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-query-language">クエリ言語</a>が使用されます。 IoT Hub は IoT Hub に送信されるメッセージのプロパティの条件を評価し、結果を使用してメッセージのルーティング先を決定します。 メッセージ &rsquo; がどのルートにも一致しない場合、メッセージは、現在の場合と同様に、組み込みの messages/events エンドポイントに書き込まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3ee273cc-789b-4653-b79b-f15b02e2a537.png"><img alt="routes 6" border="0" height="124" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60727b6e-79cc-4e09-a695-2a0b5619b56b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ルート6" width="610"></a></p>
+
+
+  <p>また、エンドポイントが正しく動作していないこと、またはルートが正しく構成されていないかどうかをにに簡単に伝えるために、メトリックと操作の監視ログを強化しました。 各メトリックの使用方法など、 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-metrics">ドキュメント</a> に記載されて IoT Hub のすべてのメトリックについて学習できます。</p>
+
+
+  <p>Azure IoT は、セキュリティで保護された使いやすい、高可用性のメッセージインジェストを提供するためにコミットされています。 メッセージのルーティングでは、メッセージのプロパティに基づいてメッセージをディスパッチするためのコードを必要としない方法をお客様に提供することで、テレメトリ処理を次の手順に取ります。 現在の&#39;s の機能強化に関する詳細については、<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messaging">開発者ガイド</a>を参照して Azure IoT ハブメッセージングに関するページを参照してください。 お客様のご意見をお待ちしておりますので、 <a href="https://feedback.azure.com/forums/321918-azure-iot/">Azure IoT ユーザーの声</a>フォーラムから引き続きご提案を送信するか、 <a href="https://www.yammer.com/azureadvisors/">Azure IoT advisor Yammer グループ</a>に参加してください。</p>

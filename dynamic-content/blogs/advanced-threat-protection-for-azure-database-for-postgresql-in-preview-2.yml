@@ -1,0 +1,98 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 31fbef20d707d6f01a5f1998147080babcb3e64c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889332"
+Slug: advanced-threat-protection-for-azure-database-for-postgresql-in-preview-2
+Title: Advanced Threat Protection for Azure Database for PostgreSQLプレビュー
+Summary: Advanced Threat Protection は、セキュリティに対する潜在的な脅威を示す異常なデータベース アクティビティをAzure Database for PostgreSQL。
+Content: >-
+  <p><em>このブログ記事は、プリンシパル プログラム マネージャーの Ron Matchグループが共同Azure SQL Database。</em></p>
+
+
+  <p>Advanced Threat Protection は、セキュリティに対する潜在的な脅威を示す異常なデータベース アクティビティをAzure Database for PostgreSQL。</p>
+
+
+  <p>Advanced Threat Protection では、新しいセキュリティレイヤーが提供されます。これにより、異常なデータベース アクティビティに対するセキュリティ アラートを提供することで、潜在的な脅威を検出して対応できます。 Advanced Threat Protection を使用すると、Azure Database for PostgreSQL サーバーに対する潜在的な脅威に簡単に対処し、そのアラートを Azure Security Center と統合できます <a href="https://azure.microsoft.com/en-us/services/security-center/" target="_blank">。</a>セキュリティの専門家である必要はありません。</p>
+
+
+  <p>完全な調査エクスペリエンスを得る場合は、データベース クエリ<a href="https://docs.microsoft.com/azure/postgresql/concepts-server-logs" target="_blank"></a>とエラー ログを生成する Azure Database for PostgreSQL でサーバー ログを使用する方法をお勧めします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/82afcd35-e6e8-400f-82db-8ee0bf5f6e1c.png"><img alt="advanced-threat-protection-concept" border="0" height="655" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d32d7e92-0d54-41b0-9774-1f4f9db04a9e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="advanced-threat-protection-concept" width="663"></a></p>
+
+
+  <p>Advanced Threat Protection の利点は次のとおりです。</p>
+
+
+  <ul>
+   <li>Advanced Threat Protection ポリシーの単純な構成は、Azure portal。</li>
+   <li>疑わしいデータベース アクティビティの検出時に電子メール アラートをクリアします。</li>
+   <li>イベントの時刻を中心にアクティビティ ログを探索する機能は、次のAzure portal。</li>
+   <li>データベース プロシージャやアプリケーション コードを変更する必要はありません。</li>
+  </ul>
+
+
+  <h2>Azure Database for PostgreSQL サーバー用に Advanced Threat Protection を設定Azure portal</h2>
+
+
+  <ul>
+   <li><a href="https://portal.azure.com" target="_blank">Azure ポータル</a>を開きます。</li>
+   <li>保護する Azure Database for PostgreSQL サーバーの構成ページに移動します。 [設定] ページで、<strong>[Advanced Threat Protection]</strong> を選びます。</li>
+   <li>Advanced Threat Protection の構成ブレードで、次の情報を確認します。 <ul>
+    <li>脅威の検出を <strong>[ON]</strong> にします。</li>
+    <li>異常な <strong>データベース アクティビティの検出時</strong> にセキュリティ アラートを受け取る電子メールの一覧を構成します。</li>
+   </ul>
+   </li>
+   <li>[ <strong>Advanced</strong> Threat Protection の構成] ブレードで [保存] をクリックして、新しい脅威検出ポリシーまたは更新された脅威検出ポリシーを保存します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/081a21af-6340-4ae4-bc01-4b17eb484d66.png"><img alt="set-up-threat-protection" border="0" height="708" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0a90ff26-c6b7-4428-b96a-bf6afb661dcb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="set-up-threat-protection" width="972"></a></p>
+
+
+  <h2>疑わしいイベントの検出時に異常な PostgreSQL サーバー アクティビティを探索する</h2>
+
+
+  <p>異常なデータベース アクティビティが検出されると、電子メールで通知を受け取ります。 この電子メールでは、異常なアクティビティの性質、データベース名、サーバー名、イベント時刻など、疑わしいセキュリティ イベントに関する情報が提供されます。 さらに、考えられる原因に関する情報が提供され、サーバーに対する潜在的な脅威を調査して軽減するための推奨Azure Database for PostgreSQLされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/50aa7a2e-28b8-4f9c-a4d4-0279d83f7919.png"><img alt="anomalous-activity-report" border="0" height="967" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4550c834-c22e-400a-b80f-afbb5e819f24.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="anomalous-activity-report" width="613"></a></p>
+
+
+  <p>電子メールの [<strong></strong>最近のアラートの表示] リンクをクリックすると、Azure portal が起動し、[Azure Security Center アラート] ブレードが表示されます。このブレードには、Azure Database for PostgreSQL サーバーで検出されたアクティブな SQL 脅威の概要が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d7fb5df-2038-4299-a4fc-f1952d762305.png"><img alt="active-threats" border="0" height="1050" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5c5d8f63-ad0a-4d54-a756-22cfccd4a9e1.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アクティブな脅威" width="1712"></a></p>
+
+
+  <p>特定のアラートをクリックすると、より詳細な情報と、この脅威を調査し、今後の脅威に対処するためのアクションが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1ab2e991-7e17-4215-9622-f1e8b19cd994.png"><img alt="specific-alert" border="0" height="1036" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/79f66b9c-76bd-431f-90c2-92e5950425c9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="特定のアラート" width="840"></a></p>
+
+
+  <h2>Azure Database for PostgreSQL Advanced Threat Protection アラート</h2>
+
+
+  <p>Azure Database for PostgreSQL サーバーの高度な脅威検出では、データベースにアクセスしたりデータベースを悪用したりしようとする、通常とは異なる、害を及ぼす可能性のある試みを示す異常なアクティビティが検出されます。 次のアラートをトリガーできます。</p>
+
+
+  <ul>
+   <li><strong>通常</strong>とは異なる場所からのアクセス: このアラートは、他のユーザーが通常とは異なる地理的な場所から Azure Database for PostgreSQL サーバーにログオンした Azure Database for PostgreSQL サーバーへのアクセス パターンに変更がある場合にトリガーされます。 場合によっては、アラートによって正当なアクション (新しいアプリケーションまたは開発者のメンテナンス操作) が&rsquo;検出されます。 それ以外の場合、アラートは、元従業員や外部の攻撃者などの悪意のあるアクションを検出します。</li>
+   <li><strong>異常な Azure データ センターからのアクセス</strong>: このアラートは、サーバーへのアクセス パターンに変更がある場合Azure Database for PostgreSQLされます。 最近の期間中にこのデータ Azure Database for PostgreSQLアクセスしていないユーザーが Azure Data Center から Managed Instance にログオンした場合。 場合によっては、アラートによって、Azure の新しいアプリケーション、Power BI、Azure SQL クエリ エディター などの正当なアクションが検出されます。それ以外の場合、アラートは、元従業員や外部の攻撃者などの Azure リソースまたはサービスから悪意のあるアクションを検出します。</li>
+   <li><strong>不明</strong>なプリンシパルからのアクセス: このアラートは、Azure Database for PostgreSQL サーバーへのアクセス パターンに変更がある場合にトリガーされます。この場合、他のユーザーが通常とは異なプリンシパルを使用して Azure Database for PostgreSQL サーバーにログオンしています。 場合によっては、新しいアプリケーション開発者のメンテナンス操作などの正当なアクションがアラートによって&rsquo;検出されます。 それ以外の場合、アラートは、元従業員や外部の攻撃者などの悪意のあるアクションを検出します。</li>
+   <li><strong>Access from a potentially harmful application (潜在的に有害なアプリケーションからのアクセス)</strong> :このアラートは、データベースにアクセスするために潜在的に有害なアプリケーションが使用されたときにトリガーされます。 このアラートで実行中の侵入テストが検出されることがあります。 別のケースでは、このアラートで一般的な攻撃ツールを使用した攻撃が検出されます。</li>
+   <li><strong>ブルート フォース ログイン資格情報</strong>: このアラートは、異なる資格情報を持つ失敗したログインの数が異常に多い場合にトリガーされます。 このアラートで実行中の侵入テストが検出されることがあります。 このアラートでブルート フォース攻撃が検出されることもあります。</li>
+  </ul>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>詳細については、「 <a href="https://docs.microsoft.com/azure/postgresql/concepts-data-access-and-security-threat-protection" target="_blank">Advanced Threat Protection for Azure Database for PostgreSQL」を参照してください</a>。</li>
+   <li>Advanced Threat <a href="https://azure.microsoft.com/pricing/details/postgresql/" target="_blank"></a> Protection for Azure Database for PostgreSQL の価格ページを参照してください。</li>
+  </ul>

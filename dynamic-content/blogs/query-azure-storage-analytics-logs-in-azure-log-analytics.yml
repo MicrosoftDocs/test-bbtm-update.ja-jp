@@ -1,0 +1,115 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fbd03bae9d8ba69af20c5dde2543d3fb67a8b227
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889069"
+Slug: query-azure-storage-analytics-logs-in-azure-log-analytics
+Title: Azure Log Analytics で Azure Storage analytics のログを照会する
+Summary: このブログでは、Azure Log Analytics ワークスペースに Azure Storage analytics ログを投稿する方法について説明します。そのため、これらの優れた機能を使用して、Azure Storage リソースをより適切に操作できます。
+Content: >-
+  <p>Log Analytics は、さまざまなソースからテレメトリとその他のデータを収集し、高度な分析のためのクエリ言語を提供するサービスです。 <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-collector-api" target="_blank">HTTP データコレクター API</a>を使用して Log Analytics ワークスペースにログデータを送信すると、トラブルシューティングのためにログを照会したり、監視用にデータを視覚化したり、ログ検索に基づいて警告を作成したりすることができます。 詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-queries" target="_blank">Log Analytics</a>」を参照してください。</p>
+
+
+  <p>Log Analytics との緊密な統合により、ストレージ操作のトラブルシューティングが非常に簡単になります。 このブログでは、Azure Storage analytics のログを変換し、Azure Log Analytics ワークスペースに投稿する方法を説明します。 次に、Azure Storage (Blob、テーブル、およびキュー) の Log Analytics の分析機能を使用できます。 主な手順は次のとおりです。</p>
+
+
+  <ul>
+   <li>Log Analytics でのワークスペースの作成</li>
+   <li>Storage Analytics ログを JSON に変換する</li>
+   <li>Log Analytics ワークスペースへのログの投稿</li>
+   <li>Log Analytics ワークスペースのログのクエリ</li>
+   <li>Log Analytics ワークスペースでログクエリを視覚化する</li>
+  </ul>
+
+
+  <h2>Log Analytics でのワークスペースの作成</h2>
+
+
+  <p>まず、Log Analytics でワークスペースを作成する必要があります。 次のスクリーンショットは、Azure Portal で作成する方法を示しています。</p>
+
+
+  <p><img alt="create-log-analytics-workspace.png" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/create-log-analytics-workspace.png" style="border: 0px currentcolor; border-image: none; width: 800px; height: 546px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;"></p>
+
+
+  <h2>Storage Analytics ログを JSON に変換する</h2>
+
+
+  <p>Azure Storage には、Blob、テーブル、およびキューの分析ログが用意されています。 Analytics のログは、同じストレージアカウント内の $logs &quot; コンテナーに &quot; blob として格納されます。 Blob 名のパターンは、blob/2018/10/07/0000/000000 .log のよう &quot; になります。 &quot;<a href="https://azure.microsoft.com/en-us/features/storage-explorer/" target="_blank">Azure Storage Explorer</a>を使用して、構造とログファイルを参照できます。 次のスクリーンショットは、Azure Storage Explorer の構造を示しています。</p>
+
+
+  <p><img alt="browse-logs-in-storage-explorer.png" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/browse-logs-in-storage-explorer.png" style="border: 0px currentcolor; border-image: none; width: 800px; height: 461px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;"></p>
+
+
+  <p>各ログファイルの各行は、1つの要求に対してセミコロンで区切られた1つのログレコードです。 スキーマ定義は<a href="https://docs.microsoft.com/en-us/rest/api/storageservices/storage-analytics-log-format" target="_blank">Storage Analytics ログ形式</a>で見つけることができます。 次のログレコードは、サンプルとして表示されます。</p>
+
+
+  <pre>
+
+  1.0;2014-06-19T22:59:23.1967767Z;GetBlob;AnonymousSuccess;200;17;16;anonymous;;storagesample;blob;&quot;https://storagesample.blob.core.windows.net/sample-container1/00001.txt&quot;;&quot;/storagesample/sample-container1/00001.txt&quot;;61d2e3f6-bcb7-4cd1-a81e-4f8f497f0da2;0;192.100.0.102:4362;2014-02-14;283;0;354;23;0;;;&quot;&quot;0x8D15A2913C934DE&quot;&quot;;Thursday, 19-Jun-14 22:58:10 GMT;;&quot;WA-Storage/4.0.1 (.NET CLR 4.0.30319.34014; Win32NT 6.3.9600.0)&quot;;;&quot;44dfd78e-7288-4898-8f70-c3478983d3b6&quot;</pre>
+
+
+  <p>次の手順の前に、ログレコードを JSON に変換する必要があります。 変換には任意のスクリプトを使用できますが、変換時の処理には次のケースが必要です。</p>
+
+
+  <ul>
+   <li>列にセミコロンが含まれている場合: 要求 url やユーザーエージェントヘッダーなどの一部の列には、セミコロンのマークを含めることができます。 セミコロンで分割する前にエンコードする必要があります。 分割後に、デコードされます。</li>
+   <li>列の引用符: クライアント要求 id や etag 識別子などの一部の列には、引用符を含めることができます。 他のキー値の引用符を追加している間は、これらの列では無視する必要があります。</li>
+   <li>列定義を<a href="https://docs.microsoft.com/en-us/rest/api/storageservices/storage-analytics-log-format" target="_blank">Storage Analytics ログ形式</a>のキー名として使用すると、Log Analytics で簡単にクエリを実行できます。 例: バージョン番号、または要求-開始時刻。</li>
+  </ul>
+
+
+  <p>次のサンプルは、1つのログレコードに対して準備された JSON がどのように見えるかを示しています。</p>
+
+
+  <pre>
+
+  [{&quot;version-number&quot;:&quot;1.0&quot;,&quot;request-start-time&quot;:&quot;2018-10-07T20:00:52.4036565Z&quot;,&quot;operation-type&quot;:&quot;CreateContainer&quot;,&quot;request-status&quot;:&quot;ContainerAlreadyExists&quot;,&quot;http-status-code&quot;:&quot;409&quot;,&quot;end-to-end-latency-in-ms&quot;:&quot;6&quot;,&quot;server-latency-in-ms&quot;:&quot;6&quot;,&quot;authentication-type&quot;:&quot;authenticated&quot;,&quot;requester-account-name&quot;:&quot;testaccount&quot;,&quot;owner-account-name&quot;:&quot;testaccount&quot;,&quot;service-type&quot;:&quot;blob&quot;,&quot;request-url&quot;:&quot;https://testaccount.blob.core.windows.net/insights-metrics-pt1m?restype=container&quot;,&quot;requested-object-key&quot;:&quot;/testaccount/insights-metrics-pt1m&quot;,&quot;request-id-header&quot;:&quot;99999999-c01e-0085-4a78-000000000000&quot;,&quot;operation-count&quot;:&quot;0&quot;,&quot;requester-ip-address&quot;:&quot;100.101.102.103:12345&quot;,&quot;request-version-header&quot;:&quot;2017-04-17&quot;,&quot;request-header-size&quot;:&quot;432&quot;,&quot;request-packet-size&quot;:&quot;0&quot;,&quot;response-header-size&quot;:&quot;145&quot;,&quot;response-packet-size&quot;:&quot;230&quot;,&quot;request-content-length&quot;:&quot;0&quot;,&quot;request-md5&quot;:&quot;&quot;,&quot;server-md5&quot;:&quot;&quot;,&quot;etag-identifier&quot;:&quot;&quot;,&quot;last-modified-time&quot;:&quot;&quot;,&quot;conditions-used&quot;:&quot;&quot;,&quot;user-agent-header&quot;:&quot;Azure-Storage/8.4.0 (.NET CLR 4.0.30319.42000; Win32NT 6.2.9200.0)&quot;,&quot;referrer-header&quot;:&quot;&quot;,&quot;client-request-id&quot;:&quot;88888888-ed38-4a90-bb3f-000000000000&quot;}]</pre>
+
+
+  <h2>Log Analytics ワークスペースへのログの投稿</h2>
+
+
+  <p>Azure Log Analytics には、カスタムログデータ Log Analytics ワークスペースを投稿するための <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-collector-api" target="_blank">HTTP データコレクター API</a> が用意されています。 記事のサンプルコードに従って、最後の手順で準備した log json ペイロードを送信することができます。</p>
+
+
+  <pre>
+
+  Post-LogAnalyticsData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType</pre>
+
+
+  <h2>Log Analytics ワークスペースのログのクエリ</h2>
+
+
+  <p>MyStorageLogs1 のようなレコードの種類を投稿ログに作成する場合は、MyStorageLogs1_CL をストリーム名として使用してクエリを実行します。 次のスクリーンショットは、Log Analytics でインポートされた Storage analytics ログを照会する方法を示しています。</p>
+
+
+  <p><img alt="query-logs-in-loganalytics.png" border="0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/query-logs-in-loganalytics-1.png" style="border: 0px currentcolor; border-image: none; width: 800px; height: 359px; font-size: 13px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;"></p>
+
+
+  <h2>Log Analytics でログクエリを視覚化する</h2>
+
+
+  <p>クエリ結果を集計してパターンや傾向を検索する場合は、Log Analytics でクエリと視覚化を簡単に使用できます。 次のスクリーンショットは、クエリ結果を視覚化する方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87b0f7d6-ef6c-4e6e-bd4d-8ed259d5eccf.png"><img alt="visualize-in-loganalytics" border="0" height="707" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87c5468d-6936-4a4e-ba87-44859c7f1ee3.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="視覚化-loganalytics" width="1370"></a></p>
+
+
+  <h2>サンプル コード</h2>
+
+
+  <p>Storage Analytics ログデータを json 形式に変換し、json データを Log Analytics ワークスペースに送信する方法を示す<a href="https://github.com/Azure/azure-docs-powershell-samples/blob/master/storage/post-storage-logs-to-log-analytics/PostStorageLogs2LogAnalytics.ps1" target="_blank">サンプル Powershell スクリプト</a>が用意されています。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-analytics" target="_blank">Storage Analytics</a>と<a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-queries" target="_blank">Log Analytics</a>についての学習を続け、Azure にサインアップして<a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?tabs=portal" target="_blank">Storage アカウントを作成</a>してください。</p>
+
+
+  <p>Storage アカウントからログデータを読み取ると、読み取り操作のコストが発生します。 料金の詳細については、「 <a href="https://azure.microsoft.com/en-us/pricing/details/storage/blobs/" target="_blank">blob の価格</a>」を参照してください。 また、 <a href="https://azure.microsoft.com/en-us/pricing/details/monitor/" target="_blank">Azure Monitor の価格</a>に基づいて Log Analytics 料金がかかることにも注意してください。</p>
+
+
+  <p>Azure Storage は、ログ記録パイプラインを統合する Azure Monitor チームと連携しています。 Azure Storage ログの Log Analytics との統合が間もなく組み込まれていることを願っています。また、プランが決定されたときには、お知らせいたします。 フィードバックやご提案がある場合は、 <a target="_blank">Azure Storage 分析のフィードバック</a>を電子メールで送信できます。</p>

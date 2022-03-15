@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 68e21791e3db251c0d378d33af9f80548db23e21
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889306"
+Slug: announcing-the-general-availability-of-azure-monitor-for-virtual-machines
+Title: 仮想マシンの Azure Monitor の一般提供を発表
+Summary: 現在、仮想マシン (Vm) の Azure Monitor の一般提供が発表されています。これにより、VM のパフォーマンスの傾向と依存関係が詳細に表示されます。
+Content: >-
+  <p>&#39;現在、仮想マシン (Vm) の Azure Monitor の一般提供が発表されています。これにより、VM のパフォーマンスの傾向と依存関係が詳細に表示されます。 Azure VM リソースブレードから Azure Monitor for VMs にアクセスして、1つの VM に関する詳細を表示することができます。 Azure Virtual Machine Scale Sets (VMSS) リソースブレードから、1つの VM スケールセットに関する詳細を表示したり、Azure Monitor から、大規模なコンピューティングの問題を把握したりすることができます。</p>
+
+
+  <p>Azure Monitor for VMs は、Windows と Linux vm に関する主要な監視データをまとめて、次のことを可能にします。</p>
+
+
+  <ul>
+      <li>ゲストレベルのパフォーマンスの問題のトラブルシューティングを行い、VM リソース使用率の傾向を把握します。</li>
+      <li>バックエンド VM の依存関係が正しく接続されていて、vm のどのクライアントが VM の問題の影響を受けているかを判断します。</li>
+      <li>リソース使用率、接続メトリック、パフォーマンスの傾向、アラートに基づいて、大規模な VM のホットスポットを検出します。</li>
+  </ul>
+
+
+  <h2>パフォーマンス</h2>
+
+
+  <p><a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-performance" target="_blank">パフォーマンスビュー</a>は Log Analytics の機能を備えています。また、サブスクリプションとリージョンにまたがる上位 N &rdquo; の vm の並べ替えと検索、リージョン間でのリソースグループ内のすべての vm の vm メトリック (平均メモリなど) の集計、時間の経過に伴うパフォーマンス値のパーセンタイル、vm スケールセットインスタンスの内訳と選択など &ldquo; の機能を備えています。</p>
+
+
+  <p>数千の Vm を監視するのは困難な場合があります。 パフォーマンスビューは、この問題に対処するために作成されました。 これらの Vm を使用して、リソースが制限されている Vm、論理ディスクまたはメモリ消費の問題が発生している Vm、パフォーマンス診断を取得することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8350184d-09ac-4cd4-8359-2bc2d3358873.png"><img alt="1.   At scale performance list view of all the VMs in a subscription" border="0" height="953" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8aaf8f84-054c-4681-82e8-58dd8d160940.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1430"></a><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5b2c5276-5786-4d89-a6e5-6c85be619581.png"><img alt="Performance view for a single VM" border="0" height="953" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/597d0188-0d70-41f5-b315-3e01731a5549.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1431"></a></p>
+
+
+  <h2>Maps</h2>
+
+
+  <p>Azure Monitor for VMs には、Service Map dependency agent 拡張機能を搭載した依存関係マップが含まれています。 マップ、Azure を中心としたユーザーエクスペリエンスを提供します。 VM リソースブレードの統合、Azure メタデータ、およびリソースグループとサブスクリプションの依存関係マップを使用できます。 マップ、Vm とプロセスがどのように動作しているかを示し、サードパーティのサービスの依存関係を特定できます。 また Azure Monitor for VMs は、接続エラー、ライブ接続数、プロセスによって送受信されたネットワークバイト数、およびサービスレベルの待機時間も監視します。</p>
+
+
+  <p><img alt="Dependency map for the VMs in a subscription" border="0" height="954" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ba7e93a-ba86-428c-be43-2920e0c5f8bf.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1429"></p>
+
+
+  <p>ユーザーエクスペリエンスにおけるビジュアルエクスペリエンスとグループレベルのマッピングに加えて、Log Analytics のデータセットに対してクエリを実行し、選択されたワークロードからのネットワークトラフィックの急増に関するアラートを作成したり、失敗した依存関係に対して大規模なクエリを実行したり、数週間または数か月での接続を分析して、オンプレミス この分析を支援するために、この豊富なネットワークデータセットに表形式のビューを提供する複数の <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-workbooks" style="font-size: 13px;" target="_blank">ブック</a> を用意しています。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8dbe26a-bc7c-4c41-9eb7-4a147888bb17.png"><img alt="Connections workbook showing outbound connections for all VMs in a subscription" border="0" height="953" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/155adb8b-b96b-46cd-a348-11a1250d4e14.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1429"></a></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>Azure リソースを使い始めるには、vm または vm スケールセットのリソースブレードに移動し、[監視] セクションの [<strong>インサイト</strong>] をクリックします。 [ <strong>有効</strong>] をクリックすると、既存の Log Analytics ワークスペースを選択するか、 &rsquo; ワークスペースを作成するように求められます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07709898-d06a-4bf6-b6b7-38f8cc236508.png"><img alt="Enable detailed monitoring for a VM" border="0" height="952" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f320d6ae-7bca-4f41-b5c4-ceece0a41731.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1430"></a></p>
+
+
+  <p>&rsquo;いくつかの vm の機能を使い慣れたら、 <strong style="font-size: 13px;">Virtual Machines</strong>の下に Azure Monitor 規模で vm を表示し、はじめにのページ、 <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-enable-at-scale-policy" style="font-size: 13px;" target="_blank">Azure Policy</a>、または<a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-enable-at-scale-powershell" style="font-size: 13px;" target="_blank">Powershell</a>を使用して、リソースグループとサブスクリプション全体にオンボードできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ca8873d-efc7-4d22-805a-4fe4c06ea174.png"><img alt="Get started with onboarding several VMs to detailed monitoring" border="0" height="953" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5c2ccfc-d26a-41cc-9663-d1c3247b1c9e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="1430"></a></p>
+
+
+  <p>詳細については、 <a href="https://docs.microsoft.com/azure/azure-monitor/insights/vminsights-enable-overview" target="_blank">完全なドキュメント</a> を参照してください。 <a href="https://azure.microsoft.com/pricing/details/monitor/" target="_blank">価格</a> は、Log Analytics ワークスペースへのデータの取り込みとリテンション期間に基づいています。 私たち &rsquo; は、Azure Monitor for VMs について知りたいと &rsquo; 思いませんが、どこ &rsquo; にいてもいいと思います。 ユーザーエクスペリエンスの [ <strong>フィードバックの提供</strong> ] をクリックして、ご意見をお寄せください。</p>

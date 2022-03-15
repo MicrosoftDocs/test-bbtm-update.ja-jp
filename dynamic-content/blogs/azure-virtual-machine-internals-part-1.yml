@@ -1,0 +1,550 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8879df7224d3b4c8b089dd63572c3921cbff6639
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890872"
+Slug: azure-virtual-machine-internals-part-1
+Title: 'Azure 仮想マシンの内部: パート1'
+Summary: Azure VM がどのように動作するかについて詳しく説明し、内部の詳細について説明します。
+Content: >-
+  <h2>はじめに</h2>
+
+
+  <p>Azure cloud services は、コンピューティング、Storage、ネットワークの要素で構成されています。 コンピューティングビルディングブロックは仮想マシン (VM) であり、この記事で説明します。 Web 検索では、Vm を作成および管理するためのコマンド、Api、UX に関する大量のドキュメントが生成されます。 これは101ではなく、また &lsquo; &rsquo; 、VM の作成と管理に関するトピックについて既に理解していることを前提としています。 このシリーズの目的は、VM がさまざまな状態を経由するときに、その内部で起こっていることを確認することです。</p>
+
+
+  <p>Azure には、IaaS Vm と PaaS Vm が用意されています。この投稿では、VM を参照するときに、IaaS VM を意味します。 Azure には、azure サービス管理 (ASM) と Azure Resource Manager (ARM) という2つのコントロールプレーンスタックがあります。 これは前方参照コントロールプレーンであるため、ARM に限定されます。</p>
+
+
+  <p>arm は VM、NIC などのリソースを公開しますが、実際に arm はシンフロントエンド層であり、リソース自体はコンピューティングリソースプロバイダー (CRP)、ネットワークリソースプロバイダー (NRP)、および Storage リソースプロバイダー (SRP) などの下位レベルのリソースプロバイダーによって公開されます。 ポータルは ARM を呼び出し、これによってリソースプロバイダーが呼び出されます。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>ほとんどのお客様にとって、最初に VM を作成するには、 <a href="https://portal.azure.com/">Azure Portal</a>を使用します。 同じことを行って、米国西部リージョンに Standard DS1 v2 &rsquo; というサイズ &lsquo; の VM を作成しました。 ほとんどの場合、UI に表示される既定の設定を使用しますが、customscript &rsquo; 拡張機能を &lsquo; 追加することを選択しました。 プロンプトが表示されたら、ローカルファイル &lsquo; Sample.ps &rsquo; を customscript &rsquo; 拡張機能の &lsquo; PowerShell スクリプトとして指定します。 PS スクリプト自体は単一行の取得プロセスです。</p>
+
+
+  <p>VM は正常にプロビジョニングされましたが、ARM テンプレートのデプロイ全体が失敗しました (ポータルのダッシュボードで明るい赤)。 2回クリックすると、customscript &rsquo; 拡張機能が &lsquo; 失敗したことが示され、ポータルに次のメッセージが表示されます。</p>
+
+
+  <pre>
+
+  {
+    &quot;status&quot;: &quot;Failed&quot;,
+    &quot;error&quot;: {
+      &quot;code&quot;: &quot;ResourceDeploymentFailure&quot;,
+      &quot;message&quot;: &quot;The resource operation completed with terminal provisioning state &#39;Failed&#39;.&quot;,
+      &quot;details&quot;: [
+        {
+          &quot;code&quot;: &quot;DeploymentFailed&quot;,
+          &quot;message&quot;: &quot;At least one resource deployment operation failed. Please list deployment operations for details. Please see <a href="https://aka.ms/arm-debug">https://aka.ms/arm-debug</a> for usage details.&quot;,
+          &quot;details&quot;: [
+            {
+              &quot;code&quot;: &quot;Conflict&quot;,
+              &quot;message&quot;: &quot;{\r\n  \&quot;status\&quot;: \&quot;Failed\&quot;,\r\n  \&quot;error\&quot;: {\r\n    \&quot;code\&quot;: \&quot;ResourceDeploymentFailure\&quot;,\r\n    \&quot;message\&quot;: \&quot;The resource operation completed with terminal provisioning state &#39;Failed&#39;.\&quot;,\r\n    \&quot;details\&quot;: [\r\n      {\r\n        \&quot;code\&quot;: \&quot;VMExtensionProvisioningError\&quot;,\r\n        \&quot;message\&quot;: \&quot;VM has reported a failure when processing extension &#39;CustomScriptExtension&#39;. Error message: \\\&quot;Finished executing command\\\&quot;.\&quot;\r\n      }\r\n    ]\r\n  }\r\n}&quot;
+            }
+          ]
+        }
+      ]
+    }
+  }</pre>
+
+
+  <p>&rsquo;問題が発生したことをすぐに明らかにしませんでした。 ここから詳しく調べることができますが、多くの場合、成功を超えるエラーが発生します。</p>
+
+
+  <p>プロビジョニングされた VM だけになりました。 VM エージェントのログは、C:\ にあります。 VM エージェントは、すべての IaaS Vm で実行されるシステムエージェントです (お客様は希望する場合はオプトアウトできます)。 拡張機能を実行するには、VM エージェントが必要です。 次に、CustomScript 拡張機能のログについて説明 &rsquo; します。</p>
+
+
+  <pre>
+
+  C:\WindowsAzure\Logs\Plugins\Microsoft.Compute.CustomScriptExtension\1.8\CustomScriptHandler
+
+
+  [1732+00000001] [08/14/2016 06:19:17.77] [INFO] Command execution task started. Awaiting completion...
+
+
+  [1732+00000001] [08/14/2016 06:19:18.80] [ERROR] Command execution finished. Command exited with code: -196608</pre>
+
+
+  <p>エラーログは、致命的な問題が発生したことを示しています。 入力を再確認し、PS スクリプトのファイル拡張子が間違っていたことを認識しました。 Sample.ps1 する必要がある場合は、Sample.ps としていました。 この時点で、適切な拡張子を持つスクリプトファイルを指定するように VM を更新しました。 これは、上記で説明したログファイルに追加されたレコードのように、成功しました。</p>
+
+
+  <pre>
+
+  [3732+00000001] [08/14/2016 08:42:24.04] [INFO] HandlerSettings = ProtectedSettingsCertThumbprint: , ProtectedSettings: {}, PublicSettings: {FileUris: [https://iaasv2tempstorewestus.blob.core.windows.net/vmextensionstemporary-10033fff801becb5-20160814084130535/simple.ps1?sv=2015-04-05&amp;sr=c&amp;sig=M3qa7lS%2BZwp%2B8Tytqf1VEew4YaAKvvYn1yzGrPfSwyw%3D&amp;se=2016-08-15T08%3A41%3A30Z&amp;sp=rw], CommandToExecute: powershell -ExecutionPolicy Unrestricted -File simple.ps1 }
+
+
+  [3732+00000001] [08/14/2016 08:42:24.04] [INFO] Downloading files specified in configuration...
+
+
+  [3732+00000001] [08/14/2016 08:42:24.05] [INFO] DownloadFiles: fileUri = https://iaasv2tempstorewestus.blob.core.windows.net/vmextensionstemporary-10033fff801becb5-20160814084130535/simple.ps1?sv=2015-04-05&amp;sr=c&amp;sig=M3qa7lS+Zwp+8Tytqf1VEew4YaAKvvYn1yzGrPfSwyw=&amp;se=2016-08-15T08:41:30Z&amp;sp=rw
+
+
+  [3732+00000001] [08/14/2016 08:42:24.05] [INFO] DownloadFiles: Initializing CloudBlobClient with baseUri = https://iaasv2tempstorewestus.blob.core.windows.net/
+
+
+  [3732+00000001] [08/14/2016 08:42:24.22] [INFO] DownloadFiles: fileDownloadPath = Downloads\0
+
+
+  [3732+00000001] [08/14/2016 08:42:24.22] [INFO] DownloadFiles: asynchronously downloading file to fileDownloadLocation = Downloads\0\simple.ps1
+
+
+  [3732+00000001] [08/14/2016 08:42:24.24] [INFO] Waiting for all async file download tasks to complete...
+
+
+  [3732+00000001] [08/14/2016 08:42:24.29] [INFO] Files downloaded. Asynchronously executing command: &#39;powershell -ExecutionPolicy Unrestricted -File simple.ps1 &#39;
+
+
+  [3732+00000001] [08/14/2016 08:42:24.29] [INFO] Command execution task started. Awaiting completion...
+
+
+  [3732+00000001] [08/14/2016 08:42:25.29] [INFO] Command execution finished. Command exited with code: 0</pre>
+
+
+  <p>customscript 拡張機能は、Storage blob 内のファイルとして指定できるスクリプトファイルを受け取ります。 ポータルには、ローカルコンピューターからのファイルを受け入れる便利な機能が用意されています。 ここでは、\temp フォルダーにある Simple.ps1 を指定しました。 バックグラウンドポータルでは、ファイルが blob にアップロードされ、shared access signature (SAS) が生成され、CRP に渡されます。 上記のログから、その <a href="https://iaasv2tempstorewestus.blob.core.windows.net/vmextensionstemporary-10033fff801becb5-20160814084130535/simple.ps1?sv=2015-04-05&amp;sr=c&amp;sig=M3qa7lS+Zwp+8Tytqf1VEew4YaAKvvYn1yzGrPfSwyw=&amp;se=2016-08-15T08:41:30Z&amp;sp=rw">URI</a>を確認できます。</p>
+
+
+  <p>この URI について理解しておく価値があります。 これは Storage の blob SAS であり、米国西部のアカウントには次の属性があります (これは、VM がデプロイされているのと同じリージョンです)。</p>
+
+
+  <ul>
+   <li>se = 2016-08-15T08:41: 30Z は、その時刻 (UTC) まで SAS が有効であることを意味します。 ログ内の対応するレコード (08/14/2016 08:42: 24.05) のタイムスタンプと比較すると、SAS が24時間にわたって生成されていることがわかります。</li>
+   <li>Sr = c は、これがコンテナーレベルのポリシーであることを意味します。</li>
+   <li>Sp = rw は、アクセスが読み取りと書き込みの両方に対するものであることを意味します。</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-shared-access-signature-part-1/">Shared access signature (SAS)</a>には、完全な説明があります。</li>
+  </ul>
+
+
+  <p>前述のように、これは米国西部のストレージアカウントです。 これは、ストレージアカウントの名前 (iaasv2tempstorewestus) によって明らかになる場合がありますが、保証されているわけではありません。 では、このストレージアカウント (またはその他のストレージアカウント) が要求されているリージョンにあることを確認するにはどうすればよいでしょうか。</p>
+
+
+  <p>Blob DNS URL の単純な nslookup では、次のようになります。</p>
+
+
+  <pre>
+
+  C:\Users\yunusm&gt;nslookup iaasv2tempstorewestus.blob.core.windows.net
+
+
+  Server: PK5001Z.PK5001Z
+
+
+  Address: 192.168.0.1
+
+
+  Non-authoritative answer:
+
+
+  Name: blob.by4prdstr03a.store.core.windows.net
+
+
+  Address: 40.78.112.72
+
+
+  Aliases: iaasv2tempstorewestus.blob.core.windows.net</pre>
+
+
+  <p>Blob URL は、正規の DNS blob.by4prdstr03a.store.core.windows.net の CNAME です。 実験では、複数のストレージアカウントが1つの正規 DNS URL にマップされることがわかります。 名前の by4 &rsquo; は、 &lsquo; その場所に関するヒントを提供します。 米国西部リージョンは、 <a href="https://azure.microsoft.com/en-us/regions/">Azure リージョン</a> のページによってカリフォルニア州にあります。 IP アドレスの geo ロケーション (40.78.112.72) を検索すると、カリフォルニア内のより具体的な領域が示されます。</p>
+
+
+  <h2>VM について</h2>
+
+
+  <p>正常な VM が完成したので、それを理解しましょう &rsquo; 。 Azure VM のサイズページに従って、先ほど作成した VM です。</p>
+
+
+  <table border="1" cellpadding="0" cellspacing="3">
+   <tbody>
+    <tr>
+     <td valign="top">
+     <p>サイズ</p>
+     </td>
+     <td valign="top">
+     <p>CPU コア数</p>
+     </td>
+     <td valign="top">
+     <p>メモリ</p>
+     </td>
+     <td valign="top">
+     <p>NIC (最大)</p>
+     </td>
+     <td valign="top">
+     <p>最大 ディスク サイズ</p>
+     </td>
+     <td valign="top">
+     <p>最大 データ ディスク数 (各ディスク 1,023 GB)</p>
+     </td>
+     <td valign="top">
+     <p>最大 IOPS (各ディスク 500)</p>
+     </td>
+     <td valign="top">
+     <p>最大ネットワーク帯域幅</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <p>Standard_D1_v2</p>
+     </td>
+     <td valign="top">
+     <p>1</p>
+     </td>
+     <td valign="top">
+     <p>3.5 GB</p>
+     </td>
+     <td valign="top">
+     <p>1</p>
+     </td>
+     <td valign="top">
+     <p>一時的 (SSD) = 50 GB</p>
+     </td>
+     <td valign="top">
+     <p>2</p>
+     </td>
+     <td valign="top">
+     <p>2x500</p>
+     </td>
+     <td valign="top">
+     <p>弱</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>この情報は、GET を実行することで、プログラムによって <a href="https://management.azure.com/subscriptions/f028f547-f912-42b0-8892-89ea6eda4c5e/resourceGroups/BlogRG/providers/Microsoft.Compute/virtualMachines/BlogWindowsVM/vmSizes?api-version=2016-03-30">取得</a>できます。</p>
+
+
+  <p>次の値を返します。</p>
+
+
+  <pre>
+
+  {
+
+
+  &quot;name&quot;: &quot;Standard_DS1_v2&quot;,
+
+
+  &quot;numberOfCores&quot;: 1,
+
+
+  &quot;osDiskSizeInMB&quot;: 1047552,
+
+
+  &quot;resourceDiskSizeInMB&quot;: 7168,
+
+
+  &quot;memoryInMB&quot;: 3584,
+
+
+  &quot;maxDataDiskCount&quot;: 2
+
+
+  }
+
+
+  Doing a <a href="https://management.azure.com/subscriptions/f028f547-f912-42b0-8892-89ea6eda4c5e/resourceGroups/BlogRG/providers/Microsoft.Compute/virtualMachines/BlogWindowsVM?api-version=2016-03-30">GET on the VM</a> we created
+
+  Returns the following. Let&rsquo;s understand this response in some detail. I have annotated inline comments <em>preceded and followed by //</em>
+
+  {
+    &quot;properties&quot;: {
+      &quot;vmId&quot;: &quot;694733ec-46a0-4e0b-a73b-ee0863a0f12c&quot;,
+      &quot;hardwareProfile&quot;: {
+        &quot;vmSize&quot;: &quot;Standard_DS1_v2&quot;
+      },
+      &quot;storageProfile&quot;: {
+        &quot;imageReference&quot;: {
+          &quot;publisher&quot;: &quot;MicrosoftWindowsServer&quot;,
+          &quot;offer&quot;: &quot;WindowsServer&quot;,
+          &quot;sku&quot;: &quot;2012-R2-Datacenter&quot;,
+          &quot;version&quot;: &quot;latest&quot;</pre>
+
+  <p>ここでの興味深いフィールドは、のバージョンです。 パブリッシャーは、任意の時点で同じイメージの複数のバージョンを持つことができます。 一般的なイメージは、通常、セキュリティ更新プログラムが適用される月単位の頻度で revved ます。 メジャーの新しいバージョンは、新しい Sku としてリリースされます。 ポータルでは、最新バージョンに既定値が与えられています。 お客様は、ポータル経由で、または CLI または REST API を使用して ARM テンプレートを介してデプロイするかどうかにかかわらず、特定のバージョンも選択できます。後者は、自動化されたシナリオに最適な方法です。 特定のバージョンを指定する際の問題は、ARM テンプレートが脆弱になる可能性があることです。 パブリッシャーが1つまたは複数のリージョンで特定のバージョンの unpublishes を実行できる場合、デプロイは中断されます。 したがって、ではなく、適切な理由がない限り、バージョン設定には [最新] の値を指定することをお勧めします。 例として、SKU 2012-R2 データセンターの次のイメージは、CLI コマンド azure vm イメージリストによって返される WestUS リージョンに現在存在しています。</p>
+
+
+  <p>microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20151120 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20151120<br>
+
+  microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20151214 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20151214<br>
+
+  microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20160126 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20160126<br>
+
+  microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20160229 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20160229<br>
+
+  microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20160430 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20160430<br>
+
+  microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20160617 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20160617<br>
+
+  microsoft windowsserver &nbsp; windowsserver &nbsp; 2012-r2-datacenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Windows &nbsp; 4.0.20160721 &nbsp; &nbsp; &nbsp; &nbsp; westus &nbsp; &nbsp; &nbsp; microsoft windowsserver: windowsserver: 2012-R2-datacenter: 4.0.20160721</p>
+
+
+  <pre>
+        },
+        &quot;osDisk&quot;: {
+          &quot;osType&quot;: &quot;Windows&quot;,
+          &quot;name&quot;: &quot;BlogWindowsVM&quot;,
+          &quot;createOption&quot;: &quot;FromImage&quot;,
+          &quot;vhd&quot;: {
+            &quot;uri&quot;: <a href="https://blogrgdisks562.blob.core.windows.net/vhds/BlogWindowsVM2016713231120.vhd">https://blogrgdisks562.blob.core.windows.net/vhds/BlogWindowsVM2016713231120.vhd</a></pre>
+
+  <p>OS ディスクはページ blob であり、Publisher によって発行されたソースイメージのコピーとして開始されます。 この blob のメタデータを確認し、それを VM 自体に関連付けられている内容に関連付けることができます。 blob &rsquo; s プロパティウィンドウ Microsoft Visual Studio の Cloud Explorer を使用すると、次のようになります。<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4e10e0b5-c266-4c51-ba75-6e5767a27f39.png"><img alt="1" border="0" height="686" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/128643e7-4a67-4b74-b446-379975c63585.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="1" width="1239"></a></p>
+
+
+  <p>これは、ネットワーク経由で OS ディスクとして機能している通常のページ blob です。 最後に変更された日付 () は、VM が実行されている間はほとんど &ndash; の理由で発生しています ()。ディスクにフラッシュが頻繁に発生しています。 OS ディスクのサイズは 127 GB です。Azure で許容される最大 OS ディスクは 1 TB です。</p>
+
+
+  <p><a href="https://azurestorageexplorer.codeplex.com">Azure Storage Explorer</a>には、VS Cloud Explorer と同じ blob について、さらに多くのプロパティが表示されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d2146a2-f2e7-44ba-8eee-f5a1639705f5.png"><img alt="image" border="0" height="642" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c830573-c8ad-480f-b5ad-55411454b6a0.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="絵" width="1261"></a></p>
+
+
+  <p>関心のあるプロパティは、リースのプロパティです。 Blob は無期限にリースとして表示されます。 内部的には VM を作成するために、ページ blob が VM の OS/データディスクとして構成されている場合は、VM に接続する前にその blob のリースを取得します。 これは、実行中の VM の blob が帯域外で削除されないようにするためです。 ディスクベースの blob にリースがなく、VM に接続されていると表示されている場合は、不整合な状態になり、修復が必要になります。</p>
+
+
+  <p>RDPing VM 自体では、2つのドライブがマウントされており、OS ドライブのサイズは Storage のページ blob とほぼ同じです。 ページファイルは D ドライブにあります。そのため、障害が発生したページは Blob Storage からネットワーク経由ではなくローカルでフェッチされます。 VM を別のノードに再配置する場合は、一時的なストレージが失われる可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c58399a3-cc72-4443-83e1-f129c9616db6.png"><img alt="image" border="0" height="602" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ba3a6fae-87d6-4b17-80ac-659d3b0b2573.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="絵" width="1256"></a></p>
+
+
+  <pre>
+   },
+    &quot;caching&quot;: &quot;ReadWrite&quot;
+  },
+
+  &quot;dataDisks&quot;: []</pre>
+
+
+  <p>データディスクはまだありませんが、まもなく追加される予定です</p>
+
+
+  <pre>
+
+  },
+
+  &quot;osProfile&quot;: {
+    &quot;computerName&quot;: &quot;BlogWindowsVM&quot;,</pre>
+
+  <p>ポータルで VM に対して選択した名前は、ホスト名でもあります。 VM は DHCP によって有効になり、DHCP を介して DIP アドレスを取得します。 VM は内部 DNS に登録され、FQDN が生成されます。</p>
+
+
+  <pre>
+
+  <em>C:\Users\yunusm&gt;ipconfig /all</em>
+
+
+  <em>Windows IP Configuration</em>
+
+
+  <em>   Host Name . . . . . . . . . . . . : BlogWindowsVM
+     Primary Dns Suffix  . . . . . . . :
+     Node Type . . . . . . . . . . . . : Hybrid
+     IP Routing Enabled. . . . . . . . : No
+     WINS Proxy Enabled. . . . . . . . : No
+     DNS Suffix Search List. . . . . . : qkqr4ajgme4etgyuajvm1sfy3h.dx.internal.cl
+  oudapp.net</em></pre>
+
+
+  <p>イーサネットアダプター:</p>
+
+
+  <pre>
+
+  <em>   </em>Connection-specific DNS Suffix  . : qkqr4ajgme4etgyuajvm1sfy3h.dx.internal.cl
+
+  oudapp.net
+     Description . . . . . . . . . . . : Microsoft Hyper-V Network Adapter
+     Physical Address. . . . . . . . . : 00-0D-3A-33-81-01
+     DHCP Enabled. . . . . . . . . . . : Yes
+     Autoconfiguration Enabled . . . . : Yes
+     Link-local IPv6 Address . . . . . : fe80::980c:bf29:b2de:8a05%12(Preferred)
+     IPv4 Address. . . . . . . . . . . : 10.1.0.4(Preferred)
+     Subnet Mask . . . . . . . . . . . : 255.255.255.0
+     Lease Obtained. . . . . . . . . . : Saturday, August 13, 2016 11:14:58 PM
+     Lease Expires . . . . . . . . . . : Wednesday, September 20, 2152 6:24:34 PM
+     Default Gateway . . . . . . . . . : 10.1.0.1
+     DHCP Server . . . . . . . . . . . : 168.63.129.16
+     DHCPv6 IAID . . . . . . . . . . . : 301993274
+     DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-1F-41-C4-70-00-0D-3A-33-81-01
+
+     DNS Servers . . . . . . . . . . . : 168.63.129.16
+     NetBIOS over Tcpip. . . . . . . . : Enabled
+
+  &quot;adminUsername&quot;: &quot;yunusm&quot;,
+
+  &quot;windowsConfiguration&quot;: {
+    &quot;provisionVMAgent&quot;: true,</pre>
+
+  <p>これは、一連の構成を実行して拡張機能を実行するゲストエージェントをインストールするためのヒントです。 ゲストエージェントバイナリは、次のようになります。</p>
+
+
+  <pre>
+
+  &quot;enableAutomaticUpdates&quot;: true</pre>
+
+
+  <p>Windows vm は、既定で Windows Update サービスから自動更新を受信するように設定されています。 ここでは、可用性と自動更新について理解するための微妙な違いがあります。 複数の vm を含む可用性セットがあり、予期しないエラーに対して高い SLA を実現するためには、可用性セット全体で vm をダウンさせることができる相関アクション (Windows 更新など) を使用しないようにします。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a465d7ac-11c5-453d-ac8a-e212e05dd041.png"><img alt="image" border="0" height="392" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ce389ebe-a664-48f1-8ea3-b9ca517db447.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="絵" width="969"></a></p>
+
+
+  <pre>
+
+  },
+
+
+  &quot;secrets&quot;: []
+
+
+  },
+
+
+  &quot;networkProfile&quot;: {
+
+
+  &quot;networkInterfaces&quot;: [
+
+
+  {
+
+
+  &quot;id&quot;: &quot;/subscriptions/f028f547-f912-42b0-8892-89ea6eda4c5e/resourceGroups/BlogRG/providers/Microsoft.Network/networkInterfaces/blogwindowsvm91&quot;</pre>
+
+
+  <p>NIC はスタンドアロンリソースであり、ネットワークリソースについてはまだ説明していません。</p>
+
+
+  <pre>
+      }
+    ]
+  },
+
+  &quot;diagnosticsProfile&quot;: {
+    &quot;bootDiagnostics&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;storageUri&quot;: &quot;<a href="https://blogrgdiag337.blob.core.windows.net/&quot;">https://blogrgdiag337.blob.core.windows.net/&quot;</a>
+    }</pre>
+
+  <p>ブート診断が有効になっています。 ポータルには、スクリーンショットを表示する方法があります。 スクリーンショットの URL は CLI から取得できます。</p>
+
+
+  <pre>
+
+  C:\Program Files (x86)\Microsoft SDKs\Azure\CLI\bin&gt;node azure vm get-serial-output
+
+
+  info: Executing command vm get-serial-output
+
+
+  Resource group name: blogrg
+
+
+  Virtual machine name: blogwindowsvm
+
+
+  + Getting instance view of virtual machine &quot;blogwindowsvm&quot;
+
+
+  info: Console Screenshot Blob Uri:
+
+
+  https://blogrgdiag337.blob.core.windows.net/bootdiagnostics-blogwindo-694733ec-46a0-4e0b-a73b-ee0863a0f12c/BlogWindowsVM.694733ec-46a0-4e0b-a73b-ee0863a0f12c.screenshot.bmp
+
+
+  info: vm get-serial-output command OK</pre>
+
+
+  <p>ブートスクリーンショットは、ポータルで表示できます。 ただし、スクリーンショットの bmp ファイルの URL はブラウザーに表示されません。</p>
+
+
+  <p>何のためでしょう。 これは、匿名アクセスをブロックするストレージアカウントの認証によるものです。 Azure Storage の blob またはコンテナーでは、<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-manage-access-to-resources/">匿名読み取りアクセスを構成</a>することができます。 シークレットが公開されない場合に限り、この操作を慎重に行ってください。 これは、SAS 署名を生成しなくても機密データを共有する場合に便利な機能です。 コンテナーで匿名アクセスを有効にすると、ポータルの外部にあるすべてのブラウザーでスクリーンショットが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df121718-855a-4a0d-a6fc-a6038586b61a.png"><img alt="image" border="0" height="675" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/750bf908-68e3-4803-b338-16b9f8e37437.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="絵" width="1059"></a><br>
+
+  &nbsp;&nbsp;&nbsp; },<br>
+
+  &nbsp;&nbsp;&nbsp;&quot;provisioningState &quot; : &quot; 成功しました&quot;<br>
+
+  &nbsp; },<br>
+
+  &nbsp;&quot;リソース &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;プロパティ &quot; : {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;発行元 &quot; : &quot; Microsoft Compute &quot; 、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;種類 &quot; : &quot; customscriptextension &quot; 、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;typeハンドラバージョン &quot; : &quot; 1.7 &quot; 、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;autoUpgradeMinorVersion &quot; : true、</p>
+
+
+  <p>通常、マイナーバージョンでは、拡張機能が自動的に更新されます。 この点については、自動更新を行うことはできません。</p>
+
+
+  <pre>
+          &quot;settings&quot;: {
+            &quot;fileUris&quot;: [
+              <a href="https://iaasv2tempstorewestus.blob.core.windows.net/vmextensionstemporary-10033fff801becb5-20160814084130535/simple.ps1?sv=2015-04-05&amp;sr=c&amp;sig=M3qa7lS%2BZwp%2B8Tytqf1VEew4YaAKvvYn1yzGrPfSwyw%3D&amp;se=2016-08-15T08%3A41%3A30Z&amp;sp=rw">https://iaasv2tempstorewestus.blob.core.windows.net/vmextensionstemporary-10033fff801becb5-20160814084130535/simple.ps1?sv=2015-04-05&amp;sr=c&amp;sig=M3qa7lS%2BZwp%2B8Tytqf1VEew4YaAKvvYn1yzGrPfSwyw%3D&amp;se=2016-08-15T08%3A41%3A30Z&amp;sp=rw</a></pre>
+
+  <p>既に説明したように、これは powershell スクリプトの SAS キーです。 これは、ファイルを共有し、blob にデータ &ndash; をアップロードするためによく使用されるパターンとして表示され、SAS キーを生成して渡すことができます。</p>
+
+
+  <pre>
+            ],
+            &quot;commandToExecute&quot;: &quot;powershell -ExecutionPolicy Unrestricted -File simple.ps1  &quot;
+          },
+          &quot;provisioningState&quot;: &quot;Succeeded&quot;
+        },
+        &quot;id&quot;: &quot;/subscriptions/f028f547-f912-42b0-8892-89ea6eda4c5e/resourceGroups/BlogRG/providers/Microsoft.Compute/virtualMachines/BlogWindowsVM/extensions/CustomScriptExtension&quot;,
+        &quot;name&quot;: &quot;CustomScriptExtension&quot;,
+        &quot;type&quot;: &quot;Microsoft.Compute/virtualMachines/extensions&quot;,
+        &quot;location&quot;: &quot;westus&quot;
+      },
+      {
+        &quot;properties&quot;: {
+          &quot;publisher&quot;: &quot;Microsoft.Azure.Diagnostics&quot;,
+          &quot;type&quot;: &quot;IaaSDiagnostics&quot;,
+          &quot;typeHandlerVersion&quot;: &quot;1.5&quot;,
+          &quot;autoUpgradeMinorVersion&quot;: true,
+          &quot;settings&quot;: {
+            &quot;xmlCfg&quot;: &lt;trimmed&gt;,
+            &quot;StorageAccount&quot;: &quot;blogrgdiag337&quot;
+          },
+          &quot;provisioningState&quot;: &quot;Succeeded&quot;
+        },
+        &quot;id&quot;: &quot;/subscriptions/f028f547-f912-42b0-8892&not;-89ea6eda4c5e/resourceGroups/BlogRG/providers/Microsoft.Compute/virtualMachines/BlogWindowsVM/extensions/Microsoft.Insights.VMDiagnosticsSettings&quot;,
+        &quot;name&quot;: &quot;Microsoft.Insights.VMDiagnosticsSettings&quot;,
+        &quot;type&quot;: &quot;Microsoft.Compute/virtualMachines/extensions&quot;,
+        &quot;location&quot;: &quot;westus&quot;
+      }
+    ],
+    &quot;id&quot;: &quot;/subscriptions/f028f547-f912-42b0-8892-89ea6eda4c5e/resourceGroups/BlogRG/providers/Microsoft.Compute/virtualMachines/BlogWindowsVM&quot;,
+    &quot;name&quot;: &quot;BlogWindowsVM&quot;,
+    &quot;type&quot;: &quot;Microsoft.Compute/virtualMachines&quot;,
+    &quot;location&quot;: &quot;westus&quot;
+  }</pre>
+
+
+  <h2>続行するには</h2>
+
+
+  <p>ここでは、1つの VM から学習できることを説明し、その他のトピックに移ります。</p>

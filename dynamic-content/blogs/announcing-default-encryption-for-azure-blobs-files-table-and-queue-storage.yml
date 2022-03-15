@@ -1,0 +1,24 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3bcf0465abb3f71e8d1ce5b9561afb1778baf169
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890959"
+Slug: announcing-default-encryption-for-azure-blobs-files-table-and-queue-storage
+Title: Azure BLOB、ファイル、テーブル、およびキューの既定の暗号化のStorage
+Summary: 'お客様のデータの保護を確保するためのセキュリティ戦略の中心として、Microsoft は、すべてのストレージ アカウント (Azure Resource Manager およびクラシック ストレージ アカウント) に対してすべての Azure サービス (BLOB、ファイル、テーブル、キュー ストレージ) に書き込まれるすべてのデータに対して Microsoft マネージド キーを使用して既定で暗号化を有効にすることで、さらに一歩進みます。 '
+Content: >-
+  <p>ほとんどのお客様にとって、セキュリティは&nbsp;最も重要なだけでなく、パブリック クラウド プロバイダーを選択する際の決定要因にもなります。 お客様は、セキュリティとコンプライアンスのニーズに従って保存時にデータを暗号化する必要があります。 セキュリティとプライバシー Azure Storageを真に受け止め、データを保護するためにたゆまなく取り組む必要があります。 Azure のお客様は、Microsoft マネージド キーまたは Azure Blob Storage Storageカスタマー マネージド キーを使用して、Azure Blob および File Storage 用の Storage Service Encryption (SSE) を利用できます。</p>
+
+
+  <p>&rsquo;お客様のデータの保護を確保する戦略の中心として、Microsoft では、Azure サービス (BLOB、ファイル、テーブル、およびキュー ストレージ) に書き込まれるすべてのデータに対して Microsoft マネージド キーを使用して、新規と既存の両方のすべてのストレージ アカウント (Azure Resource Manager およびクラシック ストレージ アカウント) に対して既定で暗号化を有効にすることで、セキュリティをさらに強化しています。 インポート シナリオを含むマネージド ディスクの SSE もサポートされます。 詳細については、マネージド ディスクの&nbsp;<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq-for-disks#managed-disks-and-storage-service-encryption" target="_blank">&amp; SSE に関する FAQ に関するページを参照してください</a>。</p>
+
+
+  <p>Azure Storage に書き込まれるすべてのデータは、永続化する前に Storage サービスによって自動的に暗号化され、取得前に復号化されます。 暗号化と暗号化解除は、ユーザーに対して完全に透過的です。 すべてのデータは、256 ビット <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">の AES</a> 暗号化 (使用可能な最も強力なブロック暗号の AES-256one&mdash; とも呼ばれる) を使用して暗号化されます。 暗号化が既定で有効になっている場合、お客様はアプリケーションに変更を加える必要が生じしません。 ストレージ アカウントで暗号化が有効になっているか確認するには、暗号化されたデータの状態に対して BLOB と<a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.windowsazure.storage.blob.blobproperties.isserverencrypted?redirectedfrom=MSDN&amp;view=azurestorage-8.1.3#Microsoft_WindowsAzure_Storage_Blob_BlobProperties_IsServerEncrypted" target="_blank"></a><a href="https://github.com/Azure/azure-storage-net/blob/master/Lib/Common/File/FileProperties.cs#L126" target="_blank">ファイルのクエリ</a>を実行するか (テーブルとキューストレージでは使用できません)、アカウントのプロパティ<a href="https://msdn.microsoft.com/library/azure/mt163553.aspx" target="_blank">を確認します</a>。 この機能を使用する場合、追加料金もパフォーマンスの低下もありません。</p>
+
+
+  <p>この機能をリージョン別に有効にし、今後数週間ですべての Azure リージョンと Azure クラウドに拡張する予定です。</p>
+
+
+  <p>サービスマネージド キーを使用した<a href="https://azure.microsoft.com/en-gb/documentation/articles/storage-service-encryption/" target="_blank">サービス暗号化Storage</a>カスタマー マネージド キーを使用したサービス暗号化Storageの詳細については、ドキュメント<a href="https://docs.microsoft.com/azure/storage/storage-service-encryption-customer-managed-keys" target="_blank">を参照してください</a>。</p>

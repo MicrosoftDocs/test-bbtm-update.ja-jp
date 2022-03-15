@@ -1,0 +1,38 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ab50db2b88c4fad07ddf15df9ce6182c38050371
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890330"
+Slug: preview-live-transcription-with-azure-media-services
+Title: プレビュー:ライブ文字起こしと Azure Media Services
+Summary: Azure Media Servicesは、ライブ イベントをブロードキャストできるプラットフォームを提供します。 api を使用すると、HTTP ライブ ストリーミング (HLS) や MPEG-DASH などの業界標準プロトコルを介して配信するために、ライブ ビデオ フィードを取り込み、コード変換し、動的にパッケージ化し、暗号化することができます。
+Content: >-
+  <p>Azure Media Services、ライブ <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-streaming-overview" target="_blank">イベントを</a>ブロードキャストできるプラットフォームが提供されます。 api を使用すると、<a href="https://tools.ietf.org/html/rfc8216" target="_blank">HTTP ライブ ストリーミング</a> (HLS) や <a href="https://www.iso.org/standard/57623.html" target="_blank">MPEG-DASH</a> などの業界標準プロトコルを介して配信するために、ライブ ビデオ フィードを取り込み、コード変換し、動的にパッケージ化し、暗号化することができます。 また、API を使用して、CDN と統合し、何百万もの同時閲覧者に配信することができます。 お客様は、このプラットフォームを使用して、複数日のスポーツ イベントやプロスポーツの季節全体、ウェビナーや町役場の会議まで、シナリオに対応しています。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription" target="_blank">ライブ</a> 文字起こしは、v3 API の新しいプレビュー機能です。この機能を使用すると、オーディオ フィード内の音声から文字起こしされるマシンによって生成されたテキストを使用して、ビューアーに配信されるストリームを強化できます。 この機能は、パススルー ライブ イベントなど、<a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-streaming-overview#live-event-types" target="_blank"></a>サービスで作成する任意の種類のライブ イベントに対して有効にできるオプションです。これには、複数ビットレートのライブ フィードを生成してサービスにプッシュするライブ エンコーダーアップストリームを構成します (下の図を参照)。<br>
+
+  &nbsp;&nbsp;&nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56f2f1c1-9a25-492f-9852-df5fa1bc39d6.png"><img alt="pass-through_PRE" border="0" height="333" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1682685-3e6c-4755-bc97-8b8258f3e7b0.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="pass-through_PRE" width="907"></a></p>
+
+
+  <p align="center"><em>図 1。ライブ文字起こしの概略図</em></p>
+
+
+  <p>ライブ投稿フィードがサービスに送信された場合、音声信号を抽出してデコードし、Azure Cognitive Services 音声テキスト <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-to-text" target="_blank">変換 API を</a> 呼び出して音声を文字起こしします。 その後、結果のテキストは、ストリーミング プロトコルを介した配信に適した形式にパッケージ化されます。 MPEG HTTP ライブ ストリーミング (TS) フラグメントにパッケージ化されたメディア (HLS) プロトコルの場合、テキストは WebVTT フラグメントにパッケージ化されます。 CMAF プロトコルを使用した MPEG-DASH または <a href="https://developer.apple.com/documentation/http_live_streaming/about_the_common_media_application_format_with_http_live_streaming" target="_blank">HLS</a> 経由での配信の場合、テキストは、IMSC1.1 互換 TTML でラップされた後、MPEG-4 Part 30 (ISO/IEC 14496-30) フラグメントにパッケージ化されます。</p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/media-services/latest/use-azure-media-player" target="_blank">Azure Media Player</a> (バージョン 2.3.3 以降) を使用してビデオを再生したり、さまざまなブラウザーやデバイスにテキストを表示することができます。 iOS ネイティブ プレーヤーでストリームを再生できます。 Android デバイス用のアプリを構築する場合、文字起こしの再生は NexPlayer によって検証されています。 デモを <a href="https://nexplayersdk.com/android-player-sdk-demo/" target="_blank">依頼</a> する場合は、担当者にお問い合わせください。</p>
+
+
+  <p><img alt="Display of live transcription on Azure Media Player" border="0" height="731" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9d2b0417-470a-46a9-9c65-aca384aa8f41.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1264"></p>
+
+
+  <p align="center"><em>図 2。ライブ文字起こしのAzure Media Player</em></p>
+
+
+  <p>MPEG HTTP ライブ ストリーミング (TS) フラグメントにパッケージ化されたメディア (HLS) プロトコルの場合、テキストは WebVTT フラグメントにパッケージ化されます。 CMAF プロトコルを使用した MPEG-DASH または <a href="https://developer.apple.com/documentation/http_live_streaming/about_the_common_media_application_format_with_http_live_streaming">HLS</a> 経由での配信の場合、テキストは、IMSC1.1 互換 TTML でラップされた後、MPEG-4 Part 30 (ISO/IEC 14496-30) フラグメントにパッケージ化されます。</p>
+
+
+  <p>ライブ文字起こし機能は、米国西部 2 リージョンでプレビューで利用できます。 このプレビュー機能 <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription">の使用を</a> 開始する方法については、こちらを参照してください。</p>

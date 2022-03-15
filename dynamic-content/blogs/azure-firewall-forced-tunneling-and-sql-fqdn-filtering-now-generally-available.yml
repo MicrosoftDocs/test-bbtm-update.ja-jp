@@ -1,0 +1,118 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 47d8b4a5baca0243371121ca657411a57b3c4fcc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895649"
+Slug: azure-firewall-forced-tunneling-and-sql-fqdn-filtering-now-generally-available
+Title: Azure Firewallトンネリングと FQDN フィルター SQL一般提供
+Summary: AZURE FIREWALL の 2 つの新しい主要機能に対して、強制トンネリングと SQL FQDN フィルター処理が一般提供されています。 さらに、宛先ネットワーク アドレス変換 (DNAT) と送信元ネットワーク アドレス変換 (SNAT) の両方について、複数のパブリック IP アドレスの制限を 100 から 250 に増やしました。
+Content: >-
+  <p>強制トンネリングとAZURE FIREWALL FQDN&nbsp;&mdash; フィルター SQL&mdash;の 2 つの新機能が一般提供されました。 さらに、宛先ネットワーク アドレス変換 (DNAT) と送信元ネットワーク アドレス変換 (SNAT) の両方について、複数のパブリック IP アドレスの制限を 100 から 250 に増やしました。</p>
+
+
+  <p>Azure Firewallは、クラウド ネイティブのサービスとしてのファイアウォール (FWaaS) オファリングであり、DevOps アプローチを使用してすべてのトラフィック フローを一本的に管理およびログに記録できます。 このサービスは、アプリケーションレベルとネットワーク レベルの両方のフィルター規則をサポートし、既知の悪意のある IP アドレスとドメインをフィルター処理する Microsoft Threat Intelligence フィードと統合されています。 Azure Firewallの自動スケーリングで高可用性を提供します。</p>
+
+
+  <h2>強制トンネリングのサポートが一般提供される</h2>
+
+
+  <p>強制トンネリングを使用すると、Azure Firewall からオンプレミスのファイアウォールにインターネットにバインドされたトラフィックをリダイレクトしたり、追加の検査のために近くのネットワーク仮想アプライアンス (NVA) にチェーンすることができます。 新しいファイアウォールを作成するときに、強制トンネリングのファイアウォールを有効にします。 現在、既存のファイアウォール展開を強制トンネリング モードに移行できません。</p>
+
+
+  <p>強制トンネリングをサポートするために、サービス管理トラフィックは顧客のトラフィックから分離されます。 AzureFirewallManagementSubnet という名前の追加の専用サブネットが、独自のパブリック IP アドレスに関連付けられている必要があります。 このサブネットで許可されている唯一のルートはインターネットへの既定のルートであり、Border Gateway Protocol (BGP) ルート伝達を無効にする必要があります。</p>
+
+
+  <p>この構成内では、AzureFirewallSubnet にオンプレミスのファイアウォールまたは NVA へのルートを含め、インターネットに&#39;前にトラフィックを処理できます。 このサブネットで BGP ルート伝達が有効になっている場合は、BGP 経由でこれらのルートを AzureFirewallSubnet に発行できます。</p>
+
+
+  <p><u><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7862737f-7fe6-4ce2-8c06-597c92988839.jpg"><img alt="VNnetFirewall in forced tunneling mode." border="0" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1db2f887-021c-400e-be73-9fffb77282fd.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="強制トンネリング モードの VNnetFirewall。" width="1024"></a></u></p>
+
+
+  <p align="center"><em>図 1。Azure Firewallトンネリング モードで使用できます。</em></p>
+
+
+  <h2>強制トンネリングによる SNAT の回避</h2>
+
+
+  <p>Azure Firewall では、パブリック IP アドレスへのすべてのアウトバウンド トラフィックに対して自動 SNAT が提供されます。 Azure Firewall IP&rsquo; アドレスが <a href="https://tools.ietf.org/html/rfc1918" target="_blank">IANA RFC 1918</a> ごとのプライベート IP アドレス範囲である場合、SNAT は許可されます。 このロジックは、インターネットに直接送信する場合に完全に機能します。 ただし、強制トンネリングを有効にすると、インターネットにバインドされたトラフィックは、AzureFirewallSubnet のいずれかのファイアウォール プライベート IP アドレスに SNATED され、オンプレミスのファイアウォールからソースが隠されます。 プライベート IP アドレスAzure Firewall 0.0.0.0/&rdquo;0 を追加することで、宛先 IP &ldquo;アドレスに関係<b>なく SNAT</b> を使用しない構成を行います。 この構成を使用すると、Azure Firewallインターネットに直接送信することはできません。 詳細については、「<a href="https://docs.microsoft.com/en-us/azure/firewall/snat-private-range" target="_blank">Azure Firewall の SNAT プライベート IP アドレス範囲</a>」を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2e667d43-7f40-4d61-ac90-efd4006810a1.jpg"><img alt="Azure Firewall configured to not SNAT regardless of the destination IP address by adding 0.0.0.0/0 as the private IP address range." border="0" height="617" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a6f156c0-4fa6-45de-80a6-681a8ee31860.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Firewall 0.0.0.0/0 をプライベート IP アドレス範囲として追加することで、宛先 IP アドレスに関係なく SNAT を使用しない構成にできます。" width="1024"></a></p>
+
+
+  <p align="center"><em>図 2。Azure Firewall SNAT&rsquo; プライベート IP プレフィックスの構成は行わない。</em></p>
+
+
+  <h2>パブリック PaaS とパブリック サービスへのOffice 365</h2>
+
+
+  <p>強制Azure Firewallを使用すると、インターネットにバインドされたトラフィックをオンプレミスのファイアウォールまたは近くの NVA に送信することができますが、これは常に望ましいとは限しません。 たとえば、パブリック サービスとしてのプラットフォーム (PaaS) またはパブリック サービスへのエグレスを直接行Office 365可能性があります。 これを実現するには、特定の宛先に対して次ホップの種類が Internet&rdquo; である AzureFirewallSubnet &ldquo;にユーザー定義ルート <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#custom-routes" target="_blank">(UDR)</a> を追加します。 この定義は既定のルートよりも具体的です。そのため、この定義が優先されます。 「 <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56519" target="_blank">Azure IP 範囲とサービス タグ」を参照してください</a>。 および <a href="https://docs.microsoft.com/en-us/Office365/Enterprise/office-365-ip-web-service" target="_blank">Office 365 IP アドレスを指定します</a>。</p>
+
+
+  <p>パブリック PaaS に直接送信するための別の方法として、AzureFirewallSubnet で <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview" target="_blank">Virtual Network (VNet)</a> サービス エンドポイントを有効にできます。 これらのエンドポイントは、直接接続を使用して仮想ネットワークのプライベート アドレス空間と ID を Azure PaaS サービスに拡張します。 有効にすると、対応する PaaS サービスへの特定のルートが自動的に作成されます。 サービス エンドポイントを使用すると、重要な Azure サービス リソースを VNet にのみセキュリティで保護できます。 VNet から Azure サービスへのトラフィックは常に、Microsoft Azure のバックボーン ネットワーク上に残ります。</p>
+
+
+  <p>&ldquo;この構成では、前に示したプライベート IP プレフィックスとして 0.0.0.0/0&rdquo; を追加できないが、引き続き SNATED されないカスタム範囲を追加できる点に注意してください。</p>
+
+
+  <p>最後に、 <a href="https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview" target="_blank">Azure</a> プライベート エンドポイントを使用して、パブリック PaaS サービスにプライベートかつ安全に接続Azure Private Link。 ただし、これらの接続は、このドキュメントで説明するようにAzure Firewall既定のルートをバイパス <a href="https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview#limitations" target="_blank">します</a>。 すべてのトラフィックをファイアウォール経由で行う必要がある場合は、プライベート エンドポイント IP アドレスを持つすべてのクライアント サブネットに UDR を追加し、宛先として /32 サフィックスを追加し、次ホップとして Azure Firewall を追加することで軽減できます。 この構成が機能し、プライベート エンドポイントから返されたトラフィックがファイアウォール経由で送信される場合は、プライベート <a href="https://docs.microsoft.com/en-us/azure/firewall/snat-private-range" target="_blank">IP</a> アドレス範囲として 255.255.255.255/32 を使用して、常に SNAT を使用する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4f051dd-efe3-46e6-996f-25d0ed667259.jpg"><img alt="A UDR added to a Storage Private Endpoint pointing to the firewall as a next hop to require all traffic to go via the firewall." border="0" height="439" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/358d9ef1-c01c-491f-aecc-8bfa7ea1c8aa.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="すべてのトラフィックがファイアウォール経由でStorageを要求するために、次ホップとしてファイアウォールを指すプライベート エンドポイントに追加された UDR。" width="1024"></a></p>
+
+
+  <p align="center"><em>図 3。次ホップとしてファイアウォールStorageを指すプライベート エンドポイントへの UDR。</em></p>
+
+
+  <h2>SQL FQDN フィルター処理が一般提供される</h2>
+
+
+  <p>これで、アプリケーション <a href="https://aka.ms/sqlazfw" target="_blank">規則SQL FQDN をAzure Firewall構成できます</a>。 これにより、VNet からのアクセスを、特定のインスタンスに対して指定SQL Serverできます。 VNet から、VNet にデプロイされた Azure SQL Database、Azure SQL Data Warehouse、Azure SQL Managed Instance、または SQL IaaS インスタンスへのトラフィックをフィルター処理できます。</p>
+
+
+  <p>SQL FQDN フィルター処理は、現在<a href="https://docs.microsoft.com/azure/sql-database/sql-database-connectivity-architecture#connection-policy" target="_blank">プロキシ モードでのみ</a>サポートされています (ポート 1433)。 SQL Infrastructure as a Service (IaaS) トラフィックに既定以外のポートを使用する場合は、ファイアウォール アプリケーション規則でこれらのポートを構成できます。</p>
+
+
+  <p>既定のリダイレクト モードSQLを使用する場合でも、ネットワーク 規則の一部として SQL サービス タグを使用してアクセスを<a href="https://docs.microsoft.com/en-us/azure/firewall/overview#network-traffic-filtering-rules" target="_blank">フィルター処理できます</a>。 アプリケーション ルールにリダイレクト モードのサポートを追加する方法については、ロードマップを参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/46717eb3-74f9-4f5a-a262-4708e24fc101.png"><img alt="Azure Firewall application rules for SQL FQDN filtering." border="0" height="602" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7030b58d-68ea-44e6-89f0-9a4c18cd0db8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Firewall FQDN フィルター処理のSQL規則を指定します。" width="1024"></a></p>
+
+
+  <p align="center"><em>図 4。SQL規則の FQDN フィルター Azure Firewallを使用します。</em></p>
+
+
+  <h2>複数のパブリック IP アドレスの上限の引き上げ</h2>
+
+
+  <p>これで、DNAT と SNAT の両方に対して、Azure Firewall最大 250 のパブリック IP アドレスを使用できます。</p>
+
+
+  <ul>
+      <li><b>DNAT</b>&mdash;複数の標準ポート インスタンスをバックエンド サーバーに変換できます。 たとえば、2 つのパブリック IP アドレスがある場合、両方の IP アドレス用の TCP ポート 3389 (RDP) を変換できます。</li>
+      <li><b>SNAT</b>&mdash;送信 SNAT 接続には追加のポートを使用できます。SNAT ポートが枯渇する可能性が減っています。 現在、Azure Firewall では、接続に使用する送信元パブリック IP アドレスがランダムに選択されます。 ネットワークにダウンストリーム フィルターがある場合、ファイアウォールに関連付けられているすべてのパブリック IP アドレスを許可する必要があります。 この構成を簡略化するには、<a href="https://docs.microsoft.com/en-us/azure/virtual-network/public-ip-address-prefix" target="_blank">パブリック IP アドレス プレフィックス</a>を使用することを検討してください。</li>
+  </ul>
+
+
+  <p>詳細については、「複数のパブリック <a href="https://docs.microsoft.com/en-us/azure/firewall/deploy-multi-public-ip-powershell" target="_blank">IP アドレスを持つAzure Firewallをデプロイする」を参照してください</a>。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>ここで説明したすべての詳細については、次を参照してください。</p>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/" target="_blank">Azure Firewall のドキュメント</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/forced-tunneling" target="_blank">Azure Firewall の強制トンネリング</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/sql-fqdn-filtering" target="_blank">SQLを使用した FQDN フィルター Azure Firewall</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall/overview#multiple-public-ip-addresses" target="_blank">&ndash;Azure Firewall複数のパブリック IP アドレス</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/firewall-manager/overview" target="_blank">プレビュー Azure Firewall Managerとは</a></li>
+      <li><a href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fazure.microsoft.com%2Fen-us%2Fblog%2Fuse-azure-firewall-for-secure-and-cost-effective-windows-virtual-desktop-protection%2F&amp;data=01%7C01%7Cliz.wolk%40rationalcx.com%7C5685b1f15a0a4c10575008d802779f07%7C03f0126b518e456cbac9346c34f95bd9%7C1&amp;sdata=ac5yGzTiNpKEdbpTuxzxYijYdXwjWwQlDls0WA%2B9qiA%3D&amp;reserved=0">仮想Azure Firewall保護を使用して、セキュリティで保護されたコスト効率Windowsを実現する</a></li>
+  </ul>

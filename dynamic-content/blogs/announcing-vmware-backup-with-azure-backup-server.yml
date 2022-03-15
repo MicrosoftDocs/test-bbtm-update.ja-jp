@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 24c8120e62d129e13c20c6287773ff16c7a690c4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896633"
+Slug: announcing-vmware-backup-with-azure-backup-server
+Title: Azure Backup Server を使用した VMware バックアップの発表
+Summary: これは Azure Backup Server Update 1 を使用した VMware VM バックアップのサポートに関するお知らせです。
+Content: >-
+  <p><a href="https://azure.microsoft.com/documentation/articles/backup-azure-microsoft-azure-backup/">Microsoft Azure backup Server</a> (mabs) は、企業の異種混在の IT 環境でデータとワークロードを保護するための Azure Backup のクラウドファーストバックアップソリューションです。 このファイルは、Azure Backup の無料ダウンロードとして提供されており、System Center ライセンス、またはサーバー DB の SQL ライセンスを必要としません。 <a href="https://docs.microsoft.com/azure/backup/backup-azure-backup-server-vmware">Azure Backup Server では、ディスクへの VMWARE VM のバックアップと、オフサイトコピーまたは長期保存のためのクラウドへのバックアップがサポート</a>されるようになりました。 この更新の前に、SQL、Exchange、Sharepoint、ファイルなどの保護されたワークロードを、物理マシンまたは hyper-v の VMware 仮想マシン上で実行されている Windows サーバー上で Azure Backup Server します。</p>
+
+
+  <h2>Azure Backup Server を使用した VMware VM のバックアップに関して、お客様が期待できること</h2>
+
+
+  <ul>
+      <li><strong>エージェントレスバックアップ</strong>: Azure Backup Server は vmware &rsquo; s vadp API を使用して、VCenter または ESXi サーバーにエージェントをインストールせずに vmware vm をリモートで保護します。これにより、管理者は vmware vm バックアップ用のエージェントを管理する手間を省くことができます。</li>
+      <li><strong>発見可能性と自動保護: </strong>お客様は、NFS や cluster storage など、外部ストレージのターゲットにある VMware Vm をシームレスに検出して保護することができます。 Vm はフォルダーレベルで検出され、保護されるため、大規模な環境の管理は簡単です。 保護されたフォルダーに追加された今後の Vm は、自動的にバックアップされます。</li>
+      <li>統合された<strong>ハイブリッドバックアップ:</strong>お客様は、ディスクへのバックアップを実行して、迅速な運用回復と、オフサイトコピーまたは長期保存のためのクラウドへのバックアップを行うことができます。</li>
+  </ul>
+
+
+  <p><iframe allowfullscreen="allowfullscreen" frameborder="0" height="500" src="https://channel9.msdn.com/Series/Azure-Backup/Announcing-VMware-VM-Backup-with-Azure-Backup-Server/player" width="900"></iframe></p>
+
+
+  <h2>Azure Backup Server を使用した VMware backup の概要</h2>
+
+
+  <p>Azure Backup Server を初めて使用する場合に Microsoft Azure バックアップサーバーを有効にするには<a href="https://go.microsoft.com/fwLink/?LinkId=626082&amp;clcid=0x4009">Microsoft Azure バックアップサーバーをダウンロード</a>し、現在のインフラストラクチャの保護を開始します。</p>
+
+
+  <p>Azure Backup Server をインストールしたら、 <a href="https://support.microsoft.com/kb/3175529">Update 1 をダウンロードしてインストール</a> し、VMware のバックアップを開始してください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/blog/four-simple-steps-to-backup-vmware-vms-using-azure-backup-server/">Azure Backup Server を使用して VMware vm を保護するには、4つの簡単な手順</a>を実行してください<i>。 &nbsp; </i>質問や説明については、まで <a href="mailto:VMwareVMBkp@microsoft.com">VMwareVMBkp@microsoft.com</a> お問い合わせください。</p>
+
+
+  <p>2016年8月、System Center ライセンスを既にお持ちのお客様に<a href="https://blogs.technet.microsoft.com/dpm/2016/08/26/announcing-vmware-vm-backup-using-system-center-data-protection-manager/">System Center Data Protection Manager を使用して VMware バックアップ</a>を発表しました。</p>
+
+
+  <h2>その他のリソース:</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/azure/backup/backup-azure-backup-server-vmware">ドキュメント</a>を参照するか、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">Azure Backup フォーラム</a>にアクセスしてサポートを行う</li>
+      <li><a href="https://aka.ms/azurebackup_feedback">Azure Backup を改善</a>する方法をお聞かせください。新しいアイデアを投稿し、既存のアイデアに投票してください</li>
+      <li><a href="https://twitter.com/azurebackup">Twitter</a>と<a href="https://channel9.msdn.com/Series/Azure-Backup">Channel9</a>でフォローする</li>
+  </ul>

@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 35bf4d890bb06597463eea59b527efb168000899
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890508"
+Slug: best-practices-in-migrating-sap-applications-to-azure-part-2
+Title: SAP アプリケーションを Azure に移行する場合のベスト プラクティス – パート 2
+Summary: SAP のお客様が Azure プラットフォームの速度と機敏性を体験できる一般的なシナリオは、オンプレミスで実行されている SAP Business Suite からクラウドの SAP S/4HANA に移行する機能です。
+Content: >-
+  <p><em>これは、SAP を Azure に移行するベスト プラクティスに関する 3 部構成のブログ投稿シリーズの 2 番目のブログです。</em></p>
+
+
+  <h2>SAP Business Suite から SAP S/4HANA への取り組み</h2>
+
+
+  <p>SAP のお客様が Azure プラットフォームの速度と機敏性を体験できる一般的なシナリオは、オンプレミスで実行されている SAP Business Suite からクラウドの SAP S/4HANA に移行する機能です。 このシナリオは 2 段階のプロセスです。 最初の手順は、オンプレミスのエンタープライズ リソース計画 (ERP) から Azure の HANA 上の Suite に移行し、次に SUITE on HANA から S/4HANA に変換します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c547a05-60e4-41d1-a600-aeae4ac5d301.png"><img alt="Diagram of the journey to SAP on Azure " border="0" height="1100" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d1bcd26-ded9-4807-946f-428fbed95c2b.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="新しいSAP on Azure " width="2122"></a></p>
+
+
+  <p>このような移行プロジェクトの移行先としてクラウドを使用すると、インフラストラクチャ機器の前払いコストが組織に数百万ドル削減される可能性があります。また、インフラストラクチャの最も複雑なコンポーネントが既に配置され、必要に応じて簡単にプロビジョニングできるので、プロジェクト スケジュールから約 12 ~ 16 週間を節約できます。 これらの時間の節約の原因を確認するには、提案要求 (RFP) プロセスの所要時間を確認したり、大容量のメモリを備えた高価なサーバーを調達したり、記憶域アレイ、ネットワーク スイッチ、バックアップ アプライアンス、その他のデータ センターの機能強化など、5 年間の寿命だけで専用アプライアンスを調達する可能性があります。 SAP の要求に応じて、調整されたデータ センター統合 (TDI) 標準に基づいて S4/HANA をデプロイできる、専門家によるトレーニング済みのチームに関連する時間とコストは言うまでもありません。 これらは、Azure 上の S/4HANA に移行した経験の中で、コンサルティング会社 Alegri が直面したのと同じ障害です。 エクスペリエンスの詳細については、Alegri &ldquo; の顧客&#39;最新の企業管理に関する記事<a href="https://customers.microsoft.com/en-us/story/alegri-azure-virtual-machine-storage-security-center-germany" target="_blank">を参照してください</a>。&rdquo;</p>
+
+
+  <p>移行を計画する場合は、すべてのタスク、マイルストーン、依存関係、および利害関係者が特定された、確固たなるプロジェクト プランを作成する必要があります。 また、定義されたガバナンス モデルと、どのグループが所有するタスクを示す RACI グラフも必要になります。 このサイズのプロジェクトには、複数の内部チームと外部チームの間で非常に多くの移動部分と依存関係があります。 ガバナンスにおけるガバナンスは必ず必要です。</p>
+
+
+  <p>実際の実行を開始する場合は、通常、現在使用されているバージョンに固有のすべての SAP 前提条件を特定する必要があります。 大規模な SAP 移行プロジェクトでは、通常、複数の並列作業が同時に行います。 あなたは、Azure のインフラストラクチャ設計が SAP サポート マトリックスに完全に準拠するように&rsquo;したいと思っています。 これを行うには、<a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/sap/sap-s4hana" target="_blank">まず、Azure、Azure</a>&nbsp; <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/sap/sap-deployment-checklist" target="_blank">&#39;の SAP デプロイ チェックリスト</a>、および製品の可用性<a href="https://support.sap.com/en/release-upgrade-maintenance.html" target="_blank">マトリックス (PAM</a>) に関する SAP ドキュメントとデプロイ ガイドを確認します。 &rsquo;これは、初期ランドスケープ設計の作業を行っている間に、SAP Business Suite システムのレガシ カスタム コードの影響、S/4HANA のサイズ設定、およびアップグレードを開始する前に必要なその他の S/4 の前提条件を確認する準備チェックの実行を基本管理者が開始できるので、これは良い開始点です。 一緒に&rsquo;、設計を完了する前に発見された新しい項目をグループ化します。</p>
+
+
+  <p>次は、Azure でのインフラストラクチャのデプロイです。 初期デプロイは最小限で、初期のサンドボックス層と開発層をサポートするのに十分なインフラストラクチャです。 この状態の要件は次のとおりです。</p>
+
+
+  <ul>
+   <li>Azure サブスクリプション</li>
+   <li>確立された VPN 接続または Express Route</li>
+   <li>デプロイされた Azure ネットワーク (<a href="https://docs.microsoft.com/en-us/cli/azure/network/vnet?view=azure-cli-latest" target="_blank">VNet とサブネット</a>) とセキュリティ構成 (<a href="https://docs.microsoft.com/en-us/cli/azure/network/nsg?view=azure-cli-latest" target="_blank">ネットワーク セキュリティ グループ</a>)</li>
+   <li>仮想サーバーまたはベア <a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/sap/sap-s4hana" target="_blank">メタル サーバーと</a><a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/sap/hana-large-instances" target="_blank">関連付けられている</a>ストレージの必要な数</li>
+  </ul>
+
+
+  <p>上記の要件は、新しいターゲット環境で構成されます。 中規模のデータベースから大規模なデータベースに移行するのに十分な帯域幅を提供するには、ExpressRoute が必要になります。 基本管理者は、HANA データベースと初期アプリケーション サーバーに Suite のインストールを開始できます。 これにより、より広範なプロジェクト チームは、問題を解決するために必要な数の移行を実行するために必要なすべての作業領域を提供します。</p>
+
+
+  <p>SAP をオンプレミスから Azure に移行するときに使用する最適な移行方法について多くの質問があります。これは、バックアップ/復元、エクスポート/インポート、SUM、DMO などのオプションの数を考えると理解できます。 SAP Business Suite を Azure 上の S/4HANA に移行する場合は、SAP の SUM オプションと DMO オプションを使用して、データベースの移行を処理し、Azure&rsquo; に新しいアプリケーション サーバーをインストールする方が簡単です。 また、最適な機能、パフォーマンス、およびサポートのために、サポートされている最新のオペレーティング システム バージョンで Azure の新しいランドスケープを作成する機会も提供されます。 同僚の Azure の同僚である KiranMusunuru &ldquo; は最近、SAP Business Suite を S/4HANA に移行するための SUM オプションと DMO オプション、およびツール、オプション、個々の手順、移行の全体的なプロセスの概要を説明する、<a href="https://azure.microsoft.com/en-us/resources/migration-methodologies-for-sap-on-azure/">SAP on Azure</a>&rdquo; の移行方法に関するホワイト ペーパーを作成しました。</p>
+
+
+  <p>最後の最後の驚き&rsquo;を避けるために、移行エクスペリエンスを通じて学んだいくつかのヒントを次に示します。</p>
+
+
+  <ul>
+   <li>ランドスケープ全体で必要な SAP の最小バージョンとリリース レベルを確認します。</li>
+   <li>JAVA コンポーネントの PAM を確認して、S/4HANA デプロイに必要なコンポーネントを確認します。</li>
+   <li>システムの現実的な移行時間をDMOのベンチマーク ツールを使用します。 これは、移行に最適な ExpressRoute のサイズ設定を決定するのに役立ち、必要なダウンタイムに対する期待値を設定します。</li>
+   <li>S/4HANA にアップグレードする Unicode 要件を知っている。</li>
+   <li>デュアル スタック システムの修復について説明します。</li>
+   <li>OS のフレーバーとバージョンが既存の内部 IT 標準と異なる場合がある点を知る。</li>
+   <li>Fiori のデプロイを計画します。</li>
+   <li>複雑なランドスケープまたは非常に大規模なランドスケープに対して、複数の移行モック実行を実行する準備をしてください。</li>
+  </ul>
+
+
+  <p>オンプレミス システムから Azure 環境への移行が完了すると、HANA 上の SAP Business Suite から S/4HANA への変換を開始できます。 開始する前に、アップグレード先の S/4HANA バージョンの SAPs&rsquo; 変換ガイドを確認します。 たとえば、 <a href="https://help.sap.com/doc/2b87656c4eee4284a5eb8976c0fe88fc/1809.000/en-US/CONV_OP1809.pdf" target="_blank">S/4HANA 1809 の変換ガイドを次に示します</a>。</p>
+
+
+  <p>新しい S/4HANA ランドスケープのデプロイはすべて、基礎チームが Azure で行い、従来のオンプレミス環境でのデプロイで必要になる多くの内部 IT チームへの依存関係を排除します。 ほとんどのお客様は、HANA システム上で新しく移行されたスイートのシステム コピーから、単純なサンドボックスまたは新しい開発システムから始める可能性があります。 これにより、すべての簡略化チェック、カスタム コードの移行、および実際の S/4 変換モック実行を実行するステージング領域が提供されます。 並行して、基本チームは、Fiori の新しい VM と構成を含む QAS&rsquo; と実稼働レベルのデプロイを開始できます。 必要なチェックと変換が完了すると、QAS と実稼働に対してプロセスが繰り返されます。</p>
+
+
+  <p>このブログ記事&rsquo;は、プロセスの一般的な概要として意図されています。Azure プラットフォームに接続されている項目に焦点を当てたいと思っていたので、どの機能領域にも触れていました。 また、Azure への S/4HANA ランドスケープのデプロイに関するスクリプトと自動化のオプションも多数用意されています。 &ldquo;概要については、ブログ記事「<a href="https://azure.microsoft.com/en-us/blog/automating-sap-deployments-in-microsoft-azure-using-terraform-and-ansible/" target="_blank">Automating SAP deployments in Microsoft Azure using Terraform and Ansible written by Tobias Niekamp</a> from the Azure Compute engineering team(Azure Compute エンジニアリング チームの Tobias Niekamp によって作成された Terraform と Ansible &rdquo; を使用した Microsoft Azure での SAP デプロイの自動化)」を参照してください。</p>
+
+
+  <p>来週、同僚の Troy Ofe が、SAP BW/4HANA の移行について説明します。 また、新しい Azure NetApp Files が SAP HANA ワークロードで一般提供される近い将来に、スケールアウト アーキテクチャに SAP BW/4HANA をデプロイする最適な方法も説明します。</p>

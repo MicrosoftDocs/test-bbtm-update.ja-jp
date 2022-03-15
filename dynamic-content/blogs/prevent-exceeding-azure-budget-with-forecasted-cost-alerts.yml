@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9c07664edd4e946611183a4ccf96cb9bb167e771
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894737"
+Slug: prevent-exceeding-azure-budget-with-forecasted-cost-alerts
+Title: '予測コスト アラートを使用して Azure の予算の超過を防ぐ '
+Summary: 予算内の予測コスト アラートがAzure Cost Management and Billing一般提供されました。予測コスト アラートは、支出傾向が割り当てられた予算を超える可能性が高いという高度な通知を提供します。
+Content: >-
+  <p>予算内の予測コスト アラートがAzure Cost Management and Billing一般提供されました。 予測コスト アラートは、支出傾向が割り当てられた予算を超える可能性が高いという高度な通知を提供します。 これにより、期間の終わりに実際に予算に違反する前に、支出を積極的に調査し、変更することができます。 予算とアラートを使用すると、組織の支出に対する責任を保持して、クラウド コストに驚きが生じずにいられないか確認できます。</p>
+
+
+  <p>予算は、実際のコストと将来のコストの予測の両方に基づいてアラートを生成できるので、ご安心ください。 二度と支出に気を取らねない。 このブログでは、最初の予測コスト アラートの構成を開始する方法について説明します。</p>
+
+
+  <h2>次の情報を使用して予測アラートを構成Azure portal</h2>
+
+
+  <p>次の手順に従って、最初の予測コスト アラートを構成するには、次のAzure portal。</p>
+
+
+  <ol>
+      <li>メニューの [Cost Management と&nbsp;Billing] ブレードに移動し<strong></strong>&nbsp;Azure portalから [予算] を選択します。</li>
+      <li>[予算] ブレードで、[追加] を <strong>クリックして</strong>&nbsp;新しい予算を作成します。</li>
+  </ol>
+
+
+  <p><img alt="Forecasted cost alert using the Azure portal" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e41c63e8-f840-4c49-8eb2-1c2ffa9065ba.png" title=""></p>
+
+
+  <ol start="3">
+      <li>評価するスコープ、名前、リセット期間、予算金額など、新しい予算の詳細を入力します。 [次 <strong>へ]</strong>&nbsp; をクリックして、アラートの構成を開始します。</li>
+      <li>アラートを構成します。 予測コスト アラートと実際のコスト アラート&quot;&quot;&quot;の構成を選択&quot;できます。 これにより、予算が特定のアラートを評価するときに使用されるコストが決定されます。 支出を監視する複数のしきい値に関心がある場合は、同じ予算内で予測アラートと実際のアラートの両方を構成できます。<img alt="Configure &quot;Forecasted&quot; cost alert and an &quot;Actual&quot; cost alert on Azure Portal" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9adea747-d383-4d34-8450-1fb6867680f7.png" title="">5. 予算のアラートしきい値を構成したら、1 つ以上のアラート受信者を指定し、[作成] をクリック <strong>します</strong>。</li>
+  </ol>
+
+
+  <h2>予測コスト アラートを受け取る</h2>
+
+
+  <p>予測アラート&#39;構成し、予算を作成したら、次のような電子メールを探します。 サブスクリプションまたはリソース グループの予算を作成する場合は、アクション グループを使用してアラートの自動化をトリガーすることもできます。</p>
+
+
+  <p><img alt="Receive forecasted cost alerts automatically through Azure portal " height="553" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e83afaec-2135-457b-a86e-c9394b33618c.png" title="" width="501"></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+      <li>Azure の予算を作成および管理する方法の詳細については <a href="https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets" target="_blank">、チュートリアルに従います</a>。</li>
+      <li>予測のしくみの <a href="https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/quick-acm-cost-analysis?tabs=azure-portal#understand-forecast" target="_blank">詳細については、次を参照してください</a>。</li>
+      <li>予算 <a href="https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/quick-create-budget-template?tabs=CLI" target="_blank">作成を自動化するにはAzure Resource Manager (ARM) テンプレートを使用します</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/cost-management-budget-scenario" target="_blank">予算アラート</a> に応じてアクションを自動化します。</li>
+  </ul>

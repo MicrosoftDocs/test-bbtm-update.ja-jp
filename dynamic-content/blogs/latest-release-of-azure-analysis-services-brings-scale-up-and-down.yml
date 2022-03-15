@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6402cb733e09c147bae39bcf50893f90ccb50a28
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889148"
+Slug: latest-release-of-azure-analysis-services-brings-scale-up-and-down
+Title: Azure Analysis Services preview の最新の更新により、スケールアップとスケールダウンが可能になります
+Summary: Azure Analysis Services preview の最新の更新により、サーバーの作成後にサーバーの容量を増減することができます。 たとえば、次のような時刻があるとします。
+Content: >-
+  <p>Azure Analysis Services preview の最新の更新により、サーバーの作成後にサーバーの容量を増減することができます。 たとえば、クエリのボリュームが高くなることが予想される特定の年の時刻がある場合は、サービスをスケールアップして、さらに Qpu を得ることができます。 その期間が過ぎると、単にスケールダウンするだけで容量を減らすことができます。 ワークロードの需要の変化に合わせてスケールアップとスケールダウンを行うことができることは、Azure Analysis Services を使用してモデルをホストする利点の1つです。</p>
+
+
+  <h3>スケーリングする方法</h3>
+
+
+  <p>価格レベルのスケールアップとスケールダウンは、Azure portal で手動で行うことも、Azure ARM Api と PowerShell を使用して自動化することもできます。</p>
+
+
+  <p>この機能を Azure portal で使用するには、サーバーを特定するだけです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fbbba8df-ef0d-42a9-87dc-29021b18b0a1.png"><img alt="image" border="0" height="237" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7e796f98-dc2c-44c6-a54f-068469b8be08.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="903"></a></p>
+
+
+  <p>左側には、scale というオプションが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cec61538-7356-47d2-abc0-65a96af1d2d7.jpg"><img alt="clip_image003" border="0" height="232" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f29ff5a-0de9-4ecb-b114-c8536cd328ee.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image003" width="419"></a></p>
+
+
+  <p>これをクリックすると、新しい価格レベルを選択できるようになります。 現在、サーバーは S1 に設定されています。 S2 にスケールアップするには、 <b>S2 Standard</b> を選択し、 <b>[選択]</b>をクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0e27eef-6371-4fd2-b217-30d0a277566f.jpg"><img alt="clip_image005" border="0" height="402" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a787107f-8593-49d7-9952-d5136b368e9e.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image005" width="619"></a></p>
+
+
+  <p>注: スケールダウンする場合は、サーバーに既に配置されているモデルに対して十分なキャッシュ容量があることを確認します。または、バックアップをスケールアップするまで、すべてのモデルを読み込むことができない可能性があります。 左側の [ <b>メトリック</b> ] をクリックすると、現在のメモリ使用量を確認できます。</p>
+
+
+  <p>しばらくすると、サーバーの容量が S2 になっていることがわかります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a0951b85-a75e-48aa-9030-ce55b7dfb259.png"><img alt="image" border="0" height="300" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6f19d7b5-8253-4972-a9ac-ae8bd9f41c4e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="絵" width="1125"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><strong>詳細について</strong>は<strong>、 <a href="https://azure.microsoft.com/services/analysis-services/">Azure Analysis Services</a>を参照して</strong><b> </b>ください。</p>

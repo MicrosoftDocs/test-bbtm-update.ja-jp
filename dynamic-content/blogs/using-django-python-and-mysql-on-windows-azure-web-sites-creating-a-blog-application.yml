@@ -1,0 +1,421 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 073c25e50732b90312a3ac1942f71d6f1047c9c5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891908"
+Slug: using-django-python-and-mysql-on-windows-azure-web-sites-creating-a-blog-application
+Title: 'Windows Azure websites での Django、Python、および MySQL の使用: ブログアプリケーションの作成'
+Summary: 記述するアプリによっては Windows Azure websites 上の基本的な Python スタックがニーズをそのとおりに満たす場合もあれば、アプリケーションが必要とするすべてのモジュールやライブラリが含まれていない場合もあります。
+Content: >-
+  記述するアプリによっては<a href="https://azure.microsoft.com/en-us/documentation/services/web-sites/" target="_blank">Windows Azure websites</a>の基本的な Python スタックがニーズをそのとおりに満たす場合や、アプリケーションが必要とするすべてのモジュールやライブラリが含まれていない場合があります。
+
+
+  このブログ投稿では、 <a href="https://pypi.python.org/pypi/virtualenv" target="_blank">virtualenv</a>と<a href="https://pytools.codeplex.com/" target="_blank">Python Tools for Visual Studio</a>を使用して、アプリケーション用の Python 環境を作成する手順について説明します。その過程で、 <a href="https://www.djangoproject.com/" target="_blank">Django</a>ベースのサイトを Windows Azure websites に配置する方法について説明します。
+
+  <h4>MySQL データベースを使用して Windows Azure の Web サイトを作成する</h4>
+
+  次に、 <a href="https://manage.windowsazure.com/" target="_blank">Azure 管理ポータル</a>   にログインし、[<strong>カスタム作成</strong>] オプションを使用して新しい web サイトを作成します。 詳細については、「 <a href="https://azure.microsoft.com/en-us/manage/services/web-sites/how-to-create-websites/" target="_blank">Azure websites を作成する方法</a> 」を参照してください。 MySQL データベースを使用して空の web サイトを作成します。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5611.website1.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133481" alt="5611.website1.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5611.website1.jpg-550x0.jpg" width="550" height="352" /></a>
+
+
+  最後に、リージョンを選択します。サイトの条件に同意したら、インストールを完了できます。通常どおり、コストを削減するために、データベースを web サイトと同じリージョンに配置することをお勧めします。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4375.website2.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133471" alt="4375.website2.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4375.website2.jpg-550x0.jpg" width="550" height="352" /></a>
+
+
+  Web サイトのダッシュボードを表示するには、管理ポータルで Web サイトをダブルクリックします。 [発行プロファイルのダウンロード] をクリックします。 これにより、Visual Studio でデプロイに使用できる<strong>.publishsettings</strong>ファイルがダウンロードされます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/2273.website3.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-133461" alt="2273.website3.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2273.website3.jpg-550x0-473x369.jpg" width="473" height="369" /></a>
+
+  <h4>Django プロジェクトの作成</h4>
+
+  このチュートリアルでは、Django Web アプリケーションを構築するために Visual Studio を使用します。 Visual studio を使用してアプリケーションをビルドするには、 <a href="https://pytools.codeplex.com/releases" target="_blank">Ptvs 2.0</a> をインストールします。 詳細については、「Visual Studio を使用して<a href="https://azure.microsoft.com/en-us/develop/python/tutorials/django-with-python-tools-for-visual-studio-20/" target="_blank">Django アプリをビルドする方法</a>」を参照してください。
+
+
+  Visual Studio を開いて、 <strong>Project &gt; </strong> <strong>   その他の言語 &gt; の </strong>新しい<strong>Python &gt; </strong> <strong>   Django </strong>を作成 Project
+
+
+  <strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0576.website4.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133451" alt="0576.website4.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0576.website4.jpg-550x0.jpg" width="550" height="344" /></a></strong>
+
+
+  ソリューションエクスプローラーで、<strong> DjangoProject</strong> <strong> &gt; Add</strong> <strong> &gt; DjangoApp</strong>を右クリックして、Django Project に新しい Django アプリケーションを作成します。
+
+
+  <strong><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/8176.website6.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-133441" alt="8176.website6.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8176.website6.jpg-550x0-423x369.jpg" width="423" height="369" /></a></strong>
+
+  <p class="codeblock">Django アプリケーションの名前 ( <strong>myblog </strong>など) を入力します。</p>
+
+  <p class="codeblock"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2783.website7.jpg-400x0.jpg"><img class="alignnone size-full wp-image-133431" alt="2783.website7.jpg-400x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2783.website7.jpg-400x0.jpg" width="400" height="118" /></a></p>
+
+
+  <h4>仮想環境を作成する</h4>
+
+  簡単に言うと、 <strong><em>virtualenv </em></strong>を使用すると、カスタムの分離された Python 環境を作成できます。つまり、サイトの他の部分に影響を与えることなく、さまざまなパッケージをカスタマイズしてインストールすることができます。これにより、実験にも役立ちます。
+
+
+  ソリューションエクスプローラーで、Django Project の [Python 環境] を右クリックし、[<em>仮想環境の追加]</em>を選択します。
+
+  <p class="codeblock"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1323.website8.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133421" alt="1323.website8.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1323.website8.jpg-550x0.jpg" width="550" height="295" /></a></p>
+
+  "Env" のように、仮想環境名を入力します。 これにより、"env" という名前のフォルダーが作成されます。このフォルダーには、pip を除く python パッケージを含まない仮想 python 環境が格納されます。
+
+  <p class="codeblock"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/4353.website9.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-133411" alt="4353.website9.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4353.website9.jpg-550x0-504x369.jpg" width="504" height="369" /></a></p>
+
+
+  <h4>仮想環境に MySQL-Python パッケージと Django パッケージをインストールする</h4>
+
+  ソリューションエクスプローラーで、[environment <strong>env</strong> ] を右クリックし、Python パッケージ: <strong>django</strong>をインストールします。
+
+
+  <strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4810.website10.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133401" alt="4810.website10.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4810.website10.jpg-550x0.jpg" width="550" height="264" /></a></strong>
+
+
+  仮想環境での Django のインストールの出力を確認できます。
+
+  <p class="codeblock"><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0333.website11.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133391" alt="0333.website11.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0333.website11.jpg-550x0.jpg" width="550" height="157" /></a></strong></p>
+
+  同様に、次に示すように、mysql-python をインストールする必要がありますが、pip の代わりに easy_install を使用する必要があります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5707.website12.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133381" alt="5707.website12.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5707.website12.jpg-550x0.jpg" width="550" height="276" /></a>
+
+
+  これで、Django と MySQL for Python の両方が仮想環境にインストールされました。
+
+  <h4>データベースモデルを構築する</h4>
+
+  Django のモデルは、Django <strong>model クラス</strong> から継承されるクラスであり、特定のオブジェクトのすべての属性を指定できます。 モデルクラスは、プロパティをデータベースに格納されている値に変換します。
+
+
+  <strong>Title<em>、 </em>date</strong> <em> </em>、<em> </em> <strong>body</strong>という3つ<em>のフィールドで</em>、 <strong>post</strong>という名前の単純なモデルを作成して、データベースに post テーブルを作成しましょう。 モデルを作成するには、 <strong>myblog</strong> <em>/</em> フォルダーの下に<strong>models.py</strong>ファイルを追加します。
+
+  <p class="codeblockCxSpFirst" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">#<span class="code">モデルクラス</span>からのインポート</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">django インポートモデルから</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">クラスの Post (モデル。モデル):</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;"> #Title プロパティの作成</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    title = モデル。CharField (max_length = 64)</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">#日付プロパティの作成</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    date = モデル。DateTimeField()    </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">#コンテンツの本文プロパティの作成</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    body = モデル。TextField ()</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;"># このメソッドは、.NET の toString () 関数と同じです。Python でを表示する必要がある場合 </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">#オブジェクトの文字列表現。 __str__ を呼び出します。</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    def __str__(self):</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">        "% s"% (自己タイトル) を返します</span></p>
+
+
+  <h4>モデルのインストール</h4>
+
+  Django に、データベースにモデルを作成するように指示する必要があります。これを行うには、さらにいくつかの操作を行う必要があります。
+
+  <ul>
+   <li>まず、settings.py でアプリケーションのデータベースを構成し <strong>ます。</strong> Windows Azure の Web サイトに関連付けられている MySQL データベースの情報を入力します。</li>
+  </ul>
+
+  <p class="codeblockCxSpFirst"><span style="font-family: 'courier new', courier;">データベース = {</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' 既定 ': {</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">        ' ENGINE ': ' django ',、</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">        ' NAME ': ' MYSQL-DATABASE-NAME ',                     </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">        ' USER ': ' MYSQL-SERVER-USER-NAME ',                     </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">        ' PASSWORD ': ' MYSQL-SERVER-USER-PASSWORD ',                  </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">        ' HOST ': ' MySQL-サーバー名 ',                     </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">        ' PORT ': ' '、</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    }</span></p>
+
+  <p class="codeblockCxSpLast"><span style="font-family: 'courier new', courier;">}    </span></p>
+
+  次に、settings.py の <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-INSTALLED_APPS" target="_blank">INSTALLED_APPS</a>   設定にアプリケーションを追加し<strong>ます。</strong>
+
+  <p class="codeblockCxSpFirst" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">INSTALLED_APPS = (</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' django. contrib ',</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' django. contrib. コンテンツ ',</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' django. contrib ',</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' django. contrib ',</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' django ',</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' django. contrib ',   </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    ' myblog ', </span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;"><span class="code" style="font-family: 'courier new', courier;">    )</span></p>
+
+
+  <ul>
+   <li><strong>Settings.py</strong>に設定を保存したら、models.py に既に追加したモデルのために、データベースのスキーマをクリア DB データベースに作成し<strong>ます。</strong> これを実現するには、Django Sync DB を実行します。</li>
+  </ul>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/1778.website16.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-133371" alt="1778.website16.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1778.website16.jpg-550x0-349x369.jpg" width="349" height="369" /></a>
+
+
+  独自のコードを記述して、ブログの投稿の作成、編集、削除を管理したり、管理者サイトのダッシュボードを提供して投稿を作成および管理したりすることができます。また、Django の管理モジュールを使用することもできます。 Django 管理サイトを有効にする方法については、こちらの <a href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/" target="_blank">記事</a> を参照してください。
+
+  <h4>Django 管理サイトのセットアップ</h4>
+
+  管理者サイトには、ブログの投稿を作成および管理するダッシュボードが用意されています。 まず、管理者サイトにアクセスできるスーパーユーザーを作成する必要があります。 これを行うには、既に管理者ユーザーを作成していない場合は、このコマンドを実行します。
+
+  <p class="codeblock" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">Python manage.py createsuperuser</span></p>
+
+  Django シェルを使用すると、このコマンドを実行できます。 Django Shell の使用方法の詳細については、こちらの<a href="https://azure.microsoft.com/en-us/develop/python/tutorials/django-with-python-tools-for-visual-studio-20/" target="_blank">記事</a>を参照してください。
+
+
+  &nbsp;
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8037.website17.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133361" alt="8037.website17.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8037.website17.jpg-550x0.jpg" width="550" height="295" /></a>
+
+
+  &nbsp;
+
+
+  既定では、管理者モジュールは有効になっていないため、次の手順を実行する必要があります。
+
+  <ul>
+   <li>最初に、 <strong>settings.py</strong>  <strong>の<a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-INSTALLED_APPS" target="_blank">INSTALLED_APPS</a>   設定</strong>に ' contrib ' を追加<strong>し</strong>ます。</li>
+  </ul>
+
+  <p class="codeblockCxSpFirst"><span style="font-family: 'courier new', courier;">INSTALLED_APPS = (</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' django. contrib ',</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' django. contrib. コンテンツ ',</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' django. contrib ',</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' django. contrib ',</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' django ',</span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' django. contrib ',  </span></p>
+
+  <p class="codeblockCxSpMiddle"><span style="font-family: 'courier new', courier;">    ' myblog ',</span></p>
+
+  <p class="codeblockCxSpLast"><span style="font-family: 'courier new', courier;">    )</span></p>
+
+
+  <ul>
+   <li>ここでは、 <strong>urls.py</strong> を更新して、アプリケーションの要求を管理者サイトとホームページビューに処理します。</li>
+  </ul>
+
+  <p class="codeblockCxSpFirst" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">django のインポートパターン、include、url</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">#管理モジュールのインポート</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">django から contrib をインポートします。</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">管理者。自動検出 ()</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">#アプリケーションに対して行われた要求を処理するための url パターンを設定する </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">urlpatterns = patterns (' ',</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">     url (r ' ^ $ ', ' DjangoApplication ', name = ' home '),            </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">     url (r ' ^ admin/', include (管理者)),</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;">)</p>
+
+
+  <ul>
+   <li>次に、  <strong>myblog</strong> <em>/ </em> フォルダーの下に admin.py を作成して、Post モデルを登録します。</li>
+  </ul>
+
+  <p class="codeblockCxSpFirst" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">モデルからのインポートの投稿</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">django から contrib をインポートします。</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">#管理サイトに表示されるようにデータベースモデルを登録する</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">管理者. サイト. 登録 (Post)</span></p>
+
+
+  <h4>ページビューを構築する</h4>
+
+  作成したすべてのブログ投稿を一覧表示するには、を作成します。 ページビューを作成するには、<strong> views.py</strong> ファイルを <strong>myblog/ </strong>フォルダーの下に追加します。
+
+  <p class="codeblockCxSpFirst" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">django からインポート render_to_response</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">モデルからのインポートの投稿</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">#ホームページのビューを作成する</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">def home (要求):</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">   投稿 = Post. objects ()</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">   #指定されたコンテキストディクショナリを使用して、指定されたテンプレートをレンダリングします。 </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">を返します。</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">   #レンダリングされたテキストを含む Httpresponse.cache オブジェクト。</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">   render_to_response を返します (' home.html '、{' 投稿 ': 投稿})</span></p>
+
+  Post オブジェクトを表示することは、ユーザーにとってはあまり役に立ちません。投稿の一覧を表示するには、さらに有益なページが必要です。 これは、テンプレートが役に立つケースです。 通常、テンプレートは HTML を生成するために使用されますが、Django テンプレートでは、テキストベースの形式を生成することもできます。
+
+
+  このテンプレートを作成するには、まず、 <strong>myblog</strong>/で<strong>テンプレート</strong>という名前のディレクトリを作成し<em>ます。</em> <strong>Views.py</strong>のすべての投稿を表示するには、[ <strong>templates <em>/</em> </strong> ] フォルダーの下に<strong>home.html</strong>を作成します。このフォルダーには、すべての post オブジェクトをループ処理し、それらを表示します。
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">&lt;形式&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;"> &lt;head &gt; &lt; Title &gt; My Blog &lt; /title &gt; &lt; /head&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;"> &lt;部位&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">  &lt;h1 &gt;マイブログ &lt; /h1&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">{% 投稿の投稿%}</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">&lt;h1 &gt; {{post. title}} &lt; /h1&gt;   </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">&lt;em &gt; &lt; 時間 datetime = "{{post. 日付. isoformat}}"&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">{{post. date}} &lt;/時刻 &gt; &lt; br/&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">&lt;/em&gt; </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">&lt;p &gt; {{post. body}} &lt; /p&gt;</span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;"> {% endfor %} </span></p>
+
+  <p class="codeblockCxSpMiddle" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;"> &lt;/本文&gt;</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">&lt;/html&gt;</span></p>
+
+
+  <h4>静的ディレクトリパスの設定</h4>
+
+  ここで管理者サイトにアクセスすると、スタイルシートが破損していることがわかります。 この理由は、静的ディレクトリがアプリケーション用に構成されていないためです。
+
+
+  静的ルートフォルダーのパスを D:\home\site\wwwroot\static に設定してみましょう。
+
+
+  <span style="font-family: 'courier new', courier;">os インポートパスから</span>
+
+
+  <span style="font-family: 'courier new', courier;">PROJECT_ROOT =. dirname (パス.... (__ファイル__)))</span>
+
+
+  <span style="font-family: 'courier new', courier;">STATIC_ROOT = パス。結合 (PROJECT_ROOT、' static ')。 replace (' \\ ', '/')</span>
+
+
+  <span style="font-family: 'courier new', courier;"> </span>
+
+
+  <span style="font-family: 'courier new', courier;">STATIC_URL = '/static/'</span>
+
+
+  これらの変更を <strong>settings.py</strong>に保存したら、次のコマンドを実行して、Django Shell を使用して、管理サイトの "静的" フォルダーにあるすべての静的ファイルを収集します。
+
+  <p style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">   Python manage.py collectstatic</span></p>
+
+
+  <h4>テンプレートディレクトリパスの設定</h4>
+
+  ほぼ完了しました。Django では、settings.py で構成されるテンプレートディレクトリと静的フォルダーディレクトリへのパスが必要です。 これを行うには、いくつかの手順を実行する必要があります。
+
+  <ul>
+   <li>SITE_ROOT のパスの変数を作成してみましょう。</li>
+  </ul>
+
+  <p class="codeblockCxSpFirst" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">os のインポートのパス</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 30px;"><span style="font-family: 'courier new', courier;">SITE_ROOT = os... dirname (__file__)</span></p>
+
+
+  <ul>
+   <li>次に、テンプレートフォルダーのパスを設定します。TEMPLATES_DIR は、要求が行われたときにアプリケーションのテンプレートを探す場所を Django に通知します。</li>
+  </ul>
+
+  <p class="codeblockCxSpFirst" style="padding-left: 60px;"><span style="font-family: 'courier new', courier;">TEMPLATE_DIRS = (</span></p>
+
+  <p class="codeblockCxSpLast" style="padding-left: 60px;"><span style="font-family: 'courier new', courier;">   os. path. join (SITE_ROOT、"templates")、)</span></p>
+
+  アプリケーションの配置
+
+
+  これで、Azure web サイト mydjangoblog Windows にアプリケーションをデプロイするように設定されました ( <strong><em></em></strong> )<em> 。</em>DjangoProject を右クリックし、[<strong>発行]</strong>を選択します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/7711.website19.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-133351" alt="7711.website19.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7711.website19.jpg-550x0-475x369.jpg" width="475" height="369" /></a>
+
+
+  接続を検証し、[発行] をクリックしてデプロイを開始できます。 デプロイが正常に完了したら、web サイトを参照して最初のブログを作成できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/02/7360.website20.jpg-550x0.jpg"><img class="alignnone size-medium wp-image-133341" alt="7360.website20.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7360.website20.jpg-550x0-474x369.jpg" width="474" height="369" /></a>
+
+  <h4>ブログ投稿を作成する</h4>
+
+  ブログを作成するには、前に作成したスーパーユーザー資格情報を使用して管理サイト <a href="https://mydjangoblog.azurewebsites.net/admin" target="_blank">https://mydjangoblog.azurewebsites.net/admin</a> にログインします。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1018.website21.jpg-400x0.jpg"><img class="alignnone size-full wp-image-133331" alt="1018.website21.jpg-400x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1018.website21.jpg-400x0.jpg" width="400" height="264" /></a>
+
+
+  ダッシュボードには、モデルのリンクが含まれ、アプリケーションで使用されるモデルのコンテンツを管理できます。 投稿をクリック
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2211.website22.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133321" alt="2211.website22.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2211.website22.jpg-550x0.jpg" width="550" height="194" /></a>
+
+
+  初めてのブログ投稿を作成して保存する
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3771.website23.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133311" alt="3771.website23.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3771.website23.jpg-550x0.jpg" width="550" height="207" /></a>
+
+
+  サイトのホームページを参照して、新しく作成された投稿を表示してみましょう。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0184.website24.jpg-550x0.jpg"><img class="alignnone size-full wp-image-133301" alt="0184.website24.jpg-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0184.website24.jpg-550x0.jpg" width="550" height="201" /></a>
+
+
+  ここでは、Windows Azure websites の Python で必要なものだけを構築するための基礎を習得しました。 コーディング:) を楽しんでください
+
+  <h4>もっと読む</h4>
+
+  <a href="https://www.djangoproject.com/" target="_blank">Django Project</a>
+
+
+  <a href="https://pytools.codeplex.com/documentation" target="_blank">Python Tools for Visual Studio Wiki</a>
+
+
+  <a href="https://www.youtube.com/channel/UCpKEjPmLsl19ETchJLJj42g?feature=watch" target="_blank">Python Tools for Visual Studio のビデオチュートリアル</a>
+
+
+  <a href="https://azure.microsoft.com/en-us/documentation/services/web-sites/" target="_blank">Azure Websites (waws) の Windows</a>
+
+
+  <strong> </strong>

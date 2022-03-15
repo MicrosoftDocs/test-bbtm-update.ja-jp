@@ -1,0 +1,58 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4cc3a3522be0e4a3b06e97afcf191c78ad20cdd3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895772"
+Slug: track-the-health-of-your-disaster-recovery-with-log-analytics
+Title: Log Analytics を使用したディザスターリカバリーの正常性の追跡
+Summary: 'Azure Site Recovery を導入すると、セットアップの監視が非常に複雑な作業になる可能性があります。 すべての保護されたインスタンスのレプリケーションが続行され、仮想マシンが常にフェールオーバーの準備ができていることを確認する必要があります。 '
+Content: >-
+  <p>Azure Site Recovery を導入すると、 <a href="https://docs.microsoft.com/azure/site-recovery/site-recovery-monitor-and-troubleshoot" target="_blank">セットアップの監視</a> が非常に複雑な作業になる可能性があります。 &rsquo;すべての保護されたインスタンスのレプリケーションが続行され、仮想マシンが常にフェールオーバーの準備ができていることを確認する必要があります。 Azure Site Recovery は、特定の時点の正常性状態、アクティブな正常性アラート、および72時間の最新の傾向を提供することによって、このニーズを解決しますが、これらのシグナルを追跡して分析するには数時間かかることもあります。 この問題は、保護されているインスタンスの数が増えるとよっ増大になります。 多くの場合、数百台の仮想マシンに対して、ディザスターリカバリーオペレーターのチームがこれを行う必要があります。</p>
+
+
+  <p>お客様が受け取るアラートの数が多すぎるという複数の <a href="https://feedback.azure.com/forums/256299-site-recovery?filter=top&amp;page=1" target="_blank">フィードバックフォーラム</a> をご利用いただけます。 これらのアラートを使用しても、履歴データを確認する1つのウィンドウがないため、長期的な是正措置を特定するのは困難でした。 お客様は、目標復旧時点 (RPO) の状態の変化、時間の経過に伴うコンピューターディスクのデータ変更率 (チャーン)、仮想マシンの現在の状態、およびいくつかの基本的な要件としてのテストフェールオーバーの状態など、さまざまなメトリックを追跡する必要があります。 また、企業 &rsquo; のビジネス継続性とディザスターリカバリーのコンプライアンスニーズに応じて、お客様にアラートの通知を受けることも重要です。</p>
+
+
+  <h3>Azure Monitor と Log Analytics のログを含む統合されたソリューション</h3>
+
+
+  <p>Azure Site Recovery は、Azure <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-platform-logs" target="_blank">Monitor</a><a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-platform-logs" target="_blank">のログ</a>を使用した監視と高度なアラートのための統合ソリューションを提供します。 これで、Site Recovery コンテナーから <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/log-query-overview" target="_blank">Log Analytics</a>のワークスペースに診断ログを送信できるようになりました。 ログは Azure Monitor ログとも呼ばれ、現在のところ、[ <strong>診断設定の作成</strong> ] ブレードに表示されます。</p>
+
+
+  <p><strong>ログは、Azure Virtual Machines、および Azure Site Recovery によって保護されている VMware または物理マシンに対して生成されます。</strong></p>
+
+
+  <p><img alt="Diagnostic Settings" border="0" height="752" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/013f9ef8-5320-4a10-85bb-5aa2e113b453.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="診断設定" width="1580"></p>
+
+
+  <p>ワークスペースでデータのフィードが開始されると、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-queries" target="_blank">Kusto クエリ言語</a> を使用してクエリを実行し、履歴の傾向、特定の時点のスナップショット、および統合ビューの役員レベルのダッシュボードを生成することができます。 複数の Site Recovery コンテナーからワークスペースにデータを取り込むことができます。 次に、この統合で現在解決できるユースケースの例をいくつか示します。</p>
+
+
+  <ul>
+   <li>円グラフ内のすべての保護されたインスタンスのレプリケーションの正常性のスナップショット</li>
+   <li>保護されたインスタンスの RPO の経時的な傾向</li>
+   <li>保護されたインスタンスのすべてのディスクの時間経過に伴うデータ変更率の傾向</li>
+   <li>円グラフ内のすべての保護されたインスタンスのテストフェールオーバーの状態のスナップショット</li>
+   <li>[レプリケートされたアイテム] ブレードに表示される概要ビュー</li>
+   <li>50を超える保護インスタンスの状態が重大になった場合にアラートを出する</li>
+   <li>50を超える保護インスタンスで RPO が30分を超えた場合にアラートを出します</li>
+   <li>前回のディザスターリカバリーの訓練が90日以上前に実行された場合にアラートを出します</li>
+   <li>特定の種類の Site Recovery ジョブが失敗した場合にアラートを行う</li>
+  </ul>
+
+
+  <h3>サンプル ユース ケース</h3>
+
+
+  <p><img alt="Sample Use Cases" border="0" height="580" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22ac4ee4-f50a-4957-b188-60737bf3a297.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="サンプル ユース ケース" width="749"></p>
+
+
+  <p>ここでは、最初にいくつかの例を紹介します。 この機能をさらに掘り下げ、ドキュメント &ldquo; モニターでキャプチャした多くの例を<a href="https://docs.microsoft.com/azure/site-recovery/monitor-log-analytics" target="_blank">Azure Monitor ログと Site Recovery</a>します。 &rdquo;また、このデータに対してダッシュボードソリューションを構築して、ディザスターリカバリーのセットアップを監視する方法を完全にカスタマイズすることもできます。 ダッシュボードの例を次に示します。</p>
+
+
+  <p><img alt="Dashboard Solution in Log Analytics" border="0" height="532" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27debc3a-09b0-4aa2-8477-2115187a458a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Log Analytics のダッシュボードソリューション" width="1702"></p>
+
+
+  <p>Azure では、ミッションクリティカルなワークロードの高可用性と信頼性がネイティブに提供されます。また、Azure Site Recovery によって提供されるディザスターリカバリーを使用して、保護を強化し、コンプライアンス要件を満たすことができます。 <a href="https://docs.microsoft.com/azure/site-recovery/">Azure Site Recovery</a>の使用を簡単に始めることができます。<a href="https://aka.ms/asr_ga_azureblog_pricing">価格情報</a>を確認し、<a href="https://aka.ms/asr_ga_azureblog_trial">無料の Microsoft Azure 試用版にサインアップ</a>してください。 また、 <a href="https://aka.ms/asr_ga_azureblog_forum">MSDN の Azure Site Recovery フォーラム</a> にアクセスして、その他の情報を入手したり、他のお客様と協力したりすることもできます。</p>

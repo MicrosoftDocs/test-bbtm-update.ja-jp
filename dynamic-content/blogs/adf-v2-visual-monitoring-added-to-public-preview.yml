@@ -1,0 +1,114 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1c6743121f725d5cbdbf8be24388bfafbae9e4d3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894177"
+Slug: adf-v2-visual-monitoring-added-to-public-preview
+Title: 'Azure Data Factory: ビジュアル監視がパブリックプレビューに追加されました'
+Summary: ADF v2 のビジュアル監視機能がお客様に追加されたことをお知らせします。 このリリースでは、data factory v2 パイプラインを簡単に監視できます。
+Content: >-
+  <p><a href="https://docs.microsoft.com/en-us/azure/data-factory/" target="_blank">Azure Data Factory V2</a> (ADF v2) 用の<strong>ビジュアル監視機能</strong>をお客様に追加することを発表します。 このリリースでは、1行のコードを記述しなくても、data factory v2 パイプラインを簡単に監視できます。 最初のリリースでは、パイプラインとアクティビティの実行を視覚的に監視できるようになっています。 単純で直感的なリストベースのインターフェイスを使用して、実行を監視したり、フィルター処理や並べ替えなど、これらのリストに対してさまざまな操作を実行したりできます。 このリリースでは、有効になっているビジュアル監視機能の使用方法についてのガイドツアーも提供しています。 マイクロソフトでは、お客様に貴重なフィードバックを提供する機能も提供しています。</p>
+
+
+  <p>これは、data factory v2 パイプラインを視覚的に作成および監視するために、今後数か月の間にお客様のために有効にすることを予定している多くのビジュアルツールの1つです。 ADF v2 用のビジュアルツールの究極の目標は、直感的なエクスペリエンスを備えた新規ユーザーと上級ユーザーの両方の生産性と効率性を向上させることです。</p>
+
+
+  <p>使用を開始するには、 <strong> &lsquo; プロビジョニング済みの v2 データファクトリブレードで [監視 &amp; ] [管理 &rsquo; </strong> ] タイルをクリックします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/421cdc4e-837d-4f9c-a3b1-3d23809fdfd1.png"><img alt="image" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/acc4589f-228c-4b2a-b893-9d962deaf581.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="623"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ADF v2 でビジュアル監視を使用して有効になっている魅力的な機能の一部を確認する</p>
+
+
+  <h2>リストビューの監視</h2>
+
+
+  <p>単純なリスト ビュー インターフェイスでパイプラインとアクティビティの実行を監視します。 すべての実行がローカルブラウザーのタイムゾーンに表示されます。 タイム ゾーンは変更できます。すべての日時フィールドは選択したタイム ゾーンにスナップされます。</p>
+
+
+  <h3>パイプラインの実行を監視する</h3>
+
+
+  <p>Data factory v2 パイプラインの各パイプラインの実行を示すリストビューが下に表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4bdd65f-923c-4ee4-bb74-04cd05d4b1bd.png"><img alt="image" border="0" height="203" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08f04a6e-8c99-4bc7-a4e3-ef6b18aa1965.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h3>アクティビティの実行を監視する</h3>
+
+
+  <p>次に、各パイプラインの実行に対応するアクティビティの実行を表示するリストビューを表示できます。 [<strong>アクション &rsquo; ] 列の [アクティビティの実行] アイコンをクリックすると、 &lsquo; </strong>各パイプラインの実行に対するアクティビティの実行が表示されます。 <strong> &lsquo; &rsquo; </strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8d7f8de0-95be-480f-9522-2b3cd96da412.png"><img alt="image" border="0" height="236" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/068b968a-2845-43ca-b444-78994f31cea5.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <p>注: パイプラインとアクティビティの実行の一覧を更新するには、 <strong> &lsquo; 上部にある [更新 &rsquo; </strong> ] アイコンをクリックする必要があります。 現在、自動更新はサポートされていません。</p>
+
+
+  <h2>高度な並べ替えとフィルター処理</h2>
+
+
+  <p>順序パイプラインは、実行開始によって desc/asc で実行され、フィルターパイプラインはパイプライン名、実行開始、実行状態を実行します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/869b25a2-b8eb-40d4-8723-874df5ff95bc.png"><img alt="image" border="0" height="410" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b7b677f-f024-40d9-a364-c73eceb78d27.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h2>リストビューへの列の追加/削除</h2>
+
+
+  <p>リストビューのヘッダーを右クリックし、リストビューに表示する列を選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d7383edd-3e1d-4b0d-9518-d87408cb6dfc.png"><img alt="image" border="0" height="415" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adc11404-3930-460c-b849-2f8a8350586b.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <h3>リストビューでの列幅の並べ替え</h3>
+
+
+  <p>リストビューの列の幅を増減するには、単に列ヘッダーをポイントします。</p>
+
+
+  <h2>ガイドツアー</h2>
+
+
+  <p>左下にある<strong>情報アイコン &rsquo; を &lsquo; </strong>クリックします。 次に、<strong>ガイドツアー &rsquo; をクリックし &lsquo; </strong>て、パイプラインとアクティビティの実行を視覚的に監視するための詳細な手順を確認できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3be7155-aa4f-4858-890f-c6e8286576de.png"><img alt="image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e9945c8e-ab36-4a0f-aaa1-f2db834ca90d.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="453"></a></p>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>フィードバックアイコンをクリックして、 <strong> &lsquo; さまざまな機能や、直面している可能性のある問題に関するフィードバックをお寄せください。 &rsquo; </strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/38e10822-888c-41a7-b1ac-5d3bd31ee2ff.png"><img alt="image" border="0" height="610" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d43d145e-8151-413c-9174-286810e7e795.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="387"></a></p>
+
+
+  <h2>データ ファクトリの選択</h2>
+
+
+  <p>左上にある<strong>Data Factory &rsquo; アイコンにマウスポインターを &lsquo; </strong>置きます。 <strong> &lsquo; 矢印 &rsquo; </strong>アイコンをクリックすると、監視できる Azure サブスクリプションとデータファクトリの一覧が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/151acfb1-2242-483c-bfde-a595d0f04af1.png"><img alt="image" border="0" height="328" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1580cf2d-ca31-4423-9675-c3c11168c138.png" style="border: 0px currentColor; border-image: none; display: inline; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ADF v2 のビジュアル監視機能の <strong>最初のパブリックリリース</strong> です。 お客様からのフィードバックに基づいて、リリース済みの bits を新機能で継続的に更新しています。 <a href="https://docs.microsoft.com/en-us/azure/data-factory/monitor-visually" target="_blank">ADF v2 のビジュアル監視機能</a>を使用するための詳細と詳細な手順については、こちらを参照してください。</p>
+
+
+  <p>Azure Data Factory を使用して、簡単かつ迅速にパイプラインの構築を<a href="https://docs.microsoft.com/en-us/azure/data-factory/">開始しましょう</a>。 機能に関する要望がある場合、またはフィードバックを提供する場合は、 <a href="https://feedback.azure.com/forums/270578-azure-data-factory" target="_blank">Azure Data Factory フォーラム</a>にアクセスしてください。</p>

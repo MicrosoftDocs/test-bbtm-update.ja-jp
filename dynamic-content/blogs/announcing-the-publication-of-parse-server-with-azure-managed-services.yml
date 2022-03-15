@@ -1,0 +1,89 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 55405ebb61a2fad1861a558fddd19af6e70143bf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896263"
+Slug: announcing-the-publication-of-parse-server-with-azure-managed-services
+Title: Azure で管理されているサービスを使用した解析サーバーの公開の発表
+Summary: '現在、Azure で管理されているサービスで Parse Server を発表しています。 '
+Content: >-
+  <p>Facebook 激動は、1月のモバイル開発世界で、 <a href="https://blog.parse.com/announcements/moving-on/">何百もの開発者によって最愛された開発プラットフォーム</a>です。 &nbsp;現在、<a href="https://azure.microsoft.com/en/marketplace/partners/Microsoft/ParseServer/"> Azure マネージサービスでの解析サーバー</a>を発表しています。開発者が作業を継続できるようにするための簡単な方法です。また、モバイルサービスを利用して優れたモバイルエクスペリエンスを作成することができます。 <a href="https://azure.microsoft.com/en-us/documentation/learning-paths/appservice-mobileapps/">Azure App Service</a> と <a href="https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-overview/">Notification Hubs</a>、 <a href="https://taco.visualstudio.com/">Apache Cordova</a>、 <a href="https://blog.xamarin.com/a-xamarin-microsoft-future/">Xamarin </a>、およびネイティブ iOS/Android 開発のサポートを含む開発者向けサービスです。 および <a href="https://azure.microsoft.com/en-us/services/documentdb/">DocumentDB</a>を含む管理されたデータベースサービス。&nbsp;&nbsp;</p>
+
+
+  <p>完全に管理された Azure サービスを使用し、それを Azure Marketplace でリリースした Parse サーバー実装を作成しました。 &nbsp;このテンプレートを使用すると、解析開発者は、事前に統合された一連の Azure サービスを使用して、解析サーバー v 2.1.4 を簡単に作成できます。</p>
+
+
+  <ul>
+   <li>Azure App Service を利用した Server v 2.1.4 の<a href="https://github.com/ParsePlatform/parse-server">解析</a></li>
+   <li>Azure DocumentDB を利用した NoSQL Data Storage</li>
+   <li>File Storage の電源 Azure Storage</li>
+   <li>Azure Notification Hubs によるプッシュ通知</li>
+   <li>Azure Portal に統合されている<a href="https://github.com/ParsePlatform/parse-dashboard">解析ダッシュボード</a></li>
+  </ul>
+
+
+  <p>これらのサービスは、今後のモバイルバックエンドに最適なエクスペリエンスを提供します。 &nbsp;サービスは何百万ものユーザーに簡単に拡張できます。プラットフォームのスケーラビリティと信頼性に関する経験については、<a href="https://azure.microsoft.com/en-us/blog/canadian-broadcasting-corporation-radio-canada-leverage-azure-for-smooth-election-coverage/">カナダの放送企業</a>にお問い合わせください。 &nbsp;HockeyApp を使用して、<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/">継続的なデプロイツール</a>と<a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-staged-publishing/">ステージング環境</a>で、DevOps の考え方に移行し、<a href="https://hockeyapp.net/features/distribution/">ベータ版の配布</a>、<a href="https://hockeyapp.net/features/crashreports/">クラッシュ分析</a>、<a href="https://hockeyapp.net/features/feedback/">フィードバック</a>を受けることができます。</p>
+
+
+  <p>解析サーバーの移行を支援するために、microsoft では、サービスのお客様を解析するための基本的な DocumentDB プランを提供しています。 Azure で解析サーバーを試し、DocumentDB の使用量を6月までにすることはできません。 このプランを利用するには、 <a href="https://azure.microsoft.com/en/marketplace/partners/Microsoft/ParseServer/">Marketplace テンプレート</a> を使用して解析サーバーを立ち上げます。 DocumentDB は、アプリケーション用のスケーラブルで高パフォーマンスのデータストレージを提供する NoSQL データベースサービスです。 次の<a href="https://azure.microsoft.com/en-us/blog/the-walking-dead-no-mans-land-game-soars-to-1-with-azure-documentdb/">ゲーム</a>などのお客様は、既に DocumentDB を使用して<em>、視聴停止: No Man &rsquo; の土地</em>といった最高評価の iOS および Android ゲーム &nbsp; を提供しています。</p>
+
+
+  <p>Azure には、 <a href="https://azure.microsoft.com/pricing/free-trial/">1 か月の無料試用版</a> が用意されており、$200 を利用してすべての azure サービスをご利用いただくことができます。</p>
+
+
+  <h2>解析サービスを Azure に移行する</h2>
+
+
+  <p>解析サービスの移行は、3つの手順からなるプロセスです。 &nbsp;まず、新しい Marketplace テンプレートを使用して解析サーバーを設定します。 &nbsp;次に、解析サービスから新しい Azure サービスにデータを移行します。 &nbsp;最後に、新しいサービスをサポートするようにモバイルクライアントを更新します。&nbsp;&nbsp;</p>
+
+
+  <h3>新しい解析サーバーの配置</h3>
+
+
+  <p>新しい Marketplace テンプレートを使用すると、Azure での解析サーバーの設定がこれまで以上に簡単になります。&nbsp;</p>
+
+
+  <ol>
+   <li>Azure ポータルにログオンします。</li>
+   <li><strong> + </strong>サイドバーの [新規] ボタンをクリックします。</li>
+   <li>検索ボックスに「Parse Server &quot; 」と入力 &quot; します。</li>
+   <li>Microsoft によって発行された &ldquo; 管理対象の Azure サービス &rdquo; で解析サーバーを選択します。</li>
+   <li><strong>[作成]</strong> をクリックします。</li>
+   <li>単純な画面の指示に従って、新しい解析サーバーを作成します。</li>
+  </ol>
+
+
+  <p style="margin-left: 80px;"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/parseServerGalleryTransparent.PNG"></p>
+
+
+  <h3>データの移行</h3>
+
+
+  <p>解析には、既に<a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">詳細な移行ガイド</a>があります。 &nbsp;DocumentDB インスタンスをインターネット上で使用できるようにし、解析アカウントにログインしてデータを移行する必要があります。 &nbsp;4月28日にデータを移行していない場合は、データの優先&#39;順位を解除するため &nbsp; 、運用環境のアプリには適していないため、4月の終わりまでにこの処理を計画する必要があります。 &nbsp;移行の準備ができるように DocumentDB を構成するための詳細な手順については<a href="https://github.com/felixrieseberg/parse-server-azure/wiki/Configuring-DocumentDB-for-Parse-Migration">、GitHub リポジトリ</a>を参照してください。</p>
+
+
+  <h3>モバイルクライアントを更新しています</h3>
+
+
+  <p>この時点で、解析サービスと、Azure &nbsp; で実行されている新しい2つの解析サービスがあります。新しい<a href="https://github.com/ParsePlatform/parse-server/wiki/Parse-Server-Guide#using-parse-sdks-with-parse-server">クライアントを更新して、新しい URL とアプリケーション ID で公開</a>する必要があります。 &nbsp;これには、クライアントが使用する解析 SDK の更新が含まれる場合があります。 &nbsp;サーバーの URL とアプリケーション ID を取得するには、 <a href="https://github.com/felixrieseberg/parse-server-azure/wiki/Update-your-Mobile-Clients-for-Parse-Server">GitHub リポジトリ</a>の詳細な手順を参照してください。</p>
+
+
+  <h3>解析ダッシュボードへのログオン</h3>
+
+
+  <p>解析ダッシュボードを Azure portal の管理エクスペリエンスに統合しました。 &nbsp;Azure に解析サーバーをデプロイすると、Azure portal 内でダッシュボードを使用できるようになります。</p>
+
+
+  <h3>次の手順</h3>
+
+
+  <p>主な懸念事項 &nbsp; は、解析サーバーを実行して移行することです。 &nbsp;バックエンドが動作したら、使用可能な新しい機能を確認できます。 &nbsp;これには次のものが含まれます。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/services/app-service/">Azure App Service</a>、 <a href="https://azure.microsoft.com/en-us/documentation/services/documentdb/">DocumentDB</a>、 <a href="https://azure.microsoft.com/en-us/documentation/services/notification-hubs/">Notification Hubs</a>および<a href="https://azure.microsoft.com/en-us/documentation/services/storage/">Storage</a>で利用できるようになった新機能について説明します。</li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/services/application-insights/">Application Insights</a>、および<a href="https://hockeyapp.net/features/">HockeyApp</a>を使用して、解析サーバーとクライアントを監視します。</li>
+   <li>貴重なユーザーの洞察を得て、 <a href="https://azure.microsoft.com/en-us/documentation/articles/mobile-engagement-overview/">Azure Mobile Engagement</a>を使用してユーザーと協力します。</li>
+  </ul>

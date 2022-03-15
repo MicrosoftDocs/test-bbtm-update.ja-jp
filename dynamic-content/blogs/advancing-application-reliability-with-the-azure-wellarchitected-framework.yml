@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9d5ec931040c98d1e200d8e6ea63e226941a682a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894684"
+Slug: advancing-application-reliability-with-the-azure-wellarchitected-framework
+Title: Azure Well-Architected Framework を使用したアプリケーションの信頼性の向上
+Summary: ワークロードの品質を向上させるために Azure Well-Architected フレームワークを作成しました。信頼性は5つの主要な柱の1つです。このシリーズの最新の投稿については、この記事で説明するように、フレームワークを使用してメッセージ交換と設計上の意思決定を行う最善の方法を実行するために、Blank-Edelman クラウドについての
+Content: >-
+  <p>&ldquo;<em>2 年間、継続的に進化する<a href="https://www.aka.ms/AdvancingReliability" target="_blank">信頼性のブログシリーズ</a>では、Azure プラットフォームとサービスの信頼性を向上させるための取り組みと投資が強調されています。しかし、これら &mdash; の方法の上で実行される独自の Azure アプリケーションについては、独自のアーキテクチャの信頼性を確立し、改善する方法を検討する必要があります。ここでは、ワークロードの品質向上に役立つ Azure Well-Architected フレームワークを作成しました。信頼性は5つの主要な柱の1つです。 <strong></strong> </em> &rdquo; &mdash; このシリーズの最新の投稿については、この記事で説明したメッセージ交換と設計上の決定について、フレームワークを使用したアプローチに最適な方法を実行するために、クラウドの代弁Mark Russinovich、CTO、Azure</p>
+
+
+  <hr>
+
+  <p>&nbsp;</p>
+
+
+  <p>職場での信頼性に関する適切なディスカッションや引数を開始する場合は、この質問を同僚に依頼してください。</p>
+
+
+  <p style="margin-left: 40px;"><em>&quot;サービス、製品、またはアプリケーションの信頼性を確保するためにアーキテクチャの重要性はどのような場合ですか。運用環境に展開する前、または後で実行する場合は、&quot;</em></p>
+
+
+  <p>確か &mdash; &mdash; &rdquo; &ldquo; に、 &ldquo; 信頼性を考慮してサービスを構築しない場合 &rsquo; 、安定性を向上させるための適切なコンポーネントがない可能性があります。 フォールトトレランスを向上させるために冗長性がない可能性があります。 おそらく、堅牢な再試行ロジック、サーキットブレーカー、または信頼性の高いシステムのその他の既知のパターンを除外することになります。&rdquo;</p>
+
+
+  <p>しかし、仕事仲間のカウンター &ldquo; もあれば、最初から作成を試みることが重要であることを拒否することもでき &rsquo; ます。 &rsquo;しかし、信頼性について学習したのは、ほとんどの場合、最初の移行では達成できないことです。 ホワイトボードで非常に膨大な作業を行った場合でも、障害を考慮して設計すると、引き続き障害が発生します。 また、障害が発生したとしても、それ以降のインシデントレビューが正しく行われたとしても、長期的にサービスの信頼性を高めるのに役立つ大きな商談を学ぶことができます。 このように、可観測性は反復的なプロセスであるということに同意しましたが、 &rsquo; 実行中のシステムの詳細については、測定および監視対象を変更する必要がありますか。 これらはすべて、運用&#39; の &#39;と呼ばれる mantle John Reese と Murphy すべてに分類されます。 これらのすべてのことが、この問題を実現するために必要なすべてのアーキテクチャスキルを備えている必要があります。&rdquo;</p>
+
+
+  <p>非常によく説明されている場合は、少なくとも数回、テーブル間で前後に移動します。 実際 &rdquo; に動作した後に信頼性を強化するための1つの側面について説明します。また、実際 &rdquo; にセキュリティを強化すること &ldquo; も &ldquo; できます (つまり、まったくそうではありません)。 もう1つは、開発環境またはステージング環境での実験が非常に役に立つことを示す混乱エンジニアリングから学んだ教訓 &rsquo; を得られる可能性がありますが、実稼働環境でのテストによって得られる一意の結果の一部が常に生成されるとは限りません &rsquo; 。</p>
+
+
+  <p>&ldquo;しかし、運用環境に到達する前に信頼性の問題を検出しようとする信頼性 &mdash; に対する継続的インテグレーションと継続的デリバリー (CI/CD) の価値はどうでしょうか &rdquo; 。 その後、 &ldquo; CI/CD は非常に便利ですが、大規模な分散システムのテストが適切に機能 &rsquo; しないという理由から、最後の問題をキャッチできませんでした。 &rdquo; その他にも同様です。</p>
+
+
+  <p>ここまでは、この引数のユーザーがリーチにバインドされているという結論が出てきまし &rsquo; た。 アーキテクチャは、実稼働前ライフサイクルステージと実稼働後ライフサイクルステージの両方で重要です。 しかし、その結論でも、アーキテクチャや設計者の役割については、何かの構築が行われた後にはあまり &rsquo; 気にならないからです。 &rsquo;私たちは、家の構築に役立ったアーキテクトが、doorstep a 年後 &ldquo; &rsquo; に私たちに見てきたことを期待しています。&rdquo;</p>
+
+
+  <p>ビルド (または購入) するアプリケーションを実行すると、何かが異なります。 ソフトウェアがより迅速に変更されることを見込んでいます。 リファクタリングされ、拡張され、アップグレードされます。 これらの各ポイントで、結果が信頼性の高いものと予想される場合は、アーキテクチャの領域から既知のすべてを適用する必要があります。 では、ここ &rsquo; で説明した議論を解決する1つの方法について説明します。また、その円を2乗している場合でも、信頼性を向上させるためのツールを紹介します。</p>
+
+
+  <h2>Azure Well-Architected Framework</h2>
+
+
+  <p><a href="https://aka.ms/wellarchitected/framework" target="_blank">適切に設計</a>されたフレームワークは、<em>ワークロードの品質を向上させるために使用できる一連の基本原則です。このフレームワークは、優れたアーキテクチャの5つの柱で構成されています。コストの最適化、運用上の優位性、パフォーマンスの効率、信頼性、およびセキュリティです。これらの柱を組み込むことで、高品質で安定した効率的なクラウドアーキテクチャを作成できます。</em></p>
+
+
+  <p>しかし、word &ldquo; のアーキテクチャ &rdquo; はもう1つあり &rsquo; ます。基本的には、名前の途中に置かれ、ライフサイクルの開始時にのみ参加する設計者のイメージを野次しています。</p>
+
+
+  <p>ここで &rsquo; は、この難問のロックを解除するための鍵として、<strong>信頼性 (およびその他の4つの柱) について説明します。目標は、適切に設計された &ldquo; 状態に保つことです。 &rdquo; </strong></p>
+
+
+  <p>&rsquo;これは、ベストプラクティスと、Well-Architected Framework に組み込まれているアーキテクチャ慎重から蓄積されたすべての知識を具体化して使用するために必要な状態です。 このガイダンスは、クラウドソリューションのすべての段階で役立つように設計されています。 この機能は、ワークロードを設計するときに最初に役立ちます。 リファクタリング、スケーリング、拡張、アップグレードプロセスの一環として、ワークロードの定期的なレビューを開始するときに便利です。 最後に、ワークロードの次のメジャーバージョンに対してサイクルが新たに開始されるときに役立ちます。</p>
+
+
+  <h3>入手方法</h3>
+
+
+  <p>信頼性空間を使用していたユーザーは、しばらくの間でも、Well-Architected フレームワークのような大規模なガイダンスが非常に優れているということを知っていますが、このような知識は、特定のワークロードと作業に適用されます。 Well-Architected フレームワークのような大きなドキュメントセット内を移動して、どこから開始するかを決定するのは困難な場合があります。 &rsquo;私は、このツールについてご紹介したいと思います。私たちは、私たちが提供している事実とガイダンスを橋渡しできると思います。 この資料のコンパスとして機能することができます。</p>
+
+
+  <p>ツールのスクリーンショットで &rsquo; は、 <a href="https://aka.ms/wellarchitected/review" target="_blank">Azure Well-Architected レビュー</a>を呼び出します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ffeee08-6a08-4012-a444-23f3eddabc24.png"><img alt="Well Architected Review (img1)" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8d37bf3-6588-40a9-8462-cf1eae99c496.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="適切な設計レビュー (img1)" width="662"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>Well-Architected レビューは、Well-Architected Framework の信頼性の柱と、他の4つの Well-Architected Framework の柱を説明する自己ガイド評価ツールです。 これは、お客様がお客様にとっても、お使いのコンピューターのクラウドソリューションの設計者でも、パートナーをサポートしていても、非常に優れたプロセスです。 お客様のご要望に基づいて、お客様の信頼性 &mdash; に関する一連の質問をお寄せください。お客様のご意見を基に、これらの領域に関する WAF ドキュメントへの直接リンクに焦点を当てることができます。</p>
+
+
+  <p>&rsquo;結果のセットの例を次に示します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44ba60aa-edf9-42dc-8a12-254374556233.png"><img alt="Recommendations for your workload (img 2)" border="0" height="674" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fab5e3c9-7f74-4ad3-91c9-b1b72c84bed8.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ワークロードに関する推奨事項 (img 2)" width="1024"></a></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>Well-Architected レビューを最大限に活用するために、最初に確認するときには明らかでない可能性があるいくつかのヒントを提供します。</p>
+
+
+  <p>1. <b>次の質問に注意してください。</b> レビューの結果が最大の報酬であると考えられるかもしれませんが &rsquo; 、ここでは、レビューの対象となる可能性のある最も重要なことが質問です。 信頼性を確保するには、作業を開始するためのさまざまな方法が考えられます。そのため、さまざまな作業を開始することができます。 質問する質問を知っておくことは困難な場合があります。 Well-Architected レビューでは、これらの質問を提供できます。</p>
+
+
+  <p>2. <b>もう一度レビューに戻ります。</b> Microsoft の資格情報を使用してレビュープラットフォームにサインインした場合は、結果を保存できます。 つまり、6か月で、または別のレビューを行う準備ができたら、新しいレビューを前の情報と比較することができます。 これは、各柱で進行状況を審査するのに非常に役立ちます。</p>
+
+
+  <p>3. <b>結果をチームと共有します。</b>Well-Architected レビューについては、多くの人 &rsquo; が知られていません。サインインしている場合は (前述の「ヒント番号」を参照)、Microsoft PowerPoint プレゼンテーションとして結果をエクスポートすることができます。 このドラフトを活用し、カスタマイズして、次のチームミーティングに進むための準備ができました。これにより、すべてのユーザーが信頼性の取り組みを受けられるようになります。</p>
+
+
+  <h2>Well-Architected Framework の動作</h2>
+
+
+  <p>信頼性に関するいくつかの優れたセッションなど、実際に動作している Well-Architected Framework の例を確認するには、 <a href="https://channel9.msdn.com/Shows/Azure-Enablement" target="_blank">Azure の有効化</a>に関する<a href="https://channel9.msdn.com/Tags/well-architected-series" target="_blank">適切に設計</a>されたシリーズのビデオを参照することをお勧めします。 <a href="https://docs.microsoft.com/learn/paths/azure-well-architected-framework/" target="_blank">Microsoft Learn</a>のサブジェクトについての適切なオンラインコース資料があり &rsquo; ます。また、この<a href="https://docs.microsoft.com/azure/architecture/framework/resiliency/overview" target="_blank">ドキュメントでは基本原則</a>についても説明します。 適切に設計されたアーキテクチャの面を深く掘り下げたい場合は、 <a href="https://docs.microsoft.com/azure/architecture/" target="_blank">Azure アーキテクチャセンター</a>を確認することをお勧めします。</p>
+
+
+  <p>信頼性 &nbsp; とアーキテクチャについてのご意見をお待ちしております。</p>

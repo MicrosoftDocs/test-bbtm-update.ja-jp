@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0036c927f0e00369594eec7f155ddc9c6ed6012e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889909"
+Slug: azure-toolkit-for-eclipse-integrates-with-hdinsight-ambari-and-supports-spark-2-2
+Title: Azure Toolkit for Eclipse は HDInsight Ambari と統合され、Spark 2.2 をサポートします
+Summary: より多くの認証オプションを提供するために、Azure Toolkit for Eclipse では、Ambari を介した HDInsight クラスターへのジョブの送信がサポートされます。 Ambari で管理されているユーザー名とパスワードを使用して、任意のクラスターを簡単にリンクまたはリンク解除できます。これは、Azure のサインイン資格情報とは関係はありません。
+Content: >-
+  <p>より多くの認証オプションを提供するために、Azure Toolkit for Eclipse では、ジョブの送信、クラスター リソースの参照、ストレージ ファイルの移動のために、Ambari を介した HDInsight クラスターとの統合がサポートされます。 Ambari で管理されているユーザー名とパスワードを使用して、任意のクラスターを簡単にリンクまたはリンク解除できます。これは、Azure のサインイン資格情報とは関係はありません。&nbsp; Ambari 接続は、Azure 上の HDInsight 内でホストされている通常の Spark と Hive に適用されます。 これらの追加により、Azure サブスクリプションに加えて HDInsight クラスターに接続する方法の柔軟性が向上し、Spark ジョブの送信エクスペリエンスも簡素化されます。</p>
+
+
+  <p align="justify">このリリースでは、新しい&amp;機能を利用し、Azure Toolkit for Eclipse の Spark 2.2 の新しいライブラリ API を使用できます。 Spark 2.2 プロジェクトを作成、作成、Spark 2.2 クラスターに送信できます。&nbsp; Spark 2.2 の下位互換性を使用すると、既存の Spark 2.0 および Spark 2.1 プロジェクトを Spark 2.2 クラスターに送信することもできます。</p>
+
+
+  <h3>クラスターをリンクする方法</h3>
+
+
+  <ul>
+   <li><strong>Azure 用エクスプローラー</strong>の<strong>[Link a cluster]\(クラスターのリンク\)</strong> をクリックします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64600a29-16f7-4e8f-845e-61b30c71c31b.png"><img alt="Link Cluster" border="0" height="176" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19d346f3-9ec7-4ef8-af99-6a32dd91a0d6.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="クラスターのリンク" width="250"></a></p>
+
+
+  <ul>
+   <li><strong>[クラスター名]</strong>、<strong>[ストレージ アカウント]</strong>、<strong>[ストレージ キー]</strong> を入力し、<strong>[ストレージ コンテナー]</strong> からコンテナーを選択し、最後に [ユーザー名] と [パスワード] を入力します。 [OK] ボタンをクリックしてクラスターをリンクします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/038276da-3990-4788-91ad-3f5a3543756f.png"><img alt="Eclipse" border="0" height="219" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4c231502-c887-4d61-96f1-7ebc3d1eed64.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Eclipse" width="280"></a></p>
+
+
+  <p>Ambari ユーザー名、pwd、Secure Hadoop ドメインユーザー名、または pwd のいずれかを使用して接続できます。 ストレージ アカウントとキー情報は、クラスター接続の次のリリースでは省略可能になります。</p>
+
+
+  <ul>
+   <li>リンクされたクラスターは、リンク後に Azure Explorer の <strong>HDInsight</strong> ノードの下に表示されます。 Spark ジョブは、このリンクされたクラスターに送信できます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b56aeefe-062c-43e3-9d1a-63d5030f50b9.png"><img alt="linked-cluster" border="0" height="228" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/54be8587-9c97-47f1-a37c-8d414ccfe54a.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="linked-cluster" width="251"></a></p>
+
+
+  <ul>
+   <li>また、<strong>Azure 用エクスプローラー</strong>からクラスターのリンクを解除することもできます。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3fb481d-41bc-4910-8bcb-8466ab806242.png"><img alt="unlink" border="0" height="202" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c197942a-6ada-4d5f-95c4-36f5f0cd1856.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="解除" width="250"></a></p>
+
+
+  <h3>インストール/更新する方法</h3>
+
+
+  <p>以前にプラグインがインストールされている場合、または Eclipse リポジトリにアクセスして Azure Toolkit for Java を検索することで最新のビットを取得できる場合は、Eclipse によって最新の更新<strong>プログラムの入力が求</strong>めるメッセージが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/851bf443-e2f5-44d3-b4c0-c579fc7f2215.png"><img alt="8_thumb" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/775d23bc-e9f0-4a9a-bb7a-0f4ab04ee403.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px auto; display: block; padding-right: 0px" title="8_thumb" width="420"></a></p>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+   <li>ユーザー マニュアル: <a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-eclipse-tool-plugin" target="_blank">HDInsight Eclipse プラグイン</a></li>
+   <li>デモ ビデオ: <a href="https://mix.office.com/watch/1rau2mopb6fha" target="_blank">HDInsight Spark アプリケーションを作成する</a>&nbsp;</li>
+  </ul>
+
+
+  <p>Azure ブログとビッグ&rsquo; データブログで今日のお知らせの<a href="https://blogs.msdn.microsoft.com/azuredatalake" target="_blank"></a>詳細を確認し、<a href="https://azure.microsoft.com/en-us/blog/" target="_blank">さらに</a> Azure サービスの<a href="https://azure.microsoft.com/en-us/updates/" target="_blank">更新プログラムを確認してください</a>。</p>
+
+
+  <h3>フィードバック</h3>
+
+
+  <p>ご意見やフィードバックをお待ちしております。 機能の要求、顧客の質問、または提案がある場合は、 にメモを送信してください <a href="mailto:hdivstool@microsoft.com">hdivstool@microsoft.com</a>。 バグの送信については、テンプレートを使用して新しいチケットを開きます。</p>

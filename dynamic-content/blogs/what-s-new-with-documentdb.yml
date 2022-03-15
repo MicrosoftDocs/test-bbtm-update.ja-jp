@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c74e62cf3dd37c1cd328b893675d0667053dfa57
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896335"
+Slug: what-s-new-with-documentdb
+Title: DocumentDB の新機能
+Summary: DocumentDB は、JSON ドキュメントを大規模に格納および管理するように設計された、フル マネージドの NoSQL データベース サービスです。 お客様のニーズに対応し、サービスの使用を簡単にすることを目的とした、多数のサービス更新プログラムをリリースしました。
+Content: >-
+  <p>今年の初めに、 <a href="https://www.documentdb.com/"><u>Azure DocumentDB の一般提供を発表しました</u></a>。 DocumentDB は、JSON ドキュメントを大規模に格納および管理するように設計された、フル マネージドの NoSQL データベース サービスです。 DocumentDB を使用すると、スキーマに依存しないストレージ システムとして、複雑なデータ層のアップグレードに対処することなく、データ モデルを迅速に反復処理し、アプリケーションを進化することができます。 ただし、DocumentDB は単純&rsquo;な JSON ストレージではありません。 すべてのデータは完全にインデックスが作成され、クエリ インターフェイスを使用してSQLできます。 DocumentDB は、半構造化データに対して豊富なアドホック クエリを発行する機能をアプリケーションに提供します。</p>
+
+
+  <p><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DocDB_blog_150.png" style="width: 500px; height: 336px;"></p>
+
+
+  <p>大規模&rsquo;なモバイル ゲーム、産業用および自動車の <a href="https://www.microsoft.com/en-us/server-cloud/internet-of-things.aspx"><u>IoT</u></a> システムから大規模な Web サイトパーソナル化システムまで、DocumentDB を使用して顧客が構築している機能を見て本当に楽 <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=17635"><u>しみに思います</u></a>。 お客様がサービスをより多く使用する中で、ユーザーが何を行っているのか、サービスをより良くする方法についてお聞かしいと思います。</p>
+
+
+  <p>一般提供以降、お客様の&rsquo;ニーズに対応し、サービスの使用を簡単にすることを目的とした多数のサービス更新プログラムがリリースされました。 すべての Azure のお客様が利用できる主要な更新プログラムの一部を次に示します。</p>
+
+
+  <h3>Order By (並べ替え)</h3>
+
+
+  <p>DocumentDB では、 <a href="https://azure.microsoft.com/documentation/articles/documentdb-orderby/"><u>Order By クエリと</u></a> 文字列範囲クエリがサポートされます。 これにより、JSON ドキュメント内の任意の文字列、数値、またはブール型のプロパティを使用してクエリ結果を並べ替えできます。 DocumentDB&#39;Order By を使用すると、ドキュメントの大規模なコレクションに対する待機時間の短いクエリを提供し、最小限のインデックス ストレージ オーバーヘッドで動作するように設計されています。 クエリ機能の完全なセットについては <a href="https://azure.microsoft.com/documentation/articles/documentdb-sql-query-cheat-sheet/">、</a> DocumentDB クエリ チート シートを参照してください。</p>
+
+
+  <h3>GeoSpatial</h3>
+
+
+  <p>DocumentDB を使用した場所に対応したアプリケーションと IoT システムの構築は、地理空間サポートの導入 <a href="https://azure.microsoft.com/documentation/articles/documentdb-geospatial/"><u>によってはるかに簡単になります</u></a>。 DocumentDB では、GeoJSON 標準で表される空間ポイントと多角形 <a href="https://geojson.org/geojson-spec.html"><u>がネイティブに理解</u></a> されます。 DocumentDB は地理空間データのインデックスを自動的に作成し、近接SQLを実行するためのサポートを提供します。</p>
+
+
+  <h3>ID ベースのルーティング</h3>
+
+
+  <p>多くの開発者から、DocumentDB リソースにアクセスするときに<a href="https://azure.microsoft.com/blog/azure-documentdb-bids-fond-farewell-to-self-links/"><u></u></a>自己リンクの使用が面倒すぎるという話を聞いたことがあります。 DocumentDB では、リソースの作成時に指定された ID を使用したデータベース リソースの操作がサポートされます。 これにより、アプリケーションでリソースの自己リンクをキャッシュまたは参照する必要が軽減されます。&nbsp;&nbsp;</p>
+
+
+  <h3>オンライン インデックス変換</h3>
+
+
+  <p>DocumentDB <a href="https://azure.microsoft.com/documentation/articles/documentdb-indexing-policies/"><u>インデックス作成ポリシーは</u></a> 、オンラインおよびイン Place の既存のコレクションで変更できます。 インデックス作成ポリシーは、インデックスストレージのオーバーヘッド、書き込みとクエリのスループット、クエリの整合性など、インデックス管理の側面を制御します。</p>
+
+
+  <h3>JavaScript 言語統合クエリ</h3>
+
+
+  <p>DocumentDB 内からストアド プロシージャとトリガーを実行するときに、JavaScript 言語統合クエリ API を利用できます。 DocumentDB の <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-programming/"><u>JavaScript</u></a> 言語統合クエリ機能は、ES5s&rsquo; 配列の組み込みまたは <a href="https://lodash.com/"><u>Lodash</u></a> や <a href="https://underscorejs.org/"><u>アンダー</u></a>スコアのような JavaScript ライブラリを使用した開発者向けの、fluent で使い慣れたプログラミング エクスペリエンスを提供します。</p>
+
+
+  <h3>Azure プレビュー ポータルの機能強化</h3>
+
+
+  <p><a href="https://portal.azure.com/"><u>Azure プレビュー ポータルでは、</u></a>DocumentDB のお客様向け開発および管理アクティビティの数が増えています。 クエリ エクスプローラーとドキュメント エクスプローラーの両方が改善され、データ アクセス、クエリの開発、データ管理が容易になります。 スクリプト <a href="https://azure.microsoft.com/documentation/articles/documentdb-view-scripts/"><u>エクスプローラーを</u></a> 使用して、ストアド プロシージャ、トリガー、UDF を作成、編集、および削除できます。 DocumentDB では、リソース グループ <a href="https://azure.microsoft.com/documentation/articles/resource-group-move-resources/"><u>間でのアカウントの移動</u></a> もサポートされます。</p>
+
+
+  <h3>データ移行ツールの機能強化</h3>
+
+
+  <p>DocumentDB データ<a href="https://azure.microsoft.com/documentation/articles/documentdb-import-data/"><u>移行ツール</u></a>では、JSON や SQL Server などのさまざまなソースからのデータのインポートと、DocumentDB からの JSON データのエクスポートがサポートされています。 移行ツールが更新され、Azure Table、Azure Blob、Amazon DynamoDB、HBase などの新しいソースがサポートされました。 移行ツールには、パーティション分割とカスタム インデックス ポリシーのサポートも含まれています。</p>
+
+
+  <h3>Azure Data Factory統合</h3>
+
+
+  <p>これで、Azures データ移動&rsquo;サービスを使用して DocumentDB に接続できます。 <a href="https://azure.microsoft.com/blog/data-movement-in-big-data-space-5/"><u>Azure Data Factory</u></a> 、データ パイプラインのソースとシンクの両方として DocumentDB がサポートされます。</p>
+
+
+  <h3>パーティション分割のサポート</h3>
+
+
+  <p>DocumentDB .NET SDK を使用するアプリケーションでは、パーティション分割<a href="https://azure.microsoft.com/documentation/articles/documentdb-sharding/"><u></u></a>のサポートを利用して、大規模なアプリケーションの開発を支援できます。 最新の SDK には、複数のコレクションにわたる範囲とハッシュ ベースのパーティション分割の組み込みサポートと、カスタムパーティション構成を登録する機能が含まれています。</p>
+
+
+  <h3>オーストラリアでの一般提供</h3>
+
+
+  <p>DocumentDB は、 <a href="https://azure.microsoft.com/blog/azure-documentdb-ndash-g-rsquo-day-australia/"><u>オーストラリア東部</u></a> リージョンとオーストラリア南東部リージョンのお客様向けに一般提供されました。</p>
+
+
+  <p>サービス&rsquo;の改善に取り組むのは大変でした。 これらの更新プログラムは、現在 DocumentDB 上に構築されているアプリケーションと、将来開発する予定のアプリケーションにとって重要な更新プログラムです。 プレビューまたは一般提供のサービスを見た場合は、もう一度見てみるのをおもしろい場合があります。 概要試用版にサインアップするか、Azure プレビュー ポータルから今すぐデータベース <a href="https://azure.microsoft.com/pricing/free-trial/"><u></u></a> アカウントを作成することで、Azure DocumentDB を使用できます。</p>
+
+
+  <p>私たちの目標は、これらの投稿を通じて、適切な情報を適切に提供します。 この要約を思い出したコメントを以下に残してください。 お客様の視点とフィードバックをお聞かせください。関連する情報とサービスの更新プログラムを提供し続けるのに役立ちます。&nbsp;ヘルプが必要な場合、または質問やフィードバックがある場合は、スタック オーバーフロー<a href="https://stackoverflow.com/questions/tagged/azure-documentdb"><u></u></a>に関する開発者フォーラムに問い合わせ、または DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。&nbsp;Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください<a href="https://twitter.com/DocumentDB"><u>@DocumentDB</u></a>。</p>

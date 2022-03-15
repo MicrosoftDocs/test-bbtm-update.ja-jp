@@ -1,0 +1,141 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fcb2e2d4aa12f86f235716fd6b7749ee313f0a3f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894257"
+Slug: the-network-is-a-living-organism
+Title: ネットワークは生き生きとした環境です
+Summary: ギリシャ語の「ギリシャ語」の「日本」は、生きている要素の複雑な構造を示しています。 しかし、ネットワークと生体との共通点は何でしょうか。 Microsoft では、ハイパースケール グローバルを構築および管理しています。
+Content: >-
+  <p>ギリシャ語の「ギリシャ語」の「日本」は、生きている要素の複雑な構造を示しています。 しかし、ネットワークと生体との共通点は何でしょうか。</p>
+
+
+  <p>Microsoft では、絶えず成長&rsquo;と進化を続けるハイパースケールのグローバル ネットワークを構築および管理しています。 Microsoft Azure、Bing、Dynamics、Office 365、OneDrive、Skype、Xbox、Soon LinkedIn などのワークロードをサポートするには、信頼性、セキュリティ、パフォーマンスに関する厳しいニーズがあります。 このようなニーズにより、ネットワークのパルスを継続的に監視し、異常、障害を検出し、ミリ秒レベルで回復を駆動する必要があります。これは、生きている生体の監視に非常に近い状態です。</p>
+
+
+  <p>2017 年 4 月の現在、38 のリージョンを接続する大規模なネットワークを監視するには、数百のデータセンター、数千台のデバイスを備えた数千台のサーバー、および何百万ものコンポーネントに絶えずイノベーションと発明が必要です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/394dd1e8-3363-4577-9f6e-3a99a136c4a6.jpg"><img alt="Figure 1 the network is a living organism" border="0" height="469" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/72cadff0-3c4b-42d1-bd2c-d57d28a980b3.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="図 1 ネットワークは生きている施設" width="608"></a></p>
+
+
+  <p align="center"><em>図 1。Microsoft グローバル ネットワーク</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4d21076-5565-41a1-b37a-f38ffec0e520.png"><img alt="WAN" border="0" height="416" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/700f8b9a-6d8a-44da-b7fe-ef96a350b0e4.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="WAN" width="608"></a></p>
+
+
+  <p align="center"><em>図 2。データセンター内の物理ネットワークの図</em></p>
+
+
+  <p>4 つの主要な原則によって、監視サービスの設計とイノベーションが推進されます。</p>
+
+
+  <ul>
+   <li><strong>速度と精度:</strong>&rsquo;1 秒以下のレベルで障害を検出し、同じの回復を駆動する必要があります。</li>
+   <li><strong>カバレッジ：</strong> ビット エラーからバイト、パケット、プロトコル、コンポーネント、エンドツーエンド ネットワークを構成するデバイスまで、監視サービスはそれらをすべてカバーする必要があります。</li>
+   <li><strong>スケール：</strong> このサービスでは、ペタバイト単位のログ、数百万のイベント、数千の相関関係を処理する必要があります。この相関関係は、地球の顔全体に数千マイルの接続に分散されます。</li>
+   <li><strong>実際のユーザー メトリックに基づいて最適化する:</strong> 監視サービス&mdash;では、ネットワーク トポロジ レベルからラック、クラスター、データセンター、リージョン、WAN&mdash;、エッジまでメトリックを使用する必要があります。また、ズームインとズームアウトを行う機能が必要です。</li>
+  </ul>
+
+
+  <p><a href="https://www.microsoft.com/en-us/research/publication/pingmesh-large-scale-system-data-center-network-latency-measurement-analysis/">PingMesh</a> や <a href="https://atscaleconference.com/videos/pingmesh-netbouncer-fine-grained-path-and-link-monitoring-for-data-centers/">NetBouncer</a> など、ネットワークの問題を事前に検出してローカライズするイノベーションを構築しました。 これらのサービスは常にオンであり、ネットワークのパルスを監視して待機時間とパケットドロップを監視します。</p>
+
+
+  <p>PingMesh では、待機時間測定 (RTT またはラウンド トリップ時間) のために数千のピアをプローブするために、軽量の TCP プローブ (ごくわずかな帯域幅を消費) を使用し、問題が物理ネットワークに関連するかどうかを検出します。 RTT 測定は、ネットワーク到達可能性とパケット レベルの待機時間の問題を検出する優れたツールです。</p>
+
+
+  <p>待機時間のずれやパケットドロップが検出された後、Netbouncers&rsquo; 機械学習アルゴリズムを使用して、アップグレードのトップ オブ ラック再起動などの一時的な問題をフィルターで取り出します。 履歴データとパフォーマンスを確認するテンポラル分析が完了すると、インシデントをネットワークの問題として自信を持って分類し、障害のあるコンポーネントを正確にローカライズできます。 問題がローカライズされた後、影響を受け取ったトラフィックを再ルーティングし、障害のあるコンポーネントを再起動または削除することで、自動的に軽減できます。 次の図では、緑、黄色、または赤で、ソースと宛先のラックペアの間の 99 番目の割合でネットワーク待機時間の範囲を視覚化します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e68ea6e5-e16e-414f-b078-65e01c632afb.png"><img alt="Network Latency" border="0" height="300" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/017c1831-4d63-40a8-9826-72aa5a7673f1.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ネットワーク待機時間" width="615"></a></p>
+
+
+  <p align="center"><em>図 3。既知の障害モードのネットワーク待機時間パターンの例</em></p>
+
+
+  <p>一部の顧客インシデントでは、インシデントをローカライズして根本原因を特定するために、オンコール エンジニアによるより深い調査が必要になる場合があります。 パス内のすべてのネットワーク ホップを介してパケットの寿命を効率的にキャプチャして分析するためのトラブルシューティング ツールが必要でした。 これは、トラフィックが 1 秒あたり数百テラビットに達する可能性があるデータセンターでのパケット レベル分析に必要な特定性とスケーリングのために、困難な問題です。 これにより、パケット レベルの分析を使用してネットワーク 障害のトラブルシューティングに使用される <em><a href="https://www.cs.ucsb.edu/~ravenben/publications/pdf/everflow-sigcomm15.pdf">Everflowits</a></em>&mdash;&rsquo; というサービスを開発する動機が得られたのです。 Everflow では、トラフィック パターンを挿入し、特定のパケット ヘッダーをミラー化し、顧客のネットワーク&rsquo; パケットを模倣することができます。 Everflow を使用しない&rsquo;場合、顧客のパケットによって取得された特定のパスを再作成するのは難しいため、問題を正確にローカライズすることは困難です。 次の図は、Everflow の高レベルアーキテクチャを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5dfec8bb-157d-49dd-a77c-6a8f897c5d9b.png"><img alt="Everflow" border="0" height="282" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/190708c9-5430-4b90-8253-af64ef6fb644.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Everflow" width="592"></a></p>
+
+
+  <p align="center"><em>図 4。Everflow を使用したパケット レベルのテレメトリの収集と分析</em></p>
+
+
+  <p>Everflow は、フレーム チェック シーケンス (FCS) エラーについてすべてのケーブルを監視するために使用されるツールの 1 つです。 光学ケーブルは、ケーブルの取り外しや悪い配置、単にケーブルの経年変化など、人的エラーからダーティを受け取る可能性があります。 次の図は、このリンクで FCS エラーが発生する可能性があるファンの近くに設置されたケーブルの例を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/583738cf-9cfa-42fd-b110-2844bb625347.png"><img alt="Cable bending" border="0" height="378" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7a5abaa-9db1-4bd2-88a9-3803d22298c5.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ケーブルケーブル接続" width="657"></a></p>
+
+
+  <p align="center"><em>図 5。このリンクで FCS エラーを引き起こす可能性があるファンの近くに設置されたケーブルの例</em></p>
+
+
+  <p>現在、すべてのケーブルを監視し、送信された 10 億パケットごとに 1 つのエラーのみを許可しています。また、このしきい値をさらに減らし、各データセンターの数百万本の物理ケーブルにわたる損失を受け入れたトラフィックのリンク品質を確保する予定です。 ケーブルのエラー率が高い場合は、これらのエラーが発生したリンクが自動的にシャットダウンされます。 ケーブルがクリーンアップまたは交換された後、Everflow を使用してガイド付きプローブが送信され、リンク品質が許容されます。</p>
+
+
+  <p>データセンターを超えて、最も信頼性の高いクラウドで重要な顧客シナリオをサポートするには、インターネット エンドポイントからエンドツーエンドのネットワーク パフォーマンスを監視する必要があります。 Azure WAN は、インターネットのパフォーマンスとカスタマー エクスペリエンスをリアルタイムで監視するインターネットのマップと呼ばれるサービスを構築するために進化しました。 このシステムは、有線接続とワイヤレス接続の間で予想されるクライアント パフォーマンスをあいまいにし、持続的な問題と一時的な問題を分離し、顧客の視点をオンデマンドで可視化することができます。 &ldquo;たとえば、ロサンゼルスのお客様は ATT&amp;&ldquo;&rdquo; で RTT が高いという質問に答えるのに役立ちます。また、香港への HiNet&rdquo;&ldquo; 経由でパケット損失が増加していますか?、また、アムステルダムに対する信頼性の問題が発生していますか?&rdquo;このサービスを使用して、カスタマー エクスペリエンスへの影響やリスクに対して事前かつ事後的に介入し、それらを障害のあるシナリオ、ネットワーク、および場所に迅速に関連付ける。 また、このデータは、影響を本当に最小限に抑え、可能な限り前もって軽減するために、自動応答とトラフィック エンジニアリングをトリガーします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a5f9be7-509e-4e21-8ab6-ca7af68f8d88.png"><img alt="Latency Degradation alert" border="0" height="316" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4126ea5b-ff01-4b37-9581-c7b7b041ae26.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="待機時間の低下アラート" width="654"></a></p>
+
+
+  <p align="center"><em>図 6。ピアリング パートナーによる待機時間の低下アラートの例</em></p>
+
+
+  <p>データセンターとその接続を監視するために構築されたイノベーションは、お客様に分析情報を提供するためにも利用されます。</p>
+
+
+  <p>通常、お客様はソフトウェアの抽象化を介してネットワーク サービスを使用します。 仮想ネットワーク、仮想ネットワーク インターフェイス カード、ネットワーク アクセス制御リストなどの抽象化により、データセンター ネットワークの複雑性と複雑さを隠します。 最近、仮想/論理 <a href="https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview">ネットワークNetwork Watcher</a>関連するネットワーク リソースの可視性と診断機能を提供するサービスである Azure Network Watcher を開始しました。</p>
+
+
+  <p>Network Watcher を使用すると、ネットワークのトポロジを視覚化し、トポロジにデプロイされたリソースのパフォーマンス メトリックを理解し、パケット キャプチャを作成して接続の問題を診断し、ネットワークのセキュリティ境界を検証して脆弱性を検出し、コンプライアンス/監査のニーズを検出できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d815e89-5251-40f2-bffd-fbf5afce8b30.png"><img alt="Topology view of a customer network" border="0" height="252" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/adbe7706-ee48-4c7d-99bd-7d9d92ecde3d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="顧客ネットワークのトポロジ ビュー" width="643"></a></p>
+
+
+  <p align="center"><em>図 7。顧客ネットワークのトポロジ ビュー</em></p>
+
+
+  <p>次の図は、仮想マシンでリモート パケット キャプチャ操作を実行する方法を示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74bcd082-2f47-4408-9e34-fa54bfc99135.png"><img alt="Variable packet" border="0" height="495" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c0496db5-f031-4fa2-970c-40316e465e2d.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="可変パケット" width="325"></a></p>
+
+
+  <p align="center"><em>図 8。仮想マシンでの可変パケット キャプチャ</em></p>
+
+
+  <p>&rsquo;&mdash;世界で最も信頼性の高いハイパースケール クラウドの構築と運用は、ネットワークの異常を事前に監視して検出し、是正措置を取る必要性によって支えらされ、生活環境の監視に近い状態です。 データセンターのペース、規模、複雑さの変化に伴い、新しい課題と機会が生み出され、継続的なイノベーションへの道が開きます。 ネットワーク&rsquo;監視と自動復旧に引き続き投資する一方で、仮想ネットワークの管理にも役立つイノベーションをお客様と共有します。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Blogs/Azure/The-network-is-a-living-organism/player" width="960"></iframe></p>
+
+
+  <h2>リファレンス</h2>
+
+
+  <p><a href="https://www.sigcomm.org/sites/default/files/ccr/papers/2015/August/2829988-2787496.pdf">PingMesh</a>: Guo、Ongxiong、Li liu 、Ong 、 Ingnong Dang、 Ray Ong、 Dave Ongz、 Zhaoong Liu、 &quot; 他Pingmesh: データ センターのネットワーク待ち時間の測定と分析のための大規模なシステム。&quot; ACM SIGCOMM Computer Communication Review 45, no. 4 (2015): 139-152.</p>
+
+
+  <p><a href="https://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p479.pdf">Everflow</a>: Gubo、Jixi Kang、Jiaxin Cao、Albert Greenberg、Guohan Lu、RatulBerghan、DaveBergz、他。 &quot;大規模なデータセンター ネットワークでのパケット レベルのテレメトリ。&quot; ACM SIGCOMM Computer Communication Review,vol. 45, no. 4、pp.479-491。 ACM、2015。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>このシリーズの他の投稿を読むには、次のページを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/networking-innovations-that-drive-the-cloud-disruption/">クラウドの分断を促進するネットワークの革新</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/sonic-the-networking-switch-software-that-powers-the-microsoft-global-cloud/">SONiC: マイクロソフトの世界規模のクラウドを支えるネットワーク スイッチ ソフトウェア</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/how-microsoft-builds-its-fast-and-reliable-global-network/">マイクロソフトが高速で信頼性の高いグローバル ネットワークを構築する方法</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/lighting-up-network-innovation/">ネットワークの革新に着手する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-network-security/">Azure ネットワーク セキュリティ</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/microsoft-s-open-approach-to-networking/">Microsoft&#39;ネットワークに対するオープン なアプローチ</a></li>
+  </ul>

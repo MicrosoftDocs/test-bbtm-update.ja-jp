@@ -1,0 +1,123 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7b8d0b1b7cbfb82155448893cf241410e28ed0be
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895145"
+Slug: azure-data-factory-editor-a-light-weight-web-editor
+Title: 'Azure Data Factory エディター: 軽量 Web エディター'
+Summary: ご意見をお聞かせください。ADF エディターのリリースをお知らせします。 すべての ADF エンティティの JSON ファイルを作成、編集、デプロイするための軽量の Web エディター。
+Content: >-
+  Azure Data Factory 10/27 に開始された Azure Data Factory の (ADF) パブリック プレビューと、お客様から寄せられた一貫したフィードバックの 1 つは、ユーザーが摩擦なくデータ統合パイプラインを作成、構成、デプロイできるように、豊富な対話型作成エクスペリエンスを実現することです。 お客様からのフィードバックに耳を傾け、すべての ADF エンティティの JSON ファイルを作成、編集、デプロイするための軽量の Web エディターである "ADF エディター" のリリースをお知らせします。
+
+
+  ADF エディターの主な目的は、PowerShell のインストールやコマンドレットの起動を必要とせずに、パイプラインをすばやく実行することで、ユーザーが ADF &amp; で生産性を高めることができます。 これで、Azure プレビュー ポータル内の ADF からすべての JSON 編集、デプロイ、管理操作を実行できます。 ADF エディターは、完全なオーサリング エクスペリエンスへの最初のステップです。
+
+
+  以下は、ADF エディターでのエンド to エンドの使用例を示すビデオです。
+
+
+  <iframe src="//channel9.msdn.com/Blogs/Windows-Azure/New-Azure-Data-Factory-Editor-UI/player" width="610" height="343" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+
+  <h2>ADF エディターの起動</h2>
+
+  [概要Data Factoryブレードで、[作成とデプロイ] をクリックしてエディターを起動します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/27/Editor_Launch.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Editor_Launch" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Editor_Launch_thumb.png" alt="Editor_Launch" width="430" height="303" border="0" /></a>
+
+
+  <strong>図 1:</strong> ADF エディターの起動を表示します。
+
+  <h2>ADF エディターのレイアウト</h2>
+
+  エディターには、次の 2 つの主要なセクションがあります。
+
+
+  1. 左側のナビゲーション ツリー
+
+  <blockquote>デプロイされたエンティティの一覧をツリー ビューのData Factoryに表示します。 編集キャンバスで参照および表示できます。 ナビゲーション ツリーの上には、ADF エンティティに対するアクションを作成および削除するボタンがあります。</blockquote>
+
+  2. 右側の JSON 編集キャンバス
+
+  <blockquote>これは、新規またはデプロイされた ADF エンティティの JSON エディターです。 編集キャンバスの上には、キャンバス内のエンティティに対して実行できる対応するアクションの ボタンがあります。</blockquote>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/03/02/ADF_Editor_Layout.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="ADF_Editor_Layout" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ADF_Editor_Layout_thumb.png" alt="ADF_Editor_Layout" width="817" height="480" border="0" /></a>
+
+
+  <strong>図 2: </strong>ADF エディターのレイアウトを表示します。
+
+  <h2>新しいリンクされたサービス、データセット、およびPipelines</h2>
+
+  JSON テンプレートを使用して、デプロイされた ADF エンティティを参照したり、新しいエンティティを編集したり、作成したりすることができます。"新規" アクションには 3 つのカテゴリがあります
+
+
+  1. 新規のリンクされたサービス
+
+  <blockquote>a. 新しいデータ ストア
+
+
+  b. New compute</blockquote>
+
+  2. 新しいデータセット
+
+
+  3. 新しいパイプライン
+
+
+  これらの各カテゴリには、サポートされる型に対応するサブカテゴリがあります。 カテゴリとサブカテゴリを選択すると、JSON テンプレートがエディター キャンバスに表示されます。 テンプレートのプロパティを実際の値に置き換え、簡単に構成できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/27/Editor_Browse.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Editor_Browse" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Editor_Browse_thumb.png" alt="Editor_Browse" width="788" height="508" border="0" /></a>
+
+
+  <strong>図 3</strong><strong>:</strong> 左側のナビゲーションのツリーからデプロイされたエンティティを参照する
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/27/Editor_Canvas.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Editor_Canvas" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Editor_Canvas_thumb.png" alt="Editor_Canvas" width="791" height="467" border="0" /></a>
+
+
+  <strong>図 4:</strong> ADF エンティティを簡単に作成できる JSON テンプレート
+
+  <h2>複製とドラフト</h2>
+
+  Clone は、デプロイされたエンティティの正確なコピーを作成しようとしている場合に便利です。 ツリーから任意のエンティティを選択し、[複製] ボタンをクリックしてコピーを作成できます。
+
+
+  ドラフトを使用すると、コンテキストを切り替える場合や、Data Factory 内の異なるエンティティに移動する場合に、一時的に作業を保存できます。 ドラフトの有効期間は、ブラウザー セッションに関連付けられている。 ブラウザーを閉じるか、別のコンピューターを使用すると、ドラフトは使用できなくなります。
+
+  <h2>パイプラインの開始</h2>
+
+  必要なすべてのエンティティを作成したら、パイプラインをデプロイし、処理のアクティブな期間を設定します。 これを行うには、次に示すように、パイプライン定義のエディターを使用します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/27/Start_Pipeline.png"><img title="Start_Pipeline" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Start_Pipeline_thumb.png" alt="" width="504" height="378" /></a>
+
+
+  <strong>図 5:</strong> パイプラインを開始するプロパティを設定する
+
+  <h2>デプロイされたエンティティの編集</h2>
+
+  デプロイされたエンティティは、次の 2 つの方法のいずれかを使用して編集できます。
+
+
+  1. エディターを起動し、左側のツリーでエンティティを参照し、キャンバスで定義を編集します
+
+
+  2. [データセット] を参照Pipelinesし、[テーブル ソース] や [パイプライン ソース] をクリックしてエディターに移動します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/27/Open_Existing_in_Editor.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Open_Existing_in_Editor" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Open_Existing_in_Editor_thumb.png" alt="Open_Existing_in_Editor" width="781" height="515" border="0" /></a>
+
+
+  <strong>図 6:</strong> デプロイされたパイプラインを編集する
+
+
+  ADF エディターのこれらの機能はすべて、お客様が現在発生している構成とデプロイの問題を軽減できると考えています。 ユーザー エクスペリエンスの向上に継続的に取り組み、今後のリリースで機能を強化するために ADF エディターで反復作業を行います。
+
+
+  Azure Data Factory Azure Data Factory はじめに Tutorialはじめに Tutorial" href="https://azure.microsoft.com/en-us/documentation/articles/data-factory-get-started/" target="_blank"></a> <a title="や Azure Data Factory GitHub <a title="" href="https://github.com/Azure/Azure-DataFactory" target="_blank">サンプルGitHub</a> サンプルから JSON コンテンツを簡単にコピー/貼り付け、エンド エンド パイプラインを迅速に実行できます。
+
+
+  ADF エディターに関するご意見をお待ちしております。 特定の機能が <a title="不足している場合、または問題が発生した場合は、Azure Data Factory フォーラム" href="https://feedback.azure.com/forums/270578-azure-data-factory" target="_blank">Azure Data Factory</a> にアクセスし、フィードバックをお寄せください。

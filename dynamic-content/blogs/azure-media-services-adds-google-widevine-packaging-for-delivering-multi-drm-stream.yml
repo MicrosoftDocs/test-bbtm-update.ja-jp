@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 49846ff84d7bf56443f0b40fe04973fc8238a00e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894105"
+Slug: azure-media-services-adds-google-widevine-packaging-for-delivering-multi-drm-stream
+Title: Azure Media Servicesマルチ DRM ストリームを配信するために Google Widevine パッケージを追加する
+Summary: Azure Media Services、Widevine Modular DRM テクノロジを使用して Video-On-Demand (VOD) と Live ストリームの両方を保護する機能が提供されました。
+Content: >-
+  <p>Widevine Modular DRM テクノロジAzure Media Services Video-On-Demand (VOD) と Live ストリーム の両方を保護する機能が提供される予定です。 Microsoft PlayReady DRM パッケージ機能と共に Widevine 保護を使用すると、Azure Media Services の 1 つのストリーミング エンドポイントを使用して、Premium コンテンツを保護することでさらに多くのエンドポイントに到達できます。 また、暗号化されたメディア拡張機能 (EME) を使用して Widevine で保護されたコンテンツを再生するように Azure Media Player が更新され、HTML5 Video を使用して Chrome および Android デバイスに安全にストリーミングできます。</p>
+
+
+  <p>暗号化に関する機能と共に、マルチ DRM ライセンス配信サービス (Widevine のサポートを含む) を提供する 2 つの新しいパートナーも発表します。 これらのパートナーと一緒Azure Media Services、Premium コンテンツをさらに多くのエンド ポイントに配信する簡単な方法が提供されます。</p>
+
+
+  <h3>一般的な暗号化とマルチ DRM のサポート</h3>
+
+
+  <p><a><font color="#000000">Microsoft は、DRM で保護された Premium コンテンツを含め、可能な限りいつでもコンテンツを配信するために、お客様が常にイノベーションを行っています。Microsoft では、デバイスやプラットフォーム間でコンテンツを再生するために、Common Encryption (CENC) とマルチ DRM を使用した国際標準 MPEG-DASH ストリーミングを受け入れしています。Azure Media Servicesを使用すると、ストリームを 1 回だけ暗号化し、異なる DRM ヘッダーを適用すると、プレーヤーはプラットフォームの機能に基づいて異なる DRM システムを使用して同じファイルを復号化できます。</font></a></p>
+
+
+  <p>次の図は、 の動作を示Azure Media Services。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31561450-c04f-44a4-b8a0-5abe0a3ee740.png"><img alt="widevine" border="0" height="393" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/387936ac-efed-4101-a6ad-22f7f9cd1fb7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="widevine" width="640"></a></p>
+
+
+  <h3>利用を始めるには?</h3>
+
+
+  <ol>
+   <li>アカウントにサインアップ Azure.com <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/">アカウントをAzure Media Servicesします</a>。</li>
+   <li>動的暗号化を使用して DRM で保護された資産を構成します。</li>
+   <li>この <a href="https://msdn.microsoft.com/en-us/library/azure/dn783467.aspx">MSDN チュートリアルでは</a> 、&nbsp;複数の&nbsp; DRM ヘッダーを含む DASH ストリームを準備できます。 Widevine パッケージを含める新しい列挙値を資産配信ポリシーに追加しました。 この 1 行のコードを追加することで、AMS で動的暗号化を既に使用している場合は、Widevine で保護されたコンテンツを配信する設定が済みます。</li>
+   <li>Widevine ライセンス サーバーを構成します。<br>
+  Azure Media Servicesパートナーと Widevine ライセンス配信サービスを提供しています。 本日の発表では、&nbsp;Widevine ライセンスの配信に役立つパートナーが 3 人います。
+   <ul>
+    <li><a href="https://www.axinom.com/press/ibc-axinom-drm-6/">Axinom</a></li>
+    <li><a href="https://ezdrm.com/">EZDRM</a></li>
+    <li><a href="https://castlabs.com/company/partners/azure/">castLabs</a></li>
+   </ul>
+   </li>
+   <li>Widevine Azure Media Playerを構成します。<br>
+  Azure Media Player v1.4.0 では、PlayReady と Widevine DRM の両方で動的にパッケージ化Azure Media Servicesコンテンツの再生がサポートされています。 作業を開始するには、ドキュメントを<a href="https://aka.ms/ampdocs"></a>確認するか、JavaScript <a href="https://aka.ms/ampsamples"></a> を使用して、または DOM を介して直接、この構成のプレーヤーを更新する方法に関する作業サンプルを参照してください。</li>
+
+  </ol>
+
+
+  <p>ご不明な点がある場合は <a href="mailto:yanmf@microsoft.com">yanmf@microsoft.com</a> 、 にお問い合わせください。</p>

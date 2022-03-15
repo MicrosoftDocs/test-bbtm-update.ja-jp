@@ -1,0 +1,119 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7a4350f5f166251462c3c67aa55da9658567499c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890226"
+Slug: azure-stack-iaas-part-six
+Title: Azure Stack IaaS – パート 6
+Summary: 仮想化の時代は、可能な限り最大のサイズを得る仮想マシン (VM) のすべての要求をパッドに入れるのに使用しました。 決定と要求には時間がかかったので、必要以上の容量が必要な場合は遅延が発生しないので、要求しました。
+Content: >-
+  <h2>使用した分の支払い</h2>
+
+
+  <p>仮想化の時代は、可能な限り最大のサイズを得る仮想マシン (VM) のすべての要求をパッドに入れるのに使用しました。 決定と要求&rsquo;には時間がかかったので、必要以上の容量が必要な場合は遅延が発生しないので、要求しました。 その結果、多くの無駄が発生し&ndash;、よく聞いた用語VM の広がりが聞こえました。</p>
+
+
+  <p>動作は、クラウド内のサービスとしてのインフラストラクチャ (IaaS) VM では異なります。 クラウドの基本的な品質は、必要に応じてリソースが使用するためのエラスティック プールを提供する、というのが基本です。 使用した分だけ料金を支払うので、オーバー&rsquo; プロビジョニングする必要はない。 代わりに、需要に基づいて容量を最適化できます。 Azure で実行されている IaaS VM に対してこれを行う方法と、その他の方法について説明Azure Stack。</p>
+
+
+  <h2>サイズ変更</h2>
+
+
+  <p>VM&rsquo; のサイズを正確に知るのは難しい。 CPU、メモリ、ディスク、ネットワークなど、考慮すべきディメンションは非常に多くある。 VM で次の 1 年または 1 か月に何が必要かを予測するのではなく、推測を行って実行し、履歴データを取得したらサイズを調整してください。</p>
+
+
+  <p>Azure と Azure Stackを使用すると、ポータルから VM のサイズを簡単に変更できます。 新しいサイズを選択すると完了&rsquo;です。 インフラストラクチャ チームを呼び出して、より多くの容量を確認する必要はありません。 使用されていない大きな VM に対して過剰に費やす&rsquo;必要はありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/06b98abc-2f5b-4631-a94b-3ef8806de5d6.png"><img alt="Choose a virtual machine size through the portal in Microsoft Azure Stack" border="0" height="922" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/46aa73e8-3cee-4825-8c89-22f00293b4b6.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Microsoft Azure Stack の仮想マシンのサイズ" width="1458"></a></p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/resize-vm" target="_blank">Azure 仮想マシンのサイズを変更する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes" target="_blank">Azure 仮想マシンのサイズ</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-vm-sizes" target="_blank">Azure Stack仮想マシンのサイズ</a></li>
+  </ul>
+
+
+  <h2>スケール アウト</h2>
+
+
+  <p>スケールのもう 1 つの次元は、同一の VM の複数のコピーを 1 つの単位として機能させる方法です。 さらに必要な場合は、追加の VM を作成します。 必要な量が少ない場合は、一部の VM を削除します。 Azure には、この仮想マシン (VMSS) Virtual Machine Scale Setsと呼ばれる機能が用意されています。この機能は、Azure Stack。 ウィザードを使用して VMSS を作成できます。 使用する拡張機能や VM に読み込むソフトウェアなど、VM の構成方法の詳細を入力します。 Azure では、ネットワークの接続、ロード バランサーの背後への VM の配置、VM の作成、ゲスト構成での の実行が行います。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/989e6712-960b-4a38-96e8-e561983f4ac1.png"><img alt="Create a virtual machine scale set in Microsoft Azure Stack" border="0" height="923" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b4e26088-c988-4e47-aa8d-6552753d6d48.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Microsoft Azure Stack の仮想マシン スケール セット" width="1407"></a></p>
+
+
+  <p>VMSS を作成したら、スケールアップまたはスケールダウンできます。 Azure では、すべてを自動化します。 IaaS のように制御しますが、PaaS のようにスケーリングします。 仮想化の時代には、これ以上簡単ではありませんでした。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/93573158-1020-45e9-a49d-cd4e33f27847.png"><img alt="Scale a Virtual Machine Scale Set up or down" border="0" height="620" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/52faa66d-4a94-400f-bf44-dabe35a7d53a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="仮想マシン スケール セット (VMSS) のスケーリング" width="1247"></a></p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview" target="_blank">Azure Virtual Machine Scale Sets</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-compute-add-scalesets" target="_blank">Virtual Machine Scale SetsのAzure Stack</a></li>
+  </ul>
+
+
+  <h2>ディスクの追加、削除、サイズ変更</h2>
+
+
+  <p>クラウド内の仮想マシンと同様に、ストレージは使用ごとに支払います。 Azure と Azure Stackを使用すると、そのストレージで実行されているディスクを簡単に管理できます。そのため、アプリケーションに必要なディスクのみを使用する必要があります。 データ ディスクの追加、削除、サイズ変更はセルフサービスアクションであり、現在のニーズに基づいて VM&rsquo; ストレージのサイズを適切に設定できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b9ea6f16-d88c-49bb-8267-ec0950e77150.png"><img alt="Add, remove, and resize disk" border="0" height="777" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0feb7e95-d8af-4e0a-a7fb-7154f53f521f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="ディスクの追加、削除、サイズ変更" width="1489"></a></p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal" target="_blank">Azure 仮想マシンにディスクを追加する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/detach-disk" target="_blank">Azure 仮想マシン上のディスクを削除する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/expand-os-disk" target="_blank">Azure 仮想マシンのディスクのサイズを変更する</a></li>
+  </ul>
+
+
+  <h2>使用量ベースの価格</h2>
+
+
+  <p>Azure と同様にAzure Stackの価格は、使用する量に基づきます。 ハードウェアと運用コストを引き受Azure Stack、通常、サービス料金は Azure の価格よりも低くなります。 使用量Azure Stack、Azure の請求書に品目として表示されます。 インターネットから切断Azure Stackネットワークでアプリケーションを実行すると、Azure Stack容量モデルが提供されます。</p>
+
+
+  <p>Pay-per-use は、お客様にとってAzure Stackです。 たとえば、1 つの組織で 1 か月に 1 回、機械学習モデルを実行します。 計算には約 1 週間かかる。 この期間中は、Azure Stack のすべての容量を使用しますが、その月の他の 3 週間は、システム上で軽い一時的なワークロードを実行します。 後の&rsquo;ブログでは、自動化とコードとしてのインフラストラクチャを使用して、これを迅速に設定して取り壊し、必要なタイム ウィンドウでアプリに必要な情報を使用する方法について説明します。 適切なサイズ設定と使用ごとの支払いにより、多くのコストが節約されます。</p>
+
+
+  <p>詳細情報:</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/mediahandler/files/resourcefiles/5bc3f30c-cd57-4513-989e-056325eb95e1/Azure-Stack-packaging-and-pricing-datasheet.pdf" target="_blank">Microsoft Azure Stack のパッケージ化と価格</a></li>
+  </ul>
+
+
+  <h3>このブログ シリーズの</h3>
+
+
+  <p>このブログ シリーズの今後の投稿をお読みください。 過去および今後のトピックの一部を次に示します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-one/" target="_blank">Azure Stackは、サービスとしてのインフラストラクチャ (IaaS) プラットフォームです</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-laas-part-two/" target="_blank">既に持っているものから始める</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-3/" target="_blank">IaaS の基礎</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-four/" target="_blank">自分のものを保護する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-five/" target="_blank">自分で実行する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven/" target="_blank">チームが必要</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-seven-2/" target="_blank">頻繁に行う場合は、自動化します</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/blog/azure-stack-iaas-part-nine/" target="_blank">他のユーザーの成功を基に構築する</a></li>
+   <li><a href="https://azure.microsoft.com/en-ca/blog/azure-stack-iaas-part-ten/" target="_blank">PaaS への道のり</a></li>
+  </ul>

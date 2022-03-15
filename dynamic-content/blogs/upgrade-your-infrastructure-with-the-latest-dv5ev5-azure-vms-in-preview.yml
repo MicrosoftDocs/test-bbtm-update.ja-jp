@@ -1,0 +1,244 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2fcebf17667ef96d0f1e1ff329bc1b65b343a8c4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890046"
+Slug: upgrade-your-infrastructure-with-the-latest-dv5ev5-azure-vms-in-preview
+Title: プレビューで最新の Dv5/Ev5 Azure VM を使用してインフラストラクチャをアップグレードする
+Summary: '4 月 6 日、Microsoft は第 3 世代 Intel® Xeon® Scalable プロセッサの発表に参加しました。 Intel と Microsoft は、Azure Confidential Computing と汎用アプリケーションの今後のプレビューを発表Microsoft Azure Virtual Machines。 '
+Content: >-
+  <p>4 月 6 日、Microsoft は Intel&#39;の第 3 世代 IntelXeonScalable&nbsp;&nbsp; プロセッサの発表に参加し、Microsoft は Azure Confidential Computing と汎用 Microsoft Azure Virtual Machines の今後のプレビューを発表しました。 現在、Dv5 シリーズと Ev5 シリーズの Azure Virtual Machines&nbsp; のプレビューを汎用的およびメモリ集中型のワークロードに向け発表しています。プレビューへのアクセスを要求するには、Azureform &nbsp;の<a href="https://aka.ms/intelgen3" target="_blank">第 3 世代 Xeon スケーラブル プロセッサ</a>&#39;Intel&#39;に入力します。</p>
+
+
+  <p>クラウド経済に関連する約束は、IT 環境をクラウドに移行するときに顧客が経験する初期コスト削減をはるかに超えています。 多くの組織は、他の利点の中でも継続的なクラウド インフラストラクチャの効率性の向上を暗黙的に期待しています。 具体的には、より高い&quot;&quot;&nbsp;レベルのパフォーマンスと価値を提供できる、非常に安全で常に安全性の高いサービスとしてのインフラストラクチャ (IaaS) プラットフォームが必要です。 また、独自のデータ センター内で大規模に展開する前に、最新のイノベーションに迅速にアクセスする必要があります。 これは、Microsoft が Intel のようなテクノロジ ベンダーと引き続き共同作業を行い、 <a href="https://www.intel.com/content/www/us/en/events/how-wonderful-gets-done.html?cid=sem&amp;source=sa360&amp;campid=2021_q2_dpg_us_dpgeng_dpgeng2_awa_text-link_brand_exact_cd_dcg-ICX-launch-xeon_3001996916_bing_b2b_is_pbm&amp;ad_group=brand_xeon_b2b3&amp;intel_term=xeon+processor&amp;sa360id=43700062539357579&amp;gclid=fbcadc78de3e113f517cbc0b8a5cf171&amp;gclsrc=3p.ds&amp;" target="_blank">Azure IaaS</a> のファブリック内に最新の Intel ハードウェア イノベーションを埋め込む理由です。</p>
+
+
+  <p>Azure Virtual Machines Dv5 および Ev5&nbsp; シリーズは、ハイパースレッド構成の最新の第 3 世代 GenIntelXeonPlatinum&nbsp;&nbsp;&nbsp; 8370C (Ice Lake) プロセッサ上で実行され、ほとんどの汎用エンタープライズ クラスのワークロードにより優れた価値を提供します。 新しいプロセッサは、3.5GHz、IntelTurbo&nbsp; Boost Technology 2.0、IntelAdvanced&nbsp; Vector Extensions 512 (IntelAVX-512&nbsp;)、IntelDeep&nbsp; ラーニング Boost の高いオールコア Turbo クロック速度を備えます。 これらの新しい仮想マシン (VM) は、多くのワークロードのパフォーマンスが最大 15% 向上し、以前の Dv4 および Ev4 シリーズの VM よりもパフォーマンスが向上します。&nbsp;</p>
+
+
+  <p style="margin-left: 40px;"><em>&ldquo;Intel は、クラウド体験の開始以降、Microsoft Azure&rdquo; チームと密接に共同作業を行い、イノベーションを市場に提供しています。Rebecca Weekly は、Intel のハイパースケール戦略と実行のジェネラル マネージャーである Data Platforms Group の副社長である Rebecca &ldquo; Weekly 氏です。ここでも、Microsoft が最新の第 3 世代 Intel Xeon Scalable&rsquo; プロセッサ機能を活用して、Azure Virtual Machines で幅広いワークロードを実行しているお客様にパフォーマンスとコストの大幅な向上を実現する方法を確認できるのが楽しいことです。&quot;</em></p>
+
+
+  <h2>汎用ワークロード</h2>
+
+
+  <p>新しい Dv5 シリーズ VM は、スケーラビリティの向上、最大 96 vCPU、384 GiB の RAM を備えた、vCPU パフォーマンスに対するメモリのバランスを提供します。 これらの VM は、多くの一般的なコンピューティング ワークロード、eコマース システム、Web フロントエンド、デスクトップ仮想化ソリューション、顧客関係管理アプリケーション、エントリ レベルおよび中距離データベース、アプリケーション サーバーなどにも適しています。</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>系列</strong></td>
+              <td valign="top"><strong>vCPU</strong></td>
+              <td valign="top"><strong>メモリ (GiB)</strong></td>
+              <td valign="top"><strong>ローカル ディスク (GiB)</strong></td>
+              <td valign="top"><strong>最大データ ディスク数</strong></td>
+              <td valign="top"><strong>最大 NIC 数</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Dv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">8 - 384</p>
+              </td>
+              <td valign="top">
+              <p align="center">N/A</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Dsv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">8 - 384</p>
+              </td>
+              <td valign="top">
+              <p align="center">N/A</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Ddv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">8 - 384</p>
+              </td>
+              <td valign="top">
+              <p align="center">75 - 2,400</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Ddsv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">8 - 384</p>
+              </td>
+              <td valign="top">
+              <p align="center">75 - 2,400</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>メモリ集中型ワークロード</h2>
+
+
+  <p>新しい Ev5 シリーズ VM は、メモリ集中型のエンタープライズ アプリケーション、大規模なリレーショナル データベース サーバー、データ ウェアハウス ワークロード、ビジネス インテリジェンス アプリケーション、メモリ内分析ワークロード、およびさまざまな性質の財務トランザクションを処理するシステムを含む追加のビジネス クリティカルなアプリケーションに最適です。 新しい Ev5 シリーズ VM では、高いメモリ対 vCPU 比が提供され、最大 96 vCPU と 672 GiB の RAM でスケーラビリティが向上します。&nbsp;</p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top"><strong>系列</strong></td>
+              <td valign="top"><strong>vCPU</strong></td>
+              <td valign="top"><strong>メモリ (GiB)</strong></td>
+              <td valign="top"><strong>ローカル ディスク (GiB)</strong></td>
+              <td valign="top"><strong>最大データ ディスク数</strong></td>
+              <td valign="top"><strong>最大 NIC 数</strong></td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Ev5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">16 - 672</p>
+              </td>
+              <td valign="top">
+              <p align="center">N/A</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Esv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">16 - 672</p>
+              </td>
+              <td valign="top">
+              <p align="center">N/A</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Edv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">16 - 672</p>
+              </td>
+              <td valign="top">
+              <p align="center">75 - 2,400</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top">
+              <p align="center">Edsv5 シリーズ</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 96</p>
+              </td>
+              <td valign="top">
+              <p align="center">16 - 672</p>
+              </td>
+              <td valign="top">
+              <p align="center">75 - 2,400</p>
+              </td>
+              <td valign="top">
+              <p align="center">4 - 32</p>
+              </td>
+              <td valign="top">
+              <p align="center">2 - 8</p>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>また、Dv5 および Ev5 シリーズの Azure Virtual Machines では、ローカル ディスク ストレージのオプションと使用しないオプションを提供することで、Dv4 および Ev4 シリーズの VM で導入した製品カテゴリをさらに拡張します。 ローカル ディスクを使用する VM サイズは、名前が小さい &quot;で&quot;&nbsp;示されます。 ローカル ディスクのない VM サイズには、小さな &quot;dvalue が含&quot;&nbsp;まれます。 多くのワークロードはローカル ディスクの恩恵を受けないので、これらの新しいオプションは、このケース専用に最適化されています。 ローカル ディスクを使用する VM を選択するしないにかかわらず、すべての VM にリモートの永続ディスク ストレージを接続できます。 リモート ディスク ストレージ オプション (VM ブート ディスクなど) は、常に VM とは別に請求されます。</p>
+
+
+  <h2>Dv5 および Ev5 シリーズの Azure Virtual Machines プレビューの詳細</h2>
+
+
+  <p>Dv5 と Dsv5、Ddv5、Ddsv5、Ev5、Edv5 Azure Virtual Machinesはすべて、現在プレビューで利用できます。 Esv5 および Edsv5 シリーズは、2021 年 5 月に提供される予定です。 プレビューは、最初は米国東部 <strong>2 Azure</strong> リージョンで利用できます。今後、他のリージョンに拡張されます。</p>
+
+
+  <p>プレビュー期間中は、8 つの新しいシリーズを使用できるのは、移動料金の支払いのみです。 価格ポイントは、将来の一般提供価格と比較して大幅に割引されます。 スポット Virtual Machines予約済み仮想マシン インスタンスの価格は、プレビュー期間中は使用できません。 価格はリージョンによって異なります。</p>
+
+
+  <p>現在 Dv4 および Ev4 シリーズの Azure Virtual Machines を使用している場合、Dv5 シリーズと Ev5 シリーズの VM では、より優れた価格とパフォーマンスのオプションが提供され、最大 96 vCPU&rsquo; のスケーラビリティが向上します。これは、クラウドの約束を顧客に引き続き提供する 1 つの方法です。</p>
+
+
+  <p>プレビューへのアクセスを要求するには、<a href="https://aka.ms/intelgen3" target="_blank">Azureform の第 3 世代 Xeon スケーラブル</a> プロセッサ&#39;Intel&#39;に入力&nbsp;します。&nbsp;ご意見をお待ちしています。</p>
+
+
+  <hr>
+
+  <p>Intel、Intel ロゴ、その他の Intel マークは、Intel Corporation または子会社の商標です。</p>

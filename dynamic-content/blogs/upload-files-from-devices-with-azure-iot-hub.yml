@@ -1,0 +1,35 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 39231d438c860a585caa3473b9f5f2ad4382f8f3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895267"
+Slug: upload-files-from-devices-with-azure-iot-hub
+Title: Azure IoT ハブを使用してデバイスからファイルをアップロードする
+Summary: 現在、Azure IoT ハブの新機能を発表し、ユーザーがデバイスからクラウドにファイルをアップロードできるようにしています。これにより、IoT Hub の支援を受けることができます。
+Content: >-
+  <p>現在、Azure IoT ハブの新機能を発表し、ユーザーがデバイスからクラウドにファイルをアップロードできるようにしています。これにより、IoT Hub の支援を受けることができます。 これは、お客様から知られている最も一般的な機能の1つです。特に、テレメトリチャネルを介して送信するには大きすぎるファイルを生成する既存のシステムを使用しているお客様からのご質問 &rsquo; です。</p>
+
+
+  <p>IoT Hub 自体を介してメッセージをブローカリングする代わりに、IoT Hub 代わりにディスパッチャーとして機能します。 デバイスは、デバイス &nbsp; がアップロードしようとして &nbsp; いるファイルに固有の IoT Hub からストレージトークンを要求します。 IoT Hub は、短い有効期限 (1 日) のデバイスにスコープ付き SAS URI を返します。 SAS uri Storage、有効期限が非常に長くなることがありますが、この場合は、デバイスが侵害された場合にストレージに対するセキュリティリスクを制限するために、有効期限が意図的に短く保持されます。 デバイスは SAS URI を使用してファイルをストレージにアップロードします。アップロードが完了すると、デバイスは IoT Hub に完了の通知を送信します。 IoT Hub は、ファイルがアップロードされたことを確認し、ファイルのアップロード通知を新しいサービス側ファイル通知メッセージングエンドポイントに追加します。 IoT Hub は、転送中のすべてのファイルアップロード要求を追跡し、ハブがデバイスからアップロード通知を受け取る前に SAS URI の有効期限が切れたときにエラーをログに記録できます。 IoT hub に SAS URI を要求するために送信されたメッセージ。完了したファイルのアップロード回数がメッセージの上限に達したことをハブに通知し、それに応じて課金されます。</p>
+
+
+  <p>IoT Hub デバイスクライアント SDK ( <a href="https://github.com/Azure/azure-iot-sdks">https://github.com/Azure/azure-iot-sdks</a> ) を使用すると、これは非常に簡単です。 ストレージアカウントを IoT hub に関連付けた &rsquo; 後は、ファイルをアップロードするために、デバイスから新しい UploadFromStringAsync API を呼び出す必要があります。 アップロードが完了すると、 &rsquo; iot hub のファイルアップロード通知を受信するように選択し &rsquo; た場合は、新しい {iot hub}. azure/messages/servicebound/filenotifications エンドポイントで通知が表示されます。</p>
+
+
+  <p>IoT Hub デバイスクライアント Sdk &rsquo; を使用していない場合 &rsquo; でも、IoT hub を使用してファイルをアップロードすることはできますが、もう少し作業は必要です。 IoT Hub には、ファイルのアップロードをサポートする2つの新しい REST エンドポイントがあります。1つはストレージの SAS URI を取得するため、もう1つは、完了したアップロードを IoT hub に通知するためのものです。 デバイスは、IoT hub に GET を送信することによって、ファイルのアップロードプロセスを開始します。そのためには、{iot hub}. azure/devices/{deviceId}/files/{filename} に移動します。 ハブは、アップロードするファイルに固有の SAS URI と、アップロードの完了後に使用する相関 ID を返します。 デバイスは、Azure Storage SDK を使用してストレージにファイルをアップロードします。 アップロードが完了すると、デバイスは、最初の GET から受け取った相関 ID を使用して、{iot hub}. azure/devices/{deviceId}/messages/files/notification/{correlationId} の IoT hub に投稿を送信します。</p>
+
+
+  <p>この機能を使用する場合にお客様のソリューションをデバッグできるように、新しい &ldquo; ファイルアップロード &rdquo; カテゴリを使用して IoT Hub &rsquo; の操作監視を更新しました。 新しいカテゴリは、IoT Hub との通信中に発生したエラーについて説明します。</p>
+
+
+  <ul>
+      <li>デバイスは、ファイルのアップロードが失敗したことをハブに通知します</li>
+      <li>デバイスがアップロードの完了をハブに通知する前に、SAS URI の有効期限が切れました</li>
+      <li>IoT Hub 通知メッセージの作成中に、記憶域にファイルが見つかりません</li>
+      <li>IoT Hub、関連付けられているストレージアカウント (不完全なキーロールオーバーなど) から SAS URI を作成できませんでした</li>
+  </ul>
+
+
+  <p>ファイルのアップロードを使用すると、以前に顧客がクラウドにファイルを取得するために多数のカスタムコードを記述する必要がある IoT ソリューションが可能になります。 アップロードを簡単に行うことができるように、IoT Hub は、完了したファイルのアップロードに関する通知と、デバッグに役立つ新しい操作の監視カテゴリも提供します。 この <a href="https://azure.microsoft.com/en-us/documentation/articles/iot-hub-devguide/">ドキュメント</a> では、IoT ソリューションでファイルのアップロードを使用する方法の詳細について説明します。そのため、IoT Hub を使用してファイルをアップロードします。</p>

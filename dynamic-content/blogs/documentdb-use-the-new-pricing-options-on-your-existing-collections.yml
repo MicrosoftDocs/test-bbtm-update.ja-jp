@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3ef9344ef474f53bc19f26498196410f2b184ef4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890203"
+Slug: documentdb-use-the-new-pricing-options-on-your-existing-collections
+Title: 'DocumentDB: 新しい価格オプションの使用について知る必要があるすべての情報'
+Summary: 先週の //Build 2016 では、価格とスケーリングのオプションの変更など、いくつかの大きな DocumentDB のお知らせを行いました。 詳細については、後の説明を参照してください。
+Content: >-
+  <p>先週の //Build 2016 では、価格とスケーリングのオプションの変更など、いくつかの大きな <a href="https://azure.microsoft.com/blog/documentdb-goes-planet-scale-with-global-databases-new-pricing-and-more-developer-choices/" target="_blank">DocumentDB</a> のお知らせを行いました。 これらの変更の一環として、<a href="https://azure.microsoft.com/services/documentdb/" target="_blank">DocumentDB</a>&rsquo; は新しい価格オプションのスループットからストレージ サイズを切り離し、ストレージの移動に応じて支払いを有効にし、アプリケーションのニーズに合ってカスタマイズ可能なユーザー定義のスループット レベルを実現しました。</p>
+
+
+  <h2>DocumentDB を既に使用していますか?</h2>
+
+
+  <p>既存の 10 GB 単一パーティション コレクションのサイズがニーズに適している場合に、新しいユーザー定義スループット <strong>レベル (単</strong>一パーティション <strong></strong> コレクションでは 1 秒あたり最大 10,000 <a href="https://azure.microsoft.com/documentation/articles/documentdb-request-units/" target="_blank">要求</a>ユニット) を利用したい場合は、わずか数クリックで Azure portal を変更できます。 手順については、「 <a href="https://azure.microsoft.com/documentation/articles/documentdb-performance-levels/#changing-performance-levels-using-the-azure-portal" target="_blank"><em>Azure Portal</em></a> を使用したパフォーマンス レベルの変更」を参照するか、Channel 9 の 75 秒のビデオをご <a href="https://channel9.msdn.com/Blogs/AzureDocumentDB/ChangeDocumentDBCollectionPerformance" target="_blank">覧ください</a>。</p>
+
+
+  <p>ユーザー定義のパフォーマンスを使用するために既存の単一パーティション <a href="https://azure.microsoft.com/documentation/articles/documentdb-performance-levels/" target="_blank"></a>コレクションを変更すると、コレクションは、S1、S2、または S3 コレクション (それぞれ) のスループットの 250、1000、または 2500 RU/s に制限されなくなりました。 代わりに、コレクションが新しい Standard&rsquo; 価格モデルに切り替わり、選択したスループット レベル (400 ~ 10,000 RU/s) に基づいて課金されます。 また、気が変わる場合は、S1、S2、または S3 コレクションに戻って切り替えます。</p>
+
+
+  <p>S1&rsquo; コレクションをユーザー定義のパフォーマンスに変更すると、同じ価格でスループットが約 60% 向上します。 そのため、10 GB のストレージと 250 RU/s のスループットを備え、1 か月あたり 25 ドルのコストがかかる S1 コレクションを現在お持ちで、Standard コレクションを 400 RU/s&rsquo; で使用する場合は、ほぼ同じコストがかかりますが、追加の 150 RU/s を取得する必要があります。</p>
+
+
+  <h2>より多くのストレージまたはスループットが必要ですか?</h2>
+
+
+  <p>コレクションあたり 10 GB を超えるストレージが必要ですか、または 10,000 RU/秒を超えるスループットが必要ですか? DocumentDB でも説明しました。 複数 <strong>のサーバー</strong>またはパーティション間でデータを分散するためにパーティション キーに依存する新しいパーティション分割コレクションを使用すると、単一パーティション コレクションよりも高いスループット レートで、より大きな量のデータを取り込む可能性があります。 パーティション分割されたコレクションを使用すると、1 つの DocumentDB コレクションで毎日 1,000 億件の要求を処理できます。</p>
+
+
+  <p>代わりにパーティション分割コレクションを使用するために既存のコレクションを切り替える必要がありますか? DocumentDB 移行ツールによって、変換が自動的に処理されます。 手順については、「単一 <a href="https://azure.microsoft.com/documentation/articles/documentdb-partition-data/#migrating-from-single-partition" target="_blank">パーティションコレクションからパーティション 分割コレクションへの移行」を参照してください</a>。</p>
+
+
+  <h2>新しいコレクションのオプションは何ですか?</h2>
+
+
+  <p>これらのオプションはすべて適切に聞こえます&rsquo;が、現在 DocumentDB アカウントやコレクションを持ってはいないでしょうか。 ご心配なく。 これらの価格オプションは、新しいコレクションでも使用できます。 使用 <a href="https://azure.microsoft.com/documentation/articles/documentdb-create-account/" target="_blank"><em>を開始するには、次のコマンドを使用して DocumentDB データベース アカウントAzure portal</em></a> する方法に関するページを参照してください。</p>
+
+
+  <p>ヘルプが必要な場合、または質問やフィードバックがある場合は、スタック オーバーフローに関<a href="https://stackoverflow.com/questions/tagged/azure-documentdb"></a>する開発者フォーラムに連絡するか、DocumentDB エンジニアリング チームとの 1 対 1 のチャットをスケジュールしてください。 Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報にしてください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

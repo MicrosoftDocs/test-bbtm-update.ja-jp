@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 597a44b44dee1a88f4c7875299c1ad3a9bd9ce7f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890192"
+Slug: event-hubs-dotnet-standard-client-reaches-ga
+Title: Event Hubs .NET Standard クライアントの一般提供が開始されました
+Summary: Azure Event Hubs には、現在一般公開されている2つの新しい .NET Standard クライアントがあります。
+Content: >-
+  <p>Microsoft では、内部とユーザーの両方において数カ月のテストを行った後、最新の Event Hubs クライアントを一般公開してい &nbsp; ます。 つまり、これらの新しいライブラリは実稼働の準備ができており、Microsoft によって完全にサポートされています。</p>
+
+
+  <h2>使用できる新しいライブラリ</h2>
+
+
+  <p>以前の設計上の決定と同じように、2つの新しい NuGet パッケージをリリースします。</p>
+
+
+  <ol style="margin-left: 40px;">
+      <li><a href="https://www.nuget.org/packages/Microsoft.Azure.EventHubs">EventHubs</a> &ndash; このライブラリは、 <a href="https://www.nuget.org/packages/WindowsAzure.ServiceBus/">windowsazure.servicebus</a> ライブラリに現在存在する Event Hubs 固有の機能で構成されています。 ここでは、Event Hub からのイベントの送受信などを行うことができます。</li>
+      <li><a href="https://www.nuget.org/packages/Microsoft.Azure.EventHubs.Processor">EventHubs</a> &ndash; は、microsoft. <a href="https://www.nuget.org/packages/Microsoft.Azure.ServiceBus.EventProcessorHost/">Azure. eventprocessorhost</a> ライブラリの機能を置き換えます。 これは、イベントハブからイベントを受信する最も簡単な方法であり、受信側間のオフセットやパーティション情報などを記憶する必要がありません。</li>
+  </ol>
+
+
+  <h2>これは何を意味するのでしょうか。</h2>
+
+
+  <p>これらの新しいライブラリをリリースすると、主に次の3つの利点があります。</p>
+
+
+  <ol style="margin-left: 40px;">
+      <li><a href="https://docs.microsoft.com/en-us/dotnet/articles/standard/library">.NET Standard</a>を使用したランタイムの移植性 &ndash; では、.net Core、.net framework、ユニバーサル Windows プラットフォームなど、さまざまな .net ランタイム間で移植可能な単一のコードベースを記述できるようになりました。 このライブラリは、.NET Framework 4.6、または .net Core を使用する Mac/Linux コンピューターで Windows サーバー上で実行できます。</li>
+      <li>オープンソース &ndash; はいます。 これらの新しいライブラリはオープンソースであり、 <a href="https://github.com/azure/azure-event-hubs-dotnet">GitHub</a>で使用できるようになっています。 お客様とのやり取りは、問題かプル要求かに関係なく、お客様にお寄せください。</li>
+      <li>Event Hubs には、Event Hubs と Service Bus が過去に結合されている間、独自のライブラリ &ndash; があります。この2つの製品間のユースケースは、しばしば異なる場合があります。 以前は、Event Hubs を使用するには、Service Bus ライブラリをダウンロードする必要があります。 これらの新しいライブラリは Event Hubs に固有のものであるため、新しいユーザーにとってより明確になります。</li>
+      <!--EndFragment-->
+  </ol>
+
+
+  <h2>次の&#39;は何ですか?</h2>
+
+
+  <p>現在 <a href="https://www.nuget.org/packages/WindowsAzure.ServiceBus/">windowsazure.servicebus</a> ライブラリを使用している方は、今後もこのライブラリの Event Hubs ワークロードを引き続きサポートします。 ただし、現在のところ、プレビュー版の<a href="https://github.com/azure/azure-service-bus-dotnet">.NET Standard Service Bus</a>ライブラリがあります。</p>
+
+
+  <p>これらの新しいライブラリの概要については、更新された <a href="https://docs.microsoft.com/azure/event-hubs/event-hubs-dotnet-standard-getstarted-send">入門ドキュメント</a>を参照してください。</p>
+
+
+  <p>新しいライブラリを試してみて、ご意見を <a href="https://github.com/Azure/azure-event-hubs-dotnet/issues/new">お聞かせ</a>ください。</p>

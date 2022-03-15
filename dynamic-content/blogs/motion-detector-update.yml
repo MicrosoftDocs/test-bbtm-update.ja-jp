@@ -1,0 +1,376 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7ba13e42af3eccac1597f37ff779b6769a9f01f2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890120"
+Slug: motion-detector-update
+Title: Azure Media Services モーション検出機能では、検出ゾーン、感度レベルなどが追加されます。
+Summary: サービスに多数の新機能を追加する更新プログラムをリリースしました。これには、精度の向上、感度の調整、複数の多角形検出ゾーン、イベントのマージなどが含まれます。
+Content: >-
+  <p>2か月前に、Azure Media Services でのモーション検出のパブリックプレビューを発表しました。 ここでは、精度の向上、感度の調整、複数の多角形検出ゾーン、イベントのマージなど、多数の新機能をサービスに追加する更新プログラムをリリースします。 これらの変更により、モーション検出を特定の entryway に限定したり、特定のユースケースに合わせて感度レベルを変更したりして、誤検知を簡単に減らすことができます。</p>
+
+
+  <p>これにより、クラウドの2番目のパスで既に na &iuml; ve モーション検出機能が組み込まれているセキュリティカメラをさらに簡単に補完できます。これにより、多数の誤アラームから実際の動きが除外されます。</p>
+
+
+  <h2>新機能</h2>
+
+
+  <h4>多角形検出ゾーン</h4>
+
+
+  <p>以前のバージョンのモーション検出では、画面全体でイベントが検出されました。 これは望ましくない場合があります。たとえば、ビジーストアでは、フロント入口または現金レジスタでのモーションにのみアラートが必要になります。 新しい多角形のゾーンでは、ユーザーが指定した多角形に対してのみ、モーションが報告される場所が絞り込まれます。 これらのゾーンは、3つ以上のポイントで作成でき、単純なポリゴンである必要があります。</p>
+
+
+  <p><img alt="image" border="0" height="259" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9149507-4b0d-4e2f-b08e-640396ebac74.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="479"></p>
+
+
+  <h4>感度レベル</h4>
+
+
+  <p>選択肢には、低、中、高の3つの秘密度レベルがあります。高い感度とは、より小さな移動も報告されることを意味します。 感度は、報告される誤検知の量を制御する場合に役立ちます。</p>
+
+
+  <h4>しきい値のマージ</h4>
+
+
+  <p>イベントマージでは、指定された期間内に発生する複数のモーションイベントが、1つのイベントに結合されます。 たとえば、ビジー状態では、これを使用すると、長いイベントを1つの長いイベントとして報告することによって発生するアラートの数を減らすことができます。</p>
+
+
+  <p><img alt="image" border="0" height="132" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4450ff61-158b-400e-90bd-79de49ecafdb.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="image" width="453"></p>
+
+
+  <h3>モーションの場所</h3>
+
+
+  <p>モーションが登録された領域を報告するだけでなく、四角形の境界ボックスを使用してモーションが発生した領域も、出力ファイルによって定義されます。 次の例を確認してください。</p>
+
+
+  <p>&quot;場所 &quot; : [{<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;x &quot; : 0.004184、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;y &quot; : 0.007463、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;幅 &quot; : 0.391667、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;高さ &quot; : 0.185185<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }]</p>
+
+
+  <h2>入力構成ファイル</h2>
+
+
+  <p>入力構成は、前述の機能を報告するように拡張されています。 以前のバージョンの空のプリセットでは、以下の既定値が使用されます。</p>
+
+
+  <p>JSON のサンプル:</p>
+
+
+  <p>{<br>
+
+  &nbsp; &#39;バージョン&#39;: &#39;1.0&#39;、<br>
+
+  &nbsp; &#39;オプション&#39;: {<br>
+
+  &nbsp;&nbsp;&nbsp; &#39;sensitivityLevel&#39;: &#39;medium&#39;、<br>
+
+  &nbsp;&nbsp;&nbsp; &#39;frameSamplingValue&#39;: 1、<br>
+
+  &nbsp;&nbsp;&nbsp; &#39;検出ライトの変更&#39;: &#39;false&#39;、<br>
+
+  &nbsp;&nbsp;&nbsp;&quot;mergetimethreshold &quot; :<br>
+
+  &nbsp;&nbsp;&nbsp; &#39;00:00:02&#39;、<br>
+
+  &nbsp;&nbsp;&nbsp; &#39;detectionZones&#39;: [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0、&#39;y&#39;: 0}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.5、&#39;y&#39;: 0}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0、&#39;y&#39;: 1}<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.3、&#39;y&#39;: 0.3}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.55、&#39;y&#39;: 0.3}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.8、&#39;y&#39;: 0.3}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.8、&#39;y&#39;: 0.55}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.8、&#39;y&#39;: 0.8}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.55、&#39;y&#39;: 0.8}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.3、&#39;y&#39;: 0.8}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.3、&#39;y&#39;: 0.55}<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br>
+
+  &nbsp;&nbsp;&nbsp; ]<br>
+
+  &nbsp; }<br>
+
+  }</p>
+
+
+  <table border="0" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top" width="208">
+     <p><b>Name</b></p>
+     </td>
+     <td valign="top" width="208">
+     <p><b>形式/オプション</b></p>
+     </td>
+     <td valign="top" width="261">
+     <p><b>説明</b></p>
+     </td>
+     <td valign="top" width="155">
+     <p><b>[Default]</b></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>sensitivityLevel</p>
+     </td>
+     <td valign="top" width="208">
+     <p>文字列: </p>
+
+     <p>&lsquo;低 &rsquo; 、 &lsquo; 中 &rsquo; 、 &lsquo; 高&rsquo;</p>
+     </td>
+     <td valign="top" width="261">
+     <p>モーションが報告される感度レベルを設定します。 この値を調整して、誤検知の量を調整します。</p>
+     </td>
+     <td valign="top" width="155">
+     <p>&lsquo;medium&rsquo;</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>frameSamplingValue</p>
+     </td>
+     <td valign="top" width="208">
+     <p>正の整数</p>
+     </td>
+     <td valign="top" width="261">
+     <p>アルゴリズムの実行頻度を設定します。 1はすべてのフレーム、2は 2<sup>nd</sup> フレームを意味します。</p>
+     </td>
+     <td valign="top" width="155">
+     <p>1</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>detectLightChange</p>
+     </td>
+     <td valign="top" width="208">
+     <p>ブール値: </p>
+
+     <p>&lsquo;true &rsquo; 、 &lsquo; false&rsquo;</p>
+     </td>
+     <td valign="top" width="261">
+     <p>ライトの変更が結果に報告されるかどうかを選択します</p>
+     </td>
+     <td valign="top" width="155">
+     <p>&lsquo;False&rsquo;</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>mergeTimeThreshold</p>
+     </td>
+     <td valign="top" width="208">
+     <p>xs time: Hh: mm: ss</p>
+
+     <p>例:00:00:03</p>
+     </td>
+     <td valign="top" width="261">
+     <p>1つのイベントに結合される、モーションイベント間の時間枠を指定します。</p>
+     </td>
+     <td valign="top" width="155">
+     <p>00:00:00</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>detectionZones</p>
+     </td>
+     <td valign="top" width="208">
+     <p>検出ゾーンは3つ以上のポイントです。</p>
+
+     <p>Point は、0から1までの x および y 座標です。</p>
+     </td>
+     <td valign="top" width="261">
+     <p>使用する多角形検出ゾーンの一覧。</p>
+
+     <p>出力 json ファイルは、0から始まる id を使用してこれらのゾーンを参照します。</p>
+     </td>
+     <td valign="top" width="155">
+     <p>フレーム全体の単一のゾーン</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>JSON の結果の出力</h2>
+
+
+  <p>新しい機能の多くを反映するために、出力 JSON 形式が変更されました。</p>
+
+
+  <table border="0" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top" width="208">
+     <p><strong>名前</strong></p>
+     </td>
+     <td valign="top" width="208">
+     <p><strong>説明</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>regions</p>
+     </td>
+     <td valign="top" width="208">
+     <p>領域には、古い四角形ではなく多角形領域が一覧表示されるようになりました。 現在使用できる型は &ldquo; polygon &rdquo; です。 将来は、円などのさまざまな型をサポートする場合があります。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>version</p>
+     </td>
+     <td valign="top" width="208">
+     <p>新しい出力バージョン id は2です</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="208">
+     <p>locations</p>
+     </td>
+     <td valign="top" width="208">
+     <p>イベントの下にあるこの新しいエントリには、モーションが発生した場所が示されます。 これは検出ゾーンよりも具体的です。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>{<br>
+
+  &nbsp;&quot;バージョン &quot; : 2、<br>
+
+  &nbsp;&quot;タイムスケール &quot; : 23976、<br>
+
+  &nbsp;&quot;オフセット &quot; : 0、<br>
+
+  &nbsp;&quot;フレームレート &quot; :24、<br>
+
+  &nbsp;&quot;幅 &quot; : 1280、<br>
+
+  &nbsp;&quot;高さ &quot; : 720、<br>
+
+  &nbsp;&quot;リージョン &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;id &quot; : 0、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;型 &quot; : &quot; polygon &quot; 、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;ポイント &quot; : [{&#39;x&#39;: 0、&#39;y&#39;: 0}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0.5、&#39;y&#39;: 0}、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&#39;x&#39;: 0、&#39;y&#39;: 1}]<br>
+
+  &nbsp;&nbsp;&nbsp; }<br>
+
+  &nbsp; ],<br>
+
+  &nbsp;&quot;フラグメント &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;開始 &quot; : 0、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;期間 &quot; : 226765<br>
+
+  &nbsp;&nbsp;&nbsp; },<br>
+
+  &nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;開始 &quot; : 226765、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;期間 &quot; : 47952、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;間隔 &quot; : 999、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;イベント &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;種類 &quot; : 2、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;typeName &quot; : &quot; motion &quot; 、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;場所 &quot; : [<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;x &quot; : 0.004184、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;y &quot; : 0.007463、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;幅 &quot; : 0.991667、<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;高さ &quot; : 0.985185<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;regionid &quot; : 0<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</p>
+
+
+  <p>&hellip;</p>
+
+
+  <p>詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-motion-detection/" target="_blank">ドキュメントページ</a>を参照してください。</p>
+
+
+  <h2>AMSE</h2>
+
+
+  <p><a href="https://aka.ms/amse" target="_blank">Azure Media Services Explorer</a>のオープンソースプロジェクトでは、3.42.0.0 のような新機能もサポートされています。</p>
+
+
+  <p><img alt="clip_image002" border="0" height="400" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e5ac96a4-6482-4c7b-bf04-1ebc26c54207.jpg" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image002" width="480"></p>
+
+
+  <h2>お問い合わせ</h2>
+
+
+  <p>詳細については、 <a href="https://azure.microsoft.com/en-us/blog/topics/media-services-2/">Azure ブログ&#39;s Media Services 投稿</a>を参照してください。これにより、モーション検出メディアプロセッサと Media Analytics イニシアチブの最新情報を入手できます。</p>
+
+
+  <p>機能に関する要望を <a href="https://feedback.azure.com/forums/169396-azure-media-services/category/146181-media-analytics" target="_blank">UserVoice</a>に送信します。 Media Analytics 製品に関する質問については、に <a href="mailto:amsanalytics@microsoft.com">amsanalytics@microsoft.com</a> 電子メールをお送りください。</p>

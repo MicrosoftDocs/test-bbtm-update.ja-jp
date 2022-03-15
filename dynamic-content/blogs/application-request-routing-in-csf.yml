@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 728cf6f06a9f83953809f71f1c6432244bf14816
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890318"
+Slug: application-request-routing-in-csf
+Title: CSF でのアプリケーション要求ルーティング
+Summary: >-
+  編集者注: この記事は、AzureCAT チームの Christain Christnez 氏によって作成されています。
+
+
+  アプリケーション要求ルーティング (または ARR) は、おそらく最も重要ではないが非常に重要なものの 1 つです。
+Content: >-
+  <strong>エディターの注: </strong>この記事は、AzureCAT チーム <a href="https://social.msdn.microsoft.com/profile/christian.martinez/">の Christain Christnez</a> 氏によって作成されています。
+
+
+  <a href="https://www.iis.net/downloads/microsoft/application-request-routing" target="_blank">アプリケーション</a>要求ルーティング (または ARR) は、おそらく、Microsoft 全体で使用される最も重要なテクノロジの 1 つであり、<a href="https://azure.microsoft.com/en-us/services/web-sites/" target="_blank">Windows Azure Web サイト、Outlook.com</a>、その他多くの高ボリュームで重要なアプリケーションなどの機能を提供するのに役立ちます。 その後、Azure アプリケーションで直接使用Windows、さらに少ない方法で説明します。 CSF が示すパターンの 1 つは、複数のクラウド サービス間で作業を分割し、ユーザーに基づいてクラウド サービスとのアフィニティを透過的に作成するパターンの 1 つなので、クラウド サービスの基礎で使用しました。 このアプローチは、クラウド サービスがスケール ユニットとして使用され、高い局所性 (データがそれを使用するコードに近い) というパフォーマンス上の利点がある大規模な顧客との以前の経験に基づいて行います。 ARR は、要件を満たすのに役立つ自然な適合です。
+
+
+  最初は複数のメッセージを聞Cloud Services、"Hold on second...そのため、複数のクラウド サービスがあります。 単に Windows Azure Traffic Manager (WATM)" を使用してください。 実際、パフォーマンスまたはビジネス継続性の理由で複数のクラウド サービス間で作業を分割した場合、ほとんどのルーティングニーズでは、WATM がおそらく適切な選択肢です。 ただし、この場合は要件を満たしていけなかったのです。 WATM には、負荷分散の 3 つの方法が用意されています。
+
+  <ul>
+   <li>パフォーマンス</li>
+   <li>[フェールオーバー]</li>
+   <li>ラウンド ロビン</li>
+  </ul>
+
+  これらは非常に良いですが、(Cookie によって決定される) ユーザーに基づいてクラウド サービスにユーザーを送信する要件を満たす人は誰もいます。
+
+
+  ARR を使用するには、次の 4 つが必要でした。
+
+  <ol>
+   <li>ARR Windowsする Web ロールで構成される Azure Cloud Service の構成</li>
+   <li>ARR をインストールして構成するスクリプト</li>
+   <li>ARR 規則を構成する</li>
+   <li>ユーザーが以前のアクセスで Cookie を持ってない場合の操作を決定する</li>
+  </ol>
+
+  すべての詳細とコードについては、こちらを参照 <a href="https://code.msdn.microsoft.com/Cloud-Service-Fundamentals-4ca72649">してください</a>。 これらの手順の大部分は、Azure 上の ARR を活用するソリューションに対して汎用的なので、ここでは CSF 固有の 2 つの部分について説明します。
+
+  <ul>
+   <li>Route-by-Cookie ルール – ARR ルーティング規則は CSF に対してどのような外観でしたか?</li>
+   <li>Cookie が存在しない – Cookie が存在しないときに行ったことと、その方法。</li>
+  </ul>
+
+  <h4>Cookie 規則によるルーティング</h4>
+
+  Cookie を使用してユーザーをルーティングするロジックは次のように表示されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7128.aa_.png-550x0.png"><img class="alignnone size-full wp-image-134111" alt="7128.aa.png-550x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7128.aa_.png-550x0.png" width="550" height="142" /></a>
+
+
+  ルールの構成はやや複雑なトピックになる <a href="https://www.iis.net/learn/extensions/url-rewrite-module/url-rewrite-module-configuration-reference#Rewrite_Rule_Configuration" target="_blank">可能性がありますが</a> 、上記のロジックでは基本的に英語で次のように示されています。
+
+
+  <em>要求が SSL を超え、相対パスであり、userpod=(some number) 形式のユーザー Cookie が含まれている場合は、等号の後に Cookie の部分をキャプチャし、キャプチャした値を挿入して宛先 URL を書き換えてください。</em>
+
+
+  確かに、見た目は少し変ですが、しばらくすると慣れる可能性があります。
+
+  <h4>Cookie が存在しない</h4>
+
+  しかし、Cookie が検出されない場合は、どうしますか? 解決方法は複数ありますが、 <a href="https://www.iis.net/learn/extensions/url-rewrite-module/developing-a-custom-rewrite-provider-for-url-rewrite-module" target="_blank">IRewriteProvider と IProviderDescriptor</a> という 2 つのインターフェイスを実装するクラスを作成することを決定しました。 1 つ目のインターフェイスでは、要求入力に基づいてカスタム URL を返すコードを使用できます。2 つ目のインターフェイスでは、カスタム入力の単純な構成を指定できます。プロバイダーのコードは、構成済みのポッドを取得し、Cookie なしの要求が入るたびにラウンド ロビン方式で選択したコードです。 これは、整数をインクリメントし、最後のスポットにヒットした場合に周りを回るという点で、有益なコードではありません。
+
+
+  構成コードの方が少し興味深いですが、多くはありません。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7167.bb_.png-350x0.png"><img class="alignnone size-full wp-image-134101" alt="7167.bb.png-350x0" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7167.bb_.png-350x0.png" width="350" height="107" /></a>
+
+
+  これにより、特定のポッドの URL を入力できるグリッドが作成されます。 そのため、このすべての正味の効果は、Cookie が存在しない場合に選択するアドレスの数を設定して構成可能なコードが得られます。
+
+  <h4>最後に</h4>
+
+  ARR は、Microsoft 全体で広く使用されている強力なツールです。 このブログでは、CSF シナリオで使用した理由を説明しましたが、このシナリオでは、ARR で実行できる機能の表面しか引き起こされません。 たとえば、これまで見てきた一般的な使用の 1 つは<em></em>クラウド サービス内であり、必要な任意のパターンでルーティングと負荷分散を利用できます。 WATM や他の事前構築済みサービスでニーズを満たすことができますが、この強力で汎用性の高いオプションを見過ごせない場合は便利です。

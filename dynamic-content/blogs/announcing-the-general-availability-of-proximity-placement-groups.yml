@@ -1,0 +1,87 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fb105d1a5ebcd820eee665ae5bc240d131dd269b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891212"
+Slug: announcing-the-general-availability-of-proximity-placement-groups
+Title: 近接配置グループの一般提供の発表
+Summary: 今年の初めに、Azure 近接通信配置グループのプレビューを発表しました。これにより、お客様は、ネットワーク待機時間が短い Azure サービスとしてのインフラストラクチャ (IaaS) リソースのコロケーションを実現できます。
+Content: >-
+  <p>今年の初めに<a href="https://azure.microsoft.com/en-us/blog/introducing-proximity-placement-groups/" target="_blank"></a>、Azure 近接通信配置グループのプレビューを発表しました。これにより、お客様は、ネットワーク待機時間が短い Azure サービスとしてのインフラストラクチャ (IaaS) リソースのコロケーションを実現できます。</p>
+
+
+  <p>現在&rsquo;、近接配置グループの一般提供は、低待機時間を必要とするワークロードに特に役立ちます。 実際、この論理グループ化構成体は、IaaS リソース (仮想マシンまたは VM) が物理的に互いに近くに位置し、成功するための新機能とベスト プラクティスを追加します。</p>
+
+
+  <p><img alt="Diagram describing the relationship between VMs, VM scale sets, availability sets and proximity placement groups. " border="0" height="547" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d81931b1-5d1c-40a5-8400-860266f9e5a8.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="522"></p>
+
+
+  <h3>その他のリージョン、より多くのクラウド</h3>
+
+
+  <p>現在、近接配置グループは、すべての Azure パブリック クラウド リージョンで使用できます。</p>
+
+
+  <h3>ポータルのサポート</h3>
+
+
+  <p>近接配置グループは、次のAzure portal。 近接配置 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/proximity-placement-groups-portal" target="_blank">グループを作成し、</a> IaaS リソースを作成するときに使用できます。</p>
+
+
+  <h3>既存のリソースを近接配置グループとの間で移動する</h3>
+
+
+  <p>これで、近接配置グループAzure portal既存のリソースを移動 (および近接配置グループから) 移動できます。 この構成操作では、近接通信配置グループに割り当てる前に、スケール セットまたは可用性セット内のすべての VM を停止 (割り当て) する必要があります。</p>
+
+
+  <h3>SAP アプリケーションのサポート</h3>
+
+
+  <p>近接配置グループの一般的な用途の 1 つは、SAP などの多層のミッション クリティカルなアプリケーションです。 Azure&rsquo; 上の <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/sap/sap-proximity-placement-scenarios" target="_blank">SAP インスタンスと SAP</a> HANA Virtual Machinesのサポートを <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/sap/sap-proximity-placement-scenarios#proximity-placement-groups-and-hana-large-instances" target="_blank">発表しました</a>。</p>
+
+
+  <h3>Azure で仮想マシンの待機時間を測定する</h3>
+
+
+  <p>アプリケーションやデータベースなど、サービス内のコンポーネント間の待機時間を測定する必要がある場合があります。 Azure&rsquo; で VM ネットワーク待ち時間をテストする方法に関する <a href="https://aka.ms/TestNetworkLatency" target="_blank">手順とツールについて</a> 説明しました。</p>
+
+
+  <h3>経験から学ぶ</h3>
+
+
+  <p>近接&rsquo;配置グループの導入を監視し、プレビュー期間中に顧客が目にした障害を分析し、近接配置グループを<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/co-location#best-practices" target="_blank"></a>使用するためのベスト プラクティスを紹介しました。</p>
+
+
+  <p><img alt="Azure Portal user interface to configure a proximity placement group and see all the relevant properties. " border="0" height="512" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bcfc2a0a-4589-4a9b-89c3-bacf57ae1e7f.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1136"></p>
+
+
+  <h2>ベスト プラクティス</h2>
+
+
+  <p>開発に役立つベスト プラクティスの一部を次に示します。</p>
+
+
+  <ul>
+      <li>最も短い待ち時間を実現するには、近接通信配置グループを高速ネットワークと共に使用します。 高速ネットワークによって、VM との間でシングル ルート I/O 仮想化 (SR-IOV) が可能になり、ネットワークのパフォーマンスが大幅に向上します。 この高パフォーマンス パスは、データ パスからホストをバイパスし、待機時間、ジッター、CPU 使用率を削減します。 詳細については、「高速ネットワークを使った Linux 仮想マシンの作成」または「高速ネットワークを使った Windows 仮想マシンの作成」を参照してください。</li>
+      <li>異なるファミリや SKU の VM で近接通信配置グループをデプロイする場合は、1 つのテンプレートですべてデプロイしてみてください。 これにより、すべての VM が正常にデプロイされる確率が高くなされます。</li>
+      <li>近接配置グループは、最初のリソース (VM) がデプロイされ、最後のリソースが削除または停止された後に解放されると、データ センターに割り当てられます。 すべてのリソースを停止すると (コストを節約するためにを含む)、それらを持ち帰った後は別のデータ センターに移動する可能性があります。 メモリ最適化 (M、Msv2)、ストレージ最適化 (Lsv2)、GPU が有効になっている可能性がある最大の VM から始め、割り当てエラーの可能性を減らします。</li>
+      <li>PowerShell、CLI、または SDK を使用してデプロイをスクリプト化する場合は、割り当てエラー OverconstrainedAllocationRequest が発生する可能性があります。 この場合は、既存のすべての VM を停止して割り当てを解除し、デプロイ スクリプト内のシーケンスを、失敗した VM SKU/サイズで始まるように変更する必要があります。</li>
+      <li>VM が削除された既存の近接通信配置グループを再利用する場合は、VM を追加する前に、削除が完全に完了するまで待ちます。</li>
+      <li>近接配置グループは、可用性ゾーンと共に使用できます。 PPG&rsquo; ではゾーンをまたがれはしませんが、この組み合わせは、それぞれが別々のゾーンにあるアクティブ/スタンバイデプロイの場合のように、ゾーン内の待機時間を気にする場合に便利です。</li>
+      <li>可用性セットと可用性Virtual Machine Scale Sets間の待機時間は保証Virtual Machines。 従来、可用性セットは 1 つのデータセンターにデプロイされましたが、この前提はもう保持されません。 そのため、1 つの可用性セットまたはスケール セットにデプロイされた単一層アプリケーションがある場合でも、近接配置グループを使用すると便利です。</li>
+      <li>Azure Virtual Machine Scale Set の新機能 (現在はプレビュー中) で近接配置グループを使用します。この機能は、1 つのスケール セット内の異種仮想マシンのサイズとファミリをサポートし、共有イメージ ギャラリーを備えるカスタム イメージを使用して、単一の可用性ゾーン内の障害ドメインで高可用性を実現します。</li>
+  </ul>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>リソースをコロケーションして待ち時間を短縮する方法については、近接配置グループのドキュメントを参照 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/co-location?ocid=AID754288&amp;wt.mc_id=azfr-c9-dbrown&amp;wt.mc_id=CFID0493" target="_blank">してください</a>。</p>
+
+
+  <p>Azure IaaS ポートフォリオへの最新の追加の詳細については、すべてのワークロードに関する Azure サービスとしてのインフラストラクチャ <a href="https://azure.microsoft.com/en-us/blog/azure-iaas-for-every-workload/" target="_blank">(IaaS)</a> に関するブログを参照してください。</p>
+
+
+  <p>近接配置グループの詳細については、この短いビデオをご覧ください。 <a href="https://channel9.msdn.com/Shows/Azure-Friday/How-to-reduce-inter-VM-latency-with-Proximity-Placement-Groups" target="_blank">Azure Friday - 近接配置グループを使用して VM 間の待機時間を短縮する方法</a>。</p>

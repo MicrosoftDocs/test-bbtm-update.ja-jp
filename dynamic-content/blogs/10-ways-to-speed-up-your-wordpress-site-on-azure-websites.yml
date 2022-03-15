@@ -1,0 +1,142 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8bab3fdf6beabc2061f7919ce3363a20da12d6bd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896320"
+Slug: 10-ways-to-speed-up-your-wordpress-site-on-azure-websites
+Title: Azure App Service で WordPress サイトをスピードアップする方法
+Summary: WordPress は紹介する必要はありません。これは、動的な Web サイトをすばやく作成できる、最も急速に成長しているオープン ソース CMS ソリューションです。 WordPress サイトに追加するプラグイン、コンテンツ、カスタマイズが多くなると、WordPress サイトの速度が低下し始める可能性があります。 このブログ記事では、WordPress サイトを高速化するためのヒントとテクニックを紹介します。
+Content: >-
+  <p>ページの読み込み時間が遅いと、ターゲット ユーザーの対象ユーザーに影響を与え、Web サイトに再びアクセスできない可能性があります。 多くの検索エンジンでは、結果のランク付け時にページの読み込み時間も考慮され、検索エンジンの結果に対する Web サイトの可視性に影響を与える可能性があります。 &nbsp;Web アプリケーション を高速化するために実行する手順について説明する前に、待機時間の原因となる可能性がある App Service の主要な設計要素を理解します。 ページ要求に待機時間を追加できる App Service の 2 つの主要な設計要素を次に示します。</p>
+
+
+  <ul>
+   <li>Web Appsストレージ ディスクを使用する&nbsp;</li>
+   <li>アプリ内 MySQL 機能を使用していない<a href="https://blogs.msdn.microsoft.com/appserviceteam/2016/08/18/announcing-mysql-in-app-preview-for-web-apps/"></a>場合、Web Apps で使用される他の MySQL ソリューションは、受信した reuqest を処理するのと同じマシン上に保存されません。&nbsp;</li>
+  </ul>
+
+
+  <p>これらのアーキテクチャ設計構成の結果、App Service のさまざまな機能の柔軟性が得られますが、コードを実行すると、要求ごとにストレージや MySQL データベースに対する呼び出しが多すぎると、ページの応答時間に待機時間が長くなる可能性があります。</p>
+
+
+  <p>以下で説明するこれらの簡単な手順を実装して、アプリケーションを高速化してください。</p>
+
+
+  <h4>1.Web サイトとデータベースが同じデータ センターにある必要がある</h4>
+
+
+  <p>Azure Websites で WordPress サイトを実行する場合は、データベースと Web サイトが同じデータ センター内にあることを確認します。 Web サイトがデータベースの呼び出しを行う必要がある場合、ネットワーク待機時間によってサイトのページ読み込み時間が長くなる可能性があります。 サイトとデータベースのコンポーネントを同じデータ センターに保持すると、ネットワーク待機時間が短縮され、Web サイトのページ読み込み時間が短縮されます。</p>
+
+
+  <p>2.Do Web アプリに ClearDB FREE MySQL データベースを使用しない</p>
+
+
+  <p>サイトを開発している場合は、Web サイト アプリケーション ギャラリーから WordPress インストールに付属する無料の MYSQL データベースを使用できます。 ただし、これは、実稼働レベルのサイトには最適ではありません。 FREE データベースには次の情報があります。</p>
+
+
+  <ul>
+   <li>データベースの最大 20 MB ストレージ</li>
+   <li>最大 4 つの接続を許可 (max_connections)</li>
+   <li>低パフォーマンス</li>
+  </ul>
+
+
+  <p>次に示す ClearDB でサポートされている他のさまざまなオプションからの推定ユーザー トラフィックを処理できるデータベースに対して を使用することをお勧 <a href="https://www.cleardb.com/store/azure">めします</a>。 追加コストがかからない &nbsp;データベースを探している場合は、アプリ内 MySQLを検討してください <a href="https://azure.microsoft.com/en-us/blog/mysql-in-app-preview-app-service/">。ただし、</a> 制限 <a href="https://blogs.msdn.microsoft.com/appserviceteam/2016/08/18/announcing-mysql-in-app-preview-for-web-apps/">があります</a>。&nbsp;</p>
+
+
+  <p>3. Web アプリのニーズに合った適切な MySQL データベース ソリューションを使用する&nbsp;</p>
+
+
+  <p>データベースに適切なソリューションのいずれかを使用して調査します。 これらのソリューションを使用してアプリケーションを調査してテストし、パフォーマンスを向上させる最適な適合を確認します。</p>
+
+
+  <ul>
+   <li><a href="https://blogs.msdn.microsoft.com/appserviceteam/2016/08/18/announcing-mysql-in-app-preview-for-web-apps/" style="font-family: Tahoma, &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-weight: normal;">アプリ内 MySQL</a>&nbsp;アプリケーションをホストしている同じマシン インスタンス上の Local MySQL データベースが提供されます&nbsp;</li>
+   <li>ClearDB によって提供される MySQL&nbsp; ソリューションサードパーティ のサービス</li>
+   <li><a href="https://github.com/Azure/azure-quickstart-templates/tree/master/mysql-replication">仮想マシン上の&nbsp; MySQL</a>これは、独自の MySQL サーバーをホストする IaaS ソリューションです。</li>
+  </ul>
+
+
+  <h4>4.データベース&nbsp;を最適化する</h4>
+
+
+  <p>WordPress では、すべてを自動保存しますが、欠点は、データベースに多くの事後リビジョン、トラックバック、pingback、コメント、ごみ箱の項目がすばやく入力され、定期的に手動でクリーンアップする必要がある点です。 Web サイトで使用しているデータベース プランでは、データベースに割り当てられるストレージ サイズに制限があり、データベースが定期的にクリーンアップされない場合は、この制限に達する可能性もあります。 <a href="https://wordpress.org/plugins/wp-optimize/">WP-Optimize</a> は、データベースを定期的にクリーンアップして、データベースの効率を高め、保持する必要があるものだけを入力できる優れプラグインです。 データベースを最適化およびクリーンアップするための手動クエリを実行せずに、時間を節約できます。</p>
+
+
+  <p>5. イメージの圧縮</p>
+
+
+  <p>WordPress サイトにイメージが多い場合、イメージはサイトの帯域幅の大部分を消費する可能性があります。 この場合は、次の 2 つの操作を実行できます。</p>
+
+
+  <ul>
+   <li><strong>すべてのメディア コンテンツを Azure Storage BLOB</strong> に格納する: <a href="https://wordpress.org/plugins/windows-azure-storage/">Azure Storage</a> プラグインを使用します。これにより、Web サイトでは、WordPress サイトの <strong><em>uploads</em></strong> ディレクトリではなく、Azure Storage に新しいコンテンツを格納できます。 サイトのメディア コンテンツが多い場合は、帯域幅を減らすために、Azure CDNを使用Azure Storage役立ちます。</li>
+   <li><strong>画像を圧縮する:</strong> <a href="https://wordpress.org/plugins/wp-smushit/">WP Smush.it</a> は、画像をメディア ライブラリにアップロードすると自動的に圧縮される、最適なプラグインです。 圧縮中にデータが失われるので、&rsquo;画像の品質に違いはありません。 何千ものイメージがメディア ライブラリに保存されている場合は、プラグインを介してそれらをすべて実行して、管理可能なサイズに圧縮できます。</li>
+  </ul>
+
+
+  <h4>6.HTTP 要求を減らす</h4>
+
+
+  <p>すべての Web サイトは、JS、CSS ファイル、サード パーティのサービスまたはライブラリに対して複数の依存要求を行います。 すべての JavaScript を 1 つの JavaScript ファイルに、すべての CSS を 1 つの CSS ファイルに入れる方が非常に効率的であり、可能な限り依存する要求を減らすことが役立ちます。 CSS/JS スクリプトの場合は、<a href="https://wordpress.org/plugins/bwp-minify/"> Better WordPress Minify のような minify </a>プラグインを実行できます。これにより、すべてのスタイル シートと JavaScript ファイルが 1 つに結合され、ブラウザーが行う必要がある要求の数が減少します。 サイトでサード パーティのライブラリを使用&rsquo;している場合は、それらをローカルにコピーして、帯域幅を削減するためにライブラリを提供するサービスを呼び出す方が良いです。</p>
+
+
+  <p>7.次のAzure CDN</p>
+
+
+  <p>読み込みに時間がかかっている静的コンテンツの結果として低速が低下する可能性がある場合は、<a href="https://www.iis.net/configreference/system.webserver/staticcontent">IIS</a> の静的コンテンツ キャッシュを使用するか、 を使用<a href="https://azure.microsoft.com/en-us/services/cdn/">Azure CDN</a>。 &nbsp;</p>
+
+
+  <h4>8.テーマがサイトの速度を低下している場合に診断する</h4>
+
+
+  <p>プラグインと同様に、一部のテーマは書き込み方法が不十分であり、サイトの速度が低下する可能性があります。 テーマがページ読み込み時間の長い時間を担うのかテストします。 これを行うには、既定の WordPress テンプレート TwentyFourteen に戻り、ページの読み込み時間がはるかに優れたものか確認します。 "はい" の場合は、テーマが原因である可能性があります。 これを解決するには、別のテーマを選択します。 テーマを古いバージョンに戻した後のページ読み込み時間に違いがない場合は、このブログに記載されているヒントを試してください。</p>
+
+
+  <h4 id="plugin">9.プラグインによってサイトの速度が低下している場合に診断する</h4>
+
+
+  <p>一部のプラグインは、特に書き込みまたは構成が不十分な場合に、サイトの速度低下の原因になる可能性があります。 <a href="https://wordpress.org/plugins/p3-profiler/">P3</a> などのプラグインを使用して、アプリケーションで使用されるプラグインがページ読み込み時間にどの量影響を与えるのか理解します。サイトを高速化するために必要なアクションを実行する場合、未使用のプラグインがある場合、WordPress がアクティブ化されたプラグインの読み込み時にページ読み込み時間を追加できます。 使用されていないすべてのプラグインをクリーンアップまたは削除します。 Web サイトを改善し、サイトのパフォーマンスを引き出すことのできないプラグインのみを使用しました。</p>
+
+
+  <p>App Service プラットフォームでは、少なくとも 2 つのプラグインが低速な Captcha と Visual Composer であるのを確認しました。 これらのプラグインの適切な置換を見つける。&nbsp;</p>
+
+
+  <h4>10.Pingbacks と Trackbacks を使用しない場合&#39;オフにする</h4>
+
+
+  <p>WordPress では Pingbacks メソッドと trackbacks メソッドを使用して、投稿がリンクしている他のブログに警告します。</p>
+
+
+  <ul>
+   <li>pingback は、pingback が&rsquo;有効になっている別のブログ投稿にリンクするときに作成されるコメントの一種です。</li>
+   <li>トラックバックは、リンクされたレガシ ブログ システム&rsquo;に通知する方法です。</li>
+  </ul>
+
+
+  <p>ページ速度がドレインされる可能性&rsquo;があります。また、本当に必要ない場合は、通常はオフにした方が良くなります。 Pingbacks と Trackback の詳細については、こちらをクリック <a href="https://make.wordpress.org/support/user-manual/building-your-wordpress-community/trackbacks-and-pingbacks/">してください</a>。</p>
+
+
+  <h4>11.Image ディメンションを指定する</h4>
+
+
+  <p>コンテンツがエンド ユーザーに表示される前に、ブラウザーは画像の周囲のコンテンツのレイアウトを識別する必要があります。 画像のサイズがわからず、ブラウザーではこれを把握して時間を取る作業が多くなります。 この手順を実行する必要がなからブラウザーを節約し、処理を高速化するイメージ ディメンションを指定するベスト プラクティスです。</p>
+
+
+  <h4>12.キャッシュ</h4>
+
+
+  <p>サイトにユーザー トラフィックの急増が見え始める場合は、トラフィックの急増に対処するために、何らかの形式のキャッシュをサイトに追加する必要があります。 IIS 出力キャッシュを使用するか、両方WP-SuperCache静的ファイルをキャッシュするプラグインを使用できます。</p>
+
+
+  <ul>
+   <li><a href="https://www.iis.net/learn/manage/managing-performance-settings/walkthrough-iis-output-caching">IIS 出力キャッシュ</a> :簡単に&rsquo;構成およびセットアップできます。 サイトのスループットは大幅に向上しますが、コメントを送信するときに確認メッセージが表示されるのを防ぐ場合があります。 IIS 出力キャッシュの詳細については、こちらをクリックしてください。</li>
+   <li><a href="https://wordpress.org/plugins/wp-super-cache/">WP スーパー キャッシュ</a> :サイトのスループットが大幅に向上し、コメントの送信や他の訪問者の操作が正しく処理&rsquo; されます。 IIS 出力キャッシュと比較して、セットアップと構成が少し複雑になります。 IIS でのスーパー キャッシュ構成の詳細については、こちらをクリックしてください。</li>
+   <li id="wincache"><a href="https://php.net/manual/en/book.wincache.php">Wincache</a> : Web アプリケーションの wwwroot user.ini下に .user.ini を作成して、PHP の設定を追加します。 &nbsp;.&nbsp;user.ini<a href="https://php.net/manual/en/wincache.configuration.php#ini.wincache.fcenabled">wincache.fcenabled</a>&nbsp;= 1 および wincache.reroute_enabled = 1 で wincache <a href="https://php.net/manual/en/wincache.configuration.php#ini.wincache.reroute_enabled">設定を</a>&nbsp;有効にする</li>
+   <li>Redis Cache: <a href="https://azure.microsoft.com/en-us/services/cache/">Azure Redis Cache</a> は、 <a href="https://wordpress.org/plugins/wp-redis/">WP redis</a> プラグインを使用して WordPress と統合して、パフォーマンスを向上させる場合にも使用できます。&nbsp;</li>
+  </ul>
+
+
+  <p>これらの最適化はすべてわずか数分の作業であり、Web サイトのパフォーマンスが大幅に向上しています。</p>

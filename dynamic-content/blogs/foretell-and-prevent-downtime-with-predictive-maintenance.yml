@@ -1,0 +1,74 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 18e3bd36cac83d6e5806ffe43bb87121d56e9535
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894810"
+Slug: foretell-and-prevent-downtime-with-predictive-maintenance
+Title: 予測的なメンテナンスによるダウンタイムの Foretell と防止
+Summary: 予測的なメンテナンス (PdM) のストーリーは、1990年に始まります。 テクノロジは、ultrasound、赤外線、温度、振動などの新しい方法で世界中のことを意味するものでした。 ただし,...
+Content: >-
+  <p>予測的なメンテナンス (PdM) のストーリーは、1990年に始まります。 テクノロジは、ultrasound、赤外線、温度、振動などの新しい方法で世界中のことを意味するものでした。 しかし、最近までは、予測メンテナンスを実現するためのテクノロジが提供されていませんでした。 しかし今では、クラウドストレージ、機械学習、エッジコンピューティング、モノのインターネット &mdash; 予測メンテナンスの looms を製造業界の次のステップとして進めてきました。</p>
+
+
+  <h2>予測的なメンテナンスとは</h2>
+
+
+  <p>コンピューターのメンテナンスには、次の3つの方法があります。</p>
+
+
+  <ul>
+   <li>リアクティブ &mdash; の解決策が壊れ &rdquo; ていない方法を修正 &rsquo; し &ldquo; &rsquo; ます。 これは、コンピューターから可能な最長有効期間を抽出することを意味します。 ただし、予期しないダウンタイムや障害からの障害によって、コストが発生します。</li>
+   <li>以前の障害の定期的に基づく、固定スケジュールでの予防 &mdash; サービス。 コンピューターの障害が発生する前にコンピューターを修正することで、時間を最大にすることができます。 欠点は、コンポーネントの有効期間が残っている可能性があり、スケジュールされたメンテナンスの前にエラーが発生する可能性があるということです。</li>
+   <li>以前の内訳に関するデータを使用して障害が発生しようとしているときにモデル化し、センサーと同じ条件が検出されるようにすることが予測 &mdash; されています。 これまでは、モデルが存在せず、リアルタイムで処理能力が高すぎるため、これは現実的な選択肢ではありませんでした。 しかし、Azure はその問題を解決しています。</li>
+  </ul>
+
+
+  <p>次の図は、3つの戦略がどのように異なるかを示しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ce507f54-5509-41ce-bd50-1ad185a076f1.png"><img alt="image" border="0" height="324" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/532cab63-2a0e-4a9c-a740-e1e4053b5e8a.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="絵" width="602"></a></p>
+
+
+  <p>予測的なメンテナンスは、他の方法に比べてはるかに優れていることは明らかです。 これにより、稼働時間を最大化しながら、機械の価値を最大限に引き出すことができます。 また、機械学習を使用して、モデルを継続的に改良することもできます。時間の経過と共に、発生するエラーが減ります。</p>
+
+
+  <h2>Azure の役に立ちます</h2>
+
+
+  <p>機械学習を PdM ソリューションに使用するには、3つの要件があります。機械学習 <strong>モデル</strong>、モデルのトレーニングに使用する <strong>データ</strong> 、およびトレーニングデータを収集するための <strong>データインジェスト</strong> メカニズムです。 インジェストポイントを作成したら、コンピューターが故障するまで通常のオペレーティングマシンからデータを収集する必要があります。 その後、受信<strong>したデータ</strong>を<strong>通常</strong><strong>のように特徴付ける</strong>ことができます。 このデータは、モデルのトレーニングに使用されます。つまり、モデルは、何らかの確実性を持つ障害を予測できるようになるまで、連続して調整されます。</p>
+
+
+  <p>障害につながるシステムの状態を正確に評価するには、可能な限り多くのデータを収集する必要があります。 つまり、今すぐデータの収集を開始します。 モデルのトレーニングに使用されるデータが包括的になるほど、分析が正確になります。</p>
+
+
+  <h2>データインジェスト用の Azure オプション</h2>
+
+
+  <p>Azure には、HDInsight 上の<a href="https://azure.microsoft.com/services/event-hubs/?WT.mc_id=pdmusecase-acomblog-ditambur">Event Hubs</a>、 <a href="https://azure.microsoft.com/services/iot-hub/?WT.mc_id=pdmusecase-acomblog-ditambur">Azure IoT ハブ</a>、 <a href="https://azure.microsoft.com/services/hdinsight/apache-kafka/?WT.mc_id=pdmusecase-acomblog-ditambur">kafka</a>のデータインジェストのためのオプションが用意されています。 (詳細については、「 <a href="https://docs.microsoft.com/azure/architecture/data-guide/technology-choices/real-time-ingestion?WT.mc_id=pdmusecase-acomblog-ditambur">Azure でのリアルタイムメッセージ取り込みテクノロジの選択</a>」を参照してください)。多くの場合、分散システムからのデータの取り込みは、持続可能なアプローチではありません。 相互に通信するシステムが増えるにつれて、システムは (n2) の複雑さを &Omicron; 構築します。 より優れたアーキテクチャは、すべてのシステムが中央のハブと通信できるようにすることです。 これは、Azure IoT ハブを使用して効率的に実装できます。 すべてのシステムが IoT Hub に話し、ハブはデータを Azure にフィードします。 データを <a href="https://azure.microsoft.com/services/data-factory/?WT.mc_id=pdmusecase-acomblog-ditambur">Azure Data Factory</a> に読み込むことは、自動化されたパイプラインの一部としてデータを移動したり変換したりできるため、優れたオプションです。<br>
+
+  &nbsp;<br>
+
+  データが取り込まれたされると、そのデータは機械学習モデルのトレーニングに使用されます。 これを行うための Azure オプションには、 <a href="https://studio.azureml.net/?WT.mc_id=pdmusecase-acomblog-ditambur">Azure Machine Learning Studio</a>、 <a href="https://azure.microsoft.com/services/databricks/?WT.mc_id=pdmusecase-acomblog-ditambur">Azure Databricks</a>、 <a href="https://azure.microsoft.com/services/virtual-machines/data-science-virtual-machines/?WT.mc_id=pdmusecase-acomblog-ditambur">Data Science Virtual Machine</a>、および<a href="https://azure.microsoft.com/services/batch-ai/?WT.mc_id=pdmusecase-acomblog-ditambur">Azure Batch AI</a> &mdash; があります。 選択肢は、問題の複雑さ、チームのエクスペリエンス、および処理されるデータのサイズによって異なります。</p>
+
+
+  <p>モデルがトレーニングされ、使用できる状態になると、結果を表示できます。 これは、将来のエラーを予測し、アクションの通知を生成するメカニズムを構築することを意味します。 ワークフローは次のようになります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ab84708d-2747-4ae0-b746-8c50c537b8f9.png"><img alt="image" border="0" height="113" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64a34e10-38d5-4f76-9c6e-72dd9142ef3c.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="イメージ " width="457"> </a> : 作業中のシステムでは、結果がメンテナンスチームにリアルタイムで表示され、アクションに関する推奨事項も提示されます。 チームは最適なアクションを決定できます。</p>
+
+
+  <p>全体的には、Azure は次のような予測メンテナンスソリューションを提供できます。</p>
+
+
+  <ul>
+   <li>拡張性は、ストレージと処理能力と同様に簡単に拡張できます。</li>
+   <li>必要に応じてリソースをプロビジョニングできるという事実を利用して、可用性と回復性を実現します。</li>
+   <li>ARM、PowerShell、管理 Api などのさまざまなオプションを使用した管理。</li>
+   <li>セキュリティ、IoT Hub キー、暗号化などを使用します。</li>
+   <li>コスト効果。必要に応じて、リソースのプロビジョニングと破棄を行うことができます。</li>
+  </ul>
+
+
+  <p>予測的なメンテナンスソリューションを Azure で作成する方法の詳細について<a href="https://docs.microsoft.com/en-us/azure/industry/manufacturing/predictive-maintenance-overview?WT.mc_id=pdmusecase-acomblog-ditambur">は、「予測メンテナンスの概要」を参照し</a>てください。</p>

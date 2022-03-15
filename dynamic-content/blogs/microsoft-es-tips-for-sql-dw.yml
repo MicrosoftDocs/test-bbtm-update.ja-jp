@@ -1,0 +1,149 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 18db4b7ac95071685e64ccf3fc827f4a1596074a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889412"
+Slug: microsoft-es-tips-for-sql-dw
+Title: SQL Data Warehouse を効果的に使用するための Microsoft Enterprise Services ヒント
+Summary: Microsoft ES は、SQL Data Warehouse を効果的に使用するために8つのヒントを共有します
+Content: >-
+  <p><em>この投稿は、thakur 過酷 raj singh、シニア swe リード、Enterprise Service BI によって共同作成されました。</em></p>
+
+
+  <p>Azure SQL Data Warehouse は、データウェアハウジングのための、完全に管理された、ペタバイト規模の、SQL ベースのクラウドソリューションです。 他の azure 製品との緊密な統合により、SQL Data Warehouse は、azure の主要なクラウドデータウェアハウスソリューションのバックボーンを表します。 分離されたコンピューティングとストレージ、柔軟なスケールアウト機能、需要を満たすために一時停止および再開する機能により、SQL Data Warehouse、必要に応じて柔軟、コスト削減、およびパフォーマンスを顧客に提供します。</p>
+
+
+  <p>Microsoft Enterprise Services は、世界中の最大のコンサルティングおよびサポート企業の1つです。 Microsoft ES は、クラウドの生産性、モビリティソリューション、導入サービスなど、世界規模で運用されている100を超える子会社を対象としています。 クライアント &rsquo; 操作の変換と拡大を行う速度と規模によって、将来の需要に対応するために、が曲線の前にとどまっていることが最も重要です。</p>
+
+
+  <p>適切なタイミングで適切なデータを使用することによって、リソースの資金を提供する場所と顧客に最適な方法を決定することができます。 従来のデータウェアハウスのレポートスタックでは、レポートを配信するには時間がかかりすぎたため、モデルを変更するにはあまり柔軟性がありませんでした。 データの増大に合わせて複雑さ、メンテナンス、スケーリングのコストを削減することにより、従来のオンプレミスデータウェアハウスの価値は維持と開発のコストよりも低くなり、洞察を得るための中核となるビジネス価値を実現できます。</p>
+
+
+  <p>最新のデータウェアハウスソリューションへの移行がすぐに明らかになりました。 ES 分析は、ワークロードをデータ処理と分散に分割します。 のコア要件には、簡単なスケーラビリティ、高 IO、マルチテラバイトのストレージ、行レベルのデータセキュリティ、200を超える同時ユーザーのサポートが含まれていました。 Azure サービスオファリングのホストを通じて、ES はデータ処理として Azure SQL Data Warehouse を持つソリューションに到着し、IaaS SQL Server 2016 Always On インスタンスをデータ配布層として使用してアドホック分析ワークロードを提供します。</p>
+
+
+  <h2>実装</h2>
+
+
+  <p>高レベルの ES の実装では、オンプレミスのさまざまなソースからの監査と履歴データを取得します。このデータは、最初に Azure Storage blob に配置されます。 次に、Polybase を使用して、データを並列で Azure SQL Data Warehouse に読み込んで、そのデータを処理してディメンションテーブルとファクトテーブルに変換します。 その後、これらのディメンションとファクトテーブルが Analysis Services に移動され、さまざまなビジネスユーザーに迅速かつ非常に同時にアクセスできるように、IaaS インスタンス SQL Server ます。 このソリューション全体で、Azure Data Factory はオーケストレーション ELT フレームワークとして機能し、パイプラインの大部分のデータフローを1つのインターフェイスで制御できるようにします。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d121357-3e60-4d50-a715-2a46ad01b3df.png"><img alt="esanalytics" border="0" height="304" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/244ea48a-a5b1-496a-9e69-dad9bdfb05a1.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="esanalytics" width="701"></a></p>
+
+
+  <h2>8ヒント SQL Data Warehouse</h2>
+
+
+  <p>パフォーマンスを向上させるために、このようなソリューションを統合するのは簡単な作業ではありません。 次に、Azure SQL Data Warehouse を使用したソリューションの設計に関する ES チームからのガイダンスを示します。</p>
+
+
+  <p><strong>1.Azure SQL DW でデータをステージングします。</strong></p>
+
+
+  <blockquote>
+
+  <p>ウェアハウスの基本原則の1つは、データをネイティブ形式でステージングすることです。つまり、ソースで使用できるようになります。 パフォーマンス、データ品質、検証のためのデータの永続化など、ソースのコピーを永続化する理由にはさまざまな理由があります。データをステージングすることにより、データをニーズに応じて分散し、データスキューを最小限に抑えることができます。 ほとんどの場合、ラウンドロビン機構を使用してデータを格納していることがあります。</p>
+
+  </blockquote>
+
+
+  <p><strong>2. 共通の配布キーを受信する:</strong></p>
+
+
+  <blockquote>
+
+  <p>Azure SQL Data Warehouse インスタンスにステージングされたデータは、3nf データソースから取り込まれたました。 これにより、ソースからスキーマを少し変更し、同じキーで配布されるすべてのテーブルの一部としてベーステーブル &rsquo; s 外部キーを含めることができました。 ファクトの読み込み中に、これらのキーセットのテーブルを結合して、すべての DMS 操作を最小限に抑えます。場合によっては、DMS 操作が発生しません。 したがって、これにより、パフォーマンスの面でエッジが得られます。 たとえば、ソースシステムのデータには、テーブル間の一対多のリレーションシップがあり &nbsp; ます。 ただし、SQL DW では、ビジネスロジックに基づいてすべてのテーブルに共通の分散キーを挿入しました。このキーは、ELT の実行時に読み込まれるためです。</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p>ただし、この方法に進む前に、データスキューを確認することをお勧めします。これは、表示される傾斜に基づいて分布キーを完全に選択する必要があるためです。 データスキューが高い場合、または結合に互換性がない場合は、中間テーブルを作成します。これは、もう一方の結合テーブルと同じキーで配布されます。 これを実現するために、1つの DMS 操作ですべてのキーを取得するが、複雑な結合がある場合はパフォーマンスを向上させることができました。</p>
+
+  </blockquote>
+
+
+  <p><strong>3. 幅の広いテーブルの列方向のパーティション分割:</strong></p>
+
+
+  <blockquote>
+
+  <p>Azure SQL DW では、行サイズに 32 kb の制限がありました。 150を超える幅のテーブルがあり、多くの列が varchar (4000) であるため、同じディストリビューションキーでテーブルを垂直方向にパーティション分割する方法が登場しました。 これにより、2つのテーブルが同じであるため、32 KB と同時に、2つのテーブルを結合するときに必要なパフォーマンスが得られるようになりました。</p>
+
+  </blockquote>
+
+
+  <p><strong>注: SQL Data Warehouse で 1 mb のワイド行がサポートされるようになりました</strong></p>
+
+
+  <p><strong>4. 適切リソースクラスを使用します。</strong></p>
+
+
+  <blockquote>
+
+  <p>いくつかのケースでは、ファクトの読み込みプロセスを高速化するために、より多くのリソース (メモリと CPU) を必要とする複雑なファクトがありました。 ファクトだけでなく、複雑なビジネスルールと種類2種類の実装を持つディメンションもありました。 ETL は、より複雑なファクトやディメンションが smallrc リソースクラスで実行されるように設計されています。これにより、より多くのリソースを必要とする複雑なファクトが largerc リソースクラスを使用して実行されるようになりました。</p>
+
+  </blockquote>
+
+
+  <p><strong>5. マスターテーブルのディストリビューション列として主キーを使用します。</strong></p>
+
+
+  <blockquote>
+
+  <p>データを SQL dw に取り込むソースでは、SQL dw でこれらのテーブルを検索してファクトを構築するために使用される多くのマスターテーブルがあります。 このような場合は、これらのテーブルを、主キー (一意の整数) に適切な量のデータ ( &gt; 100万行) で分散させました。 これにより、データ分散 (データスキューなし) のメリットが得られるため、検索クエリが非常に高速になります。</p>
+
+  </blockquote>
+
+
+  <p><strong>6. 動的スケールアップとスケールダウンを使用したコストの節約:</strong></p>
+
+
+  <blockquote>
+
+  <p>ADF を使用した ELTs は、スケジュールされた ELT が開始される前に、インスタンスを100DWU から 600 DWU にスケールアップするように設計されています。 これにより、コストを大幅に節約できました。 このとき、ELT の実行時間は約4-5 時間で、DWU の使用量は 600 DWU に制限されています。 月末に、処理に必要な時間が短縮され、ビジネスでデータが高速で必要になった場合は、1000 DWU に拡張するオプションがあります。 これらはすべて ELT &rsquo; の一部として実行され、手動介入は必要ありません。</p>
+
+  </blockquote>
+
+
+  <p><strong>7. 定期的なメンテナンス:</strong></p>
+
+
+  <blockquote>
+
+  <p>ここでは、ELT プロセスの一部として、統計の更新とインデックスの再構築を含めています。 ディメンションとファクトの読み込みが完了していないので、すべての CCI &rsquo; が、断片化が &gt; 5% であることを確認し、インデックスを再構築します。 同様に、主要なテーブルでは、パフォーマンスを最大限に高めるために統計を更新しています。</p>
+
+  </blockquote>
+
+
+  <p><strong>8.データマートでの SQL Server 2016 の活用:</strong></p>
+
+
+  <blockquote>
+
+  <p>Azure SQL DW はプライマリデータ処理エンジンですが、DS 14 IAAS VM &rsquo; で実行されている 2016 SQL Server を、データ分散の主要なソースとして選択しました。 これにより、SQL Server によって提供される高い同時実行性を活用し、処理に Azure SQL DW の機能を利用できるようになりました。 Azure SQL DW からプロビジョニングされたデータを使用するユーザーには、1000以上のユーザーがいます。</p>
+
+  </blockquote>
+
+
+  <p>Microsoft Enterprise Services は、ソリューションの一部として Azure SQL Data Warehouse を使用することで、実行時間を<strong>最大 40%</strong>削減し、待機時間を短縮してビジネスユーザーに洞察を提供できました。</p>
+
+
+  <p>この完全に管理されたペタバイト規模のクラウドデータウェアハウスサービスをまだ確認していない場合は、以下のリンクで詳細を確認してください。</p>
+
+
+  <h2 align="left">詳細情報</h2>
+
+
+  <p align="left"><a href="https://azure.microsoft.com/documentation/articles/sql-data-warehouse-overview-what-is/">Azure SQL Data Warehouse の概要</a><br>
+
+  <a href="https://azure.microsoft.com/documentation/articles/sql-data-warehouse-best-practices/">SQL Data Warehouse のベストプラクティス</a><br>
+
+  <a href="https://azure.microsoft.com/documentation/videos/index/?services=sql-data-warehouse">ビデオ ライブラリ</a><br>
+
+  <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureSQLDataWarehouse">MSDN フォーラム</a><br>
+
+  <a href="https://stackoverflow.com/questions/tagged/azure-sqldw">Stack Overflow フォーラム</a></p>

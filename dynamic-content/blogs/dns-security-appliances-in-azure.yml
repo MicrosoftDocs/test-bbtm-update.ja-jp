@@ -1,0 +1,80 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f6c0b99c6b30f70e2f16106150a6f8069593f19d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890440"
+Slug: dns-security-appliances-in-azure
+Title: Azure の DNS セキュリティ アプライアンス
+Summary: この記事では、DNS ベースの脅威の概要と、DNS ベースの脅威からネットワークを保護する方法について説明します。
+Content: >-
+  <h2>概要</h2>
+
+
+  <p>マルウェアとボットネット (ZeroAccess、Conficker、Storm など) を伝達して通信できる必要があります。 DNS、IRC、ピア ツー ピア ネットワークなど、いくつかの通信手法を使用します。 通常、DNS プロトコルは、人間に優しいドメイン名をマシンに対応する IP アドレスに解決します。 ただし、ほとんどの組織が DNS クエリをフィルター処理しないということは、隠された通信チャネルとして使用できるという意味です。 侵害されたシステムから出たデータは DNS クエリでエンコードできます。また、指示は疑いを生じることなく DNS 応答でマルウェアに送り返されます。</p>
+
+
+  <p>この記事では、この脅威の概要を説明し、ネットワークを保護する方法について説明します。</p>
+
+
+  <h2>DNS のしくみ</h2>
+
+
+  <p>DNS は高度に分散されたシステムです。つまり、すべての DNS クエリに対する回答を持つ単一のサーバーや組織はありません。 .&ldquo;com&rdquo; DNS サーバーは、どの Microsoft サーバーに対する DNS &ldquo;&rdquo; データを持 microsoft.com、DNS レコード自体を持たないのか知っています。 これらの権限を持つ DNS サーバーは、独自のドメインのデータのみを格納し、特定の DNS レコードを検索するには、多数の権限を持つ DNS サーバーのトラバーサルが必要になる場合があります。</p>
+
+
+  <p>アプリケーションが DNS レコードを参照する必要がある場合、クエリはローカルの再帰リゾルバーに送信されます。 このサーバーは、権限を持つ DNS サーバーの階層を移動して、必要な DNS レコードを検索します。 このプロセスは再帰解決と呼ばれるので、通常はインフラストラクチャ内のリゾルバーのフリート (この場合は Azure インフラストラクチャ内) によって処理されます。 再帰リゾルバーの IP アドレスは、オペレーティング システム (ネットワーク管理者) で静的に構成するか、DHCP などのシステムを使用して動的に構成されます。 Azure では DHCP が使用されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ac7eae6-2565-484c-aa8d-0dd0bf0e784d.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="" width="640"></p>
+
+
+  <p>ほとんどの場合、再帰リゾルバーは、解決するクエリをフィルター処理します。 ネットワーク管理者が外部リソースへの http 接続を開くことを許可していない場合でも、管理者が任意の DNS 要求を解決できる可能性があります。 確かに、DNS クエリでどのような損害が発生する可能性がありますか?</p>
+
+
+  <h2>DNS ベースの脅威</h2>
+
+
+  <p>DNS システムは、ドメイン&rsquo;名を IP アドレスにマップするだけの機能です。 DNS レコードにはさまざまな種類があります。 たとえば、MX レコードはドメインのメール サーバーを検索するために使用され、TXT レコードには任意のテキストを格納できます。 TXT レコードなどのレコードを使用すると、マルウェアがデータ (命令やペイロードなど) を簡単に取得できます。</p>
+
+
+  <p>不正なアクターは、マルウェア内の DNS クエリを使用して、コマンド サーバーと制御サーバーに接続できます。 マルウェアは DNS クエリを実行し &ldquo;、応答を一連の手順として解釈します (このターゲットが興味深い場合など)。キー ロガーをインストールします&rdquo;。 また、DNS クエリを使用して、マルウェアの更新プログラムや追加のモジュールをダウンロードすることもできます。 ブロックしにくくするために、マルウェアは多くの場合、ドメイン生成 <a href="https://en.wikipedia.org/wiki/Domain_generation_algorithm">アルゴリズム (</a> DGA) を使用して、毎日多数の新しいドメインを生成します。 通信チャネルを開いた状態に保つために、攻撃者は、これらのドメインの数を少ない数だけ登録する必要がありますが、通信をブロックするには、法執行機関がそれらのほぼすべてをブロックする必要があります。 これにより、悪い悪者に対してデッキが積み重なっています。</p>
+
+
+  <p>[OK] を選択すると、&rsquo;受信通信が行います。 感染したサーバーからデータをエクスポートする方法 DNS プロトコルを使用すると、ドメイン名を最大 253 文字まで使用できます。また、something.mydomain.com&gt;&rdquo; に対するクエリは、mydomain.com の DNS &ldquo;サーバーに送信されます&rdquo;。&ldquo;&lt; データは、感染したホスト ( &ldquo;the_password_for_joeblogs_gmail_com_is_letMeIn.mydomain.com&rdquo; など) で DNS クエリを作成し、カスタム DNS サーバー ソフトウェアを使用してもう一方の側でメッセージを解釈することでエクスポートできます。 この方法は、TCP over-DNS プロトコル (DNS over TCP と混同しないように) に一般化されています。これにより、DNS インフラストラクチャを介して TCP トラフィックがトンネリングされます。</p>
+
+
+  <p>これらの&rsquo;通信チャネルの使用を開始する前に、マルウェアがサーバーに感染している必要があります。 したがって、DNS のフィルター処理は、主に&ndash;、最初の感染を防ぐことができなかった他の手法が失敗した場合の軽減策として、レイヤー化された防御メカニズムです。 デスクトップ環境では、DNS フィルタリングは、電子メールや Web サイト上の悪意のあるリンクが感染プロセスを開始するのを防ぐのにも役立ちます。</p>
+
+
+  <h2>ベスト プラクティス</h2>
+
+
+  <p>優れたセキュリティに代わるものはありません。優れたセキュリティでは常に、レイヤード アプローチが使用されます。 主な焦点は、マルウェアの感染と伝達を防ぐことです。 さらに、DNS トラフィックを監視またはフィルター処理して、感染したマシン上のマルウェアの通信を検出またはブロックします。 バランスの取れた防御戦略では、次の点を考慮する必要があります。</p>
+
+
+  <ul>
+   <li>サーバーにパッチを適用し、 <a href="https://azure.microsoft.com/documentation/articles/azure-security-best-practices-software-updates-iaas/">最新の状態に保つ</a>。</li>
+   <li>本当に必要 <a href="https://azure.microsoft.com/documentation/articles/virtual-network-ip-addresses-overview-arm/">なエンドポイント</a> のみを公開します。</li>
+   <li>ネットワーク <a href="https://azure.microsoft.com/documentation/articles/virtual-networks-nsg/">セキュリティ グループ</a> (ネットワーク ACL) を使用して、ネットワークとの間またはネットワーク内の通信を制限します。信頼された再帰リゾルバー以外のサーバーへの DNS トラフィック (ポート 53) をブロックするなどです。</li>
+   <li>ファイアウォール (DNS、アプリケーション、IP) を使用して、悪意のあるトラフィックを検出してフィルター処理し、ファイアウォールで使用可能なサードパーティのアプライアンスを確認<a href="https://azure.microsoft.com/marketplace/partners/threatstopinc/threatstop-dns-firewallthreatstop-dns-firewall/">Azure Marketplace。</a></li>
+   <li>重大なワークロードと危険なワークロードを分離します (&rsquo;データベース サーバーから Web を表示しないなど)。</li>
+   <li>サーバーでウイルス対策/マルウェア対策を実行します ( <a href="https://azure.microsoft.com/documentation/articles/azure-security-antimalware/">例: Azure のマルウェア対策</a>)。</li>
+   <li>DNS トラフィックをスキャンしてマルウェアアクティビティを検出するスマート DNS リゾルバー (DNS ファイアウォール) を実行します。 使用可能なAzure Marketplaceの DNS ファイアウォールについては、次のページ <a href="https://azure.microsoft.com/marketplace/?term=DNS+firewall">を参照してください</a>。</li>
+  </ul>
+
+
+  <p>Azure インフラストラクチャは、セキュリティ機能のコア セットを提供しますが、Azure はサードパーティのセキュリティ製品の大規模なエコシステムも構築しています。 これらは&rsquo;、<a href="https://azure.microsoft.com/marketplace/?term=Security">Azure Marketplace (ファイアウォール</a>、<a href="https://azure.microsoft.com/marketplace/?term=waf">waf</a>、<a href="https://azure.microsoft.com/marketplace/?term=antivirus">ウイルス</a>対策、<a href="https://azure.microsoft.com/marketplace/?term=DNS+firewall">DNS</a> ファイアウォールなど) を介して利用できます。数回のクリックでデプロイできます。<a href="https://azure.microsoft.com/marketplace/?term=Firewall"></a> 多くは無料試用版を提供しています。その後、サプライヤーを通じて直接、または Azure サブスクリプションを通じて 1 時間おきに請求できます。</p>
+
+
+  <p>企業がインフラストラクチャに DNS&rsquo; ファイアウォールをデプロイする傾向が高まり、サードパーティの DNS ファイアウォールを Azure Marketplace に追加し始めました。 これらは、DNS クエリでマルウェアのアクティビティの兆候を検査し、アラートを生成したり、トラフィックをブロックしたりする特別な DNS サーバーです。 たとえば、コマンド アンド コントロール (CC&amp;) サーバーに対するクエリは、クエリが実行されているドメインまたは DNS サーバーの IP アドレスによって識別できます。 DNS ファイアウォールは仮想ネットワーク内に DNS サーバーとしてデプロイされ、多くの場合、脅威インテリジェンス フィードを使用して脅威の状況の変化に対応します。 そのため、仮想ネットワークは次のように表示されます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="" border="0" height="314" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/54a7e0d7-207d-42d8-9e99-d858521fb3f2.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="" width="640"></p>

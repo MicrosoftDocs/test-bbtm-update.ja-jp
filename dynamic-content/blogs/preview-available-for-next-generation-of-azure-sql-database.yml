@@ -1,0 +1,35 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7a28ebaa986b93e0c9cb253809aa25c105579029
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894735"
+Slug: preview-available-for-next-generation-of-azure-sql-database
+Title: プレビュー :最新バージョンの Azure SQL Database
+Summary: 以前に 11 月に発表された新しいプレビューの可用性により、SQL Server エンジンの互換性がほぼ完了し、プレミアム パフォーマンスが向上し、SQL Database サービスの次世代を表します。
+Content: >-
+  11 月に発表された新しいプレビューの可用性<a href="https://azure.microsoft.com/blog/2014/11/05/preview-for-greater-sql-server-compatibility-coming-soon-to-azure-sql-database/"></a>により、SQL Database サービスの次世代を表す、ほぼ完全な SQL Server エンジンの互換性とより多くの プレミアム パフォーマンスが導入されます。 6 億行を超えるデータに対する内部テストでは、新しいプレビューでは、現在の プレミアム SQL Database に対して約 5 倍、メモリ内列ストア テクノロジを適用する場合は最大 100 倍の プレミアム クエリ パフォーマンスの向上が示されています。 今日のプレビューの機能は、この新しいサービス アーキテクチャでお客様に新しい機能を提供する最初のステップです。
+
+
+  このプレビューでは、スケーラブルなパフォーマンス、組み込みの geo レプリケーションと復旧機能を提供し、最初のクラウド データベース 99.99% のアップタイム SLA を導入した、新しいサービス レベルである Basic、Standard、および プレミアム の一般提供の勢いが続きます。 また、9 月以降、監査<a href="https://azure.microsoft.com/blog/2014/12/09/auditing-for-azure-sql-database-generally-available-and-with-more-troubleshooting-features/"></a>を一般提供し、高いスケールアウトを大幅に効率化する <a href="https://azure.microsoft.com/blog/2014/10/02/introducing-elastic-scale-preview-for-azure-sql-database/">Elastic Scale</a> テクノロジを導入しました。現在、お客様はスケールアウト アプローチを使用して、ミッション クリティカルなアプリケーションを実行するサービスの力を証明しています。1 人の顧客は約 90 TB のデータを約 2,000 データベースにまたがり、1 日あたり約 380,000 のログインを処理し、別の顧客は約 225,000 のデータベースにわたって 20 TB を超えるデータを含むマルチテナント アプリケーションを実行し、1 日あたり 200 万以上のログインを処理しています。
+
+
+  今日のプレビューでは、業界をリードするメモリ内テクノロジをクラウドに導入し、SQL Server データベース アプリケーションの Azure への移行を効率化し、お客様がより重いデータベース ワークロードを使用する機能を大幅に向上させる新機能のロックを解除する取り組みも継続しています。 Weichert は、国をリードするフルサービスの不動産プロバイダーの 1 つで、新しいプレビューを積極的に使用しています。
+
+  <blockquote>「私たちは ROI に深く取り組み、ミッション クリティカルなアプリの Azure への移行に取り組み、昨年は、不動産検索エンジン weichert.com を Azure に移行した後、60% のコスト削減を実現しました。 戦略の観点から、これらの SQL Database サービスの更新は、オンライン インデックス再構築やパーティション分割などの機能を活用して大規模なデータ型を移行および操作する場合の回答です。" と、Weichert のシステム開発担当副社長である Joe Testa は述べています。<i>&gt;簡単に</i>言えば、ここまでの結果は素晴らしい結果でした。2 倍のパフォーマンスが向上し、以前は SQL Server でしか利用できない高度な機能により、ミッション クリティカルなアプリを Azure に移行し続ける中で、アプリケーションの作業が容易になりました。"</blockquote>
+
+  このプレビューの詳細な機能強化については、プレビューの概要<a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-preview-whats-new/"></a>に関するページを参照してください。ただし、主な機能は次のとおりです。
+
+  <ul>
+      <li><b> </b>並列クエリ (<i>プレミアム</i> のみ)、テーブルのパーティション分割、オンライン インデックス作成、心配を必要とせずに 2 GB<i> </i>のサイズ制限を削除して大規模なインデックス再構築を行い、データベース コマンドを変更して、大規模なデータベースをより簡単に管理できます。</li>
+      <li><b>CLR、</b>T-SQL Window 関数、XML インデックス、および変更追跡を使用して、より堅牢なアプリケーション設計を実現する主要なプログラミング関数のサポート。</li>
+      <li><b>データ マートと小規模な</b>分析ワークロードに対するイン<i>メモリ列</i>ストア クエリ (プレミアム のみ) のサポートにより、最大 100 倍のパフォーマンスが向上します。</li>
+      <li><b>監視とトラブルシューティングの改善:</b> 拡張イベント (XEvent) と、100 を超える新しいテーブル ビューへの可視性。拡張されたデータベース管理ビュー (DMV) のセットを使用します。</li>
+      <li><b>新しい S3 パフォーマンス レベル: </b>Standard と プレミアム の間の価格の柔軟性が向上します。 S3 では、100 DTU と Standard レベルで利用できるすべての機能が <a href="https://azure.microsoft.com/en-us/pricing/details/sql-database/">0.2016 ドル/時間</a> (プレビュー期間中は $0.1008/時間) で提供されます。</li>
+  </ul>
+
+  このプレビューを試す場合は、 <a href="https://azure.microsoft.com/en-us/services/preview/">Azure プレビュー</a> 機能ページまたは新しい Azure Portal を使用してサインアップしてください。 このプレビューに登録されているデータベースの価格は、Basic、Standard、および プレミアムの価格から 50% 割引<a href="https://azure.microsoft.com/en-us/pricing/details/sql-database/">されます</a>。 1 SQL Database Basic、Standard、または プレミアム データベース (Web またはビジネスなし) が混在するサーバーのみ、この新しいプレビューにアップグレードできます。
+
+
+  このプレビューをお試しいただけますと、サービスとしてのデータベースの管理上のメリットがほぼゼロになる一方で、より堅牢な SQL ベースのアプリケーションを Azure 上で簡単に構築または移行できます。

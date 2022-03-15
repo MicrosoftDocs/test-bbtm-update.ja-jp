@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fe24de2fd56ae4e77faaf2e66c22d5bd95279a1d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890885"
+Slug: azure-documentdb-sdk-updates-include-python-3-support
+Title: Azure DocumentDB SDK の更新プログラムには Python 3 のサポートが含まれます
+Summary: 'Microsoft のグローバルにレプリケートされた低待機時間の NoSQL データベースである Azure DocumentDB は、4 つのクライアント側 SDK すべてへの更新をお知らせします。 '
+Content: >-
+  <p>グローバルにレプリケートされ&rsquo;、待機時間が短い NoSQL データベースである Azure DocumentDB は、4 つのクライアント側 SDK すべてへの更新をお知らせします。 Python 3 のサポート、接続プール、整合性の向上、パーティション分割コレクションの Top/Order By のサポートなど、Python SDK の最大の機能強化が行われた。</p>
+
+
+  <p>この&nbsp;記事では、新しい各 SDK に加えた変更について説明します。</p>
+
+
+  <h2>DocumentDB Python SDK 2.0.0</h2>
+
+
+  <p><a href="https://azure.microsoft.com/services/documentdb/">Azure DocumentDB</a> Python SDK で Python 3 がサポートされる。 DocumentDB Python SDK は以前は Python 2.7 をサポートしていましたが、Python 2.7&nbsp; に加えて、Python 3.3、Python 3.4&nbsp;、Python 3.5&nbsp; もサポートされています。 しかし、&rsquo;すべてではありません。 接続プールが組み込みされたので、要求ごとに新しい接続を作成する代わりに、同じホストへの呼び出しが同じセッションに追加され、新しい接続を作成するコストをそのたび節約できます。 また、整合性レベルのサポートにいくつかの機能強化<a href="https://azure.microsoft.com/documentation/articles/documentdb-consistency-levels/"></a>が追加されました。また、クロスパーティション クエリの <a href="https://azure.microsoft.com/documentation/articles/documentdb-orderby/">Top と Order By</a> のサポートが追加されました。そのため、複数のパーティションから上位の結果を取得し、指定したプロパティに基づいてそれらの結果を順序付けできます。</p>
+
+
+  <p>開始するには、 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sdk-python/">DocumentDB Python SDK</a> ページに移動して SDK をダウンロードし、最新のリリース ノートを取得し、API リファレンス コンテンツを参照します。</p>
+
+
+  <h2>DocumentDB .NET SDK 1.10.0</h2>
+
+
+  <p>新しい DocumentDB .NET SDK にはいくつかの具体的な改善が含まれています。その中で最も大きな点は、パーティション分割コレクションの直接接続 <a href="https://azure.microsoft.com/documentation/articles/documentdb-partition-data/">のサポートです</a>。 現在パーティション分割&#39;使用している場合&ndash;、この改善は [Go fast]/(高速移動)ボタンです。&nbsp;さらに、.NET SDK では、境界付き整合性レベルのパフォーマンスが向上し<a href="https://azure.microsoft.com/documentation/articles/documentdb-consistency-levels/"></a>、述語の変換中に StringEnumConverter、IsoDateTimeConverter、UnixDateTimeConverter の LINQ サポートが追加されます。</p>
+
+
+  <p>最新の DocumentDB .NET SDK をダウンロードし、最新のリリース ノートを取得し、 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sdk-dotnet/">DocumentDB .NET SDK</a> ページから API リファレンス コンテンツを参照できます。</p>
+
+
+  <h2>DocumentDB Java SDK 1.9.0</h2>
+
+
+  <p>新しい DocumentDB Java SDK&rsquo; では、Top と <a href="https://azure.microsoft.com/documentation/articles/documentdb-orderby/">Order By</a> のサポートを変更して、コレクション内のパーティション全体にクエリを含めしました。&nbsp;</p>
+
+
+  <p>Java SDK をダウンロードし、最新のリリース ノートを取得し、 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sdk-java/">DocumentDB Java SDK</a> ページから API リファレンス コンテンツを参照できます。</p>
+
+
+  <h2>DocumentDB Node.js SDK 1.10.0</h2>
+
+
+  <p>新しい Node.js SDK では、Top と Order By のサポートを変更して、コレクション内のパーティション間のクエリを含めしました。</p>
+
+
+  <p>Node.js SDK をダウンロードし、最新のリリース ノートを取得し、DOCUMENTDB Node.js SDK ページから API <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sdk-node/">リファレンス コンテンツを参照</a> できます。</p>
+
+
+  <p>最新の SDK にアップグレードし、これらすべての機能強化を利用してください。 また、新しい SDK や <a href="https://azure.microsoft.com/services/documentdb/">Azure DocumentDB</a> に関連するヘルプや質問やフィードバックが必要な場合は、Stack Overflow の開発者フォーラムでお問 <a href="https://stackoverflow.com/questions/tagged/azure-documentdb">い合わせください</a>。 また、Twitter でフォローして、DocumentDB の最新のニュースと機能を最新の情報に残してください <a href="https://twitter.com/DocumentDB">@DocumentDB</a>。</p>

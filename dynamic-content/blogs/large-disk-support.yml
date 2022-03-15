@@ -1,0 +1,83 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5220c69a08291493ec598366e990156d5d1f9a8e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891507"
+Slug: large-disk-support
+Title: バックアップと復元のパフォーマンスの向上と大規模なディスクバックアップのサポートの発表
+Summary: '大容量ディスクのサポートとバックアップと復元のパフォーマンスの向上に関する一般提供を発表しました。 '
+Content: >-
+  <p>現在、 <a href="https://azure.microsoft.com/blog/azure-introduces-new-disks-sizes-up-to-4tb/">大規模なディスク vm</a> のバックアップのサポートと、バックアップと復元にかかる時間を短縮するための改善点を発表しています。 これらの改善と大きなディスクのサポートは、新しい VM バックアップスタックに基づいており、管理ディスクと非管理対象ディスクの両方で使用できます。 進行中のバックアップジョブに影響を与えることなく、この新しいスタックにシームレスにアップグレードできます。また、バックアップや復元のセットアップ方法に変更はありません。</p>
+
+
+  <p>この発表では、複数の機能の改善が行われています。</p>
+
+
+  <ul>
+   <li><strong>大容量ディスクのサポート</strong> &ndash; これで、ディスクサイズが最大 4 TB (4095GB) で、管理対象と管理対象外の Vm をバックアップできるようになりました。</li>
+   <li><strong>インスタント回復ポイント</strong> &ndash; 回復ポイントは、バックアップジョブの一部としてスナップショットが実行されるとすぐに使用できるようになります。 これにより、バックアップのデータ転送フェーズが完了するまで、復元をトリガーする必要がなくなります。 これは、修正プログラムを適用する場合に特に便利です。 これで、スナップショットフェーズが完了した後で修正プログラムを使用できるようになりました。修正プログラムに問題が生じた場合は、ローカルスナップショットを使用して元に戻すことができます。 これは、Hyper-v または VMware によって提供されるチェックポイントソリューションに似ており、スナップショットもバックアップコンテナーに安全に格納されるという利点があります。</li>
+   <li><strong>バックアップと復元のパフォーマンスの向上 &ndash; </strong>この新しい発表の一環として、バックアップジョブ &nbsp; の一部として作成されたスナップショットも7日間保持しています。 これにより、2つのバックアップジョブ間の変更を効率的な方法で計算し、バックアップ時間を短縮することができます。 これらのスナップショットを使用して、復元をトリガーすることもできます。 これらのスナップショットはローカルで利用可能であるため、復元プロセスにより、データをコンテナーからストレージアカウントに転送する必要がなくなり、復元時間を数時間から数分に短縮できます。 ローカルに保存されている保持スナップショットを構成する機能は、今後のリリースで使用できるようになります。</li>
+   <li><strong>復元された VM</strong> &ndash; のディスクを配布する管理されていない VM を使用している場合は、復元中にすべてのディスクが同じストレージアカウントに復元されることに気付いたかもしれません。 これらのディスクを元の VM と同じストレージアカウントのセットに配布して、復元後に必要な再構成を減らすことができる機能を追加しています。</li>
+  </ul>
+
+
+  <h2>はじめに:</h2>
+
+
+  <p>Azure Portal または PowerShell を使用して、サブスクリプションを新しいスタックに更新することができます。 これは一方向の変更であり、既存のすべてのポリシーと回復ポイントはそのまま保持されます。&nbsp;</p>
+
+
+  <h3>ポータル:</h3>
+
+
+  <p><em>現在、このエクスペリエンスを有効にし、リージョンごとにリージョンをロールアウトしています。この週の終わりまでに、すべてのリージョンでこのことが表示されます。</em>&nbsp;</p>
+
+
+  <p>Recovery Services コンテナーダッシュボードにバナーが表示されます。 バナーをクリックすると、画面が開きます。この画面では、スタックをアップグレードして、機能の改善を行うことができます。 任意のコンテナーから完全なサブスクリプションをアップグレードできます。 アップグレードが完了すると、サブスクリプション内のすべての VM バックアップが新しいスタックを使用してバックアップされます。</p>
+
+
+  <p><img alt="VM backup stack V2 enable screen" border="0" height="461" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/685058f6-aade-4f44-b999-ebaea611bf90.png" style="border: 0px currentColor; border-image: none; display: block; background-image: none;" title="VM バックアップスタック V2 の有効化画面" width="640"></p>
+
+
+  <h3>PowerShell:</h3>
+
+
+  <p>管理者特権の PowerShell ターミナルから次のコマンドレットを実行してください:</p>
+
+
+  <p>1. Azure アカウントにログインします。</p>
+
+
+  <pre>
+
+  PS C:&gt; Login-AzureRmAccount</pre>
+
+
+  <p>2. アップグレードに登録するサブスクリプションを選択します。</p>
+
+
+  <pre>
+
+  PS C:&gt;  Get-AzureRmSubscription &ndash;SubscriptionName &quot;Subscription Name&quot; | Select-AzureRmSubscription</pre>
+
+
+  <p>3. アップグレードのためにこのサブスクリプションを登録します:</p>
+
+
+  <pre>
+
+  PS C:&gt;  Register-AzureRmProviderFeature -FeatureName &ldquo;InstantBackupandRecovery&rdquo; &ndash;ProviderNamespace Microsoft.RecoveryServices</pre>
+
+
+  <h2>関連リンクとその他のコンテンツ:</h2>
+
+
+  <ul>
+   <li>詳細については、 <a href="https://azure.microsoft.com/services/backup/">Azure Backup</a>を参照してください。</li>
+   <li>詳細を表示しますか? Azure Backup の <a href="https://aka.ms/instantrp">ドキュメント</a>をご覧ください。</li>
+   <li>ヘルプが必要ですか? サポートについては、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup">Azure Backup フォーラム</a> にお届けします。</li>
+   <li>新しいアイデアを投稿し、既存のアイデアに投票することで、 <a href="https://feedback.azure.com/forums/258995-azure-backup">Azure Backup を改善</a> する方法についてご意見をお寄せください。</li>
+   <li>最新のニュースと更新については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローしてください。</li>
+  </ul>

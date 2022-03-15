@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0ce06878d7e832ef90c8416ceeb7dcc7562533a1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894254"
+Slug: the-new-azure-load-balancer-10x-scale-increase
+Title: 新しいAzure Load Balancer – 10 倍のスケール増加
+Summary: "Azure Load Balancerは、TCP と UDP の負荷分散全体で高いスケーラビリティ、スループット、低待機時間を提供するネットワーク ロード バランサーです。 本日は、新しい Standard SKU の新しいサービスを発表Azure Load Balancer。  \n"
+Content: >-
+  <p>Azure Load Balancerは、TCP と UDP の負荷分散全体で高いスケーラビリティ、スループット、低待機時間を提供するネットワーク ロード バランサーです。</p>
+
+
+  <p>本日は、新しい Standard SKU の新しいサービスを発表Azure Load Balancer。 Standard SKU では、10 倍のスケールが追加されます。既存の Basic SKU よりも深い診断機能と共に、より多くの機能が追加されます。 新しいオファーは、1 秒あたり数百万のフローを処理するように設計され、さらに高い負荷をスケーリングしてサポートするように構築されています。 Standard と Basic Load Balancerオプションは API を共有し、ニーズに最も合ったオプションを選択して選択するためのいくつかのオプションを顧客に提供します。</p>
+
+
+  <p>新しい Standard SKU の重要な機能の一部を次に示します。</p>
+
+
+  <h3>スケーラビリティの大幅な向上</h3>
+
+
+  <p>Standard Load Balancerプール内の最大 1,000 の VM インスタンスのネットワーク トラフィックを分散できます。 <em>これは、既存の Basic SKU に対する 10 倍のスケール向上です</em>。 1 つ以上の大規模な仮想マシン スケール セットを 1 つの高可用性 IP アドレスの背後に構成できます。各インスタンスの正常性と可用性は、正常性プローブによって管理および監視されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/921d3420-de5d-43ea-ac62-3fbab62527e9.png"><img alt="image" border="0" height="256" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5baecc90-8b9b-477c-97f8-21709425bf3b.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="401"></a></p>
+
+
+  <h3>Vnet 内の多様性</h3>
+
+
+  <p>新しいStandard Load Balancer仮想ネットワーク (VNet) 全体にまたがっています。 VNet 内のすべての仮想マシンは、バックエンド プールに参加するように構成できます。Basic Load Balancer の場合と同様に、単一の可用性セットに制限されません。 お客様は、複数のスケール セット、可用性セット、またはバックエンド プール内の個々の仮想マシンを組み合わせて使用できます。</p>
+
+
+  <h3>非常に高速なプロビジョニング</h3>
+
+
+  <p>新しい SKU は、数秒で構成変更を実行する新しいコントロール プレーンの上に位置します。 その結果、更新や突然の変更のニーズにすばやく対応できる応答性の高い API フロントエンドが得られます。</p>
+
+
+  <h3>IP アドレスの制御と柔軟性</h3>
+
+
+  <p>フロントエンドの静的&nbsp;パブリック IP アドレスの使用とフル コントロールにより、通常はハードコーディングされた IP アドレスを必要とする従来のネットワーク ファイアウォールと組み合わせて使用できます。 Azure では、ロード バランサー間での静的パブリック IP アドレスの移動もサポートされ、再デプロイとアップグレード中の安定性と安定性が提供されます。&nbsp;</p>
+
+
+  <h3>送信接続の増加</h3>
+
+
+  <p>Basic ロード バランサーと Standard Load Balancer の両方で、複数のフロントエンド IP アドレスを使用できます。 このStandard Load Balancer&nbsp;&nbsp;では、送信フローに使用できる一部またはすべての IPS を許可する機能が拡張されます。そのため、より多くのフロントエンドをスピンアップして、全体的な送信接続の数を増やします。&nbsp;</p>
+
+
+  <h3>回復性と AZ のサポート</h3>
+
+
+  <p>また、Standard Load Balancer と AZ (Standard Load Balancer) を使用する場合は、Azure Availability Zones含めすることを選択しました。 お客様は、単一&nbsp;の IP アドレスを使用してパブリックフロントエンドと内部フロントエンドのゾーン冗長性を有効にしたり、フロントエンド IP アドレスを特定のゾーンに結び付けしたりできます。 この種類のクロスゾーン負荷分散は、リージョン内の任意の VM または VM スケール セットに対処できます。 ゾーン冗長 IP アドレスは、すべてのゾーンでロード バランサーによって提供 (アドバタイズ) されます。これは、データ パスがリージョン内の <em>anycast</em> であるからです。 ゾーンが完全にダウンする可能性が低い場合、ロード バランサーは、別のゾーン内のインスタンスからのトラフィックを非常に迅速に処理できます。 詳細については、次のドキュメント <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-standard-availability-zones" target="_blank">をAvailability Zones &amp; Standard Load Balancerしてください。</a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c6de674-be22-44f2-89fb-97ee699d0444.png"><img alt="image" border="0" height="213" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/41d8a58e-eed9-4635-b103-dc2a4121a479.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="217"></a></p>
+
+
+  <h3>高可用性 (HA) ポート</h3>
+
+
+  <p>ファイアウォールや他のネットワーク プロキシなどのネットワーク仮想アプライアンスに対するアクティブ/アクティブセットアップと n+1 冗長性の作成は、しばらくお客様から求めらていました。 お客様は、フローごとの HA ポートを有効にして、内部ポートのフロントエンド上のすべてのポートで負荷分散をStandard Load Balancer。 これにより、高可用性構成を簡単に設定できる一方で、多くの個々の負荷分散規則が不要になります。 詳細については、HA ポートに関 <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-ha-ports-overview" target="_blank">するドキュメントを参照してください</a>。</p>
+
+
+  <h3>新しい分析情報と診断</h3>
+
+
+  <p>&nbsp;新しいテレメトリ、帯域内の自動正常性測定、トラフィック ボリューム、受信接続の試行、送信接続の正常性、Azure&rsquo; プラットフォームの正常性に対するinsights&nbsp; を導入すると、新しいロード バランサーは、デプロイ全体での制御とネットワークの可視性の向上を探しているお客様に豊富な価値を提供します。顧客が Standard Load Balancer のパブリック フロントエンドを構成するとすぐに、Azure&rsquo; は、リージョン内から顧客エンドポイントの正常性を判断するインバンドアクティブ測定を開始し、ネットワークに対する新しい分析情報を得ます。 この情報はすべて、Azure Monitor の多次元メトリックのコレクションとして公開され、Azures&rsquo; Operations Management Suite などによって使用できます。 詳細については、診断と監視 <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-standard-diagnostics" target="_blank">の機能強化に関するドキュメントを参照してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c782cfb7-a913-4a9d-b184-d57c65cf9918.png"><img alt="image" border="0" height="196" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56433d4a-ebd0-4769-9ea7-1133db898e5d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="668"></a></p>
+
+
+  <h3>既定でセキュリティで保護</h3>
+
+
+  <p>最後に、いくつかの変更と、新しい SKU のセキュリティ対策の調整を行いました。 IP アドレスと負荷分散エンドポイントは、バックエンド VM または VM が存在するサブネットに接続されているネットワーク セキュリティ グループ (NSG) を使用してトラフィックを許可する特定のポートを開いていない限り、既定で閉じられます。</p>
+
+
+  <p>Azure Standard Load Balancer、27 のパブリック クラウド リージョンで一般公開されました。 詳細については、ロード バランサーのドキュメント <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-standard-overview" target="_blank">ページを参照してください</a>。</p>

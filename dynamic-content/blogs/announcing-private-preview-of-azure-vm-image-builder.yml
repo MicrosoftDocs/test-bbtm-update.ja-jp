@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5537341e92c62fb97d24e48526088e4c400aea29
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894946"
+Slug: announcing-private-preview-of-azure-vm-image-builder
+Title: Azure VM イメージビルダーのプライベートプレビューの発表
+Summary: 本日は、azure VM イメージビルダーのプライベートプレビューを発表します。これは、ユーザーが Azure でイメージ構築パイプラインを持つことができるサービスです。 標準化された仮想マシン (VM) イメージを作成すると、組織はクラウドに移行し、デプロイの一貫性を確保することができます。 一般的に、ユーザーは、事前に定義されたセキュリティと構成の設定に加えて、所有しているアプリケーションソフトウェアを Vm に含める必要があります。
+Content: >-
+  <p>本日は、azure VM イメージビルダーのプライベートプレビューを発表します。これは、ユーザーが Azure でイメージ構築パイプラインを持つことができるサービスです。 標準化された仮想マシン (VM) イメージを作成すると、組織はクラウドに移行し、デプロイの一貫性を確保することができます。 一般的に、ユーザーは、事前に定義されたセキュリティと構成の設定に加えて、所有しているアプリケーションソフトウェアを Vm に含める必要があります。 ただし、独自のイメージビルドパイプラインを設定するには、インフラストラクチャとセットアップが必要です。 Azure VM イメージビルダーでは、ISO または Azure Marketplace のイメージを作成し、いくつかの手順で独自のゴールデンイメージの作成を開始できます。</p>
+
+
+  <h2>しくみ</h2>
+
+
+  <p>azure vm イメージビルダーでは、Linux ベースの azure Marketplace VM または Red Hat Enterprise Linux (RHEL) ISO から開始して、独自のカスタマイズの追加を開始できます。 カスタマイズはシェルスクリプトの形式で追加できます。また、VM イメージビルダーは <a href="https://www.packer.io/" target="_blank">HashiCorp packer</a>上に構築されているため、既存の <a href="https://www.packer.io/docs/provisioners/shell.html" target="_blank">packer シェルプロビジョナースクリプト</a>をインポートすることもできます。 最後の手順として、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/shared-image-galleries" target="_blank">Azure 共有イメージギャラリー</a> で、または Azure の管理対象イメージとして、イメージをホストする場所を指定します。 VM イメージビルダーを使用してカスタムイメージを作成する方法については、以下を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/caca53f9-2854-4af9-a16b-17002775ea54.gif"><img alt="part1v2" border="0" height="371" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2912e7ea-9ee8-4355-8d6c-f2470d8f94dc.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="part1v2" width="508"></a></p>
+
+
+  <p>プライベートプレビューでは、次の主要な機能をサポートしています。</p>
+
+
+  <ul>
+   <li><strong>既存のイメージカスタマイズパイプラインを Azure に移行する。</strong> 既存のシェルスクリプトまたは Packer シェルプロビジョナースクリプトをインポートします。</li>
+   <li><strong>Red hat <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.redhat.com%2Fen%2Ftechnologies%2Fcloud-computing%2Fcloud-access&amp;data=02%7C01%7C%7C4299f20e99e8455390b608d6202a74af%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636731764038663265&amp;sdata=D0ep8A6okK7GMEttcSX2GzNrhw3xCp99xpnRQn5aFGU%3D&amp;reserved=0">Cloud Access</a>を使用して、red hat サブスクリプションを Azure に移行します。</strong> 利用可能な未使用の red Hat サブスクリプションを使用して、Red Hat Enterprise Linux vm を自動的に作成します。</li>
+   <li><strong>イメージの管理と配布のための Azure 共有イメージギャラリーとの統合</strong></li>
+   <li><strong>既存の CI/CD パイプラインとの統合。 &nbsp; </strong>次に示すように、アプリケーションのビルドとリリースのプロセスの不可欠な部分としてイメージのカスタマイズを簡略化します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/35663774-c15b-4e43-9491-d17dd5a7338e.gif"><img alt="part2v2" border="0" height="386" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/82fac411-fefd-40a4-9013-4bbdfde1cd58.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="part2v2" width="613"></a></p>
+
+
+  <p>Microsoft Ignite に参加している場合は、このサービスの詳細については、<strong> ブレイクアウトセッション</strong> <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fmyignite.techcommunity.microsoft.com%2Fsessions%2F65899%3Fsource%3Dsessions&amp;data=02%7C01%7C%7C4299f20e99e8455390b608d6202a74af%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636731764038663265&amp;sdata=22PRmIIdFZVysL9Fsmp1J06nBjaZyMF7CLOVGmFEtoQ%3D&amp;reserved=0">BRK3193 </a>にご参加ください。</p>
+
+
+  <h2>よく寄せられる質問</h2>
+
+
+  <p><strong>Azure VM イメージビルダーは Windows をサポートしますか?</strong></p>
+
+
+  <p>プライベートプレビューでは、Azure Marketplace の Linux イメージ (具体的には Ubuntu 16.04 および 18.04) がサポートされます。 Windows VM のサポートは、ロードマップにあります。</p>
+
+
+  <p><strong>Azure VM イメージビルダーを既存のイメージビルドパイプラインに統合することはできますか?</strong></p>
+
+
+  <p>既存のツールから VM イメージビルダー API を呼び出すことができます。</p>
+
+
+  <p><strong>VM イメージビルダーは、基本的にサービスとして Packer ですか。</strong></p>
+
+
+  <p>VM イメージビルダー API は、同じスタイルを Packer マニフェストに共有し、Azure のイメージの作成をサポートするように最適化されており、Packer シェルプロビジョナースクリプトをサポートしています。</p>
+
+
+  <p><strong>プレビューでは、イメージライフサイクル管理はサポートされていますか?</strong></p>
+
+
+  <p>プライベートプレビューでは、イメージの作成のみをサポートしますが、継続的な更新はサポートしません。 既存のカスタムイメージを更新する機能は、ロードマップにあります。</p>
+
+
+  <p><strong>VM イメージビルダーのコストはどれくらいですか?</strong></p>
+
+
+  <p>プライベートプレビューの場合、Azure VM イメージビルダーは無料です。 画像で使用される Azure Storage は、標準<a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/" target="_blank">料金料金</a>で課金されます。</p>
+
+
+  <h2>プライベートプレビューのために今すぐサインアップする</h2>
+
+
+  <p>プライベートプレビューにサインアップして、フィードバックをお寄せいただき、幸いです。 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR4Mz2uUjMSlGsl9SsCqVlc5UNUFCRDRRTjFJSDJJQTcwWks1UFBGTU8yRi4u" target="_blank">登録</a> すると、10月に詳細情報の送信が開始されます。</p>

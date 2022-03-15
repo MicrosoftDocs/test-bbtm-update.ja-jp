@@ -1,0 +1,145 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 290aa1713a2ec8c914e39c564c30cd7a32690c93
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889965"
+Slug: azure-maps-updates-offer-new-features-and-expanded-availability
+Title: Azure Maps の更新プログラムで新機能が提供され、可用性が強化される
+Summary: Azure Maps services の更新プログラムには、Microsoft Azure Government クラウドでの Azure Maps サービスの一般提供を含む、新機能や最近追加された機能が含まれています。
+Content: >-
+  <p><i>このブログ投稿は、チャド Raynor、プリンシパルプログラムマネージャー、Azure Maps によって共同作成されました。</i></p>
+
+
+  <p>Azure Maps services の更新プログラムには、Microsoft Azure Government クラウドでの Azure Maps サービスの一般提供を含む、新機能や最近追加された機能が含まれています。 Azure Maps サービスの新機能と最近追加された機能の概要を次に示します。</p>
+
+
+  <h2>Azure Government クラウドで Azure Maps が一般公開されました</h2>
+
+
+  <p>Azure Government クラウドの Azure Maps の一般提供により、Azure Government クラウドにデプロイされたソリューションに地理空間と位置情報インテリジェンス機能を簡単に含めることができ、エンタープライズレベルのアプリケーションに必要な品質、パフォーマンス、信頼性が実現します。 <a href="https://azure.microsoft.com/en-us/global-infrastructure/government/" target="_blank">Microsoft Azure Government</a>は、セキュリティ、プライバシー、制御、コンプライアンス、透明性の基本原則に基づいて構築されたクラウドプラットフォームを提供します。 公的機関のエンティティは、アーキテクチャ上に構築されたすべてのシステムとアプリケーションについて、米国政府にとって重要な世界クラスのセキュリティとコンプライアンスサービスを使用する Microsoft Azure の物理的に分離されたインスタンスを受け取ります。</p>
+
+
+  <h2>Batch サービスの Azure Maps は一般公開されています</h2>
+
+
+  <p>検索とルートサービスで利用可能な Azure Maps Batch 機能が一般公開されました。 Batch サービスを使用すると、ユーザーは1つの API 要求だけを使用してクエリのバッチを送信できます。</p>
+
+
+  <p>Batch の機能は、次の Api でサポートされています。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/maps/search/postsearchaddressbatch" target="_blank">Post Search Address Batch</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/maps/search/postsearchaddressreversebatch" target="_blank">Post Search Address Reverse Batch</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/maps/search/postsearchfuzzybatch" target="_blank">Post Search Fuzzy Batch</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/rest/api/maps/route/postroutedirectionsbatch" target="_blank">Post Route Directions Batch</a></li>
+  </ul>
+
+
+  <h3>Azure Maps Batch サービスの新機能 &rsquo;</h3>
+
+
+  <p>ユーザーは、ライトウェイトバッチ要求向けに設計された同期 (同期) 要求を送信するオプションを使用できるようになりました。 サービスは、要求を受信すると、リダイレクト URL と共に202を返すのではなく、バッチ項目が計算されるとすぐに応答します。 Sync API では、後で結果を取得することはできません。 Azure Maps は、同期要求を受信すると、バッチ項目が計算されるとすぐに応答します。 大きなバッチの場合は、比較的複雑なルート要求の大量の処理に適した非同期 API の使用を継続することをお勧めします。</p>
+
+
+  <p>検索 Api の場合、開発者は非同期 API を使用して最大で1万のクエリをバッチ処理し、API を最大100のクエリに同期することができます。 ルート Api の場合、開発者は非同期 API を使用して最大700のクエリをバッチ処理し、API を最大100のクエリに同期することができます。</p>
+
+
+  <h2>Azure Maps Matrix Routing service は一般公開されています</h2>
+
+
+  <p><br>
+
+  <a href="https://docs.microsoft.com/rest/api/maps/route/postroutematrix" target="_blank">マトリックスルーティング API</a> が一般公開されました。 このサービスでは、元の場所と移動先の場所で定義されたルートのセットについて、ルートの概要のマトリックスを計算できます。 サービスは、指定されたすべての配信元に対して、その配信元から特定の送信先へのルーティングの時間と距離を計算します。</p>
+
+
+  <p>たとえば、食品配送会社に20個のドライバーがあり、レストランからの配送を取得するために最も近いドライバーを見つける必要があると&#39;します。 このユースケースを解決するために、マトリックスルート API を呼び出すことができます。</p>
+
+
+  <h3>Azure Maps マトリックスルーティングサービスの新機能 &rsquo;</h3>
+
+
+  <p>このチームは、マトリックスのルーティングのパフォーマンスを向上させ、前述の batch サービスと同様に同期要求を送信するためのサポートを追加しました。 非同期要求のマトリックスの最大サイズは700であり、同期要求の場合、s 100 (オリジンの数に変換先の数を乗算した数)&#39;ます。</p>
+
+
+  <p>非同期 API 呼び出しの場合、新しい<b> <i>waitforresults</i> </b>パラメーターが導入されました。 このパラメーターが true に設定されている場合、要求が120秒以内に完了すると、ユーザーは200応答を受け取ります。 そうしないと、ユーザーはすぐに202応答を受け取り、非同期 API はユーザーに URL を返し、応答の location ヘッダーで非同期要求の進行状況を確認します。</p>
+
+
+  <h2>Render services の更新プログラム</h2>
+
+
+  <h3>プレビューでのマップタイルの取得 v2 API の概要</h3>
+
+
+  <p>マップタイルの取得 API v1 Azure Maps と同様に、新しい [ <a href="https://docs.microsoft.com/rest/api/maps/renderv2/getmaptilepreview" target="_blank">map] タイルバージョン 2 api</a>の [preview (プレビュー)] では、ユーザーは、通常、マップコントロールや SDK に統合される、ベクター形式またはラスター形式のマップタイルを要求できます。 このサービスを使用すると、Azure Maps のロードタイルやリアルタイム気象のタイルなど、さまざまなマップタイルを要求できます。 既定では、Azure Maps は、その Sdk にベクターマップタイルを使用します。</p>
+
+
+  <p>新しいバージョンでは、ユーザーはより一貫した方法でデータを要求することができます。 新しいバージョンでは、設定の概念が導入されています。これは、事前設定されたズームレベル <b><i>で、正方形</i></b>のタイルの均一なグリッドに分割されるラスターデータまたはベクターデータのコレクションです。 すべての<b><i>タイルセット</i></b>には、特定の<b><i>タイルセット</i></b>を要求するための<b><i>タイル setid</i></b>があります。 たとえば、「 <b><i>microsoft. base</i></b>」のようにします。</p>
+
+
+  <p>また、Get Map Tile v2now は、 <a href="https://docs.microsoft.com/rest/api/maps/render/getmapimagerytile" target="_blank">Get map の画像タイル API</a>からのみ使用できるようになった画像データを呼び出すためのオプションをサポートしています。 さらに、Azure Maps 気象サービスのレーダーおよび赤外線マップタイルは、バージョン2でのみ使用できます。</p>
+
+
+  <h3>[マップの取得] タイルと [マップイメージの取得] Api から使用できるダークグレーのマップスタイル</h3>
+
+
+  <p>Sdk を通じて Azure Maps ダークグレーのマップスタイルを提供するだけでなく、Get Map Tile Api (<a href="https://docs.microsoft.com/rest/api/maps/render/getmaptile" target="_blank">version 1</a>および<a href="https://docs.microsoft.com/rest/api/maps/renderv2" target="_blank">version 2</a>) を使用してアクセスし、vector およびラスター形式で<a href="https://docs.microsoft.com/rest/api/maps/render/getmapimage" target="_blank">マップイメージ API を取得</a>できるようになりました。 これにより、顧客は、マップ画像を web ページに埋め込むなど、豊富なマップの視覚エフェクトを作成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e21eebc9-f898-4493-952b-2cf762a6a909.png"><img alt="Azure Maps dark grey map style." border="0" height="407" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2497143f-4350-4d51-af0a-ee3b68c17cb7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="濃いグレーのマップスタイルを Azure Maps します。" width="1200"></a></p>
+
+
+  <p align="center"><i>濃いグレーのマップスタイルを Azure Maps します。</i></p>
+
+
+  <h3>ルートサービス: 罫線の跨りを避け、カスタム領域を渡して回避する</h3>
+
+
+  <p>Azure Maps チームは、引き続きルーティング Api の機能強化を行ってきました。 新しいパラメーター値が追加されました。これを <a href="https://docs.microsoft.com/rest/api/maps/route/getroutedirections#avoid" target="_blank">回避</a> するには、車両が国/地域の境界線のクロスを回避する必要があり、1つの国内にルートを保持する必要があります。</p>
+
+
+  <p>より高度な車両ルーティング機能を提供するために、お客様は、 <a href="https://docs.microsoft.com/en-us/rest/api/maps/route/postroutedirections" target="_blank">ルート方向の POST 指示 API</a> 要求で回避する領域を含めることができるようになりました。 たとえば、顧客は、特定の領域に車両が送信されないようにすることができます。これは、ローカルの権限を持たない領域での操作が許可されていないためです。 ソリューションとして、ユーザーは、GeoJSON 形式のルート要求ポストボディポリゴンを、回避する領域のリストとして渡すことができるようになりました。</p>
+
+
+  <h2>更新プログラムの地図とスタイル設定</h2>
+
+
+  <h3>モデルの作成を表示する</h3>
+
+
+  <p>マップコントロールを Azure Maps 使用すると、ユーザーは、マップ上に 2.5 D のモデルをレンダリングするオプションを選択できるようになります。 既定では、すべての建物がフットプリントのみとしてレンダリングされます。 <a href="https://docs.microsoft.com/javascript/api/azure-maps-control/atlas.styleoptions?view=azure-maps-typescript-latest#showbuildingmodels" target="_blank"><strong>ShowBuildingModels</strong></a>を<b>true</b>に設定すると、建物は 2.5 d モデルでレンダリングされます。 <a href="https://azuremapscodesamples.azurewebsites.net/index.html?sample=Map%20style%20options" target="_blank">この機能を今すぐお試しください。</a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3e2cef25-0400-4c12-995e-307e4f1643b7.png"><img alt="Display building models. " border="0" height="335" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/12d77231-f9f8-4bb8-ba3a-2e0ba14ee5e5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="モデルの作成を表示します。 " width="745"></a></p>
+
+
+  <p align="center"><i>モデルの作成を表示</i>します。</p>
+
+
+  <h3>アイランド、枠、および国/地域の多角形</h3>
+
+
+  <p>ユーザーエクスペリエンスを向上させ、より詳細なビューを提供するために、境界データの単純化を減らすことで、より高いズームレベルでより良いビジュアルエクスペリエンスを実現しました。 これで、ユーザーはより詳細な polygon 境界データを表示できるようになりました。</p>
+
+
+  <p align="center"><i><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a2562e5a-28cd-48a8-9676-4a346124b73c.png"><img alt="Left: Before boundary data simplification reduction. Right: After boundary data simplification reduction." border="0" height="290" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0fe2e032-0c2f-4131-a1ba-2e8d5b26c7af.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Left: 境界データの単純化を減らす前。 Right: 境界データの単純化が減少した後。 " width="691"> </a>Left: 境界データの単純化を減らす前。 Right: 境界データの単純化が減少した後。</i></p>
+
+
+  <h3>国立公園のラベル付けとデータレンダリング</h3>
+
+
+  <p>ユーザーからのフィードバックに基づいて、ラベルの数を減らすことで scatters polygon のラベルを簡略化しました。 また、National 公園と National Forest のラベルも、既にズームレベル6で表示されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6cc6b0cb-8c4e-494c-ab15-d4e6959a0396.png"><img alt="National Park and National Forest labels displayed on zoom level 6." border="0" height="500" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4aedef8c-f1d9-4086-93e4-95258c0967b4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="[ズームレベル 6] に表示される国立公園および National Forest ラベル。" width="990"></a></p>
+
+
+  <p align="center"><i>[ズームレベル 6] に表示される国立公園および National Forest ラベル。</i></p>
+
+
+  <h2>フィードバックを送信します</h2>
+
+
+  <p>コミュニティからのフィードバックを常に歓迎します。 次のコメントを無料でご利用いただくか、 <a href="https://stackoverflow.com/questions/tagged/azure-maps/" target="_blank">Stack Overflow</a>に質問を投稿したり、 <a href="https://feedback.azure.com/forums/909172-azure-maps" target="_blank">Azure Maps フィードバック UserVoice</a>に機能要求を送信したりすることができます。</p>

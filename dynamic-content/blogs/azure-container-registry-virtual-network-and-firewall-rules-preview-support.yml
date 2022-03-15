@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5b0bbdc269f73346fcf2d9ab6203eea853cc2387
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894126"
+Slug: azure-container-registry-virtual-network-and-firewall-rules-preview-support
+Title: Azure Container Registryネットワークとファイアウォール規則プレビューのサポート
+Summary: Azure Container Registry (ACR) ではユーザーとヘッドレス サービスアカウントの認証がサポートされています。一方、お客様はパブリック エンドポイント アクセスを制限する要件を示しています。 お客様は、Azure Virtual Network (VNet) 内のレジストリ アクセスを制限できるだけでなく、オンプレミス サービスの IP アドレスと範囲をホワイトリストに登録できます。
+Content: >-
+  <p>Azure Container Registry (ACR) ではユーザーとヘッドレス <a href="https://aka.ms/acr/authentication" target="_blank"></a>サービスアカウントの認証がサポートされています。一方、お客様はパブリック エンドポイント アクセスを制限する要件を示しています。 お客様は、Azure Virtual Network (VNet) 内のレジストリ アクセスを制限できるだけでなく、オンプレミス サービスの IP アドレスと範囲をホワイトリストに登録できます。</p>
+
+
+  <p>VNet とファイアウォールの規則は、仮想マシン (VM) と Azure Kubernetes Services (AKS) でサポートされています。</p>
+
+
+  <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="324" scrolling="no" src="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Container-Registry-ACR-virtual-network-and-firewall-rules-preview/player?format=ny" width="576"></iframe></p>
+
+
+  <h2>プライベート レジストリと PaaS レジストリの選択</h2>
+
+
+  <p>お客様が実稼働環境に移行すると、セキュリティ チームは、実稼働ワークロードに適用されるチェックリストを持っています。そのうちの 1 つは、すべてのパブリック エンドポイントを制限しています。 VNet をサポートしない場合、お客様はスタンドアロン製品か、自分で実行して管理できる OSS プロジェクトを選択する必要があります。 これにより、実稼働レジストリで必要なストレージ、セキュリティ、スケーラビリティ、信頼性を管理する負担が大きくなります。</p>
+
+
+  <p>VNet とファイアウォールの規則を使用すると、お客様はセキュリティ要件を満たしながら、統合されたセキュリティ<a href="https://docs.microsoft.com/azure/container-registry/container-registry-storage" target="_blank"></a>、セキュリティ保護、geo 冗長、geo レプリケート<a href="https://aka.ms/acr/geo-replication" target="_blank">された PaaS</a> Container Registry。 そのため、リソースを解放して、直面する固有のビジネス上の問題に集中します。</p>
+
+
+  <h2>Azure Container Registry PaaS を使用してレジストリ製品を有効にする</h2>
+
+
+  <p>ACR の最新の VNet とファイアウォール規則の機能は、コンテナー ライフサイクル管理の最新の機能セットにすすらなっています。 ACR には、他のレジストリまたは CI/CD 製品が構築できるコア プリミティブが用意されています。 ACR&rsquo; の目標は、パートナーと競合するのではなく、コア クラウド機能を使用してそれらを有効にし、各オファーのより高いレベルの独自の機能に集中できる点です。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>お客様は、Azure CLI または Azure portalを使用して、VNet とファイアウォール規則を構成するためのドキュメント <a href="https://aka.ms/acr/vnet" target="_blank">に従ってください</a>。</p>
+
+
+  <h3>VNet とファイアウォール規則のプレビュー価格</h3>
+
+
+  <p>プレビュー期間中は、VNet とファイアウォールの規則が&rsquo; Azure Container Registry プレミアムされます。</p>
+
+
+  <h3>プレビューと一般提供日</h3>
+
+
+  <p>2019 年 3 月 18 日の現在、VNet とファイアウォールの規則は、25 のパブリック クラウド リージョンすべてでパブリック プレビューで使用できます。 一般提供 (GA) は、使用状況とフィードバックの曲線に基づいて行います。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <ul>
+      <li><a href="https://aka.ms/acr" target="_blank">Azure Container Registry</a></li>
+      <li><a href="https://aka.ms/acr/geo-replication" target="_blank">geo レプリケーション レジストリ</a></li>
+      <li><a href="https://blogs.msdn.microsoft.com/stevelasker/2017/12/20/os-framework-patching-with-docker-containers-paradigm-shift/" target="_blank">OS &amp; Framework の修正プログラムの適用</a></li>
+      <li><a href="https://aka.ms/acr/tasks" target="_blank">ACR タスク</a></li>
+  </ul>

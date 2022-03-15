@@ -1,0 +1,39 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6f008cb137b599629922702e78fb4ed5a3a78962
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890373"
+Slug: manage-azure-iot-edge-deployments-with-kubernetes
+Title: Kubernetes Azure IoT Edge デプロイを管理する
+Summary: Kubernetes Azure IoTとボキャブラリを使用して、Edge のデプロイを管理します。 これは、Azure IoT Edge がオープンな業界標準テクノロジに基付いているためです。
+Content: >-
+  <p>Azure IoT Edge は、オープン コンテナー テクノロジを基に構築されています。これにより、エコシステム内の他のすばらしいプロジェクトとシームレスに統合できます。 &rsquo;今日は、Kubernetes の専門知識を活用し、同じボキャブラリを使用して Kubernetes 環境内から IoT Edge デプロイを管理できる実験的なプロジェクトを共有します。</p>
+
+
+  <h2>アーキテクチャ</h2>
+
+
+  <p>Virtual <a href="https://github.com/virtual-kubelet/virtual-kubelet/blob/master/README.md">Kubelet プロジェクトを</a> 利用します。これにより、Kubernetes ノードを他のサービスによってサポートし、Kubernetes プリミティブを直接使用できます。 Kubernetes マニフェストIoT Edge配置マニフェストに変換する、次の図の青いボックスで示されている IoT Edge プロバイダーを実装しました。 1 IoT Edgeマニフェストでは、タグを使用して、1 つの kubectl コマンドで構成を更新できる、事前に作成されたエッジ デバイスをターゲットにできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6f90bedf-0760-4248-94a9-1334fa5ba7a8.png"><img alt="iot-edge-connector" border="0" height="580" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6c3084b-3a69-4b7e-93ab-8af10cec825b.png" style="margin: 0px auto; float: none; display: block; background-image: none;" title="iot-edge-connector" width="700"></a></p>
+
+
+  <h2>ユース ケース</h2>
+
+
+  <p>この時点では試験的なプロジェクトですが、そうしないと実現が難しい興味深い使用事例がいくつか有効になります。</p>
+
+
+  <ul>
+   <li><strong>クラウドとエッジ</strong> のソフトウェア構成間の一貫性: Imagineとエッジデプロイで使用される新しいバージョンの圧縮アルゴリズムのロールアウトを同期する方法について説明します。 このツールを使用すると、1 つのウィンドウからクラウドとエッジのリリースを管理できます。これにより、顧客に最新のイノベーションを簡単かつ一貫して提供できます。</li>
+   <li><strong>複数の IoT ハブに同一のデプロイを適用する:</strong> たとえば&rsquo;、パフォーマンスや回復性の理由から、異なるリージョンの IoT ハブに接続されているエッジ デバイスが複数存在しますが、これらのデバイスのソフトウェア構成は同じです。 IoT ハブごとに仮想 Kubernetes ノードを作成することで、1 つのコマンドを使用して、異なる IoT ハブ内のデバイスにデプロイ マニフェストを同時に適用できます。</li>
+  </ul>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>Github <a href="https://github.com/azure/iot-edge-virtual-kubelet-provider" target="_blank">で、IoT Edge Virtual Kubelet プロバイダーをオープン ソースにしました</a>。 このレポポには、Kubernetes クラスターでこれを設定し、それを IoT Hub に接続し、Kubernetes マニフェストとして IoT Edge デプロイを作成する方法に関する手順が記載されています。 すべての統合が完了しているとは言え、この初期の作業を共有して、さらなる投資をガイドするフィードバックを得る必要があります。 それでは、ご自分の考えをお知らせします。</p>

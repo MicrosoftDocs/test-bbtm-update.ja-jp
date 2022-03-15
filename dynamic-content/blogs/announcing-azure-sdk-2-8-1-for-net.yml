@@ -1,0 +1,166 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fdf76c06972eae81ba8c49baf78f1a65602785a4
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891270"
+Slug: announcing-azure-sdk-2-8-1-for-net
+Title: Azure SDK 2.8.1 for .NET の発表
+Summary: 本日、Visual Studio 2013 と Visual Studio 2015 の Azure SDK 2.8.1 を発表します。 この SDK 更新プログラムには、Azure App Service 開発者向けの優れた新機能がいくつか用意されており、Mobile Apps .NET サーバー SDK の新しいリリース App Service API Apps と一般公開を補うことができます。
+Content: >-
+  <p>本日、 &rsquo; Visual Studio 2013 と Visual Studio 2015 の Azure SDK 2.8.1 を発表します。 この SDK 更新プログラムには、 <a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-value-prop-what-is/">Azure App Service</a> 開発者向けの優れた新機能がいくつか用意されており、Mobile Apps .NET サーバー SDK の新しいリリース App Service API Apps と一般公開を補うことができます。 これらのサービスとツールの更新プログラムは、ASP.NET 5 RC &rsquo; の最新の更新プログラムを heels しています。 Azure で Web、モバイル、REST api を開発する絶好の時間です。 この投稿では、Azure SDK 2.8.1 でリリースされる新機能をまとめています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/downloads/">Azure SDK 2.8.1 for .NET</a><br>
+
+  [VS 2015 | のダウンロードVS 2013]</p>
+
+
+  <ul>
+      <li><b>新しい最新の App Service 作成エクスペリエンス</b>: App Service ツール全体を再構築し、再設計しました。 <a href="https://azure.microsoft.com/en-us/documentation/services/app-service/web/">Web</a>、<a href="https://azure.microsoft.com/en-us/documentation/services/app-service/mobile/">モバイル</a>、 <a href="https://azure.microsoft.com/en-us/documentation/services/app-service/api/">API</a>アプリの開発者にとって、アプリの作成と発行のエクスペリエンスを統合するための重要な手順を実行しまし &rsquo; た。</li>
+      <li><b>API および Mobile Apps 用のテンプレート更新プログラムの Project: </b>REST API およびモバイル開発者向けの最新の更新プログラムを利用する開発者をサポートするために、Visual Studio テンプレートを更新しまし &rsquo; た。</li>
+      <li><b>Resource Manager テンプレートのエクスポート:</b> 新しいツールでは、作成しようと &rsquo; しているリソースをワンクリックで JSON ファイルにエクスポートできます。これにより、他のリソースグループまたは他の Azure サブスクリプションでトポロジを再作成することができます。</li>
+      <li>強化された<b>REST API クライアントの生成:</b><a href="https://github.com/azure/autorest">AutoRest</a>と呼ばれる Azure SDK チーム &rsquo; とオープンソースの Swagger ベースのジェネレーターによって提供される、ユーザーエクスペリエンスと基になるコード生成機能の簡素化。</li>
+  </ul>
+
+
+  <h1>Visual Studio における App Service 開発者エクスペリエンスの統合</h1>
+
+
+  <p>各リソースの種類 &ndash; によって共有される App Service の機能が多数あるため、Mobile &rsquo; s の id 機能によって、より広範に利用可能な資産が提供されるだけでなく、API 定義の機能がすべての場所 &ndash; で使用できるようになりました。さらに、App Service 開発者が同じようにモデル化する必要がありました。 1つの web アプリケーションで、同じリソースグループに格納されている多数の REST Api を使用する場合があります。これは、モバイルアプリケーションでさらに補足するために後でのみ使用できます。 App Service &rsquo; の新機能が常に存在する証拠として、発行エクスペリエンスを統合し、Web、モバイル、および API アプリを App Service に発行するためのより簡単なビューを提供しています。</p>
+
+
+  <p><img alt="clip_image001" border="0" height="285" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7aae5529-19d5-4d1d-be10-c50cfaa15c6e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image001" width="360"></p>
+
+
+  <h1>より多くのオプションを備えた、再設計、有益、機能的な UI</h1>
+
+
+  <p>この統一と共に、App Service ツールのエクスペリエンスの全体的なルックアンドフィールを使って、驚くようにしまし &rsquo; た。 これらの新しい UI の改善点については、App Service ツールチームで行ってきた大きな再設計の取り組み &rsquo; の最初の段階であるため、お &rsquo; 見せします。 設計の新しい手順をいくつか実行して、接続済みサービスや新しい Office ツールなどの新しい Visual Studio UI 概念をエミュレートすることによって、設計の最初の段階を計画しています。 新しい UI の下には、新しいサービスをより効率的にパートナーおよび顧客主導にするための、コードの改善、改良が加えられています。 &rsquo;今後の投稿で Azure Tools が提供する新しい機能拡張の詳細について説明しますが、ここでは、アプリの選択と作成エクスペリエンスの設計と強化された設計について説明 &rsquo; します。</p>
+
+
+  <h1>目的のアプリを軽減する &rdquo; には、 &ldquo; 混乱を避ける</h1>
+
+
+  <p>多数のアプリを Azure に発行する顧客や同僚からの1つの一貫したフィードバックとして、リストが管理不可能になり、どのアプリを宛先にする必要があるかを判断する &ldquo; &rdquo; ことがますます困難になっていました。 &rsquo;リソースグループとリソースの種類の両方のビュー &rsquo; を提供する<i>と</i>いう Cloud Explorer 設計の概念から借用しましたが、[既存 &rdquo; の &ldquo; ものを選択] ダイアログボックスでアプリを簡単にグループ化できました。</p>
+
+
+  <p><img alt="clip_image002" border="0" height="362" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/44f644f2-a4e5-43e7-99dc-9db059c85ff7.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image002" width="480"></p>
+
+
+  <p>サブスクリプションで潜在的な発行ターゲットの数が多いために再グループ化 &rsquo; が不十分な場合は、優れた機能 &ndash; の<b>検索</b>を1つ追加しまし &rsquo; た。 これで、ダイアログで検索クエリを自由に入力できるようになりました。お &rsquo; 客様の用語に一致するアプリは除外されます。 検索も固定されています。そのため、リソースグループと種類の間でビューを検索して変更すると、検索が維持され、一致のみが表示されます。 &rsquo;これで、サブスクリプション &rsquo; のリソース一覧から発行先を簡単に見つけることができます。</p>
+
+
+  <p><img alt="clip_image003" border="0" height="361" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8d1cf024-d820-49bd-893e-f528d897a2fa.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image003" width="480"></p>
+
+
+  <h1>新しい App Service 作成の更新</h1>
+
+
+  <p>App Service 作成エクスペリエンスを最適化するために実行した最大の手順 &rsquo; は、アプリの作成/プロビジョニングプロセスにあります。 次に示す新しいダイアログでは、アプリの作成中に利用可能な機会を視覚的に手掛かりにしています。 2つのタブのエクスペリエンスの最初のタブで、重要なホスティング機能をすべて保持しまし &rsquo; た。 必要なものがクラウド内の新しいアプリで、新しいアプリの使用に関心のあるリソースグループとホスティングプラン &rsquo; が既にある場合、このプロセスは、ダイアログの [App Service 新規<b>作成</b>] ダイアログボックスで [作成] をクリックするだけで簡単に行うことができ &rsquo; ます。</p>
+
+
+  <p><img alt="clip_image004" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1294ac30-1d1a-45de-a679-829088adc7b3.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image004" width="480"></p>
+
+
+  <p>新しい App Service プランを作成する &rsquo; 必要がある場合は、新しい [ <b>新規</b> ] ボタンを1回クリックするだけで新しいプランが作成されます。 [プランの App Service] 画面で、ポータルで使用可能な任意のサイズからプランを作成することができ &rsquo; ます。</p>
+
+
+  <p><img alt="clip_image005" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ec253eb3-2d67-4edb-b4d4-64cae8b08f27.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image005" width="320"></p>
+
+
+  <p>アプリが発行される新しいリソースグループを作成する場合は、[リソースグループ] コンボボックスに入力するだけです。 このダイアログボックスには、新しいリソースグループを作成することを知ら &rsquo; せる多くの視覚的な手掛かりが表示されます ([ <b>ホスティング</b> ] タブの青いアイコンインジケーターは同じメッセージを反映しています)。</p>
+
+
+  <p><img alt="clip_image006" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/36b5ecf6-a66e-4a81-92e5-2c8e9757895c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image006" width="480"></p>
+
+
+  <h1>アプリで必要になる可能性のある追加のサービスの作成</h1>
+
+
+  <p>新しい App Service 作成画面の2番目のタブでは、アプリで必要になる可能性のある追加のサービスを選択できます。 このリリースでは、 &rsquo; App Service 作成プロセスで SQL サーバーおよびデータベースのサポートを維持しています。 ただし &rsquo; 、ここでは1つのデータベースに限定しません。 ダイアログボックス内には、必要な数の SQL サーバーまたはデータベースを直接作成できます。</p>
+
+
+  <p><img alt="clip_image007" border="0" height="362" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/772af24d-2df6-41b9-bc90-d9672bacec1e.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image007" width="480"></p>
+
+
+  <p>2.8.1 SDK の期間 &rsquo; 中にリリースされる唯一のプロバイダーは SQL ですが、このダイアログを有効にするための主要なエンジニアリング作業を実行しました。その一環として、パートナーチームがサービスライトアップを拡張するために機能する拡張可能なモデルを作成しました。 この同じダイアログでの Redis プロビジョニングのためのエクスペリエンスのプロトタイプを作成しまし &rsquo; た。また、Azure Key Vault とドキュメント DB チームとのディスカッションもあります。 今後 &rsquo; は、このエクスペリエンスに拡張機能をインストールすることができます (また、Visual Studio の Visual Studio 拡張機能ギャラリーの統合によって、頻繁にまたはオプトインの更新プログラムの利点を得ることができます)。</p>
+
+
+  <h1>Azure トポロジをエクスポートして、ミラー環境の作成に使用できるようにする</h1>
+
+
+  <p>[App Service 作成] ダイアログボックスでサービスを構成して追加すると、追加した各リソースが最初の [ホスティング] タブの [レビュー] &rsquo; 領域に表示されます。 この &ldquo; リソースカート &rdquo; では、サブスクリプションで作成するすべてのリソース &rsquo; のスナップショットが提供されます。</p>
+
+
+  <p><img alt="clip_image008" border="0" height="373" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7488a742-bb5b-455f-9567-d298e5bf3212.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image008" width="480"></p>
+
+
+  <p>カートに追加した &rsquo; リソースの数を増やすと、AZURE RESOURCE MANAGER JSON テンプレートがメモリに追加されて動的に作成されます。 &rsquo;アプリがカートに機能するために必要なすべてのリソースを追加したことを確認 &rsquo; したら、[エクスポート] ボタンをクリックするだけで、カート内のすべてのものを表す JSON テンプレートを保存する場所 &rsquo; を入力するように求められます。 その後、Azure PowerShell モジュールを使用して、テンプレートを別のリソースグループまたは別の Azure サブスクリプションに対して実行できます。 この機能により、お客様は自分のアプリケーショントポロジを表す、再現可能なテンプレートを使用できます。手動でテンプレートを手動で編集して構成する必要はありません。 トポロジをさらにカスタマイズする必要がある場合は、以前にリリースされた組み込みの resource manager テンプレートエディター機能が適切に統合されています。これは、テンプレート編集機能によって、エクスポートされた JSON ファイル内の JSON スキーマが認識されるためです。</p>
+
+
+  <p><img alt="clip_image009" border="0" height="335" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee6559f0-9d95-4eff-ad19-e2cfa5098b65.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image009" width="610"></p>
+
+
+  <h1>プロジェクトテンプレートの更新の App Service</h1>
+
+
+  <p>モバイルリソースと API リソースに新たに加えられた変更に対応するために、Visual Studio テンプレートを更新して、機能領域の新機能を活用しまし &rsquo; た。</p>
+
+
+  <h1>モバイルアプリテンプレートの機能強化</h1>
+
+
+  <p>App Service Mobile を使用すると、データをオフラインで操作したり、ユーザーを認証したり、プッシュ通知を送信したりするモバイルアプリケーションを簡単に作成できます。 Mobile Apps .NET サーバー SDK の <a href="https://azure.microsoft.com/blog/">一般提供</a> を発表しました。これにより、モバイルクライアントに対して、カスタムロジックだけでなく、これらの機能を提供するアプリケーションを App Service で構築することができます。 今回のリリースでは、現在、Visual Studio でモバイルアプリプロジェクトを作成して管理するためのサポートを更新しています。 開始するには、[ファイル &gt; ] [新規 Project &hellip; 作成 &gt; ] の [新しい Project] ダイアログを開き、[テンプレート &gt; ] [Visual C#] の順に展開し、[Web &quot; ] を選択 &quot; します。 [ASP.NET Web アプリケーション &quot; ] を選択 &quot; し、プロジェクト名を入力して、[OK] をクリックします。 [ &quot; ASP.NET 4.5.2 テンプレート] で、 &quot; [Azure Mobile App] を選択し &quot; ます。&quot;</p>
+
+
+  <p><img alt="clip_image010" border="0" height="476" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2d8b8f73-0281-4208-896c-e1306b93d8d4.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image010" width="610"></p>
+
+
+  <p>[OK] をクリックします。 アプリケーションが作成され、ソリューションエクスプローラーに表示されます。 このテンプレートは、Mobile Apps または Mobile Services を使用しているお客様になじみのあるものとします。 この構成には、主な違いがあります。 このテンプレートでは、OWIN スタートアップのすべてを構成し、追加されて &rsquo; いないコンポーネントをより細かく制御できるようになりました。</p>
+
+
+  <p><img alt="clip_image011" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fac0bda4-5bc2-42a5-9964-5c37c1820684.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image011" width="257"></p>
+
+
+  <p>プロジェクトは、単純な to do リストアプリケーションを表します。 モバイルクライアントは、 <b>TableController</b>から派生した<b>TodoItemController</b>を使用して、SQL に格納されているデータを使用できます。 TableController は、モバイル対応の Api を、選択したデータバックエンド (この場合は SQL) によって認識される CRUD 操作に変換します。 また、オフライン契約にも準拠しているので、Mobile Apps オフライン同期機能をすぐに活用できます。 [コントローラー &quot; ] フォルダーを右クリック &quot; して [コントローラーの追加 &gt; ] を選択すると、さらにテーブルコントローラーやモバイル対応の API コントローラーを追加できます。 次に、 <b>azure Mobile Apps Table Controller</b> または <b>Azure Mobile Apps カスタムコントローラー</b> を選択し、ウィザードに従ってエンドポイントを作成します。</p>
+
+
+  <p><img alt="clip_image012" border="0" height="336" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d5309bf6-e1c0-4d81-8fd4-8eebdf090bd0.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image012" width="610"></p>
+
+
+  <p>プロジェクトの準備ができたら、この記事で既に説明したように、[新しい発行] ダイアログを使用して App Service に発行できます。 Mobile Apps は、[App Service 作成] ダイアログボックスの [オプション] メニューでトップレベルの発行ターゲットとしてサポートされるようになりました。</p>
+
+
+  <p><img alt="clip_image013" border="0" height="84" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/622daa55-a00f-4b61-b723-94a5e6275669.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image013" width="360"></p>
+
+
+  <h1>API アプリテンプレートの機能強化</h1>
+
+
+  <p>API アプリモデルは、初期のプレビュー以降に進化しました。 その後、ローカルデバッグが重要であることがわかっ &rsquo; たため、新しい API Apps テンプレートで有効になりました。 このテンプレートを使用すると、リソース管理テンプレートまたは API アプリゲートウェイ固有のファイルへの依存関係を減らすことができ、全体的な構造が単純になります。 現時点では、API Apps テンプレートは基本的に Web API テンプレートであり、 <a href="https://www.nuget.org/packages/swashbuckle">Swashbuckle</a>と呼ばれるオープンソースの Swagger 対応 NuGet パッケージが追加されています。 &rsquo;また、以前の<b>Swaggerconfig .cs</b>ファイルの変更についても説明しました。これにより、swagger UI が既定で無効になり、swagger 操作 ID の生成に対するアプローチを改善する操作フィルターが含まれるようになりました (<a href="https://azure.microsoft.com/en-us/documentation/articles/app-service-api-dotnet-swashbuckle-customize/">Azure.com の Swashbuckle のカスタマイズの詳細について</a>はこちらを参照してください)。</p>
+
+
+  <p><img alt="clip_image014" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c4e2aa25-0758-4ca2-8724-c24c3d00e388.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image014" width="260"></p>
+
+
+  <h1>REST API の生成の機能強化</h1>
+
+
+  <p>API Apps や API Management のような App Service チームによって行われた投資を Swagger の使用にミラーリングし、 &rsquo; API Apps によって公開された swagger メタデータに基づくコード生成による投資を続行します。 Visual Studio でほとんどの C# プロジェクトをクリックし、[ <b>REST API クライアントの追加 &gt; </b> ] ジェスチャを選択すると、簡略化された REST API クライアントジェネレーターダイアログが表示されます。 [<b>参照</b>] ボタンをクリックすると、[App Service &rdquo; の &ldquo; 選択] ダイアログボックスが表示されます。ここで、API 定義エンドポイントが設定されている任意の App Service を選択できます。</p>
+
+
+  <p><img alt="clip_image015" border="0" height="596" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/236c97f9-7050-442d-9ffc-2a3cc4703409.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="clip_image015" width="610"></p>
+
+
+  <h1>まとめ</h1>
+
+
+  <p>&rsquo;まだ Azure アカウントを持っていない場合は、<a href="https://azure.microsoft.com/en-us/pricing/free-trial/">無料試用版</a>にサインアップして、今までに示したすべての機能の使用を開始できます。 その後、 <a href="https://azure.microsoft.com/en-us/get-started/">Azure デベロッパーセンター</a> にアクセスして、それを使用してアプリを構築する方法について学習します。 Visual Studio IDE の [<a href="https://go.microsoft.com/fwlink/?linkid=517102&amp;clcid=0x409">気に入った</a>機能の報告] を使用して、Connect、UserVoice による提案、迅速な考えやアイデアを通じて、バグを送信してください。 このリリースは App Service ツールの新しい方向性の早い段階です。そのため、お客様のフィードバックをお寄せください。また、お客様のフィードバックをお寄せいただき、リソースカートに表示されるサービス &rsquo; を確認して、より効率的なアプリ開発を実現するために、お &rsquo; 客様の入力を続けてください。 この SDK リリースに関連する詳細または既知の問題については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/azure-sdk-dotnet-release-notes-2_8/">AZURE sdk 2.8 と2.8.1 のリリースノートのページ</a> をご覧ください。&nbsp;</p>
+
+
+  <h3>謝辞</h3>
+
+
+  <p>このブログ投稿は、複数の担当者の共同作業です。 <a href="https://twitter.com/mattchenderson">Matthew Henderson</a>に感謝し、このリリースに取り組んでいたすべてのチームメイトに感謝します。</p>

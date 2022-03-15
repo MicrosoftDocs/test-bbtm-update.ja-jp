@@ -1,0 +1,142 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 87ebd94b6ceb5e57a8b3e648a7705b51054cec03
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896212"
+Slug: azure-introduces-new-disks-sizes-up-to-4tb
+Title: Azure IaaS Vm で最大 4 TB の大規模ディスクサイズを発表
+Summary: Azure では、Azure ディスクの最大サイズとパフォーマンスが向上しています。 プレミアムと Standard storage の両方のディスクの最大サイズを発表します。 これにより、ディスクの最大サイズが次のように拡張されます。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">最大 32 TiB をサポートする、より大きな管理ディスクサイズが一般公開されました。 詳細については、ブログ投稿「 &quot; <a href="https://azure.microsoft.com/en-us/blog/larger-more-powerful-managed-disks-for-azure-virtual-machines/">Azure Virtual Machines 向けのより強力で強力な Managed Disks</a>」を参照してください。&quot;</div>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h2>Azure では、Azure ディスクの最大サイズとパフォーマンスが向上します。</h2>
+
+
+  <p>プレミアムと Standard の両方のストレージの最大ディスクサイズの増加を発表します。 これにより、ディスクの最大サイズが 1024 GB から 4095 GB に拡張され、お客様は VM ごとに4倍のディスクストレージ容量を追加できるようになります。 お客様は、4 TB の容量の64ディスクを使用して、GS5 VM で最大 256 TB のディスクストレージをプロビジョニングできるようになりました。 その結果、より大きなディスク容量をプロビジョニングするために、複数の Vm にスケールアップしたり、複数のディスクをストライピングしたりする必要がなくなりました。</p>
+
+
+  <p>現在、大容量ディスクは、US Gov (unmananged Disks のみ)、米国 DOD、ドイツ、中国で構成されるソブリンクラウドを含むすべての Azure リージョンで利用できます。</p>
+
+
+  <p>お客様がワークロードに適した適切なディスクサイズをプロビジョニングするための柔軟性を提供するために、P40 (2tb) と P50 (4 tb) の2つの新しいディスクサイズを、管理ディスクと非管理対象プレミアムディスクの両方に導入します。Standard Managed Disks 用の S40 (2TB) と S50 (4 TB)。 また、Standard 非管理対象ディスクの最大ディスクサイズを 4095 GB にプロビジョニングすることもできます。</p>
+
+
+  <table border="1" cellpadding="5" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top">&nbsp;</td>
+              <td valign="top"><b>プレミアムディスク</b></td>
+              <td valign="top"><b>Standard ディスク</b></td>
+          </tr>
+          <tr>
+              <td valign="top">Managed Disks</td>
+              <td valign="top">P40、P50</td>
+              <td valign="top">S40, S50</td>
+          </tr>
+          <tr>
+              <td valign="top">非管理対象ディスク</td>
+              <td valign="top">P40、P50</td>
+              <td valign="top">最大4、095GB</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>大量のプレミアムディスク P40 と P50 は IO 集中型のワークロードをサポートするため、プロビジョニングされたディスクのパフォーマンスが向上します。 最大プレミアムディスク iops と帯域幅は、それぞれ 7500 IOPS と 250 MBps に増加します。 すべてのサイズの Standard ディスクでは、最大 500 IOPS と 60 MBps が提供されます。</p>
+
+
+  <table border="1" cellpadding="5" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top">&nbsp;</td>
+              <td valign="top">P40</td>
+              <td valign="top">P50</td>
+              <td valign="top">S40</td>
+              <td valign="top">S50</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク サイズ</td>
+              <td valign="top">2048 GB</td>
+              <td valign="top">4095 GB</td>
+              <td valign="top">2048 GB</td>
+              <td valign="top">4095 GB</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク IOPS</td>
+              <td valign="top">7500 IOPS</td>
+              <td valign="top">7500 IOPS</td>
+              <td valign="top">最大 500 IOPS</td>
+              <td valign="top">最大 500 IOPS</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク帯域幅</td>
+              <td valign="top">250 MBps</td>
+              <td valign="top">250 MBps</td>
+              <td valign="top">最大 60 Mbps</td>
+              <td valign="top">最大 60 Mbps</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>既存の Azure ツールで Azure Resource Manager (ARM) を使用して、より大きなディスクを作成したり、既存のディスクのサイズを大きくすることができます。 また、グローバルリージョンの大規模ディスクに対する Azure Portal のサポートも利用できます。 ソブリンクラウドのポータルサポートは、2017年7月の終わりまでに有効になります。 ページ blob または非管理対象ディスクとして、1 TB を超える VHD ファイルをアップロードするには、最新のリリースされ<a href="https://docs.microsoft.com/en-us/azure/storage/storage-faq-for-disks#new-disk-sizes---both-managed-and-unmanaged">たツールセット</a>を使用します。 大容量ディスクの Azure Backup と Azure Site Recovery のサポートは近日対応予定です。</p>
+
+
+  <h2>コスト効率のためにプレミアム Managed Disks (32 gb と 64 gb) が小さい</h2>
+
+
+  <p>また、プレミアム Managed Disks には、P4 (32 gb) と P6 (64 GB) という2つの小さなディスクサイズを用意しています。 これらの新しいサイズを使用すると、一貫したディスクパフォーマンスを必要とするが、Linux Vm の OS ディスクなどのディスク容量が少ないシナリオでコストを最適化することができます。 Standard Managed Disks には、既に小さいディスクサイズを用意しています。</p>
+
+
+  <table border="1" cellpadding="5" cellspacing="0">
+      <tbody>
+          <tr>
+              <td valign="top">&nbsp;</td>
+              <td valign="top">P4</td>
+              <td valign="top">P6</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク サイズ</td>
+              <td valign="top">32 GB</td>
+              <td valign="top">64 GB</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク IOPS</td>
+              <td valign="top">120 IOPS</td>
+              <td valign="top">240 IOPS</td>
+          </tr>
+          <tr>
+              <td valign="top">ディスク帯域幅</td>
+              <td valign="top">25 MBps</td>
+              <td valign="top">50 MBps</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>2017年6月15日以降に作成された新しいプレミアム Managed Disks、サイズが 32 gb 以下の場合は、のディスクサイズが 33gb ~ 64 gb としてプレミアムプレミアムプロビジョニングされます。 ディスク作成動作の変更は、週のすべての Azure リージョンにおいて、6月15日から23日まで段階的に有効になり、グローバルに利用できるようになりました。 既存のプレミアム Managed Disks は、2017年6月15日より前にデプロイされた 64 gb に相当しますが、P10 disk performance and 価格レベルでは、 また、P10 レベルでディスクのパフォーマンスを維持するために <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/expand-data-disks">、ディスクのサイズ</a> を 64 gb を超えるサイズに変更することもできます。</p>
+
+
+  <p>現時点では、新しい P4 および P6 プレミアムディスクサイズは、Managed Disks でのみ使用できます。 管理されていないプレミアムディスクについては、これらの小さいサイズのサポートが間もなくリリースされる予定です。 Managed Disks に移行する準備がまだできていない場合は、引き続きご利用ください。</p>
+
+
+  <h2>価格</h2>
+
+
+  <p>容量の大きいディスクと小さいプレミアム Managed Disks 価格の詳細については、<a href="https://azure.microsoft.com/en-us/pricing/details/managed-disks/">管理ディスクの価格</a>と<a href="https://azure.microsoft.com/en-us/pricing/details/storage/unmanaged-disks/">非管理対象ディスクの価格</a>に関するページを参照してください。</p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/create-managed-disk-ps">新しい Managed Disks の作成</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/expand-os-disk">OS ディスクの展開</a></li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/expand-data-disks">データディスクの拡張</a></li>
+  </ul>

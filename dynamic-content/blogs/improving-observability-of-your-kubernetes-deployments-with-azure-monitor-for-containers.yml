@@ -1,0 +1,57 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 18dda3ec6318065a8a255108b2170a2cb0e55bac
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890758"
+Slug: improving-observability-of-your-kubernetes-deployments-with-azure-monitor-for-containers
+Title: コンテナーの Azure Monitor を使用した Kubernetes デプロイの可観測性の向上
+Summary: 'この数年で、特にコンテナーの導入と従来のモノリシックアプリケーションからマイクロサービスアプリケーションへの移行において、アプリケーションの考え方と開発方法に大きな変化が見られました。 '
+Content: >-
+  <p>ここ数年で、特にコンテナーの導入と従来のモノリシックアプリケーションからマイクロサービスアプリケーションへの移行において、アプリケーションの考え方と開発方法に大きな変化が見られまし &rsquo; た。 このシフトは、最新のアプリケーション監視に対する考え方にも影響します。これにより、オープンソーステクノロジの導入が向上し、可観測性の概念が導入されました。</p>
+
+
+  <p>これまで、ベンダーはアプリケーションとインフラストラクチャを所有しており、その結果、監視対象のメトリックを認識していました。 オープンソース製品の数が増えるにつれて、ベンダーはすべてのメトリックを所有するわけではなく、現在の監視ツールでカスタムメトリックが非常に必要になります。 モノリスアプリケーションとは異なり、単純な状態が "健全" または "not" の単一のデプロイユニットであり、最新のアプリケーションは、n 状態の小数部を含むさまざまなマイクロサービスで構成されます。 これは、特に Kubernetes 上で、顧客が運用環境で同じサービスの異なるバージョンを実行している可能性のある高度なデプロイ戦略とロールバックに起因します。 そのため、これらのシフトを採用することは、監視に不可欠です。</p>
+
+
+  <p><img alt="Visualizing flow on how application creation has changed from monolithic application into a microservices with containers" border="0" height="470" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e158f2a9-5381-4aa3-baf3-801efdb70c5a.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="780"></p>
+
+
+  <p>カスタムメトリックとオープンソーステクノロジを使用すると、アプリケーションの特定のコンポーネントの可観測性を向上させることができますが、完全なスタックを監視する必要もあります。 コンテナーの Azure Monitor は、 <a href="https://azure.microsoft.com/en-in/blog/azure-monitor-for-containers-now-generally-available/">ライブデータによる可観測性</a> と、 <a href="https://azure.microsoft.com/en-in/blog/azure-monitor-for-containers-with-prometheus-now-in-preview/">Prometheus を使用したカスタムメトリック</a>の収集の両方をサポートします。これにより、ノードから Kubernetes インフラストラクチャへの完全なエンドツーエンドの監視がワークロードに提供されます。</p>
+
+
+  <p><img alt="full Kubernetes stack from platform (node) to workloads running on Kubernetes. " border="0" height="365" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/21100c88-3e74-403a-a9ea-fc7414dbbd3d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1201"></p>
+
+
+  <h2>Grafana ダッシュボードを使用した Prometheus メトリックの収集と表示</h2>
+
+
+  <p>Prometheus SDK をワークロードにインストルメント化することにより Azure Monitor、スクラップのエンドポイントから公開されたメトリックをコンテナー用にことができるため、エラー率、秒あたりの応答数、待機時間をすばやく収集できます。 Prometheus を使用すると、コンテナー化された <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-agent-config#prometheus-scraping-settings">エージェント</a>を構成することによって Azure Monitor によってすぐに提供されない Kubernetes インフラストラクチャメトリックの一部を収集できます。</p>
+
+
+  <p>Log Analytics では、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language" target="_blank">Kusto Query Language (KQL)</a> クエリを簡単に実行し、Azure portal ダッシュボードでカスタムダッシュボードを作成することができます。 Grafana を使用してダッシュボードの要件をサポートする多くのお客様については、Grafana ダッシュボードでコンテナーと Prometheus のメトリックを視覚化することができます。</p>
+
+
+  <p>次に示すのは、エンドツーエンドの Azure Kubernetes Service (AKS) クラスターの概要、ノードのパフォーマンス、Kubernetes インフラストラクチャ、およびワークロードを提供するダッシュボードの例です。<br>
+
+  &nbsp;&nbsp; <img alt="Grafana default dashboard which Azure Monitor for Container published." border="0" height="517" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4449cc8-ca00-4ef1-9c49-ddf2417ceef8.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></p>
+
+
+  <p>すべてのワークロードライブサイトの一覧などの他のシナリオや、ワーカーノードでの問題のある近隣の問題を監視またはトラブルシューティングする場合は、右上隅にある<strong>Azure Monitor &ndash; コンテナーインサイト</strong>をクリックして、Grafana ダッシュボードに含まれる視覚エフェクトを表示するために、いつでもコンテナーの Azure Monitor に切り替えることができます。</p>
+
+
+  <p><img alt="on the right hand side there is a red brackets highlighting the url link to go to the native Azure Monitor for Containers " border="0" height="238" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ef17aa2d-8c9b-45e5-9be4-f214bb7cb0b0.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1273"><br>
+
+  &nbsp;&nbsp; <img alt="shows Azure Monitor for Containers panel and the red square is showing observability. " border="0" height="548" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8be24d0-554f-41bf-a462-accd032c1b80.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1208"><br>
+
+  コンテナーの Azure Monitor では、上に示したように、コンテナーログと Kubernetes イベントログのリアルタイムのライブデータを使用して、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs">可観測性</a> を提供します。 デプロイをすぐに確認し、ライブデータを使用して異常を観察することができます。</p>
+
+
+  <p>コンテナーの Azure Monitor を試す場合は、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">ドキュメント</a>を確認してください。 監視を有効にした後、Grafana テンプレートを試したい場合は、 <a href="https://grafana.com/grafana/dashboards/10956">Grafana ギャラリー</a>にアクセスしてください。 このテンプレートは、コンテナーの Azure Monitor から収集された既定のデータを使用して点灯します。 他のグラフを追加して収集した他のメトリックを表示する場合は、 <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-log-search">ドキュメント</a>を確認してください。</p>
+
+
+  <p>Prometheus のデータコレクションと Grafana も AKS Engine でもサポートされています。</p>
+
+
+  <p>フィードバックやご提案がある場合は、 <a href="https://azure.microsoft.com/en-us/support/community/?product=monitor">Azure Community サポート</a>または Stack Overflow にご連絡ください。</p>

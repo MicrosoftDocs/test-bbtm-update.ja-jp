@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 54a0b3ff7c87a590fd901c4e87bfbf714d9db266
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894384"
+Slug: high-speed-encoding-with-azure-media-services
+Title: Azure Media Services を使用した高速エンコード
+Summary: 高い速度のエンコードは、お客様が Azure Media Services を要求し、ユーザーが3種類のエンコード予約ユニットから選択できるようになりました。 この記事では、新しいエンコード予約ユニットを使用する方法と、結果として得られる速度の向上について説明します。
+Content: >-
+  <p>高い速度のエンコードは、お客様が Azure Media Services を要求し、ユーザーが3種類のエンコード予約ユニットから選択できるようになりました。 この記事では、新しいエンコード予約ユニットを使用する方法と、結果として得られる速度の向上について説明します。</p>
+
+
+  <h2>エンコード予約ユニットの種類</h2>
+
+
+  <p>これまでは、Azure Media Services のユーザーがポータルにログインし、[エンコード &rdquo; ] タブで &ldquo; エンコード予約ユニットの数を変更できました (次に示すように)。<a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2014-08-26_10h28_47.jpg"><img alt="2014-08-26_10h28_47" border="0" height="448" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-08-26_10h28_47_thumb.jpg" style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="2014-08-26_10h28_47 " width="614"> </a> このタブは、次に示すように、3種類のエンコード予約ユニットから選択する機能を提供するように更新されました。</p>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2014-08-26_10h37_44.png"><img alt="2014-08-26_10h37_44" border="0" height="357" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-08-26_10h37_44_thumb.png" style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="2014-08-26_10h37_44 " width="614"> </a> 3 種類のエンコード予約ユニットにはそれぞれ S1、S2 &nbsp; 、S3 というラベルが付けられています。 ユーザーは、スライダーを使用して、いずれか1つを選択し、予約ユニットの数を変更することができます (アカウントのクォータまで)。 Media Services アカウントの変更は、[保存 &rdquo; ] をクリック &ldquo; するとすぐに有効になります。 <em>既に処理状態にある既存のエンコードタスクは、エンコードタスクの開始時にアカウントに割り当てられた予約ユニットによって決まりますが、引き続きパフォーマンスレベルで実行されることに注意してください。予約ユニットの変更後に処理状態に入るすべてのエンコードタスクは、そのアカウントで更新された予約ユニットの特典を利用できます。</em> パフォーマンスの観点から見ると、S1 予約ユニットでは、今までに取得したものと同じエンコードパフォーマンスが提供されます。 S2 予約ユニットでは、s1 に比べて最大2倍のエンコードパフォーマンスが提供されます。 s1 と S3 予約ユニットは、S1 と &nbsp; 比較すると4倍以上のエンコードパフォーマンスを実現します。 <em>実際のパフォーマンスの向上は、入力コンテンツと選択されたエンコードプロファイルの機能です。</em></p>
+
+
+  <h2>課金</h2>
+
+
+  <p>エンコード予約ユニットの価格については、 <a href="https://azure.microsoft.com/en-us/pricing/details/media-services/">Media Services の価格</a>に関するページを参照してください。 エンコード予約ユニットは毎月料金が請求されますが、その日のアカウントの予約ユニットの最大数に基づいて課金が日割りで計算されます。 課金の目的では、1日は UTC 時刻に基づいています。 詳細について説明するいくつかの例を次に示します。 &rsquo;では、Basic、Standard、プレミアム予約ユニットの価格を想定しています。それぞれ $X、$Y、および $Z です。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="636">
+   <tbody>
+    <tr>
+     <td valign="top" width="235"><strong>ユース ケース</strong></td>
+     <td valign="top" width="173"><strong>Bill</strong></td>
+     <td valign="top" width="226"><strong>説明</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="235">ユーザーが S1 予約ユニットの数を0から10午前10時午前10時に変更し、同じ日の午後8時 UTC で0に変更します。</td>
+     <td valign="top" width="173">$X/31 * &nbsp; 10</td>
+     <td valign="top" width="226">S1 予約ユニットあたりの日単位のコストは $X/31 ですが、予約ユニットは10時間にのみ使用されていましたが、10個の予約ユニットの最大数は10でした</td>
+    </tr>
+    <tr>
+     <td valign="top" width="235">ユーザーが S1 予約ユニットの数を0から5の午前10時 (UTC) に変更し、その後、当日の 12pm UTC で5から20に変更します。 最後に、ユーザーは、同じ日の午後9時 UTC で予約ユニットを0に戻します。</td>
+     <td valign="top" width="173">$X/31 * 20</td>
+     <td valign="top" width="226">S1reserved 単位あたりの1日あたりのコストは $X/31 で、20はその日の予約ユニットの最大数です。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="235">ユーザーが S1 予約ユニットの数を0から 5 (午後10時) に変更してから、翌日の午前9時 UTC で0に戻します。</td>
+     <td valign="top" width="173">($X/31 * 5) + ($X/31 * 5)</td>
+     <td valign="top" width="226">S1 予約ユニットあたりの1日あたりのコストは $X/31、5は、該当する2日間の予約ユニットの最大数になります。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="235">ユーザーが S1 予約ユニットの数を0から 8 (午後10時) に変更し、翌日の午前9時 (UTC) に8から5、12pm UTC で5から0に変更します。</td>
+     <td valign="top" width="173">($X/31 * 8) + ($X/31 * 8)</td>
+     <td valign="top" width="226">S1 予約ユニットあたりの1日あたりのコストは $X/31 で、8は対象となる2日間の予約ユニットの最大数です。</td>
+    </tr>
+    <tr>
+     <td valign="top" width="235">ユーザーが S1 予約ユニットの数を0から10の午前10時に変更した後、午後8時に S2 予約ユニットに変更した後、同じ日に予約ユニット数を0に変更します。 10pm UTC</td>
+     <td valign="top" width="173">($X/31 * 10) + ($Y/31 * 10)</td>
+     <td valign="top" width="226">S1 予約ユニットあたりの日単位のコストは $X/31 で、S2 予約ユニットあたりの1日あたりのコストは $Y/31 で、10はその日の各種類の予約ユニットの最大数です。 2つのコストが加算され、その日に両方の予約ユニットが使用されていることが反映されます。</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p><em>日単位のコストは、毎月のコストをすべての月 (2 月を含む) で割ることによって計算されることに注意してください。</em></p>
+
+
+  <h2>API</h2>
+
+
+  <p>現時点では、Media Services アカウントの予約ユニットの種類を変更する api は使用できません。 これを行うには、Azure 管理ポータルが唯一の方法です。 今後のリリースで Api を使用できるようにすることを検討します。</p>
+
+
+  <h2>コメントを閉じる</h2>
+
+
+  <p>この記事を終了すると、過去数か月以内に高パフォーマンスの予約ユニットの検証に役立ったすべてのお客様に感謝いたします。 ここでは、非常に価値の高い企業のお客様 ( <a href="https://blinkbox.com">blinkbox</a>の Jon ロビンソン) からの引用を示します。 <i> &ldquo; クラウドは水平方向のスケーリングに適していますが &ndash; 、新しい premium エンコーダーがスペード &ndash; で使用しているので、結果 &rdquo; </i>には非常に満足しています。</p>

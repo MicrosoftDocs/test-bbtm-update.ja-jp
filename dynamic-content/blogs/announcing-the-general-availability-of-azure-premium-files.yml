@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 19deb55f5a8acf034367633d53ed10561aa0b2c5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889299"
+Slug: announcing-the-general-availability-of-azure-premium-files
+Title: Azure premium files の一般提供の発表
+Summary: >
+  現在、azure でクラウドベースのファイル共有を最適化しているお客様にとって、Azure premium ファイルの一般提供が発表されています。 プレミアムファイルは、Azure で完全に管理されたファイルサービスを実現するために、ソリッドステートドライブ (SSD) 上に構築された高いレベルのパフォーマンスを提供します。
+Content: >-
+  <p>クラウドで完全に管理された高パフォーマンスのファイルサービス。</p>
+
+
+  <p>現在、azure でクラウドベースのファイル共有を最適化しているお客様にとって、Azure premium ファイルの一般提供が発表されています。 プレミアムファイルは、Azure で完全に管理されたファイルサービスを実現するために、ソリッドステートドライブ (SSD) 上に構築された高いレベルのパフォーマンスを提供します。</p>
+
+
+  <p>プレミアムレベルは、高スループットと短い待機時間を必要とする IO 集中型のワークロードに対して一貫したパフォーマンスを提供するように最適化されています。 プレミアムファイル共有は、最新の ssd にデータを格納します。これにより、データベース、コンテナーの永続ボリューム、ホームディレクトリ、コンテンツとコラボレーションのリポジトリ、メディアと分析のワークロード、高変数およびバッチワークロード、パフォーマンスに依存するエンタープライズアプリケーションなどのさまざまなワークロードに適しています。 既存の standard レベルでは、パフォーマンスの変動に対する影響が少ないワークロードに対して低コストで信頼性の高いパフォーマンスを提供します。また、低待機時間を必要としない汎用ファイルストレージ、開発/テスト、バックアップ、アプリケーションに適しています。</p>
+
+
+  <p>初めての <a href="https://aka.ms/pfs/preview" target="_blank">導入</a> と <a href="https://aka.ms/pfs/publicpreview" target="_blank">プレビュー</a>を通じて、さまざまな業界のお客様の独自のエクスペリエンスについて何百ものお客様からのご意見をお待ち &rsquo; しております。 彼ら &rsquo; は学習と成功のストーリーを私たちと共有しており、premium ファイル共有の品質向上に役立っています。</p>
+
+
+  <p><em>&ldquo;FDA または HIPAA の規制下にある大量のデータを使用しているクライアントでは、Azure Files premium レベルまで SMB アクセスと高帯域幅 &hellip; を提供する優れたクラウドストレージソリューションの検索には常に苦労しています。クラウドとオンプレミスの VM クライアントに対してアップロードとダウンロードの速度を向上させる、セキュリティで保護されたクラウドベースのストレージについては、Azure premium ファイルは確実に提供されます。 &rdquo; </em></p>
+
+
+  <p align="right">&ndash; Christian Manasseh、最高経営責任者、Mobius ロジック</p>
+
+
+  <p><em>&ldquo;速度は非常に優れています。I/o 集中型の保険数理 CloudMaster ソフトウェアタスクは Azure Files premium レベルを使用して Azure Batch ソリューションで10倍以上の速度で実行されています。Microsoft のアプリケーションは、1000 &rsquo; のコアを使用しているクライアントによって実行されており、Azure premium ファイルの実行時間が大幅に短縮されています。 &rdquo; </em></p>
+
+
+  <p align="right">&ndash; Scott 明るい、Manager クライアント Data Services、PolySystems</p>
+
+
+  <p>Premium レベルの主な利点を次に示します。 &rsquo;さらに技術的な詳細を調べる場合は、前のブログ記事 &ldquo; 「 <a href="https://aka.ms/pfs/publicpreview" target="_blank">Azure Files に対するファイルの再定義の制限プレミアム</a>をお読みください。&rdquo;</p>
+
+
+  <h2>パフォーマンス、動的、および柔軟性</h2>
+
+
+  <p>Premium レベルで <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning#provisioned-shares" target="_blank">は、パフォーマンスが定義され</a>ています。 プレミアムファイル共有 &rsquo; のパフォーマンスは、ワークロードのパフォーマンス特性に合わせて迅速にスケールアップおよびスケールダウンできます。 プレミアムファイル共有は、最大100の TiB 容量と100万 IOPS まで、ターゲットの合計スループットが 10 GiB/秒に大幅にスケールアップできます。 Premium 共有には、パフォーマンスを動的に調整する機能が含まれますが、非常に少ないピーク期間で大量のワークロード要件を満たす <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning#bursting" target="_blank">バースティング機能</a> も用意されています。</p>
+
+
+  <p><em>&quot;最近、retail POS マイクロサービスを、premium ファイルと共に Azure Kubernetes Service に移行しています。私たちの経験は、非常に優れた premium ファイルであり、1.2 K の高性能 Firebird データベースを安全にデプロイできるようになりました。サイズまたはパフォーマンスに関する問題はありません。 premium ファイル共有のサイズを調整してすぐにスケーリングしてください。私たちのビジネスの機敏性が向上しました。これは、フランスの複数の小売チェーンにわたって急速に成長する顧客ベースを提供するために必要です。 &quot; </em></p>
+
+
+  <p align="right">&ndash; Arnaud Le Roy、最高技術責任者、Menlog</p>
+
+
+  <p>microsoft では、内部の Azure SQL と Microsoft Power BI チームと提携して、premium ファイルにソリューションを構築しています。 その結果、 <a href="https://docs.microsoft.com/en-us/azure/postgresql/concepts-pricing-tiers#large-storage-preview" target="_blank">Azure Database for PostgreSQL</a> と <a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-pricing-tiers#large-storage-preview" target="_blank">Azure Database for MySQL</a> は、premium ファイルを利用した 2万 IOPS を持つ 16 TiB データベースのスケールが増加したプレビューを最近開きました。 Microsoft Power BI は Azure Files premium レベルに基づいて構築された強力な20倍の高速データフローコンピューティングエンジンプレビューを<a href="https://powerbi.microsoft.com/en-us/blog/power-bi-dataflows-june-2019-feature-summary/">発表</a>しました。</p>
+
+
+  <h2>予測可能なコストでのグローバル可用性</h2>
+
+
+  <p>Azure Files premium レベルは現在、19の Azure リージョンでグローバルに利用できます。 リージョンの範囲を継続的に拡大しています。 最新情報については、 <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=storage" target="_blank">Azure リージョンの可用性</a> に関するページを参照してください。</p>
+
+
+  <p>プレミアムレベルでは、Azure で高パフォーマンスで高可用性のファイル共有を作成するための最もコスト効果の高い方法が提供されます。 価格はシンプルであり、コストが予測可能 &ndash; であり、プロビジョニングされた GiB ごとに1つの価格のみが請求されます。 詳細については、価格に関する <a href="https://azure.microsoft.com/en-us/pricing/details/storage/files/" target="_blank">ページ</a> を参照してください。</p>
+
+
+  <h2>シームレスな Azure エクスペリエンス</h2>
+
+
+  <p>お客様は、この新しいオファリングで Azure Files のすべての機能を利用できます。これには、スナップショット/復元、Azure Kubernetes サービスと Azure Backup の統合、監視、Azure File Sync、Azure portal、PowerShell/CLI/Cloud Shell、azcopy、Azure Storage Explorer サポートなどのハイブリッドサポートが含まれます。 開発者は、既存のコードとスキルを活用して、使い慣れた Azure Storage クライアントライブラリや Azure Files REST api を使用してアプリケーションを移行することができます。 将来の統合の機会は無制限です。 詳細については、こちらからお問い合わせください。</p>
+
+
+  <p>Premium レベル &rsquo; を利用できるようになったため、standard レベルも強化されています。 詳細については、 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning#standard-file-shares" target="_blank">標準ファイル 100 TiB preview</a>のオンボードの手順に関するページを参照してください。</p>
+
+
+  <h2>作業を開始して経験を共有する</h2>
+
+
+  <p>シンプルで、premium ファイル共有を開始するのに2分かかります。 <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-create-premium-fileshare" target="_blank">Premium ファイル共有を作成する方法</a>の詳細な手順を参照してください。</p>
+
+
+  <p>詳細については、 <a href="https://aka.ms/PremiumFilesDocs" target="_blank">Azure Files premium レベル</a> のドキュメントを参照してください。 いつでも、 <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=windowsazuredata" target="_blank">Azure Storage フォーラム</a>でフィードバックやエクスペリエンスを共有したり、に &nbsp; <a href="mailto:azurefiles@microsoft.com">azurefiles@microsoft.com</a> 電子メールを送信したりすることができます。 <a href="https://feedback.azure.com/forums/217298-storage" target="_blank">フィードバックフォーラム</a>で、Azure Storage に関するアイデアやご意見を投稿してください。</p>

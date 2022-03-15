@@ -1,0 +1,235 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9e45ec4943008514b556e1b7733f457636798641
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139912885"
+Slug: azure-site-recovery-enables-one-click-orchestrated-failover-of-virtual-machines-to-azure
+Title: Azure Site Recovery Azure One-Clickの調整されたフェールオーバー Virtual Machines有効にします
+Summary: Azure Site Recoveryの復旧計画を使用すると、仮想マシンを Azure に 1 回クリックで復旧できます。 ワークロードに合わせてビルドおよびカスタマイズする方法について説明します。
+Content: >-
+  Azure Site Recovery Azure へのディザスター リカバリー機能を使用して、ワークロードを保護し、IAAS VM として Azure で復旧できます。 Brad Anderson<a href="https://aka.ms/DR_to_Azure_Preview"> は、</a> 6 月 19 日に Azure へのディザスター リカバリーのプレビューを発表しました。 それ以降、Azure で仮想マシンを保護および復旧する顧客に対して、この機能が大きな取り込みを見てきたのです。 サービスの使用をまだ開始していない場合は、 <a href="https://aka.ms/ASR_TechEd_Video">Teched</a> ビデオを確認し、 <a href="https://aka.ms/Azure_Site_Recovery">サービスにサインアップしてください</a>。
+
+
+  この短いブログでは、復旧計画と呼ばれる Azure Site Recovery 機能を利用<strong>して、Azure</strong> へのディザスター リカバリー <em> </em>を一貫して正確で反復可能で自動化する<b></b>方法について説明<b>します</b>。 このブログでは、復旧計画を作成する方法の簡単な概要と、仮想マシンを Azure にフェールオーバーするときに注意する必要があるいくつかの興味深いアクティビティに関するガイダンスも提供します。
+
+
+  ターゲットとしての Azure では、ユーザーが仮想マシンのフェールオーバーを確認する方法と、仮想マシンとやり取りする方法に変更が加わります。 ただし、Site Recoveryチームは、Azure へのフェールオーバーのエクスペリエンスが直感的でシンプルなままになじむのに非常に苦労しました。 目標は、1 回のクリック <strong>ディザスター リカバリーと同じです</strong>。さらに、Azure へのディザスター リカバリーエクスペリエンスは、アプリケーションを別の VMM サイトに回復するエクスペリエンスと似たもの <a href="https://blogs.technet.com/b/scvmm/archive/2014/03/03/hyper-v-recovery-manager-recovery-plan-series-part-1.aspx">に維持されます</a> 。 言うまでもなく、Azure への復旧計画は、計画されたフェールオーバー、計画されていないフェールオーバー、およびテスト フェールオーバーを使用した DR ドリルに使用できます。
+
+
+  Azure への復旧計画は、ユーザーに対する次のニーズに引き続き対応します。
+
+  <ol>
+   <li>一緒にフェールオーバーする仮想マシンのグループを定義する。</li>
+   <li>アプリケーションが正確に動作するように、仮想マシン間の依存関係を定義する。</li>
+   <li>仮想マシンのフェールオーバー以外のタスクも実行できるように、カスタムの手動操作と共に復旧を自動化する。</li>
+  </ol>
+
+  &nbsp;
+
+
+  <strong>復旧計画を作成する</strong>
+
+
+  このエクスペリエンスについて説明するために、"<i>BackendSQL</i>"、"<i>MiddlewareApp</i>"、および "<i>FrontendIIS</i>" で構成される単純な 3 層仮想化アプリケーションについて考えてみることができます。 必要に応じてアプリケーションを Azure に復旧できるよう、復旧計画を作成しましょう。 "<i>FinanceAppRecovery</i>" という名前を付けしましょう。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="312"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/01RP-Create-first-page.png"><img class="alignnone size-medium wp-image-166331" alt="01RP Create first page" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/01RP-Create-first-page-550x369.png" width="550" height="369" /></a></td>
+
+  <td valign="top" width="312"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/02RP-Create-second-page.png"><img class="alignnone size-medium wp-image-166341" alt="02RP Create second page" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/02RP-Create-second-page-535x369.png" width="535" height="369" /></a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="312">
+
+  <ul>
+   <li>新しい復旧計画を作成します。</li>
+   <li>復旧計画に名前を付け、</li>
+   <li>ソースを VMM サーバーとして指定し、ターゲットを次のように指定Microsoft Azure</li>
+  </ul>
+
+  </td>
+
+  <td valign="top" width="312">
+
+  <ul>
+   <li>アプリケーションの仮想マシンを復旧計画に追加する</li>
+  </ul>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  &nbsp;
+
+
+  <strong>復旧計画をカスタマイズする</strong>
+
+
+  単純な 3 層アプリケーションは、次のように視覚化できます。 フロントエンド サーバーは、ミドルウェアとサーバーに依存SQLします。 ミドルウェア サーバーは、サーバーのSQLします。 アプリケーションが正しく起動されるようにするには、依存関係が正しくモデル化されていることを確認する必要があります。 これにより、モデル化した依存関係を受け入れ、仮想マシンが復旧されます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/three-tier.png"><img class="alignnone size-full wp-image-166414" alt="three tier" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/three-tier.png" width="179" height="174" /></a>
+
+
+  アプリケーション内のこれらの依存関係は、グループを使用して定義 <em>できます</em>。 このチュートリアルでは、ユーザーは 3 つのグループ (アプリケーションの層ごとに 1 つ) を作成し、仮想マシンを正しいグループに移動します。 この例では、'<i>BackendSQL</i>' をグループ 1 に、'<i>MiddlewareApp</i>' をグループ 2 に、'<i>FrontendIIS</i>' をグループ 3 に配置します。 これにより、オンプレミスのアプリケーションのシャットダウン時に、グループ 3 が最初にシャットダウンされ、その後にグループ 2 仮想マシンがオフになります。 グループ 1 の VM は、最後にオフになります。 これにより、シャットダウン中にデータ損失が発生し "ない" 状態になります。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="312"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/04-add-group.png"><img class="alignnone size-medium wp-image-166361" alt="04 add group" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/04-add-group-396x369.png" width="396" height="369" /></a></td>
+
+  <td valign="top" width="312"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/05-move-VM.png"><img class="alignnone size-medium wp-image-166371" alt="05 move VM" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/05-move-VM-374x369.png" width="374" height="369" /></a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="312">
+
+  <ul>
+   <li> タスク バーの [グループ] ボタンを使用して新しいグループを追加する</li>
+  </ul>
+
+  </td>
+
+  <td valign="top" width="312">
+
+  <ul>
+   <li> グループが追加された場合は、仮想マシンを選択し、必要なグループに "仮想マシンを移動" します</li>
+  </ul>
+
+  </td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  ブート順序も、グループの順序で調整されます。 グループ 1 仮想マシンが最初に起動され、次にグループ 2 が起動され、最後にグループ 3 が起動されます。 これは、バックエンド仮想マシンが、その仮想マシンに依存する VM の前に確実に起動するために使用されます。 この例では、"<i>FrontendIIS</i>" 仮想マシンをグループ 3 で起動すると、"<i>BackendSQL</i>" と "<i>MiddlewareApp</i>" に依存する両方の VM も Azure で稼働します。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/financerecovery.png"><img class="alignnone size-medium wp-image-166274" alt="financerecovery" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/financerecovery-636x360.png" width="636" height="360" /></a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="623">上の図は、復旧計画が作成されると、3 層アプリケーションがどのように表示されるかを示しています。</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  <strong>フェールオーバーを開始する</strong>
+
+
+  フェールオーバーを開始すると、プランによって Azure 内の仮想マシンが <a href="https://azure.microsoft.com/en-us/services/virtual-machines/">IAAS 仮想マシンとして復旧されます</a>。 また、この計画により、依存関係が確実に適用され、VM が適切な順序で立ち上げされます。 仮想マシンは、ネットワーク マッピングの入力に基づいて仮想ネットワーク <a href="https://msdn.microsoft.com/en-us/library/azure/dn788907.aspx">に接続</a> されます。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/07-recoveryjob.png"><img class="alignnone size-medium wp-image-166444" alt="07 recoveryjob" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/07-recoveryjob-601x369.png" width="601" height="369" /></a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="623">フェールオーバーを開始した後、ジョブ ページに移動して進行状況を確認できます。 ジョブ ページに詳細な進行状況が表示され、実行中にエラーが発生した場合に通知されます。</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  フェールオーバーが完了すると、 <em>FinanceAppRecovery</em> クラウド サービスが作成されているのを確認できます。 アプリケーションにデプロイされているインスタンスに移動すると、3 つの仮想マシンが IAAS マシンとして復旧され、使用する準備ができていることを確認できます。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="623"> <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/07/08-cloud-service-instace.png"><img class="alignnone size-medium wp-image-166464" alt="08 cloud service instace" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08-cloud-service-instace-636x212.png" width="636" height="212" /></a></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="623">これで、仮想マシンは Azure で復旧されます。 これで、IAAS VM のように操作できます。</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  復旧計画が "コミット待機中" 状態になります。 フェールオーバーが完了するには、必ず計画をコミットしてください。
+
+
+  準備ができたら、新しい製品Azure Site Recovery <a href="https://aka.ms/Azure_Site_Recovery">ページを確認 </a> し、 <a href="https://aka.ms/Azure_Free_Trial">Azure 試用版 </a>にサインアップして開始してください。 問題につまずく場合、または他のユーザーと関わりを持つ場合は、 <a href="https://aka.ms/ASR_MSDN_Forum">MSDN の Azure Site Recovery フォーラムにアクセスしてください</a>。 新機能の改善と有効化が絶えず行われ、お <a href="https://aka.ms/ASR_Engage">客様の声が聞こえ始めよう。 </a>
+
+
+  <strong>行き詰まったり、なぜ動作するのか疑問に思った場合の簡単な FAQ を次に示します。</strong>
+
+
+  <strong>Q1。"名前には、文字、数字、ハイフンのみを含めできます。" という警告が表示されます。文字で始め、文字または数字で終わる必要があります。"。復旧計画を作成する場合。別の VMM サイトに復旧する計画を作成した時点で、この問題が起きたことがない。</strong>
+
+
+  <img class="alignnone size-medium wp-image-166284" alt="name and target" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/name-and-target-636x86.png" width="636" height="86" />
+
+
+  <strong>Ans。</strong> 復旧計画が Azure にフェールオーバーされると、復旧計画<a href="https://azure.microsoft.com/en-us/documentation/services/cloud-services/"></a>と同じ名前のクラウド サービスも作成され、復旧された VM がデプロイされます。 プラン内の VM が属するネットワークと同じアフィニティ グループに作成されます。 クラウド サービス名は、仮想マシンに到達するために使用できるグローバル パブリック エンドポイントです。 復旧計画の名前が "FinanceApplication" の場合、クラウド サービスによってサブドメイン の名前が financeapplication.cloudapp.net。 復旧計画を VMM にフェールオーバーすると、クラウド サービスが削除されます。
+
+
+  <strong>Q2。1 つの復旧計画内の VM の数に制限はありますか?</strong>
+
+
+  <strong>Ans。</strong> 1 つのクラウド サービスに 50 台を超える仮想マシンを使用することはできません。 そのため、復旧計画に追加できる VM の数に制限が設け、50 に設定されています。
+
+
+  <strong>Q3。サブスクリプションあたり <a href="https://azure.microsoft.com/en-us/documentation/articles/azure-subscription-service-limits/">20 のクラウド サービスに</a> 制限があります。これは、20 を超える復旧計画を作成できないことを意味しますか?</strong>
+
+
+  <strong>Ans。</strong> クラウド サービスの数に制限しても、作成できる復旧計画の数は制限されない。 ただし、20 を超える復旧計画をフェールオーバーすることはできません。 Azure カスタマー サポートの支援を受け、インシデントを開いてクラウド サービスの数を増やします。
+
+
+  <strong>Q4。ポート 80 で Web ページを提供する VM があります。ただし、Azure へのフェールオーバー後、ポート 80 を使用して VM に接続することはできません。また、RDP で接続することはできません。これを有効にするには、さらに何かする必要がありますか?</strong>
+
+
+  <strong>Ans。</strong> Azure にフェールオーバーされた VM には、インターネットを使用して直接アクセスすることはできません。 アクセスを許可するには、エンドポイントを構成する必要があります。 エンドポイント <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-set-up-endpoints/">を構成する</a> 方法については、このチュートリアルに従います。
+
+
+  <strong>Q5。リモート デスクトップ (RDP) エンドポイントを構成しましたが、仮想マシンに到達できません。何が間違っている可能性がありますか?</strong>
+
+
+  <strong>Ans。</strong> フェールオーバー前に仮想マシンで RDP ポートを有効にしましたか? デバイスの設定で構成していない場合Windows VM にアクセスすることはできません。 他のコンピューターが <a href="https://windows.microsoft.com/en-IN/windows7/allow-someone-to-connect-to-your-computer-using-remote-desktop-connection">リモート デスクトップを使用してコンピューター</a> に接続できるのを確認します。
+
+  <div></div>

@@ -1,0 +1,103 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 319b97f045d30226aa13bbc8e8166d8db36edc83
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890913"
+Slug: announcing-reverse-dns-for-azure-cloud-services
+Title: '発表: サーバーの逆引き DNS Azure Cloud Services'
+Summary: PowerShell を使用した逆引き DNS Azure Cloud Services開始する
+Content: >-
+  すべての PaaS と IaaS Azure Cloud Servicesの逆引き DNS レコードがサポートCloud Services。 このサポートは、既存のすべてのアプリケーションと下位互換性Cloud Services、追加コストで提供されています。 この機能は、現在、PowerShell を使用してService Management APIでサポートされています。
+
+  <h3>逆引き DNS レコードとは</h3>
+
+  <strong></strong>逆引き DNS レコードは、呼び出し元を弱く認証するために、さまざまな状況で使用されます。 たとえば、逆引き DNS レコードは、逆引き DNS レコードがあるホストから電子メール メッセージの送信者が行ったことを確認し、必要に応じて、そのホストが送信元ドメインから電子メールを送信する権限を持つホストとして認識された場合に、電子メール スパムに対処するために広く使用されています。
+
+
+  逆引き DNS レコード (PTR レコード) は、IP を名前に変換できる DNS レコードの種類です。 DNS では、名前 (app1.contoso.com など) は、順方向解決と呼ばれるプロセスで、その名前が IPS に解決されます。 逆引き DNS では、このプロセスは反転して、IP に指定された名前の解決を有効にします。
+
+
+  逆引き DNS レコードの詳細については、こちらを参照 <a href="https://en.wikipedia.org/wiki/Reverse_DNS_lookup">してください</a>。
+
+  <h3>Azure ではどのように逆引き DNS レコードがサポートされますか?</h3>
+
+  <strong></strong>Azure では、カスタム完全修飾ドメイン名 (FQDN) を指定できます。 これにより、クラウド サービス のアドレス ("contosoapp1.cloudapp.net" など) または独自のドメイン内のバニティ名 ("app1.contoso.com" など) を指定できます。
+
+  <h3></h3>
+
+  <h3>逆引き DNS レコードの検証</h3>
+
+  Azure では、サード パーティがお客様の DNS ドメインにマッピングされた逆引き DNS レコードを作成できないようにするために、以下のいずれかに該当する場合のみ逆引き DNS レコードを作成できるようにしています。
+
+  <ul>
+      <li>逆引き DNS の FQDN が、その逆引き DNS で指定されたクラウド サービスの名前か、または同じサブスクリプションに含まれるいずれかのクラウド サービスの名前である (例: 逆引き DNS が "contosoapp1.cloudapp.net" である)。</li>
+      <li>逆引き DNS の FQDN が、その逆引き DNS で指定されたクラウド サービスの名前または IP か、同じサブスクリプションに含まれるいずれかのクラウド サービスの名前または IP に対して前方解決される (例: 逆引き DNS が、contosoapp1.cloudapp.net の CName エイリアスの "app1.contoso.com" である )。</li>
+  </ul>
+
+  検証チェックが実行されるのは、クラウド サービスの逆引き DNS プロパティの設定時または変更時のみです。 定期的な再検証は行われません。
+
+  <h2>作業の開始</h2>
+
+  アプリケーションの使用を開始するにはAzure PowerShellをインストールして構成する方法に関<a href="https://azure.microsoft.com/en-us/documentation/articles/install-configure-powershell/">するページをAzure PowerShell</a>。バージョン 0.8.5 以上を使用する必要があります。 Azure Cloud Services を使用して、Service Management API の逆引き DNS レコードを管理Service Management API。
+
+  <h3>既存のリソースへの逆引き DNS のCloud Services</h3>
+
+  <strong></strong>"Set-AzureService" コマンドレットを使用して、既存のクラウド サービスに逆引き DNS を追加できます。
+
+  <pre class="prettyprint">PS C:\&gt; Set-AzureService –ServiceName “contosoapp1” –Description “App1 with Reverse DNS” –ReverseDnsFqdn “contosoapp1.cloudapp.net.”</pre>
+
+  <h3>逆引き DNS を使用した新しいクラウド サービスの作成</h3>
+
+  逆引き DNS プロパティを指定して新しいクラウド サービスを追加するには、“Set-AzureService” コマンドレットを使用します。
+
+  <pre class="prettyprint">PS C:\&gt; New-AzureService –ServiceName “contosoapp1” –Location “West US” –Description “App1 with Reverse DNS” –ReverseDnsFqdn “contosoapp1.cloudapp.net.”</pre>
+
+  <h3>既存のクラウド サービスの逆引き DNS の表示</h3>
+
+  既存のクラウド サービスで構成されている値を確認するには、“Get-AzureService” コマンドレットを使用します。
+
+  <pre class="prettyprint">PS C:\&gt; Get-AzureService "contosoapp1"</pre>
+
+  <h3>既存のリソースからの逆引き DNS のCloud Services</h3>
+
+  既存のクラウド サービスから逆引き DNS プロパティを削除するには、“Set-AzureService” コマンドレットを使用します。 この操作を行うには、逆引き DNS プロパティの値を空白にします。
+
+  <pre class="prettyprint">PS C:\&gt; Set-AzureService –ServiceName “contosoapp1” –Description “App1 with Reverse DNS” –ReverseDnsFqdn “”</pre>
+
+  <h2>よく寄せられる質問</h2>
+
+  <strong>逆引き DNS レコードのコストはどのくらいですか?</strong>
+
+  無料です。逆引き DNS レコードまたはクエリに追加コストはかかりません。
+
+
+  <strong>逆引き DNS レコードはインターネットから解決しますか?</strong>
+
+  はい。 Cloud Services の逆引き DNS プロパティを設定すると、Azure は、すべてのインターネット ユーザーについて逆引き DNS レコードを解決するために必要なすべての DNS 委任と DNS ゾーンを管理します。
+
+
+  <strong>Cloud Services の既定の逆引き DNS レコードは作成されますか?</strong>
+
+  いいえ。 逆引き DNS はオプトイン機能です。 構成しない場合、既定の逆引き DNS レコードは作成されません。
+
+
+  <strong>完全修飾ドメイン名 (FQDN) の形式とは何ですか?</strong>
+
+  FQDN は順方向で指定します。末尾にはドットを指定する必要があります (例: “app1.contoso.com.”)。
+
+
+  <strong>指定した逆引き DNS の検証チェックが失敗すると、どうなりますか?</strong>
+
+  逆引き DNS の検証チェックが失敗すると、サービス管理操作は失敗します。 必要に応じて逆引き DNS 値を修正し、再試行してください。
+
+
+  <strong>Azure Websites では逆引き DNS を管理できますか?</strong>
+
+  Azure Websites では、逆引き DNS はサポートされていません。 Azure PaaS ロールと IaaS 仮想マシンでは、逆引き DNS がサポートされます。
+
+
+  <strong>Cloud Services 用に複数の逆引き DNS を構成できますか?</strong>
+
+  いいえ。 Azure は、Azure クラウド サービスごとに 1 つの逆引き DNS レコードをサポートしています。 ただし、各 Azure Cloud Services は、独自の逆引き DNS レコードを持つことができます。

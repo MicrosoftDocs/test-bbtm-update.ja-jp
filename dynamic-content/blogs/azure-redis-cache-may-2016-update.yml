@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1118f8fc04464f27c30b86d196c9378d67f7163e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894062"
+Slug: azure-redis-cache-may-2016-update
+Title: Azure Redis Cache 2016 年5月の更新
+Summary: この投稿では、Azure Redis Cache するために過去数か月以内にリリースされたいくつかの改善点について説明します。
+Content: >-
+  <p>この数か月で、Azure Redis Cache チームはサービスに対する多くの拡張機能をリリースしました。 これらの機能強化は、お客様のフィードバックによって促進されました。 この投稿は、リリースされた変更の概要です。 これらの改善点が役に立つことを願っています。</p>
+
+
+  <h2>Import/export のパブリックプレビュー</h2>
+
+
+  <p>Import/export は、Azure Redis Cache データ管理操作であり、Redis Cache データベース (RDB) ファイルをインポートおよびエクスポートすることにより、データを Azure Redis Cache にインポートしたり Azure Redis Cache からデータをエクスポートしたりすることができます。 これにより、異なる Azure Redis Cache インスタンス間で移行したり、キャッシュにデータを設定したりすることができます。</p>
+
+
+  <p><a href="https://feedback.azure.com/forums/169382-cache/suggestions/6236447-add-dump-import-to-redis-cache"><em>Redis cache にダンプインポートを追加</em></a> し、 <a href="https://feedback.azure.com/forums/169382-cache/suggestions/7404301-take-snapshots-of-the-cache-for-download"><em>ダウンロードのためにキャッシュのスナップショットを取得</em></a> することは、このリリースで対応する <a href="https://feedback.azure.com/forums/169382-cache">キャッシュ UserVoice フィードバックフォーラム</a> に提案されました。 この機能の使用方法の詳細については、こちらの <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-import-export-data/">記事</a>を参照してください。</p>
+
+
+  <h2>プレミアムレベルへのスケールのパブリックプレビュー</h2>
+
+
+  <p>これで、Azure Redis Cache を Standard レベルからプレミアムレベルにスケーリングできるようになりました。 これは、に移行して、プレミアムレベルの次の利点を活用するための簡単な方法です。</p>
+
+
+  <ul>
+   <li>Basic または Standard レベルと比較した場合の<a href="https://azure.microsoft.com/en-us/documentation/articles/cache-faq/#cache-performance">パフォーマンスの向上</a></li>
+   <li>データ損失の可能性に対する回復性を高めるための<strong><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-persistence/">Redis の永続</a></strong>化</li>
+   <li>強化されたセキュリティとネットワークの分離をサポートするための <strong><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-vnet/">Azure Virtual Network</a></strong> の使用</li>
+   <li>キャッシュに格納されるデータを増やし、スループットを追加するための<strong><a href="https://azure.microsoft.com/en-us/documentation/articles/cache-how-to-premium-clustering/">Redis クラスタリング</a></strong></li>
+  </ul>
+
+
+  <h2>データベースとメモリ最適化の Redis 設定を構成する</h2>
+
+
+  <p><strong>Redis データベース</strong>の量を構成し、フラグ (ziplist-entries) を設定してメモリを最適化することができます。 Redis メモリの最適化の詳細については、こちらの <a href="https://redis.io/topics/memory-optimization">ガイド</a>を参照してください。</p>
+
+
+  <p>注: メモリを最適化するためにこれらのフラグを変更すると、Redis Cache のパフォーマンスに影響を与える可能性があります。 これには、Redis の動作について十分に理解している必要があり、慎重に使用する必要があります。</p>
+
+
+  <p>この更新プログラムでは、 <a href="https://feedback.azure.com/forums/169382-cache">キャッシュ UserVoice フィードバックフォーラム</a>に以下の提案が記載されています。</p>
+
+
+  <ul>
+   <li><a href="https://feedback.azure.com/forums/169382-cache/suggestions/7748541-add-ability-to-change-amount-of-redis-databases">Redis データベースの量を変更する機能</a></li>
+   <li><a href="https://feedback.azure.com/forums/169382-cache/suggestions/8525023-be-able-to-modify-redis-hash-max-zipmap-entries-an">Redis hash-max-zipmap-entries および hash-max-zipmap-メモリ最適化の値を変更します。</a></li>
+  </ul>
+
+
+  <p>設定できるプロパティの詳細については、この <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-howto-manage-redis-cache-powershell/#redisconfiguration-properties">記事</a>をご覧ください。 これらのプロパティは、Azure Powershell、CLI、または管理ライブラリを使用して設定できます。</p>
+
+
+  <h2>Powershell を使用して Redis Cache 診断を有効にする</h2>
+
+
+  <p>PowerShell を使用して診断を有効にするオプションを追加しました。 AzureRmRedisCacheDiagnostics &quot; を使用 &quot; して、既存の Redis cache の診断を有効にすることができます。</p>
+
+
+  <h2>Redis メトリックの新しいパフォーマンスカウンター</h2>
+
+
+  <p>キー (合計/期限切れおよび削除済み) カウンターを追加しました。 また、redis のキャッシュの監視に使用できるすべてのカウンターを表示できる Redis metrics オプションも追加されました。</p>
+
+
+  <h2>Azure Redis Cache Advisor</h2>
+
+
+  <p><strong>Azure Redis Cache Advisor</strong> は、オファリングの一部として構築された推奨エンジンです。 Redis Cache Advisor は Redis Cache の正常性を監視し、アプリ &rsquo; のパフォーマンスが影響を受ける可能性があることを検出した場合に推奨事項を提示します。 このエンジンは、キャッシュの診断を有効にしていない場合でも機能します。</p>
+
+
+  <p>影響を受けるパフォーマンスの一般的な症状は、クライアント&#39;s アプリのタイムアウト例外です。 これらの例外は、さまざまな理由によって発生する可能性があります。 1つの例として、現在の使用状況に基づいた Redis Cache、ネットワーク帯域幅の推奨しきい値を超えている可能性があります。 この <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-faq/#cache-performance">表</a> では、ネットワーク帯域幅に関して推奨されるしきい値の詳細について説明します。</p>
+
+
+  <p>この作業は、アプリのパフォーマンスにおいて、これらのしきい値を超えたことによる影響をユーザーが認識していなかったことを確認することによるものです。</p>
+
+
+  <p>次のスクリーンショットは、この Redis Cache、すべてのパフォーマンスカウンターで推奨されるしきい値を超えていることを示しています。 詳細については、こちら <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-configure/#redis-cache-advisor">の記事を</a> 参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/577a65cc-69dd-4058-b763-e78d79db3c79.png"><img alt="Redis Cache Recommendations" border="0" height="545" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1168bc4f-e2c3-45aa-bf83-3722520a72ed.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Redis Cache の推奨事項" width="610"></a></p>
+
+
+  <h2>グローバルリージョンの可用性</h2>
+
+
+  <p>Azure Redis Cache はグローバルに広く使用されており、Azure のすべてのリージョンで利用できます。 これには、Azure 中国と Azure Government が含まれます。 詳細については、この <a href="https://azure.microsoft.com/en-us/regions/#services">サービスの可用性</a>に関するドキュメントを参照してください。</p>
+
+
+  <h2>コンプライアンスと認定資格</h2>
+
+
+  <p>Azure Redis Cache は、最近、 <a href="https://azure.microsoft.com/en-us/blog/microsoft-payment-card-industry-pci-data-security-standards-dss-revised-for-2016/">支払いカード業界 (PCI) データセキュリティ標準 (DSS)</a>のさまざまなコンプライアンス基準に対して認定されています。 認定を受けたすべての認定と Azure Redis Cache 認証の一覧については、または <a href="https://www.microsoft.com/en-us/TrustCenter/Compliance/">Microsoft セキュリティセンター</a>を参照してください。</p>
+
+
+  <p>Microsoft Azure または Azure Redis Cache を初めて使用する場合は、<a href="https://azure.microsoft.com/en-us/free/">無料の Azure アカウントを作成</a>し、 <a href="https://azure.microsoft.com/en-us/documentation/articles/cache-dotnet-how-to-use-azure-redis-cache/">Azure Redis Cache の使用を開始</a>することで、試してみることができます。</p>
+
+
+  <p>Microsoft が向上させる方法については、 <a href="https://feedback.azure.com/forums/169382-cache">UserVoice</a> のページからフィードバックをお寄せください。 ヘルプが必要な場合、またはご質問がある場合は、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=azurecache">MSDN</a> または <a href="https://stackoverflow.com/questions/tagged/azure-redis-cache">stackoverflow</a>をご覧ください。</p>

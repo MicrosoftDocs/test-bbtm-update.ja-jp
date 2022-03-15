@@ -1,0 +1,88 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2007481da41b488ddae6aa3b42aab2683de4e2b7
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891513"
+Slug: language-support-in-azure-search
+Title: Azure Search での言語サポート
+Summary: 今年の初めに、Azure Search チームは、最も頻繁に要求される機能の1つである、複数言語のサポートを開始しました。 この作業が完了したことをお知らせします。
+Content: >-
+  <p>今年の初めに、Azure Search チームは、最も頻繁に要求される機能の1つである、複数言語のサポートを開始しました。 この作業が完了したことを発表しまし &rsquo; た。 現時点では、2015-02-28 API バージョンを使用しているお客様は、56言語でドキュメントにインデックスを作成してクエリを実行 Azure Search ことができます。 Linguistics は、REST API、 <a href="https://www.nuget.org/packages/Microsoft.Azure.Search/0.13.0-preview">AZURE SEARCH SDK</a>、Azure Portal でサポートされています。 この投稿では、Azure Search を使用して、さまざまな言語のコンテンツを操作するためのベストプラクティスについて説明します。</p>
+
+
+  <h2>自然言語の処理</h2>
+
+
+  <p>フルテキスト検索エンジンの役割を簡単に説明すると、クエリと取得を効率的に行えるようにドキュメントを処理して格納することです。 大まかに言えば、ドキュメントから重要な単語を抽出して、インデックスに配置し、インデックスを使用して指定されたクエリの単語に一致するドキュメントを検索します。 ドキュメントと検索クエリから単語を抽出するプロセスを、字句解析と呼びます。 字句解析を実行するコンポーネントは、アナライザーと呼ばれます。</p>
+
+
+  <p>優れたアナライザーは、自然言語の処理の課題に対処できる必要があります。たとえば、次のようになります。</p>
+
+
+  <ul>
+      <li>語形変化語の形式を処理します。 たとえば、ユーザーは実行を検索して、実行や実行など &ldquo; の &ldquo; &rdquo; 単語を検索することがよくあります &nbsp; 。 &ldquo; &rdquo;&rdquo;</li>
+      <li>単語区切り (特に中国語、日本語、タイ語などの言語) では、単語がスペースで区切られていません。</li>
+      <li>複合単語の処理</li>
+      <li>テキスト正規化</li>
+      <li>不要な単語と文字の削除</li>
+  </ul>
+
+
+  <p>Azure Search Microsoft Virtual Academy プレゼンテーション <a href="https://channel9.msdn.com/Series/Adding-Microsoft-Azure-Search-to-Your-Websites-and-Apps/07">での多言語機能の活用</a> については、これらの課題に対するさまざまなアプローチが、重要な <a href="https://en.wikipedia.org/wiki/Precision_and_recall">リコール/精度のバランス</a>にどのように影響するかについて説明します。 場合によっては、選択したソリューションによって重要なドキュメントが見つかったかどうかが判断されます。</p>
+
+
+  <p>Azure Search は、次に説明する2つの異なる言語アナライザーの種類を提供します。 ユーザーは、特定のシナリオに最適な機能を選択することができます。</p>
+
+
+  <h2>Azure Search の言語アナライザー</h2>
+
+
+  <p>言語アナライザーの概念は、広く普及しているオープンソースのフルテキスト検索エンジンである <a href="https://lucene.apache.org/core/">Lucene</a>のユーザーになじみがあります。これは、Azure Search の中核となる機能です。 <a href="https://azure.microsoft.com/blog/azure-search-updates-multilanguage-azure-portal-index-management-more/">Lucene 言語アナライザー</a>は、複数言語のサポートを提供するビジョンの最初のイテレーションとして公開されています。 以降、Word、Windows Desktop Search、SharePoint、Bing などの製品について、過去16年間の自然言語処理テクノロジを開発してきた Office チームと協力しました。 Microsoft では、オープンソースの力と Microsoft &rsquo; の内部資産を組み合わせて、microsoft 言語アナライザーと呼ばれる機能を提供してきました。</p>
+
+
+  <p>Microsoft 言語アナライザーを導入することで、 <a href="https://msdn.microsoft.com/en-us/library/azure/dn879793.aspx">Azure Search でサポートされる言語</a> の数が35から56に増えました。 それに加えて、Microsoft では自然言語の処理で長年の研究と開発を行うことができました。 ここでは、Microsoft analyzer を市場における同様のソリューションとは別に設定する機能をいくつか紹介します。</p>
+
+
+  <ul>
+      <li>語形の語形を処理する<a href="https://en.wikipedia.org/wiki/Lemmatisation">レンマ化</a>: Microsoft 言語アナライザーでは、言語の文法規則についての理由があります。 これらは、音声、ムード、時制、人物、数値、性別などに基づいて、変数を処理します。</li>
+      <li>空白や句読点を含む単語を &rsquo; 区別しない言語での正確な単語区切りのための統計言語モデルの使用</li>
+      <li>Decompounding (ドイツ語、デンマーク語、オランダ語、スウェーデン語、ノルウェー語、エストニア語、終了、ハンガリー語、スロバキア語) では、ユーザーは複合語の個々 &nbsp; のセグメントを検索できます。</li>
+      <li>異なる日付形式と通貨形式の正規化</li>
+      <li>Url と電子メールアドレスの処理</li>
+  </ul>
+
+
+  <p>Microsoft analyzer の使用によって得られた顧客のストーリーを次に示します。</p>
+
+
+  <p><a href="https://www.n2y.com/default.aspx">n2y</a>は、顧客向けのソリューションを提供する、ファミリを実行するビジネスです。これにより、ユーザーは、非閲覧者向けに2万の画像表現 (記号) のコレクションをすばやく検索できます。</p>
+
+
+  <blockquote>
+
+  <p><em>最初に、Lucene を使用して検索を実行して &ldquo; いましたが、実行中などの一般的な単語を検索するときに、実行 &rdquo; 中や &ldquo; 実行中のような単語 &ldquo; がコンテンツに含まれていたとしても、結果を見つけることができませんでした。 &rdquo; &rdquo;  Azure Search に移行すると、Microsoft の言語アナライザーを利用できるようになりました。これにより、サポートされている他の14言語でも同じように、何百もの関連の結果を表示 &nbsp; できるようになりました。</em></p>
+
+
+  <p style="text-align: right;">- Michael Clark、CTO、n2y</p>
+
+  </blockquote>
+
+
+  <p>Microsoft 言語アナライザーでは、言語について深く理解しています。 これにより、データセットの性質が n2y の場合に大きな違いが発生しました。 N2y &rsquo; s のお客様にとって、特定のクエリに関連する可能性のあるシンボルをすべて検索することが重要でした。 同じ予測が、web サイトまたは任意のモバイルアプリケーションで検索ボックスを使用するすべてのユーザーによって共有されます。 インターネットユーザーは、すべての検索エンジンが、正確なキーワードと一致するだけでなく、Google や Bing のように、クエリの意図を推測できることを期待しています。 Microsoft 言語アナライザー &rsquo; を導入することで、この予測をより簡単に実現できます。</p>
+
+
+  <p>&rsquo;重要なのは、無料で提供されるものはなく、より強力なアナライザーを使用することは例外ではないことに注意してください。 Microsoft 言語アナライザーを使用したドキュメントのインデックス作成は &nbsp; 、対応する Lucene よりも 2 ~ 3 &nbsp; 倍遅くなります (言語によって異なります)。 この投稿に記載されている利点を得るために実行する必要がある処理が増えるだけです。 大規模なインデックス作成の負荷のあるお客様は、2つのアナライザーの種類を比較し、そのシナリオに最適なものを選択することを Azure Search お勧めします。 通常、検索要求は、使用されているアナライザーの種類に関係なく、同じように高速に処理されます。</p>
+
+
+  <p>言語アナライザーを使用する場合のベストプラクティスの詳細については <a href="https://azure.microsoft.com/en-us/documentation/articles/search-language-support/">、Azure Search を参照して</a>ください。</p>
+
+
+  <h2>ありがとうございます。</h2>
+
+
+  <p>Lucene 言語アナライザーは、一般公開されており、最初の完全にサポートされている API バージョンである2015-02-28 を発表したため、Azure Search ユーザーが使用できるようになりました。 3月には、2015-02-28-Preview API バージョンで Microsoft analyzer がリリースされ、早期導入を目的として新しい機能を使用できるようになりました。 その後、フィードバックによって、Microsoft analyzer のパフォーマンスが大幅に向上し、特定された問題がすべて解決されました。 このプロセスに参加したすべての人に感謝します。 <a href="https://feedback.azure.com/forums/263029-azure-search/">ご意見</a>をお寄せください。</p>
+
+
+  <p>今後、 &rsquo; microsoft のチーム (Bing や microsoft Research など) と協力して、より魅力的な機能を Azure Search できるようになります。 ご期待ください。</p>

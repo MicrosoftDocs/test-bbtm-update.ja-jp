@@ -1,0 +1,166 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3670614dd335e6c3c9f549d02cf03b52a33969f6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896260"
+Slug: announcing-the-storsimple-virtual-array-preview
+Title: StorSimple Virtual Array のプレビューの発表
+Summary: オンプレミスの StorSimple Virtual Array のプレビューについてお知らせします。これは、既存のハイパーバイザーにインストールされている仮想マシンフォーム内の StorSimple ソリューションのバージョンです。
+Content: >-
+  <p>StorSimple ソリューションでは、IT 組織 &ndash; が直面する最大の問題のいくつかに対処しています。これは、データの増加、ストレージ容量、およびデータ保護の複雑さの2桁に起因します。 さまざまな業種にわたる顧客からの一般的な要求の1つは、ブランチオフィスまたはリモートオフィスにソリューションをデプロイできることです。</p>
+
+
+  <p>本日は、オンプレミスの<strong>StorSimple Virtual Array</strong>のプレビューについてお知らせします。これは、Microsoft Azure の Enterprise Agreement を持つすべてのお客様を対象としています。 StorSimple Virtual Array は、既存のハイパーバイザーにインストールされている仮想マシンフォーム内の StorSimple ソリューションのバージョンです。 仮想アレイは、クラウドおよびクラウドベースのデータ保護とディザスターリカバリーのためのオンデマンドの容量拡大を実現するハイブリッドクラウドストレージアプローチを使用した、以前の StorSimple テクノロジの成功を基に構築されています。</p>
+
+
+  <p>仮想アレイは、Hyper-v または VMware ESXi ハイパーバイザー上のバーチャルマシンとして実行でき、ファイルサーバー (NAS) または iSCSI サーバーとして構成できます。 ハイブリッドアプローチでは、最も頻繁に使用されるデータ (最新の) を仮想アレイに格納し、古い古いデータを Azure に階層化します (オプション)。 また、仮想アレイは、迅速なディザスターリカバリー (DR) 機能を備えているだけでなく、データを Azure にバックアップする機能も提供します。</p>
+
+
+  <p>各仮想アレイは、クラウドで最大 64 TB のデータを管理できます。 Azure の中央の StorSimple 管理ポータルから、地理的に離れた場所にある複数のブランチオフィスやリモートオフィスの仮想アレイを管理できます。</p>
+
+
+  <p><img alt="Architecture" border="0" height="278" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a38db16b-1a78-46cb-a511-1c1f8f9def6d.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="アーキテクチャ" width="610"></p>
+
+
+  <h1>このプレビューの新機能 &rsquo;</h1>
+
+
+  <h3>仮想配列のフォームファクター</h3>
+
+
+  <p>StorSimple Virtual Array は、Hyper-v (2008 R2 以降) または VMware ESXi (5.5 以上) のハイパーバイザーで実行できる仮想マシンです。 これにより、デバイスによって管理されるデータのワーキングセットに対応できるように、さまざまなサイズのデータディスクを使用して仮想アレイを構成することができます。 仮想アレイの初期セットアップに高速で簡単な方法を提供する web ベースの GUI。</p>
+
+
+  <h3>マルチプロトコル</h3>
+
+
+  <p>仮想アレイは、ファイルサーバー (NAS) として構成できます。これを使用すると、アプリケーションとユーザーのホストサーバーにマウントするボリューム (Lun) を作成する機能を提供する、ユーザー、部門、アプリケーション、または iSCSI サーバー (SAN) として共有を作成することができます。</p>
+
+
+  <h3>データのピン留め</h3>
+
+
+  <p>共有とボリュームは、ローカル固定または階層化されたものとして作成できます。 ローカルで固定された共有とボリュームを使用すると、階層化されていないデータにすばやくアクセスできます。たとえば、すべてのデータへの予測可能なアクセスを必要とする小さなトランザクションデータベースなどです。 これらの共有とボリュームは、データ保護のための階層化された共有とボリュームと共に、クラウドにバックアップされます。</p>
+
+
+  <h3>データの階層化</h3>
+
+
+  <p>詳細なレベルでファイルとブロックの使用状況を追跡するヒートマップを定義することで、最も使用されるデータを計算するための新しいアルゴリズムが導入されました。 これにより、読み取りと書き込みのパターンに基づいてデータに熱値が割り当てられます。 このヒートマップは、ローカル層がいっぱいになったときにデータを階層化するために使用されます。 ヒート値 (coldest) レベルが最も低いデータは、最初にクラウドに格納されます。一方、より高いヒート値を持つデータは、仮想配列のローカル層に保持されます。 ローカル層のデータは、ユーザーに頻繁にアクセスされるワーキングセットです。 すべてのクラウドスナップショットを使用して、ヒートマップがクラウドにバックアップされ、DR が発生した場合は、データをクラウドから復元してリハイドレートするためにヒートマップが使用されます。</p>
+
+
+  <h3>項目レベルの回復</h3>
+
+
+  <p>ファイルサーバーとして構成された仮想アレイは、ユーザーがセルフサービスモデルを使用して最近のバックアップからファイルを復元する機能を提供します。 すべての共有には、最新のバックアップが格納される backups フォルダーがあります。 ユーザーは目的のバックアップに移動し、ファイルとフォルダーをコピーして復元できます。 そのため、バックアップからファイルを復元するときに管理者に依頼する必要はなくなります。 仮想アレイでは、バックアップから共有またはボリューム全体を、同じ仮想アプライアンス上の新しい共有またはボリュームとして復元できます。</p>
+
+
+  <p><img alt="Backups" border="0" height="128" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2f18132c-5b82-4f07-a0b0-ec24021002eb.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="バックアップ" width="360"></p>
+
+
+  <h1>推奨されるワークロード/シナリオ</h1>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top" width="179">
+     <p><b>ファイル サーバー</b></p>
+     </td>
+     <td valign="top" width="166">
+     <p><b>iSCSI サーバー</b></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="179">
+     <ul>
+      <li>ユーザーファイル共有</li>
+      <li>Department ファイル共有</li>
+     </ul>
+     </td>
+     <td valign="top" width="166">
+     <ul>
+      <li>小規模 SQL データベース</li>
+      <li>ユーザー ホーム フォルダー</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>クォータ管理、ファイルスクリーン処理などの機能を使用する場合、ホームフォルダーを管理するには、iSCSI を使用して windows ファイルサーバーを接続します。</p>
+
+
+  <h1>ファースト ステップ</h1>
+
+
+  <ol>
+   <li>Web ブラウザーで、 <a href="https://manage.windowsazure.com">Azure portal</a>に移動します。</li>
+   <li>[新規作成] をクリックします。</li>
+   <li>[Data Services &ndash; &gt; StorSimple Manager &ndash; &gt; 簡易作成] を選択します。</li>
+   <li>名前を入力し、[管理されているデバイスの種類] と [場所] で StorSimple manager の [仮想デバイスシリーズ] を選択します。</li>
+  </ol>
+
+
+  <p>仮想アプライアンスの概要と使用方法の詳細については、 <a href="https://go.microsoft.com/fwlink/?LinkID=717496&amp;clcid=0x409">ドキュメントをダウンロード</a>してください。</p>
+
+
+  <p><img alt="Start" border="0" height="274" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/da9bcf79-07ef-4acf-a473-484bea2570d0.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="開始" width="610"></p>
+
+
+  <h1>最小構成</h1>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top" width="199">
+     <p>CPU</p>
+     </td>
+     <td valign="top" width="125">
+     <p>4 コア</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="199">
+     <p>RAM</p>
+     </td>
+     <td valign="top" width="125">
+     <p>8 GB</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="199">
+     <p>ネットワーク</p>
+     </td>
+     <td valign="top" width="125">
+     <p>1個の仮想 NIC</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="199">
+     <p>仮想アプライアンスの OS ディスク</p>
+     </td>
+     <td valign="top" width="125">
+     <p>80 GB</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="199">
+     <p>仮想アプライアンスデータディスク</p>
+     </td>
+     <td valign="top" width="125">
+     <p>500 GB</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>このプレビューに関するフィードバックやサポートについては、 <a href="https://social.msdn.microsoft.com/Forums/en-US/6a6cfb0c-d0de-4243-862c-6036bca20dd7/welcome-to-the-storsimple-community-forum">StorSimple Community フォーラム</a>をご覧ください。</p>

@@ -1,0 +1,67 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e442843156758409f715da823946e01142af54d1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896146"
+Slug: azure-web-sites-new-basic-pricing-tier
+Title: Azure websites の新しい Basic 価格レベル
+Summary: >-
+  エディターのメモ: この投稿は、Azure Websites チームのプリンシパルプログラムマネージャーの Kirtiaty によって作成されました。
+
+
+  Microsoft Azure の4月の更新により、Azure websites は新しい価格を提供します...
+Content: >-
+  エディターのメモ: この投稿は、Azure Websites チームのプリンシパルプログラムマネージャーの Kirtiaty によって作成されました。
+
+
+  Microsoft Azure の4月の更新により、Azure websites は<strong>Basic</strong>という新しい価格レベルを提供します。 Basic の価格レベルは、運用サイト向けに指定されており、小規模なサイトをサポートし、開発とテストのシナリオにも対応しています。
+
+
+  Basic 価格レベルには、Azure Websites のコア機能が含まれており、運用サイトを低コストで実行できます。 Basic 価格レベルでは、web サイト、SSL サポート、スケジュールされたジョブ、エンドポイント監視などを実行する専用仮想マシンの最大3つのインスタンスが提供されます。 Basic レベルの料金の詳細については、「 <a href="https://azure.microsoft.com/en-us/pricing/details/web-sites/">Azure websites の価格」ページ</a>を参照してください。
+
+
+  <strong>基本的に既存の web サイトをどのように適用するか。</strong>
+
+
+  <strong>Free</strong>、 <strong>Shared</strong>、または<strong>Standard</strong>モードの既存の web サイトでは、現在のモードが維持されます。 お客様の標準サイトは標準のままになります。 実際、Basic 価格レベルの導入により、Standard 価格レベルのサービスが強化されました。 Standard SKU には、より多くのストレージ、無料の SSL 接続、およびその他の高度な機能が含まれるようになりました。今までにお支払いいただいた価格と同じです。 Standard レベルの料金の詳細については、「 <a href="https://azure.microsoft.com/en-us/pricing/details/web-sites/">Azure websites の価格」ページ</a>を参照してください。
+
+
+  <strong>どの価格レベルが適していますか?</strong>
+
+
+  Basic 価格レベルの導入により、Azure Websites は運用コストを削減します。 でも、"どのレベルが適切なのか" という質問があります。 簡単にするために、主な違いとプロパティを次に示します。
+
+  <ul>
+   <li>無料の web サイト: これらは主に評価を目的としており、無料で Azure Websites を利用することを希望されているすべてのユーザーが無料でプレイグラウンドを利用できるようにします。 無料の web サイトには SLA はありません。</li>
+   <li>共有 web サイト: 無料に関連付けられている制限の厳しいクォータの一部を減らすことで、web サイトを24時間365日で実行できるようになります。 ただし、共有 web サイトの容量と機能セットは依然として非常に限られています。 共有サイトには SLA がありません。</li>
+   <li>基本的な web サイト: これらは、小規模から中規模の web サイトの運用向けに設計されています。 基本的な web サイトでは、Azure Websites のコア機能がすべて低価格で実現されています。</li>
+   <li>標準 web サイト: これらは、中規模から大規模の web サイトの運用環境で使用するように設計されています。 Standard web サイトでは、Azure Websites の全機能を活用して、高可用性と向上した開発操作 (DevOps) などの高度なシナリオを実現します。</li>
+  </ul>
+
+  共有価格レベルに関するクイックノート: 共有 web サイトを使用する場合、サイトごと <strong>と</strong> インスタンスごとに課金されます。 共有サイトのコストは基本的なサイトよりも低くなりますが、Basic と Standard の両方の価格レベルで <strong>専用</strong> の Virtual Machines が提供されます。このサービスでは、仮想マシンが処理できる web サイトの数 (ほとんどがメモリによって制限されます) とすべての同じ価格を実行できます。 たとえば、5つの共有 web サイト (サイトまたはインスタンス) がある場合、5つのサイトを Basic 価格レベルに移行することもできます。これは、5つの共有サイトの実行にかかるコストが、1つの小さな基本的な仮想マシンの実行に似ているためです。
+
+
+  <strong>Web サイトの価格レベルを変更する方法</strong>
+
+
+  Microsoft Azure の4月リリースでは、web サイトの価格レベルの変更が少し変更されています。 Web サイトの価格レベルを変更するには、関連付けられている <strong>Web ホスティングプラン </strong>(whp) を変更する必要があります。 Web ホスティングプランは、Azure Websites の新しい概念であり、web サイト間で共有できる一連の機能と容量を表します。 Web ホスティングプランでは、4つの Azure Websites 価格レベル (Free、Shared、Basic、Standard) がサポートされています。各レベルには独自の機能と容量があります。同じサブスクリプション、リソースグループ、および地理的な場所にあるサイトは、web ホスティングプランを共有できます。 Web ホスティングプランを共有するすべてのサイトで、web ホスティングプランレベルで定義されているすべての機能と機能を利用できます。 特定の web ホスティングプランに関連付けられているすべての web サイトは、web ホスティングプランによって定義されたリソース上で実行されます。 Azure Websites Web ホスティングプランの詳細については、 <a href="https://go.microsoft.com/?linkid=9845584">こちらの記事をご覧ください</a>。
+
+
+  完全な Azure ポータルを使用して、次の図に示すように、[ <strong>スケール</strong> ] タブを使用して web サイトの価格レベルを変更できます。 これは、既存の web サイトのスケールエクスペリエンスに似ています。 以前のスケールエクスペリエンスとの新機能の違いの1つは、Web ホスティングプランに関連付けられているすべてのサイトで一度にモードが変更されることです。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1766/5756.Monday-1.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1766/5756.Monday-1.png" border="0"></a>
+
+
+  プレビュー Azure ポータルを使用して、web ホスティングプランの価格レベルを選択できます。 下の画像では、[ <strong>Web ホスティングプラン</strong> のブレードと <strong>価格レベル</strong> のブレードが表示されます。 [ <strong>Web ホスティングプラン</strong>] ブレードで<strong>価格レベル</strong>の部分をクリックすると、[<strong>価格レベル</strong>] ブレードが展開され、web ホスティングプランの価格レベルを変更できます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1766/0511.Monday-2.png"><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1766/0511.Monday-2.png" border="0"></a>
+
+
+  <strong>まとめ</strong>
+
+
+  新しい価格レベルは、多くのお客様にとって優れた特典であり、いくつかのハイエンド機能を妥当なコストで提供しています。 この新しいオファリングにより、すべてのお客様により優れたデプロイが可能になります。

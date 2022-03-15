@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d63f487c8afe60b437bb61811bb9920663aea311
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889214"
+Slug: enhancements-to-azure-iot-hub-improve-management-of-the-full-device-lifecycle
+Title: Azure IoT Hub の機能強化により、デバイスのライフサイクル全体の管理が改善されます
+Summary: Azure IoT Hub エンジニアリング チームは、デバイス ツインに新しい機能を追加し、デバイス管理のストーリーを完全なデバイス ライフサイクルに拡張するために苦労しています。  重要な機能強化には、自動デバイス プロビジョニング、デバイス ツインの変更通知、デバイス ツインのインポート/エクスポート、デバイス ツイン、Java SDK のダイレクト メソッドのサポートが含まれます。
+Content: >-
+  <p>この 1 年の 11 月に、<a href="https://azure.microsoft.com/en-us/blog/enhancements-abound-in-general-availability-of-azure-iot-hub-device-management/"><u>IoT</u></a>&nbsp; デバイスの管理を簡略化するためにデバイス ツイン、ダイレクト メソッド、ジョブを導入した Azure IoT Hub デバイス管理の一般提供を発表しました。その後、エンジニアリング チームは、デバイス ツインに新しい機能を追加し、デバイス管理のストーリーを完全なデバイス ライフサイクルに拡張する作業に<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-device-management-overview#device-lifecycle"><u>苦労しています</u></a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cd421370-a621-42c3-b33e-1d3d1296dd25.png"><img alt="The five stages of the IoT device lifecycle: plan, provision, configure, monitor, and retire" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fd7a7c04-40a3-49bc-b396-3fb9d4a9c1bf.png" style="border: 0px currentColor; border-image: none; width: 350px; height: 353px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; display: block; background-image: none;" title="device_lifecycle"></a></p>
+
+
+  <p>この週の Build 2017 Conference では、現在、またはすべての Azure IoT Hub のお客様が利用できる次のデバイス ライフサイクルの機能強化について説明します。</p>
+
+
+  <p style="margin-left: 40px;"><strong>自動デバイス プロビジョニング - </strong>Azure IoT Hub チームは、デバイスライフサイクルのプロビジョニング 段階で必要な複雑性と時間を減らすことにコミットしています。&nbsp;先月、Azure IoT <a href="https://azure.microsoft.com/en-us/blog/announcing-new-functionality-to-automatically-provision-devices-to-azure-iot-hub/"><u>Hub Device Provisioning</u></a> を発表しました。これにより、人間の介入を必要とせずに IoT ハブへのゼロタッチ プロビジョニングが可能になります。&nbsp;この機能は、現在、早期導入者のグループによってプレビューされています。&nbsp;パブリック&#39;近づくにつれて、さらにお知らせします。</p>
+
+
+  <p style="margin-left: 40px;"><strong>デバイス ツインの変更通知 -&nbsp;&nbsp;</strong><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-device-twins"><u>デバイス ツインの変更通知</u></a>を使用すると、バック エンド アプリケーションにツインの変更をリアルタイムで通知し、ビジネス ロジックに必要な場合に対応できます。&nbsp;たとえば、デバイスにファームウェアの&ldquo;更新が保留中であり、更新の準備ができていることをオペレーターに直接通知するアプリケーションを構築する場合です&rdquo;。&nbsp;&nbsp;これを行うには、ツイン変更<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messaging#routing-rules"><u></u></a>&ldquo;&rdquo;イベント ソースからルーティング規則を作成し、ソフトウェア更新プログラムの状態を含むすべてのイベントをフィルター処理します。</p>
+
+
+  <p style="margin-left: 40px;">デバイス ツインの変更通知は、現在から新規と既存の両方の IoT ハブで利用できます。</p>
+
+
+  <p style="margin-left: 40px;"><strong>デバイス ライフサイクル通知 - </strong><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-identity-registry#device-lifecycle-notifications"><u>デバイス</u></a> ライフサイクル通知を使用すると、IoT ハブでデバイス ID が作成または削除<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-identity-registry"><u></u></a>されたリアルタイムで、バック エンド アプリケーションに通知を受け取る可能性があります。 これにより、デバイスのプロビジョニングとプロビジョニング解除のロジックを設計する際に柔軟性が向上します。特に、IoT Hub に加えて複数のバック エンド システムが必要な場合に便利です。 デバイス ツインの変更通知と同様<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messaging#routing-rules"><u></u></a>&ldquo;に、デバイス ライフサイクル 通知には、デバイス ライフサイクル イベント ソースからルーティング規則を作成することでアクセス&rdquo;できます。</p>
+
+
+  <p style="margin-left: 40px;">デバイス ライフサイクル通知は、現在から米国西部 2 リージョンの新規および既存の IoT ハブでも利用できます。&nbsp;更新された機能は、5 月を通してすべての地域に展開されます。</p>
+
+
+  <p style="margin-left: 40px;"><strong>デバイス ツインのインポート/エクスポート - </strong>Azure IoT <a href="https://azure.microsoft.com/en-us/services/iot-hub/"><u>Hub</u></a> サービスを使用すると、開発者とオペレーターは、たとえば、高可用性ソリューションを構築したり、ディザスター リカバリーのために IoT デバイスを一括<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-ha-dr"><u>管理することができます</u></a><strong>。&nbsp; </strong>今日から、一括インポート/エクスポート機能は、すべてのリージョンの既存および新規のすべての IoT ハブのデバイス ツインで使用できます。&nbsp;この拡張機能の詳細<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-bulk-identity-mgmt"><u>については、一</u></a>括管理のチュートリアルを参照してください。</p>
+
+
+  <p style="margin-left: 40px;"><strong>Java SDK のデバイス ツインとダイレクト メソッドのサポート - </strong>この年の初めに、デバイス ツインとダイレクト メソッドを <a href="https://github.com/Azure/azure-iot-sdk-java"><u>サポートするために Java SDK</u></a> を更新しました。&nbsp;さらに、ダイレクト メソッドのチュートリアルを更新して、 <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-java-java-direct-methods"><u>Java を含める必要があります</u></a>。</p>
+
+
+  <p style="margin-left: 40px;">このリリースでは、Azure IoT Hub で、すべての主要 SDK (C、Node.js、C#、Python、および現在は Java) に対してデバイス ツインとダイレクト メソッドがサポートされています。</p>
+
+
+  <p>次&rsquo;のデバイスと OS の実装におけるデバイス管理サポートの全体的な開発エクスペリエンスを簡素化するための継続的な投資をお知らせし、強調しました。</p>
+
+
+  <p style="margin-left: 40px;"><strong>STMicroelectronics STM32 のデバイス管理 - </strong>STMicroelectronics は Azure IoT と共同作業を行い、デバイス管理のアウトボックス実装を STM32 の IoT Node&nbsp; プラットフォーム用の Edo Pack に導入しました。これには、STM32 ボードを Azure でホストされている Web ダッシュボード エクスペリエンスに接続し、ファームウェアの更新を含むデバイス制御に Azure IoT Hub を使用するバイナリを使用する準備ができているものも含まれます。 詳細については、クイック スタート ガイド FP-CLD-AZURE1 ファームウェア サイトを参照してください。</p>
+
+
+  <p style="margin-left: 40px;"><strong>Windows IoT Core でのデバイス管理</strong> -Windows 10 Creators Updates&nbsp; の一部として、Windows IoT チームは先月、Azure IoT Hub デバイス管理のサポートを発表<a href="https://blogs.windows.com/buildingapps/2017/04/07/managing-windows-iot-core-devices-azure-iot-hub/#arfBAEOq40KYFyzt.97"><u>しました</u></a>。 このオープン ソース ライブラリを使用すると、開発者は、Azure IoT Hub デバイス管理機能を <a href="https://developer.microsoft.com/en-us/windows/iot"><u>IoT Core</u></a> デバイスの任意のWindowsに追加できます。 これには、デバイスの再起動、証明書とアプリケーションの管理、その他多くの重要な機能のサポートが含まれます。&nbsp;ライブラリの完全な情報とソース コードは、Windows <a href="https://github.com/ms-iot/iot-core-azure-dm-client"><u>IoT Core GitHubにあります</u></a>。</p>
+
+
+  <p>Azure IoT、セキュリティで保護された信頼性の高い方法で IoT ソリューションをデプロイおよび管理する際に問題が生じ、顧客サービスの提供に引き続き取り組み続ける必要があります。&nbsp;デバイス管理機能の詳細については、Azure IoT Hub&#39;<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-device-management-overview"><u>ドキュメントを参照してください</u></a>。 フィードバックをお寄せください。引き続き <a href="https://feedback.azure.com/forums/321918-azure-iot/"><u>Azure IoT User Voice</u></a> フォーラムを通じてご提案を送信するか、Azure IoT <a href="https://www.yammer.com/azureadvisors/"><u>Advisors Yammer グループに参加してください</u></a>。</p>
+
+
+  <p><strong>Microsoft IoT の詳細を確認する</strong></p>
+
+
+  <p>Microsoft には、IoT &mdash; の取り組み中の組織に対応する幅広い IoT オファリングを備えた最も包括的な IoT ポートフォリオがあります。たとえば、企業がデバイスのオペレーティング システムから始める必要があるすべてのもの、それらを制御<a href="https://www.microsoft.com/en-us/cloud-platform/cortana-intelligence-suite" target="_blank"><u></u></a>するクラウド サービス、分析情報を得るために<a href="https://www.microsoft.com/en-us/dynamics365/field-service" target="_blank"><u></u></a>高度な分析、インテリジェントなアクションを実現するビジネス アプリケーションなどです。 <a href="https://www.microsoft.com/en-us/internet-of-things/" target="_blank"><u></u></a> Microsoft IoT がビジネスを変革する方法を確認するには、次のページ <a href="https://www.internetofyourthings.com/" target="_blank"><u>www.InternetofYourThings.com</u></a>。</p>
+
+
+  <p><a href="https://blogs.microsoft.com/iot/2017/04/20/microsoft-simplifies-iot-further/"><u>Microsoft が</u></a> IoT を簡素化して、デジタル変革に関心を持つ組織にさらにアクセスしやすくする方法の詳細を確認してください。</p>

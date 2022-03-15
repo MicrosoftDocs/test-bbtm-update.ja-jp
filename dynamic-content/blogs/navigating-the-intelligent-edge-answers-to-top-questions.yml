@@ -1,0 +1,68 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6bc3a7e421aa0b8bfdafe26bf35b2bd994850c8a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889390"
+Slug: navigating-the-intelligent-edge-answers-to-top-questions
+Title: 'インテリジェントなエッジへの移動: よく寄せられる質問への回答'
+Summary: 過去10年間、データがネットワーク内で生成されている場所の近くで、組み込まれた IoT デバイスがよりスマートに、接続され、ソフトウェアインテリジェンスを実行してきました。 また、インテリジェントエッジにメモリとコンピューティング機能があれば、接続性、帯域幅、待ち時間、プライバシー/セキュリティに関連する複数の難問を解決できます。
+Content: >-
+  <p>過去10年間、データがネットワーク内で生成されている場所の近くで、組み込まれた IoT デバイスがよりスマートに、接続され、ソフトウェアインテリジェンスを実行してきました。 また、インテリジェントエッジにメモリとコンピューティング機能があれば、接続性、帯域幅、待ち時間、プライバシー/セキュリティに関連する複数の難問を解決できます。</p>
+
+
+  <p>当然ながら、ネットワークに接続する各デバイスは、それらを保護、プロビジョニング、および管理するための課題をもたらします。 プライバシー要件、データ規制、帯域幅、転送プロトコルに関する問題が発生します。 また、多数のデバイスが相互に接続され、クラウドのような広範なシステムに接続されている場合は、非常に複雑で非常に高速になります。</p>
+
+
+  <p>ここでは、インテリジェントエッジに関して最もよく寄せられる質問の一部と、Azure ソリューションを使用して保護、プロビジョニング、管理を簡略化する方法の例を示します。 このトピックの詳細については、 <a href="https://iotinactionevents.com/event/santa-clara?ocid=MSFT_AM_EN_IOTALE_OTH_IASC_EA_BL_CE_AZB_NA" target="_blank">サンタクララの IoT In アクションイベント</a>で講演する Olivier Bloch を10月10日にご参加ください。<br>
+
+  &nbsp; <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b6a20f85-dcbf-4357-88c3-a0c92ad9dda4.jpg"><img alt="Blog Photos" border="0" height="536" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/972d57d5-cfcf-4105-ad31-d9fda3c6b324.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ブログの写真" width="1024"></a></p>
+
+
+  <h2>インテリジェントエッジのセキュリティ保護</h2>
+
+
+  <p><em style="font-size: 13.008px;">&ldquo;接続されているデバイスがそのデバイスであること、およびそのデバイスがバックエンドに対して認証され、暗号化された方法でデータをセキュリティで保護していることを確認操作方法ます。&rdquo;</em></p>
+
+
+  <p>ネットワークにインストールされた各デバイスは、不適切なアクターに対して1つのネットワーク入室を提供します。 車のラジオ、拡大縮小、自動販売機のコンピューターをハッキングする必要はありません。 顧客データを流用する必要はありません。 私たちは、このニュースについて既に多くのことを見てきまし &rsquo; た。 インテリジェントエッジのセキュリティ保護は、IoT テクノロジに関心のあるお客様にとって重要な rightfully です。</p>
+
+
+  <p>重要な問題に対処したソリューションの上に構築することによって、簡単に開始できます。 Microsoft のインテリジェントなエッジとインテリジェントなクラウドソリューションは相互に補完するように設計されているため、信頼できる IoT ソリューションの作成がはるかに簡単になります。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/azure-sphere/" target="_blank">Azure Sphere</a> は、開始するのに最適な場所です。 これは、数十年にわたる Microsoft の経験を基に構築されたターンキーの IoT ソリューションを提供します。これにより、multipoint コントロールユニット (MCU) からオペレーティングシステムへの包括的なマルチレイヤーセキュリティがクラウドにもたらされます。</p>
+
+
+  <p>まず、ハードウェアパートナーからの Azure Sphere 認定された Mcu を使用します。その中には、Microsoft ハードウェアルートである信頼のルートが組み込まれています。 オペレーティングシステム (OS) は、ハッカーから保護し、OS とセキュリティの自動更新を有効にする多層防御を提供します。 Azure Sphere セキュリティサービスは、インターネットに接続された安全なデバイスの7つのプロパティを使用して、すべてのデバイスを保護します。 Azure Sphere は、署名された本物のソフトウェアのみを実行し、マルウェアやアプリケーションの改ざんのリスクを軽減します。 既にインストールされているデバイスがある場合でも、再設計をほとんどまたはまったく必要とせずに Azure Sphere ガーディアンモジュールで保護することができます。</p>
+
+
+  <h2>インテリジェントエッジのプロビジョニングと管理</h2>
+
+
+  <p><em>&ldquo;1つのデバイスを手動でクラウドに接続することは、この記事の一部です。しかし、大規模な大量のデバイスをプロビジョニングして管理する必要がある場合はどうでしょうか。&rdquo;</em></p>
+
+
+  <p>デバイスを簡単にプロビジョニング、更新、管理できるようにする必要がある。 新しいデバイスをロールアウトできるようにする必要があり、その時間が経過したら、デバイスをインベントリから削除します。 ソフトウェアとファームウェアを手動で更新しなくても、Pc のようなデバイスをプロビジョニングして管理したい。</p>
+
+
+  <p>ここでも、Microsoft には、すべてを簡略化するソリューションが用意されています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/iot-hub/" target="_blank">Azure IoT Hub</a>を使用すると、デバイスごとの認証や拡張されたプロビジョニングで、デバイスをエッジに接続、管理、スケーリングすることができます。 <a href="https://azure.microsoft.com/en-us/services/iot-edge/" target="_blank">Azure IoT エッジ</a>は、Azure IoT ハブから管理および構成されるインテリジェントなエッジランタイムであり、標準のコンテナーを使用してエッジデバイスで実行するクラウドワークロードをデプロイできます。 IoT Edge は、IoT アプリケーションとエッジデバイス間の通信をセキュリティで保護することにより、デバイスの電源を入れ、リモートで構成できるようにします。 組み込みのデバイス管理とプロビジョニング機能を使用すると、大規模なデバイスに接続して管理することができます。</p>
+
+
+  <p>スケーリングされたプロビジョニングを実装するために、Azure IoT Hub は<a href="https://docs.microsoft.com/en-us/azure/iot-dps/" target="_blank">Device provisioning Service</a> (DPS) とペアになっています。これにより、ユーザーが介入することなく、すべての IoT Hub デバイスを登録してプロビジョニングすることができるため、登録プロセスを効率化できます。 DPS は、ハードウェアで保護されたモジュールを利用しています。これは、シリコンの製造元によってセキュアシードが植えるされ、機密性の高いコンピューティングが可能であり、すべてがグローバルエンドポイント (DPS) を使用して信頼関係接続と認証を確立するためです。 さらに、デバイスの id と資格情報をデバイスに返す IoT Hub だけでなく、プロビジョニング時に最初の構成を提供するように構成することもできます。 これ &rsquo; は、所有権の譲渡を含め、最初の接続から提供終了にまでのライフサイクルの間に IoT デバイスを管理するための強力でスケーラブルな方法です。</p>
+
+
+  <h2>IoT in Action イベントでのインテリジェントエッジの詳細情報</h2>
+
+
+  <p>Microsoft は、インテリジェントなエッジの保護、プロビジョニング、および管理を合理化し、簡素化するソリューションによって革新を続けています。 このテクノロジを最大限に活用する方法の詳細については、10月10日に、今後の <a href="https://iotinactionevents.com/event/santa-clara?ocid=MSFT_AM_EN_IOTALE_OTH_IASC_EA_BL_CE_AZB_NA" target="_blank">サンタクララ IoT In アクションイベント</a> に登録してください。 イベントの一部として、お客様とパートナーが IoT を簡略化し、業界の問題を解決する方法に重点を置いて説明します。&nbsp;</p>
+
+
+  <p>これをサンタクラライベントにでき &rsquo; ない場合は、<a href="https://iotinactionevents.com/event/warsaw?ocid=MSFT_EMEA_EN_IOTALE_OTH_IAWAR_EA_BL_CE_AZB_NA" target="_blank">ワルシャワ</a>、<a href="https://iotinactionevents.com/event/frankfurt?ocid=MSFT_EMEA_EN_IOTALE_OTH_IAFR_EA_BL_CE_AZB_NA" target="_blank">フランクフルト</a>、<a href="https://iotinactionevents.com/event/toronto?ocid=MSFT_AM_EN_IOTALE_OTH_IATOR_EA_BL_CE_AZB_NA" target="_blank">トロント</a>、<a href="https://iotinactionevents.com/event/auckland?ocid=MSFT_AP_EN_IOTALE_OTH_IAAUK_EA_BL_CE_AZB_NA" target="_blank">オークランド</a>、<a href="https://iotinactionevents.com/event/taipei?ocid=MSFT_AP_EN_IOTALE_OTH_IAT_EA_BL_CE_AZB_NA" target="_blank">台北</a>、 <a href="https://iotinactionevents.com/event/shenzhen?ocid=MSFT_AP_EN_IOTALE_OTH_IASH_EA_BL_CE_AZB_NA" target="_blank">Shenzhen</a>など、世界中の都市に<a href="https://iotinactionevents.com/?ocid=MSFT_WW_EN_IOTALE_OTH_IALP_EA_BL_CE_AZB_NA" target="_blank">1 日のイベント</a>も保持されます。 これらのイベントは、すべての質問に回答し、潜在的な IoT パートナーとの接続を構築するための重要な機会です。 Microsoft では、対話型セッションを通じて、さまざまなソリューションやアクセラレータが IoT の簡略化にどのように役立つかを説明しています。これにより、セキュリティで保護されたソリューションを迅速かつコスト効率の高い方法で実現できます。</p>
+
+
+  <p>仮想イベントを優先しますか? Iot の業界の専門家が実際のソリューションのユースケースについて説明している、 <a href="https://www.iotinactionwebinars.com/?ocid=MSFT_WW_EN_IOTSW_OTH_WLP_EA_BL_CE_AZB_NA" target="_blank">iot のアクションウェビナーシリーズ</a> を参照してください。 iot の<a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show?WT.mc_id=iot-c9-niner" target="_blank">ショー</a>を見たり、iot の技術<a href="https://techcommunity.microsoft.com/t5/Internet-of-Things-IoT/ct-p/IoT" target="_blank">Community</a>に参加したり、 <a href="https://iotschool.microsoft.com/en-us/home" target="_blank">iot School</a>で学習したりすることによって、お客様のテクニカル iot スキルをさらに進めることもできます。</p>

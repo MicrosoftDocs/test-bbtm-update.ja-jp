@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b21a8a22701c713867d7a917f7b87a14b098ac96
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890432"
+Slug: general-availability-of-hdinsight-interactive-query-blazing-fast-data-warehouse-style-queries-on-hyper-scale-data-2
+Title: HDInsight Interactive Queryの一般提供 – ハイパースケール データに対する高速クエリ
+Summary: 'Ignite では、この週の一般提供を発表Azure HDInsight Interactive Query。 エンタープライズ レベルの SLA に支え、HDInsight Interactive Query は、一次クラウド ストレージに格納されているハイパースケール データに対する datawarehouse スタイルの SQL クエリに秒以下の速度を提供します。 '
+Content: >-
+  <p>Its&rsquo; 2017 とビッグ データの課題は、得たものほど現実の問題です。 お客様には、Azure Data Lake Store や Azure Blob Storage などの柔軟でスケーラブルな商品ストレージ システムに格納されているペタバイト単位のデータがあります。</p>
+
+
+  <p>現在の中心的な質問&nbsp;の 1 つは、これらのストレージ システム内のデータから分析情報を対話形式で見つけることです。コストのほんの一部です。&nbsp;</p>
+
+
+  <p>Interactive Query Apache Hive 2.1 の [Hive on LLAP] を活用すると、一次クラウド ストレージに格納されている大規模なデータセットに対する複雑なデータ ウェアハウス スタイルのクエリに対話機能が提供されます。</p>
+
+
+  <p>本日、Interactive Query クラスターの種類 (旧称 Interactive Hive) Azure HDInsightの一般提供をお知らせします。 このオファリングによって、お客様には次の利点があります。</p>
+
+
+  <h3>ペタバイト規模のSQLデータに対する高速データ ウェアハウス スタイルのクエリ</h3>
+
+
+  <p>Interactive Query のインテリジェントなキャッシュと最適化により、Azure Blob や Azure Data Lake Store などのリモート クラウド ストレージで、非常に高速なクエリ結果が生成されます。</p>
+
+
+  <p>Interactive Queryを使用すると、データ アナリストは、データが準備されているのと同じストレージ内のデータに対話的にクエリを実行できます。これにより、データ ウェアハウスのニーズに応じて、ストレージから別の分析エンジンにデータを移動する必要がなくなります。 データの移行をゼロにすることで、より迅速な分析情報、運用の回復性、および作業の削減、およびアーキテクチャの簡素化が実現されます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/TPCDS.png"></p>
+
+
+  <h3>最新のスケーラブルなクエリ コンカレンシー アーキテクチャ</h3>
+
+
+  <p>優れたきめ細かなリソース管理とプリインプションの導入により、Interactive Query [Hive on LLAP] を使用すると、同時実行ユーザーの方が優れたものになっています。 さらに、HDInsight では共有 Azure ストレージでの複数のクラスターの作成がサポートされ、Hive メタストアは高いコンカレンシーを実現するのに役立ちます</p>
+
+
+  <h3>最も一般的なオーサリング ツールとの豊富な接続</h3>
+
+
+  <p>Interactive Queryを使用すると、エンド ユーザーは、PowerBI、Tableau、Excel、Hive View 2.0、Beeline、Hive CLI、Visual Studio などの豊富なビジネス インテリジェンス ツールのデータと、組み込みの Zeppelin ノートブックを使用できます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Richqueryinteractivehive.png"></p>
+
+
+  <p>本日は、コード用の Interactive Query ツールのプレビューをお知Visual Studioしています。 豊富な接続オプションにより、ユーザーの学習曲線が排除されます。そのため、生産性が向上します。</p>
+
+
+  <h3>データと Hive メタストアを共有して HDInsight への既存の投資を活用する</h3>
+
+
+  <p>HDInsight で Batch ワークロードと ETL ワークロードを既に実行している場合は、高速クエリInteractive Queryクラスターを利用すると簡単です。 お客様は、Interactive Query既存のメタストアとデータ ストレージにクラスターをアタッチし、データのクエリを開始できます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/arch.png"></p>
+
+
+  <h3>SSD キャッシュを使用して SSD のコストなしで低待機時間を実現する</h3>
+
+
+  <p>Interactive Query SSD Cache を使用すると、RAM と SSD を組み合わせて、LLAP キャッシュによって得るその他すべての利点を備え、メモリの巨大なプールに組み込む可能性があります。 LLAP SSD キャッシュを使用すると、一般的なデーモンは 4 倍のデータをキャッシュし、より大きなデータセットを処理したり、より多くのユーザーをサポートしたりすることができます。 HDInsight では、クラスター ノードには SSD が追加コストで組み込まれます。</p>
+
+
+  <h3>より高速な結果を得るデータ形式への変換を "いいえ" と言う</h3>
+
+
+  <p>Hadoop での高速分析には、常に 1 つの大きなキャッチが用意されています。ORCFile、Parquet、Avro のような列形式への前もって変換する必要があります。これは時間がかかり、複雑であり、機敏性が制限されます。 CSV または JSON Interactive Queryを最適化されたインメモリ形式に変換する Interactive Query Dynamic Text Cache を使用すると、キャッシュは動的なので、クエリによってキャッシュされるデータが決定されます。 テキスト データがキャッシュされた後、分析は、特定のファイル形式に変換した場合と同じ速く実行されます。</p>
+
+
+  <h3>Enterprise グレードのセキュリティと監視 (プレビュー)</h3>
+
+
+  <p>Interactive Queryは、安全性の高い Azure &amp; HDInsight プラットフォーム上に構築されています。 ドメイン参加 HDInsight クラスターなどの機能を使用すると、Active Directory ドメインに参加している対話型クエリ クラスターを作成し、Azure Active Directory を介して認証して HDInsight クラスターにログオンできる企業の従業員の一覧を構成できます。</p>
+
+
+  <p>Grafana や Ambari などの組み込みツールを使用して Interactive Query クラスターを監視できます。また、Azure Log Analytics と統合して、1 つのウィンドウですべてのリソースを監視できます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/security.png"></p>
+
+
+  <h2>その他の技術情報</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/interactive-query/apache-interactive-query-get-started">概要 HDInsight Interactive Query Azure でのクラスターの使用</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/">詳細については、次を参照Azure HDInsight</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-linux-tutorial-get-started">HDInsight で Hive を使用する</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-component-versioning#hadoop-components-available-with-different-hdinsight-versions">HDInsight のオープン ソース コンポーネント ガイド</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-release-notes">HDInsight リリース ノート</a></li>
+   <li><a href="https://social.msdn.microsoft.com/forums/azure/en-us/home?forum=hdinsight">Msdn フォーラムで HDInsight に関する質問をする</a></li>
+   <li><a href="https://stackoverflow.com/questions/tagged/hdinsight">stackoverflow に関する HDInsight の質問</a></li>
+  </ul>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>Ignite では、この週 <a href="https://www.microsoft.com/en-us/ignite/default.aspx">の</a>一般提供を発表Azure HDInsight Interactive Query。 エンタープライズ レベルの SLA に支え、HDInsight Interactive Query は、商品クラウド ストレージに格納されているハイパースケール データに対するデータ ウェアハウス スタイルの SQL クエリに秒以下の速度を提供します。</p>

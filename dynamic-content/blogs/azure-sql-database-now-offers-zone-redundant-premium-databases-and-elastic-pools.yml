@@ -1,0 +1,38 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4eb57eb0757e907d3217ef40928ef3ee8f43fd5f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889945"
+Slug: azure-sql-database-now-offers-zone-redundant-premium-databases-and-elastic-pools
+Title: Azure SQL Databaseデータベースとエラスティック プールプレミアム冗長ゾーンが提供されます
+Summary: サービス プレミアムには、同じデータセンターに自動的にプロビジョニングされるデータベースごとに複数の冗長レプリカが含まれています。 この設計では、AlwaysON SQL Serverを活用しています。
+Content: >-
+  <p>Azure SQL Database プレミアムでは、リージョン内の同じデータセンターに自動的にプロビジョニングされる、データベースごとに複数の冗長レプリカがサポートされます。 この設計では、SQL Server AlwaysON テクノロジを活用し、99.99% の可用性 SLA と RPO=0 を使用してサーバーの障害に対する回復性を提供します。 Azure Availability Zones が導入され<a href="https://azure.microsoft.com/en-us/blog/azure-availability-zones-now-available-for-the-most-comprehensive-resiliency-strategy/" target="_blank"></a>、SQL Database サービス レベルで Availability Zones の組み込みサポートが提供プレミアムお知らせします。 個々のデータベース レプリカを異なる可用性ゾーンに配置することで、プレミアム データベースは、致命的なデータセンターの停止を含む、はるかに大きな障害のセットに対する回復性を備えています。 の組み込みサポートによりAvailability Zonesの高可用性 (HA) ソリューションをさらに強化Azure SQL Database。 詳細については、「高可用性と可用性<a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-high-availability">」を参照Azure SQL Database</a>。</p>
+
+
+  <p>この機能を利用するには、データベースまたはエラスティック プールの作成時にゾーン冗長オプションを選択します。 既存のデータベースまたはプールに対して有効にすることもできます。 ゾーン冗長オプションが有効になると、Azure SQL Database、ダウンタイムなしでデータベースまたはプールが自動的に再構成されます。</p>
+
+
+  <p>次の図に示Azure portalを使用して、データベースをゾーン冗長に構成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/97c72879-f526-4419-9f7d-aa33ce51d917.png"><img alt="GA blog (002)" border="0" height="1013" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b98b169d-b9cb-416e-8f1d-5f433bf27b5c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="GA ブログ (002)" width="1435"></a></p>
+
+
+  <p>この設定は、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-cli" target="_blank">CLI</a>、 <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-powershell">PowerShell</a>、または REST API を <a href="https://docs.microsoft.com/en-us/rest/api/sql/Databases/CreateOrUpdate">使用して構成することもできます</a>。</p>
+
+
+  <p>ゾーン冗長プレミアムデータベースとプールは、次のリージョンで使用できます。</p>
+
+
+  <ul>
+   <li><strong>米国中部 (一般提供)</strong></li>
+   <li><strong>フランス中部 (一般提供)</strong></li>
+   <li><strong>西ヨーロッパ (一般提供)</strong></li>
+   <li><strong>南東アジア (一般提供)</strong></li>
+  </ul>
+
+
+  <p>その他のリージョンは、時間の中で追加されます。</p>

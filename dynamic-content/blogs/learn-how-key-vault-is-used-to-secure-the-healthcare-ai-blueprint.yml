@@ -1,0 +1,129 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0fa621cc6b5cbad30e8b221badbfeeb7b95f2d82
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889138"
+Slug: learn-how-key-vault-is-used-to-secure-the-healthcare-ai-blueprint
+Title: 医療 AI Key Vaultセキュリティで保護する方法について学習する
+Summary: システム セキュリティは、すべての医療組織にとって最優先事項です。 物理、ネットワーク、アプリケーション、電子メールなど、さまざまな種類のセキュリティがあります。
+Content: >-
+  <p>システム セキュリティは、すべての医療組織にとって最優先事項です。 物理、ネットワーク、アプリケーション、電子メールなど、さまざまな種類のセキュリティがあります。 この記事では、この記事で提供されるシステム <a href="https://azure.microsoft.com/services/key-vault/?WT.mc_id=keyvault-acomblog-dastarr" target="_blank">セキュリティについてAzure Key Vault</a>。 具体的には、Azure Healthcare ブループリントKey Vault実装の詳細 <a href="https://servicetrust.microsoft.com/ViewPage/HIPAABlueprint?WT.mc_id=keyvault-acomblog-dastarr" target="_blank">を確認します</a>。 その目的は、ブループリントで使用Key Vaultの動作を示す方法です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/798e2784-c6ca-41b6-9fb1-259fe3ee92ae.png"><img alt="image" border="0" height="350" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d06ad10e-3314-42f6-b5fb-5693baf03169.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <h2>現実世界での機密データのセキュリティ保護</h2>
+
+
+  <p>医療組織では、さまざまなソースの機密データにアクセスする必要があるユーザーが数十 (または数百人) 存在する可能性があります。 医師、技術者、受付 &mdash; スタッフは、X 線だけ、支払いスケジュールにアクセスする必要があります。また、医師には患者の記録が必要です。 ユーザーとデータ ストアのマトリックスは大きい場合があります。 非常に多くのアクセス許可を管理することは、悪望的な場合があります。 ダッシュボードまたは他のユーザー インターフェイスの場合は、サービス アカウントにアクセス許可を付与する必要があります。 たとえば、機械学習では、データ サイエンティストが多くのデータ リポジトリのデータに対してクエリを実行して相関関係を見つけ、それらのデータ ストアに対する適切な権限が必要な場合があります。</p>
+
+
+  <p>ブループリントでは、Key Vaultは、システム ユーザーがデータベースや Machine Learning Studio (MLS) などへのアクセスを必要とするパスワードやシークレットのようなデータを格納します。</p>
+
+
+  <h2>機能Key Vault提供</h2>
+
+
+  <p>ほとんどの複雑なシステムでは、さまざまな種類のデータを格納するための安全で信頼性の高い方法が必要です。 これは、患者や他の機密情報を保護する必要がある医療などの規制された環境で特に当てはまれます。</p>
+
+
+  <p>アプリケーションKey Vault、そのアプリケーションに必要な暗号化からアプリケーションを分離できます。 たとえば、Azure にデプロイされたカスタム アプリケーションは、実行時に URL からアクセスするためのアクセス許可を持つ任意のキー、シークレット、または証明書にアクセスできます。</p>
+
+
+  <p>信頼できるKey Vaultセキュリティを提供するために使用する場合は、キー、証明書、およびシークレットと呼ばれるものが &ldquo;格納されます。&rdquo; シークレットには、データベース接続文字列やパスワードなど、機密性の高い任意の文字列を指定できます。</p>
+
+
+  <p>キー コンテナーに格納されているキーは、ハードウェア セキュリティ モジュール (HSM) によって保護されます。ハードウェア セキュリティ モジュールは、キーの保存や管理などのさまざまな暗号化操作を実行する特殊な信頼されたネットワーク コンピューターです。 Key Vault は、Federal Information Processing Standards (FIPS) 140-2 レベル 2 で検証された HSM を利用します。&nbsp;</p>
+
+
+  <h2>Key Vault の使用</h2>
+
+
+  <p>Azure テナントに複数のKey Vaultがある場合があります。 1 つのアプリケーションまたはシステムにKey Vault別のシステムに対して、1 つのアプリケーションを使用する方法を使用する方が良い方法です。 これにより、Key Vault では、アプリケーションまたはシステム固有の格納項目を分離することで、1 つの責任プリンシパルが尊重されます。 単一目的の Key Vault は、すべてのシステムとアプリケーションのデータを 1 つのコンテナーに格納するよりも簡単に管理できます。</p>
+
+
+  <p>Azure サブスクリプションを持つユーザーは誰でも Key Vault を作成して使用できます。 ユーザーを作成するユーザー Key Vaultの所有者です。 Healthcare for AI ブループリントでは、ユーザー Alex_siteadminは、最初のインストール中に資格情報を使用して作成された Key Vault 内の情報にフル アクセスできます。</p>
+
+
+  <p>コンテナー所有者がアクセス許可を付与した後、ユーザーはコンテナー内のデータにアクセスできます。 所有者は、アプリケーションから呼び出す URI を開発者に提供します。</p>
+
+
+  <p>ブループリント システムでは、Alex_siteadminコンテナー内の機密データ (証明書、キー、シークレット) にアクセスできます。 ポータルを使用してこれを行うには、リソースの <strong>Key Vaultをクリック</strong> し、[設定] セクションを &ldquo;確認&rdquo; します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0287e202-bafd-4c15-8195-1b0e245e9d76.png"><img alt="image" border="0" height="223" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6566e01-9c84-4b8d-a520-af3c2caa8a52.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="イメージ" width="276"></a></p>
+
+
+  <p>表示する設定の種類 (キー、シークレット、証明書) をクリックします。 [シークレット] <strong>をクリック</strong>すると、次に示す<strong> 一覧で Sqldb-ConnectionString</strong> が検索されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3aaee4a6-6812-4979-b638-9c8b7bdfddc8.png"><img alt="image" border="0" height="323" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc446ba7-6ec8-4189-821f-3f4efe0c08c3.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="イメージ" width="624"></a>&nbsp;<br>
+
+  <strong>Sqldb-ConnectionString をクリックすると</strong>、接続文字列シークレットの URL が表示されます。 接続文字列Alex_siteadminアクセスする URL を確認することもできますが、接続文字列自体は表示できません。</p>
+
+
+  <h2>アプリケーションKey Vaultを使用する</h2>
+
+
+  <p>URL は、作成されたアカウントで実行されているアプリケーションのリソース アクセスのために Key Vault によって提供されます。 PowerShell コマンドと Azure CLI コマンドを使用してコンテナーからキー シークレットを取得できますが、実行中のアプリケーションからキーにアクセスする方法は、通常、コンテナーに項目を格納するための主な目的です。</p>
+
+
+  <p>シークレット、キー、証明書はすべて URL を介して使用できますが、現在のユーザーがコンテナー内の項目に対するアクセス許可を持っている場合にのみ使用できます。 ユーザーとサービス アカウントがコンテナー項目にアクセスするには、アクセス ポリシーを設定する必要があります。</p>
+
+
+  <h2>Key Vault の管理</h2>
+
+
+  <p>前述のように、異なるアプリケーションに対して Key Vault のインスタンスを個別に作成する方法をお勧めします。 これにより、1 つのコンテナー Key Vault複数のアプリケーションからシークレットを格納するよりもはるかに簡単に管理できます。</p>
+
+
+  <p>また、コンテナー内のさまざまな項目のアクセス ポリシーを管理することが重要です。 アカウントは、必要な項目のみにアクセスし、それ以外には何もアクセスするように &mdash; 構成する必要があります。 アクセス許可は、コンテナー内の項目に対するアクセス許可をきめ細かく制御するアクセス ポリシーを介して設定されます。</p>
+
+
+  <h2>Key Vault の削除と復元</h2>
+
+
+  <p>&ldquo;"ソフト削除&rdquo; " はKey Vaultで有効にできる可能性がある機能です。 これが true の場合、Key Vault削除された場合は、90 日間回復できます。 Azure の他Azure portalリソースやサービスと同様に、Key Vaultが完全に削除されたように見えます。 ただし、&rsquo;これは当てはめではありません。 これは Azure によって 90 日間保持され、何らかの理由で復元できます。 この予防措置のため、同じ名前Key Vault新しいコンテナーは、削除されたコンテナーが本当に削除されるまで Azure &ldquo;&rdquo; サブスクリプションに追加できません。</p>
+
+
+  <h3>データの復元Key Vault</h3>
+
+
+  <p>ユーザーを復元Key Vault、所有者は PowerShell またはデバイスにアクセスAzure CLI。 PowerShell で、次のコマンドを実行します。</p>
+
+
+  <pre>
+
+  Undo-AzureRmKeyVaultRemoval -VaultName &lt;vault name&gt; -ResourceGroupName &lt;resource group&gt; -Location &lt;location&gt;</pre>
+
+
+  <h3>ソフト削除の削除Key Vault</h3>
+
+
+  <p>PowerShell と Azure CLIには、ソフト削除されたコンテナーを完全に削除するためのコマンドも用意されています。 これは、90 日間が経過する前にコンテナーを削除するために使用できます。 これは PowerShell コマンドです。</p>
+
+
+  <pre>
+
+  Remove-AzureRmKeyVault -VaultName &lt;vault name&gt; -InRemovedState -Location &lt;location&gt;</pre>
+
+
+  <h3>まとめ</h3>
+
+
+  <p>Azure Healthcare AI Blueprint では、さまざまなアプリケーションをKey Vault。 HIPAA 準拠を確保し、HITRUST 認定を守るのに役立ちます。 Azure 環境でKey Vaultする別のアプリを作成します。 アプリ内の項目を変更しない場合Key Vault&rsquo;&mdash;、アプリケーションの動作が停止する可能性があります。</p>
+
+
+  <p>Key Vault では、特にセキュリティに重点が置かされています。 これは、キー、証明書、およびデータベース接続文字列、パスワード、その他の機密情報などのシークレットの中央ストアです。 データとセキュリティ キーをセキュリティで保護する場合は、次の方法でKey Vault。</p>
+
+
+  <h3>推奨される次の手順は次のとおりです。</h3>
+
+
+  <ol>
+   <li>クイック スタートを実行します。PowerShell を使用してシークレットを設定 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fazure%2Fkey-vault%2Fquick-create-powershell%3FWT.mc_id%3Dkeyvault-acomblog-dastarr&amp;data=02%7C01%7C%7C2a7256ca56cd4527849008d6138ce646%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636717893203737650&amp;sdata=I0mZal8KskPsilbxSUMzyaV77dY8ylGPRNnBMStVLz8%3D&amp;reserved=0" target="_blank">Azure Key Vault取得します</a>。 このクイック スタートでは、PowerShell を使用してキー コンテナーを作成します。 次に、新しく作成したキー コンテナーにシークレットを格納します。</li>
+   <li>無料のソリューション ガイド「 <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdownload.microsoft.com%2Fdownload%2F0%2F1%2F5%2F0150425C-14C7-41F4-97EA-3DE57B678C51%2FIndSG_AI.pdf&amp;data=02%7C01%7C%7C2a7256ca56cd4527849008d6138ce646%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636717893203747655&amp;sdata=5hwlz4jj5A2X%2BVucbn1XPXAnO8VahRdiT8iviPw7q%2FU%3D&amp;reserved=0" target="_blank">医療向け Azure ブループリントの実装」を参照してください</a>。 このガイドの知識を活用して <a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fazure%2Fsecurity%2Fblueprints%2Fazure-health%3FWT.mc_id%3Dkeyvault-acomblog-dastarr&amp;data=02%7C01%7C%7C2a7256ca56cd4527849008d6138ce646%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636717893203747655&amp;sdata=9KMC2DG2%2FmCCvo0HYUx9jvZuGpP5lrt8MVD15isRMnw%3D&amp;reserved=0" target="_blank">、Azure Healthcare AI Blueprint</a> をデプロイし、キー コンテナーを使用してブループリントがどのようにセキュリティで保護されるのかについて説明します。</li>
+  </ol>

@@ -1,0 +1,58 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e26b55b9972b4998b9dedb8c0de35c7e27bfb390
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889394"
+Slug: microsoft-showcases-the-azure-cloud-switch-acs
+Title: Microsoft では、Azure クラウドスイッチ (ACS) を紹介しています
+Summary: Azure クラウドスイッチ (ACS) は、Linux 上に構築されたデータセンターネットワーク用のクロスプラットフォームモジュール化オペレーティングシステムです。
+Content: >-
+  <p>クラウドとエンタープライズはどちらも、高速で可用性の高いネットワークに依存してサービスを提供します。 このため、ネットワークオペレーターは、必要なネットワーク機能を迅速に追加することによって、自社の運命を制御できるようにすることが重要です。これにより、リスクと複雑さを高める機能の変更を維持できます。</p>
+
+
+  <p>Microsoft では、市場で利用できる優れたスイッチハードウェアプラットフォームが多数存在することを信じています。多くのベンダーがイノベーションを促進し、スピードが向上し、コストが削減されています。 しかし、クラウドおよび企業ネットワークでは、さまざまな種類のスイッチで実行される、大幅に異なるソフトウェアをクラウド全体のネットワーク管理プラットフォームに統合することが困難になっています。 新しいスイッチハードウェアのイノベーションを tide にしても、お客様が実装した機能のすべてのメリットと、お客様が私たちにとって修正されたバグをぜひお寄せください。</p>
+
+
+  <p>Azure クラウドスイッチ (ACS) は、スイッチなどのネットワークデバイスを実行するための独自のソフトウェアを構築する foray です。 Linux 上に構築されたデータセンターネットワーク用のクロスプラットフォームモジュールオペレーティングシステムです。 ACS を使用すると、ソフトウェアのバグのデバッグ、修正、テストをより迅速に実行できます。 また、ソフトウェアをスケールダウンし、データセンターとネットワークのニーズに必要な機能を開発する柔軟性も得られます。</p>
+
+
+  <p>ACS では、複数のスイッチベンダーのハードウェア間で同じソフトウェアスタックを共有することもできます。 これは、 <a href="https://www.opencompute.org/">open Compute Project (OCP)</a>のネットワーク切り替え ASICs をプログラミングするための最初のオープン標準 C API である、 <a href="https://github.com/opencomputeproject/OCP-Networking-Project-Community-Contributions">Switch アブストラクション Interface (SAI)</a>仕様を通じて行われます。 Microsoft は SAI 工数の設立メンバーでしたが、ACS を成功させるための手段として SAI を参照しているため、プロジェクトの先頭の共同作成者になります。</p>
+
+
+  <p>ACS は、長年の品質スイッチソフトウェアスタックの経験を尊重し、学習していますが、従来のスイッチソフトウェアスタックから多くの側面を逸脱して、強調表示されているいくつかの目標を達成しています。</p>
+
+
+  <p>従来のスイッチソフトウェアは、いくつかのシナリオと機能の要求を含む複数の顧客向けに構築されています。 ACS は Microsoft の優先順位に基づく機能の開発に重点を置いているため、 <strong>リーンスタック</strong>があります。 シンソフトウェアスタックは、データセンターネットワークに必要なソフトウェアに焦点を当て、ネットワークデバイスソフトウェアのバグを現在の実行率よりも迅速に修正、テスト、および修復することを目指しています。 ACS は、1つのモノリシックイメージではなく、 <strong>モジュール型スタック</strong> でもあります。 リーンおよびモジュール化スタックの利点は十分です。 これにより、非表示の優先度の高いバグの確率が低くなり、新しい機能の要求時間の遅延が軽減され、検証が容易になります。</p>
+
+
+  <p>ACS は、Microsoft &rsquo; の監視および診断システムとの統合により<strong>、構成と管理を容易</strong>にするために努力しています。 コマンドラインインターフェイスの従来のエンタープライズインタラクティブモデルから逸脱ば、サーバーが週次のソフトウェアの展開とロールバックによって管理され、成熟した構成とデプロイモデルが実現します。</p>
+
+
+  <p>ACS は <strong>オープンネットワーク</strong>の機能を認識しています。 ACS とオープンで標準化された <strong>SAI インターフェイス</strong> を併用することで、新しいハードウェアを迅速に利用できるようになります。同時に、複数のプラットフォームで同時に動作できるように、ASIC イノベーションの tide を実現できます。 <strong>Linux</strong>で実行されている ACS は、強力なエコシステムを利用することができます。 ACS では、 <strong>オープンソース</strong>、Microsoft、および <strong>サードパーティ</strong> のアプリケーションを使用したり拡張したりすることができます。 次の図は、ACS スタックの最上位から最下位までの主要な機能ブロックを示しています。<br>
+
+  <br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1f9cd897-e17c-4582-b70a-573ae3d1271e.jpg"><img alt="ACS Stack" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c668b77-b4c0-451b-bed1-8e07c369dcf1.jpg" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="ACS スタック" width="564"></a></p>
+
+
+  <p><strong>アプリケーション</strong>: Quagga などのオープンソースアプリケーションや、自動操縦や swan などの機能や、サードパーティ製のアプリケーションなどの構成管理システム全体に関連する可能性のある Microsoft 固有のアプリケーションが含まれます。</p>
+
+
+  <p><strong>スイッチ状態サービス (sss)</strong>: sss はグローバルネットワーク状態のサブセットです。 これは、目標状態に切り替えるために役立ちます。 すべてのスイッチの状態の要件を管理するために、Redis のようなオープンソースのキーと値のペアストアを利用できます。 また、SAI オブジェクト管理のサブレイヤーでもあるデータベースレイヤーを使用すると、オブジェクトの共有と異なるアプリケーション間の依存関係に役立ちます。 データベースはモジュール化されており、アプリケーションに状態のビューを提供します。</p>
+
+
+  <p><strong>SAI</strong>: SAI の前には、ハードウェアの根本的な複雑さとプロトコルスタックソフトウェアの厳密な結合がありません。ネットワークのニーズに応じて、ハードウェアとソフトウェアの最適な組み合わせを自由に選択できました。 SAI を使用すると、ソフトウェアは何も変更せずに複数のスイッチチップをプログラムすることができるため、ベースルーターのプラットフォームをシンプルかつ一貫して安定させることができます。 また、標準化された API を使用すると、ネットワークハードウェアベンダーは、プログラミングインターフェイスの一貫性を維持しながら、優れた速度を実現する革新的なハードウェアアーキテクチャを開発できます。 また、SAI を使用すると、機能、スタック、およびアプリケーションのソフトウェア開発をオープンで簡単に行うことができます。 2015年7月の時点で、SAI は<a href="https://www.opencompute.org/">オープンコンピューティング Project (OCP)</a>に正式に同意されています。 詳細については、<a href="https://azure.microsoft.com/en-us/blog/switch-abstraction-interface-sai-officially-accepted-by-the-open-compute-project-ocp/">こちら</a>を参照してください。</p>
+
+
+  <p><strong>ベンダーが提供するハードウェアとソフトウェア</strong>: これは、実際の ASICs、ドライバー、SAI と northbound を話すソフトウェア開発キット (sdk) で構成されています。</p>
+
+
+  <p>ACS with SAI は、 <a href="https://conferences.sigcomm.org/sigcomm/2015/industrialdemosessions.php">2015 年8月の Sigcomm カンファレンス</a>で説明されています。 ACS、4つの ASIC ベンダー (Mellanox、Broadcom、Cavium、Barefoot software スイッチ)、SAI の6つの実装 (Broadcom、Dell、Mellanox、Cavium、Barefoot、および Metaswitch) と3つのアプリケーションスタック (Microsoft、Dell、および Metaswitch) が紹介されています。</p>
+
+
+  <p>ACS &rsquo; のリーンとモジュール型スタックを紹介します。 1つのソフトウェアアプリケーションがさまざまな ASICs と対話することによって、ASIC に依存しないインターフェイスである、標準化された SAI の力を unleashed 』しています。 さらに、ACS は Dell &rsquo; s および Metaswitch &rsquo; s アプリケーションスタックでも動作しています。 これらの機能は、マイクロソフトが自社のデータセンターで使用している実際の clos トポロジで実証されています。 これらの機能には、QoS などの複雑なレイヤー3ルーター機能があります。</p>
+
+
+  <p>&rsquo;スイッチハードウェアからのスイッチソフトウェアの disaggregating ゲートというこのアプローチは、ネットワーク業界で継続的に増加傾向にあると考えているため、ACS を公開しています。ここから、この旅の洞察と経験を投稿したいと思います。</p>

@@ -1,0 +1,132 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 70e2abe4f71c058b69a5dafb4cdb211323c3d89a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889372"
+Slug: new-a8a9-virtual-machine-sizes
+Title: 新しい A8/A9 仮想マシンのサイズ
+Summary: この週、A8 と A9 の 2 つの新しい VM Microsoft Azure Virtual Machinesを発表しました。 これらのサイズは、プロセッサの高速化、より高いコンピューティングパワーのための仮想コアの増加、および大量の機能を備えています。
+Content: >-
+  この週、A8 と A9 の 2 つの新しい VM Microsoft Azure Virtual Machinesを発表しました。 これらのサイズは、プロセッサの高速化、より高いコンピューティングパワーのためのより多くの仮想コア、および大量のメモリを備えています。 これらのインスタンスには、並列 MPI アプリケーションの効率を最大限に高めるリモート ダイレクト メモリ アクセス (RDMA) テクノロジを提供する追加の 40Gbit/秒バックエンド ネットワークが含まれます。 この機能の組み合わせにより、これらのインスタンスは、エンジニアリング設計とシミュレーション、ゲノム研究、ビデオ エンコードなど、コンピューティングとネットワークを集中的に使用するアプリケーションの実行に最適です。 詳細については、こちらをご <a href="https://blogs.technet.com/b/windowshpc/archive/2014/05/14/extending-high-performance-capabilities-for-microsoft-azure.aspx">覧ください</a>。このブログ記事は、これらの新しい仮想マシン サイズの使用を開始するのに役立ちます。
+
+  <h2>地理的な可用性</h2>
+
+  現在、この機能は次のリージョンでサポートされています。
+
+
+  <strong>米国</strong>
+
+  <ul>
+   <li>米国東部</li>
+   <li>米国西部</li>
+   <li>米国中北部</li>
+   <li>米国中南部</li>
+  </ul>
+
+  <strong>ヨーロッパ</strong>
+
+  <ul>
+   <li>西ヨーロッパ</li>
+   <li>北ヨーロッパ</li>
+  </ul>
+
+  <strong>日本</strong>
+
+  <ul>
+   <li>東日本</li>
+  </ul>
+
+  &nbsp;
+
+
+  これらのサイズに対する新しいサポートを追加するために、引き続きグローバル容量を拡張します。 A8 と A9 がサポートされているリージョンを特定するには、この PowerShell スクリプトが役立ちます。 <strong>メモ：</strong> 最新バージョンは、こちらから <a href="https://go.microsoft.com/?linkid=9811175&amp;clcid=0x409">ダウンロードしてください</a>。
+
+  <pre class="prettyprint">$myregion = "West US"
+
+  $location = Get-AzureLocation | where { $_.Name -eq $myregion }
+
+  $location.VirtualMachineRoleSizes</pre>
+
+  これにより、A8 や A9 など、さまざまなリージョンで使用できるすべてのロール サイズが返されます。 A8 と A9 の仮想マシン のサイズが使用可能な 7 つのリージョンすべてには、仮想マシンと仮想マシンの両方Cloud Servicesが含Virtual Machines。
+
+  <h2>A8 または A9 仮想マシンの作成</h2>
+
+  この週から、新しい A8 または A9 仮想マシンを作成するには、Azure PowerShellします。 PowerShell 環境をインストールして準備する方法の詳細については、こちらを参照 <a href="https://msdn.microsoft.com/library/azure/jj554332.aspx">してください</a>。 <strong>更新</strong>: サービス管理ポータルを使用して A8 と A9 Virtual Machinesを作成するサポートが追加されました。PowerShell コマンドを使用して A8 仮想マシンを作成する例を次New-AzureQuickVMします。
+
+  <pre class="prettyprint">PS C:\&gt; New-AzureQuickVM -windows –ServiceName mya8vm -name mya8vm -imagename $image -instancesize A8 –AdminUserName $admin –password $pwd -location "West US"</pre>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/deploying-an-A8-VM.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="A8 VM のデプロイ" alt="deploying an A8 VM" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/deploying-an-A8-VM_thumb.png" width="614" height="156" border="0" /></a>
+
+
+  <strong>更新： </strong>サービス管理ポータルを使用して、これらの仮想マシンのサイズを作成できます。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/A8-A9-sizes.png"><img class="alignnone size-full wp-image-151921" alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/A8-A9-sizes.png" width="441" height="458" /></a>
+
+
+  &nbsp;
+
+  <h2>A8 または A9 仮想マシンをリージョン の仮想マシンに追加Virtual Network</h2>
+
+  A8 または A9 仮想マシンを使用する場合は、リージョンの仮想マシンにデプロイすることをお勧Virtual Network。 この種類の仮想ネットワークは新しく、既存のネットワークよりもスケールが大きいほど、使い慣れた仮想ネットワークの種類とは異なります。 以前は、仮想ネットワークはアフィニティ グループにバインドされています。 特定のアフィニティ グループが、リージョンで提供される VM サイズの一部をサポートしていない場合があります。 リージョンリージョンのリージョンをデプロイVirtual Network、そのリージョンで使用可能な任意の VM サイズを仮想ネットワークにデプロイできます。
+
+
+  [場所] の下に [Virtual Network] が表示されている場合は、ポータルを使用してリージョン仮想ネットワークを指定できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/vnet.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="vnet" alt="vnet" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/vnet_thumb.png" width="614" height="192" border="0" /></a>
+
+
+  または、PowerShell と Location 属性を使用して "Get-AzureVNetConfig" コマンドレットを使用するときにこれを確認できる場合は、次のコマンドを実行します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/vnetconfig.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="vnetconfig" alt="vnetconfig" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/vnetconfig_thumb.png" width="614" height="286" border="0" /></a>
+
+
+  PowerShell を使用してリージョン仮想ネットワークを作成するには、次の手順に従います。
+
+  <ol>
+   <li>リポジトリから現在のネットワーク構成ファイルをダウンロードします。
+  <pre class="prettyprint">$outfile = $Env:temp + "VNetConfig.xml"
+
+  Get-AzureVNetConfig -ExportToFile $outfile</pre>
+
+  </li>
+   <li>エクスポートしたファイルを編集し、VirtualNetworkSite ノードの Affinity Group 属性を削除し、次に示すように Location 属性に置き換します。<a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/vnetconfigedit.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="vnetconfigedit" alt="vnetconfigedit" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/vnetconfigedit_thumb.png" width="644" height="167" border="0" /></a> Location 属性は、任意の Azure リージョンを有効な入力として受け入れる (例: "米国東部"、"米国西部" など)</li>
+   <li>次のコマンドを実行して、リージョン仮想ネットワークを作成します。
+  <pre class="prettyprint">Set-AzureVNetConfig -ConfigurationPath $outfile</pre>
+
+  </li>
+   <li>これにより、基本的にリージョン仮想ネットワークが作成されます。</li>
+  </ol>
+
+  この種類の仮想ネットワークの詳細については、こちらを参照 <a href="https://azure.microsoft.com/blog/2014/05/14/regional-virtual-networks/">してください</a>。 リージョン の仮想ネットワークを設定Virtual Network、その仮想ネットワークに A8 または A9 仮想マシンをデプロイできます。
+
+  <pre class="prettyprint">PS C:\&gt; New-AzureVMConfig -Name "mya8vm" -InstanceSize A8 -ImageName $myimage | Add-AzureProvisioningConfig -Windows –AdminUserName $admin -Password $pwd | New-AzureVM -ServiceName "mya8vm" –VNetName "kenaz-regionalvnet"</pre>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/createvmwithvnet.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="createvmwithvnet" alt="createvmwithvnet" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/createvmwithvnet_thumb.png" width="614" height="131" border="0" /></a>
+
+  <h2>現在サポートされていないシナリオ</h2>
+
+  現時点で現在サポートされていないシナリオの一覧を次に示します。
+
+  <h3>任意の VM サイズを A8 または A9 VM サイズに切り替えて戻す</h3>
+
+  残念ながら、既存の VM サイズから新しい A8 または A9 サイズの 1 つに切り替えは実行できます。 これらのサイズは、新しい仮想マシン <strong>としてのみ</strong> デプロイできます。 ただし、既存の仮想マシンを削除しても、OS ディスクとデータ ディスクを保持し、それらを使用して、それらの永続化されたディスクを使用してサイズ A8 または A9 の新しい VM を作成できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/05/switchingsizes.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border: 0px" title="switchingsizes" alt="switchingsizes" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/switchingsizes_thumb.png" width="614" height="345" border="0" /></a>
+
+  <h3>A8 または A9 VM サイズをアフィニティ グループ内のVirtual Networkに追加する</h3>
+
+  A8 または A9 VM は、新しいリージョン リージョン リージョンにのみデプロイVirtual Network。 アフィニティ グループ内の A8 または A9 VM Virtual Networkへの追加はサポートされていません。
+
+  <h3>A8 または A9 以外の VM サイズを持つクラウド サービスへの A8 または A9 VM サイズの追加</h3>
+
+  現時点では、A8 または A9 の VM サイズを、A8 以外の A9 VM サイズと同じクラウド サービスにデプロイすることはできません。
+
+  <h3>RDMA for Linux Virtual Machines</h3>
+
+  RDMA は現在、仮想マシンとクラウド サービスWindowsでのみサポートされています。 Linux 仮想マシンのサポートは開発中です。

@@ -1,0 +1,64 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c1a55bcd69fc3eaf4152aeb5603883d39197d4a9
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889464"
+Slug: how-to-use-azure-functions-with-iot-hub-message-routing
+Title: メッセージ ルーティングで Azure Functionsを使用IoT Hub方法
+Summary: Azure IoT Hub で新しいルーティング エンドポイントを求める質問が多く、より一般的な質問の 1 つは、Azure Functions に直接ルーティングできるという質問です。 サーバーレス コンピューティングの機能をすぐに利用できるのは非常に強力であり、IoT データを使用して、すばらしいことを行えます。
+Content: >-
+  <p>Azure IoT Hub で新しいルーティング エンドポイントを求める質問が多く、より一般的な質問の 1 つは、Azure Functions に直接ルーティングできるという質問です。 サーバーレス コンピューティングの機能をすぐに利用できるのは非常に強力であり、IoT データを使用して、すばらしいことを行えます。<br>
+
+  &nbsp;<br>
+
+  (クイック リフレッカー: 2016 年 12 月に戻り、メッセージ ルーティングを IoT Hub。 メッセージ ルーティングを使用すると、お客様はさまざまなシステムへのイベントの自動ルーティングを設定できます。また、困難な実装アーキテクチャはすべてお客様が管理します。 現在、ルーティング規則のカスタム エンドポイントとして Service Bus キュー、トピック、Event Hubs を介してバックエンド処理サービスにメッセージをルーティングする IoT Hub を構成できます)。</p>
+
+
+  <blockquote>
+
+  <p>1 つの簡単なメモ: IoT Hub に送信されたメッセージごとに Azure 関数をトリガーする場合は、既に実行できます。 単に、Event Hubsを使用し、IoT Hub&#39;の組み込みの Event Hub 互換エンドポイントを関数のトリガーとして指定します。 ポータルの [エンドポイント イベントIoT Hub、組み込みのエンドポイント情報を取得 &ndash;&gt; できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5bf5bc9-40f5-464d-b686-2b60690aace5.png"><img alt="Endpoints" border="0" height="214" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca743e20-011c-4f0a-844b-88c7ae4c0e55.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="エンドポイント" width="610"></a></p>
+
+
+  <p>関数&rsquo;を設定するときに、その情報を入力する場所を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8ba53747-00dd-4db0-95de-ba727447951b.png"><img alt="Name function" border="0" height="188" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6395da05-5dff-48a4-acad-6161325b0a3d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Name 関数" width="480"></a></p>
+
+
+  <p>それ以上&rsquo;のことを行う場合は、次の記事を参照してください。</p>
+
+  </blockquote>
+
+
+  <p>良いニュースが表示され、悪いニュースがあります。 まず、悪いニュースです。このブログ記事では、IoT Hub でのカスタム エンドポイントとしての Functions のサポートは発表されていません (バック&#39;上に表示されます)。 良いニュースは、中間&#39;を使用して Azure 関数を起動する方法が非常に簡単である点です。</p>
+
+
+  <p>チュートリアル&#39;「Process IoT Hub <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-csharp-csharp-process-d2c">device-to-cloud messages using routes</a>(ルートを使用してデバイスからクラウドへのメッセージを処理する)」で説明されているシナリオについて説明します。 この記事では、デバイスは、テレメトリ メッセージとは異なる処理を必要とする重大なアラート メッセージを送信する場合があります。このメッセージは、IoT Hub 経由のトラフィックの大部分を構成します。 この記事では、IoT ハブに追加Service Busキューにカスタム エンドポイントとしてメッセージをルーティングします。 メッセージ ルーティング機能を顧客にデモするときに、ロジック アプリを使用してキューから読み取り、メッセージをさらに処理しますが、Azure 関数を使用してカスタム コードを実行するのと同じ方法で簡単に実行できます。 チュートリアル&#39;既に&#39;を実行し、Service Bus キューへのルートを作成したと仮定しますが、その方法を簡単に更新する必要がある場合は、ここで直接ドキュメントに進む必要があります。<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-csharp-csharp-process-d2c"></a> この投稿は、戻ってくるときに待機しています。</p>
+
+
+  <p>まず、Azure Portal で Function App を <a href="https://portal.azure.com/">作成します</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5a66c865-ba62-4c7f-8177-780eee967a86.png"><img alt="Create function" border="0" height="283" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc977e97-1fef-4631-be47-32705e28f2a8.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="関数を作成する" width="336"></a></p>
+
+
+  <p>次に、キューからデータを読み取る関数を作成します。 クイック スタート ページで、[独自の&ldquo;カスタム関数の作成] をクリックし&rdquo;&ldquo;、テンプレート ServiceBusQueueTrigger-CSharp を選択します&rdquo;。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78b092c3-899e-46fa-89c3-37f59daf0048.png"><img alt="Functions templates" border="0" height="268" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/368a8425-7e78-4c6a-9ad1-ee672c40d69d.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Functions テンプレート" width="610"></a></p>
+
+
+  <p>次の手順に従って、Service Busキュー接続情報を関数に追加&rsquo;し、トリガーの設定を完了しました。 これで、キューに新しいメッセージがAzure Functionsするたびにカスタム メッセージ処理コードをトリガーするために、&#39;の機能を使用できます。<br>
+
+  &nbsp;<br>
+
+  <a href="https://azure.microsoft.com/en-us/pricing/details/service-bus/">Service Busは</a> 100 万回の操作ごとに請求され、IoT&#39;のコストに見合う金額は追加されません。 たとえば、1 ユニットの S1 SKU IoT ハブ (400,000 件のメッセージ/日) から関数までのすべてのメッセージをこの方法で送信した場合、Basic SKU キューを使用する場合、中間キューに対して 0.05 USD 未満の料金が支払われます。 私&rsquo;はそこで銀行を壊していない。<br>
+
+  &nbsp;<br>
+
+  この場合は、サービス内のサービスへのルーティングに関するファーストクラスのサポートがAzure Functions完了IoT Hub。 その間は、開発者ガイドでメッセージ ルートの詳細を確認できます。<a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messaging"></a>また、As always の詳細については、引き続き <a href="https://feedback.azure.com/forums/321918-azure-iot/">Azure IoT User Voice</a> フォーラムを通じてご提案を送信するか、<a href="https://www.yammer.com/azureadvisors/">Azure IoT Advisors Yammer</a> グループに参加してください。&nbsp;</p>

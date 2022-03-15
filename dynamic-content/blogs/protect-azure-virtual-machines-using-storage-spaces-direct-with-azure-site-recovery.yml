@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0d8f5a653e2b464b9dc31877af89c432d8212afb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895312"
+Slug: protect-azure-virtual-machines-using-storage-spaces-direct-with-azure-site-recovery
+Title: ストレージ スペースダイレクトVirtual Machines使用して Azure リソースを保護Azure Site Recovery
+Summary: 'Storage スペース ダイレクト (S2D) を使用すると、Microsoft Azure でゲスト クラスターをホストできます。これは、仮想マシン (VM) が SQL、スケールアウト ファイル サーバー、SAP ASCS などの重要なアプリケーションをホストしているシナリオで特に役立ちます。 '
+Content: >-
+  <p>Storage スペース ダイレクト (S2D) を使用すると、Microsoft Azure でゲスト クラスターをホストできます。これは、仮想マシン (VM) が SQL、スケールアウト ファイル サーバー、SAP ASCS などの重要なアプリケーションをホストしているシナリオで特に役立ちます。 クラスタリングの詳細については、「&ldquo;<a href="https://blogs.msdn.microsoft.com/clustering/2017/02/14/deploying-an-iaas-vm-guest-clusters-in-microsoft-azure/" target="_blank">Deploying laaS VM Guest Clusters in</a> Microsoft Azure」の記事を参照してください。&rdquo;また、最新の <a href="https://support.microsoft.com/en-us/help/4489582/update-rollup-33-for-azure-site-recovery" target="_blank">ASR (asR)</a> 更新プログラムと共有Azure Site Recovery、これらのビジネス クリティカルなアプリケーションを保護することができます。 記憶域スペース ダイレクトの ASR サポートを使用すると、より高い可用性アプリケーションを使用し、リージョン レベルの障害に対する保護を提供することで、より回復性を高めることができます。</p>
+
+
+  <p>次の 3 つの簡単な手順で記憶域スペース ダイレクト クラスターを保護できるよう、シンプルさを約束します。</p>
+
+
+  <p>Recovery Services コンテナー内で、[+ レプリケート] <strong>を選択します</strong>。</p>
+
+
+  <p>1. アプリケーション <strong>の整合性がオフ</strong> のレプリケーション ポリシーを選択します。 使用できるのはクラッシュ整合性のサポートのみである点に注意してください。</p>
+
+
+  <p>2. クラスター <strong>内のすべてのノード</strong> を選択し、マルチ VM 整合性グループの一部にします。 マルチ VM の整合性の詳細については&ldquo;、ドキュメント「一般的な質問<a href="https://docs.microsoft.com/en-us/azure/site-recovery/azure-to-azure-common-questions#multi-vm-consistency" target="_blank">: Azure から Azure へのレプリケーション」を参照してください</a>。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/899bffce-3303-40b7-b649-41da4f002950.png"><img alt="Configure replication settings screenshot" border="0" height="608" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8988f836-fa55-4aca-ae7d-54dc00c05f94.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="レプリケーション設定の構成のスクリーンショット" width="491"></a></p>
+
+
+  <p>3. 最後に、[ <strong>OK] を選択</strong> してレプリケーションを有効にします。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>記憶域スペース ダイレクトを使用して仮想マシンの保護を開始します。 開始するには、別の Azure リージョンに直接記憶域スペース&ldquo;をVirtual Machines Azure リソースをレプリケート<a href="https://aka.ms/s2d_support" target="_blank">する方法に関するドキュメントを参照してください</a>。&rdquo;</p>
+
+
+  <p>Azure リージョン間のディザスター リカバリーは、ASR が使用可能 <a href="https://aka.ms/a2a-supported-regions">なすべての Azure</a> リージョンで利用できます。 この機能は、Azure のディザスター リカバリーでのみVirtual Machines&rsquo; 注意してください。</p>
+
+
+  <h2>関連リンクと追加コンテンツ</h2>
+
+
+  <ul>
+   <li>Azure 仮想マシンのディザスター リカバリーに関する最 <a href="https://aka.ms/a2a_common_questions">も一般的なクエリを確認します</a>。</li>
+   <li>Azure サービスをレプリケート <a href="https://aka.ms/a2a-support-matrix" target="_blank">する場合にサポート</a> されている構成の詳細については、Virtual Machines。</li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Site Recovery <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=hypervrecovmgr" target="_blank">フォーラムに</a> 連絡してください。</li>
+   <li>新しいアイデアを寄稿 <a href="https://feedback.azure.com/forums/256299-site-recovery" target="_blank">し、既存</a> のアイデアAzure Site Recovery投票することで、新しいアイデアを改善する方法を教えて。</li>
+  </ul>

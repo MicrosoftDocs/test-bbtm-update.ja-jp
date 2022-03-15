@@ -1,0 +1,55 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7ed885d6464817afc6ed6ca5517d27a937b385d5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896191"
+Slug: azure-iot-edge-packages
+Title: Azure IoT Gateway SDK パッケージが利用可能に
+Summary: Azure IoT、Maven、および NuGet Gateway SDK パッケージを使用して、モジュールの作成を数分で開始できます。
+Content: >-
+  <p>Azure IoT Gateway SDK は、2017 年 5 月 10 日に Azure IoT Edge に進化しました。 詳細については、こちらを <a href="https://azure.microsoft.com/campaigns/iot-edge/" target="_blank">クリックしてください</a>。</p>
+
+
+  <p>11 月に戻り、Azure IoT <a href="https://azure.microsoft.com/en-us/blog/azure-iot-gateway-sdk-general-availability-release/" target="_blank">Gateway SDK の一般提供を発表しました</a>。 オープン&rsquo; ソースの Gateway SDK を利用してレガシ デバイスを接続したり、ネットワークの端で分析を実行したりしている多くのお客様から、既にお聞きしました。 迅速&rsquo;な導入をご覧ください。 ゲートウェイ SDK のモジュール&rsquo;型アーキテクチャを使用すると、開発者は独自のカスタム モジュールをプログラムして特定のアクションを実行することもできます。 柔軟な設計により、これらのモジュールは &ndash; 、Java、C#、または C Node.js好みの言語で作成できます。</p>
+
+
+  <p>ゲートウェイ SDK のモジュールの作成を開始するエクスペリエンスをさらに簡略化したいと考っています。 現在、開発者エクスペリエンスを効率化するパッケージの提供を発表し、数分で作業を開始できます。</p>
+
+
+  <h4>使用できるパッケージは何ですか?</h4>
+
+
+  <ol>
+      <li>NPM <ul>
+          <li><a href="https://www.npmjs.com/package/azure-iot-gateway" target="_blank">azure-iot-gateway</a>: これにより、ゲートウェイ サンプル アプリを実行し、新しいモジュールの作成Node.jsできます。 このパッケージには、ゲートウェイ ランタイム コアが含まれています。&rsquo;Linux または Windows 用のモジュール依存関係パッケージが自動的にインストールされます。</li>
+          <li><a href="https://www.npmjs.com/package/generator-az-iot-gw-module" target="_blank">generator-az-iot-gw-module</a>: これにより、Yeoman を使用してゲートウェイ モジュール プロジェクトのスキャフォールディングが提供されます。</li>
+      </ul>
+      </li>
+      <li>Maven <ul>
+          <li><a href="https://mvnrepository.com/artifact/com.microsoft.azure.gateway/gateway-module-base" target="_blank">com.microsoft.azure.gateway/gateway-module-base</a>: これにより、ゲートウェイ サンプル アプリを実行し、Java モジュールの記述を開始できます。 ゲートウェイ アプリをローカルで実行するには、このパッケージとその依存関係だけが必要ですが、ゲートウェイを発行するときにそれらを含める必要はありません。 このパッケージには、ゲートウェイ ランタイム コアと&rsquo;、Linux または Windows 用のモジュール依存関係パッケージへのリンクが含まれています。</li>
+          <li><a href="https://mvnrepository.com/artifact/com.microsoft.azure.gateway/gateway-java-binding" target="_blank">com.microsoft.azure.gateway/gateway-java-binding</a>: このパッケージには、Java バインディングまたはインターフェイスが含まれています。 このパッケージは、ランタイムと発行の両方に必要です。</li>
+      </ul>
+      </li>
+      <li>NuGet <ul>
+          <li><a href="https://www.nuget.org/packages/Microsoft.Azure.Devices.Gateway.Native.Windows.x64/">Microsoft.Azure.Devices.Gateway</a>: このパッケージには、ゲートウェイ ランタイム コアが含まれています。</li>
+          <li><a href="https://www.nuget.org/packages/Microsoft.Azure.IoT.Gateway.Module/" target="_blank">Microsoft.Azure.IoT.Gateway.Module</a>: このパッケージには、ゲートウェイ サンプル アプリを実行し、Windows に .NET Framework モジュールを記述するために必要なモジュールの依存関係が含まれています。</li>
+      </ul>
+      </li>
+  </ol>
+
+
+  <h4>これはユーザーにとって何を意味しますか?</h4>
+
+
+  <p>これらのパッケージの主な利点は、時間の保存です。 モジュールの作成を開始するために必要な手順の数を大幅に減らします。 ゲートウェイ プロジェクト全体を複製してビルドする必要がなくなりました。 さらに、パッケージには、さまざまな言語で記述されたモジュールを混在するために必要なすべての依存関係が含まれています。</p>
+
+
+  <h4>次&rsquo;は何ですか?</h4>
+
+
+  <p>.NET Core NuGet近日公開予定です。 ゲートウェイ SDK 開発者エクスペリエンスを向上させるその他の方法を探しています。 これらのパッケージの使用を開始する方法の詳細については、サンプル アプリのGitHub<a href="https://github.com/Azure-Samples/azure-iot-gateway-samples/" target="_blank">確認してください</a>。</p>
+
+
+  <p>開発者&rsquo;が Gateway SDK コミュニティにモジュールを貢献しているのを見て、うれしく思いました。 私たちのチームは、この領域でさらなるアクティビティを見て、ゲートウェイシナリオの詳細を学習するのを楽しみにしています。 そのため、新しいパッケージを使って、ご自分の <a href="https://github.com/Azure/azure-iot-gateway-sdk/issues/new" target="_blank">考えをお知らせください</a>。</p>

@@ -1,0 +1,44 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bbb4c597ff93682ed2262814900687c8dcbfdd43
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889213"
+Slug: enhancements-to-cost-management-apis
+Title: API のCost Management強化
+Summary: 12 月に、使用状況の詳細について ARM API のリリースを発表しました。 このリリースの Enterprise および Web Direct のお客様向け Marketplace 料金 API では、ARM API への変換が引き続き行われ、制限事項と Enterprise のお客様向け Price Sheet API に関するページに記載されているいくつかの例外があります。
+Content: >-
+  <p>12 月に、使用状況 <a href="https://azure.microsoft.com/en-us/blog/azure-consumption-usage-details-api/" target="_blank">の詳細について ARM API のリリースを発表しました</a>。 このリリースの Enterprise および Web Direct のお客様向け Marketplace 料金 API では、ARM API への変換が引き続き行われ、制限事項と Enterprise のお客様向け Price Sheet API に関するページに記載されているいくつかの例外があります。</p>
+
+
+  <p>更新された ARM API には、次の利点があります。</p>
+
+
+  <ul>
+      <li>キー ベースの承認モデルから ARM ベースの認証への移行。 その結果、セキュリティの態勢が改善され、承認に ARM RBAC を利用する機能が向上します。</li>
+      <li>以下に示すいくつかの例外を除き、Web Direct サブスクリプションのサポートを追加します。</li>
+  </ul>
+
+
+  <h2>サブスクリプションに関する制限事項</h2>
+
+
+  <p>現在、Marketplace Charges API では、次のサブスクリプションの種類はサポートされていません。</p>
+
+
+  <ul>
+      <li>MS-AZR-0145P</li>
+      <li>MS-AZR-0 146P</li>
+      <li>MS-AZR-159P</li>
+      <li>MS-AZR-0036P</li>
+      <li>MS-AZR-0143P</li>
+      <li>MS-AZR-0015P</li>
+      <li>MS-AZR-0144P</li>
+  </ul>
+
+
+  <h2>E タグのサポート</h2>
+
+
+  <p>API のユーザーが多いお客様は、新しいデータ インジケーター <strong>を要求しました</strong>。 これは、API をポーリングして、前回の呼び出し以降に変更されていない完全な応答を返すのを回避するのに役立ちます。 この要求に対処するために、E タグを使用してデータが更新された時点を呼び出し元に通知する、レガシ使用状況の <a href="https://docs.microsoft.com/en-us/azure/billing/billing-enterprise-api" target="_blank">詳細 API の</a> 更新バージョンをリリースします。 API を呼び出すごとに、E タグが返されます。後続の同じ API の呼び出しでは、キャプチャされた E タグに、要求ヘッダーの <strong>キー If-None-Match</strong> を渡します。 E タグが生成された後に変更がない場合、API からデータは返されません。 現在、更新頻度は 1 日に 4 回です。課金イベントと使用状況の詳細の間の待ち時間を継続的に短縮します。</p>

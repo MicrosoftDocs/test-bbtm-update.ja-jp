@@ -1,0 +1,108 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b10b16d20b3696997ffe0c163a004e57beef99be
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894223"
+Slug: web-deploy-3-6-beta-released
+Title: Web 配置3.6 ベータリリース
+Summary: >-
+  Web 配置 3.6 Beta をダウンロードできるようになったことをお知らせします。 このリリースでは、次の新しい機能強化が追加されました。
+
+      Support for publishing ASP.Net vNext web applications
+      Command line and API…
+Content: >-
+  Web 配置 3.6 Beta がダウンロード " href="https://www.microsoft.com/en-us/download/details.aspx?id=43717"> のダウンロード </a> に <a title=" 使用できるようになったことをお知らせします。 このリリースでは、次の新しい機能強化が追加されました。
+
+  <ul>
+      <li>ASP.Net vNext web アプリケーションの発行のサポート</li>
+      <li>発行設定ファイルを使用するためのコマンドラインと API のサポート</li>
+      <li>プロキシのサポート</li>
+  </ul>
+
+  また、次のようなバグ修正もいくつかあります。
+
+  <ul>
+      <li>リモート同期のチェックサムとパラメーター化の問題</li>
+      <li>セッションアフィニティ cookie 解析の問題</li>
+  </ul>
+
+  &nbsp;
+
+  <h2>ASP.Net vNext " href="https://www.asp.net/vnext" target="_blank"> ASP.Net vnext </a> web アプリケーションの発行 <a title=" のサポート</h2>
+
+  新しい contentLibPath プロバイダーが追加されました。これにより、ASP.Net vNext パッケージとソースファイルの増分発行を実行できます。 VNext apps のフォルダー構造が変更され、アプリケーションコードが "approot" という名前の新しいフォルダーに配置されるようになりました。これは常に、IIS アプリケーションのベースの兄弟になります。 たとえば、IIS アプリのベースに "wwwroot" という名前が付いている場合、"approot" という名前のフォルダーが存在することになります。
+
+  <ul>
+      <li>c:\siteName\wwwroot</li>
+      <li>c:\siteName\approot</li>
+  </ul>
+
+  現時点では、プロバイダーは基本 IIS アプリケーションフォルダーへのパスを使用します (contentPath や iisApp と同様)。ただし、この使用方法は変更される可能性があります。 次に例を示します。
+
+  <ul>
+      <li>msdeploy.exe-verb: sync-source: contentPathLib = c:\siteName\wwwroot-dest: contentPathLib = siteName</li>
+  </ul>
+
+  このプロバイダーを明示的に呼び出す必要がない場合は、新しいリンク拡張機能を指定して、iisApp または contentPath プロバイダーでプルすることもできます。
+
+  <ul>
+      <li>msdeploy.exe-verb: sync-source: contentpath = c:\siteName\wwwroot-dest: contentpath = siteName-enablelink: contentlibextension</li>
+      <li>msdeploy.exe-verb: sync-source: iisApp = siteName-dest: contentpath = siteName-enablelink: contentlibextension</li>
+  </ul>
+
+  Web 配置をホストしている場合は、ユーザーが wwwroot の外部にある新しいフォルダーに発行できるようにすると、既定ではこのプロバイダーに委任規則を追加しないことにしたことに気付きます。 ここでは、ユーザーがシステムに発行する前に、contentPathLib プロバイダーがルールに追加されていることを確認する必要があります。
+
+
+  &nbsp;
+
+  <h2>発行設定ファイルを使用するためのコマンドラインと API のサポート</h2>
+
+  コマンドラインが非常に優れていることを認識しています。 少し単純にするために、コマンドラインで発行設定ファイルを指定できるようになりました。 これは次のように使用されます。
+
+  <ul>
+      <li>msdeploy.exe-verb: sync-source: contentPath = c:\siteName\wwwroot-dest: contentPath = siteName、computername = https://siteName/msdeploy.axd?site=siteName 、username = myUser、password = mypass、authtype = basic</li>
+  </ul>
+
+  次のように簡略化できます。
+
+  <ul>
+      <li>msdeploy.exe-verb: sync-source: contentPath = c:\siteName\wwwroot-dest: contentPath = siteName, .publishsettings = c:\siteName.PublishSettings</li>
+  </ul>
+
+  同様に、以前の API の使用は次のように簡略化できます。
+
+  <div style="margin-left: 15px;"><code>
+
+  DeploymentBaseOptions destBaseOptions = new DeploymentBaseOptions();
+
+  destBaseOptions.ComputerName = "https://siteName/msdeploy.axd?site=siteName";
+
+  destBaseOptions.UserName = "myUser";
+
+  destBaseOptions.Password = "myPass";
+
+  destBaseOptions.AuthenticationType = "basic";
+
+  </code></div>
+
+  この行を次のように変更します。
+
+  <div style="margin-left: 15px;"><code>
+
+  PublishSettings destSettings = new PublishSettings(@"c:\siteName.publishsettings");
+
+  DeploymentBaseOptions destBaseOptions = new DeploymentBaseOptions(destSettings);
+
+  </code></div>
+
+  &nbsp;
+
+  <h2>プロキシのサポート</h2>
+
+  最後に、Web 配置のプロキシがサポートされるようになりました。 大部分. :)まだポート8172に発行している場合は、既定では、使用しているプロキシ設定は無視されます。 これは、ポート 8172 ~ を許可しないプロキシを使用する既存の顧客の侵入を防ぐためです。 それでもポート8172のプロキシサポートが必要な場合は、次のように設定することで、これをレジストリキーで上書きできます。
+
+  <ul>
+      <li>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\IIS Extensions\MSDeploy\3\AlwaysUseProxySettings = 1</li>
+  </ul>

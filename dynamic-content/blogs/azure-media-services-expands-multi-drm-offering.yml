@@ -1,0 +1,58 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7687bc3ed178a1f1cbe1be03e465609d0cdba7d8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894090"
+Slug: azure-media-services-expands-multi-drm-offering
+Title: Azure Media Services を使用して Apple TV にプレミアムコンテンツをストリーミングする
+Summary: Azure Media Services (AMS) は、Apple FairPlay Streaming service のプレビューを発表します。
+Content: >-
+  <p>コンテンツプロバイダーとして、Apple TV にプレミアムコンテンツをストリーミングする場合は、 <a href="https://developer.apple.com/streaming/fps/">Apple FairPlay Streaming (FPS)</a> テクノロジを使用する必要があります。 このソリューションの構築は面倒になることがあります。 この&#39;、Apple FairPlay Streaming service のプレビュー版を提供する理由 &rsquo; です。 Api を使用してプログラムで FairPlay Streaming ソリューションを簡単に構築できるように、すべての複雑さを非表示にします。 さらに、FairPlay、PlayReady、widevine のサポートにより、Azure Media Services は、VOD とライブコンテンツをストリーミングするための真のマルチ DRM ソリューションを提供するようになりました。これにより、さまざまなデバイスで、簡単かつ迅速に一連の対象ユーザーに到達できるようになります。</p>
+
+
+  <h2>Azure Media Services とどのように連携しますか。</h2>
+
+
+  <p>次の図は Azure Media Services 現在のマルチ DRM の動作を示しています。 FairPlay streaming を使用して、MPEG ダッシュストリーミングと HLS + サンプル AES を使用して PlayReady と Widevine DRM を構成するだけで済みます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1354c3cd-24dc-40aa-b99b-e1158be16292.png"><img alt="image" border="0" height="291" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/97ec94a4-0bce-40ab-b244-a643a0730c71.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="610"></a></p>
+
+
+  <p>HLS ストリームをセキュリティで保護するために、次の暗号化形式を使用できるようになりました。</p>
+
+
+  <ul>
+   <li><strong>AES-128 エンベロープクリアキー:</strong> チャンク全体は、AES-128 &nbsp; CBC モードを使用して暗号化されます。 ストリームの復号化は iOS および OSX プレーヤーでネイティブにサポートされています。 このサービスは1年間リリースされました。 詳細について <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-with-aes128/">は、こちら</a>を参照してください。</li>
+   <li><strong> &lt; 新しい &gt; サンプル-aes FairPlay:</strong>個々のビデオとオーディオのサンプルは、aes-128 CBC モードを使用して暗号化されています。 FPS は、iOS と Apple TV でネイティブにサポートされているデバイスのオペレーティングシステムに統合されています。 OS X 上の Safari では、EME インターフェイスのサポートを使用して FPS が有効になります。</li>
+  </ul>
+
+
+  <h2>価格と使用可能状況</h2>
+
+
+  <p>FairPlay のライセンス配信は、プレビュー期間中は無料でご利用いただけます。</p>
+
+
+  <h2>FairPlay の使用を開始する手順</h2>
+
+
+  <ol>
+   <li>Azure.com を使用してサインアップし、 <a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/">Azure Media Services アカウントを作成</a>します。</li>
+   <li><a href="https://developer.apple.com/">Apple 開発プログラム</a>にサインアップします。</li>
+   <li>コンテンツ所有者による<a href="https://developer.apple.com/contact/fps/">デプロイ パッケージ</a>の取得が Apple によって求められます。 Azure Media Services で ksm (キーセキュリティモジュール) を既に実装している要求と、最終的な FPS パッケージを要求していることを確認してください。</li>
+   <li>最終的な FPS パッケージを入手したら、手順に従って証明書を生成し、(アプリケーションシークレットキー) を要求します。後で FairPlay services を構成するときに使用する必要があるものを保存してください。&nbsp;</li>
+   <li>REST Api または .NET SDK を使用してサービスを構成することもできます。 Azure Portal と Azure Explorer ツールのサポートも作成しています。&nbsp;<br>
+  』&nbsp;<a href="https://www.nuget.org/packages/windowsazure.mediaservices/3.6.0">https://www.nuget.org/packages/windowsazure.mediaservices/3.6.0</a><br>
+
+  MSDN の記事:&nbsp;<a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-hls-with-fairplay/">https://azure.microsoft.com/en-us/documentation/articles/media-services-protect-hls-with-fairplay/</a><br>
+
+  Github サンプル Project FairPlay を構成するには、次のようにします。&nbsp;<a href="https://github.com/Azure-Samples/media-services-dotnet-dynamic-encryption-with-fairplay">https://github.com/Azure-Samples/media-services-dotnet-dynamic-encryption-with-fairplayhttps://github.com/Azure-Samples/media-services-dotnet-dynamic-encryption-with-fairplay</a></li>
+   <li>FairPlay player について&nbsp;<br>
+  現時点では、FairPlay をサポートしている&#39;はありません Azure Media Player が、Apple&#39;s FairPlay deployment パッケージで HTML5 を取得することはできます。 このプレーヤーは、MAC OSX 上の Safari で FairPlay の保護された再生を有効にします。 IOS または Apple TV の場合、ストリーミング用のネイティブアプリケーションを作成するには、IOS SDK を使用する必要があります。&nbsp;<br>
+
+  &nbsp;</li>
+
+  </ol>

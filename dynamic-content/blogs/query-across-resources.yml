@@ -1,0 +1,102 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3932e880b6c2dce63f85d0729b4025bacf79c4bc
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889071"
+Slug: query-across-resources
+Title: リソース間でクエリを実行する
+Summary: 現在のワークスペースやアプリケーションだけでなく、他のリソースからのデータも 1 つのクエリで分析できる、リソース間のクエリを導入できます。
+Content: >-
+  <p>現在&rsquo;のワークスペースやアプリケーション &ndash; だけでなく、他のリソースからのデータも 1 つのクエリで分析する機能をクエリするリソース間クエリを導入しました。</p>
+
+
+  <p>これまで、クエリは、1 つの Application インサイト アプリまたは 1 つの Log Analytics ワークスペースのスコープに制限されています。 現在、複数のアプリ間または複数のワークスペース間でのクエリがサポートされています。データに対するシステム全体の真のビューが提供されます。</p>
+
+
+  <h2>Application インサイト Apps 間でのクエリ</h2>
+
+
+  <p>アプリ識別子を使用して外部アプリケーションを <em>参照</em> します。</p>
+
+
+  <p><code>union app(&#39;mmsportal-prod&#39;).requests, app(&#39;fabrikamapp&#39;).requests, requests<br>
+
+  | summarize count() by bin(timestamp, 1h)</code></p>
+
+
+  <p>上記の例では、3 つの異<i></i>なるアプリ (<em>mmsportal-prod、fabrikamprod</em>、現在のアプリ) で要求テーブルのレコードを照会します (&rsquo;名前は不要です。テーブルを直接参照します)。 次に、各レコードを保持するアプリケーションに関係なく、レコードの総数がカウントされます。</p>
+
+
+  <p><img align="left" alt="cross-app-chart-125" border="0" height="299" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bbc1d7aa-f145-4cf7-b70e-3f63d180950d.png" style="margin: 0px auto; border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; float: none; display: block; background-image: none;" title="cross-app-chart-125" width="610"></p>
+
+
+  <h2>Log Analytics ワークスペース間でのクエリ実行</h2>
+
+
+  <p>ワークスペース識別子を使用して外部ワークスペースを <em>参照 </em>します。</p>
+
+
+  <p><code>union Update, workspace(&quot;contosoretail-it&quot;).Update<br>
+
+  | where TimeGenerated &gt;= ago(1h)<br>
+
+  | where UpdateState == &quot;Needed&quot;<br>
+
+  | summarize dcount(Computer) by Classification</code></p>
+
+
+  <p>上の例では、現在<i></i>のワークスペースと <i>contosoretail-it</i> という名前の別のワークスペースの両方で Update テーブルに対してクエリを実行します。 次に、各レコードを保持するワークスペースに関係なく、必要な更新プログラムの個別のレコードを分類によってカウントします。</p>
+
+
+  <h2>リソースの識別</h2>
+
+
+  <p>アプリケーションとワークスペースの識別は、いくつかの方法で行うことができます。</p>
+
+
+  <ol>
+   <li>リソース名 - これは、アプリまたはワークスペースの人間が読み取り可能な名前です。 これをコンポーネント名と呼び &ldquo;出す場合があります&rdquo;。
+   <p><code>workspace(&quot;contosoretail&quot;).Update | count </code></p>
+   <em>メモ：</em> ワークスペースとアプリの名前はサブスクリプションまたはリソース グループ間で一意ではなされないので、ユーザーが同じ名前の複数のコンポーネントにアクセスできる場合、この識別子はあいまいになる可能性があります。 このような場合、あいまいさによりクエリは失敗します。</li>
+   <li>修飾名 - これは&ldquo;、サブスクリプション名、リソース グループ、コンポーネント名で構成されるアプリまたはワークスペースの完全な名前です。形式は &lt;subscriptionNameresourceGroupcomponentName&gt;&gt;/&lt;&lt;/&gt; です。&rdquo;
+   <p><code>app(&#39;AI-Prototype/Fabrikam/fabrikamprod&#39;).requests | count </code></p>
+   <em>メモ： </em> Azure サブスクリプション名は一意ではなさそうで、この識別子はあいまいな場合があります。</li>
+   <li>アプリまたはワークスペース ID - これは、GUID、アプリまたはワークスペースの一意の変更できないパブリック識別子です。 <p><code>workspace(&quot;b438b4f6-912a-46d5-9cb1-b44069212ab4&quot;).Update | count </code></p>
+   </li>
+   <li>Azure リソース ID &ndash; アプリまたはワークスペースの Azure で定義された ID。
+   <ul>
+    <li>アプリの場合、形式は /subscriptions/subscriptionId&gt;/resourcegroups/&lt;resourceGroup&gt;/providers/microsoft.insights/components/&lt;componentName です&gt;。&lt;<br>
+  次に例を示します。 <p><code>app(&quot;/subscriptions/7293b69-db12-44fc-9a66-9c2005c3051d/resourcegroups/Fabrikam/providers/microsoft.insights/components/fabrikamapp&quot;).requests | count</code></p>
+    </li>
+    <li>ワークスペースの場合、形式は /subscriptions/&lt;subscriptionId&gt;/resourcegroups/&lt;resourceGroup&gt;/providers/microsoft です。OperationalInsights/workspaces/&lt;componentName&gt;。</li>
+    <li>次に例を示します。 <p><code>workspace(&quot;/subscriptions/e427267-5645-4c4e-9c67-3b84b59a6982/resourcegroups/ContosoAzureHQ/providers/Microsoft.OperationalInsights/workspaces/contosoretail&quot;).Event | count</code></p>
+    </li>
+   </ul>
+   </li>
+  </ol>
+
+
+  <h2>お気に入りのリソース</h2>
+
+
+  <p><img align="left" alt="favorites" border="0" height="431" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4af89ea-473f-4871-96c8-7b8896df13fd.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 20px; padding-left: 0px; float: left; display: inline; background-image: none;" title="お気に入り" width="175"></p>
+
+
+  <p>新しい&ldquo;&rdquo;&ndash;&nbsp;機能として、Analytics ポータルの [お気に入り] があります。Scehma ペインには、最もクエリを実行するリソースにすばやくアクセスすることを目的とした、お気に入りのリソースの一覧が表示されます。 リストに項目&quot;&quot;を追加するには、現在アクティブなリソースにマウス ポインターを合わせると星のアイコンをクリックするか、[編集] ボタンを選択して関連するリソースを検索します。</p>
+
+
+  <p>リソース間のクエリのコンテキストでは&rsquo;、Intellisense によってお気に入りに基づく識別子が提案されているのに気付くでしょう。 提案に関係なく、実際には、アクセスできる任意のリソースを参照できます。</p>
+
+
+  <h3>次の手順</h3>
+
+
+  <p>データを分析する方法の詳細については、次を参照してください。</p>
+
+
+  <p>&middot;<a href="https://go.microsoft.com/fwlink/?linkid=844764" target="_blank">クエリ言語ドキュメント サイト</a></p>
+
+
+  <p>&middot; <a href="https://go.microsoft.com/fwlink/?linkid=856078" target="_blank">クエリの概要</a></p>

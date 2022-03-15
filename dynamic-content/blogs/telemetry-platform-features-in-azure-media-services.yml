@@ -1,0 +1,310 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dfa1d90e0e46b8bc0a428c1dcb5564d39b5ca93a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895293"
+Slug: telemetry-platform-features-in-azure-media-services
+Title: Azure Media Services のテレメトリプラットフォーム機能
+Summary: '新しい Azure Media Services テレメトリプラットフォームの機能を発表し、新しいテレメトリ API で一般公開されています。 '
+Content: >-
+  <p>新しい Azure Media Services (AMS) 製品利用統計情報プラットフォームの機能を発表し、新しいテレメトリ API で一般公開されています。 Media Services テレメトリを使用すると、テレメトリデータのスイートを使用してサービスの正常性を監視し、測定することができます。 テレメトリデータは Azure Storage アカウントに書き込まれ、さまざまなデータ視覚化ツールを使用して処理および視覚化することができます。</p>
+
+
+  <h2>テレメトリデータの消費</h2>
+
+
+  <p>このリリースには、チャネル、ストリーミングエンドポイント、およびアーカイブエンティティのテレメトリメトリックが含まれています。 テレメトリデータは、media services アカウントのテレメトリを構成するときに指定されたストレージアカウントの Azure Storage テーブルに書き込まれます。 テレメトリデータは、毎日 &rsquo; のデータ ( &ldquo; YYYYMMDD &rdquo; は日付のタイムスタンプを示す) の TelemetryMetricsYYYYMMDD &rdquo; テーブル &ldquo; に集計されて格納されます。</p>
+
+
+  <p>各テーブルエントリには、一連の共通フィールドと、一連のエンティティ固有のフィールドを持つレコードが含まれています。 次の項目を識別するフィールドがあります。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="2198">
+   <tbody>
+    <tr>
+     <td valign="top" width="260"><strong>プロパティ</strong></td>
+     <td valign="top" width="895"><strong>Value</strong></td>
+     <td valign="top" width="1041"><strong>例</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">パーティション キー</td>
+     <td valign="top" width="895">{アカウント ID}_{エンティティ ID}</td>
+     <td valign="top" width="1041">e49bef329c29495f9b9570989682069d_64435281c50a4dd8ab7011cb0f4cdf66</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">RowKey</td>
+     <td valign="top" width="895">{秒から午前0時} _ {ランダムな値}</td>
+     <td valign="top" width="1041">01688_00199</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">Timestamp</td>
+     <td valign="top" width="895">行エントリが作成された時刻</td>
+     <td valign="top" width="1041">2016-09-09T22:43: 42.241 Z</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">型</td>
+     <td valign="top" width="895">テレメトリを提供するエンティティの種類</td>
+     <td valign="top" width="1041">チャネル</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">名前</td>
+     <td valign="top" width="895">テレメトリ イベントの名前</td>
+     <td valign="top" width="1041">ChannelHeartbeat</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">ObservedTime</td>
+     <td valign="top" width="895">イベントが発生した時刻</td>
+     <td valign="top" width="1041">2016-09-09T22:42:36: 924Z</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">ServiceID</td>
+     <td valign="top" width="895">サービス ID</td>
+     <td valign="top" width="1041">f70bd731-691d-41c6-8f2d-671d0bdc9c7e</td>
+    </tr>
+    <tr>
+     <td valign="top" width="260">エンティティ固有のプロパティ</td>
+     <td valign="top" width="895">{イベントによって定義されたレコード}</td>
+     <td valign="top" width="1041">録音</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>アカウント ID は、複数の media services アカウントが同じストレージアカウントにデータを書き込んでいるワークフローを簡略化するために、パーティションキーに含まれています。 行キーは、パーティション内の <em>上位 n</em> スタイルのデータクエリを許可する秒数で始まります (詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/storage/storage-table-design-guide#log-tail-pattern" target="_blank">ログテールテーブルの設計パターン</a> 」を参照してください)。 観測されたタイムスタンプは、エンティティレポートテレメトリによって提供される概数です。</p>
+
+
+  <h3>テレメトリの Entity-Specific</h3>
+
+
+  <p>各テレメトリ行のデータは、次に示す集計時間枠に対して発生したテレメトリイベントの集計を表します。 各エンティティは、次の頻度でテレメトリをプッシュします。</p>
+
+
+  <ul>
+   <li>チャネル:60 秒ごと</li>
+   <li>ストリーミングエンドポイント:30 秒ごと</li>
+   <li>アーカイブ:60 秒ごと</li>
+  </ul>
+
+
+  <p>チャネル、ストリーミングエンドポイント、およびアーカイブエンティティのスキーマの説明を次に示します。</p>
+
+
+  <h4>チャンネル</h4>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="2191">
+   <tbody>
+    <tr>
+     <td valign="top" width="233"><strong>プロパティ</strong></td>
+     <td valign="top" width="755"><strong>Value</strong></td>
+     <td valign="top" width="1201"><strong>例</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">TrackType</td>
+     <td valign="top" width="755">トラックの種類</td>
+     <td valign="top" width="1201">video</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">TrackName</td>
+     <td valign="top" width="755">トラックの名前</td>
+     <td valign="top" width="1201">video</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">Bitrate</td>
+     <td valign="top" width="755">予想されるトラックのビットレート</td>
+     <td valign="top" width="1201">785000</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">IncomingBitrate</td>
+     <td valign="top" width="755">トラックの受信ビットレート</td>
+     <td valign="top" width="1201">784548</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">OverlapCount</td>
+     <td valign="top" width="755">インジェストで受信した重複フラグメントの数</td>
+     <td valign="top" width="1201">0</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">DiscontinuityCount</td>
+     <td valign="top" width="755">インジェストで検出された不連続性の数</td>
+     <td valign="top" width="1201">0</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">LastTimestamp</td>
+     <td valign="top" width="755">最後に取り込んだデータのタイムスタンプ</td>
+     <td valign="top" width="1201">1800488800</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">NonincreasingCount</td>
+     <td valign="top" width="755">タイムスタンプに変化がないために破棄されたフラグメントの数</td>
+     <td valign="top" width="1201">0</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">UnalignedKeyFrames</td>
+     <td valign="top" width="755">キーフレームがアラインされていないフラグメントを受信したかどうかを示すブール値</td>
+     <td valign="top" width="1201">誤り</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">UnalignedPresentationTIme</td>
+     <td valign="top" width="755">プレゼンテーション時間がアラインされていないフラグメントを受信したかどうかを示すブール値</td>
+     <td valign="top" width="1201">誤り</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">UnexpectedBitrate</td>
+     <td valign="top" width="755">IncomingBitrate とビットレートが50% を超えているかどうか、またはオーディオまたはビデオトラックの IncomingBitrate が 40 kbps より小さい場合 (ビットレートが0の場合) にブール値を指定します。</td>
+     <td valign="top" width="1201">誤り</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">Healthy</td>
+     <td valign="top" width="755">OverlapCount、DiscontinuityCount、NonincreasingCount、UnalignedKeyFrames、UnalignedPresentationTime、および UnexpectedBitrate がすべてゼロか false かを示すブール値</td>
+     <td valign="top" width="1201">正しい</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">CustomAttributes</td>
+     <td valign="top" width="755">カスタム属性のプレースホルダー</td>
+     <td valign="top" width="1201">&nbsp;</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h4>ストリーミング エンドポイント</h4>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="2196">
+   <tbody>
+    <tr>
+     <td valign="top" width="233"><strong>プロパティ</strong></td>
+     <td valign="top" width="758"><strong>Value</strong></td>
+     <td valign="top" width="1203"><strong>例</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">HostName</td>
+     <td valign="top" width="758">エンドポイントのホスト名</td>
+     <td valign="top" width="1203">builddemoserver.origin.mediaservices.windows.net</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">StatusCode</td>
+     <td valign="top" width="758">HTTP 状態コード</td>
+     <td valign="top" width="1203">200</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">ResultCode</td>
+     <td valign="top" width="758">HTTP 結果コードの詳細</td>
+     <td valign="top" width="1203">S_OK</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">RequestCount</td>
+     <td valign="top" width="758">前回の集計ウィンドウ内で受信した要求の合計数</td>
+     <td valign="top" width="1203">3</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">BytesSent</td>
+     <td valign="top" width="758">前回の集計ウィンドウ内で送信された合計バイト数</td>
+     <td valign="top" width="1203">2987358</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">ServerLatency</td>
+     <td valign="top" width="758">ストレージを含むサーバーの平均待機時間 (ミリ秒)</td>
+     <td valign="top" width="1203">130</td>
+    </tr>
+    <tr>
+     <td valign="top" width="233">E2ELatency</td>
+     <td valign="top" width="758">エンドツーエンドの平均待機時間 (ミリ秒)</td>
+     <td valign="top" width="1203">250</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h4>Archive</h4>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="2206">
+   <tbody>
+    <tr>
+     <td valign="top" width="230"><strong>プロパティ</strong></td>
+     <td valign="top" width="763"><strong>Value</strong></td>
+     <td valign="top" width="1211"><strong>例</strong></td>
+    </tr>
+    <tr>
+     <td valign="top" width="230">ManifestName</td>
+     <td valign="top" width="763">マニフェストの名前</td>
+     <td valign="top" width="1211">asset-eb149703-ed0a-483c-91c4-e4066e72cce3/a0a5cfbf-71ec-4bd2-8c01-a92a2b38c9ba.ism</td>
+    </tr>
+    <tr>
+     <td valign="top" width="230">TrackName</td>
+     <td valign="top" width="763">トラックの名前</td>
+     <td valign="top" width="1211">audio_1</td>
+    </tr>
+    <tr>
+     <td valign="top" width="230">TrackType</td>
+     <td valign="top" width="763">トラックの種類</td>
+     <td valign="top" width="1211">オーディオ</td>
+    </tr>
+    <tr>
+     <td valign="top" width="230">Bitrate</td>
+     <td valign="top" width="763">トラックのビットレート</td>
+     <td valign="top" width="1211">785000</td>
+    </tr>
+    <tr>
+     <td valign="top" width="230">Healthy</td>
+     <td valign="top" width="763">ストレージに破棄されたフラグメントまたはアーカイブの取得エラーがないかどうかを示すブール値</td>
+     <td valign="top" width="1211">正しい</td>
+    </tr>
+    <tr>
+     <td valign="top" width="230">CustomAttributes</td>
+     <td valign="top" width="763">カスタム属性のプレースホルダー</td>
+     <td valign="top" width="1211">&nbsp;</td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>上記のスキーマは、Azure Table Storage の制限内で良好なパフォーマンスを提供するように設計されています。</p>
+
+
+  <ul>
+   <li>各サービスからのテレメトリを個別に照会できるように、データはアカウント ID とサービス ID でパーティション分割されます。</li>
+   <li>パーティションには、パーティションサイズに適切な上限を指定する日付が含まれています</li>
+   <li>行キーは、特定のサービスに対して最新のテレメトリ項目のクエリを実行できるようにするために、逆の時間順になります。</li>
+  </ul>
+
+
+  <p>これにより、次のような一般的なクエリを効率的に実行できます。</p>
+
+
+  <ul>
+   <li>個別のサービスのデータを並行して独立してダウンロード</li>
+   <li>日付範囲内の特定のサービスのすべてのデータを取得する</li>
+   <li>サービスの最新のデータを取得する</li>
+  </ul>
+
+
+  <h2>テレメトリデータの視覚化</h2>
+
+
+  <p>Azure Storage アカウントを使用すると、PowerBI、Application Insights、AMS ライブ監視ダッシュボードなどのデータ視覚化ツールにデータをエクスポートできます。 このデータを <a href="https://powerbi.com/" target="_blank">PowerBI</a>に直接インポートして視覚化する方法の例を次に示します。</p>
+
+
+  <p>まず、視覚化する曜日のテレメトリテーブルを選択します。 データをインポートするには、[データの取得] メニューの [Microsoft Azure の Table Storage] を選択します。 ストレージアカウントの資格情報を入力し、インポートするテーブルを選択します。 次に、時間軸および<strong>コンテンツの平均</strong>として<strong>ObservedTime</strong>を選択し、値として [正常] (10 進数表現にキャスト) を選択して、チャネルの正常性をプロットし、エンティティを折れ線グラフとしてアーカイブします。 チャネルの状態とアーカイブの正常性を個別にプロットするには、 <strong>Content.Name</strong>にフィルターを追加します。 この視覚化はエンティティの正常性を示しています。値1は完全に健全で、値0は特定の時間に対して異常な状態を表します。 次に示すのは、時間の経過と共にプロットされるチャネルとアーカイブの正常性の例です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/928c75bf-09dd-485c-be07-e6e8758af7cf.png"><img alt="Health Over Time" border="0" height="1558" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5239a9c0-bed0-4bec-8b30-de9cb0909ce8.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="稼働時間の経過と共に" width="2675"></a></p>
+
+
+  <p>サービスの全体的な正常性を視覚化するには、円グラフとしてデータをプロットして時間ディメンションを折りたたみます。 [ <strong>コンテンツ</strong> ] を選択すると、凡例とコンテンツの数として正常になります <strong>。正常な</strong> 値として、次の視覚化が生成されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08028e8f-13a8-41e2-bf29-5a8ba35ce5f7.png"><img alt="Overall Health Percentage" border="0" height="1560" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2369a90a-66a7-4eda-9ba0-120fa5449365.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="全体的なヘルス率" width="2682"></a></p>
+
+
+  <p>&rsquo;これらのテレメトリ機能を共有し、Azure media services の正常性に関する有益な情報を提供することを願っています。</p>
+
+
+  <p>よろしくお願いします。</p>
+
+
+  <p>Azure Media Services ストリーミングチーム</p>

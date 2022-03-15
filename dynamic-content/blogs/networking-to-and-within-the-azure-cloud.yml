@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3632a966635e57f7048d3d386d7cb89d93e1a767
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889378"
+Slug: networking-to-and-within-the-azure-cloud
+Title: Azure クラウド内および Azure クラウド内でのネットワーク (パート 1)
+Summary: ハイブリッドネットワークは便利ですが、ハイブリッドネットワークはどのように定義すればよいでしょうか。 私の場合、仮想ネットワーク (ExpressRoute のプライベートピアリングまたは VPN 接続) への接続のコンテキストでは、...
+Content: >-
+  <p>ハイブリッドネットワークは便利な機能ですが、次に、ハイブリッドネットワークの定義について説明します。 仮想ネットワーク、 <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-howto-routing-portal-resource-manager#azure-private-peering" target="_blank">ExpressRoute &rsquo; のプライベートピアリング</a> 、または <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-portal" target="_blank">VPN 接続</a>への接続のコンテキストでは、クロスプレミスリソースを1つまたは複数の <a href="https://docs.microsoft.com/en-us/azure/virtual-network/" target="_blank">仮想ネットワーク</a> (vnet) に接続することができます。 これはうまく機能しますが、クラウドに接続する方法はわかっていますか。 <strong><u>クラウド内の</u></strong>ネットワークはどのようなものですか。 これを行うには、Azure の組み込み方法が3つ以上あります。 この3つのブログ投稿では、次のことを簡単に説明します。</p>
+
+
+  <ol>
+      <li><a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud/" target="_blank">ハイブリッドネットワーク接続のオプション</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud-part-2/" target="_blank">クラウド内接続オプション</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/blog/networking-to-and-within-the-azure-cloud-part-3/" target="_blank">すべての概念をまとめて配置する</a><!--EndFragment--></li>
+  </ol>
+
+
+  <h2>ハイブリッドネットワーク接続のオプション</h2>
+
+
+  <p>どのようなオプションがありますか? 基本的に、4つのオプションがあります。</p>
+
+
+  <ol>
+      <li>インターネット接続</li>
+      <li>ポイント対サイト VPN (P2S VPN)</li>
+      <li>サイト対サイト VPN (S2S VPN)</li>
+      <li>ExpressRoute</li>
+  </ol>
+
+
+  <h3>インターネット接続</h3>
+
+
+  <p>その名前が示すように、インターネット接続では、仮想ネットワーク内に存在するワークロードに対してさまざまなパブリックエンドポイントを公開することで、インターネットからワークロードにアクセスできるようにします。 これらのワークロードは、 <a href="https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-internet-overview" target="_blank">インターネットに接続</a> された Load Balancer を使用して公開したり、単にパブリック IP アドレスを ipconfig オブジェクト (VM の子である NIC の子) に割り当てたりすることができます。 こうすることで、インターネット上のあらゆるものがその仮想マシンに接続できるようになり、ホストファイアウォール (該当する場合)、 <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-nsg" target="_blank">ネットワークセキュリティグループ</a> (nsg)、および <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview" target="_blank">ユーザー定義のルート</a> を使用できるようになります。</p>
+
+
+  <p>そのため、このシナリオでは、インターネットに公開する必要があるアプリケーションを公開し、どこからでも、またはワークロード (NSGs など) の構成に応じて特定の場所から接続することもできます。</p>
+
+
+  <h3>ポイント対サイト VPN またはサイト対サイト VPN</h3>
+
+
+  <p>これらの2つは同じカテゴリに分類されます。 VNet には VPN Gateway が必要です。また、 <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-point-to-site-resource-manager-portal" target="_blank">ポイント対サイト構成</a> の一部としてワークステーションの VPN クライアントを使用して接続することも、サイト間 vpn を終了できるようにオンプレミスの <a href="https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-devices" target="_blank">vpn デバイス</a> を構成することもできます。 これにより、オンプレミスのデバイスは VNet 内のリソースに接続できるようになります。 シリーズの次のブログ記事では、クラウド内接続オプションについて触れます。</p>
+
+
+  <h3>ExpressRoute</h3>
+
+
+  <p>この接続の詳細については、「 <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-introduction" target="_blank">Exressroute の技術概要</a>」を参照してください。 サイト間 VPN オプションと同様に、ExpressRoute では、必ずしも1つの VNet 内に存在しないリソースに接続することもできます。 実際、SKU によっては、最大で10個以上の VNet に接続できます。また、 <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-faqs#expressroute-premium" target="_blank">premium アドオン</a>は、帯域幅に応じて最大100までになります。 詳細については、次のセクション「Intra-Cloud 接続オプション」を参照してください。</p>

@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c3244e87abc0983743687c919ad150ed89b6af6b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896218"
+Slug: azure-data-box-family-now-enables-import-to-managed-disks
+Title: Azure Data Box ファミリで Managed Disks にインポートできるようになりました
+Summary: Azure Data Box のオフラインファミリを使用すると、数百テラバイトのデータを Microsoft Azure に転送し、迅速で低コストで信頼性の高い方法でできます。 現時点では、Azure Data Box ファミリのデバイスでの管理ディスクのサポートを利用できるようになり、Data Box、Data Box Disk、Data Box Heavy がサポートされるようになりました。
+Content: >-
+  <p>Azure Data Box オフラインファミリを使用すると、数百テラバイトのデータを Microsoft Azure に転送し、迅速で低コストで信頼性の高い方法でできます。 管理ディスクのサポートは、Data Box、Data Box Disk、Data Box Heavy を含む Azure Data Box ファミリのデバイス全体で利用できるようになりました。</p>
+
+
+  <p>Data Box での管理ディスクのサポートにより、1つの簡単な手順で、オンプレミスの仮想ハードディスク (Vhd) を Azure の <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview" target="_blank">管理ディスク</a> として移行できるようになりました。 これにより、リフトアンドシフト移行シナリオでかなりの時間を節約することができます。</p>
+
+
+  <h2>管理ディスクを Data Box ソリューションと連携させるにはどうすればよいですか?</h2>
+
+
+  <p>Data Box ファミリは、Premium SSD、Standard SSD、および Standard HDD の管理ディスクの種類をサポートしています。 Azure portal 内の Data Box データ転送ソリューションの順序を設定するときに、ストレージの宛先を管理ディスクとして選択し、インジェスト用のリソースグループを指定できるようになりました。 ステージングストレージアカウントを選択するよう求められます。これは、Vhd をページ blob としてステージングし、ページ blob を管理ディスクに変換するために使用されます。&nbsp;</p>
+
+
+  <p>Data Box デバイスが到着すると、選択したリソースグループに対応する共有またはフォルダーが作成されます。 これらの共有またはフォルダーは、管理ディスクの記憶域の種類 &ndash; Premium SSD、Standard SSD、および Standard HDD 別に分類されます。 ターゲットの管理ディスクの種類にデータをコピーするのは、robocopy などのユーティリティを使用して、対応するフォルダーに Vhd をコピーするのと同じくらい簡単です。 &nbsp;</p>
+
+
+  <p>Managed disks への移行の詳細については、次を参照してください。&nbsp;</p>
+
+
+  <ul>
+      <li>管理ディスクに関する Data Box ドキュメント、<a href="https://aka.ms/dbmdisk" target="_blank">チュートリアル: Data Box を使用して、Azure で管理ディスクとしてデータをインポート</a>します。 &ldquo;&rdquo;</li>
+      <li>管理ディスクに関する Data Box Disk のドキュメント、 &ldquo; <a href="https://aka.ms/dbdmdisk" target="_blank">チュートリアル: Azure Data Box Disk にデータをコピーし、検証</a>します。&rdquo;</li>
+  </ul>
+
+
+  <p><a href="https://aka.ms/azuredatabox" target="_blank">Data Box の注文</a>を現在の場所に配置し、vhd を管理ディスクとしてインポートすることもできます。 <a href="https://feedback.azure.com/" target="_blank">Azure のフィードバック</a>を投稿することで、お客様の貴重なご意見やご感想をお寄せください。</p>

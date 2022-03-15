@@ -1,0 +1,64 @@
+### YamlMime:Yaml
+ms.openlocfilehash: afcaa3b3f76213d0af6d1e67d97aa7bc9d09e4a3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895202"
+Slug: announcing-the-ga-of-disaster-recovery-for-vmware-virtual-machines-and-physical-machines-to-azure-using-asr
+Title: ASR を使用した Azure への VMware Virtual Machines および物理マシンのディザスターリカバリーの GA の発表
+Summary: Azure Site Recovery の重要な機能の GA を発表しています。これにより、VMware ワークロードと物理マシンの Azure へのレプリケーションと保護を有効にすることができます。
+Content: >-
+  <a href="https://aka.ms/asr_vmware_landing_page">Azure Site Recovery</a> (ASR) の重要な機能の GA を発表しました。これにより、VMware ワークロードと物理マシンの Azure へのレプリケーションと保護を有効にすることができます。 ASR は、Hyper-v または VMware の仮想マシンと物理マシンを保護する機能を備えており、ワークロード対応のディザスターリカバリーと、異種およびハイブリッド IT 環境の保護を実現する統合ソリューションです。
+
+
+  <a href="https://aka.ms/asr_vmware_preview">この機能は今年3月からプレビュー</a>段階にあり、初期の顧客の厳格な評価と検証の目標を達成しました。 既にお客様を対象としたマーキーをお持ちのお客様が事前にフィードバックをお持ちの場合は、ASR の SLA に基づくオファリングにより、オンプレミスのワークロードを Azure にレプリケートする準備が整いました。
+
+
+  ASR は、Microsoft の<a href="https://aka.ms/asr_vmware_aod">可用性オンデマンド (AoD)</a>ソリューションの背後にあるレプリケーションテクノロジとして、すべての規模の企業およびサービスプロバイダーが、DR、<a href="https://aka.ms/asr_vmware_migration">クラウド移行</a>、DevTest、その他のエンタープライズシナリオに Microsoft Azure を使用できるようにします。
+
+
+  GA は、プレビュー期間中に提供した機能セットの上に構築されており、次のように拡張されています。
+
+  <ul>
+   <li><b>スマートレプリケーション</b>を使用すると、<b> </b>ソースデータを再シードことなく DR ドリルおよびフェールオーバーテストを実行できます。 他のシナリオと同様に、アプリケーションデータは、セキュリティと分離を確保するために、常に独自の Azure Storage アカウントにレプリケートされます。 <b></b></li>
+   <li><b>ソースボリュームのサイズ変更をサポート</b>することで、<b> </b>オンプレミスのアプリケーションのサイズが大きくなる可能性があります。これにより、ASR の進行中のレプリケーションと保護の保証が失われます。<b></b></li>
+   <li>現在、DR セットアップは、<b>プロセスサーバーのフェールオーバーと負荷分散</b>により、組織のニーズに合わせて拡張できます。</li>
+   <li>Linux ワークロードに対して <b>マルチ NIC をサポート</b> することで、仮想マシンのネットワーク接続を Azure にレプリケートするときの構成方法をより細かく制御できます。</li>
+   <li>また、英語以外のデプロイの対象範囲も拡大しています。ESXi のホスト名、vCenter Server 名、リソース名、ソースマシン名に英語以外のロケールを使用するお客様は、ASR のレプリケーションと Azure の機能への保護を活用できるようになりました。
+
+  <div id="" align="alignnone" width="405"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/07/08/Mult-NIC-Support.png"><img style="background-image: none; float: left; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Mult-NIC のサポート" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Mult-NIC-Support_thumb.png" alt="Mult-NIC Support" width="405" height="489" align="left" border="0" /></a>* AWS Windows インスタンスを Azure に移行できます</div></li>
+
+  </ul>
+
+  &nbsp;
+
+
+  この GA では、セキュリティと信頼性の向上、エラー処理、監視と diagnosability の向上、新しいソフトウェアコンポーネントの更新のための ASR ダッシュボード通知が提供されます。
+
+
+  これらは、異種ワークロードのサポート、自動 VMware vCenter Server 検出、継続的なデータ保護 (CDP)、マルチ VM 整合性、ワンクリックフェールオーバー、豊富な正常性監視と電子メール通知などの機能に加え、プライマリデータセンターが復旧したときに、プレビューでリリースされたオンプレミスにフェールバックします。
+
+
+  詳細な手順については、 <a href="https://aka.ms/inthecloud_documentation">VMware および物理サーバーのシナリオに関するドキュメント</a> を参照して、作業を開始する方法を確認してください。 <a href="https://aka.ms/asr_vmware_forum">MSDN の Azure Site Recovery フォーラム</a>にアクセスして、その他の情報を入手したり、他のお客様と連絡を取ることができます。または、 <a href="https://aka.ms/asr_vmware_user_voice">ASR UserVoice</a>を使用して、次に有効にする機能についてお知らせください。
+
+
+  準備ができたら、<a href="https://aka.ms/asr_vmware_landing_page">追加の製品情報を確認</a>し、Azure Site Recovery を使用して Microsoft Azure するためのワークロードのレプリケーションを開始します。 Azure Site Recovery を簡単に試して、 <a href="https://aka.ms/asr_vmware_aod">オンデマンドで可用性</a> を有効にすることができました。レプリケートした新しい物理マシンまたは仮想マシンごとに、Site Recovery の強力なレプリケーション機能を31日間無料でご利用いただけます。
+
+
+  &nbsp;
+
+
+  &nbsp;
+
+
+  &nbsp;
+
+
+  &nbsp;
+
+
+  &nbsp;
+
+
+  &nbsp;

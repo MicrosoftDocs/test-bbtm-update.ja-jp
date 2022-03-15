@@ -1,0 +1,111 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d60acb312203e713fc8d7253a4f6766a38b2e34b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894084"
+Slug: azure-media-services-live-monitoring-dashboard-open-source-release
+Title: ライブ監視ダッシュボードのオープンソースリリース Azure Media Services
+Summary: GitHub には、Azure Media Services (AMS) ライブ監視ダッシュボードのオープンソースリリースが発表されています。 ライブ監視ダッシュボードは、Azure メディアを有効にする .NET C# web アプリです...
+Content: >-
+  <p>GitHub には、Azure Media Services (AMS)<a href="https://github.com/Azure-Samples/media-services-dotnet-live-monitoring-dashboard" target="_blank">ライブ監視ダッシュボード</a>のオープンソースリリースが発表されています。</p>
+
+
+  <p>ライブ監視ダッシュボードは、Azure Media Services (AMS) のお客様がチャネルと配信元のデプロイの正常性を確認できるようにする .net C# web アプリです。 ダッシュボードは、インジェスト、archive、encode、および origin テレメトリエンティティの状態をキャプチャし、顧客がサービスの正常性を低待機時間で定量化できるようにします。 ダッシュボードは、ビデオストリームインジェストの受信データ速度、ストレージアーカイブ内のデータの削除、エンコードデータレート、配信元の HTTP エラー状態と待機時間に関するデータを提供します。</p>
+
+
+  <p><em>このプロジェクトへの協力を深めるために、 <a href="https://github.com/duggaraju" target="_blank">Prakash Duggaraju</a> に感謝します。</em></p>
+
+
+  <h2>ダッシュボードの概要</h2>
+
+
+  <p>次の画像は、ライブ監視ダッシュボードのアカウントレベルのビューを示しています。 左上のウィンドウでは、各展開 &rsquo; の正常性状態が異なるステータスコードの色で強調表示されます。 インジェスト、archive、origin、および encode テレメトリエンティティは、それぞれ i、a、o、および e の各略語で示されます。 A インジケーターの各色は、エンティティが現在影響を受けているかどうかを要約します。 緑は正常、オレンジ色はわずか影響、赤は異常、灰色は非アクティブであることを示します。 これらのフラグが生成されるしきい値は、ストレージアカウントの JSON 構成ファイルから変更できます。 右側のウィンドウで、アクティブな状態の四角形をクリックして、各デプロイの詳細ビューにドリルダウンできます。</p>
+
+
+  <p>このダッシュボードは、Azure ストレージアカウントからテレメトリデータを読み取る SQL データベースによってサポートされています。 <a href="https://azure.microsoft.com/en-au/blog/telemetry-platform-features-in-azure-media-services/" target="_blank">テレメトリリリースの発表に関するブログ投稿</a>では、現在サポートされているテレメトリデータの種類について詳しく説明しています。 30秒ごとに、ダッシュボード内のすべてのビューが最新のテレメトリデータで自動的に更新されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/af8ec6a2-cf2a-4e4c-b9b1-de1b556f60ef.png"><img alt="Home Page" border="0" height="1309" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc9482f6-96e6-4916-b321-ab40175c5228.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ホームページ" width="2156"></a></p>
+
+
+  <h2>チャンネルの詳細ビュー</h2>
+
+
+  <p>チャネルの詳細ビューでは、特定のチャネルについて、着信ビットレート、不連続性の数、重複の数、ビットレート比のデータが提供されます。 このビューでは、これらのフィールドは次を表します。</p>
+
+
+  <ul>
+   <li><strong>ビットレート</strong>: 特定のトラックの予期されるビットレートと受信ビットレートは、チャネルが受信するビットレートです。</li>
+   <li>不<strong>連続性</strong>の<strong>カウント</strong>: ストリームでフラグメントが不足しているインスタンスの数</li>
+   <li><strong>重複カウント</strong>: チャネルが同じまたは重複するストリームのタイムスタンプを持つフラグメントを受信するインスタンスの数</li>
+   <li><strong>ビットレート比率</strong>: 受信ビットレートと予期されるビットレートの比率</li>
+  </ul>
+
+
+  <p>最適な方法として、チャネルには不連続性、重複なし、1のビットレート比率が必要です。 これらのディメンションが通常の値と異なる場合に、フラグが発生するように設定されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/48e78d28-1ace-4751-ac01-d1f566c1554f.png"><img alt="Channel Detailed View" border="0" height="543" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/417d8b8b-57ba-4ca2-bdce-9e27f093dc13.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="チャンネルの詳細ビュー" width="898"></a></p>
+
+
+  <h2>詳細ビューのアーカイブ</h2>
+
+
+  <p>アーカイブの詳細ビューには、各トラックをバッキングするアーカイブエンティティのビットレート、破棄されたフラグメントの数、および破棄されたフラグメント率が表示されます。このビューでは、これらのフィールドは次を表します。</p>
+
+
+  <ul>
+   <li><strong>ビットレート</strong>: 指定されたトラックの予期されるビットレート</li>
+   <li>破棄された<strong>フラグメント数</strong>: プログラムにドロップされたフラグメントの数</li>
+   <li>破棄された<strong>フラグメント比率</strong>: 1 分あたりの破棄されたフラグメントの数</li>
+  </ul>
+
+
+  <p>最適なのは、破棄されたフラグメントの数とフラグメントの割合をゼロにすることです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cb81caf9-ddb0-447f-b0a7-4e1ca42f0b0c.png"><img alt="Archive Detailed View" border="0" height="434" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c7557ec5-37f1-4bc6-9ab3-c9a2a9407cc8.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="詳細ビューのアーカイブ" width="896"></a></p>
+
+
+  <h2>オリジンの詳細ビュー</h2>
+
+
+  <p>配信元の詳細ビューでは、特定の配信元の要求数、送信バイト数、サーバー待機時間、エンドツーエンド (E2E) 待機時間、要求比率、帯域幅、およびデータ出力使用率の比率が表示されます。 このビューでは、これらのフィールドは次を表します。</p>
+
+
+  <ul>
+   <li><strong>要求数</strong>: クライアントが配信元からのデータを要求した回数。 HTTP 状態コードによって分類されます。</li>
+   <li><strong>送信バイト</strong>数: クライアントに返されるバイト数</li>
+   <li><strong>サーバー待機時間</strong>: 要求に応答するためのサーバー待機時間コンポーネント</li>
+   <li><strong>エンドツーエンドの待機時間</strong>: 要求に応答するための待機時間の合計</li>
+   <li><strong>要求レート</strong>: 配信元が1分あたりに受信する要求の数</li>
+   <li><strong>帯域幅</strong>: 配信元の応答スループット</li>
+   <li><strong>要求比率</strong>: 特定の HTTP 状態コードに対する要求の割合</li>
+   <li><strong>データ出力使用率比率</strong>: オリジンが利用する最大スループットの割合</li>
+  </ul>
+
+
+  <p>最適な配信元の要求では、HTTP 200 状態コードのみが返され、失敗した要求は発生しません (HTTP 4XX + 5XX &ndash; 412)。 データの使用率は、使用可能な最大スループットの 90 ~ 95% を超えないようにする必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a80e8928-d1d7-450a-bd99-492e49d339a3.png"><img alt="Origin Detailed View" border="0" height="805" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90269702-fce9-4101-8f07-b7272a9b1d88.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="オリジンの詳細ビュー" width="898"></a></p>
+
+
+  <h2>詳細ビューのエンコード</h2>
+
+
+  <p>[エンコードの詳細] ビューには、入力、tricaster、出力、および全体的な正常性の正常性状態が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7c15e2a3-adfb-444b-8739-d3b07a1bb5a0.png"><img alt="Encode Detailed View" border="0" height="296" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f47e13b1-d459-4396-9098-5f21af6379c0.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="詳細ビューのエンコード" width="895"></a></p>
+
+
+  <p>最適なエンコーダーの詳細ビューには、全体的な正常性の状態が反映されている必要があります。</p>
+
+
+  <h2>フィードバック &amp; 機能の要求を提供しています</h2>
+
+
+  <p>お客様からのご意見をお待ちしており、お客様のニーズをより深く理解しています。 優れた機能を提供するために、マイクロソフトは常に最新のテクノロジですばらしいサービスを提供できるように、フィードバックや新しいアイデアを常に開いて、バグレポートを歓迎します。 新しい機能を要求するには、アイデアやフィードバックを提供するために、 <strong><a href="https://aka.ms/amsvoice/" target="_blank">Azure Media Services のユーザーの声</a></strong>に送信してください。 特定の問題や質問がある場合、またはバグが見つかった場合は、 <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=MediaServices">フォーラム</a>に質問またはフィードバックを投稿してください。</p>

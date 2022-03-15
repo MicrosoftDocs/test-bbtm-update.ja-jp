@@ -1,0 +1,84 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 587a12609b507d54edfe364d771a43eebe589cb0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894834"
+Slug: continuous-integration-delivery-of-web-apps-from-atlassian-bitbucket
+Title: Atlassian Bitbucket からの Web アプリの継続的インテグレーションと配信
+Summary: Bitbucket Pipelines Bitbucket は、チームがすべてのプッシュでコードをビルド、テスト、デプロイするのに役立つ Bitbucket の新機能です。 継続的デリバリーを実現し、より優れたソフトウェアをより迅速に提供するチームを支援します。
+Content: >-
+  <p>12 <a href="https://blog.bitbucket.org/2015/12/02/ship-faster-with-bitbucket-integrations-now-available-for-aws-azure-bamboo-and-more?utm_source=azure&amp;utm_medium=press-release&amp;utm_campaign=bitbucket_bitbucket-pipelines"></a>月に戻り、Azure App Service チームは Azure へのデプロイ <a href="https://marketplace.atlassian.com/plugins/deploy-to-azure/cloud/overview?utm_source=azure&amp;utm_medium=press-release&amp;utm_campaign=bitbucket_bitbucket-pipelines"></a> プラグインを構築しました。このプラグインは Bitbucket との統合を提供し、Bitbucket リポジトリを Azure App Service に発行しました。 <a href="https://azure.microsoft.com/en-us/services/app-service/">Azure App Service</a> は、開発者がクラウドまたはオンプレミスの任意の場所のデータに接続する強力な Web アプリとモバイル アプリを構築できるクラウド プラットフォームです。</p>
+
+
+  <p>&rsquo;<a href="https://blog.bitbucket.org/2016/05/24/introducing-bitbucket-pipelines-beta-continuous-delivery-built-within-bitbucket?utm_source=azure&amp;utm_medium=press-release&amp;utm_campaign=bitbucket_bitbucket-pipelines" title="Bitbucket cloud 内に構築された継続的デリバリー サービスである Bitbucket Pipelines AnnouncementBitbucket"> Pipelines の本日のお知らせでは、Azure へのデプロイに関する記事を見直し、Bitbucket Pipelines</a> を使用して Azure App Service Web Apps に発行する簡単な方法の詳細を説明する価値があります。 <a href="https://www.atlassian.com/">Atlassian には</a> 、 <a href="https://www.atlassian.com/software/jira">JIRA</a>、 <a href="https://www.atlassian.com/software/bitbucket">Bitbucket</a>、 <a href="https://www.atlassian.com/software/confluence">Confluence</a>、 <a href="https://www.atlassian.com/software/hipchat">HipChat</a> など、いくつかの一般的な製品ですべてのチームが潜在能力を発揮するのに役立つツールが用意されています。 Bitbucket <a href="https://bitbucket.org/product/features/pipelines?utm_source=microsoft&amp;utm_medium=press-release&amp;utm_campaign=bitbucket_bitbucket-pipelines" title="は、チームと簡単に共同作業できる分散バージョン管理システムです。Bitbucket Pipelines"> Bitbucket Pipelines</a> は、チームがすべてのプッシュでコードをビルド、テスト、デプロイするのに役立つ Bitbucket の新機能です。 継続的デリバリーを実現し、より優れたソフトウェアをより迅速に提供するチームを支援します。 &rsquo;Bitbucket Pipelines ベータ版を使用する前から、Bitbucket Pipelines&rsquo; を使用して web アプリケーションを Azure App Service にデプロイする簡単なプロセスについて説明しました。</p>
+
+
+  <h2>Bitbucket から Azure PipelinesにデプロイするWeb Apps</h2>
+
+
+  <p>CI/CD のPipelinesを開始するために Bitbucket を設定するには、いくつかの手順を実行します。 次の図は、使用を開始するシナリオの 1 つを示しています。</p>
+
+
+  <blockquote>
+
+  <p><img alt="Deploy from Bitbucket Pipelines to Azure Web Apps End-to-End Scenario" border="0" height="235" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1347abe0-0045-451d-8ba2-028783b9629a.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Bitbucket Pipelinesから Azure Web Apps エンド to エンド シナリオにデプロイする" width="610"></p>
+
+  </blockquote>
+
+
+  <p>このプロセスに従って作成されたサンプル Bitbucket <a href="https://bitbucket.org/mojall/pipeline2azure" title="リポジトリは、Pipeline-to-Azure Sample Repositoryhere"></a> にあります。 詳細な手順を説明するチュートリアルを提供します。</p>
+
+
+  <p>Azure Web Apps&rsquo; にデプロイするための Pipelines を構成するプロセスを簡単なプロセスにするために、クロスプラットフォーム IDE である <a href="https://code.visualstudio.com/">Visual Studio Code (Windows</a>、Linux、OS X で使用可能) の拡張機能を作成しました。</p>
+
+
+  <h2>Visual Studio Code拡張機能</h2>
+
+
+  <p>&ldquo;Bitbucket Pipelines Deploy to Azure&rdquo; Visual Studio Code 拡張機能は、Azure Web Apps にデプロイするために Bitbucket Pipelines を構成するために使用を開始するために <a href="https://bitbucket.org/mojall/bitbucket-pipelines-deploy-to-azure">Bitbucket</a> で利用できます。 拡張機能<a href="https://bitbucket.org/mojall/bitbucket-pipelines-deploy-to-azure/overview" title="リポジトリの拡張機能">の概要</a>&rsquo;概要セクションには、拡張機能とインストール方法に関するドキュメントが記載されています。 インストールが完了すると、インストールされている拡張機能の一覧に拡張機能VS Codeされます。</p>
+
+
+  <p><img alt="Visual Studio Code Extension List" border="0" height="221" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d31a20d0-617a-485c-846a-4bfb0a357e8f.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Visual Studio Code拡張機能の一覧" width="610"></p>
+
+
+  <p>この拡張機能には、次に示すいくつかのコマンドが提供されています。これは、Bitbucket の使用を迅速に開始Pipelines。</p>
+
+
+  <p><img alt="Bitbucket Pipelines Deploy to Azure VS Code Extension" border="0" height="244" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6644fda4-d95d-43d1-8062-3df780b491c2.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Bitbucket Pipelines Azure VS Code 拡張機能にデプロイする" width="610"></p>
+
+
+  <p>Bitbucket Pipelines を使用して Bitbucket から Azure Web Apps へのすぐにデプロイを開始したいユーザーには特に関連性があります。</p>
+
+
+  <ul>
+   <li>Azure Web Pipelinesへのデプロイ (FTP) に .yml を追加する</li>
+   <li>Azure Web Pipelinesへのデプロイ (Kudu) に .yml を追加する</li>
+  </ul>
+
+
+  <p>これらの 2 つのコマンドのそれぞれが選択され、コードベースに 3 つのファイルが追加されます。</p>
+
+
+  <ul>
+   <li><strong>bitbucket-pipelines.yml:</strong> 既定の Atlassian Docker イメージを使用するように構成されたサンプル YAML ファイル。必要な準備作業を実行してから、関連付けられている bash スクリプトを呼び出します。</li>
+   <li><strong>deploy-to-azure.bash:</strong>FTP サービスまたは Azure Web App <a href="https://github.com/projectkudu/kudu/wiki" title="Project KuduKudu"></a> サービスを使用して、構成済みの Azure Web アプリにリポジトリをデプロイする bash スクリプト。</li>
+   <li><strong>deploy-to-azure.md:</strong> デプロイ プロセスを正しく機能するには、Bitbucket リポジトリにいくつかの環境変数を作成する必要があります。 このファイルには、設定を取得するために知る必要があるすべての情報が記載されています。</li>
+  </ul>
+
+
+  <p>簡単に言えば、Bitbucket と Azure Web Apps の間で CI/CD を実行すると、Bitbucket Pipelines を使用して非常にシンプルかつ効率的に実行できます。この作業を今すぐ開始できます。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <ul>
+   <li><a href="https://tryappservice.azure.com/">Azure App Service</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-deploy/">Azure App Service へのアプリのデプロイ</a></li>
+   <li><a href="https://confluence.atlassian.com/bitbucket/bitbucket-builds-beta-792496469.html?utm_source=azure&amp;utm_medium=press-release&amp;utm_campaign=bitbucket_bitbucket-pipelines">Bitbucket Pipelines ドキュメント</a></li>
+   <li><a href="https://confluence.atlassian.com/bitbucket/bitbucket-pipelines-yml-reference-824475665.html">Bitbucket Pipelines yml リファレンス</a></li>
+   <li><a href="https://marketplace.atlassian.com/plugins/deploy-to-azure/cloud/overview?utm_source=azure&amp;utm_medium=press-release&amp;utm_campaign=bitbucket_bitbucket-pipelines">Deploy-to-Azure プラグイン</a></li>
+   <li><a href="https://github.com/projectkudu/kudu/wiki/Deployment-credentials">Azure デプロイ資格情報 (Kudu)</a></li>
+  </ul>

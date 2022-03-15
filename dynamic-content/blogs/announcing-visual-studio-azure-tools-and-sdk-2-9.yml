@@ -1,0 +1,154 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0ac679d2dd3e2cdb1f2d970b90a3c831a2af0cd6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896634"
+Slug: announcing-visual-studio-azure-tools-and-sdk-2-9
+Title: Azure Tools および SDK 2.9 Visual Studioの発表
+Summary: Azure SDK for .NET の新しいリリースをお知らせします。 この投稿には、各機能領域の詳細と、新しい機能によって Azure 開発エクスペリエンスが向上する方法が含Visual Studio。
+Content: >-
+  <p><em>2016 年 10 月 25 日の更新:</em></p>
+
+
+  <p><strong>Azure SDK 2.9.5 リリースの概要</strong><br>
+
+  リリース日: 2016 年 9 月 27 日</p>
+
+
+  <p>このリリースでは、Azure SDK 2.9 に対する新しい変更は導入されません。</p>
+
+
+  <p>新しいツールの更新Azure Resource Manager次のものが含まれます。</p>
+
+
+  <ul>
+      <li>テンプレートで定義されていないが、&rsquo;サブスクリプションに存在する、または他のテンプレートで定義されているリソースへの参照を追加する</li>
+      <li>開発者がテンプレートのサーバー側検証をすばやく実行できる</li>
+      <li>Azure リソース グループ のテンプレートから Azure リソース グループ プロジェクトを作成し、github クイック スタートテンプレートAzure Stack クイック スタートテンプレートを作成します</li>
+      <li>Web ツールからの更新された機能</li>
+      <li>信頼性が向上したApp Servicesリモート デバッグ</li>
+  </ul>
+
+
+  <hr>
+
+  <p>Azure&rsquo; SDK for .NET の新しいリリースをお知らせします。 この投稿には、各機能領域の詳細と、新しい機能によって Azure 開発エクスペリエンスが向上する方法が含Visual Studio。</p>
+
+
+  <p>Azure SDK 2.9 for .NET をダウンロードする</p>
+
+
+  <ul>
+      <li><a href="https://go.microsoft.com/fwlink/?LinkId=746482" target="_blank">Visual Studio 2013</a></li>
+      <li><a href="https://go.microsoft.com/fwlink/?LinkId=746481" target="_blank">Visual Studio 2015</a></li>
+      <li><a href="https://go.microsoft.com/fwlink/?LinkId=746483" target="_blank">&ldquo;Visual Studio 15&rdquo; プレビュー</a></li>
+  </ul>
+
+
+  <h2>リリースの概要</h2>
+
+
+  <p>このリリースでは、&rsquo;Azure 向けアプリケーションの多数のコンポーネントを大幅にVisual Studio Toolsしました。</p>
+
+
+  <ul>
+      <li>&ldquo;Visual Studio 15 プレビュー&rdquo;</li>
+      <li>Performance DiagnosticsのService Profiler (プレビュー)</li>
+      <li>Application マップ を使用してデータを視覚化する診断のマップ</li>
+      <li>イベント ハブ for Azure Diagnostics</li>
+      <li>ARM テンプレートの KeyVault のサポート</li>
+      <li>セカンダリ App Service作成</li>
+      <li>Docker プレビュー用ツール</li>
+      <li>Microsoft Service Fabric Tools for Visual Studio</li>
+      <li>Azure Data Lake Tools for Visual Studio</li>
+      <li>Visual Studio Code 用 Azure Resource Manager ツール</li>
+  </ul>
+
+
+  <h2>&ldquo;Visual Studio 15 プレビュー&rdquo;</h2>
+
+
+  <p>Azure SDK 2.9 は、&ldquo;Visual Studio 15 プレビューでサポートされている&rdquo; SDK です。 Azure SDK 2.9 for Visual Studio 2013 2015 と Visual Studioでサポートされているのと同じ機能が提供されます。</p>
+
+
+  <h2>Performance DiagnosticsのService Profiler (プレビュー)</h2>
+
+
+  <p>お客様からのフィードバックの主な領域の 1 つは、ライブ サービスのパフォーマンス低下を診断するためのより優れたツールの必要性に関する領域です。&nbsp; 多くの内部&rsquo;および外部のお客様と取り組み、この問題に取り組むために一連のツールとサービスに取り組み、これをより広範なコミュニティと共有する必要があります。</p>
+
+
+  <p>本日は、プレビュー (プレビュー) Service Profiler発表します。 サービス プロファイラーは、Azure Diagnostics と App インサイト の一連の機能を拡張して、ライブ クラウド アプリケーションとサービスのパフォーマンスの問題を要約、プロファイル、診断するためのサービスとコレクション エージェントを提供します。 Service Profilerエージェントは、オーバーヘッドが少ない .NET および Azure フレームワーク イベントを自動的にプロファイルし (または手動で独自のイベントを宣言できます)、サービス内に多数のインテリジェントなサンプルを構築します。&nbsp; Service Profiler の概要ページを使用すると、さまざまな要求とパーセントバケットのパフォーマンス データが表示されます。これにより、特定の要求や特定のセンセンタイル (長い末尾など) で問題を簡単に特定できます。&nbsp; サンプルをクリックすると、要求で何が起こったかの詳細なビューが表示されます。これにより、コード内のホット パスを見つけ出すのが明確かつ簡単になります。</p>
+
+
+  <p>現在、Service Profiler (プレビュー) を試したり、デモ ビデオを視聴したり、ライブ サイトのデモを試したりできます。 プレビューでは現在、VM、Cloud Services (Web ロールと Worker ロール)、VMScaleSet、および Service Fabric。&nbsp;これにより、Azure Diagnostics と App インサイト の一連のツールとサービスが拡張されます。プレビューでは、Service Profiler 自体以外の Azure エージェントまたはサービスに対する追加の依存関係はありません。&nbsp;制限付きプライベート プレビューについては、App Service。</p>
+
+
+  <h2>ARM テンプレートの KeyVault のサポート</h2>
+
+
+  <p>Azure Resource Manager&#39;テンプレートを使用してコードとしてのインフラストラクチャまたは継続的デプロイワークフローを管理する場合は、&#39;&quot;&quot; でシークレット ストアとツールの間でシークレットをマーシャリングしてテンプレートを Azure にデプロイする必要があります。 Azure Resource Managerテンプレートでは <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-manager-keyvault-parameter/">、Azure KeyVault</a> と 2.9 Azure SDK のシークレットへの参照を提供できます。VS で使用できるツールを使用して、シークレットを保存するのと同じ方法で簡単にできます。 KeyVault シークレットの保存の詳細については、ARM テンプレートでの KeyVault サポートに関するこの <a href="https://azure.microsoft.com/en-us/blog/keyvault-support-for-ARM-templates" target="_blank">チュートリアルを参照してください</a>。</p>
+
+
+  <h2>セカンダリ App Service作成</h2>
+
+
+  <p>アプリケーションを&rsquo;使用するAzure App Service&rsquo;、アプリケーションのさまざまなコンポーネントに対して複数の App Service コンテナーを作成する可能性があります。 たとえば、&rsquo;Web アプリとモバイル アプリの両方で API アプリでホストしている REST APIを使用するシナリオがある場合があります。 または、受信データを処理App Service多数のバックグラウンド Web ジョブを含む 1 つのアプリケーションがある場合があります。 2.9 SDK 更新プログラムでは、&rsquo;複数の SDK を一度に作成App Servicesしました。 この機能を使用すると、コードをデプロイApp Service一連のコンテナーを作成できます。 新機能の詳細については、この投稿の「App Service ツール <a href="https://go.microsoft.com/fwlink/?LinkId=784800" target="_blank">」を参照してください</a>。</p>
+
+
+  <h2>Visual Studio 2015 Tools for Docker プレビュー</h2>
+
+
+  <p>Visual Studio 2015 Tools for Docker プレビューを使用すると、開発者はローカルでホストされている Docker コンテナーでアプリケーションをビルドおよびデバッグし、アプリケーションを Azure Docker ホストに発行できます。 Docker 用ツールの詳細については、Docker 用ツールに関 <a href="https://aka.ms/DockerToolsDocs">するドキュメントを参照してください</a>。</p>
+
+
+  <h2>Microsoft Service Fabric Tools for Visual Studio</h2>
+
+
+  <p>現在、新しい <b>Microsoft Azure Service Fabric Tools for Visual Studio 2015</b> と Microsoft Azure Service Fabric <b>Tools for Visual Studio &ldquo;プレビュー&rdquo;</b>をリリースします。 どちらのリリースでも、Microsoft Azure Service Fabric SDK 2.0 と Microsoft Azure Service Fabric Runtime 5.0 が必要です。</p>
+
+
+  <p>開発者がアプリケーションのビルド、テスト、診断を簡単に行える一連の新機能Service Fabricしました。 私たちは、よく知られている好中のツールを使用して、開発者が簡単にアプリケーションを導入し、ソフトウェア開発を通じて価値を提供するMicrosoft Azure Service Fabric効率的に行うのを支援する方法に重点を置いて取り組みしました。</p>
+
+
+  <p>このリリースでは、Service Fabric&rsquo; サービスを構築するために使用できるサービス テンプレートを簡略化しました。これには、クラスターに既にデプロイされている内容に基づいて差別化されたパッケージのみを作成する機能も含まれています。 また、リモート デバッグ セッションを簡単に開始したり、Visual Studio の Service Fabric クラスターと対話してストリーミング トレースを表示したりすることもできますCloud Explorer。</p>
+
+
+  <p>Service Fabric アプリケーションにゲスト実行可能ファイルを含める必要がある場合は、Visual Studio の Service Fabric アプリケーション プロジェクトにサービス パッケージ構造を簡単に統合し、実行可能ファイルをパッケージ化して他のサービスと共にデプロイできます。</p>
+
+
+  <p>Service Fabric Visual Studio <b>15&rdquo; プレビューを使用して開発を利用できる現在、Visual Studio &ldquo; </b><b>2015 Update 2 &ldquo;および Visual Studio 15&rdquo;</b> プレビューを使用した Windows 7 での開発のサポートが導入されました。 すべてのツールは、ローカライズされたバージョンのアプリケーションをサポートするためにローカライズVisual Studio。</p>
+
+
+  <p>これらの機能の詳細については、「Microsoft Azure Service Fabric Tools」<a href="https://go.microsoft.com/fwlink/?LinkId=780785" target="_blank">を参照してください</a>。</p>
+
+
+  <h2>診断更新プログラム</h2>
+
+
+  <p>Azure SDK&rsquo; に対するこの最新の更新により、診断データを 2 つの方法で表示および使用するためのエクスペリエンスが向上しました。 まず、Azure Portal で新しいアプリケーション マップをAzure Diagnosticsアプリケーション インサイトを使用して、アプリケーションのアプリケーション トポロジを表示できます。 次に、Azure 開発者が Azure 診断カウンターとイベントを数秒で <a href="https://azure.microsoft.com/en-us/services/event-hubs/">Azure Event Hub</a> にストリーミングできると発表します。 これには、ETW イベント、パフォーマンス カウンター、イベント ログWindowsアプリケーション ログが含まれます。&nbsp;Azure Event Hub は、1 秒あたり数百万のイベントを取り込み、複数のアプリケーション (Azure Stream Analytics、Azure HD Insight、Machine Learning、Elastic Search/ELK など) にストリーム配信できる、拡張性の高い発行/サブスクライブ サービスです。 <a href="https://go.microsoft.com/fwlink/?LinkId=780735">AI</a> アプリケーション マップを使用する方法については、次のリンクを参照してください。または、イベント ハブを使用したイベント マップの使用に関する詳細<a href="https://go.microsoft.com/fwlink/?LinkId=780736">Azure Diagnostics</a>。</p>
+
+
+  <h2>Azure Data Lake Tools for Visual Studio更新</h2>
+
+
+  <p>Azure Data Lake Tools for Visual Studioは Azure SDK リリースにマージされ、Azure SDK のインストール時にツールが自動的にインストールされます。 このツールは頻繁に更新されるので、その間は常に最新の <a href="https://aka.ms/datalaketool" target="_blank">Azure Data Lake Tools</a> をダウンロードするか、Azure.com に関する <a href="https://azure.microsoft.com/en-us/documentation/services/data-lake-analytics/" target="_blank">Data Lake Analytics</a> ドキュメントで詳細を確認できます。 このリリースでは、サーバー エクスプローラー のすべての U-SQL メタデータ エンティティを表示し、その一部を作成する機能が追加されました。 HDInsight Tools for Visual Studio で HDInsight Version 3.3 がサポートされるようになりました。これには、Tez グラフの表示やその他の言語の修正が含まれています。</p>
+
+
+  <h2>Visual Studio Code 用 Azure Resource Manager ツール</h2>
+
+
+  <p>Visual Studio Code ユーザーが必要な場合は、新しい Azure Resource Manager Tools 拡張機能をインストールして試します。この拡張機能は<a href="https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools&amp;Wt.mc_id=DX_MVP8656" target="_blank">、Visual Studio Marketplace</a> またはコマンド <em>ext install azurerm-vscode-tools</em>&rdquo; を使用して Visual Studio Code &ldquo; ツール内から直接使用できます。&rsquo;&rsquo;Visual Studio拡張機能には、クロスプラットフォーム環境での Azure Resource Management テンプレートの作成とデプロイを示す一連のテンプレート、スニペット、およびスクリプトが提供されています。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>Azure <a href="https://azure.microsoft.com/en-us/pricing/free-trial/"></a> &ndash; アカウントを&rsquo;まだ持ってない場合は、無料試用版にサインアップするか、MSDN &ndash; サブスクライバーを作成して上記のすべての機能の使用を開始する場合は<a href="https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits/">、Azure</a>&rsquo; サブスクリプションをアクティブ化できます。 その後、 <a href="https://azure.microsoft.com/en-us/get-started/">Azure デベロッパー センターにアクセス</a> して、アプリをビルドする方法の詳細を確認します。 問題の報告に関するConnect、UserVoice を通じて提案、および発生した問題を通じてバグ<a href="https://msdn.microsoft.com/en-us/library/mt632287.aspx" target="_blank">を送信してください</a>。 を使用Visual Studio IDE に表示されます。</p>
+
+
+  <h4>謝辞</h4>
+
+
+  <p>このブログ記事は、複数のユーザーのコラボレーションです。 Cristy Gonongez、Mikkel Mork Hegnog、Kelyong Thanks、Brian Morgno に感謝します。</p>

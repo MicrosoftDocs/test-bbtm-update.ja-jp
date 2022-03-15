@@ -1,0 +1,58 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 95fca00d3ab3d1e9a81999a47d193b34551ce604
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894685"
+Slug: adaptive-caching-powers-azure-sql-data-warehouse-performance-gains
+Title: アダプティブ キャッシュによって Azure のパフォーマンスSQL Data Warehouse向上
+Summary: 現在、Azure SQL Data Warehouse (SQL DW) コンピューティング最適化 Gen2 レベルは、お客様が一般提供しています。 データとデータ ソースは指数関数的に増加しますが、組織はさらに迅速かつ迅速な分析情報を要求し続けています。
+Content: >-
+  <p>現在、<a href="https://azure.microsoft.com/en-us/blog/turbocharge-cloud-analytics-with-azure-sql-data-warehouse/" target="_blank">Azure SQL Data Warehouse (SQL DW) コンピューティング最適化 Gen2</a> レベルは、お客様が一般提供しています。 データとデータ ソースは指数関数的に増加しますが、組織はさらに迅速かつ迅速な分析情報を要求し続けています。 Azure SQL DW コンピューティング最適化 Gen2 レベルでは、アダプティブ キャッシュを使用してパフォーマンスが大幅に向上し、この必要性が実現されます。</p>
+
+
+  <p>分析ワークロードのパフォーマンスは、通常、ストレージへの I/O 帯域幅とパーティション分割速度 (シャッフル速度とも呼ばれる) の 2 つの主要な要因によって決定されます。 このブログ記事では、Azure SQL DW が最新のハードウェアの傾向を悪用して、使用可能な有効な I/O 帯域幅を向上させる方法について説明します。</p>
+
+
+  <p>最近のハードウェアイノベーションの 1 つが、NVM Express (NVMe) ソリッド ステート ドライブ (SSD) デバイスです。 NVMe のSSD は、SATA のSSD またはハード ドライブよりも大幅に多くの I/O 帯域幅を提供します。 Azure で使用される一般的な単一の NVMe デバイスでは、通常、最大 2 GB/秒のローカル I/O 帯域幅が提供され、物理ホストごとに複数のデバイスを使用できます。その結果、帯域幅は以前は非常に高性能なストレージ システムにのみ予約されています。 Azure SQL DW コンピューティング最適化 Gen2 レベルでは、NVMe で最近使用されたデータのアダプティブ キャッシュを使用して、NVMe デバイスを完全に活用します。 お客様のワークロードに対するこの<a href="https://azure.microsoft.com/en-us/blog/blazing-fast-data-warehousing-with-sql-data-warehouse-gen2" target="_blank"></a>ブレークスルーにより、Azure SQL DW の第 1 世代と比較して、クエリのパフォーマンスが最大 5 倍向上し、一部のワークロードはさらに改善されました。</p>
+
+
+  <p>Azure SQL Data Warehouse の Gen2 にアップグレードした後、データ ウェアハウスのワークロードでは、パフォーマンスが平均<em>で 4 倍向上しています。&ldquo;Microsoft では、Azure SQL Data Warehouse Compute Optimized Gen2 レベルの開発を開始し、NVMeSD&rdquo;</em> の使用により、Microsoft の Windows Data and Analytics (DnA) チームのシニア ソフトウェア エンジニアである Rajeev Acharya がサービスに対して見てきた最大のパフォーマンス向上を示しています。</p>
+
+
+  <p>詳細を説明&rsquo;する前に、azure SQL DW で使用される既定のストレージの種類である業界をリードする列型ストレージを SQL Server で実装する方法について説明します。 列ストアでは、テーブル行が行グループと呼ばれる 100 万行単位に分割され、行グループ内の各列が圧縮されます。 ディクショナリ、ビット パッキング、実行長エンコードなど、さまざまな圧縮手法が使用されます。 データをスキャンすると、必要な列だけがメモリに読み込まれます。 圧縮と列指向ストレージにより、I/O 要件が大幅に削減されます。 また、多くの場合、SQL Serverエンジンは圧縮データに対して直接動作し、AVX などのベクター化された CPU 拡張機能を完全に活用します。 多くの場合、両方の手法を組み合わせて使用すると、行ストアに対するクエリ速度が最大 10 倍向上します。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90fbc7ab-b6ec-4673-9345-efbc36c259ce.png" style="margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>列ストアを使用すると、アプリケーションで更新や削除を削除する必要が生じ、デルタ ストア テーブルに追跡され、十分な変更が発生すると、データは列ストア表現に再圧縮されます。 列ストアの詳細<a href="https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview" target="_blank">な説明SQL Server確認できます</a>。</p>
+
+
+  <p>Azure SQL DW は複数のコンピューティング ノードで構成され、それぞれが SQL Server エンジンのインスタンスを実行し、データのパーティション分割操作を担当するデータ移動サービス (DMS) で構成されます。 SQL DW &ndash; でコンピューティングをストレージから切り離す場合は、どちらも個別にスケーリングできます。また、データ ウェアハウス インスタンスを一時停止しながら、すべてのデータを Azure Storage に保持することができます。 これにより、お客様は独自のニーズに合ったクラウド データ ウェアハウス ソリューションを柔軟に構築し、クラウド コンピューティングの弾力性を真に活用して簡単にスケールアップおよびスケールダウンできます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f3e001ad-2195-4b76-950b-29a403720709.png" style="margin-right: auto; margin-left: auto; float: none; display: block;"></p>
+
+
+  <p>Azure SQL DW コンピューティング最適化 Gen2 レベルの場合、各コンピューティング ノードは NVMe ベースのノードで実行されます。&nbsp;各 SQL DW コンピューティング ノードは、最近アクセスされた SQL Server 列型ストレージ セグメントのキャッシュを保持します。ローカル アクセス用に最適化され、必要に応じて他の Azure SQL DW ノードにネットワーク経由で使用できます。 SQL DW キャッシュは列セグメントを追跡します。頻繁にアクセスされるテーブル、行グループ、列だけが、正しい粒度でキャッシュされます。</p>
+
+
+  <p>SQL DW 列キャッシュは Azure SQL DW Compute Optimized Gen2 レベル用の組み込み機能です。追加の設定や構成は必要ありません。 たとえば、Azure SQL DW インスタンスで使用できるローカル NVMe ストレージ容量よりも多くのデータにアクセスする可能性がある大規模なクエリで十分に機能するようにキャッシュを最適化しました。 列ストレージ キャッシュは障害に対する回復性も備えています。そのため、SQL DW ノードの障害によってキャッシュされたデータのパフォーマンスが失われるとは限り、キャッシュされたデータの追加コピーが必要に応じて作成されます。</p>
+
+
+  <p>Azure SQL DW コンピューティング最適化 Gen2 レベルでは、NVMe デバイスによって実現される高速ローカル パフォーマンスと、クラウドでのみ可能な弾力性がブレンドされます。 アダプティブ キャッシュが存在すると、引き続きデータ ウェアハウス インスタンスのサイズを変更したり、一時停止したりして、顧客の金額を節約できます。 一時停止SQL DW インスタンスが再開されると、データのクエリが実行されると、SQL DW によってキャッシュが再びAzure Storageされます。</p>
+
+
+  <p>次の詳細を学習できます。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/gen2newsblog" target="_blank">Azure SQL DW コンピューティング最適化 Gen2 レベルのオファー</a></li>
+  </ul>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/blog/blazing-fast-data-warehousing-with-sql-data-warehouse-gen2" target="_blank">Azure SQL DW のパフォーマンスの向上</a></li>
+  </ul>

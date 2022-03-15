@@ -1,0 +1,45 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 293094f37ed7347ea4bf3681fc20522cdd0a3b1e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890080"
+Slug: operationalizing-your-database-health-checks-using-sql-notebooks
+Title: SQL Notebook を使用した PostgreSQL データベースの正常性チェックの運用
+Summary: Craig Kerstiens の最新のブログ記事「Postgres データベースの正常性チェック プレイブック」では、Postgres データベースが正常で正常に実行できるように定期的にチェックする必要性を強調しています。
+Content: >-
+  <p>Craig Kerstienss&lsquo;&ldquo; のブログ投稿「Postgres データベースの正常性チェック プレイブック」では、<a href="https://www.citusdata.com/blog/2019/03/29/health-checks-for-your-postgres-database/" target="_blank">Postgres</a>&rdquo;&rsquo; データベースが正常で正常に実行できるように定期的にチェックする必要性を強調しています。 ほとんどの Postgres データベース管理者とコミュニティ メンバーは、通常、このような記事をブックマークまたは保存して、再検討し、記事で共有されているクエリを再利用してデータベースに対してチェックを実行できるようにします。 このアプローチの一般的な課題は、多くの保存されたアーカイブが作成され、必要なときにそれらを検索すると、時間がかかり、生産性が低いという点です。 正常性チェック Runbook とデータベース スクリプトを運用化するより良い方法は、SQL <a href="https://docs.microsoft.com/en-us/sql/azure-data-studio/sql-notebooks" target="_blank">Notebooks を作成Azure Data Studio</a>。 ノートブックのスクリーンショットを次に示します。コミュニティ内のすべてのユーザーがダウンロードまたは投稿するために、<a href="https://github.com/Azure/azure-postgresql/blob/master/samples/Health%20Checks/Postgres_database_health_check_notebook.ipynb" target="_blank">GitHub</a> リポジトリにも同じことをアップロードしています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9db6c614-895c-4a75-9223-044b31c5cb00.png"><img alt="Screenshot of Postgres database health check notebook" border="0" height="793" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e3ade0c6-0e0f-4ab3-a23d-9542269f4ae8.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Postgres データベースの正常性チェック ノートブックのスクリーンショット" width="1482"></a></p>
+
+
+  <p>対話型ノートブックの概念は、SQL の新しい世界ではありますが、データ サイエンティストが Python の世界でデータ分析を記録、理解、再現するための推奨される方法の 1 つです。 &ldquo;Jupyter&rdquo; Notebook と呼ばれる Python は、2011 年にデータ サイエンティストの Scientisto Prian&eacute; 氏と計算物理学者の Brian Inger 氏が率いるチームによって初めて開発されました。 私たちは、私たち&ldquo;自身が研究者や教師として持っていた問題を解決することで、それを&eacute;構築しました。&rdquo;</p>
+
+
+  <p>コンテキストを記録する概念とSQLコードは、データベース管理者には新しい概念ではありません。 ほとんどの組織では、データベース管理者は、運用プラクティスを含むドキュメントと、実行する必要がある SQL スクリプトへのリンクと実行する必要がある順序を保持します。 これは、エンド ユーザーがデータの品質、一貫性、およびパフォーマンスを維持するために使用されます。 ただし、時間が経つにつれて、コードが進化し、ドキュメントが古くなる場合が多くなります。 一方、スクリプトはエンジニアによって学習、適応、運用時に更新され、ドキュメントとそのコンテキストの関連性が低い状態になります。 ノートブックSQL、コードを更新するエンジニアは、関連するコンテキストで編集内容を説明するために、その前の説明テキストも更新する傾向があります。</p>
+
+
+  <p>データベース エンジニアは、正常性チェック ノートブックを作成して維持し、キュリー化された SQL スクリプトと説明テキスト、画像、Web リンクを維持して、それを読む人や初めて使用するユーザーにコンテキストを提供するのも理にかなっています。 ノートブックは、何を記録するだけでなく、多くの場合、より重要な理由を記録するのに役立ちます。 また、チームとの共有と共同作業も容易になります。</p>
+
+
+  <p>その理解を得て、Craigs&rsquo; ブログを正常性チェック ノートブックに記録しました。これは、監視スクリプトを提供するだけでなく、それらを実行する必要がある理由も説明しています。 ノートブックは、必要に応じて、コミュニティ内のだれでも再利用、更新、または拡張できます。</p>
+
+
+  <h2>Azure Data Studio の使用を開始するAzure Data Studio</h2>
+
+
+  <p>Git ソース管理の統合やカスタマイズされたダッシュボードやウィジェットなど、さらに多くの機能を検出できます。 現在、PostgreSQL のプレビューの使用をAzure Data Studio、インストール手順<a href="https://docs.microsoft.com/en-us/sql/azure-data-studio/postgres-extension?view=sql-server-2017" target="_blank">を確認してください</a>。 プレビューの PostgreSQL 拡張機能の使用を開始するには、Visual Studio Codeページで詳細を<a href="https://github.com/Microsoft/vscode-postgresql" target="_blank">GitHubしてください</a>。</p>
+
+
+  <p>これら 2 つの機能はプレビュー中であり、フィードバックは、それらを改善し、自分に合わせて機能するために不可欠です。 PostgreSQL と PostgreSQL の各ページ<a href="https://github.com/Microsoft/azuredatastudio-postgresql" target="_blank">GitHub、Azure Data Studio</a><a href="https://github.com/Microsoft/vscode-postgresql" target="_blank">またはVisual Studio Code</a>してください。</p>
+
+
+  <p>ノートブック内のノートブックの開発と進行状況にSQLする場合は、Azure Data Studioページ<a href="https://github.com/Microsoft/azuredatastudio" target="_blank">Azure Data Studio GitHubしてください</a>。 エンジニアリング チームは定期的に問題を回避し、さまざまな月次マイルストーンに問題を割り当て<a href="https://cloudblogs.microsoft.com/sqlserver/2019/03/18/the-march-release-of-azure-data-studio-is-now-available/" target="_blank"></a>、問題に取り組み、問題に関する投票を行って優先順位を付けるのに役立ちます。 機能に関するご要望や問題がある場合は、問題に関するページ<a href="https://github.com/microsoft/azuredatastudio/issues" target="_blank">GitHub送信してください</a>。 ご質問がある場合は、下にコメントするか、ツイートしてください <a href="https://twitter.com/azuredbpostgres" target="_blank">@AzureDBPostgres</a>。</p>
+
+
+  <h2>謝辞</h2>
+
+
+  <p>この投稿への貢献に対する Craig Kerstiens と Rachel Agyemang に感謝します。</p>

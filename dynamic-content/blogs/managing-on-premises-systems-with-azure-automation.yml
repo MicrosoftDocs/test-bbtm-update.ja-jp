@@ -1,0 +1,107 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 41cf877a711fcd1070bf6150429765b115a7d702
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894766"
+Slug: managing-on-premises-systems-with-azure-automation
+Title: オンプレミス システムの管理とAzure Automation
+Summary: 'Windows PowerShell リモート処理機能により、Azure Automation はインフラストラクチャ レベルで Azure リソースを管理できるだけでなく、VM 内に到達してコマンドを実行することもできます。 '
+Content: >-
+  <em>[更新: このブログは、この機能のリリースによって "非推奨 <a href="https://azure.microsoft.com/en-us/documentation/articles/automation-hybrid-runbook-worker/" target="_blank">Hybrid Runbook Worker </a>されました。この機能は、ここで説明する機能を実現するための第一級の方法を提供します。ご確認ください。</em>
+
+
+  Windows PowerShell リモート処理機能により、Azure Automation はインフラストラクチャ レベルで Azure リソースを管理できるだけでなく、VM 内に到達してコマンドを実行<a href="https://gallery.technet.microsoft.com/scriptcenter/How-to-Use-a-PowerShell-59b2e28c" target="_blank">することもできます</a>。 ただし、PowerShell リモート処理は常に実行可能なオプションではありません。セキュリティ上の理由から Azure VM 上のパブリック WinRM ポートを開けなかったり、VM が厳密にオンプレミスであるため、Azure Automation から到達できない可能性があります。 このような状況に気が付く場合、すべての希望が失われることはありません。
+
+
+  1 つ目のケースでは、Azure でホストされている VM を使用しているが、パブリック WinRM ポートを開くことができませんが、このソリューションは単純です。 最近 <a href="https://azure.microsoft.com/blog/2014/12/18/azure-automation-run-tasks-on-azure-virtual-machines-without-opening-ports/" target="_blank">の Microsoft ブログ記事</a> では、Azure VM エージェントのカスタム スクリプト拡張機能を利用して、このような VM で PowerShell コマンドを実行する Runbook <a href="https://azure.microsoft.com/blog/2014/04/24/automating-vm-customization-tasks-using-custom-script-extension/" target="_blank">を提供しています</a>。
+
+
+  この投稿では、VM がオンプレミスである 2 番目のケースを処理する拡張機能をこのソリューションに提供します。 オンプレミス ネットワークが <a href="https://technet.microsoft.com/en-us/library/dn786406.aspx" target="_blank">Azure</a> 仮想ネットワークに接続されている場合、このソリューションを使用すると、オンプレミスの VM を Azure Automation! また、1 つの Runbook だけで行います。 ただし、最初に、少しのセットアップが必要です。...
+
+  <h2>環境の構成</h2>
+
+  Runbook は、Azure 環境に存在するリソース ("プロキシ VM"、Azure Storage アカウント、および Azure Automation とプロキシ VM の両方にインストールされた証明書に依存します (セキュリティ上の理由から、以下で説明します)。
+
+  <h3>"プロキシ VM"</h3>
+
+  "プロキシ VM" は、ネットワーク内の他のマシンでコマンドを呼び出す Azure VM です。これは、Azure Automation がこれらのマシンと対話するメカニズムであるため、"プロキシ" です。 プロキシ VM には、Azure VM エージェントがインストールされている必要があります。 このエージェントは、Azure VM の作成時に既定でインストールされます。そのため、ほとんどの場合、このようなマシンが既に存在している可能性があります。 既存の VM にエージェントをインストールする必要がある場合は、このブログ記事からその方法 <a href="https://azure.microsoft.com/blog/2014/04/15/vm-agent-and-extensions-part-2/" target="_blank">を</a> 学習できます。
+
+
+  Runbook を実行すると、指定したプロキシ VM で VM エージェントのカスタム スクリプト拡張機能が有効になります。これにより、vm は Azure Storage アカウントに格納されているスクリプトをダウンロードして実行できます。 プロキシ VM は PowerShell リモート処理を使用してネットワーク内の他の VM と通信します。そのため、これらの VM はネットワークに対して WinRM ポートを開いている必要があります。
+
+
+  <strong>Azure Virtual Networks をオンプレミス</strong> ネットワークに接続できる (詳細については、こちらを参照) ので、プロキシ VM によってオンプレミス マシンの管理が可能 <a href="https://technet.microsoft.com/en-us/library/dn786406.aspx" target="_blank">になります</a>。 このようなネットワークを使用し、そのネットワークに属する Azure VM をプロキシ VM として使用する場合、その VM はオンプレミスのマシンでコマンドを実行できます。
+
+  <h3>Azure Storage アカウント</h3>
+
+  (プロキシ VM 上で実行されている) カスタム スクリプト拡張機能は、特定の Azure Storage アカウントからスクリプトをダウンロードします。そのため、Azure 環境でスクリプトを作成する必要があります。 拡張機能で使用する特定のコンテナーを作成するか、Runbook で既定のコンテナーを作成して使用することができます。
+
+  <h3>Certificate</h3>
+
+  Runbook はプロキシ VM に参加して他のマシンで PowerShell を実行します。そのため、これを行うには、どのような資格情報を使用する必要があります。 ただし、これらの資格情報をプレーンテキストで使用したくないので、Runbook では、スクリプトにベイクされて Azure Storage に渡される前に暗号化する方法が必要です (最終的にはプロキシ VM に渡されます)。 その後、プロキシ VM は実行時に資格情報を復号化する必要があります。 そのため、Runbook では、証明書をプロキシ VM と Azure Automation両方にインストールする必要があります。
+
+  <h3></h3>
+
+  <ol>
+   <li><strong>証明書を作成します。</strong> プロキシ VM にインストールするには、.pfx 証明書を作成する必要があります。 その証明書またはそれに対応する .cer 証明書も、その証明書にアップロードするAzure Automation。 証明書を作成する手順については、このページ <a href="https://msdn.microsoft.com/en-us/library/ff699202.aspx" target="_blank">を参照</a> してください。</li>
+   <li>アップロード証明書をAzure Automation<strong>する:</strong> Azure portal で、Automation サービスに移動し、Automation アカウントを選択して、[資産] タブをクリックします。ページの下部にある [設定の追加] をクリックすると、このウィザードが表示されます。
+  <img class=" aligncenter" style="float: none;padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="設定の追加ウィザード" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AddSettingWizard.png" alt="Add Setting Wizard" width="480" height="199" border="0" />
+
+  [資格情報の追加] をクリックし、次のように構成します。<img class=" aligncenter" style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="入力した資格情報の追加ウィザード" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DefineCredentialFilledOut.png" alt="Add Credential Wizard, filled out" width="480" height="304" border="0" />
+
+
+  ウィザードの最後のページで、証明書ファイルをアップロードします。 セキュリティ上の理由から、.cer 証明書を Azure Automation にアップロードする必要があります (プライベート キーが不足Azure Automationは不要です)。 .cer または .pfx ファイルは動作しますが、.pfx をアップロードする場合は、Azure Automation でエクスポート可能として<strong></strong>マークしないことです。</li>
+   <li><strong>プロキシ VM の証明書ストアに証明書をインストールします。</strong> プロキシ VM に .pfx 証明書をコピーし、ファイルをダブルクリックしてインポート プロセスを開始します。 [ストアの場所] に [ローカル コンピューター] を選択し、証明書を個人用ストア (Cert:\LocalMachine\My) に配置します。 ここで、カスタム スクリプト拡張機能によって実行されるコードは、必要な資格情報の暗号化を解除します。 この場所を使用すると、重要なセキュリティ境界が作成されます。管理者と SYSTEM だけが、このストア内の証明書のプライベート キーにアクセスできます。 これにより、承認されていないユーザーは、プロキシ VM に送信された後に Runbook によって使用される資格情報を復号化できません。</li>
+  </ol>
+
+  Congratulations, you are now ready to…
+
+  <h2>Runbook を実行します。</h2>
+
+  必要なリソースが用意されたので、次はコードを実行します。 スクリプト センターまたは Runbook <a href="https://gallery.technet.microsoft.com/scriptcenter/Use-an-Azure-VM-to-manage-f48e5145" target="_blank">ギャラリーから</a> <a href="https://azure.microsoft.com/blog/2014/10/07/introducing-the-azure-automation-runbook-gallery/" target="_blank">runbook Azure Automation取得します</a>。
+
+
+  この Runbook の呼び出しの例を次に示します。
+
+  <pre class="prettyprint">$Results = Invoke-CommandViaProxy `
+          -ProxyVmName VM01 `
+          -ProxyServiceName VM01 `
+          -ScriptBlock "{ 'Hello, my name is '; `$env:COMPUTERNAME}" `
+          -TargetComputers VM02,VM03 `
+          -RunAsCredential $NetworkCred `
+          -CertificateAssetName "MyProxyVmCert" `
+          -AzureOrgIdCredential $OrgCred `
+          -AzureSubscriptionName $SubscriptionName `
+          -StorageAccountName $StorageAccountName</pre>
+  関連するパラメーターの説明を次に示します。
+
+  <ul>
+   <li>ProxyVmName、ProxyServiceName これらのパラメーターは、Azure VM エージェントがインストールされ、コマンドを実行するマシンと同じネットワーク上にある必要があるプロキシ VM を識別します。</li>
+   <li>ScriptBlock プロキシ VM のネットワーク内のマシンで実行するコマンドを文字列として指定します。 このスクリプト ブロックを記述するときに特殊文字を適切にエスケープしてください (例: "{'$a = Get-Date }")。 これは、Runbook 実行エンジンがスクリプト内の変数の値を置き換えようとするのを防ぐために必要です。</li>
+   <li>TargetComputers スクリプト ブロックを実行する必要があるマシンのホスト名の一覧。 プロキシ VM では PowerShell リモート処理を使用して特定のスクリプト ブロックが実行されるので、これらのマシンでは WinRM ポートが開いている必要があります。</li>
+   <li>PowerShell 資格情報オブジェクトとして RunAsCredential を実行します。 スクリプト ブロックは、この資格情報を持つ対象のコンピューターで実行されます。</li>
+   <li>CertificateAssetName Runbook は、この証明書資産を使用して RunAsCredential のパスワードを暗号化します。 プロキシ VM では、同じ証明書の秘密キーを使用してそのパスワードの暗号化を解除します。</li>
+   <li>AzureOrgIdCredential PowerShell 資格情報オブジェクト。Runbook によって Azure に対して自身を認証するために使用されます。</li>
+   <li>AzureSubscriptionName プロキシ VM とサブスクリプション アカウントを含む Azure サブスクリプションAzure Storageします。</li>
+   <li>StorageAccountName Runbook がAzure Storageファイルを格納するアカウントの名前。 このファイルは、Runbook が完了すると削除されます。</li>
+  </ul>
+
+  Runbook の動作をさらにカスタマイズするための省略可能なパラメーターもあります。そのすべてには、Runbook 自体で説明されている既定値があります。
+
+
+  Runbook は、既定でスクリプト ブロックの出力を PowerShell オブジェクトとして返します。 スクリプトが複数のマシンで実行されている場合は、オブジェクトの配列 (スクリプトが実行されたマシンごとに 1 つ) が返されます。 ここには小さな "gotcha" が 1 つあります。出力はカスタム スクリプト拡張機能のやや小さな出力フィールドを通じて返されます。"大きい" オブジェクトは切り捨てられる可能性があります (出力フィールドには 4,096 文字を格納できます)。 シリアル化された出力の長さを超えると予想される場合は、スクリプト側のフィルター処理を実行するか、Runbook の SerializeOutput パラメーターを $False に設定して、生のテキストを取得することができます。
+
+
+  最後に、カスタム スクリプト拡張機能は一度に 1 つのスクリプトのみを実行できます。 完了を待たずに同じプロキシ VM に対してこの Runbook を複数回呼び出した場合は、最新の要求、または最初にビジー状態だった要求だけが実行されます。
+
+  <h2>まとめ</h2>
+
+  これで終了です。 これで、プライベート ネットワーク内またはオンプレミスAzure Automation VM 上でスクリプトを安全に実行するために、クラウド を使用する方法がわかっています。 よりクールな方法でAzure Automation  <a href="https://azure.microsoft.com/blog/topics/it-pro-devops/">Azure IT Pro/DevOps カテゴリ</a>の他の投稿を確認してください。
+
+
+  次のAzure Automation? このサービスについては、こちらを <a href="https://aka.ms/Q2p1ap" target="_blank">確認し</a>、Twitter のAzure Automation <a href="https://twitter.com/AzureAutomation" target="_blank">に従ってください</a>。
+
+
+  Happy Automating!

@@ -1,0 +1,281 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 00fdde1644c90c2b6ee1973e93ee4767e351dcd8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895162"
+Slug: answering-whats-happening-whys-happening-and-what-will-happen-with-iot-analytics
+Title: IoT Analytics を使用した説明、診断、予測
+Summary: 前のブログ記事「IoT データからアクション可能な分析情報を抽出する」では、マシン、資産、製品から IoT データを収集する価値について説明しました。 IoT データを収集する全体のポイントは、アクション可能な分析情報を抽出することです。
+Content: >-
+  <p>前のブログ記事「 <a href="https://azure.microsoft.com/blog/extracting-actionable-insights-from-iot-data-to-drive-more-efficient-manufacturing/?WT.mc_id=iotinsightsblog2-acomblog-ditambur" target="_blank">IoT</a> データからアクション可能な分析情報を抽出する」では、マシン、資産、製品から IoT データを収集する価値について説明しました。 IoT データを収集する全体のポイントは、アクション可能な分析情報を抽出することです。 インサイト、最適化された工場の運用、製品品質の向上、顧客の需要の理解の向上、新しい収益源、カスタマー エクスペリエンスの向上など、何らかのビジネス価値を生み出す何らかのアクションをトリガーします。</p>
+
+
+  <p>このブログでは、ストーリーの分析部分に焦点を当て、IoT データから価値を抽出する方法について説明します。</p>
+
+
+  <p>一般に、データ分析には次の 4 種類があります (図 1)。</p>
+
+
+  <ul>
+   <li>説明的に、質問に答える場合: 何が起こっていますか?</li>
+   <li>診断: 次の質問に答えます。なぜ起こっているのですか?</li>
+   <li>予測: 質問に答える場合: 何が起こるか?</li>
+   <li>「どのようなアクションを実行する必要がありますか?」という質問に回答するには、前文的に説明します。</li>
+  </ul>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90c882dc-e118-41e8-a7c5-809f30090501.jpg"><img width="1622" height="635" title="DDPP" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="DDPP" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4891908-9e54-49c1-b8f8-615e76f2920e.jpg" border="0"></a></p>
+
+
+  <p align="center"><em>図 1: IoT Analytics のフレーバー</em></p>
+
+
+  <p>IoT 分析はデータ分析のサブケースです。これらの型は、次のように IoT 分析にマップされます。</p>
+
+
+  <table border="1" cellspacing="0" cellpadding="0">
+   <tbody>
+    <tr>
+     <td width="66" style="vertical-align: middle;">
+     <p><strong>Data Analytics の種類</strong></p>
+     </td>
+     <td width="72" style="vertical-align: middle;">
+     <p><strong>フォーカス</strong></p>
+     </td>
+     <td width="168" style="vertical-align: middle;">
+     <p><strong>IoT アプリケーション</strong></p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p><strong>代表的な質問</strong></p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p><strong>実装</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td width="66" style="vertical-align: middle;">
+     <p><strong><em>説明</em></strong></p>
+     </td>
+     <td width="72" style="vertical-align: middle;">
+     <p>どうしてでしょうか。</p>
+     </td>
+     <td width="168" style="vertical-align: middle;">
+     <p>マシン、デバイス、製品、資産の状態を監視します。</p>
+
+     <p>計画に従って状況を評価するか、異常が発生した場合にユーザーに警告します。</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>このマシンのスループットと使用率は何ですか?</p>
+
+     <p>直ちに注意する必要がある異常はありますか?</p>
+
+     <p>このマシンはどのくらいのエネルギーを消費していますか?</p>
+
+     <p>このツールを使用して生成されるパーツの数はどれくらいですか?</p>
+
+     <p>お客様はどのようにして製品を使用していますか?</p>
+
+     <p>資産はどこにがありますか?</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>通常、現在および過去のセンサー データ、統計、KPI、アラートを表示するダッシュボードの形式。</p>
+     </td>
+    </tr>
+    <tr>
+     <td width="66" style="vertical-align: middle;">
+     <p><strong><em>診断</em></strong></p>
+     </td>
+     <td width="72" style="vertical-align: middle;">
+     <p>何かが起こっている理由</p>
+     </td>
+     <td width="168" style="vertical-align: middle;">
+     <p>複数の角度からデータを調べて、何かが起きている理由を理解します。</p>
+
+     <p>目標は、問題の根本原因を見つけ、何かを修正または改善すること (プロセス、サービス、または製品) を見つけ出す方法です。</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>このマシンの OEE が非常に低い理由</p>
+
+     <p>このマシンで他のマシンよりも欠陥のある部品が生成される理由</p>
+
+     <p>このマシンがこれほど多くのエネルギーを消費する理由は何ですか?</p>
+
+     <p>このツールを使用して非常に少数のパーツを生成する理由</p>
+
+     <p>この製品の返品が非常に多い理由は何ですか?</p>
+
+     <p>ヨーロッパのお客様から非常に多くの製品返品を受け取る理由</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>診断機能は、多くの場合、ユーザーがデータをドリルダウンし、複数の方法でピボットし、比較し、傾向と相関関係をアドホックな方法で視覚化できるダッシュボードの拡張機能です。</p>
+
+     <p>データから診断を実行するユーザーは、通常、<i></i>純粋なデータ サイエンティストではなく、ドメインの専門家 (つまり、特定のコンピューター、プロセス、デバイス、製品の専門家) です。 データ サイエンティストには、 <i>ドメイン</i> の専門家が分析情報を抽出するためのサポート ロールがあります。</p>
+     </td>
+    </tr>
+    <tr>
+     <td width="66" style="vertical-align: middle;">
+     <p><strong><em>予測</em></strong></p>
+     </td>
+     <td width="72" style="vertical-align: middle;">
+     <p>何が起こるか</p>
+     </td>
+     <td width="168" style="vertical-align: middle;">
+     <p>履歴データに基づいて、特定の時間枠内に何かが発生する確率を計算します。</p>
+
+     <p>目標は、何らかの (通常は悪い) 問題が発生する前に、何らかの是正措置を事前に実行し、リスクを軽減するか、競争上の優位性を得る機会を特定します。</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>このマシンが次の 24 時間以内に失敗する確率は何ですか?</p>
+
+     <p>このツールの残りの寿命は何ですか?</p>
+
+     <p>このマシンのサービスを計画する必要がありますか?</p>
+
+     <p>この製品または機能の需要は何ですか?</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>通常、履歴データを使用してトレーニングされ、エンドユーザー アプリケーションで使用できるようクラウドにデプロイされた機械学習モデルを実装しました。</p>
+     </td>
+    </tr>
+    <tr>
+     <td width="66" style="vertical-align: middle;">
+     <p><strong><em>処方的</em></strong></p>
+     </td>
+     <td width="72" style="vertical-align: middle;">
+     <p>どのような対応が必要ですか?</p>
+     </td>
+     <td width="168" style="vertical-align: middle;">
+     <p>診断または予測の結果としてアクションを推奨するか、少なくとも診断または予測の背後にある理由を何らかの可視性を提供します。</p>
+
+     <p>多くの場合、推奨事項は何かを修正または最適化する方法に関する推奨事項です。</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>このマシンは、次の 24 時間以内に 90% 失敗する可能性があります。 それを防ぐには何をする必要がありますか?</p>
+
+     <p>このマシンの OEE が低い。 改善するには何ができますか?</p>
+
+     <p>このマシンでは、欠陥のある部品が多すぎます。 これを回避するには、何をする必要がありますか?</p>
+
+     <p>この設計により、多くの製造上の問題が発生しています。 設計を改善して削減するには、どうすれば良いでしょうか。</p>
+     </td>
+     <td width="156" style="vertical-align: middle;">
+     <p>スクリプト分析はまだ初期段階です。</p>
+
+     <p>多くの場合、予測分析の拡張機能です。ユーザーには、機械学習モデルが結論または予測に到達するために実行した手順が表示されます。 これは非常に推奨事項ではありませんが、推奨事項をヒントするために、MLアルゴリズムの理由に関する洞察が得られる場合があります。</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>IoT Analytics Machine Learningの役割</h2>
+
+
+  <p>機械学習 (ML) は、IoT 分析においてますます重要な役割を果たしています。 製造における ML の実際のアプリケーションの最近の出現は、データの爆発的な増加のおかげで、そのほとんどが IoT に属性付けできると主張する可能性があります。 その他の要因には、より優れたMLアルゴリズムの可用性と、クラウドのコンピューティング機能が含まれます。</p>
+
+
+  <p>今後のブログでは、MLについて詳しく説明します。 今のところ、重要なのは、選択するアルゴリズムML、適切なアルゴリズムを選択する方法が多く存在する点です。</p>
+
+
+  <ul>
+   <li>何をしようとしているのですか? (値の予測、カテゴリの予測、異常なデータ ポイントの検索など)</li>
+   <li>具体的なシナリオは何ですか?</li>
+   <li>望ましい精度は何ですか?</li>
+   <li>必要なトレーニング時間は何ですか?</li>
+   <li>データはどのくらい線形ですか?</li>
+   <li>パラメーターの数はどれくらいですか?</li>
+   <li>機能の数はどれくらいですか?</li>
+  </ul>
+
+
+  <p>さらに、より良いアイデア<a href="https://docs.microsoft.com/azure/machine-learning/studio/algorithm-cheat-sheet#download-machine-learning-algorithm-cheat-sheet?WT.mc_id=iotinsightsblog2-acomblog-ditambur" target="_blank">を得Azure Machine Learningアルゴリズム チー</a>ト シートに関するページを参照してください。</p>
+
+
+  <p>特定の使用例の場合でも、複数のアルゴリズムを選択できます。 たとえば、予測メンテナンスは次のようになります。</p>
+
+
+  <table border="1" cellspacing="0" cellpadding="0">
+   <tbody>
+    <tr>
+     <td width="234" style="vertical-align: middle;">
+     <p><strong>必要な場合...</strong></p>
+     </td>
+     <td width="246" style="vertical-align: middle;">
+     <p><strong>次のアルゴリズムを選択MLがあります</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td width="234" style="vertical-align: middle;">
+     <p>将来の期間中に機器の一部が故障する確率を予測します。</p>
+     </td>
+     <td width="246" style="vertical-align: middle;">
+     <p>二項分類</p>
+     </td>
+    </tr>
+    <tr>
+     <td width="234" style="vertical-align: middle;">
+     <p>資産の残りの寿命を計算します。</p>
+     </td>
+     <td width="246" style="vertical-align: middle;">
+     <p>回帰</p>
+     </td>
+    </tr>
+    <tr>
+     <td width="234" style="vertical-align: middle;">
+     <p>資産の障害が発生する時間の範囲を予測します。</p>
+
+     <p>複数の根本原因の 1 つが原因で、将来の期間に障害が発生する可能性を計算します。</p>
+
+     <p>特定の障害の最も可能性の高い根本原因を予測する</p>
+     </td>
+     <td width="246" style="vertical-align: middle;">
+     <p>多クラス分類</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>重要な点の 1 つは、ML分析だけでなく、一般的にこれらの種類の分析に関連付けられる点です。 ML分析や診断分析にも使用できます。 たとえば、マシンで異常が発生した場合にアラートを生成する方法は説明的な分析シナリオであり、アルゴリズムを使用した異常検出MLできます。</p>
+
+
+  <h2>IoT Analytics ソリューションの概要</h2>
+
+
+  <p>大きなレベルでは、IoT 分析ソリューションには次のコンポーネントが含まれます (図 2)。</p>
+
+
+  <ul>
+   <li>データ インジェスト: デバイスまたはフィールド ゲートウェイに接続して、ストリーミングするデータ レコードを収集します。 IoT では、データ レコードには、イベント、メッセージ、アラート、またはテレメトリ (センサーの測定値) を指定できます。 通常はタイムスタンプが付き、頻度が異なる場合があります。 異なる形式で提供され、異なる通信プロトコルを使用する場合があります。 このデータは、クラウド ゲートウェイを通してクラウドに取り込まれる。</li>
+   <li>ストリーム処理: 一部のアプリケーションでは、ストリーミング時にデータがライブ分析されます。 これは通常、視覚化、ライブ クエリ、アクションの組み合わせで行われます。&nbsp; たとえば、ダッシュボードには、一期間のデバイスの温度を表示できます。 ライブ クエリでは、過去 5 分間の平均温度が 90 F を超えないように常にチェックされている可能性があります。また、これらのクエリでは、何らかのアクションを実行できます (たとえば、マシンをシャットダウンしたり、アラートを送信したりします)。 ストリーム処理データは格納される場合と格納されない場合があります。</li>
+   <li>データ ストレージ: 取り込まれた IoT データ レコードを格納します。 IoT ソリューションでは、ソリューション内のデバイスの数、データを送信する頻度、デバイスから送信されるデータ レコード内のペイロードのサイズに応じて、大量のデータを生成できます。 多くの場合、データにはタイムスタンプが付き、さらに処理するためにアクセスできる場所に格納し、視覚化とレポートで使用する必要があります。 IoT データを "ウォーム" データ ストアと "コールド" データ ストアに分割するのが一般的です。 </li><ul>
+    <li>ウォーム ストレージ: レポートと視覚化にすぐに使用できる必要があるデータ用。 ウォーム ストレージには、低待機時間、高スループット、完全なクエリ機能を使用してアクセスする必要がある最新のデータが保持されます。</li>
+    <li>コールド ストレージ: 長期保存され、バッチ処理に使用されるデータの場合。 コールド ストレージに格納されるデータは、通常、レポート、分析、機械学習モデルのトレーニングなどに将来アクセスする必要がある履歴データです。多くの場合、選択したコールド ストレージ データベース テクノロジはコストが低コストになりますが、ウォーム データベース ソリューションよりもクエリとレポート機能の提供が少ない場合があります。</li></ul></ul><blockquote><p>ストレージの一般的な実装は、テレメトリ データの最近の範囲 (最終日、週、月など) をウォーム ストレージに保持し、履歴データをコールド ストレージに格納することです。 この実装により、アプリケーションは最新のデータにアクセスできるようになり、最新の利用統計情報と傾向をすばやく確認できます。 デバイスの履歴情報の取得は、コールド ストレージを使用して行うことができます。一般に、データがウォーム ストレージにある場合よりも待機時間が長くなります。</p></blockquote>
+
+  <ul>
+   <li>データ変換: クラウド ゲートウェイ サービスによって受信される前または受信後のテレメトリ ストリームの操作または集計が含まれます。 操作には、プロトコル変換、データ ポイントの組み合わせなどがあります。</li>
+   <li>機械学習: コールド ストレージに格納された高度に構造化されたデータは、通常、仮想マシン モデルのトレーニングMLされます。 作成されると、MLモデルがデプロイされ、アプリケーションで使用 (使用) できます。</li>
+   <li>ユーザー インターフェイス &amp; レポート ツール: IoT データの視覚化と分析に使用されるエンドユーザー アプリケーション。<br>
+  他のシステムへの統合: IoT ソリューションから抽出された分析情報は、通常、何らかのアクションになります。 多くの場合、このアクションは、CRM、CRM、ERP などの外部基幹業務システムで行います。 たとえば、予測メンテナンス機械学習モデルでマシンが故障すると予測されると、CRM システムでアクションをトリガーしてサービスをスケジュールできます。</li>
+
+  </ul>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08f5e346-289b-4cf9-9cea-4e3534f4d521.jpg"><img width="1880" height="1001" title="ddpp3" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" alt="ddpp3" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b3982a3-19dc-46f6-a2ff-d8e77f40ad62.jpg" border="0"></a></p>
+
+
+  <p align="center"><em>図 2: IoT Analytics ソリューションのコンポーネント</em></p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>このブログ記事では、IoT ソリューションの分析部分について説明します。 4 種類の分析 (説明的、診断、予測、および記述的) と、IoT へのマップ方法について説明します。 また、IoT 分析における機械学習の役割について説明しました。 最後に、IoT 分析に関して機能する IoT ソリューションのコンポーネントを強調表示する、高レベルのソリューション アーキテクチャについて説明しました。</p>
+
+
+  <h2>推奨される次の手順</h2>
+
+
+  <p>IoT 分析の詳細については、「IoT データからアクション可能な分析情報を抽出 <a href="https://azure.microsoft.com/industries/discrete-manufacturing/usecases/?WT.mc_id=iotinsightsblog2-acomblog-ditambur" target="_blank">する」を参照してください</a>。</p>

@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ecb4e8c54ea6062b13448aa4b48c7d689778bb2d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894202"
+Slug: a-closer-look-at-azure-data-lake-storage-gen2
+Title: Azure Data Lake Storage Gen2 の詳細
+Summary: 2018 年 6 月 27 日に、Azure Data Lake Storage Gen2 のプレビューを発表しました。このデータ レイクは、企業がクラウドで大規模な分析ワークロードを実行するために特別に設計された唯一のデータ レイクです。 Azure Data Lake Storage Gen2 は、Hadoop 互換ファイル システム、Azure Active Directory、POSIX ベースの ACL など、Azure Data Lake Storage Gen1 からコア機能を利用し、それらを Azure Blob Storage に統合します。
+Content: >-
+  <div style="background:#eee;border:1px solid #ccc;padding:5px 10px;">2019 年 2 月 7 日に、Azure Data Lake Gen 2 が一般提供されました。 詳細については、&ldquo;ブログ記事「個別に優れた、まとめて一致しない: 3 つの優れた Azure Data Services の更新を発表する」<a href="https://azure.microsoft.com/en-us/blog/individually-great-collectively-unmatched-announcing-updates-to-3-great-azure-data-services/">を参照してください</a>。&rdquo;</div>
+
+
+  <p>2018 年 6 月 27 日に、<a href="https://azure.microsoft.com/en-us/blog/azure-simplifies-cloud-analytics/" target="_blank"></a>Azure Data Lake Storage Gen2 のプレビューを発表しました。このデータ レイクは、企業がクラウドで大規模な分析ワークロードを実行するために特別に設計された唯一のデータ レイクです。 Azure Data Lake Storage Gen2 は、Hadoop 互換ファイル システム、Azure Active Directory、POSIX ベースの ACL など、Azure Data Lake Storage Gen1 からコア機能を利用し、それらを Azure Blob Storage に統合します。 この組み合わせにより、クラス最高の分析パフォーマンスと、BLOB Storage&rsquo; の階層化とデータ ライフサイクル管理機能、および Azure Storage の基本的な可用性、セキュリティ、および耐久性の機能が可能になります。</p>
+
+
+  <p>このブログ記事では、Azure Data Lake Storage Gen2 が一意である理由について説明します。 革新的な Hadoop ファイル システムの実装である Azure Blob Storage の統合と、Azure Data Lake Storage Gen2 でクラウドの総保有コストを最も低く抑える理由を簡単に確認します。</p>
+
+
+  <h2>High-Fidelity名前空間を持つサーバー側 Hadoop ファイル システム</h2>
+
+
+  <p>Hadoop アプリケーションでクラウド ストレージを操作できる最も簡単な方法は、図 1 に示す Hadoop アプリケーション内でクライアント側で実行される Hadoop ファイル システム ドライバーを構築することです。 このドライバーは、ファイル システムをエミュレートし、Hadoop ファイル システムの操作を、それぞれのプラットフォームのバックエンドでの操作に変換します。 多くの場合、これは非効率的であり、正しさは実装/達成が難しです。 たとえば、オブジェクト ストアに実装されている場合、フォルダーの名前を変更する要求 (Hadoop ジョブでの一般的な操作) が Hadoop クライアントによって要求される場合、多くの REST 要求が発生する可能性があります。 これは、オブジェクト ストアがフラット名前空間を使用し、&rsquo;フォルダーの名前を持たないのでです。 たとえば、5,000 項目を含むフォルダーの名前を変更すると、クライアント からの REST 呼び出しが 10,000 回発生する可能性があります。 つまり、子オブジェクトを新しいコピー先にコピーする場合は 5,000、元のファイルを削除する場合は 5,000 です。 この方法ではパフォーマンスが低下し、多くの場合、ジョブの完了にかかる全体的な時間に影響します。 また、操作がアトミックではなく、任意の時点でエラーが発生すると、不整合な状態のデータでジョブが失敗する可能性が高いので、エラーが発生しやすくなります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0348565f-5f70-4ce5-9bc2-82b55d4a0f87.jpg"><img alt="DiagramsForADLSGen2Blog" border="0" height="356" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/32094602-ec91-43a6-9e7c-b6d00decff72.jpg" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ダイアグラムForADLSGen2Blog" width="1185"></a></p>
+
+
+  <p>図 2 では、Azure Data Lake Storage Gen2 がこのファイル システム ロジック サーバーを BLOB API と共に移動して、BLOB REST API または新しい Azure Data Lake Storage Gen2 ファイル システム API を介して同じデータにアクセスする方法を示しています。 これにより、名前変更のようなファイル システム操作を 1 回の操作で実行できます。 サーバー側では引き続き、これらの要求を基になる BLOB Storage とそのフラット名前空間にマッピングしています。これにより、このアプローチは最初のモデルよりも最適であり、一部の操作では Hadoop&rsquo; との忠実性が高くなりますが、これらの操作の原子性は実現しません。</p>
+
+
+  <p>ファイル システムのサポート サーバー側の移動に加えて、Azure Blob Storage に直接統合されるクラウド スケールの階層型名前空間も設計しました。 図 3 は、階層型名前空間を有効にすると、ファイルとフォルダーに対するコピーや削除などのアトミック操作のサポートを含む、ファイルとフォルダーのファースト クラスのサポートを提供する方法を示しています。 名前空間機能は、Azure Data Lake Storage Gen2 と BLOB API の両方で使用でき、両方の API セット全体で一貫した使用方法を実現できます。 一般提供により、完全に一貫性のある BLOB と Azure Data Lake Storage Gen2 API の両方を使用して、同じデータにアクセスできます。</p>
+
+
+  <p>Azure Data Lake Storage Gen2 は、Blob Storage&rsquo;(プレビュー) Azure Active Directory RBAC ベースの<a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank"></a>アクセス制御に基づいて構築されています。 階層型名前空間を利用してこれらの機能を拡張し、ファイルとフォルダーに対する POSIX ベースの ACL のきめ細かいサポートを可能にしています。 Azure Active Directoryと POSIX ベースの ACL は、プレビュー期間中に配信されます。</p>
+
+
+  <h2>Azure Blob Storage 統合</h2>
+
+
+  <p>Azure Data Lake Storage Gen2 は Azure Storage プラットフォームに統合されています。このため、アプリケーションは BLOB API または Azure Data Lake Storage Gen2 ファイル システム API を使用してデータにアクセスできます。 BLOB API を使用すると、BLOB Storage への既存の投資を活用し、Azure Data Lake Storage Gen2 ファイル システム API が Hadoop や Spark などの分析エンジン向けに最適化されている間、既に利用できるファースト パーティとサード パーティのアプリケーションの大規模なエコシステムを引き続き活用できます。</p>
+
+
+  <p>以下に示すのは、 と統合Azure Storage利点です。</p>
+
+
+  <ul>
+   <li>ストレージ アカウント アーキテクチャの大幅な進歩により、無制限のスケールとパフォーマンスが実現します。</li>
+   <li>個々のオブジェクトの読み取りおよび書き込み時のパフォーマンスが向上し、スループットとコンカレンシーが大幅に向上します。</li>
+   <li>顧客がデータ インジェスト時に分析を実行するかどうかの優先順位を決定する必要がなくなります。 このAzure Storage、すべてのデータを分析に使用できると考え、使用されます。</li>
+   <li>Microsoft またはカスタマー マネージャー キーを使用して保存中のすべてのデータを含むデータ保護機能。</li>
+   <li>指定された <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-network-security" target="_blank">ネットワークからの要求</a> にのみアクセスを制限する規則を定義できる統合ネットワーク ファイアウォール機能。</li>
+   <li>高可用性とディザスター リカバリーのためにアプリケーションを設計Storage、Geo-Redundant Storage、ゾーン冗長などの耐久性オプションを使用できます。</li>
+   <li>Linux 統合 - BlobFUSE を使用すると、お客様は Linux VM から BLOB Storage をマウントし、標準の Linux シェル コマンドを使用して Azure Data Lake Storage Gen2 と対話できます。</li>
+  </ul>
+
+
+  <p>もちろん、Azure Storageは、クライアントへの成功を確認する前に書き込みを永続化する強力な整合性を保証するプラットフォーム上に構築されています。 これは、1 つのタスクからの出力が多くの場合、次のジョブへの入力であるビッグ データ ワークロードにとって非常に重要です。 これにより、最終的な整合性などの弱い整合性モデルで発生する問題を回避する必要がなさから、ビッグ データ アプリケーションの開発が大幅に簡素化されます。</p>
+
+
+  <h2>総保有コストを最小限に抑える</h2>
+
+
+  <p>Azure Data Lake Storage Gen2 では、Hadoop や Spark などのビッグ データ ワークロード用に最適化されたクラウド 規模の HDFS 互換サポートが提供されます。 統合された階層型名前空間を使用すると、通常はオブジェクト ストアにのみ関連付けられているスケールとコストを備えたファイル システムのすべての利点が得ることができるようになりました。 Azure Data Lake Storage Gen2 では、Blob Storage 容量の価格に加えて、ストレージ パフォーマンスの向上と、1 回の操作で複雑なファイル システム操作を実行する機能の組み合わせを使用して、分析エンジンの実行効率を高め、分析ジョブのコストを削減できます。 また、Azure Data Lake Storage Gen2 は、BLOB ストレージ容量の価格、統合された階層化、ライフサイクル管理ポリシーを組み合わせて使用して、データの総保有<a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers" target="_blank"></a>コストを最小限に抑えるのにも役立ちます。これにより、クラウド内のホットからクールから最も低い価格のアーカイブ ソリューションにデータを階層化できます。</p>
+
+
+  <h2>Azure Data Lake Storage Gen2 の評価の開始</h2>
+
+
+  <p>さらに詳しくは、次の方法があります。</p>
+
+
+  <ul>
+   <li>Azure Data Lake アプリの評価を開始Storage、<a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank">プレビューにサインアップします</a>。</li>
+   <li>Azure Data Lake Storage Gen2 の使用を開始する方法については<a href="https://channel9.msdn.com/Shows/Azure-Friday/Azure-Data-Lake-Storage-Gen2-Overview" target="_blank">、このビデオをご覧</a>ください。</li>
+   <li>Azure Data Lake <a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank">Storage</a> Gen2 の主な機能について説明します。</li>
+   <li>ADLS Gen2 HDInsight でも使用できます。 Hadoop、Spark、その他のオープン ソース フレームワークの更新と共に、この統合 <a href="https://azure.microsoft.com/en-us/blog/enterprises-get-deeper-insights-with-hadoop-and-spark-updates-on-azure-hdinsight/" target="_blank">の詳細を確認してください</a>。</li>
+  </ul>

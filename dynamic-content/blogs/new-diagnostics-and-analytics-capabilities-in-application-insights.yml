@@ -1,0 +1,152 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4505f8f67a0bc45be35b52e274b73d9172b86ed1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894752"
+Slug: new-diagnostics-and-analytics-capabilities-in-application-insights
+Title: Application インサイト の新しい診断および分析機能
+Summary: Visual Studio Application インサイト の優れた新機能を発表し、診断エクスペリエンスをインテリジェントにし、アドホック クエリに対する即時回答を提供し、既存の DevOps ワークフローと統合します。
+Content: >-
+  <p>本日、サンフランシスコの <a href="https://build.microsoft.com/">Build 2016</a> で、<a href="https://azure.microsoft.com/services/application-insights/">Visual Studio Application インサイト</a> の新しい機能を発表しました。診断エクスペリエンスのインテリジェント化、アドホック クエリへの即時回答の提供、既存の DevOps ワークフローとの統合を行いました。</p>
+
+
+  <p>現在行っている新しい製品のお知らせの一部を次に示します (詳細を以下に示します)。</p>
+
+
+  <ol>
+   <li>Analytics for Application インサイト</li>
+   <li>ほぼリアルタイムのProactive Detection</li>
+   <li>Live Stream Metrics</li>
+   <li>アプリケーション マップ</li>
+   <li>Azure ダッシュボード</li>
+   <li>[例外] から [コード] に移動Visual Studio</li>
+   <li>Visual Studio での自動ログ 記録フレームワークVisual Studio</li>
+  </ol>
+
+
+  <p>Application インサイト を初インサイト、2 分間の概要を次に示します。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/fX2NtGrh-Y0" width="560"></iframe></p>
+
+
+  <p>Application インサイトは、開発者向けに設計されたソリューションであり、問題を対話的に診断し、困難な質問に答える、高速で簡単で非侵入型の分析ツールを提供します。 これは、プラットフォームに関係なく、Web &amp; アプリ サービスの問題を特定、理解、解決するのに役立ちます。 開発環境内から問題を診断し、Azure &amp; DevOps 統合を使用して既存の DevOps ワークフローに組み込Visual Studio Team Servicesできます。</p>
+
+
+  <h2>分析: アドホック クエリを使用した即時回答</h2>
+
+
+  <p>Application インサイト の<a href="https://azure.microsoft.com/documentation/articles/app-analytics/">新しいビッグ</a> データ分析機能を発表しました。 分析では、アプリケーションに関する難しい質問に対する回答がほぼ瞬時に提供されます。 豊富な <a href="https://azure.microsoft.com/en-us/documentation/articles/app-analytics-queries/">クエリ言語を使用</a>すると、Analytics を使用してアプリケーションテレメトリ データを探索できます。 対話型クエリを使用して柔軟な方法でアプリのパフォーマンスと動作に関するクリエイティブな質問を始め、問題を特定するまで引き続き調整できます。</p>
+
+
+  <p><img alt="1 App Analytics" border="0" height="503" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/962c9efc-872e-4fa1-ab6c-5c6c8cd7b162.png" style="border: 0px currentColor; border-image: none; display: inline;" title="1 App Analytics" width="1024"></p>
+
+
+  <p>Analytics を使用すると、さまざまなパースペクティブが接続されるとアプリ スタック全体の診断が簡単になり、サービスのパフォーマンスとビジネス メトリックとカスタマー エクスペリエンスを関連付ける適切な質問をすることができます。</p>
+
+
+  <p><img alt="clip_image004" border="0" height="240" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/87125dbc-8634-4831-9d94-514eaaeabd08.png" style="border-width: 0px; display: inline;" title="clip_image004" width="891"></p>
+
+
+  <p>最初から始めるアイデアを提供するために、次の方法を実行できます。</p>
+
+
+  <ul>
+   <li>アプリケーション<b></b>の要求パフォーマンス&rsquo; データを顧客層別にセグメント化して、そのエクスペリエンスを理解する</li>
+   <li>ライブ サイト調査中に特定のエラー コードまたはカスタム イベント名を検索する</li>
+   <li>特定の顧客のアプリの使用状況をドリルダウンして、機能の取得方法と採用方法を理解する</li>
+   <li>特定のユーザーの &amp; セッション応答時間を追跡して、サポートチームと運用チームがインスタント カスタマー サポートを提供する</li>
+   <li>機能の<b></b>事前設定に関する質問に回答するためによく使用されるアプリ機能を決定する</li>
+   <li>さらに多くの情報が表示されます。</li>
+  </ul>
+
+
+  <h2>インテリジェント APM: Proactive Detection、トリアージ&amp;診断</h2>
+
+
+  <p>最新のアプリケーション スタックは、多くの場合、さまざまなモジュールとサードパーティのサービス間の依存関係を持つ分散環境で動作します。 アプリケーションで何が起こっているか、どのように使用されるかを理解し、問題を事前に検出し、重大度に基づいて迅速にトリアージして優先順位を付け、ユーザーに影響を与える前に問題を解決する必要があります。 現在発表している新機能を使用すると、最小限の労力と大きなリターンで、アプリケーションに関する洞察を深め、より多くの情報を得られる可能性があります。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-nrt-proactive-diagnostics/">&lsquo;ほぼリアルタイムの&rsquo; プロアクティブ アラート</a> は、アプリケーションで失敗した要求の速度の異常な上昇を自動的に検出して診断するのに役立つ新機能です。 増加が検出されるとすぐに、失敗したイベントを分析して、アプリのバージョン、応答コード、地域などの一般的な属性を検索します。 その後、エラーに関連する例外、トレース、その他のイベントが検出されます。 問題を迅速に診断して修正できるよう、関連するすべての情報が警告されます。</p>
+
+
+  <p><img alt="clip_image006" border="0" height="748" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e761d291-2ca0-40e1-9184-a3b99bf91466.jpg" style="border-width: 0px; display: inline;" title="clip_image006" width="591"></p>
+
+
+  <p>この機能は<a href="https://azure.microsoft.com/en-us/blog/application-insights-proactive-detection/">、Proactive Detection。</a> この以前に発表された機能は、アプリケーションのパフォーマンスと依存関係に関するデータの異常を検出します。 これらの異常について毎日通知され&rsquo;、アプリケーションのパフォーマンスを調整し、カスタマー エクスペリエンスを向上させることができます。</p>
+
+
+  <p><b>Webhook コールバックのサポートにより</b>、Application インサイト Alerts を使用してさらに多くのことを行い、サードパーティのアラート管理システムに接続<sup></sup>できます。 新しい <b>Live Stream メトリックでは</b> 、アプリケーションメトリックが現時点で表示されます。ほぼリアルタイムの待機時間は 1 秒です。 これは、新しい&rsquo;ビルドをリリースし、すべてが想定通り動作するか、インシデントをリアルタイムで調査する場合に非常に便利です。</p>
+
+
+  <p><img alt="clip_image008" border="0" height="584" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/368b368a-1d60-4b0e-bcdc-b3a1dd6b585e.jpg" style="border-width: 0px; display: inline;" title="clip_image008" width="823"></p>
+
+
+  <p>新しい <b>アプリケーション</b> マップはアプリケーション トポロジを自動的に検出し、パフォーマンス情報をその上に置いて、分散環境全体のパフォーマンスのボトルネックと問題のあるフローを簡単に特定できます。 Azure サービスのアプリケーションの依存関係を検出できます。 問題をトリアージするには、それがコード関連または依存関係に関連しているのか、1 か所で関連する診断エクスペリエンスを掘り下げます。 たとえば、アプリケーションは SQL 層のパフォーマンスの低下が原因で失敗している可能性があります。 アプリケーション マップを使用すると、それを視覚的に表示し、クエリエクスペリエンスSQL Index Advisorまたはクエリインサイトできます。</p>
+
+
+  <p><img alt="clip_image010" border="0" height="416" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a602e307-5514-4228-8391-59020dd09f14.jpg" style="border-width: 0px; display: inline;" title="clip_image010" width="625"></p>
+
+
+  <p><b>ダッシュボード</b> を使用すると、複数の Azure リソースとアプリケーションのデータを 1 つのビューでマッシュアップできます。 すべてのアプリケーションでグラフ、メトリック、KPI をまとめ、運用ダッシュボードをチーム メンバーと簡単に共有できます。</p>
+
+
+  <p><img alt="clip_image012" border="0" height="477" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fe825da9-b8de-4fd5-93eb-e611edac4d1a.png" style="border-width: 0px; display: inline;" title="clip_image012" width="900"></p>
+
+
+  <h2>DevOps: 統合&amp;拡張性</h2>
+
+
+  <p>アプリケーション インサイトは、サービス&rsquo;診断に重点を置DevOps Microsofts DevOpsソリューションの一部です。 Visual Studio および Visual Studio Team Services と統合すると、開発環境内から問題を簡単に診断し、既存の DevOps ワークフローにデータ駆動型の決定を組み込むのに役立ちます。</p>
+
+
+  <p>Visual Studioを使用している<a href="https://www.visualstudio.com/"><b></b></a>場合は、アプリケーションでテレメトリ データ診断の問題を分析するために IDE &amp; から出て行く必要があります。 2015 Visual Studioでは、IDE 内からイベントを<b></b>検索し、そこで実稼働上の問題を明らかにできます。</p>
+
+
+  <p><img alt="clip_image014" border="0" height="475" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/39477355-b499-4a8b-ae6d-ff9594d8552a.jpg" style="border-width: 0px; display: inline;" title="clip_image014" width="842"></p>
+
+
+  <p>Visual Studio 2015 Update 2 では、問題をドリルダウンし、テレメトリ情報をコード ナビゲーションの側近として使用し、例外スタック トレースからコードにジャンプできます。<b></b></p>
+
+
+  <p><img alt="clip_image016" border="0" height="394" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f058bb29-71ff-470b-adaa-4e4fec43f90f.jpg" style="border-width: 0px; display: inline;" title="clip_image016" width="892"></p>
+
+
+  <p>Update 2 では、トレースをシームレス<b></b>にキャプチャし、Application インサイト に送信できる自動ログ 記録フレームワーク検出も提供されます。 診断ハブ<b>との統合により</b>、他の詳細と共に Application インサイトイベントを表示する、より豊富なデバッグ エクスペリエンスも可能になります。</p>
+
+
+  <p>クラウド ロード テスト<a href="https://www.visualstudio.com/products/visual-studio-team-services-vs">Visual Studio Team Services統合すると、</a>クラウド ロード テストを使用して、合成負荷によるパフォーマンスの変化を調査できます。 また、Application Release Management <a href="https://azure.microsoft.com/en-us/documentation/articles/app-insights-annotations/">の</a>リリース注釈をインサイトパフォーマンスの変更をビルドと関連付けできます。</p>
+
+
+  <p><img alt="clip_image018" border="0" height="406" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b74fb5e8-6137-4cad-b9e8-305c67b2e55f.jpg" style="border-width: 0px; display: inline;" title="clip_image018" width="653"></p>
+
+
+  <p>また、特定の要件に合わせて Application インサイトを簡単に拡張できます。 GitHub上でオープンソースのすべての SDK を使用すると、任意の言語でビルドされ<a href="https://github.com/Microsoft/ApplicationInsights-Home">、</a>任意のプラットフォームで実行されている Web アプリケーションからデータを取り込む可能性があります。</p>
+
+
+  <h4>まとめ</h4>
+
+
+  <p>Application インサイトに新しい機能を継続的に追加し、お客様のニーズにより適切に対応するために学習しています。 パブリック プレビュー中は、データの安全を維持するために<a href="https://azure.microsoft.com/en-us/support/trust-center/">、Azure &amp;</a>のプライバシー標準とセキュリティ コンプライアンス ポリシーに完全にコミットしています。 そう、サブスクリプションの一部として<a href="https://ms.portal.azure.com/#blade/Microsoft_Azure_Support/HelpAndSupportBlade"></a>完全なカスタマー サポートを受け取るので、何かが適切に機能していない場合は、お問い合わせください。</p>
+
+
+  <p>最後に、最近ケース スタディを公開した法的ソフトウェア プロバイダーである Cerenade というお客様の感動的な言葉を <a href="https://customers.microsoft.com/Pages/CustomerStory.aspx?recid=26308">紹介します</a>。</p>
+
+
+  <blockquote>
+
+  <p align="left">&ldquo;競合他社から弊社に移行したお客様から、以前はダウンタイムとパフォーマンスが大きな問題だったとわかっています。 これらの競合他社は、&rsquo;Application インサイト から取得した情報に基づいて行う最適化を行うので、利点があります。&rdquo;</p>
+
+  </blockquote>
+
+
+  <blockquote>
+
+  <p align="right">--- Cerenade の学長兼共同設立者である Yadiade</p>
+
+  </blockquote>
+
+
+  <p>新機能または改善された機能については、Application インサイト User Voice でアイデアを共有してください。質問については、Application インサイト <a href="https://social.msdn.microsoft.com/Forums/en-US/ApplicationInsights/">フォーラムをご覧ください</a></p>

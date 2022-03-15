@@ -1,0 +1,96 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1d3a0f331da1bc6bc0f030bdff5b7c94dad64313
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889966"
+Slug: azure-maps-power-bi-visual-now-in-preview
+Title: Azure マップ Power BIビジュアルがプレビュー中
+Summary: この記事マップ用の Azure Power BIビジュアルは、今週プレビューとしてリリースされる予定です。 Power BIは、強力な分析および視覚化ツールです。 Azure マップは、意思決定で使用できる地理空間コンテキストと分析情報を取得するために重要なツールです。
+Content: >-
+  <p>この記事マップ用の Azure Power BIビジュアルは、今週プレビューとしてリリースされる予定です。 Power BIは、強力な分析および視覚化ツールです。 Azure マップは、意思決定で使用できる地理空間コンテキストと分析情報を取得するために重要なツールです。</p>
+
+
+  <p>この最初のリリースには、次の視覚化レイヤーが含まれています。</p>
+
+
+  <ul>
+      <li>バブル レイヤー</li>
+      <li>3D 棒グラフ レイヤー</li>
+      <li>参照レイヤー</li>
+      <li>カスタム タイル レイヤー</li>
+      <li>リアルタイム トラフィック オーバーレイ</li>
+  </ul>
+
+
+  <p>これらの視覚化レイヤーに加えて、このビジュアルでは、ツールヒント、配色テーマ、フィルターやスライサーのサポートなどの組み込みの Power BI 機能も利用します。</p>
+
+
+  <h2>バブル レイヤー&mdash;スケールされた円として位置データを表現する</h2>
+
+
+  <p>バブル レイヤーは、マップ上のスケールされた円として位置データを表す最適な方法です。 お客様は、線形スケーリング方法を使用するか、対数または曲線を使用してスケーリング ロジックCubic-Bezierできます。 さらに、ユーザーは凡例フィールドに値を渡し、円の塗りつぶしの色を動的に設定できます。また、単一の色で円のアウトラインを作成するか、ハイ コントラストアウトライン オプションを有効にして、マップが設定されているスタイルに関係なく円が明確に表示されるのに役立つ、円に割り当てられた塗りつぶしの色のハイ コントラストバリアントを設定します。 ユーザーがマップ、スケール、カテゴリの場所ごとに 2 つのメトリックを簡単に視覚化できます。</p>
+
+
+  <p>たとえば、次の図は、北米の自転車の事故の場所を示しています。 色は、事故が発生した道路の速度制限を示し、サイズは事故に関与した個人の数に基づいて示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7453509-dda9-48d6-b960-ecbebd696e4e.png"><img alt="Map showing bicycle accident locations in North Carolina." border="0" height="469" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8546d591-93c0-45ce-81a9-993caa2d22ea.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="北北部の自転車事故の場所を示すマップ。" width="822"></a></p>
+
+
+  <h2>3D 棒グラフ レイヤー&mdash;位置データを 3D 棒または棒として表示する</h2>
+
+
+  <p>3D 横棒グラフは、地図上の 3D 棒または棒として位置データを視覚化することで、次のディメンションにデータを取り込む場合に便利です。 ユーザーは、マウスの右ボタンを押しながら、ナビゲーション コントロールの 1 つをドラッグまたは使用してさまざまなパースペクティブからデータを表示することで、マップを傾けて回転できます。</p>
+
+
+  <p>バブル レイヤーと同様に、横棒グラフ レイヤーでは、色と相対的高さを使用して 2 つのメトリックを同時に視覚化することが容易にできます。 次のマップには、店舗の場所が表示されます。店舗の高さは、各場所から生成された収益を表し、販売地域別に色付けされています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/56bc9253-8365-4187-9d79-72010f1606b7.png"><img alt="Store locations with bar heights representing the revenue generated from each location, colored by sales region." border="0" height="635" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08b194f8-0081-426a-8ae6-f8633141f9a5.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="各場所から生成された収益を表すバーの高さを持つ店舗の場所。販売地域別に色付けされます。" width="1024"></a></p>
+
+
+  <h2>参照レイヤー&mdash;の追加データ レイヤーを参照してコンテキストを追加する</h2>
+
+
+  <p>Power BIでは、1 つのデータ セットをビジュアルに接続できます。 ただし、マップを使用する場合は、多くの場合、レポートにコンテキストを追加するために追加のデータ レイヤーをオーバーレイすることが望ましい場合があります。 この機能を使用すると、カスタムの場所データを含む GeoJSON ファイルをマップにアップロードしてオーバーレイできます。 GeoJSON ファイルのプロパティを使用して、図形のスタイルをカスタマイズできます。</p>
+
+
+  <p>たとえば、次のマップ画像は、人口によって色分けされた国勢調査の境界の GeoJSON ファイルを、不動産価値で色付けされた住所の層の下に追加します。 これにより、母集団密度とプロパティ値の関係に関する分析情報が提供されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/aee4e91e-b5ad-41a8-8f40-0011547cdfb6.png"><img alt="Map with a GeoJSON file of census tract boundaries, colored by population, below a layer of addresses colored by real estate value. " border="0" height="595" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9ce9a3b1-2d3a-4630-9ecd-b44cb6d1de54.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="国勢調査の境界線の GeoJSON ファイルを使用してマップし、人口によって色付けされ、不動産価値で色分けされた住所の層の下に表示されます。 " width="1024"></a></p>
+
+
+  <h2>カスタム タイル レイヤーSuperimpose&mdash; イメージを Azure 上に表示マップベース マップ タイル</h2>
+
+
+  <p>カスタム タイル レイヤーをマップにオーバーレイして、コンテキストのレイヤーを追加します。 タイル レイヤーを使用すると、Azure Maps ベース マップ タイルの上に画像を重ねることができます。 Azure マップ気象サービスの気象データをオーバーレイするか、独自のタイル サービスを使用します。</p>
+
+
+  <p>次のマップは、Azure マップ の現在の気象レーダーを示すタイル レイヤーの上に、眼鏡を販売している店舗の売上データのバブル レイヤーを表示します。 この場合、雨が降っている場所で発生している眼鏡の売上が少ないのが簡単に分かっています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c519e5e6-ad28-4cd6-a6c8-e4c451dee7ac.png"><img alt="Map with a bubble layer of sales data of store selling sunglasses above a tile layer, showing current weather radar. " border="0" height="527" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60775a4a-260c-42b8-9770-eb7ac88db15b.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="タイル レイヤーの上に眼鏡を販売している店舗の売上データのバブル レイヤーをマップし、現在の気象レーダーを示します。 " width="730"></a></p>
+
+
+  <h2>リアルタイム トラフィック オーバーレイ トラフィック&mdash;の輻輳とデータの関係を確認する</h2>
+
+
+  <p>ユーザーは、リアルタイムのトラフィック フロー データをオーバーレイして、トラフィックの輻輳が自分のデータとどのように関連しているかを確認できます。 たとえば、次のマップは、マップ上にバブル レイヤーとしてレンダリングされたフィールド技術者の位置をエクスペリエンス レベルで色付けし、現在のジョブの残り時間の量でスケーリングした位置を示しています。 リアルタイム のトラフィックはマップ上にオーバーレイされ、交通の輻輳によって次の仕事に行くのが遅れる可能性が最も高い技術者を簡単に視覚的に参照できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e25c79de-b33a-46a9-a059-e23641094d1f.png"><img alt="Map with real-time overlay showing traffic flow data." border="0" height="375" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6c8f0df9-f36e-4797-8a69-01a06023776c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="トラフィック フロー データを示すリアルタイム オーバーレイを使用してマップします。" width="596"></a></p>
+
+
+  <h2>概要用の Azure マップ ビジュアルを使用Power BI</h2>
+
+
+  <p>Azure マップ ビジュアルの使用を開始するには、最初にデスクトップ アプリPower BI有効にしてください。 これを行うには、[ファイル のオプションと設定] でオプション <b>パネル</b> &gt; <b>を開きます</b>。 [プレビュー機能<b>]</b> <b>オプションに移動</b>し、<b>Azure マップ ビジュアルを選択します</b>。 これが完了すると、Web サイトでこのビジュアルをPower BIできます。</p>
+
+
+  <p>これはほんの始まりにすぎない。 多くのおすすめの新機能が計画されています。 機能要求はありますか? フィードバック サイトで既存の要求をお知らせするか、または投票 <a href="https://feedback.azure.com/forums/909172-azure-maps" target="_blank">してください</a>。</p>
+
+
+  <p>Azure のビジュアルの<a href="https://docs.microsoft.com/en-us/azure/azure-maps/power-bi-visual-getting-started" target="_blank">詳細についてはマップ Power BIしてください</a>。</p>

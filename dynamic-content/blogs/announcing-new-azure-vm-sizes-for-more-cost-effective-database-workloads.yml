@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f32ea9355c52d35396b88ac95be41ba47974428d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890953"
+Slug: announcing-new-azure-vm-sizes-for-more-cost-effective-database-workloads
+Title: コスト効率の高いデータベースワークロードのための新しい Azure VM サイズの発表
+Summary: SQL Server や Oracle などのデータベースワークロードでは、多くの場合、高いメモリ、ストレージ、i/o 帯域幅が必要ですが、コア数が多いとは限りません。 多くのデータベースワークロードは...
+Content: >-
+  <p>SQL Server や Oracle などのデータベースワークロードでは、多くの場合、高いメモリ、ストレージ、i/o 帯域幅が必要ですが、コア数が多いとは限りません。 実行中のデータベースワークロードの多くは、CPU を集中的に消費することはありません。 Vm の vCPU 数を制限して、同じメモリ、ストレージ、i/o 帯域幅を維持しながら、ソフトウェアライセンスのコストを削減できる VM サイズが必要です。</p>
+
+
+  <p>Microsoft では、最も人気のある VM サイズ (DS、ES、GS、および MS) の最新バージョンを発表しています。これにより、同じメモリ、ストレージ、i/o 帯域幅を維持しながら、vCPU 数が元の VM サイズの半分または1分の1に制限されます。 これらの新しい VM サイズは、識別しやすいように、アクティブな vCPUs の数を指定するサフィックスでマークされています。</p>
+
+
+  <p>たとえば、現在の VM サイズ Standard_GS5 には、32 vCPUs、448GB メモリ、64ディスク (最大 256 TB)、8万 IOPs または 2 GB/秒の i/o 帯域幅が付属しています。 新しい VM サイズ Standard_GS5-16 および Standard_GS5-8 には、それぞれ16個と8個のアクティブな vCPUs が付属しています。一方、メモリ、ストレージ、i/o 帯域幅に関して、Standard_GS5 の残りの仕様は維持されています。</p>
+
+
+  <p>SQL Server または Oracle に対して課金されるライセンスは、新しい vcpu の数に制限されます。その他の製品は、新しい vcpu の数に基づいて課金される必要があります。 この結果、VM の仕様がアクティブ (課金対象) の vCPUs に対して50% から75% 増加します。 Azure でのみ使用可能なこれらの新しい VM サイズでは、ワークロードは何分の 1 かの (コアごとの) ライセンス コストで、より高い CPU 使用率を実現できます。 現時点では、OS のライセンスを含むコンピューティング コストは元のサイズと同じです。</p>
+
+
+  <p>ここでは、元のバージョンと比較して、新しい DS14-4v2 と GS5 vm のサイズについて、SQL Server Enterprise イメージからプロビジョニングされた vm を実行する場合の節約される可能性の例をいくつか示します。 <em>最新の公式価格については、AZURE VM の価格に関するページを参照してください</em> <a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/sql-server-enterprise/" target="_blank"><em></em></a><em>。</em></p>
+
+
+  <table border="1" cellpadding="2" cellspacing="0" width="1094">
+      <tbody>
+          <tr>
+              <td valign="top" width="274"><strong>VM のサイズ</strong></td>
+              <td valign="top" width="101"><strong>Vcpu</strong></td>
+              <td valign="top" width="137"><strong>[メモリ]</strong></td>
+              <td valign="top" width="83"><strong>最大ディスク数 </strong></td>
+              <td valign="top" width="182"><strong>最大 i/o スループット </strong></td>
+              <td valign="top" width="159"><strong>年間 SQL Server Enterprise ライセンスコスト</strong></td>
+              <td valign="top" width="156">
+              <p><strong>年間の総コスト</strong></p>
+
+              <p><strong>(コンピューティング + ライセンス)</strong></p>
+              </td>
+          </tr>
+          <tr>
+              <td valign="top" width="274">Standard_DS14v2</td>
+              <td valign="top" width="101">16</td>
+              <td valign="top" width="137">112 GB</td>
+              <td valign="top" width="83">32</td>
+              <td valign="top" width="182">51,200 IOPS または 768 MB/秒</td>
+              <td valign="top" width="159">&nbsp;</td>
+              <td valign="top" width="156">&nbsp;</td>
+          </tr>
+          <tr>
+              <td valign="top" width="274">Standard_DS14-4v2</td>
+              <td valign="top" width="101">4</td>
+              <td valign="top" width="137">112 GB</td>
+              <td valign="top" width="83">32</td>
+              <td valign="top" width="182">51,200 IOPS または 768 MB/秒</td>
+              <td valign="top" width="159">75% 削減</td>
+              <td valign="top" width="156">57% 削減</td>
+          </tr>
+          <tr>
+              <td valign="top" width="274">Standard_GS5</td>
+              <td valign="top" width="101">32</td>
+              <td valign="top" width="137">448</td>
+              <td valign="top" width="83">64</td>
+              <td valign="top" width="182">80,000 IOPS または 2 GB/秒</td>
+              <td valign="top" width="159">&nbsp;</td>
+              <td valign="top" width="156">&nbsp;</td>
+          </tr>
+          <tr>
+              <td valign="top" width="274">Standard_GS5-8</td>
+              <td valign="top" width="101">8</td>
+              <td valign="top" width="137">448</td>
+              <td valign="top" width="83">64</td>
+              <td valign="top" width="182">80,000 IOPS または 2 GB/秒</td>
+              <td valign="top" width="159">75% 削減</td>
+              <td valign="top" width="156">42% 削減</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>byol イメージのいずれかを使用するか、手動で SQL Server をインストールすることによって、これらの新しい VM サイズのいずれかに独自の SQL Server ライセンスを持ち込む場合は、制限された vcpu 数をライセンスするだけで済みます。 byol とその他のアイデアをさらに削減する方法の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-sql-server-pricing-guidance" target="_blank">SQL Server の料金ガイダンス</a>を参照してください。</p>
+
+
+  <p><a href="https://portal.azure.com/" target="_blank">これらの新しい VM サイズの使用を開始</a> し、今すぐライセンスコストを節約しましょう。</p>

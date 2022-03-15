@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 719e059284ddbcd736c47b41ac2012692d2bba0d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896268"
+Slug: announcing-new-capabilities-of-hdinsight-and-documentdb-at-strata
+Title: Strata での HDInsight と DocumentDB の新機能の発表
+Summary: 今週、Microsoft は、Azure HDInsight の新機能 (すべてのオープンソースを実行するための完全に管理された OSS 分析プラットフォーム) を発表します。
+Content: >-
+  <p><strong>2017年5月10日のうち、</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は、Microsoft &rsquo; がグローバルに分散したマルチモデルデータベースです。Azure Cosmos DB は、グローバルな分散と水平方向のスケールを中心として一から構築されました。任意の数の Azure リージョンでのターンキーグローバル分散を提供します。ユーザーがどこにいても、透過的にデータのスケーリングとレプリケーションを行うことができます。スループットとストレージを世界規模で弾力的にスケーリングし、必要なスループットとストレージに対してのみ料金を支払うことができます。Azure Cosmos DB では、世界中のどこでも99パーセンタイルで1桁のミリ秒の待機時間を保証し、複数の明確に定義された整合性モデルを使用してパフォーマンスを微調整し、業界トップレベルのサービスレベルアグリーメント (sla) によってサポートされるマルチホーム機能 &mdash; によって高可用性を保証します。&nbsp;</strong></p>
+
+
+  <p><strong>Azure Cosmos DB は完全にスキーマに依存しません。スキーマとインデックスの管理に対処する必要がなく、すべてのデータのインデックスが自動的に作成されます。また、マルチモデルで、ドキュメント、キー値、グラフ、列ファミリの各データモデルも、ネイティブにサポートされて &rsquo; います。Azure Cosmos DB では、DocumentDB SQL (ドキュメント)、MongoDB (ドキュメント)、Azure Table Storage (キー値)、およびグリーン mlin (グラフ) がすべてネイティブにサポートされているため、お好きな api を使用してデータにアクセスできます。</strong></p>
+
+
+  <hr>
+
+  <p>今週の San では、Microsoft は <a href="https://conferences.oreilly.com/strata/strata-ca"> &nbsp; </a> 、拡張されたすべてのオープンソースの分析ワークロードを大規模に実行するための完全管理型 OSS analytics プラットフォームである <a href="https://azure.microsoft.com/en-us/services/hdinsight/">azure HDInsight</a>の新機能について発表します。これは、エンタープライズレベルのセキュリティと <a href="https://azure.microsoft.com/en-us/services/documentdb/">SLA を備え</a>、地球規模の完全に管理された NoSQL データベースサービスです。 私たちのビジョンは、両方のサービスを深く統合し、開発者が低待機時間とグローバルな規模で大量のデータをシームレスに処理できるようにすることです。</p>
+
+
+  <h2>DocumentDB の発表</h2>
+
+
+  <p>DocumentDB は、開発者が地球規模のアプリケーションを構築できるように設計された Microsoft &rsquo; の <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-distribute-data-globally">グローバル分散データベースサービス</a> です。 DocumentDB では、任意の数の地理的リージョン間でスループットとストレージの両方を弾力的にスケーリングできます。 このサービスは、99パーセンタイルで1桁のミリ秒未満の待機時間を保証し99.99、高可用性と予測可能なスループットを保証し、<a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-consistency-levels">複数の明確に定義された整合性モデル</a> &mdash; を、待機時間、可用性、スループット、整合性のための包括的な sla によって支えます。 DocumentDB は、<a href="https://www.vldb.org/pvldb/vol8/p1668-shukla.pdf">スキーマに依存せず、書き込みに最適化</a>されたデータベースエンジンを利用することで、取り込み、 <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-protocol-mongodb">MongoDB</a>、および<a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-programming#javascript-language-integrated-query-api">JavaScript の統合言語クエリ</a> <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-sql-query">SQL</a>全体で、スケールに依存しない方法で自動的に処理されるすべてのデータのインデックスを自動的に作成することができます。 Azure の基本サービスの1つとして、DocumentDB は随所のバック Microsoft サービスエンドとして使用されています。 Azure では、2015一般公開されているため、DocumentDB は最も急速に成長しているサービスの1つです。</p>
+
+
+  <h3>Apache Spark と DocumentDB を使用したリアルタイムのデータサイエンス</h3>
+
+
+  <p>ここでは、 <a href="https://github.com/Azure/azure-documentdb-spark">DocumentDB の Spark コネクタ</a>を発表します。 これにより、DocumentDB のグローバル分散データに対してリアルタイムのデータサイエンスと探索が可能になります。 Apache Spark を Azure DocumentDB に接続することにより、お客様 &rsquo; は、documentdb を使用してデータを迅速に保存して取得できるデータサイエンスの迅速な問題を迅速に解決できるようになります。 Spark to DocumentDB コネクタは、ネイティブの DocumentDB 管理インデックスを効率的に悪用します。また、 <a href="https://github.com/Azure/azure-documentdb-spark/wiki">IoT、データサイエンス、分析のシナリオ</a>から、グローバルに分散したデータに対して分析、プッシュダウン述語のフィルター処理、高度な分析を実行するときに、更新可能な列を有効にします。 Spark to DocumentDB コネクタは、 <a href="https://github.com/Azure/azure-documentdb-java">Azure DocumentDB JAVA SDK</a>を使用します。 今すぐ<a href="https://github.com/Azure/azure-documentdb-spark/wiki/Azure-DocumentDB-Spark-Connector-User-Guide">開始</a>して、 <a href="https://github.com/Azure/azure-documentdb-spark">GitHub</a>から Spark コネクタをダウンロードしてください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8bd9e3da-cf49-43d1-82ba-1c90acaa7ac6.png"><img alt="Spark" border="0" height="203" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f117088a-9281-429c-8579-46f0a99b4aa9.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Spark" width="566"></a></p>
+
+
+  <h3>DocumentDB 向けの高度な忠実性、SLA でサポートされている MongoDB Api の一般提供</h3>
+
+
+  <p>DocumentDB は、複数のデータモデル、ワイヤプロトコル、Api をネイティブにサポートするように設計されています。 現在、 <a href="https://docs.microsoft.com/en-us/azure/documentdb/documentdb-protocol-mongodb">MongoDB 用の DOCUMENTDB &rsquo; API</a>の<a href="https://aka.ms/documentdb-mongodb-blog">一般提供</a>が発表されています。 これにより、MongoDB 上に構築された既存のアプリケーションは、DocumentDB をシームレスにターゲットにして、MongoDB クライアントのドライバーとツールチェーンを引き続き使用できます。 これにより、MongoDB Api の使用を継続しながら DocumentDB に簡単に移行できますが、包括的なエンタープライズレベルの Sla、ターンキーグローバル分散、セキュリティ、コンプライアンス、および完全管理型のサービスを利用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c677a3df-2631-47f2-9fac-d31e2e8463af.png"><img alt="DocumentDB" border="0" height="213" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/80e5360d-34ee-4782-9242-903c8f1aaae5.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="DocumentDB" width="581"></a></p>
+
+
+  <h2>HDInsight の発表</h2>
+
+
+  <h3>Hortonworks Data Platform 2.6 を使用したクラウド優先</h3>
+
+
+  <p>Microsoft &rsquo; のクラウドファースト戦略では、お客様とアナリストに対して既に成功が示されています。これは、 <a href="https://azure.microsoft.com/en-in/blog/forrester-names-microsoft-azure-a-leader-in-big-data-hadoop-cloud-solutions/">Forrester ビッグデータ Hadoop cloud Solutions の波</a> のリーダーとして、また分析用のデータ管理ソリューションのための <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2017/03/07/gartner-names-microsoft-a-leader-in-the-magic-quadrant-for-data-management-solutions-for-analytics-dmsa/">Gartner のマジッククアドラント</a> のリーダーとして、最近の地位を示しています。 エンタープライズグレードの SLA によって支えられている、HDInsight などの完全に管理されたクラウドサービスを運用することにより、お客様は Hadoop &amp; Spark の最新のビットをオンデマンドでデプロイできます。 そのため、最新の Hortonworks Data Platform 2.6 は、オンプレミスのリリースの前でも HDInsight で継続的に利用できるようになっています。 Hadoop と Spark のワークロードでクラウドの重要性が高まって<a href="https://hortonworks.com/blog/microsoft-hortonworks-empower-azure-hdinsight-customers-first-benefit-innovation">いるため、クラウド優先</a>の Hortonworks &rsquo; コミットメントは特に重要です。</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="999">
+   <tbody>
+    <tr>
+     <td valign="top" width="999">
+     <p><em>&quot;Hortonworks では、Hadoop に関連する多くの作業負荷とアプリケーションがクラウドに移行しています。 HDP 2.6 以降、 &ldquo; クラウドプラットフォーム &ndash; の Azure HDInsight でプラットフォームを使用できるようにするための最初 &rdquo; の戦略は、従来のオンプレミス設定でも使用できるようになります。 この点を念頭に置いて、Microsoft と Hortonworks は、Azure HDInsight のお客様が、近い将来の HDP 2.6 イノベーションの恩恵を受けられるように支援します。&quot;<br>
+     - Arun Murthy、創設者、Hortonworks</em></p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h3>管理されたクラウドサービスで最も安全な Hadoop</h3>
+
+
+  <p>昨年は、ニューヨークでは、最初の1年で、Hadoop ワークロード用に HDInsight でネイティブに使用できる認証、承認、監査、および暗号化について、最高レベルのセキュリティを <a href="https://azure.microsoft.com/en-in/blog/new-security-performance-and-isv-solutions-build-on-azure-hdinsight-s-leadership-to-make-hadoop-enterprise-ready-for-the-cloud/">発表</a> しました。 ここでは、対話型 Hive (LLAP を搭載) と Apache Spark を含む、他のワークロード間でセキュリティ機能を拡張します。 これにより、お客様は、これらの一般的なワークロードで <a href="https://hortonworks.com/apache/ranger/">Apache レンジャー</a> を使用して、きめ細かいアクセス制御を作成して管理するための一元的なポリシーと管理ポータルを提供できます。 さらに、お客様は、使い慣れた Apache Rangers ユーザーインターフェイスで詳細な監査レコードを分析できるようになりました。</p>
+
+
+  <h3>新しい完全に管理された、SLA でサポートされる Apache Spark 2.1 オファリング</h3>
+
+
+  <p>Apache Spark for Azure HDInsight の最新リリースでは、完全に管理された、99.9% の SLA でサポートされる Spark 2.1 クラスターのみを市場で提供しています。 さらに、Spark を <a href="https://azure.microsoft.com/en-us/services/event-hubs/">Azure Event Hubs</a> に統合し、 <a href="https://azure.microsoft.com/en-us/services/hdinsight/apache-kafka/">kafka</a> for HDInsight で構造化ストリーミングコネクタを利用して、リアルタイムのストリーミングソリューションをサポートする機能を導入しています。 これにより、Spark を使用して、これらの Azure サービスに取り込まれたた数百万のリアルタイムイベントを分析し、IoT などのリアルタイムシナリオを実現できます。 これは、DirectStreaming サポートによって実現されました。これにより、Event Hubs のデータを処理する際に、Spark streaming ジョブのパフォーマンスと信頼性が向上します。 この作業のソースコードとバイナリ配布は、 <a href="https://github.com/hdinsight/spark-eventhubs">GitHub</a>で公開されるようになりました。</p>
+
+
+  <h3>Zeppelin と ISV パートナーシップを使用した新しいデータサイエンスエクスペリエンス</h3>
+
+
+  <p>私たちの目標は、すべてのユーザーがビッグデータにアクセスできるようにすることです。 <a href="https://docs.microsoft.com/api/Redirect/en-in/documentation/articles/hdinsight-hadoop-visual-studio-tools-get-started/">Visual Studio</a>、 <a href="https://docs.microsoft.com/api/Redirect/en-in/documentation/articles/hdinsight-apache-spark-eclipse-tool-plugin/">Eclipse</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-apache-spark-intellij-tool-plugin/">IntelliJ</a>のサポートを備えた ETL ジョブで作業するデータエンジニア、 <a href="https://azure.microsoft.com/en-us/services/hdinsight/r-server/">Microsoft R Server</a>と<a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-apache-spark-jupyter-notebook-use-external-packages/">jupyter notebook</a>のサポートで実験を実行するデータ科学者、およびを使用して<a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-apache-spark-use-bi-tools/">ダッシュボードを作成するビジネスアナリストなど、さまざまなユーザーにとって生産性エクスペリエンスを設計しました。Power BI</a>、tableau、SAP Lumira、および qlik がサポートされています。 最新の Hortonworks Data Platform 2.6 の HDInsight &rsquo; s のサポートの一部として、データ科学者のための一般的なワークスペースである Zeppelin notebook は、Spark 2.1 と対話型 Hive (LLAP) の両方をサポートします。 さらに、一般的な独立系ソフトウェアベンダー (Isv) <a href="https://www.dataiku.com/">Dataiku</a> と <a href="https://www.h2o.ai/">H20.ai</a> が、HDInsight プラットフォームで利用できる既存の isv アプリケーションセットに追加されました。 HDInsight エッジノードの固有の設計により、お客様は、HDInsight クラスター上でこれらのデータサイエンスソリューションを直接作成することができます。これは、お客様がインテリジェントなアプリケーションを簡単に構築できるように、オンプレボックスで統合およびチューニングされています。</p>
+
+
+  <h3>対話型 Hive を使用したデータウェアハウスシナリオの有効化</h3>
+
+
+  <p>Microsoft は、Hive クエリのパフォーマンスを最大100倍にスピードする Stinger と tez <a href="https://hortonworks.com/blog/microsofts-contributions-to-the-stinger-initiative-and-apache-hive/">Project</a>の貢献により、Apache Hive の実行時間を短縮することから始まりました。 追加の25x に対するクエリのパフォーマンスを向上させるために、LLAP (長期とプロセス) を使用した Hive のサポートを発表しました。 最新バージョンの Apache Hive 2.1.1 がサポートされているため、データ移動を必要とすることなく、すべてのエンタープライズデータに対してデータウェアハウスのシナリオを可能にするという、1秒未満のクエリパフォーマンスが期待できます。 対話型 Hive クラスターでは、一般的な BI ツールもサポートされています。これは、Hadoop 上で直接お気に入りのツールを実行するビジネスアナリストに役立ちます。&nbsp;</p>
+
+
+  <h2>SQL Server CTP 1.4 の発表</h2>
+
+
+  <p>Microsoft は、次のバージョンの SQL Server Community Technology Preview (CTP) 1.4 を今後の Windows と Linux の両方で使用できるようになる新しいプレビュー版を発表します。 このプレビューでは、SQL Server v で SQL Server エージェントを使用してジョブをスケジュールする機能が提供されます。 Linux の場合は次のようになります。 使用可能な場合は、現在の開発環境とテスト環境で<a href="https://azure.microsoft.com/en-us/blog/announcing-new-capabilities-of-hdinsight-and-documentdb-at-strata/www.sqlserveronlinux.com">プレビューを試す</a>ことができます。また、CTP 1.4 の詳細については、 <a href="https://msdn.microsoft.com/en-US/library/mt788653(SQL.130).aspx">SQL Server v の新機能 &rsquo; </a>、<a href="https://msdn.microsoft.com/en-US/library/mt788652(SQL.130).aspx">リリースノート</a>、 <a href="https://docs.microsoft.com/en-us/sql/linux/">Linux のドキュメント</a>を参照してください。</p>
+
+
+  <p>これまで、Microsoft では、来月- <a href="https://www.microsoft.com/dataamp">Microsoft Data Amp</a>という新しいオンラインイベントも発表しました。 このイベントでは、Scott Guthrie とジョセフ Sirosh は、データをアプリケーションのイノベーションと人工知能の中心に配置するために行ってきた投資に関して、魅力的な新しい発表をいくつか共有します。 <a href="https://aka.ms/data-amp-announce">Mitra Azizirad &rsquo; s のブログ</a>記事をご覧になり、Microsoft Data Amp の詳細を確認し<a href="https://www.microsoft.com/dataamp">、</a>すばらしいイベントとなる予定の &rsquo; 日付を保存することをお勧めします。</p>
+
+
+  <p>今週、ビッグデータの世界では、業界とコミュニティにとって優れたイベントであるサン・・・・・・・・・・・・・・・・・・・・・・・・・・・で、 Microsoft は、ビッグデータと NoSQL のイノベーションをネイティブで利用できるようにし、Azure サービスの一部として簡単にアクセスできるようにし、生産性を高めることを約束しています。</p>

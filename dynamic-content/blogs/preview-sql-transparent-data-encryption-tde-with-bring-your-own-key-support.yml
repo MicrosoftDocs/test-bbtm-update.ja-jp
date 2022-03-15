@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bb319d1df3a7229bae6bf9adab95a1d890e9e8a3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894732"
+Slug: preview-sql-transparent-data-encryption-tde-with-bring-your-own-key-support
+Title: 'プレビュー: SQL Transparent Data Encryption (tde) Bring Your Own Key サポート'
+Summary: Azure Key Vault を使用した Bring Your Own Key サポートの Transparent Data Encryption のプレビューが利用可能になりました。
+Content: >-
+  <p>Azure SQL Database と Azure SQL Data Warehouse に対する Bring Your Own Key (byok) のサポートにより、Transparent Data Encryption (tde) のプレビューを発表しまし &rsquo; た。 これで、これらのマスターキーを <a href="https://azure.microsoft.com/services/key-vault/">Azure Key Vault</a>に格納することで、保存時の暗号化に使用するキーを tde で制御できるようになりました。</p>
+
+
+  <p>BYOK をサポートする TDE を使用すると、TDE プロテクターの透明性と制御性が向上し、HSM で保護された外部サービスによりセキュリティが強化され、職務の分離が促進されます。</p>
+
+
+  <p>TDE を使用すると、データは、データベースまたはデータウェアハウスのディストリビューションに格納されている対称キー (データベース暗号化キー) を使用して保存時に暗号化されます。 以前はこのデータ暗号化キー (dek) を保護するために、Azure SQL サービスで管理されている証明書のみを使用することができました。 ここで、TDE の BYOK サポートを使用して、Key Vault に格納されている非対称キーを使用して DEK を保護することができます。 Key Vault は、高い可用性と拡張性を備えたクラウドベースのキーストアであり、中央のキー管理を行い、FIPS 140-2 レベル2の検証済みハードウェアセキュリティモジュール (Hsm) を活用し、セキュリティを強化するためにキーとデータの管理を分離することができます。</p>
+
+
+  <p>Azure SQL Database と SQL Data Warehouse のすべての機能は、byok をサポートする tde で動作します。また、 <a href="https://portal.azure.com/">Azure Portal</a>、 <a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql-configure">PowerShell</a>、および<a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-azure-sql#managing-transparent-data-encryption-using-rest-api">REST API</a>を使用して、現在の Key Vault のキーを使用して tde の有効化を開始することもできます。</p>
+
+
+  <p>Azure Portal &rsquo; では、シンプルなエクスペリエンスを維持しています。 では、3つの一般的なシナリオについて説明 &rsquo; します。</p>
+
+
+  <h2>TDE を有効にする</h2>
+
+
+  <p>&rsquo;データベースまたはデータウェアハウスで TDE を有効にするのと同じシンプルなエクスペリエンスを維持しています。</p>
+
+
+  <p><img alt="Public Preview of Transparent Data Encryption (TDE) with Bring Your Own Key (BYOK) support" border="0" height="339" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c1e632f2-38be-4df9-a8d7-270104d79912.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SQL Database の Transparent data encryption" width="610"></p>
+
+
+  <h2>TDE プロテクターの設定</h2>
+
+
+  <p>サーバーで、サーバー上のデータベースとデータウェアハウスの TDE プロテクターとして独自のキーを使用するように選択できるようになりました。 キーコンテナーを参照して、既存のキーを選択するか、Key Vault で新しいキーを作成します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="Public Preview of Transparent Data Encryption (TDE) with Bring Your Own Key (BYOK) support" border="0" height="432" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc3ac750-c485-481f-a032-b8337a0ac60e.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="SQL Database の Transparent data encryption" width="610"></p>
+
+
+  <h2>キーのローテーション</h2>
+
+
+  <p>現在のキーに新しいバージョンを追加することで、TDE プロテクターを Key Vault でローテーションできます。 また、TDE プロテクターを Key Vault 内の別のキーに切り替えることも、サービスによって管理される証明書に戻すこともできます。 Azure SQL サービスは、これらの変更を自動的に取得します。 TDE プロテクターのローテーションは、高速なオンラインプロセスです。すべてのデータを再暗号化するのではなく、各データベースの DEK と、TDE プロテクターを使用してデータウェアハウスのディストリビューションを再暗号化します。</p>
+
+
+  <p><img alt="Public Preview of Transparent Data Encryption (TDE) with Bring Your Own Key (BYOK) support" border="0" height="595" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/259b8337-db18-4f9e-a034-58f3dbf210ec.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Key Vault でのキーローテーション" width="610"></p>
+
+
+  <p>SQL tde に byok のサポートを統合すると、暗号化機能として tde の利点を活用し、外部キー管理サービスとして Key Vault できます。</p>
+
+
+  <p>開始するには、 <a href="https://portal.azure.com/">Azure Portal</a> または <a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql-configure">PowerShell を使用したハウツーガイド</a> に関するページをご覧ください。 ベストプラクティスを含むこの機能の詳細については、 <a href="https://channel9.msdn.com/Shows/Data-Exposed/TDE-with-Bring-Your-Own-Key-Support-in-Azure-SQL-DB-and-DW">Channel 9 のビデオ</a>をご覧になるか、または<a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql">Bring Your Own Key サポートの Transparent Data Encryption</a>を参照してください。</p>
+
+
+  <p>SQL Database と SQL Data Warehouse<a href="https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=AzureKeyVault%2Cssdsgetstarted%2CAzureSQLDataWarehouse&amp;filter=alltypes&amp;sort=lastpostdesc">フォーラム</a>にアクセスして、byok で tde についてご意見をお聞かせください。</p>

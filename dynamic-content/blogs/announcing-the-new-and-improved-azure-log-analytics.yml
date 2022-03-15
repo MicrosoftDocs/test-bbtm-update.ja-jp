@@ -1,0 +1,114 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 41f6a4eb6d25aee076c15312b14a919a40835aec
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890320"
+Slug: announcing-the-new-and-improved-azure-log-analytics
+Title: Azure Log Analytics の新機能と強化された機能の発表
+Summary: Azure Log Analytics サービスは、現在、既存の顧客へのアップグレードをロールアウトしています。強力な検索、スマート分析、さらに深い洞察を提供しています。 このアップグレードには、対話型クエリ言語と高度な分析ポータルが用意されており、Azure アプリケーションインサイトに似た拡張性の高いデータストアが搭載されています。
+Content: >-
+  <p>Azure Log Analytics サービスは、現在 &ndash; 、強力な検索、スマート分析、さらに深い洞察を提供する既存の顧客へのアップグレードをロールアウトしています。 このアップグレードには、対話型クエリ言語と高度な分析ポータルが用意されており、 <a href="https://azure.microsoft.com/en-us/services/application-insights/" target="_blank">Azure アプリケーションインサイト</a>に似た拡張性の高いデータストアが搭載されています。 これにより、IT 運用および開発者のための一貫した監視エクスペリエンスが実現します。</p>
+
+
+  <p>起動後の最大のアップグレードでは、Azure Log Analytics の新機能と強化された機能により、言語フィードバックで要求されるすべての機能を備えたシンプルで強力なクエリ言語を利用できます。 過去2か月にわたって、アップグレードに事前にアクセスした60以上のお客様と密接に連携しており、新しい言語の機能強化についてのフィードバックは非常に優れています。 ここでは、お客様と共有したいと思います。</p>
+
+
+  <p><em>&quot;海岸のウィザードは、Azure Log Analytics のアップグレードにすぐにアクセスできるようになりました。この機能は、コードベースと環境内の問題を診断し、全体のパフォーマンスを大規模に表示するための機能を備えています。ポータルの実装は直感的で、クエリ言語は非常にわかりやすく、IntelliSense の実装は洗練されており、実装に非常に役立ちます。 &rdquo; &nbsp; </em></p>
+
+
+  <p style="text-align: right">&ndash;Scott トーマス、インフラストラクチャ &amp; プラットフォームアーキテクト、 <a href="https://company.wizards.com/" target="_blank">海岸のウィザード</a></p>
+
+
+  <p><em>&ldquo;ワークスペースをアップグレードし、新しいクエリ言語をすばらしいものにしました。クエリは非常に高速で、IntelliSense は優れた機能を備えているので、これまで&#39;していなかった集計を行うことができるようになりました。これは、古いクエリエンジンよりも前になっています。&rdquo;ブラボー </em></p>
+
+
+  <p style="text-align: right">&ndash;Microsoft IT</p>
+
+
+  <p>&ldquo;<em>新しいクエリ言語を使用すると、Log Analytics データを視覚化する必要がある任意の方法で分割できます。主な利点は、共用体、結合、関数、および変数を使用できることです。元のクエリ言語では不可能なクエリを作成できました。アップグレードエクスペリエンスがシームレスになり、既存のクエリが自動的に変換されました。Log Analytics 用に開発したカスタムソリューションでも、非常に簡単に変換できました。 &rdquo; </em></p>
+
+
+  <p style="text-align: right">&ndash;Cameron 著、ソリューションディレクター &ndash; の発表、 <a href="https://www.catapultsystems.com/" target="_blank">飛び道具 Systems</a></p>
+
+
+  <h2>なぜアップグレードすべきなのでしょうか?</h2>
+
+
+  <p>このアップグレードでは無限の可能性がありますが、アップグレード後すぐに使用できる新機能がいくつかあります。ほとんどの場合、これには数秒しかかかりません。</p>
+
+
+  <h3>スマート分析が組み込まれた強力なクエリ言語</h3>
+
+
+  <p>クエリ言語には、強力な検索、クエリ時間フィールドの抽出、計算フィールド、結合と共用体のほか、豊富な <a href="https://docs.loganalytics.io/learn/tutorials/datetime_operations.html" target="_blank">日付と時刻の演算子</a>、 <a href="https://docs.loganalytics.io/learn/tutorials/string_operations.html" target="_blank">文字列演算子</a> 、および <a href="https://docs.loganalytics.io/learn/tutorials/json_and_data_structures.html" target="_blank">ネイティブ JSON のサポート</a>が用意されています。 クエリ言語では、クエリの <a href="https://docs.loganalytics.io/queryLanguage/query_language_letstatement.html" target="_blank">let ステートメント、ラムダ式</a> 、およびコメントもサポートしています。クエリをモジュール化するには、特に、クエリを同僚と共有したり、ライブサイトのサポートやトラブルシューティングに使用したりする場合に便利です。 クエリ言語では、柔軟な <a href="https://docs.loganalytics.io/learn/tutorials/smart_analytics/autocluster.html" target="_blank">機械学習のコンストラクト</a> と時系列関数が提供されているため、お客様はデータをより深く把握できます。 たとえば、 <a href="https://docs.loganalytics.io/learn/tutorials/smart_analytics/make_series.html" target="_blank">時系列関数</a> を使用すると、数百台のコンピューターからの CPU パフォーマンスを分析し、使用量の急増に基づいて上位 N を選択できます。 この言語には他にも多くの機能が含まれており、 <a href="https://docs.loganalytics.io/" target="_blank">Azure Log Analytics</a> リソースでさらに詳しく調べることができます。</p>
+
+
+  <p>&rsquo;ここでは、シナリオのコンテキストで、これらの例をいくつか紹介します。 次の例に示されているすべてのクエリは、前のクエリ言語では実現できませんでした。</p>
+
+
+  <p>このクエリは、IIS 呼び出し期間に基づいてサービスレベルアグリーメント (SLA) が満たされているかどうかを計算します。 自分で試してみるには、 <a href="https://portal.loganalytics.io/demo#?q=H4sIAAAAAAAAA21RTU8CQQy9b7L%2FoUfWEBZiPBBdjHIwm2BiAonnOlOXkfkgs0XB8OOdAtFF7W1e3%2Bt77ZRl3YLbQUvx3SgCR8TGN4CwpvgaokOf0Pns7jbPynKKVm0sMgF6AaH2mragdx6dUWjtDpBhdOXAeE4T0bZ5ZomFu4ioVqShgvF4ML7Os%2BfLaV3PZ6HJsz18LCkSLIyjB%2FIUk4WGSQXYhN5IF%2BL9dMwDKnht2ASPNrWbSA3Kq%2F3HeQ%2FtxjmM5vOwwn0kVEvSlQobzz0xW%2BCKPExGw1RFP8%2BgU0nxSPyHfAMnNpzTOTDaqZBPkiKBLzt4Mb53tldfYhZn59Ridrwleg0qBWWS%2FLRlSsBa8TehOgWDCwkyGJY%2FxtCRyO9UnbtLax3DGymGX3G60%2FsHoZBjmkIROHHVEqMM%2FwL1gM4zLQIAAA%3D%3D" target="_blank">クリックしてクエリを実行</a>します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f4f9ddd4-95f4-495b-927e-b067198adbfa.png"><img alt="2017-08-06_09h20_46" border="0" height="657" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7b6ea14-60e4-423c-978a-9179711928c2.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="2017-08-06_09h20_46" width="1024"></a></p>
+
+
+  <p style="background: rgb(255,255,254); margin: 0px 0px 11px; line-height: 12pt">この例では、結合を使用して、過去1日に重大度が高いセキュリティのアラート検出を行っているコンピューターについて、不足しているセキュリティ更新プログラムの一覧を表示します。 自分で試してみるには、 <a href="https://portal.loganalytics.io/demo#?q=H4sIAAAAAAAAA4WQwUrEMBRF94X%2Bw6WrFpRhPiCCjKALcdPxA2Lzpn0zk6QmqWXEjzdtjVUQzCKQm3sf79zN5pF9gD2gpmZwHC547pUM5KHZezYtDtahsbofAjmPkUOHjtsOnt5oDviUlGdyAYoCNYGt8Xm2zMqzD4wdOcKeNd2TIRdVhRsB2dpyq6rVsSTqEC8IgeKJSJEqJoMftJaO3wlpR6EaO5hQ7jmcqbpK8pIRWp7IU%2FrFywW7L4xp2tGywYmNEmATNxoMvw6EMs8QT2rjLsEs8v8cP123Ux91qmmieYjFFcm08kzybPa7iUcsVBEorbF8fhPNz7%2BwKljzi7J39hgBruUoV982%2BwRracA69wEAAA%3D%3D" target="_blank">クリックしてクエリを実行</a>します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/45251f50-4ebc-4ce1-bd34-e5339c0dc220.png"><img alt="2017-08-06_09h24_07" border="0" height="657" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8a98303-406e-4d9f-a669-7b522d12a18c.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="2017-08-06_09h24_07" width="1024"></a></p>
+
+
+  <p>ここでは、複数のコンピューターの CPU パフォーマンスを分析し、最も関連性の高い2つのコンピューターに絞り込むために時系列分析を使用する例を示します。 自分で試してみるには、 <a href="https://portal.loganalytics.io/demo#?q=H4sIAAAAAAAAA11STUsDMRC9F%2FofHgVhC9svr7IHKSiCaGnVq6S70240m6zJbKvgj3eyW7vQU8LMm7yPyWy2Mo4DuCTcHvZYrl6xcx5GBUahfqAtFvNKDiZ%2FUAbKFmD1Sd0IuxrXyF1VN9IPOGouUTmZzUtl9zQdDgwxyBYvuqLMumMyvulqLAUfMcgWxakWWHnukZj0KEGsyO%2BGg18cS%2FKECLsnK12mAlviI5FFcn5iOj2xjvuZ5%2B0H5fykKiHNMFp5l1MIzo96yNI10eoZc4UzqqVsoZUEMAnktcSgDvtl3WRyJKfZN2UaGqOgnWoMZ3M4e6FWQm1N9WrT%2F4zSGPcY2x9R0qU6HMxmS2XyxshsgNGWsNMs4cRFkcrLuAqLQEbM9Xu53EVkDcbVFB3QNwshkvXmq1Ge0k1spG%2FKa2VzStfn20N0lFPN2tn0UbjvNEuiQNb5fxcp71FT0gXRpt19C%2FHQPotY8kJHvt2nyPE8HPwB0PsNZXsCAAA%3D" target="_blank">クリックしてクエリを実行</a>します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30dbf732-1b8a-4d25-856f-468d773b10c0.png"><img alt="2017-08-06_09h16_26" border="0" height="657" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/594f80f2-c8bd-4570-a1ba-29c23ebe1f1a.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="2017-08-06_09h16_26" width="1024"></a></p>
+
+
+  <h3>高度な分析ポータル</h3>
+
+
+  <p>高度な分析ポータルでは、トラブルシューティング、診断、傾向の分析、クイック視覚化の作成など、対話型のアドホッククエリを作成するための最適なエクスペリエンスが提供されます。 このゲーム変更エクスペリエンスでは、コンテキストに対応した構文の強調表示と強力な組み込みの視覚化を使用して、複数行の編集機能を利用できます。 クエリを保存および共有し、Excel にデータをエクスポートできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91e25c2f-ae0a-4081-a034-41e362a3fa98.png"><img alt="2017-08-06_08h50_49" border="0" height="611" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e85944e8-0831-4488-b044-8712c238f045.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="2017-08-06_08h50_49" width="1024"></a></p>
+
+
+  <h3>Azure Portal、Power BI Desktop と Microsoft Flow コネクタの統合</h3>
+
+
+  <p>1回のクリックで、分析ポータルでクイック視覚化を作成し、共有された Azure ダッシュボードに視覚化をピン留めします。 これにより、さまざまなワークスペース、Azure リソース、およびアプリケーションにわたる1つのウィンドウを作成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d07525c0-fced-4095-98c2-7d54234ad664.png"><img alt="2017-08-06_08h46_50" border="0" height="657" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ecc400b0-915e-4c90-889d-5841c27b3583.png" style="background-image: none; float: none; margin-left: auto; display: block; margin-right: auto; border-image: none" title="2017-08-06_08h46_50" width="1024"></a></p>
+
+
+  <p>このアップグレードでは、Application Insights と同じ種類の統合<a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-powerbi" target="_blank">Power BI Desktop</a>との強力な統合が実現されています。 追加の Power BI 視覚エフェクトを活用して、 <a href="https://powerbi.com/" target="_blank">PowerBI.com</a>で同僚と共有し、それらを公開して共有し、毎日の自動レポートを有効にすることができます。 最後に、 <a href="https://aka.ms/loganalyticsflowconnector" target="_blank">Microsoft Flow と Azure Logic Apps</a>を統合できるようになりました。これにより、ビジネスフローや通知などの作成が可能になります。</p>
+
+
+  <h2>アップグレードする方法</h2>
+
+
+  <p>これはおそらく、最も単純なアップグレードプロセス &rsquo; です。 アプリケーション &rsquo; 内では、アップグレードを求めるバナーが表示され、1回クリックするだけで、保存した検索条件、ビュー、アラート、コンピューターグループなど、すべてのアイテムが自動的に変換され &ndash; ます。 その後、アップグレードされていないすべてのワークスペースは、新しいクエリ言語とプラットフォームに自動的にアップグレードされます。 <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-log-search-upgrade" target="_blank">アップグレードプロセスと faq</a>については、Azure ドキュメントを参照してください。</p>
+
+
+  <h2><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/25330b3e-f861-42a6-b9e7-fb773f1a30d1.png"><img alt="2017-08-04_23h32_24" border="0" height="768" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/014ba56e-2d83-4c1b-8c77-3963860da83b.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="2017-08-04_23h32_24" width="1024"></a></h2>
+
+
+  <h2>言語ドキュメント、学習ツール、およびコミュニティ</h2>
+
+
+  <p>[ログ検索] ページでは、以前のクエリ言語とのサイドバイサイドのエクスペリエンスも提供されており、新しいクエリ言語について学習していくことができます。 ロールアウトアップグレードと自動アップグレードの主な理由は、自分のペースで学習して増やしていく時間を得ることです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0d549a0d-6d06-4d5a-ac5f-915d1d3125ef.png"><img alt="2017-08-06_08h24_10" border="0" height="659" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f09ac0e-6e9d-4ed7-b209-a7a06e329afe.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="2017-08-06_08h24_10" width="1027"></a></p>
+
+
+  <p><a href="https://docs.loganalytics.io/" target="_blank">言語ドキュメントサイト</a>には、さまざまな言語リファレンス、<a href="https://docs.loganalytics.io/learn/tutorials/getting_started_with_analytics_portal.html" target="_blank">チュートリアル</a>、<a href="https://docs.loganalytics.io/examples/Log%20Analytics.html" target="_blank">例</a>、および<a href="https://docs.loganalytics.io/learn/cheatsheets/oql_to_azure_log_analytics.html" target="_blank">カンニングペーパー</a>が含まれています。 すべての機能を備えたデモ環境で、任意のクエリを試すことができます。 また、 <a href="https://aka.ms/azureloganalyticscommunity" target="_blank">コミュニティサイト</a> を立ち上げています。これにより、製品チームだけでなく、他の製品ユーザーとも、クエリ言語に関する質問が表示されます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>アップグレードによって、さまざまな新機能が有効になり、お客様は既にその機能を利用しています。 先週と半分では、ソフト起動期間中、数百台のお客様がワークスペースをアップグレードすることを選択し、合計で1000の拡張ワークスペースを超えました。 現在のワークスペースをアップグレードし、新しい強力な検索とクエリ言語を使用して、データの詳細な洞察を得ることができます。 2017年8月17日のウェビナーにご参加いただくために<a href="https://aka.ms/azr117pal-register" target="_blank">今すぐ登録</a>してください。ここでは、この改善されたエクスペリエンスの詳細とデモを共有します。</p>

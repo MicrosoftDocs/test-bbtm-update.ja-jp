@@ -1,0 +1,145 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ed688cfbe1a0c2a3aa052a2a0bb78c924c24c768
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890188"
+Slug: getting-started-with-live-streaming-using-the-azure-management-portal
+Title: Azure の管理ポータルを使用したライブ ストリーミングの概要
+Summary: 以前は、Azure Media Services ライブサービスのパブリックプレビューが利用可能になったことを発表しました。 ここでは、ライブストリーミング機能とその使用方法のさまざまな側面について説明します。 この記事では、ライブストリーミングの基本をいくつか紹介し、特定のシナリオに適用します。
+Content: >-
+  以前は、Azure Media Services ライブサービスのパブリックプレビューが利用可能になったことを発表しました。これらは、英語のプレミアリーグ、NBC ホッケー、日曜日夜フットボール、Sochi オリンピックなどのスポーツプロパティのマルチプラットフォームライブカバレッジを実現するために使用される、NBC スポーツのライブサービスと同じです。また、最近終了した FIFA ワールドカップに世界中の10の放送局が使用したライブサービスでもあります。そのため、これらのサービスの安定性、スケーラビリティ、およびパフォーマンスを十分に保証し、すべての Media Services ユーザーが使用できるようにすることが期待されています。
+
+
+  この週には、ライブストリーミング機能とその使用方法のさまざまな側面に関する多くの投稿があります。 この記事では、ライブストリーミングの基本をいくつか紹介し、特定のシナリオ (ライブデスクトップ web キャスト) に適用します。この記事では、管理ポータルを使用して、コードを記述せずにすべてを実行します。その後、その後、この SDK を使用して同じアクションを自動化する方法を示す別の投稿を作成します。
+
+  <h1>ライブストリーミングの基本コンポーネント</h1>
+
+  まず、この記事の後半で説明するエンドツーエンドソリューションの基本コンポーネントの概要について説明します。
+
+  <ul>
+   <li><strong>Azure アカウントとサブスクリプション-</strong>まだ Microsoft Azure アカウントを持っていない場合は、まず「」に <a href="https://azure.com">https://azure.com</a> アクセスして作成する必要があります。購入前に試す場合は、無料試用版をご利用いただけます。</li>
+   <li><strong>Azure Media Services アカウント-</strong>まだ Media Services アカウントを持っていない場合は、を作成する方法に関する手順があります。<a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/">https://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/</a></li>
+   <li><strong>ビデオカメラ-</strong> ここでは、ノート pc で web cam を使用しますが、ほとんどのカメラは動作します。USB などのデジタル出力がある場合は、PC に直接接続してその出力をエンコードできます。そうでない場合は、ビデオキャプチャカードが必要になります。</li>
+   <li><strong>ライブエンコーダー-</strong>現在 Azure Media Services は、フラグメント化 MP4/Smooth Streaming と RTMP という2つのライブインジェストプロトコルをサポートしています。RTMP は非常に普及しているため、Flash Media Encoder や FFMPEG のような無料のエンコーダー、Wirecast などの安価なエンコーダー、NewTek の Tricaster などの高生産価値製品など、Cisco、エレメンタル、イメージなどのプロフェッショナルグレードのエンコーダーまで、さまざまなオプションが用意されています。 次のサンプルでは、ノート pc を使用して Telestream の Wirecast のコピーをインストールします。エンコーダーがまだない場合は、 <a href="https://www.telestream.net/wirecast/overview.htm" target="_blank">サイト</a> から Wirecast のコピーをダウンロードして、試用版のライセンスを取得することができます。ビデオエンコードは非常に CPU を集中的に消費する操作であるため、ノート pc でエンコードを実行すると、エンコードが3品質レベルと比較的低いビットレートに制限されていることに注意してください。CPU 使用率が非常に低いラップトップまたは他の PC を使用する場合は、CPU 使用率を監視する必要があります。これは、常に ~ 70% を超えている場合は、品質レベルを削除するか、エンコードプロファイルのビットレートと解像度を下げる必要があります。</li>
+   <li>高速<strong>インターネット接続-</strong>ライブビデオをプッシュするには、エンコーダーの出力のビットレートの変動に対応するために、少なくとも 1.5 x 以上の送信速度が非常に安定したインターネット接続が必要です。たとえば、次に示すソリューションでは、ライブストリーム、400、600、および 900 Kbps の3つの品質レベル ("レンディション") を使用しています。そのため、合計ビットレートは1900Kbps で、少なくとも 2850Kbps (2.85 Mbps) が必要です。</li>
+   <li><strong>Azure Media Services チャネル</strong>チャネルは、ライブストリーミングを有効にする Azure Media Services の新機能です。これらは、エンコーダーの出力の取り込みポイントを提供するサービス内のコンポーネントです。</li>
+   <li><strong>Azure Media Services asset-</strong> Media Services の資産は、すべてのオーディオとビデオ、およびストリームに関連付けられているメタデータを格納するためのコンテナーです。</li>
+   <li><strong>Azure Media Services プログラム</strong> -プログラムは、チャネル上で作成した Azure Media Services 内のエンティティであり、アセットへのチャネルで受信されるストリームの書き込みを開始します。</li>
+   <li><strong>Azure Media Services ストリーミングロケーター-</strong>ストリーミングで使用できるようにする場合は、資産にロケーターを作成します。</li>
+   <li>ストリーミング<strong>エンドポイントとストリーミングユニットの Azure Media Services-</strong>ストリーミングエンドポイントには、ライブおよび VOD 資産をプルできる URL が用意されています。ストリーミングエンドポイントは、動的パッケージング機能を提供し、ストリームの配信をセキュリティで保護します。ストリーミングユニットは、保証された最大スループットを提供するために、ストリーミングエンドポイントにプロビジョニングされます。各ストリーミングユニットでは、200 Mbps のストリーミング送信容量が提供され、必要に応じてストリーミングエンドポイントに追加して容量を増やすことができます。</li>
+   <li><strong>Azure CDN-</strong>近い将来、Azure CDN を Azure Media Services と直接統合する予定です。完了すると、ストリーミングエンドポイントに新しい設定が追加されます。この設定を使用して、ストリーミングエンドポイントに接続されている CDN エンドポイントを自動的にプロビジョニングするかどうかを指定できます。それまでの間は、ストリーミングエンドポイントから直接ストリーミングするか、Azure サポートからお問い合わせいただき、ストリーミングエンドポイントの Azure CDN をセットアップすることができます。</li>
+   <li><strong>Video Player-</strong> Azure Media Services ストリーミングエンドポイントでは、動的パッケージング機能が提供されます。これにより、接続先の各デバイスに必要なストリーミングプロトコルを使用してライブストリームを出力できます。以下のソリューションでは、iOS 以外のすべてのプラットフォーム (デスクトップブラウザー、Android、Windows Phone) に対して、windows media player を使用した HTML5/DASH.js プレーヤーを使用します。ここでは、HLS バージョン3を使用します。ダイナミックパッケージ機能の詳細については、 <a href="https://channel9.msdn.com/Series/Windows-Azure-Media-Services-Tutorials/Introduction-to-dynamic-packaging">Channel9 のビデオ</a> と <a href="https://msdn.microsoft.com/en-us/library/azure/jj889436.aspx">MSDN のドキュメント</a>を参照してください。</li>
+  </ul>
+
+  <h1>このシナリオ: Web キャストイベント</h1>
+
+  まず、実装するシナリオについて少し説明しましょう。次の手順では、PC の web カメラからトレーニングをブロードキャストするために使用できるデスクトップ web キャストを実行するためのソリューションを構築します。この web キャストは "イベント" であり、ライブストリーミングの用語では、開始と終了を行うライブストリームであることを意味します。これは、テレビ上のチャネルのように無期限に実行される "線形" ストリームとは対照的です。これについては、後のブログの記事で、線形ストリームにライブサービスを使用する方法について説明します。
+
+  <h1>イベント前のセットアップ</h1>
+
+  次に示すのは、イベントを実行する準備ができた一連のイベント前のセットアップ手順です。これらの手順は、すべてのプロビジョニングを取得するためにイベントの前の任意の時点で実行できます。 "無線" に移行する前に、それらを直接急いで処理する必要はありません。
+
+  <h2>Azure Media Services チャネルとストリーミングエンドポイントの作成</h2>
+
+  この最初の一連の手順では、Azure 管理ポータルを使用して、エンコーダーからライブストリームを受信するために必要なインフラストラクチャをプロビジョニングし、すべてのクライアント再生デバイスに配信するためにストリームおよびパッケージ化します。
+
+  <ol>
+   <li>Microsoft Azure 管理ポータルを開き、上部のメニューバーで [ポータル] を <a href="https://azure.com">https://azure.com</a> クリックします。Microsoft ID を使用してログインすると、管理ポータルに配置されます。</li>
+   <li>左側の垂直メニューで、[MEDIA SERVICES] メニュー項目をクリックします。これにより、作成したすべての Media Services アカウントの一覧が右側に表示されます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/MediaServicesIcon.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="MediaServicesIcon" alt="MediaServicesIcon" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/MediaServicesIcon_thumb.png" width="213" height="165" border="0" /></a></li>
+   <li>このサンプルの作成に使用する Media Services アカウントをクリックします。ここでは、"jasonblog" という名前の Media Services アカウントを使用します。これで、Media Services アカウントのすべての詳細が表示されます。上部のメニューバーを使用して、すべての Media Services エンティティの種類を作成および制御できます。の Media Services を使用していたユーザーにとって、上部のメニューバーには、プレビューとしてマークされている "CHANNELS" という新しいメニュー項目があることがわかります。ここで、Azure Media Services チャネルのすべての管理制御が有効になります。</li>
+   <li>上部のメニューバーで [チャンネル] をクリックします。アカウントのチャネルの一覧が開きます (ある場合)。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/MenuStrip.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="MenuStrip" alt="MenuStrip" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/MenuStrip_thumb.png" width="644" height="76" border="0" /></a></li>
+   <li>まだチャネルを持っていない可能性があるため、"チャネルがありません" というメッセージが表示されます。[はじめに] を追加して、[新しいチャネルの追加] をクリックします。これはすぐ下にあります。これにより、チャネルに設定するプロパティを要求するダイアログが開きます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/AddNewChannel.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="AddNewChannel" alt="AddNewChannel" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AddNewChannel_thumb.png" width="484" height="90" border="0" /></a></li>
+   <li>[新しいライブチャネルの作成] ダイアログで、チャネルの名前を入力します (ここでは、"web キャスト" という名前を付けます)。次に、使用する取り込みプロトコルを指定します。ここでは、RTMP を出力する Wirecast を使用して、既定値に設定したままにします。下部にある3つのチェックボックスをオンにすると、[今すぐ新しいチャネルを開始する] チェックボックスがオンになり、後で開始するための追加の手順が保存されます。次のチェックボックスには、"既定の" ストリーミングエンドポイントにストリーミングユニットがプロビジョニングされていない場合、既定でオンになっている "1 つのストリーミングユニットの追加" というラベルが付いています。その場合は、チェックボックスをオンのままにしておき、後でもう一度追加の手順を保存します。最後に、[コンピューターの現在の IP アドレスにビデオ取り込みを制限する] というラベルのチェックボックスがあります。このチェックボックスをオンにすると、IP アクセス制御リスト (ACL) がチャネルに適用されます。これにより、コンピューターからの入力のみを受け入れるようにロックが解除されます。このチェックボックスをオフにします。これらすべての設定を含む [マイダイアログ] のスクリーンショットを次に示します。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/CreateNewChannel2.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="CreateNewChannel2" alt="CreateNewChannel2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/CreateNewChannel2_thumb.png" width="484" height="402" border="0" /></a></li>
+   <li>[新しいライブチャネルの作成] ダイアログボックスの右下にあるチェックマークボタンをクリックします。このダイアログボックスでは、作成および開始される新しいチャネルと、"既定の" ストリーミングエンドポイントに追加される新しいストリーミングユニットがトリガーされます。画面の下部に、チャネルが作成されて開始されたことを示すステータスストリップが表示されます。次に進む前に、これらの手順が完了するまで待ってから、約2分かかります。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/ChannelCreating.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="ChannelCreating" alt="ChannelCreating" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ChannelCreating_thumb.png" width="484" height="95" border="0" /></a></li>
+
+  </ol>
+
+  <h2>エンコーダーの構成と起動</h2>
+
+  <blockquote>Cenk Dingiloglu は、エンコーダーの構成に焦点を当てた個別のブログ投稿を作成しましたが、次の手順はまだ有効ですが、詳細については、「」を参照してください。 <a href="https://azure.microsoft.com/blog/2014/09/18/azure-media-services-rtmp-support-and-live-encoders/">https://azure.microsoft.com/blog/2014/09/18/azure-media-services-rtmp-support-and-live-encoders/</a></blockquote>
+
+  Media Services に必要なインフラストラクチャが完成したので、次の手順では Wirecast をセットアップし、チャネルでストリームのプッシュを開始します。telestream は現在、必要な手順を短縮する Azure Media Services の "宛先" を待機していますが、これはまだ広く利用されていないため、手動によるすべての手順を実行して、必要なもののほとんどを提供する Wirecast "ドキュメント" を作成します。このドキュメントの作成方法の詳細については説明しません。この今週の後半では、さらに詳細に説明する Cenk Dingiloglu からの別の投稿が表示されます。
+
+  <ol>
+   <li>Wirecast ドキュメントをダウンロードする <a href=""></a></li>
+   <li>Wirecast を開き、ダウンロードしたドキュメントを開きます。次のようなエラーが表示される可能性があります。これは、Wirecast がドキュメントに記載されているメディアを見つけることができないことを示しています。[キャンセル] をクリックします。これは、設定時に使用していたものと同じカメラデバイスがないために表示されます。次に、その処理について説明します。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastError2.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastError2" alt="WirecastError2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastError2_thumb.png" width="484" height="350" border="0" /></a></li>
+   <li>Wirecast UI で、カメラソースを追加します。UI の下部には、3つのソースがあります。最初の行の "+" の上にマウスポインターを移動し、カメラアイコンをクリックします。これを行うと、現在 PC に接続されているカメラの一覧が表示され、サンプルをビルドするのに適した選択が行われます。完了すると、その行に新しいソースが表示され、カメラからのライブフィードが表示されます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastAddSource.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastAddSource" alt="WirecastAddSource" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastAddSource_thumb.png" width="244" height="146" border="0" /></a><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastCamera.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastCamera" alt="WirecastCamera" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastCamera_thumb.png" width="244" height="145" border="0" /></a><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastSourceSelection.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastSourceSelection" alt="WirecastSourceSelection" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastSourceSelection_thumb.png" width="268" height="145" border="0" /></a><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastNewSource.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastNewSource" alt="WirecastNewSource" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastNewSource_thumb.png" width="210" height="145" border="0" /></a></li>
+   <li>次に、Wirecast の [出力] メニューをクリックし、[出力設定] を選択します。作成したドキュメントを使用しているため、次のようなダイアログが表示されます。ストリームを400、600、および900Kbps の3つの品質レベルにエンコードするように設定されています。400Kbps の品質レベルは、古い Android デバイスをサポートするために、h.264 ベースラインプロファイルを使用してエンコードされます。また、600と900Kbps の品質レベルは、高レベルの品質を提供するメインプロファイルを使用してエンコードされます。欠落しているのは、次に入力するストリームをプッシュする場所の宛先 "アドレス" だけです。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastOutputSettings2.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastOutputSettings2" alt="WirecastOutputSettings2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastOutputSettings2_thumb.png" width="484" height="270" border="0" /></a></li>
+   <li>Azure 管理ポータルに戻り、チャネルの一覧でチャネルを見つけます。[取り込み URL] 列の上にマウスポインターを移動し、右側の [コピー] アイコンをクリックします。これにより、チャネルの取り込み URL がクリップボードにコピーされます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/IngestURL.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="IngestURL" alt="IngestURL" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/IngestURL_thumb.png" width="644" height="32" border="0" /></a></li>
+   <li>Wirecast に戻り、[出力設定] ダイアログボックスで、チャンネルの取り込み URL を [アドレス] ボックスに貼り付けます。エンコードされる3つすべての品質レベルに対してこの手順を繰り返す必要があります。つまり、ダイアログの左側にある各 "RTMP Flash Server" をクリックし、それぞれのアドレスを設定してください。</li>
+   <li>[出力設定] ダイアログの [Ok] ボタンをクリックします。</li>
+   <li>手順 3. で作成したカメラソースをクリックして、UI の [プレビュー] セクションに移動します。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastPreview.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastPreview" alt="WirecastPreview" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastPreview_thumb.png" width="244" height="190" border="0" /></a></li>
+   <li>次に、[- &gt; ] ボタンをクリックして "プレビュー" を "ライブ" に移動します。この時点で、UI の上部にある両方のスポットにカメラソースが表示されます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastLive.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastLive" alt="WirecastLive" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastLive_thumb.png" width="244" height="82" border="0" /></a></li>
+   <li>この時点では、Wirecast はすべて構成されている必要があります。そのため、Azure Media Services チャネルへのストリームのプッシュを開始する唯一の手順は、Wirecast UI の左上隅にある [ストリーム] ボタンを押すことです。すべてが正しく表示されると、ボタンに赤い点が表示され、現在の状態であることがわかります。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WirecastStream.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WirecastStream" alt="WirecastStream" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WirecastStream_thumb.png" width="211" height="44" border="0" /></a></li>
+   <li>ストリームが適切に受信されていることを確認できるようになりました。これは、受信している内容についての直接のビューを提供する、チャネルのプレビュー公開ポイントからストリームを表示します。Azure 管理ポータルに戻り、下部のコマンドストリップで [PLAY] \ (再生 \) コマンドをクリックします。次に、サブコマンドの一覧が表示されます。 [再生プレビュー URL] をクリックすると、ポータル内でビデオプレーヤーが開き、チャネルのプレビュー URL に接続されます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/PreviewVideoPlayer.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="プレビュービデオプレーヤー" alt="PreviewVideoPlayer" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/PreviewVideoPlayer_thumb.png" width="244" height="214" border="0" /></a></li>
+
+  </ol>
+
+  <blockquote>注: 何らかの理由でエンコーダーを停止し、再起動する必要がある場合は、Azure 管理ポータルで [リセット] コマンドをクリックして、最初にチャネルをリセットする必要があります。</blockquote>
+
+  <h1>イベントを開始してストリームを再生する</h1>
+
+  ストリームをチャネルにフローさせたので、次は、資産、プログラム、ストリーミングロケーターを作成してストリームをアーカイブし、ストリーミングエンドポイントを介してビューアーで使用できるようにすることで、イベントを開始できます。これを行うには、ポータルのショートカットを使用します。これらはすべて1回の手順で実行します。
+
+  <h2>プログラムの作成と開始</h2>
+
+  <ol>
+   <li>Azure 管理ポータルに戻り、"channel" セクションに戻ります (まだお持ちでない場合)。アカウントに複数のチャネルがある場合は、上で設定したチャネルが選択されていることを確認してください (青色で強調表示されています)。ページの下部にあるコマンドストリップで、[ストリーミングの開始] をクリックし、表示される確認画面で [はい] をクリックします。コマンドが完了すると、[発行 URL] 列に URL が入力されます。これを使用すると、ストリーミングエンドポイントからストリームを最上位にプルできます。
+  <h2><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/StartStreaming.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="StartStreaming" alt="StartStreaming" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/StartStreaming_thumb.png" width="244" height="29" border="0" /></a></h2>
+
+  </li>
+
+  </ol>
+
+  <h2>Live Stream の再生</h2>
+
+  これで、ライブストリームが資産にプッシュされるようになりました。ストリーミングエンドポイントからプルでき、現在サポートされているすべてのプロトコル (MPEG ダッシュ、HLS バージョン3、HLS バージョン4、HDS、および Smooth Streaming) に動的にパッケージ化できます。これらの機能を利用するには、スムーズな Flash コントロールと、HLS バージョン3の iOS および Android デバイスを使用して、デスクトップブラウザーでストリームを再生します。
+
+  <ol>
+   <li>Azure 管理ポータルで、チャネルの [発行 URL] の上にマウスポインターを移動し、コピーアイコンをクリックして、URL をクリップボードにコピーします。</li>
+   <li>発行 url を任意のテキストエディターに貼り付けます。これは、Smooth Streaming url である "https:// &lt; account_name &gt; . origin.mediaservices.windows.net/ &lt; locator_guid / &gt; &lt; stream_guid &gt; . ism/manifest" のようになります。もう一度貼り付けて、"(format = mpd-time-csf)" を追加します。これにより、ストリームを MPEG ダッシュにパッケージ化するようストリーミングエンドポイントに指示します。もう一度貼り付けます。今度は "(format = .m3u8)" を追加します。これにより、ストリームが HLS バージョン3にパッケージ化されるようストリーミングエンドポイントに伝えられます。</li>
+   <li>Windows PC または Mac (最新バージョンの Internet Explorer や Chrome など、メディアソース拡張機能をサポートするブラウザーが必要) <a href="https://aka.ms/dashplayer">https://aka.ms/dashplayer</a> では、これは、ストリームのテストに使用できるように作成したサンプル DASH.js ビデオプレーヤーです。上部にあるテキストボックスにダッシュの URL を貼り付け、[読み込み] をクリックします。Android デバイスでこの手順を繰り返して、Windows Phone することができます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/WP_20140910_005.jpg"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="WP_20140910_005" alt="WP_20140910_005" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/WP_20140910_005_thumb.jpg" width="364" height="206" border="0" /></a> 注: サンプルのダッシュプレーヤーでは、URL のクエリパラメーターとしてダッシュの URL を取得することもできます。つまり、次のような URL を作成して各デバイスに配布できます。https://dashplayer.azurewebsites.net/?URL=https://&lt; jason ' s_account &gt; '. windowsazure.mediaservices/../... ism/manifest (format = mpd-time-csf)</li>
+   <li>IOS デバイスで Safari を開き、アドレスバーに HLS バージョン3の URL を入力します。アドレスバーに入力すると、ネイティブプレーヤーでストリームを再生するショートカットが表示されます。ビデオタグを含む HTML5 ページを作成し、そのソースとして HLS URL を指定したり、ネイティブアプリケーションをビルドしたりすることもできます。</li>
+  </ol>
+
+  <h1>イベントの停止</h1>
+
+  イベントを終了するには、プログラムを停止する必要があります。これにより、資産へのストリームのプッシュが停止されます。これは、単純な1ステップの操作です。
+
+  <ol>
+   <li>Azure 管理ポータルに戻り、チャネルを選択し、下部のコマンドストリップで [ストリーミングの停止] コマンドをクリックして、表示される確認の [はい] をクリックします。これにより、そのチャネルで実行しているプログラムが停止し、削除されます。
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/StopStreaming.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="StopStreaming" alt="StopStreaming" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/StopStreaming_thumb.png" width="244" height="28" border="0" /></a></li>
+
+  </ol>
+
+  ライブサービスの優れた機能の1つに、ライブからオンデマンドでの資産のシームレス/即時移行があります。ここでビデオプレーヤーの1つでストリームを再生すると、同じ URL を使用してストリームを引き続き使用できますが、現在はライブではなくオンデマンドで実行されていることがわかります。
+
+  <h1>クリーンアップ</h1>
+
+  別のイベントを実行する場合は、実行中のすべてをそのままにすることができます。これを行うには、上記と同じように、チャネルで新しいプログラムを開始する必要があります。ただし、完了した場合は、前にプロビジョニングしたインフラストラクチャの一部またはすべてを破棄できるようになりました。
+
+  <ol>
+   <li>最初にエンコーダーの [ストリーム] ボタンを押して、ストリームのプッシュを停止し、アプリケーションを閉じることができます。</li>
+   <li>これで、チャネルも停止できるようになりました。Azure 管理ポータルで、もう一度チャネルを選択し (まだ選択されていない場合)、下部のコマンドストリップで [停止] コマンドをクリックします。完了すると、チャネルは "停止" 状態になります。つまり、リソースを消費しないので、チャネルを無期限に保持できるため、料金は発生しません。もう一度使用する場合は、[START] \ (開始 \) コマンドをクリックすると再ハイドレートされ、同じ取り込み URL になるため、エンコーダーを再構成する必要はありません。</li>
+   <li>最後にストリーミングエンドポイント。ライブイベントのアーカイブをオンデマンドストリームとして引き続き提供する場合は、ストリーミングエンドポイントを実行したままにする必要がありますが、ストリーミングが終了した場合は、"既定" と呼ばれるストリーミングエンドポイントを選択し、下部のコマンドストリップで [停止] コマンドをクリックします。</li>
+  </ol>
+
+  <h1>結論と次の内容</h1>
+
+  上記のブログ記事では、Azure 管理ポータルを使用して、コードのない設定、実行、およびライブイベントの破棄 (必要な場合) について説明しました。今後、テストした RTMP エンコーダーの一覧とその設定方法、SDK を使用してライブイベントを設定して実行する方法、ライブストリームにコンテンツセキュリティを適用する方法、および線形ストリームを実行する方法について、より多くの投稿を作成します。

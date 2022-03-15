@@ -1,0 +1,49 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a9e8e0a2f1e18a3f5ca0263f8e49a0b200491753
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894432"
+Slug: column-level-security-is-now-supported-in-azure-sql-data-warehouse
+Title: Column-Levelセキュリティが Azure SQL Data Warehouse でサポートされる
+Summary: Column-Levelセキュリティは、Azure SQL Data Warehouse でネイティブにサポートされています。
+Content: >-
+  <p style="margin: 0in 0in 8pt;">本日、&rsquo;機密データのセキュリティColumn-Level管理するための追加機能である Azure SQL Data Warehouse のセキュリティ (CLS) について発表しました。 Azure SQL Data Warehouseは、ペタバイト単位のデータに対して高速で複雑なクエリを実行するために調整された、高速で柔軟で安全なクラウド データ ウェアハウスです。</p>
+
+
+  <p style="margin: 0in 0in 8pt;">クラウドにデータを移動する場合、データ資産のセキュリティ保護は、顧客やパートナーとの信頼関係を構築するために不可欠です。 CLS の導入により、データ ウェアハウスを再設計することなく、テーブル内の特定の列へのユーザー アクセスを制限することで、機密データを表示するためのアクセス許可を調整できます。 これにより、アクセス制限ロジックが別のアプリケーションのデータから離れするのではなく、データベース層自体に存在する場合、セキュリティの実装全体が簡略化されます。 CLS を使用すると、アクセス制御管理のために列をフィルターで除去するビューを導入する必要がなされます。</p>
+
+
+  <p style="margin: 0in 0in 8pt;">これが現在どのように使用されているのかの例を次に示します。</p>
+
+
+  <ul>
+   <li>金融サービス会社は、アカウント マネージャーだけが、顧客の社会保障番号 (SSN) や電話番号などの個人を特定できる情報 (PII) にアクセスできるようにします。</li>
+   <li>医療機関は、医師と看護師だけが機密の医療記録にアクセスできるようにする一方で、請求担当部門のメンバーがそのようなデータを表示できないようにします。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/30741127-11ee-4da8-80d1-79c237cc5214.png"><img alt="CLS-blog" border="0" height="283" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/18fe3553-dc8f-4638-8c5f-c04aafe397a1.png" style="border: 0px currentColor; border-image: none; width: 462px; height: 208px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="CLS-blog" width="600"></a></p>
+
+
+  <p>テーブル列へのアクセスは、ユーザーの実行コンテキスト&#39;、または標準<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/column-level-security">の GRANT</a> T-SQL ステートメントを使用したグループ メンバーシップに基づいて制御できます。 データをセキュリティで保護するには、GRANT ステートメントを使用してテーブル列にセキュリティ ポリシーを定義します。 たとえば、customers テーブル内の PII データへのアクセスを制限する場合は、特定の列に対する SELECT 権限を ContractEmp ロールに付与します。</p>
+
+
+  <pre>
+
+  GRANT SELECT ON dbo.Customers (CustomerId, FirstName, LastName) TO ContractEmp;</pre>
+
+
+  <p>この機能は、すべての Azure リージョンで追加料金が発生して利用できます。 Azure SQL Data Warehouse、セキュリティ、コンプライアンス、プライバシー、監査の分野で引き続きリードしています。 詳細については、Microsoft セキュリティ センター <a href="https://aka.ms/gdprsqlwhitepaper">に関するホワイト</a> ペーパー <a href="https://www.microsoft.com/en-us/trustcenter">を参照してください</a>。</p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>Azure SQL Data Warehouse での列レベルのセキュリティの詳細については、オンライン ドキュメントを<a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/column-level-security">参照してください</a>。</li>
+   <li>機能の要求については、 <a href="https://feedback.azure.com/forums/307516-sql-data-warehouse">UserVoice に投票してください</a>。</li>
+   <li>今すぐ始めるには、「<a href="https://docs.microsoft.com/azure/sql-data-warehouse/create-data-warehouse-portal">Azure サービスを作成する」SQL Data Warehouse</a>。</li>
+   <li>最新の Azure サービスの最新情報と機能SQL Data Warehouse Twitter でフォローしてください<a href="https://twitter.com/AzureSQLDW">@AzureSQLDW</a>。</li>
+  </ul>

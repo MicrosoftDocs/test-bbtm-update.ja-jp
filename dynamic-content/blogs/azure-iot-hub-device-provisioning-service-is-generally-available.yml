@@ -1,0 +1,58 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9b97db31292083a3b01d03abd8175228c99adb57
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896181"
+Slug: azure-iot-hub-device-provisioning-service-is-generally-available
+Title: Azure IoT Hub Device Provisioning Service は一般公開されています
+Summary: Azure IoT Hub Device Provisioning Service は、Azure IoT サービスに対して提供されているものと同じ優れたサポートで利用できるようになりました。 デバイスプロビジョニングサービスにより、お客様は...
+Content: >-
+  <p>Azure IoT Hub Device Provisioning Service は、Azure IoT サービスから得られる&#39;のと同じ優れたサポートで使用できるようになりました。 device provisioning Service を使用すると、お客様は Azure IoT Hub へのゼロタッチデバイスプロビジョニングを構成できます。これにより、クラウドのスケーラビリティが、1回に何度も実行されるようになります。 デバイスプロビジョニングプロセスは、サプライチェーンの課題を考慮して設計されており、セキュリティで保護されたスケーラブルな方法で何百万ものデバイスをプロビジョニングするために必要なインフラストラクチャを提供しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/491c15dc-7ceb-4925-b6ad-d85127f38a43.png"><img alt="image" border="0" height="180" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c4540fb-4717-4713-9794-6571a265406e.png" style="border: 0px currentcolor; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="360"></a></p>
+
+
+  <p>一般公開のサポートにより、拡張されたプロトコルサポートが提供されます。 Device Provisioning Service による自動デバイス プロビジョニングでは、HTTP、AMQP、MQTT、WebSocket 経由の AMQP、WebSocket 経由の MQTT など、IoT Hub がサポートするすべてのプロトコルがサポートされるようになりました。 このリリースは、デバイス側とクライアント側の両方での、拡張された SDK 言語のサポートにも対応しています。 ここでは、 <a href="https://github.com/azure/azure-iot-sdk-c">C</a>、 <a href="https://github.com/azure/azure-iot-sdk-csharp">C#</a>、 <a href="https://github.com/azure/azure-iot-sdk-java">Java</a>、 <a href="https://github.com/azure/azure-iot-sdk-node">Node</a> (現時点では service for now、デバイスは近日対応予定)、 <a href="https://github.com/azure/azure-iot-sdk-python">Python</a> (現時点ではデバイス、サービスは近日対応予定) などの言語で sdk がサポートされるようになりました。 デバイスプロビジョニングサービスの概要については、 <a href="https://docs.microsoft.com/en-us/azure/iot-dps/quick-setup-auto-provision">クイックスタートチュートリアル</a>をご覧ください。</p>
+
+
+  <p>Device Provisioning Service は、さまざまなシナリオで動作します。</p>
+
+
+  <ul>
+   <li>工場での接続情報のハードコード IoT Hub を必要としない、単一の IoT ソリューションへのゼロタッチプロビジョニング (初期セットアップ)。</li>
+   <li>ソリューション固有のニーズに基づいてデバイスを自動的に構成します。</li>
+   <li>複数のハブ間でデバイスを負荷分散します。</li>
+   <li>販売トランザクションデータ (マルチテナント機能) に基づいてデバイスを所有者 &rsquo; の IoT ソリューションに接続します。</li>
+   <li>ユースケース (ソリューションの分離) に応じて、特定の IoT ソリューションにデバイスを接続します。</li>
+   <li>最も近い geo ロケーションを使用してデバイスを IoT hub に接続します。</li>
+   <li>所有権や場所の変更など、デバイスの変更に基づいて再プロビジョニングします。</li>
+  </ul>
+
+
+  <p>Device Provisioning Service は、同じ基本的なフローを使用して、これらすべてのシナリオをサポートするのに十分な柔軟性を備えています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e16c80b0-d40f-4b7e-a934-129acd0fb213.png"><img alt="image" border="0" height="230" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f426c447-dd88-4a9a-9e55-f1f7f8964dba.png" style="border: 0px currentcolor; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="480"></a></p>
+
+
+  <p>デバイスプロビジョニングサービスのデバイス Sdk でハードウェアベースのセキュリティをこれまでになく簡単に使用できるように&#39;ました。 さまざまな種類のハードウェアセキュリティモジュール (Hsm) に対してインボックスサポートを提供しています。また、お客様ができるだけ安全にセキュリティを確保できるように、複数のハードウェアメーカーとパートナーシップを結んでいます。 ハードウェアパートナーシップの詳細については、「 <a href="https://azure.microsoft.com/en-us/blog/enabling-true-zero-touch-secure-identity-management-for-iot-devices/" target="_blank"><em>iot 用の真のゼロタッチセキュリティ id 管理のプロビジョニング</em></a>」を参照してください。 hsm の詳細については、「iot の<a href="https://azure.microsoft.com/en-us/blog/azure-iot-supports-new-security-hardware-to-strengthen-iot-security/" target="_blank"><em>セキュリティを強化するための新しいセキュリティハードウェアをサポートする Azure IoT</em></a>」のブログ記事をご覧ください。 Sdk は他の Hsm をサポートするために拡張可能であり、独自のカスタム HSM をデバイス Sdk と共に使用する方法について詳しく知ることができます。 デバイスプロビジョニングサービスを使用するために HSM を使用する必要はありませんが、デバイスで使用することを強くお勧めします。 Sdk は、開発およびテストの目的で <a href="https://trustedcomputinggroup.org/work-groups/trusted-platform-module/">TPM</a> シミュレーターと <a href="https://azure.microsoft.com/en-us/blog/azure-iot-supports-new-security-hardware-to-strengthen-iot-security/">ダイス</a> シミュレーター (x.509 証明書用) を提供します。 詳細については、「 <a href="https://aka.ms/provisioningconcepts">デバイスのプロビジョニングに関連するすべての技術概念」</a>を参照してください。</p>
+
+
+  <p>Azure IoT は、セキュリティで保護された信頼性の高い方法で IoT ソリューションのデプロイと管理を行うことが困難になるサービスを提供するためにコミットされています。 詳細については、「 <em><a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/How-to-provisioning-IoT-devices-at-scale-with-IoT-Hub-Device-Provisioning-Service/player">Device Provisioning Service</a></em>と<em><a href="https://channel9.msdn.com/Shows/Internet-of-Things-Show/Hands-on-experience-to-provision-real-device-with-IoT-Hub-Device-Provisioning-Service/player">実際のデバイスのプロビジョニング</a></em>」をご覧ください。 <a href="https://portal.azure.com/">Azure portal</a>で独自の Device Provisioning Service を作成し、 <a href="https://github.com/Azure/azure-iot-sdks">GitHub</a>でデバイス sdk を確認することができます。 Device Provisioning Service の詳細と、 <a href="https://docs.microsoft.com/en-us/azure/iot-dps/">ドキュメントセンター</a>での使用方法について説明します。 セキュリティで保護されたデバイスの登録に関するフィードバックをお寄せください。そのため、 <a href="https://feedback.azure.com/forums/321918-azure-iot/">Azure IoT ユーザーの声フォーラム</a>から引き続きご提案をお送りください。</p>
+
+
+  <p>Limerick を使用して合計を計算するには、次の手順を実行します。</p>
+
+
+  <p>ぜひご参加ください<br>
+
+  IoT 自動登録の<br>
+
+  &rsquo;一般公開<br>
+
+  フル機能と機能<br>
+
+  デバイス &rsquo; の自動化</p>

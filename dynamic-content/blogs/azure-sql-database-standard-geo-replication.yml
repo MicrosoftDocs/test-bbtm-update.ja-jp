@@ -1,0 +1,256 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a46aa0416885a0bde3e461484c9c4efea2e88b65
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889930"
+Slug: azure-sql-database-standard-geo-replication
+Title: Azure SQL Database Standard Geo-Replication
+Summary: この記事では、ビジネス継続性のシナリオについての会話を続け、Azure SQL Database の新しくリリースされた Standard Geo-Replication 機能について説明します。  詳細に進む前に、プレビューで利用できるようになったビジネス継続性機能の全範囲をまとめ、使用する必要があるものとその理由について説明しておくと便利です。
+Content: >-
+  <strong>[06/02/2015 で更新されました]</strong>
+
+
+  セカンダリデータベースへのフェールオーバーを完全にユーザーが制御できるようになり、改善されています。
+
+
+  &nbsp;
+
+
+  この記事では、ビジネス継続性のシナリオについての会話を続け、Azure SQL Database の新しくリリースされた Standard Geo-Replication 機能について説明します。 標準 Geo-Replication では、事前に定義された <a href="https://azure.microsoft.com/en-us/regions/">Azure リージョン</a>のプライマリデータベースからセカンダリにコミットされたトランザクションを非同期的にレプリケートするようにデータベースを構成できます。 詳細に進む前に、プレビューで利用できるようになったビジネス継続性機能の全範囲をまとめ、 <a href="https://azure.microsoft.com/blog/2014/04/24/azure-sql-database-introduces-new-service-tiers/">2014 年4月に発表</a>された新しいサービスレベルのコンテキストでそれらについて説明します。 サービス階層の特定の特性の詳細については、 <a href="https://msdn.microsoft.com/en-us/library/azure/dn741340.aspx">この記事</a>を参照してください。
+
+  <h2>ビジネス継続性モデル</h2>
+
+  <a href="https://azure.microsoft.com/blog/2014/07/12/spotlight-on-sql-database-active-geo-replication/">アクティブ Geo レプリケーション</a>に関する前の投稿では、tobias によってビジネス継続性の課題が既に定義されています。 クイックリフレッシャーとして、この投稿を最大限に活用するには、いくつかの概念を理解しておく必要があります。
+
+  <ul>
+   <li>ディザスターリカバリー (DR): アプリケーションの通常のビジネス機能を復元するプロセス</li>
+   <li>ポイントインタイムリストア: ユーザーのミスやプログラムによるエラーが原因で発生したデータの破損から復旧するために、過去の特定の時点 (バックアップの保有期間内) にデータベースを復元する機能</li>
+   <li>推定復旧時間 (ERT): 復元/フェールオーバー要求後にデータベースが完全に機能するまでの推定時間。</li>
+   <li>回復ポイントの目標 (RPO): 復旧後にアプリケーションが失われる可能性がある最新のデータ変更の量 (時間間隔)。</li>
+  </ul>
+
+  次の表は、サービス階層全体のビジネス継続性機能の違いを示しています。
+
+  <table border="1" cellspacing="0" cellpadding="0">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="176">
+
+  <p align="center"><b>BCDR オプション</b></p>
+
+  </td>
+
+  <td valign="top" width="118">
+
+  <p align="center"><b>Basic レベル</b></p>
+
+  </td>
+
+  <td valign="top" width="114">
+
+  <p align="center"><b>Standard レベル</b></p>
+
+  </td>
+
+  <td valign="top" width="120">
+
+  <p align="center"><b>Premium レベル</b></p>
+
+  </td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="176">ポイントインタイム リストア</td>
+
+  <td valign="top" width="118">7 日間以内のあらゆる復元ポイント</td>
+
+  <td valign="top" width="114">14日以内の任意の復元ポイント</td>
+
+  <td valign="top" width="120">35 日間以内のあらゆる復元ポイント</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="176">geo リストア</td>
+
+  <td valign="top" width="118">ERT &lt; 12 時間 RPO &lt; 1h</td>
+
+  <td valign="top" width="114">ERT &lt; 12 時間 RPO &lt; 1h</td>
+
+  <td valign="top" width="120">ERT &lt; 12 時間 RPO &lt; 1h</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="176">標準ジオ (主要地域) レプリケーション</td>
+
+  <td valign="top" width="118">対象外の情報</td>
+
+  <td valign="top" width="114">ERT &lt; 30 秒 RPO &lt; 5s</td>
+
+  <td valign="top" width="120">ERT &lt; 30 秒 RPO &lt; 5s</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="176">アクティブな地理的レプリケーション</td>
+
+  <td valign="top" width="118">対象外の情報</td>
+
+  <td valign="top" width="114">対象外の情報</td>
+
+  <td valign="top" width="120">ERT &lt; 30 秒 RPO &lt; 5s</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  ビジネス継続性/ディザスターリカバリー (BCDR) モデルを定義する主な要因は、アプリケーションのパフォーマンスプロファイルを使用して、ニーズを満たすビジネス継続性ソリューションを実現できることです。 アプリケーションで大量のデータが処理され、更新頻度が低く、Basic レベルで適切なパフォーマンスレベルが提供される場合、geo リストアは回復のニーズを満たしている必要があります。 アプリケーションがより大量のデータを処理し、より高いパフォーマンスレベルの Standard レベルとより積極的な RPO を必要とする場合は、標準の geo レプリケーションが適切なディザスターリカバリーソリューションである可能性があります。 アクティブ geo レプリケーションは、大量の読み取りと書き込みを処理するアプリケーション向けに設計されており、読み取り操作を負荷分散することで、障害に対する高い回復性と読み取りスケールの両方を実現するために、セカンダリを使用する必要があります。このように、SQL Database の bcdr モデルは、Basic からプレミアムに拡張すると、ますます堅牢なビジネス継続性機能を提供します。
+
+  <h2>標準 Geo レプリケーションとアクティブ Geo レプリケーションの違いはどのようなものですか?</h2>
+
+  ユーザーエクスペリエンスとアクティブ geo レプリケーションとの違いについて詳しく見ていきましょう。
+
+
+  まず、標準的な geo レプリケーションはアクティブ geo レプリケーションと同じテクノロジ上に構築されていますが、geo レプリケーションを使用するアプリケーションに最適化されており、リージョンの障害からアプリケーションを保護することはできません。 次の一覧は、標準的な geo レプリケーションがアクティブ geo レプリケーションとどのように異なるかを示しています。
+
+  <ol>
+   <li>Microsoft 定義の "DR 対" の Azure リージョンで作成できるセカンダリデータベースは1つだけです。 DR ペアの一覧については、 <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2013/12/11/introducing-read-access-geo-replicated-storage-ra-grs-for-windows-azure-storage.aspx">こちら</a>を参照してください。</li>
+   <li>セカンダリはマスターデータベースに表示されますが、フェールオーバーが完了するまで直接接続することはできません (オフラインセカンダリ)。</li>
+   <li>セカンダリデータベースは読み取り可能 (オフライン) ではないため、割引率で課金されます。</li>
+  </ol>
+
+  そのため、標準的な geo レプリケーションでは、アクティブ geo レプリケーションを使用して有効にできるシナリオがありません。 このデルタの概要を次の表に示します。
+
+  <table border="1" width="671" cellspacing="0" cellpadding="2">
+
+  <tbody>
+
+  <tr>
+
+  <td valign="top" width="230"><strong>シナリオ</strong></td>
+
+  <td valign="top" width="212"><strong>標準 Geo レプリケーション</strong></td>
+
+  <td valign="top" width="227"><strong>アクティブ Geo レプリケーション</strong></td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="230">地域的災害</td>
+
+  <td valign="top" width="212">はい</td>
+
+  <td valign="top" width="227">はい</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="230">DR ドリル</td>
+
+  <td valign="top" width="212">はい</td>
+
+  <td valign="top" width="227">はい</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="230">オンラインアプリケーションのアップグレード</td>
+
+  <td valign="top" width="212">いいえ</td>
+
+  <td valign="top" width="227">はい</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="230">オンラインアプリケーションの再配置</td>
+
+  <td valign="top" width="212">いいえ</td>
+
+  <td valign="top" width="227">はい</td>
+
+  </tr>
+
+  <tr>
+
+  <td valign="top" width="230">負荷分散の読み取り</td>
+
+  <td valign="top" width="212">いいえ</td>
+
+  <td valign="top" width="227">はい</td>
+
+  </tr>
+
+  </tbody>
+
+  </table>
+
+  図1は、標準的な Geo レプリケーションの一般的な構成を示しています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/Standard-Geo-Replication-Figure-1.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="標準 Geo-Replication (図 1)" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Standard-Geo-Replication-Figure-1_thumb.png" alt="Standard Geo-Replication (Figure 1)" width="1024" height="577" border="0" /></a>
+
+  <p align="center">図 1.データベースでは、DR ペアリージョンに1つのオフラインセカンダリを含めることができます。</p>
+
+
+  <h2>プレミアムデータベースでアクティブ geo レプリケーションではなく、標準 geo レプリケーションを使用するのはなぜですか。</h2>
+
+  プレミアムデータベースは、標準の geo レプリケーションまたはアクティブ geo レプリケーションのいずれかを使用して保護できます。 そのため、より強力なアクティブ geo レプリケーションで標準 geo レプリケーションを使用する場合は、どうすればよいでしょうか。 標準 geo レプリケーションは、ディザスターリカバリー SLA を実現するためだけに geo レプリケーションを使用するアプリケーション向けに設計されています。 アプリケーションに読み取り指向の大量のワークロードがあり、迅速なディザスターリカバリーに加えて読み取りスケールの負荷分散のメリットが得られる場合は、アクティブ geo レプリケーションの方が適しています。
+
+  <h2 align="left">データベース フェールオーバー</h2>
+
+  標準的な geo レプリケーションは、特に、データ層の機能停止に伴うダウンタイムが少ない DR ソリューションを提供するように設計されています。
+
+
+  リージョンで拡張停止が発生した場合、ポータルにアラートが表示され、SQL Database サーバーの状態が "低下" に設定されていることがわかります。 その時点で、アプリケーションはフェールオーバーを開始するか、データセンターの復旧を待機するかを選択できます。 アプリケーションが高可用性を実現するために最適化する必要があり、5秒の RPO を許容できる場合は、アラートを受信するか、データベース接続エラーを検出するとすぐにフェールオーバーする必要があります。 アプリケーションがデータの損失に対する影響を受けている場合は、SQL Database サービスの回復を待機することを選択できます。 これが発生した場合、データの損失は発生しません。 データベースのフェールオーバーを開始する場合は、新しいプライマリデータベースに接続するために、アプリケーションを適切に再構成する必要があります。
+
+
+  フェールオーバーが完了したら、新しいプライマリもできるだけ早く保護されるようにします。 プライマリリージョンの回復には時間がかかる場合があるため、サーバーが低下してからオンライン状態に変わるまで待機する必要があります。 これにより、新しいプライマリから geo レプリケーションを開始して保護することができます。 新しいセカンダリのシード処理が完了するまで、新しいプライマリは保護されません。 シード処理が完了すると、図2に示すような DR 構成が表示されます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/06/02/Standard-Geo-Replication-Figure-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="標準 Geo-Replication (図 2)" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Standard-Geo-Replication-Figure-2_thumb.png" alt="Standard Geo-Replication (Figure 2)" width="1147" height="514" border="0" /></a>
+
+
+  &nbsp;
+
+
+  &nbsp;
+
+  <p align="center">図 2.アプリケーションでは、フェールオーバー後に新しいセカンダリデータベースを作成できます。</p>
+
+
+  <h2 align="left">ディザスター リカバリーの訓練</h2>
+
+  データベースのフェールオーバーはデータに関連付けられ、中断プロセスであるため、アプリケーションの準備を確実に行うために、フェールオーバーワークフローを定期的にテストする必要があります。 このプロセスを DR ドリルと呼びます。 適切なエンジニアリングプラクティスに加えて、コンプライアンス認定の一部として、ほとんどの業界のセキュリティ標準でも必要になります。 セカンダリデータベースの geo レプリケーションをいつでも停止することで、全体的な DR ワークフローをテストできます。 終了時点でプライマリがアクティブな場合、プライマリに対してコミットされたが、セカンダリにまだレプリケートされていないトランザクションは失われます。 終了すると、セカンダリに完全にアクセス可能になり、アプリケーションで新しいプライマリとして使用できます。 データが失われる可能性と、訓練中にプライマリが保護されない可能性が原因で、実稼働データベースに対して DR ドリルを実行することをお勧めしません。 代わりに、同じリージョンにデータベースのテスト コピーを作成し、コピーのセカンダリを作成してから、コピーとそのセカンダリを使用して、テスト コンテキストでアプリケーションのフェールオーバー ワークフローを検証することをお勧めします。
+
+  <h2>管理ツール</h2>
+
+  標準 geo レプリケーションを管理するには、PowerShell コマンドレットや REST API を含む Active geo レプリケーションと同じ API を使用するか、Azure 管理ポータル を使用します。 標準的な geo レプリケーションを有効にする最も簡単な方法は、図 3 に示すように、Azure 管理ポータル geo レプリケーション タブを使用する方法です。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/08/Geo-replication-capture-2.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="geo レプリケーション キャプチャ (2)" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Geo-replication-capture-2_thumb.png" alt="Geo-replication capture (2)" width="887" height="768" border="0" /></a>
+
+  <p align="center">図 3: Azure 管理ポータルを使用して、オフライン geo セカンダリの状態を作成および監視します。</p>
+
+  geo レプリケーションは、いつでもオプトアウトできます。 これを行う方法は 2 通りあります。 プライマリ データベースまたはセカンダリ データベースで geo レプリケーションリレーションシップを終了できます。 最初のメソッドは、誤って開始された操作を取り消す方法として最も便利です。 セカンダリ データベースのシード処理が完了する前に発行された場合は、セカンダリ データベースに対して請求されません。 その後に発行された場合は、使用するセカンダリ データベースを個別に削除し、追加のデータベースの日割り計算された時間料金を支払う必要があります。 2 番目の方法では、geo レプリケーションが自動的に終了され、セカンダリ データベースが削除され、1 つの手順で課金が停止されます。
+
+  <h2>まとめ</h2>
+
+  Standard Geo レプリケーションでは、中程度の更新率でアプリケーションを対象とする強力なディザスター リカバリー ソリューションが提供され、リージョンの停止中のダウンタイムを大幅に削減することに関心があります。 ご自分の考えをお聞かわせください。 フィードバックに密接に耳を傾けています。 Standard geo レプリケーションの詳細については、この記事を参照 <a href="https://msdn.microsoft.com/en-us/library/azure/dn758204.aspx">してください</a>。

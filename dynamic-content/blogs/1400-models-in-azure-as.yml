@@ -1,0 +1,194 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e1eb4ec4f27776f5b4f0d1d936589e7a18e66e06
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896314"
+Slug: 1400-models-in-azure-as
+Title: Azure Analysis Services の 1400 互換性レベル
+Summary: Azure AS では、すべての新しいエンタープライズ機能と接続を含む 1400 のモデルがサポートされます。
+Content: >-
+  <p>表形式モデルの 1400 互換性レベルのパブリック プレビューをお知らせAzure Analysis Services。 これにより、アクション可能な分析情報を提供する包括的なエンタープライズ規模の分析ソリューションのための新しい接続機能とモデリング機能のホストが提供されます。 1400 互換性レベルは SQL Server 2017 Analysis Services でも使用できます。オンプレミスとクラウド全体で対称モデリング機能が確保されます。</p>
+
+
+  <p>1400 モデルで使用できる新機能の一部を次に示します。</p>
+
+
+  <ul>
+   <li>TOM API と TMSL スクリプトをサポートする表形式モデルへのデータ接続と取り込みのための新しいインフラストラクチャ。 これにより次のことが可能になります。 <ul style="margin-left: 40px;">
+    <li>Azure Blob Storage などの追加のデータ ソースのサポート。</li>
+    <li>データ変換とデータ マッシュアップ機能。</li>
+   </ul>
+   </li>
+   <li>などの BI ツールをサポートMicrosoft Excelレポートから詳細なデータにドリルダウンできます。 たとえば、エンド ユーザーが地域と月の売上合計を表示すると、関連付けられている注文の詳細を表示できます。</li>
+   <li>内のデータに加えて、テーブル名と列名をセキュリティで保護するためのオブジェクト レベルのセキュリティ。</li>
+   <li>組織のグラフやアカウントのグラフなど、ぼろぼろ階層のサポートが強化されました。</li>
+   <li>パフォーマンス、監視、およびパフォーマンスモデリング エクスペリエンスとの一貫性に関するその他Power BI改善。</li>
+  </ul>
+
+
+  <p>1400&rsquo; 互換性レベルのモデルの新機能を利用するには、<a href="https://msdn.microsoft.com/library/mt204009.aspx">SQL Server Data Tools (SSDT) 17.0</a> をダウンロードしてインストールする必要があります。</p>
+
+
+  <p>SSDT では、新しいテーブル モデル プロジェクトを作成するときに新しい 1400 互換性レベルを選択できます。 または、ソリューション エクスプローラー で Model.bim ファイルを選択し、プロパティ ウィンドウ で互換性レベルを 1400 に設定することで、既存の表形式モデルをアップグレードできます。 互換性レベル 1400 のモデルを下位互換性レベルにダウングレードすることはできません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/03f51374-0f73-4c8b-9f9e-cfd673d25402.png"><img alt="image" border="0" height="361" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d04adcc3-ba60-4fed-9ae8-7006fdd38580.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="イメージ" width="344"></a></p>
+
+
+  <h2>データ接続のための新しいインフラストラクチャ</h2>
+
+
+  <p>1400 モデルでは、TOM API と TMSL スクリプトをサポートする表形式モデルへのデータ接続とインジェストのための新しいインフラストラクチャが導入されています。 これは、2016 年と 2016 年Power BI Desktop同様Microsoft Excel基づいて作成されます。 この時点では、次のクラウドベースのデータ ソースだけが、1400 の互換性レベルでサポートAzure Analysis Services。 今後、さらに多くのデータ ソースのサポートを追加する予定です。 詳細については、Analysis Services <a href="https://blogs.msdn.microsoft.com/analysisservices/2016/12/16/introducing-a-modern-get-data-experience-for-sql-server-vnext-on-windows-ctp-1-1-for-analysis-services/">Team</a> ブログを参照し、Azure ブログへの今後の投稿に注意してください。</p>
+
+
+  <ul>
+   <li>Azure SQL Data Warehouse</li>
+   <li>Azure SQL データベース</li>
+   <li>Azure Blog Storage</li>
+  </ul>
+
+
+  <h2>詳細行</h2>
+
+
+  <p>表形式モデルの多くの要求される機能は、メジャー値に寄与するカスタム行セットを定義する機能です。 多次元モデルでは、ドリルスルーアクションと行セット アクションを使用してこれを実現します。 エンドユーザーは詳細行を使用して、集計レベルよりも詳細な情報を表示できます。</p>
+
+
+  <p>たとえば、次のピボットテーブルは、Adventure Works サンプル表形式モデルの年別の Internet Total Sales を示しています。 ユーザーは 2010 年のセルを右クリックし、[詳細の表示] メニュー オプションを選択して詳細行を表示できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9045ab35-7642-4ebc-8771-e475b7115b88.jpg"><img alt="clip_image004" border="0" height="323" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/17ada76c-cdda-4ea9-b4c7-3997712cbc7e.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image004" width="460"></a></p>
+
+
+  <p>既定では、Internet Sales テーブルのすべての列が表示されます。 この動作は、多くの場合、表示される列が多すぎる可能性があり、顧客名や注文情報などの有用な情報を表示するために必要な列がテーブルに含まれるため、ユーザーにとって意味がありません。</p>
+
+
+  <h3>詳細行の式のプロパティ</h3>
+
+
+  <p>1400 モデルでは、メジャー詳細行の式プロパティが導入されています。 これにより、モデリングツールは、エンド ユーザーに返される列と行をカスタマイズできます。 次の例では、SSDT の DAX エディターを使用して、Internet Total Sales メジャーに対して返される列を定義します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4faec63f-9a8f-44a4-b776-f18b1e964e3b.jpg"><img alt="clip_image006" border="0" height="387" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5ca1530b-242b-4e30-a1f7-8432715630c1.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image006" width="500"></a></p>
+
+
+  <p>プロパティが定義され、モデルがデプロイされた場合、ユーザーが [詳細の表示] を選択すると、カスタム行セットが返されます。 選択されたセルのフィルター コンテキストが自動的に使用されます。 この例では、2010 値の行だけが表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/40539755-27b7-49d1-bb44-05d2fe287d63.png"><img alt="clip_image007" border="0" height="184" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4062d8cf-9b43-401d-b9c2-06b091874528.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image007" width="613"></a></p>
+
+
+  <p>詳細行の詳細については、このブログ記事 <a href="https://blogs.msdn.microsoft.com/analysisservices/2016/12/16/whats-new-for-sql-server-vnext-on-windows-ctp-1-1-for-analysis-services/">を参照してください</a>。</p>
+
+
+  <h2>Object-Level セキュリティ</h2>
+
+
+  <p>表形式モデルのロールでは、アクセス許可の詳細な一覧と、機密データの保護に役立つ行レベルのフィルターが既にサポートされています。</p>
+
+
+  <p>1400 モデルでは、テーブルレベルと列レベルのセキュリティが導入され、その中のデータに加えて、機密性の高いテーブル名と列名を保護できます。 これらの機能は総称して、オブジェクト レベルのセキュリティ (OLS) と呼ばれます。</p>
+
+
+  <p>現在のバージョンでは、JSON ベースのメタデータ、 <a href="https://msdn.microsoft.com/library/mt614797.aspx">表形式モデル</a> スクリプト言語 (TMSL)、または <a href="https://msdn.microsoft.com/library/mt706505.aspx">表</a> 形式オブジェクト モデル (TOM) を使用して OLS が設定されている必要があります。 SSDT のサポートは間もなく提供される予定です。 Model.bim ファイルの JSON ベースのメタデータの次のスニペットは、ColumnPermission クラスの MetadataPermission プロパティを None に設定することで、Adventure Works サンプル表形式モデルの Employee テーブルの Base Rate 列をセキュリティで保護します。</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&quot;roles&quot;: [</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp; {</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&quot;name&quot;: &quot;一般ユーザー&quot;、</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&quot;description&quot;: &quot;モデルに対してクエリを実行できるすべてのユーザー&quot;。</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&quot;modelPermission&quot;: 読み&quot;取り&quot;、</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&quot;tablePermissions&quot;: [</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;: &quot;Employee&quot;、</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;columnPermissions&quot;: [</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;: &quot;基本レート&quot;、</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;metadataPermission&quot;: &quot;none&quot;</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp;&nbsp;&nbsp; ]</p>
+
+
+  <p class="MsoNormal" style="background: rgb(242, 242, 242); margin: 0in 0in 0pt; line-height: normal; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; mso-shading: white; mso-pattern: gray-5 auto;">&nbsp; }</p>
+
+
+  <p>承認されていないユーザーは、ピボット テーブルやピボット テーブルなど、クライアント ツールを使用Power BIベース Excelアクセスできません。 さらに、このようなユーザーは、DAX または MDX、またはそれを参照するメジャーを使用して [基本レート] 列に対してクエリを実行することはできません。</p>
+
+
+  <p>OLS の詳細については、このブログ記事 <a href="https://blogs.msdn.microsoft.com/analysisservices/2017/04/19/whats-new-in-sql-server-2017-ctp-2-0-for-analysis-services/">を参照してください</a>。</p>
+
+
+  <h2>不規則階層</h2>
+
+
+  <p>以前の互換性レベルの表形式モデルを使用して、親子階層をモデル化できます。 レベルの数が異なる階層は、"ぼろぼろ階層" <i>と呼ばれます</i>。 ぼろぼろの階層の例として、組織図があります。 既定で、最下位の子の下のレベルについては、不規則階層が空白で表示されます。 これは、Adventure Works の次の組織図に示すように、ユーザーに対して見た目が不一好である可能性があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d99a507d-eef1-436a-abdc-ae603413725c.jpg"><img alt="clip_image009" border="0" height="294" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10536e46-d687-43f4-9c25-0d0873a8d441.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image009" width="357"></a></p>
+
+
+  <p>1400 モデルでは、これを修正するために [メンバーを非表示にする] プロパティが導入されています。 [メンバーを非表示にする] プロパティを [空白のメンバーを非表示にする] に設定します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c09d8a22-98a2-489e-aeb1-09c6c26c1474.jpg"><img alt="clip_image011" border="0" height="266" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d13297f-a09d-4dac-a409-c40c46535f93.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image011" width="327"></a></p>
+
+
+  <p>プロパティが設定され、モデルがデプロイされている場合は、より表示可能なバージョンの階層が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7f48b240-cf00-4f6a-8c47-84934055742a.jpg"><img alt="clip_image013" border="0" height="225" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/dc9fe6af-a471-40c1-a733-9e76605b1b53.jpg" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image013" width="375"></a></p>
+
+
+  <h2>その他の機能</h2>
+
+
+  <p>1400 互換性レベルでは、次のような他のさまざまな機能も導入されています。 詳細については、SQL <a href="https://blogs.msdn.microsoft.com/analysisservices/2017/04/19/whats-new-in-sql-server-2017-ctp-2-0-for-analysis-services/">Server 2017 CTP 2.0</a> および SQL Server <a href="https://blogs.msdn.microsoft.com/analysisservices/2016/12/16/whats-new-for-sql-server-vnext-on-windows-ctp-1-1-for-analysis-services/">vNext on Windows CTP 1.1</a> for Analysis Services の新機能については、Analysis Services&#39;Team ブログを参照してください。</p>
+
+
+  <ul>
+   <li>応答性の高い開発者エクスペリエンスのためのトランザクション パフォーマンスの向上。</li>
+   <li>動的管理ビューの機能強化により、依存関係の分析とレポートが可能です。</li>
+   <li>階層と列の再利用は、フィールドリスト内のより役に立つPower BI表示されます。</li>
+   <li>日付列に基づいて日付ディメンションへのリレーションシップを簡単に作成する日付リレーションシップ。</li>
+   <li>DAX の機能強化により、DAX のアクセスが向上し、強力になります。 これには、IN 演算子とテーブル/行コンストラクターが含まれます。</li>
+  </ul>
+
+
+  <h2>今すぐ試してみてください。</h2>
+
+
+  <p>開始するには、SSDT で 1400 モデルを作成し、それを 1400 にデプロイAzure Analysis Services。 最初 <a href="https://azure.microsoft.com/blog/first-azure-as/">のモデルを作成</a> する方法については、この投稿を参照してください。 このブログは、常に最新の状態に保たAzure Analysis Services。</p>

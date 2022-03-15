@@ -1,0 +1,93 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 565f282c51b4b73036956b2cfec3c5778b1cf5f8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890880"
+Slug: azure-update-management-a-year-of-great-updates
+Title: 'Azure Update Management: 1 年間の更新プログラム'
+Summary: Azure Update Management は、オンプレミスと Azure の両方で、Windows と Linux サーバーの修正プログラム適用を 1 か所から管理できる、Azure サブスクリプションの一部として含まれるサービスです。
+Content: >-
+  <p>Azure Update Management は<a href="https://azure.microsoft.com/pricing/details/automation/" target="_blank">、Azure サブスクリプション</a>の一部として含まれるサービスです。これにより、環境全体の更新状態を評価し、オンプレミスと Azure の両方の 1 つのウィンドウから Windows と Linux サーバーのパッチ適用を管理できます。</p>
+
+
+  <p>Update Management無料で利用できます (Azure Log Analytics サービスに格納されているログ データに対する支払いのみ)、Azure とオンプレミスの VM で簡単に有効にできます。 試してみるには、Azure の [VM] タブに移動し、1 つ以上のマシンで更新管理を有効にします。</p>
+
+
+  <p>この 1 年間、フィードバック&rsquo;に耳を傾け、Azure Update Management に強力な新機能を提供しました。 ここでは&rsquo;、お客様の支援を得て開発した新機能の一部を示します。</p>
+
+
+  <h2>グループ</h2>
+
+
+  <p>今年のコミュニティからの最大の質問の 1 つは、更新プログラムの展開を柔軟にターゲットにし、特に動的メンバーシップを持つグループをサポートする方法です。 更新プログラムの展開を作成するときにマシンの静的セットを指定する代わりに、グループを使用すると、更新プログラムの展開が発生するごとに評価されるクエリを指定できます。</p>
+
+
+  <p>Azure ネイティブの柔軟な概念を使用して、オンボードされた Azure VM を対象とする Azure ネイティブ クエリを作成できるプレビュー機能をリリースしました。 たとえば、次のスクリーンショットでは、 <em>PatchWindow=SundayNight</em> タグを持つオンボードされた VM を自動的に選択するようにクエリが構成されています。 新しい VM をオンボードすると、このタグを追加するだけで、VM は、この更新プログラムのデプロイの次のパッチ サイクルに自動的に参加し始めるのです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/91eb7946-3a8e-4d0e-a242-f0994a5cc92f.png"><img alt="NewUpdateDeployment_thumb[5]" border="0" height="577" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3b9e6765-56ab-427f-96cd-f43e3378ac95.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="NewUpdateDeployment_thumb[5]" width="1161"></a></p>
+
+
+  <p>また&rsquo;、更新プログラムのデプロイの作成中にクエリをすぐにプレビューする機能も追加されました。 これにより、この更新プログラムのデプロイが今すぐ実行される場合に修正プログラムが適用される VM が表示されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e6d83ea-bc8b-4dde-b612-e4c04b86daa0.png"><img alt="Preview_thumb[5]" border="0" height="332" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/572159f7-cc19-422b-98f2-8a2df73b48d2.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Preview_thumb[5]" width="555"></a></p>
+
+
+  <h2>新しいマシンのオンボード</h2>
+
+
+  <p>仮想マシン ビューから、サブスクリプション間でも、複数のマシンを Update Managementに簡単にオンボードできます。 詳細については、ドキュメントを参照 <a href="https://docs.microsoft.com/azure/automation/automation-onboard-solutions-from-browse" target="_blank">してください</a>。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/532553bc-bb67-4cb2-b23b-f7ad18d48fe8.png"><img alt="VirtualMachines_thumb[5]" border="0" height="601" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/75399ee4-14f5-4f7f-aee6-2b73fd040240.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="VirtualMachines_thumb[5]" width="1155"></a></p>
+
+
+  <h2>事前/事後スクリプト</h2>
+
+
+  <p>コミュニティからの大きな質問の 1 つは、更新プログラムの展開の前と後にカスタム タスクを実行する機能です。 より一般的なシナリオには、更新プログラムを展開する前に VM を起動する (別の上位 UserVoice 要求)、マシンでサービスを開始および停止する、更新プログラムを展開する前にバックアップ ジョブを開始するシナリオがあります。</p>
+
+
+  <p>この問題に対処するために、更新プログラムの &ldquo;デプロイの一環として Azure Automation Runbook を呼び出す方法である事前/&rdquo; 事後スクリプトを追加しました。 また、特定の <a href="https://docs.microsoft.com/azure/automation/pre-post-scripts#samples" target="_blank">ニーズの</a> 使用を開始するのに役立つサンプルも公開されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/92cf0dcd-2b89-4ebe-9004-2e7c6465f1b1.png"><img alt="NewUpdateDeployment2_thumb[5]" border="0" height="788" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/474c9ba6-c43e-4589-987c-2c4b75480d9d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="NewUpdateDeployment2_thumb[5]" width="1158"></a></p>
+
+
+  <p>事前/ <a href="https://docs.microsoft.com/azure/automation/pre-post-scripts#samples" target="_blank">事後</a> スクリプトの使用の詳細については、ドキュメントを参照してください。</p>
+
+
+  <h2>更新プログラムの包含</h2>
+
+
+  <p>Azure Update Management は、分類に基づいてパッチをデプロイする機能を提供します。 ただし、正確な一連のパッチを明示的に一覧表示する必要のあるシナリオが存在します。 一般的なシナリオには、カナリア環境のテスト後のパッチのホワイトリスト登録と、0 日間のパッチ ロールアウトが含まれます。</p>
+
+
+  <p>更新プログラムの包含リストを使用すると、パッチの分類に依存するのではなく、どのパッチをデプロイするかを正確に選択できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7907f69e-ae5e-4e85-a767-e34e35353885.png"><img alt="UpdateInclusion_thumb[5]" border="0" height="596" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/761bb284-de10-4a41-a142-c56d75a05162.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="UpdateInclusion_thumb[5]" width="623"></a></p>
+
+
+  <p>パッチの包含のしくみの詳細については、ドキュメントを参照 <a href="https://docs.microsoft.com/azure/automation/automation-update-management#inclusion-behavior" target="_blank">してください</a>。</p>
+
+
+  <h2>再起動制御</h2>
+
+
+  <p>多くの場合、修正プログラムには再起動が必要です。 残念ながら再起動は、アプリケーションの可用性に影響します。 これらの&rsquo;再起動がいつ発生したのかを制御する機能が必要というフィードバックが寄せられます。再起動制御が結果です。</p>
+
+
+  <p>新しい再起動制御機能を使用すると、再起動を制御するための柔軟なオプションが提供されます。 更新の実行時に&rsquo;再起動を抑制したり、常に再起動したり、サーバーを再起動して修正プログラムをインストールしない別の更新プログラムの展開を作成したりすることもできます。 この機能により、サーバーの再起動によって発生するダウンタイムは、修正プログラムの適用サイクルから切り離される可能性があります。</p>
+
+
+  <p>また、一部のユーザーは、再起動を自分で制御するフィードバックを提供し、サービスがダウンし、内部制御と一致する方法で起動されます。 事前/事後スクリプト機能を再起動制御と組み合わせて使用すると、パッチ サイクル中に再起動を抑制し、ポスト スクリプトとしてサーバーの再起動を調整して実行できます。</p>
+
+
+  <h2>お試しください。</h2>
+
+
+  <p>Update Management継続的に改善しています。 まだ使用を&rsquo;開始していない場合は、今すぐ始めるのに <a href="https://docs.microsoft.com/en-us/azure/automation/automation-tutorial-update-management" target="_blank">最適な時間です</a>。 <a href="https://feedback.azure.com/forums/905242-update-management" target="_blank">UserVoice</a> に関するユーザーからのフィードバックをお待ちしております。また、お客様のフィードバックによって機能が直接提供されます。 試してみると、Azure の機能を向上させる方法Update Managementしてください。</p>

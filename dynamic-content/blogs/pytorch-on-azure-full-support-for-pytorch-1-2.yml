@@ -1,0 +1,68 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 96a6b74b4352e0ac0d9e43c47464654e93dc6feb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890054"
+Slug: pytorch-on-azure-full-support-for-pytorch-1-2
+Title: 'Azure 上の PyTorch: PyTorch 1.2 の完全サポート'
+Summary: PyTorch 1.2 のリリースで PyTorch コミュニティにご参加いただき、ありがとうございました。 最後に、オープンソース AI の取り組みの一環として、Azure で完全にサポートされている主要なトレーニングフレームワークの1つを PyTorch しました。
+Content: >-
+  <p><a href="https://pytorch.org/blog/pytorch-1.2-and-domain-api-release/" target="_blank">PyTorch 1.2 のリリース</a>で PyTorch コミュニティにご参加いただき、ありがとうございました。 最後に、オープンソース AI の取り組みの一環として、Azure で <a href="https://azure.microsoft.com/blog/world-class-pytorch-support-on-azure/" target="_blank">完全にサポートされている主要なトレーニングフレームワーク</a> の1つを PyTorch しました。 PyTorch は多くの AI プラットフォームサービスでサポートされており、開発者は PyTorch コミュニティに参加しており、コードベースの重要な改善に寄与しています。 現在、Azure で PyTorch 1.2 を使用するさまざまな方法を紹介し、お客様が PyTorch モデルをトレーニングから実稼働にするのを支援するために行った投稿 &rsquo; をいくつか取り上げています。</p>
+
+
+  <h2>Azure 上の PyTorch 1.2</h2>
+
+
+  <p><a href="https://azure.microsoft.com/develop/pytorch/" target="_blank">Azure での PyTorch</a>の使用は簡単で、PyTorch モデルをトレーニングしてデプロイするための優れた方法です。 最新の機能を利用できるように、次の Azure サービスに PyTorch 1.2 を統合しまし &rsquo; た。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/services/machine-learning-service/" target="_blank"><strong>Azure Machine Learning サービス</strong></a> &ndash; Azure Machine Learning により、機械学習モデルの構築、トレーニング、デプロイが効率化されます。 Azure Machine Learning &rsquo; s Python SDK には専用の<a href="https://docs.microsoft.com/python/api/azureml-train-core/azureml.train.dnn.pytorch?view=azure-ml-py" target="_blank">PyTorch 推定</a>機能があり、選択した任意のコンピューティングターゲットで PyTorch トレーニングスクリプトを簡単に実行できます。これ &rsquo; により、ローカルコンピューター、azure の単一の仮想マシン (VM)、または azure の GPU クラスターを簡単に実行できるようになります。 <a href="https://docs.microsoft.com/azure/machine-learning/service/how-to-train-pytorch" target="_blank">Azure Machine Learning で大規模なディープラーニングモデルをトレーニング</a>する方法について説明します。</li>
+      <li><a href="https://notebooks.azure.com/" target="_blank"><strong>Azure Notebooks</strong></a> &ndash; Azure Notebooks には、PyTorch 1.2 がプレインストールされた、クラウドでホストされた無料の Jupyter notebook サーバーが用意されています。 詳細については、 <a href="https://notebooks.azure.com/pytorch" target="_blank">PyTorch のチュートリアルと例</a>をご覧ください。</li>
+      <li><a href="https://azure.microsoft.com/services/virtual-machines/data-science-virtual-machines/" target="_blank"><strong>Data Science Virtual Machine</strong></a> &ndash; データサイエンス Virtual Machines は、PyTorch 1.2 を含む一般的なデータサイエンスおよびディープラーニングツールで事前構成されています。 Data Science Virtual Machine をホストするさまざまな種類のマシンを選択できます。これには、Gpu を使用するものも含まれます。 詳細については、 <a href="https://docs.microsoft.com/azure/machine-learning/data-science-virtual-machine/" target="_blank">Data Science Virtual Machine のドキュメント</a>を参照してください。</li>
+  </ul>
+
+
+  <h2>PyTorch から運用へ</h2>
+
+
+  <p>PyTorch は、モデルの作成とトレーニングを行うための広く普及しているオープンソースのディープラーニングフレームワークです。 これは、高速トレーニングのために Gpu の機能を使用するように構築されており、Python と密接に統合されているため、簡単に始めることができます。 ただし、トレーニング済みのモデルを運用環境にデプロイすることは、従来はお客様にとって問題になりました。 運用環境では、パフォーマンスとマルチスレッドの要件により、コア計算に Python を使用することは適さない場合があります。 この課題に対処するために、PyTorch コミュニティに協力して、運用環境で PyTorch のトレーニング済みモデルを簡単に使用できるようにしました。</p>
+
+
+  <p>PyTorch &rsquo; s JIT コンパイラは、トレース、TorchScript、または両方の組み合わせを使用して、モデルを一括モードからグラフモードに移行します。 次に、ONNX export の PyTorch &rsquo; s 組み込みサポートを使用することをお勧めします。 <a href="https://onnx.ai/" target="_blank">ONNX</a>はオープンなニューラルネットワーク Exchange を表し、機械学習モデルを表すオープンな標準形式です。 ONNX モデルは、 <a href="https://github.com/microsoft/onnxruntime" target="_blank">ONNX Runtime</a>を使用して inferenced できます。 ONNX Runtime は、オープンソース、クロスプラットフォーム、高度に最適化された、運用規模の機械学習ワークロード用の推論エンジンです。 C++ で記述されており、Linux、Windows、および Mac で動作します。 この小さなバイナリサイズによって、さまざまなターゲットデバイスと環境に適しています。 アクセラレータを ONNX Runtime と統合した<a href="https://cloudblogs.microsoft.com/opensource/2019/08/26/announcing-onnx-runtime-0-5-edge-hardware-acceleration-support/" target="_blank">Intel および NVIDIA</a>のおかげで、CPU、GPU、vpu によって高速になり &rsquo; ました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11e5b0e4-f5fd-4bf4-b299-2ac7452904ed.png"><img alt="Training and production with PyTorch and ONNX Runtime" border="0" height="547" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3f223d0-7ee7-4d7b-b282-c27125eea8bd.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="PyTorch と ONNX Runtime を使用したトレーニングと運用" width="1402"></a></p>
+
+
+  <p>PyTorch 1.2 では、強化された ONNX エクスポート機能が提供されています。</p>
+
+
+  <ul>
+      <li>オブジェクトの検出やマスクモデル (マスク RCNN、高速 RCNN、SSD など) を含む、広範な PyTorch モデルのサポート</li>
+      <li>可変長入力で動作するモデルのサポート</li>
+      <li>さまざまなバージョンの ONNX 推論エンジンで実行できるモデルをエクスポートする</li>
+      <li>定数フォールドによるモデルの最適化</li>
+      <li>ONNX への PyTorch モデルのエクスポートと ONNX Runtime での推定の実行<a href="https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html" target="_blank">を示すエンドツーエンドチュートリアル</a></li>
+  </ul>
+
+
+  <p>ONNX Runtime を使用して、独自の PyTorch モデルをさまざまな運用環境にデプロイできます。 詳細については、以下のリンクを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/deployment/onnx/onnx-train-pytorch-aml-deploy-mnist.ipynb" target="_blank">クラウドにデプロイする</a></li>
+      <li><a href="https://github.com/onnx/tutorials/blob/master/tutorials/ExportModelFromPyTorchForWinML.md" target="_blank">Windows アプリへのデプロイ</a></li>
+      <li><a href="https://github.com/Azure-Samples/onnxruntime-iot-edge/" target="_blank">Linux IoT ARM デバイスにデプロイする</a></li>
+  </ul>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>PyTorch の進化と改善を続けることが非常に興奮しています。 Microsoft では、PyTorch コミュニティに対するマイクロソフトのサポートを提供しています。 PyTorch 1.2 が Azure &mdash; で利用可能になりました。今すぐ<a href="https://azure.microsoft.com/free/services/machine-learning/" target="_blank">無料試用版をご</a>利用いただけます。</p>
+
+
+  <p>Azure で PyTorch を使用すると、お客様からのご意見をお待ちしております。</p>

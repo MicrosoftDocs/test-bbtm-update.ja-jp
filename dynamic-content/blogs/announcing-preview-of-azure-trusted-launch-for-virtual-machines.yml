@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2202610b0d7de9eb0984e8d5dda48de4d1831648
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895658"
+Slug: announcing-preview-of-azure-trusted-launch-for-virtual-machines
+Title: 仮想マシン用の Azure の信頼された起動のプレビューの発表
+Summary: 'ブートキットやルートキットのような永続的な脅威は、マルウェアが感染するオペレーティングシステムと同じカーネルモードの特権で実行される高度なマルウェアタイプです。 '
+Content: >-
+  <p>ブートキットやルートキットのような永続的な脅威は、マルウェアが感染するオペレーティングシステムと同じカーネルモードの特権で実行される高度なマルウェアタイプです。 これらの特権を使用すると、診断ツールとマルウェア対策から非表示にすることができるため、検出が非常に困難になり、削除がほとんど不可能になります。 この足掛かりは、通常、ローカルログインのバイパス、パスワードとキーストロークの記録、プライベートファイルの抜き取る、セキュリティキーと資格情報の盗みを行うために、マルウェアによって利用されます。</p>
+
+
+  <p>現時点では、azure のお客様は、仮想マシンに対して Azure の<a href="https://aka.ms/trustedlaunch" target="_blank">信頼された起動</a>を有効にすることで、<a href="https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyoutu.be%2FCQqu_rTSi0Q&amp;data=04%7C01%7Cv-teseal%40microsoft.com%7C0150eb1e557c46664cb008d8f85aba3b%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637532415841224309%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=N3aIJO9pO7s1j1JVlhHLa0Q2x7nsq7%2BloW4RXQi%2FXCU%3D&amp;reserved=0" target="_blank">ブートキットとルートキットの感染を防ぐことができるという</a>お知らせを&#39;ます。 信頼できる起動を使用すると、管理者は検証済みのブートローダー、OS カーネル、および信頼された起動仮想トラステッドプラットフォームモジュール (vTPM) を活用するブートポリシーを使用して仮想マシンを展開し、ブートが侵害されたかどうかを測定し、証明することができます。 VTPM 測定により、管理者はブートプロセス全体の整合性を確認できます。また、vTPM リリースポリシーでは、侵害された仮想マシンからキー、証明書、および&#39;シークレットにアクセスできないようにすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1b129ac3-ca0d-42b1-8fea-86c02ce6f27c.png"><img alt="Azure Trusted Launch configuration screenshot" border="0" height="421" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c28bd9a5-c6eb-4c8c-9537-066e8c75916c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="" width="1024"></a></p>
+
+
+  <p>Azure Security Center は、信頼された起動によって生成される整合性アラート、推奨事項、および修復の1つのウィンドウとして機能します。 これらの新機能は簡単に有効にできます。信頼できる起動は、デプロイコードの単純な変更、またはすべての仮想マシンの Azure portal 内のチェックボックスによって切り替わります。</p>
+
+
+  <p><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2cede844-2d42-4951-a553-133a0ec8c767.jpeg"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f9636353-9b7b-4ac6-b015-6e0a9c5d96cf.jpeg"></p>
+
+
+  <p>世界中の最大の出荷企業の1つである<a href="https://www.msc.com/" target="_blank">地中海配送会社</a>(MSC) は、グローバルコンピューティングインフラストラクチャを Azure に移行するプロセスです。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em>&quot;Azure への移行の一環として、特にブートローダーと OS カーネルレベルで、スタックのすべてのレイヤーにセキュリティとコンプライアンスが必要です。Azure の信頼された起動によって、it 管理者&#39;が簡単になります。 &quot; &mdash;Aaron Shvarts、CISO、MSC テクノロジ (NA)。</em></p>
+
+  </blockquote>
+
+
+  <p>SharePoint Online は、Microsoft Office と連携し、企業がデジタル化されたドキュメントの保管、取得、検索、アーカイブ、追跡、管理、およびレポート作成を行うことができる共同作業プラットフォームです。</p>
+
+
+  <blockquote>
+
+  <p style="margin-left: 40px;"><em> &quot; SharePoint Online のすべての要素は、セキュリティとコンプライアンスの厳密な要件を満たしている必要があります。Azure の信頼された起動を使用すると、ブートシーケンスと OS カーネルの整合性を確保しながら、Virtual Machine Scale Sets に移行することができます。この Azure セキュリティチームとのパートナーシップにより、&#39;世界の最も重要なデータで &quot; </em> &mdash; &nbsp; ある最新のクラウドである、SharePoint オンラインの最高のセキュリティアーキテクトである最新のクラウドになるという使命をさらに深めることができます。</p>
+
+  </blockquote>
+
+
+  <p>信頼できる起動は、選択した Azure リージョン内で追加コストなしでプレビュー段階にあり、よりよく使用されるオペレーティングシステムイメージをサポートしています。</p>
+
+
+  <p>詳細を確認し、信頼できる起動を開始するには、 <a href="https://aka.ms\trustedlaunch" target="_blank">ドキュメントのページ</a>を参照してください。</p>

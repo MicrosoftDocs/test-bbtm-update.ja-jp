@@ -1,0 +1,53 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7009b6714191a904e8b481f26723308ee028bc6e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894378"
+Slug: how-azure-security-center-uses-machine-learning-to-enable-adaptive-application-control
+Title: Azure Security Center が機械学習を使用して適応型アプリケーション制御を有効にする方法
+Summary: 脅威の情勢は過去数年にわたって大幅に変更されていますが、マルウェア検出は引き続き最大の問題の1つです。 無限の競合があります。攻撃者が新しいマルウェアを開発,...
+Content: >-
+  <p>脅威の情勢は過去数年にわたって大幅に変更されていますが、マルウェア検出は引き続き最大の問題の1つです。 無限の競合が発生した場合は、攻撃者が新しいマルウェアを開発し、セキュリティベンダーがそれを検出するために新しい署名を作成すると、検出を避けるためにマルウェアの新しい亜種が作成され、サイクルが継続します。 マルウェアは、サーバーを危険にさらす可能性がある唯一の種類のアプリケーションではありません。 不正なソフトウェアによって、攻撃者によって悪用される脆弱性が生じる可能性があります。 ほとんどの組織には、必要なアプリケーションの追跡と制御がないため、これらのリスクに対して視覚障碍があります。</p>
+
+
+  <p>ホワイトリストに登録するなどのアプリケーション制御を使用すると、悪意のある悪意のあるアプリケーションへの露出を制限できます。 アプリケーションのホワイトリスト登録は、急速に進化するマルウェアや新しいエクスプロイトのペースを守るのではなく、単に既知の正常なアプリケーションをすべてブロックします。 通常は固定された一連のアプリケーションを実行する専用サーバーでは、ホワイトリスト登録によって大幅な保護を強化できます。 アプリケーションコントロールを使用して、次のことを行うことができます。</p>
+
+
+  <ul>
+   <li>新規および不明なマルウェアをブロックします。</li>
+   <li>ライセンスされたソフトウェアのみの使用を指示する組織&#39;s セキュリティポリシーに準拠します。</li>
+   <li>古くてサポートされていないアプリケーションは避けてください。</li>
+   <li>組織で許可されていない特定のソフトウェア ツールが実行されないようにする。</li>
+  </ul>
+
+
+  <p>アプリケーションのホワイトリスト登録の概念は今までに存在していましたが、広く使用されていませんでした。 これは、サーバーまたはサーバーのグループごとに正確なホワイトリストポリシーを作成して適用し、大規模な環境でこれらのポリシーを大規模に管理することが複雑になるためです。</p>
+
+
+  <p>最近リリースされたアダプティブアプリケーション制御は、アプリケーションホワイトリストに対するイノベーションアプローチを使用して、管理オーバーヘッドを発生させずにセキュリティ上の利点を実現することを可能にしています。 Azure Security Center。 Machine learning を使用して、Azure Vm の動作を分析し、アプリケーションのベースラインを作成して、Vm をグループ化し、アプリケーションのホワイトリスト登録に適した候補であるかどうかを判断し、適切なホワイトリスト登録規則を推奨して自動的に適用します。 さらに、Security Center はアプリケーションのホワイトリスト登録ソリューションをバイパスするために利用できるアプリケーションを表示します。この機能を使用すると、既存のホワイトリストを変更することができます (たとえば、アプリケーションを削除してカバレッジに追加するなど)。また、ホワイトリストの違反についての警告が表示されます。</p>
+
+
+  <p>現在、アダプティブアプリケーション制御は、Azure で実行されている Windows マシン (すべてのバージョン、クラシックまたは Azure Resource Manager) で利用できます。 開始するには、Security Center を開き、次のように [アプリケーションホワイトリスト] タイルを選択します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d385e78e-4602-415f-bb97-781ae04546af.png"><img alt="Security Center - Overview" border="0" height="926" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5707fbf3-35f7-4428-9847-eae92b243c4a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Security Center-概要" width="1177"></a></p>
+
+
+  <p>リソースグループを選択して、推奨されるアプリケーションのホワイトリスト登録規則を表示し、適用します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9167d745-95d6-4565-b3cf-9eea60fd4724.png"><img alt="Application whitelisting" border="0" height="1254" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9913626c-b1f6-4073-8148-6d32ac3c76d8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アプリケーションのホワイトリスト登録" width="1166"></a></p>
+
+
+  <p>新しい規則は常に監査モードに設定されます。これにより、規則に違反するアプリケーションが通知されますが、ポリシーを編集して、強制モードでこれらのアプリケーションをブロックすることができます。 ルールの詳細はいつでも編集できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9ed2116f-50a3-4926-8f5a-c067e0628a57.png"><img alt="Application whitelisting 2" border="0" height="1250" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9019b1fc-c623-4e40-96d2-7b91e79cb01e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="アプリケーションのホワイトリスト登録2" width="1166"></a></p>
+
+
+  <p>アダプティブ アプリケーション制御は、制限付きのパブリック プレビューとして、Azure Security Center Standard のお客様が使用できます。 プレビューに参加するには、サブスクリプション Id を含む電子メールをに <a target="_blank">ASC_appcontrol@microsoft.com</a> 送信してください。</p>
+
+
+  <p>セキュリティ管理者として提供される機能とさまざまなオプションの詳細については、microsoft の <a href="https://aka.ms/asc-applicationwhitelisting" target="_blank">ドキュメントページ</a>を参照してください。</p>

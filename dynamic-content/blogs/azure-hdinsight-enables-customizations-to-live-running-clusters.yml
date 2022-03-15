@@ -1,0 +1,52 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4fdb5892e29ee80650097a44e50e66f8ac8ae2ad
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890244"
+Slug: azure-hdinsight-enables-customizations-to-live-running-clusters
+Title: Azure HDInsight では、ライブ実行中のクラスターをカスタマイズできます。
+Summary: 現在、Azure HDInsight で Apache Hadoop クラスターをライブ実行するためのカスタマイズを行うことができるようになります。
+Content: >-
+  <p>現在、Azure HDInsight で Apache Hadoop クラスターをライブ実行するためのカスタマイズを行うことができるようになります。 以前は、Apache Hadoop エコシステムで利用可能な追加のコンポーネントを使用して HDInsight クラスターをカスタマイズする機能を提供するスクリプトアクション機能を <a href="https://azure.microsoft.com/en-us/blog/azure-hdinsight-makes-cluster-customization-generally-available-and-provide-more-templates-for-hadoop-projects-including-spark-r-giraph-and-solr/">発表</a> しました。 これにより、スクリプトを使用して、 <a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-giraph-install/">Giraph、</a>、 <a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-r-scripts/">r、R</a>などの Hadoop クラスターをカスタマイズしたり、必要に応じてクラスターに<a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-solr-install/">任意の変更</a>を加えたりすることができました。</p>
+
+
+  <p>ただし、これまでは、ユーザーは、クラスターの作成時に実行するスクリプトを指定する必要がありました。 現在 &rsquo; の発表により、ユーザーはクラスターを削除して再作成することなく、 <i>実行中</i> のクラスターでスクリプトアクション機能を利用できるようになります。 これにより、デプロイの容易さと柔軟性が向上し、カスタマイズのテストに必要な開発と時間が短縮されます。</p>
+
+
+  <p>この拡張機能は、Hadoop、HBase、嵐、Spark &ndash; というすべての HDInsight Linux クラスター &ndash; で使用でき、Azure Portal、POWERSHELL、CLI、SDK を使用して利用できます。</p>
+
+
+  <p>この機能にアクセスするには、 <a href="https://portal.azure.com/">Azure Portal</a>にアクセスし、[設定] で [スクリプトアクション] 機能を見つけます。</p>
+
+
+  <p style="margin-left: 80px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/58ce2a4e-65a6-441c-be97-6cd15d479f0b.png"><img alt="clip_image001" border="0" height="81" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/808f11e4-2178-4bc5-b33e-83fdd98c7117.png" style="margin: 0px; border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image001" width="244"></a></p>
+
+
+  <p style="margin-left: 80px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0dde64ae-8879-4013-a859-ff91fbab2173.png"><img alt="clip_image002" border="0" height="234" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/98d28ee2-be32-44a3-85b2-6f2c033b2c4c.png" style="margin: 0px; border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image002" width="244"></a></p>
+
+
+  <p>ユーザーは、アドホックスクリプトを作成し、実行中のクラスターでテストすることで開始できます。 開発/テストフェーズが完了したら、新しく作成されたすべてのノードで実行するようにスクリプトを昇格させることができます。</p>
+
+
+  <p style="margin-left: 80px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/205597e8-c483-473c-b3c0-4890ee662ed3.png"><img alt="clip_image003" border="0" height="244" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4a4075c9-6b03-41e6-8ae4-70687c9a9150.png" style="margin: 0px; border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image003 " width="143"> </a> <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a9ab33f1-fae6-4dda-8317-17f01c489b50.png"><img alt="clip_image005" border="0" height="244" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4d6f923-b780-405d-97a7-f1a92f3fec82.png" style="margin: 0px; border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image005" width="148"></a></p>
+
+
+  <p>さらに、ユーザーは、必要に応じてスクリプトを再実行できる追加機能を使用して、実行されたすべてのスクリプトの履歴を表示できます。</p>
+
+
+  <p style="margin-left: 80px;"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c5f61a63-3f5c-4f2d-9467-2e5cbc130958.png"><img alt="clip_image006" border="0" height="148" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/587b1b16-17de-45f9-b2cd-635cf205ee46.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="clip_image006" width="244"></a></p>
+
+
+  <p>この拡張機能とその他のスクリプトアクション機能の詳細については、次を参照してください。</p>
+
+
+  <ul style="margin-left: 40px;">
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-customize-cluster-linux/">スクリプトアクションを使用して HDInsight クラスターをカスタマイズする</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-script-actions-linux/">HDInsight 用の Script Action スクリプトの開発</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-hue-linux/">HDInsight クラスターに色相をインストールして使用する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-r-scripts-linux/">HDInsight クラスターに R をインストールして使用する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-solr-install-linux/">HDInsight クラスターに Solr をインストールして使用する</a></li>
+   <li><a href="https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-giraph-install-linux/">HDInsight クラスターに Giraph をインストールして使用する</a></li>
+  </ul>

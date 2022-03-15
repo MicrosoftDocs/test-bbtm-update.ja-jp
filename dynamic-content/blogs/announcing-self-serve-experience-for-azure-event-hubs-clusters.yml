@@ -1,0 +1,79 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b4c3fc43c1d6037129932839210735e1e2c5515c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890910"
+Slug: announcing-self-serve-experience-for-azure-event-hubs-clusters
+Title: Azure Event Hubs クラスターのセルフサービスエクスペリエンスの発表
+Summary: '今日の企業では、データが不可欠です。 製造、医療、輸送、金融業界の革新的なアイデアは、多くの場合、複数のソースからのデータを取得して関連付けることが原因です。 '
+Content: >-
+  <p>今日の企業では、データが不可欠です。 製造、医療、輸送、金融業界の革新的なアイデアは、多くの場合、複数のソースからのデータを取得して関連付けることが原因です。 これまでになく、大量のデータを確実に取り込み、リアルタイムで対応できるようにすることは、コンシューマー企業やコマーシャル企業の競争力を高めるための鍵です。 これらのビッグデータの課題に対応するために、 <a href="https://azure.microsoft.com/en-us/services/event-hubs/" target="_blank">Azure Event Hubs</a> は、テレメトリ処理から不正検出まで、大量のユースケース向けに設計された、完全に管理された、非常にスケーラブルな分散ストリーミングプラットフォームを提供します。</p>
+
+
+  <p>Azure &rsquo; の最大規模のお客様にとって Event Hubs が広く普及しています。また、最近のリリースの <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview" target="_blank">Event Hubs で Apache Kafka を</a>利用できるようになりました。 この強力な新機能により、お客様は、飼育員をドラマ、Kafka クラスターを管理することなく、Kafka アプリケーションからのイベントをシームレスに Event Hubs にストリーミングできます。また、自動展開や geo ディザスターリカバリーなどの機能を備えた、完全に管理されたサービスとしてのプラットフォーム (PaaS) を使用できます。 Azure &rsquo; のデータパイプラインのフロントドアとして、お客様は、ストリーミングイベントを<a href="https://azure.microsoft.com/en-us/services/storage/" target="_blank">Azure Storage</a>または<a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/?&amp;OCID=AID719825_SEM_cTDRqn3s&amp;lnkd=Bing_Azure_Brand&amp;msclkid=dca66711ee5e13e67fa23bfecb397ac0&amp;dclid=CN2P-qSBwuICFZOLfgodTHII5g" target="_blank">Azure Data Lake</a>に自動的に<a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-capture-overview" target="_blank">キャプチャ</a>したり、 <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-kafka-stream-analytics" target="_blank">Azure Stream Analytics</a>を使用してデータストリームに対してリアルタイムの分析をネイティブに実行したりすることもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74794e6d-cd1e-491f-83ee-7c91c7834fef.png"><img alt="Azure Event Hubs Pipeline" border="0" height="1116" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/616daf0a-c217-4e35-98eb-cffd1dedf9f3.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Event Hubs パイプライン" width="2509"></a></p>
+
+
+  <p>最も要求の厳しいストリーミングニーズがあるお客様にとって、 <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-dedicated-overview" target="_blank">Event Hubs クラスター</a> は、1秒あたり何百万ものイベントを取り込むための容量を保証するシングルテナントオファリングを提供し、99.99% の SLA を学会ています。 クラスターは、Xbox One Halo チームによって使用され、Microsoft Teams と Microsoft Office クライアントアプリケーションテレメトリパイプラインの両方を備えています。</p>
+
+
+  <h2>Event Hubs クラスターの Azure portal エクスペリエンス</h2>
+
+
+  <p>現在、Azure Event Hubs クラスターは、Azure portal を通じて簡単に作成することも、セルフサービスエクスペリエンス (プレビュー) として <a href="https://azure.microsoft.com/en-us/features/resource-manager/" target="_blank">Azure Resource Manager</a> を通じて簡単に作成することもできます。それ以上の設定は不要です。 クラスター内では、通常は名前空間とイベントハブを作成して管理し、調整なしでイベントを取り込むことができます。 イベントハブを含むクラスターを作成すると、次のような利点があります。</p>
+
+
+  <ul>
+   <li><strong>シングルテナントホスティング</strong> 。完全なスケールで容量を保証することで、パフォーマンスを向上させることができます。完全に持続性のあるストレージと1秒未満の待機時間を維持しながら、1秒あたり数百万のイベントでギガバイトのストリーミングデータを受信できます。</li>
+   <li><strong>キャプチャ機能</strong>は追加コストなしで提供されます。これにより、イベントを簡単にバッチ処理し、Azure Storage または Azure Data Lake することができます。</li>
+   <li>固定の時間単位の課金によって Event Hubs のクラウドコストが<strong>大幅に削減</strong>され、専用の Event Hubs でインフラストラクチャを拡張できます。</li>
+   <li>負荷分散、セキュリティ修正プログラム、OS の更新に対処するため、<strong>メンテナンスは行われません</strong>。 インフラストラクチャの保守にかかる時間を短縮し、クライアント側の機能の構築に時間を費やすことができます。</li>
+   <li>独自のキーを持ち込む (BYOK) などの今後の機能への<strong>排他的なアクセス</strong>。</li>
+  </ul>
+
+
+  <p>セルフサービスエクスペリエンス (プレビュー) では、 <a href="https://aka.ms/eventhubsclusterquickstart" target="_blank">Azure portal</a>を通じて、次の戦略リージョンに1つの CU クラスターを作成できます。</p>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td style="text-align: center;" valign="top">
+     <ul>
+      <li style="text-align: left;">北ヨーロッパ</li>
+      <li style="text-align: left;">西ヨーロッパ</li>
+      <li style="text-align: left;">米国中部</li>
+      <li style="text-align: left;">米国東部</li>
+      <li style="text-align: left;">米国東部 2</li>
+      <li style="text-align: left;">米国西部</li>
+     </ul>
+     </td>
+     <td style="text-align: center;" valign="top">
+     <ul>
+      <li style="text-align: left;">米国西部 2</li>
+      <li style="text-align: left;">米国中北部</li>
+      <li style="text-align: left;">米国中南部</li>
+      <li style="text-align: left;">東南アジア</li>
+      <li style="text-align: left;">英国南部</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>上に記載されていないリージョンの最大20個の Cu またはクラスターの大規模なクラスターは <a href="mailto:askeventhubs@microsoft.com">、Event Hubs チームに直接要求</a>するときにも利用できます。</p>
+
+
+  <p>この高速移動の世界で競争力を維持するための重要なデータであり、Azure Event Hubs は、組織の競争力を高めるのに役立ちます。 多くの可能性があるので、この &rsquo; 作業を開始しましょう。</p>
+
+
+  <ul>
+   <li>Event Hubs クラスターの詳細について <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-dedicated-overview" target="_blank">は、専用オファリングを</a>参照してください。</li>
+   <li><a href="https://aka.ms/eventhubsclusterquickstart" target="_blank">Azure portal で Event Hubs クラスター</a>の使用を開始します。</li>
+   <li>クイックスタート: <a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-quickstart-kafka-enabled-event-hubs" target="_blank">Kafka プロトコルを使用した Event Hubs を使用したデータストリーミング</a></li>
+  </ul>

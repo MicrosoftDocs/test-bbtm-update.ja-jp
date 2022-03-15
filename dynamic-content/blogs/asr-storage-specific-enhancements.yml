@@ -1,0 +1,106 @@
+### YamlMime:Yaml
+ms.openlocfilehash: aa0aff0a9b54b994d47f2895b7425a0cc7203726
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139890297"
+Slug: asr-storage-specific-enhancements
+Title: Storageの具体的な機能強化Azure Site Recovery
+Summary: Azure Site Recovery VMware 仮想マシン/物理サーバープレミアム Storageへのレプリケーションがサポートされます。
+Content: >-
+  <p>ASR への最近のアップグレードの一環として、複数の Azure ストレージ機能のサポート <a href="https://aka.ms/asr-arm-support">をお知らせ</a>します。 次のサービスを提供します。</p>
+
+
+  <ul>
+   <li>
+   <div align="left">VMware 仮想プレミアム Storage/物理サーバーに対するレプリケーション。&nbsp;</div>
+   </li>
+   <li>
+   <div align="left">Azure Storage (プレビュー) を使用して作成されたストレージ アカウントのサービス暗号化 (保存データの<a href="https://aka.ms/resource-manager-overview">暗号化</a>) Resource Manager暗号化。</div>
+   </li>
+   <li>
+   <div align="left">ローカル冗長 (LRS) Storageへのレプリケーション。</div>
+   </li>
+  </ul>
+
+
+  <p>これらの機能のサポートは、異種ワークロードをサポートするエンタープライズ クラスのセキュリティ<strong></strong>で保護された信頼性の高いビジネス継続性ソリューションを提供するという約束をさらに実現します。</p>
+
+
+  <h3>レプリケーションから プレミアム Storage</h3>
+
+
+  <p>これで、VMware 仮想マシンと物理サーバーを保護し、Azure の Premium Storage アカウントにレプリケートできます。 プレミアム Storage を使用すると、アプリケーションは VM あたり最大 80,000 IOPS (1 秒あたりの入出力操作) と、読み取り操作の待機時間が非常に短い VM あたり 2000 MB/秒のディスク スループットを実現できます。</p>
+
+
+  <p>オンプレミスで I/O 集中型エンタープライズ ワークロードを実行している場合は、これらのワークロードを仮想マシンにレプリケートプレミアム Storage。 オンプレミス環境を Azure にフェールオーバーする時点で、プレミアム ストレージにレプリケートされるワークロードは、高速ソリッド ステート ドライブ (SSD) 上で実行されている Azure 仮想マシン上で発生し、全体と待機時間の両方の点で高レベルのパフォーマンスを引き続き実現します。</p>
+
+
+  <p>Premium Storage へのレプリケーションを設定するには、</p>
+
+
+  <ul>
+   <li>Premium Storage アカウント: オンプレミスの仮想マシン/物理サーバーを Premium Storage&rsquo; にレプリケートすると、保護されたマシン ディスクに存在するデータはすべて Premium Storage アカウントにレプリケートされます。 このアカウントに格納されているデータは、Premium Storage の <a href="https://aka.ms/storagepricing-details">料金ごとに課金されます</a>。</li>
+   <li>Standard ストレージ アカウント: ディスク データのレプリケートの初期フェーズが完了すると、オンプレミスのディスク データに対する変更はすべて継続的に追跡され、標準ストレージ アカウントにレプリケーション ログとして格納されます。 このアカウントに格納されているデータは、Standard Storage の <a href="https://aka.ms/storagepricing-details">料金ごとに課金されます</a>。</li>
+  </ul>
+
+
+  <p>そのため、プレミアム + Standard ストレージ アカウントを組み合わせて使用する設計により、全体的なコストが大幅に削減されるため、Premium Storage を使用する際の組織のコスト削減が保証されます。</p>
+
+
+  <p><img alt="premium-snapshot" border="0" height="360" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/df131f1d-727e-4e2b-87dd-56fc4486e89c.png" style="border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Premium スナップショット" width="183">&nbsp;</p>
+
+
+  <p>Premium Storage を使用する場合の注意点を次に示します。</p>
+
+
+  <ul>
+   <li>Premium Storage へのレプリケーションは、クラシック ストレージ アカウントとストレージ アカウント <a href="https://aka.ms/resource-manager-overview">の両方Resource Manager</a> サポートされています。</li>
+   <li>Premium Storage へのレプリケーションは、現在、VMware 仮想マシン/物理サーバーでサポートされています。 Premium Storage への Hyper-V VM&rsquo; (System Center VMM または VMM なしで管理) のSystem Centerサポートが近日公開予定です。 この詳細な更新については、この領域をご覧ください。</li>
+   <li>Premium Storage にレプリケートされる仮想マシン/物理サーバーは、最新の時点または以前の時点 (最大 24 時間の復旧) にフェールオーバーできます。 最大 24 時間の復旧ポイントの保持は、Premium Storage でサポートされている <a href="https://aka.ms/snapshots-blob">BLOB あたりのスナップショット</a> 数 (BLOB あたり 100 スナップショット) に基づいて行います。</li>
+   <li>Azure へのフェールオーバーでは、アプリケーションは、Premium Storage ディスクをサポートする <a href="https://aka.ms/ds-gs-series">DS または GS</a> シリーズ Virtual Machinesでのみ起動できます。 DS/GS シリーズ VM にフェールオーバーするには、保護された VM に対するコンピューティング プロパティで必要な Azure VM ロール サイズを指定します。</li>
+  </ul>
+
+
+  <p>Premium Storage のパフォーマンスとスケーラビリティのターゲットなど、Premium Storage のしくみの詳細については、Azure ストレージ チームの プレミアム Storage に<a href="https://aka.ms/premium-storage-article"></a>関する詳細なドキュメントを参照してください。</p>
+
+
+  <h3>Azure Storageサービス暗号化 (保存データの暗号化)</h3>
+
+
+  <p>Azure Storage保存データ用のサービス暗号化 (SSE) を使用すると、組織のセキュリティとコンプライアンスのコミットメントを満たすために、組織がデータを保護および保護できます。 Storage Service Encryption では、ストレージに永続化する前にデータが暗号化され、取得前に暗号化が解除されます。 SSE の ASR サポートにより、SSE が有効になっているストレージ アカウントにワークロードをレプリケートできます。</p>
+
+
+  <p>この機能は現在、チームからプレビュー Azure Storageされています。 この機能を試す場合は<a href="https://aka.ms/sse-preview"></a>、プレビューにサインアップし、Azure Storage チームが説明する手順に従って、SSE 対応ストレージ アカウントを作成してください。 ここでも、次の点に注意する必要があります。</p>
+
+
+  <ul>
+   <li>すべての暗号化キーは、Microsoft によって保管、暗号化、管理されます。</li>
+   <li>現在、SSE 対応の Standard ストレージ アカウントへのレプリケーションがサポートされています。 SSE 対応 Premium Storage アカウントへのレプリケーションのサポートは間もなく提供される予定です。 最新の更新プログラムについては、この領域をご覧ください。</li>
+   <li>この機能は、VMware 仮想マシン/物理サーバー、System Center VMM によって管理される Hyper-V VM&rsquo;、System Center VMM を使用しない Hyper-V ホストなど、サポートされているワークロードのマトリックス全体でサポートされています。</li>
+   <li>この機能は、Resource Manager を使用して作成 <a href="https://aka.ms/resource-manager-overview">されたストレージ アカウントでのみ使用できます</a>。</li>
+   <li>SSE 対応ストレージ アカウントにレプリケートする場合、ASR を使用する場合のエクスペリエンスは変更されません。</li>
+   <li>ほとんどのプレビューと同様に、この機能が一般提供されるまで、これは実稼働ワークロードには使用できません。</li>
+  </ul>
+
+
+  <p>SSE のしくみとサポートされている機能の詳細については、Azure ストレージ チームの <a href="https://aka.ms/sse-storage-encryption">詳細な SSE</a> ドキュメントを参照してください。</p>
+
+
+  <h3>ローカル冗長ストレージ アカウントへのレプリケーション</h3>
+
+
+  <p>これで、<a href="https://aka.ms/lrs-storage">LRS (Locally Redundant Storageアカウントにワークロードをレプリケートできます</a>。 LRS は、Geo <a href="https://aka.ms/grs-storage">冗長 Storage</a> (GRS) とは異なり、ストレージ アカウントを作成したリージョン内のデータをレプリケートします。これは、セカンダリ リージョンにデータをレプリケートします。 LRS では、データの 3 つのコピーがリージョン内の個別の障害ドメインとアップグレード ドメインに存在します。 コストの観点からは、LRS は GRS と比較してはるかに経済的であり、スループットも高くなります。</p>
+
+
+  <p>一般に、geo 冗長ストレージ アカウント (GRS) アカウントを使用することをお勧めします。これにより、リージョンの完全な停止やプライマリ リージョンが復旧できない障害が発生した場合でも、データの耐久性が確保されます。 ただし、Azure リージョンの停止中にアプリケーションを簡単に復旧できる場合や、データ ガバナンスの要件によってリージョン間でのデータのレプリケーションが制限されている場合は、LRS へのレプリケーションが適切に機能します。</p>
+
+
+  <p>詳細な手順については、 <a href="https://aka.ms/vmware-to-azure-portal">VMware</a> と物理サーバーのシナリオに関するドキュメントを参照し、開始する方法を確認してください。 <a href="https://aka.ms/asr_vmware_to_azure_enhanced_msdnforum">MSDN の Azure Site Recovery</a> フォーラムにアクセスして追加情報を確認したり、他の顧客と対話したり、<a href="https://aka.ms/asr_vmware_to_azure_enhanced_uservoice">ASR UserVoice</a> を使用して、次に有効にしたい機能をお知らせします。</p>
+
+
+  <p>ASR の使用を開始する準備はできましたか? <a href="https://aka.ms/asr_vmware_to_azure_enhanced_landingpage">製品に関するその他の情報</a>を確認して、ワークロードのレプリケートを開始し、Microsoft AzureをAzure Site Recoveryしてください。 レプリケートする新しい物理サーバーまたは仮想マシンごとに、Site Recovery の強力なレプリケーション機能を <a href="https://aka.ms/asr_vmware_to_azure_enhanced_pricing">31</a> 日間無料で使用できます。</p>
+
+
+  <p><a href="https://aka.ms/asr_vmware_to_azure_enhanced_oms">Azure Site Recovery</a> Microsoft Operations Management Suite の一部として、コスト効率の高い 1 つのクラウド IT 管理ソリューションを使用して、ワークロードの実行場所 (Azure、AWS、Windows Server、Linux、VMware、OpenStack) に関係なく、ワークロードを制御および管理できます。 既存System Center顧客は、現在の投資を活用することで、Microsoft Operations Management Suiteアドオンを利用して、より多くのことを行える状態にできます。 既存のすべての顧客に対して便利なステップアップ価格で、OMS が提供する新しいサービス<a href="https://aka.ms/asr_vmware_to_azure_enhanced_oms_pricing">System Center取得します</a>。 必要な IT 管理サービスにのみアクセスして、迅速にボードに乗り込み、すぐに価値を得て、使用する機能に対してだけ料金を支払うのも可能です。</p>

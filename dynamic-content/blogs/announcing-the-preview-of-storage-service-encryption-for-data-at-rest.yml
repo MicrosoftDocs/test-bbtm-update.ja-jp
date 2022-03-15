@@ -1,0 +1,11 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c1c84e1a9ec8fff8dd904e4ec2f6e05b64325b39
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889296"
+Slug: announcing-the-preview-of-storage-service-encryption-for-data-at-rest
+Title: 保存データの Storage Service Encryption プレビューの発表
+Summary: 保存データの Azure Storage サービス暗号化のプレビューを発表することをお待ちしております。 この機能は、企業のお客様が機密情報を保護することを望んでいる機能の1つです...
+Content: <p>保存データの Azure Storage サービス暗号化のプレビューを発表することをお待ちしております。 この機能は、規制やコンプライアンスのニーズの一部として機密データを保護することを検討している企業のお客様に最も要求される機能の1つです。  <p>Storage Service Encryption は、ストレージに永続化してから、データを取得する前に復号化する前に、Azure Blob Storage のデータを自動的に暗号化します。 暗号化、復号化、およびキー管理はユーザーに対して透過的であり、アプリケーションに変更を加える必要はありません。また、エンジニアリングチームが複雑なキー管理プロセスを実装する必要がなくなります。  <p>この機能は、すべての Azure Blob storage (ブロック blob、追加 blob、ページ blob) でサポートされており、各ストレージアカウントの構成によって有効になっています。 この機能は、Azure Resource Manager (ARM) を使用して作成されたストレージアカウントで使用できます。 すべてのデータは、使用可能な最も強力なブロック暗号の1つである <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">aes-256</a>とも呼ばれる256ビットの aes 暗号化を使用して暗号化されます。 お客様は、LRS、zrs、GRS、および GRS のすべての利用可能な冗長性 Azure Storage の種類でこの機能を有効にすることができます。 Storage Service Encryption は、Standard と Premium Storage の両方でもサポートされています。 この機能の有効化については、追加料金は発生しません。  <p>ほとんどのプレビューと同様に、この機能が一般公開されるまでは、運用環境のワークロードでは使用しないでください。  <p>詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/" target="_blank">Storage Service Encryption</a>を参照してください。</p>

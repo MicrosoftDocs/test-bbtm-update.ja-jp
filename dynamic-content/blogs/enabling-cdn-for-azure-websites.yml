@@ -1,0 +1,199 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8aa7a14ed099c5604fc6f5f5f3b0765830350aa2
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895120"
+Slug: enabling-cdn-for-azure-websites
+Title: Azure Websites での CDN エンドポイントの有効化
+Summary: このチュートリアルでは、Azure web サイトを使用して統合用の CDN サーバーをセットアップする方法の基本について説明します。
+Content: >-
+  <a href="https://azure.microsoft.com/en-us/services/cdn/">Azure Content Delivery Network</a> (CDN) は、世界中の顧客に対して、オーディオ、画像、その他の静的ファイルを迅速かつ確実に送信できるようにするサービスです。 これを行うには、各ユーザーに関連する最も近いノードからコンテンツを提供できる、世界中のサーバーのネットワークを使用します (現在のすべてのノードの場所の更新された一覧については、 <a href="https://msdn.microsoft.com/en-us/library/azure/gg680302.aspx">こちら</a>を参照してください)。 これにより、速度と可用性が大幅に向上し、ユーザーエクスペリエンスが大幅に向上します。 Cdn は、web サイトのイメージとスクリプトを提供するために一般的に使用されています。現在、Azure Websites は CDN との直接統合をサポートしています。 このブログ記事では、基本的な web サイトの設定、CDN サポートの統合、開発者ツールを使用した CDN の動作の確認について説明します。
+
+
+  &nbsp;
+
+  <h2>ポータルで web サイトを作成する</h2>
+
+  <ul>
+   <li><a href="https://manage.windowsazure.com/">Azure 管理ポータル</a>にログインします。</li>
+   <li>ダッシュボードの左下にある [ <strong>+ 新規</strong> ] アイコンをクリックします。</li>
+   <li>[<strong>コンピューティング-</strong> <strong>Web サイト-</strong> <strong>簡易作成</strong>] を選択します。</li>
+   <li>[ <strong>URL</strong> ] ボックスに、web サイトの一意の名前を入力します。</li>
+   <li>[ <strong>Web サイトの作成 </strong>] ボタンをクリックします。</li>
+  </ul>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/1_create_website.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1_create_website_thumb.png" width="614" height="283" border="0" /></a>
+
+
+  Web サイトが作成され、ポータルの [ <strong>Web サイト </strong>] タブ内に表示されるようになります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2_see_site_url.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2_see_site_url_thumb.png" width="614" height="83" border="0" /></a>
+
+
+  &nbsp;
+
+  <h2>CDN を作成する</h2>
+
+  Web サイトがセットアップされたので、関連付けられた CDN を作成します。
+
+  <ul>
+   <li>[ <strong>+ 新規</strong> ] アイコンをもう一度クリックします。</li>
+   <li>[ <strong>App Services-</strong> <strong>CDN-</strong> <strong>簡易作成</strong>] を選択します。</li>
+   <li>ドロップダウンリストで、web サイトに関連付けられている <strong> </strong> <strong>サブスクリプション</strong>を選択します</li>
+   <li>[ <strong>元のドメイン </strong>] ドロップダウンをクリックします。</li>
+   <li>カテゴリ、 <strong>Web サイト</strong>、および関連付けられているサイトの URL が表示されます。</li>
+   <li>サイトを選択し、[<strong>作成</strong>] をクリックします。</li>
+  </ul>
+
+  &nbsp;
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/3_create_cdn.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3_create_cdn_thumb.png" width="614" height="283" border="0" /></a>
+
+
+  CDN が作成され、ポータルの [ <strong>CDN </strong>] タブ内で表示できるようになります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/4_see_cdn_url.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4_see_cdn_url_thumb.png" width="614" height="85" border="0" /></a>
+
+  <blockquote>注: 元のサイトの url は右端にあり、関連付けられている CDN の url は左になります。</blockquote>
+
+  次に、リンクをクリックして CDN にアクセスします。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/5_page_404s.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5_page_404s_thumb.png" width="614" height="317" border="0" /></a>
+
+
+  おっと!  何が間違っていたのでしょうか。 実際には何もありません。 CDN ネットワークの伝達には最大60分かかる場合があるため、オンラインになるまで、状態コード 400 (Bad Request) または 404 (Not Found) を受け取ることがあります。
+
+
+  ただし、このチュートリアルを完了することはできますが、後でこのチュートリアルを実行して、CDN が利用可能になった後に結果を確認することもできます。
+
+  <blockquote>注: 一般に、CDN に直接アクセスする理由はありません (web ページのソースで単に参照してください) が、リンクを直接クリックすると、URL がオンラインになっているかどうかを簡単に確認できます。</blockquote>
+
+  &nbsp;
+
+  <h2></h2>
+
+  <h2>Web サイトのコンテンツを更新して、CDN から取得する</h2>
+
+  このセクションでは、サイトでホストするための簡単な web ページが必要です。独自のコンテンツを Azure サイトにデプロイする方法はこのチュートリアルの範囲外ですが、 <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-deploy/">ここで</a>説明する (多くの) 方法を選択できます。
+
+
+  ただし、次に示すのは、サンプルページのファイル構造 + ソースです。
+
+
+  <span style="text-decoration: underline">ファイル構造</span>
+
+  <pre>root-site-folder
+
+    | index.html
+
+    | Images
+
+      | panda.jpg</pre>
+
+  <span style="text-decoration: underline">index.html</span>
+
+  <pre class="prettyprint">&lt;!DOCTYPE html&gt;
+
+
+  &lt;html lang="en"&gt;
+      &lt;head&gt;
+          &lt;meta charset="utf-8" /&gt;
+          &lt;title&gt;Hello Panda&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+          &lt;h1&gt;Hello Panda&lt;/h1&gt;
+
+          &lt;p&gt;Web Server Hosted Image:&lt;/p&gt;
+          &lt;img src="Images/panda.jpg" alt="panda pic goes here" height=400 width=266&gt;
+
+          &lt;p&gt;CDN Hosted Image:&lt;/p&gt;
+          &lt;!--Replace the image source with the same file location but relevant to the CDN address--&gt;
+          &lt;img src="" alt="panda pic goes here" height=400 width=266&gt;
+      &lt;/body&gt;
+
+  &lt;/html&gt;</pre>
+
+  &nbsp;
+
+
+  基本的なページでは、同じイメージを2回、web サーバーから直接、および CDN からもう一度読み込みます。
+
+
+  CDN にキャッシュされたコンテンツにアクセスするには、ポータルで提供される CDN URL を使用します。 アドレスは、ポータルの [ <strong>URL </strong>] 列の [ <strong>CDN</strong> ] タブにあり、次のように表示されます。
+
+  <pre>https://&lt;<em>CDNNamespace</em>&gt;.vo.msecnd.net/</pre>
+
+  &nbsp;
+
+
+  また、CDN から静的コンテンツにアクセスするためのパターンにも注意してください。 CDN が web サイトに対して自動的に構成されているため、そのファイル構造は同じです。 したがって、web サーバーではなく CDN を介して静的コンテンツにアクセスする場合は、サイト関連の url を、次のように、ソースタグ内の類似する CDN 関連する url に置き換える必要があります。
+
+
+  サイト関連:
+
+  <pre>&lt;img src="path/to/file"&gt;</pre>
+
+  CDN 関連:
+
+  <pre>&lt;img src="https://<em>&lt;my CDN URL&gt;</em>/path/to/file"&gt;</pre>
+
+  &nbsp;
+
+
+  次に、web サイトを発行します。
+
+
+  すべて正常に動作した場合は、次のように両方のイメージが読み込まれる必要があります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2014-09-15_16h42_10.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-09-15_16h42_10_thumb.png" width="308" height="484" border="0" /></a><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/7_cdn_site_success.png"><img style="padding-top: 0px;padding-left: 0px;padding-right: 0px;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7_cdn_site_success_thumb.png" width="304" height="484" border="0" /></a>
+
+
+  ただし、次のように表示します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/6_cdn_site_faliure.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6_cdn_site_faliure_thumb.png" width="535" height="614" border="0" /></a>
+
+
+  CDN はまだオンラインになっていない可能性があります。そのようになるまで待ってから、ページを更新してください。
+
+
+  &nbsp;
+
+  <h2>結果を表示する</h2>
+
+  開発者ツールのネットワークアクティビティを監視すると、2つのイメージの読み込み時間の違いを確認できます。 このチュートリアルでは Internet Explorer を使用しますが、すべての主要なブラウザーで同じ手順を実行する必要があります。
+
+  <ul>
+   <li>IE を開く</li>
+   <li>サイトの URL に移動する</li>
+   <li>F12 キーを押してを開き開発者ツール</li>
+   <li>[ <strong>ネットワーク</strong> ] タブをクリックします。</li>
+   <li><strong>ネットワークトラフィックをキャプチャ</strong>するために [レコード] ボタンを切り替える</li>
+   <li>ページを更新します</li>
+  </ul>
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2014-09-15_17h00_17.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-09-15_17h00_17_thumb.png" width="614" height="236" border="0" /></a>
+
+
+  サーバーでホストされるイメージと CDN ホストされるイメージの間の読み込み時間の違いに注意してください。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/09/2014-09-15_17h04_04.png"><img style="float: none;padding-top: 0px;padding-left: 0px;margin-left: auto;padding-right: 0px;margin-right: auto;border-width: 0px" title="Azure Websites の CDN を有効にする" alt="Enabling CDN for Azure Websites" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2014-09-15_17h04_04_thumb.png" width="614" height="72" border="0" /></a>
+
+  <blockquote>注: これらの数値は、web サーバーの場所、エンドユーザーの場所、および一般的なサーバー負荷に応じて大きく異なります。</blockquote>
+
+  &nbsp;
+
+  <h2>まとめ</h2>
+
+  CDN エンドポイントを設定し、それを Azure web サイトと統合する方法を明確に理解し、いくつかの基本的なブラウザーツールを使用してその有効性を測定する方法について理解を深めておく必要があります。 CDN のカスタマイズと操作の詳細については、こちらのドキュメント <a title=" " href="https://azure.microsoft.com/en-us/documentation/services/cdn/"> </a> を参照してください。

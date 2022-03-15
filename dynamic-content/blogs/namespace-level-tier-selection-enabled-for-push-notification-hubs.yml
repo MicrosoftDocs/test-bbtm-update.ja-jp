@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 54737768cea170d4c6a123f4a57e7731769612c0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895335"
+Slug: namespace-level-tier-selection-enabled-for-push-notification-hubs
+Title: Notification Hubs に対して有効になっている名前空間レベルレベルの選択
+Summary: 最近有効にした名前空間レベルの階層 Notification Hubs、お客様は、各名前空間の予想されるトラフィックと使用パターンに合わせて調整されたリソースを割り当てることができます。
+Content: >-
+  <p>最近有効にした名前空間レベルの階層 Notification Hubs、お客様は、各名前空間 &rsquo; の予想されるトラフィックと使用パターンに合わせて調整されたリソースを割り当てることができます。</p>
+
+
+  <p>Notification Hubs における名前空間とリソースの概念をあまり理解していないお客様は、次のとおりです。</p>
+
+
+  <ul>
+   <li><em>ハブ</em>は、Azure Notification Hubs の最小リソース/エンティティです。 一般に、1つのアプリケーション (アプリケーションはハイブリッド、ネイティブ、クロスプラットフォーム) にマップされ、アプリでサポートされるプラットフォーム通知システムごとに1つの証明書を保持することができます。</li>
+   <li><em>名前空間</em>は通知ハブのコレクションです。 各名前空間は、通常、開発、テスト、および運用の目的で使用されるいくつかのハブで構成されています。 複数のハブにまたがる大量のデバイスを含む実稼働アプリもありますが、このシナリオでは、名前空間によって平準化された<a href="https://msdn.microsoft.com/en-us/library/azure/mt238294.aspx">プラットフォーム通知システム資格情報</a> は便利な機能であるため、同じ名前空間内のさまざまなアプリに対して小さいハブをグループ化してリソースを統合することもできます。</li>
+  </ul>
+
+
+  <p>各サブスクリプションは、すべての名前空間とハブを1つの層 (free、basic、または standard) &rsquo; に関連付けられています。お客様がリソースを処理するための最も効率的な方法ではありません。 このように、<a href="https://azure.microsoft.com/en-us/pricing/details/notification-hubs/">名前空間レベルの階層</a>が存在しないの &rsquo; はなぜですか。</p>
+
+
+  <p>Notification Hubs 名前空間の階層を取得または更新するには、次に示すように、 <a href="https://manage.windowsazure.com/">Azure クラシックポータル</a> または REST api を使用できます。</p>
+
+
+  <p>1. Azure クラシックポータル</p>
+
+
+  <p style="margin-left: 40px;">名前空間の階層を変更するには、 <a href="https://manage.windowsazure.com/">Azure クラシックポータル</a>に移動し、操作する Notification Hubs 名前空間を選択します。そのハブのいずれかを選択し、[スケール] タブをクリックし、変更を行います。 階層の更新を確認すると、その名前空間内のすべてのハブに影響を与えます。</p>
+
+
+  <p style="margin-left: 40px;">ただし、このような場合は、確認のために次のクエリが表示されます。</p>
+
+
+  <p style="margin-left: 40px;"><img alt="" height="78" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/850888" width="610"></p>
+
+
+  <p style="margin-left: 40px;">&quot;サブスクリプション &quot; は間違ったミスミスであり、現在の名前空間 &quot; である必要があり &quot; 、そのビットの更新に取り組んでいます。</p>
+
+
+  <p>2. リソースプロバイダーの REST Api</p>
+
+
+  <p style="margin-left: 40px;">現在の名前空間レベルを表示するには、単に名前空間プランを取得します。</p>
+
+
+  <p style="margin-left: 40px;">GET: <a href="https://management.core.windows.net/{subscription ID}/services/ServiceBus/Namespaces/{namespace name}/notificationhubplan"> https://management.core.windows.net/{subscription ID}/services/ServiceBus/Namespaces/{namespace name}/notificationhubplan</a></p>
+
+
+  <p style="margin-left: 40px;">名前空間レベルを更新するには、目的のレベルで PUT を使用します。</p>
+
+
+  <p style="margin-left: 40px;">PUT: <a href="https://management.core.windows.net/{subscription ID}/services/ServiceBus/Namespaces/{namespace name}/notificationhubplan"> https://management.core.windows.net/{subscription ID}/services/ServiceBus/Namespaces/{namespace name}/notificationhubplan</a></p>
+
+
+  <p style="margin-left: 40px;">本文: &lt; NotificationHubPlan xmlns: i = &quot; <a href="https://www.w3.org/2001/XMLSchema-instance">https://www.w3.org/2001/XMLSchema-instance</a> &quot; xmlns = &quot; ; &gt; &lt; https://schemas.microsoft.com/netservices/2010/10/servicebus/connect&quotSKU &gt; Standard &lt; /sku &gt; &lt; /NotificationHubPlan&gt;</p>
+
+
+  <p style="margin-left: 40px;">Free &rdquo; 、 &ldquo; Basic &rdquo; 、または &ldquo; Standard &rdquo; を使用 &ldquo; して、目的のレベルを選択できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>ご意見やご質問がある場合は、お知らせください。</p>
+
+
+  <p>Notification Hubs の詳細については、Azure Notification Hubs の <a href="https://azure.microsoft.com/en-us/services/notification-hubs/">製品ページ</a> にアクセスして、 <a href="https://azure.microsoft.com/en-us/documentation/services/notification-hubs/">ドキュメント</a>を参照してください。</p>

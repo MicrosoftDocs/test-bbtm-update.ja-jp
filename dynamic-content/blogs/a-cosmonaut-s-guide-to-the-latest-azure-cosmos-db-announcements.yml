@@ -1,0 +1,156 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 681b27d1907bca673221a58af7ba1fd24bd243c1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894197"
+Slug: a-cosmonaut-s-guide-to-the-latest-azure-cosmos-db-announcements
+Title: 最新の Azure Cosmos DB 発表に関する Cosmonaut のガイド
+Summary: Microsoft ビルド2019では、Apache Spark の新しいネイティブサポートを使用したリアルタイム運用分析の導入や、すべての Azure Cosmos DB api の新しい jupyter notebook エクスペリエンスなど、魅力的な新機能が発表されました。 これらの機能は、お客様が世界中に分散したアプリを Cosmos 規模で簡単に構築するのに役立ちます。
+Content: >-
+  <p>Microsoft ビルド2019では、Apache Spark の新しい組み込みサポートを使用したリアルタイム運用分析の導入や、すべての<a href="https://azure.microsoft.com/en-ca/services/cosmos-db/" target="_blank">Azure Cosmos DB</a> api の<a href="https://azure.microsoft.com/en-us/blog/planet-scale-operational-analytics-and-ai-with-azure-cosmos-db/" target="_blank">新しい jupyter notebook エクスペリエンス</a>を含む、魅力的な新機能が発表されました。 これらの機能によって、世界中に分散したアプリを Cosmos 規模で簡単に構築できるようになります。</p>
+
+
+  <p>ここでは、Microsoft Build で発表された開発者エクスペリエンスの追加の機能強化について説明します。</p>
+
+
+  <h2>Etcd API を使用した Kubernetes の電源投入</h2>
+
+
+  <p><a href="https://github.com/etcd-io/etcd" target="_blank">Etcd</a>は<a href="https://github.com/kubernetes/kubernetes" target="_blank">Kubernetes</a> &nbsp; クラスター &rsquo; の中核であり、すべての状態がです。 <strong>ネットワークプロトコルに対応した ETCD API</strong>のプレビューを発表し、自己管理型の Kubernetes 開発者が etcd クラスターを管理するのではなく、より多くのアプリに集中できるようにします。 etcd 用のワイヤプロトコル互換 Azure Cosmos DB API を使用すると、Kubernetes の開発者は、拡張性が高く、グローバルに分散され、高可用性の Kubernetes クラスターを自動的に取得できます。 これにより、開発者は、完全に管理されたサービスで Kubernetes 調整と状態管理データをスケールアップできます。これにより、高可用性が99.999%、 <a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_3/" target="_blank">Azure Cosmos DB sla</a>によってエラスティックスケーラビリティがサポートされます。 これにより、総保有コスト (TCO) が大幅に削減され、etcd クラスター管理の手間と複雑さが解消されます。</p>
+
+
+  <p>開始するには、etcd 用 Azure Cosmos DB API を使用して<a href="https://github.com/Azure/aks-engine/tree/master/examples/cosmos-etcd" target="_blank">AKS Engine</a>をセットアップします。 プレビューについては、 <a href="https://aka.ms/cosmos-etcd-intro" target="_blank">詳細</a> を確認し <a href="https://aka.ms/cosmosetcdapi-signup" target="_blank">、サインアップ</a>することもできます。</p>
+
+
+  <h2>Deepening のマルチモデル機能</h2>
+
+
+  <p>Azure Cosmos DB &rsquo; s データベースエンジンのマルチモデル機能は基本的なものであり、同じアプリで複数のデータモデルを活用し、1つのサービスに焦点を当てることによって開発を合理化し、複数のデータベースエンジンを管理していないことで TCO を削減し、Azure Cosmos DB によって提供される包括的な<a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_3/" target="_blank">sla</a>のメリットを得ることができます。</p>
+
+
+  <p>過去2年間、データベースエンジン &rsquo; の型システムと、Azure Cosmos DB データベースのログとインデックスの両方に対するストレージエンコーディングについては着実に説明しました。 データベースエンジン &rsquo; の型システムは完全に拡張可能であり、Apache Cassandra、MongoDB、Apache グリーン Mlin、および SQL のネイティブ型システムの完全なスーパーセットになりました。 データベースログの新しいエンコード方式は、ストレージと解析のために高度に最適化されており、Parquet、protobuf、JSON、BSON、およびその他のエンコーディングなどの一般的な形式を効率的に変換できます。 新しく改良されたインデックスレイアウトは次のようになります。</p>
+
+
+  <ul>
+   <li>クエリ実行コストの大幅なパフォーマンス向上 (特に集計クエリ)</li>
+   <li>新しい SQL クエリ機能: <ul>
+    <li>OFFSET/LIMIT および DISTINCT キーワードのサポート</li>
+    <li>複数列の並べ替えに使用する複合インデックス</li>
+    <li>EXISTS および ARRAY 式を含む相関サブクエリ</li>
+   </ul>
+   </li>
+  </ul>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-sql-query" target="_blank">SQL のクエリ例</a>と<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-query-reference" target="_blank">SQL 言語リファレンス</a>の詳細については、こちらを参照してください。</p>
+
+
+  <p>型システムおよびストレージエンコーディングは<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/gremlin-support" target="_blank">、大量の</a>Cassandra、 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-feature-support" target="_blank">MongoDB</a>、および<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/cassandra-support" target="_blank"></a> (cql) の機能にメリットを提供しています。 現在、Cassandra CQL v4 との完全な互換性があるため、<strong> cql の拡張コマンドとして</strong><strong>ネイティブ</strong> <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed" target="_blank"><strong>change feed</strong></a>機能を利用しています。 Azure Cosmos DB の Cassandra テーブルの上に、効率的なイベントソーシングパターンを作成できます。 また、パフォーマンス評価のための <a href="https://docs.microsoft.com/azure/cosmos-db/graph-execution-profile" target="_blank">実行プロファイル関数</a> のサポートや、Apache の種類に合わせて調整された <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/gremlin-support" target="_blank">文字列比較関数</a> など、いくつかのグリーン mlin API の機能強化も発表しています。</p>
+
+
+  <p>詳細については、「microsoft のドキュメント」を参照してください。このドキュメントでは、 <a href="https://docs.microsoft.com/azure/cosmos-db/graph-execution-profile" target="_blank">api 実行プロファイル</a>に関するページと、<a href="https://docs.microsoft.com/azure/cosmos-db/gremlin-support" target="_blank">サポートされている機能の Azure Cosmos DB</a>をご覧ください。</p>
+
+
+  <h2>SDK の更新</h2>
+
+
+  <h4>Azure Cosmos DB <a href="https://github.com/Azure/azure-cosmos-dotnet-v3/" target="_blank">.net V3 SDK</a>の一般提供</h4>
+
+
+  <ul>
+   <li>完全オープンソース、.NET Standard 2.0 互換</li>
+   <li>新しいストリーミング API を含む最大30% のパフォーマンス向上</li>
+   <li>開発者にとって使いやすい Api を使用した、直感的な慣用的なプログラミングモデル</li>
+   <li>新しい change feed プルおよびプッシュプログラミングモデル</li>
+  </ul>
+
+
+  <p>.NET SDK V3 は今月の後半で一般公開される予定です。また、最新の機能強化を利用するには、既存のアプリのアップグレードをお勧めします。</p>
+
+
+  <h4>Java <a href="https://github.com/Azure/azure-cosmosdb-java" target="_blank">V3 SDK</a>の新機能と強化された Azure Cosmos DB</h4>
+
+
+  <ul>
+   <li>リアクターベースの非同期プログラミングモデルの新規作成</li>
+   <li>Azure Cosmos DB direct HTTPS および TCP トランスポートプロトコルのサポートが追加され、パフォーマンスと可用性が向上しました。</li>
+   <li>V3 Sdk のすべての新しいクエリの機能強化</li>
+  </ul>
+
+
+  <p>Java V3 SDK は完全にオープンソースであり、投稿を歓迎しています。 Java V3 SDK は、間もなく一般公開される予定です。</p>
+
+
+  <h4>Java の Change feed processor</h4>
+
+
+  <p>change feed Azure Cosmos DB の最も人気のある機能の1つは、ユーザーが Cosmos コンテナー内のデータに対する変更をプログラムによって観察できるようにすることです。 これは、リアクティブプログラミング、分析、イベントストア、サーバーレスなどの多くのアプリケーションパターンで使用されます。 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/change-feed" target="_blank">Java 用の change feed processor ライブラリ</a>を発表することをお勧めします。これ &rsquo; により、変更フィードの上に分散マイクロサービスアーキテクチャを構築し、最も一般的なプログラミング言語の1つを使用して動的に拡張することができます。</p>
+
+
+  <h4>クロスプラットフォームテーブル .NET Standard SDK の一般公開</h4>
+
+
+  <p>.NET Standard SDK では、 <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/table-sdk-dotnet-standard" target="_blank">1.0.1 GA バージョンのクロスプラットフォームテーブル</a>が提供されています。Azure Cosmos DB Table API と Azure Storage Table Service の両方に対応した単一の統合されたクロスプラットフォーム SDK です。 お客様は、Cosmos テーブルとして、または Windows で .NET Framework アプリを使用する Azure Storage テーブルとして、または複数のプラットフォームで .net Core アプリを使用して、Table service に対して操作できるようになりました。 最新の HttpClient、DelegatingHandler ベースの拡張性、最新の非同期パターンを使用するなど、REST プロトコルを使用して Table API を呼び出すときの機能強化を維持しながら、不要なバイナリ依存関係を削除することで、開発環境を改善しまし &rsquo; た。 また、クロスプラットフォームの Azure PowerShell によって使用され、Table API のコマンドレットを継続的に強化することもできます。</p>
+
+
+  <h2>宇宙開発者</h2>
+
+
+  <h4>Azure Resource Manager のデータベース、コンテナー、およびその他のリソースに対する ARM サポート</h4>
+
+
+  <p>Azure Cosmos DB では、Azure Resource Manager でのデータベース、コンテナー、およびプランのサポートが提供されるようになりました。 ユーザーは、Azure Resource Manager テンプレートまたは PowerShell を使用して、データベースとコンテナーをプロビジョニングし、スループットを設定できるようになりました。 このサポートは、SQL (コア)、MongoDB、Cassandra、グリーン mlin、Table などのすべての api で利用できます。 また、この機能により、Azure Cosmos DB のデータベースおよびコンテナーの設定を作成、削除、または変更するためのカスタム RBAC ロールを作成することもできます。 詳細と開始方法については、「 <a href="https://aka.ms/cosmos-arm-support" target="_blank">Azure Cosmos DB Azure Resource Manager テンプレート</a>」を参照してください。</p>
+
+
+  <h4>カスタムロールとポリシーを Azure Cosmos DB する</h4>
+
+
+  <p>Azure Cosmos DB では、カスタムロールとポリシーがサポートされています。 現在、Azure Cosmos DB オペレーターロールの一般提供が発表されています。 このロールは、データアクセスを提供せずに Azure Cosmos DB の Azure Resource Manager リソースを管理する機能を提供します。 このロールは、アカウント、データベース、コンテナーなど、Azure Cosmos DB の展開操作を管理するために Azure Active Directory サービスプリンシパルへのアクセス権を付与する機能が必要なシナリオを対象としています。 詳細については、Azure Cosmos DB<a href="https://aka.ms/cosmos-rbac" target="_blank">カスタムロールとポリシーのサポート</a>に関するドキュメントを参照してください。</p>
+
+
+  <h4>単一リージョンの書き込み Cosmos アカウントを複数リージョンの書き込みにアップグレードする</h4>
+
+
+  <p>お客様からのよく寄せられる質問の1つは、1つの書き込み可能なリージョン (単一マスタ) で構成された既存の Cosmos アカウントを複数の書き込み可能なリージョン (マルチマスター) にアップグレードできることです。 本日から、既存のアカウントをすべてのリージョンから書き込み可能にすることができるようになります。 これを行うには、Azure portal または Azure CLI を使用します。 アップグレードは完全にシームレスであり、ダウンタイムなしで実行されます。 このアップグレードを実行する方法の詳細については、<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-manage-database-account#configure-multiple-write-regions" target="_blank">こちらのドキュメントを参照</a>してください。</p>
+
+
+  <h4>無制限のコンテナーへの固定コンテナーの自動アップグレード</h4>
+
+
+  <p>Azure Cosmos DB サービスの既存の固定 Azure Cosmos コンテナー (コレクション、テーブル、グラフ) はすべて自動的にアップグレードされ、無制限のスケールとストレージを利用できるようになりました。 既存の固定コンテナーを無制限のコンテナーにスケールする方法の詳細については、こちらの <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/migrate-containers-partitioned-to-nonpartitioned" target="_blank">ドキュメント</a> を参照してください。</p>
+
+
+  <h4>Azure Cosmos Explorer がサポートされるようになりました Azure AD</h4>
+
+
+  <p>Azure Cosmos DB emulator と Azure Storage Explorer の一部として、Azure portal 内のデータを操作するための柔軟な Cosmos エクスプローラーエクスペリエンスをご利用いただけます。 &rsquo;また、開発者が Azure portal にアクセスできない場合や全画面表示エクスペリエンスが必要な場合に備えて<a href="https://cosmos.azure.com/" target="_blank">、全画面表示 &rdquo; を使用できる &ldquo; </a>ようにしました。 現在、開発者が Azure 資格情報を使用して直接認証し、全画面表示を利用できるように、Azure Active Directory のサポートがに <a href="https://cosmos.azure.com" target="_blank">https://cosmos.azure.com</a> 追加されています。</p>
+
+
+  <h4>Azure portal とツールの機能強化</h4>
+
+
+  <p>お客様がアプリの容量を適切にプロビジョニングし、Azure Cosmos DB のコストを最適化できるように、 <a href="https://azure.microsoft.com/en-us/pricing/calculator/" target="_blank">Azure 料金計算ツール</a>の更新プログラムと共に、Azure portal と Azure Advisor に関する組み込みの &nbsp; <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/optimize-cost-throughput" target="_blank">コストに関する推奨事項</a> &nbsp; を追加しました。</p>
+
+
+  <p>Azure Cosmos DB によって何が作成されるのかがわかります。</p>
+
+
+  <ul>
+   <li>ご質問があるでしょうか。 いつでも電子メールで <a href="mailto:AskCosmosDB@microsoft.com">AskCosmosDB@microsoft.com</a> ご連絡ください。</li>
+   <li><a href="https://azure.microsoft.com/try/cosmosdb/" target="_blank">Azure Cosmos DB を無料でお試しください</a>。 (クレジットカードは必要ありません)</li>
+   <li>最新の Azure Cosmos DB ニュースと機能については、Twitter <a href="https://twitter.com/search?q=%23cosmosDB&amp;src=typd" target="_blank"> # CosmosDB</a>() <a href="https://twitter.com/AzureCosmosDB" target="_blank">@AzureCosmosDB</a> に従って最新の情報を入手してください。</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>Azure Cosmos DB</h2>
+
+
+  <p>Azure Cosmos DB は、ミッションクリティカルなワークロード用の Microsoft&#39;s グローバル分散型のマルチモデルデータベースサービスです。 Azure Cosmos DB は、エンドポイントのスケーラビリティを無制限にしたターンキー型の<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/distribute-data-globally" target="_blank">グローバル分散</a>を提供し、複数の粒度 (データベース/キー空間、テーブル/コレクション/グラフなど) でスループットを柔軟に<a href="https://azure.microsoft.com/en-us/support/legal/sla/cosmos-db/v1_3/" target="_blank">スケーリングできます。また</a>、世界中のストレージ、1桁のミリ秒の読み取りと書き込みの待機時間を99パーセンタイルで実現<a href="https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels" target="_blank">し、高</a>可用性を保証し</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad0a0403-d598-4c51-ac8c-6a44a5d09c85.png"><img alt="cosmosdb" border="0" height="899" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/901bd600-815f-4a33-914c-914fd0e68e67.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="cosmosdb" width="1131"></a></p>

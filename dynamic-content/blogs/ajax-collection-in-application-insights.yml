@@ -1,0 +1,140 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 80fec3f5e4d4feed194fef1459afcef7e34e26ec
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891324"
+Slug: ajax-collection-in-application-insights
+Title: Application インサイト での AJAX コレクション
+Summary: Application インサイト では、Web ページ アプリによって行われた AJAX 呼び出しのパフォーマンスについて自動的に説明されます。
+Content: >-
+  <p><a><font color="#000000">Web&rsquo; ページ アプリによって行</font></a>われた AJAX 呼び出しインサイトのパフォーマンスについて、Application <a href="https://azure.microsoft.com/services/application-insights/">インサイト</a> から自動的に<font color="#000000">知らせられたことをお知らせします。最新の Web アプリの多くは、基本的な構造を読み込み、AJAX 呼び出しを使用してコンテンツを読み込む。</font><a><font color="#000000">AJAX 呼び出</font></a>しが失敗するか遅い場合、ユーザーは空の Web パーツを見ているか、進行状況<font color="#000000">バーがスタックします。</font></p>
+
+
+  <p><font color="#000000">この新機能を使用すると、&rsquo;AJAX に依存する機能によって問題が発生するかどうか、および発生する頻度を確認できます。何より、実行するために&rsquo;追加の構成を行う必要はないと思います。AJAX 呼び出しに関するテレメトリは JavaScript Web クライアント SDK&rsquo; </font> の関数なので、Application インサイト 用に Web ページを設定<a href="https://azure.microsoft.com/documentation/articles/app-insights-javascript/">してください</a><font color="#000000">。</font></p>
+
+
+  <h2><font color="#000000">AJAX の問題の診断</font></h2>
+
+
+  <p><a><font color="#000000">AJAX</font></a><font color="#000000"> 呼び出しが&rsquo;原因で問題が発生した場合、どうすれば確認できますか?また、新しい機能を使用して修正する方法を説明します。</font></p>
+
+
+  <p><font color="#000000">[ブラウザー] または [ブラウザー] 設定クリックしてブラウザー ブレードを開きます。または、サービスの概要ブレードでブラウザー グラフの [ページ ビュー期間] をクリックします。</font></p>
+
+
+  <p><font color="#000000">依存関係呼び出し、依存関係エラー、依存関係期間の 3 つのグラフは、AJAX 呼び出しの動作の概要を示しています。これらのグラフにドリルダウンして、より多くの分析情報を収集します。 </font></p>
+
+
+  <p><strong>メモ：</strong> これらの新しいグラフが表示されない場合は、 [既定値に戻す] オプションを選択します。</p>
+
+
+  <p><font color="#000000"><img alt="3charts" border="0" height="461" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d4390652-9bd3-4d1e-bb1b-e997a2ad6371.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="3 文字" width="480"></font></p>
+
+
+  <p><font color="#000000">この場合、依存関係は AJAX サーバーです。サーバー内の他の依存関係を追跡するのと同じ方法で、ブラウザーからの AJAX 呼び出しを追跡します。これらのグラフの [フィルター] を開いた場合&rsquo;は、device.type = Browser でフィルター処理されているのが表示 &ldquo;されます。&rdquo;</font></p>
+
+
+  <h3><font color="#000000">これらのグラフを使用する方法</font></h3>
+
+
+  <p><font color="#000000"><strong>依存関係期間</strong>: [Dependency Duration]/(依存関係期間)グラフを使用して、応答の所要時間を確認します。アプリケーションに対して許容される呼び出し期間を決定し、それを依存関係期間グラフに表示される期間と比較できます。 </font></p>
+
+
+  <p><a><font color="#000000">別</font></a>の方法として、ユーザーへの応答を完了するのにかかる時間にコードを挿入し、trackMetric 呼び出し<font color="#000000">で報告します。ただし、何も記述せずに AJAX 呼び出し期間を取得するのに対し、一部のコードに投資する必要があります。AJAX 呼び出しは、&rsquo;操作の中で最も長く信頼性の低い部分である可能性が高く、通常は単独で測定するのに十分です。そのため、アプリの応答時間&rsquo;</font>を監視する正確な方法には、アプリ固有のコードの記述が含まれるのですが、この一般的な方法ははるかに簡単で、ほぼ同じ効果があります。</p>
+
+
+  <p><font color="#000000"><strong>依存関係呼び出</strong>し: 依存関係呼び出しグラフでは、行われた呼び出しの数にすばやくアクセスできます。依存関係呼び出しグラフと依存関係エラーを比較して、エラー率を確認します。 </font></p>
+
+
+  <p><font color="#000000"><strong>依存関係エラー</strong>: 障害の場所に応じて、通常、これは顧客の不満を示します。応答コードが 400 以上の場合は、エラーとしてカウントされます。URI でグラフをフィルター処理し、その URI の呼び出しの総数とエラーの数を比較して、発生頻度を確認します。</font></p>
+
+
+  <p><font color="#000000">依存関係グラフの下には、いくつかのグリッドがあります。<img alt="dependencybydependency" border="0" height="428" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28b12f6f-ac33-4b60-ae9b-e0850b7cf291.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="dependencybydependency" width="480"></font></p>
+
+
+  <p><font color="#000000"><strong>[操作名別のページ</strong> ビュー期間の平均]: このグリッドは、顧客がページの読み込みを待機している平均時間を示します。特定の操作名を掘り下して、より多くの分析情報を取得し、&#39;を検出します。&nbsp; </font></p>
+
+
+  <p><font color="#000000"><strong>依存関係別の依存関係呼び出しの</strong>合計: このグリッドには、AJAX サーバー名でグループ化された AJAX 要求が表示されます。詳細については、任意のグラフをクリックしてください。Web アプリによっては、ホーム サーバーに AJAX 呼び出しを送信するだけの Web アプリと、他のサーバーで を呼び出す Web アプリがあります。アプリが後者の 1 つ&rsquo;である場合は、このグリッドを確認すると便利です。</font></p>
+
+
+  <h2><font color="#000000">ページの読み込み速度が遅い</font></h2>
+
+
+  <p><font color="#000000">ページの読み込み中に AJAX&rsquo; 呼び出しを同期的に行う場合、応答が遅くなると、ページの読み込みが遅くなる可能性があります。</font></p>
+
+
+  <p><font color="#000000">[ブラウザー] ページには、操作&rsquo;</font>名別のページ ビュー期間の平均<a><font color="#000000">を示すグリッドがあります</font></a><font color="#000000">。 ページの読み込み時間が一目で示されます。 ページの読み込み速度が遅い場合は、 をクリックすると、そのページに固有のブレードが表示されます。 これで、AJAX 依存関係呼び出し、依存関係エラー、期間を示す同じ一連のグラフが表示されますが、このページ名に対してフィルター処理されました。 任意の単一ページ ビュー ブレードにさらにドリルできます。 <img alt="ajax_3" border="0" height="322" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5efd7a07-689c-4a04-abdd-0b453d450f0e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="ajax_3" width="610"></font></p>
+
+
+  <p><font color="#000000">これにより、ページの読み込み速度が遅いのが AJAX 呼び出しによって発生するか、他の呼び出しが原因かを簡単に判断できます。</font></p>
+
+
+  <h2><font color="#000000">個々のページ読み込み詳細ブレード</font></h2>
+
+
+  <p><font color="#000000">問題を診断するために、ページ読み込みの個々のインスタンスを調めることができます。その他の詳細に加えて、AJAX 呼び出しというセクションが追加されました。これは、このページで行われた AJAX 呼び出しを示しています。これにより、呼び出し、呼び出しにかかった時間、および成功した時間を確認できます。</font></p>
+
+
+  <p><font color="#000000"><img alt="individual_page_load_details_blade" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9480fc0c-41bd-4df0-986f-5c17590ea197.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="individual_page_load_details_blade" width="378"></font></p>
+
+
+  <h2><font color="#000000">AJAX 依存関係ブレード</font></h2>
+
+
+  <p><font color="#000000">シングル ページ要求の詳細ブレードから、1 つの AJAX 呼び出しを選択できます。呼び出しを選択すると、この AJAX 呼び出しの新しい依存関係ブレードが開きます。ここでは、完全な URL を含む、この AJAX 呼び出しの特定のプロパティを確認できます。また、[関連項目] セクションのこのブレード&#39;AJAX 呼び出しが行われたページ ビュー ブレードへのリンクが表示されます。検索を使用して AJAX 依存関係ブレードにアクセスした場合は、ページ ビュー ブレードを確認できます。AJAX 依存関係は他の依存関係の種類と同じように扱われるため、同様に表示されます。</font></p>
+
+
+  <p><font color="#000000"><img alt="ajax_details_blade" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b0e53d90-aa43-4987-819f-34b8b5f51e07.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="ajax_details_blade" width="397"></font></p>
+
+
+  <h2><font color="#000000">データ クォータ</font></h2>
+
+
+  <p><font color="#000000">アプリケーションによっては、AJAX 依存関係を収集すると、データ収集率が急激に増加する可能性があります。この増加により、アプリケーションのクォータが早く達する可能性があります。</font></p>
+
+
+  <p><font color="#000000">データの種類別にデータ ボリュームの内訳を表示するには、[設定] に移動し、[クォータと価格] を選択します。</font></p>
+
+
+  <p><font color="#000000"><img alt="pricing_ajax" border="0" height="480" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b3a8b982-29e8-4a3d-81ba-2dc7c7f9068e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; display: block; padding-right: 0px; border-top-width: 0px" title="pricing_ajax" width="453"></font></p>
+
+
+  <p><font color="#000000">グラフをクリックすると、特定のデータ型の詳細を表示できます。AJAX コレクションは、2015 年 12 月 23 日に開始しました。その日付に関する依存関係の急増に気付いた場合は、AJAX コレクションによってそれが発生した可能性が高い可能性が高い。&nbsp; </font></p>
+
+
+  <h3><font color="#000000">使用を制限する</font></h3>
+
+
+  <p>使用量を制限する場合は、いくつかのオプションがあります。</p>
+
+
+  <ol>
+   <li><font color="#000000">サンプリングの使用: 「サンプリング」の <a href="https://azure.microsoft.com/documentation/articles/app-insights-sampling/">ドキュメント ページ</a> を参照してください。</font></li>
+   <li><font color="#000000"><a href="https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#config">maxAjaxCallsPerView パラメーターを使用します</a>。</font></li>
+  </ol>
+
+
+  <pre class="prettyprint">
+      // Default 500 - controls how many ajax calls will be monitored per page view.
+      // Set to -1 to monitor all ajax calls on the page.
+      maxAjaxCallsPerView: number;</pre>
+
+  <p>3. AJAX 自動収集をオフにする: 次のセクションでオプトアウトする方法について説明します。</p>
+
+
+  <h2><font color="#000000">オプトアウト</font></h2>
+
+
+  <p><a><font color="#000000">AJAX 呼び出しは自動的に収集されます。これを無効にするには、構成ファイルで disableAjaxTracking: true を追加します。詳細については、ドキュメントを </font></a><a href="https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#config">参照してください</a><font color="#000000">。</font></p>
+
+
+  <h2><font color="#000000">お知らせください&hellip;</font></h2>
+
+
+  <p><font color="#000000">Application インサイト JavaScript SDK は進行中の作業です。問題や機能の要求については、リポジトリにアクセス</font><a href="https://github.com/Microsoft/ApplicationInsights-JS">してください</a><font color="#000000">。依存関係コレクションの一般的な詳細については、ドキュメントを参照<a href="https://azure.microsoft.com/documentation/articles/app-insights-dependencies/">してください</a>。</font></p>
+
+
+  <p><a><font color="#000000">Application インサイトチームは、開発者に高品質のツールを提供する取り組みです。フィードバックや新機能に関する</font></a><font color="#000000"></font>推奨事項を大いに感謝します<font color="#000000">。</font></p>

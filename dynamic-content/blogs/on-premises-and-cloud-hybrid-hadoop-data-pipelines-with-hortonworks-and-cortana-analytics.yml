@@ -1,0 +1,53 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1593a23bd91b6228756290cd5186aabf9880e6fd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895317"
+Slug: on-premises-and-cloud-hybrid-hadoop-data-pipelines-with-hortonworks-and-cortana-analytics
+Title: Hortonworks と Cortana Analytics を使用したオンプレミスとクラウドのハイブリッド Hadoop データ パイプライン
+Summary: Azure Data Factoryと Hortonworks のWorks のチームは、オンプレミスの Hortonworks Hadoop クラスターを活用するハイブリッド Hadoop データ パイプラインを構築するプライベート プレビューの提供を共同で発表しました。
+Content: >-
+  <p><a href="https://azure.microsoft.com/en-us/services/data-factory/">Azure Data Factory</a> と <a href="https://hortonworks.com/hadoop/falcon/">Hortonworks の両チーム</a>は、オンプレミスの Hortonworks Hadoop クラスターと、HDInsight Hadoop クラスターや Azure Machine Learning のようなクラウドベースの Cortana Analytics サービスを利用してハイブリッド Hadoop データ パイプラインを構築するプライベート プレビューの提供を共同で発表しました。</p>
+
+
+  <p>オンプレミスの Hadoop ベースのデータ レイクを維持しているお客様は、多くの場合、ハイブリッド データ フローを有効にし、さまざまな理由でオンプレミスのデータ レイクをクラウドに拡張する必要があります。</p>
+
+
+  <ul>
+   <li>プライバシー<b>とコンプライアンス上</b><b></b>&rsquo;の理由から PII や他の機密データをオンプレミスに保持しますが、機密情報を必要としないエラスティック スケール ワークロードにはクラウドを活用します。</li>
+   <li>リージョン間のレプリケーションと<strong>ディザスター リカバリーにクラウド</strong><strong>を活用します</strong>。</li>
+   <li>開発および <b>テスト環境にクラウドを活用します</b>。</li>
+  </ul>
+
+
+  <p>このようなハイブリッド シナリオでは、多くの場合、お客様は、2 つの独立した ETL\データ パイプライン ソリューションを使用し、データ フローの統一されたビューを持つ分割された世界で行き詰まっています。 ハイブリッド パイプラインプライベート プレビューでは、オンプレミスとクラウド全体のデータ フローと依存関係全体をクラウドベースのデータ ファクトリとしてモデル化して視覚化することで、この問題を解決します。 ジョブの実行場所に関係なく、デバッグエラーから失敗したワークフローの再実行まで、データ ファクトリのクラス最高の監視および管理ツールを利用することで、運用を効率化できます。</p>
+
+
+  <p>Hybrid Hadoop パイプライン プレビューを使用すると、クラウドに HDInsight ベースの Hadoop クラスターなどの他のコンピューティングターゲットを追加する場合と同様に、Data Factory でジョブを実行するコンピューティングターゲットとしてオンプレミスの Hadoop クラスターを追加できます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><img alt="hybrid pipeline" height="248" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/953618cc-19d6-4eb0-956c-901eede05971.jpg" style="float: none; margin: 0px auto; display: block" title="ハイブリッド パイプライン" width="610"></p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p>わずか数回のクリック (最後にサンプル リンクを表示) して、セキュリティで保護されたチャネルを使用して、データ ファクトリ サービスを使用してオンプレミス <font style="background-color: #ffff00">クラスター間の接続を有効にできます (</font> GitHubサンプル リンク)。 これを行った後は、上に示すように、次の操作を行うハイブリッド パイプラインを開発できます。</p>
+
+
+  <ul>
+   <li>データ ファクトリの新しいオンプレミス <b>Hadoop Hive、Pig</b> アクティビティを使用して、オンプレミスの Hadoop Hive と Pig ジョブを調整します。</li>
+   <li>新しいオンプレミス レプリケーション アクティビティを使用して、オンプレミスの HDFS からクラウド内の Azure BLOB に <strong>データをコピーします</strong>。</li>
+   <li>たとえば、Hadoop HDInsight アクティビティを使用して、パイプラインにさらにステップを追加し、クラウドでビッグ データ処理を続行します。</li>
+  </ul>
+
+
+  <p>プライベート プレビューは、一部の一部のお客様が利用できます。 この機能の活用に関心がある場合は、この簡単な調査を行って、お客様の使用事例が適している場合は、お客様にお問い合わせします。</p>
+
+
+  <p>プライベート プレビューに既に参加している場合は、ハイブリッド パイプラインが有効になっている方法、データ ファクトリと Factory が相互に通信する方法の詳細、および設定方法の詳細な手順については、<a href="https://github.com/Azure/Azure-DataFactory/tree/master/Samples/HybridPipelineWithOnPremisesHortonworksHadoop">GitHub</a> サンプルを参照してください。</p>

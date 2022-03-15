@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 83571bf6ae44aa7e1f39a37c442377de5a204626
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895827"
+Slug: new-disaster-recovery-tutorials-for-wingtip-tickets-sample-saas-application
+Title: Wingtip チケットサンプル SaaS アプリケーションの新しいディザスターリカバリーチュートリアル
+Summary: 'SaaS アプリ管理を可能にする Azure SQL database の機能を紹介する一連のチュートリアルを続けて、障害発生時にアプリとそのリソースを復旧するためのディザスターリカバリー戦略について説明する2つの新しいチュートリアルを紹介します。 '
+Content: >-
+  <p>SaaS アプリ管理を可能にする Azure SQL database の機能を紹介する<a href="https://docs.microsoft.com/azure/sql-database/saas-dbpertenant-wingtip-app-overview" target="_blank">一連のチュートリアル</a>を続けて、障害発生時にアプリとそのリソースを復旧するためのディザスターリカバリー戦略について説明する2つの新しいチュートリアルを紹介します。 障害復旧 (DR) は、コンプライアンス上の理由やビジネス継続性など、多くのアプリケーションにとって重要な考慮事項です。 長時間にわたるサービス停止が発生しても、適切に準備された DR 計画があればビジネスの中断を最小限にできます。</p>
+
+
+  <p>このチュートリアルでは、Wingtip チケットサンプルのテナント単位データベースアーキテクチャモデルを対象として、azure SQL database の geo リストア機能を使用した復旧と、azure SQL database の geo レプリケーション機能を使用した復旧を示します。</p>
+
+
+  <h2>geo 復元を使用したディザスター リカバリー</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/31cb1969-9709-4423-b784-f91aee3101bc.png"><img alt="image" border="0" height="321" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67b6eb90-dd05-4796-b93b-17a4bfd68329.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="624"> </a> このチュートリアルでは、geo リストアベースの DR 戦略を使用して、完全なディザスターリカバリーシナリオについて説明します。 自動的に保守されている geo 冗長バックアップのカタログおよびテナント データベースを代替復旧リージョンに復元するには、geo リストアを使用します。 停止が解決したら、geo レプリケーションを使用して、新規および変更されたデータベースを元の運用リージョンに復帰します。</p>
+
+
+  <p>このパターンの詳細については、GitHub のチュートリアルと<a href="https://github.com/Microsoft/WingtipTicketsSaaS-DbPerTenant" target="_blank">関連コード</a>を<a href="https://docs.microsoft.com/azure/sql-database/saas-dbpertenant-dr-geo-restore" target="_blank">確認</a>してください。</p>
+
+
+  <h2>Geo レプリケーションを使用したディザスターリカバリー</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/710303c3-7776-4dc9-9dee-6f0cc0713f38.png"><img alt="image" border="0" height="303" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1adb9cf5-cedf-4ccf-8d7d-63257bcfd810.png" style="border: 0px currentColor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="" width="623"> </a> このチュートリアルでは、geo レプリケーションベースの DR 戦略を使用して、完全なディザスターリカバリーシナリオについて説明します。 障害が発生する前に、geo レプリケーションを使用して、代替復旧リージョンでカタログデータベースとテナントデータベースのセカンダリレプリカを作成し、管理します。 障害が発生した場合は、これらのレプリカにフェールオーバーして通常のビジネス操作を再開します。 フェールオーバー時には、元のリージョンのデータベースが、復旧リージョン内のデータベースのセカンダリ レプリカになります。 これらのレプリカは、オンラインに戻った時点で、復旧リージョン内のデータベースの状態を自動的にキャッチアップします。 このチュートリアルの後半では、アプリケーションとそのデータベースを元の運用リージョンにフェールバックし、障害が解決された後に何が起こるかを調査します。</p>
+
+
+  <p>このパターンの詳細については、GitHub のチュートリアルと<a href="https://github.com/Microsoft/WingtipTicketsSaaS-DbPerTenant" target="_blank">関連コード</a>を<a href="https://docs.microsoft.com/azure/sql-database/saas-dbpertenant-dr-geo-replication" target="_blank">確認</a>してください。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <p>DR パターンとその他のマルチテナント SaaS アプリパターンの詳細については、Wingtip チケット SaaS アプリとチュートリアルを参照してください。 &nbsp; Azure サブスクリプションでサンプルアプリを5分未満でデプロイし、プロビジョニング、スキーマ管理、パフォーマンス管理、現在のディザスターリカバリーなどのさまざまな管理シナリオについて調べることができます。</p>
+
+
+  <p>ここで <a href="mailto:saasfeedback@microsoft.com">saasfeedback@microsoft.com</a> は、サンプルとパターンと、今後追加されるもの &rsquo; についてご意見をお聞かせください。</p>

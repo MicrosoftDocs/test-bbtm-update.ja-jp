@@ -1,0 +1,65 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 48c6bb3ffb3736cbf5581e373f2288ad3fac1bdf
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895787"
+Slug: push-notification-hubs-batch-direct-send
+Title: デバイス トークンに通知をバッチ送信するには、次のNotification Hubs
+Summary: Azure Notification Hubs Batch Direct Send 機能を発表しています。この機能を使用すると、通知をデバイス トークン/チャネル URI に直接送信できます。
+Content: >-
+  <p>Basic および Standard レベルのお客様向け Batch Direct Send 機能をお知らせいたします。 これは、以前に公開された Direct <a href="https://msdn.microsoft.com/en-us/library/azure/mt608572.aspx">Send</a> 機能のバッチ バージョンです。これにより、個々のデバイス トークン/チャネル URI への送信が有効になります。 この機能を使用&#39;デバイスを Notification Hubs に登録する必要がなさらないので、お客様はハブを便利な場所でスケーラブルなプッシュ エンジンとして利用し、カスタム デバイスのストレージと移行のシナリオを簡略化できます。</p>
+
+
+  <p>この機能は REST で使用 <a href="https://msdn.microsoft.com/en-us/library/azure/mt734910.aspx">できます。サンプル</a>の WNS バッチダイレクト送信ペイロードは次のようになります。</p>
+
+
+  <pre class="prettyprint">
+
+  // note that the empty line breaks in this payload are mandatory
+
+  const string payload = @&quot;
+
+  --simple-boundary
+
+  Content-type: text/xml
+
+  Content-Disposition: inline; name=notification
+
+
+  &lt;toast&gt;&lt;visual&gt;&lt;binding template=&quot;&quot;ToastText01&quot;&quot;&gt;&lt;text id=&quot;&quot;1&quot;&quot;&gt;Hello from Batch Direct Send!&lt;/text&gt;&lt;/binding&gt;&lt;/visual&gt;&lt;/toast&gt;
+
+  --simple-boundary
+
+  Content-type: application/json
+
+  Content-Disposition: inline; name=devices
+
+
+  [&#39;https://{foo}.notify.windows.com/?token={bar}&#39;]
+
+  --simple-boundary--&quot;;</pre>
+
+
+  <p>.NET での要求は次のようになります。</p>
+
+
+  <pre class="prettyprint">
+
+  var uri = new Uri(&quot;https://my-namespace.servicebus.windows.net/&quot; + myHubName + &quot;/messages/$batch?direct&amp;api-version=2015-08&quot;);
+
+  var sendRequest = WebRequest.CreateHttp(uri);
+
+  sendRequest.Method = &quot;POST&quot;;
+
+  sendRequest.ContentType = @&quot;multipart/mixed; boundary = &quot;&quot;simple-boundary&quot;&quot;&quot;;
+
+  sendRequest.Headers[&quot;Authorization&quot;] = GenerateSasToken(uri);
+
+  sendRequest.Headers[&quot;ServiceBusNotification-Format&quot;] = &quot;windows&quot;;
+
+  sendRequest.Headers[&quot;X-WNS-Type&quot;] = &quot;wns/toast&quot;;</pre>
+
+
+  <p>試して、ご自分の考えをお知らせします。 新しい方は、サービスとドキュメント<a href="https://azure.microsoft.com/en-us/services/notification-hubs/">Notification Hubs確認</a><a href="https://azure.microsoft.com/en-us/documentation/services/notification-hubs/">してください</a>。</p>

@@ -1,0 +1,109 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 019da7eb5e0ea57372d47b4dee7639d03392a116
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895152"
+Slug: application-insights-track-an-analytics-query-in-a-dashboard
+Title: 'アプリケーション インサイト: ダッシュボードで Analytics クエリを追跡する'
+Summary: これで、Visual Studio Application インサイト でテレメトリから計算された Analytics クエリを継続的に監視し、その結果を Azure 共有ダッシュボードに表示できます。
+Content: >-
+  <p>これで、Visual Studio <a href="https://azure.microsoft.com/services/application-insights/">Application インサイト</a> でテレメトリから計算された <a href="https://azure.microsoft.com/documentation/articles/app-insights-analytics/">Analytics</a> クエリを継続的に監視し、その結果を Azure 共有ダッシュボード<a href="https://azure.microsoft.com/documentation/articles/app-insights-dashboards/#share-dashboards-with-your-team">に表示できます。</a> つまり、Web サービスのパフォーマンスや使用状況の監視に役立つダッシュボードをまとめる場合は、他のメトリックと共に非常に複雑な分析を含めることができます。</p>
+
+
+  <p><img alt="Track an Analytics query in a dashboard" border="0" height="286" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a158934f-07a6-4960-ab65-02c48eabde6e.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="ダッシュボードで Analytics クエリを追跡する" width="610"></p>
+
+
+  <p>たとえば、Web&rsquo;&rsquo; サイトが 2 時間以内に完了した要求の割合を追跡するとします。 最&rsquo;も人気のあるページにのみ関心があります。 これは Analytics クエリとして記述することは難しく&rsquo;はされませんが、標準メトリックの 1 つとして提供されているのは確かです。 最近まで、クエリは [&rsquo;分析] ウィンドウでのみ実行できます。グラフを最新の状態に保つには、[間隔で移動] をクリックする必要があります。 しかし、システム テレメトリの包括的なダッシュボードに含めることができます。</p>
+
+
+  <p><a href="https://azure.microsoft.com/documentation/articles/app-insights-dashboards/">ダッシュボード</a> は、特にシステム内の複数のアプリからのメトリックを同時に表示する場合に、最も重要なグラフ (&rsquo;おそらく既に検出されている場合) をまとめる場合に最適です。 さらに、複数のダッシュボードを作成できます。 開発チーム ルームでは、すべてのフロント アプリとバックエンド アプリのパフォーマンスを監視できます。一方、管理はシステムの使用状況を毎週確認できます。</p>
+
+
+  <h2>1.ダッシュボードを共有する</h2>
+
+
+  <p>Analytics グラフは共有ダッシュボードにのみピン留<a href="https://azure.microsoft.com/documentation/articles/app-insights-dashboards/#share-dashboards-with-your-team"></a>めできます。そのため、少なくとも 1 つのダッシュボードを共有することが重要な準備手順です。</p>
+
+
+  <p><img alt="Share a dashboard" border="0" height="351" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/60eb5d71-d8ad-473f-94c8-69b9cf408af8.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="ダッシュボードを共有する" width="610"></p>
+
+
+  <h2>2.Analytics クエリを記述する</h2>
+
+
+  <p>次に、アプリのアプリケーション インサイト リソースを開きます。</p>
+
+
+  <p>次に、[分析] をクリックします。</p>
+
+
+  <p><img alt="Click through to Analytics" border="0" height="83" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b09d42d1-4e81-4329-953b-050da0c0071a.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="クリックして Analytics にアクセスする" width="610"></p>
+
+
+  <p>クエリを記述してテストします。 前&rsquo;に説明した例を見てみしましょう。</p>
+
+
+  <p><img alt="Write an Analytics query" border="0" height="341" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d471d9be-9c45-484e-80c5-763b0d0eff82.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="Analytics クエリを記述する" width="610"></p>
+
+
+  <h2>3.ダッシュボードにピン留めする</h2>
+
+
+  <p>ピン アイコンをクリックし、ダッシュボードを選択します。 サブスクリプション内 <a href="https://azure.microsoft.com/documentation/articles/app-insights-dashboards/#share-dashboards-with-your-team">の共有</a> ダッシュボードだけが一覧に表示されます。 この機能を有効 <a href="https://azure.microsoft.com/documentation/articles/app-insights-pricing/">にするには、アカウント</a> のアップグレードが必要な場合があります。</p>
+
+
+  <p><img alt="Pin it to the dashboard" border="0" height="272" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b27d6b50-8f86-40b5-89b3-5b813f7f2f0c.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="ダッシュボードにピン留めする" width="360"></p>
+
+
+  <h2>4.ダッシュボードでグラフを調整する</h2>
+
+
+  <p>次に、ダッシュボードのダッシュボードに戻Azure portal。 グラフの位置とタイトルは、通常の方法で調整できます。</p>
+
+
+  <p><img alt="Adjust the chart on the dashboard" border="0" height="421" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c555947-851a-4f39-82c4-854a3413236a.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="ダッシュボードでグラフを調整する" width="610"></p>
+
+
+  <p>グラフは、約 30 分ごとにクエリを再実行することで更新されます。</p>
+
+
+  <h2>自動グループ化</h2>
+
+
+  <p>グラフをダッシュボードにピン留めすると、場合によっては少し簡略化された表示が表示されます。</p>
+
+
+  <p>たとえば、国別&rsquo;に集計された Analytics&rsquo; のグラフを次に示します。</p>
+
+
+  <p>要求|summarize count_search = count() by client_CountryOrRegion</p>
+
+
+  <p><img alt="" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf7825d4-f388-4983-93e8-0717ae3db965.png" style="border-width: 0px; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; width: 610px; height: 219px; background-image: none;" title=""></p>
+
+
+  <p>ただし、ダッシュボードにピン留めすると、次のように表示されます。</p>
+
+
+  <p><img alt="Automatic grouping on dashboard" border="0" height="327" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d05fbdc8-8097-4e2d-915c-a88007ef45c6.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" title="ダッシュボードでの自動グループ化" width="610"></p>
+
+
+  <p>長い末尾が (その他) にグループ化されているのに &ldquo;注意してください&rdquo;。 Y 軸の個別のビンに分割された値の数の横棒グラフをピン留めすると、小さい項目が自動的にグループ化されます。</p>
+
+
+  <h2>次&rsquo;は何ですか?</h2>
+
+
+  <p>これは、分析情報を Azure ダッシュボードに追加することで、分析情報を運用する最初の手順にすら限定されています。 円グラフの視覚化のサポート、ダッシュボード グラフの編集、ダッシュボード パーツを必要なとおりに設定するのに役立つその他の小さな設定など、引き続き他の機能を提供できます。</p>
+
+
+  <p>いつものように、次のいずれかのチャネルを使用して、ご質問やフィードバックをお寄せください。</p>
+
+
+  <ul>
+   <li><a href="https://visualstudio.uservoice.com/forums/357324-application-insights/category/161991-analytics">アイデアを提案し、Application インサイトアイデアに投票する</a></li>
+   <li><a href="https://social.msdn.microsoft.com/Forums/vstudio/home?forum=ApplicationInsights">Application インサイト Community で会話に参加する</a></li>
+   <li><a href="https://analytics.applicationinsights.io/demo">Application インサイト Analytics を試す</a></li>
+  </ul>

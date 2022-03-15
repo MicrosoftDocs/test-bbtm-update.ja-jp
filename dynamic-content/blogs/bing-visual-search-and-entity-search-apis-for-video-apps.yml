@@ -1,0 +1,31 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 35133d10044b7e812523ce1c2de0bba8c4bf0977
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889902"
+Slug: bing-visual-search-and-entity-search-apis-for-video-apps
+Title: Bing Visual SearchアプリEntity Search API の作成と管理
+Summary: Bing Entity Search API と組み合わせて Bing Visual Search API を使用して、ビデオ アプリで魅力的なエクスペリエンスを構築する方法について説明します。
+Content: >-
+  <p>このブログでは、Bing Visual Search API と Bing Entity Search API を組み合わせて使用して、ビデオ アプリで強化された表示エクスペリエンスを構築する方法について説明します。</p>
+
+
+  <p>このブログ&nbsp;Bing Visual Searchビルド 2018 で、API の一般提供が発表<a href="https://blogs.bing.com/Developers-Blog/2018-05/six-new-and-improved-bing-ai-offerings-on-microsoft-cognitive-services">されました</a>。 Bing Visual Search API を使用すると、画像をクエリとして使用して、画像内のエンティティに関する情報と、Bing によって構築された画像インデックスから視覚的に類似した画像の一覧を取得できます。 2018 Bing Entity Search月 1 日に公開<a href="https://blogs.bing.com/search-quality-insights/2018-02/bing-entity-search-api-now-generally-available"></a>されたこのブログでは、一覧の GA が発表されました。 Bing Entity Search API を使用すると、ユーザー、場所、物、ローカル企業に関する豊富なコンテキスト情報を任意のアプリケーション、ブログ、または Web サイトに取り込み、より魅力的なユーザー エクスペリエンスを提供できます。</p>
+
+
+  <p>これら 2 つの API の機能を組み合わせることで、以下に示す手順に従って、ビデオ アプリでさらに魅力的なエクスペリエンスを構築できます。</p>
+
+
+  <ul>
+   <li>ユーザーがビデオ アプリの一時停止ボタンをクリックするとトリガーされる JavaScript 関数を記述します。 この JavaScript 関数では、一時停止したビデオ フレームを画像としてつかむ。 この方法の詳細 <a href="https://stackoverflow.com/questions/19175174/capture-frames-from-video-with-html5-and-javascript">については、</a> この説明を参照してください。</li>
+   <li>キャプチャしたビデオ フレームを <a href="https://www.w3schools.com/xml/ajax_intro.asp">AJAX</a> 経由でサーバー側関数に渡します。</li>
+   <li>サーバー側の関数で、そのイメージを入力として Bing Visual Search API を呼び出す必要があります。 Bing Visual Search<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/bing-visual-search/">ページには、</a>このための複数の言語のコード サンプルが示されています。</li>
+   <li>Bing Visual Search API は、画像の分析情報を含む JSON 文字列を返します。 応答形式については、このドキュメント ページに <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/bing-visual-search/overview#the-response">記載されています</a>。</li>
+   <li>エンティティは、_type &ldquo;&rdquo; &ldquo;ImageEntityAction を含む actions タグ&ldquo;&rdquo; = で確認できます。&rdquo; たとえば、Tom Hanks <a href="https://cdn.abclocal.go.com/content/kgo/images/cms/475522_1280x720.jpg"></a>&ldquo;&rdquo; &ldquo;と彼の妻が含まれるこの画像では、_type ImageEntityAction を含む 2 つのアクション タグ&rdquo; = &ldquo;が表示されます。&rdquo;</li>
+   <li>これらのエンティティに対して &ldquo;displayName&rdquo; を使用して、Entity Searchできます。 Bing Entity Search API のコード サンプルについては、このドキュメント ページを参照してください<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/bing-entities-search/"></a>。このページでは、ビデオ アプリに戻して UI にレンダリングできます。</li>
+  </ul>
+
+
+  <p>ユーザーのエンティティBing人に限定されるのではありません。 例として、Visual Search API &ldquo;は、この画像のエンティティとして Yosemite National Park&rdquo; を識別します。 ビデオ アプリで公開する動画の種類に応じて、特定の種類またはすべての種類のエンティティに焦点を当てるかを決定できます。</p>

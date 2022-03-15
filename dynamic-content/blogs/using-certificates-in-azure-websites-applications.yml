@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 10dddb252763dcc85fa105ebe06fc53bc1099d13
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895756"
+Slug: using-certificates-in-azure-websites-applications
+Title: Azure Websites アプリケーションでの証明書の使用
+Summary: この記事では、Azure Websites アプリケーションで証明書を使用する方法について説明します。
+Content: >-
+  Azure Websites に証明書の使用を要求するアプリケーションがある場合は、Azure Websites の証明書コレクションに証明書をアップロードし、サイトの個人証明書ストアから web アプリケーションで証明書を使用することができます。 この機能は、専用サイト (Basic および Standard レベル) でのみ使用できます。 以下のセクションでは、この動作を実現するための手順について詳しく説明しますが、これが必要な理由と変更点について簡単に説明します。
+
+
+  証明書には、認証、署名などの目的で web アプリケーションで使用できる暗号化キーが含まれており、通常はセキュリティに依存していると見なされます。 以前は、Azure Websites アプリケーションで証明書のキーを使用する必要がある場合、アプリケーションの App_Data ディレクトリ内の秘密キー (通常は .pfx コンテナー) で証明書を保持し、この場所から使用する必要があります。 このソリューションは機能しますが、いくつかの欠点があります。証明書の秘密キーは、アプリケーションコードまたは開発者から非表示にしておくことはできません。 また、アプリケーションがオープンソースであり、シークレットである必要がある証明書を使用している場合、または開発者を証明書の秘密キーへのアクセスから分離する場合は、App_Data オプションを使用することもできません。
+
+  <h2>Azure Websites アプリケーションで使用する証明書の構成</h2>
+
+  Azure Websites アプリケーションで証明書を構成して使用するには、Azure 管理ポータルと Azure Websites REST API の両方の手順を実行します。
+
+  <h3>1. アップロード証明書</h3>
+
+  <blockquote>
+
+  <h3 style="text-align: left;">a. 管理ポータルの使用</h3>
+
+  <a href="https://manage.windowsazure.com/">Microsoft Azure 管理ポータル</a>にログインし、証明書をアップロードする web サイトを選択します。 次に、上部にある [ <em>構成</em> ] オプションを選択します。</blockquote>
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites の構成" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureWebsitesConfigure.png" alt="Azure Websites Configure" width="610" height="158" border="0" />
+
+
+  [ <em>証明書</em> ] セクションまで下にスクロールし、[ <em>証明書のアップロード</em> ] ボタンをクリックします。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites アップロード証明書" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureWebsitesUploadCertificate.png" alt="Azure Websites Upload Certificate" width="610" height="158" border="0" />
+
+
+  .Pfx ファイルを参照し、証明書の暗号化を解除するためのパスワードを指定するダイアログボックスが表示されます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites アップロード証明書ダイアログ" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureWebsitesUploadCertDialog.png" alt="Azure Websites Upload Certificate Dialog" width="610" height="200" border="0" />
+
+
+  その後、Azure 管理ポータルの [ <em>証明書</em> ] セクションに証明書が表示され、次の手順で必要となるサムプリントが表示されます。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; padding-right: 0px; margin-right: auto; border-width: 0px;" title="Azure Websites 証明書" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureWebsitesCertificate.png" alt="Azure Websites Certificates" width="610" height="158" border="0" />
+
+
+  &nbsp;
+
+  <blockquote>
+
+  <h3>b. REST API の使用</h3>
+
+  REST API を使用して証明書をアップロードするには、 <a href="https://resources.azure.com/" target="_blank">Azure Resource Explorer</a> を使用します。 Azure Resource Explorer の詳細については、こちらの <a href="https://azure.microsoft.com/blog/2015/04/02/azure-resource-explorer-a-new-tool-to-discover-the-azure-api/" target="_blank">ブログ</a>を参照してください。</blockquote>
+
+  <h3>2. アプリ設定の追加</h3>
+
+  WEBSITE_LOAD_CERTIFICATES という名前のアプリ設定を証明書の拇印に設定して追加すると、web アプリケーションからアクセスできるようになります。 コンマ区切りの拇印値を複数指定することも、この値を "*" (引用符なし) に設定することもできます。この場合、すべての証明書が web アプリケーションの個人証明書ストアに読み込まれます。
+
+
+  Web サイトにこの構成を追加するには、管理ポータルで web サイトの [ <em>構成</em> ] オプションに移動し、[ <em>アプリの設定</em> ] セクションまで下にスクロールして、前の手順でアップロードした証明書のサムプリントと共に次のように設定を追加します。
+
+
+  <img style="float: none; padding-top: 0px; padding-left: 0px; margin: 0px auto; padding-right: 0px; border-width: 0px;" title="AzureWebsitesCertificate2" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureWebsitesCertificate2.png" alt="AzureWebsitesCertificate2" width="610" height="131" border="0" />
+
+
+  証明書は、ワーカープロセスの ApplicationPool Id の個人用証明書ストアにインストールされます。
+
+  <h3>3. アプリからのアクセス</h3>
+
+  次に示すのは、web アプリケーションで、サムプリントを使用して上記の例のクライアント証明書にアクセスするために使用できる C# コードのサンプルです。 以下のサムプリントを証明書の拇印に置き換えてください。
+
+  <pre class="prettyprint">using System;
+
+  using System.Security.Cryptography.X509Certificates;namespace UseCertificateInAzureWebsiteApp
+
+  {
+    class Program
+    {
+      static void Main(string[] args)
+      {
+        X509Store certStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+        certStore.Open(OpenFlags.ReadOnly);
+        X509Certificate2Collection certCollection = certStore.Certificates.Find(
+                                   X509FindType.FindByThumbprint,
+                                   // Replace below with your cert's thumbprint
+                                   “E661583E8FABEF4C0BEF694CBC41C28FB81CD870”,
+                                   false);
+        // Get the first cert with the thumbprint
+        if (certCollection.Count &gt; 0)
+        {
+          X509Certificate2 cert = certCollection[0];
+          // Use certificate
+          Console.WriteLine(cert.FriendlyName);
+        }
+        certStore.Close();
+      }
+    }
+  }</pre>

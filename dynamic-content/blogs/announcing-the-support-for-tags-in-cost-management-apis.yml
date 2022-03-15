@@ -1,0 +1,61 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7b9fcaaa3653939bf26028df8fde5ef35bd2f14d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139895177"
+Slug: announcing-the-support-for-tags-in-cost-management-apis
+Title: コスト管理 API でのタグのサポートが利用可能に
+Summary: Cloud Cost Management (CCM) API は、Azure の使用状況と料金に関する詳細なレポートを取得する豊富な API セットを提供します。 引き続き API の関連性を高め、Azure でのタグの導入が拡大する中で、Usage Details API と Budgets API の両方でタグのサポートを発表しています。
+Content: >-
+  <p>Cloud Cost Management (CCM) API は、Azure の使用状況と料金に関する詳細なレポートを取得する豊富な API セットを提供します。 引き続き API の関連性を高め、Azure&rsquo; でのタグの導入が拡大する中で、Usage Details API と Budgets API の両方でタグのサポートが発表されます。 タグのサポートは、タグでグループまたはフィルター処理が適用されるすべての API で引き続き改善されます。 このリリースでは、Enterprise 契約 (EA) のサブスクリプションのタグのみをサポートしています。今後のリリースでは、他の種類のサブスクリプションもサポートする予定です。</p>
+
+
+  <h2>使用状況の詳細のタグ</h2>
+
+
+  <p>現在、Usage Details API では、次のディメンション、日付範囲、リソース グループ、インスタンスのフィルターがサポートされています。 最新のリリースでは、タグもサポートされます。 タグのサポートはさかのぼりではなく、タグがリソースに適用された後に報告された使用状況にのみ適用されます。 タグ ベースのフィルター処理と集計は、各パラメーター$filterおよび$applyサポートされています。 今後も、時間の中でコストをフィルター処理および集計するために使用できるディメンションを追加します。</p>
+
+
+  <h2>予算内のタグ</h2>
+
+
+  <p>予算は、サブスクリプションまたはリソース グループ レベルで作成し、予算を特定のリソース セットにスコープ設定するフィルターをサポートできます。 現在、フィルターはリソース グループ、インスタンス、メーターをサポートし、このリリースではタグも含まれます。 タグまたはタグのセットに予算をスコープ設定すると、引き続きフィルターが利用されます。 フィルターは現在、基本的な操作のみをサポートしていますが、今後のリリースでは、より表現力が高く、サポートされているディメンションに基づいて予算のより細かいスコープを有効にできます。</p>
+
+
+  <h2>タグのPower BI</h2>
+
+
+  <p>コストPower BIレポートに基づいてタグを追加するために、新しいコンテンツ パックも更新されています。 コンテンツ パックはタグによるコスト集計を可能にし、追加される他のディメンションを進化させ、サポートし続けます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9b24c9c8-5bd5-4a8e-b74f-51d4233969af.png"><img alt="ContentPack" border="0" height="377" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/69e1fc9e-7cd7-41b2-8242-8fe3a4055964.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ContentPack" width="1074"></a>&nbsp;</p>
+
+
+  <h2>制約</h2>
+
+
+  <p>タグのサポートには、この機能の使用を開始する顧客が注意する必要があるいくつかの微妙な違いがあります。</p>
+
+
+  <ol>
+   <li>タグ ベースの集計とフィルター処理は、EA のお客様にのみ使用できます。</li>
+   <li>タグの集計とフィルター処理は、2017 年 9 月 1 日からすべての使用状況データで使用できます。 2017 年 9 月 1 日より前の使用状況データでは、タグによるコスト集計は返されない。</li>
+   <li>タグは、コストロールアップにさかのぼって適用することはできません。 たとえば、既存のリソースにタグを追加した場合、タグの適用前にタグに属性が付く前に、そのリソースから何も使用されません。</li>
+  </ol>
+
+
+  <p>使用状況の詳細の呼び出しは、ARM API とキー ベースの API でサポートされています。 サブスクリプションとリソース グループのスコープ付き呼び出しの場合、 <a href="https://docs.microsoft.com/en-us/rest/api/consumption/">APM API</a> は使用状況の詳細を取得する場所である必要があります。 管理階層内のノードでタグ ベースの集計とフィルター処理を探しているお客様の場合は、キー ベースの <a href="https://docs.microsoft.com/en-us/rest/api/billing/enterprise/billing-enterprise-api-usage-detail">API</a> が使用状況の詳細を取得する場所になります。 いつものように、API&rsquo; の使用経験や、API の役に立つアイデアをお聞かしいと思います。</p>
+
+
+  <h2>便利なリンク</h2>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/rest/api/consumption/budgets">Budgets のドキュメント</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/rest/api/consumption/usagedetails">使用状況の詳細に関するドキュメント</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/rest/api/billing/enterprise/billing-enterprise-api-usage-detail">Enterprise、キー ベースの API</a></li>
+   <li><a href="https://app.powerbi.com/getdata/services/azure-enterprise">PowerBI コンテンツ パック</a></li>
+   <li><a href="https://github.com/Azure/azure-rest-api-specs/blob/master/specification/consumption/resource-manager/Microsoft.Consumption/stable/2018-03-31/consumption.json">Swagger</a></li>
+  </ul>

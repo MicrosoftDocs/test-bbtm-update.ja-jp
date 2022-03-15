@@ -1,0 +1,219 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 00576824b1f6b465c507f988455fd1e8b0e9755f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889912"
+Slug: azure-time-series-insights-gen-2-leading-the-next-generation-of-industrial-iot-analytics-solutions
+Title: 'Azure Time Series Insights Gen2: 次世代の工業 IoT analytics プラットフォームにつながる'
+Summary: Azure Time Series Insights Gen2-完全に管理された IoT 分析プラットフォームが現在一般公開されています。 Azure Time Series Insights Gen2 を使用すると、数百万のセンサーで数十億のおい文脈化イベントを調査して分析することができます。
+Content: >-
+  <p>モノのインターネット (IoT) は、企業が産業資産からのリアルタイムの洞察を得られるようにするために適切に確立されており、業界4.0 のパスをオープンしています。 現在 &rdquo; 、どのようにしてすべての資産がどのように実行されているかなど &ldquo; の質問に答えることはできますか? また &ldquo; 、製造プロセスと達成 &rdquo; を改善するにはどうすればよいでしょうか。また、 &ldquo; &rdquo; 常に最新ではない手動のデータ収集について知ることはできません。</p>
+
+
+  <p>現在、ビジネスリーダーは IoT を利用して、ボタンをクリックしてこの情報を確認しています。 大量のデータが産業用資産から収集されるので、洞察を見つけることがますます困難になる可能性があります。 コストがかかり、時間のかかるデータラングリングと、高度な専門スタッフによって実行される Data Analytics 手法が必要になることがあります。</p>
+
+
+  <p>ここで<a href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Ftime-series-insights%2Foverview-what-is-tsi&amp;data=01%7C01%7Cliz.wolk%40rationalcx.com%7Cf139a7b8dede42c2cc1708d828155b5a%7C03f0126b518e456cbac9346c34f95bd9%7C1&amp;sdata=P2rTprfjhMQtMOHhTFNEfBGNV%2FYQJnCIbTylx6kzMVk%3D&amp;reserved=0" target="_blank">Azure Time Series Insights Gen2</a>があります。 現在 &mdash; 一般公開されているこの完全管理型の IoT analytics プラットフォーム &mdash; を使用すると、非表示の傾向を明らかにしたり、異常を発見したり、直感的で簡単なユーザーエクスペリエンスを備えた大量の工業データで根本原因分析を実施したりできます。 シンプルで Azure Time Series Insights Gen2 を使用すると、数百万のセンサーで数十億のおい文脈化イベントを調査して分析することができます。</p>
+
+
+  <p>Azure Times Series インサイト Gen2 はサーバーレスサービスであるため、複雑なコンピューティングクラスターを自分で &rsquo; 管理することについて心配する必要はありません。 さらに、Azure Time Series Insights Gen2 は、スケーラブルな<a href="https://azure.microsoft.com/en-us/services/time-series-insights/#pricing" target="_blank">従量課金</a>制の価格モデルを提供するため、ビジネスニーズに合わせて使用量を調整できます。</p>
+
+
+  <p>Azure Time Series Insights Gen2 は、web エクスペリエンスとプラットフォームの両方です。 ナレッジワーカーは、 <a href="https://docs.microsoft.com/en-us/azure/time-series-insights/time-series-insights-explorer" target="_blank">Time Series Explorer</a> web エクスペリエンスを使用して、シンプルで直感的なユーザーインターフェイスによって数秒でペタバイト単位の IoT データから洞察を得ることができます。 開発者は、オープンでスケーラブルなプラットフォームを使用して、豊富な Api と JavaScript Sdk を使用してソリューションやカスタムユーザーエクスペリエンスを構築できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/61e0151d-1b45-43ab-9d12-7e07ce6d4202.png"><img alt="The Azure Time Series Explorer user interface displays three different contextualized. " border="0" height="572" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5f45b0b1-c717-4967-b855-55833068b919.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Time Series Explorer のユーザーインターフェイスには、3つの異なるおい文脈化が表示されます。 " width="1024"></a></p>
+
+
+  <p><i>Azure Time Series Insights Gen2 は、工業 IoT アプリケーション向けに設計されています。</i></p>
+
+
+  <p>ここでは、世界中のお客様からのフィードバックに基づいて、一般公開されている主な機能と、それらが工業の IoT 顧客にもたらすメリットについて説明します。</p>
+
+
+  <h2>Azure Time Series Insights Gen2 では、複数層のストレージが提供されます。</h2>
+
+
+  <p>IoT のお客様は、さまざまな方法で IoT データを操作できます。 最も一般的な2つのシナリオは次のとおりです。</p>
+
+
+  <ul>
+      <li>短時間での高度な対話型分析。</li>
+      <li>過去20分間の履歴データの高度な分析。</li>
+  </ul>
+
+
+  <p>Azure Time Series Insights Gen2 は、管理された<b>ウォーム</b>間のリテンション期間ベースのデータルーティングと、 <a href="https://azure.microsoft.com/en-us/services/storage/data-lake-storage/" target="_blank">Azure Data Lake Storage</a>を含む<b>独自のコールド</b>ストアの両方のシナリオをカバーします。 ウォームストアは、最大31日間の IoT データを保持するように構成できます。これにより、資産の監視、傾向、およびトラブルシューティングのために、低待機時間で、高度に対話的な資産中心の分析を実行できます。 長期間保持されたコールドストアを使用して、数十年にわたって過去の IoT データを格納し、運用インテリジェンスと効率向上のために使用する準備ができています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/70494d3d-19ac-4255-b4a0-b06911e91b46.png"><img alt="Azure Time Series Insights Gen2 provides retention-based data routing between managed warm and “bring your own” cold stores." border="0" height="271" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ee7009f3-7d3d-46b3-be35-06cd8386346b.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Time Series Insights Gen2 は、管理されたウォームと "独自の" コールドストアの間でリテンション期間ベースのデータルーティングを提供します。" width="800"></a></p>
+
+
+  <p><i>多層ストレージ。</i></p>
+
+
+  <h2>Enterprise、業界のお客様の分析ニーズに合わせてスケーリングします</h2>
+
+
+  <p>Azure Time Series Insights Gen2 は、製造、パワーと公益事業、石油とガス、自動車、スマートな建物、およびマイニングを含む、すべての主要セグメントにわたる多くの工業顧客の分析ニーズに力を合わせています。 これらのお客様は、何百万ものデータポイントで数十億のイベントを生成します。多くの場合、資産によって生成される膨大な量のデータに対応しています。 Azure Time Series Insights Gen2 は、大量のデータをすばやく効率的に格納できるようにスケーリングします。 スケーラブルなストレージオプションと同じように、Azure Time Series Insights Gen2 は、豊富なセマンティックモデリングを使用して、環境ごとに100万時系列インスタンス (またはタグ) をサポートしています。 これにより、高度なおい文脈化データをシームレスに調査し、産業資産全体の傾向を相互に関連付けて、洞察を得たり、オペレーショナル性を実現したりすることができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/96717dbe-cc7f-4ab4-9e2b-8eef7f57ad32.png"><img alt="Azure Time Series Insights Gen2 supports one-million-time series instances (or tags) per environment with rich semantic modeling." border="0" height="450" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a2aa893-5518-4ab4-b80f-c7360ef4eff5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Time Series Insights Gen2 は、豊富なセマンティックモデリングを使用して、環境ごとに100万時系列インスタンス (またはタグ) をサポートしています。" width="895"></a></p>
+
+
+  <p><i>Azure Time Series Gen2 では、100万タグインスタンスがサポートされています。</i></p>
+
+
+  <h2>Microsoft Power BI コネクタは、データサイロを統合するのに役立ちます。</h2>
+
+
+  <p>データサイロを統合する機能は、データに基づいた意思決定を行い、デジタル変革を推進するうえで重要です。 Azure Time Series Insights Gen2 には、Azure Time Series Insights Gen2 クエリを Power BI ワークスペースに接続する、すぐに使用できる<a href="https://powerbi.microsoft.com/en-us/" target="_blank">Power BI</a>コネクタが用意されています。 タイムシリーズとビジネスインテリジェンスデータを1つのウィンドウガラスで簡単に表示し、ビジネスの状況を総合的に把握することで、より良い決定を行うことができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cf37822d-7b46-46ae-a22c-e8a65a29bc9c.png"><img alt="Azure Time Series provides an out of the box Power BI connector which connects your Azure Time Series queries to a Power BI workspace." border="0" height="642" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6e5811bf-bafd-4316-8bc3-69e3ca3e8f8d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="azure time series には、azure タイムシリーズクエリを Power BI ワークスペースに接続する、すぐに使用できる Power BI コネクタが用意されています。" width="1024"></a></p>
+
+
+  <p><i>Azure Time Series Gen2 は Power BI と統合されています。</i></p>
+
+
+  <h2>タイムシリーズモデルを使用した生テレメトリの Contextualize</h2>
+
+
+  <p>従来、IoT デバイスから収集され&#39;たデータにはコンテキスト情報がないため、ビジネス上の目的で使用するのが困難になります。 Azure Time Series Insights Gen2 内のタイムシリーズモデルを使用すると、階層、インスタンスプロパティ、および型を定義することで、生のテレメトリを contextualize できます。 これにより、資産中心のデータの分析が組織にとってシンプルで価値の高いものになります。</p>
+
+
+  <p>タイムシリーズエクスプローラーを使用して、モデルを作成したり、モデルを作成したりするときに、タイムシリーズモデルを簡単に使用できるようになり &rsquo; ました。 また、タイムシリーズモデルは、豊富な API サーフェイスを使用して管理することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5448fee6-8993-42a5-8b15-a4f2487b6a96.png"><img alt="The Time Series Model, within Azure Time Series Insights Gen2, allows you to contextualize raw telemetry." border="0" height="563" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64cdeddc-c410-4baf-86c1-68a7f98357b9.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Time Series Insights Gen2 内のタイムシリーズモデルを使用すると、生のテレメトリを contextualize できます。" width="1024"></a></p>
+
+
+  <p><i>Azure Time Series Insights Gen2 内のタイムシリーズモデルを使用すると、生のテレメトリを contextualize できます。</i></p>
+
+
+  <h2>Azure Digital ツインで Azure Time Series Insights Gen2 を使用して洞察を得る</h2>
+
+
+  <p>Azure Time Series Insights Gen2 と<a href="https://azure.microsoft.com/en-us/services/digital-twins/" target="_blank">Azure Digital ツイン</a>を統合することで、さらに洞察を深めます。 Azure Digital ツインを使用すると、物理環境を完全にモデル化し、ライブ IoT データをストリーミングして、接続されている資産と環境の完全なビューを作成することができます。 資産、顧客、およびプロセスが、実際の環境とシミュレートされた環境の両方でどのように連携するかを理解します。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22a3e0c5-b9c4-4c19-b18c-dd0e7094f1d1.png"><img alt="Gain greater insights by coming Azure Time Series Insights Gen2 with Azure Digital Twins." border="0" height="450" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/556ae7cd-e0ed-45cc-991f-20c33ce8a20c.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Digital ツインを使用して Gen2 を Azure Time Series Insights することで、より多くの洞察を得られます。" width="800"></a></p>
+
+
+  <p><i>Azure Digital ツインで Azure Time Series Insights Gen2 を使用して、より多くの洞察を得ます。</i></p>
+
+
+  <h2>オープンで柔軟な統合</h2>
+
+
+  <p>Azure Time Series Insights Gen2 は、使い慣れたツールで使用できます。 コールドストアは、お客様が所有する <a href="https://azure.microsoft.com/en-us/solutions/data-lake/" target="_blank">Azure Data Lake</a>によって支えられています。 Azure Data Lake ストレージとオープンソースのネイティブサポートを組み合わせることで、非常に効率的な Apache Parquet を使用して、数十年の履歴の IoT データを調べることができます。</p>
+
+
+  <p>さらに、Azure Time Series Insights Gen2 には Power BI コネクタが付属しています。これにより、顧客は Azure Time Series Insights Gen2 で作成した時系列クエリを Power BI にエクスポートし、その時系列データを他のビジネスデータと共に表示できます。 Apache Spark &trade; 、Databricks、Synapse などの一般的な分析プラットフォーム用のその他の高度に探索されたコネクタは、時間の経過と共に利用可能になります。</p>
+
+
+  <h2>ナレッジワーカーと開発者向けのタイムシリーズエクスプローラー &mdash; 分析ツール</h2>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/time-series-insights/concepts-ux-panels" target="_blank">タイムシリーズエクスプローラー</a>のファーストクラスのユーザーエクスペリエンスでは、補間、スカラー関数、集計関数、カテゴリ変数、散布図、および時系列信号の時間シフトを使用してデータを分析できます。</p>
+
+
+  <p>タイムシリーズエクスプローラーには、次のユーザーエクスペリエンス機能があります。</p>
+
+
+  <ul>
+      <li>グラフを自動的に更新します。</li>
+      <li>階層内の逆引き参照インスタンスの配置。</li>
+      <li>1回の操作で複数の変数を選択してグラフ化します。</li>
+      <li>グラフのスタティックを表示します。</li>
+      <li>マーカー注釈を作成します。</li>
+      <li>適切な期間内に時系列インスタンスを複製し、変数を変更します。</li>
+      <li>新しいカラーピッカーツールを使用して、線の色を変更します。</li>
+      <li>スイムレーンを使用して、関連する時系列をグループ化します。</li>
+  </ul>
+
+
+  <p>新しいリッチクエリ Api では、タイムシリーズエクスプローラーの外部で、補間、新しいスカラー関数、集計関数、カテゴリ変数を使用できるようになりました。</p>
+
+
+  <p>タイムシリーズエクスプローラーには、次の API 機能があります。</p>
+
+
+  <ul>
+      <li>既存のデータのパターンを補間して、タイムシリーズの信号を再構築します。</li>
+      <li>Categorial 変数を使用して不連続シグナルを処理します。</li>
+      <li>パターンを識別する三角関数を適用します。</li>
+      <li>時間加重平均を計算します。</li>
+      <li>階層トラバーサル、時系列検索、オートコンプリート、パス、ファセットに新しい Api を活用できます。</li>
+      <li>検索とナビゲーションの効率を向上させて、大規模なデータにクエリを実行します。</li>
+      <li>新しい条件付きロジック (IFF など) を利用します。これにより、計算に使用するデータを選択するときに、式が true か false かを判断できます。 カテゴリ変数と共に使用すると、しきい値モニタを作成し、値の範囲をカテゴリにマップできます。</li>
+  </ul>
+
+
+  <p>お客様は Azure Time Series Insights を使用して、製造、パワー、公益事業、石油およびガス、自動車、スマートビル、およびマイニングにおけるビジネス上の洞察を得ることができます。</p>
+
+
+  <h2>Fonterra が従業員のデータを支援</h2>
+
+
+  <p>2001に設立された <a href="https://news.microsoft.com/en-nz/2019/08/13/driving-operational-intelligence-in-the-dairy-industry/" target="_blank">Fonterra</a> は、世界中 &rsquo; の2番目の最大乳製品プロセッサであり、グローバルな乳製品の輸出の約30% を占めています。 1万ニュージーランドを超えて所有されている農家、オペレーティングは100の国を超えて動作し、毎年約220億リットルの牛乳を処理します。</p>
+
+
+  <p>2018では、 <a href="https://news.microsoft.com/en-nz/2019/08/13/driving-operational-intelligence-in-the-dairy-industry/" target="_blank">Fonterra</a> はデジタル変革を迅速に進めることを決定しました。 長いレビューを行った後、古いシステムを最先端の新しいクラウドベースのプラットフォームにアップグレードすることを選択しました。 新しい Historian の &ldquo; 名前を &rdquo; 変更しました。更新されたシステム約束は、オペレーター、リーダー、データ科学者、およびビジネスインテリジェンスチームに、データをよりインテリジェントに使用する力を与えることで、データ主導型の組織になるという目標を達成するためのものです。</p>
+
+
+  <p style="margin-left: 40px;"><i> &quot; Fonterra は、データ主導型の組織に変換するための高度なテクノロジを採用しています。ストレージ、contextualization、分析の機能を提供し、従来のオンプレミスの historian を置き換える Azure Time Series Insights を選択しました。これにより、データを効果的に統合して、オペレーター、リーダー、データ科学者、およびビジネスインテリジェンスチームの能力を高めることができます。 &quot; </i>&mdash;Fonterra の一般マネージャーであるトリスタンダクーニャ Hunter</p>
+
+
+  <h2>ENGIE Digital は何千もの資産をサポートしています</h2>
+
+
+  <p>更新可能なエネルギーのプロバイダーである<a href="https://customers.microsoft.com/en-US/story/808631-engie-energy-azure-iot" target="_blank">ENGIE Digital</a>は、エネルギーを提供し、50を超える国で数百万の消費者にエネルギー関連のサービスを提供します。 ENGIE デジタル設計、ビルド、実行によって、開発と操作をサポートすることによって、他の ENGIE デジタル事業単位を支援する独自のソリューションを提供します。 ENGIE Digital は社内運用プラットフォームを使用して、世界 &mdash; 中の何千もの風、太陽、biogas、水力エネルギー資産から、1秒あたり何百万もの IoT 信号を収集して処理します。</p>
+
+
+  <p>ENGIE デジタル選択された Azure Time Series Insights と<a href="https://azure.microsoft.com/en-us/services/iot-edge/" target="_blank">Microsoft Azure IoT Edge</a>プラットフォームを最新化するためのものです。 これらの更新により、プラットフォームは世界中の数百の更新可能なエネルギーサイトにわたる ENGIE デジタルチームをサポートするようになりました。</p>
+
+
+  <p style="margin-left: 40px;">&ldquo;<i>Azure Time Series Insights は、完璧なソリューションです。そのスケーラビリティ、復元性、パフォーマンス、コスト効果ということは、常に最新のデータが手元にあることを意味します。 &rdquo; </i>&mdash;SebaGauthier, ダーウィン Of ダーウィン Delivery, ENGIE デジタル, エネルギー, エネルギー関連サービスプロバイダー</p>
+
+
+  <h2>shookiot は Azure Time Series Insights を活用して顧客の洞察を提供します</h2>
+
+
+  <p>石油およびガス業界の専門家である Dave Shook 博士と Leanna Chan は、石油およびガス業界のクライアントと相談に 20 年を費やしてきました。 繰り返しになりますが、石油およびガス会社は、データの価値を最大限に活用するために苦労しています。</p>
+
+
+  <p>従来、企業は、ヒストリアンと呼ばれるオンプレミスの時系列データベース アプリケーションにデータを格納しています。データサイロ化を維持する従来の運用テクノロジ (OT) ツール。 これにより、クラウドベースの分析などの強力な情報技術 (IT) ツールとの接続が困難になります。 さらに、プロセス データの収集は非常に高コストになる可能性があります。 一部のプロセス製造元は、データの 75% 未満を格納しています。</p>
+
+
+  <p>これらの課題に対処するために、2 人の女性は OT データを IT と融合するビジョンを持っています。 彼らは 2017 年にカナダのカナダのモントリオールで <a href="https://customers.microsoft.com/en-us/story/823036-shookiot-partner-professional-services-azure-marketplace-startups-en" target="_blank">ShookIOT</a> を設立しました。 彼らの理念&mdash;は、オンプレミスでサイロ化されたデータを解放し、クラウドに移行することです。具体的には、Microsoft Azure で実行されている ShookIOT Fusion Cloud Historian <a href="https://azure.microsoft.com/en-us/" target="_blank">です。</a> クラウドに入った後、<a href="https://customers.microsoft.com/en-us/story/823036-shookiot-partner-professional-services-azure-marketplace-startups-en" target="_blank">Chevron</a> などの顧客は、Azure Time Series や Azure Time Series などのツールを活用して、データの価値を最大限に活用インサイト。</p>
+
+
+  <p style="margin-left: 40px;"><i>&ldquo;お客様のデータ&rsquo;</i>とコンテキスト情報が Azure に格納された後、Azure Time Series インサイト などのツールを利用してデータの傾向を表示し、Power BI を使用してデータの視覚化を作成します。&rdquo; &mdash;Dave Shook、Co-Founder、ShookIOT、最高経営責任者</p>
+
+
+  <p style="margin-left: 40px;"><i>&ldquo;ShookIOT Fusion は、ほとんどのサイトで見られる従来の長期的なデータ ストレージを改善し、Microsoft Azure クラウド プラットフォームを活用し、運用データとビジネス データをユーザーに提供することで、すべての Azure 分析ツールを加速します。</i> &mdash;Leanna Chan、Co-Founder、ShookIOT の最高収益責任者</p>
+
+
+  <h2>大量のデータから簡単に分析情報を得る</h2>
+
+
+  <p>何百万もの産業用センサーにわたってコンテキスト化された数十億のイベントを探索して分析します。 直感的で簡単なユーザー エクスペリエンスを使用して、隠れた傾向を明らかにし、異常を特定し、大量のデータで根本原因分析を実施します。 Azure&rsquo; <a href="https://azure.microsoft.com/en-us/services/time-series-insights/" target="_blank">Time Series インサイト Gen2</a> を使用してデジタル変革を進インサイトをご覧ください。</p>
+
+
+  <p>詳細については、次のリソースを参照してください。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/services/time-series-insights/" target="_blank">Azure Time Series インサイト Gen2 製品ページに</a>アクセスします。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/time-series-insights/time-series-insights-update-tsm" target="_blank">Azure Time Series のドキュメントをインサイト</a>してください。</li>
+      <li>クイック スタート ガイド「<a href="https://docs.microsoft.com/en-us/azure/time-series-insights/time-series-insights-update-quickstart" target="_blank">Azure Time Series インサイト Preview デモ環境を探索する」を参照してください</a>。</li>
+      <li>Microsoft Build 2020 セッションをご覧ください。エンドツーエンドの分析プラットフォーム<a href="https://channel9.msdn.com/Events/Build/2020/BOD132" target="_blank">である Azure Time Series インサイト を使用して IoT データを役に立た</a>します。</li>
+      <li>Channel 9 IoT Show Deep <a href="https://www.youtube.com/watch?v=dy2Hv_LVowg&amp;feature=youtu.be" target="_blank">Dive,Analyzing IoT Data using Azure Time Series</a> インサイト</li>
+      <li>Channel 9 IoT Show,Using&nbsp; <a href="https://www.youtube.com/watch?v=UWheofzds98&amp;feature=youtu.be" target="_blank">Azure Time Series インサイトを使用した産業用 IoT 分析プラットフォームの作成に関するページをご覧ください</a>。</li>
+  </ul>

@@ -1,0 +1,105 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d4123d117f1a709dbcf6b0f2d3aca32cf2ada240
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139896281"
+Slug: announcing-apache-kafka-for-azure-hdinsight-general-availability
+Title: Azure HDInsight の一般提供に関する Apache Kafka の発表
+Summary: Azure HDInsight プラットフォームの Apache Kafka は、企業がリアルタイムのビッグデータパイプラインを作成できるように、昨年、プレビューサービスとして追加されました。 その後、トヨタ、Adobe、Bing などの大企業では、
+Content: >-
+  <p><a href="https://aka.ms/hdikafka">Azure HDInsight での Apache Kafka </a>は、企業がリアルタイムのビッグデータパイプラインを作成できるように、昨年、プレビューサービスとして追加されました。 それ以来、トヨタ、Adobe、Bing Ads、GE などの大企業は、このサービスを運用環境で使用して、接続された自動車、不正行為の検出、クリックストリーム分析、log analytics の電源シナリオに対して1秒あたり100万イベントを処理してきました。 HDInsight は、これらのお客様と密接に連携して、エンタープライズ規模での堅牢でリアルタイムの運用パイプラインの実行に関する課題を理解しています。 学習を使用して、HDInsight 上のマネージド Kafka サービスに主な機能を実装しました。これは一般公開されています。</p>
+
+
+  <h3>エンタープライズユースケース用の完全に管理された Kafka サービス</h3>
+
+
+  <p>ビッグデータストリーミングパイプラインを実行するのは困難です。 これは、企業のオープンソーステクノロジを使用して、さらに難しくなります。 重要なオープンソーステクノロジである Apache Kafka は、スケーラブルで待機時間が短く、低コストの方法で取り込みの大きなストリーミングイベントを実現するための事実上のテクノロジとして登場しました。 ただし、企業はこのテクノロジを利用することを望んでいますが、ストリーミングパイプラインのインストール、管理、および保守には多くの課題があります。 オープンソースの bits のサポートが不十分であり、社内の才能が最高レベルのアップタイムを確保するために、これらのテクノロジに精通している必要があります。 1秒ごとにインジェストパイプラインがダウンすると、データが失われます。</p>
+
+
+  <p>HDInsight チームは、Apache Kafka のインストールおよび運用中に企業が直面した課題から学び、11月以降に管理されたサービスとして HDInsight で Apache Kafka を導入しました。 HDInsight は、オープンソースのワークロードに対して99.9% の SLA を備えた、管理されたプラットフォームです。 この追加により、企業のお客様は Kafka クラスターの管理について心配することができなくなりました。 HDInsight は、エンタープライズ規模で Kafka の実行に関連する問題を管理および修正します。 Azure HDInsight で完全に管理されたサービスとして Apache Kafka をオンボードするだけでなく、お客様 &rsquo; のフィードバックを使用して、管理されたサービス内の主要な機能をイノベーションしました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/blog/announcing-public-preview-of-apache-kafka-on-hdinsight-with-azure-managed-disks/" target="_blank">Azure Managed Disks とのネイティブ統合を導入</a>しました。これにより、トヨタや Bing 広告などの大規模企業向けにこれらのワークロードがスケールアウトされるため、コストを大幅に削減できます。 また、HDInsight で最高レベルの Kafka 可用性を確保するために、Azure 環境の Apache Kafka にラック認識を実装するツールも導入されました。 これらの主な機能と、HDInsight での Apache Kafka の一般提供により、Azure platform でエンドツーエンドのストリーミングパイプラインが完成します。 企業は、1回のクリックで、Apache Kafka、Apache Spark、Apache Storm で、拡張性、フォールトトレランス、およびセキュリティで保護されたリアルタイムアーキテクチャを管理対象 HDInsight プラットフォームにデプロイできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b22ebc40-966f-43e5-abe9-c3b5a902a5b2.png"><img alt="Apache Kafka" border="0" height="497" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/22673b53-5931-4dbf-9f49-fb25357f35d7.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Apache Kafka" width="1030"></a></p>
+
+
+  <h2>お客様の成功事例</h2>
+
+
+  <p>HDInsight で管理されている Kafka のプレビューが開始されると、膨大な応答が返されました。 HDInsight の Kafka チームは、大企業と連携して、接続された自動車、クリックストリーム分析、不正行為の検出、リアルタイムの患者治療などを含むストリーミングビッグデータシナリオを実現します。 これらのシナリオを開始することに加えて、HDInsight 上の管理された Kafka は、現在 &ndash; の運用環境で、大量のイベント/日を通じて処理を行うためのバックボーンとして機能します。 6月の管理ディスクを含むリリースと共に、Azure では、HDInsight の管理対象 Kafka サービスを通じて、1秒あたりのトヨタ車が取り込みデータをどのようにするかを説明しました。 現在、いくつかのシナリオが紹介されています。</p>
+
+
+  <h3>Adobe Experience Cloud</h3>
+
+
+  <p>Adobe&#39;s エクスペリエンスクラウドでは、業界最高レベルの分析とデータ処理を世界&#39;の上位企業に提供しています。 2017より前では、Adobe&#39;s チームは、最も要求の厳しい顧客の一部に対して大量のデータを取り込む新しい方法を必要としていました。 Adobe は、このデータを受け入れる新しい方法全体を開発する必要があっただけでなく、この新しい製品機能の構築、テスト、出荷をわずか数 &rsquo; 年で行う必要がありました。 Adobe は、HDInsight Kafka を使用してこの新しいパイプラインを構築することを決定し、そのパイプラインを使用して1日に10億トランザクションを処理しました。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fc79e17c-68c5-4ce2-aad9-53c3a08af6c2.png"><img align="left" alt="Adobe" border="0" height="119" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f98bb288-cc73-47f4-b47e-2f64cc4bf4fd.png" style="margin: 0px 14px 0px 0px; border: 0px currentcolor; border-image: none; float: left; display: inline; background-image: none;" title="フレーム" width="119"></a></p>
+
+
+  <p><em>&quot;Azure&#39;s HDInsight Kafka は、当社に最適なソリューションです。他のプロジェクトで Kafka を正常に使用しましたが、内部 Kafka インスタンスをデプロイして使用できる状態にするには時間がかかりすぎています。Azure を使用して、開発 Kafka クラスターを数時間で準備しました。これにより、新しいシステムを記録時間で構築するのに役立ちます。新しいシステムで取り込みライブデータを開始する準備ができたら、引き続き HDInsight Kafka を使用することにしました。これは数か月にわたり当社のインフラストラクチャの堅牢な部分でした。 &quot; </em></p>
+
+
+  <p align="right">&ndash; Josh Butikofer、Sr-2 アーキテクト、Adobe</p>
+
+
+  <h3>&nbsp;</h3>
+
+
+  <h3>GE 医療のデジタル健康革命</h3>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5fdb7f99-058c-45b2-a3df-374378d91f0d.png"><img align="left" alt="GE Healthcare" border="0" height="58" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/02342b1e-bd8d-45d0-a4c6-c17c81dbaeeb.png" style="margin: 1px 10px 0px 0px; border: 0px currentcolor; border-image: none; float: left; display: inline; background-image: none;" title="Ge 医療における ge 医療 " width="238"> </a> &ldquo; では、クラウドビッグデータと機械学習で最先端の技術革新を適用して、何千もの診療、病院、医療機関、および毎日何百万もの患者が直面する問題を解決します。 これらのインテリジェントなシナリオを強化するために使用する主要なテクノロジとして Apache Kafka を使用します。 Azure HDInsight は、管理されたサービスとして Apache Kafka と Apache Spark を提供します。これにより、Azure クラウド &rsquo; でこれらのサービスを簡単に管理および操作できるようになります。 これは、 &ndash; このような分析とインテリジェンスを実現して、デジタル健康革命における生産的な変革を促進することを願っています。 &rdquo; </em></p>
+
+
+  <p align="right">&ndash; Animesh Mahapatra、ディレクターソフトウェアエンジニアリング、GE</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <h3>Microsoft office 365、Skype、Bing 広告</h3>
+
+
+  <p><em><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ccf057f7-1834-4805-8b95-d9967db62f50.png"><img align="left" alt="Capture" border="0" height="153" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f21be22-336c-4b9a-8d0d-72231e4fbc4f.png" style="border: 0px currentcolor; border-image: none; float: left; display: inline; background-image: none;" title="キャプチャ " width="201"> </a> &ldquo; データは、Microsoft&#39;s 大規模なクラウドサービス (Bing、Office365、Skype など) のバックボーンです。 吸い上げるおそれは、可用性と信頼性に優れた分散データバスを提供するサービスであり、これらのサービスの処理と分析のために、ほぼリアルタイムのデータストリームを取り込み、配信、および使用します。 吸い上げるおそれの場合、Azure HDInsight Kafka は、信頼性が高く、スケーラブルで、コスト効率の高いコアビルディングブロックとして使用されます。 吸い上げるおそれは1日あたり兆メッセージを取り込みしています。さらに、HDInsight Kafka を活用して、スケールとスループットを拡大し続けることができます。&rdquo;</em></p>
+
+
+  <p align="right">&ndash; Microsoft の主席プログラムマネージャーであるトーマス Alex</p>
+
+
+  <h2>詳細を表示して作業を開始する</h2>
+
+
+  <p>以下のビデオに加えて、 <a href="https://channel9.msdn.com/Shows/Azure-Friday/Apache-Kafka-on-HDInsight" target="_blank">Scott マンを使用した Azure 金曜日のビデオ</a> をご覧になり、記載されているラーニングパスに従ってください。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="540" src="https://channel9.msdn.com/Events/Connect/2017/T161/player" width="960"></iframe></p>
+
+
+  <h3>Azure HDInsight での Apache Kafka クイックスタート</h3>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-kafka-get-started" target="_blank">ワンクリックで Azure HDInsight に Kafka をデプロイする</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-kafka-high-availability" target="_blank">ラック認識による高可用性の構成</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-kafka-spark-structured-streaming" target="_blank">Azure HDInsight で Kafka と Spark 構造化ストリーミングを使用する</a></li>
+   <li><a href="https://aka.ms/hdikafka-monitoring" target="_blank">HDInsight Kafka&#39;s を Azure Monitoring と統合する方法について説明します</a></li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-kafka-mirroring" target="_blank">MirrorMaker を使用して、オンプレミスまたは別の Kafka インスタンスから、または HDInsight Kafka との間でデータをレプリケートします。</a></li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://www.azure.microsoft.com/com/blog/hdinsight" target="_blank">Azure ブログで HDInsight</a>を最新の状態に維持し、最新のニュースとマネージプラットフォームの更新については Twitter <a href="https://twitter.com/azurehdinsight" target="_blank">@HDInsight</a> でフォローしてください。</p>
+
+
+  <p>ご質問やご意見がある場合は、まで <a target="_blank">AskHDInsight@microsoft.com</a> お問い合わせください。</p>

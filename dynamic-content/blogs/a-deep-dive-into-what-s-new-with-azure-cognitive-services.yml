@@ -1,0 +1,158 @@
+### YamlMime:Yaml
+ms.openlocfilehash: cac0c4994ab298265ffd15e2bb0cdc342db0b492
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894192"
+Slug: a-deep-dive-into-what-s-new-with-azure-cognitive-services
+Title: 新しい機能の詳細Azure Cognitive Services
+Summary: Microsoft Build 2019 は、開発者向けの新しいサービスと機能の導入により、Azure Cognitive Services の進化に関する重要なマイルストーンです。 Azure を使用すると、開発者は Personalizer の立ち上げに合わせ、強化学習を企業に実現できます。
+Content: >-
+  <p><em>このブログ記事は、シニア プロダクト マーケティング マネージャーの Tina Coll 氏が共同Azure Cognitive Services。 </em></p>
+
+
+  <p>Microsoft Build 2019 は、開発者向けの新しいサービスと<a href="https://azure.microsoft.com/services/cognitive-services/" target="_blank"></a>機能の導入Azure Cognitive Servicesの進化に関する重要なマイルストーンです。 Azure を使用すると、開発者は Personalizer の立ち上げに合わせ、強化学習を企業に <a href="https://go.microsoft.com/fwlink/?LinkID=2084781" target="_blank">実現できます</a>。 Personalizer は、 <a href="https://azure.microsoft.com/services/cognitive-services/anomaly-detector/" target="_blank">Anomaly Detector</a> および <a href="https://azure.microsoft.com/services/cognitive-services/content-moderator/" target="_blank">Content Moderator</a> と共に、Cognitive Services の新しい意思決定カテゴリの一部であり、情報に基づいた効率的な意思決定をユーザーに提供するための推奨事項を提供します。</p>
+
+
+  <p>プレビューおよび一般提供 (GA) で利用可能:</p>
+
+
+  <h3>プレビュー</h3>
+
+
+  <p><strong>Cognitive Service API:</strong></p>
+
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?LinkID=2084781" target="_blank">Personalizer</a> &ndash; パーソナライズされたユーザー エクスペリエンスを作成する</li>
+   <li><a href="https://azure.microsoft.com/services/cognitive-services/speech-to-text/" target="_blank">会話の文字起こし</a> &ndash; リアルタイムでの対人会議の文字起こし</li>
+   <li><a href="https://go.microsoft.com/fwlink/?linkid=2083621" target="_blank">Form Recognizer</a> &ndash; データ入力を自動化する</li>
+   <li><a href="https://go.microsoft.com/fwlink/?linkid=2084773" target="_blank">Ink Recognizer</a> &ndash; デジタル インク コンテンツの可能性を引き出す</li>
+  </ul>
+
+
+  <p><strong>エッジおよびデータに近い企業の AI モデルに対するコンテナーのサポート:</strong></p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/speechcontainerspreview" target="_blank">Speech Services (Speech to Text &amp; Text to Speech)</a></li>
+   <li><a href="https://aka.ms/adcontainer" target="_blank">Anomaly Detector</a></li>
+   <li><a href="https://aka.ms/FormRecognizerContainerRequestAccess" target="_blank">Form Recognizer</a></li>
+  </ul>
+
+
+  <h3>一般公開</h3>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/services/cognitive-services/text-to-speech/" target="_blank">ニューラル テキスト読み上げ</a></li>
+   <li><a href="https://azure.microsoft.com/services/cognitive-services/computer-vision/" target="_blank">Computer Vision 読み取り</a></li>
+   <li><a href="https://azure.microsoft.com/services/cognitive-services/text-analytics/" target="_blank">Text Analytics 固有表現認識</a></li>
+  </ul>
+
+
+  <p>Cognitive Services、<strong>音声、言語、検索</strong>&nbsp;、意思決定のカテゴリにまたがり、アプリを表示、聞き、翻訳、決定する機能を埋め込む開発者向けの、市場で最も包括的なポートフォリオを提供します。ストアに非常に多くの情報が格納されている場合は、&rsquo;その場所にアクセスできます。</p>
+
+
+  <h2>決定: Personalizer の導入、企業向け強化学習</h2>
+
+
+  <p>小売、メディア、E コマース、その他の多くの業界では、長い間、エクスペリエンスをパーソナル化する大いなる手がけで進めしてきました。 残念ながら、多くの場合、顧客に必要な情報を多く与えるには、さまざまな CRM、DMP、名前-頭字語プラットフォームを文字列化し、日と夜に A/B テストを実行する必要があります。 強化学習は、AI&rsquo; がリアルタイムで世界で起こっていることから学習することで目標を達成できる一連の手法です。 この強力な強化学習ベースの機能は、Personalizer を使用した使いやすい API を通じて提供されるのは Azure のみです。</p>
+
+
+  <p>Microsoft では、チームは <a href="https://azure.microsoft.com/services/cognitive-services/personalizer/" target="_blank">Personalizer を使用して</a> ユーザー エクスペリエンスを強化しています。 Xbox では、Personalizer を使用して関心を持つ可能性が最も高いユーザーにコンテンツを表示することで、エンゲージメントが 40% 向上しました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/edb844aa-d448-4d69-b1e1-bc761fb95f28.png"><img alt="A diagram that illustrates how Personalizer works to optimize towards business goals. " border="0" height="634" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7707be4-1e73-4a23-8e54-c2c78650a661.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Personalizer の図" width="1361"></a></p>
+
+
+  <h2>音声: 会話の文字起こしで対人会議が良くなりました</h2>
+
+
+  <p><a href="https://azure.microsoft.com/services/cognitive-services/speech-to-text/" target="_blank"></a>高度な音声テキスト変換<a href="https://azure.microsoft.com/services/cognitive-services/speech-to-text/" target="_blank"></a>機能である会話の文字起こしにより、リアルタイムで会話を文字起こしすることで会議の効率が向上し、すべての参加者が完全に関与し、次の手順をすぐにフォローアップできるよう、誰がいつ何を言ったかをキャプチャできます。 より高品質な文字起こしのために、会話の文字起こしを <a href="https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-devices-sdk" target="_blank">Speech Service Device SDK</a> (一般提供開始) と統合するデバイスと組み合わせます。 また、他のサードパーティの会議ソフトウェアを含むMicrosoft Teams会議ソリューションと統合されます。 詳細については <a href="https://azure.microsoft.com/services/cognitive-services/directory/speech/" target="_blank">、Speech ページ</a> を参照してください。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ca390105-7b80-4e6a-a79d-2b5bc49473b7.png"><img alt="Example of conversation transcription device and results." border="0" height="471" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d8ed6fa9-7730-4427-9978-e8d9ae73080c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="会話の文字起こしデバイスと結果" width="797"></a></p>
+
+
+  <h2>ビジョン: フォームからデジタル インク付きメモに &ndash; コンテンツの価値を引き出す</h2>
+
+
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=2083621" target="_blank">Form Recognizer高度</a> な機械学習テクノロジを使用して、ビジネス フォーム&rsquo;やドキュメントからテキストとデータをすばやく正確に抽出します。 コンテナーのサポートにより、このサービスはオンプレミスとクラウドで実行できます。 情報抽出を迅速に自動化し、特定のコンテンツに合わせて調整します。サンプル数は 5 つで、手動によるラベル付けは行う必要はありません。</p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a304513d-d90e-4f43-b0a5-f75156d95287.png"><img alt="An image showing a document with a chart on the left and the extracted key-value pairs from the document on the right. " border="0" height="437" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/057b815c-5dcc-4556-9da6-9cb99b2b88c0.png" style="border-image: none; display: inline; background-image: none;" title="Form Recognizer" width="975"></a></p>
+
+
+  <p><a href="https://go.microsoft.com/fwlink/?linkid=2084773" target="_blank">Ink Recognizer</a> 、デジタル手書き、一般的な図形、およびインクされたドキュメントのレイアウトを認識する機能をアプリケーションに提供します。 API 呼び出しを通じて、Ink Recognizer を利用して、物理ペンと紙の利点とデジタルの最高の利点を組み合わせたエクスペリエンスを作成できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/074bc171-ff9a-4934-84cb-b8442cb18400.png"><img alt="A diagram showing the ink stroke input on the left and the recognition tree on the right." border="0" height="806" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/88392304-0e1e-4437-b9ea-57cd0574db3a.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Ink Recognizer" width="1432"></a></p>
+
+
+  <p>ユーザーは、Microsoft Office 365とWindows統合Ink Recognizer、ユーザーは自然な方法で自由にコンテンツを作成できます。 <a href="https://www.microsoft.com/microsoft-365/blog/wp-content/uploads/sites/2/2018/04/New-in-April-PowerPoint.gif" target="_blank">Ink RecognizerをPowerPoint</a>、アイデアをプロフェッショナルな外観のスライドに変換します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a93bb7e1-5ea4-4c70-a03d-cb77995745e3.gif"><img alt="An animated GIF showing how Ink Recognizer is used in PowerPoint." border="0" height="506" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1c276720-c68a-4218-a912-3a1c6ede6008.gif" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Ink Recognizer GIF" width="900"></a></p>
+
+
+  <h2>AI をエッジに持ち込む</h2>
+
+
+  <p>2018 年 11 月に、オンプレミス、クラウド、またはエッジで実行される<a href="https://azure.microsoft.com/blog/bringing-ai-to-the-edge/" target="_blank"></a>コンテナー内の Cognitive Services のプレビューが業界で最初に発表されました。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/78d313c0-1e19-47ef-8e80-35a112838d30.png"><img alt="A diagram showing the a representation of Cognitive Services on the left, and a representation of the ability to deploy Cognitive Services with containers on the right." border="0" height="612" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a964f7d0-bdce-4807-98c4-1b0840154b05.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="インテリジェント クラウドからインテリジェント エッジへ" width="1205"></a></p>
+
+
+  <p>コンテナーのサポートは、プレビューで次 <strong>の場合に</strong> 使用できます。</p>
+
+
+  <ul>
+   <li><a href="https://aka.ms/speechcontainerspreview" target="_blank">Speech Services (Speech to Text &amp; Text to Speech)</a></li>
+   <li><a href="https://aka.ms/adcontainer" target="_blank">Anomaly Detector</a></li>
+   <li><a href="https://aka.ms/FormRecognizerContainerRequestAccess" target="_blank">Form Recognizer</a></li>
+  </ul>
+
+
+  <p>コンテナー Cognitive Servicesを使用すると、ISV と企業はエッジ コンピューティング シナリオでビジネスを変革できます。 Axon は、世界中の 100 以上の国で 17,000 を超える法執行機関と提携しているコネクテッド公共安全テクノロジのグローバル リーダーであり、応答時間の 1 秒の違いが重要な公共の安全シナリオのために、コンテナー内の Cognitive Services に依存しています。</p>
+
+
+  <p><em>&ldquo;microsoft&#39;for Cognitive Services のコンテナーを使用すると、法執行機関のお客様に対して最高レベルのデータの整合性とコンプライアンスを確保しながら、ネットワーク接続が制限されている状況で AI&rdquo; 製品を実行できます。 </em></p>
+
+
+  <p align="right">&ndash;Moji Solgi、AI および Machine Learning担当副社長、Axon</p>
+
+
+  <h2>既存のポートフォリオを強化Cognitive Servicesする</h2>
+
+
+  <p>新しい機能に加Cognitive Services、次の機能が一般提供されています。</p>
+
+
+  <p><a href="https://azure.microsoft.com/services/cognitive-services/text-to-speech/" target="_blank">ニューラル テキスト読み</a> 上げでは、5 つの音声がサポートされ、9 つのリージョンで利用して、より多くの言語範囲とサポートを顧客に提供できます。 音声合成マークアップ言語<a href="https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-synthesis-markup" target="_blank">または音声チューニング</a> ポータルを使用して<a href="https://aka.ms/voicetuning" target="_blank"></a>スタイルを変更することで、さまざまな感情を表現したり、さまざまなシナリオで異なるトーンで話したりするために、音声を簡単に調整できます。 利用できる<a href="https://azure.microsoft.com/services/cognitive-services/text-to-speech/" target="_blank">新しい音声の詳細</a>&ldquo;&rdquo;については、テキスト読み上げに関するページをご覧ください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/services/cognitive-services/computer-vision/" target="_blank">Computer Vision読み</a> 取り操作では、複数ページのドキュメントが読み取り、PDF や TIFF などの最も一般的なファイルの種類からテキストを抽出するための機能が強化されています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/73b6bd4d-5cb7-41f0-a505-411620b7566f.png"><img alt="An image showing the a sample PDF on the left, and the extracted JSON output from using Computer Vision on the right." border="0" height="877" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9d9cf0d5-74c3-4cdf-b39d-38ee1f2e10ce.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="サンプル PDF と JSON 出力" width="1178"></a></p>
+
+
+  <p>さらに、<a href="https://azure.microsoft.com/services/cognitive-services/computer-vision/" target="_blank">Computer Vision</a> には、10,000 <a href="https://azure.microsoft.com/blog/latest-enhancements-now-available-for-cognitive-services-computer-vision/" target="_blank"></a> 以上の概念、シーン、およびオブジェクトを理解し、200,000 人から 100 万人の著名人のセットを拡張した、改善された画像タグ付けモデルがあります。 <a href="https://azure.microsoft.com/services/media-services/video-indexer/" target="_blank">Video Indexer</a>、新しい AI エディターが、今年のイベントで AI/&rsquo;ML カテゴリで<a href="https://azure.microsoft.com/blog/azure-media-services-the-latest-video-indexer-updates-from-nab-show-2019/" target="_blank">年度の製品を表示する「年度の製品</a>を表示する」を獲得しました。</p>
+
+
+  <p><a href="https://aka.ms/taentitylinking" target="_blank"></a><a href="https://azure.microsoft.com/services/cognitive-services/text-analytics/" target="_blank">Text Analytics</a> の機能である名前付きエンティティ認識は、自由形式のテキストを受け取り、人、場所、組織などのエンティティの出現を識別します。 API 呼び出しを通じて、名前付きエンティティ認識では堅牢な機械学習モデルを使用して、任意のテキスト ドキュメント内で 20 を超える種類の名前付きエンティティを検索して分類します。 名前付きエンティティ認識 <a href="https://docs.microsoft.com/azure/cognitive-services/text-analytics/language-support" target="_blank">では、</a> プレビューで使用できる 19 の言語モデルがサポートされ、英語とスペイン語が一般提供されました。</p>
+
+
+  <p><a href="https://azure.microsoft.com/services/cognitive-services/qna-maker/" target="_blank">QnA Maker</a> は複数ターンダイアログをサポートし、PDF または Web サイトからダイアログを抽出するコア機能を強化します。</p>
+
+
+  <h2>概要今日</h2>
+
+
+  <p>今日&rsquo;のマイルストーンは、AI の最新のイノベーションをインテリジェントなクラウドとインテリジェントエッジに導入するコミットメントを示しています。</p>
+
+
+  <p>インテリジェント アプリの構築を開始するには、次のページ <a href="https://azure.microsoft.com/services/cognitive-services/" target="_blank">Azure Cognitive Services</a> してください。</p>

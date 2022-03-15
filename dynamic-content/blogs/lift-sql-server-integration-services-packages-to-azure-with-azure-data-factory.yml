@@ -1,0 +1,42 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8c725cffc5db23415715e23fa1472466cf1e5375
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139889764"
+Slug: lift-sql-server-integration-services-packages-to-azure-with-azure-data-factory
+Title: Azure Data Factory を使用して SQL Server Integration Services パッケージを Azure にリフトする
+Summary: データは、現在構築されているすべてのアプリとエクスペリエンスに不可欠です。 データ量が増加しているため、組織は、it に付属するインフラストラクチャのコストを増加させることによって、それを結び付けないようにする必要があります。
+Content: >-
+  <p>データは、現在構築されているすべてのアプリとエクスペリエンスに不可欠です。 データ量が増加しているため、組織は、it に付属するインフラストラクチャのコストを増加させることによって、それを結び付けないようにする必要があります。 データエンジニアや開発者は、大規模な拡張性と柔軟性を活用するために、オンプレミスのワークロードをクラウドに移行する必要があることを認識しています。 SQL Server Integration Services (ssis) のお客様は、Azure Data Factory 機能を使用して簡単に ssis パッケージを Azure にリフトし、スケーラビリティ、高可用性、および tco を高めることができます。また、ADF はリソースを管理します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/067a2dcc-bae2-44d4-bcc6-b7045e453e94.png"><img alt="image" border="0" height="312" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/74fa36ed-1004-473f-84d0-104db439224d.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="絵" width="561"></a></p>
+
+
+  <p>データエンジニアや開発者は、コードを使用しない<a href="https://docs.microsoft.com/en-us/azure/data-factory/tutorial-deploy-ssis-packages-azure" target="_blank">ADF UI/アプリを使用して</a>、SSIS パッケージ実行用の専用 adf サーバーである AZURE-SSIS INTEGRATION RUNTIME (IR) をプロビジョニングおよび監視できるようになりました。 この機能には、すばらしい新機能が追加されました。</p>
+
+
+  <ul>
+   <li>オンプレミスのデータにアクセスするための<a href="https://docs.microsoft.com/en-us/azure/data-factory/join-azure-ssis-integration-runtime-virtual-network" target="_blank">Azure Resource Manager (ARM) Virtual Network (VNet)</a> 。</li>
+   <li>VNet サービスエンドポイントを使用して、Azure SQL Managed Instance または Azure SQL Database の SSIS プロジェクト (SSISDB) のカタログをホストする機能。</li>
+   <li><a href="https://azure.microsoft.com/en-us/pricing/details/data-factory/" target="_blank">Azure ハイブリッド特典 (向け ahb)</a>では、既存のオンプレミスの SQL Server ライセンスを利用してコストを削減できます。</li>
+   <li>advanced/premium コネクタおよび変換を使用する<a href="https://docs.microsoft.com/en-us/azure/data-factory/how-to-configure-azure-ssis-ir-enterprise-edition" target="_blank">Enterprise Edition</a>ます。</li>
+   <li>Azure-SSIS IR にカスタム/サードパーティコンポーネントをインストールするための<a href="https://docs.microsoft.com/en-us/azure/data-factory/how-to-configure-azure-ssis-ir-custom-setup" target="_blank">カスタムセットアップ</a>など。</li>
+   <li>ADF パイプラインの <a href="https://docs.microsoft.com/en-us/azure/data-factory/how-to-invoke-ssis-package-ssis-activity" target="_blank">ファーストクラスのアクティビティとして、SSIS パッケージ</a> の実行をトリガーしてスケジュール設定し、他のアクティビティと組み合わせることができます。</li>
+   <li>Azure-SSIS IR 用の有料コンポーネントと拡張機能を開発し、ADF で SSIS の拡張されたサードパーティエコシステムに参加する<a href="https://docs.microsoft.com/en-us/azure/data-factory/how-to-develop-azure-ssis-ir-licensed-components" target="_blank">isv 向けの新しいライセンスモデル</a>。</li>
+  </ul>
+
+
+  <p>データエンジニアや開発者は、使い慣れた SQL Server Data Tools (SSDT) と SQL Server Management Studio (SSMS) を引き続き使用して、クラウドで SSIS パッケージを設計、デプロイ、構成、実行、および監視することができます。 これらのすべての機能が一般公開されました。 ETL ワークフローを最新化して拡張し、Azure Data Factory の SSIS を使用して、Azure-SSIS IR オンデマンドで自動プロビジョニングし、組み込みのデータ変換を挿入します。</p>
+
+
+  <h2>はじめに</h2>
+
+
+  <ul>
+   <li>ハンズオンラボを使用して、ADF を使用して <a href="https://github.com/kromerm/adflab" target="_blank">SSIS パッケージを</a> Azure にリフトします。</li>
+   <li>詳細については、「ADF パイプラインで <a href="https://blogs.msdn.microsoft.com/ssis/2018/05/23/modernize-and-extend-your-etlelt-workflows-with-ssis-activities-in-adf-pipelines/" target="_blank">SSIS アクティビティを使用して ETL ワークフローを実行</a> する」を参照してください。</li>
+   <li>詳細については Enterprise Edition 「ADF での SSIS の<a href="https://blogs.msdn.microsoft.com/ssis/2018/04/27/enterprise-edition-custom-setup-and-3rd-party-extensibility-for-ssis-in-adf/" target="_blank">カスタムセットアップとサードパーティの拡張機能</a>」を参照してください。</li>
+  </ul>

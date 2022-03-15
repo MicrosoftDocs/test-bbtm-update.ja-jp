@@ -1,0 +1,287 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d3c2a4df2c1969126734c380e6e4e2eb030fa1a0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891569"
+Slug: introducing-the-new-dv3-and-ev3-vm-sizes
+Title: 新しい Dv3 VM サイズと Ev3 VM サイズの概要
+Summary: Microsoft は、新しい Dv3 VM サイズの一般提供を発表します。 また、高メモリ D サイズ (D11-D14) の名前付けを Ev3 ファミリに変更しています。  これらの新しいサイズでは、Intel® Broadwell E5-2673 v4 2.3 GHz プロセッサで実行されている Hyper-Threading テクノロジと Intel® Haswell 2.4 GHz の 2673 v3 が導入されています。
+Content: >-
+  <p>Microsoft は、新しい Dv3 VM サイズの一般提供を発表します。 また、高メモリ D サイズ (D11-D14) の名前付けを Ev3 ファミリに変更しています。 &nbsp;これらの新しいサイズには、Intel &reg; Broadwell E5-2673 v4 2.3 GHz プロセッサで実行されている Hyper-Threading テクノロジと、intel &reg; Haswell GHz の E5-2673 v3 が導入されています。 &nbsp;物理コアから仮想 CPU &rsquo; s (vcpu) へのシフトは、より大きな VM サイズをサポートするために最新のプロセッサの可能性を最大限に引き出すことができるようにするための主要なアーキテクチャの変更です。 &nbsp;基礎となるハードウェアの力を高めることで、パフォーマンスと効率性を向上させることができるため、お客様にお客様に渡してもコストを削減できます。 &nbsp;これらの新しい Hyper-Threaded サイズは、前の Dv2 サイズより最大28% 下げることができます。&nbsp;</p>
+
+
+  <p>Dv3 と Ev3 のサイズも Windows Server 2016 ホストで実行されている最初の VM &rsquo; の一部です。 Windows 2016 ホストでは、これらの新しい vm サイズ &nbsp; に対して入れ子になった仮想化と hyper-v コンテナーを有効にできます。 &nbsp;入れ子になった仮想化を使用すると、Azure の仮想マシンで Hyper-v サーバーを実行できます。 入れ子になった仮想化を使用すると、仮想化されたコンテナーホストで Hyper-v コンテナーを実行したり、仮想化環境で Hyper-v ラボを設定したり、複数のコンピューターのシナリオをテストしたりすることができます。 <a href="https://aka.ms/azurenvblog">Azure での入れ子になった仮想化</a>の詳細については、こちらを参照してください。&nbsp;</p>
+
+
+  <p>新しい Dv3 VM サイズは、最大 64 vCPU &rsquo; と256GiB の RAM を搭載した、メモリと vCPU のパフォーマンスのバランスを考慮しています。 &nbsp;新しく名前を付けた Ev3 サイズでは、Dv3 よりも多くのメモリが vCPU に提供されるため、64 Vcpu と432GiB の RAM を使用して、 &nbsp; 最大の E64 サイズまでのサイズに合わせて大きなワークロードを実行できます。</p>
+
+
+  <p>現在の Dv2、DSv2、F、Fs、および Av2 のサイズは、DS15v2 と D15v2 を &nbsp; 除き、新しい Intel &reg; Broadwell processor でも利用できます。 D15v2 と DS15v2 のサイズは、Intel &reg; haswell なプロセッサ専用です。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="1671">
+      <tbody>
+          <tr>
+              <td valign="top" width="179"><strong>[サイズ]</strong></td>
+              <td valign="top" width="275"><strong>vCPU &rsquo; s</strong></td>
+              <td valign="top" width="190"><strong>Memory:<br>
+  GiB</strong></td>
+              <td valign="top" width="147"><strong>ローカル SSD:<br>
+  GiB</strong></td>
+              <td valign="top" width="177"><strong>最大データ ディスク数</strong></td>
+              <td valign="top" width="445"><strong>ローカルディスクの最大スループット:<br>
+  IOPS/読み取り MBps/書き込み MBps</strong></td>
+              <td valign="top" width="256"><strong>最大 NIC/ネットワーク帯域幅</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_D2_v3</td>
+              <td valign="top" width="275">2</td>
+              <td valign="top" width="190">8</td>
+              <td valign="top" width="147">50</td>
+              <td valign="top" width="177">4</td>
+              <td valign="top" width="445">3000/46/23</td>
+              <td valign="top" width="256">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_D4_v3</td>
+              <td valign="top" width="275">4</td>
+              <td valign="top" width="190">16</td>
+              <td valign="top" width="147">100</td>
+              <td valign="top" width="177">8</td>
+              <td valign="top" width="445">6000/93/46</td>
+              <td valign="top" width="256">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_D8_v3</td>
+              <td valign="top" width="275">8</td>
+              <td valign="top" width="190">32</td>
+              <td valign="top" width="147">200</td>
+              <td valign="top" width="177">16</td>
+              <td valign="top" width="445">12000/187/93</td>
+              <td valign="top" width="256">4/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_D16_v3</td>
+              <td valign="top" width="275">16</td>
+              <td valign="top" width="190">64</td>
+              <td valign="top" width="147">400</td>
+              <td valign="top" width="177">32</td>
+              <td valign="top" width="445">24000/375/187</td>
+              <td valign="top" width="256">8/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_E2_v3</td>
+              <td valign="top" width="275">2</td>
+              <td valign="top" width="190">16</td>
+              <td valign="top" width="147">50</td>
+              <td valign="top" width="177">4</td>
+              <td valign="top" width="445">3000/46/23</td>
+              <td valign="top" width="256">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_E4_v3</td>
+              <td valign="top" width="275">4</td>
+              <td valign="top" width="190">32</td>
+              <td valign="top" width="147">100</td>
+              <td valign="top" width="177">8</td>
+              <td valign="top" width="445">6000/93/46</td>
+              <td valign="top" width="256">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_E8_v3</td>
+              <td valign="top" width="275">8</td>
+              <td valign="top" width="190">64</td>
+              <td valign="top" width="147">200</td>
+              <td valign="top" width="177">16</td>
+              <td valign="top" width="445">12000/187/93</td>
+              <td valign="top" width="256">4/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_E16_v3</td>
+              <td valign="top" width="275">16</td>
+              <td valign="top" width="190">128</td>
+              <td valign="top" width="147">400</td>
+              <td valign="top" width="177">32</td>
+              <td valign="top" width="445">24000/375/187</td>
+              <td valign="top" width="256">8/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_E32_v3</td>
+              <td valign="top" width="275">32</td>
+              <td valign="top" width="190">256</td>
+              <td valign="top" width="147">800</td>
+              <td valign="top" width="177">32</td>
+              <td valign="top" width="445">48000/750/375</td>
+              <td valign="top" width="256">8/極めて高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="179">Standard_E64_v3</td>
+              <td valign="top" width="275">64</td>
+              <td valign="top" width="190">432</td>
+              <td valign="top" width="147">1600</td>
+              <td valign="top" width="177">32</td>
+              <td valign="top" width="445">96000/1000/500</td>
+              <td valign="top" width="256">8/極めて高</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <p>&nbsp;</p>
+
+
+  <table border="0" cellpadding="2" cellspacing="0" width="1671">
+      <tbody>
+          <tr>
+              <td valign="top" width="281"><strong>[サイズ]</strong></td>
+              <td valign="top" width="216"><strong>vCPU&#39;s &nbsp; &nbsp; &nbsp; </strong></td>
+              <td valign="top" width="155"><strong>メモリ:GiB</strong></td>
+              <td valign="top" width="177"><strong>ローカル SSD: GiB</strong></td>
+              <td valign="top" width="193"><strong>最大データ ディスク数</strong></td>
+              <td valign="top" width="170"><strong>キャッシュが有効な場合のローカル ディスクの最大スループット: IOPS/MBps (キャッシュ サイズは GiB 単位)</strong></td>
+              <td valign="top" width="246"><strong>キャッシュが無効な場合の最大ディスク スループット: IOPS/MBps</strong></td>
+              <td valign="top" width="231"><strong>最大 NIC 数/想定ネットワーク パフォーマンス (Mbps)</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_D2s_v3</td>
+              <td valign="top" width="216">2</td>
+              <td valign="top" width="155">8</td>
+              <td valign="top" width="177">16</td>
+              <td valign="top" width="193">4</td>
+              <td valign="top" width="170">4,000/32 (50)</td>
+              <td valign="top" width="246">3,200/48</td>
+              <td valign="top" width="231">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_D4s_v3</td>
+              <td valign="top" width="216">4</td>
+              <td valign="top" width="155">16</td>
+              <td valign="top" width="177">32</td>
+              <td valign="top" width="193">8</td>
+              <td valign="top" width="170">8,000/64 (100)</td>
+              <td valign="top" width="246">6,400/96</td>
+              <td valign="top" width="231">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_D8s_v3</td>
+              <td valign="top" width="216">8</td>
+              <td valign="top" width="155">32</td>
+              <td valign="top" width="177">64</td>
+              <td valign="top" width="193">16</td>
+              <td valign="top" width="170">16,000/128 (200)</td>
+              <td valign="top" width="246">12,800/192</td>
+              <td valign="top" width="231">4/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_D16s_v3</td>
+              <td valign="top" width="216">16</td>
+              <td valign="top" width="155">64</td>
+              <td valign="top" width="177">128</td>
+              <td valign="top" width="193">32</td>
+              <td valign="top" width="170">32,000/256 (400)</td>
+              <td valign="top" width="246">25,600/384</td>
+              <td valign="top" width="231">8/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_E2s_v3</td>
+              <td valign="top" width="216">2</td>
+              <td valign="top" width="155">16</td>
+              <td valign="top" width="177">32</td>
+              <td valign="top" width="193">4</td>
+              <td valign="top" width="170">4,000/32 (50)</td>
+              <td valign="top" width="246">3,200/48</td>
+              <td valign="top" width="231">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_E4s_v3</td>
+              <td valign="top" width="216">4</td>
+              <td valign="top" width="155">32</td>
+              <td valign="top" width="177">64</td>
+              <td valign="top" width="193">8</td>
+              <td valign="top" width="170">8,000/64 (100)</td>
+              <td valign="top" width="246">6,400/96</td>
+              <td valign="top" width="231">2/中</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_E8s_v3</td>
+              <td valign="top" width="216">8</td>
+              <td valign="top" width="155">64</td>
+              <td valign="top" width="177">128</td>
+              <td valign="top" width="193">16</td>
+              <td valign="top" width="170">16,000/128 (200)</td>
+              <td valign="top" width="246">12,800/192</td>
+              <td valign="top" width="231">4/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_E16s_v3</td>
+              <td valign="top" width="216">16</td>
+              <td valign="top" width="155">128</td>
+              <td valign="top" width="177">256</td>
+              <td valign="top" width="193">32</td>
+              <td valign="top" width="170">32,000/256 (400)</td>
+              <td valign="top" width="246">25,600/384</td>
+              <td valign="top" width="231">8/高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_E32s_v3</td>
+              <td valign="top" width="216">32</td>
+              <td valign="top" width="155">256</td>
+              <td valign="top" width="177">512</td>
+              <td valign="top" width="193">32</td>
+              <td valign="top" width="170">64,000/512 (800)</td>
+              <td valign="top" width="246">51,200/768</td>
+              <td valign="top" width="231">8/極めて高</td>
+          </tr>
+          <tr>
+              <td valign="top" width="281">Standard_E64s_v3</td>
+              <td valign="top" width="216">64</td>
+              <td valign="top" width="155">432</td>
+              <td valign="top" width="177">864</td>
+              <td valign="top" width="193">32</td>
+              <td valign="top" width="170">128,000/1,024 (1,600)</td>
+              <td valign="top" width="246">80,000/1,200</td>
+              <td valign="top" width="231">8/極めて</td>
+          </tr>
+      </tbody>
+  </table>
+
+
+  <h2>地理的な可用性</h2>
+
+
+  <ul>
+      <li>US
+      <ul>
+          <li>西2</li>
+          <li>East</li>
+      </ul>
+      </li>
+      <li>ヨーロッパ
+      <ul>
+          <li>West</li>
+      </ul>
+      </li>
+      <li>アジア太平洋
+      <ul>
+          <li>南東部</li>
+      </ul>
+      </li>
+  </ul>
+
+
+  <p>他のリージョンがすぐに追加されます。これらのリージョンが使用可能になると、さらに多くの更新情報が提供されます。</p>
+
+
+  <h2>Dv2 プロモーションでの更新</h2>
+
+
+  <p>Dv3 と Ev3 が発表されたので、Dv3 と Ev3 を利用できる前述のリージョンで Dv2 プロモーションプランを下げることになります。 &nbsp;これらのリージョンでの移行中は、8/15/2017 まで Dv2_promo Vm の新しいインスタンスを引き続きデプロイできます。 &nbsp;Dv3 と Ev3 がまだ使用できないリージョンでは、Dv2 プロモーション Vm は、そのリージョンで Ev3 と Dv3 を利用できるようになった後、少なくとも1か月は引き続き利用できます。<br>
+
+  &nbsp;<br>
+
+  デプロイされているすべての Dv2_promo Vm は、6/30/2018 までのキャンペーン価格の恩恵を受けることができ、その時点で価格が Dv2 価格に一致するようになります。</p>

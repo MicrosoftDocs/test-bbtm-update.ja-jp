@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 9a609725b887fea7e8717498b8693cca3346588a
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139894140"
+Slug: azure-backup-now-supports-powershell-and-acls-for-azure-files
+Title: Azure Backupの PowerShell と ACL がサポートAzure Files
+Summary: ファイル共有をネイティブにバックアップするための一連の新機能を、Microsoft Azureを使用して公開Azure Backup。 バックアップ関連のすべての機能は、バックアップに接続されているファイル共有をサポートするためにもAzure File Sync。
+Content: >-
+  <p>この機能を使用して、ファイル共有をネイティブにバックアップするための一連<a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction" target="_blank">Microsoft Azure</a>新機能を明らかに<a href="https://docs.microsoft.com/en-us/azure/backup/" target="_blank">Azure Backup</a>。 バックアップ関連のすべての機能は、バックアップに接続されているファイル共有をサポート <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-sync-files-planning" target="_blank">Azure File Sync。</a></p>
+
+
+  <h2>NTFS ACL を含む Azure ファイル</h2>
+
+
+  <p>Azure Backup、プレビューでの Azure ファイルの新しいテクノロジ ファイル システム <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-active-directory-overview" target="_blank">(NTFS) アクセス制御リスト (ACL)</a> の保持と復元がサポートされました。 2019 年から、Azure Backupバックアップ時にファイル ACL のキャプチャが自動的に開始されました。 過去に戻る必要がある場合は、ファイル ACL もファイルとフォルダーと共に復元されます。</p>
+
+
+  <h2>PowerShell Azure Backupを使用する</h2>
+
+
+  <p>PowerShell を使用して <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-afs-automation" target="_blank">、Azure ファイル共有のバックアップのスクリプトを作成できます</a>。 PowerShell コマンドを使用して、バックアップの構成、オンデマンド バックアップの作成、または Azure Backup で保護されているファイル共有からのファイルの復元を行います。</p>
+
+
+  <p>PowerShell を使用してスナップショットを 10 年間保持できるオンデマンド バックアップが有効になっています。 スケジューラを使い、保持期間を選択して PowerShell スクリプトをオンデマンドで実行することで、スナップショットを定期的 (週次、月次、年次) に作成することも可能です。 Azure Backup を使用 <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-files-faq#how-many-on-demand-backups-can-i-take-per-file-share-br" target="_blank">したオンデマンド バックアップの制限事項</a> を参照してください。</p>
+
+
+  <p>サンプル スクリプトをお探しの場合は、 に書き込みしてください&nbsp;<a href="mailto:AskAzureBackupTeam@microsoft.com">AskAzureBackupTeam@microsoft.com</a>。&nbsp;バックアップを定期的にスケジュールし、最大 10 年間保持できる Azure Automation Runbook を使用してサンプル スクリプトを作成しました。</p>
+
+
+  <h2>バックアップの管理</h2>
+
+
+  <p>昨年導入した重要な有効化機能は&ldquo;&rdquo;、ポータルからバックアップを管理する機能Azure Filesでした。 Azure Backup &ldquo;&rdquo; を使用してファイル共有の保護を構成するとすぐに、Azure Files ポータルの [スナップショット] ボタンが [バックアップの管理] &ldquo;に変わります。&rdquo;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad03be99-26c7-4089-9045-9c89ff29b95d.png"><img alt="When you configure file sharing using Azure Backup, the &quot;snapshots&quot; button changes to &quot;Manage backups.&quot;" border="0" height="200" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/284947b2-61b7-44b1-9d20-1bae6f2b303c.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="スナップショット を使用してファイル共有を構成Azure Backupスナップショット &quot;&quot; ボタンが [バックアップの管理] に&quot;変わります。&quot;" width="976"></a></p>
+
+
+  <p>[ &ldquo;バックアップの管理]&rdquo; を使用すると、オンデマンド バックアップを作成したり、ファイル共有を復元したり、個々のファイルやフォルダーを復元したり、バックアップのスケジュール設定に使用されるポリシーを変更したりすることもできます。 また、Azure ファイル共有のバックアップに使用されるファイル共有と編集ポリシーをバックアップする Recovery Services コンテナーに移動できます。</p>
+
+
+  <h2>メール アラート</h2>
+
+
+  <p>Azure ファイル共有のバックアップ ジョブと復元されたジョブのバックアップ アラートが有効になっています。 アラート機能を使用すると、選択した電子メール アドレスに対するジョブエラーの通知を構成できます。</p>
+
+
+  <h2>ベスト プラクティス</h2>
+
+
+  <p>データが誤って削除された場合は、ストレージ アカウント、ファイル共有、およびストレージ アカウントによって作成されたスナップショットAzure Backup。 復元ポイントが削除されていないことを確認するために、有効になっているストレージ Azure Backupをロックするベスト プラクティスです。 また、保護されたファイル共有または保護されたファイル共有によって作成されたスナップショットが削除される前Azure Backup表示されます。 これは、誤って削除することでデータが失われるのを防ぐのに役立ちます。</p>
+
+
+  <h3>関連リンクと追加コンテンツ</h3>
+
+
+  <ul>
+   <li>新しいアプリケーションを作成するAzure Backup <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-files" target="_blank">、バックアップの構成を開始します。Azure portal</a>。</li>
+   <li>詳細については、以下をご覧ください。 ドキュメントまたは<a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-files" target="_blank">Azure Backupブログ</a>「 &ldquo; Azure ファイル共有のバックアップの導入<a href="https://azure.microsoft.com/en-us/blog/introducing-backup-for-azure-file-shares/" target="_blank">」を参照してください</a>。&rdquo;</li>
+   <li>ヘルプが必要ですか? サポートについては、Azure Backup <a href="https://social.msdn.microsoft.com/forums/azure/en-US/home?forum=windowsazureonlinebackup" target="_blank">フォーラムに</a> 連絡してください。</li>
+   <li>新しいアイデアを寄 <a href="https://feedback.azure.com/forums/258995-azure-backup" target="_blank">稿し、既存のアイデアAzure Backup</a> 投票することで、より良いアイデアを得る方法を教えて。</li>
+   <li>最新のニュースと更新情報については、Twitter <a href="https://twitter.com/azurebackup" target="_blank">@AzureBackup</a> でフォローしてください。</li>
+  </ul>
