@@ -1,0 +1,51 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 7914989c9631234acac822eaca1a9d8249c03bf5
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892926"
+Slug: load-data-into-azure-search-with-zero-code-required
+Title: コード不要で Azure Search にデータを読み込む
+Summary: 一般的な需要に応じて、Azure Search Portal でインデクサーの作成と監視の完全なサポートが追加されました。
+Content: >-
+  <p>この数か月間、&rsquo;Azure Search の使用を可能な限り簡単に開始する作業を行いました。 開始する障壁の 1 つは、データをサービスに読み込む場合です。 <a href="https://msdn.microsoft.com/en-us/library/azure/dn946891.aspx" target="_blank">データと</a> DocumentDB SQLインデクサーを使用すると、データの読み込みが簡単に行います。</p>
+
+
+  <p>一般的な需要に応&rsquo;&rsquo;じて、Azure Search Portal でインデクサーを作成および監視するための完全なサポートが追加されました。 これで、コードが不要な Azure Search にデータを取得できます。 スキーマ&rsquo;の検出や、サブスクリプションの互換性のあるデータベースの表示など、摩擦を軽減する強力なエクスペリエンスを構築しました。 見せてください。</p>
+
+
+  <p>データ&rsquo;のインポートと呼ばれる &ldquo;ガイド付きワークフローを&rdquo; 構築しました。このワークフローでは、すべてを設定する方法について説明しています。 新しいデータベース ピッカーを使用すると、サブスクリプションの下にあるデータベースの一覧をスキャンして選択できます。接続文字列の検索や書式設定について心配する必要はありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e7cd2aa5-7ee7-4831-ba13-15b0bad23e32.png"><img alt="sqlPicker" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f7b1404a-7163-47d3-87e3-1d8715f7ef3e.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="sqlPicker" width="1024"></a></p>
+
+
+  <p>データベースを選択すると、ユーザーが&rsquo;自動的に検出され、接続をテストできます。 接続すると、テーブルの一覧 (または DocumentDB のコレクション) が読み込まれ、参照できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/99608e62-de2c-4d48-9be0-59697097f733.png"><img alt="sqlPickerTables" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3adbc8dd-a3eb-453c-a948-44689d65e341.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="sqlPickerTables" width="1024"></a></p>
+
+
+  <p>以前は、インデクサーを作成するときに、インデックス スキーマを最初から定義する必要があります。 何百もの列がある&rsquo;場合は、特にペイロードを手で作成する場合は、これは簡単です。 新しいインポート データ エクスペリエンスでは、データ ソースからスキーマが検出され、開始点が提供されます。 これには、型とキー値に関する提案も含まれます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/27c3f4b5-5c40-4359-918d-79076ec92e88.png"><img alt="importSchema" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8219f7df-23b7-4cdf-8863-be2190623bdd.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="importSchema" width="1024"></a></p>
+
+
+  <p>データを最新の情報に更新することが重要であり、スケジュールされた実行を簡単に設定して、それを実現できます。 また、真ん中などのピーク時に実行をスケジュールして、実稼働システムの余分な負荷を回避できます。</p>
+
+
+  <p>インデクサーでは、データベースの負荷を軽減するために変更の追跡もサポートされています。 統合アプリケーション&rsquo;を<a href="https://msdn.microsoft.com/library/bb933875.aspx" target="_blank">SQL場合</a>Change Tracking自動的&rsquo;に設定されます。 それ以外の場合は、高基準値ポリシーを指定できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1e3222c6-0436-48a3-a11b-2d6fafd41dcd.png"><img alt="indexerScheduleChangeTracking" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b5bc0326-b0d0-41a2-b43b-9fb66921c0a1.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="indexerScheduleChangeTracking" width="1024"></a></p>
+
+
+  <p>インデ&rsquo;クサーを設定&rsquo;したら、実行を監視し、すべてがスムーズに実行されているのを確認する方法が必要になります。 インデクサー監視ページでは、すべてのインデクサーの正常性の概要を簡単に確認できます。最後の実行の状態とドキュメント数が表示されます。 個々のインデクサーをドリルダウンして、時間の経とうに実行を追跡できます。 インデックス&rsquo;作成中にドキュメント レベルのエラーを追いかける場合もサポートされています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d09e292d-7487-40fa-bc54-bf5b5f52c72a.png"><img alt="indexerMonitoring" border="0" height="576" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a8916377-4808-4c8b-95a0-f5cdebbcdf41.png" style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-image: none" title="indexerMonitoring" width="1024"></a></p>
+
+
+  <p>新しいインポート エクスペリエンスによって、Azure Search の使用を開始できると期待しています。 ご質問がある場合は、以下のコメントをお寄せください。または <a href="https://feedback.azure.com/forums/263029-azure-search" target="_blank">、UserVoice</a> に関するフィードバックをお寄せください。</p>

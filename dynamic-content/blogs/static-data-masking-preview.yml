@@ -1,0 +1,131 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c82009c487ceac3df04bebb0f1682a350c509739
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892155"
+Slug: static-data-masking-preview
+Title: Azure SQL Database および SQL Server の静的データマスク
+Summary: SQL セキュリティチームは、静的なデータマスクのパブリックプレビューリリースを共有することをお勧めします。 静的データマスクは、ユーザーが SQL データベースのコピーで機微なデータをサニタイズするのに役立つデータ保護機能です。
+Content: >-
+  <div>
+
+  <p paraeid="{eb245597-c2c3-4163-acce-efbb10f4dff0}{243}" paraid="116197554">SQL セキュリティチームは、静的なデータマスクのパブリックプレビューリリースを共有することをお勧めします。 静的データマスクは、ユーザーが SQL データベースのコピーで機微なデータをサニタイズするのに役立つデータ保護機能です。 <strong>&nbsp;</strong></p>
+
+
+  <p paraeid="{eb245597-c2c3-4163-acce-efbb10f4dff0}{243}" paraid="116197554"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/23ce9a72-1e54-4d95-9c73-aadace4ddff5.png"><img alt="Static Data Masking" border="0" height="317" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c3f7241e-dabe-48e7-98e0-cf09e6913771.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="静的データマスク" width="624"></a></p>
+
+  </div>
+
+
+  <h2>ユース ケース</h2>
+
+
+  <div>
+
+  <p>静的なデータマスクは、組織のデータベースのサニタイズされたコピーを作成する際に役立つように設計されています。これにより、すべての機密情報が、非運用ユーザーと共有できるように変更されています。 静的データマスクは、次の場合に使用できます。</p>
+
+
+  <ul>
+   <li>開発とテスト</li>
+   <li>分析とビジネス レポート</li>
+   <li>トラブルシューティング</li>
+   <li>コンサルタント、研究チーム、または任意のサードパーティとのデータベースの共有</li>
+  </ul>
+
+
+  <p>静的なデータマスクを使用すると、運用環境と開発/テスト環境の分離などのセキュリティ要件への対応が容易になります。 <a href="https://www.microsoft.com/en-us/trustcenter/privacy/gdpr/get-started" target="_blank">GDPR</a>の対象となる組織の場合、この機能は、データベースの構造を維持しながら、すべての個人情報を削除し、さらに処理するための便利なツールです。</p>
+
+  </div>
+
+
+  <div>
+
+  <h2>静的データマスクのしくみ</h2>
+
+  </div>
+
+
+  <div>
+
+  <p paraeid="{7ada4fb4-2115-4117-9067-fbe874af78b3}{111}" paraid="905320836">静的なデータマスクでは、データベース内で選択された各列に対してマスキングがどのように動作するかをユーザーが構成します。 次に、静的なデータマスクによって、データベースのコピーのデータが、その構成に基づいて生成された新しいマスクされたデータに置き換えられます。 マスクされたコピーから元のデータのマスクを解除することはできません。 静的データマスクは、元に戻すことができない操作を実行します。</p>
+
+  </div>
+
+
+  <div>
+
+  <p paraeid="{a76099c8-cb2d-4da8-83d7-9ec56478e8b8}{30}" paraid="340231271">次の例では、 <strong>FirstName</strong> 列のすべてのエントリが nullified されています。 列 <strong>LastName</strong> は、ランダムに生成された文字列で作成されます。 <strong>EmailAddress</strong>列では、名前はランダムに生成された文字列に置き換えられていますが、ドメイン拡張機能は維持されています。 同様の解説は、市外局番が保持されていても、最後の7桁ではなく、<strong>電話</strong>の列に適用されます。</p>
+
+
+  <p paraeid="{a76099c8-cb2d-4da8-83d7-9ec56478e8b8}{30}" paraid="340231271"><br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c8fd8d94-8c67-41c5-a06d-4d990ccd26e6.png"><img alt="Before and after" border="0" height="369" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/9e7282c2-de4c-4a2a-bbcc-a1222e2b64ad.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Before と after" width="746"></a></p>
+
+
+  <h2 paraeid="{a76099c8-cb2d-4da8-83d7-9ec56478e8b8}{30}" paraid="340231271">静的データマスクと動的データマスク</h2>
+
+  </div>
+
+
+  <div>
+
+  <p paraeid="{7ada4fb4-2115-4117-9067-fbe874af78b3}{173}" paraid="769295907">データマスクは、データベースにマスクを適用して機密情報を隠し、新しいデータまたはスキャンされデータに置き換えるプロセスです。 Microsoft では、静的なデータマスクと動的データマスクという2つのマスクオプションを提供しています。</p>
+
+  </div>
+
+
+  <table border="1" cellpadding="2">
+   <tbody>
+    <tr>
+     <td valign="top">
+     <p align="center"><strong>静的データマスク</strong></p>
+     </td>
+     <td valign="top">
+     <p align="center"><strong>動的なデータ マスキング</strong></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top">
+     <ul>
+      <li>データベースのコピーに対して行われます</li>
+      <li>元のデータを取得できません</li>
+      <li>マスクはストレージ レベルに実行されます</li>
+      <li>すべてのユーザーが同じマスクされたデータにアクセスできます</li>
+     </ul>
+     </td>
+     <td valign="top">
+     <ul>
+      <li>元のデータベースに対して行われます</li>
+      <li>元のデータはそのまま保持されます</li>
+      <li>マスクはクエリ時にその場で実行されます</li>
+      <li>マスクはユーザーのアクセス許可に基づいて変化します</li>
+     </ul>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <h2>静的データマスクをダウンロードする方法</h2>
+
+
+  <div>
+
+  <p paraeid="{5060bbf0-c422-436f-879d-ccf2188ddddc}{28}" paraid="473448520">静的データマスクは<a href="https://docs.microsoft.com/sql/relational-databases/security/static-data-masking">SQL Server Management Studio 18.0</a> preview 5 以降に付属しています。 &nbsp;詳細については、「<a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/static-data-masking?view=sql-server-2017">静的データマスク</a>」 &ldquo; のドキュメントを参照してください。&rdquo;</p>
+
+
+  <h2>互換性</h2>
+
+  </div>
+
+
+  <div>
+
+  <p paraeid="{5060bbf0-c422-436f-879d-ccf2188ddddc}{47}" paraid="465198287">静的データマスクは SQL Server (SQL Server 2012 以降)、Azure SQL Database (DTU および仮想コアベースのホスティングオプション、ハイパースケールを除く)、および Azure Virtual Machines での SQL Server と互換性があります。</p>
+
+
+  <p paraeid="{5060bbf0-c422-436f-879d-ccf2188ddddc}{47}" paraid="465198287">チームはお客様のフィードバックを積極的に探しています。ご意見 <a target="_blank">static-data-masking@microsoft.com</a> をお寄せください。</p>
+
+  </div>

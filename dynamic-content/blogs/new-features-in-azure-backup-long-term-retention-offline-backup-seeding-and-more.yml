@@ -1,0 +1,85 @@
+### YamlMime:Yaml
+ms.openlocfilehash: c8a34735cbbc32f34c83342d0c30e3cc959dc5b0
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892838"
+Slug: new-features-in-azure-backup-long-term-retention-offline-backup-seeding-and-more
+Title: Azure Backupの新機能 - 長期保有、オフライン バックアップ シード処理など
+Summary: 2015 年 2 月の更新プログラムでは、多くの機能をお知らせAzure Backupしています。
+Content: >-
+  2015 <a title="" href="https://aka.ms/azurebackup_landingpage">年 2 月の更新プログラムでは、多くの機能をAzure Backup Azure Backup</a>しています。 主な機能は次のとおりです。
+
+  <ul>
+   <li>長期保有 - テープ交換としてのクラウド</li>
+   <li>オフライン シード処理 - 初期シード処理を迅速かつオフザネットワークで完了します</li>
+   <li>すべての DPM ワークロードを Azure にバックアップする</li>
+   <li>SCOM での監視とレポートの改善</li>
+  </ul>
+
+  &nbsp;
+
+
+  サポート技術情報の記事Azure Backup KB3033794 <a title="</a>から最新3033794" href="https://support2.microsoft.com/kb/3033794">エージェントをダウンロードします。 この更新プログラムをダウンロードすると、過去数か月間にリリースされたすべての機能が自動的に取得されます。
+
+  <ul>
+   <li><a title="KB 記事 2989574" href="https://support.microsoft.com/kb/2989574"> KB2989574</a>: 850 GB を超えるデータ ソースのサポート</li>
+   <li><a title="KB 記事 2997692 KB2997692: Azure Backup Long Term Retention <a title="</a> and Simplified Registration for Azure Backup" href="https://azure.microsoft.com/blog/2014/09/11/announcing-long-term-retention-for-azure-backup/">" href="https://azure.microsoft.com/blog/2014/09/11/getting-started-with-azure-backup/"> Simplified Signup &amp; Registration <a title="</a>" href="https://support.microsoft.com/kb/2997692"></a></li>
+   <li><a title="KB 記事 2999951" href="https://support.microsoft.com/kb/2999951"> KB2999951</a>: <a title="Windows Server 2008 と Azure Backup" href="https://azure.microsoft.com/blog/2014/10/06/announcing-support-for-backup-of-windows-server-2008-with-azure-backup/"> Support for Windows Server 2008 のサポート</a></li>
+   <li><a title="KB3015072" href="https://support.microsoft.com/kb/3015072"> KB3015072</a>: <a title="" href="https://azure.microsoft.com/blog/2014/12/16/azure-backup-announcing-support-for-windows-client-operating-system/">Windows クライアント オペレーティング システムのサポート Windows 7、Windows 8、Windows 8.1</a></li>
+  </ul>
+
+  このブログでは、このリリースの機能の簡単な概要を提供します。今後数週間以内に詳細なブログを紹介します。
+
+  <h2><a title="長期保有 - テープとしてのクラウドの置換" href="https://support2.microsoft.com/kb/3033794">長期保有 – テープ交換としてのクラウド</a></h2>
+
+  最新の更新プログラムを使用すると、お客様は日単位、週単位、月単位、および年単位の保持ポリシーを指定できます。 お客様は、Azure で最大 99 年間データを保持できます。 長期保有のニーズに対応するためにテープを使用している場合、このリリースでは、バックアップと長期保有のニーズに対処するために Azure を使用する説得力のある価値を提供します。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/16/New-Protection.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="新しい保護" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/New-Protection_thumb.png" alt="New Protection" width="939" height="772" border="0" /></a>
+
+
+  図 1: Azure バックアップの複数の保持ポリシー
+
+
+  &nbsp;
+
+  <h2><a title="オフライン シード処理 - Azure Backup" href="https://support2.microsoft.com/kb/3033794">オフライン シード処理 - 初期シード処理をより迅速かつオフザネットワークで完了します</a></h2>
+
+  Azure Backupを使用すると<a title="、お客様は Azure" href="https://azure.microsoft.com/en-us/documentation/articles/storage-import-export-service/"> Import/Export Azure Import/Export サービスと統合することで、初期バックアップを完了</a>できます。 お客様は、混雑したネットワーク上で初期バックアップ コピーを送信するのではなく、初期バックアップ コピーを含むディスクを最も近い Azure データセンターに発送できます。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/16/Offline-Backup.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="オフライン バックアップ" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Offline-Backup_thumb.png" alt="Offline Backup" width="944" height="772" border="0" /></a>
+
+
+  図 2: Azure へのオフライン バックアップ
+
+
+  &nbsp;
+
+  <h2><a title="すべての DPM ワークロードを Azure にバックアップする" href="https://support.microsoft.com/kb/3021791">すべての DPM ワークロードを Azure にバックアップする</a></h2>
+
+  このリリースまでは、DPM のお客様は Hyper-V 仮想マシンのみをバックアップし、データベースとSQLフォルダー&amp;を Azure にバックアップできます。 <a title="DPM UR5DPM UR5" href="https://support.microsoft.com/kb/3021791"><a title="</a> と Azure Backup Agentlatest" href="https://aka.ms/azurebackup_agent"> Azure Backup</a> エージェントを使用すると、お客様は Microsoft SharePoint、Microsoft Exchange、Windows Client ワークロードを Azure にバックアップできます。 <a title="AZURE への DPM ワークロード の" href="https://blogs.technet.com/b/dpm/archive/2015/02/11/update-rollup-5-for-system-center-2012-r2-data-protection-manager-is-now-available.aspx">バックアップワークロード プラットフォームのサポートの詳細を &amp; 確認してください</a>。
+
+  <h2><a title="SCOM での SCOMImproved" href="https://support.microsoft.com/kb/3021791"> の監視とレポートの改善</a></h2>
+
+  DPM 管理パック<a title="用" href="https://www.microsoft.com/en-us/download/details.aspx?id=45525"></a>の新しい管理パックは、複数の DPM サーバー間でデータ豊富なカスタム レポートとダッシュボードを生成するために使用できる強力なレポート インフラストラクチャを提供します。 お客様は、すべての DPM サーバーにアクセスして、書き込み可能なレポートを抽出する必要がなくなりました。新しい Reporting Management Pack には、それ以上の機能が用意されています。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/02/16/DPM.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="DPM" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/DPM_thumb.png" alt="DPM" width="1028" height="501" border="0" /></a>
+
+
+  図 3: 新しいレポート フレームワークに基づくデモ レポート
+
+
+  &nbsp;
+
+  <h3>関連リンク/コンテンツ:</h3>
+
+  <ul>
+   <li>DPM の詳細についてはAzure Backup <a title="Azure Backup DPM のSystem Center Data Protection Manager <a title="" href="https://aka.ms/dpm_learnmore">System Centerしてください</a>。</a>" href="https://aka.ms/azurebackup_landingpage"></li>
+   <li>[無料の <a title="Azure 試用版" href="https://aka.ms/azure_freetrial">サブスクリプション] 無料 Azure <a title="</a>試用版サブスクリプションをクリックし、エージェントの最新Azure Backup Agentlatest" href="https://aka.ms/azurebackup_agent"> Azure Backupを</a>ダウンロードして開始します。</li>
+   <li>ヘルプが必要ですか? DPM フォーラムDPM <a title="</a><a title="フォーラムと" href="https://aka.ms/dpmforums">、サポートのための Azure Backup フォーラム" href="https://aka.ms/azurebackup_forum">Azure Backupに</a>連絡してください。</li>
+   <li>Feedbackimprove</a> を使用して<a title="Azure Backup方法" href="https://aka.ms/azurebackup_feedback">を教Azure Backup新しいアイデアを投稿し、既存のアイデアをアップ投票してください。</li>
+  </ul>

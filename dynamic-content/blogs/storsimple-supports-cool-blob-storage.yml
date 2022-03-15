@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: ef163858138329a942b394ada44ce7c5c3574589
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892115"
+Slug: storsimple-supports-cool-blob-storage
+Title: StorSimple では、クール BLOB ストレージがサポートされます
+Summary: StorSimple では Azure Blob Storage アカウントがサポートされています。
+Content: >-
+  <p><a href="https://www.microsoft.com/en-us/server-cloud/products/storsimple/"><u>StorSimple</u></a> では Azure Blob Storage アカウントがサポートされています。 <a href="https://download.microsoft.com/download/A/4/4/A4433735-9985-46F3-B026-91B86A7B22BD/StorSimple_Solution_Overview.pdf"><u>StorSimple 8000 シリーズ Storage Array</u></a>、<a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-virtual-device-u2/"><u>StorSimple Cloud Appliances</u></a>、<a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-overview/"><u>StorSimple Virtual Array</u></a> はすべて、BLOB ストレージ アカウントによって提供されるホット アクセス層とクール アクセス層の両方を完全にサポートしています。</p>
+
+
+  <p>BLOB ストレージ アカウントとは、Azure Storage に BLOB (オブジェクト) として非構造化データを格納するための特殊なストレージ アカウントです。 BLOB ストレージ アカウントを使用すると、ホット ストレージアクセス層とクール ストレージ アクセス層の中から選択できます。 また、ホット アクセス層とクール アクセス層の切り替えは、いつでも簡単に切り替Azure portal。 BLOB ストレージ アカウントの待機時間 (ホットとクール) はミリ秒単位であり、スケーラビリティとパフォーマンスのターゲットは汎用ストレージ アカウントと同じです。 詳細については、Azure Blob Storage のドキュメントを参照 <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-blob-storage-tiers/">してください</a>。</p>
+
+
+  <p>Azure Blob Storage アカウントは、StorSimple 内の汎用ストレージ アカウントと同様に使用できます。 Blob Storage アカウントを使用する StorSimple ボリューム コンテナーを構成すると、すべてのクラウド階層化データとクラウド スナップショット データが、そのストレージ アカウントに移動します。</p>
+
+
+  <p>同じ StorSimple アプライアンス内で、さまざまな種類のストレージ アカウントを混在できます。 各ボリューム コンテナーは、1 つのストレージ アカウントで構成されます。 アクセス頻度の高いボリュームが 1 つある場合は、そのボリュームにホット ストレージを使用し、アクセス頻度の低いデータを持つボリュームにはクール ストレージを使用できます。 Azure クール ストレージ層は、多くの StorSimple シナリオに最適です。 一般に、ほとんどアクセスしないデータは、クール ストレージ層に対して優れた候補です。</p>
+
+
+  <p>現時点では、汎用ストレージ アカウントから Blob Storage アカウントへの StorSimple データの移行はサポートされていませんが、今後、これを追加する方法を検討しています。 移行を行う既存のお客様の場合は、 までお問い合わせください <a href="mailto:memard@microsoft.com"><u>memard@microsoft.com</u></a>。&nbsp;</p>
+
+
+  <p>StorSimple で Azure Blob Storage アカウントを使用するためのベスト プラクティス:</p>
+
+
+  <ul>
+      <li>最初に、アクセス層をホットに設定します。 最初のデータ移行が完了し、アカウントに大量のアクセス頻度の低いデータが含まれるまで、アクセス層をホットに設定します。 その後、クールに切り替えて検討してください。</li>
+      <li>既存の使用パターンを評価して、クール ストレージ アカウントを使用してメリットを得るかどうかを判断します。 ストレージの使用パターンAzure Storageメトリックを使用する方法については、こちらをクリック<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-enable-and-view-metrics/">してください</a>。</li>
+      <li>512K チャンク サイズを使用する StorSimple ボリュームの構成を検討してください。 StorSimple では、既定で 64K のデータ チャンクが使用されます。 これにより、重複を減らす可能性がある場合に発生するトランザクションとトランザクション料金の数を減らします。 これを行うには、ボリュームの作成時にアクセス &ldquo;頻度の低いアーカイブ データ&rdquo; のチェック ボックスをオンにします。</li>
+      <li>開発/テストや調査に StorSimple Cloud Appliance を使用する場合など、多くのクラウド データ アクセスを伴うシナリオは、ホット ストレージに適しています。</li>
+      <li>データを頻繁に複製する場合は、ホット ストレージを選択する必要があります。</li>
+  </ul>
+
+
+  <p>クール BLOB ストレージを使用して StorSimple アプライアンスを構成するには:</p>
+
+
+  <ol>
+      <li><a href="https://azure.microsoft.com/en-us/documentation/articles/storage-blob-storage-tiers/">BLOB ストレージ アカウントを作成します</a>。</li>
+      <li><a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-manage-storage-accounts/">StorSimple を使用してストレージ アカウントを構成します</a>。</li>
+  </ol>
+
+
+  <p>価格情報については、営業チームにお問い合わせください。 <a href="mailto:storagesales@microsoft.com">storagesales@microsoft.com</a></p>

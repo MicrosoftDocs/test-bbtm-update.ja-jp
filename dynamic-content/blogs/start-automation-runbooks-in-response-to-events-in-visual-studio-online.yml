@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 35798e47d25fda5db5320be48572d9794fd1d991
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892167"
+Slug: start-automation-runbooks-in-response-to-events-in-visual-studio-online
+Title: オンラインでイベントに応答して Automation Runbook をVisual Studioする
+Summary: オンライン サービス Azure Automationを使用して Runbook Visual Studioを開始します。
+Content: >-
+  今年の初めに //Build または Ignite に参加できない場合は、Microsoft の製品スイートに提供される大きな新機能について、記録されたセッションの一部を視聴する機会がありました。個人的には、私が最も気に入っているのは、Visual Studio Online (VSO) と Azure Automation。これら 2 つのサービスは、アプリケーション ライフサイクル管理 (ALM)/DevOpsです。
+
+
+  VSO の現在および間もなくリリースされる機能の中で、最近目にしたのが拡張オプションです。昨年発表されたオプションの 1 つは <a href="https://www.visualstudio.com/en-us/get-started/integrate/integrating-with-service-hooks-vs" target="_blank">、Service Hooks です</a>。サービス フックを使用すると、VSO プロジェクトで何かが発生した場合 (新しいビルドの作成、作業項目の更新など)、他のサービスでタスクを実行できます。使用可能なサービスの 1 つは <a href="https://www.visualstudio.com/get-started/integrate/service-hooks/webhooks-and-vso-vs" target="_blank">Webhook です</a>。Webhook は、VSO から任意の URL にイベントに関する JSON データを投稿できます。「Azure Automation!
+
+
+  <a href="https://azure.microsoft.com/en-in/documentation/articles/automation-webhooks/" target="_blank">Azure Automation Webhook</a> の最近の発表では、AZURE でホストされているカスタム Runbook をトリガーして、VSO でイベントが発生した場合に必要なアクションを実行できます。それはすばらしいのではありませんか。お客様の環境に対してこれが開く可能性DevOps考えてみよう。
+
+  <h2>Webhook と VSO サービス フックの作成</h2>
+
+  この仕組みについて説明するために、VSO からデータを受信し(O365 経由で) 指定されたアドレスに電子メールで送信する <a href="https://gallery.technet.microsoft.com/Send-Email-from-Azure-e7b49e16" target="_blank">Runbook</a> を Azure Automation で作成しました。この Runbook を設定する手順を次に示します。
+
+  <ol>
+   <li>を参照 <a href="https://portal.azure.com">https://portal.azure.com</a> し、組織の Azure サブスクリプションにログインします。ここから、[参照 - Automation アカウント]&gt; をクリックします。</li>
+   <li>[Automation アカウント] ブレードで、新しいアカウントを作成するか、既存の Automation アカウントに Runbook を追加することができます。</li>
+   <li>Automation アカウントで、[資産 - 資格情報] を&gt; クリックします。電子メールを送信するユーザーのユーザー名/パスワードを含む新しい資格情報を作成します。資格情報に割り当てる名前をメモします。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuCredential" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuCredential.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="270" border="0" /></li>
+   <li>Microsoft スクリプト センターにアクセスし、Runbook Send-VsoEmailダウンロードします。<a href="https://gallery.technet.microsoft.com/Send-Email-from-Azure-e7b49e16" target="_blank"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-Download" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Download.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="108" height="29" border="0" /></a></li>
+   <li>スクリプトを開き、27 行目の [手動で構成された変数] セクションを見つける。環境ごとに次の変更を行います。
+  <ol>
+   <li>行 #30 – 資格情報資産名を手順 3 で設定した名前に更新します。</li>
+   <li>行 #31 – 電子メールの [To] フィールドに追加される電子メール アドレスの配列を更新します。</li>
+   <li>32 行目 – 使用する SMTP サーバーを更新します。</li>
+  </ol>
+
+  </li>
+   <li>Automation アカウントに戻り、そこから [Runbook の追加 -&gt; 既存の Runbook のインポート] をクリックします。手順 5. で変更したファイルを選択すると、Runbook Send-VsoEmailされます。
+  <strong><span style="color: #ff0000;">メモ：</span></strong>  Runbook は、ファイルと同じ名前で作成されます。別の名前を使用する場合は、インポートする前にファイルの名前を変更します。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuAddNewRunbook" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuAddNewRunbook.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="302" border="0" /><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuImportRunbook" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuImportRunbook.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="279" border="0" /></li>
+   <li>これで、環境内に次のような Runbook が作成されます。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuSendVsoEmail" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuSendVsoEmail.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="309" border="0" /></li>
+   <li>次に、この Runbook を VSO から開始できるように、Azure Automation Webhook を作成する必要があります。[Runbook Send-VsoEmail] で、[Webhook -&gt; 新しい Webhook の作成] をクリックします。これで Webhook が作成されました。これにより、VSO からその Runbook を呼び出す (または実際には、その問題に関する任意の場所) にアクセスできます。
+  <strong><span style="color: #ff0000;">注</span></strong>: [作成] をクリックすると、もう一度取得する方法がないので、URL を保存してください。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuCreateNewWebhook" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuCreateNewWebhook.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="290" border="0" /></li>
+   <li>お使Visual Studio Online アカウントと、統合するプロジェクトを参照します。プロジェクトのホーム ページで、右上隅にある歯車をクリックします。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuVsoProject" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuVsoProject.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="127" border="0" /></li>
+   <li>コントロール パネル ページで、[サービス フック] タブをクリックします。次に、新しい Web フック サブスクリプションを作成します。
+  <img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuServiceHook" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuServiceHook.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="480" height="411" border="0" /></li>
+   <li>[トリガー] の値を [作成された作業項目] に設定します。 一覧表示されている任意のイベントから統合を構築できますが、ここではこのイベントを目的として使用します。
+  <img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuVsoServiceHookTrigger" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuVsoServiceHookTrigger.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="480" height="302" border="0" /></li>
+   <li>[URL] フィールドに、手順 8. で作成した Webhook URL を入力します。追加の設定を構成することもできますが、次に示すように構成し、[テスト] をクリックします。
+  <strong><span style="color: #ff0000;">注</span></strong>: メールでデータを正しくプルするには、少なくともリソースの詳細を送信する必要があります。
+
+  <img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuVsoServiceHookSettings" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuVsoServiceHookSettings.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="419" height="480" border="0" /></li>
+   <li>[テスト] をクリックすると、Webhook 経由で Azure Automation Runbook にテスト データが送信されます。すべてが問題ない場合は、次のような成功メッセージが表示されます。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuVsoServiceHookTest" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuVsoServiceHookTest.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="480" height="319" border="0" /></li>
+   <li>このテストは実際に Runbook を開始するライブ テストです。テスト VSO データを含む電子メールを受け取る必要があります。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuTestEmail" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuTestEmail.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="480" height="372" border="0" /></li>
+   <li>テストを終了するには、実際の VSO 作業項目を作成し、動作を確認しましょう。VSO プロジェクトのバックログ ビューを参照し、新しい作業項目を作成します。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuVsoNewWorkItem" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuVsoNewWorkItem.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="610" height="193" border="0" /></li>
+   <li>新しい電子メールが届き、作成された新しいバックログ項目が通知されます。<img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cmank-StartAutomationRunbooksinResponsdioEventsinVisualStudioOnline-AzAuVsoEmail" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzAuVsoEmail.png" alt="Start Automation Runbooks in Response to Events in Visual Studio Online" width="480" height="403" border="0" /></li>
+  </ol>
+
+  これで終了です。これで、Visual Studio Online Service Hooks を使用して、すべての種類のクールな統合を構築する機能が提供されましたが、すべてではありません。VSO は、Webhook を使用する多くの統合の可能性の 1 つの例にすがっています。この機能は、GitHub、<a href="https://azure.microsoft.com/en-us/services/scheduler/" target="_blank">Azure Scheduler</a>、または実際<a href="https://developer.github.com/webhooks/" target="_blank">には任意の</a>カスタム アプリケーションなど、他のアプリケーションと簡単に動作します。お疲れさまでした。
+
+
+  次のAzure Automation?このサービスについては、こちらを <a href="https://aka.ms/Q2p1ap" target="_blank">確認し</a>、Twitter のAzure Automation <a href="https://twitter.com/AzureAutomation" target="_blank">に従ってください</a>。
+
+
+  <i><span style="font-family: Calibri;">このゲスト ブログの投稿は、Concurrency, Inc. の Was....Azure ブログで取り上Azure Automation関するブログ記事をお読みください。Twitter で Joe Levy にお問い合 </span></i><a href="https://twitter.com/jodoglevy" target="_blank"><i>わせください</i></a><i><span style="font-family: Calibri;">。</span></i>

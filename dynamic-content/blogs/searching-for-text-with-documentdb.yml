@@ -1,0 +1,104 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0375f6a8da5f7e806e8e08fd669abb95e85cd9f8
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892665"
+Slug: searching-for-text-with-documentdb
+Title: DocumentDB を使用したテキストの検索
+Summary: DocumentDB のお客様の間でよく聞く質問は、「操作方法文字列値を含むドキュメントを検索する」です。  この投稿では、これを行う 2 つの異なる方法について説明します。
+Content: >-
+  <p>DocumentDB のお客様によくある質問は、 &ldquo;操作方法なテキスト値を含むドキュメントを検索する場合です。&rdquo; この投稿では、実行する内容に応じて、これを行う 2 つの異なる方法について説明します。</p>
+
+
+  <h2>1.単語のトークン化</h2>
+
+
+  <p>最初のメソッドは実装が簡単で、要件が比較的単純な単語マッチングの場合にうまく機能します。 次の JSON のようなドキュメントについて考えます。</p>
+
+
+  <div id="codeSnippetWrapper">
+
+  <pre id="codeSnippet" style="margin: 0em; padding: 0px; width: 100%; text-align: left; color: black; line-height: 12pt; overflow: visible; font-family: &quot;Courier New&quot;, courier, monospace; font-size: 8pt; direction: ltr; background-color: rgb(244, 244, 244);">
+
+  {
+      &quot;id&quot;: &quot;CDC101&quot;,
+      &quot;title&quot;: &quot;Fundamentals of database design&quot;,&nbsp;&nbsp;&nbsp;&nbsp; &quot;credits&quot;:  10
+  }</pre>
+
+  title フィールドにデータベースという単語が含っていたすべての&lsquo;&rsquo;ドキュメントを検索するには、どうすれば良いでしょうか。 これを行う簡単な方法は、タイトル フィールドをトークン化し、次のように JSON を作成する方法です。</div>
+
+
+  <div>
+
+  <pre id="codeSnippet" style="margin: 0em; padding: 0px; width: 100%; text-align: left; color: black; line-height: 12pt; overflow: visible; font-family: &quot;Courier New&quot;, courier, monospace; font-size: 8pt; direction: ltr; background-color: rgb(244, 244, 244);">
+
+  {
+      &quot;id&quot;: &quot;CDC101&quot;,
+      &quot;title&quot;: &quot;Fundamentals of database design&quot;,
+      &quot;titleWords&quot;: [ &quot;fundamentals&quot;, &quot;database&quot;, &quot;design&quot; ],
+      &quot;credits&quot;:  10
+  }</pre>
+
+  </div>
+
+
+  <blockquote>
+
+  <div>&nbsp;</div>
+
+
+  <div>注:&nbsp; RegEx を使用して単語を小文字に変換し、句読点を削除してください。 また、 などのストップ ワード、、 &ldquo;&rdquo;&rdquo;&ldquo;のストップ ワードを取り&ldquo;&rdquo;&nbsp;除く ()<a href="https://en.wikipedia.org/wiki/Stop_words" title="https://en.wikipedia.org/wiki/Stop_words">https://en.wikipedia.org/wiki/Stop_words</a></div>
+
+  </blockquote>
+
+
+  <p>次のクエリを使用すると、タイトル内の単語を簡単に検索できます。</p>
+
+
+  <div>
+
+  <div>
+
+  <pre id="codeSnippet" style="margin: 0em; padding: 0px; width: 100%; text-align: left; color: black; line-height: 12pt; overflow: visible; font-family: &quot;Courier New&quot;, courier, monospace; font-size: 8pt; direction: ltr; background-color: rgb(244, 244, 244);">
+
+  SELECT VALUE r
+
+  FROM root r JOIN word IN r.titleWords
+
+  WHERE word = &quot;database&quot;
+
+  </pre>
+
+  </div>
+
+
+  <blockquote>注:&nbsp; このステートメントで <strong>VALUE</strong> キーワードを使用SQL注意してください。 <strong>VALUE</strong> キーワードは、JSON 値を返す方法を提供します。 VALUE キーワードの詳細 <strong>については </strong>、「&nbsp;<a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/" target="_blank" title="DocumentDBQuery と DocumentDBarticle"> を使用したクエリ」を</a>&nbsp;参照してください。</blockquote>
+
+  LINQ で同じクエリを C# で表現する場合は、次の操作を行います。
+
+
+  <div>
+
+  <pre id="codeSnippet" style="margin: 0em; padding: 0px; width: 100%; text-align: left; color: black; line-height: 12pt; overflow: visible; font-family: &quot;Courier New&quot;, courier, monospace; font-size: 8pt; direction: ltr; background-color: rgb(244, 244, 244);">
+
+  List&lt;MyType&gt; results = client.CreateDocumentQuery&lt;MyType&gt;(collection.SelfLink)
+      .SelectMany(r =&gt; r.AllWords
+          .Where(word =&gt; word == &quot;database&quot;)
+          .Select(word =&gt; r)
+      ).ToList&lt;MyType&gt;();</pre>
+  </div>
+
+
+  <div>&nbsp;</div>
+
+  &nbsp; 上記のクエリは非常に効率的です。 ここでは、配列内の各単語のインデックスが DocumentDB で既定で作成され、単語に対する簡単な等値一致が可能になるという事実を活用します。 この方法のもう 1 つの大きな利点は、データベースの整合性レベルを受け入れ、トークン化された単語に対する変更をすぐにクエリに使用できる点です。 &nbsp;
+
+
+  <h2>2.Azure Search の使用</h2>
+
+  </div>
+
+
+  <p>トークン化する単語が多数ある場合は、追加の単語配列を格納するために必要な追加のストレージに&#39;を格納できません。または、複数のフィールドにまたがってより複雑なマルチファセットフルテキスト検索機能が必要な場合は、上記の方法は機能しません。また、より強力なフルテキスト対応検索エンジンの支援が必要になります。 幸い、Azure には、セットアップと使用が非常に簡単な Azure Search と呼ばれるもの <a href="https://azure.microsoft.com/en-us/services/search/" target="_blank">があります</a>。 DocumentDB データベースを指すデータ ソースを設定し、Search インデクサーで定義済みのスケジュールに従ってデータをクロールすることができます。 これを設定する詳細な手順については、インデクサーを使用 <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-search-indexer/">した Azure Search での DocumentDB の接続に関するページを参照してください</a>。 また、DocumentDB <a href="https://portalcontent.blob.core.windows.net/samples/searchabletodo.zip">と Search を使用 ASP.NET</a> MVC Web アプリケーションのサンプル をダウンロードできます。 このサンプルを実行するには、Search アカウントと DocumentDB アカウントを作成します。 これらを取得したら、エンドポイントとキー (Azure web.config から取得可能) を使用して管理ポータル。 ダウンロードには、いくつかの Canned データから始める場合は DocumentDB にインポートできるサンプル Todo 項目が含まれています。または、Visual Studio でソリューションを開いてプロジェクトを実行して、クリーン スレートから始めてみることができます。 Todo 項目を追加し、インデックス ボタンを押して手動でインデックスを強制的に再設定してから、検索を実行します。 そのため、DocumentDB 内で&ndash;&gt;テキストを検索するのは簡単です。 DocumentDB の詳細については、サービス ページを<a href="https://azure.com/docdb"></a>参照し、DocumentDB クエリ構文の詳細については、次の<a href="https://www.documentdb.com/sql/demo" target="_blank">ページQuery Playgroundしてください</a>。</p>

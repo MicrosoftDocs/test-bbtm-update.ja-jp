@@ -1,0 +1,72 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1bfd95899370bf53a73e29a0fc290d1c439698cb
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892924"
+Slug: loading-data-into-azure-sql-dw-just-got-easier
+Title: Azure へのデータの読み込SQL Data Warehouse簡単になりました
+Summary: Azure SQL Data Warehouseは、データ ウェアハウスSQLフル マネージドのペタバイト規模のクラウド ソリューションです。 SQL Data Warehouse高いエラスティック性を備え、数分でプロビジョニングしてスケーリングできます。
+Content: >-
+  <p>Azure SQL Data Warehouseは、データ ウェアハウスSQLフル マネージドのペタバイト規模のクラウド ソリューションです。 SQL Data Warehouse高いエラスティック性を備え、数分でプロビジョニングし、容量を数秒でスケーリングできます。 コンピューティングとストレージを個別にスケーリングすることで、複雑な分析ワークロードのコンピューティングをバーストしたり、アーカイブ シナリオのためにウェアハウスをスケールダウンしたり、定義済みのクラスター構成にロックされるのではなく、&#39;で使用しているコストに基づいて支払いを行えます。</p>
+
+
+  <p>2016 年 <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/07/12/the-elastic-future-of-data-warehousing/" target="_blank"></a> 7 月に一般提供を発表して以来、お客様が Data Warehouse に迅速にデータを取得し、より迅速に分析情報を生成し、ビジネスをさらに成長させるよう支援し続けています。 Azure SQL Data Warehouseは、PolyBase を介してデータ読み込みシナリオを解決します。これは、SQL エンジンに組み込SQLです。 Azure SQL Data Warehouse の非常に並列処理 (MPP) アーキテクチャ全体を効果的に活用して、Azure Blob Storage から Data Warehouse への最速の読み込みメカニズムを提供します。 最近、Azure Data Factory コピー ウィザードを使用して、<a href="https://docs.microsoft.com/en-us/azure/data-factory/data-factory-load-sql-data-warehouse" target="_blank">1 秒あたり 1.2</a> GB を超えるスループットで 15 分以下のデータを Azure SQL Data Warehouse に読み込む方法について説明しました。</p>
+
+
+  <p>これがどのように機能するのか理解&rsquo;するために、次のアーキテクチャを大SQL Data Warehouseします。 1 SQL Data Warehouseは、ユーザーが接続してクエリ制御ノード送信する場所であるコンピューティング ノードと、処理が行われるコンピューティング ノードで構成されます。 従来の読み込みツールでは、コントロール ノードを介して個々の行が読み込まれます。 その後、データの分散方法に応じて、適切なコンピューティング ノードに行がルーティングされます。 コントロール ノードは受信時に各レコードを読み取る必要があるため、パフォーマンスが低下する可能性があります。 PolyBase では、コンピューティング ノードを使用してデータを並列で読み込み、パフォーマンスを向上させることができます。その結果、データからの分析情報が速くなります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0c0068b0-8a5a-4e02-b135-8ac563e40d4f.png"><img alt="Parallel Loading with PolyBase" border="0" height="625" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/11bcb322-a8d2-48d8-95b7-09fb690b5703.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="PolyBase を使用した並列読み込み" width="1111"></a></p>
+
+
+  <h2>区切りテキスト ファイルの UTF-16 のサポート</h2>
+
+
+  <p>PolyBase を使用して Azure SQL Data Warehouse にデータを読み込みやすくするために、UTF-16 でエンコードされたファイルをサポートするように区切りテキスト ファイル形式を拡張しました。</p>
+
+
+  <p>UTF-16 でエンコードされたファイルのサポートは重要です。これは、このファイルの既定のエンコードBCP.exe。 多&rsquo;くの場合、お客様はオンプレミスのデータ ウェアハウスから UTF-16 形式の Azure Blob Storageにデータをエクスポートしています。 それまでは、データを UTF-8 形式に再コード化するスクリプトを用意する必要がありました。その結果、処理に時間がかかり、データが重複します。 UTF-16 がサポートされたので、ファイルはエンコード変換を行わずに Azure Blob Storage SQL Data Warehouseに直接移動できます。</p>
+
+
+  <h2>UTF 16 テキスト ファイル形式をインポートする方法</h2>
+
+
+  <p>PolyBase &lsquo;を使用して UTF-16 ファイルを SQL DW にインポートするには、エンコード オプションを UTF16&rsquo; に設定して新しいファイル形式を作成する必要があります。 フィールド ターミネータ、日付形式、拒否値など、すべての追加の書式オプションは、UTF-16 エンコードと UTF-8 エンコードの両方でサポートされています。</p>
+
+
+  <p>UTF16 ファイルを読み取るパイプ区切りテキスト ファイル形式の例を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/04a93734-ede7-43c8-9a9c-db6960bd8ba7.png"><img alt="UTF16 File" border="0" height="633" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/180527cd-fed6-4b26-88f7-da2094bffebe.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="UTF16 ファイル" width="1047"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <p>このブログ記事では、PolyBase について少し説明し、それが SQL Data Warehouse に最適なデータ読み込みツールである理由と、UTF-16 でエンコードされたファイル形式の拡張されたサポートについて説明しました。 これは、世界中のすべての Azure リージョンSQL Data Warehouse<a href="https://azure.microsoft.com/en-us/regions/#services." target="_blank">で使用</a>できます。 お客様のクラウドへの移行に関心がある場合は、お試Data Warehouseをお勧めしています。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p><a href="https://azure.microsoft.com/documentation/articles/sql-data-warehouse-overview-what-is/" target="_blank">Azure SQL Data Warehouse の概要</a></p>
+
+
+  <p><a href="https://azure.microsoft.com/documentation/articles/sql-data-warehouse-best-practices/" target="_blank">SQL Data Warehouseベスト プラクティス</a></p>
+
+
+  <p><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-load" target="_blank">データを読み込SQL Data Warehouse</a></p>
+
+
+  <p><a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=AzureSQLDataWarehouse" target="_blank">MSDN フォーラム</a></p>
+
+
+  <p><a href="https://stackoverflow.com/questions/tagged/azure-sqldw" target="_blank">Stack Overflow フォーラム</a></p>
+
+
+  <h2>機能要求</h2>
+
+
+  <p>Azure SQL Data Warehouse の機能要求がある場合は、User Voice を使用してチームに接続するように<a href="https://feedback.azure.com/forums/307516-sql-data-warehouse" target="_blank">提案します</a>。</p>

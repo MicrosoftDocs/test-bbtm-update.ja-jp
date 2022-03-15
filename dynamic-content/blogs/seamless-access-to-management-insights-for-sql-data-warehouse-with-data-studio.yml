@@ -1,0 +1,75 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1152cff10ed7e550a1d77fb866c5ba0fddd26de6
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892671"
+Slug: seamless-access-to-management-insights-for-sql-data-warehouse-with-data-studio
+Title: Data Studio を使用したデータの管理SQL Data Warehouseへのシームレスなアクセス
+Summary: 'Azure SQL Data Warehouse (SQL DW) は、お客様がデータをアクション可能な分析情報に変換するのに役立つ、高速で柔軟で安全な分析プラットフォームです。 '
+Content: >-
+  <p>Azure SQL Data Warehouse (SQL DW) は、お客様がデータをアクション可能な分析情報に変換するのに役立つ、高速で柔軟で安全な分析プラットフォームです。 現在から、Azure SQL DW のお客様は、豊富な分析情報をシームレスに取得し、カスタマイズ可能なダッシュボード ウィジェットを構築して、ワークロードの管理と調整を向上できます。</p>
+
+
+  <p>このエクスペリエンスは、IntelliSense を使用して Transact-SQL (T-SQL) コード エディターを提供するツールである Azure Data Studio の一般提供、一般的なコマンド ライン ツール用の統合ターミナル、拡張機能によってカプセル化されたカスタマイズ可能なデータベース ウィジェットによって実現されます。 Azure SQL DW insights 拡張機能を Azure Data Studio で利用すると、ダッシュボード ウィジェットを自動的にレンダリングして、データ ウェアハウスに対するチューニング分析情報を表示できます。 これらのダッシュボード ビューは自動的に更新され、ベスト プラクティスをシームレスに適用し、ワークロードが 1 つのツール内のパフォーマンスに最適化されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/16cc0eb4-719a-498d-bd25-89298b214579.png"><img alt="Azure SQL Data Warehouse Insights Extension" border="0" height="725" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb5cdb68-737a-4a87-abe3-2a4f8abbd34f.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure SQL Data Warehouse インサイト 拡張機能" width="1157"></a></p>
+
+
+  <p>現在、次のダッシュボード ウィジェットは、拡張機能をダウンロードするときにすぐに使用できます。</p>
+
+
+  <h3>データ ウェアハウス全体のデータ分散</h3>
+
+
+  <p>データ ウェアハウス全体のデータ分散を視覚化して、データ ウェアハウスがクエリのパフォーマンスに影響を与える可能性<a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute#how-to-tell-if-your-distribution-column-is-a-good-choice"></a>のある物理的なデータ スキューに影響を与えているかどうかをすぐに検出できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a7969cb2-672a-40f7-9a66-30257e0b3d5e.png"><img alt="Data Skew Detection" border="0" height="380" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d335eeb8-4b33-4c86-830c-f8a34922a8cc.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="データ スキューの検出" width="1190"></a></p>
+
+
+  <h3>テーブルの正常性</h3>
+
+
+  <p>これらのビューは、列ストア行 <a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-memory-optimizations-for-columnstore-compression" target="_blank">グループの品質</a>を最大化し、最適 <a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-tables-statistics" target="_blank">でない</a>統計に対処し、データ スキュー <a href="https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute#how-to-tell-if-your-distribution-column-is-a-good-choice" target="_blank">を解決するのに役立ちます</a>。 また、これらのビューを使用して影響 <a href="https://azure.microsoft.com/blog/automatic-intelligent-insights-to-optimize-performance-with-sql-data-warehouse/" target="_blank">を受け取</a> ったテーブルを検出することで、データ ウェアハウスの推奨事項をすぐに適用することもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/64ffb1ee-dcce-404a-9913-cf11d5690e34.png"><img alt="Suboptimal Statistics and Skew Detection" border="0" height="385" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb8e5ef3-aa87-4b94-a809-dddfa635921c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="最適でない統計と傾斜検出" width="1189"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0b1804c1-ffe7-469c-9362-28494db93254.png"><img alt="Poor Row Group Quality Detection" border="0" height="325" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6f8e5dec-cfb2-4445-a5e5-b9c7a3364724.png" style="margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="行グループの品質の低い検出" width="308"></a></p>
+
+
+  <h3>データ ウェアハウスのアクティビティを監視する</h3>
+
+
+  <p>アクティブなセッション、キューに入っているクエリ、読み込みに関する詳細が自動的に更新されるデータ ウェアハウス ワークロードについて常に通知されます。 また、最新の<a href="https://azure.microsoft.com/blog/quick-recovery-time-with-sql-data-warehouse-using-user-defined-restore-points/" target="_blank"></a>&rsquo;復元ポイントを特定し、必要に応じて、ツール統合ターミナルを介してユーザー定義の復元ポイントをすぐに作成して、データが確実に保護されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3caca9da-fac7-48b7-b825-2108d4cf8ed8.png"><img alt="Data Warehouse Activity and Latest Restore Point" border="0" height="523" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a38e37ea-e8cf-4e75-b57b-4256a869c710.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Data Warehouse アクティビティと最新の復元ポイント" width="1183"></a></p>
+
+
+  <h3>作業を開始するには:</h3>
+
+
+  <ol>
+   <li><a href="https://aka.ms/sqlopsstudio" target="_blank">Operations Studio SQLダウンロードする</a></li>
+   <li><a href="https://docs.microsoft.com/sql/sql-operations-studio/extensions?view=sql-server-2017" target="_blank">Extensions Manager にアクセスし</a>、<strong>Azure SQL Data Warehouse インサイト</strong></li>
+   <li>[<strong>再読み</strong>込<a href="https://docs.microsoft.com/sql/sql-operations-studio/quickstart-sql-dw?view=sql-server-2017" target="_blank">み] を選択し、SQLに接続します</a></li>
+   <li>サーバーを右クリックし、[ 管理] を <strong>選択します</strong>。 [ダッシュボード <strong>] タブ</strong> を選択して分析情報を表示する</li>
+  </ol>
+
+
+  <p>分析情報ウィジェットは、T-SQL スクリプトを使用して生成され、Azure Data Studio。 すべての監視スクリプトは、次のリポジトリにGitHubされます:SQL Data Warehouse<a href="https://github.com/Microsoft/sql-data-warehouse-samples/tree/master/samples/sqlops/MonitoringScripts" target="_blank">サンプル</a>。 フィードバックを寄稿または提供することで、 <a href="https://github.com/Microsoft/sql-data-warehouse-samples/issues" target="_blank">この拡張機能の改善に役立ちます</a>。</p>
+
+
+  <h2>Azure SQL DW のイノベーションの詳細については、以下を参照してください。</h2>
+
+
+  <ul>
+   <li>Azure SQL <a href="https://na01.safelinks.protection.outlook.com/?url=aka.ms%2Fsqldwignite&amp;data=02%7C01%7C%7C098860988e504059943808d6200e5937%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636731643325662519&amp;sdata=LXNcXpxtN6uBbVhPEQSuoYUbrigCnsdKlbTL3cnMaJ4%3D&amp;reserved=0" target="_blank">DW が最新のサービス更新プログラムを使用してデータ分析を再定義する方法について説明します</a></li>
+   <li>より緊密な DW と統合を使用して、ほぼリアルタイムの分析<a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fazure.microsoft.com%2Fen-us%2Fblog%2Fnear-real-time-analytics-in-azure-sql-data-warehouse%2F&amp;data=02%7C01%7C%7C098860988e504059943808d6200e5937%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636731643325662519&amp;sdata=wRG3PL4xL95KoDbqjx8sVvQi%2FlWIn%2BL1%2Fh%2FUf11HlGA%3D&amp;reserved=0" target="_blank">SQL構築Azure Databricksしてください</a></li>
+   <li>ユーザーが<a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fazure.microsoft.com%2Fen-us%2Fblog%2Fazure-sql-data-warehouse-now-supports-maintenance-scheduling%2F&amp;data=02%7C01%7C%7C098860988e504059943808d6200e5937%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636731643325662519&amp;sdata=5U8CwdWxVmIdApEjZRZSu9kH2extyDNdr%2Fp%2By%2FgX0ic%3D&amp;reserved=0" target="_blank">管理するメンテナンスウィンドウによって、AZURE と DW のお客様のSQLする方法を確認します</a></li>
+  </ul>

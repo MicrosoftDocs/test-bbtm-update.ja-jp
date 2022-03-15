@@ -1,0 +1,116 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 1a30647c587c4359797f005948abe2dcf2e6fc22
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891942"
+Slug: under-the-hood-performance-scale-security-for-cloud-analytics-with-adls-gen2
+Title: パフォーマンス、スケール、クラウド分析のセキュリティとパフォーマンスのADLS Gen2
+Summary: '2019 年 2 月 7 日に、Azure Data Lake Storage (ADLS) Gen2 の一般提供を発表しました。 Azure は、セキュリティで保護された、非常にスケーラブルでコスト効率が高く、最も要求の厳しい実稼働ワークロードを完全に実行できる、セキュリティ侵害のないクラウド ストレージ ソリューションを提供する唯一のクラウド プロバイダーです。 '
+Content: >-
+  <p>2019 年 2 月 7 日に<a href="https://azure.microsoft.com/en-us/blog/analytics-in-azure-is-up-to-14x-faster-and-costs-94-less-than-other-cloud-providers-why-go-anywhere-else/" target="_blank"><strong>、Azure Data Lake Storage (ADLS) Gen2</strong></a> の一般提供を発表しました。 Azure は、セキュリティで保護された、非常にスケーラブルでコスト効率が高く、最も要求の厳しい実稼働ワークロードを完全に実行できる、セキュリティ侵害のないクラウド ストレージ ソリューションを提供する唯一のクラウド プロバイダーです。 このブログ記事では&rsquo;、お客様が要求するエンドツーエンドの分析シナリオを強化する ADLS の技術的基盤について詳しく説明します。</p>
+
+
+  <p>ADLS は、ビッグ データ分析用に専用に構築された唯一のクラウド ストレージ サービスです。 これは、真のエンタープライズ データ レイクを実現し、真のファイルシステム セマンティクスを使用してパフォーマンスを最大化し、最も要求の厳しい分析ワークロードのニーズに合わせてスケーリングし、クラウド オブジェクトのストレージ レートで価格を設定し、データのサイロを作成する必要がなされない幅広いワークロードをサポートするために柔軟に対応するように設計されています。</p>
+
+
+  <h2>プラットフォームの基礎部分</h2>
+
+
+  <p>Azure Analytics Platform は、ADLS を使用してデータを格納するための最適なデータ レイクを備えるだけでなく、追加のサービスと、エンドツーエンドの分析パイプラインで成功できる、豊富なエコシステムを備えています。</p>
+
+
+  <p>Azure には、データを処理するための <a href="https://azure.microsoft.com/services/hdinsight/" target="_blank">HDInsight</a> や <a href="https://azure.microsoft.com/services/databricks/" target="_blank">Azure Databricks</a>、イングレスと調整のための <a href="https://docs.microsoft.com/azure/data-factory/connector-azure-data-lake-storage" target="_blank">Azure Data Factory</a>、<a href="https://azure.microsoft.com/services/sql-data-warehouse/" target="_blank">Azure SQL Data Warehouse</a>、<a href="https://azure.microsoft.com/services/analysis-services/" target="_blank">Azure Analysis Services</a>、<a href="https://powerbi.microsoft.com/" target="_blank">Power BI</a> などのサービスが備え付けられているため、Modern <strong>Data Warehouse</strong> と呼ばれるパターンでデータを使用することで、エンタープライズ データ レイクの利点を最大限に活用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/615f65e9-2d3e-4b65-93b2-b3a0809ee733.png"><img alt="End to end analytics graph" border="0" height="450" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/672d30a0-16b4-41fd-916b-7d6d91060f7e.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="エンド to エンド分析グラフ" width="731"></a></p>
+
+
+  <p>さらに、一般的な分析ツールとフレームワークのエコシステムは ADLS と統合され、ニーズに合ったソリューションを構築できます。</p>
+
+
+  <p><em>&ldquo;データ管理とデータ ガバナンスは、クラウド分析ソリューションを実装する顧客に対して最も気に入っています。Azure Data Lake Storage Gen2 チームは、お客様がサービスを導入する中でクラス最高のカスタマー エクスペリエンスを提供するための緊密な統合を保証する、ADLS Gen2。&rdquo;</em></p>
+
+
+  <p align="right">&ndash; Ronen Schwartz、 &amp; Data Integration のシニア バイス プレジデント、Cloud Integration、Informatica</p>
+
+
+  <p><em>&quot;WANDiscos&rsquo; Fusion データ レプリケーション テクノロジを Azure Data Lake Storage Gen2 と組み合わせると、オンプレミスの運用にダウンタイムや中断を課さずに Azure Data Services に簡単にアクセスできる、ハイブリッド分析のための説得力のある LiveData ソリューションが顧客に提供されます。&rdquo;</em></p>
+
+
+  <p align="right">&ndash; David Richards、waNdisco Co-Founder CEO</p>
+
+
+  <p><em>&ldquo;Microsoft は、Enterprise Data Cloud で提供する Clouderas&rsquo; のミッションと組み合うスケーラブルで安全なインフラストラクチャの提供にイノベーションを続けしています。Azure Data Lake Storage Gen2 がグローバルにロールアウトされるのを非常にうれしく思います。お客様は、分析プラットフォームと組み合わせると、このストレージ オプションによって提供される管理のシンプルさを利用できます。&rdquo;</em></p>
+
+
+  <p align="right">&ndash; Makhija、クラウド、Cloudera のジェネラル マネージャー</p>
+
+
+  <h2>パフォーマンス</h2>
+
+
+  <p>パフォーマンスは、ビッグ データ分析ワークロードの価値の第 1 のドライバーです。 その理由は単純で、ストレージ 層のパフォーマンスが高く、データから値を抽出するために必要なコンピューティング量 (コストの高い部分) が少なくなります。 そのため、より早く分析情報を得て競争上の優位性を得られるだけでなく、大幅に削減されたコストで実現できます。</p>
+
+
+  <p><em>&ldquo;Azure Data Lake Storage Gen2 で、市場&rsquo;リスク分析ワークフローの 1 つをテストした後、パフォーマンスが 40% 向上し、ストレージフットプリントが大幅に削減されました。&rdquo;</em></p>
+
+
+  <p align="right">&ndash; Valerio Brker&uuml;、Program Manager Investment Information Solutions、Valeh Insurance</p>
+
+
+  <p>ADLS&rsquo; でパフォーマンスがいかに高いパフォーマンスを実現するのか見てみしましょう。 最も重要な機能は、階層型名前空間 (HNS) です。この非常にスケーラブルなストレージ サービスは、ディレクトリの階層を持つファイルシステムのようにデータを配置できます。 すべての分析フレームワーク (例: Spark、Hive など)は、基になるストレージ サービスが階層型ファイルシステムであるという暗黙的な仮定を使用して構築されます。 これは、ジョブの完了時に名前が変更された一時ディレクトリにデータが書き込まれる場合に最も明らかです。 従来のクラウドベースのオブジェクト ストアの場合、これは O(n) 複雑な操作であり、n はコピーと削除を行い、パフォーマンスに大きな影響を与えます。 ADLS では、この名前の変更は単一のアトミック メタデータ操作です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b018e251-cd15-484d-a0b7-b560995e3ce5.png"><img alt="Azure Data Lake Storage diagram.jpg" border="0" height="605" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/408039f5-a901-4d50-89c5-a8f67bd4ea42.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Data Lake Storage diagram.jpg" width="737"></a></p>
+
+
+  <p>パフォーマンスのもう 1 つの要因は <a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-abfs-driver" target="_blank">、Azure Blob Filesystem (ABFS) ドライバーです</a>。 このドライバーは、ADLS エンドポイントがビッグ データ分析ワークロード用に最適化されているという事実を利用します。 これらのワークロードは、はるかに広い範囲の IO 操作に最適化する必要がある他の汎用クラウド ストアとは異なって、大規模な IO 操作を介したスループットの最大化に最も影響を受けさせます。 このレベルの最適化は、Azure でビッグ データ分析ワークロードを実行する場合のパフォーマンスとコストの側面に直接メリットをもたらす大幅な IO パフォーマンスの向上につながります。 ABFS ドライバーは Apache Hadoop&reg; の一部として提供され、 <a href="https://azure.microsoft.com/services/hdinsight/" target="_blank">HDInsight</a> および <a href="https://azure.microsoft.com/services/databricks/" target="_blank">Azure Databricks</a> および他の商用 Hadoop ディストリビューションで利用できます。</p>
+
+
+  <h2>拡張性</h2>
+
+
+  <p>ビッグ データ分析のスケーラビリティも非常に重要です。 いくつかの&rsquo; TB のデータに対してうまく機能するソリューションは無意味ですが、データ サイズが必然的に大きくなるにつれて折りたたむ必要があります。 ビッグ データ分析プロジェクトの増加率は、より多様でアクセス可能なデータ ソースの結果として非線形になる傾向があります。 ほとんどのプロジェクトは、データが多くなると分析情報が向上するという原則の恩恵を受けるでしょう。 ただし、これにより、システムがデータの増加と同じ速度でスケーリングする必要がある設計上の課題が生まれます。 Hadoop や Spark などのビッグ データ分析フレームワークの最適な設計ピボットの 1 つは、水平方向にスケーリング <em>することです</em>。 つまり、データや処理が拡大するにつれて、クラスターにノードを追加して処理を継続できます。 ただし、これはストレージ レイヤーのスケーリングにも線形的に依存します。</p>
+
+
+  <p>ここで、既存の Azure サービスの上に ADLS を構築する価値がBlob serviceされます。 このサービスの EB スケールが ADLS に適用され、格納またはアクセスするデータの量に制限が存在しません。 実際には、お客様は、最も要求の厳しいワークロードを満たすためにスループットでアクセスできる 100 の PB データを格納できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c7818531-0257-4ab1-b08f-cc293f8c2703.png"><img alt="ADLS Gen2 Architecture diagram" border="0" height="426" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6f991a29-34f8-4980-91d0-f21162715887.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ADLS Gen2アーキテクチャの図" width="741"></a></p>
+
+
+  <h2>セキュリティで保護</h2>
+
+
+  <p>企業全体にサービスを提供するデータ レイクを構築する必要があるお客様の場合、セキュリティは軽量な考慮事項ではありません。 データ レイクにエンドツーエンドのセキュリティを提供するには、次の複数の側面があります。</p>
+
+
+  <ul>
+   <li><strong>認証</strong> &ndash;<a href="https://docs.microsoft.com/azure/storage/common/storage-auth-aad-app?toc=%2fazure%2fstorage%2fblobs%2ftoc.json" target="_blank">Azure Active Directory OAuth</a> ベアラー トークンは、Azure と Office365 全体で使用されるのと同じ ID サービスによってサポートされる業界標準の認証メカニズムを提供します。</li>
+   <li><strong>アクセス制御</strong> &ndash; 柔軟でスケーラブルなアクセス <a href="https://docs.microsoft.com/azure/storage/common/storage-auth-aad-rbac?toc=%2fazure%2fstorage%2fblobs%2ftoc.json" target="_blank">制御を提供するために、Azure Role Based Access Control (RBAC)</a> と <a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-access-control" target="_blank">POSIX に準拠した Access Control リスト (ACL)</a> の組み合わせ。 POSIX ACL は、Hadoop 内で使用されるのと同じメカニズムです。</li>
+   <li><strong>保存時と転送時の暗号化</strong> &ndash;ADLS に格納されるデータは、システム指定または<a href="https://docs.microsoft.com/azure/storage/common/storage-service-encryption?toc=%2fazure%2fstorage%2fblobs%2ftoc.json" target="_blank"></a>カスタマー マネージド キーを使用<a href="https://docs.microsoft.com/azure/storage/common/storage-service-encryption-customer-managed-keys?toc=%2fazure%2fstorage%2fblobs%2ftoc.json" target="_blank">して暗号化されます</a>。 さらに、データ <a href="https://docs.microsoft.com/azure/storage/common/storage-security-tls" target="_blank">は転送中に TLS 1.2 を使用</a> して暗号化されます。</li>
+   <li><strong>ネットワーク トランスポート のセキュリティ</strong> &ndash;ADLS がパブリック インターネット上のエンドポイントを公開する場合、トランスポート レベルの保護は<a href="https://docs.microsoft.com/azure/storage/common/storage-network-security?toc=%2fazure%2fstorage%2fblobs%2ftoc.json" target="_blank">、Storage</a> ファイアウォールを介して提供され、パケット レベルで適用されるデータのアクセス先を安全に制限します。</li>
+  </ul>
+
+
+  <p>分析フレームワークとの緊密な統合により、エンドツーエンドのセキュリティで保護されたパイプラインが得られます。 <a href="https://docs.microsoft.com/azure/hdinsight/domain-joined/apache-domain-joined-architecture">HDInsight Enterprise セキュリティ </a>パッケージは、クラスターとデータ レイク内のデータを介してエンドユーザー認証フローを行います。</p>
+
+
+  <h2>概要今日!</h2>
+
+
+  <p>Azure&rsquo; Data Lake を試してみStorage。 概要、フィードバックをお寄せください。</p>
+
+
+  <ul>
+   <li>概要 <a href="https://azure.microsoft.com/services/storage/data-lake-storage/" target="_blank">Azure Data Lake Storage</a>。</li>
+   <li>ビデオ「 &ldquo;<a href="https://azure.microsoft.com/en-us/asset/video-player/creating-your-first-adls-gen2-data-lake" target="_blank">Create your first ADLS Gen2 Data Lake」をご覧ください</a>。&rdquo;</li>
+   <li>一般提供のお <a href="https://azure.microsoft.com/en-us/blog/analytics-in-azure-is-up-to-14x-faster-and-costs-94-less-than-other-cloud-providers-why-go-anywhere-else/" target="_blank">知らせをお読みください</a>。</li>
+   <li>ADLS によって Azure 分析&ldquo;プラットフォームがどのように改善されるのかについては、ブログ記事「個別に優れた、集合的に一致しない<a href="https://azure.microsoft.com/en-us/blog/individually-great-collectively-unmatched-announcing-updates-to-3-great-azure-data-services/" target="_blank">:3</a> つの優れた Azure Data Services に対する更新プログラムの発表」を参照してください。&rdquo;</li>
+   <li><a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-introduction" target="_blank">Azure Data Lake のドキュメントをStorageしてください</a>。</li>
+   <li><a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-quickstart-create-connect-hdi-cluster" target="_blank">ADLS を使用して HDInsight クラスターをデプロイする方法について説明します。</a></li>
+   <li>ADLS <a href="https://docs.microsoft.com/azure/storage/blobs/data-lake-storage-quickstart-create-databricks-account" target="_blank">をAzure Databricksワークスペース</a>をデプロイします。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/data-factory/load-azure-data-lake-storage-gen2">データを ADLS に取り込 </a>むには、Azure Data Factory。</li>
+  </ul>

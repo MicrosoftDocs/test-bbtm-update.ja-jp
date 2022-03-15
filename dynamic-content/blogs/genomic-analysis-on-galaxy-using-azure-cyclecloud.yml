@@ -1,0 +1,133 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 46078c9775f8c6ef65c49bb6498483c19d4d447b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893037"
+Slug: genomic-analysis-on-galaxy-using-azure-cyclecloud
+Title: を使用した Galaxy のゲノムAzure CycleCloud
+Summary: クラウド コンピューティングとデジタル変革は、ゲノミクスの強力な実現力です。 Genomics は、2025 年までに大規模なビッグ データ ドメインになると予想され、ビッグ データの他の主要なジェネレーターと同じ方法で、データの取得とストレージの課題が発生します。 高パフォーマンスのコンピューティング環境を利用してゲノム分析を実行できる主要な Azure サービスの 1 つは、Azure CycleCloud。
+Content: >-
+  <p>クラウド コンピューティングとデジタル変革は、ゲノミクスの強力な実現力です。 Genomics は、2025 年までに大規模なビッグ データ ドメインになると予想され、ビッグ データの他の主要なジェネレーターと同じ方法で、データの取得とストレージの課題が発生します。 デジタル変革を受け入れるには、研究と医療機関の両方で、ゲノム サイエンスの需要を満たす実質的に無制限の機能が提供されます。 Microsoft Azure などのクラウドベースのコンピューティング プラットフォームが登場したことで、オンライン、スケーラブル、コスト効率に優れ、安全で共有可能なビッグ データの永続化と分析への道が開き、クラウド ベースのサービスでゲノム ビッグ データを (公開および非公開で) ホストする研究者や受け入れ者が増え続けています。</p>
+
+
+  <p>Microsoft では、ゲノミクス コミュニティが直面する課題を認識し、すべての人のゲノム作業を促進できるエコシステム (OSS と Microsoft の製品とサービスによって支援) を構築することを目指しています。 &mdash;私&rsquo;たちは、3 つの主要なコア領域に焦点を当て、ゲノム データの検索と検出に重点を置き、大規模な迅速な自動化と分析を可能にするプラットフォームを構築し、医療レベルでパイプラインを最適化し、セキュリティで保護しました。 高パフォーマンスのコンピューティング環境を利用してゲノム分析を実行できる主要な Azure サービスの 1 つは、<a href="https://azure.microsoft.com/en-us/features/azure-cyclecloud/" target="_blank">Azure CycleCloud。</a></p>
+
+
+  <h2>Galaxy and Azure CycleCloud</h2>
+
+
+  <p><a href="https://galaxyproject.org/" target="_blank">Galaxy</a> は、科学的ワークフロー、データ統合、データ分析の永続化と公開プラットフォームであり、コンピューター プログラミングやシステム管理の経験を持たない研究科学者が計算能力にアクセス可能にすることです。 最初はゲノム研究用に開発されましたが、大部分はドメインに依存し、現在は一般的な生体情報ワークフロー管理システムとして使用されています。 Galaxy システムは、アクセス可能で再現可能で透過的な計算研究に使用されます。</p>
+
+
+  <ul>
+      <li><strong>アクセス：</strong> データの簡単なアップロード、複雑なツールとワークフローの実行、結果の視覚化を行うプログラミング エクスペリエンスは必要ありません。</li>
+      <li><strong>再現：</strong> Galaxy は情報をキャプチャして、&#39;する必要がなくなっています。すべてのユーザーは、ツール パラメーターから依存関係ツリーまで、完全な計算分析を繰り返し理解できます。</li>
+      <li><strong>透明：</strong> ユーザーは、履歴、ワークフロー、視覚化を Web 経由で共有して公開します。</li>
+      <li><strong>Community中心:</strong> 包括的で多様なユーザー (開発者、教師、研究者、臨床医など) は、その結果を共有する権限を持っています。</li>
+  </ul>
+
+
+  <p>Azure CycleCloudは、Azure 上のハイ パフォーマンス コンピューティング (HPC) 環境を調整および管理するためのエンタープライズ対応ツールです。 このAzure CycleCloud、ユーザーは HPC システムのインフラストラクチャをプロビジョニングし、使い慣れた HPC スケジューラをデプロイし、インフラストラクチャを自動的にスケーリングして、任意の規模でジョブを効率的に実行できます。 このAzure CycleCloud、ユーザーはさまざまな種類のファイル システムを作成し、それらをコンピューティング クラスター ノードにマウントして、HPC ワークロードをサポートできます。 クラスターの動的スケーリングを使用すると、ビジネスは必要なリソースを適切な時間と適切な価格で取得できます。 Azure CycleCloud構成を使用すると、IT はビジネス ユーザーへのサービスの提供に集中できます。</p>
+
+
+  <h2>Azure に Galaxy をデプロイするには、Azure CycleCloud</h2>
+
+
+  <p>Galaxy は、ゲノム研究を実施するほとんどの学術機関によって使用されます。 Galaxy を既に使用しているほとんどの機関は、SaaS プラットフォームとしてゲノム分析用の複数のツールを提供しています。 ユーザーは、Galaxy にカスタム ツールをデプロイできます。</p>
+
+
+  <p>Galaxy ユーザーは一般に、Use Galaxy リソースの一部として SaaS バージョンの Galaxy を使用します。 <a href="https://galaxyproject.org/usegalaxy/" target="_blank">UseGalaxy サーバーは</a> 、共通のコア ツール セットと参照ゲノムを実装し、誰でも使用できます。 その使用方法に関する情報はすべて <a href="https://galaxyproject.org/use/#usegalaxy-dir" target="_blank">、Galaxy Platform Directory で確認できます</a>。</p>
+
+
+  <p>ただし、オンプレミス ソリューションまたはクラウドベースのソリューションとして Galaxy をオンプレミスにデプロイする予定の一部の研究機関があります。 この記事の残りの部分では、クラスターとグリッド エンジン クラスターを使用して、Microsoft Azure Galaxy Azure CycleCloud実行する方法について説明します。 このソリューションは、Microsoft ハッカソン (2021 年 10 月 12 日から 14 日) の間に、Azure HPC スペシャリストであるErry Morey のコード実装支援を受け構築されました。 以下で説明するアーキテクチャ パターンは、CycleCloud と選択したスケジューラを使用して、Azure 環境に Galaxy をデプロイするのに役立ちます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7bdbb595-c062-4c73-80d7-4e71f859e1c5.png"><img alt="Architecture diagram for Galaxy on Azure using Azure CycleCloud with grid engine cluster." border="0" height="529" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/de782efa-da04-4276-a2f7-9e207e703f41.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure 上の Galaxy のアーキテクチャ図" width="1024"></a></p>
+
+
+  <p>前提条件として、クラウドまたはオンプレミスのストレージの場所でゲノム データを使用できる必要があります。 Azure CycleCloud Marketplace イメージを使用した <a href="https://docs.microsoft.com/en-us/azure/cyclecloud/qs-install-marketplace?view=cyclecloud-8" target="_blank">&ldquo;CycleCloud のインストールに関するドキュメントで説明されている手順に従ってデプロイする必要&rdquo; があります</a>。</p>
+
+
+  <p>クラウド上の Galaxy で真にサポートされているクラスターのデプロイは、統合メソッド <a href="https://galaxyproject.org/admin/config/performance/cluster/legacy/#preliminary-setup" target="_blank">と呼ばれる方法です</a>。 この方法では、アプリケーション サーバー上の Galaxy のコピーは、クラスター ノード上のコピーと同じコピーです。 これを行う最も一般的な方法は、アプリケーション サーバーとクラスター ノードからアクセスできるネットワーク ファイル システム (NFS) のどこかに Galaxy を置く方法です。 これは Galaxy の最も一般的なデプロイ方法です。</p>
+
+
+  <p>管理者ユーザーは、仮想マシンAzure CycleCloud Galaxy サーバー仮想マシンに SSH 接続して、管理者関連のアクティビティを実行できます。 実稼働環境では、SSH ポートを閉じるのが推奨されます。 Galaxy サーバーがノードで実行されている場合、エンド ユーザー (研究者) はエンド デバイスにポータルを読み込み、データの読み込み、ツールのインストール、アップロードなどの分析タスクを実行できます。</p>
+
+
+  <p>機能 (ツールのインストールと削除、分析のためのツールの使用など) へのアクセスは、Galaxy サーバーに存在する galaxy.yml で定義されているパラメーターによって制御されます。 ユーザーが機能にアクセスすると、さらに実行するためにグリッド エンジン クラスターに送信されるジョブに変換されます。</p>
+
+
+  <p><a href="https://github.com/themorey/galaxy-gridengine" target="_blank">デプロイ スクリプトを</a> 使用すると、デプロイを容易に行うことができます。 これらのスクリプトを使用して、最新バージョンの Galaxy を Azure CycleCloud。<br>
+
+  デプロイ スクリプトを使用する手順を次に示します。</p>
+
+
+  <ul>
+      <li>Git でこのプロジェクトを複製します (プロジェクトはアクティブな開発中なので、最新リリースの複製をお勧めします)。</li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><code>git clone &ndash;b release_21.09 <a href="https://github.com/themorey/galaxy-gridengine.git">https://github.com/themorey/galaxy-gridengine.git</a></code></p>
+
+
+  <ul>
+      <li>アップロード CC locker にプロジェクトを追加します。</li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><code>cd galaxy-gridengine</code></p>
+
+
+  <p style="margin-left: 40px;">ファイルの変更 (必要な場合)</p>
+
+
+  <p style="margin-left: 40px;"><code>cyclecloud locker list</code></p>
+
+
+  <p style="margin-left: 40px;">Azure Cycle Locker (az://mystorageaccount/cyclecloud</p>
+
+
+  <p style="margin-left: 40px;"><code>cyclecloud project upload &quot;Azure cycle Locker&quot;</code></p>
+
+
+  <ul>
+      <li>クラスター テンプレートを CC にインポートします。</li>
+  </ul>
+
+
+  <p style="margin-left: 40px;"><code>cyclecloud import_cluster &lt;cluster-name&gt; -c &lt;galaxy-folder-name&gt; -f templates/gridengine-galaxy2.txt</code></p>
+
+
+  <p><strong>メモ：</strong> cluster-name &lt;は、&gt; clusterall 小文字の&mdash;名前に置き換え、スペースは使用できません。</p>
+
+
+  <ul>
+      <li>CC ポータルに移動して、クラスターを構成して起動します。</li>
+  </ul>
+
+
+  <p>Galaxy サーバーがインストールされるのを 30 分から 45 分待ちます。</p>
+
+
+  <p>サーバーが正しくインストールされていることを確認するには、Galaxy サーバー ノードに SSH 接続し、galaxy.log in ディレクトリを確認 <code>/shared/home/&lt;galaxy-folder-name&gt;</code> します。</p>
+
+
+  <p>この展開は、世界をリードする教育機関米国センターによって採用されました。 Microsoft Industry Solutions チームは、このソリューションを顧客の Azure テナントに&rsquo;デプロイするのに役立ちます。 センターの研究者は、オンプレミスの HPC 環境での既存の Galaxy デプロイに対するこのソリューションのパリティを評価するテストを行いました。 ジョブオーケストレーションに使用されたデプロイ済み Galaxy サーバーをAzure CycleCloudにテストしました。 bedtools、fastiq、bcftools、picard、snpeff などのいくつかの一般的な生体情報ツールがインストールされ、テストされました。 Galaxy では、既定でローカル ユーザーがサポートされます。 このエンゲージメントの一環として、企業の Active Directory を統合するソリューションがテストされ、デプロイされました。 このソリューションは、オンプレミスのデプロイと同じである可能性があります。 実行ノードの数が増え、それらのノードのサイズが増えたので、ジョブの実行時間が少なかったのが分かっています。</p>
+
+
+  <p>このブログのコンテンツに関連する詳細、サポート、またはガイダンスについては、Microsoft の営業担当者にお問い合わせください。</p>
+
+
+  <h2>詳細情報</h2>
+
+
+  <p>詳細については <a href="https://www.microsoft.com/en-us/genomics/" target="_blank">、Microsoft Genomicsしてください</a> 。</p>
+
+
+  <ul>
+      <li><a href="https://azure.microsoft.com/en-us/services/genomics/" target="_blank">Microsoft Genomics</a> Azure 上のサービス。</li>
+      <li><a href="https://azure.microsoft.com/en-us/features/azure-cyclecloud/" target="_blank">Azure CycleCloud</a>&mdash;HPC クラスターとワークロード管理。</li>
+      <li>Galaxy on Azure <a href="https://github.com/themorey/galaxy-gridengine" target="_blank">デプロイ スクリプト</a>。</li>
+  </ul>

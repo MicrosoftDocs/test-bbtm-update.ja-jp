@@ -1,0 +1,60 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 61fc5b02e9fd4511e2e1eb232d2b56f541bc7c61
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892047"
+Slug: success-almost-ruined-sleeve-music-but-savvy-developers-with-the-right-tools-had-another-idea
+Title: 成功を収めたのは、ほぼ、ミュージックを台無しにしました。 しかし、適切なツールを持つ精通した開発者は、別のアイデアを持っていた
+Summary: Orange Tribes の精通した開発者のビジョンと人材と、Microsoft Azure の使用により、モバイル アプリの「Talent Music」は国際的な人気を集めMicrosoft Azure。
+Content: >-
+  <i><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/05/12/Maarten-Jan-Vermeulen.png"><img class=" alignleft" style="background-image: none; float: left; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Maarten-Jan Vermeulen" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Maarten-Jan-Vermeulen_thumb.png" alt="Maarten-Jan Vermeulen" width="211" height="233" align="left" border="0" /></a>Orange Tribes の精通した開発者のビジョンと人材と、Microsoft Azure の使用により、モバイル アプリの「Talent Music」は国際的な人気を集めMicrosoft Azure。 スケーラビリティが必要な場合は、次のAzure App Service。 より低コストでスケーラビリティが必要な場合、Microsoft はキャッシュベースのアーキテクチャの考案を支援しました。 このデータへのAzure App Serviceも高速でした。オレンジの部下は 1 日で実装しました。</i><b><i></i></b>
+
+  <p style="text-align: left;"><b><i>Maarten-Jan Vermeulen、ファウンダー &amp;Orange Tribes の最高経営責任者(CEO</i></b>) は、The Beach で海を楽しんでいる後に、1 人の子供の音楽<i>のアイデアを思い付い上げました。しかし、開発作業が常に 1 日だったとは限らない。私たちは、</i>彼が解決したい問題、途中で発生した問題、および彼がそれらをすべてどのように取り込んだかについて、彼と話しました。</p>
+
+  &nbsp;
+
+  <h3>解決しようとしていた問題は何ですか?</h3>
+
+  <b>バーミューレン： </b>お気に入りの音楽家をフォローし、最新の更新プログラムを見て、新しい音楽を 1 か所から見つめる方法をあらゆる場所で音楽に提供したいと考えたのです。 以前は、それは単に可能でなかったのです。 私たちは、毎日の音楽修正のためにインターネットを探し回る音楽の必要性を排除したいと考え、私たちは持っています。 キュレーターは常に、音楽のコレクションのすべてのご機嫌に一致する新しい興味深い音楽を探しています。 このアプリは音楽を楽しむには必ず必要です。
+
+  <h3>開発の観点からこの問題を解決するための課題は何でしたか?</h3>
+
+  <b>バーミューレン： </b>まず、Facebook、Twitter、Twitter、Twitter、Last.fm、SoundCloud、YouTube、および Facebook など、さまざまなサイトで 120,000 人の音楽家の 1 時間に 1 回のクロール更新をサポートする必要性に直面しました。 また、Windows Phone、iOS、Android で、グループの最新の更新プログラムを表示する待機時間を最小限に抑える方法が必要でした。
+
+
+  この概念実証版の「Of Concept Music」では、アプリは音楽の音楽家の更新のために、Windows Phone からすべてのソーシャル メディア プロバイダーを直接呼び出します。 しかし、許可される呼び出しの数に関するサードパーティの API の制限により、このソリューションはスケーラブルではないという点が判明しました。 また、アプリの応答性を向上させるために、アプリの帯域幅の使用量と待機時間を減らす必要がありました。
+
+  <h3>このオプションを選択したAzure App Service。</h3>
+
+  <b>バーミューレン： </b>コスト効率に優れたスケーラブルなクラウド プラットフォームに移行する必要がありました。 これは 2 つの移行でした。クロール プロセスを Windows Phone からクラウドで実行されるバックエンドに移行する必要があったので、ユーザー ベースを iOS と Android に拡張する必要があります。 Azure App Serviceの高速移行に対して許可されます。 サードパーティのソーシャル ネットワーク プロバイダーへのアクセスなど、すべてのロジックは C# で記述され、Azure のモバイル アプリ バックエンドにシームレスに適合します。 また、モバイル アプリ バックエンドには、Windows Phone、iOS、Android 用のすぐに使用できるクロスプラットフォーム クライアントがあります。 Azure App Serviceはまさに私たちが探していたものでした。
+
+  <h3>これまで、App Serviceの使用はどのようにして行いましたか?</h3>
+
+  <b>バーミューレン： </b>Azure への移行以降、100,000 人のアーティストと 300,000 のフィードを監視し、Azure SQL Database に 1,000 万件の更新プログラムを取り込んでいました。 Table Storage や Azure Redis Cache などのキャッシュ メカニズムを使用します。これは、1 時間あたり最大 500,000 人のユーザーに最大 20,000 回の呼び出しを提供します。
+
+
+  監視ツールを使用すると、迅速な解決が可能であり、App Service のモジュール形式のセットアップにより、拡張機能の短い反復処理が可能であることがわかった。たとえば、わずか数日でクローラーに Of を追加した場合などです。 この機能を使用するとApp Service非常にうまくいったと思います。
+
+  <h3>この問題を解決するには、次のApp Service。</h3>
+
+  <b>バーミューレン： </b>Azure または競合他社のサービスのいずれかを使用して、仮想マシンでクローラー、キャッシュ、API サービスをホストした可能性があります。 アプリケーションをApp Service、セットアップ、移行、監視、メンテナンス、拡張機能、スケーラビリティに必要なリソースを削減しました。
+
+  <h3>途中で驚いたことはありますか?</h3>
+
+  <b>バーミューレン： </b>はい-非常に大きな 1 つ。 アプリでは、最初は Azure worker ロールを使用して外部ソースからのフィードと更新プログラムをスキャンして受信し、そのデータを Microsoft Azure SQL Database に格納しました。 Azure Mobile Servicesからクエリを受信すると、データベースに対してクエリを実行し、目的の情報をコンシューマーの電話に渡しました。
+
+
+  コンシューマーが毎朝目を覚ますと、1 時間あたり最大 20,000 の API 要求で負荷がピークに達し、アプリにログオンして更新プログラムを取得した。 そのボリュームを予想していなかったので、パフォーマンスが低下する危険がありました。これは、勢いが増すのと同じで、コンシューマーを追い出した可能性があります。 Azure カスタマー アドバイザリ チームが負荷を監視し、連絡を取り、トラブルシューティングを提案しました。 また、最も頻繁にアクセスされる情報が Azure Redis Cache に保持され、アクセス頻度の低いデータが Table Storage に含まれ、管理データが Azure SQL に含まれ、コストの高い Azure SQL Database への影響を最小限に抑えるデータ階層も提案しました。 うまく行きました。
+
+  <h3>あなたの経験に基づいて、App Service他のユーザーにどのようなアドバイスを与えますか?</h3>
+
+  <b>バーミューレン： </b>アプリケーションを使用してスケーラビリティApp Service簡単に実現できますが、スケーラビリティは単なる Azure からモバイルへの実装以上の機能を備えたものにしてください。 Table Storage や Redis などのキャッシュ メカニズムを使用して、データ の読み込みを減SQL。 また、使用可能なツールを使用して、作成されたソリューションがスケーラブルかどうかをテストしてください。
+
+  <h3>ソリューションの最終的な影響は何でしたか?</h3>
+
+  <b>バーミューレン： </b>スタートアップのリソースが限られているので、私たちは、現在の成功した製品に合った、新しいミュージックを成長させるのに成功しました。 Azure App Serviceは、その中でインストルメントでした。
+
+
+  <i>Azure サブスクリプションを使用Azure App Service</i><a href="https://tryappservice.azure.com/"><i></i></a>、無料で、最大 1 時間のサンドボックス化された一時的なエクスペリエンスを<i>ゲストに提供します。Azure 無料試用版サブスクリプションを使用Azure App Service完全なエクスペリエンスのために</i><a href="https://azure.microsoft.com/en-us/pricing/free-trial/?WT.mc_id=try_websites"><i>、より長くご利用ください</i></a><i>。</i>

@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 0ac4ec1809b8b28dce3e39839c8d5090d29a155d
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892839"
+Slug: new-features-in-azure-application-insights-metrics-explorer
+Title: Azure アプリケーション インサイト メトリックス エクスプローラー の新機能
+Summary: 過去 1 週間の間に、Application インサイト メトリックス エクスプローラーでは、メトリックを視覚化し、グラフの構成を簡略化するためのより多くのオプションを可能にするいくつかの新機能が導入されました。 これには new... が含まれます。
+Content: >-
+  <p>過去 1 週間の間に、<a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-metrics-explorer">Application インサイト メトリックス エクスプローラー</a>では、メトリックを視覚化し、グラフの構成を簡略化するためのより多くのオプションを可能にするいくつかの新機能が導入されました。 これには、新しい割合の集計グラフ、ダッシュボードへの標準グリッドとカスタム グリッドのピン留め、グラフの Y 軸境界を制御する機能、グラフ設定での基本および高度な構成オプションの並べ替えが含まれます。</p>
+
+
+  <h2>パーセンテージ集計グラフ</h2>
+
+
+  <p>多くの場合、セグメント化されたメトリックの実際の値は、グループ内の他の値と比較する方法ほど重要ではありません。 たとえば、未加工の数を見る代わりに、失敗した要求と成功した要求の割合 (合計が最大 100%) を視覚化できます。 または、各サーバー インスタンスによって処理される HTTP 要求の割合を確認することもできます。 それを可能にするために&ldquo;&ldquo;&rdquo;、新しい割合の集計の種類を導入しました。ユーザーは平均と平均 (%)&rdquo;&ldquo;&rdquo;&ldquo;、合計と合計 (%)&rdquo;などを切り替えできます。次に示すのは、割合の集計に基づくサンプル グラフです。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/5280f623-5a5d-48a7-bdf7-a5e57553fd68.png"><img alt="image" border="0" height="330" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d3fcd0be-ec70-458e-b7d0-822c94909236.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="667"></a></p>
+
+
+  <p>パーセンテージ集計を構成するには、グループ化を有効にし、グラフ設定の [集計] ドロップダウン セレクターから [パーセンテージ集計] を選択する必要があります。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f1d01d6d-37f5-4173-8297-4638349b2605.png"><img alt="Percentage Aggregation and Grouping" border="0" height="628" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3fef6982-c418-40b7-bafd-7be8d91274dd.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="パーセンテージの集計とグループ化" width="393"></a></p>
+
+
+  <h2>ユーザーが実際に表示する必要がない限り、あまり一般的に使用されていない詳細設定を非表示にします</h2>
+
+
+  <p>新しい Application インサイト ユーザーから寄せかかった一般的なフィードバックは、グラフの設定ウィンドウにオプションが多すぎるという点です。 これらのオプションの一部は非常に高度ですが、経験豊富なユーザーにとって重要です。 基本的なオプションと高度なオプションを組み合わせ、重要な設定を識別できない新しいユーザーに不満が生じ、グラフを望む方法で構成する必要が生じます。 変更内容 グラフ構成の上に新しいチェック ボックスが追加され、基本設定と詳細設定をフィルター処理できます。 新しいユーザーは、よりシンプルなビューを見ている。 ユーザーがメトリックス エクスプローラーに詳しくなると、グラフの詳細ダイアログの上部にあるチェック ボックスをオンにして詳細設定を追加できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1ba37740-6767-4626-b583-4f0017b2f061.png"><img alt="image" border="0" height="517" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/01ce05c1-cf5b-4825-b2c1-aa271ade5628.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px; display: inline; padding-right: 0px" title="イメージ" width="331"></a></p>
+
+
+  <h2>Azure ダッシュボードメトリックス エクスプローラーグリッドをピン留めする</h2>
+
+
+  <p>過去には、メトリックス エクスプローラーのグラフをダッシュボードにピン留め <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-dashboards">することもできます</a>。 グラフのピン留めに加えて、グリッドをピン留めできるようになりました。 この小さいが非常に便利なアイコンを使用すると、グリッド形式で表されるメトリックを使用してダッシュボードをカスタマイズできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/77822b6a-e89e-4a33-916e-ff20ba8341be.png"><img alt="image" border="0" height="353" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b377e25-2a96-4b70-9a14-4266dee248b5.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; margin: 0px; display: inline; padding-right: 0px" title="イメージ" width="728"></a></p>
+
+
+  <h2>グラフ上の y 軸の下限と上限を固定する機能</h2>
+
+
+  <p>大きな値の変動を小さく見る場合、グラフの y 軸を凍結することが重要になります。 たとえば、成功した要求の量が 99.99% から 99.5% に減少した場合、サービスの品質が大幅に低下する可能性があります。 しかし、グラフ化のパーセプトから、小さな数値の変動に気が付くのは難しいか、不可能な場合があります。 新しいオプションを使用すると、グラフの最も低い境界を 99% に固定できます。これにより、この小さな低下の方が明らかになります。 もう 1 つの例として、使用可能なメモリの変動があります。この場合、値は技術的には 0 に達しないので、範囲を大きな値に修正すると、使用可能なメモリの低下を見分けやすくなります。 次の 2 つのグラフは同じメトリックを複製しますが、固定された y 軸境界の場合と含めずに重複しています。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e93107a2-2c90-4005-bfc3-77d6350aa057.png"><img alt="image" border="0" height="327" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e177f8ca-0ec7-4860-9331-0d25cf016992.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="イメージ" width="666"></a></p>
+
+
+  <p>Y 軸の境界を固定するには、詳細設定を確認し、グラフの詳細ダイアログの [Y 軸の範囲] セクションで目的の範囲を指定する必要があります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d485dbc2-8fc9-48e5-9775-6945c289efa4.png"><img alt="Y-axis range settings" border="0" height="801" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/19f60dff-79f4-49ff-9348-9b962fe32ee1.png" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" title="Y 軸の範囲設定" width="398"></a></p>

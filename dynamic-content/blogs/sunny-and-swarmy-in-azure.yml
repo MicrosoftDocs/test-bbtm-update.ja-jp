@@ -1,0 +1,48 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 574bce6c8d5a81b521662c54edc08cf59b0213ee
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892044"
+Slug: sunny-and-swarmy-in-azure
+Title: Azure の日当たりと Swarmy
+Summary: 本日、Azure での Docker Machine と Docker Swarm のベータ リリースと Hyper-V での Docker Machine サポートの発表に Docker, Inc. に参加する予定です。
+Content: >-
+  シアトルでは驚くべき天気が続きますが、Docker コミュニティからのすばらしい更新プログラムへの継続的な貢献と統合は驚くことではありません。 本日、Azure での Docker Machine と <a href="https://github.com/docker/swarm/">Docker Swarm</a> のベータ 版リリースと、Hyper-V での Docker Machine サポートの発表に <a href="https://github.com/docker/machine/releases/download/v0.1.0-rc2/docker-machine_windows-amd64.exe"></a> Docker, Inc. に参加するお知らせをうれしそうに思います。 また、Docker Azure 拡張機能を <a href="https://github.com/docker/compose">使用Docker Compose</a> 、Azure プロビジョニング パイプラインでのサポートを直接サポートする予定です。
+
+
+  昨年 10 月、Docker コミュニティを引き続きサポートし、貢献することを約束しました。今日はもう 1 つのステップです。 Docker マシンのサポートの詳細については、Ross のブログの「Windows Server Hyper-V」を参照<a href="https://msopentech.com/blog/2015/02/26/swarms-docker-machines/">してください</a>。 Hyper-V のサポートでは、Docker エンジンがインストールされ、すぐに使用できる状態で VM を作成することで、"ゼロから Docker" へのアクセスが簡単になります。
+
+
+  Azure でサポートされている内容についてもう少し説明します。
+
+  <h2>Docker マシン</h2>
+
+  Docker Machine には、さまざまなインフラストラクチャ全体で一様に動作する移植可能なコマンドが 1 つ用意されています。 Azure Virtual Machines 上の Docker Machine を使用した Docker ホストの迅速かつアジャイルなデプロイを可能にするために、Azure のドライバー機能を提供しました。Azure は、マシンに<a href="https://github.com/bfirsh/docker/pull/1"></a>対する最も初期の共同作成者の 1 人です。 Docker マシンを使用すると、互換性のある任意の OS 上および多くのインフラストラクチャ オプションで Docker VM ホストの作成を自動化する機能など、いくつかの利点があります。
+
+
+  本日のお知らせでは、Linux または Azure 上の Docker Machine クライアントを使用して、Azure での Docker ホストの作成を自動化Windows。 さらに、Docker Machine では、1 つのリモート クライアントからホストを管理および構成できます。 基本的な監視タスクと管理タスクを実行するために各ホストに個別に接続する必要がなくなったので、一元化された DevOps 管理の柔軟性と効率性を実現できます。
+
+
+  Azure VM を使用して Docker ホストを作成する手順については、Azure 上の <a href="https://azure.microsoft.com/documentation/articles/virtual-machines-docker-machine/">Docker マシンのドキュメントを参照してください。</a>
+
+  <h2>Docker Swarm</h2>
+
+  現在、Docker Swarm を使用すると、ネイティブの Docker クラスタリングとスケジューリング機能を使用して、コンテナー ベースのアプリケーションとワークロードをデプロイできます。 開発者は、Docker Machine と同様に、Azure Virtual Machines などのインフラストラクチャを選択し、開発、テスト、または実稼働環境に必要に応じてスケーリングできます。 通常の Docker CLI を使用して、Swarm がホスト全体でスケジュールをデプロイして処理できます。
+
+
+  Azure での Swarm の使用を開始するには、ベータ 版クライアントをインストールします。 <a href="https://github.com/docker/swarm/">Docker Swarm のインストール</a>。 Azure VM 上の Docker Swarm を使用して Docker ホストを管理する詳細な手順については、Azure ユーザー ガイドの <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-docker-swarm/">Docker Swarm に関するページを参照してください</a>。
+
+  <h2>Docker Compose</h2>
+
+  Docker Compose宣言型 YAML ファイルを使用した Docker マルチコンテナー ソリューションのモデル化は非常に簡単です。 この 1 つのファイルを使用すると、任意の環境全体で開発者がモデル化したアプリケーションを作成し、一貫したデプロイを生成し、インフラストラクチャ全体のアプリケーションにさらに機敏性を提供できます。 Azure では、REST API、CLI、またはポータルを介して YAML 構成を直接渡すのをサポートするために、現在の <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-docker-with-portal/">Docker</a> 拡張機能の拡張に取り組んであります。 これにより、YAML ファイルの詳細を Azure portal にドロップし、残りの部分を管理できます。 詳細については、ご期待ください。.. 作業している Pull Request に貢献する場合は、こちらを参照 <a href="https://github.com/MSOpenTech/azure-docker-extension/commit/d3ca6b91879b59de37707c5c70a900a6f0afe5a0">してください</a>。
+
+
+  これが役立ったと思います。 ご意見やフィードバックをお寄せください。
+
+
+  ya around を参照してください。
+
+
+  コーリー

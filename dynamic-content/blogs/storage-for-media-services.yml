@@ -1,0 +1,99 @@
+### YamlMime:Yaml
+ms.openlocfilehash: d4fde604939d0abee3184f010738166383d2a70e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892135"
+Slug: storage-for-media-services
+Title: Media Services の Storage
+Summary: Storage は、メディアワークフローの非常に重要なコンポーネントです。 このブログでは、Media Services で Storage を使用する場合に注意する必要があるいくつかのトピックについて説明します。
+Content: >-
+  <h1>Media Services の Storage</h1>
+
+
+  <p>Storage は、メディアワークフローの非常に重要なコンポーネントです。 Media Services アカウントを作成すると、既存の Storage アカウントを作成または選択するように求められます。 Media Services は、<a href="https://msdn.microsoft.com/en-us/library/hh974277.aspx">アセット</a>の概念を使用してメディアコンテンツ &nbsp; を管理します。 &nbsp;アセットのメディアファイルはストレージアカウントに格納されますが、資産のエンティティメタデータは Media Services によって内部リポジトリに格納されます。 このブログでは、Media Services で Storage を使用する場合に注意する必要がある次のトピックについて説明します。</p>
+
+
+  <ul>
+   <li>Storage 冗長性</li>
+   <li>Storage キー</li>
+   <li>スケーリング Storage</li>
+   <li>Storage Analytics とログ記録</li>
+   <li>Storage のメディアアセット</li>
+   <li>アセットのアップロード</li>
+   <li>ストレージのコスト</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>Storage 冗長性</h2>
+
+
+  <p>Microsoft Azure ストレージアカウント内のデータは、持続性と高可用性を確保するために常にレプリケートされ、一時的なハードウェア障害が発生した場合でも<a href="https://azure.microsoft.com/en-us/support/legal/sla/">Azure Storage SLA</a>を満たします。 Azure Storage には、<a href="https://msdn.microsoft.com/en-us/library/azure/dn727290.aspx">冗長性</a>のためのいくつかのオプションが用意されています。 実稼働 Media Services アカウントに関連付けられている Storage アカウントについては、ストレージアカウント &ldquo; を geo 冗長ストレージ (GRS) &rdquo; または &ldquo; 読み取りアクセス geo 冗長ストレージ (RA-GRS) &rdquo; として設定すること &rsquo; をお勧めします。これらのオプションを使用すると、洪水、ハリケーンなどなどのリージョンレベルの障害に対する保護が実現します。ストレージアカウントが作成された後のデータのレプリケート方法を変更できますが、LRS (ローカル冗長 Storage) から GRS または RA-GRS に切り替えた場合、1回限りのデータ転送コストが発生する可能性があります。 ストレージアカウントのレプリケーションを管理する方法の詳細については、「<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-manage-storage-account/#georeplication">方法: Storage アカウントのレプリケーションを管理</a>する」を参照してください。 LRS、GRS、および RA-GRS の価格は異なることに注意してください。 詳細については<a href="https://azure.microsoft.com/en-us/pricing/details/storage/">Storage 料金の詳細</a>ページを参照してください。&nbsp;</p>
+
+
+  <h2>Storage キー</h2>
+
+
+  <p>ストレージ アカウントを作成するときに、Azure によって 2 つの 512 ビット ストレージ アクセス キーが生成されます。これらは、ストレージ アカウントにアクセスするときに認証の目的で使用されます。 これらのキーはセキュリティで保護しておくことが重要です。 いくつかの準拠基準には定期的なキーの再生成が必要であり、組織が対象とするコンプライアンス基準によっては、キーの再生成のポリシーを定義する必要があります。 Media Services は、ストレージアカウントのメディアデータの読み取りと書き込みを行うために1つのストレージキーが必要です。 Azure 管理ポータルを使用して Media Services アカウントを作成した場合、プライマリストレージキーが Media Services と共に格納されます。 ストレージキーを再生成する場合は、メディアアカウントが期待どおりに機能し続けるように、有効な更新されたキーを指定 <strong>する必要があり</strong> ます。 Media Services ベースのアプリケーションの中断を回避するために、一度に1つずつキーを再生成することができます。<a href="https://azure.microsoft.com/en-us/documentation/articles/media-services-roll-storage-access-keys/">ストレージアクセスキーをローリングした後 Media Services 更新する方法</a>に関する記事で説明されています。</p>
+
+
+  <h2>スケーリング Storage</h2>
+
+
+  <p>1つのストレージアカウントには、特定のスケールとパフォーマンスの制限があります。これは<a href="https://msdn.microsoft.com/library/azure/dn249410.aspx">Azure Storage のスケーラビリティとパフォーマンスのターゲット</a>に関するドキュメントに記載されています。 メディアファイルは大きくなるため、ビジネスにとっては1つのストレージアカウントでは不十分な場合があります。 Media Services には、1つの Media Services アカウントで複数のストレージアカウントをアタッチする機能が用意されています。 複数のストレージアカウントを Media Services アカウントにアタッチすると、次のような利点があります。</p>
+
+
+  <ul>
+   <li>アセットを複数のストレージ アカウントに負荷分散します。</li>
+   <li>Media Services をスケーリングして規模の大きなコンテンツ ストレージおよび処理に対応できます。</li>
+   <li>ストリーミングまたは DRM で保護されたファイルストレージから、メザニン (ソース) ファイルストレージを分離します。</li>
+  </ul>
+
+
+  <p>詳細については、次のトピックを参照してください。<a href="https://msdn.microsoft.com/en-us/library/dn271889.aspx">複数の Storage アカウントでの Media Services の資産の管理</a>Azure Media Services での複数のストレージアカウントでの資産の管理」および「負荷分散戦略の定義<a href="https://social.msdn.microsoft.com/Forums/windowsazure/en-US/bda5f539-01b4-4b51-b193-68e0b0fcaa11/how-to-manage-multiple-storage-accounts-attached-to-a-media-services-account?forum=MediaServices">方法: 複数の Storage アカウントを管理する」を参照してください。Media Services アカウント</a>現時点では、複数のストレージアカウントをアタッチする唯一の方法は、Azure サービス管理を使用することです REST API&nbsp;</p>
+
+
+  <h2>Storage Analytics とログ記録</h2>
+
+
+  <p>Azure Storage Analytics では、ログが記録され、ストレージ アカウントのメトリック データを得ることができます。 このデータを使用して、要求のトレース、使用傾向の分析、ストレージ アカウントの問題の診断を行うことができます。 <a href="https://manage.windowsazure.com/">Azure 管理ポータル</a>の Storage Analytics を有効にすることができます。詳細については<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-monitor-storage-account/">、「Storage アカウントを監視する方法</a>」を参照してください。 Media Services は blob サービスを使用してメディアデータを格納するため、blob の詳細な監視を有効にし、数日の保持ポリシーを使用して blob のログ記録を構成することをお勧めします。 Storage サービスは、集計された分析データをよく知られている blob とテーブルに格納します。このデータには、Blob service と Table service api を使用してアクセスできます。 このトピックの詳細については、「 <a href="https://msdn.microsoft.com/en-us/library/azure/hh343270.aspx">Storage Analytics</a> 」を参照してください。 特に、 <a href="https://msdn.microsoft.com/en-us/library/azure/hh343264.aspx">メトリックテーブルのスキーマ</a> と <a href="https://msdn.microsoft.com/en-us/library/azure/hh343259.aspx">ログの形式</a>については、次のトピックに注意してください。 Media Services の場合、Storage は、インジェスト、エンコード、配信ワークフローに関係します。 メトリックテーブルスキームとログ形式を理解することで、アプリケーションで発生したエラーの分析が非常に簡単になります。 また<a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2013/09/07/announcing-storage-client-library-2-1-rtm.aspx">Storage クライアント2.1 のリリース</a>から、要求の実行と REST 要求に関するクライアント側のトレースを有効にすることができます。 また、 <a href="https://azure.microsoft.com/en-us/documentation/articles/cloud-services-dotnet-diagnostics/">Azure 診断</a> にはトレースリスナーが用意されており、これらのトレースをクラウドで永続化する場合は、クライアントトレースメッセージを WADLogsTable にリダイレクトできます。 ログデータ形式の詳細については、ブログの「クライアントのトレース &rdquo; 」セクションを参照してください<a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2013/09/07/announcing-storage-client-library-2-1-rtm.aspx">Storage クライアント 2.1</a>の &ldquo; リリースに関するページを参照してください。 ストレージログと共に使用されるクライアント側のトレースにより、アプリケーションとストレージとの対話が完全に表示されます。</p>
+
+
+  <h3>Storage Analytics に関連するその他のリソース</h3>
+
+
+  <ul>
+   <li><a href="https://channel9.msdn.com/Series/DIY-Windows-Azure-Troubleshooting/Storage-Analytics">Storage Analytics ビデオ</a> &ndash;ストレージ分析を有効にして使用する方法を示す 5 ~ 30 分のビデオです。</li>
+   <li><a href="https://blogs.msdn.com/b/kwill/archive/2014/02/06/windows-azure-storage-analytics-sdp-package.aspx">Storage Analytics SDP (診断プラットフォームのサポート) パッケージ</a> &ndash;すべての storage analytics ログをすばやく簡単に収集できます。</li>
+   <li><a href="https://msdn.microsoft.com/library/azure/hh360997.aspx">課金</a> &ndash; の Storage AnalyticsStorage Analytics のコストとメトリックとログデータを使用してストレージサービスの課金内容を把握する方法についての MSDN トピック</li>
+   <li><a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2011/08/03/windows-azure-storage-logging-using-logs-to-track-storage-requests.aspx">Storage 要求</a> &ndash; の追跡ログを使用してストレージ要求を追跡する方法に関するトピックを含むブログ</li>
+   <li><a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2012/12/03/azcopy-uploading-downloading-files-for-windows-azure-blobs.aspx">Azcopy</a> &ndash;Azure Storage blob のファイルをアップロード/ダウンロードするためのツール (ログをダウンロードするために使用できます)</li>
+  </ul>
+
+
+  <p>&nbsp;</p>
+
+
+  <h2>&nbsp;</h2>
+
+
+  <h2>Storage のメディアアセット</h2>
+
+
+  <p>前述のように、 <a href="https://msdn.microsoft.com/en-us/library/hh974277.aspx">資産</a> は、1つのオーディオビジュアルプレゼンテーションを表す論理ユニットです。 &nbsp; 資産には、 <a href="https://msdn.microsoft.com/en-us/library/hh974275.aspx">AssetFile</a>という名前のエンティティで表される1つ以上のメディアファイルのコレクションが含まれています。 Media Services は、Storage のコンテナーを使用して資産を表します。 <a href="https://msdn.microsoft.com/en-us/library/hh974275.aspx">AssetFiles</a>は、ブロック blob として資産コンテナーに格納されます。 Storage にデータを表示するために使用できる Storage Explorer アプリケーションがいくつかあります。 これらのアプリケーションの詳細については、「 <a href="https://blogs.msdn.com/b/windowsazurestorage/archive/2014/03/11/windows-azure-storage-explorers-2014.aspx">Azure Storage</a>エクスプローラ」を参照してください。 Media Services api の外部で、コンテナー内のアセットコンテナーまたは blob を追加、編集、または削除しないでください。 これにより、Media Services api を使用して作成されたメディアアプリケーションでアセットにアクセスしようとすると、問題が発生する可能性があります。 また、現在 <strong>ブロック blob の上限は 200 gb であるため、AssetFile は 200 gb を超えることはできません。</strong> &nbsp;</p>
+
+
+  <h2>アセットのアップロード</h2>
+
+
+  <p>メディアファイルは膨大であり、Azure データセンターへのネットワーク接続によっては、Storage アカウントでメディアコンテンツをアップロードするために<a href="https://asperasoft.com/">aspera</a>によって提供されるものなどの UDP ベースのトランスポートテクノロジを使用することを検討してください。 aspera は、Azure 上の aspera &rsquo; s <em>fasp</em>高速転送ソフトウェアへのアクセスを提供する aspera on Demand for Microsoft Azure &rdquo; と呼ば &ldquo; れるサービスを提供します。 このサービスのサブスクリプションは、 <a href="https://azure.microsoft.com/en-us/gallery/store/overview/">Azure ストア</a>から購入できます。 Azure での aspera &rsquo; のオファリングの詳細については、aspera on Demand for Microsoft Azure に関するページを参照してください。 また、よく寄せられる質問に対する回答を得るには、aspera On Demand for Microsoft Azure に関する FAQ を参照してください。 aspera &rsquo; s サービスを Media Services 一括取り込み api と共に使用して、メディアコンテンツのカタログを一括して取り込むことができます。 詳細については、 <a href="https://msdn.microsoft.com/en-us/library/jj853022.aspx">Media Services SDK for .net を使用した資産の一括取り込み</a>に関するページを参照してください。 このトピックの追加情報について .net でプログラムを実行しない場合は、「azure での<a href="https://msdn.microsoft.com/en-us/library/dn535715.aspx">メディアのアップロード</a>」のトピックを参照してください<a href="https://msdn.microsoft.com/en-us/library/jj853021.aspx">REST API</a>を使用できます。&nbsp;</p>
+
+
+  <h2>ストレージのコスト</h2>
+
+
+  <p>[ <a href="https://azure.microsoft.com/en-us/pricing/details/storage/">Storage の料金詳細</a>] ページには、ストレージのコストに関する情報が表示されます。 Media Services では、Azure アカウントはブロック blob に対して課金されます (前述のように、各資産はコンテナーとして表され、AssetFiles はブロック blob としてコンテナーに格納されます)。 したがって、資産を作成し、サイズが 1 GB の AssetFile を1つ追加した場合、1 GB のブロック Blob storage に対して課金されます。 コストは、ストレージアカウントを LRS、GRS、または RA-GRS として設定したかどうかによって異なります。 ブロック blob に加えて、Storage トランザクションのコストも適用されます。 また、Storage アカウントが存在するリージョンの外部にデータを転送する場合も<a href="https://azure.microsoft.com/en-us/pricing/details/data-transfers/">データ転送</a>料金が適用されます。 Azure データセンター内でのデータ転送に対して課金されることはありませんが、別の Azure リージョンの Azure サービスにデータを転送すると、データ転送料金が適用されることに注意してください。 データがストレージアカウントから実際の VM にコピーされ、エンコード操作が実行される Media Services ときに、データセンター内のデータ転送が発生します。</p>

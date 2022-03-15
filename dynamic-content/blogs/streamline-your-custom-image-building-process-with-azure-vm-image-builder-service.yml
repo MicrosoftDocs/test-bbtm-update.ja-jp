@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b14f76cb116f0213b1fa2cc9e868a414e16ed354
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892080"
+Slug: streamline-your-custom-image-building-process-with-azure-vm-image-builder-service
+Title: Azure VM Image Builder サービスを使用してカスタム イメージの構築プロセスを効率化する
+Summary: 現在、カスタム Linux または Windows VM イメージを簡単に構築し、Azure と Azure Stack 全体で会社のセキュリティ ポリシーに準拠するためのマネージド サービスである Azure VM Image Builder サービスの一般提供をお知らせします。 HashiCorp Packer 上に構築された Microsoft マネージド サービス Azure VM Image Builder Service を使用すると、新規または既存の構成を使用してテンプレート内のカスタム イメージを記述し、独自のイメージ構築パイプラインを設定して管理することなく、VM イメージをすぐに構築できます。
+Content: >-
+  <p>現在、カスタム Linux または <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/image-builder-overview" target="_blank">Windows</a> 仮想マシン (VM)&rsquo; イメージを簡単に構築し、Azure と Azure Stack 全体で会社のセキュリティ ポリシーに準拠するためのマネージド サービスである Azure VM Image Builder サービスの一般提供をお知らせします。</p>
+
+
+  <p><a href="https://www.packer.io/" target="_blank">HashiCorp Packer</a> 上に構築された Microsoft マネージド サービス Azure VM Image Builder を使用すると、新規または既存の構成を使用してテンプレート内のカスタム イメージを記述し、独自のイメージ構築パイプラインを設定して管理することなく、VM イメージをすぐに構築できます。</p>
+
+
+  <p>イメージの構築は、常に重要でありながら複雑なプロセスでした。まず、組織内の異なるチームから要件を収集してから、イメージ構成ツールの構築を開始し、新しいカスタム ゴールデン イメージの作成の実装をサポートする適切なインフラストラクチャを設定する必要があります。 最後に、一度に多数のイメージをビルドする場合は、ファネル内のすべてを取得して作業を開始できるよう、自動化構成が必要です。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/08056fa5-f5cd-418d-8b36-408c092aca62.png"><img alt="You just need to manage the image configuration and the images you’d like to have, Azure VM Image Builder service will take care of the rest for you" border="0" height="287" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/748a0c85-c471-4e10-baa3-08264ce43ca1.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure VM Image Builder サービス" width="1080"></a></p>
+
+
+  <p>プロセスの間に、プロセスが円滑に実行されるのを確認するために、各ステップをカバーする専門家のグループも必要です。 異なるオペレーティング システム用のイメージをビルドし、それらを複数のクラウドにデプロイする必要がある場合、プロセスはさらに複雑になります。 これは、オペレーティング システムごとに異なる構成スタイルとパターンが付属し、すべてのクラウドに異なるイメージ構成要件があるためです。</p>
+
+
+  <p>Azure VM Image Builderを使用すると、1 つのテンプレートを使用して Azure のカスタム イメージを記述できます。 すべてのツール&#39;ビルド パイプラインを再学またはリビルドする必要は不要です。必要なのは&rsquo;、組織の要件を収集し、Linux または Windows VM イメージを構築するために Azure のテンプレートから選択し、サービスによってイメージが自動的に作成される場合です。 必要&#39;シンプルで合理化された方法で必要な情報を取得しながら、すべてのインフラストラクチャ、オペレーティング システムのバージョン間の技術的な違い、またはイメージの構築におけるその他の基になるコンポーネントについて心配する必要はありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a009d5ff-d2ec-4100-822f-04d7fdc04d6f.jpg"><img alt="Create your customize VM image with Azure CLI, Azure Portal or integrate the toolchain you would like to have" border="0" height="683" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b68a6233-1287-4ff2-b230-d21ec1ee5005.jpg" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="イメージ バージョンを作成する" width="720"></a></p>
+
+
+  <p>このAzure VM Image Builder&rsquo;、Azure CLI や Azure portal を使用して VM イメージ のビルド プロセスを開始するなど、さまざまなオプションを使用して、イメージのビルドを非常に簡単に行う必要があります。 また、サービスと Azure Shared Image Gallery を組み合わせてイメージ構築パイプラインを設定し、数回のクリックで画像をグローバルに配布することもできます。 カスタム のゴールデン イメージの構築に関しては、セキュリティ構成とグループ要件を適用すると、大きな負担がなくなりました。</p>
+
+
+  <h2>Azure VM Image Builder サポート シナリオ</h2>
+
+
+  <ul>
+      <li>最小限の<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder" target="_blank">セキュリティ</a><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-powershell" target="_blank">とWindows</a>構成を含む Linux、Windows、またはベースライン イメージの作成プロセスを効率化し、部門がさらにカスタマイズできます。</li>
+      <li>仮想デスクトップ構成などのイメージ作成プロセスの後に VM がワークロードを引き受けWindows<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-virtual-desktop" target="_blank">アプリケーションと構成を統合します</a>。</li>
+      <li>既存の Linux イメージまたは<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-gallery-update-image-version" target="_blank">既存のイメージを修正Windows更新するか、</a>既存のイメージからイメージAzure Marketplaceします。</li>
+      <li>Connect Azure VM Image Builder仮想ネットワークに接続できます<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-vnet" target="_blank"></a>。そのため、既存の構成サーバー (DSC、Chef、Puppet など)、ファイル共有、その他のログアウト可能なサーバーまたはサービスを接続して、Azure でのパイプラインデプロイを迅速にイメージ構築できます。</li>
+      <li>Azure Shared Image Gallery を使用してイメージを配布し <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-gallery" target="_blank">、グローバルに</a>スケーリングし、世界中のデプロイにイメージを適用します。</li>
+      <li>既存のイメージ構築パイプラインと統合するか、パイプラインから Azure VM Image Builder を呼び出すだけか、単純な <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-devops-task" target="_blank">Image Builder Azure DevOps</a> タスク (プレビュー) を使用してシームレスに接続し、操作に適合します。</li>
+  </ul>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/371362f8-cd0d-4556-a10b-9dc5b2854902.gif"><img alt="Create Image Configuration, Submit it for build, Distribute the image worldwide within just a few steps." border="0" height="720" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f1d47f1-be8d-4a9d-88c9-4a78f2c5baa0.gif" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="aib2020Mayshort01_3mb-min" width="1280"></a></p>
+
+
+  <ul>
+
+  </ul>
+
+
+  <h2>概要すぐに使用できる Azure VM Image Builder Service を使用する</h2>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder" target="_blank">Linux イメージを作成し、Azure Shared Image Gallery に配布します</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-powershell" target="_blank">PowerShell をWindowsを使用してAzure VM Image Builder VM を作成します</a>。</li>
+  </ul>

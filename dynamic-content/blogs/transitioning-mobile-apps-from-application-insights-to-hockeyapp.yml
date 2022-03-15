@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b279a0969ee3b3e11089190ef438b2122eb1fe15
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891963"
+Slug: transitioning-mobile-apps-from-application-insights-to-hockeyapp
+Title: Mobile Apps Application Insights から HockeyApp への移行
+Summary: '現在、モバイルアプリとデスクトップアプリのお客様のための更新プログラムが発表されています。 今後の重要な変更点とその発生時期について説明します。 '
+Content: >-
+  <p>最後の11月の Connect ()<a href="https://azure.microsoft.com/en-us/blog/deep-diagnostics-for-web-apps-with-application-insights/">では、</a> HockeyApp でのモバイルアプリ開発者とデスクトップアプリ開発者向けの取り組みに焦点を &rsquo; 当てました。 <a href="https://hockeyapp.net/features/">HockeyApp</a>は、iOS、Android、OS X、Windows、Xamarin、Cordova、Unity などのプラットフォームでアプリを構築するためのモバイル DevOps ソリューションの重要なコンポーネントです。 <a href="https://azure.microsoft.com/en-us/services/application-insights/">Visual Studio Application Insights</a>は、対話的な分析やすぐに使用する洞察を活用して、web アプリとサービスの検出、トリアージ、診断のシナリオに焦点を当てます。</p>
+
+
+  <h2>HockeyApp への移行</h2>
+
+
+  <p>現在、モバイルアプリとデスクトップアプリのお客様のための更新プログラムが発表されています。 HockeyApp への投資の一環として、HockeyApp のお客様から見てき &rsquo; た肯定的なフィードバックは、次の目標日と共に Application Insights のモバイルエクスペリエンスを終了することにしました。</p>
+
+
+  <ul>
+      <li><strong>2016 年4月15日:</strong>Application Insights では、iOS、Android、Windows ストアおよび Windows Phone 用の<u>新しいアプリの受け入れを停止</u>します。 既存のアプリは、引き続き Azure Portal に表示されます。 この日付の周囲に、インストルメンテーションキーを HockeyApp に移行するためのオプションが用意されています。</li>
+      <li><strong>2016 年6月15日:</strong>iOS、Android、Windows ストア、Windows Phone アプリのデータが Application Insights に表示され<u>なく</u>なります。 代わりに、HockeyApp を使用してこのデータにアクセスすることができます。 この日付より前にインストルメンテーションキーを HockeyApp に移行していない場合は、HockeyApp サポートチームに連絡してサポート要求を開く必要があります。</li>
+  </ul>
+
+
+  <p>mobile apps 用の現在の Application Insights sdk からのユーザー、セッション、およびカスタムイベントデータは、HockeyApp sdk と互換性があるため、2016年6月15日以降に引き続き処理されます。これにより、古いバージョンのアプリからのデータ損失を防ぐことができます。 アウトライン表示されたタイムフレームでインストルメンテーションキーを移行する必要があります。そうしないと、最終的な移行日以降に HockeyApp のデータを表示できなくなり&#39;。</p>
+
+
+  <h2>HockeyApp では何が得られるのでしょうか。</h2>
+
+
+  <p>HockeyApp は、モバイル開発者向けの主要なソリューションです。 これにより、モバイルアプリを高速な無線配信を介して配布できるようになり、モバイル DevOps ワークフローに完全に統合されます。 Visual Studio Team Services と共に、モバイルアプリの開発、管理、および配信を効率化することができます。</p>
+
+
+  <p>また、HockeyApp はクラス最高レベルのクラッシュレポートを提供し、フィードバック機能を通じてユーザーに直接エンゲージメントします。 新しい<a href="https://hockeyapp.net/preseason/">HockeyApp preseason プログラム</a>を使用して、ユーザーとセッションのメトリックを収集し、開発者とテストチームを<a href="https://hockeyapp.net/blog/2016/02/25/azure-active-directory.html">Azure Active Directory</a>に接続し、HockeySDK を<a href="https://hockeyapp.net/blog/2016/02/15/hockeysdk-for-uwp-apps.html">UWP アプリ</a>に統合できるようになりました。</p>
+
+
+  <p><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/gVEpupXd3W8" width="560"></iframe></p>
+
+
+  <p>HockeyApp は無料のオファリングを提供していますが、Microsoft Azure サブスクリプション (Enterprise 契約を含む) を使用して<a href="https://marketplace.visualstudio.com/subscriptions">Visual Studio Marketplace</a>を通じてこれまで以上に簡単に購入できるようになりました。 HockeyApp を今すぐ <a href="https://hockeyapp.net/pricing/">無料で開始</a> することをお勧めします。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>この移行は、前の戦略の転換点であることを認識しているため、追加の作業が必要になる場合があります。 このシフトの目標は、モバイルアプリの配布、テスト、監視、および管理に最適なエクスペリエンスを提供することです。 HockeyApp は、このエクスペリエンスを提供するためのソリューションです。</p>
+
+
+  <p>Application Insights と HockeyApp のサポートチームは、この移行を可能な限りシームレスに行うことができます。 その他の質問や懸念事項がある場合は、 <a href="https://support.hockeyapp.net/">お問い合わせ</a>ください。 この移行をサポートするようになります。</p>
+
+
+  <p><strong>更新:</strong>Application Insights から HockeyApp する Mobile Apps ためにこの移行計画を発表したので、Application Insights に含まれているものの、現在は HockeyApp では利用できない機能については、お客様からのフィードバックをお送りしています。 フィードバックを検討した後、microsoft は計画を変更することにしました。 HockeyApp はモバイルアプリの主要なオファリングとして機能しますが、お客様がデバイステレメトリの詳細な分析にアクセスして実行できるようにする Application Insights の重要な機能を提供します。 詳細については、 <a href="https://azure.microsoft.com/en-us/blog/update-on-transitioning-mobile-apps-from-application-insights-to-hockeyapp/">こちらの Azure ブログ記事</a>をご覧ください。</p>

@@ -1,0 +1,133 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8b096169342811cfd62358188b1f1ef3a2c88d07
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892648"
+Slug: secure-your-backups-not-just-your-data
+Title: データだけでなく、バックアップをセキュリティで保護します。
+Summary: ランサムウェア攻撃は、データの削除のみに制限されなくなりましたが、バックアップの攻撃にも注目し始めます。 バックアップを作成することは、保護の最初の手順に過ぎません。バックアップを安全に保護することが重要になります。 今週の日々のバックアップでは、バックアップ製品に関して、お客様がバックアップをセキュリティで保護するための防御策を構築する際に重要な考慮事項を確認していきます。
+Content: >-
+  <p>現在&#39;のデジタル環境では、データが新しい通貨であるため、このデータを保護することはかつてないほど重要になってきました。 2017では、攻撃者は、 <a href="https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Ransom:Win32/WannaCrypt">w発表</a>者、 <a href="https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Ransom:Win32/Petya.B">Petya</a> 、 <a href="https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Ransom:Win32/Locky">locky</a>などの<a href="https://www.microsoft.com/en-us/wdsi/threats/ransomware">ランサムウェア</a>攻撃が大量に発生したため、ビジネスに大きな影響を与えていました。 <a href="https://blog.malwarebytes.com/malwarebytes-news/2018/01/presenting-malwarebytes-labs-2017-state-of-malware-report/">MalwareBytes からのレポート</a>によれば、ランサムウェア検出は、それぞれ2017で90と93% の企業と消費者に対して行われていました。 コンピューターがランサムウェアによって攻撃された場合、通常、バックアップは顧客が利用できる最後の防御線になります。</p>
+
+
+  <p>ランサムウェア領域のイノベーションが増加しているため、攻撃者はデータの破損のみに対する制限を受けなくなります。 バックアップは、ランサムウェアツールの次の行になりつつあります。データやバックアップがない状況では、ランサムウェア攻撃者に hostage されます。 今月は、ファイルを暗号化するだけでなく、バックアップを意図的に削除する新しいランサムウェア ( <a href="https://www.scmagazine.com/new-ransomware-zenis-will-delete-backup-files-even-if-victim-pays/article/752763/">Zenis</a> ) が登場したことを見てきました。</p>
+
+
+  <p>これらの攻撃を x-frame-options には、バックアップを実行するだけではありません。 バックアップを作成することは、保護の最初の手順に過ぎません。このモデルのバックアップを安全に保護することが重要になります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/728c9d76-5e3b-468e-8310-140fee0008b0.jpg"><img alt="WorldBackupDayPic" border="0" height="446" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1fe6b6b1-7285-4135-bb36-1b95d05e31b6.jpg" style="border: 0px currentcolor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="WorldBackupDayPic" width="823"></a></p>
+
+
+  <p>バックアップがどのようにセキュリティで保護されているかを確認するには、次の質問をしてください。</p>
+
+
+  <ul>
+   <li>バックアップは運用データから分離されていますか?</li>
+   <li>破壊的な操作を確実に認証するためのメカニズムはありますか。</li>
+   <li>この期間中に重要な操作が実行された場合にアラートを受け取るメカニズムはありますか。</li>
+  </ul>
+
+
+  <p>上記のいずれにも回答 &ldquo; してい &rdquo; ない場合は、バックアップの新しいモデルを確認する必要があります。</p>
+
+
+  <p>今週の日々のバックアップでは、バックアップ製品に関して、お客様がバックアップをセキュリティで保護するための防御策を構築する際に重要な考慮事項を確認していき &rsquo; ます。</p>
+
+
+  <h2>バックアップをセキュリティで保護するための重要な考慮事項</h2>
+
+
+  <p>バックアップをセキュリティで保護するには、バックアップを提供するだけでなく、上記のすべてにも対処する多層セキュリティメカニズムが必要です。そのため、ランサムウェアが影響を受けることはありません。</p>
+
+
+  <ul>
+   <li><b>オフサイトバックアップ</b>: ローカルデータにアクセスしてもバックアップへのアクセスが保証されないように、バックアップが実稼働データとは別に保存されていることを確認します。</li>
+   <li><b>重要な操作のための多要素認証</b>: バックアップ製品では、重要な可能性がある操作を検出する必要があります。 バックアップの削除、パスフレーズの変更、およびこれらの操作が成功する前に多要素認証を行うようにします。</li>
+   <li><b>暗号化</b>: バックアップデータは、オフサイトの場所および保存中に転送するときに暗号化する必要があります。 実稼働データとは別の安全な場所にパスフレーズを保管して、パスフレーズを安全に保管する</li>
+   <li><b>ロールベースのアクセス</b>: チーム内で職務を分離し、ジョブを実行するために必要なユーザーへのアクセス権のみを付与します。</li>
+   <li><b>警告</b>: バックアップデータの可用性に影響を与える重要な操作については、通知を送信する必要があります。<strong></strong></li>
+   <li><b>遅延削除:</b> &nbsp;バックアップ製品では、認証されたアクセスによって削除要求が発生した場合でも、最小限の時間にわたってバックアップが保持されるようにする必要があります。</li>
+  </ul>
+
+
+  <h2>どのようにして Azure Backup が実現されるのでしょうか。</h2>
+
+
+  <table border="1" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr>
+     <td valign="top" width="108">
+     <p><b>考慮事項</b></p>
+     </td>
+     <td valign="top" width="504">
+     <p><b>どのように Azure Backup 達成しますか。</b></p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="108">
+     <p><strong>オフサイトバックアップ</strong></p>
+     </td>
+     <td valign="top" width="504">
+     <p>Azure Backup は、Azure Backup サービスによって管理され、カスタマー&#39;のサブスクリプションとは別のストレージアカウントにバックアップを格納します。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="108">
+     <p><strong>Multi-factor authentication </strong></p>
+     </td>
+     <td valign="top" width="504">
+     <p>オンプレミスの場所から発生する重要な操作は、有効にする前に有効な2要素認証を持つ必要があります。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="108">
+     <p><strong>暗号化</strong></p>
+     </td>
+     <td valign="top" width="504">
+     <p>バックアップは AES 256 を使用して暗号化され、HTTPS 経由でクラウドに送信されます。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="108">
+     <p><strong>ロールベースのアクセス</strong></p>
+     </td>
+     <td valign="top" width="504">
+     <p><a href="https://docs.microsoft.com/azure/backup/backup-rbac-rs-vault">AZURE RBAC</a>を使用して、組織内のさまざまなロールに特定のアクセス権を割り当てることができます。</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="108">
+     <p><strong>アラート</strong></p>
+     </td>
+     <td valign="top" width="504">
+     <p>重大な操作の通知を通じて管理者に警告を Azure Backup する</p>
+     </td>
+    </tr>
+    <tr>
+     <td valign="top" width="108">
+     <p><strong>遅延削除</strong></p>
+     </td>
+     <td valign="top" width="504">
+     <p>Azure Backup は、認証されたユーザーからの削除要求から14日後にバックアップを保持します</p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <p>この世界のバックアップ日では &ndash; &rsquo; 、データを保護するだけで、バックアップをセキュリティで保護するだけです。</p>
+
+
+  <h2>関連リンクとその他のコンテンツ</h2>
+
+
+  <ul>
+   <li><a href="https://go.microsoft.com/fwlink/?linkid=835219&amp;clcid=0x409">Azure Backup のセキュリティ機能</a>についての詳細情報</li>
+   <li><a href="https://azure.microsoft.com/documentation/articles/backup-azure-arm-vms-prepare/">Recovery Services コンテナー</a>の概要</li>
+   <li>ヘルプが必要ですか? サポートについて <a href="https://aka.ms/azure-backup-support-forum">Azure Backup フォーラム</a> にご連絡ください</li>
+   <li>新しいアイデアを投稿し、既存のアイデアに投票することで、 <a href="https://aka.ms/azure-backup-user-voice">Azure Backup を改善</a> する方法をお聞かせください</li>
+   <li>最新のニュースと更新については、Twitter <a href="https://twitter.com/azurebackup">@AzureBackup</a> でフォローする</li>
+  </ul>

@@ -1,0 +1,78 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 5fd20f6507507a5f824ffd9f91e313e25312fc3f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891986"
+Slug: taking-a-closer-look-at-python-support-for-azure-functions
+Title: Python のサポートを詳しく見てみAzure Functions
+Summary: Azure Functionsは、イベント駆動型アプリケーションの高速開発とサーバーレス ホスティングのための強力なプログラミング モデルを提供します。 Azure Functions 2.0 ランタイムの一般提供を発表して以来、Python のサポートは最も多くの要求の 1 つでした。 先週の Microsoft Connect() では、Python サポートのパブリック プレビューを Azure Functions。
+Content: >-
+  <p>Azure Functionsは、イベント駆動型アプリケーションの高速開発とサーバーレス ホスティングのための強力なプログラミング モデルを提供します。 <a href="https://go.microsoft.com/fwlink/?linkid=2047370" target="_blank">Azure Functions 2.0</a> ランタイムの一般提供を発表して以来、Python のサポートは最も多くの要求の 1 つでした。 先<a href="https://go.microsoft.com/fwlink/?linkid=2047373" target="_blank">週、Microsoft Connect()</a> で、Python サポートのパブリック プレビューを <a href="https://go.microsoft.com/fwlink/?linkid=2047394" target="_blank">Azure Functions。</a> この投稿では、この機能を通じて使用できる新しく導入されたエクスペリエンスと機能の概要を示します。</p>
+
+
+  <h2>この&#39;は何ですか?</h2>
+
+
+  <p>このリリースでは、オープンソースの Functions 2.0 ランタイムに基づいて Python 3.6 を使用して Functions を開発し、Azure の Consumption プラン (実行ごとの支払いモデル) に発行できます。 Python は、データ操作、機械学習、スクリプト作成、自動化のシナリオに最適です。 サーバーレス Azure Functions を使用してこれらのソリューションを構築すると、基になるインフラストラクチャを管理する負担を取り上げ、アプリケーションの差別化ビジネス ロジックに実際に集中することができます。 Python Functions の新しく発表された機能と開発エクスペリエンスの詳細については、次の記事を参照してください。</p>
+
+
+  <h3>強力なプログラミング モデル</h3>
+
+
+  <p>このプログラミング モデルは、Python 開発者にシームレスで使い慣れたエクスペリエンスを提供するように設計されています。そのため、既存の .py スクリプトとモジュールをインポートし、既に使い慣れたコードコンストラクトを使用して関数の記述をすばやく開始&#39;開始できます。 たとえば、非同期 def 修飾子を使用して関数を非同期のコルーチンとして実装したり、標準ログ モジュールを使用して監視トレースをホストに送信したりできます。 pip インストールへの追加の依存関係は、次の形式を使用requirements.txtできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/174f80ac-2e53-4af3-819e-4cdf634f3c60.png"><img alt="Powerful programming model" border="0" height="826" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f03d8035-c501-4635-a38e-d94168bda66e.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="強力なプログラミング モデル" width="1429"></a></p>
+
+
+  <p>トリガーとバインドに基づく Functions のイベント駆動型プログラミング モデルを<a href="https://go.microsoft.com/fwlink/?linkid=2047563" target="_blank"></a>使用すると、&#39;が関数の実行をトリガーするイベントと、関数で調整する必要があるデータ ソースを簡単に構成できます。 ML のインフェレンシングや自動化スクリプティング ワークロードなどの一般的なシナリオは、開発者が同時に構成して操作する必要があるコード、SDK、依存関係の量を減らしながら、関係する多様なデータ ソースを合理化するのに役立つ、このモデルのメリットを得ます。 プレビュー リリースでは、HTTP 要求、タイマー イベント、Azure Storage、Cosmos DB、Service Bus、Event Hubs、Event Grid へのバインドがサポートされています。 構成が完了すると、これらのバインドからデータをすばやく取得したり、エントリ ポイント関数のメソッド属性を使用して書き戻したりできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/55e944ad-0868-415c-9cc5-0c76b6f120ca.png"><img alt="Binding configuration" border="0" height="416" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9139a7d-b7c5-4aa5-aefa-eceb3c2eb7ff.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="バインドの構成" width="1429"></a></p>
+
+
+  <h3>開発の容易</h3>
+
+
+  <p>Python 開発者は、関数を開発&#39;新しいツールを学習する必要は一切必要ない場合があります。 実際、Mac、Linux、またはコンピューターを使用して、ローカルですばやく作成、デバッグ、テストWindowsできます。 この <a href="https://go.microsoft.com/fwlink/?linkid=2047381" target="_blank">Azure Functions Core Tools (CLI)</a> を使用すると、自動的にビルドと構成を処理しながら、トリガー テンプレートの使用を開始し、Azure に直接発行することができます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e8373e2a-9296-495d-b0a4-fa711f92e104.gif"><img alt="python_cli" height="675" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ad47fd74-f0a8-45a5-813e-a4b4c194c21d.gif" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="python_cli" width="1024"></a></p>
+
+
+  <p>さらに&#39;は、<a href="https://go.microsoft.com/fwlink/?linkid=2047378" target="_blank">Visual Studio Code 用の Azure Functions</a> 拡張機能を使用して、新しいアプリの作成、関数の追加、デプロイを数分で行うのに役立ちます。 ワンクリック デバッグ エクスペリエンスを使用すると、F5 キーを押すだけで、リアルタイムの Azure イベントに対してローカルで関数をテストし、ブレークポイントを設定し、呼び出し履歴を評価できます。 これを VS Code 用の Python 拡張機能と組み合わせて使用すると、任意のプラットフォームで、Python 開発に最適なクラスのオートコンプリート、IntelliSense、linting、およびデバッグ エクスペリエンスを利用できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e4d59a16-747f-4255-8117-4547e5663052.png"><img alt="Python extension" border="0" height="597" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f0355b22-8973-46b0-bbe6-bce520d624fa.png" style="margin: 0px auto; border: 0px currentcolor; border-image: none; float: none; display: block; background-image: none;" title="Python 拡張機能" width="1024"></a></p>
+
+
+  <h3>Linux ベースのホスティング</h3>
+
+
+  <p>Python で記述された関数は、2 つの異なるモード ( <a href="https://go.microsoft.com/fwlink/?linkid=2047384" target="_blank">Consumption plan</a> と App Service <a href="https://go.microsoft.com/fwlink/?linkid=2047577" target="_blank">Plan) で発行できます</a>。 Consumption プランでは、受信イベントの数に基づいてコンピューティングパワーが自動的に割り当てされます。 負荷を処理するために必要なときにアプリがスケールアウトされ、イベントがスパースになったときにスケールダウンされます。 課金は、実行の数、実行時間、使用されたメモリに基づいて行われるので、アイドル状態の VM や予約容量&#39;料金を事前に支払う必要が生じないので、</p>
+
+
+  <p>App Service プランでは、専用インスタンスが関数に割り当てられるので、実行時間の長い関数、Premium ハードウェア、分離 SKU、VNET/VPN 接続などの機能を利用しながら、独自の Functions プログラミング モデルを利用できます。 専用リソースを使用すると、使用される実行数、実行時間、メモリからコストが切り離されます。コストは、プランに割り当てられたインスタンス&#39;数に制限されます。</p>
+
+
+  <p>その下では、両方のホスティング プランで、オープン ソース <a href="https://go.microsoft.com/fwlink/?linkid=2047390" target="_blank">の azure-function/python</a> 基本イメージに基づいて Docker コンテナーで関数が実行されます。 このプラットフォームはコンテナーを抽象化します。そのため&#39;は Python ファイルの提供のみを担当し、&#39;基になる Azure Functions と Python ランタイムの管理について心配する必要はありません。</p>
+
+
+  <h2>次の手順 - 開始してフィードバックを送信する</h2>
+
+
+  <p>開始するには、次のリンクを参照してください。</p>
+
+
+  <ul>
+   <li>Functions クイック スタートの Python を使用して、 <a href="https://go.microsoft.com/fwlink/?linkid=2047394" target="_blank">初めてのサーバーレス関数を構築します</a>。</li>
+   <li>Python 開発リファレンス <a href="https://go.microsoft.com/fwlink/?linkid=2047397" target="_blank">Azure Functionsを見つける</a>。</li>
+   <li>今後の機能に従い、GitHub <a href="https://go.microsoft.com/fwlink/?linkid=2047585" target="_blank">リポジトリに関する説明を参照してください</a>。</li>
+   <li>Azure 上の Python で実行できるすべての便利 <a href="https://go.microsoft.com/fwlink/?linkid=2047703" target="_blank">な機能について説明します</a>。</li>
+   <li>「Azure Functions で Azure Functions &ldquo; Python を使用して Machine Learning を効率化する」の「Machine Learning ワークロードに適用される、動作中の Python 開発エクスペリエンス<a href="https://info.microsoft.com/ww-ondemand-machine-learning-with-python.html?wt.mc_id=undefined" target="_blank">」を参照</a>してください。&rdquo;</li>
+  </ul>
+
+
+  <p>このリリースでは、他のさまざまな便利な機能やシナリオの基礎を説明します。 今リリースされ間もなく&rsquo;リリースされる予定なので、フィードバックをお寄せいただきありがとうございます。 Twitter と GitHub でチーム<a href="https://go.microsoft.com/fwlink/?linkid=2047706" target="_blank">にアクセスできます</a>。<a href="https://go.microsoft.com/fwlink/?linkid=2047709" target="_blank"></a> <a href="https://go.microsoft.com/fwlink/?linkid=2047712" target="_blank">StackOverflow</a> と <a href="https://go.microsoft.com/fwlink/?linkid=2047715" target="_blank">UserVoice</a> を積極的に監視しています。そのため、自由に質問したり、提案を残したりしてください。 皆様のご意見をお待ちしております。</p>

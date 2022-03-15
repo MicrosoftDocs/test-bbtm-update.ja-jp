@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 28ef7d09776579321a8172006c8fce1ff809ea98
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892069"
+Slug: streamlining-kubernetes-development-with-draft
+Title: ドラフトを使用した Kubernetes 開発の合理化
+Summary: 現在、私のチームは、アプリケーションの開発とデプロイを Kubernetes クラスターに合理化するツールである Draft を発表することを誇りとしています。 開発者は、2つの簡単なコマンドを使用して、Docker を必要としない、または Kubernetes 自体をインストールしなくても、コンテナーベースのアプリケーションでハッキングを開始できます。
+Content: >-
+  <p><em>I &rsquo; m Gabe Monroy、Microsoft Azure のコンテナーの PM をリードします。Deis を買収する際に、4月にマイクロソフトに参加しました。Deis では、コンテナーを使い &ndash; やすく、Kubernetes 上に配置しやすくすることに常にレーザー重視されていました。Microsoft の一部として、 &rsquo; 嬉しく思いチーム Azure Container Service の一員としてリリースするオープンソースソフトウェア &rsquo; の最初の部分を、その任務を継続して共有することにしました。</em></p>
+
+
+  <p>アプリケーションコンテナーでは、過去数年間に躍り出が普及しています。 最近の月は、これらのコンテナーを調整するための一般的なソリューションとして Kubernetes が登場しています。 Kubernetes は、拡張可能なアーキテクチャと優れたオープンソースコミュニティのために多くのことを行いますが、まだ Kubernetes を <a href="https://www.youtube.com/watch?v=aOQwyN0bTk4">使用する</a>のは困難です。</p>
+
+
+  <p>現在、私のチームは、アプリケーションの開発とデプロイを Kubernetes クラスターに合理化するツールである <a href="https://aka.ms/draft">Draft</a>を発表することを誇りとしています。 開発者は、2つの簡単なコマンドを使用して、Docker を必要としない、または Kubernetes 自体をインストールしなくても、コンテナーベースのアプリケーションでハッキングを開始できます。</p>
+
+
+  <h2>ドラフトの動作</h2>
+
+
+  <p>Draft は、開発者がコードを記述して繰り返しますが、変更をバージョン管理にコミットする前に、開発 &rsquo; 者のワークフロー &ndash; の内部ループ &rdquo; を &ldquo; 対象とします。 実際の動作を見てみましょう &rsquo; 。</p>
+
+
+  <p><strong><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6991cf1e-caa0-4199-9a4d-0521b771ea23.gif"><img alt="Streamlining Kubernetes" border="0" height="438" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/84aeb0f5-9f1f-4776-9d04-a49305e06b3f.gif" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Kubernetes の合理化" width="640"></a></strong></p>
+
+
+  <h2>Kubernetes の帆の設定</h2>
+
+
+  <p>開発者が draft create &rdquo; を実行 &ldquo; すると、アプリケーション言語が検出され、単純な Dockerfile と<a href="https://github.com/kubernetes/helm">Kubernetes ヘルム</a>グラフがソースツリーに書き込まれます。 &nbsp;言語検出では、任意の言語、フレームワーク、またはランタイム環境をサポートできる構成可能なドラフト &ldquo; パック &rdquo; を使用します。 既定では、Draft は Node.js、ゴー、Java、Python、PHP、Ruby などの言語をサポートしています。</p>
+
+
+  <p>Draft をカスタマイズして、Kubernetes で実行できるアプリケーションやサービスの開発を効率化することができます。 &nbsp;ドラフトパックは、単純な検出スクリプト、Dockerfile、およびヘルムグラフにすぎません。</p>
+
+
+  <p>このシンプルで柔軟性の高い開発者向けユーザーエクスペリエンスは、 <a href="https://deis.com/workflow/">Deis</a> や <a href="https://cloudfoundry.org/">Cloud Foundry</a> <em>buildpacks</em>の概念をサポートするような PaaS システムによって実現されています。 ただし、Draft は buildpack 指向の PaaS システムとは異なります。これは、ビルドと配置の構成をソースツリーに書き込んでいるため、これらのコンテナーを運用環境に移行するための継続的インテグレーション (CI) パイプラインを簡単に作成できるようにするためです。</p>
+
+
+  <h2>ローカルでの編集、リモートでの開発</h2>
+
+
+  <p>開発者がドラフト作成を実行する &rdquo; と、アプリケーションのハッキングは、「draft up &rdquo; 」と入力 &ldquo; するだけで簡単に実行 &ldquo; できます。 これは、(ローカルまたはクラウドで実行されている) 任意の Kubernetes クラスターにソースコードを提供し、Dockerfile を使用してそのクラスター内にビルドし、ヘルムグラフを使用して開発環境にデプロイします。 &nbsp;開発者はアプリをライブでテストし、エディターまたは IDE に加えられたすべての変更を数秒で利用できるようになります。 Jenkins registry と Kubernetes クラスターを使用すると、開発者は、運用チームや <a href="https://kubernetes.io/docs/getting-started-guides/minikube/">独自のノート pc</a>と連携して、コードからデプロイまでの緊密な反復ループを構築できます。</p>
+
+
+  <p>多くの開発者は、ラップトップで実行されている Kubernetes クラスターで Draft をポイントすることで、単独で開始することがありますが、Draft はリモート Kubernetes クラスターでも同様に機能します。 これにより、開発者はコードをローカルで編集できますが、開発環境をクラウドで実行することで、すべてのアプリ &rsquo; の運用上の依存関係にアクセスできます。 開発 &rdquo; と &ldquo; &rdquo; 運用のために3つの &ldquo; 乾杯があります。</p>
+
+
+  <h2>今すぐ始めましょう</h2>
+
+
+  <p>Acs には、複数のオーケストレーターサポートするオープンソースの ACS-Engine プロジェクトを含むオープンソースの長い歴史があります。これにより、お客様独自の acs クラスターをカスタマイズできます。 &nbsp;このオープンな精神を新しいプロジェクトに拡張し、開発者がコンテナーテクノロジを成功させるのに役立ちます。 現時点では、Draft はオープンソースであり、で <a href="https://aka.ms/draft">https://github.com/Azure/draft</a> 利用できます。 <a href="https://aka.ms/draftlanding">ACS で Kubernetes クラスター</a>を作成し、今すぐテスト用ドライブのドラフトを取得します。</p>

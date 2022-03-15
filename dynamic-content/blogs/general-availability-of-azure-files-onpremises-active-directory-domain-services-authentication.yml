@@ -1,0 +1,49 @@
+### YamlMime:Yaml
+ms.openlocfilehash: b3afea15dd3a49b21b03d9178d26285681d15a4b
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893051"
+Slug: general-availability-of-azure-files-onpremises-active-directory-domain-services-authentication
+Title: Domain Services 認証Azure Files オンプレミスの Active Directory一般提供
+Summary: 現在、Domain Services (Azure Files Domain Services) での認証オンプレミスの Active Directoryの一般AD DSお知らせします。
+Content: >-
+  <p>本日、&#39;Domain Services (Azure Files <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-enable" target="_blank">Domain Services</a> ) での認証オンプレミスの Active Directoryの一般提供をお知AD DS。</p>
+
+
+  <p>2020&rsquo; 年 2 月のプレビュー以降、特にホーム シナリオからの作業の増加により、お客様から大きなフィードバックと関心が高まっています。 ファイル共有をクラウドに移行すると、Active Directory 資格情報を使用してアクセスを維持することで、IT 管理エクスペリエンスが大幅に簡素化され、リモート作業のモビリティが向上します。 最も重要なのは、クライアントを再構成する必要がなされていないことです。 オンプレミスのサーバーまたはユーザー ラップトップが AD DS にドメイン参加している限り、Active Directory を Azure AD に同期し、ストレージ アカウントで <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable" target="_blank">AD DS</a> 認証を有効にして、ファイル共有を直接マウントできます。 既存の Windows ACL を Azure Files にシームレスに引き継ぎ、承認のために引き続き適用できるので、オンプレミスからクラウドへの移行は非常に単純です。 Azure Files のプライベート エンドポイント <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-networking-overview#private-endpoints" target="_blank">の</a>サポートと共に、セキュリティで保護されたネットワーク境界内のオンプレミスのファイル サーバーと同様に、Azure Files のデータにアクセスできます。</p>
+
+
+  <p>また、オンプレミスAD DS統合により、Virtual Desktop シナリオのユーザー プロファイル ストレージとして Azure Files を使用するセットアップ エクスペリエンスも簡略化されます。 Virtual Desktop Infrastructure (VDI) 環境Azure Filesを利用することで、ファイル サーバーを自己ホストする必要がなされません。 統合AD DS、従来のファイル サーバーと同じ認証と承認を Azure に拡張します。 ユーザー プロファイルは、シングル サインオン ログイン エクスペリエンスをサポートするファイル共有からデスクトップ セッションに読み込まれます。 必要に応じて、既存の AD DSを引き続き使用し、Windowsアクセス制御リスト (ACL) を引き継ぐ必要があります。 さらに、クラウドAzure Filesファイル サービスとして機能する機能により、容量とトラフィック パターンの変化に対応するために動的スケーリングが提供されます。 たとえば、VDI ファームでは 500 人のユーザーのサポートが開始されている可能性がありますが、リモートで作業するユーザーが増える場合は、最大 5,000 ユーザー (10 倍の増加) をスケールアップする必要があります。 Azure Files Premium レベルを使用すると、容量の増加に対応するために、その他のパフォーマンスと共に機能をスケールアップできます。 これにより、追加のファイル サーバーをデプロイし、再構成を管理するための管理オーバーヘッドも削減されます。</p>
+
+
+  <p>セットアップを支援するために、ファースト パーティとサード パーティの VDI プロバイダーと協力して、詳細なガイダンスを提供しています。 この詳細なチュートリアル<a href="https://docs.microsoft.com/en-us/azure/virtual-desktop/create-file-share" target="_blank">に従</a>って、仮想デスクトップ FSLogix プロファイル コンテナー Windowsを構成Azure Files。 Citrix は Microsoft と提携し、ユーザー プロファイル管理テクノロジとユーザーパーソナル化レイヤー テクノロジの両方の認定ストレージ ソリューションとして Azure Files の 1 日サポートを提供しています。 この機能Azure Files、VDI 環境内のユーザー データに対して、シンプルでコスト効率の高い永続的ストレージ ソリューションを提供します。 Citrix テクノロジと Azure Files統合する詳細な構成情報については、 <a href="https://docs.citrix.com/en-us/tech-zone/build/deployment-guides/citrix-azure-files.html" target="_blank">Citrix Tech Zone を参照してください</a>。</p>
+
+
+  <p>さらに、次の情報に関する最新の更新プログラムをAzure Files。</p>
+
+
+  <ul>
+      <li><strong>ソフト削除による強化されたデータ保護</strong>。 Azure ファイル共有を誤って削除しないように保護するために、Azure ファイル共有のソフト削除の <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-prevent-file-share-deletion" target="_blank">プレビューをリリースしました</a>。 ファイル共有のごみ箱のようなソフト削除を考えてみろ。 ファイル共有が削除された場合、ファイル共有は、ソフト削除されたスナップショットの形式で、ソフト削除された状態に遷移します。 完全に消去される前に、削除されたデータが回復可能な期間を構成できます。</li>
+      <li><strong>最大ファイル サイズを 4 TiB に増やしてスケーリングを向上。</strong> 1 つのファイルでサポートされる最大サイズを Premium ファイルの 1TiB から 4 TiB に増やしました。 ファイル共有を使用してエンジニアリング ファイルまたは仮想ハード ディスク (ハード ディスク) を格納している場合、これはサイズの制限に関する懸念事項に対処します。 データフットプリントを拡大するにつれて、実行時に共有サイズをスケールアップすることもできます。 より大きなファイル サイズは、サーバー メッセージ ブロック (SMB) プロトコルでサポートされ、今後数週間で標準ファイルと共に REST アクセスに対して有効になります。</li>
+      <li><strong>プライベート エンドポイントでのAzure File Sync</strong>。Azure File Sync エージェントのバージョン 10.1 から、Storage <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-sync-files-networking-endpoints" target="_blank">Sync Services 用のプライベート エンドポイントを作成できます</a>。 プライベート エンドポイントを使用すると、ExpressRoute とプライベート ピアリングまたはサイト間 VPN 接続を使用して、オンプレミスから Azure リソースに安全に接続できます。</li>
+  </ul>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>ファイル共有をデプロイし、5 分以内にデータ ストレージ用にマウントできます。 開始に役立つ資料を次に示します。</p>
+
+
+  <ul>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction" target="_blank">どのようなAzure Files</a>?</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-quick-create-use-windows" target="_blank">クイック スタート: 共有共有を作成Azure Files管理する</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-planning" target="_blank">Azure Files のデプロイの計画</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-sync-files-planning" target="_blank">Azure File Sync のデプロイの計画</a>。</li>
+      <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-enable" target="_blank">デバイスでActive Directory Domain Services認証を有効Azure Files</a>。</li>
+  </ul>
+
+
+  <p>フィードバックは、Azure Storage <a href="https://social.msdn.microsoft.com/Forums/en-US/home?forum=windowsazuredata" target="_blank">フォーラムから共有</a>できます。または、 に電子メールをお送りください<a href="mailto:AzureFiles@microsoft.com">AzureFiles@microsoft.com</a>。</p>

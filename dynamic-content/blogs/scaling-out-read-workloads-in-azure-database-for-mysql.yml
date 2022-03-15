@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 83c19b479737781e3cdd7390cfb2bc911fc9a76f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892702"
+Slug: scaling-out-read-workloads-in-azure-database-for-mysql
+Title: 読み取りワークロードをスケールアウトAzure Database for MySQL
+Summary: スケールアウトする必要がある読み取り負荷の高いワークロードでは、すべてのユーザーが一般提供する読み取りレプリカAzure Database for MySQLできます。
+Content: >-
+  <p>スケールアウトする必要がある読み取り負荷の高いワークロードでは、すべてのユーザーが一般提供する読み取りレプリカAzure Database for MySQLできます。 読み取りレプリカを使用すると、単一のデータベース サーバーを超えて水平方向に簡単にスケールアウトできます。 これは、書き込みよりも読み取り操作が多い BI レポートや Web アプリケーションなどのワークロードで役立ちます。</p>
+
+
+  <p>この機能は、1 つの Azure Database for MySQL サーバー (&ldquo;&rdquo;マスター サーバー) から、同じリージョン内の最大 5 つの Azure Database for MySQL サーバー (&ldquo;&rdquo;読み取りレプリカ サーバー) へのデータの継続的な非同期レプリケーションをサポートします。 読み取り負荷の高いワークロードは、好みに応じてレプリカ サーバーに分散できます。 レプリカ サーバーは、マスター上のデータ変更からレプリケートされた書き込みを除き、読み取り専用です。</p>
+
+
+  <h2>読&rsquo;み取りレプリカでサポートされる機能</h2>
+
+
+  <p>ワークロードのニーズに基づいてレプリカ サーバーを作成または&rsquo;削除できます。 マスター サーバーは、同じ Azure リージョン内で最大 5 つのレプリカ サーバーをサポートできます。 レプリカ サーバーへのレプリケーションを停止すると、スタンドアロンの読み取り/書き込みサーバーになります。</p>
+
+
+  <p>レプリカ サーバーを管理するには、レプリカ サーバーと <a href="https://docs.microsoft.com/en-us/azure/mysql/howto-read-replicas-portal">Azure portalを使用</a><a href="https://docs.microsoft.com/en-us/azure/mysql/howto-read-replicas-cli">Azure CLI</a>。</p>
+
+
+  <p><strong>Azure portal から:</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/89e00dc9-65c7-4b22-ac70-9efea92ca4ee.png"><img alt="Replication tab in Azure portal used for managing replica servers." border="0" height="567" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3a953a83-bd83-4e72-8ed7-b310bc9722d5.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="[レプリケーション] タブAzure portal" width="1201"></a></p>
+
+
+  <p>次Azure Monitorを使用して、レプリケーションのラグ ( &ldquo;秒) メトリックを使用してレプリケーションを追跡&rdquo; します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/499b239c-ba8b-4305-95ad-fef8496df1be.png"><img alt="Tracking replication with Azure Monitor" border="0" height="797" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/88a4209d-f531-486a-bfaa-28952720687d.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Monitor を使用したレプリケーションの追跡" width="1173"></a></p>
+
+
+  <p><strong>次のAzure CLI。 </strong></p>
+
+
+  <pre>
+
+  az mysql server replica create -n mydemoreplica1 -g myresourcegroup -s mydemomaster</pre>
+
+
+  <p>ワークロードのスケーリングに読み取りレプリカを利用する顧客とパートナーによって使用されるアプリケーション パターンを次に示します。</p>
+
+
+  <h2>BI レポート</h2>
+
+
+  <p>データ ソースのデータは数分ごとに処理され、マスター サーバーに読み込まれます。 マスター サーバーは読み込みと処理専用であり、予測可能なパフォーマンスを確保するためにレポートや分析のために BI ユーザーに直接公開されるのではありません。 レポート ワークロードは、待機時間の短い高いユーザー コンカレンシーを管理するために、複数の読み取りレプリカにスケールアウトされます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/10662c3a-24cb-4728-b0ef-b91530a71461.png"><img alt="Process disparate data sources with read replicas used to scale out. " border="0" height="437" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bb7f28a1-1f9f-4251-ada5-1b7d099f23fa.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="BI レポート のアーキテクチャ" width="756"></a></p>
+
+
+  <h2>マイクロサービス</h2>
+
+
+  <p>このアーキテクチャ パターンでは、アプリケーションは複数のマイクロサービスに分割されます。データ変更 API はマスター サーバーに接続し、レポート API は読み取りレプリカに接続します。 データ変更 API の先頭には &ldquo;Set-が付き、レポート API には Get-&rdquo;というプレフィックスが &ldquo;付く&ldquo;。 ロード バランサーは、API プレフィックスに基づいてトラフィックをルーティングするために使用されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/67715750-68b5-4edd-aeda-f1de17804d3f.png"><img alt="Load balance read and write data changes with web services. " border="0" height="358" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4d4c786e-1d69-483a-9caa-aaccd882c4f6.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="マイクロサービスのアーキテクチャ" width="686"></a></p>
+
+
+  <h2>次の手順</h2>
+
+
+  <ul>
+   <li>概要を使用して最初のサーバーサーバーを作成Azure Database for MySQL <a href="https://docs.microsoft.com/en-us/azure/mysql/quickstart-create-mysql-server-database-using-azure-portal" target="_blank">サービスをAzure portal</a> 使用 <a href="https://docs.microsoft.com/en-us/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli" target="_blank">Azure CLI</a>。</li>
+   <li>読み取り<a href="https://docs.microsoft.com/en-us/azure/mysql/concepts-read-replicas" target="_blank">レプリカの詳細</a>と、読み取りレプリカまたは読み取りレプリカを<a href="https://docs.microsoft.com/en-us/azure/mysql/howto-read-replicas-portal" target="_blank">Azure portal方法Azure CLI</a><a href="https://docs.microsoft.com/en-us/azure/mysql/howto-read-replicas-cli" target="_blank">。</a></li>
+   <li>チーム にメールでお問い合わせください <a href="mailto:AskAzureDBforMySQL@service.microsoft.com">AskAzureDBforMySQL@service.microsoft.com</a>。</li>
+   <li><a href="https://feedback.azure.com/forums/597982-azure-database-for-mysql" target="_blank">UserVoice でのファイル機能要求</a>。</li>
+   <li>Twitter でフォローして <a href="https://twitter.com/AzureDBMysql" target="_blank">@AzureDBMySQL</a> 、最新の機能に追い付いてください。</li>
+  </ul>

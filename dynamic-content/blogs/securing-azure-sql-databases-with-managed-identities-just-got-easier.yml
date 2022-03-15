@@ -1,0 +1,66 @@
+### YamlMime:Yaml
+ms.openlocfilehash: e7c36b27045d933807a4438958f2ac8dbcbe914f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892644"
+Slug: securing-azure-sql-databases-with-managed-identities-just-got-easier
+Title: マネージド ID を使用SQL Azure SQL データベースのセキュリティ保護が簡単になりました
+Summary: 'Azure サービス アプリ認証ライブラリバージョン 1.2.0 の 2 番目のプレビュー リリースをお知りください。 このリリースでは、コードを変更する必要Azure SQL Database既存の .NET アプリケーションに対して、単純でシームレスな認証を行えるだけでなく、構成の変更のみを行えます。 '
+Content: >-
+  <p><a href="https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/1.2.0-preview2" target="_blank">Azure</a> サービス アプリ認証ライブラリバージョン 1.2.0 の 2 番目のプレビュー リリースをお知りください。 このリリースでは、既存の .NET アプリケーションに対してAzure SQL Database簡単かつシームレスな認証を実行できます。コードは変更され、構成の&ndash;変更のみはありません。 このリリースまでは、既存の SQL アプリケーションでマネージド ID と AAD ベースの認証を使用する必要がある開発者は、認証に使用されるアクセス トークンを取得して設定するコード変更を行う必要があります。 多くの開発者は、アプリ認証ライブラリに慣れ親しんだので、次のようにアクセス トークンを取得するために使用することを選択しました。</p>
+
+
+  <pre>
+
+  SqlConnection connection = new SqlConnection(connectionString);
+
+  connection.AccessToken = await (new AzureServiceTokenProvider()).GetAccessTokenAsync(&quot;<a href="https://database.windows.net/&quot;)">https://database.windows.net/&quot;)</a>
+
+  connection.Open();</pre>
+
+
+  <p>多くの場合、これらのコード変更の実装とテストは簡単ではありませんでした。 これは、これらのコード変更が開発者にとってより困難でエラーが発生しやすい EntityFramework とさらに複合化されました。<a href="https://stackoverflow.com/questions/54226474/login-failed-for-user-sqlexception-when-accessing-azure-sql-db-via-msi-wit" target="_blank">これは、StackOverflow</a> に関する多くの外部の質問によって示されています。<a href="https://stackoverflow.com/questions/50054491/can-msi-work-with-ef-codefirst" target="_blank"></a> ただし、<a href="https://devblogs.microsoft.com/dotnet/announcing-the-net-framework-4-7-2/" target="_blank">.NET Framework 4.7.2</a> では、SqlClient の新しい機能が追加されました。これにより、開発者はアプリケーション&#39;の構成を介して SQL 認証プロバイダーを登録できます。 開発者&#39;この SQL 認証プロバイダーを実装する作業を既に完了している必要があります。そのため、次に示すように、プロバイダーを登録するために必要な操作は、いくつかの簡単な構成変更のみです。</p>
+
+
+  <p>このリリースのアプリ認証ライブラリでは、多くの開発者が既存の SQL でサポートされているソリューションで新しい機能を試し、App Authentication ライブラリとマネージド ID に与えるセキュリティ上の利点を得られると期待しています。 詳細と、この新機能を試す方法については、新しいサンプルを <a href="https://aka.ms/appauthsqlsample" target="_blank">確認してください</a>。</p>
+
+
+  <p><strong>前に、資格情報を含む接続文字列を使用します。</strong></p>
+
+
+  <pre>
+
+  &lt;connectionStrings&gt;
+     &lt;!-- using connection string containing credentials --&gt;
+     &lt;add name=&quot;MyDbConnection&quot; connectionString=&quot;Data Source=tcp:[SQL Server Name].database.windows.net;Initial Catalog=[SQL DB name];UID=[UID];Password=[pwd]&quot; providerName=&quot;System.Data.SqlClient&quot; /&gt;
+  &lt;/connectionStrings&gt;</pre>
+
+
+  <p><strong>その後、アプリ認証&rsquo; SqlAppAuthenticationProvider を登録します。</strong></p>
+
+
+  <pre>
+
+  &lt;configSections&gt;
+     ...
+     &lt;!-- Change #1: Register the new SqlAuthenticationProvider configuration section --&gt;
+     &lt;section name=&quot;SqlAuthenticationProviders&quot; type=&quot;System.Data.SqlClient.SqlAuthenticationProviderConfigurationSection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; /&gt;
+  &lt;/configSections&gt;
+
+  &lt;connectionStrings&gt;
+     &lt;!-- Change #2: Update the connection string to remove credentials and reference the registered SQL authentication provider from change #3 --&gt;
+     &lt;add name=&quot;MyDbConnection&quot; connectionString=&quot;Data Source=tcp:[SQL Server Name].database.windows.net;Initial Catalog=[SQL DB Name];UID=AnyString;Authentication=Active Directory Interactive&quot; providerName=&quot;System.Data.SqlClient&quot; /&gt;
+  &lt;/connectionStrings&gt;
+
+  &lt;!-- Change #3: Add the new SqlAuthenticationProvider configuration section, registering the built-in authentication provider in AppAuth library --&gt;
+
+  &lt;SqlAuthenticationProviders&gt;
+     &lt;providers&gt;
+       &lt;add name=&quot;Active Directory Interactive&quot; type=&quot;Microsoft.Azure.Services.AppAuthentication.SqlAppAuthenticationProvider, Microsoft.Azure.Services.AppAuthentication&quot; /&gt;
+     &lt;/providers&gt;
+  &lt;/SqlAuthenticationProviders&gt;</pre>
+
+
+  <p>アプリ認証ライブラリで新しい認証プロバイダー SQLを試してみろと思います。 ご質問やご不明な点がある場合は、 <a href="https://stackoverflow.com/questions/tagged/azure-msi" target="_blank">StackOverflow</a> でお問い合わせください。</p>

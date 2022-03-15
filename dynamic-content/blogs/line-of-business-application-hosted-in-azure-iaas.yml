@@ -1,0 +1,50 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 15ba3e285e80a2e16048de720c0732554e9f8e34
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892927"
+Slug: line-of-business-application-hosted-in-azure-iaas
+Title: Azure の Web ベースのイントラネットのビジネス アプリケーション
+Summary: Azure インフラストラクチャ サービスで、次の Web ベースのイントラネットのビジネス アプリケーションを構成できます。
+Content: >-
+  <p>Azure 仮想マシンと Azure クロスオンプレミス仮想ネットワークの組み合わせを使用して、次の Web ベースのイントラネットのビジネス アプリケーションを Azure にデプロイできます。</p>
+
+
+  <p>基本的なプロセスは次です。</p>
+
+
+  <ol>
+   <li>オンプレミスのプライベート アドレス空間の一部を使用して、アプリケーションの層ごとに複数のサブネットを持つ Azure 仮想ネットワークを作成します。</li>
+   <li>Connect間 VPN 接続または ExpressRoute を使用して、Azure 仮想ネットワークをオンプレミス ネットワークに接続します。</li>
+   <li>LOB アプリケーションの各層の仮想マシンのリソース グループ、可用性セット、ストレージ アカウント、ロード バランサーを作成します。</li>
+   <li>LOB アプリケーションの ID と認証に使用するサーバーを作成して構成します。</li>
+   <li>LOB アプリケーションのデータベース サーバーを作成して構成します。</li>
+   <li>LOB アプリケーション用の Web サーバーと他のサーバーを作成して構成します。</li>
+  </ol>
+
+
+  <p>ここでは次の例を使用します。</p>
+
+
+  <ul>
+   <li>ID Windows Server Active Directory用の 2 つのドメイン コントローラー (AD) ドメイン コントローラー。</li>
+   <li>データベースWindowsサーバー クラスターとSQL Server AlwaysOn 可用性グループのクラスター。</li>
+   <li>受信接続を 2 つの Web サーバーに分散する内部ロード バランサー。</li>
+  </ul>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/24/Workload-lobapp-phase4.png"><img alt="Workload-lobapp-phase4" border="0" height="258" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Workload-lobapp-phase4_thumb.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="Workload-lobapp-phase4" width="640"></a>&nbsp;&nbsp;</p>
+
+
+  <p>別のパースペクティブと、イントラネット ユーザーに対する動作の説明については、「Line of Business Applications <a href="https://msdn.microsoft.com/dn630664">Architecture ブループリント」を参照してください</a>。</p>
+
+
+  <p>&nbsp; <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/08/24/LOB_Arch_Blueprint.png"><img alt="LOB_Arch_Blueprint" border="0" height="476" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/LOB_Arch_Blueprint_thumb.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="" width="640"></a> LOB_Arch_Blueprint &nbsp;</p>
+
+
+  <p>シミュレートされたハイブリッド クラウド構成でこれを<a href="https://azure.microsoft.com/documentation/articles/virtual-machines-windows-ps-hybrid-cloud-test-env-lob/"></a>テストし、次の構成を構築できます。</p>
+
+
+  <p><img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b421993c-1c3e-4050-b406-29421036caee.png"></p>

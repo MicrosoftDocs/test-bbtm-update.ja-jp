@@ -1,0 +1,120 @@
+### YamlMime:Yaml
+ms.openlocfilehash: f87ce01a220e92661073c134cef1c6e86b7b9b00
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892687"
+Slug: scheduling-azure-automation-runbooks-with-azure-scheduler
+Title: Azure Scheduler を使用した Azure Automation runbook のスケジュール設定
+Summary: Azure Automation アカウントで任意の runbook を開始する新しい Azure Scheduler ジョブを作成する
+Content: >-
+  <strong>更新プログラム 8/5/2015</strong>: Azure Automation の webhook webhook </a> の導入により、Azure Scheduler を使用して runbook の <a title=" " href="https://azure.microsoft.com/en-in/documentation/articles/automation-webhooks/" target="_blank"> スケジュールを設定しやすくなりました。 この  <a title=" プロセスの詳細については、azure scheduler azure での runbook の Azure Automation azure scheduler を使用し  </a> " href="https://azure.microsoft.com/blog/2015/08/05/scheduling-azure-automation-runbooks-with-azure-scheduler-2/"> た Automation runbook の " href="https://azure.microsoft.com/blog/2015/08/05/scheduling-azure-automation-runbooks-with-azure-scheduler-2/" target="_blank"> スケジュール設定に関する記事 </a> <a title=" をご覧ください。
+
+
+  古くなった古い方法は次のとおりです。
+
+
+  Azure Automation には、毎日、1時間ごと、または今後1か所で Automation runbook を開始できるスケジューラがあります。 ただし、一部のお客様は、Azure Scheduler が runbook を開始するために提供する高度なスケジュール設定機能を使用することをお勧めします。 例としては、特定の日またはより細かいレベル (分など) での runbook ジョブのスケジューリングの実行があります。
+
+
+  この記事では、Azure Automation アカウントで任意の runbook を開始する新しい Azure Scheduler ジョブを作成する方法について説明します。
+
+
+  次に、Automation runbook を開始するスケジューラジョブの設定に関連する概要を示します。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="スケジューラ図" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SchedulerDiagram.png" alt="SchedulerDiagram" width="600" height="442" border="0" />
+
+
+  最初に実行する必要があるのは、Azure Scheduler ジョブに関連付けられる Automation runbook を作成することです。 ギャラリーから runbook をインポートし、現在作業時間であるかどうかを確認しました。 これは、スケジューラジョブから runbook を呼び出す方法を示すサンプルにすぎません。 Automation アカウントでは、任意の runbook を使用できます。 Automation の runbook のインポートウィザードの次の図は、ギャラリーから runbook を選択する方法を示しています。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="ギャラリー項目" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/GalleryItem.png" alt="GalleryItem" width="600" height="390" border="0" />
+
+
+  &nbsp;
+
+
+  この runbook を Automation アカウントにインポートすると、2つのパラメーター MyWeekDayStartHour と MyWeekDayEndHour が使用され、この2つの値の間に現在存在する場合は true、それ以外の場合は false が返されます。
+
+
+  &nbsp;
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="Get-IsWorkHours" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/Get-IsWorkHours.png" alt="Get-IsWorkHours" width="588" height="465" border="0" />
+
+
+  この runbook を発行すると、Azure Scheduler ジョブで開始できるようになります。
+
+  Scheduler を使用して Automation runbook を簡単に開始できるようにするために、既に作成したジョブコレクションで Azure Scheduler ジョブを作成または更新する utility runbook を Automation ギャラリーに追加しました。または、新しいコレクションが存在しない場合は、新しいコレクションが作成されます。 ユーティリティの runbook は AzureScheduleWithRunbook と呼ばれ、Automation ギャラリーの "Utility" カテゴリからインポートできます。 この runbook は、runbook を新しい Azure Scheduler ジョブに正しく関連付けるために必要な多数のパラメーターを受け取ります。 この Runbook を開始する前に、次の Automation 資産を作成する必要があります。
+
+  <h2>AzureCertificateAssetName</h2>
+
+  これは、Azure サブスクリプションへのアクセス権を持つ管理証明書が含まれている資格情報証明書資産です。 この証明書は、Automation サービスに追加するときにエクスポート可能としてマークする必要があります。 Azure をに呼び出す Azure .pfx 証明書を作成する方法については、「」を参照して <a href=""></a> ください。 この証明書は、runbook を開始するために Automation サービスを呼び出すことができるように、新しい Azure scheduler ジョブに送信されます。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="UploadCertificate" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/UploadCertificate.png" alt="UploadCertificate" width="600" height="383" border="0" />
+
+  <h2>AzureCertificatePasswordAssetName</h2>
+
+  これは、管理証明書のパスワードを含む Automation 変数資産です。 これは、Automation 資産に証明書を追加したときに入力したパスワードの値です。 これは、automation サービスから証明書をエクスポートし、scheduler コマンドレットで証明書の暗号化を解除してスケジューラジョブに送信できるようにするために必要です。
+
+
+  <img style="padding-top: 0px; padding-left: 0px; margin: 0px; padding-right: 0px; border-width: 0px;" title="AzureCertificatePassword" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureCertificatePassword.png" alt="AzureCertificatePassword" width="600" height="381" border="0" />
+
+  <h2></h2>
+
+  <h2>AzureADCredentialAssetName</h2>
+
+  これは、Azure サブスクリプションへのアクセス権を持つ Azure AD アカウントのユーザー名とパスワードを含む資格情報資産です。 この設定方法については、「」を参照して <a href="https://azure.microsoft.com/blog/2014/08/27/azure-automation-authenticating-to-azure-using-azure-active-directory/">https://azure.microsoft.com/blog/2014/08/27/azure-automation-authenticating-to-azure-using-azure-active-directory/</a> ください。 これにより、Automation サービスは Azure サブスクリプションに対して認証を行い、Azure Automation に付属する Azure PowerShell コマンドレットを使用して新しいスケジューラジョブを作成できます。<img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="AzureCredentialAssetName" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzureCredentialAssetName.png" alt="AzureCredentialAssetName" width="600" height="380" border="0" />
+
+  これらの Automation 資産を設定したら、ギャラリーから Automation アカウントに runbook をインポートして発行することができます。
+
+
+  Set-AzureScheduleWithRunbook runbook を使用するには、Set-AzureScheduleWithRunbook runbook に必要なパラメーターを設定してから AzureScheduleWithRunbook への呼び出しで渡す、親 runbook からこの runbook を呼び出す必要がありますが、 この親 runbook は、Azure で + New を使用して作成し、runbook の簡易作成を選択することができます。この新しい runbook AzureScheduleParameters を呼び出します。 その後、Set-AzureScheduleWithRunbook runbook に示されている例をコピーできます。コメントセクションの例を次のように新しい runbook に貼り付けます。
+
+
+  &nbsp;
+
+  <pre class="prettyprint">Workflow Configure-AzureScheduleParameters
+
+  {
+      $RunbookName = "Get-IsWorkHours"
+      $RunbookParameters = @{"MyWeekDayEndHour"=18;"MyWeekDayStartHour"=6}
+
+      Set-AzureScheduleWithRunbook `
+          -AccountName finance `
+          -AzureCertificatePasswordAssetName CertPassword `
+          -AzureCertificateAssetName AzureCert `
+          -AzureADCredentialAssetName AzureCred `
+          -Runbook $RunbookName `
+          -Parameters $RunbookParameters `
+          -SchedulerJobCollectionName FinanceJobCollection `
+          -SchedulerJobName FinanceDaily `
+          -SchedulerLocation "South Central US" `
+          -SubscriptionName "Visual Studio Ultimate with MSDN"
+  }</pre>
+
+  &nbsp;
+
+
+  この例では、$RunbookName を Get-IsWorkHours に設定し、$RunbookParameters ハッシュテーブルの MyWeekDayStartHour と MyWeekDayEndHour のパラメーターを設定していることを確認できます。 次に、発行された Set-AzureScheduleWithRunbook runbook を呼び出し、必要なパラメーターを渡して、Get-IsWorkHours runbook を開始する新しいスケジューラジョブを作成します。
+
+
+  これらのパラメーターは、Automation サービスで作成するアセットの名前と一致するように変更する必要があります。
+
+
+  Runbook が正常に完了した場合、新しいスケジューラジョブは Scheduler の Azure portal 内で次のようになります。
+
+
+  <a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2015/01/20/SchedulerJob.png"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="スケジューラジョブ" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/SchedulerJob_thumb.png" alt="SchedulerJob" width="583" height="390" border="0" /></a>
+
+
+  このスケジューラジョブを変更して、必要なスケジュールに応じて定期的なジョブにすることができるようになりました。
+
+
+  このユーティリティ runbook Set-AzureScheduleWithRunbook は、Automation ギャラリーで、高度なスケジュール設定と Automation との統合の実行を開始するために使用できます。 スケジュールに従って実行する自動化タスクを確認することで、可能な限り簡単にすることができます。 以下のコメントでお知らせください。
+
+
+  Azure Automation を使い始めたばかりですか? <a href="https://aka.ms/Q2p1ap" target="_blank">ここで</a>サービスについて説明し、Twitter の<a href="https://twitter.com/AzureAutomation" target="_blank">Azure Automation</a>に従います。

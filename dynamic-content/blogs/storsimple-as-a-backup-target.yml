@@ -1,0 +1,77 @@
+### YamlMime:Yaml
+ms.openlocfilehash: bdc47a087cb84c5c3c299a32a03881f6d97752b3
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892120"
+Slug: storsimple-as-a-backup-target
+Title: バックアップ ターゲットとしての StorSimple
+Summary: Update 3 以降を実行している StorSimple 8000 シリーズ デバイスでは、ディスクへのバックアップ ワークロードがサポートされる予定です。 また、デプロイ ガイドをヘルプに提供しています。.
+Content: >-
+  <p>Update 3 以降を実行している StorSimple 8000 シリーズ デバイスでは、ディスクへのバックアップ ワークロードがサポートされる予定です。 また、StorSimple をディスク ベースのバックアップ ターゲットとして使用するバックアップ アプリケーションの構成に役立つデプロイ ガイドも提供しています。</p>
+
+
+  <p>StorSimple は、ローカル ストレージのパフォーマンスと互換性と、クラウド オブジェクト ストレージのスケール、回復性、可用性を組み合わせ、両方の世界のベストを提供します。</p>
+
+
+  <h2>StorSimple の更新プログラム</h2>
+
+
+  <p>StorSimple 8000 シリーズ デバイス用の Update 3 のリリースにより、デバイスを曲がり、ディスクへのバックアップ ターゲットとして使用できる新しいバックアップ モードが導入されました。 また、クラウド スループットの改善と、高頻度のデータチャーンの処理に関する機能強化も含まれています。 これらの追加により、デバイスをプライマリ バックアップ ターゲットとセカンダリ バックアップ ターゲットの両方として構成できます。</p>
+
+
+  <h2>StorSimple をバックアップ ターゲットとして使用する理由</h2>
+
+
+  <p>通常、復元の &gt;95% は過去 7 日間のバックアップから提供されます。 StorSimples&rsquo;&rsquo; のクラウド中心のアーキテクチャでは、最も新しい書き込まれたバックアップがデバイスのローカル ストレージ容量に保持されるのに対し、古いアーカイブ クラスのバックアップはクラウド ストレージに階層化されます。</p>
+
+
+  <p>このアプローチは、次の作業を容易に行います。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <ul>
+   <li>ローカル ストレージを使用したバックアップの高速化</li>
+   <li>ローカル ストレージからの高速復元</li>
+   <li>オフサイト ストレージとしての Azure</li>
+   <li>オンデマンドのエラスティック拡張、クラウドスケール、およびバックアップ容量に対するクラウドの経済性</li>
+   <li>Azure IaaS の組み込みのディザスター リカバリー</li>
+   <li>オフサイト メディア管理の削除</li>
+   <li>バックアップ メディアの種類または形式間のメディア移行なし</li>
+   <li>Enterpriseデュアル ストレージ コントローラーを備え、1 GbE と 10 GbE の両方の接続を備え、Microsoft Azure とのシームレスな統合を実現します。</li>
+   <li><a href="https://docs.microsoft.com/en-us/azure/storsimple/storsimple-virtual-device-u2">Azure で StorSimple デバイスを使用して Azure でデータを再利用する</a></li>
+  </ul>
+
+
+  <p>バックアップ データがクラウドに入った後は、Azure および <a href="https://docs.microsoft.com/en-us/azure/storsimple/storsimple-data-manager-overview">StorSimple Data Manager</a> サービスの <a href="https://docs.microsoft.com/en-us/azure/storsimple/storsimple-virtual-device-u2">StorSimple</a> デバイスを使用して、データを無数の使用事例に対応する有効なデータセットに変換できます。</p>
+
+
+  <h2>現在、どのバックアップ ソフトウェア アプリケーションがサポートされていますか?</h2>
+
+
+  <p>StorSimple は Veritas Backup Exec、Veritas NetBackup、Veeam で認定されています</p>
+
+
+  <p>ベンダー固有の構成については、以下の構成ガイドを参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/azure/storsimple/storsimple-configure-backup-target-using-backup-exec">Veritas Backup Exec を使用して StorSimple を構成する</a></li>
+   <li><a href="https://docs.microsoft.com/azure/storsimple/storsimple-configure-backuptarget-netbackup">Veritas NetBackup を使用して StorSimple を構成する</a></li>
+   <li><a href="https://docs.microsoft.com/azure/storsimple/storsimple-configure-backup-target-veeam">Veeam を使用して StorSimple を構成する</a></li>
+  </ul>
+
+
+  <p>追加のソフトウェア ベンダーを認定するための継続的な取 &ndash; り組みがあります。最新のニュースについては、この領域をご覧ください。</p>
+
+
+  <h2>一般的なデプロイ トポロジ</h2>
+
+
+  <p>StorSimple 8000 シリーズ ボリュームは、バックアップ アプリケーションのディスク ベースのバックアップ ターゲットとしてデプロイされます。 このようなデプロイの例を次に示します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ae657ff9-9670-467a-b6ac-8f423f0a75d0.png"><img alt="SSBackuptopology" border="0" height="193" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/28b2626d-4f7a-4d86-8d13-697aea47954b.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; display: inline; background-image: none;" title="SSBackuptopology" width="1130"></a></p>

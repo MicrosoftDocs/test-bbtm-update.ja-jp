@@ -1,0 +1,36 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 2f97f3db8bcd12d9db64df779da1cc004de5407e
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891961"
+Slug: transparent-data-encryption-with-customer-managed-keys-in-azure-sql-database-generally-available
+Title: Transparent Data Encryptionのカスタマー マネージド キーを使用Azure SQL Database一般提供
+Summary: 本日は、Bring Your Own Key (BYOK Azure SQL Database) による Bring Your Own Key と Azure SQL Data Warehouse に対する Transparent Data Encryption (TDE) の一般提供をお知らせします。 これは 1 つ...
+Content: >-
+  <p>本日は、Bring Your Own Key (BYOK Azure SQL Database) による Bring Your Own Key と Azure SQL Data Warehouse に対する Transparent Data Encryption (TDE) の一般提供をお知らせします。 これは、機密データを保護し、特定のキー管理制御の実装を必要とする規制またはコンプライアンスの義務を満たしている企業のお客様から最も頻繁に要求される機能の 1 つです。 BYOK サポートを使用した TDE は、サービス マネージド キーを使用した TDE に加えて提供されます。これは、すべての新しい Azure SQL データベースで既定で有効になっています。</p>
+
+
+  <p>BYOK サポートを使用した <a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">TDE では Azure Key Vault</a> が使用されます。これは、FIPS 140-2 レベル 2 で検証されたハードウェア セキュリティ モジュール (HSM) によってサポートされる RSA 暗号化キーに対して、高可用性でスケーラブルなセキュリティで保護されたストレージを提供します。 Key Vault管理プロセスが合理化され、お客様は暗号化キーの完全な制御を維持し、キーアクセスを管理および監査できます。</p>
+
+
+  <p>お客様は、RSA キーを生成してインポートしてAzure Key Vault、BYOK をサポートする Azure SQL Database および Azure SQL Data Warehouse TDE で使用できます。 Azure SQL Database は、データベース、ログ ファイル、およびバックアップに格納されているデータの暗号化と暗号化解除を完全に透過的な方法で処理します。これは、対称データベース暗号化キー (DEK) を使用して行います。これは、Azure Key Vault に格納されている TDE 保護機能と呼ばれるカスタマー マネージド キーを使用して保護されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c14a9c2d-385f-4838-8a01-94388273de4f.png"><img alt="TDEwithBYOK_latest" border="0" height="324" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fde978f7-7cd0-40c0-80a8-72f6a67a8e09.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="TDEwithBYOK_latest" width="820"></a></p>
+
+
+  <p>お客様は、TDE 保護機能をAzure Key Vault特定のセキュリティ要件を満たし、業界固有のコンプライアンス義務を満たします。 TDE 保護機能をローテーションすると、Azure SQL Database は数分以内に新しいキー バージョンを検出し、データベースに格納されているデータを暗号化するために使用される DEK を再暗号化します。 これにより、実際のデータが再暗号化されるのではなく、ユーザーに必要なその他の操作はありません。</p>
+
+
+  <p>お客様は、暗号化されたデータベースに&rsquo; 格納されている TDE 保護機能へのアクセスを取り消して、暗号化されたデータベースへのアクセスを取り消Azure Key Vault。 データ に格納されているキーへのアクセスを取り消す方法Azure Key Vault。 詳細については、 <a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.keyvault/?view=azurermps-4.0.0" target="_blank">PowerShell と Azure Key Vault</a> <a href="https://docs.microsoft.com/en-us/cli/azure/keyvault" target="_blank">CLI Azure Key Vaultドキュメント</a> を参照してください。 TDE 保護機能にアクセスできない場合Azure Key Vaultでアクセスを取りやめ、すべてのデータベースへのアクセスを効果的にブロックAzure SQL Database。</p>
+
+
+  <p>Azure SQL Databaseが必要です&quot;誤削除やランサムウェア&quot;&quot;のシナリオ&quot;から TDE 保護機能Azure Key Vault保護するために、削除とソフト削除を有効にしないようにします。</p>
+
+
+  <p>お客様は、Premium を含むすべての使用可能なデータベース サービス レベルに対して論理 SQL Server レベルで BYOK サポートを使用して TDE を有効にできます。また、サービスで管理される TDE の使用を、カスタマー マネージド キーの使用に切り替えできます。 この機能の有効化については、追加料金は発生しません。</p>
+
+
+  <p>PowerShell または CLI のドキュメントを使用して<a href="https://portal.azure.com/" target="_blank"></a>、Azure portal、REST API <a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption-azure-sql#manage-transparent-data-encryption-by-using-the-rest-api" target="_blank"></a> ドキュメント、および使い方ガイドにアクセスして、今すぐ<a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql-configure" target="_blank">開始</a>できます。 ベスト プラクティスを含む機能の詳細と、構成チェックリストを確認するには、サポート ドキュメントTransparent Data Encryption<a href="https://docs.microsoft.com/sql/relational-databases/security/encryption/transparent-data-encryption-byok-azure-sql" target="_blank">をBring Your Own Keyしてください</a>。</p>

@@ -1,0 +1,63 @@
+### YamlMime:Yaml
+ms.openlocfilehash: eb890946a82db7664ed5e2325b72c5bd2029aa88
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892154"
+Slug: static-websites-on-azure-storage-now-generally-available
+Title: Azure Storageの静的な Web サイトが一般提供される
+Summary: 本日は、すべてのパブリック クラウド リージョンで利用できる Azure Storage で静的 Web サイトの一般提供をお知らせします。
+Content: >-
+  <p align="left">本日は、すべてのパブリック クラウド リージョンで利用できる Azure Storage で静的 Web サイトの一般提供をお知らせします。</p>
+
+
+  <h2 align="left">静的な Web サイトとは</h2>
+
+
+  <p align="left">静的な Web サイトとは、事前に定義された一連のファイルから静的に読み込み、提供できる Web サイトを参照します。 WEB サイトでホストされている HTML、CSS、JavaScript ファイルを使用して、静的な Web サイトをAzure Storage。 これに対し、ASP.NET、Java、または Node ランタイムを使用して動的 Web サイトをホストする場合は、Azure Web Apps を使用し、ランタイムに依存して Web コンテンツを動的に生成して提供します。</p>
+
+
+  <p align="left">静的な Web サイトは、クライアント側の JavaScript を使用して強力な場合があります。 Web アプリは、Azure Blob Storage 上で React.js、Angular一般的なフレームワークを使用して構築し、ホストすることができます。 サーバー側でデータを操作または処理する必要がある場合は、Azure Cognitive Services のような関連するマネージド Azure サービスを呼び出すか、Azure Functions でホストされている独自の Web サーバーを利用します。</p>
+
+
+  <h2 align="left">今すぐ使ってみる</h2>
+
+
+  <p align="left">Azure Storage、Web サイトのホスティングを簡単かつコスト効率よく行います。 Azure Storage アカウントでホストされている静的 Web サイトを有効&lsquo;&rsquo;にした場合、$web という名前のコンテナーが自動的に作成されます。 その後、ホスティング用に静的コンテンツをこのコンテナーにアップロードできます。 コンテンツは Web エンドポイント (myaccount.z20.web.core.windows.net など) を介して利用できます。既定のページと、選択した 404 ページが表示されます。</p>
+
+
+  <p align="left">静的 Web サイトホスティングは、Azure portal、Azure CLI、または Azure PowerShell を使用して有効にできます。 ガイド付きエクスペリエンスが必要な場合は、Azure Storage で Web サイトをホストし、SSL 証明書を使用してカスタム ドメインを構成するチュートリアル <a href="https://docs.microsoft.com/azure/storage/blobs/storage-blob-static-website-host/">シリーズに従います</a>。</p>
+
+
+  <p align="left"><img alt="Static website configuration on the Azure portal" height="597" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/AzurePortalStaticWebsite-1.png" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="Azure portal での静的な Web サイトAzure portal" width="1206"></p>
+
+
+  <h2 align="left">サンプル Web サイト&ndash;を使用した独自のファイル ブラウザー Azure Storage</h2>
+
+
+  <p align="left">静的な Web サイト ホスティングを使用するシナリオの 1 つは、Web サイトを構築して、Web サイト内のデータと対話Azure Storage。 RBAC ロールを使用してファイルを保護し、認証をAzure Active Directory、Azure JavaScript SDK を使用してデータを操作することで、データをセキュリティで保護できます。 この例では、JS 用<a href="https://github.com/azure/azure-storage-js">の新しい Azure Storage SDK</a> を使用して BLOB ストレージ内のファイルを一覧表示し、静的にホストされている Web サイトのファイル ブラウザーにレンダリングします。 この例では、匿名認証を使用して Azure Blob Storage と対話しますが、Azure AD認証を使用してデータへのアクセスを制限できます。</p>
+
+
+  <p align="center"><img alt="Sample file browser for your Azure Blob storage data" height="531" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/staticwebsitedemo.jpg" style="margin-right: auto; margin-left: auto; float: none; display: block;" title="Azure Blob Storage データのサンプル ファイル ブラウザー" width="1194"></p>
+
+
+  <p align="left">このサンプル<a href="https://github.com/seguler/static-website-blob-browser">をGitHub、</a>デモ<a href="https://staticwebsitedemo.z20.web.core.windows.net/" target="_blank">をお試しください</a>。</p>
+
+
+  <p align="left">今日の分散アーキテクチャを使用する静的な Web サイトには、他&rsquo;にも多くの使用事例があります。 一般的な用途は、クラウドでサーバーレス アプリケーションを構築し、静的な Web サイトを使用してフロントエンドを作成する方法です。 &ldquo;フォト ギャラリーのデモ「<a href="https://www.youtube.com/watch?v=qNJdDb11ol4" target="_blank">Azure Blob Storage</a>&rdquo; を使用したサーバーレス コンピューティング アーキテクチャ(Ignite 2018 &ldquo; から)」を参照するか、<a href="https://docs.microsoft.com/en-us/azure/functions/tutorial-static-website-serverless-api-with-database" target="_blank">チュートリアル「Azure</a>&rdquo; でサーバーレス Web アプリを構築する」に従って、静的な Web サイトを使用したサーバーレス アーキテクチャの構築の詳細を確認してください。</p>
+
+
+  <h2 align="left">価格</h2>
+
+
+  <p align="left">静的な Web サイトを有効にするための追加料金はAzure Storage。 データの格納とアクセスの価格が適用され、価格ページで <a href="https://azure.microsoft.com/en-us/pricing/details/storage/" target="_blank">確認できます</a>。 ストレージ コストに加えて、データエグレス料金が適用され、帯域幅の価格の詳細 <a href="https://azure.microsoft.com/en-us/pricing/details/bandwidth/" target="_blank">に記載されています</a>。</p>
+
+
+  <p align="left">さらに、SSL 証明書でカスタム ドメインAzure CDNを使用できるだけでなく、カスタム書き換えルールなどの機能を使用することもできます。 その場合は、<a href="https://azure.microsoft.com/en-us/pricing/details/cdn/">Azure CDNが</a>適用され、使用パターンに応じてコストが削減される可能性があります。</p>
+
+
+  <h2 align="left">フィードバック</h2>
+
+
+  <p align="left">静的な Web サイト機能のプレビューに参加して下さった皆さん、ありがとうございます。 今後数か月で、フィードバックに基づいて機能の多くの機能強化を行う予定です。 Azure フィードバックに投稿して、引き続 <a href="https://feedback.azure.com">きフィードバックを提供します</a>。</p>

@@ -1,0 +1,54 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 41372447654310a4a1d8e1d0382e2067f1268821
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892695"
+Slug: scaling-up-project-springfield-using-azure
+Title: Azure を使用して "Project から" をスケールアップする
+Summary: このゲスト投稿は、Microsoft の人工知能 and Research グループの Project からチームのものです。 からは、セキュリティの問題をクラウドサービスとして検出するための斬新な人工知能を提供します。 Project 小規模な研究チームが Azure を使用して、短時間のタイムラインでスケーリングの課題に対応し、拡大する方法について説明します。
+Content: >-
+  <p><em>このゲスト投稿は、Microsoft &rsquo; の人工知能 and Research グループの<a href="https://www.microsoft.com/en-us/research/project/project-springfield/">Project からチーム</a>のものです。からは、セキュリティの問題をクラウドサービスとして検出するための斬新な人工知能を提供します。 Projectチームが Azure を使用して、スケールの課題を密なタイムラインで満たしているかどうかを確認する方法について説明します。</em></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8d3f1581-2cd7-4d29-bed7-39e1b2706021.jpg"><img alt="Microsoft's Springfield group" border="0" height="310" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/609e542f-ecb0-41b6-8354-6406ad3ec547.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Microsoft のからグループ" width="480"></a></p>
+
+
+  <p><a href="https://www.microsoft.com/en-us/research/people/wiblum/">ウィリアム blum</a>によって主導されている Project からエンジニアリングチームは、Project から &rdquo; の &ldquo; 最初のリリースを構築しました。これにより、斬新な &ldquo; ホワイトボックスファジー &rdquo; 化テクノロジとクラウドの弾力性を組み合わせることによって、100万ドル &rdquo; のセキュリティバグを見つける &ldquo; ことができました。 お客様は、Azure でファジーラボを作成した Project からにソフトウェアをアップロードすることができます。 各ファジーラボは、メソッドのポートフォリオを使用してテストされ、テストケースからのクラッシュを検出し、報告する最大の問題を選択しました。 Azure の機能により、お客様 &rsquo; の需要の変化に合わせてスケールアップおよびスケールダウンすることができ、サービスを改善するためにすべての実行からデータを同時に収集できます。 これを行うには、Project からは、多数の仮想マシンとネットワークリソースを動的に作成し、顧客に代わってそれらを管理する必要がありました。</p>
+
+
+  <p>Azure では、従来の Azure 管理インターフェイスを使用して仮想マシンとネットワークリソースを動的にプロビジョニングする初期製品を構築しました。 ここでは、顧客 &ndash; の新しい波を準備します。これにより、サービスの規模を調整することになりました。 従来の Azure を使用したスケーリングは課題になります。 たとえば、各ファジーラボでは Project からで別のクラウドサービスを使用していましたが、サブスクリプションあたりのクラウドサービスは200に制限されていました。 つまり、集計では、顧客が200を超えるソフトウェアを同時にテストする必要がある場合、Project からでは、サブスクリプションごとにファジーラボをパーティション分割する必要があります。これにより、各サブスクリプションでは、顧客にサービスを提供するのに十分な数の仮想マシンがある場合でも同様です。 より良い方法が必要でした。</p>
+
+
+  <p>Microsoft&#39;のマイクロサービスベースのアプリケーションプラットフォームである Service Fabric、Azure 管理インターフェイス Azure Resource Manager を使用してサービスを再構築することで、より優れた方法を見つけることができました。 Azure Resource Manager では、仮想マシン、仮想ネットワーク、およびロードバランサーはすべて異なるリソースとして扱われます。 これらのリソースは Azure Resource Manager テンプレート内で組み合わせることができます。これは、必要なリソースとそれらのリソースの組み合わせを定義する JSON オブジェクトです。 セキュリティテストラボに必要なすべてのリソース Project からは、1つのテンプレートによって指定されます。 顧客が新しいラボを必要とする場合、Azure はテンプレートを読み取り、テンプレートから必要なすべてのリソースを動的に作成することができます。 Service Fabric を使用すると、バックエンドワーカーロールをマイクロサービスに簡単に移植し、お客様のニーズに基づいてバックエンドリソースを動的にスケールアップおよびスケールダウンすることができます。 このメリットは、1つの柔軟性のないバンドルにロックされるのではなく、リソースのデプロイ方法を動的にリシェイプできることでした。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8c76ba35-3e71-44b2-b7de-5a740d3c58a9.jpg"><img alt="Microsoft's Springfield group" border="0" height="332" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/804af599-65cb-43bb-b56d-45f424693747.jpg" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; border-left: 0px; display: block; padding-right: 0px; margin-right: auto" title="Microsoft のからグループ" width="480"></a></p>
+
+
+  <p>ARM によって導入された新しい展開概念を中心にサービスを再構築するには、何らかの作業が必要でした。 サービスとしてのインフラストラクチャとしてのインフラストラクチャの機能により、ネットワークおよびコンピューティングリソースの構成をより適切に制御し、粒度を細かく制御できること &rsquo; がわかったので、作業は完済されました。 新しい考え方に合わせて調整した後、Project からをさらに効率的にし、価値を提供する方法を確認できます。 たとえば、Azure ネットワークセキュリティグループを使用することにより、各顧客は、Project からリソース &ndash; にアクセスできるユーザーに対して異なる IP アドレス制限を設定できるようになりました。これは、エンタープライズユーザー向けの重要な機能です。</p>
+
+
+  <p>さらに良いことに、Azure を利用することで、今後の実証を行うことができました &ldquo; 。 &rdquo;Azure では、Red Hat Linux、Windows サーバーコンテナーなどのサポートなどの新機能が開始されたため、お客様のニーズを満たすために Project からをどのように実現できるかを確認できます。 Azure Resource Manager では、Resource Manager テンプレートのリソースの種類が異なります。 これにより、ファジーラボを管理するための一貫した1つの方法がチームに与えられ、最終的に顧客のニーズに応じてさまざまな種類のファジーラボが提供されるようになりました。</p>
+
+
+  <p>Azure Resource Manager などの Azure の新機能を使用することによって、4か月でスケールの目標を達成しています。 このように、お客様やパートナーは、からを呼び出すことができるだけでなく、キャパシティが不足する心配をすることなく、お客様やパートナーと Project の間での試用を行うことができます。 さらに、Azure で構築することで、新しい機能がオンラインになっ &rsquo; たときに成功するようにチームを設定できます。 Microsoft Ignite 2016 では、 <a href="https://www.youtube.com/watch?v=zMm3sUOm9jw" target="_blank">OSIsoft &amp; Deschutes、</a> <a href="https://www.ey.com/gl/en/services/advisory/ey-cybersecurity" target="_blank">、Leviathan</a>セキュリティグループそこがステージにあり、Project からで見た価値について世界に伝えました。 1週間以内に、試用版 <a href="https://www.microsoft.com/springfield">にサインアップしてください</a> 。 &rsquo;これは、任意の標準による勝利です。</p>
+
+
+  <h2>関連コンテンツ</h2>
+
+
+  <p><a href="https://channel9.msdn.com/Blogs/Seth-Juarez/Security-testing-in-the-cloud-with-F-and-Project-Springfield" target="_blank">F # と Project からを使用したクラウドでのセキュリティテスト</a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/" target="_blank">Azure リソース マネージャーの概要</a></p>
+
+
+  <p><a href="https://blogs.msdn.microsoft.com/dotnet/2016/12/13/project-springfield-a-cloud-service-built-entirely-in-f/" target="_blank">Project から: F で完全に構築されたクラウドサービス#</a></p>
+
+
+  <p><a href="https://www.microsoft.com/springfield" target="_blank">Project からの詳細</a></p>
+
+
+  <p><a href="https://www.microsoft.com/en-us/research/project/project-springfield/" target="_blank">Project からチーム</a></p>

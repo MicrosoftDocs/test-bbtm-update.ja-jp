@@ -1,0 +1,47 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 14ff8d97a1d6e1876924068537a4bc39bd105bc1
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892684"
+Slug: score-one-for-the-it-pro-azure-file-sync-is-now-generally-available
+Title: IT Pro に対してスコア1を付けます。 Azure File Sync が一般公開されました。
+Summary: Azure File Sync は、オンプレミスの Windows サーバーから Azure ファイル共有にファイルをレプリケートします。 Azure File Sync を使用すると、クラウドの利点とオン-... の利点を選択する必要はありません
+Content: >-
+  <p>Azure File Sync は、オンプレミスの Windows サーバーから Azure ファイル共有にファイルをレプリケートします。 Azure File Sync では、 &rsquo; クラウドの利点とオンプレミスのファイルサーバーの利点のどちらかを選択する必要はありません。両方を使用できます。 Azure File Sync を使用すると、データへのローカルアクセスを維持しながら、Azure でファイルサービスを一元化することができます。</p>
+
+
+  <p>Azure File Sync の詳細については、 &nbsp; <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-sync-files-planning">計画ガイド</a>を参照してください。</p>
+
+
+  <p>クラウドストレージのメリットを容易に享受できるようにすることを目的として、Microsoft Azure ファイルを作成しました。 私たちは Windows ファイルサーバーの構築について数十年経験を持っています。ファイル共有は、アプリケーション開発だけではなく、sun の下にあるすべてのファイルに使用されます。 Azure Files では、お客様の組織が持っているすべてのファイルサーバーと NAS デバイスを置き換える汎用ファイル共有を構築することに重点を置いています。現在、この取り組みの重要なマイルストーンを共有することに注目しています: Azure File Sync の一般提供。&nbsp;<br>
+
+  &nbsp;<br>
+
+  Azure File Sync、頻繁にアクセスされるデータへのローカルおよび高速アクセスの必要性と、オンプレミスストレージを管理するための保守コストと時間コストのバランスを考慮して、多数のお客様との会話を拡大しています。 Azure File Sync は、Windows サーバー間で dfs-r を使用してデータをレプリケートする場合と同様に、オンプレミスの Windows サーバーから Azure ファイル共有にファイルをレプリケートします。 Azure にデータのコピーを作成したら、Azure File Sync &mdash; の実際のマジックのクラウドの階層 &mdash; 化を有効にして、最近アクセスした最新のデータのみをオンプレミスに格納することができます。 クラウドにはデータの完全なコピーがあるため、任意の数のサーバーを Azure ファイル共有に接続できます。これにより、ユーザーがどこにいてもデータの迅速なキャッシュを確立できるようになります。 前述のように、Azure File Sync では、データへのローカルアクセスを維持しながら、Azure でファイルサービスを一元化することができます。</p>
+
+
+  <p>クラウドにデータのコピーを作成すると、さらに多くのことを行うことができます。 たとえば、迅速なディザスターリカバリー機能を使用して、サーバーの損失からほぼ瞬時に復旧できます。 ローカルサーバー &ndash; で問題が発生した場合や、物理ディスクが破損している場合、またはさらに悪いことが起こった場合でも、クラウドが完全に回復力のあるデータのコピーを持っていることを簡単に把握できます。 新しい Windows サーバーを既存の同期グループに接続するだけで、名前空間はすぐに使用できるようになります。&nbsp;</p>
+
+
+  <p>Ignite で昨年 Azure File Sync 発表したとして、クラウド体験では多数の組織を支援することを考えていましたが、Azure Files と Azure File Sync に関心のある groundswell を準備することはできませんでした。Azure File Sync の一般公開については、プレビューでの Azure File Sync の使用に関するフィードバックへの対応に重点を置いています。 最初のプレビュー以降の Azure File Sync の主なイノベーションと強化点を次に示します。</p>
+
+
+  <ul>
+      <li>同期とクラウドの階層化のパフォーマンス、スケール、信頼性の向上。 一般公開されているので、2倍と高速のディザスターリカバリーによって、4倍から 1 8X (ハードウェアによって異なります) によって Azure File Sync アップロードのパフォーマンスが向上しました。 また、クラウドの階層化バックエンドでは、より高速で信頼性の高い階層化をサポートしています。これにより、使用されているボリューム領域がボリューム空き領域の割合のしきい値を超えていることが検出されるとすぐに、階層化をサポートできるようになりました。</li>
+      <li>Azure File Sync ポータルのエクスペリエンスが向上しました。 プレビュー期間中にお客様から聞いた主な問題の1つは、システムの状態を理解するのが難しいことです。 私たちは、博士サーバーエンドポイント Azure File Sync の状態を理解するために、システムがどのように構築されているのか、またはがあるかを理解する必要がないと &rsquo; 考えています。 このため、同期のアップロードの進行状況をより明確に示すポータルのエクスペリエンスを改善し、日常業務に専念できるようにするため &ndash; の実用的なエラーメッセージのみを表示するようになりました。&nbsp;</li>
+      <li>Geo 冗長ストレージ (GRS) との統合による総合的なディザスターリカバリー。 ディザスターリカバリーを迅速に実行することで、オンプレミスで障害が発生した場合でも迅速に復旧できますが、Azure リージョンにサービスを提供しているデータセンターの1つに影響を与える障害についてはどうでしょうか。 GA では、エンドツーエンドを geo 冗長ストレージ (GRS) の回復性設定と統合するようになりました。 これにより、組織 &rsquo; の最も重要なデータの災害から保護するために Azure File Sync を完備に導入することができます。</li>
+  </ul>
+
+
+  <h2>私たち &rsquo; は始めましょう。</h2>
+
+
+  <p>私たちにとって、Azure File Sync の一般提供は、Azure Files と Azure File Sync を予定しているイノベーションの始まりに過ぎません。Windows Server 2019 との緊密な統合のサポートを含む、夏中に提供される一連の新機能と段階的な機能強化が含まれています。 &ndash;お客様のご意見をお待ちし &rsquo; ております。 Ignite をご覧ください。</p>
+
+
+  <p><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/Zm2w8-TRn-o" width="560"></iframe></p>
+
+
+  <p>Azure File Sync の詳細については、 <a href="https://azure.microsoft.com/en-us/services/storage/files/">製品のページ</a> を参照してください。</p>

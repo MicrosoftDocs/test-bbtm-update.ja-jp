@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 38d6a33c9a4fdf52f71cbf9a9d5accc9d53783cd
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892873"
+Slug: more-to-explore-configuration-options-unlocked-in-windows-azure-web-sites
+Title: '詳細: Windows Azure websites での構成オプションのロック解除'
+Summary: Windows azure websites (waws) で web サイトを管理する場合、多くのオプションは azure ポータルを使用して構成できます。また、多くのオプションを追加しています。 しかし、既にわかっているように、
+Content: >-
+  Windows azure websites (waws) で web サイトを管理する場合、多くのオプションは azure ポータルを使用して構成できます。また、多くのオプションを追加しています。 ただし、既に知られているように、実際の電源オプションの一部は、サイトの <strong>web.config </strong>ファイルを直接構成することによってのみ使用できます。 最近、いくつかの新しいオプションが公開され、 <strong>web.config</strong>で使用できるようになりました。
+
+
+  IIS でしばらくの間 web サイトを管理していた場合、IIS には構成を管理するための <a href="https://www.iis.net/learn/get-started/planning-your-iis-architecture/the-configuration-system-in-iis-7">複雑な階層システム</a> があることがよくあります。 このシステムには、最上位の <strong>machine.config </strong>と <strong>applicationHost.config</strong> ファイルから、サイト固有のファイルとフォルダー固有の <strong>web.config </strong>ファイルまで、さまざまなレベルの構成ファイルが用意されています。
+
+  Windows Azure websites では、構成階層内の他のファイルを処理する複雑さをなくすことによって、 <strong>web.config</strong>ファイルだけに対する構成の変更に焦点を当てました。
+
+
+  Azure Websites の最新の更新プログラムを使用すると、開発者は <strong>web.config</strong>に対してロック解除されたいくつかの新しいオプションを使用できるようになります。以前は、これらのオプションはサイトレベルでロックダウンされていたため、構成できませんでした (試行した場合、サイトはエラーをスローします)。
+
+
+  たとえば、Azure Websites の顧客からの一般的な要求では、動的および静的コンテンツの圧縮のために MIME の種類を調整できるようになりました。 IIS サーバーの標準的な既定のインストールでは、マスター構成ファイル <strong>applicationHost.config</strong> ファイルには、 <strong>text/*、message/*、application/javascript、application/atom + xml</strong> および <strong>application/xaml + xml</strong> の各静的 MIME 型に対して次の構成があります。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3718.blog-post-1.28.png-550x526.png"><img class="alignnone  wp-image-132391" alt="3718.blog post 1.28.png-550x526" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/3718.blog-post-1.28.png-550x526.png" width="550" height="170" /></a>
+
+
+  IIS サーバーでは、このセクションもロックされるので、通常、サイトレベルの <strong>web.config </strong>ファイルで他の設定や追加の設定を構成することはできません。
+
+
+  スタンドアロン IIS サーバーでは、 <strong>applicationHost.config </strong>ファイルを簡単に編集して設定を追加したり、 <strong>httpcompression</strong> セクションのロックを解除してから、サイトレベルで構成オプションを追加したりすることができます。
+
+
+  Azure Websites を変更すると、そのセクションと他のいくつかのセクションがロック解除され、サイトの <strong>web.config</strong> ファイルで独自のオプションを定義できるようになりました。 Azure Websites の httpCompression セクションには小さな変更があるため、構文は単純化されています。
+
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6443.Screenshot-11.png-550x526.png"><img class="alignnone  wp-image-132381" alt="6443.Screenshot (11).png-550x526" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6443.Screenshot-11.png-550x526.png" width="550" height="340" /></a>
+
+
+  ご覧のように、 <strong>ディレクトリ </strong>または <strong>スキーム名</strong>を指定する必要はありません。 <strong>静的 </strong>な型または <strong>動的</strong> な型については、MIME の種類を一覧表示するだけでかまいません。
+
+
+  ロックを解除したその他のセクションでは、構文は通常の IIS web サイトに使用されているものと似ています。 セクションの完全な一覧を以下に示します。 各項目は IIS.NET の記事にリンクしています。この記事では、構成スキーマの部分とその構成方法について説明しています。
+
+  <ul>
+   <li><a href="https://www.iis.net/configreference/system.webserver/asp">asp</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/httptracing">httpTracing</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/security/access">セキュリティ/アクセス</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/security/authentication/anonymousauthentication">security/authentication/anonymousAuthentication</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/serverruntime">serverRuntime</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/serversideinclude">serverSideInclude</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/tracing">tracing</a></li>
+   <li><a href="https://www.iis.net/configreference/system.webserver/webdav">webdav                </a></li>
+   <li><a href="/b/windowsazure/archive/2013/12/09/ip-and-domain-restrictions-for-windows-azure-web-sites.aspx">ipSecurity</a></li>
+   <li><a href="/b/windowsazure/archive/2013/08/27/confirming-dynamic-ip-address-restrictions-in-windows-azure-web-sites.aspx">動的 IP 制限</a></li>
+  </ul>
+
+  これらの新しい設定を利用できるようになったので、構成の柔軟性が大幅に向上しました。また、Windows Azure websites で生産性の高い web サイトを構築するのに役立ちます。
+
+
+  &nbsp;

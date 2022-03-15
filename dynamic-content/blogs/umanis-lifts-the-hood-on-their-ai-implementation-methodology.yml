@@ -1,0 +1,110 @@
+### YamlMime:Yaml
+ms.openlocfilehash: fcd6df50415154663f6da8f37834b169ad1a5387
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891944"
+Slug: umanis-lifts-the-hood-on-their-ai-implementation-methodology
+Title: Umanis は AI 実装手法で内部をリフトします。
+Summary: 'Microsoft は、開発者が Azure AI プラットフォームを使用してソリューションを構築する際のスキルを高めるのに役立つ詳細な技術コンテンツを作成します。 '
+Content: >-
+  <p><em>このブログ投稿は、Philippe Harel、AI プラクティスディレクター、Umanis によって共同作成されました。 </em></p>
+
+
+  <p><i>Microsoft</i>は、開発者が<i>Azure AI プラットフォームを使用してソリューションを構築する際</i>の<a href="https://aka.ms/learnAI-GitHub"><i>スキルを高めるのに役立つ詳細な技術コンテンツを作成し</i></a>ます。<i>お</i><a href="https://learnanalytics.microsoft.com/home/partners"><i>勧めのトレーニングパートナー</i></a>は<i>、Azure Databricks、Azure Machine Learning サービス、Azure Search、Cognitive Services などのトピックについて、世界中のお客様向けの LearnAI bootcamps を現時点しています。</i><a href="https://www.umanis.com/"><i>Umanis</i></a>は、<i>フランスに基づくシステムインテグレーターと優先 AI トレーニングパートナー</i>が、非常に多く<i>の業界で25年以上にわたってビッグデータと分析を実現し、インテリジェントなクラウドに顧客を誘導するための効果的な手法を開発してきました。ここでは、Umanis の AI プラクティスディレクターである Philippe Harel が、お客様がデータと AI をさらに向上させるために得られたこの手法と共有に関する教訓について説明します。</i></p>
+
+
+  <p>2019は、人工知能 (AI) と機械学習 (ML) が、企業全体にわたって buzzwords になることから、実際の導入と展開に移行する年です。 今年の中で、クラウドの導入に関する曲線は数年前に、オンプレミスのままにするオプションではなく、シフトを行う方法について質問しています。 AI を最適に使用する方法についての計画を作成する際には、Umanis が従う学習と方法がいくつかあります。</p>
+
+
+  <p>テクノロジの変化の速度と、 <a href="https://www.umanis.com/">Umanis</a> で機能するさまざまなセクターや業界に加えて、プロジェクト間で AI 実装全体で標準化できる手法を構築することに重点を置いていました。 この方法は反復的なサイクルに従います。これは、各イテレーションに値を追加することを目標とした、<b>連携、</b><b>学習</b>、および<b>行動</b>です。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/">Azure platform</a>は、次の図に示すように、この方法論の<b>イネーブラー</b>として機能します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/e86422e8-7fca-47c0-a0a7-ff5aa6281c6d.png"><img alt="clip_image002" border="0" height="315" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/1d1ef7f8-bd35-4a7c-b239-a58c104e8ef4.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="clip_image002" width="478"></a></p>
+
+
+  <p>Umanis で実装されているほとんどのデータと人工知能 (AI) プロジェクトでは、いくつかの傾向が勢いを獲得し、2019に導入される可能性があります。</p>
+
+
+  <ul>
+   <li>構造化されていない<b>、</b> <b>大規模で</b><b>リアルタイムな</b>データ。</li>
+   <li>高速で信頼性の高い AI ソリューションをスケールアップする必要性が高まって <b>います。</b></li>
+   <li>顧客からの<b>要望</b>の<b>増加</b>。</li>
+  </ul>
+
+
+  <p>このブログ投稿では、これらの種類のプロジェクトに対処する方法と、Umanis が Azure オファリングにどのようにアプローチをマップし、使いやすく、運用化、保守が簡単なソリューションを提供するかについて説明します。</p>
+
+
+  <h2>AI 実装方法の3つのフェーズ</h2>
+
+
+  <h3>1. 併合</h3>
+
+
+  <p>この初期フェーズでは、何でもヒットすることができます。 優れた大規模なものから、データベース、テキスト、ログ、テレメトリ、画像、ビデオ、ソーシャルネットワークなどが流れています。 課題は、すべてを理解することです。そのため、次のフェーズ (学習) を正常に行うことができます。 習得は、次のことを意味します。</p>
+
+
+  <ul>
+   <li><b>インジェスト:</b> アルゴリズムのパフォーマンスは、データの品質によって異なります。 取り込み &rdquo; は、データの品質、転送の品質、パイプラインを構築して後続の部分をフィードすることを検討して &ldquo; います。</li>
+   <li><b>ストア: </b>データは、さまざまなソースからのデータを混在させる非常に要求の厳しいアルゴリズム (i/o、処理能力) によって使用されるため、アルゴリズムやデータの視覚化によって今後アクセスするための最も効率的な方法でデータを格納する必要があります。</li>
+   <li><b>構造:</b>最後に、 &rsquo; データ科学 &rsquo; 者のアクティビティとアルゴリズムの速度を向上させることができるように、アルゴリズム &rsquo; の使用量についてデータを準備し、変換、前処理、およびクリーニングのタスクを実行する必要があります。</li>
+  </ul>
+
+
+  <h3>2. 詳細</h3>
+
+
+  <p>これは、すべての AI プロジェクトの中核です。モデルの作成、デプロイ、および管理。</p>
+
+
+  <ul>
+   <li><b>作成:</b> データ科学者は、使用可能なデータを使用してアルゴリズムを設計し、モデルをトレーニングし、結果を比較します。 これには、次の2つの重要な点があります。</li>
+  </ul>
+
+
+  <ol style="margin-left: 40px;">
+   <li>&rsquo;結果を待つことはありません。 データ科学者は希少資源であり、その時間は貴重です。</li>
+   <li>任意の言語または言語の組み合わせを許可します。 この観点では、 <a href="https://azure.microsoft.com/en-us/services/databricks/">Azure Databricks</a> は、1つのコードブロックで異なる言語を使用できるようにすることで、この問題をネイティブに解決するための優れたソリューションです。</li>
+  </ol>
+
+
+  <ul>
+   <li><b>使用:</b> アルゴリズムが Api としてデプロイされ、消費されると、並列化の必要性が生じます。 送信、処理、および受信パイプラインのパフォーマンスの Sla とテストが非常に重要です。</li>
+   <li><b>調整:</b> アルゴリズムの品質を調整することで、時間の経過と共に信頼性の高い結果が得られます。 このアクティビティの簡単な部分は、定期的に自動的に再トレーニングされます。 わかりにくいのは、loop &rdquo; アクティビティで人間を &ldquo; 呼び出すことです。 つまり、Power BI レポートは、ユーザーが必要に応じて迅速に再分類できる予測の結果を示し、マシンはこのような専門知識を使用してタスクを改善します。</li>
+  </ul>
+
+
+  <h3>3. Act</h3>
+
+
+  <p>アルゴリズム &rsquo; の追加された値を実際に使用しない限り、上記のすべてのフェーズは役に立ちません。</p>
+
+
+  <ul>
+   <li><b>通知: </b>コードの間違い、要件の誤解、またはバグは、最初のユーザーの印象が重要であるため、壊滅的になる可能性があります。 そのため、視覚エフェクトの大きな黄色 &rdquo; の &ldquo; 代わりに、ごく短時間で作業を開始し、非常に短時間で反復処理を行い、対象ユーザーを拡大する前に、導入をセキュリティで保護するために少数のキーユーザーをオンボードにします。</li>
+   <li><b>Connect:</b>アルゴリズムからの情報を使用するシステムを接続する必要があります。 これは、一般に RPA、IPA、または automation と呼ばれます。アーキテクチャは、プロジェクトごとに大きく異なります。 Don &rsquo; は、このアクティビティを人間が監視する必要性を見落とさないようにします。 アルゴリズムによる不正な <i>回答</i> の影響を考慮してください。これにより、人間の監督が必要になります。</li>
+   <li><b>ダイアログ: </b>人間との対話を処理する場合は、これまでに成功するために、対話の範囲を、実際に値を追加するアクションに絞り込む必要があります。 (これは、クラシックインターフェイスを使用して簡単に行うことはできません)。</li>
+  </ul>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>この方法では、確実に残業が変更され、適応します。 それでも、Umanis は、エンドツーエンドのデータと AI プロジェクトをロールアウトするための堅牢な方法であり、摩擦とリスクを最小限に抑えています。 このアプローチを使用して、データ &amp; AI プロジェクトを顧客と社内の両方のチームに提示することで、どのようなアクティビティ、テクノロジ、および課題が関係しているかを把握することができます。 &rsquo;チーム &rdquo; <em>との共有コンテキスト、信頼、および信頼性を構築するための緊急</em>の &ldquo; ニーズに対応する1つの方法として、Satya Nadella の状態を<a href="https://news.microsoft.com/hitrefresh/"><i>更新</i></a>してください。 この方法は、リレーションシップに信頼を構築するための優れた方法です。</p>
+
+
+  <p>Umanis によって使用される方法に関する詳細情報が必要な場合は、次の2か月 (フランス語) の後のカンファレンスで、 <a href="https://www.linkedin.com/feed/update/urn:li:activity:6503665575779201025">ルクセンブルク</a>、 <a href="https://www.linkedin.com/feed/update/urn:li:activity:6505740596857040896">パリ</a>、および <a href="https://www.linkedin.com/feed/update/urn:li:activity:6504304679952879616">Nantes</a>でこのトピックについて説明しています。</p>
+
+
+  <h3>詳細情報</h3>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/">Azure Machine Learning サービス</a>の詳細については、こちらを参照してください。</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/">Azure Machine Learning サービスの無料試用版</a>の使用を開始します。</p>

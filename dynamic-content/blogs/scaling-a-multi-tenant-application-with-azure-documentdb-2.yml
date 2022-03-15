@@ -1,0 +1,207 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 4a3fdefdf71cad3c401933e0e7bf7ecc1243cf60
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892705"
+Slug: scaling-a-multi-tenant-application-with-azure-documentdb-2
+Title: Azure DocumentDB を使用したマルチテナント アプリケーションのスケーリング
+Summary: 操作方法 Azure DocumentDB を使用してマルチテナント アプリケーションを設計する方法 ドキュメント コレクションとは何ですか。また、大規模なマルチテナント SaaS アプリケーションを構築するときにそれを使用する方法は何ですか? この投稿では、これらの一般的な質問への回答を開始します。
+Content: >-
+  <h5>テナントの配置と負荷分散のベスト プラクティス</h5>
+
+
+  <h2>はじめに</h2>
+
+
+  <p align="justify">よく寄せられる質問は、&ldquo;<a href="https://azure.microsoft.com/en-us/services/documentdb/">Azure DocumentDB</a> 操作方法マルチテナント アプリケーションを設計する方法です。&rdquo;この質問には多くの回答があります。最適な回答は、アプリケーションの特定&rsquo;のシナリオによって異なります。</p>
+
+
+  <p align="justify">大きなレベルでは、テナントの規模に応じて、データベースまたはコレクション別にパーティション分割することができます。 テナント データが &ndash; 小さく、テナント番号が高い場合は、アプリケーションに必要なリソース全体を減らすために、複数のテナントのデータを同じコレクションに格納してください。 ドキュメント内のプロパティによってテナントを識別し、フィルター クエリを発行してテナント固有のデータを取得できます。 DocumentDBs のユーザーと&rsquo;アクセス<a href="https://msdn.microsoft.com/en-us/library/dn783368.aspx"></a>許可を使用してテナント データを分離し、承認キーを使用してリソース レベルでアクセスを制限することもできます。</p>
+
+
+  <p align="justify">テナントが大きい場合、専用リソースが必要な場合、またはさらに分離が必要な場合は、テナントに専用のコレクションまたはデータベースを割り当てできます。 どちらの場合も、DocumentDB は、アプリケーション データ ストアをスケールアウトする際の運用上の負担の大部分を&rsquo;処理します。</p>
+
+
+  <p align="justify">この記事では、アプリケーションの要件に合わせて最適な設計を実現するために役立つ概念と戦略について&rsquo;説明します。</p>
+
+
+  <h2>コレクションとは</h2>
+
+
+  <p align="justify">データのパーティション分割についてさらに深く理解する前に、コレクションとは何か、何が何ではないかを理解することが重要&rsquo;です。</p>
+
+
+  <p align="justify">既にお知りのように、コレクションは JSON ドキュメントのコンテナーです。 コレクションは、クエリとトランザクションを実行するパーティションと境界の DocumentDBs&rsquo; 単位です。 各コレクションは、予約された量のスループットを提供します。 コレクションを追加し、ドキュメントを分散することで、ストレージとスループットの両方の観点からアプリケーションをスケールアウトできます。</p>
+
+
+  <p align="justify">コレクションがテーブルではないという理解は絶対に <em>不可欠</em> です。 コレクションはスキーマ <em>を</em> 強制しない。つまり、異なるスキーマを持つさまざまな種類のドキュメントを同じコレクションに格納できます。 ドキュメントに型属性を追加するだけで、さまざまな種類の &ldquo;エンティティ&rdquo; を追跡できます。</p>
+
+
+  <p align="justify">他のドキュメント データベースとは異なり、より大きなスケールとパフォーマンスを実現するために多くのコレクションを持つことに問題は何もありません。 ただし、コスト削減の観点からコレクションを再使用したい場合があります。</p>
+
+
+  <h2>DocumentDB を使用したシャーディング</h2>
+
+
+  <p align="justify">データを水平方向にパーティション分割することで、(ストレージとスループットの観点から) ほぼ &ndash; 無限のスケールを実現できます。この方法では、一般にシャーディングと呼ばれる概念をデータに分割できます。</p>
+
+
+  <p align="justify">シャーディングは、大規模な Web アプリケーションの高いスケーラビリティを実現するための標準的なアプリケーション パターンです。 トランザクションの利点を必要とするアプリケーションの場合、アプリケーションでは、トランザクション ドメイン (コレクション) に収まるほど小さい各パーティションを持つキーに基づいて、データを慎重にパーティション分割する必要があります。 シャード化されたアプリケーションでは、データが多数のパーティションまたはトランザクション ドメインに分散され、パーティションを選択してシャード キーに基づいて操作するためのロジックが必要なことを認識する必要があります。</p>
+
+
+  <p><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/shard-example.png"><img alt="shard-example" border="0" height="478" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/shard-example_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none;" title="shard-example" width="480"></a></p>
+
+
+  <p align="center"><i>データベースとコレクション間でシャード化された DocumentDB アプリケーション。</i></p>
+
+
+  <h2>スコープのパーティション分割</h2>
+
+
+  <p align="justify">複数のトランザクション ドメイン間でシャード &ndash; 化するかどうかの決定は、アプリケーションの規模によって異なります。シャーディングには通常、アプリケーションに追加のデータ管理ロジックが含まれるのでです。</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/resourcemodel.png"><img alt="resourcemodel" border="0" height="382" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/resourcemodel_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="resourcemodel" width="480"></a></p>
+
+
+  <p align="center"><i>データベース アカウントの階層型リソース モデル</i></p>
+
+
+  <p align="justify">DocumentDBs&rsquo;&rsquo; リソース モデルと、データをパーティション分割できる可能性のあるさまざまなスコープについて、さらに詳しく確認します。</p>
+
+
+  <p align="justify">すべてのテナントを 1 つのコレクションに配置する - &ndash; これは通常、すべてのテナントのリソース消費量の合計が 1 つのコレクションのストレージとスループットの制限内にある場合など、ほとんどのアプリケーションにとって適切な開始点です。</p>
+
+
+  <p align="justify">ドキュメント内にテナント プロパティを追加し、すべてのクエリにテナント フィルターを適用するだけで、アプリケーション レベルでセキュリティを適用できます (例: SELECT * FROM collection c WHERE c.userId = &ldquo;Andrew&rdquo;)。 DocumentDB&rsquo; レベルでセキュリティを適用するには、テナントごとにユーザーを作成し、テナント データにアクセス許可を割り当て、ユーザー承認キーを使用してテナント データに対してクエリを実行します。</p>
+
+
+  <p align="justify">1 つのコレクション内にテナント データを格納する主な利点は、複雑さを軽減し、アプリケーション データ全体のトランザクション サポートを確保し、ストレージの財務コストを最小限に抑えることです。</p>
+
+
+  <p align="justify">テナントを複数のコレクション &ndash; に配置する アプリケーションで、1 つのコレクションで処理できる量よりも多くのストレージまたはスループット容量が必要な場合は、複数のコレクション間でデータをパーティション分割できます。 幸い、データベースのサイズとコレクションの数に制限を設定する必要はありません。 DocumentDB を使用すると、アプリケーションの拡大に応じてコレクションと容量を動的に追加できます。 ただし、アプリケーションでテナント データ&rsquo;をパーティション分割し、要求をルーティングする方法を決定する必要があります。ここで少しで説明します。</p>
+
+
+  <p align="justify">リソース容量の増加に加えて、複数のコレクション間でデータをパーティション分割する利点は、小規模なテナントよりも大規模なテナントにリソースを割り当てる機能です(たとえば、専用のスループットを必要とするテナントを独自のコレクションに配置できます)。</p>
+
+
+  <p align="justify">複数のデータベースにテナント &ndash; を配置する ほとんどの場合、データベース間にテナントを配置するのと、コレクション間でのテナントの配置と非常に似ています。 上のリソース モデル図に示すように、DocumentDB コレクションとデータベースの主な違いは、ユーザーとアクセス許可がデータベース レベルでスコープ設定されているという違いです。 つまり、各データベースには、特定 &ndash; のコレクションとドキュメントを分離するために使用できる独自のユーザーとアクセス許可のセットがあります。</p>
+
+
+  <p align="justify">テナントをデータベース別にパーティション分割すると、テナントで非常に大規模なユーザーとアクセス許可のセットが必要なシナリオで、ユーザーとアクセス許可の管理が簡素化される可能性があります。 テナントがデータベース&ndash;&rsquo;によってパーティション分割され、テナントがアプリケーションから離れる場合、テナント データとそのユーザーとアクセス許可はすべて、データベースを削除するだけで一緒に破棄できます。</p>
+
+
+  <p align="justify">複数のデータベース アカウントにテナントを &ndash; 配置する場合も同様に、データベース アカウント間でテナントを配置するのと同様に、テナントを複数のデータベースに配置するのと非常に似ています。 データベース アカウントとデータベースの主な違いは、マスター/セカンダリ キー、DNS エンドポイント、課金の範囲がデータベース アカウント レベルである点です。</p>
+
+
+  <p align="justify">データベース アカウントによるテナントのパーティション分割により、テナントが独自のデータベース アカウント キーへのアクセスを必要とするシナリオで、アプリケーションはテナント間の分離を維持できます (テナントでは、独自のコレクションとユーザーのセットを作成、削除、管理する機能が必要です)。</p>
+
+
+  <h2>一般的なシャーディング パターン</h2>
+
+
+  <p align="justify">複数の&rsquo;トランザクション ドメイン間でデータをパーティション分割する場合、アプリケーションでは、データをパーティション分割し、要求を正しいパーティションにルーティングするために何らかのヒューリスティックが必要になります。 データをパーティション分割する一般的なヒューリスティックには、次のようなものがあります。</p>
+
+
+  <h3>範囲のパーティション分割</h3>
+
+
+  <p align="justify">パーティションは、パーティション分割キーが特定の範囲内にあるかどうかに基づいて割り当てられます。 たとえば、タイムスタンプまたは地理でデータをパーティション分割する場合があります (たとえば、郵便番号は 30000 から 39999 です)。</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/partition-range.png"><img alt="partition-range" border="0" height="117" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/partition-range_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="partition-range" width="500"></a></p>
+
+
+  <p align="center"><i>月別の範囲パーティション分割</i></p>
+
+
+  <h3>参照パーティション分割</h3>
+
+
+  <p>パーティションは、パーティションにマップされる個別の値の参照ディレクトリに基づいて割り当てられます。 これは通常、どのパーティションに格納されているデータを追跡する参照マップを作成することで実装されます。 検索結果をキャッシュして、複数のラウンド トリップを回避できます。 たとえば、ユーザー別にデータをパーティション分割する場合があります (たとえば、パーティション G には、Draco、Ron、および Hermione が含まれており、パーティション S には Draco、Gory、Gregory が含まれている) または国 (たとえば、パーティションのパーティションパーティションにはノルウェー、デンマーク、スウェーデンが含まれる) があります</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/partition-dictionary.png"><img alt="partition-dictionary" border="0" height="199" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/partition-dictionary_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="partition-dictionary" width="524"></a></p>
+
+
+  <p align="center"><i>参照パーティション分割</i></p>
+
+
+  <h4>ハッシュパーティション分割</h4>
+
+
+  <p>パーティションはハッシュ関数の値に基づいており &ndash; 、n 数のパーティションに均等に分散できます。 たとえば、テナントのハッシュ コード % 3 でデータをパーティション分割し、3 つのパーティションにテナントを均等に分散する場合があります。</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/partition-hash.png"><img alt="partition-hash" border="0" height="146" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/partition-hash_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="partition-hash" width="500"></a></p>
+
+
+  <p align="center"><i>ハッシュパーティション分割</i></p>
+
+
+  <p align="justify">では、どのパーティション分割戦略が適切なのでしょうか。 範囲のパーティション分割は、一般に日付のコンテキストで役立ちます。これは、パーティションをエイジアウトするための簡単で自然なメカニズムを提供します。 一方、参照パーティション分割を使用すると、順序付けられていない関連のないデータ セットを自然な方法でグループ化および整理できます (組織別や地理的リージョン別の州別のテナントのグループ化など)。 ハッシュパーティション分割は、特定のグループのデータ量を予測して手動で分散するのが困難な場合、または範囲のパーティション分割によってデータが望ましくないクラスター化される場合に、負荷分散に非常に役立ちます。</p>
+
+
+  <p align="justify">パーティション分割&rsquo;戦略を 1 つ選択する必要はありません。 これらの戦略 &ndash; の複合化は、シナリオによっては役立つ場合もあります。たとえば、複合範囲参照パーティション分割を使用すると、範囲パーティション分割の管理性と、参照パーティション分割の明示的な制御の両方が提供される場合があります。</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/partition-composite.png"><img alt="partition-composite" border="0" height="148" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/partition-composite_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="partition-composite" width="500"></a></p>
+
+
+  <p align="center"><i>複合Range-Lookupパーティション分割</i></p>
+
+
+  <h3>Fan-Out操作</h3>
+
+
+  <p>複数のトランザクション ドメイン間でデータを操作する一般的な方法は、ファンアウト クエリを発行することです。このクエリでは、アプリケーションが各パーティションを並列でクエリし、結果を統合します。</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/fanout.png"><img alt="fanout" border="0" height="283" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/fanout_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="ファンアウト" width="500"></a></p>
+
+
+  <p align="center"><i>ファンアウト クエリ</i></p>
+
+
+  <p align="justify">主なアーキテクチャの決定は、ファンアウトが発生した場合です。 たとえば&rsquo;、ニュース フィード集計タイムラインを使用できます。ファンアウトの一般的な戦略には次のようなものがあります。</p>
+
+
+  <p align="justify"><em> &ndash; </em>Fan-Outこのアイデアは、読み取り時の計算を回避し、書き込み処理のほとんどを実行して、読み取り時間のアクセスを非常に高速かつ簡単に行う方法です。 これは、タイムライン &ndash; が Twitter のような、一連のソース フィードのユーザーごとの追加専用の集計に似ている場合に、適切な決定になる可能性があります。 受信イベントが記録されると、ソース フィードに格納され、コピーを含むレコードが、表示する必要があるタイムラインごとに作成されます。</p>
+
+
+  <p align="justify">&ndash;Fan-Outに関する記事を参照してください。これは、タイムラインが、フィードがテンポラルであり、動的な機能 (リアルタイムのプライバシー チェックやコンテンツの調整など) をサポートする必要がある Facebook &ndash; のようなものに似ている場合に、良い決定になる可能性があります。 イベントが記録される場合、イベントはソース フィードにのみ格納されます。 ユーザーが個々のタイムラインを要求するたび、システムファンアウトは、ユーザーがフィードを表示して集計しているすべてのソース フィードに対して読み取りを行います。</p>
+
+
+  <h2>データとStorageの管理</h2>
+
+
+  <p align="justify">パーティションがリソースを満たして使い切り始めるときに、データを別のパーティションに書き込むか、再配布します。 これは、外のテナントが予想よりも多くのストレージやスループットを消費している場合、またはアプリケーションが単に既存のパーティションを超える場合に発生する可能性があります。 アプリケーションエラーの可能性を防ぐために、適切なしきい値 (消費されるストレージの 80% など) を、リソースの消費率に基づいて監視して選択する必要があります。</p>
+
+
+  <p align="center"><a href="https://acom.azurecomcdn.net/80C57D/blogmedia/blogmedia/2014/11/26/spillover.png"><img alt="spillover" border="0" height="135" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/spillover_thumb.png" style="border-width: 0px; padding-top: 0px; padding-right: 0px; padding-left: 0px;" title="波及" width="300"></a></p>
+
+
+  <p align="center"><i>サービスの中断を回避するためにデータをスピルオーバーまたは再配布する必要がある前に、十分なヘッドルームを維持します。</i></p>
+
+
+  <p align="justify">ストレージの制約を克服する方法の1つは、の受信データを新しいコレクションに書き込むことです。 たとえば、コレクションが非常にテンポラルデータを格納し、月または日でパーティション分割されている場合は、スピルが正常に機能する可能性があります。 このコンテキストでは、古いコレクションの排除やアーカイブを検討して、古くなったものにすることもできます。 &rsquo;コレクションはトランザクションとクエリの境界であることに注意してください。コレクション間でデータを処理する場合は、読み取りまたは書き込みをファンアウトすることが必要になる場合があります。</p>
+
+
+  <p align="justify">ストレージやスループットの制約を克服するもう1つの方法は、テナントデータを再配布することです。 たとえば、他のコレクションよりもはるかに多くのスループットを消費するその他のテナントを移動できます。 移行プロセス中に、特定のテナントのサービスの中断を回避するために、読み取りや書き込みを行うことができます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p align="justify">DocumentDB は、Microsoft 社内のさまざまなマルチテナントシナリオ向けに拡張することを実証しています。これには、正常性 &amp; 適合性 (web およびモバイル) のユーザーデータをシャード化データベースアカウントに保存する MSN などが含まれます。 このユースケースに関する <a href="https://azure.microsoft.com/blog/2014/10/09/azure-documentdb-profile-of-msn-health-and-fitness-2/">ブログ記事</a> をご覧ください。</p>
+
+
+  <p align="justify">ほとんどの場合、アプリケーションの設計は、シナリオとデータアクセスパターンに大きく依存します。 この記事は、正しい方向を示す出発点として適しています。</p>
+
+
+  <p align="justify">DocumentDB の使用を <a href="https://azure.microsoft.com/en-us/documentation/articles/documentdb-create-account/">開始</a> する方法、または詳細については、 <a href="https://azure.microsoft.com/en-us/documentation/services/documentdb/">web サイト</a>を参照してください。</p>
+
+
+  <p align="justify">Microsoft Azure 全般でマルチテナントアプリケーションを開発する方法の詳細については、こちらの<a href="https://msdn.microsoft.com/en-us/library/ff966499.aspx">MSDN 記事</a>をご覧ください。</p>

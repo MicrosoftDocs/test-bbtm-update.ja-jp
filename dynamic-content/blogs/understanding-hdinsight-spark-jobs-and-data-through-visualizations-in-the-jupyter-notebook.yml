@@ -1,0 +1,62 @@
+### YamlMime:Yaml
+ms.openlocfilehash: da23d3253c37a716e4476c3e95c836745090259c
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891933"
+Slug: understanding-hdinsight-spark-jobs-and-data-through-visualizations-in-the-jupyter-notebook
+Title: HDInsight Spark のジョブとデータについて、次のグラフの視覚化を使用Jupyter Notebook
+Summary: HDInsight Spark Jupyter Notebookに関するページは、データ セットをすばやく探索したり、傾向分析を実行したり、さまざまな機械学習モデルを試したりする必要がある場合に便利です。 Spark ジョブと中間データの状態を追跡できないと、データ サイエンティストは、データ サイエンティストが内部で行っていることの監視と最適化を困難Jupyter Notebook。
+Content: >-
+  <p>HDInsight Spark Jupyter Notebookに関するページは、データ セットをすばやく探索したり、傾向分析を実行したり、さまざまな機械学習モデルを試したりする必要がある場合に便利です。 Spark ジョブと中間データの状態を追跡できないと、データ サイエンティストは、データ サイエンティストが内部で行っていることの監視と最適化を困難Jupyter Notebook。</p>
+
+
+  <p>これらの課題に対処するために、最新のジョブ実行と視覚化エクスペリエンスを HDInsight Spark のクラスター内環境に追加Jupyter Notebook。 本日は、リアルタイム<strong>の Spark</strong> ジョブ進行状況インジケーター、<strong>PySpark DataFrame のネイティブ matplotlib</strong> サポート、セル実行状態インジケーターのリリースをお知り<strong>ください。</strong></p>
+
+
+  <h2>Spark ジョブの進行状況インジケーター</h2>
+
+
+  <p>ノートブック内で対話型の Spark ジョブを実行すると、ジョブの実行状態を把握するのに役立つ、リアルタイムの進行状況バーを含む Spark ジョブの進行状況インジケーターが表示されます。 タブを切り替えて、アクティブなタスクと割り当てられたコアのリソース使用率ビューを表示したり、ワークロード全体のジョブ、ステージ、タスクのガント チャートを表示したりすることもできます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2ad1b902-1396-4702-b922-77bae9895abd.gif"><img alt="Spark job progress indicator_thumb[2]" height="632" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c87efc15-c26e-47d0-8f0e-07568d50ab49.gif" style="border-image: none; display: inline;" title="Spark ジョブの進行状況 indicator_thumb[2]" width="1037"></a></p>
+
+
+  <h2>PySpark DataFrame のネイティブ matplotlib のサポート</h2>
+
+
+  <p>以前は、PySpark では matplotlib がサポートされていませんでした。 何かをプロットする場合は、まず、Spark コンテキストから PySpark DataFrame をエクスポートし、それをローカルの Python セッションに変換し、そこからプロットする必要があります。 このリリースでは、PySpark DataFrame のネイティブ matplotlib サポートを提供しています。 ローカルの場合と同様に、PySpark DataFrame で matplotlib を直接使用できます。 クラスター Spark コンテキストとローカル Python セッションの間でデータを転送する必要はありません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b50132e2-a5c3-42c3-9d0a-58d834712e63.png"><img alt="Native matplotlib support for PySpark DataFrame_thumb[2]" border="0" height="661" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/88f0e5ea-deff-4d60-b1e5-b65ec5b7adaf.png" style="margin: 0px; border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="PySpark アプリのネイティブ matplotlib DataFrame_thumb[2]" width="1430"></a></p>
+
+
+  <h2>セルの実行状態インジケーター</h2>
+
+
+  <p>セルの実行状態のステップ バイ ステップがセルの下に表示され、現在の進行状況を確認できます。 セルの実行が完了すると、合計期間と終了時刻を含む実行の概要が表示され、将来の参照のためにそこに保持されます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/0f70a1aa-8aec-435c-91a0-689ab6ac1534.png"><img alt="Cell execution status indicator_thumb[4]" border="0" height="307" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/48f8bf95-01f0-4a1d-a07f-9e767f9fc253.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="セルの実行状態 indicator_thumb[4]" width="654"></a></p>
+
+
+  <h2>作業の開始</h2>
+
+
+  <p>これらの機能は、HDInsight Spark アプリケーションに組み込Jupyter Notebook。 開始するには、次のアプリケーションから HDInsight <a href="https://portal.azure.com/" target="_blank">にアクセスAzure portal</a>。 Spark クラスターを開き、クイック <strong>リンクJupyter Notebook</strong> を選択します。</p>
+
+
+  <h2>フィードバック</h2>
+
+
+  <p>ご意見やフィードバックをお待ちしております。 機能の要求、質問、または提案がある場合は、 にメモをお送りください <a href="mailto:cosctcs@microsoft.com">cosctcs@microsoft.com</a>。 バグの送信については、新しい <a href="https://adsdevtool.visualstudio.com/AdsNotebook/_workitems/create/Bug?templateId=823ea6ab-c4bf-49a7-901c-992c28a3dfae&amp;ownerId=c1de5965-8400-47ec-9e5f-6018369d1f30" target="_blank">チケットを開きます</a>。</p>
+
+
+  <p>詳細については、以下を参照してください。</p>
+
+
+  <ul>
+   <li><a href="https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels" target="_blank">Azure HDInsight の Spark クラスター上の Jupyter Notebook のカーネル</a></li>
+  </ul>

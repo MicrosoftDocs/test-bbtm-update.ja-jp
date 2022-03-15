@@ -1,0 +1,56 @@
+### YamlMime:Yaml
+ms.openlocfilehash: dad9e5ff4b3e6f5924d32697c847cc17458d3649
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892152"
+Slug: stay-informed-about-service-issues-with-azure-service-health
+Title: サービスに関する問題に関する情報を受け取Azure Service Health
+Summary: Azure リソースがダウンした場合、最初の質問の 1 つは、おそらく "自分か Azure か" です。 Azure Service Health、パーソナライズされた正常性ダッシュボード、カスタマイズ可能なアラート、および専門家のガイダンスを提供することで、インシデントや計画メンテナンスのような Azure サービスの問題が影響を受ける場合に、情報を維持し、アクションを実行するのに役立ちます。
+Content: >-
+  <p><a href="https://aka.ms/ash-acom" target="_blank">Azure Service Health</a> Azure &ldquo;&rdquo; リソースがダウンした場合、最初の質問の 1 つは、おそらく、インシデントや計画メンテナンスのような Azure サービスの問題が、パーソナライズされた正常性ダッシュボード、カスタマイズ可能なアラート、および専門家のガイダンスを提供することで、情報を得て対処するのに役立ちます。</p>
+
+
+  <p>このブログでは、&rsquo;&rsquo;Azure Service Health のパーソナライズされたダッシュボードを使用して、現在または将来に影響する可能性がある問題に関する情報を得る方法について説明します。</p>
+
+
+  <h2>Azure サービスの問題を監視し、ダウンタイムを軽減するためのアクションを実行する</h2>
+
+
+  <p>すべての Azure リージョンのすべての Azure サービスの正常性のグローバル ビューである <a href="https://status.azure.com/" target="_blank">Azure</a> の状態ページを既に理解している場合があります。 広範囲&rsquo;に影響を与える大規模なインシデントの場合は良い参照ですが、Azure <a href="https://aka.ms/azureservicehealth" target="_blank"></a> のインシデントとメンテナンスに関する情報をAzure Service Healthを使用することをお勧めします。 Azure Service Health、ユーザーに影響を与える問題のみを表示し、すべてのインシデントとメンテナンスに関する情報を提供し、アラート、共有可能な更新プログラムと RCA などの豊富な機能、その他のガイダンスとサポートを提供します。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/71990188-2144-48b5-8030-add84d44ef13.png"><img alt="Review active service issues in Azure Service Health" border="0" height="720" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/2c41f4f9-1098-44b5-8357-f74fb3c36cac.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure Service Health" width="1211"></a></p>
+
+
+  <p>Azure Service Health影響を与える可能性がある 3 種類の正常性イベントを追跡します。</p>
+
+
+  <ol>
+   <li><strong>サービスの問題:</strong> 現在影響を受ける Azure サービスの問題。</li>
+   <li><strong>計画メンテナンス:</strong> 今後のサービスの可用性に影響する可能性がある今後のメンテナンス。 通常、イベントの少なくとも 7 日前に通信されます。</li>
+   <li><strong>正常性に関するアドバイザリ:</strong> サービスの中断を回避するために行動する必要がある正常性関連の問題。 たとえば、サービス提供の提供が開始された場合、構成の誤り、使用量クォータの超過などです。 通常、少なくとも 90 日前に伝達されます。ただし、少なくとも 12 か月前に発表されるサービス提供の中止や、すぐに表示される構成の誤りなど、特に例外があります。</li>
+  </ol>
+
+
+  <p>パーソナライズされた正常性ダッシュボードの <a href="https://docs.microsoft.com/en-us/azure/service-health/service-health-overview#get-started-with-service-health" target="_blank">詳細を確認します</a>。</p>
+
+
+  <h2>概要を使用Azure Service Health</h2>
+
+
+  <p>&rsquo;Azure Service Healthダッシュボードには、インシデント、計画メンテナンス、および影響を受ける可能性があるその他の正常性アドバイザリに関する大量の情報が表示されます。 ポータルでいつでもダッシュボードにアクセスすることもできますが、常に情報を得て対処する最善の方法は、アラートを設定Azure Service Health <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/alerts-activity-log-service-notifications" target="_blank">です</a>。 &rsquo;アラートを使用すると、正常性関連の情報を公開するとすぐに、電子メール、SMS、プッシュ通知、ServiceNow への Webhook など、任意のチャネルで通知を受け取ります。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/f17c8bcc-1b41-4db6-8e4a-0db788c18e84.png"><img alt="Create service health alerts in Azure Service Health" border="0" height="1336" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/09a628d3-e853-4c2e-93cb-e1397e6f5923.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="[アラート] Azure Service Health" width="2240"></a></p>
+
+
+  <p>開始に役立ついくつかのリソースを次に示します。</p>
+
+
+  <ul>
+   <li>ダッシュボードを <a href="https://aka.ms/azureservicehealth" target="_blank">Azure Service Healthし、</a> アラートを設定します。</li>
+   <li>開始に関するヘルプが必要な場合は、次のドキュメント <a href="https://aka.ms/azureservicehealthdocs" target="_blank">Azure Service Healthしてください</a>。</li>
+   <li>フィードバックをお寄せください。 <a href="https://aka.ms/servicehealthfeedback" target="_blank">アイデアを送信するか</a> 、 で質問やコメントをメールでお送りください <a href="mailto:servicehealth@microsoft.com">servicehealth@microsoft.com</a>。</li>
+  </ul>

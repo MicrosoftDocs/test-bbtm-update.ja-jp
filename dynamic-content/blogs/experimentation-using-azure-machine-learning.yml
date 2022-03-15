@@ -1,0 +1,241 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 3ff2d4b75e1e6f095c317e0c461af99a63183b78
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139893059"
+Slug: experimentation-using-azure-machine-learning
+Title: Azure Machine Learning を使用した実験
+Summary: 新しいサービス (Azure Machine Learning) サービスのパブリック プレビュー AMLお知らせします。 この更新には、データ サイエンティストの生産性を向上させる多くの新しい機能強化が含まれている。
+Content: >-
+  <p>新しいサービス (Azure Machine Learning) サービスのパブリック プレビュー AMLお知らせします。 この更新には、データ サイエンティストの生産性を向上させる多くの新しい機能強化が含まれている。</p>
+
+
+  <p>この投稿では、機械学習モデルの開発、トレーニング、最適化のプロセスである機械学習の実験に関して行ったいくつかの改善点を強調したいと思います。 実験には、多くの場合、監査、管理、共有、繰り返し、理解、その他のエンタープライズ レベルの機能も含まれます。 詳細については、サービスの戦略と方向性に関するAzure Machine Learning<a href="https://aka.ms/aml-blog-overview" target="_blank">概要を参照してください</a>。</p>
+
+
+  <h2>Machine Learning実験</h2>
+
+
+  <p>実稼働用の機械学習モデルを開発するプロセスには、多くの手順が含まれます。 まず、データ サイエンティストはモデル アーキテクチャとデータのフィーチャー化を決定する必要があります。&nbsp; 次に、これらのモデルをトレーニングしてチューニングを試みる必要があります。 これには、トレーニングを実行してスケールアウトするためのコンピューティング リソースを管理し、トレーニング データを収集して、ターゲット コンピューティング リソースで使用できる必要があります。 また、その途中で使用されるさまざまな (ハイパー)パラメーターの組み合わせとモデル バージョン、および生成された結果を追跡する必要があります。 多くの場合、前処理側でデータを取得して準備し、もう一方の側でモデルを後処理してデプロイするために必要な複雑なデータ フローに埋め込まれているものすべて。</p>
+
+
+  <p>Azure Machine Learning では、これらのすべての手順を実行する際にデータ サイエンティストの生産性を高め、使いやすい Python API を提供して、エンドツーエンドの機械学習実験エクスペリエンスを簡単に提供します。 Azure Cloud でサポートされ、機械学習ワークフローの手順をシームレスに実行するための単一のコントロール プレーン API が提供されます。 これらのワークフローは、Jupyter Python Notebook、Visual Studio Code、その他の Python IDE、自動化された CI/CD パイプラインなど、さまざまな開発者エクスペリエンス内で作成できます。 AMLは、次の機能を有効にする、シンプルで強力なエクスペリエンスを提供します。</p>
+
+
+  <ul>
+   <li><strong>クラウドでのトレーニング</strong> &ndash; ユーザーは、認証、ワークスペースの作成、データ ソース管理、モデルトレーニングを 1 か所で処理することで、オンボードの摩擦を最小限に抑え、Azure オファリングの機能を活用できます。<br>
+  データ サイエンティストは、再現可能なデータ サイエンス用のトレーニング コードとライブラリの依存関係を Docker コンテナーに簡単にパッケージ化し、結果として得られるモデル成果物を実稼働デプロイ用の DevOps に渡します。</li>
+   <li><strong>高度にスケーラブルで柔軟なモデル トレーニング</strong> &ndash; ユーザーは数行の Python でコンピューティングをプロビジョニングし、並列トレーニングや分散トレーニングに簡単にスケールアウトできます。 既存のトレーニング コードを変更AML機能を利用できます</li>
+   <li><strong>モデルの迅速な反復と追跡可能性</strong> &ndash; 実行履歴、ハイパーパラメーターの調整。 ユーザーは、AML s ハイパーパラメーター最適化サービスを使用してモデルのハイパーパラメーターを調整し、AML&rsquo; で開始されたトレーニング ジョブの実行履歴を表示し、デプロイシナリオに最適なモデルを選択できます。 各トレーニング実行とデプロイされる各モデルを追跡することで、AML は監査証跡を提供し、機械学習アクティビティの追跡可能性を実現します。</li>
+   <li><strong>データに基づいてアルゴリズムと関連するパイプラインを自動的に検索する</strong> &ndash;ユーザーがモデルを構築するラベル付けされた特定のデータセットに基づいて、AML&rsquo; s の自動機械学習では、アルゴリズムとデータ パイプライン/フィーチャー化の手順の選択が自動的に実行され、高品質のモデルが生成されます。</li>
+   <li><strong>反復性と共有のためのパイプラインとして実験手順を記述する</strong> &ndash;&rsquo;AML パイプライン機能を使用すると、ユーザーは、たとえば、モデルの再トレーニングとデプロイのさまざまな手順をキャプチャし、繰り返し実行され、同僚やコミュニティと共有される実行グラフで定義することができます。</li>
+  </ul>
+
+
+  <p>AMLを使用した実験によって&rsquo;機械学習の開発プロセスが加速する方法を説明するために、SDK の例を見てみしましょう。 最初に、このモデルの TensorFlow モデルの非常に一般的な例から <a href="https://en.wikipedia.org/wiki/MNIST_database" target="_blank">始MNIST データセット</a>。 <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/mnist/mnist_with_summaries.py" target="_blank">TensorFlow github リポジトリの TensorFlow</a> チュートリアル スクリプトである概要を含む <strong>MNIST</strong> です。このチュートリアルでは、シンプルなニューラル ネットワークをトレーニングし、プロセス全体でさまざまな統計をログに記録します。</p>
+
+
+  <h2>ワークスペースの設定</h2>
+
+
+  <p>このAML、データ サイエンティストはワークスペースを使用して実験を管理および実行します。 ワークスペースは、チームが共同作業を行う中心的な場所であり、コンピューティングターゲット、データ ストレージ、作成されたモデル、作成された Docker イメージ、デプロイされた Web サービスへのアクセスを管理し、それを使用して実行された実験の実行を追跡します。 データ サイエンティストは、Python SDK からワークスペースと実験の承認と作成を管理できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/abdf8b42-5930-4796-85c9-28f013cb37e6.png"><img alt="image" border="0" height="463" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a4f4ebaa-1c8f-452b-a2a2-ec20e07fbd86.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="749"></a></p>
+
+
+  <p>次のスニペットでは、特定のサブスクリプションに存在するリソース グループ <strong>Contoso</strong> に <strong>Demo</strong> というワークスペースを作成しています。 ワークスペースは、Azure リージョン <strong>eastUS2 に作成されます</strong>。</p>
+
+
+  <pre>
+
+  from azureml.core import Workspace
+
+  ws = Workspace.create(name=&#39;Demo&#39;,
+                        subscription_id=&#39;12345678-1234-1234-a0e3-b1a1a3b06324&#39;,
+                        resource_group=&#39;Contoso&#39;,
+                        location=&#39;eastus2&#39;)</pre>
+
+  <p>ワークスペースの詳細については<a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-azure-machine-learning-architecture#workspace" target="_blank">、AMLしてください</a>。</p>
+
+
+  <h2>クラウドでのモデルのトレーニング</h2>
+
+
+  <p>通常、機械学習の最も時間のかかるフェーズの 1 つはトレーニングです。 多くの場合、計算負荷が高く、大量のコンピューティング リソースが必要になる場合があります。 AML SDK は、トレーニング ジョブが 1 つのコアで実行される場合でも、数百の GPU にスケーリングされる場合でも、コンピューティングを管理およびプロビジョニングするプロセスをいくつかの API 呼び出しに引き出します。 SDK を使用すると、独自のマシン、Azure 仮想マシン (VM)、Azure BatchAI クラスター、または Azure からアクセスできる任意の Linux マシンでローカルにトレーニングできます。</p>
+
+
+  <p>ここでは、ワークスペース STANDARD_NC6 VM の機能 1 Nvidia Tesla K80 GPU 上に STANDARD_NC6&rdquo; &ndash; VM の Azure BatchAI &ldquo;クラスターをプロビジョニングしてアタッチします。<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes" target="_blank">Azure VM</a> サイズの一覧については、こちらを参照してください。 作成するクラスターは、0 から最大 10 ノードの自動スケーリングに設定されています。そのため、ジョブがクラスターで実行されている間は、コンピューティングに対してだけ料金を支払います。</p>
+
+
+  <pre>
+
+  from azureml.core.compute import ComputeTarget, BatchAiCompute
+
+  provisioning_config = BatchAiCompute.provisioning_configuration(vm_size = &quot;STANDARD_NC6&quot;,
+                                                                  autoscale_enabled = True,
+                                                                  cluster_min_nodes = 0,
+                                                                  cluster_max_nodes = 10)
+
+  nc6_cluster = ComputeTarget.create(ws,
+                                     name = &quot;nc6_cluster&quot;,
+                                     provisioning_configuration=provisioning_config)</pre>
+
+  <p>次のコードでは、TensorFlow エスティメーター クラスのインスタンスを作成します。このクラスには、TensorFlow ジョブを構成するための便利なラッパーがAML。 ここでは、コンピューティング先に送信する source_directory &ndash; として現在のディレクトリ (&lsquo;.&rsquo;) を指定します。このフォルダー内のすべてのファイルとサブフォルダーは、nc6_cluster でコンピューティング先として開始される前にプロセスで使用できます。 呼び出されるスクリプトは、最初にダウンロードした mnist_with_summaries.py &ndash; スクリプトになります。一覧表示されているスクリプト パラメーターは、ローカル実行の場合と同様にスクリプトに渡されます。 最後に、GPU Docker サポートを使用してこのジョブを実行する必要があります。</p>
+
+
+  <p>次の行では、 &lsquo;上記の仕様に基いてスクリプトを実行し、mnist という名前の実験で追跡します&rsquo;。 実験は単なるスクリプト送信のコレクションで、1 つの名前でグループ化され、簡単に取得できます。 送信呼び出しの結果、AML はジョブの要件を満たす Docker イメージを作成します。つまり、Azure での最適な Docker GPU パフォーマンスのために必要な Nvidia &ndash; ドライバーと共に、GPU 用の TensorFlow がインストールされます。 Docker イメージがビルドされた後、将来の実行のためにキャッシュされ、指定されたクラスターの選択したコンピューティング ノードBatch AIされます。 これは 1 つのノード ジョブなので、ジョブを実行するためにプロビジョニングされるノードは 1 つのみです。</p>
+
+
+  <pre>
+
+  from azureml.train.dnn import TensorFlow
+
+  from azureml.core import Experiment
+
+  tf_estimator = TensorFlow(source_directory=&#39;.&#39;,
+                            compute_target=nc6_cluster,
+                            entry_script=&#39;mnist_with_summaries.py&#39;,
+                            script_params={&#39;--max_steps&#39;:5000, &#39;--log_dir&#39;: &#39;./logs&#39;,},
+                            use_gpu=True)
+
+  run = Experiment(ws, &#39;mnist&#39;).submit(tf_estimator)</pre>
+
+
+  <h2>トレーニング実行の監視</h2>
+
+
+  <p>Azure ML Jupyter Notebooks と統合され、データ サイエンティストはノートブック内で実行された実行の状態を表示できます。 ウィジェットには、実行のメタ情報と、実行中にスクリプトによってログに記録された出力ログとメトリックが表示されます。 メトリックが複数報告されるたびに、ウィジェットにプロットが表示されます。このプロットでは、さまざまなステップでメトリックが視覚化されます。 ここでは、テスト セットに対するモデルの精度をログに記録するログ コードをスクリプトに追加<strong>Accuracy_test。</strong></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/917d29bf-593b-4b89-be99-ed6fc6ca25d3.png"><img alt="image" border="0" height="555" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cadeed68-79ee-469a-af43-b776379f52f8.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="788"></a></p>
+
+
+  <p>トレーニング スクリプトで Tensorboard ログ出力が生成されている場合 (&rsquo;およびコンピューティング先の ./logs&rsquo; ディレクトリに書き込む場合)、これらは AML&rsquo; s Tensorboard ダウンローダー クラスを実行することで、コンピューティング先からローカル コンピューターに簡単に転送できます。 便宜上、ログ ファイルの場所を指す Tensorboard インスタンスも開始し、移動先のローカル URL を指定します。 ジョブの実行中にログがストリーミングされます。</p>
+
+
+  <p>&nbsp;</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/b51188aa-4b30-464d-9b19-86814802d325.png"><img alt="image" border="0" height="306" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/95ee9286-5354-4cf8-b9ff-fd04a3be53c9.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="524"></a></p>
+
+
+  <p>トレーニングは、複数のノードで実行することもできます。 TensorFlow を使用した分散トレーニングの詳細については、この記事を参照してください。</p>
+
+
+  <h2>モデルのハイパーパラメーターのチューニング</h2>
+
+
+  <p>機械学習の重要な側面は、ハイパーパラメーター調整です。 データ サイエンティストは通常、モデルの精度を向上させるために、ハイパーパラメーターのさまざまな組み合わせを構成してテストします。 AML、ランダム、グリッド、ベイジアンのパラメーター サンプリングを提供するハイパーパラメーター 調整サービスを提供し、早期終了をサポートし、ユーザーのジョブの作成と監視プロセスを管理します。</p>
+
+
+  <p>次のコードでは、Python SDK を使用してハイパーパラメーター調整の実行を開始します。 ランダム パラメーター サンプリング戦略を選択し、RandomParameterSampling オブジェクトの学習率とドロップアウト ハイパーパラメーターの範囲を指定します。 次に、BanditPolicy &ndash; として使用される早期終了ポリシーを定義します。これにより、パフォーマンスが低下し、最終的に良好なモデルが生成される可能性が低いジョブが終了します。 具体的には、この構成では 10 ステップごとにジョブが評価され、その特定のステップで最もパフォーマンスの高いジョブの 15% 以内のジョブが終了します。 大規模なモデルでは、この戦略は通常、トレーニングされた最適なモデルのパフォーマンスに影響を与え、コンピューティング時間の約 50% を節約します。</p>
+
+
+  <p>最後に、前に定義した tf_estimator、パラメーター サンプリング、および提供された早期終了ポリシーを使用して、ハイパーパラメーターの実行を構成します。 さらに、オプティマイザーに対して、どのメトリックを表示する (Accuracy_test)、最大化する必要があるのかを伝える必要があります。 最後に、実行する実行の数を 100 に設定し、同時に 10 を実行します。 その後、実行を送信します。</p>
+
+
+  <pre>
+
+  from azureml.train.hyperdrive import *
+
+
+  # define hyperparameter sampling space
+
+  ps = RandomParameterSampling(
+       {
+           &#39;--learning_rate&#39;: uniform(0.000001, 0.1),
+           &#39;--dropout&#39;: uniform(0.5, 0.95)
+       }
+  )
+
+
+  # define early termination policy
+
+  early_termination_policy = BanditPolicy(slack_factor = 0.15, evaluation_interval=10)
+
+
+  # configure the run
+
+  hyperdrive_run_config = HyperDriveRunConfig(estimator = tf_estimator,
+                                              hyperparameter_sampling = ps,
+                                              policy = early_termination_policy,
+                                              primary_metric_name = &quot;Accuracy_test&quot;,
+                                              primary_metric_goal = PrimaryMetricGoal.MAXIMIZE,
+                                              max_total_runs = 100,
+                                              max_concurrent_runs = 10)
+
+  # start the run
+
+  hd_run = Experiment(ws,&#39;mnist&#39;).submit(hyperdrive_run_config)
+
+
+  # launch the widget to view the progress and results
+
+  RunDetails(hd_run).show()</pre>
+
+
+  <p>ここでも、ハイパードライブ スイープの状態は Jupyter Notebook &ndash; で追跡できます。ここでは、ハイパーパラメーター スイープに関するメタ情報と、実行の一覧とその状態を確認できます。 以下に、すべての実行のターゲット メトリックが一緒にプロットされています。 ご覧のように、パフォーマンスの低い実行は早い段階で終了されましたが、より多くの有望な実行は取り消されません。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a2040e55-029c-46e5-a5dc-b4bbb2b05345.png"><img alt="image" border="0" height="366" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7a282220-8765-4895-90a5-a3f87f41bfbb.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/bd564491-7269-4a6d-bc22-01d0da60a235.png"><img alt="image" border="0" height="301" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/33bb8334-fec9-470f-8307-94504c7b7021.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="624"></a></p>
+
+
+  <p>ハイパーパラメーターの調整の <a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-tune-hyperparameters" target="_blank">詳細を確認してください</a>。</p>
+
+
+  <h2>Automated Machine Learning</h2>
+
+
+  <p>上記の例では、データ サイエンティストが変更して調整する特定のモデルから始めました。 しかし、多くの場合、特定の問題に対して良い結果を生み出すモデルの種類が明確ではありません。 そのため、データ サイエンティストは複数のMLトレーニング ジョブを実行して、適切なモデルを見つける必要があります。 たとえば、機械学習の分類の問題の場合、データ サイエンティストは、SVM、ロジスティック回帰、ブースト ディシジョン トレスなど、さまざまな分類子を使用してデータを実行できます。さらに、ユーザーはアルゴリズムごとにさまざまなフィーチャー化パイプラインも試しています。 どの分類子のフィーチャー化が最適 &amp; かを本当に知る唯一の方法は、多くの異なる組み合わせを試す必要があります。 手動で実行すると、多くのトレーニング ジョブが実行され、追跡されます。 AML&rsquo;自動機械学習を使用すると、AML がアルゴリズムとフィーチャー化のいくつかの組み合わせを試してデータセットのモデルをトレーニングする場合に、ユーザーは高品質のモデルを自動的に構築できます。</p>
+
+
+  <p>ここでも、AML SDK を使用すると、ユーザーは Jupyter Notebook で簡単に実行を開始および監視できます。 ここでは、上記で作成した nc6 クラスターで実行する分類タスクを構成します。 20 種類のアルゴリズムが同時に 10 種類試されます。</p>
+
+
+  <pre>
+
+  from azureml.train.automl import AutoMLConfig
+
+  from azureml.train.automl.constants import Metric
+
+  from get_data import get_data
+
+
+  automl_config = AutoMLConfig(task = &#39;classification&#39;,
+                               path=&#39;.&#39;,
+                               compute_target = nc6_cluster,
+                               data_script =  &quot;get_data.py&quot;,
+                               max_time_sec = 600,
+                               iterations = 20,
+                               n_cross_validations = 5,
+                               primary_metric = Metric.AUCWeighted,
+                               concurrent_iterations = 10)
+
+  remote_run = Experiment(ws,&#39;mnist&#39;).submit(automl_config)
+
+
+  RunDetails(remote_run).show()</pre>
+
+
+  <p>さらに、Jupyter ウィジェットは、データ サイエンティストが実行の進行状況を監視するのに役立ちます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ccb89c2a-853f-4370-a66b-e9e0aa2b9cd8.png"><img alt="image" border="0" height="568" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/d3f8e187-21fb-4218-b2eb-0344f13d2bac.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="605"></a></p>
+
+
+  <p>また、ユーザーは、生成された個々のモデルのメトリックを検査できます。</p>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/984cdbb3-c9dd-4235-a0c0-e3618ad6e787.png"><img alt="image" border="0" height="677" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7af60836-4725-4a98-b6c9-a9c5b57c1e8c.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="イメージ" width="592"></a></p>
+
+
+  <p>自動機械学習の詳細については、 <a href="https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-automated-ml" target="_blank">この記事と</a> このブログ記事 <a href="https://aka.ms/aml-blog-automl" target="_blank">を参照してください</a>。</p>
+
+
+  <p>このサービスのパブリック プレビュー更新Azure Machine Learning、&rsquo;さらに多くの機能強化が行われ、使用を待つ必要があります。 お客様の生産性を高め、機械学習モデルの構築、トレーニング、チューニングを楽しく行うのに役立ちます。 この更新の変更の概要<a href="https://aka.ms/aml-blog-whats-new" target="_blank"></a>の詳細については、「概要」ガイドを参照して<a href="https://docs.microsoft.com/azure/machine-learning/service/quickstart-get-started" target="_blank"></a>、Azure Machine Learning を使用して独自のモデルの構築を開始してください。</p>

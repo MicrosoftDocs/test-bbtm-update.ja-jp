@@ -1,0 +1,70 @@
+### YamlMime:Yaml
+ms.openlocfilehash: a4c04b2b0c1290ee313c7e6bf9e22b1ca2dc35ad
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892102"
+Slug: storsimple-virtual-array-robo-scenario
+Title: StorSimple Virtual Array – ROBO シナリオ
+Summary: StorSimple ソリューションは、IT 組織が直面する最大の問題のいくつかに対応しています。これは、データの増加率、ストレージ容量、およびデータ保護の複雑さに起因します。
+Content: >-
+  <p>StorSimple ソリューションでは、IT 組織 &ndash; が直面する最大の問題のいくつかに対処しています。これは、データの増加、ストレージ容量、およびデータ保護の複雑さの2桁に起因します。 StorSimple 8000 シリーズのソリューションでは、最も使用されているデータをオンプレミスの物理アレイに格納し、使用されていないコールドデータをクラウドに自動的に階層化することで、データセンターでこの問題に対処しました。 お客様は、リモートオフィスとブランチオフィスで StorSimple ソリューションを使用して、データ量を少なくし、ネイティブファイルサーバー機能を使用することを要求しました。 StorSimple Virtual Array の一般提供が2016年3月に発表されました。</p>
+
+
+  <p>StorSimple Virtual Array は、小規模なリモートおよびブランチオフィスのシナリオでデータ拡張の問題に対処するために特別に設計された、StorSimple ソリューションのソフトウェアバージョンです。 仮想アレイは、ブランチオフィス内のハイパーバイザー (Hyper-v または VMware) で実行される仮想マシンの形式で実装されます。物理アプライアンスの展開は、管理されているデータの量が少ない (500 GB ~ 5 TB) ためには現実的で &nbsp; はありません。 StorSimple Virtual Array は、iSCSI サーバーとして実行するように構成することも、ネイティブファイルサーバーとして実行するように構成することもできます。 使用するタイミングと場所の詳細について <a href="https://azure.microsoft.com/en-us/blog/storsimple-virtual-array-file-server-or-iscsi-server">は、StorSimple Virtual Array &ndash; ファイルサーバーまたは iSCSI サーバー</a> のブログ &nbsp; 記事をご覧ください。</p>
+
+
+  <h2>Remote Office Branch Office (ROBO) シナリオ</h2>
+
+
+  <p><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/90bcdccf-810a-46d0-b95b-4dd212d6ac13.png"><img alt="Helsinki" border="0" height="505" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/6d6c1353-42f1-4656-bb3b-fbdd2bea0fb8.png" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" title="ヘルシンキ" width="898"></a></p>
+
+
+  <p>分散環境を使用しているお客様には、リモートオフィスや支店の場所にあるユーザーと &nbsp; 部門のファイル共有のニーズに対応する Windows ファイルサーバーがあります。 一般的なリモートオフィスまたはブランチオフィスには、データへのアクセスを高速化するために、リモートまたはブランチの場所に 500 GB ~ 5 TB のストレージ要件を持つ 10 &ndash; 200 ユーザーが含まれています。 これらのサーバーは、バックアップソフトウェアを使用するか、回復とディザスターリカバリーの目的でデータをレプリケートすることによって、中央のデータセンターに定期的にバックアップされます。 これらのリモートオフィスやブランチオフィスで直面する問題の一部を次に示します。</p>
+
+
+  <ul>
+   <li>データが高速に増加し、インフラストラクチャがデータの増加に対応できない</li>
+   <li>古いデータがインフラストラクチャでアイドル状態にあり、貴重なストレージ領域を占有している</li>
+   <li>バックアップが複雑になり、時間内に終了していない</li>
+   <li>ユーザーがファイルまたはフォルダーを復元する必要がある場合は、回復が複雑になります。</li>
+   <li>ディザスターリカバリーはテストされておらず、災害からの復旧に時間がかかり、長時間にわたってユーザーがデータにアクセスできなくなることがあります。</li>
+  </ul>
+
+
+  <p>StorSimple Virtual Array は、これらすべての問題に対処し、企業がデータの増加、バックアップ、回復、ディザスターリカバリーを管理するための簡単な方法を提供します。 StorSimple virtual array は、共有またはボリュームのプロビジョニングされた領域の10% をローカルディスクからのホットデータを提供するためにローカルに予約し、古いデータをクラウドに自動的に階層化します。 これにより、ユーザーは最も頻繁に使用されるデータにすばやくアクセスし、オンデマンドでクラウドから任意のコールドデータを取得できます。</p>
+
+
+  <p>クラウドスナップショットは、StorSimple Virtual Array に格納されているデータの毎日のバックアップを提供します。 クラウドスナップショットは、以前のバックアップから変更されたデータを識別し、クラウドに転送します。これにより、データを簡単にバックアップすることができます。 これにより、StorSimple Virtual Array に格納されているユーザーデータのバックアップソリューションとポリシーをリモートオフィスやブランチオフィスに配置する必要がなくなります。 バックアップでは、使用可能なインターネット帯域幅を使用してデータをクラウドにコピーし、中央のデータセンターとリモートオフィス間の専用帯域幅でトラフィックを解放します。 これらのバックアップは、ボタンをクリックすることで &nbsp; 回復に使用できます。ボタンをクリックすると、同じ仮想アレイ上の新しい共有またはボリュームが公開され、ユーザーは削除されたデータを簡単に回復することができます。 ファイルサーバーロールでは、StorSimple Virtual Array を使用して、ユーザーは以前の5つのバックアップからセルフサービス復元を実行することもできます。</p>
+
+
+  <p>障害が発生した場合、StorSimple Virtual Array から取得したクラウドスナップショットは、同じ StorSimple Manager によって管理される別の StorSimple Virtual Array に簡単にフェールオーバーすることができます。 ターゲット仮想アレイは、リモートオフィスやブランチオフィス、またはデータセンター内で実行できます。 フェールオーバーが実行されると、ユーザーはすぐにデータにアクセスできるようになります。</p>
+
+
+  <p>StorSimple Virtual Array の最大のメリットを得るには、次の条件を満たすリモートオフィスとブランチオフィスで virtual array を使用します。</p>
+
+
+  <ul>
+   <li>ブランチオフィスのデータサイズは約 500 GB ~ 10 TB で、1日の変更率は 2 &ndash; % です</li>
+   <li>共有内のファイルの数は &lt; 100万</li>
+   <li>RPO (1 日)</li>
+  </ul>
+
+
+  <p>作業を開始するには:</p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-deploy2-provision-hyperv/">Hyper-v で StorSimple Virtual Array をプロビジョニングする</a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-deploy2-provision-vmware/">VMware での StorSimple Virtual Array のプロビジョニング</a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-deploy3-fs-setup/">StorSimple Virtual Array をファイルサーバーとしてセットアップする</a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-deploy3-iscsi-setup/">StorSimple Virtual Array を iSCSI サーバーとしてセットアップする</a></p>
+
+
+  <p><a href="https://azure.microsoft.com/en-us/documentation/articles/storsimple-ova-best-practices/">StorSimple Virtual Array をデプロイするためのベストプラクティス</a></p>

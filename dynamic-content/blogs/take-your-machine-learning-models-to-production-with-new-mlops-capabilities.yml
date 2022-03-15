@@ -1,0 +1,122 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 53a2c912a0abd0bc0f0c37c3f41378f27731486f
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139891987"
+Slug: take-your-machine-learning-models-to-production-with-new-mlops-capabilities
+Title: 新しい MLOps 機能を使用して機械学習モデルを運用環境にする
+Summary: Microsoft ビルド2019では、Azure Machine Learning サービスでの mlops 機能について発表しました。 機械学習用の DevOps とも呼ばれる mlops は、データ科学者と DevOps プロフェッショナルの間でコラボレーションとコミュニケーションを行うことで、machine learning (ML) ライフサイクルの運用を管理するのに役立ちます。
+Content: >-
+  <p><em>このブログ投稿は、ヨルダン Edwards、シニアプログラムマネージャー、Microsoft Azure によって作成されました。</em></p>
+
+
+  <p>Microsoft ビルド2019では、Azure Machine Learning サービスでの mlops 機能について発表しました。 機械学習用の DevOps とも呼ばれる mlops は、データ科学者と DevOps プロフェッショナルの間でコラボレーションとコミュニケーションを行うことで、machine learning (ML) ライフサイクルの運用を管理するのに役立ちます。</p>
+
+
+  <p>Azure Machine Learning service &rsquo; s の mlops 機能を使用すると、資産管理とオーケストレーションサービスをお客様に提供できるため、ML ライフサイクル管理を効果的に行うことができます。 この発表により、Azure &nbsp; はお客様が機械学習モデルを運用環境に安全に持ち込むことができるようにコミットメントを再確定し、これまでよりも迅速かつ正確にビジネス上 &rsquo; の重要な問題を解決することができます。</p>
+
+
+  <p>&nbsp;<br>
+
+  <a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c2a0fb51-6c8f-4ba9-9318-8f0ac2fd7372.png"><img alt="Quote from Eric Boyed, VP of C+AI - &quot;We have heard from customers everywhere that they want to adopt ML but struggle to actually get modles into production. With the new MLOps capabilities in Azure Machine Learning, bringing ML to add calue to your business has become better, faster, and more reliable than ever before.&quot;" border="0" height="446" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/a22a9abf-8ff5-411d-a3c6-a1c6cb1d5510.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="私たちは、Boyed、C + AI &quot; の副社長から引用しています。私たちは、お客様の ML 導入を希望していますが、実際には実際に運用環境に分類するのは困難です。 Azure Machine Learning の新しい mlops 機能を使用すると、ビジネスに calue を追加する ML を、これまでになくよりも速く、より迅速に、信頼性が向上しました。&quot;" width="1429"></a></p>
+
+
+  <p align="center"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c6292f44-b549-49a2-8220-bba88144bb7a.png"><img alt="An Image showing Azure MLOps." border="0" height="450" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/8577e0a6-7f1a-4176-be6a-d26124b13f21.png" style="border: 0px currentcolor; border-image: none; display: inline; background-image: none;" title="Azure MLOps を示すイメージ。" width="800"></a></p>
+
+
+  <p align="left"><br>
+
+  ここでは、いくつかの新機能について簡単に説明します。</p>
+
+
+  <h2 align="left">Azure Machine Learning コマンドラインインターフェイス (CLI)&nbsp;</h2>
+
+
+  <p align="left">Azure Machine Learning &rsquo; s 管理プレーンは、従来は Python SDK を使用しています。 新しい Azure Machine Learning CLI を使用すると、次のような、ML ワークスペースに対してさまざまな自動化タスクを簡単に実行できます。</p>
+
+
+  <ul>
+   <li>
+   <div align="left">コンピューティングターゲット管理</div>
+   </li>
+   <li>
+   <div align="left">実験の送信</div>
+   </li>
+   <li>
+   <div align="left">モデルの登録と配置</div>
+   </li>
+  </ul>
+
+
+  <h2 align="left">管理機能</h2>
+
+
+  <p align="left">Azure Machine Learning サービスでは、ML ライフサイクルで使用されるコード、データ、および環境を管理するための新機能が導入されました。</p>
+
+
+  <p align="left"><a href="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/c9ce1467-64ee-4f54-8c32-42ace0b0f1d6.png"><img alt="An Image showing the ML lifecycle: Train Model to Package Model to Validate Model to Deploy Model to Monitor Model, to Retrain Model." border="0" height="308" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7abea6ef-db19-420e-ac2f-b956319f0859.png" style="border: 0px currentcolor; border-image: none; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="モデルをモデル化してモデルを検証し、モデルを再トレーニングモデルにするための ML ライフサイクル: モデルをパッケージモデルにトレーニングするイメージ。" width="1024"></a></p>
+
+
+  <h3 align="left">コード管理</h3>
+
+
+  <p align="left">Git リポジトリは、ソース管理の管理およびソフトウェア開発ライフサイクルの重要な資産として業界でよく使用されます。 Azure Machine Learning サービスにコードアーティファクトを送信するたびに、git リポジトリの追跡 &ndash; の最初のバージョンを含めます。 git リポジトリの参照を指定できます。 これは、Azure Pipelines などの CI/CD ソリューションからを実行しているときに自動的に実行されます。</p>
+
+
+  <h3 align="left">データセットの管理</h3>
+
+
+  <p align="left">Azure Machine Learning データセットを使用すると、データのバージョン、プロファイル、およびスナップショットを作成して、同じデータにアクセスできるようにすることで、トレーニングプロセスを再現できます。 また、データセットプロファイルを比較して、データがどの程度変更されたか、またはモデルを再トレーニングする必要があるかどうかを判断することもできます。</p>
+
+
+  <h3 align="left">環境の管理</h3>
+
+
+  <p align="left">Azure Machine Learning 環境は、データ準備からモデルトレーニング、推論まで、Azure Machine Learning シナリオ間で共有されます。 共有環境は、トレーニングから推論へのハンドオフを簡素化すると共に、トレーニング環境をローカルで再現する機能に役立ちます。</p>
+
+
+  <p align="left">環境では、Docker イメージの自動管理 (およびキャッシュ) に加えて、再現性を効率化するための追跡を提供します。</p>
+
+
+  <h3>簡略化されたモデルのデバッグと配置</h3>
+
+
+  <p>データ科学者によっては、実稼働システムで実行するように準備された ML モデルを作成するのが困難な場合があります。 この問題を軽減するために、クラウドにプッシュする前に、ML モデルをローカルにパッケージ化してデバッグするための新機能が導入されました。 これにより、パッケージ化されたモデルがデータセンターに到達する前に、必要な推論サービスに反復して到着するために必要な内部ループ時間が大幅に短縮されます。</p>
+
+
+  <h3>モデルの検証とプロファイリング&nbsp;</h3>
+
+
+  <p>データ科学者がよく直面するもう1つの課題は、クラウドまたはエッジにデプロイされたモデルが想定どおりに実行されることを保証することです。 新しいモデルの検証とプロファイルの機能により、モデルにサンプル入力クエリを提供できます。 最適なパフォーマンスプロファイルを決定するために、パッケージモデルをさまざまな推測 CPU/メモリ構成で自動的にデプロイしてテストします。 また、推論サービスがこれらの種類のクエリに正しく応答していることを確認します。</p>
+
+
+  <h3>モデルの解釈可能性</h3>
+
+
+  <p>データ科学者は、モデルが特定の方法で予測される理由を知りたいと思います。 新しいモデルの解釈能力の機能により、トレーニングと推論の両方でモデルが特定の方法で動作する理由を説明できます。</p>
+
+
+  <h3>監査証跡の ML</h3>
+
+
+  <p>Azure Machine Learning は、モデルのトレーニングとデプロイのプロセスですべてのアイテムを管理するために使用されます。 新しい監査証跡機能により、登録されている ML モデルに対応する実験とデータセットの自動追跡が可能になります。 これにより、 &ldquo; このモデルの作成に使用されたコードやデータに関する質問に答えることができます。&rdquo;</p>
+
+
+  <h3>machine learning の Azure DevOps 拡張機能</h3>
+
+
+  <p>Azure DevOps は、コード、作業項目、および CI/CD パイプラインを管理するために使用される一般的に使用されるツールとして、データ科学者を活用します。 machine learning の Azure DevOps 拡張機能を使用すると、ソフトウェア開発プロセスに使用するのと同じツールを使用して、ML CI/CD パイプラインを簡単に管理できる新機能が導入されます。 拡張機能には、モデルの登録時に Azure Pipelines リリースをトリガーし、Azure Machine Learning ワークスペースを Azure DevOps プロジェクトに簡単に接続し、とのやり取りを支援するために設計された一連のタスクを実行する機能が含まれてい Azure Machine Learning 既存のオートメーションツールから、可能な限り簡単にすることができます。</p>
+
+
+  <h2>今すぐ始めましょう</h2>
+
+
+  <p>Azure Machine Learning サービスのこれらの新しい mlops 機能は、エンドツーエンドの ML ライフサイクルの再現性、監査機能、および自動化をサポートすることで、ユーザーが ML シナリオを運用環境に持ち込むことを可能にすることを目的としています。 次の週にこれらの機能について詳しく説明するブログをさらに公開する予定なので、最新の更新プログラムとリリースについても説明 &rsquo; します。</p>
+
+
+  <ul>
+   <li><a href="https://azure.microsoft.com/en-us/services/machine-learning-service/" target="_blank">Azure Machine Learning サービス</a>についての詳細情報</li>
+   <li><a href="https://azure.microsoft.com/en-us/trial/get-started-machine-learning/" target="_blank">無料試用版</a>を使用して今すぐ始めましょう</li>
+  </ul>

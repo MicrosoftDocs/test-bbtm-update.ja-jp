@@ -1,0 +1,101 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 61de02588d662560c185621303109768902a8d39
+ms.sourcegitcommit: d03bdc7fe5447adb6530886aab848b75fe8fa8ee
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/11/2022
+ms.locfileid: "139892137"
+Slug: storage-explorer-june-update
+Title: 'Microsoft Azure Storage Explorer プレビュー: 6 月の更新プログラム'
+Summary: 今月の Storage Explorer の更新には、ファイル共有のサポート、Storage への接続に関する UX の機能強化、およびクエリによるエクスポートが含まれています。
+Content: >-
+  <p>現在、Azure ファイル共有をサポートする新しい<a href="https://storageexplorer.com/">Microsoft Azure Storage Explorer (プレビュー)</a>更新プログラムを共有することを&#39;しています。</p>
+
+
+  <p>6月のリリースダウンロード: [<a href="https://go.microsoft.com/fwlink/?LinkId=708343">Windows</a>] [OS X] [Linux]</p>
+
+
+  <p>編集 06/21/2016: &nbsp; この &nbsp; リリースでは、キューメッセージでバグ &nbsp; が発生しました。 .NET または Java Sdk を使用してプログラムによって追加されたメッセージ、またはその他のツールが適切にデコードされません。 この問題に対処していますが、この問題が発生していないため、以前のバージョンの Storage Explorer をダウンロードできるように&#39;しました。 [<a href="https://go.microsoft.com/fwlink/?LinkId=809306">Windows</a>] [OS X] [Linux]</p>
+
+
+  <p>このリリースでは、Storage に接続し、テーブルをカスタマイズするためのエクスペリエンスを向上させるために、すべてのユーザーをより効果的に作成することに重点を置いていました。 また、クエリ結果に基づいてテーブルをエクスポートできるようにし、$logs と $metrics を表示して診断シナリオを有効にすることで、ユーザーの要求に対処する必要がありました。 最後に、blob のダウンロードとエンティティの編集における不安定さに関するフィードバックが多数寄せられています。これらのバグを修正し、新しい Node.js Storage クライアントライブラリ (v1.0) から修正を渡すことによって、次の大きな一歩を取っていると考え &rsquo; ています。</p>
+
+
+  <p>この6月の更新により、&#39;は次の機能にアクセスできます。</p>
+
+
+  <ul>
+   <li>ファイルのサポート</li>
+   <li>Storage アカウントに接続するための新しい UX</li>
+   <li>クエリによるエクスポートとインポート &amp; エクスポートの機能強化</li>
+   <li>テーブル列の順序付けとカスタマイズ</li>
+   <li>$logs blob コンテナーと $metrics テーブルの表示</li>
+   <li>大きな blob のアップロードに関する問題の修正</li>
+   <li>エンティティの編集時に文字列/ダブルバグを修正</li>
+  </ul>
+
+
+  <h2>ファイルのサポート</h2>
+
+
+  <p>この更新プログラムを使用すると、ファイルを含むすべての Storage サービスと対話できるようになったことをお知らせ&#39;ます。 Azure Files では、ファイル共有を作成および削除したり、その内容を表示したりすることができ&#39;ます。 また、個々のファイルおよびディレクトリをアップロードしてダウンロードすることもでき&#39;ます。</p>
+
+
+  <p>これに加えて、sas キーを生成したり、SAS Uri を使用してファイル共有に接続したりすることができ&#39;ます。</p>
+
+
+  <p><img alt="File Shares" border="0" height="246" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/7890739c-9177-43da-b29c-6e84eb66af64.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="ファイル共有" width="480"></p>
+
+
+  <h2>接続エクスペリエンスの向上</h2>
+
+
+  <p>アカウント名とキーを使用して Storage アカウントに接続する機能を必要としているユーザーが多数いることを&#39;しています。 この機能は既に存在していましたが、お客様のフィードバックによって検出されていない&#39;ことがわかりましたので、よりわかりやすくシンプルにすることで、このエクスペリエンスを改善&#39;ます。</p>
+
+
+  <p>Storage リソースに接続するには、Cloud Explorer ツールウィンドウの [Connect を Azure Storage &quot; ] アイコンをクリックし &quot; て、アカウントキーまたは SAS URI を貼り付けることができるダイアログを開きます。</p>
+
+
+  <p><img alt="Connect to Azure Storage" border="0" height="114" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/cc5a5e80-45c4-425a-b70d-dcb5bd9638d7.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="Azure Storage への接続" width="213"></p>
+
+
+  <p>このダイアログボックスはウィザードとして機能&#39;するので、追加情報 (アカウントの名前など) が必要な場合はガイド付きのエクスペリエンスを利用できます。また、接続を&#39;するアカウント (所有している SAS アクセス許可など) に関する追加情報をお知らせします。</p>
+
+
+  <h2>テーブルの更新</h2>
+
+
+  <p>テーブルに対する上位の要求の1つは、クエリの結果をエクスポートする機能でした。 この更新では、クエリを実行するときに、[エクスポート &quot; ] ボタンの &quot; 既定の動作は、クエリの結果のみをエクスポートするようになります。 クエリを実行しない場合は、代わりにテーブル全体がエクスポートされます。</p>
+
+
+  <p>また、テーブルの列の順序をカスタマイズすることも&#39;ます。 [列のオプション &quot; ] ボタンを選択すると、手動で列の &quot; 並べ替えや非表示を切り替えることができます。 テーブルに複数のスキーマがある場合は、エンティティ (または一連のエンティティ) を選択して、そのスキーマ内の列を表示することも&#39;ます。</p>
+
+
+  <p><img alt="Export by query and customize columns" border="0" height="158" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/4b639997-c6a9-447a-b351-ec8b3d93f79f.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="クエリによるエクスポートと列のカスタマイズ" width="480"></p>
+
+
+  <p>さらに、CSV にテーブルをエクスポートすると、ファイルにはエンティティのデータ型が含まれます。 これにより、テーブルの内容に関する追加情報を提供するだけでなく、テーブルをテーブルに簡単にインポートできるようになります。</p>
+
+
+  <h2>ログとメトリック</h2>
+
+
+  <p>最後に、メトリックが有効になっている Storage アカウントの $logs blob コンテナーと $metrics テーブルが表示されるようになります。 既知の問題の1つは、プレミアムアカウントと Blob Storage アカウントのメトリックテーブルが表示されないことです。 Storage Explorer の次の更新プログラムの修正に取り組んでいます。</p>
+
+
+  <h2>まとめ</h2>
+
+
+  <p>4つの Storage アカウントサービスの基本的なサポートを利用できるようになったので、Storage Explorer は少しだけフォーカスを移動します。 夏のリリースで主に懸念されるのは、お客様の主な問題 (サインインなど) と要求 (blob リースの管理、CORS の構成など) に対応することです。</p>
+
+
+  <p>Storage Explorer をダウンロードしたユーザーと、フィードバックを送信したユーザーに感謝します。 継続的なサポートは、次の大規模な手順に役立ちます。 いつでも、要求、問題、またはコメントがある場合は、ツールからフィードバックを送信できます。</p>
+
+
+  <p><img alt="Storage Explorer Feedback" border="0" height="259" src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/554d04cc-78a4-4db0-ab54-f630db634902.png" style="border: 0px currentColor; border-image: none; padding-top: 0px; padding-right: 0px; padding-left: 0px; margin-right: auto; margin-left: auto; float: none; display: block; background-image: none;" title="フィードバックの Storage Explorer" width="360"></p>
+
+
+  <p>皆様からのご意見をお待ちしています。</p>
+
+
+  <p>-Storage Explorer チーム</p>
