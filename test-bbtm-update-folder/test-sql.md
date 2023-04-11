@@ -17,7 +17,7 @@ ms.locfileid: "91898852"
 ---
 # <a name="connection-modules-for-microsoft-sql-databases"></a>Microsoft SQL データベースの接続モジュール
 
-この記事では、クライアントプログラムがとの対話に使用できる接続モジュールまたは *ドライバー* のダウンロードリンクと、クラウド [Azure SQL Database](https://docs.microsoft.com/azure/sql-database/)でのツインについて説明します。 次のオペレーティング システムで実行されるさまざまなプログラミング言語用のドライバーが用意されています。
+この記事では、Client Program がとの対話に使用できる接続モジュールまたは *ドライバー* のダウンロードリンクと、クラウド [Azure SQL Database](https://docs.microsoft.com/azure/sql-database/)でのツインについて説明します。 次のオペレーティング システムで実行されるさまざまなプログラミング言語用のドライバーが用意されています。
 
 - Linux
 - MacOS
